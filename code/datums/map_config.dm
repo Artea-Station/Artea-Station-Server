@@ -36,6 +36,8 @@
 	/// List of additional areas that count as a part of the library
 	var/library_areas = list()
 
+	var/overmap_object_type = /datum/overmap_object/shuttle/station
+
 /**
  * Proc that simply loads the default map config, which should always be functional.
  */
@@ -68,7 +70,6 @@
 		filename = "[directory]/[filename].json"
 	else
 		filename = PATH_TO_NEXT_MAP_JSON
-
 
 	if (!config.LoadConfig(filename, error_if_missing))
 		qdel(config)
@@ -187,6 +188,9 @@
 				stack_trace("Invalid path in mapping config for additional library areas: \[[path_as_text]\]")
 				continue
 			library_areas += path
+
+	if(json["overmap_object_type"])
+		overmap_object_type = text2path(json["overmap_object_type"])
 
 	defaulted = FALSE
 	return TRUE
