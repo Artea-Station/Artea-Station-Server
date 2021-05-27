@@ -359,8 +359,6 @@ Used by the AI doomsday and the self-destruct nuke.
 	// Custom maps are removed after station loading so the map files does not persist for no reason.
 	if(config.map_path == CUSTOM_MAP_PATH)
 		fdel("_maps/custom/[config.map_file]")
-		// And as the file is now removed set the next map to default.
-		next_map_config = load_default_map_config()
 
 GLOBAL_LIST_EMPTY(the_station_areas)
 
@@ -449,7 +447,6 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 
 /datum/controller/subsystem/mapping/proc/changemap(datum/map_config/change_to)
 	if(!change_to.MakeNextMap())
-		next_map_config = load_default_map_config()
 		message_admins("Failed to set new map with next_map.json for [change_to.map_name]! Using default as backup!")
 		return
 

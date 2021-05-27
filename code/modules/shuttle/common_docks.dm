@@ -1,20 +1,20 @@
 /obj/docking_port/stationary/small
 	name = "small dock"
-	id = "smalldock"
+	shuttle_id = "smalldock"
 	width = 7
 	dwidth = 3
 	height = 5
 
 /obj/docking_port/stationary/medium
 	name = "medium dock"
-	id = "mediumdock"
+	shuttle_id = "mediumdock"
 	width = 15
 	dwidth = 7
 	height = 11
 
 /obj/docking_port/stationary/large
 	name = "large dock"
-	id = "largedock"
+	shuttle_id = "largedock"
 	width = 47
 	dwidth = 23
 	height = 17

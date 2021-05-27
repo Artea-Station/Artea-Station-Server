@@ -159,6 +159,8 @@
 #define DEPARTMENT_ASSISTANT "Assistant"
 #define DEPARTMENT_BITFLAG_CAPTAIN (1<<9)
 #define DEPARTMENT_CAPTAIN "Captain"
+#define DEPARTMENT_BITFLAG_CIVILLIAN (1<<10)
+#define DEPARTMENT_BITFLAG_MISC (1<<11)
 
 /* Job datum job_flags */
 /// Whether the mob is announced on arrival.

@@ -39,8 +39,6 @@ Always compile, always use that verb, and always make sure that it works for wha
 
 // helpers for modifying jobs, used in various job_changes.dm files
 
-#define MAP_CURRENT_VERSION 1
-
 #define SPACERUIN_MAP_EDGE_PAD 15
 
 /// Distance from edge to move to another z-level
