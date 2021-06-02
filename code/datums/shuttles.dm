@@ -739,4 +739,10 @@
 	suffix = "excavation"
 	name = "Snowdin Excavation Elevator"
 
+/datum/map_template/shuttle/crow
+	port_id = "exploration"
+	suffix = "crow"
+	name = "ESS Crow"
+	who_can_purchase = null
+
 #undef EMAG_LOCKED_SHUTTLE_COST
