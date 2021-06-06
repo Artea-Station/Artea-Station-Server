@@ -220,7 +220,7 @@
 			L.offset_y += 480
 
 
-		if(parralax && (largest_change * our_speed > 1))
+		if(run_parralax && (largest_change * our_speed > 1))
 			L.transform = matrix(1, 0, offset_x*L.speed, 0, 1, offset_y*L.speed)
 			animate(L, transform=matrix(), time = glide_rate)
 

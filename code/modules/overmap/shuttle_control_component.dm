@@ -89,7 +89,7 @@
 	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
 	button_icon_state = "slime_down"
 
-/datum/action/innate/quit_control/Trigger()
+/datum/action/innate/quit_control/Trigger(trigger_flags)
 	var/datum/overmap_shuttle_controller/OSC = target
 	OSC.RemoveCurrentControl()
 
@@ -98,7 +98,7 @@
 	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
 	button_icon_state = "slime_down"
 
-/datum/action/innate/stop_shuttle/Trigger()
+/datum/action/innate/stop_shuttle/Trigger(trigger_flags)
 	var/datum/overmap_shuttle_controller/OSC = target
 	OSC.overmap_obj.StopMove()
 
@@ -107,6 +107,6 @@
 	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
 	button_icon_state = "slime_down"
 
-/datum/action/innate/open_shuttle_control/Trigger()
+/datum/action/innate/open_shuttle_control/Trigger(trigger_flags)
 	var/datum/overmap_shuttle_controller/OSC = target
 	OSC.overmap_obj.DisplayUI(OSC.mob_controller)

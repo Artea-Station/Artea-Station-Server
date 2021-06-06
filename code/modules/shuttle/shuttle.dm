@@ -674,7 +674,7 @@
 		if(freeform_port)
 			if(freeform_port?.get_docked())
 				freeform_port.delete_after = TRUE
-				freeform_port.id = null
+				freeform_port.shuttle_id = null
 				freeform_port.name = "Old [freeform_port.name]"
 				freeform_port = null
 			else

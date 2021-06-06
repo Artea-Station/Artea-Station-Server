@@ -234,18 +234,18 @@
 						var/datum/space_level/iterated_space_level = level
 						z_levels["[iterated_space_level.z_value]"] = TRUE
 						freeform_z_levels["[iterated_space_level.name] - Freeform"] = iterated_space_level.z_value
-			
+
 				var/list/obj/docking_port/stationary/docks = list()
 				var/list/options = params2list(my_shuttle.possible_destinations)
-				for(var/i in SSshuttle.stationary)
+				for(var/i in SSshuttle.stationary_docking_ports)
 					var/obj/docking_port/stationary/iterated_dock = i
-					if(z_levels["[iterated_dock.z]"] && (iterated_dock.id in options))
+					if(z_levels["[iterated_dock.z]"] && (iterated_dock.shuttle_id in options))
 						docks[iterated_dock.name] = iterated_dock
-	
+
 				dat += "<B>Designated docks:</B>"
 				for(var/key in docks)
-					dat += "<BR> - [key] - <a href='?src=[REF(src)];task=dock;dock_control=normal_dock;dock_id=[docks[key].id]'>Dock</a>"
-	
+					dat += "<BR> - [key] - <a href='?src=[REF(src)];task=dock;dock_control=normal_dock;dock_id=[docks[key].shuttle_id]'>Dock</a>"
+
 				dat += "<BR><BR><B>Freeform docking spaces:</B>"
 				for(var/key in freeform_z_levels)
 					dat += "<BR> - [key] - <a href='?src=[REF(src)];task=dock;dock_control=freeform_dock;z_value=[freeform_z_levels[key]]'>Designate Location</a>"
@@ -386,7 +386,7 @@
 						return
 					if(!current_system.ObjectsAdjacent(src, dock_overmap_object))
 						return
-					switch(SSshuttle.moveShuttle(my_shuttle.id, dock_id, 1))
+					switch(SSshuttle.moveShuttle(my_shuttle.shuttle_id, dock_id, 1))
 						if(0)
 							shuttle_controller.busy = TRUE
 							shuttle_controller.RemoveCurrentControl(TRUE)
@@ -451,7 +451,7 @@
 				if("hail")
 					var/hail_msg = input(usr, "Compose a hail message:", "Hail Message")  as text|null
 					if(hail_msg)
-						hail_msg = strip_html_simple(hail_msg, MAX_BROADCAST_LEN, TRUE)
+						hail_msg = sanitize_text(hail_msg, MAX_BROADCAST_LEN, TRUE)
 		if("helm")
 			if(!(shuttle_capability & SHUTTLE_CAN_USE_ENGINES))
 				return
@@ -519,39 +519,39 @@
 					StopMove()
 				else
 					var/target_angle = ATAN2(((destination_y*32)-((y*32)+partial_y)),((destination_x*32)-((x*32)+partial_x)))
-		
+
 					if(target_angle < 0)
 						target_angle = 360 + target_angle
-		
+
 					var/my_angle = angle
 					if(my_angle < 0)
 						my_angle = 360 + my_angle
-		
+
 					var/diff = target_angle - my_angle
-		
+
 					var/left_turn = FALSE
 					if(diff < 0)
 						diff += 360
 					if(diff > 180)
 						diff = 360 - diff
 						left_turn = TRUE
-		
-		
+
+
 					if(!(diff < 3))
 						if(left_turn)
 							angle -= min(diff,10)
 						else
 							angle += min(diff,10)
-		
+
 					if(angle > 180)
 						angle -= 360
 					else if (angle < -180)
 						angle += 360
-		
+
 					var/target_angle_in_byond_rad = target_angle
 					if(target_angle > 180)
 						target_angle_in_byond_rad -= 360
-		
+
 					var/vector_len = VECTOR_LENGTH(velocity_x, velocity_y)
 					var/speed_cap = GetCapSpeed()
 					if(diff < 180 && vector_len < speed_cap)
@@ -559,15 +559,15 @@
 						if(drawn_thrust)
 							var/added_velocity_x = drawn_thrust * sin(target_angle_in_byond_rad)
 							var/added_velocity_y = drawn_thrust * cos(target_angle_in_byond_rad)
-			
+
 							if(diff > 10)
 								var/angle_multiplier = 1-(diff/360)
 								added_velocity_x *= angle_multiplier
 								added_velocity_y *= angle_multiplier
-				
+
 							velocity_x += added_velocity_x
 							velocity_y += added_velocity_y
-				
+
 							icon_state_to_update_to = SHUTTLE_ICON_FORWARD
 					else if (vector_len > speed_cap + SHUTTLE_SLOWDOWN_MARGIN)
 						if(velocity_y)
@@ -578,7 +578,7 @@
 							icon_state_to_update_to = SHUTTLE_ICON_BACKWARD
 					else
 						icon_state_to_update_to = SHUTTLE_ICON_FORWARD
-	
+
 			if(HELM_FULL_STOP)
 				if(!velocity_x && !velocity_y)
 					helm_command = HELM_IDLE
@@ -610,10 +610,10 @@
 			//"Friction"
 			velocity_x *= 0.95
 			velocity_y *= 0.95
-	
+
 			var/add_partial_x = velocity_x
 			var/add_partial_y = velocity_y
-		
+
 			partial_x += add_partial_x
 			partial_y += add_partial_y
 			var/did_move = FALSE
@@ -633,7 +633,7 @@
 				did_move = TRUE
 				partial_x += 32
 				x = max(x-1,1)
-		
+
 			if(is_seperate_z_level)
 				update_seperate_z_level_parallax()
 

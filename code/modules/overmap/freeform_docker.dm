@@ -257,14 +257,14 @@
 	if(my_shuttle.freeform_port?.get_docked())
 		my_shuttle.freeform_port.unregister()
 		my_shuttle.freeform_port.delete_after = TRUE
-		my_shuttle.freeform_port.id = null
+		my_shuttle.freeform_port.shuttle_id = null
 		my_shuttle.freeform_port = null
 
 	if(!my_shuttle.freeform_port)
 		my_shuttle.freeform_port = new()
 		my_shuttle.freeform_port.unregister()
 		my_shuttle.freeform_port.name = "[my_shuttle.name] Freeform Dock"
-		my_shuttle.freeform_port.id = "[my_shuttle.id]_freeform"
+		my_shuttle.freeform_port.shuttle_id = "[my_shuttle.shuttle_id]_freeform"
 		my_shuttle.freeform_port.height = my_shuttle.height
 		my_shuttle.freeform_port.width = my_shuttle.width
 		my_shuttle.freeform_port.dheight = my_shuttle.dheight
@@ -279,7 +279,7 @@
 
 	//my_shuttle.request(my_shuttle.freeform_port)
 
-	switch(SSshuttle.moveShuttle(my_shuttle.id, my_shuttle.freeform_port.id, TRUE))
+	switch(SSshuttle.moveShuttle(my_shuttle.shuttle_id, my_shuttle.freeform_port.shuttle_id, TRUE))
 		if(0)
 			my_controller.busy = TRUE
 			my_controller.RemoveCurrentControl(TRUE)
@@ -295,10 +295,10 @@
 
 /mob/camera/ai_eye/remote/shuttle_freeform
 	visible_icon = FALSE
-	use_static = USE_STATIC_NONE
+	use_static = FALSE
 	var/list/placement_images = list()
 
-/mob/camera/ai_eye/remote/shuttle_freeform/setLoc(T)
+/mob/camera/ai_eye/remote/shuttle_freeform/setLoc(T, force_update = FALSE)
 	..()
 	var/datum/shuttle_freeform_docker/docker = origin
 	if(docker)

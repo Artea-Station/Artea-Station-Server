@@ -1,6 +1,6 @@
 /obj/effect/abstract/overmap
 	glide_size = 3
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/weapons/items_and_weapons.dmi'
 	icon_state = "soap"
 	/// The overmap object this visual effect is representing
 	var/datum/overmap_object/my_overmap_object

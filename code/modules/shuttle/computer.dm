@@ -37,6 +37,7 @@
 	connect_to_shuttle(mapload, SSshuttle.get_containing_shuttle(src))
 
 /obj/machinery/computer/shuttle/ui_interact(mob/user, datum/tgui/ui)
+	..()
 	if(uses_overmap)
 		var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 		if(!M)
