@@ -26,7 +26,7 @@
 	var/extension_type = /datum/shuttle_extension/engine/propulsion
 	var/datum/shuttle_extension/engine/propulsion/extension
 
-/obj/machinery/atmospherics/components/unary/engine/SetInitDirections()
+/obj/machinery/atmospherics/components/unary/engine/set_init_directions()
 	initialize_directions = REVERSE_DIR(dir)
 
 /obj/machinery/atmospherics/components/unary/engine/Initialize(mapload)
@@ -63,7 +63,7 @@
 	ApplyExtension()
 	if(mapload) //Atmos isn't initialized at mapload
 		return
-	SetInitDirections()
+	set_init_directions()
 	atmos_init()
 	if(length(nodes))
 		var/obj/machinery/atmospherics/node = nodes[1]
@@ -126,7 +126,7 @@
 		return TRUE
 
 #define ENGINE_MINIMUM_OPERATABLE_MOLES 0.1
-#define ENGINE_BASELINE_MOLE_INTAKE 1
+#define ENGINE_BASELINE_MOLE_INTAKE 0.7
 
 /obj/machinery/atmospherics/components/unary/engine/proc/DrawThrust(impulse_power)
 	var/datum/gas_mixture/gas = airs[1]

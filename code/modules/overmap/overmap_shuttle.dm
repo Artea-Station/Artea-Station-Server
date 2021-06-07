@@ -6,9 +6,6 @@
 	var/obj/docking_port/mobile/my_shuttle = null
 	var/angle = 0
 
-	var/partial_x = 0
-	var/partial_y = 0
-
 	var/velocity_x = 0
 	var/velocity_y = 0
 
@@ -52,6 +49,8 @@
 	var/list/all_extensions = list()
 	var/list/engine_extensions = list()
 	var/list/shield_extensions = list()
+	var/list/transporter_extensions = list()
+
 
 	var/speed_divisor_from_mass = 1
 
@@ -216,16 +215,15 @@
 				dat += "<td>[overmap_obj.y]</td>"
 				dat += "<td>[dist]</td>"
 				dat += "<td>"
+				var/in_lock_range = IN_LOCK_RANGE(src,overmap_obj)
 				if(shuttle_capability & SHUTTLE_CAN_USE_TARGET)
-					dat += "<a href='?src=[REF(src)];task=sensor;sensor_task=target;target_id=[overmap_obj.id]'[is_target ? "class='linkOn'" : ""]>Target</a>"
+					dat += "<a href='?src=[REF(src)];task=sensor;sensor_task=target;target_id=[overmap_obj.id]'[in_lock_range ? "" : "class='linkOff'"][is_target ? "class='linkOn'" : ""]>Target</a>"
 				if(shuttle_capability & SHUTTLE_CAN_USE_ENGINES)
 					dat += "<a href='?src=[REF(src)];task=sensor;sensor_task=destination;target_id=[overmap_obj.id]' [is_destination ? "class='linkOn'" : ""]>As Dest.</a>"
 				dat += "</td></tr>"
 			dat += "</table>"
 
 		if(SHUTTLE_TAB_TARGET)
-			if(lock)
-				lock.Resolve()
 			var/locked_thing_name = lock ? lock.target.name : "NONE"
 			var/locked_status = "NOT ENGAGED"
 			var/locked_and_calibrated = FALSE
@@ -338,7 +336,7 @@
 			return
 		else
 			QDEL_NULL(lock)
-	if(ov_obj)
+	if(ov_obj && IN_LOCK_RANGE(src,ov_obj))
 		lock = new(src, ov_obj)
 
 /datum/overmap_object/shuttle/Topic(href, href_list)
@@ -565,168 +563,14 @@
 		my_shuttle = null
 	engine_extensions = null
 	shield_extensions = null
+	transporter_extensions = null
 	all_extensions = null
 	return ..()
 
-/datum/overmap_object/shuttle/process(delta_time)
-	//Process shields
-	for(var/i in shield_extensions)
-		var/datum/shuttle_extension/shield/shield = i
-		shield.process(delta_time)
-
-	var/icon_state_to_update_to = SHUTTLE_ICON_IDLE
-	if(shuttle_capability & SHUTTLE_CAN_USE_ENGINES)
-		switch(helm_command)
-			if(HELM_MOVE_TO_DESTINATION)
-				if(x == destination_x && y == destination_y)
-					StopMove()
-				else
-					var/target_angle = ATAN2(((destination_y*32)-((y*32)+partial_y)),((destination_x*32)-((x*32)+partial_x)))
-
-					if(target_angle < 0)
-						target_angle = 360 + target_angle
-
-					var/my_angle = angle
-					if(my_angle < 0)
-						my_angle = 360 + my_angle
-
-					var/diff = target_angle - my_angle
-
-					var/left_turn = FALSE
-					if(diff < 0)
-						diff += 360
-					if(diff > 180)
-						diff = 360 - diff
-						left_turn = TRUE
-
-
-					if(!(diff < 3))
-						if(left_turn)
-							angle -= min(diff,10)
-						else
-							angle += min(diff,10)
-
-					if(angle > 180)
-						angle -= 360
-					else if (angle < -180)
-						angle += 360
-
-					var/target_angle_in_byond_rad = target_angle
-					if(target_angle > 180)
-						target_angle_in_byond_rad -= 360
-
-					var/vector_len = VECTOR_LENGTH(velocity_x, velocity_y)
-					var/speed_cap = GetCapSpeed()
-					if(diff < 180 && vector_len < speed_cap)
-						var/drawn_thrust = DrawThrustFromAllEngines()
-						if(drawn_thrust)
-							var/added_velocity_x = drawn_thrust * sin(target_angle_in_byond_rad)
-							var/added_velocity_y = drawn_thrust * cos(target_angle_in_byond_rad)
-
-							if(diff > 10)
-								var/angle_multiplier = 1-(diff/360)
-								added_velocity_x *= angle_multiplier
-								added_velocity_y *= angle_multiplier
-
-							velocity_x += added_velocity_x
-							velocity_y += added_velocity_y
-
-							icon_state_to_update_to = SHUTTLE_ICON_FORWARD
-					else if (vector_len > speed_cap + SHUTTLE_SLOWDOWN_MARGIN)
-						if(velocity_y)
-							velocity_y *= 0.8
-							icon_state_to_update_to = SHUTTLE_ICON_BACKWARD
-						if(velocity_x)
-							velocity_x *= 0.8
-							icon_state_to_update_to = SHUTTLE_ICON_BACKWARD
-					else
-						icon_state_to_update_to = SHUTTLE_ICON_FORWARD
-
-			if(HELM_FULL_STOP)
-				if(!velocity_x && !velocity_y)
-					helm_command = HELM_IDLE
-				else //Lazy
-					if(velocity_y)
-						velocity_y *= 0.7
-						icon_state_to_update_to = SHUTTLE_ICON_BACKWARD
-					if(velocity_x)
-						velocity_x *= 0.7
-						icon_state_to_update_to = SHUTTLE_ICON_BACKWARD
-
-	var/obj/effect/abstract/overmap/shuttle/shuttle_visual = my_visual
-	switch(icon_state_to_update_to)
-		if(SHUTTLE_ICON_IDLE)
-			shuttle_visual.icon_state = shuttle_visual.shuttle_idle_state
-		if(SHUTTLE_ICON_FORWARD)
-			shuttle_visual.icon_state = shuttle_visual.shuttle_forward_state
-		if(SHUTTLE_ICON_BACKWARD)
-			shuttle_visual.icon_state = shuttle_visual.shuttle_backward_state
-
-	if(velocity_x || velocity_y)
-		var/velocity_length = VECTOR_LENGTH(velocity_x, velocity_y)
-		if(velocity_length < SHUTTLE_MINIMUM_VELOCITY)
-			velocity_x = 0
-			velocity_y = 0
-			if(is_seperate_z_level)
-				update_seperate_z_level_parallax(TRUE)
-		else
-			//"Friction"
-			velocity_x *= 0.95
-			velocity_y *= 0.95
-
-			var/add_partial_x = velocity_x
-			var/add_partial_y = velocity_y
-
-			partial_x += add_partial_x
-			partial_y += add_partial_y
-			var/did_move = FALSE
-			var/new_x
-			var/new_y
-			while(partial_y > 16)
-				did_move = TRUE
-				partial_y -= 32
-				new_y = min(y+1,world.maxy)
-			while(partial_y < -16)
-				did_move = TRUE
-				partial_y += 32
-				new_y = max(y-1,1)
-			while(partial_x > 16)
-				did_move = TRUE
-				partial_x -= 32
-				new_x = min(x+1,world.maxx)
-			while(partial_x < -16)
-				did_move = TRUE
-				partial_x += 32
-				x = max(x-1,1)
-
-			if(is_seperate_z_level)
-				update_seperate_z_level_parallax()
-
-			var/list/new_offsets = GetVisualOffsets()
-			SetNewVisualOffsets(new_offsets[1],new_offsets[2])
-
-			if(did_move)
-				var/passed_x = new_x || x
-				var/passed_y = new_y || y
-				Move(passed_x, passed_y)
-				if(shuttle_controller)
-					shuttle_controller.ShuttleMovedOnOvermap()
-
-	if(uses_rotation)
-		var/matrix/M = new
-		M.Turn(angle)
-		my_visual.transform = M
-
-/datum/overmap_object/shuttle/proc/GetVisualOffsets()
-	var/list/passed = list()
-	passed += FLOOR(partial_x,1)
-	passed += FLOOR(partial_y,1)
-	return passed
-
-/datum/overmap_object/shuttle/SetNewVisualOffsets(x,y)
+/datum/overmap_object/shuttle/UpdateVisualOffsets()
 	. = ..()
 	if(shuttle_controller)
-		shuttle_controller.NewVisualOffset(x,y)
+		shuttle_controller.NewVisualOffset(FLOOR(partial_x,1),FLOOR(partial_y,1))
 
 /datum/overmap_object/shuttle/proc/update_seperate_z_level_parallax(reset = FALSE)
 	var/established_direction = null
