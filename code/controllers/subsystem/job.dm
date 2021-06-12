@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(job)
 	name = "Jobs"
 	init_order = INIT_ORDER_JOBS
-	flags = SS_NO_FIRE
+	flags = SS_NO_FIRE | SS_NO_INIT
 
 	/// List of all jobs.
 	var/list/datum/job/all_occupations = list()
@@ -69,7 +69,7 @@ SUBSYSTEM_DEF(job)
 		SetupOccupations()
 	generate_selectable_species()
 	set_overflow_role()
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/job/proc/set_overflow_role(new_overflow_role)
 	if(!new_overflow_role)

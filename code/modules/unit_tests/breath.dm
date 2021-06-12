@@ -63,7 +63,7 @@
 
 	var/turf/open/to_fill = run_loc_floor_bottom_left
 	//Prep the floor
-	to_fill.initial_gas_mix = LAVALAND_DEFAULT_ATMOS
+	to_fill.initial_gas_mix = PLANETARY_ATMOS
 	to_fill.air = to_fill.create_gas_mixture()
 
 	lab_rat.breathe()

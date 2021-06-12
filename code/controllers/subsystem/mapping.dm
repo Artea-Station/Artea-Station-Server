@@ -65,12 +65,16 @@ SUBSYSTEM_DEF(mapping)
 	/// list of traits and their associated z leves
 	var/list/z_trait_levels = list()
 
+
+	/// The overmap object of the main loaded station, for easy access
+	var/datum/overmap_object/station_overmap_object
+
+//dlete dis once #39770 is resolved
 /datum/controller/subsystem/mapping/PreInit()
-	..()
 #ifdef FORCE_MAP
 	config = load_map_config(FORCE_MAP, FORCE_MAP_DIRECTORY)
 #else
-	config = load_map_config(error_if_missing = FALSE)
+	config = load_map_config(error_if_missing = TRUE)
 #endif
 
 /datum/controller/subsystem/mapping/Initialize()
@@ -262,8 +266,9 @@ Used by the AI doomsday and the self-destruct nuke.
 	z_list = SSmapping.z_list
 	multiz_levels = SSmapping.multiz_levels
 
-#define INIT_ANNOUNCE(X) to_chat(world, span_boldannounce("[X]")); log_world(X)
-/datum/controller/subsystem/mapping/proc/LoadGroup(list/errorList, name, path, files, list/traits, list/default_traits, silent = FALSE, datum/overmap_object/ov_obj = null)
+
+#define INIT_ANNOUNCE(X) to_chat(world, "<span class='boldannounce'>[X]</span>"); log_world(X)
+/datum/controller/subsystem/mapping/proc/LoadGroup(list/errorList, name, path, files, list/traits, list/default_traits, silent = FALSE, datum/overmap_object/ov_obj = null, weather_controller_type, atmosphere_type)
 	. = list()
 	var/start_time = REALTIMEOFDAY
 
@@ -296,9 +301,22 @@ Used by the AI doomsday and the self-destruct nuke.
 	// preload the relevant space_level datums
 	var/start_z = world.maxz + 1
 	var/i = 0
+	var/list/space_levels = list()
 	for (var/level in traits)
-		add_new_zlevel("[name][i ? " [i + 1]" : ""]", level, null, overmap_obj = ov_obj)
+		space_levels += add_new_zlevel("[name][i ? " [i + 1]" : ""]", level, null, overmap_obj = ov_obj)
 		++i
+	if(atmosphere_type)
+		var/datum/atmosphere/atmos = new atmosphere_type()
+		for(var/c in space_levels)
+			var/datum/space_level/level = c
+			SSair.register_planetary_atmos(atmos, level.z_value)
+		qdel(atmos)
+	//Apply the weather controller to the levels if able
+	if(weather_controller_type)
+		var/datum/weather_controller/weather_controller = new weather_controller_type(space_levels)
+		if(ov_obj)
+			weather_controller.LinkOvermapObject(ov_obj)
+	space_levels = null
 
 	// load the maps
 	for (var/P in parsed_maps)
@@ -322,7 +340,8 @@ Used by the AI doomsday and the self-destruct nuke.
 	// load the station
 	station_start = world.maxz + 1
 	INIT_ANNOUNCE("Loading [config.map_name]...")
-	LoadGroup(FailedZs, "Station", config.map_path, config.map_file, config.traits, ZTRAITS_STATION, ov_obj = new config.overmap_object_type(SSovermap.main_system, rand(3,10), rand(3,10)))
+	station_overmap_object = new config.overmap_object_type(SSovermap.main_system, rand(3,10), rand(3,10))
+	LoadGroup(FailedZs, "Station", config.map_path, config.map_file, config.traits, ZTRAITS_STATION, ov_obj = station_overmap_object, weather_controller_type = config.weather_controller_type, atmosphere_type = config.atmosphere_type)
 
 	// Create a trade hub
 	new /datum/overmap_object/trade_hub(SSovermap.main_system, rand(5,20), rand(5,20))
@@ -664,3 +683,10 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		isolated_ruins_z = add_new_zlevel("Isolated Ruins/Reserved", list(ZTRAIT_RESERVED = TRUE, ZTRAIT_ISOLATED_RUINS = TRUE))
 		initialize_reserved_level(isolated_ruins_z.z_value)
 	return isolated_ruins_z.z_value
+
+/datum/controller/subsystem/mapping/proc/GetLevelWeatherController(z_value)
+	var/datum/space_level/level = z_list[z_value]
+	if(!level)
+		return
+	level.AssertWeatherController()
+	return level.weather_controller

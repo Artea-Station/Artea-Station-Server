@@ -82,11 +82,6 @@ Always compile, always use that verb, and always make sure that it works for wha
 #define ZTRAIT_ICE_RUINS_UNDERGROUND "Ice Ruins Underground"
 #define ZTRAIT_ISOLATED_RUINS "Isolated Ruins" //Placing ruins on z levels with this trait will use turf reservation instead of usual placement.
 
-// boolean - weather types that occur on the level
-#define ZTRAIT_SNOWSTORM "Weather_Snowstorm"
-#define ZTRAIT_ASHSTORM "Weather_Ashstorm"
-#define ZTRAIT_VOIDSTORM "Weather_Voidstorm"
-
 /// boolean - does this z prevent ghosts from observing it
 #define ZTRAIT_SECRET "Secret"
 
@@ -129,7 +124,6 @@ Always compile, always use that verb, and always make sure that it works for wha
 #define ZTRAITS_LAVALAND list(\
 	ZTRAIT_MINING = TRUE, \
 	ZTRAIT_NOPARALLAX = TRUE, \
-	ZTRAIT_ASHSTORM = TRUE, \
 	ZTRAIT_LAVA_RUINS = TRUE, \
 	ZTRAIT_BOMBCAP_MULTIPLIER = 2, \
 	ZTRAIT_BASETURF = /turf/open/lava/smooth/lava_land_surface)

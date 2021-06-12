@@ -87,3 +87,7 @@
 #define OVERMAP_LAYER_SHIP 3.5
 #define OVERMAP_LAYER_SHUTTLE 3.6
 #define OVERMAP_LAYER_PROJECTILE 3.7
+
+//Helpful getters
+#define STATION_OVERMAP_OBJECT SSmapping.station_overmap_object
+#define STATION_WEATHER_CONTROLLER SSmapping.station_overmap_object.weather_controller

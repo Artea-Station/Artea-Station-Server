@@ -2,6 +2,7 @@ SUBSYSTEM_DEF(trading)
 	name = "Trading"
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	wait = 5 MINUTES
+	flags = SS_NO_INIT
 	///List of all trade hubs
 	var/list/trade_hubs = list()
 	///List of all traders

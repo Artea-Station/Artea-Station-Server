@@ -72,21 +72,42 @@
 	/// The stage of the weather, from 1-4
 	var/stage = END_STAGE
 
-	/// Weight amongst other eligible weather. If zero, will never happen randomly.
-	var/probability = 0
-	/// The z-level trait to affect when run randomly or when not overridden.
-	var/target_trait = ZTRAIT_STATION
-
 	/// Whether a barometer can predict when the weather will happen
 	var/barometer_predictable = FALSE
 	/// For barometers to know when the next storm will hit
 	var/next_hit_time = 0
 	/// This causes the weather to only end if forced to
 	var/perpetual = FALSE
+	/// Whether the weather affects underground areas
+	var/affects_underground = TRUE
+	/// Whether the weather affects above ground areas
+	var/affects_aboveground = TRUE
+	/// Reference to the weather controller
+	var/datum/weather_controller/my_controller
 
-/datum/weather/New(z_levels)
+/datum/weather/New(datum/weather_controller/passed_controller)
 	..()
+	my_controller = passed_controller
+	my_controller.current_weathers[type] = src
+	var/list/z_levels = list()
+	for(var/i in my_controller.z_levels)
+		var/datum/space_level/level = i
+		z_levels += level.z_value
 	impacted_z_levels = z_levels
+
+/datum/weather/Destroy()
+	my_controller.current_weathers -= type
+	UNSETEMPTY(my_controller.current_weathers)
+	my_controller = null
+	return ..()
+
+/datum/weather/process()
+	if(aesthetic || stage != MAIN_STAGE)
+		return
+	for(var/i in GLOB.mob_living_list)
+		var/mob/living/L = i
+		if(can_weather_act(L))
+			weather_act(L)
 
 /**
  * Telegraphs the beginning of the weather on the impacted z levels
@@ -109,10 +130,13 @@
 		var/area/A = V
 		if(protect_indoors && !A.outdoors)
 			continue
+		if(A.underground && !affects_underground)
+			continue
+		if(!A.underground && !affects_aboveground)
+			continue
 		if(A.z in impacted_z_levels)
 			impacted_areas |= A
 	weather_duration = rand(weather_duration_lower, weather_duration_upper)
-	SSweather.processing |= src
 	update_areas()
 	for(var/z_level in impacted_z_levels)
 		for(var/mob/player as anything in SSmobs.clients_by_zlevel[z_level])
@@ -186,8 +210,8 @@
 		return
 	SEND_GLOBAL_SIGNAL(COMSIG_WEATHER_END(type))
 	stage = END_STAGE
-	SSweather.processing -= src
 	update_areas()
+	qdel(src)
 
 /**
  * Returns TRUE if the living mob can be affected by the weather

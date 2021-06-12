@@ -18,11 +18,8 @@
 
 	area_type = /area
 	protect_indoors = TRUE
-	target_trait = ZTRAIT_ASHSTORM
 
 	immunity_type = TRAIT_ASHSTORM_IMMUNE
-
-	probability = 90
 
 	barometer_predictable = TRUE
 	var/list/weak_sounds = list()
@@ -95,5 +92,3 @@
 	end_sound = null
 
 	aesthetic = TRUE
-
-	probability = 10

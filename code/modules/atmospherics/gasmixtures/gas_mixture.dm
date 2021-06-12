@@ -303,6 +303,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 
 	return TRUE
 
+
 /// Performs air sharing calculations between two gas_mixtures
 /// share() is communitive, which means A.share(B) needs to be the same as B.share(A)
 /// If we don't retain this, we will get negative moles. Don't do it

@@ -40,7 +40,12 @@
 	/// List of additional areas that count as a part of the library
 	var/library_areas = list()
 
+	/// The type of the overmap object the station will act as on the overmap
 	var/overmap_object_type = /datum/overmap_object/shuttle/station
+	/// The weather controller the station levels will have
+	var/weather_controller_type = /datum/weather_controller
+	/// Type of the atmosphere that will be loaded on station
+	var/atmosphere_type
 
 /datum/map_config/New()
 	//Make sure that all levels in station do have this z trait
@@ -53,18 +58,42 @@
 /datum/map_config/proc/get_map_info()
 	return "You're on board the <b>[map_name]</b>, a top of the class NanoTrasen resesearch station."
 
-/proc/load_map_config(filename = "data/next_map.json", default_to_box, delete_after, error_if_missing = TRUE)
-	var/datum/map_config/config
-	if (default_to_box)
-		config = new /datum/map_config/metastation()
-		return config
-	config = LoadConfig(filename, error_if_missing)
-	if (!config)
-		config = new /datum/map_config/metastation()  // Fall back to Box
-	if (delete_after)
-		fdel(filename)
-	return config
+/**
+ * Proc that simply loads the default map config, which should always be functional.
+ */
+/proc/load_default_map_config()
+	return new /datum/map_config/metastation
 
+/**
+ * Proc handling the loading of map configs. Will return the default map config using [/proc/load_default_map_config] if the loading of said file fails for any reason whatsoever, so we always have a working map for the server to run.
+ * Arguments:
+ * * filename - Name of the config file for the map we want to load. The .json file extension is added during the proc, so do not specify filenames with the extension.
+ * * directory - Name of the directory containing our .json - Must be in MAP_DIRECTORY_WHITELIST. We default this to MAP_DIRECTORY_MAPS as it will likely be the most common usecase. If no filename is set, we ignore this.
+ * * error_if_missing - Bool that says whether failing to load the config for the map will be logged in log_world or not as it's passed to LoadConfig().
+ *
+ * Returns the config for the map to load.
+ */
+/proc/load_map_config(filename = null, directory = null, error_if_missing = TRUE)
+
+	if(filename) // If none is specified, then go to look for next_map.json, for map rotation purposes.
+
+		//Default to MAP_DIRECTORY_MAPS if no directory is passed
+		if(directory)
+			if(!(directory in MAP_DIRECTORY_WHITELIST))
+				log_world("map directory not in whitelist: [directory] for map [filename]")
+				return load_default_map_config()
+		else
+			directory = MAP_DIRECTORY_MAPS
+
+		filename = "[directory]/[filename].json"
+	else
+		filename = PATH_TO_NEXT_MAP_JSON
+
+	var/datum/map_config/config = LoadConfig(filename, error_if_missing)
+	if (!config)
+		return load_default_map_config()
+
+	return config
 
 #define CHECK_EXISTS(X) if(!istext(json[X])) { log_world("[##X] missing from json!"); return; }
 /proc/LoadConfig(filename, error_if_missing)

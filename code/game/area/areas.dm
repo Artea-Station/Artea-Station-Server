@@ -109,6 +109,9 @@
 	var/list/air_vent_info = list()
 	var/list/air_scrub_info = list()
 
+	/// Whether the area is underground, checked for the purposes of above/underground weathers
+	var/underground = FALSE
+
 /**
  * A list of teleport locations
  *
@@ -300,7 +303,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
  */
 /area/update_icon_state()
 	var/weather_icon
-	for(var/V in SSweather.processing)
+	for(var/V in SSweather.GetAllCurrentWeathers())
 		var/datum/weather/W = V
 		if(W.stage != END_STAGE && (src in W.impacted_areas))
 			W.update_areas()

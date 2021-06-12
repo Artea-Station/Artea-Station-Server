@@ -17,7 +17,6 @@
 
 	area_type = /area
 	protect_indoors = FALSE
-	target_trait = ZTRAIT_VOIDSTORM
 
 	immunity_type = TRAIT_VOIDSTORM_IMMUNE
 
