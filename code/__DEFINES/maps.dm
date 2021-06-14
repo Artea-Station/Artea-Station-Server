@@ -132,10 +132,6 @@ Always compile, always use that verb, and always make sure that it works for wha
 ///Z level traits for Secret Away Missions
 #define ZTRAITS_AWAY_SECRET list(ZTRAIT_AWAY = TRUE, ZTRAIT_SECRET = TRUE, ZTRAIT_NOPHASE = TRUE)
 
-#define ZTRAITS_JUNGLE_PLANET list(\
-	ZTRAIT_MINING = TRUE, \
-	ZTRAIT_BASETURF = /turf/open/misc/dirt/jungle/wasteland)
-
 #define DL_NAME "name"
 #define DL_TRAITS "traits"
 #define DECLARE_LEVEL(NAME, TRAITS) list(DL_NAME = NAME, DL_TRAITS = TRAITS)

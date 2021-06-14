@@ -218,3 +218,6 @@
 
 	COOLDOWN_DECLARE(smell_time)
 	var/last_smell_intensity = 0
+
+	/// List of weather immunity traits that are then added on Initialize(), see traits.dm.
+	var/list/weather_immunities

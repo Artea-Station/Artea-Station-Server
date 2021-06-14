@@ -48,18 +48,8 @@
 /area/shuttle/mining)
 "j" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
-/turf/open/floor/plating,
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/mining)
 "k" = (
 /obj/structure/ore_box,
@@ -69,7 +59,12 @@
 /obj/machinery/atmospherics/components/unary/engine,
 /turf/open/floor/plating,
 /area/shuttle/mining)
-"o" = (
+"q" = (
+/obj/machinery/atmospherics/components/unary/portables_connector/visible,
+/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/mining)
+"F" = (
 /obj/structure/table,
 /obj/item/wrench,
 /turf/open/floor/mineral/titanium/blue,
@@ -79,11 +74,6 @@
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
-/area/shuttle/mining)
-"Y" = (
-/obj/machinery/atmospherics/components/unary/portables_connector/visible,
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
-/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/mining)
 
 (1,1,1) = {"
@@ -97,7 +87,7 @@ a
 "}
 (2,1,1) = {"
 a
-o
+F
 e
 g
 f
@@ -109,7 +99,7 @@ b
 d
 Q
 e
-Y
+q
 j
 l
 "}

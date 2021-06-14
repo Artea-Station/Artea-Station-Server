@@ -67,9 +67,6 @@
 	///This damage is taken when the body temp is too hot.
 	var/unsuitable_heat_damage
 
-	/// List of weather immunity traits that are then added on Initialize(), see traits.dm.
-	var/list/weather_immunities
-
 	///Healable by medical stacks? Defaults to yes.
 	var/healable = 1
 

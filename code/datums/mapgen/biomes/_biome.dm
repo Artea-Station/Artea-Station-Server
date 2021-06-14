@@ -21,30 +21,3 @@
 	if(length(flora_types) && prob(flora_density))
 		var/obj/structure/flora = pick(flora_types)
 		new flora(gen_turf)
-
-/datum/biome/mudlands
-	turf_type = /turf/open/misc/dirt/jungle/dark
-	flora_types = list(/obj/structure/flora/grass/jungle/a/style_random,/obj/structure/flora/grass/jungle/b/style_random, /obj/structure/flora/rock/pile/jungle/style_random, /obj/structure/flora/rock/pile/jungle/large/style_random)
-	flora_density = 3
-
-/datum/biome/plains
-	turf_type = /turf/open/misc/grass/jungle
-	flora_types = list(/obj/structure/flora/grass/jungle/a/style_random,/obj/structure/flora/grass/jungle/b/style_random, /obj/structure/flora/tree/jungle/style_random, /obj/structure/flora/rock/pile/jungle/style_random, /obj/structure/flora/bush/jungle/a/style_random, /obj/structure/flora/bush/jungle/b/style_random, /obj/structure/flora/bush/jungle/c/style_random, /obj/structure/flora/bush/large/style_random, /obj/structure/flora/rock/pile/jungle/large/style_random)
-	flora_density = 15
-
-/datum/biome/jungle
-	turf_type = /turf/open/misc/grass/jungle
-	flora_types = list(/obj/structure/flora/grass/jungle/a/style_random,/obj/structure/flora/grass/jungle/b/style_random, /obj/structure/flora/tree/jungle/style_random, /obj/structure/flora/rock/pile/jungle/style_random, /obj/structure/flora/bush/jungle/a/style_random, /obj/structure/flora/bush/jungle/b/style_random, /obj/structure/flora/bush/jungle/c/style_random, /obj/structure/flora/bush/large/style_random, /obj/structure/flora/rock/pile/jungle/large/style_random)
-	flora_density = 40
-
-/datum/biome/jungle/deep
-	flora_density = 65
-
-/datum/biome/wasteland
-	turf_type = /turf/open/misc/dirt/jungle/wasteland
-
-/datum/biome/water
-	turf_type = /turf/open/water/jungle
-
-/datum/biome/mountain
-	turf_type = /turf/closed/mineral/random/jungle

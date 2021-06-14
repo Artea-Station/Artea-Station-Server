@@ -28,6 +28,8 @@
 	var/tool_mine_speed = 4 SECONDS
 	///How long it takes to mine this turf without tools, if it's weak.
 	var/hand_mine_speed = 15 SECONDS
+	/// Whether the rock will turn to the rock_color of its level
+	var/turn_to_level_color = TRUE
 
 /turf/closed/mineral/Initialize(mapload)
 	. = ..()
@@ -37,6 +39,10 @@
 	icon = smooth_icon
 	var/static/list/behaviors = list(TOOL_MINING)
 	AddElement(/datum/element/bump_click, tool_behaviours = behaviors, allow_unarmed = TRUE)
+	if(!color && turn_to_level_color)
+		var/datum/space_level/level = SSmapping.z_list[z]
+		color = level.rock_color
+
 
 /turf/closed/mineral/proc/Spread_Vein()
 	var/spreadChance = initial(mineralType.spreadChance)
@@ -267,6 +273,7 @@
 	baseturfs = /turf/open/misc/asteroid/snow/icemoon
 	initial_gas_mix = PLANETARY_ATMOS
 	weak_turf = TRUE
+	turn_to_level_color = FALSE
 
 /turf/closed/mineral/random/snow/Change_Ore(ore_type, random = 0)
 	. = ..()
@@ -500,12 +507,14 @@
 	icon_state = "redrock"
 	smooth_icon = 'icons/turf/walls/legacy/red_wall.dmi'
 	base_icon_state = "red_wall"
+	turn_to_level_color = FALSE
 
 /turf/closed/mineral/random/stationside/asteroid
 	name = "iron rock"
 	icon = 'icons/turf/mining.dmi'
 	smooth_icon = 'icons/turf/walls/legacy/red_wall.dmi'
 	base_icon_state = "red_wall"
+	turn_to_level_color = FALSE
 
 /turf/closed/mineral/random/stationside/asteroid/porus
 	name = "porous iron rock"
@@ -542,6 +551,7 @@
 	if(stage == GIBTONITE_UNSTRUCK)
 		activated_overlay = mutable_appearance('icons/turf/smoothrocks.dmi', "rock_Gibtonite_inactive", ON_EDGED_TURF_LAYER) //shows in gaps between pulses if there are any
 		activated_overlay.plane = GAME_PLANE_UPPER
+		activated_overlay.appearance_flags = RESET_COLOR
 		add_overlay(activated_overlay)
 		name = "gibtonite deposit"
 		desc = "An active gibtonite reserve. Run!"

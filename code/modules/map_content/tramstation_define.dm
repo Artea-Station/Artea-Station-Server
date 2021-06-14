@@ -4,7 +4,7 @@
 	map_file = "tramstation.dmm"
 
 	traits = list(list("Up" = 1,
-						"Baseturf" = "/turf/open/floor/plating/asteroid/airless",
+						"Baseturf" = "/turf/open/misc/asteroid/airless",
 						"Linkage" = "Cross"),
 						list("Down" = -1,
 						"Baseturf" = "/turf/open/openspace",
