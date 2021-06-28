@@ -135,7 +135,13 @@ SUBSYSTEM_DEF(shuttle)
 	/// Did the supermatter start a cascade event?
 	var/supermatter_cascade = FALSE
 
-/datum/controller/subsystem/shuttle/Initialize()
+
+	/// List of all sold shuttles for consoles to buy them
+	var/list/sold_shuttles = list()
+	/// Assoc list of "[dock_id]-[shuttle_types]" to a list of possible sold shuttles for those
+	var/list/sold_shuttles_cache = list()
+
+/datum/controller/subsystem/shuttle/Initialize(timeofday)
 	order_number = rand(1, 9000)
 
 	var/list/pack_processing = subtypesof(/datum/supply_pack)
@@ -166,7 +172,28 @@ SUBSYSTEM_DEF(shuttle)
 		log_mapping("No /obj/docking_port/mobile/emergency/backup placed on the map!")
 	if(!supply)
 		log_mapping("No /obj/docking_port/mobile/supply placed on the map!")
-	return SS_INIT_SUCCESS
+
+	init_sold_shuttles()
+	return ..()
+
+/datum/controller/subsystem/shuttle/proc/init_sold_shuttles()
+	for(var/type in subtypesof(/datum/sold_shuttle))
+		var/datum/sold_shuttle/sold_shuttle = type
+		if(initial(sold_shuttle.shuttle_id))
+			sold_shuttles += new sold_shuttle()
+
+/datum/controller/subsystem/shuttle/proc/get_sold_shuttles_cache(dock_id, shuttle_types)
+	var/cache_key = "[dock_id]-[shuttle_types]"
+	if(!sold_shuttles_cache[cache_key])
+		var/list/new_cache_list = list()
+		for(var/i in sold_shuttles)
+			var/datum/sold_shuttle/sold_shuttle = i
+			if(!sold_shuttle.allowed_docks[dock_id])
+				continue
+			if(shuttle_types & sold_shuttle.shuttle_type)
+				new_cache_list += sold_shuttle
+		sold_shuttles_cache[cache_key] = new_cache_list
+	return sold_shuttles_cache[cache_key]
 
 /datum/controller/subsystem/shuttle/proc/setup_shuttles(list/stationary)
 	for(var/obj/docking_port/stationary/port as anything in stationary)
