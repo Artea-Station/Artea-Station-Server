@@ -51,3 +51,11 @@
 
 /datum/trade_hub/default
 	name = "Global Trade Network"
+
+/datum/trade_hub/worldwide/bearcat
+	name = "FTU Tradehouse Network"
+	max_traders = 6
+	guaranteed_trader_types = list(/datum/trader/mining, /datum/trader/medical, /datum/trader/archeology)
+
+/datum/trade_hub/randomname
+	possible_names = list("SCG Emporium", "Spacedust Cleaners Co.", "Northwind Traders", "Space Coast Trading", "Plasma Enterprises", "Off-branch Trasen Co.")
