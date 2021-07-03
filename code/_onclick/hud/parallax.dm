@@ -90,11 +90,6 @@
 	var/mob/screenmob = viewmob || mymob
 	var/client/C = screenmob.client
 
-	//Apply a parallax direction override from z level if any (for z-level shuttles)
-	var/datum/space_level/current_z_level = SSmapping.z_list[screenmob.z]
-	if(current_z_level.parallax_direction_override)
-		new_parallax_movedir = current_z_level.parallax_direction_override
-
 	if(new_parallax_movedir == C.parallax_movedir)
 		return
 	var/animatedir = new_parallax_movedir
@@ -177,8 +172,20 @@
 		return
 
 	var/area/areaobj = posobj.loc
+
+	var/destined_parallax_movedir = areaobj.parallax_movedir
+	var/datum/space_level/my_level
+	if(SSmapping && screenmob.z)
+		my_level = SSmapping.z_list[screenmob.z]
+	if(my_level && my_level.related_overmap_object)
+		destined_parallax_movedir = my_level.parallax_direction_override
+	else if(SSshuttle.is_in_shuttle_bounds(screenmob))
+		var/obj/docking_port/mobile/mobile_shuttle = SSshuttle.get_containing_shuttle(screenmob)
+		if(mobile_shuttle && !isnull(mobile_shuttle.overmap_parallax_dir))
+			destined_parallax_movedir = mobile_shuttle.overmap_parallax_dir
+
 	// Update the movement direction of the parallax if necessary (for shuttles)
-	set_parallax_movedir(areaobj.parallax_movedir, FALSE, screenmob)
+	set_parallax_movedir(destined_parallax_movedir, FALSE, screenmob)
 
 	var/force = FALSE
 	if(!C.previous_turf || (C.previous_turf.z != posobj.z))
@@ -198,7 +205,7 @@
 	var/largest_change = max(abs(offset_x), abs(offset_y))
 	var/max_allowed_dist = (glide_rate / world.tick_lag) + 1
 	// If we aren't already moving/don't allow parallax, have made some movement, and that movement was smaller then our "glide" size, animate
-	var/run_parralax = (C.do_parallax_animations && glide_rate && !areaobj.parallax_movedir && C.dont_animate_parallax <= world.time && largest_change <= max_allowed_dist)
+	var/run_parralax = (C.do_parallax_animations && glide_rate && !destined_parallax_movedir && C.dont_animate_parallax <= world.time && largest_change <= max_allowed_dist)
 
 	for(var/atom/movable/screen/parallax_layer/L as anything in C.parallax_layers)
 		var/our_speed = L.speed
