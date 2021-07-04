@@ -61,11 +61,14 @@
 /obj/structure/shuttle/engine/Initialize()
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD
-
-/obj/structure/shuttle/engine/proc/CreateExtension()
-	extension = new extension_type()
+	
 	if(engine_state == ENGINE_WELDED)
+		AddComponent(/datum/component/engine_effect)
+		extension = new extension_type()
 		ApplyExtension()
+
+/obj/structure/shuttle/engine/proc/DrawThrust()
+	SEND_SIGNAL(src, COMSIG_ENGINE_DRAWN_POWER)
 
 /obj/structure/shuttle/engine/proc/ApplyExtension()
 	if(!extension)
