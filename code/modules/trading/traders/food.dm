@@ -77,4 +77,34 @@
 	new /obj/item/food/fortunecookie(spawn_turf)
 	var/obj/item/paper/fortune = new(spawn_turf)
 	fortune.name = "Fortune"
-	fortune.desc = pick(fortunes)
+	fortune.info = pick(fortunes)
+
+
+
+/datum/trader/farmer
+	name = "Farming Apprentice"
+	possible_origins = list("Uncle Ben's", "Manure Mounds", "Farmzilla", "Pepperidge Farms", "Johnson's Grand Animal Emporium", "Feral Farms")
+	trade_flags = TRADER_MONEY|TRADER_SELLS_GOODS
+	speech = list(
+		"hail" = "Hello! Welcome to ORIGIN, may I take your order?",
+		"hail_deny" = "Beeeep... I'm sorry, your connection has been severed.",
+
+		"trade_complete" = "Welcome to ORIGIN!",
+		"trade_no_goods" = "Let's see what we're working with...",
+		"trade_not_enough" = "This is a prime cut of steak you know. Do you know how much it costs to raise a cow? Do you know how many medals this beautiful animal -",
+		"how_much" = "This here animal will run ya VALUE in hard cash.",
+
+		"compliment_deny" = "At least let me take a shower first.",
+		"compliment_accept" = "Mighty fine of you, care to roll in the hay in a bit?",
+		"insult_good" = "Knock eet the fuck off! *Racks shotgun*.",
+		"insult_bad" = "Y'all really wanna start all this? I'll get my employers on the line and run ya outta fucking town!",
+	)
+	possible_sold_goods = list(
+		/datum/sold_goods/cow = 100,
+		/datum/sold_goods/goat = 100,
+		/datum/sold_goods/chicken = 100,
+		/datum/sold_goods/wheat = 100,
+		/datum/sold_goods/corn = 100,
+		/datum/sold_goods/pumpkin = 100,
+	)
+	target_sold_goods_amount = 6
