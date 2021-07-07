@@ -1,6 +1,7 @@
 /datum/bought_goods
 	///Name of the goods that will be displayed that the trader is interested in
-	var/name = "goods"	/// Whether we check the types of the bought goodie. If not, make sure the datum handles verification by itself
+	var/name = "goods"
+	/// Whether we check the types of the bought goodie. If not, make sure the datum handles verification by itself
 	var/check_types = TRUE
 	var/list/trading_types = list()
 	var/list/compiled_typecache
@@ -13,7 +14,16 @@
 	/// The decimal the stock will be rounded up to
 	var/stock_ceiling = 1
 
-/datum/bought_goods/New(price_multiplier)
+	/// The lowest stock amount of this purchasable goodie
+	var/stock_low
+	/// The highest stock amount of this purchasable goodie
+	var/stock_high
+	/// Remaining amount of how many of those the trader will yet buy. Infinite if null
+	var/amount
+	/// The decimal the stock will be rounded up to
+	var/stock_ceiling = 1
+
+/datum/bought_goods/New(price_multiplier, quantity_multiplier)
 	. = ..()
 	trader_price_multiplier = price_multiplier
 	cost *= price_multiplier
@@ -21,15 +31,20 @@
 	if(!cost_label)
 		cost_label = "[cost]"
 
-	compiled_typecache = compile_typelist_for_trading(trading_types)
+	if(check_types)
+		compiled_typecache = compile_typelist_for_trading(trading_types)
 	trading_types = null
+
+	if(stock_low && stock_high)
+		amount = FLOOR(rand(stock_low, stock_high) * quantity_multiplier, 1)
+		amount = CEILING(amount, stock_ceiling)
 
 /datum/bought_goods/Destroy()
 	compiled_typecache = null
 	return ..()
 
 /datum/bought_goods/proc/Validate(atom/movable/movable_atom_to_validate)
-	if(compiled_typecache[movable_atom_to_validate.type] && IsValid(movable_atom_to_validate))
+	if((!check_types || compiled_typecache[movable_atom_to_validate.type]) && IsValid(movable_atom_to_validate))
 		return TRUE
 	return FALSE
 
