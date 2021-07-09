@@ -37,6 +37,38 @@
 
 /datum/sold_goods/computer_hardware
 	trading_types = list(/obj/item/computer_hardware = TRADER_SUBTYPES)
+// Alphabetized by trader. Any trader can use these datums, but this keeps things a bit more organized.
+
+/////////Artifact Shop Employee/////////
+
+/datum/sold_goods/excavation_pick_set
+	path = /obj/item/storage/excavation_pick_set/full
+
+/datum/sold_goods/excavation_measuring_tape
+	path = /obj/item/excavation_measuring_tape
+
+/datum/sold_goods/excavation_depth_scanner
+	path = /obj/item/excavation_depth_scanner
+
+/datum/sold_goods/excavation_locator
+	path = /obj/item/excavation_locator
+
+/datum/sold_goods/anomalous_crystal
+	cost = 1000
+	path = /obj/item/anomalous_sliver/crystal
+
+/////////Atmospheric Shop Employee/////////
+
+/datum/sold_goods/belt/nitrogen
+	cost = 100
+	path = /obj/item/tank/internals/nitrogen/belt
+	stock_high = 5
+	stock_low = 3
+
+/datum/sold_goods/belt/plasma
+	cost = 180
+	path = /obj/item/tank/internals/plasmaman/belt
+	stock_high = 5
 
 /datum/sold_goods/computer_hardware/two
 /datum/sold_goods/computer_hardware/three
@@ -389,8 +421,10 @@
 	path = /obj/item/anomalous_sliver/crystal
 
 /datum/sold_goods/mining_kit
-	cost = 850
+	cost = 350
 	path = /obj/item/storage/backpack/duffelbag/mining_conscript/basic
+	stock_high = 4
+	stock_low = 2
 
 /datum/sold_goods/liquid_pump
 	cost = 700
