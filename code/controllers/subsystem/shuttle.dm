@@ -140,6 +140,8 @@ SUBSYSTEM_DEF(shuttle)
 	var/list/sold_shuttles = list()
 	/// Assoc list of "[dock_id]-[shuttle_types]" to a list of possible sold shuttles for those
 	var/list/sold_shuttles_cache = list()
+	/// List of all transit instances
+	var/list/transit_instances = list()
 
 /datum/controller/subsystem/shuttle/Initialize(timeofday)
 	order_number = rand(1, 9000)
@@ -643,6 +645,7 @@ SUBSYSTEM_DEF(shuttle)
 	new_transit_dock.setDir(angle2dir(dock_angle))
 
 	M.assigned_transit = new_transit_dock
+	new /datum/transit_instance(proposal, new_transit_dock)
 	return new_transit_dock
 
 /datum/controller/subsystem/shuttle/Recover()
@@ -1082,3 +1085,9 @@ SUBSYSTEM_DEF(shuttle)
 			has_purchase_shuttle_access |= shuttle_template.who_can_purchase
 
 	return has_purchase_shuttle_access
+
+/datum/controller/subsystem/shuttle/proc/get_transit_instance(atom/movable/movable_atom)
+	for(var/i in transit_instances)
+		var/datum/transit_instance/iterated_transit = i
+		if(iterated_transit.reservation.IsInBounds(movable_atom))
+			return iterated_transit

@@ -282,7 +282,7 @@
 	switch(SSshuttle.moveShuttle(my_shuttle.shuttle_id, my_shuttle.freeform_port.shuttle_id, TRUE))
 		if(0)
 			my_controller.busy = TRUE
-			my_controller.RemoveCurrentControl(TRUE)
+			my_controller.RemoveCurrentControl()
 			return TRUE
 		/*
 		if(1)

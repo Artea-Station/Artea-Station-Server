@@ -60,8 +60,7 @@
 
 /obj/structure/shuttle/engine/Initialize()
 	. = ..()
-	return INITIALIZE_HINT_LATELOAD
-	
+
 	if(engine_state == ENGINE_WELDED)
 		AddComponent(/datum/component/engine_effect)
 		extension = new extension_type()
