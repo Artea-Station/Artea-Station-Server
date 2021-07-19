@@ -426,10 +426,6 @@
 	stock_high = 4
 	stock_low = 2
 
-/datum/sold_goods/liquid_pump
-	cost = 700
-	path = /obj/machinery/plumbing/liquid_pump
-
 /datum/sold_goods/grey_bull
 	cost = 50
 	path = /obj/item/reagent_containers/food/drinks/soda_cans/grey_bull

@@ -277,9 +277,8 @@
 								/datum/sold_goods/stack/uranium_ten = 100,
 								/datum/sold_goods/stack/plasma_ten = 100,
 								/datum/sold_goods/stack/diamond_five = 100,
-								/datum/sold_goods/mining_kit = 100,
-								/datum/sold_goods/liquid_pump = 100)
-	target_sold_goods_amount = 7
+								/datum/sold_goods/mining_kit = 100)
+	target_sold_goods_amount = 6
 	target_bought_goods_amount = 5
 	possible_deliveries = list(
 		/datum/delivery_run/mineral_delivery = 100,
