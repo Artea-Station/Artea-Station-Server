@@ -167,6 +167,10 @@
 								/datum/sold_goods/incomplete_bot = 100,
 								/datum/sold_goods/posibrain = 100)
 	target_sold_goods_amount = 5
+	possible_bounties = list(
+		/datum/trader_bounty/stack/golden_circuits = 100,
+		/datum/trader_bounty/stack/seeing_diamonds = 100
+		)
 
 /datum/trader/xeno_shop
 	name = "Xenolife Collector"
