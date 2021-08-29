@@ -231,6 +231,15 @@
 								/datum/bought_goods/heart = 100)
 	target_sold_goods_amount = 15
 	target_bought_goods_amount = 4
+	possible_deliveries = list(
+		/datum/delivery_run/medical_supplies_delivery = 100,
+		/datum/delivery_run/delicate_biological_matter = 50
+		)
+	possible_bounties = list(
+		/datum/trader_bounty/reagent/medicine_easy = 100,
+		/datum/trader_bounty/reagent/medicine_hard = 100,
+		/datum/trader_bounty/stack/biological_compounds = 100
+		)
 
 /datum/trader/mining
 	name = "Rock'n'Drill Mining Inc"
@@ -266,6 +275,14 @@
 								/datum/sold_goods/stack/diamond_five = 100)
 	target_sold_goods_amount = 5
 	target_bought_goods_amount = 5
+	possible_deliveries = list(
+		/datum/delivery_run/mineral_delivery = 100,
+		/datum/delivery_run/industrial_equipment_delivery = 50
+		)
+	possible_bounties = list(
+		/datum/trader_bounty/gas/hard_to_breathe = 100,
+		/datum/trader_bounty/heavy_lifting = 100
+		)
 
 /datum/trader/petshop
 	name = "Pet Shop Employee"
@@ -279,3 +296,37 @@
 								/datum/sold_goods/lizard = 100)
 	target_sold_goods_amount = 4
 	target_bought_goods_amount = 2
+
+/datum/trader/archeology
+	name = "Artifact Shop Employee"
+	possible_origins = list("Jungle Relics", "Atlantis", "Fossilized Monsters", "Secrets of the Earth")
+	possible_bought_goods = list(
+		/datum/bought_goods/fossil = 100,
+		/datum/bought_goods/excavation_junk = 100,
+		/datum/bought_goods/excavation_artifact = 100,
+		/datum/bought_goods/anomalous_crystal = 100
+		)
+	possible_sold_goods = list(
+		/datum/sold_goods/excavation_pick_set = 100,
+		/datum/sold_goods/excavation_measuring_tape = 100,
+		/datum/sold_goods/excavation_depth_scanner = 100,
+		/datum/sold_goods/excavation_locator = 100,
+		/datum/sold_goods/anomalous_crystal = 100
+		)
+	target_sold_goods_amount = 6
+	target_bought_goods_amount = 5
+	possible_deliveries = list(
+		/datum/delivery_run/artifact_delivery = 100
+		)
+
+/datum/trader/atmospherics
+	name = "Atmospheric Shop Employee"
+	trade_flags = TRADER_MONEY|TRADER_SELLS_GOODS
+	possible_origins = list("Fill Up Tanker", "Gasser'up", "Tank Topper", "Uncle Joe's Jenkem Emporium")
+	possible_sold_goods = list(
+		/datum/sold_goods/belt/nitrogen = 100,
+		/datum/sold_goods/belt/plasma = 100,
+		/datum/sold_goods/emergency_oxygen = 100,
+		/datum/sold_goods/voidsuit = 100,
+	)
+	target_sold_goods_amount = 5

@@ -58,6 +58,24 @@
 	/// What's the chance the vendor will rotate stock
 	var/rotate_stock_chance = 100
 
+	/// Current listed bounties
+	var/list/bounties
+	/// All possible bounties, associative to weight
+	var/list/possible_bounties
+	/// Chance to gain a bounty per stock rotation
+	var/bounty_gain_chance = 20
+	/// Chance to gain a bounty when the trader is spawned in
+	var/initial_bounty_gain_chance = 50
+
+	/// Current listed deliveries
+	var/list/deliveries
+	/// All possible deliveries, associative to weight
+	var/list/possible_deliveries
+	/// Chance to gain a delivery per stock rotation
+	var/delivery_gain_chance = 20
+	/// Chance to gain a delivery when the trader is spawned in
+	var/initial_delivery_gain_chance = 50
+
 	/// An associative list of unique responses
 	var/list/speech
 	var/id
@@ -263,6 +281,15 @@
 	var/default = is_success ? "Greetings, MOB!" : "We're closed!"
 	. = get_response(key, default, user)
 
+/datum/trader/proc/requested_delivery_take(mob/user, obj/machinery/computer/trade_console/console, datum/delivery_run/delivery)
+	delivery.Accept(user, console)
+	deliveries -= delivery
+	qdel(delivery)
+	if(!deliveries.len)
+		deliveries = null
+		console.trader_screen_state = TRADER_SCREEN_NOTHING
+	return get_response("delivery_take", "Don't take too long!", user)
+
 /datum/trader/proc/get_user_suffix(mob/user)
 	if(!isliving(user))
 		return
@@ -312,6 +339,10 @@
 		RotateStock()
 
 /datum/trader/proc/InitializeStock()
+	if(prob(initial_bounty_gain_chance))
+		GainBounty()
+	if(prob(initial_delivery_gain_chance))
+		GainDelivery()
 	if(possible_bought_goods)
 		var/list/candidates = possible_bought_goods.Copy()
 		var/amount_of_iterations = rand(target_bought_goods_amount-initial_goods_amount_randomness,target_bought_goods_amount+initial_goods_amount_randomness)
@@ -339,7 +370,25 @@
 					CreateSoldGoodieType(picked_type)
 		candidates = null
 
+/datum/trader/proc/GainBounty()
+	if(bounties || !possible_bounties)
+		return
+	LAZYINITLIST(bounties)
+	var/bounty_type = pick_weight(possible_bounties)
+	bounties += new bounty_type()
+
+/datum/trader/proc/GainDelivery()
+	if(deliveries || !possible_deliveries)
+		return
+	LAZYINITLIST(deliveries)
+	var/delivery_type = pick_weight(possible_deliveries)
+	deliveries += new delivery_type(src)
+
 /datum/trader/proc/RotateStock()
+	if(prob(bounty_gain_chance))
+		GainBounty()
+	if(prob(delivery_gain_chance))
+		GainDelivery()
 	if(prob(TRADER_ABSOLUTE_STOCK_ROTATION_CHANCE))
 		RemoveAllStock()
 		InitializeStock()

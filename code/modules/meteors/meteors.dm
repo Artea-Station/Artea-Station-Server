@@ -124,6 +124,7 @@ GLOBAL_LIST_INIT(meteorsD, list(/obj/effect/meteor/medium=15, /obj/effect/meteor
 
 	///Used by Stray Meteor event to indicate meteor type (the type of sensor that "detected" it) in announcement
 	var/signature = "motion"
+	var/del_timer
 
 /obj/effect/meteor/Initialize(mapload, turf/target)
 	. = ..()
@@ -134,6 +135,8 @@ GLOBAL_LIST_INIT(meteorsD, list(/obj/effect/meteor/medium=15, /obj/effect/meteor
 	chase_target(target)
 
 /obj/effect/meteor/Destroy()
+	if (timerid)
+		deltimer(timerid)
 	GLOB.meteor_list -= src
 	return ..()
 
@@ -155,14 +158,14 @@ GLOBAL_LIST_INIT(meteorsD, list(/obj/effect/meteor/medium=15, /obj/effect/meteor
 
 /obj/effect/meteor/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE //Keeps us from drifting for no reason
-	
+
 /obj/effect/meteor/Initialize(mapload, target)
 	. = ..()
 	z_original = z
 	GLOB.meteor_list += src
 	SSaugury.register_doom(src, threat)
 	SpinAnimation()
-	timerid = QDEL_IN(src, lifetime)
+	del_timer = QDEL_IN(src, lifetime)
 	dest = target
 	chase_target(target)
 

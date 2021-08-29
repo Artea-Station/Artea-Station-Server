@@ -16,6 +16,8 @@ SUBSYSTEM_DEF(trading)
 
 	var/next_trader_id = 0
 
+	var/list/delivery_runs = list()
+
 /datum/controller/subsystem/trading/proc/get_trade_hub_by_id(id)
 	return trade_hubs["[id]"]
 
@@ -35,16 +37,14 @@ SUBSYSTEM_DEF(trading)
 	var/list/passed_trade_hubs = list()
 	if(global_trade_hub)
 		passed_trade_hubs += global_trade_hub
-	if(position)
-		var/datum/space_level/level = SSmapping.z_list[position.z]
-		if(level && level.related_overmap_object)
-			var/datum/overmap_object/oo = level.related_overmap_object
-			var/list/overmap_objects = level.related_overmap_object.current_system.GetObjectsInRadius(oo.x,oo.y,0)
-			for(var/i in overmap_objects)
-				var/datum/overmap_object/iterated_object = i
-				if(istype(iterated_object, /datum/overmap_object/trade_hub))
-					var/datum/overmap_object/trade_hub/th_obj = iterated_object
-					passed_trade_hubs += th_obj.hub
+	var/datum/overmap_object/overmap_object = GetHousingOvermapObject(position)
+	if(overmap_object)
+		var/list/overmap_objects = overmap_object.current_system.GetObjectsInRadius(overmap_object.x,overmap_object.y,0)
+		for(var/i in overmap_objects)
+			var/datum/overmap_object/iterated_object = i
+			if(istype(iterated_object, /datum/overmap_object/trade_hub))
+				var/datum/overmap_object/trade_hub/th_obj = iterated_object
+				passed_trade_hubs += th_obj.hub
 	return passed_trade_hubs
 
 /datum/controller/subsystem/trading/Initialize(timeofday)

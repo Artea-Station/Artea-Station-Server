@@ -171,3 +171,24 @@
 			spread_prob -= cluster_dropoff
 			if(!prob(spread_prob))
 				break
+
+#define SAFE_COORDS_ITERATION_TRIES 30
+
+/datum/overmap_sun_system/proc/GetRandomSafeCoords()
+	var/safe_x
+	var/safe_y
+	for(var/i in 1 to SAFE_COORDS_ITERATION_TRIES)
+		safe_x = rand(1, maxx)
+		safe_y = rand(1, maxy)
+
+		var/list/objects = GetObjectsOnCoords(safe_x, safe_y)
+		var/safe = TRUE
+		for(var/object in objects)
+			if(istype(object, /datum/overmap_object/hazard))
+				safe = FALSE
+				break
+		if(safe)
+			break
+	return list(safe_x, safe_y)
+
+#undef SAFE_COORDS_ITERATION_TRIES
