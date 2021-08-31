@@ -63,7 +63,7 @@
 	/// All possible bounties, associative to weight
 	var/list/possible_bounties
 	/// Chance to gain a bounty per stock rotation
-	var/bounty_gain_chance = 20
+	var/bounty_gain_chance = 15
 	/// Chance to gain a bounty when the trader is spawned in
 	var/initial_bounty_gain_chance = 50
 
@@ -72,7 +72,7 @@
 	/// All possible deliveries, associative to weight
 	var/list/possible_deliveries
 	/// Chance to gain a delivery per stock rotation
-	var/delivery_gain_chance = 20
+	var/delivery_gain_chance = 15
 	/// Chance to gain a delivery when the trader is spawned in
 	var/initial_delivery_gain_chance = 50
 
