@@ -110,7 +110,7 @@
 	baseturfs = /turf/open/misc/planetary/dry_seafloor
 	icon_state = "dry"
 	base_icon_state = "dry"
-	footstep = FOOTSTEP_GENERIC_HEAVY
+	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
