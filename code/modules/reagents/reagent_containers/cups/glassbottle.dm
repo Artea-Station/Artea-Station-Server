@@ -376,14 +376,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/absinthe/premium/redact()
 	return
 
-/obj/item/reagent_containers/cup/glass/bottle/lizardwine
-	name = "bottle of lizard wine"
-	desc = "An alcoholic beverage from Space China, made by infusing lizard tails in ethanol. Inexplicably popular among command staff."
-	icon_state = "lizardwine"
-	list_reagents = list(/datum/reagent/consumable/ethanol/lizardwine = 100)
-	drink_type = FRUIT | ALCOHOL
-
-/obj/item/reagent_containers/cup/glass/bottle/hcider
+/obj/item/reagent_containers/food/drinks/bottle/hcider
 	name = "Jian Hard Cider"
 	desc = "Apple juice for adults."
 	icon_state = "hcider"

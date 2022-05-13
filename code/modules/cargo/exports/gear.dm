@@ -82,17 +82,6 @@
 	unit_name = "bomb suit"
 	export_types = list(/obj/item/clothing/suit/utility/bomb_suit)
 
-/datum/export/gear/lizardboots
-	cost = CARGO_CRATE_VALUE * 0.7
-	unit_name = "lizard skin boots"
-	export_types = list(/obj/item/clothing/shoes/cowboy/lizard)
-	include_subtypes = FALSE
-
-/datum/export/gear/lizardmasterwork
-	cost = CARGO_CRATE_VALUE * 2
-	unit_name = "Hugs-the-Feet lizard boots"
-	export_types = list(/obj/item/clothing/shoes/cowboy/lizard/masterwork)
-
 /datum/export/gear/bilton
 	cost = CARGO_CRATE_VALUE * 5
 	unit_name = "bilton wrangler boots"

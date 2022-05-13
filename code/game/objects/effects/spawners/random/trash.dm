@@ -155,7 +155,7 @@
 		"rune1", "rune2", "rune3", "rune4", "rune5", "rune6",
 		"amyjon", "face", "matt", "revolution", "engie", "guy",
 		"end", "dwarf", "uboa", "body", "cyka", "star", "poseur tag",
-		"prolizard", "antilizard", "danger", "firedanger", "electricdanger",
+		"prolizard", "danger", "firedanger", "electricdanger",
 		"biohazard", "radiation", "safe", "evac", "space", "med", "trade", "shop",
 		"food", "peace", "like", "skull", "nay", "heart", "credit",
 		"smallbrush", "brush", "largebrush", "splatter", "snake", "stickman",

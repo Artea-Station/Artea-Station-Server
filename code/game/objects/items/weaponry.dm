@@ -604,30 +604,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon_state = "hippocratic"
 	impressiveness = 50
 
-/obj/item/tailclub
-	name = "tail club"
-	desc = "For the beating to death of lizards with their own tails."
-	icon_state = "tailclub"
-	force = 14
-	throwforce = 1 // why are you throwing a club do you even weapon
-	throw_speed = 1
-	throw_range = 1
-	attack_verb_continuous = list("clubs", "bludgeons")
-	attack_verb_simple = list("club", "bludgeon")
-
-/obj/item/melee/chainofcommand/tailwhip
-	name = "liz o' nine tails"
-	desc = "A whip fashioned from the severed tails of lizards."
-	icon_state = "tailwhip"
-	inhand_icon_state = "tailwhip"
-	item_flags = NONE
-
-/obj/item/melee/chainofcommand/tailwhip/kitty
-	name = "cat o' nine tails"
-	desc = "A whip fashioned from the severed tails of cats."
-	icon_state = "catwhip"
-	inhand_icon_state = "catwhip"
-
 /obj/item/melee/skateboard
 	name = "skateboard"
 	desc = "A skateboard. It can be placed on its wheels and ridden, or used as a radical weapon."

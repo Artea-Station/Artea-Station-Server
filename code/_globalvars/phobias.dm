@@ -14,7 +14,6 @@ GLOBAL_LIST_INIT(phobia_types, sort_list(list(
 	"greytide",
 	"guns",
 	"insects",
-	"lizards",
 	"robots",
 	"security",
 	"skeletons",
@@ -37,7 +36,6 @@ GLOBAL_LIST_INIT(phobia_regexes, list(
 	"greytide" = construct_phobia_regex("greytide"),
 	"guns" = construct_phobia_regex("guns"),
 	"insects" = construct_phobia_regex("insects"),
-	"lizards" = construct_phobia_regex("lizards"),
 	"ocky icky" = construct_phobia_regex("ocky icky"),
 	"robots" = construct_phobia_regex("robots"),
 	"security" = construct_phobia_regex("security"),
@@ -53,7 +51,6 @@ GLOBAL_LIST_INIT(phobia_regexes, list(
 GLOBAL_LIST_INIT(phobia_mobs, list(
 	"spiders" = typecacheof(list(/mob/living/simple_animal/hostile/giant_spider)),
 	"security" = typecacheof(list(/mob/living/simple_animal/bot/secbot)),
-	"lizards" = typecacheof(list(/mob/living/simple_animal/hostile/lizard)),
 	"skeletons" = typecacheof(list(/mob/living/simple_animal/hostile/skeleton)),
 	"snakes" = typecacheof(list(/mob/living/simple_animal/hostile/retaliate/snake)),
 	"robots" = typecacheof(list(
@@ -166,15 +163,6 @@ GLOBAL_LIST_INIT(phobia_objs, list(
 		/obj/item/toy/figure/assistant,
 		/obj/structure/statue/sandstone/assistant,
 	)) + typecacheof(list(/obj/item/clothing/mask/gas), ignore_root_path = FALSE, only_root_path = TRUE // to match only specific items in this phobia and not subtypes, use an additional typecacheof w/ ignore_root_path set FALSE and only_root_patch set TRUE
-	)),
-
-	"lizards" = typecacheof(list(
-		/obj/item/clothing/head/lizard,
-		/obj/item/clothing/shoes/cowboy/lizard,
-		/obj/item/food/kebab/tail,
-		/obj/item/organ/external/tail/lizard,
-		/obj/item/reagent_containers/cup/glass/bottle/lizardwine,
-		/obj/item/toy/plush/lizard_plushie,
 	)),
 
 	"skeletons" = typecacheof(list(
@@ -456,7 +444,6 @@ GLOBAL_LIST_INIT(phobia_objs, list(
 		/obj/item/clothing/mask/animal/small/bee,
 		/obj/item/clothing/suit/hooded/bee_costume,
 		/obj/item/toy/plush/beeplushie,
-		/obj/item/toy/plush/moth,
 		/obj/structure/beebox,
 	)),
 
@@ -498,16 +485,12 @@ GLOBAL_LIST_INIT(phobia_species, list(
 		/datum/species/pod,
 		/datum/species/shadow,
 	)),
-	"anime" = typecacheof(list(/datum/species/human/felinid)),
 	"conspiracies" = typecacheof(list(
 		/datum/species/abductor,
-		/datum/species/lizard,
 	)),
 	"insects" = typecacheof(list(
 		/datum/species/fly,
-		/datum/species/moth,
 	)),
-	"lizards" = typecacheof(list(/datum/species/lizard)),
 	"robots" = typecacheof(list(/datum/species/android)),
 	"skeletons" = typecacheof(list(
 		/datum/species/plasmaman,

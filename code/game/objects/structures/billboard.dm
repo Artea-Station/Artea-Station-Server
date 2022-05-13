@@ -60,10 +60,6 @@
 	desc = "A billboard labelling the gas station known as 'The Lizard's Gas'. It's been lost to time, and this is the only known gas station of its type. It's hard to see why it flopped based on the quality of the billboard."
 	icon_state = "billboard_lizards_gas"
 
-/obj/structure/billboard/lizards_gas/defaced
-	desc = "A billboard labelling the gas station known as 'The Lizard's Gas'. The soulfully drawn billboard has been graffitied, with a kind stranger painting over the vitriolic graffiti."
-	icon_state = "billboard_lizards_gas_defaced"
-
 /obj/structure/billboard/roadsign
 	name = "\improper Roadsign billboard"
 	desc = "A billboard notifying the reader how many miles are left until the gas station. This one seems to be blank, however."
