@@ -488,10 +488,12 @@
 
 /////////Xenolife Collector/////////
 
-/datum/sold_goods/space_carp
-	cost = 400
-	path = /mob/living/simple_animal/hostile/carp
+/datum/bought_goods/space_carp
+	name = "space carps"
+	cost = 200
+	trading_types = list(/mob/living/simple_animal/hostile/carp = TRADER_TYPES)
 
-/datum/sold_goods/goliath
-	cost = 500
-	path = /mob/living/simple_animal/hostile/asteroid/goliath
+/datum/bought_goods/goliath
+	name = "goliaths"
+	cost = 250
+	trading_types = list(/mob/living/simple_animal/hostile/asteroid/goliath = TRADER_TYPES)
