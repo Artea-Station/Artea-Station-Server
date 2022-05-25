@@ -7,9 +7,9 @@
 /datum/brain_trauma/mild/hallucinations
 	name = "Hallucinations"
 	desc = "Patient suffers constant hallucinations."
-	scan_desc = "schizophrenia"
+	scan_desc = "hallucinations"
 	gain_text = span_warning("You feel your grip on reality slipping...")
-	lose_text = span_notice("You feel more grounded.")
+	lose_text = span_warning("You feel more grounded.")
 
 /datum/brain_trauma/mild/hallucinations/on_life(delta_time, times_fired)
 	if(owner.stat != CONSCIOUS || owner.IsSleeping() || owner.IsUnconscious())
@@ -35,31 +35,6 @@
 
 /datum/brain_trauma/mild/stuttering/on_lose()
 	owner.remove_status_effect(/datum/status_effect/speech/stutter)
-	return ..()
-
-/datum/brain_trauma/mild/dumbness
-	name = "Dumbness"
-	desc = "Patient has reduced brain activity, making them less intelligent."
-	scan_desc = "reduced brain activity"
-	gain_text = "<span class='warning'>You feel dumber.</span>"
-	lose_text = "<span class='notice'>You feel smart again.</span>"
-
-/datum/brain_trauma/mild/dumbness/on_gain()
-	ADD_TRAIT(owner, TRAIT_DUMB, TRAUMA_TRAIT)
-	owner.add_mood_event("dumb", /datum/mood_event/oblivious)
-	return ..()
-
-/datum/brain_trauma/mild/dumbness/on_life(delta_time, times_fired)
-	owner.adjust_derpspeech_up_to(5 SECONDS * delta_time, 50 SECONDS)
-	if(DT_PROB(1.5, delta_time))
-		owner.emote("drool")
-	else if(owner.stat == CONSCIOUS && DT_PROB(1.5, delta_time))
-		owner.say(pick_list_replacements(BRAIN_DAMAGE_FILE, "brain_damage"), forced = "brain damage")
-
-/datum/brain_trauma/mild/dumbness/on_lose()
-	REMOVE_TRAIT(owner, TRAIT_DUMB, TRAUMA_TRAIT)
-	owner.remove_status_effect(/datum/status_effect/speech/stutter/derpspeech)
-	owner.clear_mood_event("dumb")
 	return ..()
 
 /datum/brain_trauma/mild/speech_impediment

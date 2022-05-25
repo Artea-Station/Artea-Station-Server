@@ -499,11 +499,6 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 			. = "shakily signs"
 		else
 			. = "stammers"
-	else if(has_status_effect(/datum/status_effect/speech/stutter/derpspeech))
-		if(HAS_TRAIT(src, TRAIT_SIGN_LANG))
-			. = "incoherently signs"
-		else
-			. = "gibbers"
 	else
 		. = ..()
 

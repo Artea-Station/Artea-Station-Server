@@ -1,7 +1,7 @@
 /datum/brain_trauma/special/imaginary_friend
 	name = "Imaginary Friend"
 	desc = "Patient can see and hear an imaginary person."
-	scan_desc = "partial schizophrenia"
+	scan_desc = "active imagination"
 	gain_text = "<span class='notice'>You feel in good company, for some reason.</span>"
 	lose_text = "<span class='warning'>You feel lonely again.</span>"
 	var/mob/camera/imaginary_friend/friend

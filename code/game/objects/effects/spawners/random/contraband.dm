@@ -23,7 +23,6 @@
 		/obj/item/reagent_containers/syringe/contraband/space_drugs,
 		/obj/item/reagent_containers/syringe/contraband/krokodil,
 		/obj/item/reagent_containers/syringe/contraband/methamphetamine,
-		/obj/item/reagent_containers/syringe/contraband/bath_salts,
 		/obj/item/reagent_containers/syringe/contraband/fentanyl,
 		/obj/item/reagent_containers/syringe/contraband/morphine,
 		/obj/item/reagent_containers/syringe/contraband/saturnx,
