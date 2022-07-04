@@ -944,11 +944,15 @@
 
 /obj/item/slimepotion/genderchange
 	name = "gender change potion"
-	desc = "An interesting chemical mix that changes the biological gender of what its applied to. Cannot be used on things that lack gender entirely."
+	desc = "An interesting chemical mix that changes the gender of what it's applied to. Can only be used on yourself."
 	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "potlightpink"
 
 /obj/item/slimepotion/genderchange/attack(mob/living/L, mob/user)
+	if(L != user)
+		to_chat(user, span_warning("You can't use this on someone else!"))
+		return
+
 	if(!istype(L) || L.stat == DEAD)
 		to_chat(user, span_warning("The potion can only be used on living things!"))
 		return
