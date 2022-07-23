@@ -439,7 +439,6 @@
 	contraband = list(
 		/obj/item/toy/plush/ratplush = 1,
 		/obj/item/toy/plush/narplush = 1,
-		/obj/item/clothing/head/medievaljewhat = 3,
 		/obj/item/clothing/suit/chaplainsuit/clownpriest = 1,
 		/obj/item/clothing/head/clownmitre = 1,
 		)
