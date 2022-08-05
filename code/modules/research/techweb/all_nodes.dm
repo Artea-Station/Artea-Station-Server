@@ -93,6 +93,8 @@
 		"borg_l_leg",
 		"borg_r_arm",
 		"borg_r_leg",
+		"digi_borg_l_leg",
+		"digi_borg_r_leg",
 		"borg_suit",
 		"borg_upgrade_rename",
 		"borg_upgrade_restart",
