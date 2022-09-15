@@ -93,7 +93,8 @@ GLOBAL_VAR_INIT(NORMAL_LOOC_COLOR, "#f29180")
 				if(!ghost || !ghost.client) //no ghost, or no client for the ghost
 					continue
 				C = ghost.client
-			continue
+			else
+				continue
 		else
 			C = M.client
 		if(isobserver(M))
