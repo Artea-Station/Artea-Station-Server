@@ -73,19 +73,36 @@ GLOBAL_VAR_INIT(NORMAL_LOOC_COLOR, "#f29180")
 
 	mob.log_talk(raw_msg, LOG_OOC, tag="LOOC")
 
-	var/list/heard = get_hearers_in_view(7, src.mob)
+	var/list/heard
+	if(isobserver(src.mob)) //if ghost, LOOC should originate from your corpse (if you have one)
+		if(!src.mob.mind)
+			to_chat(src, span_warning("You have no body."))
+			return
+		if(src.mob.mind.current.key && src.mob.mind.current.key[1] != "@")
+			to_chat(src, span_warning("Someone else is using your body! You can't LOOC right now."))
+			return
+		heard = get_hearers_in_view(7, src.mob.mind.current)
+	else
+		heard = get_hearers_in_view(7, src.mob)
 	var/keyname = key
 	for(var/mob/M in heard)
+		var/client/C
 		if(!M.client)
+			if(M.mind) //check if this corpse has a mind, even if it has no client
+				var/mob/dead/observer/ghost = M.mind.get_ghost(FALSE,TRUE)
+				if(!ghost || !ghost.client) //no ghost, or no client for the ghost
+					continue
+				C = ghost.client
 			continue
-		var/client/C = M.client
+		else
+			C = M.client
 		if(isobserver(M))
-			continue //need to figure out what to do with this
+			continue //LOOC should not be directly intercepted by ghosts - only relayed via corpse
 		if(C.prefs.chat_toggles & CHAT_OOC)
 			if(GLOB.LOOC_COLOR)
-				to_chat(C, "<font color='[GLOB.LOOC_COLOR]'><b><span class='prefix'>LOOC:</span> <EM>[src.mob.name]:</EM> <span class='message'>[msg]</span></b></font>")
+				to_chat(C, "<font color='[GLOB.LOOC_COLOR]'><b><span class='prefix'>LOOC:</span> <EM>[src.mob.name] ([keyname]):</EM> <span class='message'>[msg]</span></b></font>")
 			else
-				to_chat(C, "<font color='[GLOB.NORMAL_LOOC_COLOR]'><b><span class='prefix'>LOOC:</span> <EM>[src.mob.name]:</EM> <span class='message'>[msg]</span></b></font>")
+				to_chat(C, "<font color='[GLOB.NORMAL_LOOC_COLOR]'><b><span class='prefix'>LOOC:</span> <EM>[src.mob.name] ([keyname]):</EM> <span class='message'>[msg]</span></b></font>")
 
 	//LOOC messages are also sent to all admins in a separate admin-LOOC message type
 	msg = "<span class='looc'>[ADMIN_FLW(usr)] <span class='prefix'>LOOC:</span> <EM>[keyname]/[src.mob.name]:</EM> <span class='message'>[msg]</span></span>"
