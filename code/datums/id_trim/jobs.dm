@@ -79,6 +79,7 @@
 /datum/id_trim/job/assistant
 	assignment = "Assistant"
 	trim_state = "trim_assistant"
+	orbit_icon = "toolbox"
 	sechud_icon_state = SECHUD_ASSISTANT
 	minimal_access = list()
 	extra_access = list(
@@ -105,6 +106,7 @@
 /datum/id_trim/job/atmospheric_technician
 	assignment = "Atmospheric Technician"
 	trim_state = "trim_atmospherictechnician"
+	orbit_icon = "fan"
 	department_color = COLOR_ENGINEERING_ORANGE
 	subdepartment_color = COLOR_ENGINEERING_ORANGE
 	sechud_icon_state = SECHUD_ATMOSPHERIC_TECHNICIAN
@@ -134,6 +136,7 @@
 /datum/id_trim/job/bartender
 	assignment = "Bartender"
 	trim_state = "trim_bartender"
+	orbit_icon = "cocktail"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SERVICE_LIME
 	sechud_icon_state = SECHUD_BARTENDER
@@ -158,6 +161,7 @@
 /datum/id_trim/job/botanist
 	assignment = "Botanist"
 	trim_state = "trim_botanist"
+	orbit_icon = "seedling"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SERVICE_LIME
 	sechud_icon_state = SECHUD_BOTANIST
@@ -182,6 +186,7 @@
 	assignment = "Captain"
 	intern_alt_name = "Captain-in-Training"
 	trim_state = "trim_captain"
+	orbit_icon = "crown"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_COMMAND_BLUE
 	department_state = "departmenthead"
@@ -204,6 +209,7 @@
 /datum/id_trim/job/cargo_technician
 	assignment = "Cargo Technician"
 	trim_state = "trim_cargotechnician"
+	orbit_icon = "box"
 	department_color = COLOR_CARGO_BROWN
 	subdepartment_color = COLOR_CARGO_BROWN
 	sechud_icon_state = SECHUD_CARGO_TECHNICIAN
@@ -228,6 +234,7 @@
 /datum/id_trim/job/chaplain
 	assignment = "Chaplain"
 	trim_state = "trim_chaplain"
+	orbit_icon = "cross"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SERVICE_LIME
 	sechud_icon_state = SECHUD_CHAPLAIN
@@ -249,6 +256,7 @@
 /datum/id_trim/job/chemist
 	assignment = "Chemist"
 	trim_state = "trim_chemist"
+	orbit_icon = "prescription-bottle"
 	department_color = COLOR_MEDICAL_BLUE
 	subdepartment_color = COLOR_MEDICAL_BLUE
 	sechud_icon_state = SECHUD_CHEMIST
@@ -275,6 +283,7 @@
 	assignment = "Chief Engineer"
 	intern_alt_name = "Chief Engineer-in-Training"
 	trim_state = "trim_stationengineer"
+	orbit_icon = "user-astronaut"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_ENGINEERING_ORANGE
 	department_state = "departmenthead"
@@ -316,6 +325,7 @@
 	assignment = "Chief Medical Officer"
 	intern_alt_name = "Chief Medical Officer-in-Training"
 	trim_state = "trim_medicaldoctor"
+	orbit_icon = "user-md"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_MEDICAL_BLUE
 	department_state = "departmenthead"
@@ -353,6 +363,7 @@
 /datum/id_trim/job/clown
 	assignment = "Clown"
 	trim_state = "trim_clown"
+	orbit_icon = "face-grin-tears"
 	department_color = COLOR_MAGENTA
 	subdepartment_color = COLOR_MAGENTA
 	sechud_icon_state = SECHUD_CLOWN
@@ -371,6 +382,7 @@
 /datum/id_trim/job/cook
 	assignment = "Cook"
 	trim_state = "trim_cook"
+	orbit_icon = "utensils"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SERVICE_LIME
 	sechud_icon_state = SECHUD_COOK
@@ -398,6 +410,7 @@
 /datum/id_trim/job/curator
 	assignment = "Curator"
 	trim_state = "trim_curator"
+	orbit_icon = "book"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SERVICE_LIME
 	sechud_icon_state = SECHUD_CURATOR
@@ -418,6 +431,7 @@
 /datum/id_trim/job/detective
 	assignment = "Detective"
 	trim_state = "trim_detective"
+	orbit_icon = "user-secret"
 	department_color = COLOR_SECURITY_RED
 	subdepartment_color = COLOR_SECURITY_RED
 	sechud_icon_state = SECHUD_DETECTIVE
@@ -456,6 +470,7 @@
 	assignment = "Head of Personnel"
 	intern_alt_name = "Head of Personnel-in-Training"
 	trim_state = "trim_headofpersonnel"
+	orbit_icon = "dog"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_SERVICE_LIME
 	department_state = "departmenthead"
@@ -506,6 +521,7 @@
 	assignment = "Head of Security"
 	intern_alt_name = "Head of Security-in-Training"
 	trim_state = "trim_securityofficer"
+	orbit_icon = "user-shield"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_SECURITY_RED
 	department_state = "departmenthead"
@@ -581,6 +597,7 @@
 /datum/id_trim/job/janitor
 	assignment = "Janitor"
 	trim_state = "trim_janitor"
+	orbit_icon = "broom"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SERVICE_LIME
 	sechud_icon_state = SECHUD_JANITOR
@@ -601,6 +618,7 @@
 /datum/id_trim/job/lawyer
 	assignment = "Lawyer"
 	trim_state = "trim_lawyer"
+	orbit_icon = "gavel"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SECURITY_RED
 	sechud_icon_state = SECHUD_LAWYER
@@ -621,6 +639,7 @@
 /datum/id_trim/job/medical_doctor
 	assignment = "Medical Doctor"
 	trim_state = "trim_medicaldoctor"
+	orbit_icon = "staff-snake"
 	department_color = COLOR_MEDICAL_BLUE
 	subdepartment_color = COLOR_MEDICAL_BLUE
 	sechud_icon_state = SECHUD_MEDICAL_DOCTOR
@@ -646,6 +665,7 @@
 /datum/id_trim/job/mime
 	assignment = "Mime"
 	trim_state = "trim_mime"
+	orbit_icon = "comment-slash"
 	department_color = COLOR_SILVER
 	subdepartment_color = COLOR_WHITE
 	sechud_icon_state = SECHUD_MIME
@@ -664,6 +684,7 @@
 /datum/id_trim/job/paramedic
 	assignment = "Paramedic"
 	trim_state = "trim_paramedic"
+	orbit_icon = "truck-medical"
 	department_color = COLOR_MEDICAL_BLUE
 	subdepartment_color = COLOR_MEDICAL_BLUE
 	sechud_icon_state = SECHUD_PARAMEDIC
@@ -693,6 +714,7 @@
 /datum/id_trim/job/prisoner
 	assignment = "Prisoner"
 	trim_state = "trim_warden"
+	orbit_icon = "lock-keyhole"
 	department_color = COLOR_PRISONER_BLACK
 	subdepartment_color = COLOR_PRISONER_ORANGE
 	sechud_icon_state = SECHUD_PRISONER
@@ -735,6 +757,7 @@
 /datum/id_trim/job/psychologist
 	assignment = "Psychologist"
 	trim_state = "trim_psychologist"
+	orbit_icon = "brain"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_MEDICAL_BLUE
 	sechud_icon_state = SECHUD_PSYCHOLOGIST
@@ -755,6 +778,7 @@
 /datum/id_trim/job/quartermaster
 	assignment = "Quartermaster"
 	trim_state = "trim_quartermaster"
+	orbit_icon = "sack-dollar"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_CARGO_BROWN
 	department_state = "departmenthead"
@@ -789,6 +813,7 @@
 /datum/id_trim/job/roboticist
 	assignment = "Roboticist"
 	trim_state = "trim_roboticist"
+	orbit_icon = "battery-half"
 	department_color = COLOR_SCIENCE_PINK
 	subdepartment_color = COLOR_SCIENCE_PINK
 	sechud_icon_state = SECHUD_ROBOTICIST
@@ -817,6 +842,7 @@
 /datum/id_trim/job/security_officer
 	assignment = "Security Officer"
 	trim_state = "trim_securityofficer"
+	orbit_icon = "shield-halved"
 	department_color = COLOR_SECURITY_RED
 	subdepartment_color = COLOR_SECURITY_RED
 	sechud_icon_state = SECHUD_SECURITY_OFFICER
@@ -937,6 +963,7 @@
 /datum/id_trim/job/shaft_miner
 	assignment = "Shaft Miner"
 	trim_state = "trim_shaftminer"
+	orbit_icon = "digging"
 	department_color = COLOR_CARGO_BROWN
 	subdepartment_color = COLOR_SCIENCE_PINK
 	sechud_icon_state = SECHUD_SHAFT_MINER
@@ -973,6 +1000,7 @@
 /datum/id_trim/job/station_engineer
 	assignment = "Station Engineer"
 	trim_state = "trim_stationengineer"
+	orbit_icon = "gears"
 	department_color = COLOR_ENGINEERING_ORANGE
 	subdepartment_color = COLOR_ENGINEERING_ORANGE
 	sechud_icon_state = SECHUD_STATION_ENGINEER
@@ -1002,6 +1030,7 @@
 /datum/id_trim/job/warden
 	assignment = "Warden"
 	trim_state = "trim_warden"
+	orbit_icon = "handcuffs"
 	department_color = COLOR_SECURITY_RED
 	subdepartment_color = COLOR_SECURITY_RED
 	sechud_icon_state = SECHUD_WARDEN

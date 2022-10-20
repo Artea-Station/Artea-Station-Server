@@ -81,6 +81,19 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 		var/datum/mind/mind = mob_poi.mind
 		var/was_antagonist = FALSE
 
+		serialized["name"] = mob_poi.real_name
+
+		if(isliving(mob_poi)) // handles edge cases like blob
+			var/mob/living/player = mob_poi
+			serialized["health"] = FLOOR((player.health / player.maxHealth * 100), 1)
+			if(issilicon(player))
+				serialized["job"] = player.job
+			else
+				var/obj/item/card/id/id_card = player.get_idcard(hand_first = FALSE)
+				serialized["job"] = id_card?.get_trim_assignment()
+				var/datum/id_trim/trim = id_card?.trim
+				serialized["job_icon"] = trim?.orbit_icon
+
 		for(var/datum/antagonist/antag_datum as anything in mind.antag_datums)
 			if (antag_datum.show_to_ghosts)
 				was_antagonist = TRUE
@@ -96,7 +109,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 
 		misc += list(list(
 			"ref" = REF(atom_poi),
-			"name" = name,
+			"full_name" = name,
 		))
 
 	return list(
