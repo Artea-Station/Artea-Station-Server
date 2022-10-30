@@ -16,11 +16,11 @@
 	edge_type = /turf/open/space/transit/edge
 
 /datum/turf_reservation/proc/Release()
-	var/v = reserved_turfs.Copy()
-	for(var/i in reserved_turfs)
-		reserved_turfs -= i
-		SSmapping.used_turfs -= i
-	INVOKE_ASYNC(SSmapping, /datum/controller/subsystem/mapping/proc/reserve_turfs, v)
+	var/list/reserved_copy = reserved_turfs.Copy()
+	SSmapping.used_turfs -= reserved_turfs
+	reserved_turfs = list()
+	// Makes the linter happy, even tho we don't await this
+	INVOKE_ASYNC(SSmapping, /datum/controller/subsystem/mapping/proc/reserve_turfs, reserved_copy)
 
 /datum/turf_reservation/proc/IsInBounds(atom/atom_check)
 	var/low_x = bottom_left_coords[1]
