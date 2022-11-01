@@ -309,8 +309,8 @@
 	reqs = list(/obj/item/robot_suit = 1,
 				/obj/item/clothing/head/helmet = 1,
 				/obj/item/clothing/suit/armor/vest = 1,
-				/obj/item/bodypart/l_leg/robot = 1,
-				/obj/item/bodypart/r_leg/robot = 1,
+				/obj/item/bodypart/leg/left/robot = 1,
+				/obj/item/bodypart/leg/right/robot = 1,
 				/obj/item/stack/sheet/iron = 1,
 				/obj/item/stack/cable_coil = 1,
 				/obj/item/gun/energy/disabler = 1,
@@ -326,7 +326,7 @@
 				/obj/item/clothing/head/helmet/sec = 1,
 				/obj/item/melee/baton/security/ = 1,
 				/obj/item/assembly/prox_sensor = 1,
-				/obj/item/bodypart/r_arm/robot = 1)
+				/obj/item/bodypart/arm/right/robot = 1)
 	tool_behaviors = list(TOOL_WELDER)
 	time = 6 SECONDS
 	category = CAT_ROBOT
@@ -336,7 +336,8 @@
 	result = /mob/living/simple_animal/bot/cleanbot
 	reqs = list(/obj/item/reagent_containers/cup/bucket = 1,
 				/obj/item/assembly/prox_sensor = 1,
-				/obj/item/bodypart/r_arm/robot = 1)
+				/obj/item/bodypart/arm/right/robot = 1)
+	parts = list(/obj/item/reagent_containers/cup/bucket = 1)
 	time = 4 SECONDS
 	category = CAT_ROBOT
 
@@ -346,7 +347,7 @@
 	reqs = list(/obj/item/storage/toolbox = 1,
 				/obj/item/stack/tile/iron = 10,
 				/obj/item/assembly/prox_sensor = 1,
-				/obj/item/bodypart/r_arm/robot = 1)
+				/obj/item/bodypart/arm/right/robot = 1)
 	time = 4 SECONDS
 	category = CAT_ROBOT
 
@@ -356,7 +357,7 @@
 	reqs = list(/obj/item/healthanalyzer = 1,
 				/obj/item/storage/medkit = 1,
 				/obj/item/assembly/prox_sensor = 1,
-				/obj/item/bodypart/r_arm/robot = 1)
+				/obj/item/bodypart/arm/right/robot = 1)
 	parts = list(
 		/obj/item/storage/medkit = 1,
 		/obj/item/healthanalyzer = 1,
@@ -388,7 +389,7 @@
 	name = "Honkbot"
 	result = /mob/living/simple_animal/bot/secbot/honkbot
 	reqs = list(/obj/item/storage/box/clown = 1,
-				/obj/item/bodypart/r_arm/robot = 1,
+				/obj/item/bodypart/arm/right/robot = 1,
 				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/bikehorn/ = 1)
 	time = 4 SECONDS
@@ -398,7 +399,7 @@
 	name = "Firebot"
 	result = /mob/living/simple_animal/bot/firebot
 	reqs = list(/obj/item/extinguisher = 1,
-				/obj/item/bodypart/r_arm/robot = 1,
+				/obj/item/bodypart/arm/right/robot = 1,
 				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/clothing/head/hardhat/red = 1)
 	time = 4 SECONDS
@@ -428,8 +429,8 @@
 	name = "Vim"
 	result = /obj/vehicle/sealed/car/vim
 	reqs = list(/obj/item/clothing/head/helmet/space/eva = 1,
-				/obj/item/bodypart/l_leg/robot = 1,
-				/obj/item/bodypart/r_leg/robot = 1,
+				/obj/item/bodypart/leg/left/robot = 1,
+				/obj/item/bodypart/leg/right/robot = 1,
 				/obj/item/flashlight = 1,
 				/obj/item/assembly/voice = 1)
 	tool_behaviors = list(TOOL_SCREWDRIVER)
@@ -812,13 +813,13 @@
 
 /datum/crafting_recipe/extendohand_r
 	name = "Extendo-Hand (Right Arm)"
-	reqs = list(/obj/item/bodypart/r_arm/robot = 1, /obj/item/clothing/gloves/boxing = 1)
+	reqs = list(/obj/item/bodypart/arm/right/robot = 1, /obj/item/clothing/gloves/boxing = 1)
 	result = /obj/item/extendohand
 	category = CAT_MISC
 
 /datum/crafting_recipe/extendohand_l
 	name = "Extendo-Hand (Left Arm)"
-	reqs = list(/obj/item/bodypart/l_arm/robot = 1, /obj/item/clothing/gloves/boxing = 1)
+	reqs = list(/obj/item/bodypart/arm/left/robot = 1, /obj/item/clothing/gloves/boxing = 1)
 	result = /obj/item/extendohand
 	category = CAT_MISC
 
