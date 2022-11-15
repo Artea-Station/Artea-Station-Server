@@ -117,7 +117,7 @@
 /obj/item/mod/module/energy_shield/on_suit_activation()
 	mod.AddComponent(/datum/component/shielded, max_charges = max_charges, recharge_start_delay = recharge_start_delay, charge_increment_delay = charge_increment_delay, \
 	charge_recovery = charge_recovery, lose_multiple_charges = lose_multiple_charges, recharge_path = recharge_path, starting_charges = charges, shield_icon_file = shield_icon_file, shield_icon = shield_icon)
-	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, .proc/shield_reaction)
+	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(shield_reaction))
 
 /obj/item/mod/module/energy_shield/on_suit_deactivation(deleting = FALSE)
 	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
@@ -325,8 +325,8 @@
 	playsound(src, 'sound/items/modsuit/loader_launch.ogg', 75, TRUE)
 	var/angle = get_angle(mod.wearer, target) + 180
 	mod.wearer.transform = mod.wearer.transform.Turn(angle)
-	RegisterSignal(mod.wearer, COMSIG_MOVABLE_IMPACT, .proc/on_throw_impact)
-	mod.wearer.throw_at(target, range = 7, speed = 2, thrower = mod.wearer, spin = FALSE, gentle = TRUE, callback = CALLBACK(src, .proc/on_throw_end, mod.wearer, -angle))
+	RegisterSignal(mod.wearer, COMSIG_MOVABLE_IMPACT, PROC_REF(on_throw_impact))
+	mod.wearer.throw_at(target, range = 7, speed = 2, thrower = mod.wearer, spin = FALSE, gentle = TRUE, callback = CALLBACK(src, PROC_REF(on_throw_end), mod.wearer, -angle))
 
 /obj/item/mod/module/power_kick/proc/on_throw_end(mob/user, angle)
 	if(!user)
@@ -407,7 +407,7 @@
 	mod.worn_icon_state = initial(current_disguise.worn_icon_state)
 	mod.inhand_icon_state = initial(current_disguise.inhand_icon_state)
 	mod.wearer.update_clothing(mod.slot_flags)
-	RegisterSignal(mod, COMSIG_MOD_ACTIVATE, .proc/return_look)
+	RegisterSignal(mod, COMSIG_MOD_ACTIVATE, PROC_REF(return_look))
 
 /obj/item/mod/module/chameleon/proc/return_look()
 	mod.name = "[mod.theme.name] [initial(mod.name)]"

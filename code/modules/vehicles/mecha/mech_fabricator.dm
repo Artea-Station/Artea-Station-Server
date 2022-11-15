@@ -85,7 +85,7 @@
 
 	// We're probably going to get more than one update (design) at a time, so batch
 	// them together.
-	addtimer(CALLBACK(src, .proc/update_menu_tech), 0.25 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, PROC_REF(update_menu_tech)), 0.25 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 /obj/machinery/mecha_part_fabricator/RefreshParts()
 	. = ..()

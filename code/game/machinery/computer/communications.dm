@@ -338,7 +338,7 @@
 				)
 			)
 
-			send_cross_comms_message_timer = addtimer(CALLBACK(src, .proc/send_cross_comms_message, usr, destination, message), CROSS_SECTOR_CANCEL_TIME, TIMER_STOPPABLE)
+			send_cross_comms_message_timer = addtimer(CALLBACK(src, PROC_REF(send_cross_comms_message), usr, destination, message), CROSS_SECTOR_CANCEL_TIME, TIMER_STOPPABLE)
 
 			COOLDOWN_START(src, important_action_cooldown, IMPORTANT_ACTION_COOLDOWN)
 		if ("setState")
@@ -780,7 +780,7 @@
 		return FALSE
 
 	AI_notify_hack()
-	if(!do_after(hacker, duration, src, extra_checks = CALLBACK(src, .proc/can_hack)))
+	if(!do_after(hacker, duration, src, extra_checks = CALLBACK(src, PROC_REF(can_hack))))
 		return FALSE
 
 	hack_console(hacker)
