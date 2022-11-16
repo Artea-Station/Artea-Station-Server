@@ -132,9 +132,10 @@
 
 //Secret vending machine skin. Don't touch plz
 /obj/machinery/vending/dorms/proc/populate_vend_designs()
-    vend_designs = list(
-        "pink" = image (icon = src.icon, icon_state = "lustwish_pink"),
-        "teal" = image(icon = src.icon, icon_state = "lustwish_teal"))
+	vend_designs = list(
+		"pink" = image (icon = src.icon, icon_state = "lustwish_pink"),
+		"teal" = image(icon = src.icon, icon_state = "lustwish_teal"),
+	)
 
 //Changing special secret var
 /obj/machinery/vending/dorms/attackby(obj/item/used_item, mob/living/user, params)

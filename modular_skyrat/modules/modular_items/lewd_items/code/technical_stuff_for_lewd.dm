@@ -187,10 +187,10 @@
 	return (!(wear_suit) || !(wear_suit.body_parts_covered & GROIN)) && (!(shoes) || !(shoes.body_parts_covered & FEET))
 
 /mob/living/carbon/human/proc/is_hands_uncovered()
-    return (gloves?.body_parts_covered & ARMS)
+	return (gloves?.body_parts_covered & ARMS)
 
 /mob/living/carbon/human/proc/is_head_uncovered()
-    return (head?.body_parts_covered & HEAD)
+	return (head?.body_parts_covered & HEAD)
 
 /mob/living/carbon/human/proc/has_penis(required_state = REQUIRE_ANY)
 	if(issilicon(src) && has_penis)

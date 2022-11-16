@@ -44,8 +44,8 @@
 		/obj/item/storage/backpack/blueshield = 1,
 		/obj/item/storage/backpack/satchel/blueshield = 1,
 		/obj/item/storage/backpack/duffelbag/blueshield = 1,
-		/obj/item/clothing/shoes/laceup = 1
-		)
+		/obj/item/clothing/shoes/laceup = 1,
+	)
 	access_lists["[ACCESS_HOP]"] = list( // Best head btw
 		/obj/item/clothing/head/hopcap = 1,
 		/obj/item/clothing/head/hopcap/beret = 1,
@@ -63,8 +63,8 @@
 		/obj/item/storage/backpack/head_of_personnel = 1,
 		/obj/item/storage/backpack/satchel/head_of_personnel = 1,
 		/obj/item/storage/backpack/duffelbag/head_of_personnel = 1,
-		/obj/item/clothing/shoes/sneakers/brown = 1
-		)
+		/obj/item/clothing/shoes/sneakers/brown = 1,
+	)
 	access_lists["[ACCESS_CMO]"] = list(
 		/obj/item/clothing/head/beret/medical/cmo = 1,
 		/obj/item/clothing/head/beret/medical/cmo/alt = 1,
@@ -74,8 +74,8 @@
 		/obj/item/clothing/under/rank/medical/chief_medical_officer/turtleneck = 1,
 		/obj/item/clothing/under/rank/medical/chief_medical_officer/skyrat/imperial = 1,
 		/obj/item/clothing/neck/mantle/cmomantle = 1,
-		/obj/item/clothing/shoes/sneakers/brown = 1
-		)
+		/obj/item/clothing/shoes/sneakers/brown = 1,
+	)
 	access_lists["[ACCESS_RD]"] = list(
 		/obj/item/clothing/head/beret/science/fancy/rd = 1,
 		/obj/item/clothing/head/beret/science/fancy/rd/alt = 1,
@@ -90,8 +90,8 @@
 		/obj/item/clothing/under/rank/rnd/research_director/skyrat/imperial = 1,
 		/obj/item/clothing/neck/mantle/rdmantle = 1,
 		/obj/item/clothing/suit/toggle/labcoat = 1,
-		/obj/item/clothing/shoes/sneakers/brown = 1
-		)
+		/obj/item/clothing/shoes/sneakers/brown = 1,
+	)
 	access_lists["[ACCESS_CE]"] = list(
 		/obj/item/clothing/head/beret/engi/ce = 1,
 		/obj/item/clothing/head/beret/engi/ce/alt = 1,
@@ -100,8 +100,8 @@
 		/obj/item/clothing/under/rank/engineering/chief_engineer/skirt = 1,
 		/obj/item/clothing/under/rank/engineering/chief_engineer/skyrat/imperial = 1,
 		/obj/item/clothing/neck/mantle/cemantle = 1,
-		/obj/item/clothing/shoes/sneakers/brown = 1
-		)
+		/obj/item/clothing/shoes/sneakers/brown = 1,
+	)
 	access_lists["[ACCESS_HOS]"] = list(
 		/obj/item/clothing/head/hos = 1,
 		/obj/item/clothing/head/hos/beret/navyhos = 1,
@@ -116,8 +116,8 @@
 		/obj/item/clothing/under/rank/security/head_of_security/parade = 1,
 		/obj/item/clothing/suit/armor/hos/hos_formal = 1,
 		/obj/item/clothing/neck/mantle/hosmantle = 1,
-		/obj/item/clothing/shoes/sneakers/brown = 1
-		)
+		/obj/item/clothing/shoes/sneakers/brown = 1,
+	)
 	access_lists["[ACCESS_QM]"] = list(
 		/obj/item/clothing/head/beret/cargo/qm = 1,
 		/obj/item/clothing/head/beret/cargo/qm/alt = 1,
@@ -130,10 +130,10 @@
 		/obj/item/clothing/suit/brownfurrich = 1,
 		/obj/item/clothing/under/rank/cargo/qm/skyrat/casual = 1,
 		/obj/item/clothing/suit/toggle/jacket/supply/head = 1,
-        /obj/item/clothing/under/rank/cargo/qm/skyrat/formal = 1,
+		/obj/item/clothing/under/rank/cargo/qm/skyrat/formal = 1,
 		/obj/item/clothing/under/rank/cargo/qm/skyrat/formal/skirt = 1,
-		/obj/item/clothing/shoes/sneakers/brown = 1
-		)
+		/obj/item/clothing/shoes/sneakers/brown = 1,
+	)
 
 	access_lists["[ACCESS_CENT_GENERAL]"] = list( // CC Rep Shiz
 		/obj/item/clothing/head/nanotrasen_consultant = 1,
@@ -143,7 +143,7 @@
 		/obj/item/clothing/under/rank/nanotrasen_consultant/skirt = 1,
 		/obj/item/clothing/head/centhat = 1,
 		/obj/item/clothing/head/centcom_cap = 1,
-		/obj/item/clothing/suit/armor/centcom_formal/nt_consultant = 1
+		/obj/item/clothing/suit/armor/centcom_formal/nt_consultant = 1,
 		)
 
 	access_lists["[ACCESS_COMMAND]"] = list(
@@ -155,5 +155,6 @@
 		/obj/item/clothing/under/rank/captain/skyrat/imperial/generic = 5,
 		/obj/item/clothing/under/rank/captain/skyrat/imperial/generic/grey = 5,
 		/obj/item/clothing/under/rank/captain/skyrat/imperial/generic/pants = 5,
-		/obj/item/clothing/under/rank/captain/skyrat/imperial/generic/red = 5
-		)
+		/obj/item/clothing/under/rank/captain/skyrat/imperial/generic/red = 5,
+	)
+
