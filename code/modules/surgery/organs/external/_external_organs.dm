@@ -289,7 +289,7 @@
 	burnt = TRUE
 
 ///heal our antennae back up!!
-/obj/item/organ/external/antennae/proc/heal_antennae()
+/obj/item/organ/external/antennae/proc/heal_antennae(datum/source, heal_flags)
 	SIGNAL_HANDLER
 
 	if(!burnt)
