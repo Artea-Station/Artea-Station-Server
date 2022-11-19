@@ -222,3 +222,6 @@
 
 	COOLDOWN_DECLARE(smell_time)
 	var/last_smell_intensity = 0
+	// Multiple imaginary friends!
+	/// Contains the owner and all imaginary friend mobs if they exist, otherwise null
+	var/list/imaginary_group = null
