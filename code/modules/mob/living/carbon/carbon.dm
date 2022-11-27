@@ -649,7 +649,7 @@
 	if(!client)
 		return
 
-	if(health <= crit_threshold)
+	if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOCRITOVERLAY))
 		var/severity = 0
 		switch(health)
 			if(-20 to -10)

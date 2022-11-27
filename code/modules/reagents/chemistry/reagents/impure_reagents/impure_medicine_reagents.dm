@@ -539,7 +539,6 @@ Basically, we fill the time between now and 2s from now with hands based off the
 /datum/reagent/inverse/penthrite/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	if(!back_from_the_dead)
 		return ..()
-	REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT)
 	//Following is for those brought back from the dead only
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT)
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
