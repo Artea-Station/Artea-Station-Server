@@ -14,7 +14,7 @@
 	slot = ORGAN_SLOT_EXTERNAL_WINGS
 	layers = ALL_EXTERNAL_OVERLAYS
 
-	use_mob_sprite_as_obj_sprite = TRUE
+	use_mob_sprite_as_obj_sprite = BODY_BEHIND_LAYER
 	feature_key = "wings"
 
 /obj/item/organ/external/wings/can_draw_on_bodypart(mob/living/carbon/human/human)
@@ -180,15 +180,8 @@
 
 	///Are we burned?
 	var/burnt = FALSE
-
-///mothra wings, which relate to moths.
-/obj/item/organ/external/wings/functional/moth/mothra
-	name = "mothra wings"
-	desc = "Fly like the mighty mothra of legend once did."
-	stored_feature_id = "Mothra"
-
-	///Store our old sprite here for if our burned wings are healed
-	var/original_sprite = ""
+	///Store our old datum here for if our burned wings are healed
+	var/original_sprite_datum
 
 /obj/item/organ/external/wings/moth/get_global_feature_list()
 	return GLOB.moth_wings_list
@@ -241,8 +234,8 @@
 /obj/item/organ/external/wings/moth/proc/burn_wings()
 	burnt = TRUE
 
-	original_sprite = sprite_datum.name
-	set_sprite("Burnt Off")
+	original_sprite_datum = sprite_datum
+	simple_change_sprite(/datum/sprite_accessory/moth_wings/burnt_off)
 
 ///heal our wings back up!!
 /obj/item/organ/external/wings/moth/proc/heal_wings()
@@ -250,4 +243,4 @@
 
 	if(burnt)
 		burnt = FALSE
-		set_sprite(original_sprite)
+		simple_change_sprite(original_sprite_datum)
