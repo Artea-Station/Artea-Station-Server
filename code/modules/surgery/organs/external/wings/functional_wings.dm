@@ -1,3 +1,10 @@
+///hud action for starting and stopping flight
+/datum/action/innate/flight
+	name = "Toggle Flight"
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_IMMOBILE
+	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	button_icon_state = "flight"
+
 ///Wing base type. doesn't really do anything
 /obj/item/organ/external/wings
 	name = "wings"
@@ -145,37 +152,41 @@
 		var/turf/location = loc
 		location.Entered(src, NONE)
 
-///hud action for starting and stopping flight
-/datum/action/innate/flight
-	name = "Toggle Flight"
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_IMMOBILE
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
-	button_icon_state = "flight"
+///angel wings, which relate to humans. comes with holiness.
+/obj/item/organ/external/wings/functional/angel
+	name = "angel wings"
+	desc = "Holier-than-thou attitude not included."
+	stored_feature_id = "Angel"
 
-/datum/action/innate/flight/Activate()
-	var/mob/living/carbon/human/human = owner
-	var/obj/item/organ/external/wings/functional/wings = human.getorganslot(ORGAN_SLOT_EXTERNAL_WINGS)
-	if(wings && wings.can_fly(human))
-		wings.toggle_flight(human)
-		if(!(human.movement_type & FLYING))
-			to_chat(human, span_notice("You settle gently back onto the ground..."))
-		else
-			to_chat(human, span_notice("You beat your wings and begin to hover gently above the ground..."))
-			human.set_resting(FALSE, TRUE)
+	organ_traits = list(TRAIT_HOLY)
 
-///Moth wings! They can flutter in low-grav and burn off in heat
-/obj/item/organ/external/wings/moth
-	name = "moth wings"
-	desc = "Spread your wings and FLOOOOAAAAAT!"
+///dragon wings, which relate to lizards.
+/obj/item/organ/external/wings/functional/dragon
+	name = "dragon wings"
+	desc = "Hey, HEY- NOT lizard wings. Dragon wings. Mighty dragon wings."
+	stored_feature_id = "Dragon"
 
-	feature_key = "moth_wings"
-	preference = "feature_moth_wings"
-	layers = EXTERNAL_BEHIND | EXTERNAL_FRONT
+///robotic wings, which relate to androids.
+/obj/item/organ/external/wings/functional/robotic
+	name = "robotic wings"
+	desc = "Using microscopic hover-engines, or \"microwings,\" as they're known in the trade, these tiny devices are able to lift a few grams at a time. Gathering enough of them, and you can lift impressively large things."
+	stored_feature_id = "Robotic"
 
-	dna_block = DNA_MOTH_WINGS_BLOCK
+///skeletal wings, which relate to skeletal races.
+/obj/item/organ/external/wings/functional/skeleton
+	name = "skeletal wings"
+	desc = "Powered by pure edgy-teenager-notebook-scribblings. Just kidding. But seriously, how do these keep you flying?!"
+	stored_feature_id = "Skeleton"
 
 	///Are we burned?
 	var/burnt = FALSE
+
+///mothra wings, which relate to moths.
+/obj/item/organ/external/wings/functional/moth/mothra
+	name = "mothra wings"
+	desc = "Fly like the mighty mothra of legend once did."
+	stored_feature_id = "Mothra"
+
 	///Store our old sprite here for if our burned wings are healed
 	var/original_sprite = ""
 
