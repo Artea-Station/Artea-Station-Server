@@ -504,7 +504,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 ///Called by airalarms and firealarms to communicate the status of the area to relevant machines
 /area/proc/communicate_fire_alert(code)
-	for(var/obj/machinery/light/L in src)
+	for(var/obj/machinery/light/L as anything in lights)
 		L.update()
 
 	for(var/datum/listener in airalarms + firealarms + firedoors)
