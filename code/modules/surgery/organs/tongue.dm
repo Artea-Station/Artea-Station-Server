@@ -47,7 +47,7 @@
 	return speech_args[SPEECH_MESSAGE]
 
 /obj/item/organ/internal/tongue/Insert(mob/living/carbon/tongue_owner, special = FALSE, drop_if_replaced = TRUE)
-	..()
+	. = ..()
 	if(say_mod && tongue_owner.dna && tongue_owner.dna.species)
 		tongue_owner.dna.species.say_mod = say_mod
 	if (modifies_speech)
