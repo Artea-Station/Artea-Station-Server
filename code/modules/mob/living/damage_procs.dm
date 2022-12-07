@@ -305,16 +305,13 @@
 	. = (adjustBruteLoss(-brute, FALSE) + adjustFireLoss(-burn, FALSE)) //zero as argument for no instant health update
 	if(updating_health)
 		updatehealth()
-		update_stamina()
 
 /// damage ONE external organ, organ gets randomly selected from damaged ones.
 /mob/living/proc/take_bodypart_damage(brute = 0, burn = 0, updating_health = TRUE, required_bodytype, check_armor = FALSE, wound_bonus = 0, bare_wound_bonus = 0, sharpness = NONE)
 	adjustBruteLoss(brute, FALSE) //zero as argument for no instant health update
 	adjustFireLoss(burn, FALSE)
-	adjustStaminaLoss(stamina, FALSE)
 	if(updating_health)
 		updatehealth()
-		update_stamina()
 
 /// heal MANY bodyparts, in random order
 /mob/living/proc/heal_overall_damage(brute = 0, burn = 0, stamina = 0, required_bodytype, updating_health = TRUE)

@@ -53,4 +53,5 @@
 		staminaloss = max(0, min(max_staminaloss, staminaloss + amount))
 	else
 		staminaloss = max(0, min(max_staminaloss, staminaloss + (amount * damage_coeff[STAMINA])))
-	update_stamina()
+	if(updating_stamina)
+		update_stamina()
