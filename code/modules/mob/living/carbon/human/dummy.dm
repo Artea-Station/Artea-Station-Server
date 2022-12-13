@@ -79,6 +79,25 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	randomize_human(src)
 	dna.initialize_dna(skip_index = TRUE) //Skip stuff that requires full round init.
 
+/mob/living/carbon/human/dummy/log_mob_tag(text)
+	return
+
+/proc/create_consistent_human_dna(mob/living/carbon/human/target)
+	target.dna.initialize_dna(skip_index = TRUE)
+	target.dna.features["body_markings"] = "None"
+	target.dna.features["ears"] = "None"
+	target.dna.features["ethcolor"] = COLOR_WHITE
+	target.dna.features["frills"] = "None"
+	target.dna.features["horns"] = "None"
+	target.dna.features["moth_antennae"] = "Plain"
+	target.dna.features["moth_markings"] = "None"
+	target.dna.features["moth_wings"] = "Plain"
+	target.dna.features["snout"] = "Round"
+	target.dna.features["spines"] = "None"
+	target.dna.features["tail_cat"] = "None"
+	target.dna.features["tail_lizard"] = "Smooth"
+	target.dna.features["pod_hair"] = "Ivy"
+
 /// Provides a dummy that is consistently bald, white, naked, etc.
 /mob/living/carbon/human/dummy/consistent
 
