@@ -5,7 +5,9 @@
 	sexes = 0
 	meat = /obj/item/stack/sheet/mineral/plasma
 	species_traits = list(
+		NOBLOOD,
 		NOTRANSSTING,
+		NOAPPENDIX,
 	)
 	// plasmemes get hard to wound since they only need a severe bone wound to dismember, but unlike skellies, they can't pop their bones back into place
 	inherent_traits = list(
