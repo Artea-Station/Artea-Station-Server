@@ -68,10 +68,12 @@
 #define FACEHAIR 3
 #define EYECOLOR 4
 #define LIPS 5
-#define NOBLOOD 6
 #define NOTRANSSTING 7
 #define NOZOMBIE 8
 #define NO_UNDERWEAR 9
+#define NO_DNA_COPY 10
+#define DRINKSBLOOD 11
+
 #define NOSTOMACH 10
 #define NO_DNA_COPY 11
 #define DRINKSBLOOD 12

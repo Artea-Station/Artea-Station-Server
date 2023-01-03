@@ -214,13 +214,8 @@
 	for(var/datum/reagent/chem as anything in carbon_owner.reagents.reagent_list)
 		chem.on_mob_dead(carbon_owner, delta_time)
 
-#undef HAS_SILENT_TOXIN
-#undef HAS_NO_TOXIN
-#undef HAS_PAINFUL_TOXIN
-#undef LIVER_FAILURE_STAGE_SECONDS
-
-/obj/item/organ/internal/liver/get_availability(datum/species/species)
-	return !(TRAIT_NOMETABOLISM in species.inherent_traits)
+/obj/item/organ/internal/liver/get_availability(datum/species/owner_species, mob/living/owner_mob)
+	return owner_species.mutantliver
 
 /obj/item/organ/internal/liver/plasmaman
 	name = "reagent processing crystal"

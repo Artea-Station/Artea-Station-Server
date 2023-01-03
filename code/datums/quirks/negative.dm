@@ -67,8 +67,11 @@
 	if(quirk_holder.stat == DEAD)
 		return
 
-	var/mob/living/carbon/human/H = quirk_holder
-	if(NOBLOOD in H.dna.species.species_traits) //can't lose blood if your species doesn't have any
+	var/mob/living/carbon/human/carbon_target = quirk_holder
+	if(HAS_TRAIT(carbon_target, TRAIT_NOBLOOD)) //can't lose blood if your species doesn't have any
+		return
+
+	if (carbon_target.blood_volume <= min_blood)
 		return
 
 	if (H.blood_volume > (BLOOD_VOLUME_SAFE - 25)) // just barely survivable without treatment
