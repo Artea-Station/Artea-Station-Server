@@ -56,7 +56,7 @@
  */
 /datum/tgui_say/proc/start_typing()
 	client.mob.remove_thinking_indicator()
-	if(!window_open || !client.typing_indicators || !client.mob.thinking_IC)
+	if(!window_open || !client.typing_indicators || !(client.mob.thinking_IC || client.mob.thinking_LOOC))
 		return FALSE
 	client.mob.create_typing_indicator()
 	addtimer(CALLBACK(src, PROC_REF(stop_typing)), 5 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
@@ -69,15 +69,20 @@
 	if(!client?.mob)
 		return FALSE
 	client.mob.remove_typing_indicator()
-	if(!window_open || !client.typing_indicators || !client.mob.thinking_IC)
+	if(!window_open || !client.typing_indicators || !(client.mob.thinking_IC || client.mob.thinking_LOOC))
 		return FALSE
 	client.mob.create_thinking_indicator()
 
 /// Overrides for overlay creation
 /mob/living/create_thinking_indicator()
-	if(active_thinking_indicator || active_typing_indicator || !thinking_IC || stat != CONSCIOUS )
+	//ORBSTATION EDIT BEGIN: LOOC INDICATORS
+	if(active_thinking_indicator || active_typing_indicator || !(thinking_IC || thinking_LOOC) || (thinking_IC && stat != CONSCIOUS))
 		return FALSE
-	active_thinking_indicator = mutable_appearance('icons/mob/effects/talk.dmi', "[bubble_icon]3", TYPING_LAYER)
+	if(thinking_IC)
+		active_thinking_indicator = mutable_appearance('icons/mob/effects/talk.dmi', "[bubble_icon]3", TYPING_LAYER)
+	else
+		active_thinking_indicator = mutable_appearance('orbstation/icons/effects/looc.dmi', "loocthinking", TYPING_LAYER)
+	//ORBSTATION EDIT ENDS
 	add_overlay(active_thinking_indicator)
 
 /mob/living/remove_thinking_indicator()
@@ -87,9 +92,14 @@
 	active_thinking_indicator = null
 
 /mob/living/create_typing_indicator()
-	if(active_typing_indicator || active_thinking_indicator || !thinking_IC || stat != CONSCIOUS)
+	//ORBSTATION EDIT BEGIN: LOOC INDICATORS
+	if(active_typing_indicator || active_thinking_indicator || !(thinking_IC || thinking_LOOC) || (thinking_IC && stat != CONSCIOUS))
 		return FALSE
-	active_typing_indicator = mutable_appearance('icons/mob/effects/talk.dmi', "[bubble_icon]0", TYPING_LAYER)
+	if(thinking_IC)
+		active_typing_indicator = mutable_appearance('icons/mob/effects/talk.dmi', "[bubble_icon]0", TYPING_LAYER)
+	else
+		active_typing_indicator = mutable_appearance('orbstation/icons/effects/looc.dmi', "looctyping", TYPING_LAYER)
+	//ORBSTATION EDIT ENDS
 	add_overlay(active_typing_indicator)
 
 /mob/living/remove_typing_indicator()
@@ -100,6 +110,7 @@
 
 /mob/living/remove_all_indicators()
 	thinking_IC = FALSE
+	thinking_LOOC = FALSE //ORBSTATION
 	remove_thinking_indicator()
 	remove_typing_indicator()
 
