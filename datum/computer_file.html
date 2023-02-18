@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;datum&#x2F;computer_file - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="datum/computer_file.html#proc">Proc Details</a></header>
+<main>
+<h1>computer_file <aside>/<a href="datum.html">datum</a>/<a href="datum/computer_file.html">computer_file</a></aside>
+        
+    
+            <a href="https://github.com/Nosha-Industries/Nosha-Industries-Server/blob/cf288ff7c8ba85b8290cf24902f3d841581389c9/code/modules/modular_computers/file_system/computer_file.dm#L1">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;modular_computers&#x2F;file_system&#x2F;computer_file.dm 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="datum/computer_file.html#proc/on_examine">on_examine</a></th><td>Called when examining a modular computer
+Args:
+Source - The tablet that's being examined
+User - Person examining the computer</td></tr>
+            <tr><th><a href="datum/computer_file.html#proc/try_eject">try_eject</a></th><td>Implement this when your program has an object that the user can eject.</td></tr>
+            <tr><th><a href="datum/computer_file.html#proc/try_insert">try_insert</a></th><td>Called when someone tries to insert something one of your applications needs, like an Intellicard for AI restoration. Return TRUE to cancel attackby chain.</td></tr></table><h2 id="proc">Proc Details</h2><h3 id="proc/on_examine"><aside class="declaration">proc </aside>on_examine<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/modular_computer.html">modular_computer</a>/source, /<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/Nosha-Industries/Nosha-Industries-Server/blob/cf288ff7c8ba85b8290cf24902f3d841581389c9/code/modules/modular_computers/file_system/computer_file.dm#L49">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;modular_computers&#x2F;file_system&#x2F;computer_file.dm 49"/></a></aside>
+        </h3>
+        <p>Called when examining a modular computer
+Args:
+Source - The tablet that's being examined
+User - Person examining the computer</p>
+<p>note: please replace this with signals when hdd's are removed and program's New() already has the tablet set.</p><h3 id="proc/try_eject"><aside class="declaration">proc </aside>try_eject<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/user, forced) 
+        
+    
+            <a href="https://github.com/Nosha-Industries/Nosha-Industries-Server/blob/cf288ff7c8ba85b8290cf24902f3d841581389c9/code/modules/modular_computers/file_system/computer_file.dm#L64">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;modular_computers&#x2F;file_system&#x2F;computer_file.dm 64"/></a></aside>
+        </h3>
+        <p>Implement this when your program has an object that the user can eject.</p>
+<p>Examples include ejecting cells AI intellicards.
+Arguments:</p>
+<ul>
+<li>user - The mob requesting the eject.</li>
+<li>forced - Whether we are forced to eject everything (usually by the app being deleted)</li>
+</ul><h3 id="proc/try_insert"><aside class="declaration">proc </aside>try_insert<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/attacking_item, /<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/user) 
+        
+    
+            <a href="https://github.com/Nosha-Industries/Nosha-Industries-Server/blob/cf288ff7c8ba85b8290cf24902f3d841581389c9/code/modules/modular_computers/file_system/computer_file.dm#L53">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;modular_computers&#x2F;file_system&#x2F;computer_file.dm 53"/></a></aside>
+        </h3>
+        <p>Called when someone tries to insert something one of your applications needs, like an Intellicard for AI restoration. Return TRUE to cancel attackby chain.</p></main>
+<footer>
+    tgstation.dme
+    <a href="https://github.com/Nosha-Industries/Nosha-Industries-Server/tree/cf288ff7c8ba85b8290cf24902f3d841581389c9">cf288ff</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

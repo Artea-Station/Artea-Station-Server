@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;datum&#x2F;hud - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="datum/hud.html#var">Var Details</a> - <a href="datum/hud.html#proc">Proc Details</a></header>
+<main>
+<h1>hud <aside>/<a href="datum.html">datum</a>/<a href="datum/hud.html">hud</a></aside>
+        
+    
+            <a href="https://github.com/Nosha-Industries/Nosha-Industries-Server/blob/cf288ff7c8ba85b8290cf24902f3d841581389c9/code/_onclick/hud/hud.dm#L42">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;hud.dm 42"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="datum/hud.html#var/ERP_inventory_shown">ERP_inventory_shown</a></th><td>Equipped item ERP inventory</td></tr>
+            <tr><th><a href="datum/hud.html#var/erp_toggleable_inventory">erp_toggleable_inventory</a></th><td>The screen ERP objects which can be hidden</td></tr>
+            <tr><th><a href="datum/hud.html#var/plane_master_controllers">plane_master_controllers</a></th><td>Assoc list of controller groups, associated with key string group name with value of the plane master controller ref</td></tr>
+            <tr><th><a href="datum/hud.html#var/screentip_color">screentip_color</a></th><td>The color to use for the screentips.
+This is updated by the preference for cheaper reads than would be
+had with a proc call, especially on one of the hottest procs in the
+game (MouseEntered).</td></tr>
+            <tr><th><a href="datum/hud.html#var/screentip_text">screentip_text</a></th><td>UI for screentips that appear when you mouse over things</td></tr>
+            <tr><th><a href="datum/hud.html#var/screentips_enabled">screentips_enabled</a></th><td>Whether or not screentips are enabled.
+This is updated by the preference for cheaper reads than would be
+had with a proc call, especially on one of the hottest procs in the
+game (MouseEntered).</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="datum/hud.html#proc/build_action_groups">build_action_groups</a></th><td>Generates and fills new action groups with our mob's current actions</td></tr>
+            <tr><th><a href="datum/hud.html#proc/generate_landings">generate_landings</a></th><td>Generates visual landings for all groups that the button is not a memeber of</td></tr>
+            <tr><th><a href="datum/hud.html#proc/hide_action">hide_action</a></th><td>Removes the passed in action from its current position on the screen</td></tr>
+            <tr><th><a href="datum/hud.html#proc/hide_landings">hide_landings</a></th><td>Clears all currently visible landings</td></tr>
+            <tr><th><a href="datum/hud.html#proc/view_audit_buttons">view_audit_buttons</a></th><td>Ensures all of our buttons are properly within the bounds of our client's view, moves them if they're not</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/ERP_inventory_shown"><aside class="declaration">var </aside>ERP_inventory_shown
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Nosha-Industries/Nosha-Industries-Server/blob/cf288ff7c8ba85b8290cf24902f3d841581389c9/modular_skyrat/modules/modular_items/lewd_items/code/technical_stuff_for_lewd.dm#L857">
+        <img src="git.png" width="16" height="16" title="modular_skyrat&#x2F;modules&#x2F;modular_items&#x2F;lewd_items&#x2F;code&#x2F;technical_stuff_for_lewd.dm 857"/></a></h3>
+        <p>Equipped item ERP inventory</p><h3 id="var/erp_toggleable_inventory"><aside class="declaration">var </aside>erp_toggleable_inventory
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Nosha-Industries/Nosha-Industries-Server/blob/cf288ff7c8ba85b8290cf24902f3d841581389c9/modular_skyrat/modules/modular_items/lewd_items/code/technical_stuff_for_lewd.dm#L855">
+        <img src="git.png" width="16" height="16" title="modular_skyrat&#x2F;modules&#x2F;modular_items&#x2F;lewd_items&#x2F;code&#x2F;technical_stuff_for_lewd.dm 855"/></a></h3>
+        <p>The screen ERP objects which can be hidden</p><h3 id="var/plane_master_controllers"><aside class="declaration">var </aside>plane_master_controllers
+            <aside>&ndash; /list/atom/movable/plane_master_controller</aside>
+        
+    
+            <a href="https://github.com/Nosha-Industries/Nosha-Industries-Server/blob/cf288ff7c8ba85b8290cf24902f3d841581389c9/code/_onclick/hud/hud.dm#L75">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;hud.dm 75"/></a></h3>
+        <p>Assoc list of controller groups, associated with key string group name with value of the plane master controller ref</p><h3 id="var/screentip_color"><aside class="declaration">var </aside>screentip_color
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Nosha-Industries/Nosha-Industries-Server/blob/cf288ff7c8ba85b8290cf24902f3d841581389c9/code/_onclick/hud/hud.dm#L91">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;hud.dm 91"/></a></h3>
+        <p>The color to use for the screentips.
+This is updated by the preference for cheaper reads than would be
+had with a proc call, especially on one of the hottest procs in the
+game (MouseEntered).</p><h3 id="var/screentip_text"><aside class="declaration">var </aside>screentip_text
+            <aside>&ndash; /<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/<a href="atom/movable/screen.html">screen</a>/screentip</aside>
+        
+    
+            <a href="https://github.com/Nosha-Industries/Nosha-Industries-Server/blob/cf288ff7c8ba85b8290cf24902f3d841581389c9/code/_onclick/hud/hud.dm#L79">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;hud.dm 79"/></a></h3>
+        <p>UI for screentips that appear when you mouse over things</p><h3 id="var/screentips_enabled"><aside class="declaration">var </aside>screentips_enabled
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Nosha-Industries/Nosha-Industries-Server/blob/cf288ff7c8ba85b8290cf24902f3d841581389c9/code/_onclick/hud/hud.dm#L85">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;hud.dm 85"/></a></h3>
+        <p>Whether or not screentips are enabled.
+This is updated by the preference for cheaper reads than would be
+had with a proc call, especially on one of the hottest procs in the
+game (MouseEntered).</p><h2 id="proc">Proc Details</h2><h3 id="proc/build_action_groups"><aside class="declaration">proc </aside>build_action_groups<aside>() 
+        
+    
+            <a href="https://github.com/Nosha-Industries/Nosha-Industries-Server/blob/cf288ff7c8ba85b8290cf24902f3d841581389c9/code/_onclick/hud/hud.dm#L491">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;hud.dm 491"/></a></aside>
+        </h3>
+        <p>Generates and fills new action groups with our mob's current actions</p><h3 id="proc/generate_landings"><aside class="declaration">proc </aside>generate_landings<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/<a href="atom/movable/screen.html">screen</a>/<a href="atom/movable/screen/movable.html">movable</a>/<a href="atom/movable/screen/movable/action_button.html">action_button</a>/button) 
+        
+    
+            <a href="https://github.com/Nosha-Industries/Nosha-Industries-Server/blob/cf288ff7c8ba85b8290cf24902f3d841581389c9/code/_onclick/hud/hud.dm#L461">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;hud.dm 461"/></a></aside>
+        </h3>
+        <p>Generates visual landings for all groups that the button is not a memeber of</p><h3 id="proc/hide_action"><aside class="declaration">proc </aside>hide_action<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/<a href="atom/movable/screen.html">screen</a>/<a href="atom/movable/screen/movable.html">movable</a>/<a href="atom/movable/screen/movable/action_button.html">action_button</a>/button) 
+        
+    
+            <a href="https://github.com/Nosha-Industries/Nosha-Industries-Server/blob/cf288ff7c8ba85b8290cf24902f3d841581389c9/code/_onclick/hud/hud.dm#L448">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;hud.dm 448"/></a></aside>
+        </h3>
+        <p>Removes the passed in action from its current position on the screen</p><h3 id="proc/hide_landings"><aside class="declaration">proc </aside>hide_landings<aside>() 
+        
+    
+            <a href="https://github.com/Nosha-Industries/Nosha-Industries-Server/blob/cf288ff7c8ba85b8290cf24902f3d841581389c9/code/_onclick/hud/hud.dm#L466">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;hud.dm 466"/></a></aside>
+        </h3>
+        <p>Clears all currently visible landings</p><h3 id="proc/view_audit_buttons"><aside class="declaration">proc </aside>view_audit_buttons<aside>() 
+        
+    
+            <a href="https://github.com/Nosha-Industries/Nosha-Industries-Server/blob/cf288ff7c8ba85b8290cf24902f3d841581389c9/code/_onclick/hud/hud.dm#L479">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;hud.dm 479"/></a></aside>
+        </h3>
+        <p>Ensures all of our buttons are properly within the bounds of our client's view, moves them if they're not</p></main>
+<footer>
+    tgstation.dme
+    <a href="https://github.com/Nosha-Industries/Nosha-Industries-Server/tree/cf288ff7c8ba85b8290cf24902f3d841581389c9">cf288ff</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>
