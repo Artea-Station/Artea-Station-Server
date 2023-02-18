@@ -4,13 +4,24 @@
 <!-- You can view Contributing.MD for a detailed description of the pull request process. -->
 <!-- Describe The Pull Request. Please be sure every change is documented or this can delay review and even discourage maintainers from merging your PR! -->
 
-## How Does This Help **Gameplay**?
+## How Does This Help ***Gameplay***?
 
 <!-- Optional, remove the above header if unused. Describe why you made these changes from a mechanical perspective. Failure to include important reasoning, no matter how petty, may end in your PR being held under tighter scrutiny. -->
 
-## How Does This Help **Roleplay**?
+## How Does This Help ***Roleplay***?
 
 <!-- Please add a short description of why you think these changes would benefit the game and the roleplay atmosphere of the server. If you can't justify it in words, it might not be worth adding. -->
+
+## Proof of Testing
+
+<!-- Include any screenshots/videos/debugging steps of the code functioning successfully, between the </summary> and </details> code blocks. -->
+<!-- To our mappers and spriters: Posting screenshots of content INSIDE EDITORS (aseprite, PDN, SDMM, ect) is NOT valid proof of testing. Please make sure that you COMPILE the game and provide PROOF you tested your edits. -->
+<!-- New content PRs will not be merged without screencaps of what every added thing looks like in game. -->
+
+<details>
+<summary>Screenshots/Videos</summary> <!-- Leave the line after this one empty. Embeds like breaking if you don't -->
+
+</details>
 
 ## Changelog
 
