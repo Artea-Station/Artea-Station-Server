@@ -1,18 +1,5 @@
 // MODULAR SECURITY WEAR (NOT OVERRIDES, LOOK IN 'modular_skyrat\modules\goofsec\code\sec_clothing_overrides.dm')
 
-// DETECTIVE
-/obj/item/clothing/under/rank/security/detective/cowboy
-	name = "blonde cowboy uniform"
-	desc = "A blue shirt and dark jeans, with a pair of spurred cowboy boots to boot."
-	icon = 'modular_skyrat/master_files/icons/donator/obj/clothing/uniform.dmi'	//Donator item-ish? See the /armorless one below it
-	worn_icon = 'modular_skyrat/master_files/icons/donator/mob/clothing/uniform.dmi'
-	icon_state = "cowboy_uniform"
-	supports_variations_flags = NONE
-	can_adjust = FALSE
-
-/obj/item/clothing/under/rank/security/detective/cowboy/armorless //Donator variant, just uses the sprite.
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
-
 /obj/item/clothing/suit/cowboyvest
 	name = "blonde cowboy vest"
 	desc = "A white cream vest lined with... fur, of all things, for desert weather. There's a small deer head logo sewn into the vest."

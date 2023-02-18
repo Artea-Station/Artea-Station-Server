@@ -312,7 +312,7 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 /datum/outfit/request_911/police
 	name = "911 Response: Marshal"
 	back = /obj/item/storage/backpack/duffelbag/cops
-	uniform = /obj/item/clothing/under/rank/security/detective/cowboy
+	uniform = /obj/item/clothing/under/rank/security/detective
 	shoes = /obj/item/clothing/shoes/cowboy
 	glasses = /obj/item/clothing/glasses/sunglasses
 	ears = /obj/item/radio/headset/headset_sec/alt
