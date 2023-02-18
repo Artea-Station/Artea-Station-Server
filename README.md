@@ -1,4 +1,6 @@
-## Nosha Industries Terminal 13 (/tg/station and Skyrat Downstream)
+## Nosha Industries Terminal 13 (Skyrat Fork)
+
+**Please note that this repository contains sexually explicit content and is not suitable for those under the age of 18.**
 
 [![CI Suite](https://github.com/Nosha-Industries/Nosha-Industries-Server/actions/workflows/ci_suite.yml/badge.svg)](https://github.com/Nosha-Industries/Nosha-Industries-Server/actions/workflows/ci_suite.yml)
 [![Percentage of issues still open](https://isitmaintained.com/badge/open/Nosha-Industries/Nosha-Industries-Server.svg)](https://isitmaintained.com/project/Nosha-Industries/Nosha-Industries-Server "Percentage of issues still open")
@@ -8,22 +10,27 @@
 [![resentment](https://forthebadge.com/images/badges/built-with-resentment.svg)](https://www.monkeyuser.com/assets/images/2019/131-bug-free.png) [![resentment](https://forthebadge.com/images/badges/contains-technical-debt.svg)](https://user-images.githubusercontent.com/8171642/50290880-ffef5500-043a-11e9-8270-a2e5b697c86c.png) [![forinfinityandbyond](https://user-images.githubusercontent.com/5211576/29499758-4efff304-85e6-11e7-8267-62919c3688a9.gif)](https://www.reddit.com/r/SS13/comments/5oplxp/what_is_the_main_problem_with_byond_as_an_engine/dclbu1a)
 
 * **Git / GitHub cheatsheet:** https://www.notion.so/Git-GitHub-61bc81766b2e4c7d9a346db3078ce833
-* **Website:** https://www.tgstation13.org
-* **Code:** https://github.com/tgstation/tgstation
+* **Website:** N/A
+* **Code:** https://github.com/Nosha-Industries/Nosha-Industries-Server
 * **Wiki:** https://tgstation13.org/wiki/Main_Page
-* **Codedocs:** https://skyrat-ss13.github.io/Skyrat-tg/
-* **Skyrat 13 Discord:** https://discord.com/invite/hGpZ4Z3
+* **Codedocs:** N/A
 * **Coderbus Discord:** https://discord.gg/Vh8TJp9
 
 This is Nosha Industry's downstream fork of Skyrat created in byond.
 
-**Please note that this repository contains sexually explicit content and is not suitable for those under the age of 18.**
+Closed community for now until the requisite systems for moderation are put in place.
 
 Space Station 13 is a paranoia-laden round-based roleplaying game set against the backdrop of a nonsensical, metal death trap masquerading as a space station, with charming spritework designed to represent the sci-fi setting and its dangerous undertones. Have fun, and survive!
 
-## Important note - TEST YOUR PULL REQUESTS
+**Note**: Nosha Industries is less focused on the metal deathtrap part, and is more geared towards HRP with a mostly relaxed environment, unless a player makes the environment less safe, or the round rolls a high chaos value, and players approve it.
 
-You are responsible for the testing of your content. You should not mark a pull request ready for review until you have actually tested it. If you require a separate client for testing, you can use a guest account by logging out of BYOND and connecting to your test server. Test merges are not for bug finding, they are for stress tests where local testing simply doesn't allow for this.
+## Important Note - TEST YOUR PULL REQUESTS
+
+You are responsible for the testing of your content. You should not mark a pull request ready for review until you have actually tested it. If there are easy to find errors or warnings in the console, your PR will be unreadied.
+
+Mappers: Make sure to spawn your map in and ensure it has no warnings about duplicate APCs, wirenets, or atmos pipe networks. Remember, many machines have builtin atmos/plumping pipes!
+
+Coders: Just make sure your stuff works as intended, and doesn't drop runtimes.
 
 ## DOWNLOADING
 [Downloading](.github/guides/DOWNLOADING.md)
