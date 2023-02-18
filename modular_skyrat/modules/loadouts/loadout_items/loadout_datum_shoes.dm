@@ -24,11 +24,6 @@ GLOBAL_LIST_INIT(loadout_shoes, generate_loadout_items(/datum/loadout_item/shoes
 	name = "Jackboots"
 	item_path = /obj/item/clothing/shoes/jackboots
 
-// Thedragmeme's donator reward, they've decided to make them available to everybody.
-/datum/loadout_item/shoes/jackboots/heel
-	name = "High-Heel Jackboots"
-	item_path = /obj/item/clothing/shoes/jackboots/heel
-
 /datum/loadout_item/shoes/kneeboot
 	name = "Knee Boots"
 	item_path = /obj/item/clothing/shoes/jackboots/knee
