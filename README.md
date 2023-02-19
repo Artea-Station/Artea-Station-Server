@@ -11,6 +11,7 @@
 
 * **Git / GitHub cheatsheet:** https://www.notion.so/Git-GitHub-61bc81766b2e4c7d9a346db3078ce833
 * **Website:** N/A
+* **Discord:** https://discord.gg/BrwHEt8Hdc
 * **Code:** https://github.com/Nosha-Industries/Nosha-Industries-Server
 * **Wiki:** https://tgstation13.org/wiki/Main_Page
 * **Codedocs:** N/A
