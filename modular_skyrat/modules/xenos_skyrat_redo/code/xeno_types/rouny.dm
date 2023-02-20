@@ -52,9 +52,9 @@
 	owner.balloon_alert(owner, "evasive movements began")
 	playsound(owner, 'modular_skyrat/modules/xenos_skyrat_redo/sound/alien_hiss.ogg', 100, TRUE, 8, 0.9)
 	to_chat(owner, span_danger("We take evasive action, making us impossible to hit with projectiles for the next [evasion_duration/10] seconds."))
-	addtimer(CALLBACK(src, .proc/evasion_deactivate), evasion_duration)
+	addtimer(CALLBACK(src, PROC_REF(evasion_deactivate)), evasion_duration)
 	evade_active = TRUE
-	RegisterSignal(owner, COMSIG_PROJECTILE_ON_HIT, .proc/on_projectile_hit)
+	RegisterSignal(owner, COMSIG_PROJECTILE_ON_HIT, PROC_REF(on_projectile_hit))
 	return TRUE
 
 /// Handles deactivation of the xeno evasion ability, mainly unregistering the signal and giving a balloon alert
@@ -71,7 +71,7 @@
 	owner.visible_message(span_danger("[owner] effortlessly dodges the projectile!"), span_userdanger("You dodge the projectile!"))
 	playsound(get_turf(owner), pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
 	owner.add_filter(RUNNER_BLUR_EFFECT, 2, gauss_blur_filter(5))
-	addtimer(CALLBACK(owner, /atom.proc/remove_filter, RUNNER_BLUR_EFFECT), 0.5 SECONDS)
+	addtimer(CALLBACK(owner, TYPE_PROC_REF(/atom, remove_filter), RUNNER_BLUR_EFFECT), 0.5 SECONDS)
 	return BULLET_ACT_FORCE_PIERCE
 
 /mob/living/carbon/alien/humanoid/skyrat/runner/bullet_act(obj/projectile/P, def_zone, piercing_hit = FALSE)

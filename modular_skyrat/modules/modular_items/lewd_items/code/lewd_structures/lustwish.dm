@@ -157,7 +157,7 @@
 	if(.)
 		return
 	if(card_used == TRUE)
-		var/choice = show_radial_menu(user, src, vend_designs, custom_check = CALLBACK(src, .proc/check_menu, user, used_item), radius = 50, require_near = TRUE)
+		var/choice = show_radial_menu(user, src, vend_designs, custom_check = CALLBACK(src, PROC_REF(check_menu), user, used_item), radius = 50, require_near = TRUE)
 		if(!choice)
 			return FALSE
 		current_color = choice

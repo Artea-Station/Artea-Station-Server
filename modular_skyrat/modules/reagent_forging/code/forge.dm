@@ -234,7 +234,7 @@
 		user.mind.adjust_experience(/datum/skill/smithing, 5) //useful fueling means you get some experience
 		if(prob(45))
 			to_chat(user, span_notice("[src]'s fuel is packed densely enough to have made some charcoal!"))
-			addtimer(CALLBACK(src, .proc/spawn_coal), 1 MINUTES)
+			addtimer(CALLBACK(src, PROC_REF(spawn_coal)), 1 MINUTES)
 		return
 
 	//why use coal over wood? the target temp is set to 100 under coal, while only 50 with wood

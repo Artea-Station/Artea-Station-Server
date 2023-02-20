@@ -39,8 +39,8 @@ GLOBAL_LIST_INIT(fishing_weights, list(
 		possible_loot = set_loot
 	if(allow_fishes)
 		generate_fish = TRUE
-	RegisterSignal(parent, COMSIG_START_FISHING, .proc/start_fishing)
-	RegisterSignal(parent, COMSIG_FINISH_FISHING, .proc/finish_fishing)
+	RegisterSignal(parent, COMSIG_START_FISHING, PROC_REF(start_fishing))
+	RegisterSignal(parent, COMSIG_FINISH_FISHING, PROC_REF(finish_fishing))
 
 /datum/component/fishing/Destroy(force, silent)
 	UnregisterSignal(parent, COMSIG_START_FISHING)
@@ -60,7 +60,7 @@ GLOBAL_LIST_INIT(fishing_weights, list(
 	if(mutate_parent)
 		atom_parent.cut_overlay(mutate_parent)
 		QDEL_NULL(mutate_parent)
-	reel_sound_timer = addtimer(CALLBACK(src, .proc/reel_sound), random_fish_time, TIMER_STOPPABLE)
+	reel_sound_timer = addtimer(CALLBACK(src, PROC_REF(reel_sound)), random_fish_time, TIMER_STOPPABLE)
 	mutate_parent = mutable_appearance(icon = 'modular_skyrat/modules/fishing/icons/fishing.dmi', icon_state = "bobber")
 	atom_parent.add_overlay(mutate_parent)
 
@@ -148,8 +148,8 @@ GLOBAL_LIST_INIT(fishing_weights, list(
 /obj/item/skyrat_fishing_rod/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed)
-	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/on_wield)
-	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/on_unwield)
+	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(on_wield))
+	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(on_unwield))
 
 /obj/item/skyrat_fishing_rod/proc/on_wield()
 	is_wielded = TRUE
@@ -187,7 +187,7 @@ GLOBAL_LIST_INIT(fishing_weights, list(
 	if(target_atom)
 		SEND_SIGNAL(target_atom, COMSIG_FINISH_FISHING, fisher = src)
 		target_atom = null
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/check_movement)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_movement))
 	listening_to = user
 
 /obj/item/skyrat_fishing_rod/dropped(mob/user, silent)
@@ -221,7 +221,7 @@ GLOBAL_LIST_INIT(fishing_weights, list(
 		return ..()
 	target_atom = target
 	if(ismovable(target_atom))
-		RegisterSignal(target_atom, COMSIG_MOVABLE_MOVED, .proc/check_movement, override = TRUE)
+		RegisterSignal(target_atom, COMSIG_MOVABLE_MOVED, PROC_REF(check_movement), override = TRUE)
 	SEND_SIGNAL(target_atom, COMSIG_START_FISHING, user = user)
 
 /obj/item/skyrat_fishing_rod/attackby(obj/item/attacking_item, mob/living/user, params)

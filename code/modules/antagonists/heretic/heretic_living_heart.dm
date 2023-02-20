@@ -31,7 +31,7 @@
 	action.Grant(organ_parent.owner)
 
 	ADD_TRAIT(parent, TRAIT_LIVING_HEART, REF(src))
-	RegisterSignal(parent, COMSIG_ORGAN_REMOVED, .proc/on_organ_removed)
+	RegisterSignal(parent, COMSIG_ORGAN_REMOVED, PROC_REF(on_organ_removed))
 
 	// The heart's not technically visible (and is never visible to anyone besides the heretic),
 	// but the organ sprite shows up in the organ action  - so we'll do this anyways
@@ -134,7 +134,7 @@
 			owner,
 			owner,
 			targets_to_choose,
-			custom_check = CALLBACK(src, .proc/check_menu),
+			custom_check = CALLBACK(src, PROC_REF(check_menu)),
 			radius = 40,
 			require_near = TRUE,
 			tooltips = TRUE,
@@ -152,7 +152,7 @@
 
 	COOLDOWN_START(src, track_cooldown, track_cooldown_lenth)
 	UpdateButtons()
-	addtimer(CALLBACK(src, .proc/UpdateButtons), track_cooldown_lenth + 1)
+	addtimer(CALLBACK(src, PROC_REF(UpdateButtons)), track_cooldown_lenth + 1)
 	playsound(owner, 'sound/effects/singlebeat.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 	owner.balloon_alert(owner, get_balloon_message(tracked_mob))
 

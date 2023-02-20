@@ -18,9 +18,9 @@
 	src.tracked = tracked
 	client_mob = tracked.mob
 
-	RegisterSignal(client_mob, COMSIG_MOB_LOGOUT, .proc/mob_change)
-	RegisterSignal(client_mob, COMSIG_MOVABLE_Z_CHANGED, .proc/ztrait_checks)
-	RegisterSignal(client_mob, COMSIG_MOB_LOGIN, .proc/refresh_client)
+	RegisterSignal(client_mob, COMSIG_MOB_LOGOUT, PROC_REF(mob_change))
+	RegisterSignal(client_mob, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(ztrait_checks))
+	RegisterSignal(client_mob, COMSIG_MOB_LOGIN, PROC_REF(refresh_client))
 
 /datum/component/zparallax/Destroy()
 	. = ..()
@@ -48,9 +48,9 @@
 
 	client_mob = tracked.mob
 
-	RegisterSignal(client_mob, COMSIG_MOB_LOGOUT, .proc/mob_change)
-	RegisterSignal(client_mob, COMSIG_MOVABLE_Z_CHANGED, .proc/ztrait_checks)
-	RegisterSignal(client_mob, COMSIG_MOB_LOGIN, .proc/refresh_client)
+	RegisterSignal(client_mob, COMSIG_MOB_LOGOUT, PROC_REF(mob_change))
+	RegisterSignal(client_mob, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(ztrait_checks))
+	RegisterSignal(client_mob, COMSIG_MOB_LOGIN, PROC_REF(refresh_client))
 
 /datum/component/zparallax/proc/ztrait_checks()
 	SIGNAL_HANDLER

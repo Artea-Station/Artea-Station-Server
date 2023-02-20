@@ -124,7 +124,7 @@
 	if(charging && (get_dist(src, target) <= 1))
 		Bump(target)
 	if(. && prob(5 * phase))
-		INVOKE_ASYNC(src, .proc/teleport, target)
+		INVOKE_ASYNC(src, PROC_REF(teleport), target)
 
 /mob/living/simple_animal/hostile/megafauna/gladiator/Move(atom/newloc, dir, step_x, step_y) //chasms are for sissies
 	if(spinning || stunned)
@@ -166,13 +166,13 @@
 			if(. && charging)
 				chargetiles++
 				if(chargetiles >= chargerange)
-					INVOKE_ASYNC(src, .proc/discharge)
+					INVOKE_ASYNC(src, PROC_REF(discharge))
 		return FALSE
 	. = ..()
 	if(. && charging)
 		chargetiles++
 		if(chargetiles >= chargerange)
-			INVOKE_ASYNC(src, .proc/discharge)
+			INVOKE_ASYNC(src, PROC_REF(discharge))
 
 /mob/living/simple_animal/hostile/megafauna/gladiator/Bump(atom/A) //used for charge-induced ass-tappage
 	. = ..()
@@ -193,7 +193,7 @@
 		return
 	if(anger_timer_id)
 		deltimer(anger_timer_id)
-	anger_timer_id = addtimer(CALLBACK(src, .proc/get_calm), MARKED_ONE_ANGER_DURATION, TIMER_STOPPABLE)
+	anger_timer_id = addtimer(CALLBACK(src, PROC_REF(get_calm)), MARKED_ONE_ANGER_DURATION, TIMER_STOPPABLE)
 
 /mob/living/simple_animal/hostile/megafauna/gladiator/proc/get_calm() //I'M THE MAN THAT'S GONNA BURN YOUR HOUSE DOWN! With the lemons!
 	if(anger_timer_id)
@@ -259,7 +259,7 @@
 		if(FIFTY_PERCENT to SEVENTY_FIVE_PERCENT)
 			if(phase == MARKED_ONE_FIRST_PHASE)
 				phase = MARKED_ONE_SECOND_PHASE
-				INVOKE_ASYNC(src, .proc/charge, target, 21)
+				INVOKE_ASYNC(src, PROC_REF(charge), target, 21)
 				playsound(src, 'sound/effects/clockcult_gateway_disrupted.ogg', 200, 1, 2)
 				icon_state = "marked2"
 				rapid_melee = 2
@@ -269,7 +269,7 @@
 		if(SHOWDOWN_PERCENT to FIFTY_PERCENT)
 			if(phase == MARKED_ONE_SECOND_PHASE)
 				phase = MARKED_ONE_THIRD_PHASE
-				INVOKE_ASYNC(src, .proc/charge, target, 21)
+				INVOKE_ASYNC(src, PROC_REF(charge), target, 21)
 				playsound(src, 'sound/effects/clockcult_gateway_charging.ogg', 200, 1, 2)
 				rapid_melee = 4
 				melee_damage_upper = 25
@@ -278,7 +278,7 @@
 		if(0 to SHOWDOWN_PERCENT)
 			if (phase == MARKED_ONE_THIRD_PHASE)
 				phase = MARKED_ONE_FINAL_PHASE
-				INVOKE_ASYNC(src, .proc/charge, target, 21)
+				INVOKE_ASYNC(src, PROC_REF(charge), target, 21)
 				playsound(src, 'sound/effects/clockcult_gateway_active.ogg', 200, 1, 2)
 				icon_state = "marked3"
 				rapid_melee = 1
@@ -322,11 +322,11 @@
 				hit_things |= slapped
 		if(!spinning)
 			break
-		addtimer(CALLBACK(src, .proc/animate_speen), 0.5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(animate_speen)), 0.5 SECONDS)
 
 /mob/living/simple_animal/hostile/megafauna/gladiator/proc/animate_speen()
 	animate(src, color = initial(color), 3)
-	addtimer(CALLBACK(src, .proc/stop_speen), 0.5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(stop_speen)), 0.5 SECONDS)
 
 /mob/living/simple_animal/hostile/megafauna/gladiator/proc/stop_speen()
 	spinning = FALSE
@@ -391,68 +391,68 @@
 	switch(phase)
 		if(MARKED_ONE_FIRST_PHASE)
 			if(prob(10) && (get_dist(src, target) <= spinning_range))
-				INVOKE_ASYNC(src, .proc/spinattack)
-				INVOKE_ASYNC(src, .proc/stomp)
+				INVOKE_ASYNC(src, PROC_REF(spinattack))
+				INVOKE_ASYNC(src, PROC_REF(stomp))
 				ranged_cooldown += 5.5 SECONDS
 			else
 				if(prob(50))
-					INVOKE_ASYNC(src, .proc/swordslam)
+					INVOKE_ASYNC(src, PROC_REF(swordslam))
 					ranged_cooldown += 3 SECONDS
 				else
-					INVOKE_ASYNC(src, .proc/bone_knife_throw, target)
+					INVOKE_ASYNC(src, PROC_REF(bone_knife_throw), target)
 					ranged_cooldown += 1 SECONDS
 		if(MARKED_ONE_SECOND_PHASE)
 			if(prob(75))
 				if(prob(80))
 					if(prob(50) && (get_dist(src, target) <= spinning_range))
-						INVOKE_ASYNC(src, .proc/spinattack)
-						INVOKE_ASYNC(src, .proc/stomp)
+						INVOKE_ASYNC(src, PROC_REF(spinattack))
+						INVOKE_ASYNC(src, PROC_REF(stomp))
 						ranged_cooldown += 5 SECONDS
 					else
-						INVOKE_ASYNC(src, .proc/swordslam)
+						INVOKE_ASYNC(src, PROC_REF(swordslam))
 						ranged_cooldown += 2 SECONDS
 				else
-					INVOKE_ASYNC(src, .proc/bone_knife_throw, target)
-					INVOKE_ASYNC(src, .proc/teleport, target)
+					INVOKE_ASYNC(src, PROC_REF(bone_knife_throw), target)
+					INVOKE_ASYNC(src, PROC_REF(teleport), target)
 					ranged_cooldown += 2 SECONDS
 			else
-				INVOKE_ASYNC(src, .proc/teleport, target)
+				INVOKE_ASYNC(src, PROC_REF(teleport), target)
 				ranged_cooldown += 0.5 SECONDS
 		if(MARKED_ONE_THIRD_PHASE)
 			if(prob(70))
 				if(prob(50))
 					if(prob(30) && (get_dist(src, target) <= spinning_range))
-						INVOKE_ASYNC(src, .proc/spinattack)
-						INVOKE_ASYNC(src, .proc/stomp)
+						INVOKE_ASYNC(src, PROC_REF(spinattack))
+						INVOKE_ASYNC(src, PROC_REF(stomp))
 						ranged_cooldown += 4.5 SECONDS
 					else
-						INVOKE_ASYNC(src, .proc/swordslam)
+						INVOKE_ASYNC(src, PROC_REF(swordslam))
 						ranged_cooldown += 2 SECONDS
 				else
-					INVOKE_ASYNC(src, .proc/bone_knife_throw, target)
-					INVOKE_ASYNC(src, .proc/teleport, target)
+					INVOKE_ASYNC(src, PROC_REF(bone_knife_throw), target)
+					INVOKE_ASYNC(src, PROC_REF(teleport), target)
 					ranged_cooldown += 2 SECONDS
 			else
-				INVOKE_ASYNC(src, .proc/bone_knife_throw, target)
+				INVOKE_ASYNC(src, PROC_REF(bone_knife_throw), target)
 				ranged_cooldown += 0.5 SECONDS
 		if(MARKED_ONE_FINAL_PHASE)
 			if(prob(50))
 				if(prob(50))
 					if(prob(25))
-						INVOKE_ASYNC(src, .proc/bone_knife_throw, target)
-						INVOKE_ASYNC(src, .proc/teleport, target)
-						INVOKE_ASYNC(src, .proc/stomp)
+						INVOKE_ASYNC(src, PROC_REF(bone_knife_throw), target)
+						INVOKE_ASYNC(src, PROC_REF(teleport), target)
+						INVOKE_ASYNC(src, PROC_REF(stomp))
 						ranged_cooldown += 2 SECONDS
 					else
-						INVOKE_ASYNC(src, .proc/swordslam)
+						INVOKE_ASYNC(src, PROC_REF(swordslam))
 						ranged_cooldown += 2 SECONDS
 				else
-					INVOKE_ASYNC(src, .proc/bone_knife_throw, target)
-					INVOKE_ASYNC(src, .proc/stomp)
+					INVOKE_ASYNC(src, PROC_REF(bone_knife_throw), target)
+					INVOKE_ASYNC(src, PROC_REF(stomp))
 					ranged_cooldown += 0.5 SECONDS
 			else
-				INVOKE_ASYNC(src, .proc/teleport, target)
-				INVOKE_ASYNC(src, .proc/stomp)
+				INVOKE_ASYNC(src, PROC_REF(teleport), target)
+				INVOKE_ASYNC(src, PROC_REF(stomp))
 				ranged_cooldown += 0.5 SECONDS
 
 #undef MARKED_ONE_STUN_DURATION

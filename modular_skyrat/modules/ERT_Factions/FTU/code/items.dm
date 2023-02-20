@@ -32,7 +32,7 @@
 		throw_speed_on = throw_speed, \
 		sharpness_on = sharpness, \
 		w_class_on = active_w_class)
-	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, .proc/on_transform)
+	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
 // 40x32 R37 PULSE RIFLE
 /obj/item/gun/ballistic/automatic/pitbull/pulse/r37
