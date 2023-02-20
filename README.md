@@ -1,4 +1,4 @@
-## Nosha Industries Terminal 13 (Skyrat Fork)
+## Artea Station (Skyrat Fork)
 
 **Please note that this repository contains sexually explicit content and is not suitable for those under the age of 18.**
 
@@ -23,7 +23,7 @@ Closed community for now until the requisite systems for moderation are put in p
 
 Space Station 13 is a paranoia-laden round-based roleplaying game set against the backdrop of a nonsensical, metal death trap masquerading as a space station, with charming spritework designed to represent the sci-fi setting and its dangerous undertones. Have fun, and survive!
 
-**Note**: Nosha Industries is less focused on the metal deathtrap part, and is more geared towards HRP with a mostly relaxed environment, unless a player makes the environment less safe, or the round rolls a high chaos value, and players approve it.
+**Note**: Artea Station is less focused on the metal deathtrap part, and is more geared towards HRP with a mostly relaxed environment, unless a player makes the environment less safe, or the round rolls a high chaos value, and players approve it.
 
 ## Important Note - TEST YOUR PULL REQUESTS
 
