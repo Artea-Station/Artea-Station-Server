@@ -24,8 +24,8 @@
 	parent_clothing = parent
 	parent_clothing.create_reagents(MAX_IMBUE_STORAGE, INJECTABLE | REFILLABLE)
 	applying_container = new /obj/item/reagent_containers(src)
-	RegisterSignal(parent_clothing, COMSIG_ITEM_EQUIPPED, .proc/set_wearer)
-	RegisterSignal(parent_clothing, COMSIG_ITEM_PRE_UNEQUIP, .proc/remove_wearer)
+	RegisterSignal(parent_clothing, COMSIG_ITEM_EQUIPPED, PROC_REF(set_wearer))
+	RegisterSignal(parent_clothing, COMSIG_ITEM_PRE_UNEQUIP, PROC_REF(remove_wearer))
 	START_PROCESSING(SSdcs, src)
 
 /datum/component/reagent_clothing/Destroy(force, silent)
@@ -71,7 +71,7 @@
 		return COMPONENT_INCOMPATIBLE //they need to be weapons, I already said this
 	parent_weapon = parent
 	parent_weapon.create_reagents(MAX_IMBUE_STORAGE, INJECTABLE | REFILLABLE)
-	RegisterSignal(parent_weapon, COMSIG_ITEM_ATTACK, .proc/inject_attacked)
+	RegisterSignal(parent_weapon, COMSIG_ITEM_ATTACK, PROC_REF(inject_attacked))
 
 /datum/component/reagent_weapon/Destroy(force, silent)
 	UnregisterSignal(parent_weapon, COMSIG_ITEM_ATTACK)

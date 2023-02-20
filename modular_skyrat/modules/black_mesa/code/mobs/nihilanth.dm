@@ -69,7 +69,7 @@
 	alert_sound_to_playing('modular_skyrat/modules/black_mesa/sound/mobs/nihilanth/nihilanth_death01.ogg')
 	new /obj/effect/singularity_creation(loc)
 	message_admins("[src] has been defeated, a spacetime cascade might occur in 30 seconds with a [cascade_chance]% chance.")
-	addtimer(CALLBACK(src, .proc/endgame_shit),  30 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(endgame_shit)),  30 SECONDS)
 
 /mob/living/simple_animal/hostile/blackmesa/xen/nihilanth/proc/endgame_shit()
 	to_chat(world, span_danger("You feel as though a powerful force has been defeated..."))

@@ -132,9 +132,10 @@
 
 //Secret vending machine skin. Don't touch plz
 /obj/machinery/vending/dorms/proc/populate_vend_designs()
-    vend_designs = list(
-        "pink" = image (icon = src.icon, icon_state = "lustwish_pink"),
-        "teal" = image(icon = src.icon, icon_state = "lustwish_teal"))
+	vend_designs = list(
+		"pink" = image (icon = src.icon, icon_state = "lustwish_pink"),
+		"teal" = image(icon = src.icon, icon_state = "lustwish_teal"),
+	)
 
 //Changing special secret var
 /obj/machinery/vending/dorms/attackby(obj/item/used_item, mob/living/user, params)
@@ -157,7 +158,7 @@
 	if(.)
 		return
 	if(card_used == TRUE)
-		var/choice = show_radial_menu(user, src, vend_designs, custom_check = CALLBACK(src, .proc/check_menu, user, used_item), radius = 50, require_near = TRUE)
+		var/choice = show_radial_menu(user, src, vend_designs, custom_check = CALLBACK(src, PROC_REF(check_menu), user, used_item), radius = 50, require_near = TRUE)
 		if(!choice)
 			return FALSE
 		current_color = choice

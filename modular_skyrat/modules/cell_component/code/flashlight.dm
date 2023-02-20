@@ -23,7 +23,7 @@
 	update_brightness()
 
 	if(uses_battery)
-		AddComponent(/datum/component/cell, cell_override, CALLBACK(src, .proc/turn_off))
+		AddComponent(/datum/component/cell, cell_override, CALLBACK(src, PROC_REF(turn_off)))
 
 /obj/item/flashlight/proc/update_brightness()
 	set_light_on(on)

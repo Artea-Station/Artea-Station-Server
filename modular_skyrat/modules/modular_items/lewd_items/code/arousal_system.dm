@@ -353,10 +353,10 @@
 	switch(damagetype)
 		if(BRUTE)
 			var/amount = forced ? damage : damage * hit_percent * brutemod * affected_mob.physiology.brute_mod
-			INVOKE_ASYNC(affected_mob, /mob/living/carbon/human/.proc/adjustPain, amount)
+			INVOKE_ASYNC(affected_mob, TYPE_PROC_REF(/mob/living/carbon/human, adjustPain), amount)
 		if(BURN)
 			var/amount = forced ? damage : damage * hit_percent * burnmod * affected_mob.physiology.burn_mod
-			INVOKE_ASYNC(affected_mob, /mob/living/carbon/human/.proc/adjustPain, amount)
+			INVOKE_ASYNC(affected_mob, TYPE_PROC_REF(/mob/living/carbon/human, adjustPain), amount)
 
 /*
 *	CLIMAX
