@@ -11,3 +11,7 @@
 
 	/// The mob the client controls
 	var/mob/mob
+
+/// Absolute shitcode, but necessary, cause this is autocalled on prefsload.
+/datum/client_interface/verb/SetWindowIconSize()
+	return
