@@ -1,11 +1,7 @@
 name: Pull Request Labeller
 
 on:
-  pull_request_target:
-    types:
-      - opened
-      - synchronize
-      - edited
+  pull_request:
     branches:
       - master
       - 'project/**'
