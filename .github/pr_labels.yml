@@ -1,0 +1,99 @@
+
+version: v1
+
+labels:
+  # Add-only Labels
+  # Area Labels
+  - label: "Administration"
+    matcher:
+      body: ":cl:.*\\\\nadmin:.*\\\\n\\/:cl:"
+  - label: "Config Update"
+    matcher:
+      body: ":cl:.*\\\\nconfig:.*\\\\n\\/:cl:"
+      files:
+        any:
+          - "code/controllers/configuration/entries/**/*"
+          - "config/**/*"
+  - label: "Grammar and Formatting"
+    matcher:
+      body: ":cl:.*\\\\n(?:spellcheck|typo):.*\\\\n\\/:cl:"
+  - label: "Sounds"
+    matcher:
+      body: ":cl:.*\\\\nsound(?:add|del):.*\\\\n\\/:cl:"
+      files:
+        any:
+          - "sound/**/*"
+  - label: "Sprites"
+    matcher:
+      body: ":cl:.*\\\\nimage(?:add|del):.*\\\\n\\/:cl:"
+      files:
+        any:
+          - "icons/**/*"
+  - label: "UI"
+    matcher:
+      files:
+        any:
+          - "code/tgui/**/*"
+          - "code/tgui_panel/**/*"
+          - "tgui/**/*"
+  # Type Labels
+  - label: "Balance"
+    matcher:
+      body: ":cl:.*\\\\n(?:re)?balance:.*\\\\n\\/:cl:"
+  - label: "Port"
+    matcher:
+      title: ".*[PORT].*"
+  - label: "Fix"
+    matcher:
+      title: ".*fixes.*"
+      body: ":cl:.*\\\\n(?:bug)?fix(?:es)?:.*\\\\n\\/:cl:"
+      branch: "^fix/.*"
+  - label: "Quality of Life"
+    matcher:
+      body: ":cl:.*\\\\nqol:.*\\\\n\\/:cl:"
+  - label: "Refactor"
+    matcher:
+      body: ":cl:.*\\\\n(?:code(?:_imp)?|refactor):.*\\\\n\\/:cl:"
+  - label: "Removal"
+    matcher:
+      body: ":cl:.*\\\\n(?:sound|image|rsc)?dels?:.*\\\\n\\/:cl:"
+  # Synced labels
+  - label: "SQL"
+    sync: true
+    matcher:
+      files:
+        any:
+          - "SQL/**/*"
+  - label: "Mapping"
+    sync: true
+    matcher:
+      files:
+        any:
+          - "_maps/**/*"
+  - label: "Tools"
+    sync: true
+    matcher:
+      files:
+        any:
+          - "tools/**/*"
+          - "BUILD.bat"
+  - label: "Repository"
+    sync: true
+    matcher:
+      files:
+        any:
+          - .github/**/*
+          - .vscode/**/*
+          - .dockerignore
+          - .gitignore
+          - .gitattributes
+          - .git-blame-ignore-revs
+          - .editorconfig
+          - Dockerfile
+          - README.md
+  - label: "Continuous Integration"
+    sync: true
+    matcher:
+      files:
+        any:
+          - .github/workflows/*
