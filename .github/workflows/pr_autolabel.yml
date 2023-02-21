@@ -6,10 +6,16 @@ on:
       - master
       - 'project/**'
 
+permissions:
+  contents: read
+  pull-requests: write
+  statuses: write
+  checks: write
+
 jobs:
   label_new_pulls:
     name: "Add and Sync PR Labels"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: fuxingloh/multi-labeler@f904e5d755b3d328cc7981917853aa973db4e7fd
         with:
