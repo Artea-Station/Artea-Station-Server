@@ -11,12 +11,7 @@ jobs:
     name: "Add and Sync PR Labels"
     runs-on: ubuntu-22.04
     steps:
-      - uses: fuxingloh/multi-labeler@f904e5d755b3d328cc7981917853aa973db4e7fd
+      - uses: fuxingloh/multi-labeler@2.0.3
         with:
-          github-token: ${{ secrets.ARTEA_BOT_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           config-path: ".github/pr_labels.yml"
-    permissions:
-      contents: read
-      pull-requests: write
-      statuses: write
-      checks: write
