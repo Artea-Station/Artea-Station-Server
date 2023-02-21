@@ -114,13 +114,6 @@
 			for(var/pref_type in subtypesof(/datum/preference/toggle/genital_skin_tone))
 				write_preference(GLOB.preference_entries[pref_type], TRUE)
 
-	if(current_version < 2)
-		var/list/old_breast_prefs
-		old_breast_prefs = save_data["breasts_size"]
-		if(isnum(old_breast_prefs)) // Can't be too careful
-			// You weren't meant to be able to pick sizes over this anyways.
-			write_preference(GLOB.preference_entries[/datum/preference/choiced/breasts_size], GLOB.breast_size_translation["[min(old_breast_prefs, 10)]"])
-
 /datum/preferences/proc/check_migration()
 	if(!tgui_prefs_migration)
 		to_chat(parent, examine_block(span_redtext("CRITICAL FAILURE IN PREFERENCE MIGRATION, REPORT THIS IMMEDIATELY.")))
