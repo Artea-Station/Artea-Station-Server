@@ -43,8 +43,7 @@ $discordWebHooks = array();
 // Only these repositories will announce in game.
 // Any repository that players actually care about.
 $game_announce_whitelist = array(
-	"tgstation",
-	"TerraGov-Marine-Corps",
+	"Skyrat-tg",
 );
 
 // Any repository that matches in this blacklist will not appear on Discord.
@@ -271,6 +270,8 @@ function tag_pr($payload, $opened) {
 
 	check_tag_and_replace($payload, '[dnm]', 'Do Not Merge', $tags);
 	check_tag_and_replace($payload, '[no gbp]', 'GBP: No Update', $tags);
+
+	check_tag_and_replace($payload, '[host]', 'Host Request', $tags);
 
 	return array($tags, $remove);
 }

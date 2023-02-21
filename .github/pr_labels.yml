@@ -1,0 +1,99 @@
+
+version: v1
+
+labels:
+  # Add-only Labels
+  # Area Labels
+  - label: "Administration"
+    matcher:
+      body: "^admin:"
+  - label: "Config Update"
+    matcher:
+      body: "^config:"
+      files:
+        any:
+          - "code/controllers/configuration/entries/**/*"
+          - "config/**/*"
+  - label: "Grammar and Formatting"
+    matcher:
+      body: "^spellcheck:"
+  - label: "Sounds"
+    matcher:
+      body: "^sound(?:add|del):"
+      files:
+        any:
+          - "sound/**/*"
+  - label: "Sprites"
+    matcher:
+      body: "^image(?:add|del):"
+      files:
+        any:
+          - "icons/**/*"
+  - label: "UI"
+    matcher:
+      files:
+        any:
+          - "code/tgui/**/*"
+          - "code/tgui_panel/**/*"
+          - "tgui/**/*"
+  # Type Labels
+  - label: "Balance"
+    matcher:
+      body: "^balance:"
+  - label: "Port"
+    matcher:
+      title: ".*\\[PORT\\].*"
+  - label: "Fix"
+    matcher:
+      title: ".*fixes.*"
+      body: "fix:"
+      branch: "^fix/.*"
+  - label: "Quality of Life"
+    matcher:
+      body: "^qol:"
+  - label: "Refactor"
+    matcher:
+      body: "^refactor:"
+  - label: "Removal"
+    matcher:
+      body: "^del:"
+  # Synced labels
+  - label: "SQL"
+    sync: true
+    matcher:
+      files:
+        any:
+          - "SQL/**/*"
+  - label: "Mapping"
+    sync: true
+    matcher:
+      files:
+        any:
+          - "_maps/**/*"
+  - label: "Tools"
+    sync: true
+    matcher:
+      files:
+        any:
+          - "tools/**/*"
+          - "BUILD.bat"
+  - label: "Repository"
+    sync: true
+    matcher:
+      files:
+        any:
+          - .github/**/*
+          - .vscode/**/*
+          - .dockerignore
+          - .gitignore
+          - .gitattributes
+          - .git-blame-ignore-revs
+          - .editorconfig
+          - Dockerfile
+          - README.md
+  - label: "Continuous Integration"
+    sync: true
+    matcher:
+      files:
+        any:
+          - .github/workflows/*
