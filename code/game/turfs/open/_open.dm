@@ -166,14 +166,13 @@
 	baseturfs = /turf/open/indestructible/airblock
 
 /turf/open/GetHeatCapacity()
-	. = air.getHeatCapacity()
+	. = unsafe_return_air().getHeatCapacity()
 
 /turf/open/return_temperature()
-	. = return_air().temperature
+	. = unsafe_return_air().temperature
 
 /turf/open/TakeTemperature(temp)
-	air.temperature += temp
-	//air_update_turf(FALSE, FALSE)
+	return_air().temperature += temp
 
 /turf/open/proc/freeze_turf()
 	for(var/obj/I in contents)

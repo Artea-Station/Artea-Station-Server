@@ -52,100 +52,22 @@
 	} while(FALSE)
 
 ///Checks is a turf is simulated and has a valid zone.
-#define TURF_HAS_VALID_ZONE(T) (T.simulated && T.zone && !T.zone.invalid)
+#define TURF_HAS_VALID_ZONE(T) (!isnull(T:zone) && !T:zone:invalid)
+
+///Checks if X is a turf, if it is, mark it's zone for update.
+#define SAFE_ZAS_UPDATE(x) if(isturf(##x) && TURF_HAS_VALID_ZONE(##x)) { SSzas.mark_zone_update(##x:zone) }
 
 #ifdef MULTIZAS
 ///"Can safely remove from zone"
 GLOBAL_REAL_VAR(list/csrfz_check) = list(NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST, NORTHUP, EASTUP, WESTUP, SOUTHUP, NORTHDOWN, EASTDOWN, WESTDOWN, SOUTHDOWN)
 ///"Get zone neighbors"
 GLOBAL_REAL_VAR(list/gzn_check) = list(NORTH, SOUTH, EAST, WEST, UP, DOWN)
-
-///Can air move from B to A?
-#define ATMOS_CANPASS_TURF(ret,A,B) \
-	if (A.blocks_air & AIR_BLOCKED || B.blocks_air & AIR_BLOCKED) { \
-		ret = AIR_BLOCKED|ZONE_BLOCKED; \
-	} \
-	else if (B.z != A.z) { \
-		var/canpass_dir = get_dir_multiz(B, A); \
-		if(canpass_dir) { \
-			if (canpass_dir & UP) { \
-				ret = ((A.z_flags & Z_ATMOS_IN_DOWN) && (B.z_flags & Z_ATMOS_OUT_UP)) ? ZONE_BLOCKED : AIR_BLOCKED|ZONE_BLOCKED; \
-			} \
-			else { \
-				ret = ((A.z_flags & Z_ATMOS_IN_UP) && (B.z_flags & Z_ATMOS_OUT_DOWN)) ? ZONE_BLOCKED : AIR_BLOCKED|ZONE_BLOCKED; \
-			} \
-		} \
-		else { \
-			ret = AIR_BLOCKED|ZONE_BLOCKED; \
-		} \
-	} \
-	else if (A.blocks_air & ZONE_BLOCKED || B.blocks_air & ZONE_BLOCKED) { \
-		ret = (A.z == B.z) ? ZONE_BLOCKED : AIR_BLOCKED|ZONE_BLOCKED; \
-	} \
-	else if (A.contents.len) { \
-		ret = 0;\
-		for (var/atom/movable/AM as anything in A) { \
-			switch (AM.can_atmos_pass) { \
-				if (CANPASS_ALWAYS) { \
-					continue; \
-				} \
-				if (CANPASS_DENSITY) { \
-					if (AM.density) { \
-						ret |= AIR_BLOCKED|ZONE_BLOCKED; \
-					} \
-				} \
-				if (CANPASS_PROC) { \
-					ret |= AM.zas_canpass(B); \
-				} \
-				if (CANPASS_NEVER) { \
-					ret = AIR_BLOCKED|ZONE_BLOCKED; \
-				} \
-			} \
-			if (ret & AIR_BLOCKED) { \
-				break;\
-			}\
-		}\
-	}
 #else
 
 ///"Can safely remove from zone"
 GLOBAL_REAL_VAR(list/csrfz_check) = list(NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)
 ///"Get zone neighbors"
 GLOBAL_REAL_VAR(list/gzn_check) = list(NORTH, SOUTH, EAST, WEST)
-
-///Can air move from B to A?
-#define ATMOS_CANPASS_TURF(ret,A,B) \
-	if (A.blocks_air & AIR_BLOCKED || B.blocks_air & AIR_BLOCKED) { \
-		ret = AIR_BLOCKED|ZONE_BLOCKED; \
-	} \
-	else if (A.blocks_air & ZONE_BLOCKED || B.blocks_air & ZONE_BLOCKED) { \
-		ret = ZONE_BLOCKED; \
-	} \
-	else if (A.contents.len) { \
-		ret = 0;\
-		for (var/atom/movable/AM as anything in A) { \
-			switch (AM.can_atmos_pass) { \
-				if (CANPASS_ALWAYS) { \
-					continue; \
-				} \
-				if (CANPASS_DENSITY) { \
-					if (AM.density) { \
-						ret |= AIR_BLOCKED|ZONE_BLOCKED; \
-					} \
-				} \
-				if (CANPASS_PROC) { \
-					ret |= AM.zas_canpass(B); \
-				} \
-				if (CANPASS_NEVER) { \
-					ret = AIR_BLOCKED|ZONE_BLOCKED; \
-				} \
-			} \
-			if (ret & AIR_BLOCKED) { \
-				break;\
-			}\
-		}\
-	}
-
 #endif
 
 //#define ATMOS_CANPASS(A, O) ( A.can_atmos_pass == CANPASS_PROC ? A.zas_canpass(O) : ( A.can_atmos_pass == CANPASS_DENSITY? !A.density : A.can_atmos_pass))
@@ -280,7 +202,7 @@ GLOBAL_REAL_VAR(list/gzn_check) = list(NORTH, SOUTH, EAST, WEST)
 #define MAX_PUMP_PRESSURE		15000	// Maximal pressure setting for pumps and vents
 #define MAX_OMNI_PRESSURE		15000	// Maximal output(s) pressure for omni devices (filters/mixers)
 
-GLOBAL_LIST_INIT(reverse_dir, list( // reverse_dir[dir] = reverse of dir
+GLOBAL_REAL_VAR(list/reverse_dir, list( // reverse_dir[dir] = reverse of dir
 	     2,  1,  3,  8, 10,  9, 11,  4,  6,  5,  7, 12, 14, 13, 15,
 	32, 34, 33, 35, 40, 42,	41, 43, 36, 38, 37, 39, 44, 46, 45, 47,
 	16, 18, 17, 19, 24, 26, 25, 27, 20, 22, 21,	23, 28, 30, 29, 31,

@@ -241,7 +241,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	data["fire_alarm"] = !!alert_type //Same here
 
 	var/turf/T = get_turf(src)
-	var/datum/gas_mixture/environment = T.return_air()
+	var/datum/gas_mixture/environment = T.unsafe_return_air()
 	var/datum/tlv/cur_tlv
 
 	data["environment_data"] = list()
@@ -427,7 +427,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 					tlv.vars[name] = round(value, 0.01)
 				investigate_log(" treshold value for [env]:[name] was set to [value] by [key_name(usr)]",INVESTIGATE_ATMOS)
 				var/turf/our_turf = get_turf(src)
-				var/datum/gas_mixture/environment = our_turf.return_air()
+				var/datum/gas_mixture/environment = our_turf.unsafe_return_air()
 				check_air_dangerlevel(environment)
 				. = TRUE
 		if("mode")
@@ -677,13 +677,13 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 /obj/machinery/airalarm/fire_act(exposed_temperature, exposed_volume)
 	. = ..()
 	if(!danger_level)
-		check_air_dangerlevel(loc.return_air())
+		check_air_dangerlevel(loc.unsafe_return_air())
 
 /obj/machinery/airalarm/process_atmos()
 	if((machine_stat & (NOPOWER|BROKEN)) || shorted)
 		return
 
-	var/datum/gas_mixture/environment = loc.return_air() //Later in the proc we update the zone if we modified it.
+	var/datum/gas_mixture/environment = loc.unsafe_return_air() //Later in the proc we update the zone if we modified it.
 
 	check_air_dangerlevel(environment)
 
@@ -1075,7 +1075,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 21)
 
 	if(COMPONENT_TRIGGERED_BY(request_data, port))
 		var/turf/alarm_turf = get_turf(connected_alarm)
-		var/datum/gas_mixture/environment = alarm_turf.return_air()
+		var/datum/gas_mixture/environment = alarm_turf.unsafe_return_air()
 		pressure.set_output(round(environment.returnPressure()))
 		my_temperature.set_output(round(environment.temperature))
 		if(ispath(options_map[current_option]))

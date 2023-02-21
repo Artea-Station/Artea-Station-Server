@@ -56,11 +56,9 @@ Class Procs:
 	var/list/edges = list()
 	///The zone's gas contents
 	var/datum/gas_mixture/air = new
-	///Air overlays to add next process
-	var/list/graphic_add = list()
-	///Air overlays to remove next process
-	var/list/graphic_remove = list()
 	var/last_air_temperature = TCMB
+	///The air list of last tick()
+	VAR_PRIVATE/last_gas_list
 
 /zone/New()
 	SSzas.add_zone(src)
@@ -91,6 +89,11 @@ Class Procs:
 			RegisterSignal(fuel, COMSIG_PARENT_QDELETING, .proc/handle_fuel_del)
 	T.update_graphic(air.graphic)
 
+	if(T.atmos_sensitive_contents)
+		if(isnull(atmos_sensitive_contents))
+			SSzas.zones_with_sensitive_contents += src
+		LAZYDISTINCTADD(atmos_sensitive_contents, T.atmos_sensitive_contents)
+
 ///Removes the given turf from the zone. Will invalidate the zone if it was the last turf.
 /zone/proc/remove_turf(turf/T)
 #ifdef ZASDBG
@@ -101,6 +104,20 @@ Class Procs:
 
 	T.maptext = null
 #endif
+	if(!T.can_safely_remove_from_zone())
+		rebuild()
+		return
+
+	LAZYREMOVE(atmos_sensitive_contents, T.atmos_sensitive_contents)
+	if(isnull(atmos_sensitive_contents))
+		SSzas.zones_with_sensitive_contents -= src
+
+	T.copy_zone_air()
+
+	for(var/d in GLOB.cardinals)
+		var/turf/other = get_step(T, d)
+		other?.open_directions &= ~reverse_dir[d]
+
 	contents.Remove(T)
 	fire_tiles.Remove(T)
 	if(T.fire)
@@ -151,6 +168,8 @@ Class Procs:
 
 ///Invalidates the zone and marks all of it's contents for update.
 /zone/proc/rebuild()
+	set waitfor = FALSE
+
 	if(invalid)
 		return //Short circuit for explosions where rebuild is called many times over.
 	invalidate()
@@ -184,45 +203,26 @@ Class Procs:
 		if(T.simulated)
 			T.create_fire(zas_settings.fire_firelevel_multiplier)
 
-	// Update gas overlays.
+	#ifdef ZASDBG
+	SSzas.zonetime["update fires"] = TICK_USAGE_TO_MS(clock)
+	clock = TICK_USAGE
+	#endif
+
+	// Anything below this check only needs to be run if the zone's gas composition has changed.
+	if(!isnull(last_gas_list) && last_gas_list ~= air.gas)
+		return
+
+	last_gas_list = air.gas.Copy()
+
+	// Update gas overlays, with some reference passing tomfoolery.
+	var/list/graphic_add = list()
+	var/list/graphic_remove = list()
 	if(air.checkTileGraphic(graphic_add, graphic_remove))
 		for(var/turf/T as anything in contents)
 			if(T.simulated)
 				T.update_graphic(graphic_add, graphic_remove)
 		graphic_add.len = 0
 		graphic_remove.len = 0
-
-	// Update connected edges.
-	for(var/connection_edge/E as anything in edges)
-		if(E.sleeping)
-			E.recheck()
-
-	// Handle condensation from the air.
-	/*
-	for(var/g in air.gas)
-		var/product = xgm_gas_data.condensation_products[g]
-		if(product && air.temperature <= xgm_gas_data.condensation_points[g])
-			var/condensation_area = air.group_multiplier
-			while(condensation_area > 0)
-				condensation_area--
-				var/turf/flooding = pick(contents)
-				var/condense_amt = min(air.gas[g], rand(3,5))
-				if(condense_amt < 1)
-					break
-				air.adjustGas(g, -condense_amt)
-				flooding.add_fluid(condense_amt, product)
-	*/
-
-	// Update atom temperature.
-	if(abs(air.temperature - last_air_temperature) >= ATOM_TEMPERATURE_EQUILIBRIUM_THRESHOLD)
-		last_air_temperature = air.temperature
-		for(var/turf/T as anything in contents)
-			if(!T.simulated)
-				continue
-			for(var/atom/movable/checking as anything in T.contents)
-				if(checking.simulated)
-					QUEUE_TEMPERATURE_ATOMS(checking)
-			CHECK_TICK
 
 ///Prints debug information to the given mob. Used by the "Zone Info" verb. Does not require ZASDBG compile define.
 /zone/proc/dbg_data(mob/M)

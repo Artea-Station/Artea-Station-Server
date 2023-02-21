@@ -484,9 +484,8 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
  */
 /obj/machinery/portable_atmospherics/canister/proc/canister_break()
 	disconnect()
-	var/datum/gas_mixture/expelled_gas = air_contents.remove(air_contents.get_moles())
 	var/turf/T = get_turf(src)
-	T.assume_air(expelled_gas)
+	T.assume_air(air_contents)
 
 	atom_break()
 
@@ -514,7 +513,7 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 /obj/machinery/portable_atmospherics/canister/process(delta_time)
 
 	var/our_pressure = air_contents.returnPressure()
-	var/our_temperature = air_contents.get_temperature()
+	var/our_temperature = air_contents.temperature
 
 	protected_contents = FALSE
 	if(shielding_powered)
@@ -556,7 +555,7 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 	air_contents.react()
 
 	var/our_pressure = air_contents.returnPressure()
-	var/our_temperature = air_contents.get_temperature()
+	var/our_temperature = air_contents.temperature
 
 	///function used to check the limit of the canisters and also set the amount of damage that the canister can receive, if the heat and pressure are way higher than the limit the more damage will be done
 	if(!protected_contents && (our_temperature > temp_limit || our_pressure > pressure_limit))
@@ -678,7 +677,7 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 					var/list/gaseslog = list() //list for logging all gases in canister
 					for(var/gas in air_contents.gas)
 						gaseslog[xgm_gas_data.name[gas]] = air_contents.gas[gas]	//adds gases to gaseslog
-						if(!(xgm_gas_data.flags[gas] & XGM_GAS_CONTAMINANT|XGM_GAS_FUEL))
+						if(!(xgm_gas_data.flags[gas] & (XGM_GAS_CONTAMINANT|XGM_GAS_FUEL)))
 							continue
 						danger = TRUE //at least 1 danger gas
 					logmsg = "[key_name(usr)] <b>opened</b> a canister that contains the following:"

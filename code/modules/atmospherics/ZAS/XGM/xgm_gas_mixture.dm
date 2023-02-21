@@ -24,7 +24,7 @@
 
 ///Returns the volume of a specific gas within the entire zone.
 /datum/gas_mixture/proc/getGroupGas(gasid)
-	if(!gas.len)
+	if(!length(gas))
 		return 0 //if the list is empty BYOND treats it as a non-associative list, which runtimes
 	return gas[gasid] * group_multiplier
 
@@ -130,11 +130,6 @@
 	var/our_heatcap = getHeatCapacity()
 	var/share_heatcap = sharer.getHeatCapacity()
 
-	// Special exception: there isn't enough air around to be worth processing this edge next tick, zap both to zero.
-	if(total_moles + sharer.total_moles <= MINIMUM_AIR_TO_SUSPEND)
-		gas.Cut()
-		sharer.gas.Cut()
-
 	for(var/g in gas|sharer.gas)
 		var/comb = gas[g] + sharer.gas[g]
 		comb /= volume + sharer.volume
@@ -185,7 +180,7 @@
 
 ///Returns the ideal gas specific entropy of the whole mix. This is the entropy per mole of /mixed/ gas.
 /datum/gas_mixture/proc/specificGroupEntropy()
-	if (!gas.len || total_moles == 0)
+	if (!length(gas) || total_moles == 0)
 		return SPECIFIC_ENTROPY_VACUUM
 
 	. = 0
@@ -206,7 +201,7 @@
 	which is bit more realistic (natural log), and returns a fairly accurate entropy around room temperatures and pressures.
 */
 /datum/gas_mixture/proc/specificEntropyGas(gasid)
-	if (!(gasid in gas) || gas[gasid] == 0)
+	if (!gas[gasid])
 		return SPECIFIC_ENTROPY_VACUUM	//that gas isn't here
 
 	//group_multiplier gets divided out in volume/gas[gasid] - also, V/(m*T) = R/(partial pressure)
@@ -367,27 +362,54 @@
 	return 1
 
 ///Rechecks the gas_mixture and adjusts the graphic list if needed. ///Two lists can be passed by reference if you need know specifically which graphics were added and removed.
-/datum/gas_mixture/proc/checkTileGraphic(list/graphic_add = null, list/graphic_remove = null)
-	for(var/obj/effect/gas_overlay/O in graphic)
-		if(gas[O.gas_id] <= xgm_gas_data.overlay_limit[O.gas_id])
-			LAZYADD(graphic_remove, O)
-	for(var/g in xgm_gas_data.overlay_limit)
+/datum/gas_mixture/proc/checkTileGraphic(list/graphic_add, list/graphic_remove)
+	if(length(graphic))
+		for(var/obj/effect/gas_overlay/O as anything in graphic)
+			if(O.type == /obj/effect/gas_overlay/heat)
+				continue
+			if(gas[O.gas_id] <= xgm_gas_data.overlay_limit[O.gas_id])
+				LAZYADD(graphic_remove, O)
+	var/overlay_limit
+	for(var/g in gas)
+		overlay_limit = xgm_gas_data.overlay_limit[g]
 		//Overlay isn't applied for this gas, check if it's valid and needs to be added.
-		if(gas[g] > xgm_gas_data.overlay_limit[g])
-			var/tile_overlay = getTileOverlay(g)
+		if(!isnull(overlay_limit) && gas[g] > overlay_limit)
+			///Inlined getTileOverlay(g)
+			var/tile_overlay = LAZYACCESS(tile_overlay_cache, g)
+			if(isnull(tile_overlay))
+				LAZYSET(tile_overlay_cache, g, new/obj/effect/gas_overlay(null, g))
+				tile_overlay = tile_overlay_cache[g]
+			///End inline
 			if(!(tile_overlay in graphic))
 				LAZYADD(graphic_add, tile_overlay)
 	. = 0
+	var/tile_overlay = LAZYACCESS(tile_overlay_cache, "heat")
+	//If it's hot add something
+	if(temperature >= BODYTEMP_HEAT_DAMAGE_LIMIT)
+		if(isnull(tile_overlay))
+			LAZYSET(tile_overlay_cache, "heat", new/obj/effect/gas_overlay/heat(null, "heat"))
+			tile_overlay = tile_overlay_cache["heat"]
+		if(!(tile_overlay in graphic))
+			LAZYADD(graphic_add, tile_overlay)
+	else if(length(graphic) && (tile_overlay in graphic))
+		LAZYADD(graphic_remove, tile_overlay)
+
 	//Apply changes
-	if(graphic_add && graphic_add.len)
+	if(length(graphic_add))
 		graphic |= graphic_add
 		. = 1
-	if(graphic_remove && graphic_remove.len)
+	if(length(graphic_remove))
 		graphic -= graphic_remove
 		. = 1
-	if(graphic.len)
+
+	if(length(graphic))
 		var/pressure_mod = clamp(returnPressure() / ONE_ATMOSPHERE, 0, 2)
-		for(var/obj/effect/gas_overlay/O in graphic)
+		for(var/obj/effect/gas_overlay/O as anything in graphic)
+			if(O.type == /obj/effect/gas_overlay/heat) //Heat based
+				var/new_alpha = clamp(max(125, 255 * ((temperature - BODYTEMP_HEAT_DAMAGE_LIMIT) / BODYTEMP_HEAT_DAMAGE_LIMIT * 4)), 125, 255)
+				if(new_alpha != O.alpha)
+					O.update_alpha_animation(new_alpha)
+				continue
 			var/concentration_mod = clamp(gas[O.gas_id] / total_moles, 0.1, 1)
 			var/new_alpha = min(240, round(pressure_mod * concentration_mod * 180, 5))
 			if(new_alpha != O.alpha)
@@ -463,7 +485,7 @@
 		temp_avg = (temperature * full_heat_capacity + other.temperature * s_full_heat_capacity) / (full_heat_capacity + s_full_heat_capacity)
 
 	//WOOT WOOT TOUCH THIS AND YOU ARE A RETARD.
-	if(sharing_lookup_table.len >= connecting_tiles) //6 or more interconnecting tiles will max at 42% of air moved per tick.
+	if(length(sharing_lookup_table) >= connecting_tiles) //6 or more interconnecting tiles will max at 42% of air moved per tick.
 		ratio = sharing_lookup_table[connecting_tiles]
 	//WOOT WOOT TOUCH THIS AND YOU ARE A RETARD
 
@@ -504,21 +526,6 @@
 /datum/gas_mixture/proc/get_volume()
 	return max(0, volume)
 
-/datum/gas_mixture/proc/get_temperature()
-	return temperature
-
-/datum/gas_mixture/proc/get_moles()
-	//updateValues()
-	return total_moles
-
-////END LINDA COMPATABILITY////
-
-///Returns the gas list with an update.
-/datum/gas_mixture/proc/getGases()
-	RETURN_TYPE(/list)
-	//updateValues()
-	return gas
-
 /datum/gas_mixture/proc/returnVisuals()
 	AIR_UPDATE_VALUES(src)
 	checkTileGraphic()
@@ -535,8 +542,22 @@
 	return new_gas
 
 /turf/open/proc/copy_air_with_tile(turf/open/target_turf)
-	if(istype(target_turf))
-		return_air().copyFrom(target_turf.return_air())
+	if(!istype(target_turf))
+		return
+	if(TURF_HAS_VALID_ZONE(src))
+		zone.remove_turf(src)
+
+	if(isnull(target_turf.air))
+		target_turf.make_air()
+
+	if(simulated)
+		if(isnull(air))
+			make_air()
+		air.copyFrom(target_turf.unsafe_return_air())
+	else
+		initial_gas = target_turf.initial_gas
+		make_air()
+	SSzas.mark_for_update(src)
 
 /datum/gas_mixture/proc/leak_to_enviroment(datum/gas_mixture/environment)
 	pump_gas_passive(src, environment, calculate_transfer_moles(src, environment, src.returnPressure() - environment.returnPressure()))

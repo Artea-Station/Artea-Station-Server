@@ -217,11 +217,11 @@
 	if(!istype(location))
 		return
 
-	var/obj/effect/hotspot/hotspot = locate() in location
+	var/obj/effect/hotspot/hotspot = location.fire
 	if(!(hotspot && location.air && location.zone))
 		return
 
-	QDEL_NULL(hotspot)
+	QDEL_NULL(location.fire)
 	var/datum/gas_mixture/air = location.return_air()
 	if (air.getGroupGas(GAS_PLASMA))
 		var/plas_amt = min(30, air.gas[GAS_PLASMA]) //Absorb some plasma
@@ -229,7 +229,6 @@
 		absorbed_plasma += plas_amt
 	if (air.temperature > T20C)
 		air.temperature = max(air.temperature / 2, T20C)
-	//air.garbage_collect()
 	// ARTEA TODO: location.air_update_turf(FALSE, FALSE)
 
 /obj/effect/particle_effect/fluid/foam/firefighting/make_result()
@@ -361,20 +360,16 @@
 		return
 
 	location.ClearWet()
-	if(location.return_air())
-		var/datum/gas_mixture/air = location.return_air()
-		air.temperature = 293.15
-		for(var/obj/effect/hotspot/fire in location)
-			qdel(fire)
 
-		var/list/gases = air.gas
-		for(var/gas_type in gases)
-			switch(gas_type)
-				if(GAS_OXYGEN, GAS_NITROGEN)
-					continue
-				else
-					gases[gas_type] = 0
-		AIR_UPDATE_VALUES(air)
+	var/datum/gas_mixture/air_mix = location.return_air()
+	air_mix.temperature = T20C
+	QDEL_NULL(location.fire)
+	var/list/G_gases = air_mix.gas
+	for(var/gas_id in G_gases)
+		if(gas_id == GAS_OXYGEN || gas_id == GAS_NITROGEN)
+			continue
+		G_gases[gas_id] = 0
+	AIR_UPDATE_VALUES(air_mix)
 
 	for(var/obj/machinery/atmospherics/components/unary/comp in location)
 		if(!comp.welded)

@@ -297,8 +297,7 @@
 			air.adjustGas(GAS_NITROGEN, air.gas[GAS_PLASMA])
 			air.adjustGas(GAS_PLASMA, -air.gas[GAS_PLASMA])
 
-		for(var/obj/effect/hotspot/fire in chilly)
-			qdel(fire)
+		QDEL_NULL(chilly.fire)
 		// ARTEA TODO: chilly.air_update_turf(FALSE, FALSE)
 
 	if(weldvents)

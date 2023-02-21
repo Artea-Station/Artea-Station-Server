@@ -19,7 +19,7 @@
 
 	//Ok, get the air from the turf
 	var/datum/gas_mixture/env = local_turf.return_air()
-	environment_total_moles = env.get_moles()
+	environment_total_moles = env.total_moles
 	if(produces_gas)
 		//Remove gas from surrounding area
 		absorbed_gasmix = env.removeRatio(absorption_ratio, env.total_moles)
@@ -36,7 +36,7 @@
 		else
 			psy_overlay = FALSE
 	damage_archived = damage
-	if(!absorbed_gasmix || !absorbed_gasmix.get_moles() || isspaceturf(local_turf)) //we're in space or there is no gas to process
+	if(!absorbed_gasmix || !absorbed_gasmix.total_moles || isspaceturf(local_turf)) //we're in space or there is no gas to process
 		if(takes_damage)
 			damage += max((power / 1000) * DAMAGE_INCREASE_MULTIPLIER, 0.1) // always does at least some damage
 		if(local_turf.simulated && produces_gas && power) //There is no gas to process, but we are not in a space turf. Lets make them.
@@ -52,7 +52,7 @@
 			env.merge(absorbed_gasmix)
 			// air_update_turf(FALSE, FALSE)
 	else
-		combined_gas = absorbed_gasmix.get_moles()
+		combined_gas = absorbed_gasmix.total_moles
 		gas_percentage = list()
 
 		power_transmission_bonus = 0
@@ -164,7 +164,7 @@
 	//((((some value between 0.5 and 1 * temp - ((273.15 + 40) * some values between 1 and 10)) * some number between 0.25 and knock your socks off / 150) * 0.25
 	//Heat and mols account for each other, a lot of hot mols are more damaging then a few
 	//Mols start to have a positive effect on damage after 350
-	damage = max(damage + (max(clamp(removed.get_moles() / 200, 0.5, 1) * removed.temperature - ((T0C + HEAT_PENALTY_THRESHOLD)*dynamic_heat_resistance), 0) * mole_heat_penalty / 150 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
+	damage = max(damage + (max(clamp(removed.total_moles) / 200, 0.5, 1) * removed.temperature - ((T0C + HEAT_PENALTY_THRESHOLD)*dynamic_heat_resistance), 0) * mole_heat_penalty / 150 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
 	//Power only starts affecting damage when it is above 5000 (1250 when a cascade is occurring)
 	damage = max(damage + (max(power - (POWER_PENALTY_THRESHOLD * delam_damage_multipler), 0)/500) * DAMAGE_INCREASE_MULTIPLIER, 0)
 	//Molar count only starts affecting damage when it is above 1800 (450 when a cascade is occurring)
@@ -279,7 +279,7 @@
 	zap_cutoff = 1500
 	if(removed && removed.returnPressure() > 0 && removed.returnPressure() > 0)
 		//You may be able to freeze the zapstate of the engine with good planning, we'll see
-		zap_cutoff = clamp(3000 - (power * (removed.get_moles()) / 10) / removed.get_temperature(), 350, 3000)//If the core is cold, it's easier to jump, ditto if there are a lot of mols
+		zap_cutoff = clamp(3000 - (power * (removed.total_moles) / 10) / removed.temperature, 350, 3000)//If the core is cold, it's easier to jump, ditto if there are a lot of mols
 		//We should always be able to zap our way out of the default enclosure
 		//See supermatter_zap() for more details
 		range = clamp(power / removed.returnPressure() * 10, 2, 7)

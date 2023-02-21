@@ -34,7 +34,7 @@
 	if(!on)
 		return
 
-	var/datum/gas_mixture/air_sample = return_air()
+	var/datum/gas_mixture/air_sample = unsafe_return_air()
 	var/datum/signal/signal = new(list(
 		"sigtype" = "status",
 		"tag" = id_tag,

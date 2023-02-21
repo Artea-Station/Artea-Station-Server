@@ -60,7 +60,7 @@
 	data["clickAtmozphereCompatible"] = computer.hardware_flag == PROGRAM_TABLET
 	switch (atmozphere_mode) //Null air wont cause errors, don't worry.
 		if(ATMOZPHERE_SCAN_ENV)
-			var/datum/gas_mixture/air = turf?.return_air()
+			var/datum/gas_mixture/air = turf?.unsafe_return_air()
 			data["gasmixes"] = list(gas_mixture_parser(air, "Location Reading"))
 		if(ATMOZPHERE_SCAN_CLICK)
 			LAZYINITLIST(last_gasmix_data)

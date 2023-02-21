@@ -456,11 +456,11 @@
 
 	var/datum/gas_mixture/mix = SSzas.planetary["[z_levels[1]]"]
 
-	if(!mix?.get_moles()) // this typically means we didn't load lavaland, like if we're using #define LOWMEMORYMODE
+	if(!mix?.total_moles) // this typically means we didn't load lavaland, like if we're using #define LOWMEMORYMODE
 		return
 
 	// Take a "breath" of the air
-	var/datum/gas_mixture/breath = mix.remove(mix.get_moles() * BREATH_PERCENTAGE)
+	var/datum/gas_mixture/breath = mix.remove(mix.total_moles * BREATH_PERCENTAGE)
 
 	var/list/breath_gases = breath.gas
 	var/O2_moles = breath_gases[GAS_OXYGEN]
