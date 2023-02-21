@@ -6,12 +6,6 @@ on:
       - master
       - 'project/**'
 
-permissions:
-  contents: read
-  pull-requests: write
-  statuses: write
-  checks: write
-
 jobs:
   label_new_pulls:
     name: "Add and Sync PR Labels"
@@ -21,3 +15,8 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           config-path: ".github/pr_labels.yml"
+    permissions:
+      contents: read
+      pull-requests: write
+      statuses: write
+      checks: write
