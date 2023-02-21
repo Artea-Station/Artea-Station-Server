@@ -6,26 +6,26 @@ labels:
   # Area Labels
   - label: "Administration"
     matcher:
-      body: ":cl:.*\\\\nadmin:.*\\\\n\\/:cl:"
+      body: "^admin:"
   - label: "Config Update"
     matcher:
-      body: ":cl:.*\\\\nconfig:.*\\\\n\\/:cl:"
+      body: "^config:"
       files:
         any:
           - "code/controllers/configuration/entries/**/*"
           - "config/**/*"
   - label: "Grammar and Formatting"
     matcher:
-      body: ":cl:.*\\\\n(?:spellcheck|typo):.*\\\\n\\/:cl:"
+      body: "^spellcheck:"
   - label: "Sounds"
     matcher:
-      body: ":cl:.*\\\\nsound(?:add|del):.*\\\\n\\/:cl:"
+      body: "^sound(?:add|del):"
       files:
         any:
           - "sound/**/*"
   - label: "Sprites"
     matcher:
-      body: ":cl:.*\\\\nimage(?:add|del):.*\\\\n\\/:cl:"
+      body: "^image(?:add|del):"
       files:
         any:
           - "icons/**/*"
@@ -39,24 +39,24 @@ labels:
   # Type Labels
   - label: "Balance"
     matcher:
-      body: ":cl:.*\\\\n(?:re)?balance:.*\\\\n\\/:cl:"
+      body: "^balance:"
   - label: "Port"
     matcher:
       title: ".*\\[PORT\\].*"
   - label: "Fix"
     matcher:
       title: ".*fixes.*"
-      body: ":cl:.*\\\\n(?:bug)?fix(?:es)?:.*\\\\n\\/:cl:"
+      body: "fix:"
       branch: "^fix/.*"
   - label: "Quality of Life"
     matcher:
-      body: ":cl:.*\\\\nqol:.*\\\\n\\/:cl:"
+      body: "^qol:"
   - label: "Refactor"
     matcher:
-      body: ":cl:.*\\\\n(?:code(?:_imp)?|refactor):.*\\\\n\\/:cl:"
+      body: "^refactor:"
   - label: "Removal"
     matcher:
-      body: ":cl:.*\\\\n(?:sound|image|rsc)?dels?:.*\\\\n\\/:cl:"
+      body: "^del:"
   # Synced labels
   - label: "SQL"
     sync: true
