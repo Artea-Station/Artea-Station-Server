@@ -1,0 +1,23 @@
+name: Pull Request Labeller
+
+on:
+  pull_request:
+    branches:
+      - master
+      - 'project/**'
+
+permissions:
+  contents: read
+  pull-requests: write
+  statuses: write
+  checks: write
+
+jobs:
+  label_new_pulls:
+    name: "Add and Sync PR Labels"
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: fuxingloh/multi-labeler@f904e5d755b3d328cc7981917853aa973db4e7fd
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          config-path: ".github/pr_labels.yml"
