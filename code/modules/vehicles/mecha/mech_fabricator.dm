@@ -76,7 +76,7 @@
 	RegisterSignal(
 		stored_research,
 		list(COMSIG_TECHWEB_ADD_DESIGN, COMSIG_TECHWEB_REMOVE_DESIGN),
-		.proc/on_techweb_update
+		PROC_REF(on_techweb_update)
 	)
 	return ..()
 
