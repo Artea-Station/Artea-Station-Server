@@ -146,7 +146,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/cleaner, cleaning_time, on_cleaned_callback=CALLBACK(src, /atom/.proc/update_icon_state))
+	AddComponent(TYPE_PROC_REF(/datum/component/cleaner, cleaning_time, on_cleaned_callback=CALLBACK(src, /atom/, update_icon_state)))
 
 	chosen_name = name
 	get_targets()
@@ -199,7 +199,7 @@
 			stolen_valor += C.job
 		update_titles()
 
-		INVOKE_ASYNC(weapon, /obj/item.proc/attack, C, src)
+		INVOKE_ASYNC(weapon, TYPE_PROC_REF(/obj/item, attack), C, src)
 		C.Knockdown(20)
 
 /mob/living/simple_animal/bot/cleanbot/attackby(obj/item/attacking_item, mob/living/user, params)
