@@ -1,4 +1,4 @@
-## Artea Station (Skyrat Fork)
+## Artea Station (TG Fork)
 
 **Please note that this repository contains sexually explicit content and is not suitable for those under the age of 18.**
 
@@ -17,7 +17,7 @@
 * **Codedocs:** N/A
 * **Coderbus Discord:** https://discord.gg/Vh8TJp9
 
-This is Nosha Industry's downstream fork of Skyrat created in byond.
+This is Nosha Industry's fork of TG created in byond.
 
 Closed community for now until the requisite systems for moderation are put in place.
 
