@@ -13,7 +13,7 @@
 	obj_flags = CAN_BE_HIT | BLOCK_Z_OUT_DOWN
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_LATTICE)
-	canSmoothWith = list*+(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_OPEN_FLOOR, SMOOTH_GROUP_LATTICE)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_OPEN_FLOOR, SMOOTH_GROUP_LATTICE)
 	var/number_of_mats = 1
 	var/build_material = /obj/item/stack/rods
 
