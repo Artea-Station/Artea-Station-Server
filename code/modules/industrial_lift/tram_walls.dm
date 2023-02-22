@@ -81,7 +81,7 @@
 	flags_ricochet = RICOCHET_SHINY | RICOCHET_HARD
 	tram_wall_type = /obj/structure/tramwall/titanium
 	smoothing_groups = list(SMOOTH_GROUP_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SHUTTERS_BLASTDOORS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_LOW_WALL)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_LOW_WALL, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTERS_BLASTDOORS)
 	color = "#b3c0c7" //To display in mapping softwares
 
 /obj/structure/tramwall/plastitanium
@@ -90,7 +90,7 @@
 	icon = 'icons/turf/walls/metal_wall.dmi'
 	tram_wall_type = /obj/structure/tramwall/plastitanium
 	smoothing_groups = list(SMOOTH_GROUP_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SHUTTERS_BLASTDOORS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_LOW_WALL)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_LOW_WALL, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTERS_BLASTDOORS)
 
 /*
 /obj/structure/tramwall/gold
