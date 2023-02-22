@@ -4,7 +4,6 @@ $include game_options.txt
 $include dbconfig.txt
 $include comms.txt
 $include resources.txt
-$include skyrat/skyrat_config.txt
 $include interviews.txt
 $include lua.txt
 
@@ -22,8 +21,8 @@ $include lua.txt
 ## Server tagline: This will appear right below the server's title.
 # SERVERTAGLINE A generic TG-based server
 
-## Discord Link: This is the link to Skyrat's discord server
-# DISCORD_LINK https://discord.gg/hGpZ4Z3
+## Discord Link: This is the link to Artea Station's discord server
+DISCORD_LINK https://discord.gg/kKdBGNEG
 
 ## Server SQL name: This is the name used to identify the server to the SQL DB, distinct from SERVERNAME as it must be at most 32 characters.
 # SERVERSQLNAME tgstation
@@ -454,7 +453,7 @@ CLIENT_WARN_VERSION 514
 CLIENT_WARN_BUILD 1589
 #CLIENT_WARN_POPUP
 CLIENT_WARN_MESSAGE It is recommended to update to BYOND 514.1589 to avoid rendering issues in the preferences window.
-CLIENT_ERROR_VERSION 515
+CLIENT_ERROR_VERSION 514
 CLIENT_ERROR_MESSAGE Your version of byond is not supported, and will crash frequently. Please upgrade.
 ## The minimum build needed for joining the server, if using 512, a good minimum build would be 1421 as that disables the Middle Mouse Button exploit.
 CLIENT_ERROR_BUILD 1587

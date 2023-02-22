@@ -34,7 +34,7 @@ GLOBAL_DATUM_INIT(cleaning_bubbles_higher, /mutable_appearance, mutable_appearan
 	return ..()
 
 /datum/component/cleaner/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_START_CLEANING, .proc/on_start_cleaning)
+	RegisterSignal(parent, COMSIG_START_CLEANING, PROC_REF(on_start_cleaning))
 
 /datum/component/cleaner/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_START_CLEANING)
@@ -50,7 +50,7 @@ GLOBAL_DATUM_INIT(cleaning_bubbles_higher, /mutable_appearance, mutable_appearan
  */
 /datum/component/cleaner/proc/on_start_cleaning(datum/source, atom/target, mob/living/user, clean_target)
 	SIGNAL_HANDLER
-	INVOKE_ASYNC(src, .proc/clean, source, target, user, clean_target) //signal handlers can't have do_afters inside of them
+	INVOKE_ASYNC(src, PROC_REF(clean), source, target, user, clean_target) //signal handlers can't have do_afters inside of them
 
 /**
  * Cleans something using this cleaner.
