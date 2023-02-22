@@ -43,7 +43,7 @@ $discordWebHooks = array();
 // Only these repositories will announce in game.
 // Any repository that players actually care about.
 $game_announce_whitelist = array(
-	"Skyrat-tg",
+	"Artea-Station-Server",
 );
 
 // Any repository that matches in this blacklist will not appear on Discord.

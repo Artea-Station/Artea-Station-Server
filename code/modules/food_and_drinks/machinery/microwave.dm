@@ -318,7 +318,7 @@
 		return
 	time--
 	use_power(active_power_usage)
-	addtimer(CALLBACK(src, .proc/loop, type, time, wait), wait)
+	addtimer(CALLBACK(src, PROC_REF(loop), type, time, wait), wait)
 
 /obj/machinery/microwave/power_change()
 	. = ..()
@@ -386,7 +386,7 @@
 	//We want there to be some chance of them getting a working microwave (eventually).
 	if(prob(95))
 		//The microwave should turn off asynchronously from any other microwaves that initialize at the same time. Keep in mind this will not turn off, since there is nothing to call the proc that ends this microwave's looping
-		addtimer(CALLBACK(src, .proc/wzhzhzh), rand(0.5 SECONDS, 3 SECONDS))
+		addtimer(CALLBACK(src, PROC_REF(wzhzhzh)), rand(0.5 SECONDS, 3 SECONDS))
 
 #undef MICROWAVE_NORMAL
 #undef MICROWAVE_MUCK
