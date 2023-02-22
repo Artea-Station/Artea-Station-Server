@@ -18,6 +18,7 @@
 		/obj/item/flashlight/glowstick/red = 3,
 		/obj/item/flashlight = 5,
 		/obj/item/clothing/ears/earmuffs = 1,
+		/obj/item/paint/anycolor = 5
 	)
 	contraband = list(
 		/obj/item/clothing/gloves/color/fyellow = 2,
