@@ -5,8 +5,6 @@
 	var/account_holder = "Rusty Venture"
 	///How many credits are currently held in the bank account.
 	var/account_balance = 0
-	///If there are things effecting how much income a player will get, it's reflected here 1 is standard for humans.
-	var/payday_modifier
 	///The job datum of the account owner.
 	var/datum/job/account_job
 	///List of the physical ID card objects that are associated with this bank_account
@@ -29,7 +27,6 @@
 /datum/bank_account/New(newname, job, modifier = 1, player_account = TRUE)
 	account_holder = newname
 	account_job = job
-	payday_modifier = modifier
 	add_to_accounts = player_account
 	setup_unique_account_id()
 
@@ -122,7 +119,7 @@
 /datum/bank_account/proc/payday(amt_of_paychecks, free = FALSE)
 	if(!account_job)
 		return
-	var/money_to_transfer = round(account_job.paycheck * payday_modifier * amt_of_paychecks)
+	var/money_to_transfer = round(account_job.paycheck * amt_of_paychecks)
 	if(amt_of_paychecks == 1)
 		money_to_transfer = clamp(money_to_transfer, 0, PAYCHECK_CREW) //We want to limit single, passive paychecks to regular crew income.
 	if(free)
