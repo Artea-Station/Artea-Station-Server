@@ -25,7 +25,6 @@
 			"name" = current_bank_account.account_holder,
 			"job" = current_bank_account.account_job.title,
 			"balance" = current_bank_account.account_balance,
-			"modifier" = current_bank_account.payday_modifier,
 		))
 	data["PlayerAccounts"] = player_accounts
 	data["AuditLog"] = audit_list
