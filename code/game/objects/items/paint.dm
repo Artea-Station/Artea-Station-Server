@@ -165,7 +165,6 @@
 	gender = PLURAL
 	name = "paint remover"
 	desc = "Used to remove color from anything."
-	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "paint_neutral"
 	inhand_icon_state = "paintcan"
 	w_class = WEIGHT_CLASS_NORMAL
