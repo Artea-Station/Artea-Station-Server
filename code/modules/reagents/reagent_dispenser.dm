@@ -244,7 +244,7 @@
 			assembliesoverlay.pixel_x += 6
 			assembliesoverlay.pixel_y += 1
 			add_overlay(assembliesoverlay)
-			RegisterSignal(src, COMSIG_IGNITER_ACTIVATE, .proc/rig_boom)
+			RegisterSignal(src, COMSIG_IGNITER_ACTIVATE, PROC_REF(rig_boom))
 		return
 	return ..()
 

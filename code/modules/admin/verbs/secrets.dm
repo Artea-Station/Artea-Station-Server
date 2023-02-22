@@ -430,9 +430,9 @@ GLOBAL_DATUM(everyone_a_traitor, /datum/everyone_is_a_traitor_controller)
 						var/ghostcandidates = list()
 						for (var/j in 1 to min(prefs["amount"]["value"], length(candidates)))
 							ghostcandidates += pick_n_take(candidates)
-							addtimer(CALLBACK(GLOBAL_PROC, .proc/doPortalSpawn, get_random_station_turf(), pathToSpawn, length(ghostcandidates), storm, ghostcandidates, outfit), i*prefs["delay"]["value"])
+							addtimer(CALLBACK(GLOBAL_PROC, PROC_REF(doPortalSpawn), get_random_station_turf(), pathToSpawn, length(ghostcandidates), storm, ghostcandidates, outfit), i*prefs["delay"]["value"])
 					else if (prefs["playersonly"]["value"] != "Yes")
-						addtimer(CALLBACK(GLOBAL_PROC, .proc/doPortalSpawn, get_random_station_turf(), pathToSpawn, prefs["amount"]["value"], storm, null, outfit), i*prefs["delay"]["value"])
+						addtimer(CALLBACK(GLOBAL_PROC, PROC_REF(doPortalSpawn), get_random_station_turf(), pathToSpawn, prefs["amount"]["value"], storm, null, outfit), i*prefs["delay"]["value"])
 		if("changebombcap")
 			if(!is_funmin)
 				return
@@ -453,7 +453,7 @@ GLOBAL_DATUM(everyone_a_traitor, /datum/everyone_is_a_traitor_controller)
 			log_admin("[key_name_admin(holder)] made everyone into monkeys.")
 			for(var/i in GLOB.human_list)
 				var/mob/living/carbon/human/H = i
-				INVOKE_ASYNC(H, /mob/living/carbon.proc/monkeyize)
+				INVOKE_ASYNC(H, TYPE_PROC_REF(/mob/living/carbon, monkeyize))
 		if("traitor_all")
 			if(!is_funmin)
 				return
@@ -624,7 +624,7 @@ GLOBAL_DATUM(everyone_a_traitor, /datum/everyone_is_a_traitor_controller)
 
 /datum/everyone_is_a_traitor_controller/New(objective)
 	src.objective = objective
-	RegisterSignal(SSdcs, COMSIG_GLOB_CREWMEMBER_JOINED, .proc/make_traitor)
+	RegisterSignal(SSdcs, COMSIG_GLOB_CREWMEMBER_JOINED, PROC_REF(make_traitor))
 
 /datum/everyone_is_a_traitor_controller/Destroy()
 	UnregisterSignal(SSdcs, COMSIG_GLOB_CREWMEMBER_JOINED)

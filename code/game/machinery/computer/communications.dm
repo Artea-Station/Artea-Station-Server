@@ -338,7 +338,7 @@
 				)
 			)
 
-			send_cross_comms_message_timer = addtimer(CALLBACK(src, .proc/send_cross_comms_message, usr, destination, message), CROSS_SECTOR_CANCEL_TIME, TIMER_STOPPABLE)
+			send_cross_comms_message_timer = addtimer(CALLBACK(src, PROC_REF(send_cross_comms_message), usr, destination, message), CROSS_SECTOR_CANCEL_TIME, TIMER_STOPPABLE)
 
 			COOLDOWN_START(src, important_action_cooldown, IMPORTANT_ACTION_COOLDOWN)
 		if ("setState")
@@ -431,7 +431,7 @@
 
 			SSjob.safe_code_request_loc = pod_location
 			SSjob.safe_code_requested = TRUE
-			SSjob.safe_code_timer_id = addtimer(CALLBACK(SSjob, /datum/controller/subsystem/job.proc/send_spare_id_safe_code, pod_location), 120 SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
+			SSjob.safe_code_timer_id = addtimer(CALLBACK(SSjob, TYPE_PROC_REF(/datum/controller/subsystem/job, send_spare_id_safe_code), pod_location), 120 SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
 			minor_announce("Due to staff shortages, your station has been approved for delivery of access codes to secure the Captain's Spare ID. Delivery via drop pod at [get_area(pod_location)]. ETA 120 seconds.")
 
 /obj/machinery/computer/communications/proc/emergency_access_cooldown(mob/user)
@@ -780,7 +780,7 @@
 		return FALSE
 
 	AI_notify_hack()
-	if(!do_after(hacker, duration, src, extra_checks = CALLBACK(src, .proc/can_hack)))
+	if(!do_after(hacker, duration, src, extra_checks = CALLBACK(src, PROC_REF(can_hack))))
 		return FALSE
 
 	hack_console(hacker)
@@ -831,7 +831,7 @@
 			var/datum/round_event_control/pirates/pirate_event = locate() in SSevents.control
 			if(!pirate_event)
 				CRASH("hack_console() attempted to run pirates, but could not find an event controller!")
-			addtimer(CALLBACK(pirate_event, /datum/round_event_control.proc/runEvent), rand(20 SECONDS, 1 MINUTES))
+			addtimer(CALLBACK(pirate_event, TYPE_PROC_REF(/datum/round_event_control, runEvent)), rand(20 SECONDS, 1 MINUTES))
 
 		if(HACK_FUGITIVES) // Triggers fugitives, which can cause confusion / chaos as the crew decides which side help
 			priority_announce(
@@ -842,7 +842,7 @@
 			var/datum/round_event_control/fugitives/fugitive_event = locate() in SSevents.control
 			if(!fugitive_event)
 				CRASH("hack_console() attempted to run fugitives, but could not find an event controller!")
-			addtimer(CALLBACK(fugitive_event, /datum/round_event_control.proc/runEvent), rand(20 SECONDS, 1 MINUTES))
+			addtimer(CALLBACK(fugitive_event, TYPE_PROC_REF(/datum/round_event_control, runEvent)), rand(20 SECONDS, 1 MINUTES))
 
 		if(HACK_THREAT) // Force an unfavorable situation on the crew
 			priority_announce(
