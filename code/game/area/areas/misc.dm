@@ -20,7 +20,7 @@
 /area/space/Initialize(mapload)
 	. = ..()
 
-	add_overlay(GLOB.fullbright_overlay)
+	add_overlay(GLOB.space_overlay)
 
 /area/space/nearstation
 	icon_state = "space_near"
