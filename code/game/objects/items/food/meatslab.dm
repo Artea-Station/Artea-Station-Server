@@ -391,7 +391,7 @@
 
 /obj/item/food/meat/steak/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_ITEM_MICROWAVE_COOKED, .proc/OnMicrowaveCooked)
+	RegisterSignal(src, COMSIG_ITEM_MICROWAVE_COOKED, PROC_REF(OnMicrowaveCooked))
 
 
 /obj/item/food/meat/steak/proc/OnMicrowaveCooked(datum/source, obj/item/source_item, cooking_efficiency = 1)
@@ -602,7 +602,7 @@
 
 /obj/item/food/meat/cutlet/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_ITEM_MICROWAVE_COOKED, .proc/OnMicrowaveCooked)
+	RegisterSignal(src, COMSIG_ITEM_MICROWAVE_COOKED, PROC_REF(OnMicrowaveCooked))
 
 ///This proc handles setting up the correct meat name for the cutlet, this should definitely be changed with the food rework.
 /obj/item/food/meat/cutlet/proc/OnMicrowaveCooked(datum/source, atom/source_item, cooking_efficiency)
