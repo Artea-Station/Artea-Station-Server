@@ -146,7 +146,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/Initialize(mapload)
 	. = ..()
-	AddComponent(TYPE_PROC_REF(/datum/component/cleaner, cleaning_time, on_cleaned_callback=CALLBACK(src, /atom/, update_icon_state)))
+	AddComponent(/datum/component/cleaner, cleaning_time, on_cleaned_callback=CALLBACK(src, TYPE_PROC_REF(/atom, update_icon_state)))
 
 	chosen_name = name
 	get_targets()
