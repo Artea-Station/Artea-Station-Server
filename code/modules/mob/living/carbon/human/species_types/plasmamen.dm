@@ -22,7 +22,6 @@
 	burnmod = 1.5
 	heatmod = 1.5
 	brutemod = 1.5
-	payday_modifier = 0.75
 	breathid = "plas"
 	disliked_food = FRUIT | CLOTH
 	liked_food = VEGETABLES
