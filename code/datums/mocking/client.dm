@@ -38,3 +38,7 @@
 
 /datum/client_interface/proc/set_macros()
 	return
+
+/// Absolute shitcode, but necessary, cause this is autocalled on prefsload.
+/datum/client_interface/verb/SetWindowIconSize()
+	return
