@@ -10,6 +10,15 @@
 	max_integrity = 100
 	recipe_type = /datum/crafting_recipe/shutters
 
+/obj/machinery/door/poddoor/shutters/do_animate(animation)
+	switch(animation)
+		if("opening")
+			flick("opening", src)
+			playsound(src, 'sound/machines/shutters_open.ogg', 100, TRUE)
+		if("closing")
+			flick("closing", src)
+			playsound(src, 'sound/machines/shutters_close.ogg', 100, TRUE)
+
 /obj/machinery/door/poddoor/shutters/preopen
 	icon_state = "open"
 	density = FALSE
