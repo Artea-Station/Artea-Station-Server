@@ -1048,6 +1048,32 @@
 	for(var/obj/item/organ/external/ext_organ as anything in external_organs)
 		ext_organ.inherit_color(force = TRUE)
 
+/obj/item/bodypart/proc/get_offset(direction) //For interact particle
+	return null
+
+/obj/item/bodypart/r_arm/get_offset(direction)
+	switch(direction)
+		if(NORTH)
+			return list(6,-3)
+		if(SOUTH)
+			return list(-6,-3)
+		if(EAST)
+			return list(0,-3)
+		if(WEST)
+			return list(0,-3)
+
+/obj/item/bodypart/l_arm/get_offset(direction)
+	switch(direction)
+		if(NORTH)
+			return list(-6,-3)
+		if(SOUTH)
+			return list(6,-3)
+		if(EAST)
+			return list(0,-3)
+		if(WEST)
+			return list(0,-3)
+
+
 ///A multi-purpose setter for all things immediately important to the icon and iconstate of the limb.
 /obj/item/bodypart/proc/change_appearance(icon, id, greyscale, dimorphic)
 	var/icon_holder

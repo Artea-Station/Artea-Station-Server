@@ -370,6 +370,7 @@
 	var/mob/living/user_living = user
 	if(user_living.apply_martial_art(src, null, is_grab=TRUE) == MARTIAL_ATTACK_SUCCESS)
 		user_living.changeNext_move(CLICK_CD_MELEE)
+		user_living.animate_interact(src, INTERACT_GRAB)
 		return TRUE
 
 	return ..()
