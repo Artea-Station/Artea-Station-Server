@@ -318,11 +318,7 @@ GLOBAL_VAR(restart_counter)
 	if(config)
 		var/server_name = CONFIG_GET(string/servername)
 		if (server_name)
-			new_status += "<b>[server_name]</b> "
-		if(!CONFIG_GET(flag/norespawn))
-			features += "respawn"
-		if(!CONFIG_GET(flag/allow_ai))
-			features += "AI disabled"
+			new_status += "<b>[server_name] (<a href=\"[CONFIG_GET(string/discord_link)]\">Discord!</a>)</b> "
 		hostedby = CONFIG_GET(string/hostedby)
 
 	if (CONFIG_GET(flag/station_name_in_hub_entry))
