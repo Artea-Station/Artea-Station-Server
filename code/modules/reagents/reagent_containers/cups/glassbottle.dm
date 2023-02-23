@@ -376,7 +376,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/absinthe/premium/redact()
 	return
 
-/obj/item/reagent_containers/food/drinks/bottle/hcider
+/obj/item/reagent_containers/cup/glass/bottle/hcider
 	name = "Jian Hard Cider"
 	desc = "Apple juice for adults."
 	icon_state = "hcider"

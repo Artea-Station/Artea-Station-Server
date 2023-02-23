@@ -500,16 +500,6 @@
 	name = "\improper DNA injector (Anti-Thermal Vision)"
 	remove_mutations = list(/datum/mutation/human/thermal)
 
-/obj/item/dnainjector/tourmut
-	name = "\improper DNA injector (Tour.)"
-	desc = "Gives you a nasty case of Tourette's."
-	add_mutations = list(/datum/mutation/human/tourettes)
-
-/obj/item/dnainjector/antitour
-	name = "\improper DNA injector (Anti-Tour.)"
-	desc = "Will cure Tourette's."
-	remove_mutations = list(/datum/mutation/human/tourettes)
-
 /obj/item/dnainjector/twoleftfeet
 	name = "\improper DNA injector (Two Left Feet)"
 	add_mutations = list(/datum/mutation/human/extrastun)
