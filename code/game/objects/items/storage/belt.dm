@@ -664,7 +664,7 @@
 		/obj/item/key/janitor,
 		/obj/item/lightreplacer,
 		/obj/item/melee/flyswatter,
-		/obj/item/paint/paint_remover,
+		/obj/item/paint_remover,
 		/obj/item/plunger,
 		/obj/item/pushbroom,
 		/obj/item/reagent_containers/spray,

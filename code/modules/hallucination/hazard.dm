@@ -95,7 +95,7 @@
 	return ..()
 
 /obj/effect/client_image_holder/hallucination/danger/anomaly/process(delta_time)
-	if(DT_PROB(ANOMALY_MOVECHANCE, delta_time))
+	if(DT_PROB(45, delta_time))
 		step(src, pick(GLOB.alldirs))
 
 /obj/effect/client_image_holder/hallucination/danger/anomaly/on_hallucinator_entered(mob/living/afflicted)

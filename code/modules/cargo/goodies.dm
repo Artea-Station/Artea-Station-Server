@@ -263,3 +263,9 @@
 	desc = "A standard-sized coffeepot, for use with a coffeemaker."
 	cost = PAYCHECK_CREW
 	contains = list(/obj/item/reagent_containers/cup/coffeepot)
+
+/datum/supply_pack/goody/paint
+	name = "Adaptive Paint"
+	desc = "A single, premium can of adaptive paint. Now you can turn the entire station neon pink!"
+	cost = PAYCHECK_CREW * 2
+	contains = list(/obj/item/paint/anycolor)

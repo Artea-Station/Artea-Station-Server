@@ -6,14 +6,14 @@
 /obj/machinery/door/firedoor
 	name = "firelock"
 	desc = "Apply crowbar."
-	icon = 'icons/obj/doors/doorfireglass.dmi'
+	icon = 'icons/obj/doors/doorfire.dmi'
 	icon_state = "door_open"
 	opacity = FALSE
 	density = FALSE
 	max_integrity = 300
 	resistance_flags = FIRE_PROOF
 	heat_proof = TRUE
-	glass = TRUE
+	glass = FALSE
 	sub_door = TRUE
 	explosion_block = 1
 	safe = FALSE
@@ -24,6 +24,9 @@
 
 	COOLDOWN_DECLARE(activation_cooldown)
 
+	door_align_type = /obj/machinery/door/firedoor
+
+	align_to_windows = TRUE
 	///Trick to get the glowing overlay visible from a distance
 	luminosity = 1
 	///X offset for the overlay lights, so that they line up with the thin border firelocks
@@ -596,11 +599,7 @@
 		. += density ? "welded" : "welded_open"
 	if(alarm_type && powered() && !ignore_alarms)
 		var/mutable_appearance/hazards
-		hazards = mutable_appearance(icon, "[(obj_flags & EMAGGED) ? "firelock_alarm_type_emag" : alarm_type]")
-		hazards.pixel_x = light_xoffset
-		hazards.pixel_y = light_yoffset
-		. += hazards
-		hazards = emissive_appearance(icon, "[(obj_flags & EMAGGED) ? "firelock_alarm_type_emag" : alarm_type]", alpha = src.alpha)
+		hazards = mutable_appearance(icon, alarm_type, alpha = src.alpha)
 		hazards.pixel_x = light_xoffset
 		hazards.pixel_y = light_yoffset
 		. += hazards
@@ -669,6 +668,7 @@
 	can_crush = FALSE
 	flags_1 = ON_BORDER_1
 	can_atmos_pass = ATMOS_PASS_PROC
+	auto_dir_align = FALSE
 
 /obj/machinery/door/firedoor/border_only/closed
 	icon_state = "door_closed"
