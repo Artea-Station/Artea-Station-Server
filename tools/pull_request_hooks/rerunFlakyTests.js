@@ -4,7 +4,7 @@ const TITLE_BOT_HEADER = "title: ";
 // Only check jobs that start with these.
 // Helps make sure we don't restart something like screenshot tests or linters, which are not known to be flaky.
 const CONSIDERED_JOBS = [
-  "CI Suite / Integration Tests",
+  "Integration Tests",
 ];
 
 async function getFailedJobsForRun(github, context, workflowRunId, runAttempt) {
@@ -190,7 +190,7 @@ async function getExistingIssueId(graphql, context, title) {
   }
 
   const foundInBody = openFlakyTestIssues.find((issue) =>
-    issue.body.contains(`<!-- ${TITLE_BOT_HEADER}${exactTitle} -->`)
+    issue.body.includes(`<!-- ${TITLE_BOT_HEADER}${exactTitle} -->`)
   );
   if (foundInBody !== undefined) {
     return foundInBody.number;
