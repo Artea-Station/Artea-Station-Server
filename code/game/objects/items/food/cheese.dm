@@ -28,6 +28,10 @@
 	w_class = WEIGHT_CLASS_SMALL
 	rat_heal = 10
 
+/obj/item/food/cheese/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/smell/subtle, SCENT_SMELL, "cheese", 4)
+
 /obj/item/food/cheese/wheel
 	name = "cheese wheel"
 	desc = "A big wheel of delcious Cheddar."

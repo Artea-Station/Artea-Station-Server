@@ -215,3 +215,6 @@
 
 	/// Living mob's mood datum
 	var/datum/mood/mob_mood
+
+	COOLDOWN_DECLARE(smell_time)
+	var/last_smell_intensity = 0
