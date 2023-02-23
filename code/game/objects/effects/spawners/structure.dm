@@ -107,6 +107,9 @@ again.
 	icon_state = "rwindow_spawner"
 	spawn_list = list(/obj/structure/low_wall/wood, /obj/structure/window/reinforced/fulltile)
 
+/obj/effect/spawner/structure/window/reinforced/no_firelock
+	spawn_list = list(/obj/structure/grille, /obj/structure/window/reinforced/fulltile)
+
 /obj/effect/spawner/structure/window/hollow/reinforced
 	name = "hollow reinforced window spawner"
 	icon_state = "hrwindow_spawner_full"
