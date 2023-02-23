@@ -1158,6 +1158,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			target.apply_effect(knockdown_duration, EFFECT_KNOCKDOWN, armor_block)
 			log_combat(user, target, "got a stun punch with their previous punch")
 
+		return TRUE
+
 /datum/species/proc/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	return
 
@@ -1168,6 +1170,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		to_chat(user, span_warning("Your shove at [target] was blocked!"))
 		return FALSE
 	if(attacker_style?.disarm_act(user,target) == MARTIAL_ATTACK_SUCCESS)
+		user.animate_interact(target, INTERACT_DISARM)
 		return TRUE
 	if(user.body_position != STANDING_UP)
 		return FALSE
@@ -1176,7 +1179,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(user.loc == target.loc)
 		return FALSE
 	user.disarm(target)
-
+	return TRUE
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	return
@@ -1201,12 +1204,18 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	SEND_SIGNAL(owner, COMSIG_MOB_ATTACK_HAND, owner, target, attacker_style)
 
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
-		disarm(owner, target, attacker_style)
+		. = disarm(owner, target, attacker_style)
+		if(.)
+			owner.animate_interact(target, INTERACT_DISARM)
 		return // dont attack after
 	if(owner.combat_mode)
-		harm(owner, target, attacker_style)
+		. = harm(owner, target, attacker_style)
+		if(.)
+			owner.animate_interact(target, INTERACT_HARM)
 	else
-		help(owner, target, attacker_style)
+		. = help(owner, target, attacker_style)
+		if(.)
+			owner.animate_interact(target, INTERACT_HELP)
 
 /datum/species/proc/spec_attacked_by(obj/item/weapon, mob/living/user, obj/item/bodypart/affecting, mob/living/carbon/human/human)
 	// Allows you to put in item-specific reactions based on species

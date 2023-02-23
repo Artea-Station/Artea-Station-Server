@@ -530,6 +530,7 @@
 			return
 	// create a light tube/bulb item and put it in the user's hand
 	drop_light_tube(user)
+	return TRUE
 
 /obj/machinery/light/proc/set_major_emergency_light()
 	major_emergency = TRUE
