@@ -1,3 +1,12 @@
+/// Makes sure GAGS files are the right format post-baywalls GAGS refactor.
+/datum/unit_test/greyscale_is_not_old
+
+/datum/unit_test/greyscale_is_not_old/Run()
+	for(var/key in SSgreyscale.configurations)
+		var/datum/greyscale_config/value = SSgreyscale.configurations[key]
+		if(!length(value.flat_all_layers))
+			TEST_FAIL("Greyscale config [key] has no layers, or is using TG format! Use the horizon GAGS format!")
+
 /// Makes sure items using GAGS have all the icon states needed to work
 /datum/unit_test/greyscale_item_icon_states
 

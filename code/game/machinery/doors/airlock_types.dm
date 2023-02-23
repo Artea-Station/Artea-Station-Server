@@ -3,64 +3,74 @@
 */
 
 /obj/machinery/door/airlock/command
-	icon = 'icons/obj/doors/airlocks/station/command.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_com
 	normal_integrity = 450
+	airlock_paint = "#334E6D"
+	stripe_paint = "#43769D"
 
 /obj/machinery/door/airlock/security
-	icon = 'icons/obj/doors/airlocks/station/security.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_sec
 	normal_integrity = 450
+	airlock_paint = "#9F2828"
+	stripe_paint = "#D27428"
 
 /obj/machinery/door/airlock/engineering
-	icon = 'icons/obj/doors/airlocks/station/engineering.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_eng
+	airlock_paint = "#A28226"
+	stripe_paint = "#7F292F"
 
 /obj/machinery/door/airlock/medical
-	icon = 'icons/obj/doors/airlocks/station/medical.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_med
+	airlock_paint = "#BBBBBB"
+	stripe_paint = "#5995BA"
 
 /obj/machinery/door/airlock/hydroponics	//Hydroponics front doors!
-	icon = 'icons/obj/doors/airlocks/station/hydroponics.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_hydro
+	airlock_paint = "#559958"
+	stripe_paint = "#0650A4"
 
 /obj/machinery/door/airlock/maintenance
 	name = "maintenance access"
-	icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_mai
 	normal_integrity = 250
+	stripe_paint = "#B69F3C"
 
 /obj/machinery/door/airlock/maintenance/external
 	name = "external airlock access"
-	icon = 'icons/obj/doors/airlocks/station/maintenanceexternal.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_extmai
+	stripe_paint = "#9F2828"
 
 /obj/machinery/door/airlock/mining
 	name = "mining airlock"
-	icon = 'icons/obj/doors/airlocks/station/mining.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_min
+	airlock_paint = "#967032"
+	stripe_paint = "#5F350B"
 
 /obj/machinery/door/airlock/atmos
 	name = "atmospherics airlock"
-	icon = 'icons/obj/doors/airlocks/station/atmos.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_atmo
+	airlock_paint = "#A28226"
+	stripe_paint = "#469085"
 
 /obj/machinery/door/airlock/research
-	icon = 'icons/obj/doors/airlocks/station/research.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_research
+	airlock_paint = "#BBBBBB"
+	stripe_paint = "#563758"
 
 /obj/machinery/door/airlock/freezer
 	name = "freezer airlock"
-	icon = 'icons/obj/doors/airlocks/station/freezer.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_fre
+	airlock_paint = "#BBBBBB"
 
 /obj/machinery/door/airlock/science
-	icon = 'icons/obj/doors/airlocks/station/science.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_science
+	airlock_paint = "#BBBBBB"
+	stripe_paint = "#6633CC"
 
 /obj/machinery/door/airlock/virology
-	icon = 'icons/obj/doors/airlocks/station/virology.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_viro
+	airlock_paint = "#BBBBBB"
+	stripe_paint = "#2a7a25"
 
 //////////////////////////////////
 /*
@@ -162,8 +172,8 @@
 
 /obj/machinery/door/airlock/gold
 	name = "gold airlock"
-	icon = 'icons/obj/doors/airlocks/station/gold.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_gold
+	airlock_paint = "#9F891F"
 
 /obj/machinery/door/airlock/gold/glass
 	opacity = FALSE
@@ -171,8 +181,8 @@
 
 /obj/machinery/door/airlock/silver
 	name = "silver airlock"
-	icon = 'icons/obj/doors/airlocks/station/silver.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_silver
+	airlock_paint = "#C9C9C9"
 
 /obj/machinery/door/airlock/silver/glass
 	opacity = FALSE
@@ -180,10 +190,10 @@
 
 /obj/machinery/door/airlock/diamond
 	name = "diamond airlock"
-	icon = 'icons/obj/doors/airlocks/station/diamond.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_diamond
 	normal_integrity = 1000
 	explosion_block = 2
+	airlock_paint = "#4AB4B4"
 
 /obj/machinery/door/airlock/diamond/glass
 	normal_integrity = 950
@@ -192,8 +202,8 @@
 
 /obj/machinery/door/airlock/uranium
 	name = "uranium airlock"
-	icon = 'icons/obj/doors/airlocks/station/uranium.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_uranium
+	airlock_paint = "#174207"
 	var/last_event = 0
 	//Is this airlock actually radioactive?
 	var/actually_radioactive = TRUE
@@ -227,8 +237,8 @@
 /obj/machinery/door/airlock/plasma
 	name = "plasma airlock"
 	desc = "No way this can end badly."
-	icon = 'icons/obj/doors/airlocks/station/plasma.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_plasma
+	airlock_paint = "#65217B"
 	material_flags = MATERIAL_EFFECTS
 	material_modifier = 0.25
 
@@ -246,8 +256,8 @@
 /obj/machinery/door/airlock/bananium
 	name = "bananium airlock"
 	desc = "Honkhonkhonk"
-	icon = 'icons/obj/doors/airlocks/station/bananium.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_bananium
+	airlock_paint = "#FFFF00"
 	doorOpen = 'sound/items/bikehorn.ogg'
 
 /obj/machinery/door/airlock/bananium/glass
@@ -256,8 +266,8 @@
 
 /obj/machinery/door/airlock/sandstone
 	name = "sandstone airlock"
-	icon = 'icons/obj/doors/airlocks/station/sandstone.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_sandstone
+	airlock_paint = "#C09A72"
 
 /obj/machinery/door/airlock/sandstone/glass
 	opacity = FALSE
@@ -265,8 +275,8 @@
 
 /obj/machinery/door/airlock/wood
 	name = "wooden airlock"
-	icon = 'icons/obj/doors/airlocks/station/wood.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_wood
+	airlock_paint = "#805F44"
 
 /obj/machinery/door/airlock/wood/glass
 	opacity = FALSE
@@ -275,8 +285,7 @@
 /obj/machinery/door/airlock/titanium
 	name = "shuttle airlock"
 	assemblytype = /obj/structure/door_assembly/door_assembly_titanium
-	icon = 'icons/obj/doors/airlocks/shuttle/shuttle.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
+	airlock_paint = "#b3c0c7"
 	normal_integrity = 400
 
 /obj/machinery/door/airlock/titanium/glass
@@ -286,9 +295,8 @@
 
 /obj/machinery/door/airlock/bronze
 	name = "bronze airlock"
-	icon = 'icons/obj/doors/airlocks/clockwork/pinion_airlock.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/clockwork/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_bronze
+	airlock_paint = "#9c5f05"
 
 /obj/machinery/door/airlock/bronze/seethru
 	assemblytype = /obj/structure/door_assembly/door_assembly_bronze/seethru
@@ -300,8 +308,8 @@
 */
 
 /obj/machinery/door/airlock/public
-	icon = 'icons/obj/doors/airlocks/station2/glass.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/station2/overlays.dmi'
+	icon = 'icons/obj/doors/airlocks/station2/airlock.dmi'
+	glass_fill_overlays = 'icons/obj/doors/airlocks/station2/glass_overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_public
 
 /obj/machinery/door/airlock/public/glass
@@ -328,9 +336,11 @@
 
 /obj/machinery/door/airlock/external
 	name = "external airlock"
-	icon = 'icons/obj/doors/airlocks/external/external.dmi'
+	icon = 'icons/obj/doors/airlocks/external/airlock.dmi'
+	color_overlays = 'icons/obj/doors/airlocks/external/airlock_color.dmi'
+	glass_fill_overlays = 'icons/obj/doors/airlocks/external/glass_overlays.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
-	note_overlay_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
+	airlock_paint = "#9F2828"
 	assemblytype = /obj/structure/door_assembly/door_assembly_ext
 
 	/// Whether or not the airlock can be opened without access from a certain direction while powered, or with bare hands from any direction while unpowered OR pressurized.
@@ -391,16 +401,14 @@
 */
 
 /obj/machinery/door/airlock/centcom //Use grunge as a station side version, as these have special effects related to them via phobias and such.
-	icon = 'icons/obj/doors/airlocks/centcom/centcom.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/centcom/overlays.dmi'
+	icon = 'icons/obj/doors/airlocks/centcom/airlock.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_centcom
 	normal_integrity = 1000
 	security_level = 6
 	explosion_block = 2
 
 /obj/machinery/door/airlock/grunge
-	icon = 'icons/obj/doors/airlocks/centcom/centcom.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/centcom/overlays.dmi'
+	icon = 'icons/obj/doors/airlocks/centcom/airlock.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_grunge
 
 //////////////////////////////////
@@ -410,12 +418,13 @@
 
 /obj/machinery/door/airlock/vault
 	name = "vault door"
-	icon = 'icons/obj/doors/airlocks/vault/vault.dmi'
+	icon = 'icons/obj/doors/airlocks/vault/airlock.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/vault/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_vault
 	explosion_block = 2
 	normal_integrity = 400 // reverse engieneerd: 400 * 1.5 (sec lvl 6) = 600 = original
 	security_level = 6
+	has_fill_overlays = FALSE
 
 //////////////////////////////////
 /*
@@ -424,17 +433,17 @@
 
 /obj/machinery/door/airlock/hatch
 	name = "airtight hatch"
-	icon = 'icons/obj/doors/airlocks/hatch/centcom.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
-	note_overlay_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
+	icon = 'icons/obj/doors/airlocks/hatch/airlock.dmi'
+	stripe_overlays = 'icons/obj/doors/airlocks/hatch/airlock_stripe.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_hatch
 
 /obj/machinery/door/airlock/maintenance_hatch
 	name = "maintenance hatch"
-	icon = 'icons/obj/doors/airlocks/hatch/maintenance.dmi'
+	icon = 'icons/obj/doors/airlocks/hatch/airlock.dmi'
+	stripe_overlays = 'icons/obj/doors/airlocks/hatch/airlock_stripe.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
-	note_overlay_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_mhatch
+	stripe_paint = "#B69F3C"
 
 //////////////////////////////////
 /*
@@ -443,8 +452,10 @@
 
 /obj/machinery/door/airlock/highsecurity
 	name = "high tech security airlock"
-	icon = 'icons/obj/doors/airlocks/highsec/highsec.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/highsec/overlays.dmi'
+	icon = 'icons/obj/doors/airlocks/highsec/airlock.dmi'
+	color_overlays = null
+	stripe_overlays = null
+	has_fill_overlays = FALSE
 	assemblytype = /obj/structure/door_assembly/door_assembly_highsecurity
 	explosion_block = 2
 	normal_integrity = 500
@@ -458,9 +469,8 @@
 
 /obj/machinery/door/airlock/shuttle
 	name = "shuttle airlock"
-	icon = 'icons/obj/doors/airlocks/shuttle/shuttle.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_shuttle
+	airlock_paint = "#b3c0c7"
 
 /obj/machinery/door/airlock/shuttle/glass
 	opacity = FALSE
@@ -469,16 +479,15 @@
 /obj/machinery/door/airlock/abductor
 	name = "alien airlock"
 	desc = "With humanity's current technological level, it could take years to hack this advanced airlock... or maybe we should give a screwdriver a try?"
-	icon = 'icons/obj/doors/airlocks/abductor/abductor_airlock.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/abductor/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_abductor
-	note_overlay_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
 	damage_deflection = 30
 	explosion_block = 3
 	hackProof = TRUE
 	aiControlDisabled = AI_WIRE_DISABLED
 	normal_integrity = 700
 	security_level = 1
+	airlock_paint = "#333333"
+	stripe_paint = "#6633CC"
 
 //////////////////////////////////
 /*
@@ -487,13 +496,13 @@
 
 /obj/machinery/door/airlock/cult
 	name = "cult airlock"
-	icon = 'icons/obj/doors/airlocks/cult/runed/cult.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/cult/runed/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult
 	hackProof = TRUE
 	aiControlDisabled = AI_WIRE_DISABLED
 	req_access = list(ACCESS_BLOODCULT)
 	damage_deflection = 10
+	airlock_paint = "#333333"
+	stripe_paint = "#610000"
 	var/openingoverlaytype = /obj/effect/temp_visual/cult/door
 	var/friendly = FALSE
 	var/stealthy = FALSE
@@ -534,7 +543,7 @@
 		return FALSE
 
 /obj/machinery/door/airlock/cult/proc/conceal()
-	icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'
+	icon = 'icons/obj/doors/airlocks/station/airlock.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	name = "Airlock"
 	desc = "It opens and closes."
@@ -566,8 +575,6 @@
 	friendly = TRUE
 
 /obj/machinery/door/airlock/cult/unruned
-	icon = 'icons/obj/doors/airlocks/cult/unruned/cult.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/cult/unruned/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult/unruned
 	openingoverlaytype = /obj/effect/temp_visual/cult/door/unruned
 

@@ -355,7 +355,7 @@
 		/obj/item/extinguisher/mini,
 		/obj/item/mop/cyborg,
 		/obj/item/reagent_containers/cup/bucket,
-		/obj/item/paint/paint_remover,
+		/obj/item/paint_remover,
 		/obj/item/lightreplacer/cyborg,
 		/obj/item/holosign_creator,
 		/obj/item/reagent_containers/spray/cyborg_drying)

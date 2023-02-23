@@ -23,7 +23,7 @@ again.
 	icon = 'icons/obj/structures_spawners.dmi'
 	icon_state = "window_spawner"
 	name = "window spawner"
-	spawn_list = list(/obj/structure/grille, /obj/structure/window/fulltile)
+	spawn_list = list(/obj/structure/low_wall, /obj/structure/window/fulltile)
 	dir = SOUTH
 
 /obj/effect/spawner/structure/window/Initialize(mapload)
@@ -31,6 +31,11 @@ again.
 
 	var/turf/current_turf = loc
 	current_turf.rcd_memory = RCD_MEMORY_WINDOWGRILLE
+
+/obj/effect/spawner/structure/window/wood
+	name = "window with wooden low wall spawner"
+	spawn_list = list(/obj/structure/low_wall/wood, /obj/structure/window/fulltile)
+
 
 /obj/effect/spawner/structure/window/hollow
 	name = "hollow window spawner"
@@ -91,6 +96,18 @@ again.
 /obj/effect/spawner/structure/window/reinforced
 	name = "reinforced window spawner"
 	icon_state = "rwindow_spawner"
+	spawn_list = list(/obj/structure/low_wall, /obj/structure/window/reinforced/fulltile)
+
+/obj/effect/spawner/structure/window/reinforced/grille
+	name = "reinforced window with grille spawner"
+	spawn_list = list(/obj/structure/grille, /obj/structure/low_wall, /obj/structure/window/reinforced/fulltile)
+
+/obj/effect/spawner/structure/window/reinforced/wood
+	name = "reinforced window with wooden low wall spawner"
+	icon_state = "rwindow_spawner"
+	spawn_list = list(/obj/structure/low_wall/wood, /obj/structure/window/reinforced/fulltile)
+
+/obj/effect/spawner/structure/window/reinforced/no_firelock
 	spawn_list = list(/obj/structure/grille, /obj/structure/window/reinforced/fulltile)
 
 /obj/effect/spawner/structure/window/hollow/reinforced
@@ -152,7 +169,11 @@ again.
 /obj/effect/spawner/structure/window/reinforced/tinted
 	name = "tinted reinforced window spawner"
 	icon_state = "twindow_spawner"
-	spawn_list = list(/obj/structure/grille, /obj/structure/window/reinforced/tinted/fulltile)
+	spawn_list = list(/obj/structure/low_wall, /obj/structure/window/reinforced/tinted/fulltile)
+
+/obj/effect/spawner/structure/window/reinforced/tinted/grille
+	name = "tinted reinforced window with grille spawner"
+	spawn_list = list(/obj/structure/grille, /obj/structure/low_wall, /obj/structure/window/reinforced/tinted/fulltile)
 
 //bronze
 
@@ -167,7 +188,7 @@ again.
 /obj/effect/spawner/structure/window/reinforced/shuttle
 	name = "shuttle window spawner"
 	icon_state = "swindow_spawner"
-	spawn_list = list(/obj/structure/grille, /obj/structure/window/reinforced/shuttle)
+	spawn_list = list(/obj/structure/low_wall/titanium, /obj/structure/window/reinforced/shuttle)
 
 
 //plastitanium window
@@ -175,7 +196,7 @@ again.
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium
 	name = "plastitanium window spawner"
 	icon_state = "plastitaniumwindow_spawner"
-	spawn_list = list(/obj/structure/grille, /obj/structure/window/reinforced/plasma/plastitanium)
+	spawn_list = list(/obj/structure/low_wall/plastitanium, /obj/structure/window/reinforced/plasma/plastitanium)
 
 
 //ice window
@@ -183,7 +204,7 @@ again.
 /obj/effect/spawner/structure/window/ice
 	name = "ice window spawner"
 	icon_state = "icewindow_spawner"
-	spawn_list = list(/obj/structure/grille, /obj/structure/window/reinforced/fulltile/ice)
+	spawn_list = list(/obj/structure/low_wall, /obj/structure/window/reinforced/fulltile/ice)
 
 
 //survival pod window
@@ -253,7 +274,7 @@ again.
 /obj/effect/spawner/structure/window/plasma
 	name = "plasma window spawner"
 	icon_state = "pwindow_spawner"
-	spawn_list = list(/obj/structure/grille, /obj/structure/window/plasma/fulltile)
+	spawn_list = list(/obj/structure/low_wall, /obj/structure/window/plasma/fulltile)
 
 /obj/effect/spawner/structure/window/hollow/plasma
 	name = "hollow plasma window spawner"
@@ -314,7 +335,7 @@ again.
 /obj/effect/spawner/structure/window/reinforced/plasma
 	name = "reinforced plasma window spawner"
 	icon_state = "prwindow_spawner"
-	spawn_list = list(/obj/structure/grille, /obj/structure/window/reinforced/plasma/fulltile)
+	spawn_list = list(/obj/structure/grille, /obj/structure/low_wall, /obj/structure/window/reinforced/plasma/fulltile)
 
 /obj/effect/spawner/structure/window/hollow/reinforced/plasma
 	name = "hollow reinforced plasma window spawner"
