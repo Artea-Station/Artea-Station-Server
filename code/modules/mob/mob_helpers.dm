@@ -471,3 +471,6 @@
 	if(!istype(player, /client))
 		return
 	return player
+
+/mob/proc/can_smell(intensity)
+	return FALSE
