@@ -17,9 +17,6 @@
 	if (CONFIG_GET(flag/log_job_debug))
 		WRITE_LOG(GLOB.world_job_debug_log, "JOB: [text]")
 
-/// Logging for lua scripting
-/proc/log_lua(text)
-	WRITE_LOG(GLOB.lua_log, text)
 
 /// Logging for mapping errors
 /proc/log_mapping(text, skip_world_log)

@@ -42,8 +42,6 @@ GLOBAL_PROTECT(lawchanges)
 GLOBAL_VAR(log_directory)
 GLOBAL_PROTECT(log_directory)
 
-GLOBAL_VAR(lua_log)
-GLOBAL_PROTECT(lua_log)
 
 GLOBAL_LIST_EMPTY(OOClog)
 GLOBAL_PROTECT(OOClog)
