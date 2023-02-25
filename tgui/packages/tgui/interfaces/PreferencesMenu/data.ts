@@ -124,8 +124,13 @@ export type PreferencesMenuData = {
   character_profiles: (string | null)[];
 
   character_preferences: {
+    appearance: Record<string, string>;
+    appearance_list: Record<string, string>;
+
     clothing: Record<string, string>;
-    features: Record<string, string>;
+
+    other: Record<string, string>;
+
     game_preferences: Record<string, unknown>;
     non_contextual: {
       random_body: RandomSetting;

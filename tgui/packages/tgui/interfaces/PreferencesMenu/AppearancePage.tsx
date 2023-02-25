@@ -326,8 +326,21 @@ export const AppearancePage = (context, parentContext) => {
           data.character_preferences.secondary_features || [];
 
         const mainFeatures = [
-          ...Object.entries(data.character_preferences.clothing),
-          ...Object.entries(data.character_preferences.features).filter(
+          ...Object.entries(data.character_preferences.appearance).filter(
+            ([featureName]) => {
+              if (!currentSpeciesData) {
+                return false;
+              }
+
+              return (
+                currentSpeciesData.enabled_features.indexOf(featureName) !== -1
+              );
+            }
+          ),
+        ];
+
+        const listFeatures = [
+          ...Object.entries(data.character_preferences.appearance_list).filter(
             ([featureName]) => {
               if (!currentSpeciesData) {
                 return false;
@@ -390,19 +403,15 @@ export const AppearancePage = (context, parentContext) => {
         }
 
         return (
-          <Stack height={`${CLOTHING_SIDEBAR_ROWS * CLOTHING_CELL_SIZE}px`}>
+          <Stack height={'300px'}>
             <Stack.Item fill>
-              <Stack vertical fill>
-                <Stack.Item grow>
-                  <CharacterPreview
-                    height="100%"
-                    id={data.character_preview_view}
-                  />
-                </Stack.Item>
-              </Stack>
+              <CharacterPreview
+                height="100%"
+                id={data.character_preview_view}
+              />
             </Stack.Item>
 
-            <Stack.Item fill width={`${CLOTHING_CELL_SIZE * 2 + 15}px`}>
+            <Stack.Item fill width="100%">
               <Stack height="100%" vertical wrap>
                 {mainFeatures.map(([clothingKey, clothing]) => {
                   const catalog =

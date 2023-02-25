@@ -735,11 +735,8 @@
 	else
 		skin_tone = ""
 
-	if(((MUTCOLORS in owner_species.species_traits) || (DYNCOLORS in owner_species.species_traits))) //Ethereal code. Motherfuckers.
-		if(owner_species.fixed_mut_color)
-			species_color = owner_species.fixed_mut_color
-		else
-			species_color = human_owner.dna.features["mcolor"]
+	if(DYNCOLORS in owner_species.species_traits) //Ethereal code. Motherfuckers.
+		species_color = human_owner.dna.features["mcolor"]
 	else
 		species_color = null
 

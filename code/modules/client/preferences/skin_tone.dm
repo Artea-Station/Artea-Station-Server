@@ -3,6 +3,9 @@
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "use_skin_tone"
 
+/datum/preference/toggle/use_skin_tone/apply_to_human(mob/living/carbon/human/target, value)
+	return
+
 /datum/preference/color/skin_color
 	category = PREFERENCE_CATEGORY_APPEARANCE_LIST
 	savefile_identifier = PREFERENCE_CHARACTER
