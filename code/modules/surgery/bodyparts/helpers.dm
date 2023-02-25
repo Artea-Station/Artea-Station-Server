@@ -192,3 +192,6 @@
 			. = "#fff4e6"
 		if("orange")
 			. = "#ffc905"
+		else
+			. = sanitize_hexcolor(skin_tone) // This is to allow custom skin colors. Yes, this is the easiest way. It is safe? Kinda.
+

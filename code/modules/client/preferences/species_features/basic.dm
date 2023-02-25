@@ -25,7 +25,7 @@
 /datum/preference/color/eye_color
 	savefile_key = "eye_color"
 	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE_LIST
 	relevant_species_trait = EYECOLOR
 
 /datum/preference/color/eye_color/apply_to_human(mob/living/carbon/human/target, value)
@@ -56,7 +56,7 @@
 /datum/preference/choiced/facial_hairstyle
 	savefile_key = "facial_style_name"
 	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE
 	main_feature_name = "Facial hair"
 	should_generate_icons = TRUE
 	relevant_species_trait = FACEHAIR
@@ -86,13 +86,25 @@
 	target.update_body_parts()
 
 /datum/preference/choiced/facial_hair_gradient
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "facial_hair_gradient"
 	relevant_species_trait = FACEHAIR
 
 /datum/preference/choiced/facial_hair_gradient/init_possible_values()
-	return assoc_to_keys(GLOB.facial_hair_gradients_list)
+	var/list/hair_gradients = list()
+	var/datum/sprite_accessory/hair/hair = GLOB.hairstyles_list["Floorlength Bedhead"]
+	var/icon/hair_icon = icon(hair.icon, hair.icon_state, NORTH)
+	hair_icon.ColorTone("#bebc37")
+
+	for(var/gradient_key in GLOB.facial_hair_gradients_list)
+		var/datum/sprite_accessory/gradient/gradient = GLOB.facial_hair_gradients_list[gradient_key]
+		var/icon/temp = icon(gradient.icon, gradient.icon_state)
+		temp.Blend(hair_icon, ICON_ADD)
+		temp.ColorTone("#ce4611")
+		hair_gradients[gradient_key] = temp
+
+	return hair_gradients
 
 /datum/preference/choiced/facial_hair_gradient/apply_to_human(mob/living/carbon/human/target, value)
 	LAZYSETLEN(target.grad_style, GRADIENTS_LEN)
@@ -103,7 +115,7 @@
 	return "None"
 
 /datum/preference/color/facial_hair_gradient
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "facial_hair_gradient_color"
 	relevant_species_trait = FACEHAIR
@@ -130,7 +142,7 @@
 /datum/preference/choiced/hairstyle
 	savefile_key = "hairstyle_name"
 	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE
 	main_feature_name = "Hairstyle"
 	should_generate_icons = TRUE
 	relevant_species_trait = HAIR
@@ -149,13 +161,25 @@
 	return data
 
 /datum/preference/choiced/hair_gradient
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "hair_gradient"
 	relevant_species_trait = HAIR
 
 /datum/preference/choiced/hair_gradient/init_possible_values()
-	return assoc_to_keys(GLOB.hair_gradients_list)
+	var/list/hair_gradients = list()
+	var/datum/sprite_accessory/hair/hair = GLOB.hairstyles_list["Floorlength Bedhead"]
+	var/icon/hair_icon = icon(hair.icon, hair.icon_state, NORTH)
+	hair_icon.ColorTone("#bebc37")
+
+	for(var/gradient_key in GLOB.hair_gradients_list)
+		var/datum/sprite_accessory/gradient/gradient = GLOB.hair_gradients_list[gradient_key]
+		var/icon/temp = icon(gradient.icon, gradient.icon_state)
+		temp.Blend(hair_icon, ICON_ADD)
+		temp.ColorTone("#ce4611")
+		hair_gradients[gradient_key] = temp
+
+	return hair_gradients
 
 /datum/preference/choiced/hair_gradient/apply_to_human(mob/living/carbon/human/target, value)
 	LAZYSETLEN(target.grad_style, GRADIENTS_LEN)
@@ -165,8 +189,12 @@
 /datum/preference/choiced/hair_gradient/create_default_value()
 	return "None"
 
+/datum/preference/choiced/hair_gradient/ui_static_data(mob/user)
+	. = ..()
+	.[SUPPLEMENTAL_FEATURE_KEY] = "hair_gradient_color"
+
 /datum/preference/color/hair_gradient
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "hair_gradient_color"
 	relevant_species_trait = HAIR

@@ -211,6 +211,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	switch (action)
 		if ("change_slot")
+			ui.user.playsound_local(null, 'sound/effects/stealthoff.ogg', 75)
 			// Save existing character
 			save_character()
 
@@ -227,7 +228,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			return TRUE
 		if ("rotate")
-			character_preview_view.dir = turn(character_preview_view.dir, -90)
+			character_preview_view.dir = turn(character_preview_view.dir, text2num(params["dir"]))
 
 			return TRUE
 		if ("set_preference")

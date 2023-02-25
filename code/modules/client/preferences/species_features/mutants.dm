@@ -1,7 +1,7 @@
 /datum/preference/color/mutant_color
 	savefile_key = "feature_mcolor"
 	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE_LIST
 	relevant_species_trait = MUTCOLORS
 
 /datum/preference/color/mutant_color/create_default_value()

@@ -1,5 +1,5 @@
 /datum/preference/choiced/glasses
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE_LIST
 	savefile_key = "glasses"
 	savefile_identifier = PREFERENCE_CHARACTER
 
