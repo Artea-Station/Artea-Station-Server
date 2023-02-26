@@ -1203,6 +1203,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	SEND_SIGNAL(owner, COMSIG_MOB_ATTACK_HAND, owner, target, attacker_style)
 
+	if(owner.pulledby && owner.pulledby == target && target.grab_state && try_grab_maneuver(target, owner, modifiers))
+		message_admins("gamer! We try grab maneuver")
+		return
+	message_admins("grab maneuver failed [owner.pulledby] [owner.pulledby == target] [target.grab_state] [try_grab_maneuver(target, owner, modifiers)]")
+
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		. = disarm(owner, target, attacker_style)
 		if(.)
@@ -1319,6 +1324,111 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		human.force_say(user)
 
 	return TRUE
+
+#define HEADSMASH_BLOCK_ARMOR 20
+
+//TODO: Add a grab state check on the do_afters
+/datum/species/proc/try_grab_maneuver(mob/living/carbon/human/target, mob/living/carbon/human/user, modifiers)
+	if(!target)
+		message_admins("target was null!")
+	message_admins("[target] is the target")
+	var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.zone_selected))
+	if(!affecting)
+		message_admins("no [affecting]! no affecting!")
+		return FALSE
+	. = FALSE
+	if(HAS_TRAIT(user, TRAIT_PACIFISM)) //They're mostly violent acts
+		return
+	if(user.combat_mode)
+		message_admins("gamer! combat mode!")
+		switch(user.zone_selected)
+			if(BODY_ZONE_HEAD)
+				//Head slam
+				if(target.body_position == LYING_DOWN)
+					. = TRUE
+					var/time_doing = 4 SECONDS
+					if(target.stat != CONSCIOUS)
+						time_doing = 2 SECONDS
+						target.visible_message(span_danger("[user.name] holds [target.name]'s head tight and slams it down!"), ignored_mobs=user)
+						to_chat(user, span_danger("You grasp [target.name]'s head and slam it down!"))
+					else
+						target.visible_message(span_danger("[user.name] holds [target.name]'s head and tries to overpower [target.p_them()]!"), \
+							span_userdanger("You struggle as [user.name] holds your head and tries to overpower you!"), ignored_mobs=user)
+						to_chat(user, span_danger("You grasp [target.name]'s head and try to overpower [target.p_them()]..."))
+					user.changeNext_move(time_doing)
+					if(do_after(user, time_doing, target))
+						var/armor_block = target.run_armor_check(affecting, MELEE)
+						var/head_knock = FALSE
+						if(armor_block < HEADSMASH_BLOCK_ARMOR)
+							head_knock = TRUE
+
+						target.visible_message(span_danger("[user.name] violently slams [target.name]'s head into the floor!"), \
+							span_userdanger("[user.name] slams your head against the floor!"), ignored_mobs=user)
+						to_chat(user, span_danger("You slam [target.name] head against the floor!"))
+
+						//Check to see if our head is protected by at least 20 melee armor
+						if(head_knock)
+							target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 15)
+
+						target.apply_damage(15, BRUTE, affecting, armor_block)
+						playsound(target, 'sound/effects/hit_kick.ogg', 70)
+						log_combat(user, target, "headsmashes", "against the floor")
+
+	//Chances are, no matter what you do on disarm you're gonna break your grip by accident because of shoving, let make a good use of disarm intent for maneuvers then
+	if(modifiers[RIGHT_CLICK])
+		message_admins("gamer! right clicked!")
+		switch(user.zone_selected)
+			if(BODY_ZONE_CHEST)
+				if(istype(user.mind.martial_art, /datum/martial_art/cqc)) //If you know CQC, You can't suplex and instead have the ability to use the chokehold, Sorry.
+					return
+				//Suplex!
+				. = TRUE
+				user.changeNext_move(3 SECONDS)
+				target.visible_message(span_danger("[user.name] holds [target.name] tight and starts lifting [target.p_them()] up!"), \
+						span_userdanger("[user.name] holds you tight and lifts you up!"), ignored_mobs=user)
+				to_chat(user, span_danger("You hold [target.name] tight and lift [target.p_them()] up..."))
+				if(do_after(user, 3 SECONDS, target))
+					var/move_dir = get_dir(target, user)
+					var/moved_turf = get_turf(target)
+					for(var/i in 1 to 2)
+						var/turf/next_turf = get_step(moved_turf, move_dir)
+						if(IS_OPAQUE_TURF(next_turf))
+							break
+						moved_turf = next_turf
+					target.visible_message(span_danger("[user.name] suplexes [target.name] down to the ground!"), \
+						span_userdanger("[user.name] suplexes you!"), ignored_mobs=user)
+					to_chat(user, span_danger("You suplex [target.name]!"))
+					user.StaminaKnockdown(30, TRUE, TRUE)
+					user.SpinAnimation(7,1)
+					target.SpinAnimation(7,1)
+					target.throw_at(moved_turf, 1, 1)
+					target.StaminaKnockdown(80)
+					target.Paralyze(2 SECONDS)
+					log_combat(user, target, "suplexes", "down on the ground (knocking down both)")
+			else
+				var/datum/wound/blunt/blute_wound = affecting.get_wound_type(/datum/wound/blunt)
+				if(blute_wound && blute_wound.severity >= WOUND_SEVERITY_MODERATE)
+					//At this point we'll be doing the medical action that's not a grab manevour
+					return
+				//Dislocation
+				. = TRUE
+				user.changeNext_move(4 SECONDS)
+				target.visible_message(span_danger("[user.name] twists [target.name]'s [affecting.name] violently!"), \
+						span_userdanger("[user.name] twists your [affecting.name] violently!"), ignored_mobs=user)
+				to_chat(user, span_danger("You start twisting [target.name]'s [affecting.name] violently!"))
+				if(do_after(user, 4 SECONDS, target))
+					target.visible_message(span_danger("[user.name] dislocates [target.name]'s [affecting.name]!"), \
+						span_userdanger("[user.name] dislocates your [affecting.name]!"), ignored_mobs=user)
+					to_chat(user, span_danger("You dislocate [target.name]'s [affecting.name]!"))
+					affecting.force_wound_upwards(/datum/wound/blunt/moderate)
+					log_combat(user, target, "dislocates", "the [affecting.name]")
+
+	if(.)
+		user.changeNext_move(CLICK_CD_MELEE)
+	return
+
+#undef HEADSMASH_BLOCK_ARMOR
+
 
 /datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE, spread_damage = FALSE, wound_bonus = 0, bare_wound_bonus = 0, sharpness = NONE, attack_direction = null)
 	SEND_SIGNAL(H, COMSIG_MOB_APPLY_DAMAGE, damage, damagetype, def_zone, wound_bonus, bare_wound_bonus, sharpness, attack_direction)
