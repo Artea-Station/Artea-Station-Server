@@ -16,9 +16,9 @@
 	from doing this unless you absolutely know what you are doing, and have defined a
 	conversion in savefile.dm
 */
-/proc/init_sprite_accessory_subtypes(prototype, list/L, list/male, list/female,roundstart = FALSE, add_blank)//Roundstart argument builds a specific list for roundstart parts where some parts may be locked
-	if(!istype(L))
-		L = list()
+/proc/init_sprite_accessory_subtypes(prototype, list/accessory_list, list/male, list/female, roundstart = FALSE, add_blank)//Roundstart argument builds a specific list for roundstart parts where some parts may be locked
+	if(!istype(accessory_list))
+		accessory_list = list()
 	if(!istype(male))
 		male = list()
 	if(!istype(female))
@@ -32,9 +32,9 @@
 		var/datum/sprite_accessory/D = new path()
 
 		if(D.icon_state)
-			L[D.name] = D
+			accessory_list[D.name] = D
 		else
-			L += D.name
+			accessory_list += D.name
 
 		switch(D.gender)
 			if(MALE)
@@ -45,9 +45,9 @@
 				male += D.name
 				female += D.name
 	if(add_blank)
-		L["None"] = new /datum/sprite_accessory/blank
+		accessory_list["None"] = new /datum/sprite_accessory/blank
 
-	return L
+	return accessory_list
 
 /datum/sprite_accessory
 	/// The icon file the accessory is located in.
