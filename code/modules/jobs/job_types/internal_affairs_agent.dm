@@ -34,7 +34,7 @@
 	id_trim = /datum/id_trim/job/internal_affairs_agent
 	uniform = /obj/item/clothing/under/suit/black_really
 	belt = /obj/item/modular_computer/tablet/pda/internal_affairs_agent
-	ears = /obj/item/radio/headset/headset_srvsec
+	ears = /obj/item/radio/headset/headset_internalaffairs
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	shoes = /obj/item/clothing/shoes/laceup
 	neck = /obj/item/clothing/neck/tie/red/tied
