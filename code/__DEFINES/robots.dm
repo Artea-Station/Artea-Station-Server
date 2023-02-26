@@ -89,6 +89,19 @@
 ///The Bot is allowed to have a pAI placed in control of it.
 #define BOT_MODE_PAI_CONTROLLABLE (1<<3)
 
+/// Defines for borg module selection
+#define BORG_CHOOSE_MODULE_ONE    1
+#define BORG_CHOOSE_MODULE_TWO    2
+#define BORG_CHOOSE_MODULE_THREE   3
+
+//Module - altborgs
+//Defines for dogborgs and stuff
+#define ROBOT_REST_NORMAL		1
+#define ROBOT_REST_SITTING		2
+#define ROBOT_REST_BELLY_UP		3
+
+/// cooldown to prevent reset abuse
+#define ROBOT_RESET_DELAY  900 SECONDS
 //Bot cover defines indicating the Bot's status
 ///The Bot's cover is open and can be modified/emagged by anyone.
 #define BOT_COVER_OPEN (1<<0)

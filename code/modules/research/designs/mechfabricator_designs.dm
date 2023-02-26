@@ -905,7 +905,7 @@
 	construction_time = 120
 	category = list(RND_CATEGORY_CYBORG_UPGRADE_MODULES)
 
-/datum/design/borg_upgrade_circuit_app
+/*/datum/design/borg_upgrade_circuit_app
 	name = "Cyborg Upgrade (Circuit Manipulator)"
 	id = "borg_upgrade_circuitapp"
 	build_type = MECHFAB

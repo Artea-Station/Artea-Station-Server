@@ -867,7 +867,7 @@
 	description = "Engineering and Mining upgrades for cyborgs."
 	prereq_ids = list("adv_engi", "basic_mining")
 	design_ids = list(
-		"borg_upgrade_circuitapp",
+		//"borg_upgrade_circuitapp",
 		"borg_upgrade_diamonddrill",
 		"borg_upgrade_holding",
 		"borg_upgrade_lavaproof",
