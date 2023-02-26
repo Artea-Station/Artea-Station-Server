@@ -76,12 +76,6 @@
 	e.start(holder.my_atom)
 	holder.clear_reagents()
 
-/datum/chemical_reaction/bath_salts
-	results = list(/datum/reagent/drug/bath_salts = 7)
-	required_reagents = list(/datum/reagent/toxin/bad_food = 1, /datum/reagent/saltpetre = 1, /datum/reagent/consumable/nutriment = 1, /datum/reagent/space_cleaner = 1, /datum/reagent/consumable/enzyme = 1, /datum/reagent/consumable/tea = 1, /datum/reagent/mercury = 1)
-	required_temp = 374
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DRUG | REACTION_TAG_ORGAN | REACTION_TAG_DAMAGING
-
 /datum/chemical_reaction/aranesp
 	results = list(/datum/reagent/drug/aranesp = 3)
 	required_reagents = list(/datum/reagent/medicine/epinephrine = 1, /datum/reagent/medicine/atropine = 1, /datum/reagent/medicine/morphine = 1)

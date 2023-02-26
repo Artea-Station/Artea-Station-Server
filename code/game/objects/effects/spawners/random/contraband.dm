@@ -23,7 +23,6 @@
 		/obj/item/reagent_containers/syringe/contraband/space_drugs,
 		/obj/item/reagent_containers/syringe/contraband/krokodil,
 		/obj/item/reagent_containers/syringe/contraband/methamphetamine,
-		/obj/item/reagent_containers/syringe/contraband/bath_salts,
 		/obj/item/reagent_containers/syringe/contraband/fentanyl,
 		/obj/item/reagent_containers/syringe/contraband/morphine,
 		/obj/item/reagent_containers/syringe/contraband/saturnx,
@@ -38,7 +37,6 @@
 	loot = list(
 		/obj/item/knife/shiv = 5,
 		/obj/item/knife/shiv/carrot = 5,
-		/obj/item/tailclub = 5, //want to buy makeshift wooden club sprite
 		/obj/item/knife = 3,
 		/obj/item/assembly/flash/handheld = 1,
 		/obj/item/grenade/smokebomb = 1,

@@ -210,8 +210,7 @@
 /obj/effect/spawner/random/structure/billboard/lizardsgas //for the space ruin, The Lizard's Gas. I don't see much use for the sprites below anywhere else since they're unifunctional.
 	name = "\improper The Lizards Gas billboard spawner"
 	loot = list(
-		/obj/structure/billboard/lizards_gas = 75,
-		/obj/structure/billboard/lizards_gas/defaced = 25,
+		/obj/structure/billboard/lizards_gas = 100,
 	)
 
 /obj/effect/spawner/random/structure/billboard/roadsigns //also pretty much only unifunctionally useful for gas stations

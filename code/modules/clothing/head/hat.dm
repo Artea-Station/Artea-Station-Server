@@ -135,11 +135,6 @@
 	desc = "Welcome to the rice fields, motherfucker."
 	icon_state = "rice_hat"
 
-/obj/item/clothing/head/lizard
-	name = "lizardskin cloche hat"
-	desc = "How many lizards died to make this hat? Not enough."
-	icon_state = "lizard"
-
 /obj/item/clothing/head/scarecrow_hat
 	name = "scarecrow hat"
 	desc = "A simple straw hat."

@@ -186,59 +186,6 @@
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, (rand(5, 10) / 10) * REM * delta_time)
 	. = TRUE
 
-/datum/reagent/drug/bath_salts
-	name = "Bath Salts"
-	description = "Makes you impervious to stuns and grants a stamina regeneration buff, but you will be a nearly uncontrollable tramp-bearded raving lunatic."
-	reagent_state = LIQUID
-	color = "#FAFAFA"
-	overdose_threshold = 20
-	taste_description = "salt" // because they're bathsalts?
-	addiction_types = list(/datum/addiction/stimulants = 25)  //8 per 2 seconds
-	var/datum/brain_trauma/special/psychotic_brawling/bath_salts/rage
-	ph = 8.2
-	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
-
-/datum/reagent/drug/bath_salts/on_mob_metabolize(mob/living/L)
-	..()
-	ADD_TRAIT(L, TRAIT_STUNIMMUNE, type)
-	ADD_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
-	if(iscarbon(L))
-		var/mob/living/carbon/C = L
-		rage = new()
-		C.gain_trauma(rage, TRAUMA_RESILIENCE_ABSOLUTE)
-
-/datum/reagent/drug/bath_salts/on_mob_end_metabolize(mob/living/L)
-	REMOVE_TRAIT(L, TRAIT_STUNIMMUNE, type)
-	REMOVE_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
-	if(rage)
-		QDEL_NULL(rage)
-	..()
-
-/datum/reagent/drug/bath_salts/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	var/high_message = pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")
-	if(DT_PROB(2.5, delta_time))
-		to_chat(M, span_notice("[high_message]"))
-	M.add_mood_event("salted", /datum/mood_event/stimulant_heavy, name)
-	M.adjustStaminaLoss(-5 * REM * delta_time, 0)
-	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 4 * REM * delta_time)
-	M.adjust_hallucinations(10 SECONDS * REM * delta_time)
-	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
-		step(M, pick(GLOB.cardinals))
-		step(M, pick(GLOB.cardinals))
-	..()
-	. = TRUE
-
-/datum/reagent/drug/bath_salts/overdose_process(mob/living/M, delta_time, times_fired)
-	M.adjust_hallucinations(10 SECONDS * REM * delta_time)
-	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
-		for(var/i in 1 to round(8 * REM * delta_time, 1))
-			step(M, pick(GLOB.cardinals))
-	if(DT_PROB(10, delta_time))
-		M.emote(pick("twitch","drool","moan"))
-	if(DT_PROB(28, delta_time))
-		M.drop_all_held_items()
-	..()
-
 /datum/reagent/drug/aranesp
 	name = "Aranesp"
 	description = "Amps you up, gets you going, and rapidly restores stamina damage. Side effects include breathlessness and toxicity."

@@ -137,13 +137,6 @@
 	time = 4.5 SECONDS
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/lizardboots
-	name = "Lizard Skin Boots"
-	result = /obj/effect/spawner/random/clothing/lizardboots
-	reqs = list(/obj/item/stack/sheet/animalhide/lizard = 1, /obj/item/stack/sheet/leather = 1)
-	time = 6 SECONDS
-	category = CAT_CLOTHING
-
 /datum/crafting_recipe/prisonsuit
 	name = "Prisoner Uniform (Suit)"
 	result = /obj/item/clothing/under/rank/prisoner
