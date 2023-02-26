@@ -41,7 +41,7 @@
 			lava_ruins -= i
 
 	if (z_levels.len)
-		seedRuins(z_levels, CONFIG_GET(number/lavaland_budget), list(/area/lavaland/surface/outdoors/unexplored), SSmapping.lava_ruins_templates)
+		seedRuins(z_levels, CONFIG_GET(number/lavaland_budget), list(/area/lavaland/surface/outdoors/unexplored), SSmapping.themed_ruins[ZTRAIT_LAVA_RUINS])
 		for (var/lava_z in z_levels)
 			spawn_rivers(lava_z)
 

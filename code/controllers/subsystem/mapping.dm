@@ -159,15 +159,7 @@ SUBSYSTEM_DEF(mapping)
  */
 /datum/controller/subsystem/mapping/proc/setup_ruins()
 	// Generate mining ruins
-<<<<<<< HEAD
-	var/list/lava_ruins = levels_by_trait(ZTRAIT_LAVA_RUINS)
-	if (lava_ruins.len)
-		seedRuins(lava_ruins, CONFIG_GET(number/lavaland_budget), list(/area/lavaland/surface/outdoors/unexplored), themed_ruins[ZTRAIT_LAVA_RUINS], clear_below = TRUE)
-		for (var/lava_z in lava_ruins)
-			spawn_rivers(lava_z)
-=======
 	loading_ruins = TRUE
->>>>>>> 321e20dc95d (Adds barebones overmap and incorporates existing places into it. Adds a modular planet system (#198))
 
 	var/list/ice_ruins = levels_by_trait(ZTRAIT_ICE_RUINS)
 	if (ice_ruins.len)
@@ -270,13 +262,8 @@ Used by the AI doomsday and the self-destruct nuke.
 	z_list = SSmapping.z_list
 	multiz_levels = SSmapping.multiz_levels
 
-<<<<<<< HEAD
 #define INIT_ANNOUNCE(X) to_chat(world, span_boldannounce("[X]")); log_world(X)
-/datum/controller/subsystem/mapping/proc/LoadGroup(list/errorList, name, path, files, list/traits, list/default_traits, silent = FALSE)
-=======
-#define INIT_ANNOUNCE(X) to_chat(world, "<span class='boldannounce'>[X]</span>"); log_world(X)
 /datum/controller/subsystem/mapping/proc/LoadGroup(list/errorList, name, path, files, list/traits, list/default_traits, silent = FALSE, datum/overmap_object/ov_obj = null)
->>>>>>> 321e20dc95d (Adds barebones overmap and incorporates existing places into it. Adds a modular planet system (#198))
 	. = list()
 	var/start_time = REALTIMEOFDAY
 

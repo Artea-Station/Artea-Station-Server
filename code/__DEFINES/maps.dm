@@ -31,7 +31,7 @@ to trust the words presented within.
 
 We also provide this information to you so that you can have an at-a-glance look at how
 Z-Levels are arranged. It is extremely ill-advised to ever use the location of a Z-Level
-to assign traits to it or use it in coding. Use Z-Traits (ZTRAITs) for these. 
+to assign traits to it or use it in coding. Use Z-Traits (ZTRAITs) for these.
 
 If you want to start toying around with Z-Levels, do not take these words for fact.
 Always compile, always use that verb, and always make sure that it works for what you want to do.
@@ -126,6 +126,7 @@ Always compile, always use that verb, and always make sure that it works for wha
 // default trait definitions, used by SSmapping
 #define ZTRAITS_CENTCOM list(ZTRAIT_CENTCOM = TRUE)
 #define ZTRAITS_STATION list(ZTRAIT_LINKAGE = UNAFFECTED, ZTRAIT_STATION = TRUE)
+#define ZTRAITS_SPACE list(ZTRAIT_LINKAGE = UNAFFECTED, ZTRAIT_SPACE_RUINS = TRUE)
 ///Z level traits for Lavaland
 #define ZTRAITS_LAVALAND list(\
 	ZTRAIT_MINING = TRUE, \
@@ -141,7 +142,7 @@ Always compile, always use that verb, and always make sure that it works for wha
 
 #define ZTRAITS_JUNGLE_PLANET list(\
 	ZTRAIT_MINING = TRUE, \
-	ZTRAIT_BASETURF = /turf/open/floor/plating/dirt/jungle/wasteland)
+	ZTRAIT_BASETURF = /turf/open/misc/dirt/jungle/wasteland)
 
 #define DL_NAME "name"
 #define DL_TRAITS "traits"

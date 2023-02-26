@@ -18,7 +18,7 @@
 	/// Whether it should make a visual dummy or not
 	var/make_visual = TRUE
 	/// Icon to use for the visual dummy
-	var/icon = 'icons/obj/items_and_weapons.dmi'
+	var/icon = 'icons/obj/weapons/items_and_weapons.dmi'
 	/// Icon state to the visual dummy
 	var/icon_state = "soap"
 	/// Reference to the visual dummy

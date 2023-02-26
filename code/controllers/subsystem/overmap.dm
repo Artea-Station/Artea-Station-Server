@@ -3,13 +3,11 @@ SUBSYSTEM_DEF(overmap)
 	init_order = INIT_ORDER_MAPPING + 1 //Always before mapping
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	wait = 0.5 SECONDS
+	flags = SS_NO_INIT
 	/// All the existing sun systems, it's gonna be atleast 1 including the main system
 	var/list/sun_systems = list()
 	/// The mandatory and main sun system
 	var/datum/overmap_sun_system/main_system
-
-/datum/controller/subsystem/overmap/Initialize()
-	return ..()
 
 /**
  * MappingInit() is called shortly after SSmapping starts initializing.
