@@ -89,11 +89,6 @@
 ///The Bot is allowed to have a pAI placed in control of it.
 #define BOT_MODE_PAI_CONTROLLABLE (1<<3)
 
-/// Defines for borg module selection
-#define BORG_CHOOSE_MODULE_ONE    1
-#define BORG_CHOOSE_MODULE_TWO    2
-#define BORG_CHOOSE_MODULE_THREE   3
-
 //Module - altborgs
 //Defines for dogborgs and stuff
 #define ROBOT_REST_NORMAL		1

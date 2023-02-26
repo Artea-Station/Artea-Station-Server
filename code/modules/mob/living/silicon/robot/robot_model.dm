@@ -908,6 +908,11 @@
 /datum/robot_energy_storage/glass
 	name = "Glass Synthesizer"
 
+/datum/robot_energy_storage/plasma
+	name = "Plasma Synthesizer"
+	max_energy = 15000
+	recharge_rate = 100
+
 /datum/robot_energy_storage/wire
 	max_energy = 50
 	recharge_rate = 2

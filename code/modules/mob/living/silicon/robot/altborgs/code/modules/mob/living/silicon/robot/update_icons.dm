@@ -26,7 +26,7 @@
 		pixel_x = model.cyborg_pixel_offset
 
 	if(model.cyborg_base_icon == "robot")
-		icon = 'icons/mob/robots.dmi'
+		icon = 'icons/mob/silicon/robots.dmi'
 		pixel_x = initial(pixel_x)
 
 	if(robot_resting)

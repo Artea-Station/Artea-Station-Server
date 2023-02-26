@@ -45,7 +45,7 @@
 	set category = "Robot Commands"
 	set desc = "Reset your Shell Model to Factory"
 	if(src.nextrobotreset > world.time)
-		to_chat(src, SPAN_DANGER("An error displays from the reset module: System not fully cooled down, Please wait [DisplayTimeText(src.nextrobotreset - world.time)]."))
+		to_chat(src, span_danger("An error displays from the reset module: System not fully cooled down, Please wait [DisplayTimeText(src.nextrobotreset - world.time)]."))
 		return
 	src.nextrobotreset = world.time + ROBOT_RESET_DELAY
 	ResetModel()

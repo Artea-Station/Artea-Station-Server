@@ -16,7 +16,7 @@
 /obj/item/robot_model/standard/be_transformed_to(obj/item/robot_model/old_model)
 	var/mob/living/silicon/robot/cyborg = loc
 	var/static/list/standard_icons = list(
-		"Default" = image(icon = 'icons/mob/robots.dmi', icon_state = "robot"),
+		"Default" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "robot"),
 		"Marina" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "marinasd"),
 		"Heavy" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "heavysd"),
 		"Eyebot" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "eyebotsd"),
@@ -32,7 +32,7 @@
 		var/image/wide = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/widerobot.dmi', icon_state = L[a])
 		wide.pixel_x = -16
 		standard_icons[a] = wide
-	standard_icons = sortList(standard_icons)
+	standard_icons = sort_list(standard_icons)
 	var/standard_borg_icon = show_radial_menu(cyborg, cyborg , standard_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_model), radius = 42, require_near = TRUE)
 	switch(standard_borg_icon)
 		if("Default")
@@ -84,7 +84,7 @@
 	var/static/list/med_icons
 	if(!med_icons)
 		med_icons = list(
-		"Default" = image(icon = 'icons/mob/robots.dmi', icon_state = "medical"),
+		"Default" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "medical"),
 		"Droid" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "medical"),
 		"Sleek" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "sleekmed"),
 		"Marina" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "marinamed"),
@@ -103,7 +103,7 @@
 			var/image/wide = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/widerobot.dmi', icon_state = L[a])
 			wide.pixel_x = -16
 			med_icons[a] = wide
-		med_icons = sortList(med_icons)
+		med_icons = sort_list(med_icons)
 	var/med_borg_icon = show_radial_menu(cyborg, cyborg , med_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_model), radius = 42, require_near = TRUE)
 	switch(med_borg_icon)
 		if("Default")
@@ -193,7 +193,7 @@
 	var/static/list/engi_icons
 	if(!engi_icons)
 		engi_icons = list(
-		"Default" = image(icon = 'icons/mob/robots.dmi', icon_state = "engineer"),
+		"Default" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "engineer"),
 		"Default - Treads" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "engi-tread"),
 		"Loader" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "loaderborg"),
 		"Handy" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "handyeng"),
@@ -214,7 +214,7 @@
 			var/image/wide = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/widerobot.dmi', icon_state = L[a])
 			wide.pixel_x = -16
 			engi_icons[a] = wide
-		engi_icons = sortList(engi_icons)
+		engi_icons = sort_list(engi_icons)
 	var/engi_borg_icon = show_radial_menu(cyborg, cyborg , engi_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_model), radius = 42, require_near = TRUE)
 	switch(engi_borg_icon)
 		if("Default")
@@ -306,7 +306,7 @@
 	var/static/list/sec_icons
 	if(!sec_icons)
 		sec_icons = list(
-		"Default" = image(icon = 'icons/mob/robots.dmi', icon_state = "sec"),
+		"Default" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "sec"),
 		"Default - Treads" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "sec-tread"),
 		"Sleek" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "sleeksec"),
 		"Can" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "cansec"),
@@ -325,7 +325,7 @@
 			var/image/wide = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/widerobot.dmi', icon_state = L[a])
 			wide.pixel_x = -16
 			sec_icons[a] = wide
-		sec_icons = sortList(sec_icons)
+		sec_icons = sort_list(sec_icons)
 	var/sec_borg_icon = show_radial_menu(cyborg, cyborg , sec_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_model), radius = 42, require_near = TRUE)
 	switch(sec_borg_icon)
 		if("Default")
@@ -409,7 +409,7 @@
 	var/static/list/peace_icons
 	if(!peace_icons)
 		peace_icons = list(
-		"Default" = image(icon = 'icons/mob/robots.dmi', icon_state = "peace"),
+		"Default" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "peace"),
 		"Borgi" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "borgi"),
 		"Spider" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "whitespider"),
 		"Sleek" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "sleekpeace"),
@@ -424,7 +424,7 @@
 			var/image/wide = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/widerobot.dmi', icon_state = L[a])
 			wide.pixel_x = -16
 			peace_icons[a] = wide
-		peace_icons = sortList(peace_icons)
+		peace_icons = sort_list(peace_icons)
 	var/peace_borg_icon = show_radial_menu(cyborg, cyborg , peace_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_model), radius = 42, require_near = TRUE)
 	switch(peace_borg_icon)
 		if("Default")
@@ -475,7 +475,7 @@
 	var/static/list/janitor_icons
 	if(!janitor_icons)
 		janitor_icons = list(
-		"Default" = image(icon = 'icons/mob/robots.dmi', icon_state = "janitor"),
+		"Default" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "janitor"),
 		"Marina" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "marinajan"),
 		"Sleek" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "sleekjan"),
 		"Can" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "canjan"),
@@ -492,7 +492,7 @@
 			var/image/wide = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/widerobot.dmi', icon_state = L[a])
 			wide.pixel_x = -16
 			janitor_icons[a] = wide
-		janitor_icons = sortList(janitor_icons)
+		janitor_icons = sort_list(janitor_icons)
 	var/janitor_robot_icon = show_radial_menu(cyborg, cyborg , janitor_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_model), radius = 42, require_near = TRUE)
 	switch(janitor_robot_icon)
 		if("Default")
@@ -551,8 +551,8 @@
 //CLOWN
 /obj/item/robot_model/clown/be_transformed_to(obj/item/robot_model/old_model)
 	var/mob/living/silicon/robot/cyborg = loc
-	var/static/list/clown_icons = sortList(list(
-		"Default" = image(icon = 'icons/mob/robots.dmi', icon_state = "clown"),
+	var/static/list/clown_icons = sort_list(list(
+		"Default" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "clown"),
 		"Bootyborg" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "bootyclown"),
 		"Male Bootyborg" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "male_bootyclown"),
 		"Marina" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "marina_mommy"),
@@ -594,11 +594,11 @@
 	var/static/list/service_icons
 	if(!service_icons)
 		service_icons = list(
-		"Bro" = image(icon = 'icons/mob/robots.dmi', icon_state = "brobot"),
-		"Butler" = image(icon = 'icons/mob/robots.dmi', icon_state = "service_m"),
-		"Can" = image(icon = 'icons/mob/robots.dmi', icon_state = "kent"),
-		"Tophat" = image(icon = 'icons/mob/robots.dmi', icon_state = "tophat"),
-		"Waitress" = image(icon = 'icons/mob/robots.dmi', icon_state = "service_f"),
+		"Bro" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "brobot"),
+		"Butler" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "service_m"),
+		"Can" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "kent"),
+		"Tophat" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "tophat"),
+		"Waitress" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "service_f"),
 		"Sleek" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "sleekserv"),
 		"Heavy" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "heavyserv"),
 		"Bootyborg" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "bootyservice"),
@@ -612,7 +612,7 @@
 			var/image/wide = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/widerobot.dmi', icon_state = L[a])
 			wide.pixel_x = -16
 			service_icons[a] = wide
-		service_icons = sortList(service_icons)
+		service_icons = sort_list(service_icons)
 	var/service_robot_icon = show_radial_menu(cyborg, cyborg , service_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_model), radius = 42, require_near = TRUE)
 	switch(service_robot_icon)
 		if("Bro")
@@ -681,9 +681,9 @@
 	var/static/list/mining_icons
 	if(!mining_icons)
 		mining_icons = list(
-		"Asteroid Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "minerOLD"),
-		"Spider Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "spidermin"),
-		"Lavaland Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "miner"),
+		"Asteroid Miner" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "minerOLD"),
+		"Spider Miner" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "spidermin"),
+		"Lavaland Miner" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "miner"),
 		"Droid" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "miner"),
 		"Sleek" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "sleekmin"),
 		"Marina" = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/robots.dmi', icon_state = "marinamin"),
@@ -703,7 +703,7 @@
 			var/image/wide = image(icon = 'code/modules/mob/living/silicon/robot/altborgs/icons/mob/widerobot.dmi', icon_state = L[a])
 			wide.pixel_x = -16
 			mining_icons[a] = wide
-		mining_icons = sortList(mining_icons)
+		mining_icons = sort_list(mining_icons)
 	var/mining_borg_icon = show_radial_menu(cyborg, cyborg, mining_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_model), radius = 42, require_near = TRUE)
 	switch(mining_borg_icon)
 		if("Asteroid Miner")
