@@ -2,7 +2,8 @@
 
 ///////////////////////
 // Socks Definitions //
-////////////////////////datum/sprite_accessory/socks
+///////////////////////
+/datum/sprite_accessory/socks
 	icon = 'icons/mob/clothing/underwear.dmi'
 	em_block = TRUE
 
