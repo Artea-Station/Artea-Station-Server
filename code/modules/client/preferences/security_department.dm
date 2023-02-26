@@ -1,6 +1,6 @@
 /// Which department to put security officers in, when the config is enabled
 /datum/preference/choiced/security_department
-	category = PREFERENCE_CATEGORY_MISC
+	category = PREFERENCE_CATEGORY_MISC_LIST
 	can_randomize = FALSE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "prefered_security_department"

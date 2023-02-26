@@ -147,6 +147,8 @@ export type PreferencesMenuData = {
       species: string;
     };
 
+    misc_list: Record<string, string>;
+
     randomization: Record<string, RandomSetting>;
   };
 

@@ -42,6 +42,7 @@ export const BigPageButton = <P extends unknown>(props: {
 
   style?: CSSProperties;
   tooltip?: String;
+  tooltipPosition?: String;
 
   setPage: (page: P) => void;
 
@@ -50,7 +51,7 @@ export const BigPageButton = <P extends unknown>(props: {
   return (
     <PageButton
       {...props}
-      tooltipPosition="right" // Set to right, cause TGUI's byond frame overlays over everything.
+      tooltipPosition={props.tooltipPosition ? props.tooltipPosition : 'right'} // Set to right, cause TGUI's byond frame overlays over everything.
       style={{ 'padding': '20px' }}>
       {props.children}
     </PageButton>

@@ -1,6 +1,6 @@
 /// What to show on the AI screen
 /datum/preference/choiced/ai_core_display
-	category = PREFERENCE_CATEGORY_MISC
+	category = PREFERENCE_CATEGORY_MISC_LIST
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "preferred_ai_core_display"
 	should_generate_icons = TRUE

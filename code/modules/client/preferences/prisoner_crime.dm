@@ -1,6 +1,6 @@
 /// Which crime is the prisoner permabrigged for. For fluff!
 /datum/preference/choiced/prisoner_crime
-	category = PREFERENCE_CATEGORY_MISC
+	category = PREFERENCE_CATEGORY_MISC_LIST
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "prisoner_crime"
 

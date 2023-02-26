@@ -1,5 +1,5 @@
 /datum/preference/choiced/phobia
-	category = PREFERENCE_CATEGORY_MISC
+	category = PREFERENCE_CATEGORY_MISC_LIST
 	savefile_key = "phobia"
 	savefile_identifier = PREFERENCE_CHARACTER
 

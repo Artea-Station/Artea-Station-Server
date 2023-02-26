@@ -3,11 +3,13 @@
 	em_block = TRUE
 
 /datum/sprite_accessory/ears/none
-	name = "None"
+	name = "Default"
 	icon_state = "none"
+	organ_type_to_use = /obj/item/organ/internal/ears
 
 /datum/sprite_accessory/ears/cat
 	name = "Cat"
 	icon_state = "cat"
 	hasinner = 1
 	color_src = HAIR
+	organ_type_to_use = /obj/item/organ/internal/ears/cat

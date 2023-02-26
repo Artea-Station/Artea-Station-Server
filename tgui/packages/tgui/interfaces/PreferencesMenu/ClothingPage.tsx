@@ -4,9 +4,9 @@ import { createSetPreference, PreferencesMenuData } from './data';
 import { CharacterPreview } from './CharacterPreview';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 import { FeatureChoicedServerData } from './preferences/features/base';
-import { MainFeature, PreferenceList } from './Base';
+import { MainFeature } from './Base';
 
-export const AppearancePage = (context, parentContext) => {
+export const ClothingPage = (context, parentContext) => {
   const { act, data } = useBackend<PreferencesMenuData>(parentContext);
   const [currentClothingMenu, setCurrentClothingMenu] = useLocalState<
     string | null
@@ -15,24 +15,6 @@ export const AppearancePage = (context, parentContext) => {
   return (
     <ServerPreferencesFetcher
       render={(serverData) => {
-        const currentSpeciesData =
-          serverData &&
-          serverData.species[data.character_preferences.misc.species];
-
-        const mainFeatures = [
-          ...Object.entries(data.character_preferences.appearance).filter(
-            ([featureName]) => {
-              if (!currentSpeciesData) {
-                return false;
-              }
-
-              return (
-                currentSpeciesData.enabled_features.indexOf(featureName) !== -1
-              );
-            }
-          ),
-        ];
-
         return (
           <Stack>
             <Stack.Item>
@@ -73,41 +55,37 @@ export const AppearancePage = (context, parentContext) => {
                 overflowX="hidden"
                 overflowY="scroll">
                 <Stack height="100%" wrap>
-                  {mainFeatures.map(([clothingKey, clothing]) => {
-                    const catalog =
-                      serverData &&
-                      (serverData[clothingKey] as FeatureChoicedServerData & {
-                        name: string;
-                      });
+                  {Object.entries(data.character_preferences.clothing).map(
+                    ([clothingKey, clothing]) => {
+                      const catalog =
+                        serverData &&
+                        (serverData[clothingKey] as FeatureChoicedServerData & {
+                          name: string;
+                        });
 
-                    return (
-                      catalog && (
-                        <Stack.Item key={clothingKey} mt={0.5} px={0.5}>
-                          <MainFeature
-                            catalog={catalog}
-                            currentValue={clothing}
-                            isOpen={currentClothingMenu === clothingKey}
-                            handleClose={() => {
-                              setCurrentClothingMenu(null);
-                            }}
-                            handleOpen={() => {
-                              setCurrentClothingMenu(clothingKey);
-                            }}
-                            handleSelect={createSetPreference(act, clothingKey)}
-                          />
-                        </Stack.Item>
-                      )
-                    );
-                  })}
-                </Stack>
-              </Stack.Item>
-
-              <Stack.Item height="100%">
-                <Stack vertical fill>
-                  <PreferenceList
-                    act={act}
-                    preferences={data.character_preferences.appearance_list}
-                  />
+                      return (
+                        catalog && (
+                          <Stack.Item key={clothingKey} mt={0.5} px={0.5}>
+                            <MainFeature
+                              catalog={catalog}
+                              currentValue={clothing}
+                              isOpen={currentClothingMenu === clothingKey}
+                              handleClose={() => {
+                                setCurrentClothingMenu(null);
+                              }}
+                              handleOpen={() => {
+                                setCurrentClothingMenu(clothingKey);
+                              }}
+                              handleSelect={createSetPreference(
+                                act,
+                                clothingKey
+                              )}
+                            />
+                          </Stack.Item>
+                        )
+                      );
+                    }
+                  )}
                 </Stack>
               </Stack.Item>
             </Stack>

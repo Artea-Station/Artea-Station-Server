@@ -10,6 +10,8 @@ import { AppearancePage } from './AppearancePage';
 import { SpeciesPage } from './SpeciesPage';
 import { QuirksPage } from './QuirksPage';
 import { IndexPage } from './IndexPage';
+import { ClothingPage } from './ClothingPage';
+import { MiscPage } from './MiscPage';
 
 export enum Page {
   Index,
@@ -18,6 +20,8 @@ export enum Page {
   Jobs,
   Species,
   Quirks,
+  Clothing,
+  Misc,
 }
 
 const CharacterProfiles = (props: {
@@ -86,6 +90,14 @@ export const CharacterPreferenceWindow = (props, context) => {
 
     case Page.Quirks:
       pageContents = <QuirksPage />;
+      break;
+
+    case Page.Clothing:
+      pageContents = <ClothingPage />;
+      break;
+
+    case Page.Misc:
+      pageContents = <MiscPage />;
       break;
 
     default:

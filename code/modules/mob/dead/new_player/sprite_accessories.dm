@@ -31,6 +31,9 @@
 				continue
 		var/datum/sprite_accessory/D = new path()
 
+		if(!D.name) // Holy fuck holy shit why isn't this checked
+			continue
+
 		if(D.icon_state)
 			accessory_list[D.name] = D
 		else
@@ -79,6 +82,8 @@
 	var/dimension_y = 32
 	/// Should this sprite block emissives?
 	var/em_block = FALSE
+	/// Organ to use for this sprite accessory. The organ's sprites are overriden by the accessory sprites.
+	var/organ_type_to_use
 
 /datum/sprite_accessory/blank
 	name = "None"

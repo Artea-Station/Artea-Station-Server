@@ -182,37 +182,78 @@ export const IndexPage = (context, parentContext) => {
           </Stack>
         </Stack.Item>
 
-        <Stack.Item grow>
+        <Stack.Item width="100%">
           <h2>Categories</h2>
 
           <Divider />
 
-          <Stack justify="center" align="center">
-            <Stack.Item grow>
-              <BigPageButton
-                page={Page.Appearance}
-                setPage={setCurrentPage}
-                tooltip="Your character's basic appearance!">
-                Appearance
-              </BigPageButton>
+          <Stack width="100%">
+            <Stack.Item width="33%">
+              <Stack vertical>
+                <Stack.Item>
+                  <BigPageButton
+                    page={Page.Appearance}
+                    setPage={setCurrentPage}
+                    tooltip="Your character's basic appearance!">
+                    Appearance
+                  </BigPageButton>
+                </Stack.Item>
+
+                <Stack.Item>
+                  <BigPageButton
+                    page={Page.Antags}
+                    setPage={setCurrentPage}
+                    tooltip="Which evil guys you wanna be randomly rolled as!">
+                    Antagonists
+                  </BigPageButton>
+                </Stack.Item>
+              </Stack>
             </Stack.Item>
 
-            <Stack.Item grow>
-              <BigPageButton page={Page.Jobs} setPage={setCurrentPage}>
-                Occupations
-              </BigPageButton>
+            <Stack.Item fill width="33%">
+              <Stack vertical>
+                <Stack.Item>
+                  <BigPageButton
+                    page={Page.Clothing}
+                    setPage={setCurrentPage}
+                    tooltip="Your character's clothes that they start with!"
+                    tooltipPosition="bottom">
+                    Clothing
+                  </BigPageButton>
+                </Stack.Item>
+
+                <Stack.Item>
+                  <BigPageButton
+                    page={Page.Quirks}
+                    setPage={setCurrentPage}
+                    tooltip="Odd traits that can range from a minor boon, to a fundimental gameplay alteration in order to stay alive!"
+                    tooltipPosition="bottom">
+                    Quirks
+                  </BigPageButton>
+                </Stack.Item>
+              </Stack>
             </Stack.Item>
 
-            <Stack.Item grow>
-              <BigPageButton page={Page.Antags} setPage={setCurrentPage}>
-                Antagonists
-              </BigPageButton>
-            </Stack.Item>
+            <Stack.Item fill width="33%">
+              <Stack vertical>
+                <Stack.Item>
+                  <BigPageButton
+                    page={Page.Jobs}
+                    setPage={setCurrentPage}
+                    tooltip="What jobs your character plays!">
+                    Occupations
+                  </BigPageButton>
+                </Stack.Item>
 
-            <Stack.Item grow>
-              <BigPageButton page={Page.Quirks} setPage={setCurrentPage}>
-                Quirks
-              </BigPageButton>
+                <Stack.Item>
+                  <BigPageButton
+                    page={Page.Misc}
+                    setPage={setCurrentPage}
+                    tooltip="Various settings!">
+                    Misc
+                  </BigPageButton>
+                </Stack.Item>
+              </Stack>
             </Stack.Item>
           </Stack>
         </Stack.Item>

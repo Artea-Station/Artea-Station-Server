@@ -1,5 +1,5 @@
 /datum/preference/toggle/persistent_scars
-	category = PREFERENCE_CATEGORY_MISC
+	category = PREFERENCE_CATEGORY_MISC_LIST
 	savefile_key = "persistent_scars"
 	savefile_identifier = PREFERENCE_CHARACTER
 
