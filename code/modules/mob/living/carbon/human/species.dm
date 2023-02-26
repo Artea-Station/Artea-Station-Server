@@ -432,8 +432,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	SHOULD_CALL_PARENT(TRUE)
 	// Drop the items the new species can't wear
-	if((AGENDER in species_traits))
-		C.gender = PLURAL
 	if(C.hud_used)
 		C.hud_used.update_locked_slots()
 

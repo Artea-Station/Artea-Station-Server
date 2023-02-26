@@ -29,5 +29,5 @@
 
 	return values
 
-/datum/preference/choiced/ethereal_color/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/ethereal_color/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.dna.features["ethcolor"] = GLOB.color_list_ethereal[value]

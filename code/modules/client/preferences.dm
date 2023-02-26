@@ -497,7 +497,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 		if (preference.savefile_identifier != PREFERENCE_CHARACTER)
 			continue
 
-		preference.apply_to_human(character, read_preference(preference.type))
+		preference.apply_to_human(character, read_preference(preference.type), src)
 
 	character.dna.real_name = character.real_name
 

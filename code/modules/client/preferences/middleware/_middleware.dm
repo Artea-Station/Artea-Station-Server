@@ -50,3 +50,7 @@
 /// Called when a character is changed.
 /datum/preference_middleware/proc/on_new_character(mob/user)
 	return
+
+/// Called when prefs are applied to human.
+/datum/preference_middleware/proc/apply_to_human(datum/preferences/preferences, mob/user, datum/preferences/preferences)
+	return

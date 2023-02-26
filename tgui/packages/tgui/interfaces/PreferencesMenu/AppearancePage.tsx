@@ -7,7 +7,7 @@ import { RandomizationButton } from './RandomizationButton';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 import features from './preferences/features';
 import { FeatureChoicedServerData, FeatureValueInput } from './preferences/features/base';
-import { filterMap, sortBy } from 'common/collections';
+import { sortBy } from 'common/collections';
 import { useRandomToggleState } from './useRandomToggleState';
 
 const CLOTHING_CELL_SIZE = 48;
@@ -249,7 +249,6 @@ const sortPreferences = sortBy<[string, unknown]>(([featureId, _]) => {
 const PreferenceList = (props: {
   act: typeof sendAct;
   preferences: Record<string, unknown>;
-  randomizations: Record<string, RandomSetting>;
 }) => {
   return (
     <Stack.Item
@@ -265,7 +264,6 @@ const PreferenceList = (props: {
         {sortPreferences(Object.entries(props.preferences)).map(
           ([featureId, value]) => {
             const feature = features[featureId];
-            const randomSetting = props.randomizations[featureId];
 
             if (feature === undefined) {
               return (
@@ -281,15 +279,6 @@ const PreferenceList = (props: {
                 label={feature.name}
                 verticalAlign="middle">
                 <Stack fill>
-                  {randomSetting && (
-                    <Stack.Item>
-                      <RandomizationButton
-                        setValue={createSetRandomization(props.act, featureId)}
-                        value={randomSetting}
-                      />
-                    </Stack.Item>
-                  )}
-
                   <Stack.Item grow>
                     <FeatureValueInput
                       act={props.act}
@@ -322,9 +311,6 @@ export const AppearancePage = (context, parentContext) => {
           serverData &&
           serverData.species[data.character_preferences.misc.species];
 
-        const contextualPreferences =
-          data.character_preferences.secondary_features || [];
-
         const mainFeatures = [
           ...Object.entries(data.character_preferences.appearance).filter(
             ([featureName]) => {
@@ -339,55 +325,9 @@ export const AppearancePage = (context, parentContext) => {
           ),
         ];
 
-        const listFeatures = [
-          ...Object.entries(data.character_preferences.appearance_list).filter(
-            ([featureName]) => {
-              if (!currentSpeciesData) {
-                return false;
-              }
-
-              return (
-                currentSpeciesData.enabled_features.indexOf(featureName) !== -1
-              );
-            }
-          ),
-        ];
-
-        const randomBodyEnabled =
-          data.character_preferences.non_contextual.random_body !==
-            RandomSetting.Disabled || randomToggleEnabled;
-
-        const getRandomization = (
-          preferences: Record<string, unknown>
-        ): Record<string, RandomSetting> => {
-          if (!serverData) {
-            return {};
-          }
-
-          return Object.fromEntries(
-            filterMap(Object.keys(preferences), (preferenceKey) => {
-              if (
-                serverData.random.randomizable.indexOf(preferenceKey) === -1
-              ) {
-                return undefined;
-              }
-
-              if (!randomBodyEnabled) {
-                return undefined;
-              }
-
-              return [
-                preferenceKey,
-                data.character_preferences.randomization[preferenceKey] ||
-                  RandomSetting.Disabled,
-              ];
-            })
-          );
-        };
-
-        const randomizationOfMainFeatures = getRandomization(
-          Object.fromEntries(mainFeatures)
-        );
+        const randomBodyEnabled = false;
+        /* data.character_preferences.non_contextual.random_body !==
+            RandomSetting.Disabled || randomToggleEnabled;*/
 
         const nonContextualPreferences = {
           ...data.character_preferences.non_contextual,
@@ -403,67 +343,87 @@ export const AppearancePage = (context, parentContext) => {
         }
 
         return (
-          <Stack height={'300px'}>
-            <Stack.Item fill>
+          <Stack>
+            <Stack.Item>
               <CharacterPreview
-                height="100%"
+                height="300px"
                 id={data.character_preview_view}
               />
-            </Stack.Item>
-
-            <Stack.Item fill width="100%">
-              <Stack height="100%" vertical wrap>
-                {mainFeatures.map(([clothingKey, clothing]) => {
-                  const catalog =
-                    serverData &&
-                    (serverData[clothingKey] as FeatureChoicedServerData & {
-                      name: string;
-                    });
-
-                  return (
-                    catalog && (
-                      <Stack.Item key={clothingKey} mt={0.5} px={0.5}>
-                        <MainFeature
-                          catalog={catalog}
-                          currentValue={clothing}
-                          isOpen={currentClothingMenu === clothingKey}
-                          handleClose={() => {
-                            setCurrentClothingMenu(null);
-                          }}
-                          handleOpen={() => {
-                            setCurrentClothingMenu(clothingKey);
-                          }}
-                          handleSelect={createSetPreference(act, clothingKey)}
-                          randomization={
-                            randomizationOfMainFeatures[clothingKey]
-                          }
-                          setRandomization={createSetRandomization(
-                            act,
-                            clothingKey
-                          )}
-                        />
-                      </Stack.Item>
-                    )
-                  );
-                })}
+              <Stack mt="1.5em">
+                <Stack.Item ml="auto">
+                  <Button
+                    onClick={() => act('rotate', { dir: '90' })}
+                    fontSize="22px"
+                    icon="undo"
+                    tooltip="Rotate Left"
+                    tooltipPosition="top"
+                  />
+                </Stack.Item>
+                <Stack.Item mr="auto">
+                  <Button
+                    onClick={() => act('rotate', { dir: '-90' })}
+                    fontSize="22px"
+                    icon="redo"
+                    tooltip="Rotate Right"
+                    tooltipPosition="top"
+                  />
+                </Stack.Item>
               </Stack>
             </Stack.Item>
 
-            <Stack.Item grow basis={0}>
-              <Stack vertical fill>
-                <PreferenceList
-                  act={act}
-                  randomizations={getRandomization(contextualPreferences)}
-                  preferences={contextualPreferences}
-                />
+            <Stack vertical ml="5px" width="100%">
+              <Stack.Item
+                fill
+                width="100%"
+                style={{
+                  background: 'rgba(0, 0, 0, 0.5)',
+                  padding: '4px',
+                }}
+                overflowX="hidden"
+                overflowY="scroll">
+                <Stack height="100%" wrap>
+                  {mainFeatures.map(([clothingKey, clothing]) => {
+                    const catalog =
+                      serverData &&
+                      (serverData[clothingKey] as FeatureChoicedServerData & {
+                        name: string;
+                      });
 
-                <PreferenceList
-                  act={act}
-                  randomizations={getRandomization(nonContextualPreferences)}
-                  preferences={nonContextualPreferences}
-                />
-              </Stack>
-            </Stack.Item>
+                    return (
+                      catalog && (
+                        <Stack.Item key={clothingKey} mt={0.5} px={0.5}>
+                          <MainFeature
+                            catalog={catalog}
+                            currentValue={clothing}
+                            isOpen={currentClothingMenu === clothingKey}
+                            handleClose={() => {
+                              setCurrentClothingMenu(null);
+                            }}
+                            handleOpen={() => {
+                              setCurrentClothingMenu(clothingKey);
+                            }}
+                            handleSelect={createSetPreference(act, clothingKey)}
+                            setRandomization={createSetRandomization(
+                              act,
+                              clothingKey
+                            )}
+                          />
+                        </Stack.Item>
+                      )
+                    );
+                  })}
+                </Stack>
+              </Stack.Item>
+
+              <Stack.Item height="100%">
+                <Stack vertical fill>
+                  <PreferenceList
+                    act={act}
+                    preferences={data.character_preferences.appearance_list}
+                  />
+                </Stack>
+              </Stack.Item>
+            </Stack>
           </Stack>
         );
       }}

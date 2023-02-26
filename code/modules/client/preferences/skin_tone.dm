@@ -3,7 +3,7 @@
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "use_skin_tone"
 
-/datum/preference/toggle/use_skin_tone/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/toggle/use_skin_tone/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	return
 
 /datum/preference/color/skin_color
@@ -11,8 +11,8 @@
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "skin_color"
 
-/datum/preference/color/skin_color/apply_to_human(mob/living/carbon/human/target, value)
-	if(!target.client?.prefs?.read_preference(/datum/preference/toggle/use_skin_tone))
+/datum/preference/color/skin_color/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+	if(!preferences.read_preference(/datum/preference/toggle/use_skin_tone))
 		target.skin_tone = value
 
 /datum/preference/color/skin_color/is_accessible(datum/preferences/preferences)
@@ -48,8 +48,8 @@
 
 	return data
 
-/datum/preference/choiced/skin_tone/apply_to_human(mob/living/carbon/human/target, value)
-	if(target.client?.prefs?.read_preference(/datum/preference/toggle/use_skin_tone))
+/datum/preference/choiced/skin_tone/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+	if(preferences.read_preference(/datum/preference/toggle/use_skin_tone))
 		target.skin_tone = value
 
 /datum/preference/choiced/skin_tone/is_accessible(datum/preferences/preferences)

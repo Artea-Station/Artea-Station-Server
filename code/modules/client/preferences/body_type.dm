@@ -12,7 +12,7 @@
 /datum/preference/choiced/body_type/create_default_value()
 	return USE_GENDER
 
-/datum/preference/choiced/body_type/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/body_type/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	if (value == USE_GENDER)
 		target.physique = target.gender
 	else

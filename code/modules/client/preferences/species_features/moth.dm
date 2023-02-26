@@ -23,7 +23,7 @@
 
 	return values
 
-/datum/preference/choiced/moth_antennae/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/moth_antennae/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.dna.features["moth_antennae"] = value
 
 /datum/preference/choiced/moth_markings
@@ -75,7 +75,7 @@
 
 	return values
 
-/datum/preference/choiced/moth_markings/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/moth_markings/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.dna.features["moth_markings"] = value
 
 /datum/preference/choiced/moth_wings
@@ -98,5 +98,5 @@
 
 	return values
 
-/datum/preference/choiced/moth_wings/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/moth_wings/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.dna.features["moth_wings"] = value

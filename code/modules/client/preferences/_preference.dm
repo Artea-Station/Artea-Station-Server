@@ -202,7 +202,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /// Apply this preference onto the given human.
 /// Must be overriden by subtypes.
 /// Called when the savefile_identifier == PREFERENCE_CHARACTER.
-/datum/preference/proc/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/proc/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_CALL_PARENT(FALSE)
 	CRASH("`apply_to_human()` was not implemented for [type]!")
@@ -361,11 +361,11 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	return original_icon_state
 
 /// Generates and allows for post-processing on icons, such as greyscaling and cropping.
-/datum/preference/choiced/proc/generate_icon(datum/sprite_accessory/sprite_accessory)
+/datum/preference/choiced/proc/generate_icon(datum/sprite_accessory/sprite_accessory, dir = SOUTH)
 	if(!sprite_accessory.icon_state || sprite_accessory.icon_state == "None")
 		return icon('icons/mob/landmarks.dmi', "x")
 
-	var/icon/icon_to_process = icon(sprite_accessory.icon, generate_icon_state(sprite_accessory, sprite_accessory.icon_state), SOUTH, 1)
+	var/icon/icon_to_process = icon(sprite_accessory.icon, generate_icon_state(sprite_accessory, sprite_accessory.icon_state), dir, 1)
 
 	if(islist(crop_area) && crop_area.len == REQUIRED_CROP_LIST_SIZE)
 		icon_to_process.Crop(crop_area[1], crop_area[2], crop_area[3], crop_area[4])
