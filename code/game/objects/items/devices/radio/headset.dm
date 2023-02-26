@@ -187,6 +187,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	desc =	"A headset used by internal affairs agents, commonly used for complaining about departments and SOP violations."
 	icon_state = "sec_headset"
 	keyslot = new /obj/item/encryptionkey/headset_internalaffairs
+
 /obj/item/radio/headset/headset_srvmed
 	name = "psychology headset"
 	desc = "A headset allowing the wearer to communicate with medbay and service."
