@@ -365,6 +365,8 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	if(!sprite_accessory.icon_state || sprite_accessory.icon_state == "None")
 		return icon('icons/mob/landmarks.dmi', "x")
 
+	icon_exists(sprite_accessory.icon, generate_icon_state(sprite_accessory, sprite_accessory.icon_state), TRUE)
+
 	var/icon/icon_to_process = icon(sprite_accessory.icon, generate_icon_state(sprite_accessory, sprite_accessory.icon_state), dir, 1)
 
 	if(islist(crop_area) && crop_area.len == REQUIRED_CROP_LIST_SIZE)

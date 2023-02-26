@@ -468,6 +468,16 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			var/obj/item/organ/external/new_organ = SSwardrobe.provide_type(organ_path)
 			new_organ.Insert(human)
 
+		if(human.dna.features["tail"] && human.dna.features["tail"] != "None")
+			var/obj/item/organ/external/tail/cat/tail = new
+			tail.Insert(human, drop_if_replaced = FALSE)
+		else
+			mutantears = /obj/item/organ/external/tail
+
+		if(human.dna.features["ears"] && human.dna.features["ears"] != "None")
+			var/obj/item/organ/internal/ears/cat/ears = new
+			ears.Insert(human, drop_if_replaced = FALSE)
+
 	for(var/X in inherent_traits)
 		ADD_TRAIT(C, X, SPECIES_TRAIT)
 
@@ -678,9 +688,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/obj/item/bodypart/head/noggin = source.get_bodypart(BODY_ZONE_HEAD)
 
+	if(mutant_bodyparts["human_tail"])
+		if(!source.dna.features["human_tail"] || source.dna.features["human_tail"] == "None")
+			bodyparts_to_add -= "human_tail"
 
 	if(mutant_bodyparts["ears"])
-		if(!source.dna.features["ears"] || source.dna.features["ears"] == "None" || source.head && (source.head.flags_inv & HIDEHAIR) || (source.wear_mask && (source.wear_mask.flags_inv & HIDEHAIR)) || !noggin || !IS_ORGANIC_LIMB(noggin))
+		if(!source.dna.features["ears"] || source.dna.features["ears"] == "None" || source.head && (source.head.flags_inv & HIDEHAIR) || (source.wear_mask && (source.wear_mask.flags_inv & HIDEHAIR)) || !noggin)
 			bodyparts_to_add -= "ears"
 
 	if(!bodyparts_to_add)
