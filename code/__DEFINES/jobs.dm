@@ -37,6 +37,7 @@
 #define JOB_RESEARCH_DIRECTOR "Research Director"
 #define JOB_CHIEF_ENGINEER "Chief Engineer"
 #define JOB_CHIEF_MEDICAL_OFFICER "Chief Medical Officer"
+#define JOB_INTERNAL_AFFAIRS_AGENT "Internal Affairs Agent"
 //Silicon
 #define JOB_AI "AI"
 #define JOB_CYBORG "Cyborg"
@@ -135,6 +136,7 @@
 #define JOB_DISPLAY_ORDER_DETECTIVE 33
 #define JOB_DISPLAY_ORDER_SECURITY_OFFICER 34
 #define JOB_DISPLAY_ORDER_PRISONER 35
+#define JOB_DISPLAY_ORDER_INTERNAL_AFFAIRS_AGENT 36
 
 
 #define DEPARTMENT_UNASSIGNED "No department assigned"
