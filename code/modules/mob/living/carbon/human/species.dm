@@ -1203,10 +1203,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	SEND_SIGNAL(owner, COMSIG_MOB_ATTACK_HAND, owner, target, attacker_style)
 
-	if(owner.pulledby && owner.pulledby == target && target.grab_state && try_grab_maneuver(target, owner, modifiers))
+	if(target.pulledby && target.pulledby == owner && owner.grab_state && try_grab_maneuver(target, owner, modifiers))
 		message_admins("gamer! We try grab maneuver")
 		return
-	message_admins("grab maneuver failed [owner.pulledby] [owner.pulledby == target] [target.grab_state] [try_grab_maneuver(target, owner, modifiers)]")
 
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		. = disarm(owner, target, attacker_style)
