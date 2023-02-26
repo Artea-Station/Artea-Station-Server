@@ -240,7 +240,7 @@ DEFAULT_LAWS 0
 ## See datums\ai_laws.dm for the full law lists
 ## IE, SPECIFIED_LAWS asimovpp, SPECIFIED_LAWS robocop, SPECIFIED_LAWS antimov
 
-SPECIFIED_LAWS asimovpp
+SPECIFIED_LAWS corporate
 
 ## RANDOM LAWS ##
 ## ------------------------------------------------------------------------------------------
@@ -248,10 +248,6 @@ SPECIFIED_LAWS asimovpp
 ## See datums\ai_laws.dm for the full law lists
 
 ## standard-ish laws. These are fairly ok to run
-#SKYRAT EDIT ADDITION BEGIN
-RANDOM_LAWS armadyne_safeguard
-RANDOM_LAWS asimov
-RANDOM_LAWS asimovpp
 RANDOM_LAWS paladin
 RANDOM_LAWS robocop
 RANDOM_LAWS corporate
@@ -274,8 +270,6 @@ RANDOM_LAWS dagothbot
 #RANDOM_LAWS thermodynamic
 #RANDOM_LAWS drone
 
-## meme laws. Honk
-#RANDOM_LAWS buildawall
 
 ## If weighted laws are selected (DEFAULT_LAWS = 3),
 ## then an AI's starting laws will be determined by the weights of these values
@@ -286,12 +280,6 @@ LAW_WEIGHT custom,0
 
 ## standard-ish laws. These are fairly ok to run
 ## Unique AI station trait uses weights so we don't want asimov
-#SKYRAT EDIT ADDITION BEGIN
-LAW_WEIGHT armadyne_safeguard,40
-LAW_WEIGHT dagothbot,8
-#SKYRAT EDIT ADDITION END
-LAW_WEIGHT asimov,0
-LAW_WEIGHT asimovpp,5
 LAW_WEIGHT paladin,5
 LAW_WEIGHT paladin5,5
 LAW_WEIGHT robocop,5
