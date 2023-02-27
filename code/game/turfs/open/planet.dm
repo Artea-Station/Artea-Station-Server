@@ -20,7 +20,7 @@
 
 /turf/open/misc/dirt/jungle
 	slowdown = 0.5
-	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+	initial_gas_mix = PLANETARY_ATMOS
 
 /turf/open/misc/dirt/jungle/dark
 	icon_state = "greenerdirt"

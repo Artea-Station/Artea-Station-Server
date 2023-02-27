@@ -1,9 +1,7 @@
 /datum/map_config/icebox
 	map_name = "Ice Box Station"
 	map_path = "map_files/IceBoxStation"
-	map_file = list("IcemoonUnderground_Below.dmm",
-					"IcemoonUnderground_Above.dmm",
-					"IceBoxStation.dmm")
+	map_file = list("IceBoxStation.dmm")
 
 	traits = list(list("Up" = 1,
 						"Mining" = TRUE,
