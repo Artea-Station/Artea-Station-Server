@@ -58,6 +58,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "k" = (
@@ -65,14 +66,24 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/mining)
 "l" = (
-/obj/structure/shuttle/engine/propulsion/burst,
-/turf/open/floor/plating/airless,
+/obj/machinery/atmospherics/components/unary/engine,
+/turf/open/floor/plating,
+/area/shuttle/mining)
+"o" = (
+/obj/structure/table,
+/obj/item/wrench,
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/mining)
 "Q" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
+/area/shuttle/mining)
+"Y" = (
+/obj/machinery/atmospherics/components/unary/portables_connector/visible,
+/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/mining)
 
 (1,1,1) = {"
@@ -86,7 +97,7 @@ a
 "}
 (2,1,1) = {"
 a
-c
+o
 e
 g
 f
@@ -98,7 +109,7 @@ b
 d
 Q
 e
-f
+Y
 j
 l
 "}
