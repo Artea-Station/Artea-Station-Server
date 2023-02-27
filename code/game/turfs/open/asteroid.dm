@@ -113,6 +113,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	floor_variance = 15
 	digResult = /obj/item/stack/ore/glass/basalt
 	broken_state = "basalt_dug"
+	initial_gas_mix = PLANETARY_ATMOS
 
 /turf/open/misc/asteroid/basalt/getDug()
 	set_light(0)
