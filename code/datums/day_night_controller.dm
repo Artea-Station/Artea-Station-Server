@@ -55,7 +55,9 @@
 	time = time / 4 * VALUES_PER_TRANSITION //4 hours per transition and 5 transitions
 	time = FLOOR(time, 1)
 	if(time > ALL_TRANSITIONS || time <= 0)
-		CRASH("Tried to set an invalid day/night transition of [time]. Bad time calculation.")
+		if(SSticker.IsRoundInProgress())
+			CRASH("Tried to set an invalid day/night transition of [time]. Bad time calculation.")
+		return
 	for(var/i in affected_areas)
 		var/area/my_area = i
 		my_area.cut_overlay(effect)
