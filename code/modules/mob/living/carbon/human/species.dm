@@ -1204,7 +1204,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	SEND_SIGNAL(owner, COMSIG_MOB_ATTACK_HAND, owner, target, attacker_style)
 
 	if(target.pulledby && target.pulledby == owner && owner.grab_state && try_grab_maneuver(target, owner, modifiers))
-		message_admins("gamer! We try grab maneuver")
 		return
 
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
@@ -1329,17 +1328,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
 //TODO: Add a grab state check on the do_afters
 /datum/species/proc/try_grab_maneuver(mob/living/carbon/human/target, mob/living/carbon/human/user, modifiers)
 	if(!target)
-		message_admins("target was null!")
-	message_admins("[target] is the target")
+		return
 	var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.zone_selected))
 	if(!affecting)
-		message_admins("no [affecting]! no affecting!")
 		return FALSE
 	. = FALSE
 	if(HAS_TRAIT(user, TRAIT_PACIFISM)) //They're mostly violent acts
 		return
 	if(user.combat_mode)
-		message_admins("gamer! combat mode!")
 		switch(user.zone_selected)
 			if(BODY_ZONE_HEAD)
 				//Head slam
@@ -1375,7 +1371,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	//Chances are, no matter what you do on disarm you're gonna break your grip by accident because of shoving, let make a good use of disarm intent for maneuvers then
 	if(modifiers[RIGHT_CLICK])
-		message_admins("gamer! right clicked!")
 		switch(user.zone_selected)
 			if(BODY_ZONE_CHEST)
 				if(istype(user.mind.martial_art, /datum/martial_art/cqc)) //If you know CQC, You can't suplex and instead have the ability to use the chokehold, Sorry.
