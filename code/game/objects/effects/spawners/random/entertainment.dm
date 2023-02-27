@@ -229,15 +229,3 @@
 	loot += GLOB.arcade_prize_pool
 	. = ..()
 	return INITIALIZE_HINT_QDEL
-
-/obj/effect/spawner/random/entertainment/plushie
-	name = "plushie spawner"
-	loot = list(
-		/obj/item/toy/plush/beeplushie = 1,
-		/obj/item/toy/plush/moth = 1,
-		/obj/item/toy/plush/borbplushie = 1,
-		/obj/item/toy/plush/snakeplushie = 1,
-		/obj/item/toy/plush/lizardplushie/space = 1,
-		/obj/item/toy/plush/lizardplushie = 1,
-		/obj/item/toy/plush/carpplushie = 1
-	)

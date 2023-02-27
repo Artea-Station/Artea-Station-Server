@@ -88,19 +88,3 @@
 		/obj/structure/mecha_wreckage/ripley = 3,
 		/obj/vehicle/sealed/mecha/working/ripley/mining = 1,
 	)
-
-//Valueable loot dedicated for off-station ruins and facilities
-/obj/effect/spawner/random/away_loot
-	name = "away loot spawner"
-	loot = list(
-		/obj/effect/spawner/random/energy_weapon = 1,
-		/obj/effect/spawner/random/ballistic_weapon = 1,
-		/obj/effect/spawner/random/contraband = 1,
-		/obj/effect/spawner/random/hardsuit = 1,
-		/obj/effect/spawner/random/medicine/five = 1,
-		/obj/effect/spawner/random/tech_supply/five = 1,
-		/obj/effect/spawner/random/space/material = 1,
-		/obj/effect/spawner/random/melee_weapon = 1,
-		/obj/effect/spawner/random/tactical_gear = 1,
-		/obj/effect/spawner/random/grenade = 1
-	)

@@ -2,7 +2,7 @@
 
 /// Space loot spawner. Random selecton of a few rarer materials.
 /obj/effect/spawner/random/material
-	name = "material spawner"
+	spawn_loot_count = 3
 	loot = list(
 		/obj/item/stack/sheet/plastic/fifty = 5,
 		/obj/item/stack/sheet/runed_metal/ten = 20,
@@ -15,7 +15,6 @@
 
 //Really low amounts/chances of materials
 /obj/effect/spawner/random/material_scarce
-	name = "scarce material spawner"
 	loot = list(
 		/obj/item/stack/sheet/iron{amount = 5} = 60,
 		/obj/item/stack/sheet/glass{amount = 5} = 20,
@@ -30,7 +29,6 @@
 
 /// One random selection of some ore, heavily weighted for common drops
 /obj/effect/spawner/random/ore
-	name = "ore spawner"
 	loot = list(
 		/obj/item/stack/ore/iron{amount = 15} = 50,
 		/obj/item/stack/ore/glass{amount = 15} = 15,
@@ -44,7 +42,6 @@
 	)
 
 /obj/effect/spawner/random/ore_scarce
-	name = "scarce ore spawner"
 	loot = list(
 		/obj/item/stack/ore/iron{amount = 5} = 50,
 		/obj/item/stack/ore/glass{amount = 5} = 15,
@@ -58,7 +55,6 @@
 	)
 
 /obj/effect/spawner/random/ore_rich
-	name = "rich ore spawner"
 	loot = list(
 		/obj/item/stack/ore/iron{amount = 34} = 50,
 		/obj/item/stack/ore/glass{amount = 25} = 15,
