@@ -3,7 +3,7 @@
 	area_type = /area/planet/snow
 	generator_type = /datum/map_generator/planet_gen/snow
 
-	default_traits_input = list(ZTRAIT_MINING = TRUE, ZTRAIT_BASETURF = /turf/open/floor/plating/planetary/dirt)
+	default_traits_input = list(ZTRAIT_MINING = TRUE, ZTRAIT_BASETURF = /turf/open/misc/planetary/dirt)
 	overmap_type = /datum/overmap_object/shuttle/planet/snow
 	atmosphere_type = /datum/atmosphere/snow
 	weather_controller_type = /datum/weather_controller/snow_planet
@@ -57,27 +57,27 @@
 	perlin_zoom = 65
 
 /datum/biome/grass_tundra
-	turf_type = /turf/open/floor/plating/planetary/grass
+	turf_type = /turf/open/misc/planetary/grass
 	flora_types = list(/obj/structure/flora/planetary/firstbush,/obj/structure/flora/planetary_grass/sparsegrass,/obj/structure/flora/planetary/fernybush,/obj/structure/flora/planetary_grass/fullgrass,/obj/structure/flora/ash/chilly, /obj/structure/flora/grass,/obj/structure/flora/grass/brown, /obj/structure/flora/grass/green, /obj/structure/flora/grass/both, /obj/structure/flora/bush, /obj/structure/flora/tree/pine, /obj/structure/flora/rock/pile/icy)
 	flora_density = 30
 
 /datum/biome/snow
-	turf_type = /turf/open/floor/plating/planetary/snow
+	turf_type = /turf/open/misc/planetary/snow
 	flora_types = list(/obj/structure/flora/planetary_grass/sparsegrass,/obj/structure/flora/grass,/obj/structure/flora/grass/brown, /obj/structure/flora/grass/green, /obj/structure/flora/grass/both, /obj/structure/flora/bush, /obj/structure/flora/tree/pine, /obj/structure/flora/rock/pile/icy, /obj/structure/flora/rock/icy)
 	flora_density = 12
 
 /datum/biome/frozen_lake
-	turf_type = /turf/open/floor/plating/planetary/ice
+	turf_type = /turf/open/misc/planetary/ice
 
 /datum/biome/snowy_mountainside
 	turf_type = /turf/closed/mineral/random/snow
 
-/turf/open/floor/plating/planetary/snow
+/turf/open/misc/planetary/snow
 	gender = PLURAL
 	name = "snow"
 	desc = "Looks cold."
 	icon = 'icons/planet/snow/snow_floor.dmi'
-	baseturfs = /turf/open/floor/plating/planetary/snow
+	baseturfs = /turf/open/misc/planetary/snow
 	icon_state = "snow"
 	base_icon_state = "snow"
 	slowdown = 2
@@ -88,32 +88,28 @@
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/open/floor/plating/planetary/snow/Initialize()
+/turf/open/misc/planetary/snow/Initialize()
 	. = ..()
 	if(prob(15))
 		icon_state = "[base_icon_state][rand(1,13)]"
 
-/turf/open/floor/plating/planetary/ice
+/turf/open/misc/planetary/ice
 	name = "ice sheet"
 	desc = "A sheet of solid ice. Looks slippery."
 	icon = 'icons/turf/floors/ice_turf.dmi'
 	icon_state = "ice_turf-0"
 	base_icon_state = "ice_turf-0"
-	baseturfs = /turf/open/floor/plating/planetary/ice
+	baseturfs = /turf/open/misc/planetary/ice
 	slowdown = 1
-	attachment_holes = FALSE
 	bullet_sizzle = TRUE
 	footstep = FOOTSTEP_FLOOR
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/open/floor/plating/planetary/ice/Initialize()
+/turf/open/misc/planetary/ice/Initialize()
 	. = ..()
 	MakeSlippery(TURF_WET_PERMAFROST, INFINITY, 0, INFINITY, TRUE)
-
-/turf/open/floor/plating/planetary/ice/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
-	return
 
 /datum/atmosphere/snow
 	base_gases = list(

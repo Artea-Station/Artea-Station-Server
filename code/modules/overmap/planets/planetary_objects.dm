@@ -10,18 +10,18 @@
 	turf_type = /turf/closed/mineral/random/jungle
 
 /datum/biome/water
-	turf_type = /turf/open/floor/plating/planetary/water
+	turf_type = /turf/open/misc/planetary/water
 
-/turf/open/floor/plating/planetary
+/turf/open/misc/planetary
 	icon = 'icons/planet/planet_floors.dmi'
 	initial_gas_mix = PLANETARY_ATMOS
 	tiled_dirt = FALSE
 
-/turf/open/floor/plating/planetary/water
+/turf/open/misc/planetary/water
 	gender = PLURAL
 	name = "water"
 	desc = "A pool of water, very wet."
-	baseturfs = /turf/open/floor/plating/planetary/water
+	baseturfs = /turf/open/misc/planetary/water
 	icon_state = "water"
 	base_icon_state = "water"
 	footstep = FOOTSTEP_WATER
@@ -30,25 +30,25 @@
 	heavyfootstep = FOOTSTEP_WATER
 	slowdown = 2
 
-/turf/open/floor/plating/planetary/water/tar
+/turf/open/misc/planetary/water/tar
 	gender = PLURAL
 	name = "tar"
 	desc = "A pool of viscous and sticky tar."
 	slowdown = 10
 
-/turf/open/floor/plating/planetary/water/Initialize()
+/turf/open/misc/planetary/water/Initialize()
 	. = ..()
 	if(!color)
 		var/datum/space_level/level = SSmapping.z_list[z]
 		color = level.water_color
 
-/turf/open/floor/plating/planetary/grass
+/turf/open/misc/planetary/grass
 	name = "grass"
 	desc = "A patch of grass."
 	icon = 'icons/planet/planet_grass.dmi'
 	icon_state = "grass0"
 	base_icon_state = "grass"
-	baseturfs = /turf/open/floor/plating/planetary/dirt
+	baseturfs = /turf/open/misc/planetary/dirt
 	bullet_bounce_sound = null
 	footstep = FOOTSTEP_GRASS
 	barefootstep = FOOTSTEP_GRASS
@@ -59,10 +59,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_FLOOR_GRASS)
 	layer = HIGH_TURF_LAYER
 
-/turf/open/floor/plating/planetary/grass/setup_broken_states()
-	return list("damaged")
-
-/turf/open/floor/plating/planetary/grass/Initialize()
+/turf/open/misc/planetary/grass/Initialize()
 	. = ..()
 	var/matrix/translation = new
 	translation.Translate(-9, -9)
@@ -70,7 +67,7 @@
 	var/datum/space_level/level = SSmapping.z_list[z]
 	color = level.grass_color
 
-/turf/open/floor/plating/planetary/dirt
+/turf/open/misc/planetary/dirt
 	gender = PLURAL
 	name = "dirt"
 	desc = "Upon closer examination, it's still dirt."
@@ -82,7 +79,7 @@
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/open/floor/plating/planetary/mud
+/turf/open/misc/planetary/mud
 	gender = PLURAL
 	name = "mud"
 	desc = "Thick, claggy and waterlogged."
@@ -94,11 +91,11 @@
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/open/floor/plating/planetary/sand
+/turf/open/misc/planetary/sand
 	gender = PLURAL
 	name = "sand"
 	desc = "It's coarse and gets everywhere."
-	baseturfs = /turf/open/floor/plating/planetary/sand
+	baseturfs = /turf/open/misc/planetary/sand
 	icon_state = "sand"
 	base_icon_state = "sand"
 	footstep = FOOTSTEP_SAND
@@ -106,16 +103,16 @@
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_SAND
 
-/turf/open/floor/plating/planetary/sand/Initialize()
+/turf/open/misc/planetary/sand/Initialize()
 	. = ..()
 	if(prob(10))
 		icon_state = "[base_icon_state][rand(1,5)]"
 
-/turf/open/floor/plating/planetary/dry_seafloor
+/turf/open/misc/planetary/dry_seafloor
 	gender = PLURAL
 	name = "dry seafloor"
 	desc = "Should have stayed hydrated."
-	baseturfs = /turf/open/floor/plating/planetary/dry_seafloor
+	baseturfs = /turf/open/misc/planetary/dry_seafloor
 	icon_state = "dry"
 	base_icon_state = "dry"
 	footstep = FOOTSTEP_GENERIC_HEAVY
@@ -123,7 +120,7 @@
 	clawfootstep = FOOTSTEP_GENERIC_HEAVY
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/open/floor/plating/planetary/wasteland
+/turf/open/misc/planetary/wasteland
 	name = "cracked earth"
 	desc = "Looks a bit dry."
 	icon = 'icons/turf/floors.dmi'
@@ -131,10 +128,7 @@
 	base_icon_state = "wasteland"
 	slowdown = 1
 
-/turf/open/floor/plating/planetary/wasteland/setup_broken_states()
-	return list("[initial(icon_state)]0")
-
-/turf/open/floor/plating/planetary/wasteland/Initialize()
+/turf/open/misc/planetary/wasteland/Initialize()
 	.=..()
 	if(prob(15))
 		icon_state = "[initial(icon_state)][rand(0,12)]"

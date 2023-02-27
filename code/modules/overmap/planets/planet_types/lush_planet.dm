@@ -3,7 +3,7 @@
 	area_type = /area/planet/lush
 	generator_type = /datum/map_generator/planet_gen/lush
 
-	default_traits_input = list(ZTRAIT_MINING = TRUE, ZTRAIT_BASETURF = /turf/open/floor/plating/planetary/dirt)
+	default_traits_input = list(ZTRAIT_MINING = TRUE, ZTRAIT_BASETURF = /turf/open/misc/planetary/dirt)
 	overmap_type = /datum/overmap_object/shuttle/planet/lush
 	atmosphere_type = /datum/atmosphere/lush
 	weather_controller_type = /datum/weather_controller/lush
@@ -58,18 +58,18 @@
 	perlin_zoom = 65
 
 /datum/biome/grass
-	turf_type = /turf/open/floor/plating/planetary/grass
+	turf_type = /turf/open/misc/planetary/grass
 	flora_types = list(/obj/structure/flora/tree/jungle, /obj/structure/flora/planetary/palebush,/obj/structure/flora/rock/pile, /obj/structure/flora/bush/flowers_yw/style_random, /obj/structure/flora/bush/flowers_br/style_random, /obj/structure/flora/bush/flowers_pp/style_random, /obj/structure/flora/bush/lavendergrass, /obj/structure/flora/bush/goldenbush, /obj/structure/flora/planetary/leafybush, /obj/structure/flora/planetary/grassybush, /obj/structure/flora/planetary/fernybush, /obj/structure/flora/planetary/sunnybush, /obj/structure/flora/planetary_grass/sparsegrass, /obj/structure/flora/planetary_grass/fullgrass)
 	flora_density = 7
 
 /datum/biome/coast
-	turf_type = /turf/open/floor/plating/planetary/sand
+	turf_type = /turf/open/misc/planetary/sand
 
 /datum/biome/heavy_mud
-	turf_type = /turf/open/floor/plating/planetary/mud
+	turf_type = /turf/open/misc/planetary/mud
 
 /datum/biome/wasteland
-	turf_type = /turf/open/floor/plating/planetary/wasteland
+	turf_type = /turf/open/misc/planetary/wasteland
 
 /datum/atmosphere/lush
 	base_gases = list(

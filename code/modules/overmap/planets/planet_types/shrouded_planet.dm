@@ -3,7 +3,7 @@
 	area_type = /area/planet/shrouded
 	generator_type = /datum/map_generator/planet_gen/shrouded
 
-	default_traits_input = list(ZTRAIT_MINING = TRUE, ZTRAIT_BASETURF = /turf/open/floor/plating/planetary/shrouded_sand)
+	default_traits_input = list(ZTRAIT_MINING = TRUE, ZTRAIT_BASETURF = /turf/open/misc/planetary/shrouded_sand)
 	overmap_type = /datum/overmap_object/shuttle/planet/shrouded
 	atmosphere_type = /datum/atmosphere/shrouded
 	weather_controller_type = /datum/weather_controller/shrouded
@@ -77,16 +77,16 @@
 	perlin_zoom = 65
 
 /datum/biome/shrouded_sand
-	turf_type = /turf/open/floor/plating/planetary/shrouded_sand
+	turf_type = /turf/open/misc/planetary/shrouded_sand
 
 /datum/biome/shrouded_tar
-	turf_type = /turf/open/floor/plating/planetary/water/tar
+	turf_type = /turf/open/misc/planetary/water/tar
 
-/turf/open/floor/plating/planetary/shrouded_sand
+/turf/open/misc/planetary/shrouded_sand
 	gender = PLURAL
 	name = "packed sand"
 	desc = "Sand that has been packed into solid earth."
-	baseturfs = /turf/open/floor/plating/planetary/shrouded_sand
+	baseturfs = /turf/open/misc/planetary/shrouded_sand
 	icon = 'icons/planet/shrouded/shrouded_floor.dmi'
 	icon_state = "sand"
 	base_icon_state = "sand"
@@ -95,7 +95,7 @@
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_SAND
 
-/turf/open/floor/plating/planetary/shrouded_sand/Initialize()
+/turf/open/misc/planetary/shrouded_sand/Initialize()
 	. = ..()
 	if(prob(20))
 		icon_state = "[base_icon_state][rand(1,8)]"

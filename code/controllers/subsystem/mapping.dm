@@ -269,15 +269,15 @@ Used by the AI doomsday and the self-destruct nuke.
 
 #define INIT_ANNOUNCE(X) to_chat(world, "<span class='boldannounce'>[X]</span>"); log_world(X)
 /datum/controller/subsystem/mapping/proc/LoadGroup(
-					list/errorList, 
-					name, 
-					path, 
-					files, 
-					list/traits, 
-					list/default_traits, 
-					silent = FALSE, 
-					datum/overmap_object/ov_obj = null, 
-					weather_controller_type, 
+					list/errorList,
+					name,
+					path,
+					files,
+					list/traits,
+					list/default_traits,
+					silent = FALSE,
+					datum/overmap_object/ov_obj = null,
+					weather_controller_type,
 					atmosphere_type,
 					day_night_controller_type,
 					rock_color,
@@ -375,14 +375,14 @@ Used by the AI doomsday and the self-destruct nuke.
 	var/picked_plant_color = CHECK_AND_PICK_OR_NULL(config.plant_color)
 	var/picked_grass_color = CHECK_AND_PICK_OR_NULL(config.grass_color)
 	var/picked_water_color = CHECK_AND_PICK_OR_NULL(config.water_color)
-	LoadGroup(FailedZs, 
-			"Station", 
-			config.map_path, 
-			config.map_file, 
-			config.traits, 
-			ZTRAITS_STATION, 
-			ov_obj = station_overmap_object, 
-			weather_controller_type = config.weather_controller_type, 
+	LoadGroup(FailedZs,
+			"Station",
+			config.map_path,
+			config.map_file,
+			config.traits,
+			ZTRAITS_STATION,
+			ov_obj = station_overmap_object,
+			weather_controller_type = config.weather_controller_type,
 			atmosphere_type = config.atmosphere_type,
 			day_night_controller_type = config.day_night_controller_type,
 			rock_color = picked_rock_color,
@@ -417,7 +417,7 @@ Used by the AI doomsday and the self-destruct nuke.
 		for(var/i in 1 to config.amount_of_planets_spawned)
 			if(!length(planet_list))
 				break
-			var/picked_planet_type = pickweight(planet_list)
+			var/picked_planet_type = pick_weight(planet_list)
 			planet_list -= picked_planet_type
 			var/datum/planet_template/picked_template = planet_templates[picked_planet_type]
 			picked_template.LoadTemplate(SSovermap.main_system, rand(5,25), rand(5,25))
