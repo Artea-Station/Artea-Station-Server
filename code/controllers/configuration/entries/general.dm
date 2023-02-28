@@ -112,6 +112,9 @@
 /// log emotes
 /datum/config_entry/flag/log_emote
 
+/// enable lobby camera
+/datum/config_entry/flag/lobby_camera
+
 /// log economy actions
 /datum/config_entry/flag/log_econ
 
