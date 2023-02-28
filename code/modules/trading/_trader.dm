@@ -112,13 +112,20 @@
 	var/total_value = 0
 	var/list/valid_items = list()
 
+	var/bartered_items
+	var/bartered_item_count = 0
+
 	for(var/i in items_on_pad)
 		var/atom/movable/AM = i
-		for(var/b in bought_goods)
-			var/datum/bought_goods/bought_goodie = get_matching_bought_datum(AM)
-			if(bought_goodie)
-				total_value += bought_goodie.GetCost(AM)
-				valid_items += AM
+		var/datum/bought_goods/bought_goodie = get_matching_bought_datum(AM)
+		if(bought_goodie)
+			total_value += bought_goodie.GetCost(AM)
+			valid_items += AM
+			if(!bartered_items)
+				bartered_items = "[bought_goodie.name]"
+			else
+				bartered_items += ", [bought_goodie.name]"
+			bartered_item_count += bought_goodie.GetAmount(AM)
 
 	total_value *= TRADE_BARTER_EXTRA_MARGIN
 	//Always treat barter as if it's haggling
@@ -145,7 +152,8 @@
 		console.linked_pad.do_teleport_effect()
 		AfterTrade(user,console)
 		randomize_haggle()
-	valid_items = null
+		console.write_manifest(bartered_items, "[bartered_item_count] total", total_value, TRUE, user.name)
+		console.write_manifest(goodie.name, 1, total_value, FALSE, user.name)
 
 /datum/trader/proc/requested_sell(mob/user, obj/machinery/computer/trade_console/console, datum/bought_goods/goodie, haggled_price)
 	if(!(trade_flags & TRADER_MONEY))
@@ -180,6 +188,7 @@
 	console.credits_held += proposed_cost
 	current_credits -= proposed_cost
 	randomize_haggle()
+	console.write_manifest(goodie.name, goodie.GetAmount(chosen_item), proposed_cost, TRUE, user.name)
 	if(hard_bargain)
 		return get_response("hard_bargain", "You drive a hard bargain, but I'll accept", user)
 	else
@@ -213,6 +222,7 @@
 	console.linked_pad.do_teleport_effect()
 	AfterTrade(user,console)
 	randomize_haggle()
+	console.write_manifest(goodie.name, 1, proposed_cost, FALSE, user.name)
 	if(hard_bargain)
 		return get_response("hard_bargain", "You drive a hard bargain, but I'll accept", user)
 	else
@@ -251,6 +261,8 @@
 		return get_response("pad_empty", "There's nothing on the pad...", user)
 	var/item_count = 0
 	var/total_value = 0
+	var/conjoined_amount = 0
+	var/conjoined_string
 	var/list/valid_items = list()
 	for(var/i in items_on_pad)
 		var/atom/movable/AM = i
@@ -259,6 +271,11 @@
 			item_count++
 			total_value += goodie.GetCost(AM)
 			valid_items += AM
+			if(!conjoined_string)
+				conjoined_string = "[goodie.name]"
+			else
+				conjoined_string += ", [goodie.name]"
+			conjoined_amount += goodie.GetAmount(AM)
 
 	if(!item_count)
 		return get_response("trade_found_unwanted", "I'm not interested in these kinds of items!", user)
@@ -274,7 +291,43 @@
 	console.linked_pad.do_teleport_effect()
 	AfterTrade(user,console)
 	randomize_haggle()
+	console.write_manifest(conjoined_string, "[conjoined_amount] total", total_value, TRUE, user.name)
 	return get_response("trade_complete", "Thanks for your business!", user)
+
+/datum/trader/proc/requested_bounty_claim(mob/user, obj/machinery/computer/trade_console/console, datum/trader_bounty/bounty)
+	var/list/items_on_pad = console.linked_pad.get_valid_items()
+	var/list/valid_items = list()
+	var/counted_amount = 0
+	var/bounty_completed = FALSE
+	for(var/i in items_on_pad)
+		var/atom/movable/AM = i
+		var/amount_in_this_item = bounty.Validate(AM)
+		if(!amount_in_this_item)
+			continue
+		counted_amount += amount_in_this_item
+		valid_items += AM
+		if(counted_amount >= bounty.amount)
+			bounty_completed = TRUE
+			break
+	if(!bounty_completed)
+		return get_response("bounty_fail_claim", "I'm afraid you're a bit short of what I need!", user)
+	for(var/i in valid_items)
+		var/atom/movable/AM = i
+		qdel(AM)
+	console.credits_held += bounty.reward_cash
+	if(bounty.reward_item_path)
+		console.write_manifest(bounty.reward_item_name, 1, 0, FALSE, user.name)
+		new bounty.reward_item_path(get_turf(console.linked_pad))
+	console.linked_pad.do_teleport_effect()
+	AfterTrade(user,console)
+	randomize_haggle()
+	console.write_manifest(bounty.name, counted_amount, bounty.reward_cash, TRUE, user.name)
+	. = bounty.bounty_complete_text
+	bounties -= bounty
+	qdel(bounty)
+	if(!bounties.len)
+		bounties = null
+		console.trader_screen_state = TRADER_SCREEN_NOTHING
 
 /datum/trader/proc/hail_msg(is_success, mob/user)
 	var/key = is_success ? "hail" : "hail_deny"

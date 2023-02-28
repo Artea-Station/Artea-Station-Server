@@ -135,8 +135,8 @@ GLOBAL_LIST_INIT(meteorsD, list(/obj/effect/meteor/medium=15, /obj/effect/meteor
 	chase_target(target)
 
 /obj/effect/meteor/Destroy()
-	if (timerid)
-		deltimer(timerid)
+	if (del_timer)
+		deltimer(del_timer)
 	GLOB.meteor_list -= src
 	return ..()
 
