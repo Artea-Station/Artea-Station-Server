@@ -59,6 +59,8 @@
 
 	var/amount_of_planets_spawned = 4
 
+	var/ore_node_seeder_type
+
 /datum/map_config/New()
 	//Make sure that all levels in station do have this z trait
 	. = ..()

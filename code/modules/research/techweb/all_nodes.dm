@@ -1285,6 +1285,9 @@
 		"superresonator",
 		"triggermod",
 		"mecha_kineticgun",
+		"mining_drill",
+		"mining_brace",
+		"metal_density_scanner",
 	)//e a r l y    g a  m e)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
@@ -1298,6 +1301,7 @@
 		"hypermod",
 		"jackhammer",
 		"plasmacutter_adv",
+		"adv_metal_density_scanner",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 7500)
 	discount_experiments = list(/datum/experiment/scanning/random/material/hard/one = 5000)
