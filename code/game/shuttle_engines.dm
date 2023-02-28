@@ -60,11 +60,11 @@
 
 /obj/structure/shuttle/engine/Initialize()
 	. = ..()
-
 	if(engine_state == ENGINE_WELDED)
 		AddComponent(/datum/component/engine_effect)
-		extension = new extension_type()
-		ApplyExtension()
+		if(extension_type)
+			extension = new extension_type()
+			ApplyExtension()
 
 /obj/structure/shuttle/engine/proc/DrawThrust()
 	SEND_SIGNAL(src, COMSIG_ENGINE_DRAWN_POWER)

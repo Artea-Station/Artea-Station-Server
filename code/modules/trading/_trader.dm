@@ -30,13 +30,11 @@
 	/// Maximum percent that the merchant will be able to drop the price. Randomized between 0 and this
 	var/haggle_percent = 15
 	/// A percentage of the price variance on all sold and bought goods
-	var/price_variance = 25
+	var/price_variance = 20
 	/// How much more items are valuable to the merchant for purchasing (in %)
 	var/buy_margin = 1
 	/// How much more items are expensive for the users to purchase (in %)
-	var/sell_margin = 1.3
-	/// How much more, or less items will he have on stock. Minimum of 1 per datum
-	var/quantity_multiplier = 1
+	var/sell_margin = 1.10
 	/// Amount of disposition gained per each trade
 	var/disposition_per_trade = 3
 	/// Amount of disposition lost per each rejection
@@ -399,32 +397,16 @@
 		GainSuppliesBounty()
 	if(prob(initial_delivery_gain_chance))
 		GainDelivery()
-	if(possible_bought_goods)
-		var/list/candidates = possible_bought_goods.Copy()
-		var/amount_of_iterations = rand(target_bought_goods_amount-initial_goods_amount_randomness,target_bought_goods_amount+initial_goods_amount_randomness)
-		if(amount_of_iterations > 0)
-			for(var/i in 1 to amount_of_iterations)
-				if(!length(candidates))
-					break
-				var/picked_type = pick_weight(candidates)
-				candidates -= picked_type
-				//Safety check
-				if(!bought_goods[picked_type])
-					CreateBoughtGoodieType(picked_type)
-		candidates = null
-	if(possible_sold_goods)
-		var/list/candidates = possible_sold_goods.Copy()
-		var/amount_of_iterations = rand(target_sold_goods_amount-initial_goods_amount_randomness,target_sold_goods_amount+initial_goods_amount_randomness)
-		if(amount_of_iterations > 0)
-			for(var/i in 1 to amount_of_iterations)
-				if(!length(candidates))
-					break
-				var/picked_type = pick_weight(candidates)
-				candidates -= picked_type
-				//Safety check
-				if(!sold_goods[picked_type])
-					CreateSoldGoodieType(picked_type)
-		candidates = null
+	if(sold_goods)
+		var/list/sold_good_init = list()
+		for(var/type_to_init in sold_goods)
+			sold_good_init += new type_to_init(TRADER_COST_MACRO(sell_margin,price_variance))
+		sold_goods = sold_good_init
+	if(bought_goods)
+		var/list/bought_goods_init = list()
+		for(var/type_to_init in bought_goods)
+			bought_goods_init += new type_to_init(TRADER_COST_MACRO(sell_margin,price_variance))
+		bought_goods = bought_goods_init
 
 /datum/trader/proc/GainNormalBounty()
 	if(!possible_bounties || current_bounty)

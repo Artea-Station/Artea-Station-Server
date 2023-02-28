@@ -164,3 +164,67 @@
 		/obj/item/storage/backpack/duffelbag/engineering,
 		/obj/item/storage/backpack/duffelbag/clown,
 	)
+
+/obj/effect/spawner/random/clothes
+	name = "clothes spawner"
+	loot = list(
+		/obj/item/clothing/under/color/random = 1,
+		/obj/item/clothing/under/color/grey = 1,
+		/obj/item/clothing/under/misc/overalls = 1,
+		/obj/item/clothing/under/misc/assistantformal = 1,
+		/obj/item/clothing/under/suit/black = 1,
+		/obj/item/clothing/under/suit/black/skirt = 1,
+		/obj/item/clothing/under/suit/white = 1,
+		/obj/item/clothing/under/suit/white/skirt = 1,
+		/obj/item/clothing/under/suit/beige,
+		/obj/item/clothing/under/pants/jeans = 1,
+		/obj/item/clothing/under/pants/camo = 1,
+		/obj/item/clothing/under/rank/civilian/bartender = 1,
+		/obj/item/clothing/under/rank/civilian/bartender/skirt = 1
+	)
+
+/obj/effect/spawner/random/clothing/headgear
+	name = "headgear spawner"
+	loot = list(
+		/obj/item/clothing/head/welding = 1,
+		/obj/item/clothing/head/ushanka = 1,
+		/obj/item/clothing/head/soft/grey = 1,
+		/obj/item/clothing/head/soft/black = 1,
+		/obj/item/clothing/head/chefhat = 1,
+		/obj/item/clothing/head/beret = 1,
+		/obj/item/clothing/head/beret/black = 1,
+		/obj/item/clothing/head/fedora/curator = 1,
+		/obj/item/clothing/head/helmet/old = 1,
+		/obj/item/clothing/head/bandana = 1
+	)
+
+/obj/effect/spawner/random/clothing/shoes
+	name = "shoes spawner"
+	loot = list(
+		/obj/item/clothing/shoes/sneakers/black = 1,
+		/obj/item/clothing/shoes/sneakers/brown = 1,
+		/obj/item/clothing/shoes/sneakers/blue = 1,
+		/obj/item/clothing/shoes/jackboots = 1
+	)
+
+/obj/effect/spawner/random/clothing/suit
+	name = "suit spawner"
+	loot = list(
+		/obj/item/clothing/suit/toggle/labcoat = 1,
+		/obj/item/clothing/suit/costume/pirate = 1,
+		/obj/item/clothing/suit/costume/poncho = 1,
+		/obj/item/clothing/suit/jacket/letterman = 1,
+		/obj/item/clothing/suit/toggle/chef = 1,
+		/obj/item/clothing/suit/hooded/wintercoat = 1,
+		/obj/item/clothing/suit/hooded/wintercoat/custom = 1
+	)
+
+/obj/effect/spawner/random/clothing/eyewear
+	name = "eyewear spawner"
+	loot = list(
+		/obj/item/clothing/glasses/meson = 1,
+		/obj/item/clothing/glasses/science = 1,
+		/obj/item/clothing/glasses/welding = 1,
+		/obj/item/clothing/glasses/hud/health = 1,
+		/obj/item/clothing/glasses/sunglasses = 1
+	)

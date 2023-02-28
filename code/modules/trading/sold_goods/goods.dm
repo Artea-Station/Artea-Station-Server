@@ -20,11 +20,6 @@
 
 /////////Atmospheric Shop Employee/////////
 
-/datum/sold_goods/belt/nitrogen
-	cost = 100
-	path = /obj/item/tank/internals/nitrogen/belt
-	stock = 5
-
 /datum/sold_goods/belt/plasma
 	cost = 180
 	path = /obj/item/tank/internals/plasmaman/belt
@@ -91,7 +86,7 @@
 /datum/sold_goods/paicard
 	stock = 1
 	cost = 200
-	path = /obj/item/paicard
+	path = /obj/item/pai_card
 
 /datum/sold_goods/t_scanner
 	path = /obj/item/t_scanner
@@ -135,7 +130,7 @@
 
 /datum/sold_goods/grey_bull
 	cost = 50
-	path = /obj/item/reagent_containers/food/drinks/soda_cans/grey_bull
+	path = /obj/item/reagent_containers/cup/soda_cans/grey_bull
 
 /////////Electronic Shop Employee/////////
 
@@ -191,22 +186,22 @@
 /datum/sold_goods/firstaid
 	cost = 300
 	stock = 1
-	path = /obj/item/storage/firstaid
+	path = /obj/item/storage/medkit/regular
 
 /datum/sold_goods/firstaid_fire
 	cost = 500
 	stock = 1
-	path = /obj/item/storage/firstaid/fire
+	path = /obj/item/storage/medkit/fire
 
 /datum/sold_goods/firstaid_brute
 	cost = 500
 	stock = 1
-	path = /obj/item/storage/firstaid/brute
+	path = /obj/item/storage/medkit/brute
 
 /datum/sold_goods/firstaid_toxin
 	cost = 500
 	stock = 1
-	path = /obj/item/storage/firstaid/toxin
+	path = /obj/item/storage/medkit/toxin
 
 /datum/sold_goods/pill_bottle_multiver
 	cost = 300
@@ -221,17 +216,17 @@
 /datum/sold_goods/bottle_morphine
 	cost = 200
 	stock = 1
-	path = /obj/item/reagent_containers/glass/bottle/morphine
+	path = /obj/item/reagent_containers/cup/bottle/morphine
 
 /datum/sold_goods/bottle_chloral
 	cost = 200
 	stock = 1
-	path = /obj/item/reagent_containers/glass/bottle/chloralhydrate
+	path = /obj/item/reagent_containers/cup/bottle/chloralhydrate
 
 /datum/sold_goods/bottle_epinephrine
 	cost = 200
 	stock = 1
-	path = /obj/item/reagent_containers/glass/bottle/epinephrine
+	path = /obj/item/reagent_containers/cup/bottle/epinephrine
 
 /datum/sold_goods/pill_bottle_iron
 	cost = 200
@@ -322,7 +317,7 @@
 
 /datum/sold_goods/mining_kit
 	cost = 350
-	path = /obj/item/storage/backpack/duffelbag/mining_conscript/basic
+	path = /obj/item/storage/backpack/duffelbag/mining_conscript
 	stock = 4
 
 /datum/sold_goods/stack/iron_ten

@@ -313,7 +313,6 @@
 	trade_flags = TRADER_MONEY|TRADER_SELLS_GOODS
 	possible_origins = list("Fill Up Tanker", "Gasser'up", "Tank Topper", "Uncle Joe's Jenkem Emporium")
 	sold_goods = list(
-		/datum/sold_goods/belt/nitrogen,
 		/datum/sold_goods/belt/plasma,
 		/datum/sold_goods/emergency_oxygen,
 		/datum/sold_goods/voidsuit,

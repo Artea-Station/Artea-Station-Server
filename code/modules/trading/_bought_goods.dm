@@ -9,10 +9,6 @@
 	var/cost_label
 	var/cost = 100
 	var/trader_price_multiplier = 1
-	/// Remaining amount of how many of those the trader will yet buy. Infinite if null
-	var/amount
-	/// The decimal the stock will be rounded up to
-	var/stock_ceiling = 1
 
 	/// Stock amount of this purchasable goodie
 	var/stock

@@ -9,7 +9,6 @@
 /datum/component/engine_effect/Initialize()
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
-	looped_sound = new(list(parent), FALSE)
 
 /datum/component/engine_effect/Destroy()
 	if(is_flaming)
@@ -30,7 +29,10 @@
 
 /datum/component/engine_effect/proc/StartFlaming()
 	is_flaming = TRUE
-	looped_sound.start()
+	if(looped_sound)
+		looped_sound.start()
+	else
+		looped_sound = new(list(parent), TRUE)
 	START_PROCESSING(SSobj, src)
 	DoFirePlume()
 

@@ -100,7 +100,7 @@
 	new /obj/item/food/fortunecookie(spawn_turf)
 	var/obj/item/paper/fortune = new(spawn_turf)
 	fortune.name = "Fortune"
-	fortune.info = pick(fortunes)
+	fortune.default_raw_text = pick(fortunes)
 
 /datum/trader/farmer
 	name = "Farming Apprentice"

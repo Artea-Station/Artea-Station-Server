@@ -20,7 +20,7 @@
 	/// If the same item can be spawned twice
 	var/spawn_loot_double = TRUE
 	/// Whether the items should be distributed to offsets 0,1,-1,2,-2,3,-3.. This overrides pixel_x/y on the spawner itself
-	var/spawn_loot_split = FALSE
+	var/spawn_loot_split = TRUE
 	/// Whether the spawner should spawn all the loot in the list
 	var/spawn_all_loot = FALSE
 	/// The chance for the spawner to create loot (ignores spawn_loot_count)

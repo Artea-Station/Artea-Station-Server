@@ -128,13 +128,13 @@
 		z_levels += level.z_value
 	impacted_z_levels = z_levels
 	if(sound_active_outside)
-		sound_active_outside = new sound_active_outside(list(), FALSE, TRUE)
+		sound_active_outside = new sound_active_outside(src, FALSE, TRUE)
 	if(sound_active_inside)
-		sound_active_inside = new sound_active_inside(list(), FALSE, TRUE)
+		sound_active_inside = new sound_active_inside(src, FALSE, TRUE)
 	if(sound_weak_outside)
-		sound_weak_outside = new sound_weak_outside(list(), FALSE, TRUE)
+		sound_weak_outside = new sound_weak_outside(src, FALSE, TRUE)
 	if(sound_weak_inside)
-		sound_weak_inside = new sound_weak_inside(list(), FALSE, TRUE)
+		sound_weak_inside = new sound_weak_inside(src, FALSE, TRUE)
 
 /datum/weather/process()
 	if(stage != MAIN_STAGE)
