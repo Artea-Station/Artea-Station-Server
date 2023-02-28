@@ -1,6 +1,6 @@
 ## Artea Station (TG Fork)
 
-**Please note that this repository contains sexually explicit content and is not suitable for those under the age of 18.**
+**This repository currently does not contain 18+ content, but the server which runs it allows r18 themes in roleplay. The server attached to this repository is not suitable for under 18s.**
 
 [![CI Suite](https://github.com/Nosha-Industries/Nosha-Industries-Server/actions/workflows/ci_suite.yml/badge.svg)](https://github.com/Nosha-Industries/Nosha-Industries-Server/actions/workflows/ci_suite.yml)
 [![Percentage of issues still open](https://isitmaintained.com/badge/open/Nosha-Industries/Nosha-Industries-Server.svg)](https://isitmaintained.com/project/Nosha-Industries/Nosha-Industries-Server "Percentage of issues still open")
