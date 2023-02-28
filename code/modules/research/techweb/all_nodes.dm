@@ -624,7 +624,6 @@
 		"bluespace_pod",
 		"launchpad",
 		"launchpad_console",
-		"quantumpad",
 		"tele_hub",
 		"tele_station",
 		"teleconsole",
@@ -641,8 +640,6 @@
 		"bluespace_matter_bin",
 		"bluespacebodybag",
 		"femto_mani",
-		"quantum_keycard",
-		"swapper",
 		"triphasic_scanning",
 		"wormholeprojector",
 	)
