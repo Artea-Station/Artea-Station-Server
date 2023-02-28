@@ -585,6 +585,25 @@
 	if(CONFIG_GET(flag/security_has_maint_access))
 		access |= list(ACCESS_MAINT_TUNNELS)
 
+/datum/id_trim/job/internal_affairs_agent
+	assignment = "Internal Affairs Agent"
+	trim_state = "trim_lawyer"
+	department_color = COLOR_COMMAND_BLUE
+	subdepartment_color = COLOR_SECURITY_RED
+	sechud_icon_state = SECHUD_INTERNAL_AFFAIRS_AGENT
+	minimal_access = list(
+		ACCESS_BRIG_ENTRANCE,
+		ACCESS_COURT,
+		ACCESS_LAWYER,
+		)
+	extra_access = list()
+	template_access = list(
+		ACCESS_CAPTAIN,
+		ACCESS_CHANGE_IDS,
+		ACCESS_HOP,
+		)
+	job = /datum/job/internal_affairs_agent
+
 /datum/id_trim/job/janitor
 	assignment = "Janitor"
 	trim_state = "trim_janitor"
