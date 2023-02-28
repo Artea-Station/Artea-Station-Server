@@ -58,4 +58,5 @@
 		if (preference.category in prefs_categories_to_check)
 			continue
 
-		TEST_ASSERT(!isnull(preference.main_feature_name), "Preference [preference_type] does not have a main_feature_name set!")
+		if(isnull(preference.main_feature_name))
+			TEST_FAIL("Preference [preference_type] does not have a main_feature_name set!")
