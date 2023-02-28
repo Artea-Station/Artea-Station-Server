@@ -139,7 +139,7 @@
 /// such as hair color being affixed to hair.
 #define PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES "supplemental_features"
 
-/// Preferences that will be put into the misc preferences tab.
+/// Preferences that have their own handling. Not to be confused with MISC_LIST.
 #define PREFERENCE_CATEGORY_MISC "misc"
 
 /// Preferences that will be put into the misc preferences tab.

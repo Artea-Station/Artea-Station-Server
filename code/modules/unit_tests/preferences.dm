@@ -40,22 +40,17 @@
 /datum/unit_test/preferences_valid_main_feature_name
 	var/list/prefs_categories_to_check = list(
 		PREFERENCE_CATEGORY_APPEARANCE,
-		PREFERENCE_CATEGORY_APPEARANCE_LIST,
 		PREFERENCE_CATEGORY_CLOTHING,
-		PREFERENCE_CATEGORY_CLOTHING_LIST,
-		PREFERENCE_CATEGORY_MISC,
-		PREFERENCE_CATEGORY_MISC_LIST,
 		PREFERENCE_CATEGORY_OOC_INFO,
-		PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES,
 	)
 
 /datum/unit_test/preferences_valid_main_feature_name/Run()
 	for (var/preference_type in GLOB.preference_entries)
 		var/datum/preference/choiced/preference = GLOB.preference_entries[preference_type]
-		if (!istype(preference))
+		if(!istype(preference))
 			continue
 
-		if (preference.category in prefs_categories_to_check)
+		if(!preference.category in prefs_categories_to_check)
 			continue
 
 		if(isnull(preference.main_feature_name))
