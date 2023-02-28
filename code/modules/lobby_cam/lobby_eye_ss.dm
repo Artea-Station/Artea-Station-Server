@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(lobby_eye)
 	var/list/pathway = list()
 
 /datum/controller/subsystem/lobby_eye/Initialize(start_timeofday)
-	. = ..()
+	. = SS_INIT_SUCCESS
 	linked_camera = new()
 	fading_screen = new()
 	fire()
