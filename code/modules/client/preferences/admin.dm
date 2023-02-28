@@ -17,7 +17,6 @@
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	savefile_key = "brief_outfit"
 	savefile_identifier = PREFERENCE_PLAYER
-	main_feature_name = "Briefing Outfit"
 
 /datum/preference/choiced/brief_outfit/deserialize(input, datum/preferences/preferences)
 	var/path = text2path(input)
