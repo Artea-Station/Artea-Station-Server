@@ -729,7 +729,9 @@
 	species_flags_list = owner_species.species_traits
 	limb_gender = (human_owner.physique == MALE) ? "m" : "f"
 
-	if(human_owner.skin_tone)
+	if(human_owner.dna.species.fixed_mut_color)
+		skin_tone = human_owner.dna.species.fixed_mut_color
+	else if(human_owner.skin_tone)
 		skin_tone = human_owner.skin_tone
 
 	draw_color = variable_color

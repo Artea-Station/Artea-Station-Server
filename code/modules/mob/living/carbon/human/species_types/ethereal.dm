@@ -96,14 +96,14 @@
 	return randname
 
 /datum/species/ethereal/randomize_features(mob/living/carbon/human/human_mob)
-	human_mob.dna.features["ethcolor"] = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]
+	human_mob.skin_tone = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]
 
 /datum/species/ethereal/spec_updatehealth(mob/living/carbon/human/ethereal)
 	. = ..()
 	if(!ethereal_light)
 		return
-	if(default_color != ethereal.dna.features["ethcolor"])
-		var/new_color = ethereal.dna.features["ethcolor"]
+	if(default_color != ethereal.skin_tone)
+		var/new_color = ethereal.skin_tone
 		r1 = GETREDPART(new_color)
 		g1 = GETGREENPART(new_color)
 		b1 = GETBLUEPART(new_color)
