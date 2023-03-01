@@ -739,10 +739,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 							if(fixed_mut_color)
 								accessory_overlay.color = fixed_mut_color
 							else
-								accessory_overlay.color = source.dna.features["mcolor"]
+								accessory_overlay.color = source.skin_tone
 						if(HAIR)
 							if(hair_color == "mutcolor")
-								accessory_overlay.color = source.dna.features["mcolor"]
+								accessory_overlay.color = source.skin_tone
 							else if(hair_color == "fixedmutcolor")
 								accessory_overlay.color = fixed_mut_color
 							else
