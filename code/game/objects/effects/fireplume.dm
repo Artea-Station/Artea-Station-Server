@@ -23,7 +23,7 @@
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
 	)
-	AddElement(/datum/element/connect_loc, src, loc_connections)
+	// AddElement(/datum/element/connect_loc, src, loc_connections)
 	for(var/atom/movable/AM in my_turf)
 		AM.fire_act(FIREPLUME_EXPOSED_TEMP, CELL_VOLUME)
 	QDEL_IN(src, 1 SECONDS)
@@ -31,6 +31,10 @@
 /obj/effect/abstract/fireplume/proc/on_entered(datum/source, atom/movable/AM, oldLoc)
 	SIGNAL_HANDLER
 	AM.fire_act(FIREPLUME_EXPOSED_TEMP, CELL_VOLUME)
+
+/obj/effect/abstract/fireplume/Destroy(force)
+	// RemoveElement(/datum/element/connect_loc)
+	. = ..()
 
 #undef FIREPLUME_EXPOSED_TEMP
 
