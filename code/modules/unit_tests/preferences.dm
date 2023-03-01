@@ -50,7 +50,7 @@
 		if(!istype(preference))
 			continue
 
-		if(!preference.category in prefs_categories_to_check)
+		if(!(preference.category in prefs_categories_to_check))
 			continue
 
 		if(isnull(preference.main_feature_name))
