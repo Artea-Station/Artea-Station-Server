@@ -4,13 +4,13 @@
 	icon_state = "artea_logo"
 	screen_loc = "1:16,1:16"
 	plane = SERVER_LOGO
-	alpha = 0
+	alpha = 255
 
 /atom/movable/screen/movable/black_fade
 	name = "black screen"
 	icon = 'icons/lobby_cam/black_screen.dmi'
 	icon_state = "1"
-	screen_loc = "SOUTHWEST to NORTHEAST"
+	screen_loc = "bottomleft to topright"
 	plane = BLACK_FADE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
@@ -19,7 +19,7 @@
 	var/atom/movable/screen/artea_logo/logo_screen = new()
 	if (client && SSticker.current_state < GAME_STATE_PLAYING)
 		client.screen += logo_screen
-		animate(logo_screen, alpha = 255, time = 5 SECONDS)
+		animate(logo_screen, alpha = 0, time = 5 SECONDS)
 
 /obj/new_player_cam
 	name = "floor"
