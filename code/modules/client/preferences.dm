@@ -406,7 +406,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 	body = new
 
 	// Without this, it doesn't show up in the menu
-	body.appearance_flags &= ~KEEP_TOGETHER
+	body.appearance_flags |= KEEP_TOGETHER
 
 /// Registers the relevant map objects to a client
 /atom/movable/screen/character_preview_view/proc/register_to_client(client/client)
