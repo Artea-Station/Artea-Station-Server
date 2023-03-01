@@ -488,6 +488,15 @@
 		picked_trauma = pick(subtypesof(/datum/brain_trauma/severe))
 	else
 		picked_trauma = pick(subtypesof(/datum/brain_trauma/mild))
-	ethereal_heart.owner.gain_trauma(picked_trauma, TRAUMA_RESILIENCE_ABSOLUTE)
-	playsound(get_turf(ethereal_heart.owner), 'sound/effects/ethereal_revive.ogg', 100)
-	qdel(src)
+
+	// revive will regenerate organs, so our heart refence is going to be null'd. Unreliable
+	var/mob/living/carbon/regenerating = ethereal_heart.owner
+
+	playsound(get_turf(regenerating), 'sound/effects/ethereal_revive.ogg', 100)
+	to_chat(regenerating, span_notice("You burst out of the crystal with vigour... </span><span class='userdanger'>But at a cost."))
+	regenerating.gain_trauma(picked_trauma, TRAUMA_RESILIENCE_ABSOLUTE)
+	regenerating.revive(HEAL_ALL & ~HEAL_REFRESH_ORGANS)
+	// revive calls fully heal -> deletes the crystal.
+	// this qdeleted check is just for sanity.
+	if(!QDELETED(src))
+		qdel(src)
