@@ -97,7 +97,7 @@
 	var/list/hair_gradients = list()
 	var/datum/sprite_accessory/hair/hair = GLOB.hairstyles_list["Floorlength Bedhead"]
 	var/icon/hair_icon = icon(hair.icon, hair.icon_state, NORTH)
-		temp.ColorTone("#ff0000")
+	hair_icon.ColorTone("#ff0000")
 
 	for(var/gradient_key in GLOB.facial_hair_gradients_list)
 		if(gradient_key == "None")
@@ -183,7 +183,7 @@
 	var/list/hair_gradients = list()
 	var/datum/sprite_accessory/hair/hair = GLOB.hairstyles_list["Floorlength Bedhead"]
 	var/icon/hair_icon = icon(hair.icon, hair.icon_state, NORTH)
-		temp.ColorTone("#ff0000")
+	hair_icon.ColorTone("#ff0000")
 
 	for(var/gradient_key in GLOB.hair_gradients_list)
 		if(gradient_key == "None")
