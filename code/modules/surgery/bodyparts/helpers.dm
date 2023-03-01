@@ -193,5 +193,5 @@
 		if("orange")
 			. = "#ffc905"
 		else
-			. = sanitize_hexcolor(skin_tone) // This is to allow custom skin colors. Yes, this is the easiest way. It is safe? Kinda.
+			. = skin_tone // This is to allow custom skin colors. Yes, this is the easiest way. It is safe? Nope. Is it the only way to do it without randomly breaking stuff? Yup.
 
