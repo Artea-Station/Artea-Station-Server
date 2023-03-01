@@ -167,7 +167,7 @@ Lizard subspecies: SILVER SCALED
 
 /datum/species/lizard/silverscale/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	var/mob/living/carbon/human/new_silverscale = C
-	old_mutcolor = C.skin_tone
+	old_mutcolor = new_silverscale.skin_tone
 	old_eye_color_left = new_silverscale.eye_color_left
 	old_eye_color_right = new_silverscale.eye_color_right
 	new_silverscale.skin_tone = "#eeeeee"

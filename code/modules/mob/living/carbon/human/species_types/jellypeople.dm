@@ -494,7 +494,7 @@
 	extract_minor.UpdateButtons()
 	extract_major.UpdateButtons()
 
-/datum/species/jelly/luminescent/proc/update_glow(mob/living/carbon/C, intensity)
+/datum/species/jelly/luminescent/proc/update_glow(mob/living/carbon/human/C, intensity)
 	if(intensity)
 		glow_intensity = intensity
 	glow.set_light_range_power_color(glow_intensity, glow_intensity, C.skin_tone)
