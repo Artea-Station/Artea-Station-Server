@@ -14,6 +14,7 @@
 /datum/preference/color/skin_color/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	if(!preferences.read_preference(/datum/preference/toggle/use_skin_tone))
 		target.skin_tone = value
+		target.dna.update_dna_identity()
 
 /datum/preference/color/skin_color/is_accessible(datum/preferences/preferences)
 	if (!..(preferences) || preferences?.read_preference(/datum/preference/toggle/use_skin_tone))
@@ -51,6 +52,7 @@
 /datum/preference/choiced/skin_tone/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	if(preferences.read_preference(/datum/preference/toggle/use_skin_tone))
 		target.skin_tone = value
+		target.dna.update_dna_identity()
 
 /datum/preference/choiced/skin_tone/is_accessible(datum/preferences/preferences)
 	if (!..(preferences) || !preferences?.read_preference(/datum/preference/toggle/use_skin_tone))
