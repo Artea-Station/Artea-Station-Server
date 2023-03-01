@@ -8,7 +8,7 @@
 
 /turf/open/space/transit/Initialize()
 	. = ..()
-	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, .proc/CreatedOnTransit) //Why isn't this a turf proc too..
+	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, PROC_REF(CreatedOnTransit)) //Why isn't this a turf proc too..
 
 /turf/open/space/transit/Destroy()
 	UnregisterSignal(src, COMSIG_ATOM_INITIALIZED_ON)

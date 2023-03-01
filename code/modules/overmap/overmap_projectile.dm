@@ -33,10 +33,10 @@
 	UpdateVisualOffsets()
 	if(passed_parent)
 		parent = passed_parent
-		RegisterSignal(parent, COMSIG_PARENT_QDELETING, .proc/LoseParent)
+		RegisterSignal(parent, COMSIG_PARENT_QDELETING, PROC_REF(LoseParent))
 	//Target currently needs to be passed
 	target = passed_target
-	RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/LoseTarget)
+	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(LoseTarget))
 
 	absolute_dest_x = (target.x * 32) + target.partial_x
 	absolute_dest_y = (target.y * 32) + target.partial_y

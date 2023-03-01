@@ -69,7 +69,7 @@
 	return ..()
 
 /datum/component/digsite/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/AttackItem)
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(AttackItem))
 
 /datum/component/digsite/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_PARENT_ATTACKBY)

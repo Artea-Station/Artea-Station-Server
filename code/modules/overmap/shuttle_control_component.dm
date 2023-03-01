@@ -41,7 +41,7 @@
 
 /datum/overmap_shuttle_controller/proc/AddControl(mob/living/our_guy)
 	mob_controller = our_guy
-	RegisterSignal(mob_controller, COMSIG_CLICKON, .proc/ControllerClick)
+	RegisterSignal(mob_controller, COMSIG_CLICKON, PROC_REF(ControllerClick))
 	mob_controller.client.perspective = EYE_PERSPECTIVE
 	mob_controller.client.eye = overmap_obj.my_visual
 	mob_controller.client.show_popup_menus = FALSE

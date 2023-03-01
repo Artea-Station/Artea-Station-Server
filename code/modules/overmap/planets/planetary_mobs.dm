@@ -237,7 +237,7 @@
 	AIStatus = AI_OFF
 	mob_size = MOB_SIZE_TINY
 	new /obj/effect/temp_visual/burrow_sand_splash(my_turf)
-	addtimer(CALLBACK(src, .proc/diggy), 4 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(diggy)), 4 SECONDS)
 
 /mob/living/simple_animal/hostile/planet/antlion/proc/diggy()
 	var/list/turf_targets = list()
@@ -254,7 +254,7 @@
 	if(length(turf_targets))
 		forceMove(pick(turf_targets))
 
-	addtimer(CALLBACK(src, .proc/emerge), 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(emerge)), 2 SECONDS)
 
 /mob/living/simple_animal/hostile/planet/antlion/proc/emerge()
 	var/turf/my_turf = get_turf(src)

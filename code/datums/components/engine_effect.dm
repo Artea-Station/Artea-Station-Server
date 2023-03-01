@@ -18,7 +18,7 @@
 	return ..()
 
 /datum/component/engine_effect/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ENGINE_DRAWN_POWER, .proc/DrawnPower)
+	RegisterSignal(parent, COMSIG_ENGINE_DRAWN_POWER, PROC_REF(DrawnPower))
 
 /datum/component/embedded/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_ENGINE_DRAWN_POWER)

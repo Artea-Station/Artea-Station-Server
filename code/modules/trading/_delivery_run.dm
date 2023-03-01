@@ -103,7 +103,7 @@
 /datum/delivery_run_instance/proc/Delivered(mob/living/user)
 	var/turf/user_turf = get_turf(user)
 	waiting_for_reward = TRUE
-	addtimer(CALLBACK(src, .proc/TimedReward, user_turf), rand(2 SECONDS, 4 SECONDS))
+	addtimer(CALLBACK(src, PROC_REF(TimedReward), user_turf), rand(2 SECONDS, 4 SECONDS))
 	do_sparks(3, TRUE, user_turf)
 	qdel(delivery_object)
 
@@ -113,7 +113,7 @@
 	if(reward_item_path)
 		new reward_item_path(position)
 	do_sparks(3, TRUE, position)
-	addtimer(CALLBACK(src, .proc/TimedDestroy), rand(20 SECONDS, 40 SECONDS))
+	addtimer(CALLBACK(src, PROC_REF(TimedDestroy)), rand(20 SECONDS, 40 SECONDS))
 
 /datum/delivery_run_instance/proc/TimedDestroy()
 	qdel(src)
@@ -152,7 +152,7 @@
 		return
 	to_chat(user, span_notice("You press a button on \the [src]"))
 	spooling_delivery = TRUE
-	addtimer(CALLBACK(src, .proc/TimedDelivery, user), rand(2 SECONDS, 4 SECONDS))
+	addtimer(CALLBACK(src, PROC_REF(TimedDelivery), user), rand(2 SECONDS, 4 SECONDS))
 
 /obj/item/delivery_cargo/proc/TimedDelivery(mob/living/user)
 	spooling_delivery = FALSE

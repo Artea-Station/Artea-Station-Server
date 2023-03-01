@@ -15,7 +15,7 @@
 
 /obj/machinery/transporter/Initialize()
 	. = ..()
-	addtimer(CALLBACK(src, .proc/TimedInitialize))
+	addtimer(CALLBACK(src, PROC_REF(TimedInitialize)))
 
 /obj/machinery/transporter/proc/TimedInitialize()
 	extension = new extension_type(src)

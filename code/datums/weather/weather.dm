@@ -393,8 +393,8 @@
 	if(lightning_in_progress)
 		return
 	lightning_in_progress = TRUE
-	addtimer(CALLBACK(src, .proc/end_thunder), 4 SECONDS)
-	addtimer(CALLBACK(src, .proc/do_thunder_sound), 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(end_thunder)), 4 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(do_thunder_sound)), 2 SECONDS)
 	for(var/V in impacted_areas)
 		var/area/N = V
 		N.luminosity++

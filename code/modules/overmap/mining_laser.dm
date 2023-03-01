@@ -12,7 +12,7 @@
 
 /obj/machinery/mining_laser/Initialize()
 	. = ..()
-	addtimer(CALLBACK(src, .proc/TimedInitialize))
+	addtimer(CALLBACK(src, PROC_REF(TimedInitialize)))
 
 /obj/machinery/mining_laser/proc/TimedInitialize()
 	extension = new extension_type(src)
