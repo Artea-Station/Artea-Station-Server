@@ -87,7 +87,6 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	dna.initialize_dna(skip_index = TRUE)
 	dna.features["body_markings"] = "None"
 	dna.features["ears"] = "None"
-	dna.features["ethcolor"] = COLOR_WHITE
 	dna.features["frills"] = "None"
 	dna.features["horns"] = "None"
 	skin_tone = initial(skin_tone)
