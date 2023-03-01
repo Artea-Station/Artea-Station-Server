@@ -97,7 +97,6 @@
 	var/list/hair_gradients = list()
 	var/datum/sprite_accessory/hair/hair = GLOB.hairstyles_list["Floorlength Bedhead"]
 	var/icon/hair_icon = icon(hair.icon, hair.icon_state, NORTH)
-	hair_icon.ColorTone("#ff0000")
 
 	for(var/gradient_key in GLOB.facial_hair_gradients_list)
 		if(gradient_key == "None")
@@ -107,6 +106,7 @@
 		var/datum/sprite_accessory/gradient/gradient = GLOB.facial_hair_gradients_list[gradient_key]
 		var/icon/temp = icon(gradient.icon, gradient.icon_state)
 		temp.Blend(hair_icon, ICON_ADD)
+		temp.ColorTone("#ff0000")
 		var/icon/temp_hair = icon(hair_icon)
 		temp_hair.Blend(temp, ICON_OVERLAY)
 		hair_gradients[gradient_key] = temp_hair
@@ -183,7 +183,6 @@
 	var/list/hair_gradients = list()
 	var/datum/sprite_accessory/hair/hair = GLOB.hairstyles_list["Floorlength Bedhead"]
 	var/icon/hair_icon = icon(hair.icon, hair.icon_state, NORTH)
-	hair_icon.ColorTone("#ff0000")
 
 	for(var/gradient_key in GLOB.hair_gradients_list)
 		if(gradient_key == "None")
@@ -193,6 +192,7 @@
 		var/datum/sprite_accessory/gradient/gradient = GLOB.hair_gradients_list[gradient_key]
 		var/icon/temp = icon(gradient.icon, gradient.icon_state)
 		temp.Blend(hair_icon, ICON_ADD)
+		temp.ColorTone("#ff0000")
 		var/icon/temp_hair = icon(hair_icon)
 		temp_hair.Blend(temp, ICON_OVERLAY)
 		hair_gradients[gradient_key] = temp_hair
