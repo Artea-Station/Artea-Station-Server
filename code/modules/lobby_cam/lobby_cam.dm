@@ -8,13 +8,6 @@
 	layer = LOBBY_BACKGROUND_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/mob/dead/new_player/Login()
-	. = ..()
-	var/atom/movable/screen/artea_logo/logo_screen = new()
-	if (client && SSticker.current_state < GAME_STATE_PLAYING)
-		client.screen += logo_screen
-		animate(logo_screen, alpha = 0, time = 5 SECONDS)
-
 /obj/new_player_cam
 	name = "floor"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
