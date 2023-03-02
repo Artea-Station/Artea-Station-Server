@@ -176,7 +176,6 @@ SUBSYSTEM_DEF(shuttle)
 		log_mapping("No /obj/docking_port/mobile/supply placed on the map!")
 
 	init_sold_shuttles()
-	return ..()
 
 /datum/controller/subsystem/shuttle/proc/init_sold_shuttles()
 	for(var/type in subtypesof(/datum/sold_shuttle))
