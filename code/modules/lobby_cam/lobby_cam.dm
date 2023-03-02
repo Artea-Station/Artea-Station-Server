@@ -1,10 +1,3 @@
-/atom/movable/screen/artea_logo
-	name = "Artea Station"
-	icon = 'icons/lobby_cam/artea_logo.dmi'
-	icon_state = "artea_logo"
-	screen_loc = "1:16,1:16"
-	plane = SERVER_LOGO
-	alpha = 255
 
 /atom/movable/screen/movable/black_fade
 	name = "black screen"
