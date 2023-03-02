@@ -99,9 +99,8 @@ SUBSYSTEM_DEF(lobby_eye)
 
 	//fade in
 	fading_screen.icon_state = "1"
-	fading_screen.alpha = LIGHTING_PLANE_ALPHA_VISIBLE
-	animate(fading_screen, alpha = LIGHTING_PLANE_ALPHA_INVISIBLE, time = 1 SECONDS, easing = SINE_EASING)
-	sleep(0.5 SECONDS)
+	animate(fading_screen, alpha = LIGHTING_PLANE_ALPHA_INVISIBLE, time = 1 SECONDS, easing = LINEAR_EASING)
+	sleep(1 SECONDS)
 
 	//move
 	for(var/turf/moving_turf in pathway)
@@ -109,7 +108,7 @@ SUBSYSTEM_DEF(lobby_eye)
 		sleep(moving_speed)
 
 	//fade out
-	animate(fading_screen, alpha = LIGHTING_PLANE_ALPHA_VISIBLE, time = 1 SECONDS, easing = SINE_EASING)
-	sleep(0.5 SECONDS)
+	animate(fading_screen, alpha = LIGHTING_PLANE_ALPHA_VISIBLE, time = 1 SECONDS, easing = LINEAR_EASING)
+	sleep(1 SECONDS)
 
 	fire()
