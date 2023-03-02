@@ -115,9 +115,6 @@
 			turf_footstep = source_loc.footstep
 	if(!turf_footstep)
 		return
-	world.log << "[pick(footstep_sounds[turf_footstep][1])]"
-	world.log << "[footstep_sounds[turf_footstep][2] * volume]"
-	world.log << "[footstep_sounds[turf_footstep][3] + e_range]"
 	playsound(source_loc, pick(footstep_sounds[turf_footstep][1]), footstep_sounds[turf_footstep][2] * volume, TRUE, footstep_sounds[turf_footstep][3] + e_range, falloff_distance = 1, vary = sound_vary)
 
 /datum/element/footstep/proc/play_humanstep(mob/living/carbon/human/source, atom/oldloc, direction, forced, list/old_locs, momentum_change)
