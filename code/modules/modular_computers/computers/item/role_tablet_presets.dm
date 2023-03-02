@@ -152,6 +152,18 @@
 	)
 
 /**
+ * Internal Affairs Agent
+ */
+
+/obj/item/modular_computer/tablet/pda/internal_affairs_agent
+	name = "intenral affairs PDA"
+	greyscale_colors = "#FF3333#FFE243"
+	inserted_item = /obj/item/pen/fountain
+	default_applications = list(
+		/datum/computer_file/program/records/security,
+	)
+
+/**
  * Engineering
  */
 

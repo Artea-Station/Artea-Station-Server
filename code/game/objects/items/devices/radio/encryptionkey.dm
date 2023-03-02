@@ -98,6 +98,13 @@
 	greyscale_config = /datum/greyscale_config/encryptionkey_service
 	greyscale_colors = "#820a16#3bca5a"
 
+/obj/item/encryptionkey/headset_internalaffairs
+	name = "internal affairs radio encryption key"
+	icon_state = "cypherkey_security"
+	channels = list(RADIO_CHANNEL_SECURITY = 1, RADIO_CHANNEL_COMMAND = 1)
+	greyscale_config = /datum/greyscale_config/encryptionkey_security
+	greyscale_colors = "#820a16#280b1a"
+
 /obj/item/encryptionkey/headset_srvmed
 	name = "psychology radio encryption key"
 	icon_state = "cypherkey_service"

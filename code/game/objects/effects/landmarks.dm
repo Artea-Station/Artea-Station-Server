@@ -126,6 +126,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Warden"
 	icon_state = "Warden"
 
+/obj/effect/landmark/start/internal_affairs_agent
+	name = "Internal Affairs Agent"
+	icon_state = "Internal Affairs Agent"
+
 /obj/effect/landmark/start/chief_engineer
 	name = "Chief Engineer"
 	icon_state = "Chief Engineer"
@@ -193,6 +197,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/cyborg
 	name = "Cyborg"
 	icon_state = "Cyborg"
+
 
 /obj/effect/landmark/start/ai
 	name = "AI"
