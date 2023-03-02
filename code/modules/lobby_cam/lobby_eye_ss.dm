@@ -62,7 +62,6 @@ SUBSYSTEM_DEF(lobby_eye)
 	var/time_remaining = SSticker.GetTimeLeft()
 	if(time_remaining <= 20 SECONDS && SSticker.current_state == GAME_STATE_PREGAME)
 		unlock_eyes()
-		fade_logo()
 		return
 
 	//we should only work in pregame
