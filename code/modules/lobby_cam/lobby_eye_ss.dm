@@ -25,11 +25,6 @@ SUBSYSTEM_DEF(lobby_eye)
 	fire()
 
 //fades out the artea logo in the bottom left
-/datum/controller/subsystem/lobby_eye/proc/fade_logo()
-	for(var/mob/checking_mob as anything in GLOB.new_player_list)
-		var/atom/movable/screen/artea_logo/logo_screen = locate() in checking_mob.client.screen
-		if(logo_screen?.alpha == 255)
-			animate(logo_screen, alpha = 0, time = 5 SECONDS)
 
 //gets everyone on the camera
 /datum/controller/subsystem/lobby_eye/proc/lock_eyes()
