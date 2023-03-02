@@ -10,11 +10,8 @@
 	var/extension_type = /datum/shuttle_extension/weapon/mining_laser
 	var/datum/shuttle_extension/weapon/extension
 
-/obj/machinery/mining_laser/Initialize()
+/obj/machinery/mining_laser/LateInitialize()
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(TimedInitialize)))
-
-/obj/machinery/mining_laser/proc/TimedInitialize()
 	extension = new extension_type(src)
 	extension.ApplyToPosition(get_turf(src))
 

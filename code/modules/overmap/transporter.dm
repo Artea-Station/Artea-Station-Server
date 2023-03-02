@@ -13,11 +13,8 @@
 	var/extension_type = /datum/shuttle_extension/transporter
 	var/datum/shuttle_extension/transporter/extension
 
-/obj/machinery/transporter/Initialize()
+/obj/machinery/transporter/LateInitialize()
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(TimedInitialize)))
-
-/obj/machinery/transporter/proc/TimedInitialize()
 	extension = new extension_type(src)
 	extension.ApplyToPosition(get_turf(src))
 	power_change()

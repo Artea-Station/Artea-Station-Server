@@ -13,10 +13,6 @@
 	var/extension_type = /datum/shuttle_extension/shield
 	var/datum/shuttle_extension/shield/extension
 
-/obj/machinery/shield_generator/Initialize()
-	. = ..()
-	return INITIALIZE_HINT_LATELOAD
-
 /obj/machinery/shield_generator/LateInitialize()
 	. = ..()
 	extension = new extension_type()
