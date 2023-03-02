@@ -209,8 +209,6 @@
 #define SCREENTIP_LAYER 4
 
 ///Plane of the "splash" icon used that shows on the lobby screen. only render plate planes should be above this
-#define	BLACK_FADE 9898
-#define	SERVER_LOGO 9899
 #define SPLASHSCREEN_PLANE 9900
 
 //-------------------- Rendering ---------------------
