@@ -481,6 +481,8 @@ SUBSYSTEM_DEF(shuttle)
 
 
 /datum/controller/subsystem/shuttle/proc/checkTradeBlockade()
+	if(!supply)
+		return
 	for(var/datum/d in trade_blockade)
 		if(!istype(d) || QDELETED(d))
 			trade_blockade -= d
