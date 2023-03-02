@@ -10,8 +10,9 @@
 	name = "black screen"
 	icon = 'icons/lobby_cam/black_screen.dmi'
 	icon_state = "1"
-	screen_loc = "bottomleft to topright"
-	plane = BLACK_FADE
+	screen_loc = "SOUTHWEST to NORTHEAST"
+	plane = SPLASHSCREEN_PLANE
+	layer = LOBBY_BACKGROUND_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /mob/dead/new_player/Login()
