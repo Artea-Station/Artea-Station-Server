@@ -1,4 +1,3 @@
-
 /atom/movable/screen/movable/black_fade
 	name = "black screen"
 	icon = 'icons/lobby_cam/black_screen.dmi'
