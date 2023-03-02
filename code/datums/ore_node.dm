@@ -159,13 +159,13 @@
 	var/ore_variety = 5
 
 /obj/effect/ore_node_spawner/generous
-	ore_density = 6
+	ore_density = 5
 
 /obj/effect/ore_node_spawner/scarce
 	ore_density = 3
 
 /obj/effect/ore_node_spawner/varied
-	ore_variety = 8
+	ore_variety = 7
 
 /obj/effect/ore_node_spawner/proc/SeedVariables()
 	return

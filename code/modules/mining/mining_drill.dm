@@ -187,7 +187,7 @@
 	. = ..()
 	if(starting_cell)
 		cell = new starting_cell
-	soundloop = new(list(src), FALSE)
+	soundloop = new(src, FALSE)
 	//Very mechanical, so EMP proof
 	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES)
 	update_icon()

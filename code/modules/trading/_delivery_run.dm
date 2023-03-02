@@ -144,7 +144,8 @@
 	. = ..()
 	delivery_instance = source_datum
 	manifest = passed_paper
-	manifest.forceMove(src)
+	if(manifest)
+		manifest.forceMove(src)
 	update_appearance()
 
 /obj/item/delivery_cargo/attack_self(mob/living/user)
@@ -159,8 +160,9 @@
 	delivery_instance.TryDeliver(user)
 
 /obj/item/delivery_cargo/Destroy()
-	delivery_instance.CargoDeleted()
-	delivery_instance = null
+	if(delivery_instance && !QDELETED(delivery_instance))
+		delivery_instance.CargoDeleted()
+		delivery_instance = null
 	if(manifest)
 		QDEL_NULL(manifest)
 	return ..()
