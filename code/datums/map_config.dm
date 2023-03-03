@@ -31,9 +31,9 @@
 		"whiteship" = "whiteship_meta",
 		"emergency" = "emergency_meta")
 
-	var/job_faction = "Station"
+	var/job_faction = FACTION_STATION
 
-	var/overflow_job = "Assistant"
+	var/overflow_job = JOB_ASSISTANT
 
 	/// Dictionary of job sub-typepath to template changes dictionary
 	var/job_changes = list()
@@ -49,8 +49,6 @@
 	var/overmap_object_type = /datum/overmap_object/shuttle/station
 	/// The weather controller the station levels will have
 	var/weather_controller_type = /datum/weather_controller
-	/// Type of our day and night controller, can be left blank for none
-	var/day_night_controller_type
 	/// Type of the atmosphere that will be loaded on station
 	var/atmosphere_type
 	/// Possible rock colors of the loaded map

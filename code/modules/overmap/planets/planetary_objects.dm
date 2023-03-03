@@ -2,7 +2,7 @@
 	icon_state = "mining"
 	has_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
-	area_flags = VALID_TERRITORY | UNIQUE_AREA | CAVES_ALLOWED | FLORA_ALLOWED | MOB_SPAWN_ALLOWED | MEGAFAUNA_SPAWN_ALLOWED | NO_ALERTS
+	area_flags = VALID_TERRITORY | UNIQUE_AREA | CAVES_ALLOWED | FLORA_ALLOWED | MOB_SPAWN_ALLOWED | MEGAFAUNA_SPAWN_ALLOWED | NO_ALERTS | AREA_USES_STARLIGHT // ARTEA TODO: Remove starlight when a fix is found for day/night not working.
 	ambience_index = AMBIENCE_AWAY
 	outdoors = TRUE
 
@@ -16,6 +16,7 @@
 	icon = 'icons/planet/planet_floors.dmi'
 	initial_gas_mix = PLANETARY_ATMOS
 	tiled_dirt = FALSE
+	always_lit = TRUE
 
 /turf/open/misc/planetary/water
 	gender = PLURAL
@@ -45,7 +46,7 @@
 /turf/open/misc/planetary/grass
 	name = "grass"
 	desc = "A patch of grass."
-	icon = 'icons/planet/planet_grass.dmi'
+	icon = 'icons/turf/floors.dmi'
 	icon_state = "grass0"
 	base_icon_state = "grass"
 	baseturfs = /turf/open/misc/planetary/dirt
@@ -54,16 +55,10 @@
 	barefootstep = FOOTSTEP_GRASS
 	clawfootstep = FOOTSTEP_GRASS
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_GRASS)
-	canSmoothWith = list(SMOOTH_GROUP_FLOOR_GRASS, SMOOTH_GROUP_CLOSED_TURFS)
-	layer = HIGH_TURF_LAYER
 
 /turf/open/misc/planetary/grass/Initialize()
 	. = ..()
-	var/matrix/translation = new
-	translation.Translate(-9, -9)
-	transform = translation
+	icon_state = "[base_icon_state][rand(0, 3)]"
 	var/datum/space_level/level = SSmapping.z_list[z]
 	color = level.grass_color
 
