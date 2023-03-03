@@ -33,7 +33,7 @@
 
 	var/job_faction = FACTION_STATION
 
-	var/overflow_job = JOB_ASSISTANT
+	var/overflow_job = /datum/job/assistant
 
 	/// Dictionary of job sub-typepath to template changes dictionary
 	var/job_changes = list()
