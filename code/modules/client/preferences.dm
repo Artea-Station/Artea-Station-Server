@@ -227,7 +227,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			character_preview_view.update_body()
 
 			return TRUE
-		if ("rotate")
+		if ("rotate" && character_preview_view)
 			character_preview_view.dir = turn(character_preview_view.dir, text2num(params["dir"]))
 
 			return TRUE
