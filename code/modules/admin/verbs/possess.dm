@@ -23,7 +23,6 @@
 	usr.name = O.name
 	usr.reset_perspective(O)
 	usr.control_object = O
-	/datum/element/weather_listener
 	O.AddElement(/datum/element/weather_listener, /datum/weather/ash_storm, GLOB.ash_storm_sounds)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Possess Object") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
