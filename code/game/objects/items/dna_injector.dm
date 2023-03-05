@@ -434,13 +434,13 @@
 	name = "\improper DNA injector (Anti-Shock Touch)"
 	remove_mutations = list(/datum/mutation/human/shock)
 
-/obj/item/dnainjector/spastic
-	name = "\improper DNA injector (Spastic)"
-	add_mutations = list(/datum/mutation/human/spastic)
+/obj/item/dnainjector/spasms
+	name = "\improper DNA injector (Muscle Spasms)"
+	add_mutations = list(/datum/mutation/human/spasms)
 
-/obj/item/dnainjector/antispastic
-	name = "\improper DNA injector (Anti-Spastic)"
-	remove_mutations = list(/datum/mutation/human/spastic)
+/obj/item/dnainjector/antispasms
+	name = "\improper DNA injector (Anti-Muscle Spasms)"
+	remove_mutations = list(/datum/mutation/human/spasms)
 
 /obj/item/dnainjector/spatialinstability
 	name = "\improper DNA injector (Spatial Instability)"
