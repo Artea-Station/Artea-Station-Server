@@ -25,7 +25,8 @@
 	return tails
 
 /datum/preference/choiced/tail_human/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
-	target.dna.features["tail"] = value
+	if(is_accessible(preferences))
+		target.dna.features["tail"] = value
 
 /datum/preference/choiced/tail_human/create_default_value()
 	return "None"
@@ -57,7 +58,8 @@
 	return ears
 
 /datum/preference/choiced/ears/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
-	target.dna.features["ears"] = value
+	if(is_accessible(preferences))
+		target.dna.features["ears"] = value
 
 /datum/preference/choiced/ears/create_default_value()
 	var/datum/sprite_accessory/ears/cat/ears = /datum/sprite_accessory/ears/cat
