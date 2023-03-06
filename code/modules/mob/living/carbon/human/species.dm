@@ -1334,6 +1334,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return FALSE
 	. = FALSE
 	if(HAS_TRAIT(user, TRAIT_PACIFISM)) //They're mostly violent acts
+		to_chat(user, "You pause at the thought of hurting anyone!")
 		return
 	if(user.combat_mode)
 		switch(user.zone_selected)
@@ -1351,7 +1352,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 							span_userdanger("You struggle as [user.name] holds your head and tries to overpower you!"), ignored_mobs=user)
 						to_chat(user, span_danger("You grasp [target.name]'s head and try to overpower [target.p_them()]..."))
 					user.changeNext_move(time_doing)
-					if(do_after(user, time_doing, target))
+					if(do_after(user, time_doing, target) && target.pulledby == user && user.grab_state)
 						var/armor_block = target.run_armor_check(affecting, MELEE)
 						var/head_knock = FALSE
 						if(armor_block < HEADSMASH_BLOCK_ARMOR)
@@ -1381,7 +1382,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				target.visible_message(span_danger("[user.name] holds [target.name] tight and starts lifting [target.p_them()] up!"), \
 						span_userdanger("[user.name] holds you tight and lifts you up!"), ignored_mobs=user)
 				to_chat(user, span_danger("You hold [target.name] tight and lift [target.p_them()] up..."))
-				if(do_after(user, 3 SECONDS, target))
+				if(do_after(user, 3 SECONDS, target) && target.pulledby == user && user.grab_state)
 					var/move_dir = get_dir(target, user)
 					var/moved_turf = get_turf(target)
 					for(var/i in 1 to 2)
@@ -1410,7 +1411,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				target.visible_message(span_danger("[user.name] twists [target.name]'s [affecting.name] violently!"), \
 						span_userdanger("[user.name] twists your [affecting.name] violently!"), ignored_mobs=user)
 				to_chat(user, span_danger("You start twisting [target.name]'s [affecting.name] violently!"))
-				if(do_after(user, 4 SECONDS, target))
+				if(do_after(user, 4 SECONDS, target) && target.pulledby == user && user.grab_state)
 					target.visible_message(span_danger("[user.name] dislocates [target.name]'s [affecting.name]!"), \
 						span_userdanger("[user.name] dislocates your [affecting.name]!"), ignored_mobs=user)
 					to_chat(user, span_danger("You dislocate [target.name]'s [affecting.name]!"))
