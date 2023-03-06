@@ -2,6 +2,7 @@ import { createSearch, toTitleCase } from 'common/string';
 import { useBackend, useLocalState, useSharedState } from '../backend';
 import { BlockQuote, Box, Button, Table, Tabs, Input, Stack, Icon, Section, LabeledList } from '../components';
 import { Window } from '../layouts';
+import { formatSiUnit } from '../format';
 
 export const OreRedemptionMachine = (props, context) => {
   const { act, data } = useBackend(context);
