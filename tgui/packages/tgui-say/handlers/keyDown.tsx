@@ -26,11 +26,6 @@ export const handleKeyDown = function (
     }
     return;
   }
-  if (event.keyCode === KEY_TAB) {
-    event.preventDefault();
-    this.events.onIncrementChannel();
-    return;
-  }
   if (event.keyCode === KEY_DELETE || event.keyCode === KEY_BACKSPACE) {
     this.events.onBackspaceDelete();
     return;
