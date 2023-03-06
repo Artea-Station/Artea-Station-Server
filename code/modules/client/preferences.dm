@@ -227,8 +227,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			character_preview_view.update_body()
 
 			return TRUE
-		if ("rotate" && character_preview_view)
-			character_preview_view.dir = turn(character_preview_view.dir, text2num(params["dir"]))
+		if ("rotate")
+			if(character_preview_view) // Prefs can sometimes fuck the preview in local, so let's just avoid runtimes.
+				character_preview_view.dir = turn(character_preview_view.dir, text2num(params["dir"]))
 
 			return TRUE
 		if ("set_preference")
