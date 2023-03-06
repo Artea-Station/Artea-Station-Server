@@ -18,7 +18,7 @@
 	if (CONFIG_GET(flag/log_ooc))
 		WRITE_LOG(GLOB.world_game_log, "OOC: [text]")
 
-/// Orbstation: Logging for messages sent in LOOC
+/// Logging for messages sent in LOOC
 /proc/log_looc(text)
 	if (CONFIG_GET(flag/log_looc))
 		WRITE_LOG(GLOB.world_game_log, "LOOC: [text]")

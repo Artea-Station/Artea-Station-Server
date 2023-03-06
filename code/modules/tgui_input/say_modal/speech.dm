@@ -44,7 +44,7 @@
 		if(OOC_CHANNEL)
 			client.ooc(entry)
 			return TRUE
-		if(LOOC_CHANNEL) //ORBSTATION
+		if(LOOC_CHANNEL)
 			client.looc(entry)
 			return TRUE
 	return FALSE

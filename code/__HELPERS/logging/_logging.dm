@@ -116,7 +116,7 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 			log_shuttle(log_text)
 		if(LOG_SPEECH_INDICATORS)
 			log_speech_indicators(log_text)
-		if(LOG_LOOC) //Orbstation
+		if(LOG_LOOC)
 			log_looc(log_text)
 		else
 			stack_trace("Invalid individual logging type: [message_type]. Defaulting to [LOG_GAME] (LOG_GAME).")
