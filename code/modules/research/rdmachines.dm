@@ -20,8 +20,7 @@
 
 /obj/machinery/rnd/Initialize(mapload)
 	. = ..()
-	if(!CONFIG_GET(flag/no_default_techweb_link))
-		connect_techweb(SSresearch.science_tech)
+	stored_research = SSresearch.science_tech
 	wires = new /datum/wires/rnd(src)
 
 /obj/machinery/rnd/Destroy()
