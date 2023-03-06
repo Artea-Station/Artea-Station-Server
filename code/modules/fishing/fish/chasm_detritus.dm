@@ -44,3 +44,36 @@
 			chasm_contents += thing
 
 	return chasm_contents
+
+/obj/effect/abstract/chasm_storage/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if (!ismob(arrived))
+		return
+	var/mob/fallen_mob = arrived
+	if (!fallen_mob.ckey)
+		return
+	if (fallen_mob in player_mobs)
+		return
+	player_mobs += fallen_mob
+
+/obj/effect/abstract/chasm_storage/Exited(atom/movable/gone, direction)
+	. = ..()
+	player_mobs -= gone
+
+/// Retrieves a corpse if there is one
+/obj/item/chasm_detritus/proc/retrieve_player_body()
+	if (!GLOB.chasm_storage.len)
+		return FALSE
+
+	var/list/chasm_contents = list()
+	var/list/chasm_storage_resolved = recursive_list_resolve(GLOB.chasm_storage)
+	for (var/obj/effect/abstract/chasm_storage/storage as anything in chasm_storage_resolved)
+		for (var/thing as anything in storage.player_mobs)
+			chasm_contents += thing
+
+	if (!length(chasm_contents))
+		return FALSE
+
+	var/atom/movable/body = pick(chasm_contents)
+	body.forceMove(get_turf(src))
+	return TRUE
