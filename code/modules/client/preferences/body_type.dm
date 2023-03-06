@@ -1,7 +1,7 @@
 #define USE_GENDER "Use gender"
 
 /datum/preference/choiced/body_type
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE_LIST
 	priority = PREFERENCE_PRIORITY_BODY_TYPE
 	savefile_key = "body_type"
 	savefile_identifier = PREFERENCE_CHARACTER
@@ -12,7 +12,7 @@
 /datum/preference/choiced/body_type/create_default_value()
 	return USE_GENDER
 
-/datum/preference/choiced/body_type/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/body_type/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	if (value == USE_GENDER)
 		target.physique = target.gender
 	else

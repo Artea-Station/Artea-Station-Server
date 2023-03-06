@@ -1,5 +1,5 @@
 import { classes } from 'common/react';
-import { useBackend } from '../../backend';
+import { useBackend, useLocalState } from '../../backend';
 import { BlockQuote, Box, Button, Divider, Icon, Section, Stack, Tooltip } from '../../components';
 import { CharacterPreview } from './CharacterPreview';
 import { createSetPreference, Food, Perk, PreferencesMenuData, ServerData, Species } from './data';
@@ -214,7 +214,6 @@ const SpeciesPerks = (props: { perks: Species['perks'] }) => {
 
 const SpeciesPageInner = (
   props: {
-    handleClose: () => void;
     species: ServerData['species'];
   },
   context
@@ -234,17 +233,25 @@ const SpeciesPageInner = (
   species[0] = species[humanIndex];
   species[humanIndex] = swapWith;
 
-  const currentSpecies = species.filter(([speciesKey]) => {
-    return speciesKey === data.character_preferences.misc.species;
-  })[0][1];
+  const [previewedSpecies, setPreviewedSpecies] = useLocalState(
+    context,
+    'previewedSpecies',
+    data.character_preferences.misc.species
+  );
+
+  const currentSpeciesEntry = species.filter(([speciesKey]) => {
+    return speciesKey === previewedSpecies;
+  })[0];
+  const currentSpecies = currentSpeciesEntry[1];
 
   return (
     <Stack vertical fill>
-      <Stack.Item>
+      <Stack.Item justify="center" align="center" fontSize="1.2em">
         <Button
-          icon="arrow-left"
-          onClick={props.handleClose}
-          content="Go Back"
+          icon="check"
+          onClick={() => setSpecies(previewedSpecies)}
+          content="Apply Species"
+          style={{ 'padding': '5px' }}
         />
       </Stack.Item>
 
@@ -252,22 +259,25 @@ const SpeciesPageInner = (
         <Stack fill>
           <Stack.Item>
             <Box height="calc(100vh - 170px)" overflowY="auto" pr={3}>
-              {species.map(([speciesKey, species]) => {
+              {species.map(([speciesKey, speciesData]) => {
                 return (
                   <Button
                     key={speciesKey}
-                    onClick={() => setSpecies(speciesKey)}
+                    onClick={() => {
+                      setPreviewedSpecies(speciesKey);
+                      act('refresh');
+                    }}
                     selected={
                       data.character_preferences.misc.species === speciesKey
                     }
-                    tooltip={species.name}
+                    tooltip={speciesData.name}
                     style={{
                       display: 'block',
                       height: '64px',
                       width: '64px',
                     }}>
                     <Box
-                      className={classes(['species64x64', species.icon])}
+                      className={classes(['species64x64', speciesData.icon])}
                       ml={-1}
                     />
                   </Button>
@@ -334,17 +344,12 @@ const SpeciesPageInner = (
   );
 };
 
-export const SpeciesPage = (props: { closeSpecies: () => void }) => {
+export const SpeciesPage = () => {
   return (
     <ServerPreferencesFetcher
       render={(serverData) => {
         if (serverData) {
-          return (
-            <SpeciesPageInner
-              handleClose={props.closeSpecies}
-              species={serverData.species}
-            />
-          );
+          return <SpeciesPageInner species={serverData.species} />;
         } else {
           return <Box>Loading species...</Box>;
         }

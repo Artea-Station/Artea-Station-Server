@@ -1,5 +1,5 @@
 /datum/preference/choiced/phobia
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_MISC_LIST
 	savefile_key = "phobia"
 	savefile_identifier = PREFERENCE_CHARACTER
 
@@ -12,5 +12,5 @@
 
 	return "Phobia" in preferences.all_quirks
 
-/datum/preference/choiced/phobia/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/phobia/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	return

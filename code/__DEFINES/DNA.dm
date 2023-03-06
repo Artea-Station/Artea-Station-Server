@@ -76,9 +76,6 @@
 #define NO_DNA_COPY 11
 #define DRINKSBLOOD 12
 
-/// Use this if you want to change the race's color without the player being able to pick their own color. AKA special color shifting
-#define DYNCOLORS 13
-#define AGENDER 14
 /// Do not draw eyes or eyeless overlay
 #define NOEYESPRITES 15
 /// Used for determining which wounds are applicable to this species.

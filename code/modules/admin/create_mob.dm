@@ -27,7 +27,7 @@
 	human.eye_color_right = random_eye_color
 
 	human.dna.blood_type = random_blood_type()
-	human.dna.features["mcolor"] = "#[random_color()]"
+	human.skin_tone = "#[random_color()]"
 	human.dna.species.randomize_active_underwear(human)
 
 	for(var/datum/species/species_path as anything in subtypesof(/datum/species))
