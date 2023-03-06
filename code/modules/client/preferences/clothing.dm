@@ -50,7 +50,7 @@
 
 	return values
 
-/datum/preference/choiced/backpack/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/backpack/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.backpack = value
 
 /// Jumpsuit preference
@@ -69,7 +69,7 @@
 
 	return values
 
-/datum/preference/choiced/jumpsuit/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/jumpsuit/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.jumpsuit_style = value
 
 /// Socks preference
@@ -83,7 +83,7 @@
 /datum/preference/choiced/socks/init_possible_values()
 	return generate_values_for_underwear(GLOB.socks_list, list("human_r_leg", "human_l_leg"))
 
-/datum/preference/choiced/socks/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/socks/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.socks = value
 
 /// Undershirt preference
@@ -118,7 +118,7 @@
 
 	return values
 
-/datum/preference/choiced/undershirt/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/undershirt/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.undershirt = value
 
 /// Underwear preference
@@ -132,7 +132,7 @@
 /datum/preference/choiced/underwear/init_possible_values()
 	return generate_values_for_underwear(GLOB.underwear_list, list("human_chest_m", "human_r_leg", "human_l_leg"), COLOR_ALMOST_BLACK)
 
-/datum/preference/choiced/underwear/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/underwear/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.underwear = value
 
 /datum/preference/choiced/underwear/is_accessible(datum/preferences/preferences)

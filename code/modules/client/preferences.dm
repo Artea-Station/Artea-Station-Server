@@ -211,6 +211,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	switch (action)
 		if ("change_slot")
+			ui.user.playsound_local(null, 'sound/effects/stealthoff.ogg', 75)
 			// Save existing character
 			save_character()
 
@@ -227,7 +228,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			return TRUE
 		if ("rotate")
-			character_preview_view.dir = turn(character_preview_view.dir, -90)
+			if(character_preview_view) // Prefs can sometimes fuck the preview in local, so let's just avoid runtimes.
+				character_preview_view.dir = turn(character_preview_view.dir, text2num(params["dir"]))
 
 			return TRUE
 		if ("set_preference")
@@ -405,7 +407,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 	body = new
 
 	// Without this, it doesn't show up in the menu
-	body.appearance_flags &= ~KEEP_TOGETHER
+	body.appearance_flags |= KEEP_TOGETHER
 
 /// Registers the relevant map objects to a client
 /atom/movable/screen/character_preview_view/proc/register_to_client(client/client)
@@ -496,7 +498,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 		if (preference.savefile_identifier != PREFERENCE_CHARACTER)
 			continue
 
-		preference.apply_to_human(character, read_preference(preference.type))
+		preference.apply_to_human(character, read_preference(preference.type), src)
 
 	character.dna.real_name = character.real_name
 

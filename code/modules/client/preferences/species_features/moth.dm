@@ -1,7 +1,7 @@
 /datum/preference/choiced/moth_antennae
 	savefile_key = "feature_moth_antennae"
 	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE
 	main_feature_name = "Antennae"
 	should_generate_icons = TRUE
 
@@ -23,13 +23,13 @@
 
 	return values
 
-/datum/preference/choiced/moth_antennae/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/moth_antennae/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.dna.features["moth_antennae"] = value
 
 /datum/preference/choiced/moth_markings
 	savefile_key = "feature_moth_markings"
 	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE
 	main_feature_name = "Body markings"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "moth_markings"
@@ -75,13 +75,13 @@
 
 	return values
 
-/datum/preference/choiced/moth_markings/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/moth_markings/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.dna.features["moth_markings"] = value
 
 /datum/preference/choiced/moth_wings
 	savefile_key = "feature_moth_wings"
 	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE
 	main_feature_name = "Moth wings"
 	should_generate_icons = TRUE
 
@@ -98,5 +98,5 @@
 
 	return values
 
-/datum/preference/choiced/moth_wings/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/moth_wings/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.dna.features["moth_wings"] = value

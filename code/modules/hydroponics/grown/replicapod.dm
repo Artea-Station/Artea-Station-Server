@@ -193,8 +193,7 @@
 		podman.ckey = ckey_holder
 	podman.gender = blood_gender
 	podman.faction |= factions
-	if(!features["mcolor"])
-		features["mcolor"] = "#59CE00"
+	podman.skin_tone = "#59CE00"
 	if(!features["pod_hair"])
 		features["pod_hair"] = pick(GLOB.pod_hair_list)
 

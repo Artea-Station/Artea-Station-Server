@@ -8,7 +8,7 @@
 	for (var/preference_type in GLOB.preference_entries)
 		var/datum/preference/preference = GLOB.preference_entries[preference_type]
 		if (preference.savefile_identifier == PREFERENCE_CHARACTER)
-			preference.apply_to_human(human, preference.create_informed_default_value(preferences))
+			preference.apply_to_human(human, preference.create_informed_default_value(preferences), preferences)
 
 		if (istype(preference, /datum/preference/choiced))
 			var/datum/preference/choiced/choiced_preference = preference
@@ -38,14 +38,20 @@
 
 /// Requires all main features have a main_feature_name
 /datum/unit_test/preferences_valid_main_feature_name
+	var/list/prefs_categories_to_check = list(
+		PREFERENCE_CATEGORY_APPEARANCE,
+		PREFERENCE_CATEGORY_CLOTHING,
+		PREFERENCE_CATEGORY_OOC_INFO,
+	)
 
 /datum/unit_test/preferences_valid_main_feature_name/Run()
 	for (var/preference_type in GLOB.preference_entries)
 		var/datum/preference/choiced/preference = GLOB.preference_entries[preference_type]
-		if (!istype(preference))
+		if(!istype(preference))
 			continue
 
-		if (preference.category != PREFERENCE_CATEGORY_FEATURES && preference.category != PREFERENCE_CATEGORY_CLOTHING)
+		if(!(preference.category in prefs_categories_to_check))
 			continue
 
-		TEST_ASSERT(!isnull(preference.main_feature_name), "Preference [preference_type] does not have a main_feature_name set!")
+		if(isnull(preference.main_feature_name))
+			TEST_FAIL("Preference [preference_type] does not have a main_feature_name set!")

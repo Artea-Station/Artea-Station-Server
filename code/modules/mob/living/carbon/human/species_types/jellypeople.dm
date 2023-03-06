@@ -262,7 +262,7 @@
 
 	spare.underwear = "Nude"
 	H.dna.transfer_identity(spare, transfer_SE=1)
-	spare.dna.features["mcolor"] = "#[pick("7F", "FF")][pick("7F", "FF")][pick("7F", "FF")]"
+	spare.skin_tone = "#[pick("7F", "FF")][pick("7F", "FF")][pick("7F", "FF")]"
 	spare.dna.update_uf_block(DNA_MUTANT_COLOR_BLOCK)
 	spare.real_name = spare.dna.real_name
 	spare.name = spare.dna.real_name
@@ -329,7 +329,7 @@
 			continue
 
 		var/list/L = list()
-		L["htmlcolor"] = body.dna.features["mcolor"]
+		L["htmlcolor"] = body.skin_tone
 		L["area"] = get_area_name(body, TRUE)
 		var/stat = "error"
 		switch(body.stat)
@@ -494,10 +494,10 @@
 	extract_minor.UpdateButtons()
 	extract_major.UpdateButtons()
 
-/datum/species/jelly/luminescent/proc/update_glow(mob/living/carbon/C, intensity)
+/datum/species/jelly/luminescent/proc/update_glow(mob/living/carbon/human/C, intensity)
 	if(intensity)
 		glow_intensity = intensity
-	glow.set_light_range_power_color(glow_intensity, glow_intensity, C.dna.features["mcolor"])
+	glow.set_light_range_power_color(glow_intensity, glow_intensity, C.skin_tone)
 
 /obj/effect/dummy/luminescent_glow
 	name = "luminescent glow"

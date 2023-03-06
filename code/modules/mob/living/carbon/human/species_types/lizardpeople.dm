@@ -167,10 +167,10 @@ Lizard subspecies: SILVER SCALED
 
 /datum/species/lizard/silverscale/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	var/mob/living/carbon/human/new_silverscale = C
-	old_mutcolor = C.dna.features["mcolor"]
+	old_mutcolor = new_silverscale.skin_tone
 	old_eye_color_left = new_silverscale.eye_color_left
 	old_eye_color_right = new_silverscale.eye_color_right
-	new_silverscale.dna.features["mcolor"] = "#eeeeee"
+	new_silverscale.skin_tone = "#eeeeee"
 	new_silverscale.eye_color_left = "#0000a0"
 	new_silverscale.eye_color_right = "#0000a0"
 	..()
@@ -178,7 +178,7 @@ Lizard subspecies: SILVER SCALED
 
 /datum/species/lizard/silverscale/on_species_loss(mob/living/carbon/C)
 	var/mob/living/carbon/human/was_silverscale = C
-	was_silverscale.dna.features["mcolor"] = old_mutcolor
+	was_silverscale.skin_tone = old_mutcolor
 	was_silverscale.eye_color_left = old_eye_color_left
 	was_silverscale.eye_color_right = old_eye_color_right
 

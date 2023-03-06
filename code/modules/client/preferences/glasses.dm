@@ -1,5 +1,5 @@
 /datum/preference/choiced/glasses
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE_LIST
 	savefile_key = "glasses"
 	savefile_identifier = PREFERENCE_CHARACTER
 
@@ -12,5 +12,5 @@
 
 	return "Nearsighted" in preferences.all_quirks
 
-/datum/preference/choiced/glasses/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/glasses/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	return

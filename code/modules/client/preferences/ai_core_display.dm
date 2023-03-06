@@ -1,6 +1,6 @@
 /// What to show on the AI screen
 /datum/preference/choiced/ai_core_display
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_MISC_LIST
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "preferred_ai_core_display"
 	should_generate_icons = TRUE
@@ -15,11 +15,5 @@
 
 	return values
 
-/datum/preference/choiced/ai_core_display/is_accessible(datum/preferences/preferences)
-	if (!..(preferences))
-		return FALSE
-
-	return istype(preferences.get_highest_priority_job(), /datum/job/ai)
-
-/datum/preference/choiced/ai_core_display/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/ai_core_display/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	return

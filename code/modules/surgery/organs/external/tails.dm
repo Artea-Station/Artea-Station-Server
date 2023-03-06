@@ -73,7 +73,7 @@
 /obj/item/organ/external/tail/cat
 	name = "tail"
 	preference = "feature_human_tail"
-	feature_key = "tail_cat"
+	feature_key = "tail"
 	color_source = ORGAN_COLOR_HAIR
 	wag_flags = WAG_ABLE
 
