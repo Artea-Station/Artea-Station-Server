@@ -31,7 +31,7 @@ export type MaterialAccessBarProps = {
   /**
    * All reagents currently available to the user.
    */
-  availableReagents: MaterialMap;
+  availableReagents?: MaterialMap;
 
   /**
    * Invoked when the user requests that a material be ejected.
