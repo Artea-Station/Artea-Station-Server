@@ -78,7 +78,11 @@ export const MaterialAccessBar = (props: MaterialAccessBarProps, context) => {
               {Object.entries(availableReagents).map((material) => (
                 <>
                   <Stack.Item key={material[0]}>
-                    {material[0] + ': ' + material[1]}
+                    {material[0] + ': '}
+                    <AnimatedNumber
+                      value={material[1]}
+                      format={(value: number) => formatSiUnit(value, 0, ' u')}
+                    />
                   </Stack.Item>
                   <Stack.Divider />
                 </>
