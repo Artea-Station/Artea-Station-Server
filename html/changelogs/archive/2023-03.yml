@@ -1,3 +1,43 @@
 2023-03-02:
   QuacksQ:
   - rscadd: lobby camera!
+2023-03-07:
+  GuiltyNeko:
+  - rscdel: tab no longer changes tgui say channels
+  QuacksQ:
+  - qol: New ORM TGUI.
+  - qol: renamed spastic to muscle spasms.
+  - imageadd: New Material and ore sprites ported from TG!
+  - imageadd: New veggie and fruit sprites ported from TG.
+  - bugfix: Fixes split personality kicking out the original owner of the body.
+  - bugfix: Fixes low wall painting.
+  RimiNosha:
+  - rscadd: Humans now can select ears and tails. Other parts to come later.
+  - qol: Overhauled the prefs menu. There now should be far less information overload
+      for new players in the future.
+  - qol: All species can now pick their exact colors, instead of being restricted
+      to a list. Moths do not use this system, due to them using pre-colored icons.
+  - soundadd: Added a small sound when characters are selected.
+  - soundadd: A misc extra sound for mouseclicks, currently unused.
+  - rscdel: Effectively removes the random and hardcore random prefs.
+  - bugfix: Cat tails should now be visible when facing south again.
+  - code_imp: De-spaghetti'd skin_tone code.
+  - code_imp: Minimum age is now 18.
+  - rscdel: Removed agender and dyncolor traits.
+  - rscdel: Removed mutant colours and ethereal colours from DNA. Skin_tone now handles
+      that, with species.fixed_mut_color being used for statically colored races (golems).
+  - qol: You can now rotate both directions in preferences.
+  - code_imp: The preference datum is now passed to preference.apply_to_human, allowing
+      them to read other prefs.
+  - bugfix: Fixes TGUI dev server not working on byond 514.
+  - bugfix: Pixel scaling is now used for the preview in the prefs UI. Not noticeable
+      at the moment cause we don't allow rescaling yet.
+  - qol: Lighting is now notably more dim and warm. Most places will have very noticeably
+      darker lighting.
+  - qol: Night shift now actually feels dim.
+  - code_imp: Night shift light values are now dynamically generated. Less overhead
+      for custom lights by mappers.
+  nevimer:
+  - balance: chasms no longer kill you, you can climb out of chasms if you are healthy
+      enough.
+  - rscadd: Azarak Combat's hand to hand moves from skyrat have been ported, and fixed.
