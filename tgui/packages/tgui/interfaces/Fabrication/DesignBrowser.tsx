@@ -23,6 +23,11 @@ export type DesignBrowserProps<T extends Design = Design> = {
   availableMaterials?: MaterialMap;
 
   /**
+   * A map of reagents available for printing designs.
+   */
+  availableReagents?: MaterialMap;
+
+  /**
    * Invoked when the user attempts to print a design.
    */
   onPrintDesign?: (design: T, amount: number) => void;
@@ -46,6 +51,11 @@ export type DesignBrowserProps<T extends Design = Design> = {
      * The materials available to print the design.
      */
     availableMaterials: MaterialMap,
+
+    /**
+     * The reagents available to print the design.
+     */
+    availableReagents: MaterialMap,
 
     /**
      * A callback to print the design.
@@ -122,6 +132,7 @@ export const DesignBrowser = <T extends Design = Design>(
   const {
     designs,
     availableMaterials,
+    availableReagents,
     onPrintDesign,
     buildRecipeElement,
     busy,
@@ -286,6 +297,7 @@ export const DesignBrowser = <T extends Design = Design>(
                       buildRecipeElement(
                         design,
                         availableMaterials || {},
+                        availableReagents || {},
                         onPrintDesign || NOOP
                       )
                     )
@@ -297,6 +309,7 @@ export const DesignBrowser = <T extends Design = Design>(
                       buildRecipeElement(
                         design,
                         availableMaterials || {},
+                        availableReagents || {},
                         onPrintDesign || NOOP
                       )
                     )}
@@ -307,6 +320,7 @@ export const DesignBrowser = <T extends Design = Design>(
                       category={root.subcategories[selectedCategory]}
                       categoryButtons={categoryButtons}
                       availableMaterials={availableMaterials}
+                      availableReagents={availableReagents}
                       onPrintDesign={onPrintDesign}
                       buildRecipeElement={buildRecipeElement}
                     />
@@ -410,6 +424,11 @@ type CategoryViewProps<T extends Design = Design> = {
   availableMaterials?: MaterialMap;
 
   /**
+   * A map of reagents available for printing designs.
+   */
+  availableReagents?: MaterialMap;
+
+  /**
    * The depth of this category in the view.
    */
   depth?: number;
@@ -435,6 +454,11 @@ type CategoryViewProps<T extends Design = Design> = {
     availableMaterials: MaterialMap,
 
     /**
+     * The reagents available to print the design.
+     */
+    availableReagents: MaterialMap,
+
+    /**
      * A callback to print the design.
      */
     onPrintDesign: (design: T, amount: number) => void
@@ -454,6 +478,7 @@ const CategoryView = <T extends Design = Design>(
     depth,
     category,
     availableMaterials,
+    availableReagents,
     onPrintDesign,
     buildRecipeElement,
     categoryButtons,
@@ -467,6 +492,7 @@ const CategoryView = <T extends Design = Design>(
         buildRecipeElement(
           design,
           availableMaterials || {},
+          availableReagents || {},
           onPrintDesign || NOOP
         )
       )}

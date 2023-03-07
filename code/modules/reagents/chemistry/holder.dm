@@ -1664,6 +1664,16 @@
 				addict_text += "Potent [ref.name]"
 	return addict_text
 
+/datum/reagents/proc/fabricator_ui_data()
+	RETURN_TYPE(/list)
+
+	var/list/data = list()
+
+	for(var/datum/reagent/reagent in reagent_list)
+		data[reagent.name] = round(reagent.volume, CHEMICAL_VOLUME_ROUNDING)
+
+	return data
+
 /datum/reagents/ui_data(mob/user)
 	var/data = list()
 	data["selectedBitflags"] = ui_tags_selected

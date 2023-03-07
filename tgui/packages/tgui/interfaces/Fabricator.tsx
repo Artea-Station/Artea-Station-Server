@@ -27,17 +27,25 @@ export const Fabricator = (props, context) => {
               busy={!!busy}
               designs={Object.values(designs)}
               availableMaterials={availableMaterials}
+              availableReagents={data.reagents}
               buildRecipeElement={(
                 design,
                 availableMaterials,
-                onPrintDesign
-              ) => <Recipe design={design} available={availableMaterials} />}
+                availableReagents
+              ) => (
+                <Recipe
+                  design={design}
+                  available={availableMaterials}
+                  reagents={availableReagents}
+                />
+              )}
             />
           </Stack.Item>
           <Stack.Item>
             <Section>
               <MaterialAccessBar
                 availableMaterials={data.materials ?? []}
+                availableReagents={data.reagents ?? {}}
                 onEjectRequested={(material, amount) =>
                   act('remove_mat', { ref: material.ref, amount })
                 }
@@ -59,16 +67,22 @@ type PrintButtonProps = {
   design: Design;
   quantity: number;
   available: MaterialMap;
+  reagents: MaterialMap;
 };
 
 const PrintButton = (props: PrintButtonProps, context) => {
   const { act, data } = useBackend<FabricatorData>(context);
-  const { design, quantity, available } = props;
+  const { design, quantity, available, reagents } = props;
 
-  const canPrint = !Object.entries(design.cost).some(
-    ([material, amount]) =>
-      !available[material] || amount * quantity > (available[material] ?? 0)
-  );
+  const canPrint =
+    !Object.entries(design.cost).some(
+      ([material, amount]) =>
+        !available[material] || amount * quantity > (available[material] ?? 0)
+    ) &&
+    !Object.entries(design.reagentCost).some(
+      ([reagent, amount]) =>
+        !reagents[reagent] || amount * quantity > (reagents[reagent] ?? 0)
+    );
 
   return (
     <Tooltip
@@ -77,6 +91,7 @@ const PrintButton = (props: PrintButtonProps, context) => {
           design={design}
           amount={quantity}
           available={available}
+          availableReagents={reagents}
         />
       }>
       <div
@@ -92,14 +107,22 @@ const PrintButton = (props: PrintButtonProps, context) => {
   );
 };
 
-const Recipe = (props: { design: Design; available: MaterialMap }, context) => {
+const Recipe = (
+  props: { design: Design; available: MaterialMap; reagents: MaterialMap },
+  context
+) => {
   const { act, data } = useBackend<FabricatorData>(context);
-  const { design, available } = props;
+  const { design, available, reagents } = props;
 
-  const canPrint = !Object.entries(design.cost).some(
-    ([material, amount]) =>
-      !available[material] || amount > (available[material] ?? 0)
-  );
+  const canPrint =
+    !Object.entries(design.cost).some(
+      ([material, amount]) =>
+        !available[material] || amount > (available[material] ?? 0)
+    ) &&
+    !Object.entries(design.reagentCost).some(
+      ([reagent, amount]) =>
+        !reagents[reagent] || amount > (reagents[reagent] ?? 0)
+    );
 
   return (
     <div className="FabricatorRecipe">
@@ -119,6 +142,7 @@ const Recipe = (props: { design: Design; available: MaterialMap }, context) => {
             design={design}
             amount={1}
             available={available}
+            availableReagents={design.reagentCost}
           />
         }>
         <div
@@ -137,8 +161,18 @@ const Recipe = (props: { design: Design; available: MaterialMap }, context) => {
           <div className="FabricatorRecipe__Label">{design.name}</div>
         </div>
       </Tooltip>
-      <PrintButton design={design} quantity={5} available={available} />
-      <PrintButton design={design} quantity={10} available={available} />
+      <PrintButton
+        design={design}
+        quantity={5}
+        available={available}
+        reagents={reagents}
+      />
+      <PrintButton
+        design={design}
+        quantity={10}
+        available={available}
+        reagents={reagents}
+      />
     </div>
   );
 };

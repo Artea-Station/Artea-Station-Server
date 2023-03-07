@@ -10,10 +10,20 @@ export type MaterialCostSequenceProps = {
   available?: MaterialMap;
 
   /**
+   * A map of available reagents.
+   */
+  availableReagents?: MaterialMap;
+
+  /**
    * If provided, the materials to be consumed. By default, generated from
    * `design`; otherwise, an empty list.
    */
   costMap?: MaterialMap;
+
+  /**
+   * A map of available reagents.
+   */
+  reagentCostMap?: MaterialMap;
 
   /**
    * A design to generate the cost map from.
@@ -52,17 +62,23 @@ export const MaterialCostSequence = (
   context
 ) => {
   const { design, amount, available, align, justify } = props;
-  let { costMap } = props;
+  let { costMap, availableReagents } = props;
 
   if (!costMap && !design) {
     return null;
   }
 
   costMap ??= {};
+  availableReagents ??= {};
 
   if (design) {
     for (const [name, value] of Object.entries(design.cost)) {
       costMap[name] = (costMap[name] || 0) + value;
+    }
+    if (design.reagentCost) {
+      for (const [name, value] of Object.entries(design.reagentCost)) {
+        availableReagents[name] = (availableReagents[name] || 0) + value;
+      }
     }
   }
 
@@ -93,6 +109,17 @@ export const MaterialCostSequence = (
           </Flex>
         </Flex.Item>
       ))}
+      <Flex.Item>
+        <Flex direction={'column'} align="center">
+          {Object.entries(availableReagents).map(([material, quantity]) => (
+            <Flex.Item key={material} style={{ 'padding': '0.25em' }}>
+              {material +
+                ': ' +
+                formatSiUnit((amount || 1) * quantity, 0, ' u')}
+            </Flex.Item>
+          ))}
+        </Flex>
+      </Flex.Item>
     </Flex>
   );
 };

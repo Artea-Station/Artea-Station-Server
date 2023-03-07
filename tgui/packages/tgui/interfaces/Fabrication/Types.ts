@@ -62,6 +62,13 @@ export type Design = {
   cost: MaterialMap;
 
   /**
+   * The individual reagent cost to print the design, adjusted for the
+   * fabricator's part efficiency. Only used on techfabs and circuit printers,
+   * where this is null.
+   */
+  reagentCost: MaterialMap;
+
+  /**
    * A reference to the design's design datum.
    */
   id: string;
@@ -93,6 +100,11 @@ export type FabricatorData = {
    * The materials available to the fabricator, via ore silo or local storage.
    */
   materials: Material[];
+
+  /**
+   * The regents available to the fabricator, local storage only.
+   */
+  reagents: MaterialMap;
 
   /**
    * The name of the fabricator, as displayed on the title bar.

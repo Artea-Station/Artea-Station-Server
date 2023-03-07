@@ -4,7 +4,7 @@ import { useLocalState } from '../../backend';
 import { Flex, Button, Stack, AnimatedNumber } from '../../components';
 import { formatSiUnit } from '../../format';
 import { MaterialIcon } from './MaterialIcon';
-import { Material } from './Types';
+import { Material, MaterialMap } from './Types';
 
 // by popular demand of discord people (who are always right and never wrong)
 // this is completely made up
@@ -29,6 +29,11 @@ export type MaterialAccessBarProps = {
   availableMaterials: Material[];
 
   /**
+   * All reagents currently available to the user.
+   */
+  availableReagents: MaterialMap;
+
+  /**
    * Invoked when the user requests that a material be ejected.
    */
   onEjectRequested?: (material: Material, quantity: number) => void;
@@ -45,23 +50,40 @@ const LABEL_FORMAT = (value: number) => formatSiUnit(value, 0);
  * fifty sheets.
  */
 export const MaterialAccessBar = (props: MaterialAccessBarProps, context) => {
-  const { availableMaterials, onEjectRequested } = props;
+  const { availableMaterials, availableReagents, onEjectRequested } = props;
 
   return (
-    <Flex wrap>
-      {sortBy((m: Material) => MATERIAL_RARITY[m.name])(availableMaterials).map(
-        (material) => (
-          <Flex.Item key={material.name} grow={1}>
-            <MaterialCounter
-              material={material}
-              onEjectRequested={(quantity) =>
-                onEjectRequested && onEjectRequested(material, quantity)
-              }
-            />
-          </Flex.Item>
-        )
-      )}
-    </Flex>
+    <Stack vertical grow>
+      <Stack.Item width="100%" grow minHeight="5rem">
+        <Flex>
+          {sortBy((m: Material) => MATERIAL_RARITY[m.name])(
+            availableMaterials
+          ).map((material) => (
+            <Flex.Item key={material.name} grow>
+              <MaterialCounter
+                material={material}
+                onEjectRequested={(quantity) =>
+                  onEjectRequested && onEjectRequested(material, quantity)
+                }
+              />
+            </Flex.Item>
+          ))}
+        </Flex>
+      </Stack.Item>
+      <Stack.Divider />
+      <Stack.Item>
+        <Stack>
+          {Object.entries(availableReagents).map((material) => (
+            <>
+              <Stack.Item key={material[0]}>
+                {material[0] + ': ' + material[1]}
+              </Stack.Item>
+              <Stack.Divider />
+            </>
+          ))}
+        </Stack>
+      </Stack.Item>
+    </Stack>
   );
 };
 

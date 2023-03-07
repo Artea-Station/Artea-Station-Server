@@ -111,17 +111,23 @@
 
 	for(var/datum/design/design in cached_designs)
 		var/cost = list()
+		var/coefficient = efficient_with(design.build_path) ? efficiency_coeff : 1
 
-		for(var/datum/material/material in design.materials)
-			var/coefficient = efficient_with(design.build_path) ? efficiency_coeff : 1
+		for(var/datum/material/material as anything in design.materials)
 			cost[material.name] = design.materials[material] * coefficient
 
 		var/icon_size = spritesheet.icon_size_id(design.id)
+
+		var/list/reagent_cost = list()
+
+		for(var/datum/reagent/reagent as anything in design.reagents_list)
+			reagent_cost[initial(reagent.name)] = round(design.reagents_list[reagent] * coefficient, CHEMICAL_VOLUME_ROUNDING) // Reagents are not instantiated, unlike materials.
 
 		designs[design.id] = list(
 			"name" = design.name,
 			"desc" = design.get_description(),
 			"cost" = cost,
+			"reagentCost" = reagent_cost,
 			"id" = design.id,
 			"categories" = design.category,
 			"icon" = "[icon_size == size32x32 ? "" : "[icon_size] "][design.id]",
@@ -137,6 +143,7 @@
 	var/list/data = list()
 
 	data["materials"] = materials.mat_container?.ui_data()
+	data["reagents"] = reagents?.fabricator_ui_data()
 	data["onHold"] = materials.on_hold()
 	data["busy"] = busy
 	data["materialMaximum"] = materials.local_size
