@@ -24,7 +24,7 @@ ARTEA_CLOTHING(hop, "hop", "hop_skirt", "Head of Personnel Uniform")
 
 // Defense
 ARTEA_CLOTHING(hos, "rhos", "rhos_skirt", "Head of Shitcurity Uniform")
-ARTEA_CLOTHING(warden, "warden", "warden_skirt", "Warden Uniform")
+ARTEA_CLOTHING(warden, "rwarden", "rwarden_skirt", "Warden Uniform")
 ARTEA_CLOTHING(sec, "sec", "sec_skirt", "Defense Uniform")
 ARTEA_CLOTHING(corrections_officer, "corrections_officer", "corrections_officer_skirt", "Corrections Officer Uniform")
 ARTEA_CLOTHING(detective, "detective", "detective_skirt", "Detective Uniform")
