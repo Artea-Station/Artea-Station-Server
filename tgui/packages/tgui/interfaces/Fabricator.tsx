@@ -142,7 +142,7 @@ const Recipe = (
             design={design}
             amount={1}
             available={available}
-            availableReagents={design.reagentCost}
+            availableReagents={reagents}
           />
         }>
         <div

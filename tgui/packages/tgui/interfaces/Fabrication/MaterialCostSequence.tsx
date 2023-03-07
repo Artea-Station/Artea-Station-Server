@@ -75,11 +75,6 @@ export const MaterialCostSequence = (
     for (const [name, value] of Object.entries(design.cost)) {
       costMap[name] = (costMap[name] || 0) + value;
     }
-    if (design.reagentCost) {
-      for (const [name, value] of Object.entries(design.reagentCost)) {
-        availableReagents[name] = (availableReagents[name] || 0) + value;
-      }
-    }
   }
 
   return (
@@ -111,13 +106,27 @@ export const MaterialCostSequence = (
       ))}
       <Flex.Item>
         <Flex direction={'column'} align="center">
-          {Object.entries(availableReagents).map(([material, quantity]) => (
-            <Flex.Item key={material} style={{ 'padding': '0.25em' }}>
-              {material +
-                ': ' +
-                formatSiUnit((amount || 1) * quantity, 0, ' u')}
-            </Flex.Item>
-          ))}
+          {design?.reagentCost &&
+            Object.entries(design.reagentCost).map(([material, quantity]) => (
+              <Flex.Item key={material} style={{ 'padding': '0.25em' }}>
+                {material + ': '}
+                <span
+                  style={
+                    availableReagents && {
+                      color:
+                        (amount || 1) * quantity * 2 <=
+                        availableReagents[material]
+                          ? '#fff'
+                          : (amount || 1) * quantity <=
+                            availableReagents[material]
+                            ? '#f08f11'
+                            : '#db2828',
+                    }
+                  }>
+                  {formatSiUnit((amount || 1) * quantity, 0, ' u')}
+                </span>
+              </Flex.Item>
+            ))}
         </Flex>
       </Flex.Item>
     </Flex>

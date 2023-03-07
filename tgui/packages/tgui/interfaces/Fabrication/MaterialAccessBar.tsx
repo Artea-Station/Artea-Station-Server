@@ -70,19 +70,23 @@ export const MaterialAccessBar = (props: MaterialAccessBarProps, context) => {
           ))}
         </Flex>
       </Stack.Item>
-      <Stack.Divider />
-      <Stack.Item>
-        <Stack>
-          {Object.entries(availableReagents).map((material) => (
-            <>
-              <Stack.Item key={material[0]}>
-                {material[0] + ': ' + material[1]}
-              </Stack.Item>
-              <Stack.Divider />
-            </>
-          ))}
-        </Stack>
-      </Stack.Item>
+      {availableReagents && (
+        <>
+          <Stack.Divider />
+          <Stack.Item>
+            <Stack>
+              {Object.entries(availableReagents).map((material) => (
+                <>
+                  <Stack.Item key={material[0]}>
+                    {material[0] + ': ' + material[1]}
+                  </Stack.Item>
+                  <Stack.Divider />
+                </>
+              ))}
+            </Stack>
+          </Stack.Item>
+        </>
+      )}
     </Stack>
   );
 };
