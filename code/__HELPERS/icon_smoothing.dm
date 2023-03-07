@@ -34,7 +34,6 @@
 		else { \
 			if(source.can_area_smooth(neighbor)) { \
 				if(!isnull(neighbor.smoothing_groups)) { \
-					if(!(source.canSmoothWith[target] & neighbor.smoothing_groups[target])) { \
 					for(var/target in source.canSmoothWith) { \
 						if(!(source.canSmoothWith[target] & neighbor.smoothing_groups[target])) { \
 							continue; \
