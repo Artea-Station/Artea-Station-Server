@@ -184,13 +184,33 @@ GLOBAL_LIST_INIT(chasm_storage, list())
 		dropped_thing.throw_at(get_edge_target_turf(parent, pick(GLOB.alldirs)), rand(1, 10), rand(1, 10))
 
 	if (isliving(dropped_thing))
-		var/mob/living/fallen_mob = dropped_thing
-		if(fallen_mob.stat != DEAD)
-			fallen_mob.death(TRUE)
-			fallen_mob.notransform = FALSE
-			fallen_mob.apply_damage(300)
+		on_living_fallen(dropped_thing)
 
 	falling_atoms -= falling_ref
+
+/datum/component/chasm/proc/on_living_fallen(mob/living/fallen_mob)
+	fallen_mob.apply_damage(20)
+	fallen_mob.notransform = FALSE
+	var/mob/living/carbon/carbon_mob = fallen_mob
+	if (istype(carbon_mob))
+		var/obj/item/bodypart/wound_part = pick(carbon_mob.bodyparts)
+		if (IS_ORGANIC_LIMB(wound_part))
+			wound_part.force_wound_upwards(/datum/wound/blunt/critical)
+	try_climb_out(fallen_mob)
+
+/datum/component/chasm/proc/try_climb_out(mob/living/fallen_mob)
+	if (fallen_mob.stat == DEAD)
+		return
+	to_chat(fallen_mob, span_warning("You begin trying to climb out of the chasm!"))
+	if (!do_after(fallen_mob, 10 SECONDS, get_turf(fallen_mob),
+		IGNORE_HELD_ITEM | IGNORE_INCAPACITATED | IGNORE_SLOWDOWNS, extra_checks = CALLBACK(src, PROC_REF(is_alive), fallen_mob)))
+		try_climb_out(fallen_mob) // If you're not dead you're not giving in
+		return
+	on_revive(fallen_mob) // This seems silly but it does what we want it to do
+
+// ORBSTATION: returns false if you died
+/datum/component/chasm/proc/is_alive(mob/living/fallen_mob)
+	return fallen_mob.stat != DEAD
 
 /**
  * Called when something has left the chasm depths storage.
@@ -213,15 +233,31 @@ GLOBAL_LIST_INIT(chasm_storage, list())
  * * escapee - Lucky guy who just came back to life at the bottom of a hole.
  */
 /datum/component/chasm/proc/on_revive(mob/living/escapee)
-	SIGNAL_HANDLER
-	var/atom/parent = src.parent
-	parent.visible_message(span_boldwarning("After a long climb, [escapee] leaps out of [parent]!"))
-	ADD_TRAIT(escapee, TRAIT_MOVE_FLYING, CHASM_TRAIT) //Otherwise they instantly fall back in
-	escapee.forceMove(get_turf(parent))
-	escapee.throw_at(get_edge_target_turf(parent, pick(GLOB.alldirs)), rand(1, 10), rand(1, 10))
-	REMOVE_TRAIT(escapee, TRAIT_MOVE_FLYING, CHASM_TRAIT)
-	escapee.Paralyze(20 SECONDS, TRUE)
+	var/atom/chasm = parent
+	var/turf/escape_turf = get_nearest_safe_turf(chasm)
+	if (!escape_turf)
+		ADD_TRAIT(escapee, TRAIT_MOVE_FLYING, CHASM_TRAIT) //Otherwise they instantly fall back in
+		escapee.forceMove(get_turf(parent))
+		escapee.throw_at(get_edge_target_turf(parent, pick(GLOB.alldirs)), rand(1, 10), rand(1, 10))
+		REMOVE_TRAIT(escapee, TRAIT_MOVE_FLYING, CHASM_TRAIT)
+		escapee.Paralyze(20 SECONDS, TRUE)
+		return // Fall back to flinging
+
+	chasm.visible_message(span_boldwarning("After a long climb, [escapee] emerges from [chasm]!"))
+	escapee.forceMove(escape_turf)
+	escapee.Paralyze(5 SECONDS, TRUE)
 	UnregisterSignal(escapee, COMSIG_LIVING_REVIVE)
+
+/datum/component/chasm/proc/get_nearest_safe_turf(atom/chasm)
+	var/list/nearby_open_turfs = list()
+	for (var/turf/open/sanctuary in orange(3, chasm))
+		if (sanctuary.is_blocked_turf(exclude_mobs = FALSE) || ischasm(sanctuary) || islava(sanctuary))
+			continue
+		nearby_open_turfs += sanctuary
+
+	if (!length(nearby_open_turfs))
+		return null
+	return get_closest_atom(/turf/, nearby_open_turfs, chasm)
 
 #undef CHASM_TRAIT
 
@@ -233,3 +269,12 @@ GLOBAL_LIST_INIT(chasm_storage, list())
 	desc = "The bottom of a hole. You shouldn't be able to interact with this."
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	/// List of mobs controlled by players who have fallen in here
+	var/list/player_mobs = list()
+
+/obj/effect/abstract/chasm_storage/Initialize(mapload)
+	. = ..()
+
+// You can't attack this but monsters which fall in will try anyway
+/obj/effect/abstract/chasm_storage/attack_generic(mob/user, damage_amount, damage_type, damage_flag, sound_effect, armor_penetration)
+	return FALSE
