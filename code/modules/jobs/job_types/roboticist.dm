@@ -15,7 +15,7 @@
 	outfit = /datum/outfit/job/roboticist
 	plasmaman_outfit = /datum/outfit/plasmaman/robotics
 	departments_list = list(
-		/datum/job_department/science,
+		/datum/job_department/engineering,
 		)
 
 	paycheck = PAYCHECK_CREW

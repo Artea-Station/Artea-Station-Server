@@ -661,7 +661,6 @@
 		/datum/job_department/cargo,
 		/datum/job_department/engineering,
 		/datum/job_department/medical,
-		/datum/job_department/science,
 		/datum/job_department/security,
 		/datum/job_department/service,
 	)

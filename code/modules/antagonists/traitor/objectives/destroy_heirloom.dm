@@ -45,8 +45,6 @@
 		// Cargo
 		/datum/job/cargo_technician,
 		// Science
-		/datum/job/geneticist,
-		/datum/job/scientist,
 		/datum/job/roboticist,
 		// Engineering
 		/datum/job/station_engineer,
@@ -86,7 +84,6 @@
 		// Heads of staff
 		/datum/job/head_of_personnel,
 		/datum/job/chief_medical_officer,
-		/datum/job/research_director,
 		/datum/job/quartermaster,
 	)
 
