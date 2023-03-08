@@ -34,7 +34,6 @@
 #define JOB_CAPTAIN "Captain"
 #define JOB_HEAD_OF_PERSONNEL "Head of Personnel"
 #define JOB_HEAD_OF_SECURITY "Head of Security"
-#define JOB_RESEARCH_DIRECTOR "Research Director"
 #define JOB_CHIEF_ENGINEER "Chief Engineer"
 #define JOB_CHIEF_MEDICAL_OFFICER "Chief Medical Officer"
 #define JOB_INTERNAL_AFFAIRS_AGENT "Internal Affairs Agent"
@@ -53,15 +52,12 @@
 //Engineering
 #define JOB_STATION_ENGINEER "Station Engineer"
 #define JOB_ATMOSPHERIC_TECHNICIAN "Atmospheric Technician"
+#define JOB_ROBOTICIST "Roboticist"
 //Medical
 #define JOB_MEDICAL_DOCTOR "Medical Doctor"
 #define JOB_PARAMEDIC "Paramedic"
 #define JOB_CHEMIST "Chemist"
 #define JOB_VIROLOGIST "Virologist"
-//Science
-#define JOB_SCIENTIST "Scientist"
-#define JOB_ROBOTICIST "Roboticist"
-#define JOB_GENETICIST "Geneticist"
 //Supply
 #define JOB_QUARTERMASTER "Quartermaster"
 #define JOB_CARGO_TECHNICIAN "Cargo Technician"
@@ -127,7 +123,6 @@
 #define JOB_DISPLAY_ORDER_PARAMEDIC 24
 #define JOB_DISPLAY_ORDER_CHEMIST 25
 #define JOB_DISPLAY_ORDER_VIROLOGIST 26
-#define JOB_DISPLAY_ORDER_RESEARCH_DIRECTOR 27
 #define JOB_DISPLAY_ORDER_SCIENTIST 28
 #define JOB_DISPLAY_ORDER_ROBOTICIST 29
 #define JOB_DISPLAY_ORDER_GENETICIST 30
