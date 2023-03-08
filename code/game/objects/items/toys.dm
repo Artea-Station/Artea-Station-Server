@@ -1151,6 +1151,7 @@
 
 /obj/item/toy/figure/virologist
 	name = "\improper Virologist action figure"
+	desc = "This one seems familiar, yet you've never seen them before."
 	icon_state = "virologist"
 	toysay = "The cure is potassium!"
 

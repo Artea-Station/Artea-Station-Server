@@ -1100,30 +1100,6 @@
 		)
 	job = /datum/job/station_engineer
 
-/datum/id_trim/job/virologist
-	assignment = "Virologist"
-	trim_state = "trim_virologist"
-	department_color = COLOR_MEDICAL_BLUE
-	subdepartment_color = COLOR_MEDICAL_BLUE
-	sechud_icon_state = SECHUD_VIROLOGIST
-	minimal_access = list(
-		ACCESS_MECH_MEDICAL,
-		ACCESS_MEDICAL,
-		ACCESS_MINERAL_STOREROOM,
-		ACCESS_VIROLOGY,
-		)
-	extra_access = list(
-		ACCESS_PLUMBING,
-		ACCESS_MORGUE,
-		ACCESS_SURGERY,
-		)
-	template_access = list(
-		ACCESS_CAPTAIN,
-		ACCESS_CHANGE_IDS,
-		ACCESS_CMO,
-		)
-	job = /datum/job/virologist
-
 /datum/id_trim/job/warden
 	assignment = "Warden"
 	trim_state = "trim_warden"
