@@ -122,6 +122,9 @@ MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/cold/no_nightlight, 21, 
 // ---- Red tubes
 MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/red, 21, 0, 10, -10)
 
+// ---- Red dim tubes
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/red/dim, 21, 0, 10, -10)
+
 // ---- Blacklight tubes
 MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/blacklight, 21, 0, 10, -10)
 
