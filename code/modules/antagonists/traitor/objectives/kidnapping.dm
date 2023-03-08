@@ -70,8 +70,6 @@
 /datum/traitor_objective/kidnapping/uncommon //Hard to fish out victims
 	progression_maximum = 45 MINUTES
 	target_jobs = list(
-		// Medical
-		/datum/job/virologist,
 		// Cargo
 		/datum/job/shaft_miner,
 		// Service
