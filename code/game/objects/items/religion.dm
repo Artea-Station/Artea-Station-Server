@@ -142,10 +142,6 @@
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
 	warcry = "For Cuban Pete!"
 
-/obj/item/banner/science/Initialize(mapload)
-	. = ..()
-	job_loyalties = DEPARTMENT_BITFLAG_SCIENCE
-
 /obj/item/banner/science/mundane
 	inspiration_available = FALSE
 
