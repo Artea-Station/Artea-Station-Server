@@ -147,6 +147,9 @@ MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/broken, 21, 0, 10,
 // ---- Red bulbs
 MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/red, 21, 0, 10, -10)
 
+// ---- Red dim bulbs
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/red/dim, 21, 0, 10, -10)
+
 // ---- Blacklight bulbs
 MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/blacklight, 21, 0, 10, -10)
 
