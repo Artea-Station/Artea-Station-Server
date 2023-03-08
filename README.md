@@ -19,7 +19,7 @@
 
 This is Nosha Industry's fork of TG created in byond.
 
-Closed community for now until the requisite systems for moderation are put in place.
+Unlisted community for now until the requisite systems for moderation are put in place.
 
 Space Station 13 is a paranoia-laden round-based roleplaying game set against the backdrop of a nonsensical, metal death trap masquerading as a space station, with charming spritework designed to represent the sci-fi setting and its dangerous undertones. Have fun, and survive!
 
