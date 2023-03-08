@@ -5,9 +5,9 @@
 	priority = PREFERENCE_PRIORITY_GENDER
 
 /datum/preference/choiced/gender/init_possible_values()
-	return list(MALE, FEMALE, PLURAL)
+	return list(MALE, FEMALE, PLURAL, NEUTER)
 
-/datum/preference/choiced/gender/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/gender/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	if(!target.dna.species.sexes)
 		value = PLURAL //disregard gender preferences on this species
 	target.gender = value

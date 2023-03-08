@@ -1,31 +1,37 @@
 import { sortBy } from 'common/collections';
+import { classes } from 'common/react';
 import { useLocalState } from '../../backend';
 import { Flex, Button, Stack, AnimatedNumber } from '../../components';
 import { formatSiUnit } from '../../format';
-import { Material, MaterialIcon } from '../common/Materials';
-import { MaterialName } from './Types';
+import { MaterialIcon } from './MaterialIcon';
+import { Material, MaterialMap } from './Types';
 
 // by popular demand of discord people (who are always right and never wrong)
 // this is completely made up
-const MINERAL_RARITY: Record<MaterialName, number> = {
-  'iron': 1,
+const MATERIAL_RARITY: Record<string, number> = {
   'glass': 0,
+  'iron': 1,
+  'plastic': 2,
+  'titanium': 3,
+  'plasma': 4,
   'silver': 5,
   'gold': 6,
-  'diamond': 8,
-  'plasma': 4,
   'uranium': 7,
-  'bananium': 10,
-  'titanium': 3,
+  'diamond': 8,
   'bluespace crystal': 9,
-  'plastic': 2,
+  'bananium': 10,
 };
 
-export type MineralAccessBarProps = {
+export type MaterialAccessBarProps = {
   /**
    * All materials currently available to the user.
    */
   availableMaterials: Material[];
+
+  /**
+   * All reagents currently available to the user.
+   */
+  availableReagents?: MaterialMap;
 
   /**
    * Invoked when the user requests that a material be ejected.
@@ -43,33 +49,58 @@ const LABEL_FORMAT = (value: number) => formatSiUnit(value, 0);
  * the ore silo. Has pop-out docks for each material type for ejecting up to
  * fifty sheets.
  */
-export const MineralAccessBar = (props: MineralAccessBarProps, context) => {
-  const { availableMaterials, onEjectRequested } = props;
+export const MaterialAccessBar = (props: MaterialAccessBarProps, context) => {
+  const { availableMaterials, availableReagents, onEjectRequested } = props;
 
   return (
-    <Flex wrap>
-      {sortBy((m: Material) => MINERAL_RARITY[m.name])(availableMaterials).map(
-        (material) => (
-          <Flex.Item key={material.name} grow={1} shrink={1}>
-            <MineralCounter
-              material={material}
-              onEjectRequested={(quantity) =>
-                onEjectRequested && onEjectRequested(material, quantity)
-              }
-            />
-          </Flex.Item>
-        )
+    <Stack vertical grow>
+      <Stack.Item width="100%" grow minHeight="5rem">
+        <Flex>
+          {sortBy((m: Material) => MATERIAL_RARITY[m.name])(
+            availableMaterials
+          ).map((material) => (
+            <Flex.Item key={material.name} grow>
+              <MaterialCounter
+                material={material}
+                onEjectRequested={(quantity) =>
+                  onEjectRequested && onEjectRequested(material, quantity)
+                }
+              />
+            </Flex.Item>
+          ))}
+        </Flex>
+      </Stack.Item>
+      {availableReagents && (
+        <>
+          <Stack.Divider />
+          <Stack.Item>
+            <Stack>
+              {Object.entries(availableReagents).map((material) => (
+                <>
+                  <Stack.Item key={material[0]}>
+                    {material[0] + ': '}
+                    <AnimatedNumber
+                      value={material[1]}
+                      format={(value: number) => formatSiUnit(value, 0, ' u')}
+                    />
+                  </Stack.Item>
+                  <Stack.Divider />
+                </>
+              ))}
+            </Stack>
+          </Stack.Item>
+        </>
       )}
-    </Flex>
+    </Stack>
   );
 };
 
-type MineralCounterProps = {
+type MaterialCounterProps = {
   material: Material;
   onEjectRequested: (quantity: number) => void;
 };
 
-const MineralCounter = (props: MineralCounterProps, context) => {
+const MaterialCounter = (props: MaterialCounterProps, context) => {
   const { material, onEjectRequested } = props;
 
   const [hovering, setHovering] = useLocalState(
@@ -78,18 +109,28 @@ const MineralCounter = (props: MineralCounterProps, context) => {
     false
   );
 
+  const canEject = material.amount > 2_000;
+
   return (
     <div
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
-      className={`MaterialDock ${hovering ? 'MaterialDock--active' : ''}`}>
+      className={classes([
+        'MaterialDock',
+        hovering && 'MaterialDock--active',
+        !canEject && 'MaterialDock--disabled',
+      ])}>
       <Stack vertial direction={'column-reverse'}>
         <Flex
           direction="column"
           textAlign="center"
-          onClick={() => onEjectRequested(1)}>
+          onClick={() => onEjectRequested(1)}
+          className="MaterialDock__Label">
           <Flex.Item>
-            <MaterialIcon material={material.name} />
+            <MaterialIcon
+              materialName={material.name}
+              amount={material.amount}
+            />
           </Flex.Item>
           <Flex.Item>
             <AnimatedNumber value={material.amount} format={LABEL_FORMAT} />
@@ -144,9 +185,10 @@ const EjectButton = (props: EjectButtonProps, context) => {
     <Button
       fluid
       color={'transparent'}
-      className={`Fabricator__PrintAmount ${
-        amount * 2_000 > available ? 'Fabricator__PrintAmount--disabled' : ''
-      }`}
+      className={classes([
+        'Fabricator__PrintAmount',
+        amount * 2_000 > available && 'Fabricator__PrintAmount--disabled',
+      ])}
       onClick={() => onEject(amount)}>
       &times;{amount}
     </Button>

@@ -43,8 +43,8 @@
 
 /obj/machinery/light/dim
 	nightshift_allowed = FALSE
-	bulb_colour = "#FFDDCC"
-	bulb_power = 0.6
+	bulb_colour = "#ffd9b3"
+	bulb_power = 0.4
 
 // the smaller bulb light fixture
 
@@ -54,7 +54,8 @@
 	fitting = "bulb"
 	brightness = 4
 	nightshift_brightness = 4
-	bulb_colour = "#FFD6AA"
+	bulb_colour = "#ffd9b3"
+	bulb_power = 0.45
 	desc = "A small lighting fixture."
 	light_type = /obj/item/light/bulb
 

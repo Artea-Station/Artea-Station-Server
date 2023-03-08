@@ -81,8 +81,10 @@
 	var/neighbor_stripe = NONE
 	for(var/cardinal in GLOB.cardinals)
 		var/turf/step_turf = get_step(src, cardinal)
-		var/obj/structure/low_wall/neighboring_lowwall = locate() in step_turf
-		if(neighboring_lowwall)
+		var/obj/structure/low_wall/neighbor = locate() in step_turf
+		if(neighbor)
+			continue
+		if(!can_area_smooth(step_turf))
 			continue
 		for(var/atom/movable/movable_thing as anything in step_turf)
 			if(airlock_typecache[movable_thing.type])
@@ -103,7 +105,13 @@
 	if(locate(/obj/structure/low_wall) in get_turf(mover))
 		return TRUE
 
+/obj/structure/low_wall/IsObscured()
+	return FALSE //We handle this ourselves. Please dont break <3.
+
 /obj/structure/low_wall/attackby(obj/item/weapon, mob/living/user, params)
+	if(istype(weapon, /obj/item/paint) || istype(weapon, /obj/item/paint_remover))
+		return ..()
+
 	if(is_top_obstructed())
 		return TRUE
 	var/list/modifiers = params2list(params)
@@ -198,6 +206,7 @@
 
 /obj/structure/low_wall/titanium
 	plating_material = /datum/material/titanium
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_LOW_WALL, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTERS_BLASTDOORS, SMOOTH_GROUP_SHUTTLE_PARTS,)
 
 /obj/structure/low_wall/plastitanium
 	plating_material = /datum/material/alloy/plastitanium

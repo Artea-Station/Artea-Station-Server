@@ -28,7 +28,6 @@
 				"facial_hairstyle",
 				"haircolor",
 				"facial_haircolor",
-				"skin_tone",
 			)
 			for(var/human_only_var in human_only_vars)
 				if(ghost_role.vars[human_only_var])

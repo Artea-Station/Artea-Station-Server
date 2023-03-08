@@ -86,7 +86,6 @@
 
 	//Coloring and proper item icon update
 	var/skin_tone = ""
-	var/species_color = ""
 	///Limbs need this information as a back-up incase they are generated outside of a carbon (limbgrower)
 	var/should_draw_greyscale = TRUE
 	///An "override" color that can be applied to ANY limb, greyscale or not.
@@ -715,7 +714,7 @@
 	if(variable_color)
 		draw_color = variable_color
 	else if(should_draw_greyscale)
-		draw_color = (species_color) || (skin_tone && skintone2hex(skin_tone))
+		draw_color = skin_tone && skintone2hex(skin_tone)
 	else
 		draw_color = null
 
@@ -730,22 +729,14 @@
 	species_flags_list = owner_species.species_traits
 	limb_gender = (human_owner.physique == MALE) ? "m" : "f"
 
-	if(owner_species.use_skintones)
+	if(human_owner.dna.species.fixed_mut_color)
+		skin_tone = human_owner.dna.species.fixed_mut_color
+	else if(human_owner.skin_tone)
 		skin_tone = human_owner.skin_tone
-	else
-		skin_tone = ""
-
-	if(((MUTCOLORS in owner_species.species_traits) || (DYNCOLORS in owner_species.species_traits))) //Ethereal code. Motherfuckers.
-		if(owner_species.fixed_mut_color)
-			species_color = owner_species.fixed_mut_color
-		else
-			species_color = human_owner.dna.features["mcolor"]
-	else
-		species_color = null
 
 	draw_color = variable_color
 	if(should_draw_greyscale) //Should the limb be colored?
-		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone))
+		draw_color ||= skin_tone && skintone2hex(skin_tone)
 
 	recolor_external_organs()
 	return TRUE
@@ -832,7 +823,7 @@
 
 	draw_color = variable_color
 	if(should_draw_greyscale) //Should the limb be colored outside of a forced color?
-		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone))
+		draw_color ||= skin_tone && skintone2hex(skin_tone)
 
 	if(draw_color)
 		limb.color = "[draw_color]"

@@ -43,6 +43,8 @@
 	var/d_state = INTACT
 	/// Whether this wall is rusted or not, to apply the rusted overlay
 	var/rusted
+	/// Material Set Name
+	var/matset_name
 
 	var/list/dent_decals
 
@@ -75,19 +77,16 @@
 
 /turf/closed/wall/update_name()
 	. = ..()
-	name = ""
 	if(rusted)
-		name = "rusted "
-	if(reinf_material)
-		name += "reinforced wall"
+		name = "rusted "+ matset_name
 	else
-		name += "wall"
+		name = matset_name
 
 /turf/closed/wall/Initialize(mapload)
 	. = ..()
 	color = null // Remove the color that was set for mapping clarity
 	set_materials(plating_material, reinf_material)
-	if(is_station_level(src))
+	if(is_station_level(z))
 		GLOB.station_turfs += src
 
 /turf/closed/wall/Destroy()
@@ -127,6 +126,8 @@
 			))
 	for(var/cardinal in GLOB.cardinals)
 		var/turf/step_turf = get_step(src, cardinal)
+		if(!can_area_smooth(step_turf))
+			continue
 		for(var/atom/movable/movable_thing as anything in step_turf)
 			if(neighbor_typecache[movable_thing.type])
 				neighbor_stripe ^= cardinal
@@ -219,6 +220,13 @@
 	plating_material = plating_mat
 	reinf_material = reinf_mat
 
+	if(reinf_material)
+		name = "reinforced [plating_mat_ref.name] [plating_mat_ref.wall_name]"
+		desc = "It seems to be a section of hull reinforced with [reinf_mat_ref.name] and plated with [plating_mat_ref.name]."
+	else
+		name = "[plating_mat_ref.name] [plating_mat_ref.wall_name]"
+		desc = "It seems to be a section of hull plated with [plating_mat_ref.name]."
+	matset_name = name
 	update_greyscale()
 	update_appearance()
 
