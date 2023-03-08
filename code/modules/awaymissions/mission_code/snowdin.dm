@@ -323,7 +323,7 @@
 
 /obj/item/disk/holodisk/snowdin/weregettingpaidright
 	name = "Conversation #AOP#23"
-	preset_image_type = /datum/preset_holoimage/researcher
+	preset_image_type = /datum/preset_holoimage/engineer
 	preset_record_text = {"
 	NAME Jacob Ullman
 	DELAY 10
@@ -376,7 +376,7 @@
 	DELAY 10
 	SAY Jesus christ, what is that thing??
 	DELAY 30
-	PRESET /datum/preset_holoimage/researcher
+	PRESET /datum/preset_holoimage/engineer
 	NAME Elizabeth Queef
 	DELAY 10
 	SAY Hell if I know! Just shoot it already!
@@ -394,14 +394,14 @@
 	DELAY 15
 	SAY Just go! I'll keep it busy, there's an outpost south of here with an elevator to the surface.
 	NAME Jacob Ullman
-	PRESET /datum/preset_holoimage/researcher.
+	PRESET /datum/preset_holoimage/engineer.
 	DELAY 15
 	Say I don't have to be told twice! Let's get the fuck out of here.
 	DELAY 20;"}
 
 /obj/item/disk/holodisk/snowdin/ripjacob
 	name = "Conversation #AOP#62"
-	preset_image_type = /datum/preset_holoimage/researcher
+	preset_image_type = /datum/preset_holoimage/engineer
 	preset_record_text = {"
 	NAME Jacob Ullman
 	DELAY 10

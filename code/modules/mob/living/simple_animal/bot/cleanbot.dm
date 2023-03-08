@@ -76,7 +76,6 @@
 		engineering_titles,
 	)
 	var/static/list/suffixes = list(
-		research_titles,
 		medical_titles,
 		legal_titles,
 	)
