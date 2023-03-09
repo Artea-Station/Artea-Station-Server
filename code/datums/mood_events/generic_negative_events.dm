@@ -389,3 +389,9 @@
 	description = "I just got squeezed way too hard."
 	mood_change = -1
 	timeout = 2 MINUTES
+
+/datum/mood_event/body_purist
+	description = "I feel cybernetics attached to me, and I HATE IT!"
+
+/datum/mood_event/body_purist/add_effects(power)
+	mood_change = power

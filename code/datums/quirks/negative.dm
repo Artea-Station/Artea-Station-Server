@@ -1023,9 +1023,6 @@
 	for(var/obj/item/organ/internal/organ as anything in owner.internal_organs)
 		if(organ.organ_flags & ORGAN_SYNTHETIC)
 			cybernetics_level++
-	for(var/obj/item/organ/external/organ as anything in owner.external_organs)
-		if(organ.organ_flags & ORGAN_SYNTHETIC)
-			cybernetics_level++
 	update_mood()
 
 /datum/quirk/body_purist/proc/update_mood()
