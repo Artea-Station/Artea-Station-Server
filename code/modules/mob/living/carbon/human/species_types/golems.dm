@@ -1169,7 +1169,6 @@
 	species_traits = list(
 		NO_UNDERWEAR,
 		NOEYESPRITES,
-		HAS_BONE,
 	)
 	inherent_biotypes = MOB_UNDEAD|MOB_HUMANOID
 	mutanttongue = /obj/item/organ/internal/tongue/bone

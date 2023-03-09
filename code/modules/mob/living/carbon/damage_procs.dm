@@ -234,8 +234,6 @@
 		var/brute_was = picked.brute_dam
 		var/burn_was = picked.burn_dam
 
-		var/stamina_was = picked.stamina_dam
-
 
 		update |= picked.heal_damage(brute, burn, required_bodytype, FALSE)
 
@@ -262,9 +260,6 @@
 
 		var/brute_was = picked.brute_dam
 		var/burn_was = picked.burn_dam
-
-
-		var/stamina_was = picked.stamina_dam
 
 		update |= picked.receive_damage(brute_per_part, burn_per_part, FALSE, updating_health, required_bodytype, wound_bonus = CANT_WOUND) // disabling wounds from these for now cuz your entire body snapping cause your heart stopped would suck
 

@@ -259,7 +259,6 @@
 	bubble.plane = ABOVE_GAME_PLANE
 	bubble.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay_global), bubble, speech_bubble_recipients, 3 SECONDS)
-	addtimer(CALLBACK(src, PROC_REF(clear_saypopup), bubble), 3.5 SECONDS)
 
 	var/turf/center_turf = get_turf(src)
 	if(!center_turf)

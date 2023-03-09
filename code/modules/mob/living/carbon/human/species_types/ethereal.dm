@@ -11,8 +11,6 @@
 	brutemod = 1.25 //They're weak to punches
 	attack_type = BURN //burn bish
 	species_traits = list(
-		DYNCOLORS,
-		AGENDER,
 		NO_UNDERWEAR,
 		HAIR,
 		FACEHAIR,
