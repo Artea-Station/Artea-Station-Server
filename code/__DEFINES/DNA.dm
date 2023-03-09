@@ -75,8 +75,6 @@
 #define DRINKSBLOOD 11
 
 #define NOSTOMACH 10
-#define NO_DNA_COPY 11
-#define DRINKSBLOOD 12
 
 /// Do not draw eyes or eyeless overlay
 #define NOEYESPRITES 15

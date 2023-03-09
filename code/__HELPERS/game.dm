@@ -154,7 +154,7 @@
 	for(var/mob/viewer as anything in viewers(target))
 		if(viewer.client)
 			viewing += viewer.client
-	flick_overlay(image_to_show, viewing, duration)
+	flick_overlay_global(image_to_show, viewing, duration)
 
 ///Get active players who are playing in the round
 /proc/get_active_player_count(alive_check = 0, afk_check = 0, human_check = 0)

@@ -74,8 +74,8 @@
 	if (carbon_target.blood_volume <= min_blood)
 		return
 
-	if (H.blood_volume > (BLOOD_VOLUME_SAFE - 25)) // just barely survivable without treatment
-		H.blood_volume -= 0.275 * delta_time
+	if (carbon_target.blood_volume > (BLOOD_VOLUME_SAFE - 25)) // just barely survivable without treatment
+		carbon_target.blood_volume -= 0.275 * delta_time
 
 /datum/quirk/item_quirk/blindness
 	name = "Blind"

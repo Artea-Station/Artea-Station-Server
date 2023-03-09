@@ -256,10 +256,9 @@
 			speech_bubble_recipients.Add(user.client)
 
 	var/image/bubble = image('icons/mob/effects/talk.dmi', src, "[bubble_type][say_test(message)]", FLY_LAYER)
-	SET_PLANE_EXPLICIT(bubble, ABOVE_GAME_PLANE, src)
+	bubble.plane = ABOVE_GAME_PLANE
 	bubble.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay_global), bubble, speech_bubble_recipients, 3 SECONDS)
-	LAZYADD(update_on_z, bubble)
 	addtimer(CALLBACK(src, PROC_REF(clear_saypopup), bubble), 3.5 SECONDS)
 
 	var/turf/center_turf = get_turf(src)
@@ -275,9 +274,6 @@
 				continue
 		var/link = FOLLOW_LINK(dead_player, owner)
 		to_chat(dead_player, "[link] [dead_rendered]")
-
-/mob/camera/imaginary_friend/proc/clear_saypopup(image/say_popup)
-	LAZYREMOVE(update_on_z, say_popup)
 
 /mob/camera/imaginary_friend/whisper(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced, filterproof)
 	if(!message)

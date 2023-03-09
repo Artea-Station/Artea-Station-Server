@@ -100,25 +100,6 @@
 				to_chat(owner, span_notice("Your suffering is respectful, your scars immaculate. More universal truths are clear, but you do not fully understand yet."))
 				dna.add_mutation(/datum/mutation/human/telekinesis)
 				dna.add_mutation(/datum/mutation/human/mindreader)
-			else
-				to_chat(owner, span_warning("The weight on your shoulders feels lighter. You feel like you're about to forget."))
-		if(7)
-			if(increase)
-				to_chat(owner, span_notice("The weight on your shoulders is immense. [GLOB.deity] is shattered across the cosmos."))
-			else
-				to_chat(owner, span_warning("The weight on your shoulders feels lighter. You're growing further from your goal."))
-		if(8)
-			if(increase)
-				to_chat(owner, span_notice("You're on the cusp of another breakthrough. [GLOB.deity] lost everything."))
-			else
-				to_chat(owner, span_warning("The weight on your shoulders feels lighter. You have lost some universal truths."))
-		if(9)
-			if(increase)
-				to_chat(owner, span_notice("You have finally broken yourself enough to understand [GLOB.deity]. It's all so clear to you."))
-				var/mob/living/carbon/human/knower = owner
-				if(!istype(knower))
-					return
-				INVOKE_ASYNC(knower, TYPE_PROC_REF(/mob/living/carbon/human, slow_psykerize))
 
 /// Signal to decrease burden_level (see update_burden proc) if an organ is added
 /datum/mutation/human/burdened/proc/organ_added_burden(mob/burdened, obj/item/organ/new_organ, special)

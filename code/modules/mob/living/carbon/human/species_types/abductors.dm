@@ -5,7 +5,6 @@
 	species_traits = list(
 		NOEYESPRITES,
 		NOSTOMACH,
-		NOBLOOD,
 	)
 	inherent_traits = list(
 		TRAIT_NOBREATH,
