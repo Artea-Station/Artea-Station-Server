@@ -248,6 +248,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// This supresses the "dosen't appear to be himself" examine text for if the mob is run by an AI controller. Should be used on any NPC human subtypes. Monkeys are the prime example.
 	var/ai_controlled_species = FALSE
 
+	///How are we treated regarding processing reagents, by default we process them as if we're organic
+	var/reagent_flags = PROCESS_ORGANIC
+
 ///////////
 // PROCS //
 ///////////

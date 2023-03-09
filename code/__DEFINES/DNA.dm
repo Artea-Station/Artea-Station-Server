@@ -95,6 +95,16 @@
 #define NO_TONGUE 22
 #define NOAPPENDIX 23
 
+#define REVIVES_BY_HEALING 24
+#define ROBOTIC_LIMBS 25
+#define ROBOTIC_DNA_ORGANS 26
+
+// Liver processing traits.
+#define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
+#define PROCESS_SYNTHETIC 2		//Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"
+#define REAGENT_ORGANIC 1
+#define REAGENT_SYNTHETIC 2
+
 //organ slots
 #define ORGAN_SLOT_ADAMANTINE_RESONATOR "adamantine_resonator"
 #define ORGAN_SLOT_APPENDIX "appendix"
