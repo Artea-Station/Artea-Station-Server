@@ -76,8 +76,8 @@
 	var/screen_pixel_x = 16
 	var/screen_pixel_y = 16
 	/// where storage starts being rendered, screen_loc wise
-	var/screen_start_x = 4
-	var/screen_start_y = 2
+	var/screen_start_x = 3
+	var/screen_start_y = 1
 
 	var/datum/weakref/modeswitch_action_ref
 
@@ -857,7 +857,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(!resolve_location)
 		return
 
-	boxes.screen_loc = "[screen_start_x]:[screen_pixel_x],[screen_start_y]:[screen_pixel_y] to [screen_start_x+cols-1]:[screen_pixel_x],[screen_start_y+rows-1]:[screen_pixel_y]"
+	boxes.screen_loc = "LEFT+[screen_start_x]:[screen_pixel_x],BOTTOM+[screen_start_y]:[screen_pixel_y] to LEFT+[screen_start_x+cols-1]:[screen_pixel_x],BOTTOM+[screen_start_y+rows-1]:[screen_pixel_y]"
 	var/current_x = screen_start_x
 	var/current_y = screen_start_y
 
@@ -866,7 +866,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 			var/datum/numbered_display/numberdisplay = numerical_display_contents[type]
 
 			numberdisplay.sample_object.mouse_opacity = MOUSE_OPACITY_OPAQUE
-			numberdisplay.sample_object.screen_loc = "[current_x]:[screen_pixel_x],[current_y]:[screen_pixel_y]"
+			numberdisplay.sample_object.screen_loc = "LEFT+[current_x]:[screen_pixel_x],BOTTOM+[current_y]:[screen_pixel_y]"
 			numberdisplay.sample_object.maptext = MAPTEXT("<font color='white'>[(numberdisplay.number > 1)? "[numberdisplay.number]" : ""]</font>")
 			numberdisplay.sample_object.plane = ABOVE_HUD_PLANE
 
@@ -882,7 +882,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	else
 		for(var/obj/item in resolve_location)
 			item.mouse_opacity = MOUSE_OPACITY_OPAQUE
-			item.screen_loc = "[current_x]:[screen_pixel_x],[current_y]:[screen_pixel_y]"
+			item.screen_loc = "LEFT+[current_x]:[screen_pixel_x],BOTTOM+[current_y]:[screen_pixel_y]"
 			item.maptext = ""
 			item.plane = ABOVE_HUD_PLANE
 
@@ -895,7 +895,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 				if(current_y - screen_start_y >= rows)
 					break
 
-	closer.screen_loc = "[screen_start_x + cols]:[screen_pixel_x],[screen_start_y]:[screen_pixel_y]"
+	closer.screen_loc = "LEFT+[screen_start_x + cols]:[screen_pixel_x],BOTTOM+[screen_start_y]:[screen_pixel_y]"
 
 
 /// Signal handler for when we get attacked with secondary click by an item.
