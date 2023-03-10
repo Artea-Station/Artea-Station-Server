@@ -14,9 +14,8 @@
 		TRAIT_GENELESS,
 		TRAIT_STABLEHEART,
 		TRAIT_LIMBATTACHMENT,
-		TRAIT_NO_HUSK,
-		TRAIT_OXYIMMUNE,
 		TRAIT_LITERATE,
+		TRAIT_NOBLOOD,
 	)
 	species_traits = list(
 		ROBOTIC_DNA_ORGANS,
@@ -27,8 +26,7 @@
 		ROBOTIC_LIMBS,
 		NOTRANSSTING,
 	)
-	mutant_bodyparts = list()
-	default_mutant_bodyparts = list(
+	mutant_bodyparts = list(
 		"tail" = "None",
 		"ears" = "None",
 		"legs" = "Normal Legs",
@@ -38,8 +36,6 @@
 		MUTANT_SYNTH_HEAD = "Default Head",
 	)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
-	reagent_flags = PROCESS_SYNTHETIC
-	payday_modifier = 0.75 // Matches the rest of the pay penalties the non-human crew have
 	species_language_holder = /datum/language_holder/machine
 	mutant_organs = list(/obj/item/organ/internal/cyberimp/arm/power_cord)
 	mutantbrain = /obj/item/organ/internal/brain/synth
@@ -97,7 +93,7 @@
 		appendix.Remove(transformer)
 		qdel(appendix)
 
-	var/screen_mutant_bodypart = transformer.dna.mutant_bodyparts[MUTANT_SYNTH_SCREEN]
+	var/screen_mutant_bodypart = transformer.dna.features[MUTANT_SYNTH_SCREEN]
 
 	if(!screen && screen_mutant_bodypart && screen_mutant_bodypart[MUTANT_INDEX_NAME] && screen_mutant_bodypart[MUTANT_INDEX_NAME] != "None")
 		screen = new
@@ -105,8 +101,8 @@
 
 /datum/species/synthetic/replace_body(mob/living/carbon/target, datum/species/new_species)
 	. = ..()
-	var/list/chassis = target.dna.mutant_bodyparts[MUTANT_SYNTH_CHASSIS]
-	var/list/head = target.dna.mutant_bodyparts[MUTANT_SYNTH_HEAD]
+	var/list/chassis = target.dna.features[MUTANT_SYNTH_CHASSIS]
+	var/list/head = target.dna.features[MUTANT_SYNTH_HEAD]
 	if(!chassis && !head)
 		return
 
@@ -152,7 +148,7 @@
 	if(!screen)
 		return
 
-	tranformer.dna.mutant_bodyparts[MUTANT_SYNTH_SCREEN][MUTANT_INDEX_NAME] = screen_name
+	tranformer.dna.features[MUTANT_SYNTH_SCREEN] = screen_name
 	tranformer.update_body()
 
 /datum/species/synthetic/random_name(gender, unique, lastname)

@@ -107,7 +107,6 @@
 	if(target.revive())
 		target.emote("chime")
 		target.visible_message(span_notice("...[target] reactivates, their chassis coming online!"))
-		to_chat(target, span_danger("[CONFIG_GET(string/blackoutpolicy)]"))
 		return FALSE //This is due to synths having some weirdness with their revive.
 	else
 		target.emote("buzz")

@@ -11,5 +11,5 @@
 	if(!new_ipc_screen)
 		return
 
-	human.dna.species.mutant_bodyparts[MUTANT_SYNTH_SCREEN][MUTANT_INDEX_NAME] = new_ipc_screen
+	human.dna.features[MUTANT_SYNTH_SCREEN] = new_ipc_screen
 	human.update_body()
