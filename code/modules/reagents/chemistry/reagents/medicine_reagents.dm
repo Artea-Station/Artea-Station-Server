@@ -732,14 +732,6 @@
 	ph = 12
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
-/datum/reagent/medicine/atropine/on_mob_add(mob/living/affected_mob)
-	. = ..()
-	ADD_TRAIT(affected_mob, TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION, "[type]")
-
-/datum/reagent/medicine/atropine/on_mob_delete(mob/living/affected_mob)
-	REMOVE_TRAIT(affected_mob, TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION, "[type]")
-	return ..()
-
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	if(affected_mob.health <= affected_mob.crit_threshold)
 		affected_mob.adjustToxLoss(-2 * REM * delta_time, FALSE, required_biotype = affected_biotype)

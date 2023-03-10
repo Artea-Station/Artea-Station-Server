@@ -5,30 +5,16 @@
 	icon_icon = 'icons/mob/actions/actions_items.dmi'
 	button_icon_state = "flight"
 
-///Wing base type. doesn't really do anything
-/obj/item/organ/external/wings
-	name = "wings"
-	desc = "Spread your wings and FLLLLLLLLYYYYY!"
-
-	zone = BODY_ZONE_CHEST
-	slot = ORGAN_SLOT_EXTERNAL_WINGS
-	layers = ALL_EXTERNAL_OVERLAYS
-
-	use_mob_sprite_as_obj_sprite = BODY_BEHIND_LAYER
-	feature_key = "wings"
-
-/obj/item/organ/external/wings/can_draw_on_bodypart(mob/living/carbon/human/human)
-	if(!human.wear_suit)
-		return TRUE
-	if(!(human.wear_suit.flags_inv & HIDEJUMPSUIT))
-		return TRUE
-	if(human.wear_suit.species_exception && is_type_in_list(src, human.wear_suit.species_exception))
-		return TRUE
-	return FALSE
-
-///Checks if the wings can soften short falls
-/obj/item/organ/external/wings/proc/can_soften_fall()
-	return TRUE
+/datum/action/innate/flight/Activate()
+	var/mob/living/carbon/human/human = owner
+	var/obj/item/organ/external/wings/functional/wings = human.getorganslot(ORGAN_SLOT_EXTERNAL_WINGS)
+	if(wings && wings.can_fly(human))
+		wings.toggle_flight(human)
+		if(!(human.movement_type & FLYING))
+			to_chat(human, span_notice("You settle gently back onto the ground..."))
+		else
+			to_chat(human, span_notice("You beat your wings and begin to hover gently above the ground..."))
+			human.set_resting(FALSE, TRUE)
 
 ///The true wings that you can use to fly and shit (you cant actually shit with them)
 /obj/item/organ/external/wings/functional

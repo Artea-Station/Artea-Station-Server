@@ -1015,8 +1015,8 @@
 /datum/reagent/toxin/rotatium/on_mob_end_metabolize(mob/living/affected_mob)
 	if(affected_mob?.hud_used)
 		var/atom/movable/plane_master_controller/pm_controller = affected_mob.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
-		for(var/atom/movable/screen/plane_master/plane as anything in pm_controller.get_planes())
-			animate(plane, transform = matrix(), time = 5, easing = QUAD_EASING)
+		for(var/key in pm_controller.controlled_planes)
+			animate(pm_controller.controlled_planes[key], transform = matrix(), time = 5, easing = QUAD_EASING)
 	..()
 
 /datum/reagent/toxin/anacea

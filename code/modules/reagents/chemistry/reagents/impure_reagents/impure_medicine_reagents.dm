@@ -283,15 +283,10 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	data["method"] |= methods
 	..()
 
-/datum/reagent/inverse/hercuri/on_new(data)
-	. = ..()
-	if(!data)
-		return
-	method |= data["method"]
-
-
 	exposed_mob.adjust_bodytemperature(reac_volume * TEMPERATURE_DAMAGE_COEFFICIENT)
 	exposed_mob.adjust_fire_stacks(reac_volume / 2)
+	if(reac_volume >= metabolization_rate)
+		exposed_mob.extinguish_mob()
 
 /datum/reagent/inverse/hercuri/overdose_process(mob/living/carbon/owner, delta_time, times_fired)
 	. = ..()

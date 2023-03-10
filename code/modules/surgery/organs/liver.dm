@@ -108,14 +108,14 @@
 	if(filterToxins && !HAS_TRAIT(liver_owner, TRAIT_TOXINLOVER))
 		for(var/datum/reagent/toxin/toxin in cached_reagents)
 			if(status != toxin.affected_organtype) //this particular toxin does not affect this type of organ
-				continue 
+				continue
 			var/amount = round(toxin.volume, CHEMICAL_QUANTISATION_LEVEL) // this is an optimization
 			if(belly)
-				thisamount += belly.reagents.get_reagent_amount(toxin.type)
-			if (thisamount && thisamount <= toxTolerance * (maxHealth - damage) / maxHealth ) //toxTolerance is effectively multiplied by the % that your liver's health is at
+				amount += belly.reagents.get_reagent_amount(toxin.type)
+			if (amount && amount <= toxTolerance * (maxHealth - damage) / maxHealth ) //toxTolerance is effectively multiplied by the % that your liver's health is at
 				liver_owner.reagents.remove_reagent(toxin.type, 0.5 * delta_time)
 			else
-				damange_to_deal += (thisamount * toxLethality * delta_time)
+				damange_to_deal += (amount * toxLethality * delta_time)
 				if(provide_pain_message != HAS_PAINFUL_TOXIN)
 					provide_pain_message = toxin.silent_toxin ? HAS_SILENT_TOXIN : HAS_PAINFUL_TOXIN
 
