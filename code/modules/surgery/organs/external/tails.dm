@@ -86,17 +86,13 @@
 	name = "tail"
 	preference = "feature_human_tail"
 
-	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/cat
+	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/hair_colored
 
 	wag_flags = WAG_ABLE
 
 ///Cat tail bodypart overlay
-/datum/bodypart_overlay/mutant/tail/cat
-	feature_key = "tail"
+/datum/bodypart_overlay/mutant/tail/hair_colored
 	color_source = ORGAN_COLOR_HAIR
-
-/datum/bodypart_overlay/mutant/tail/cat/get_global_feature_list()
-	return GLOB.tails_list_human
 
 /obj/item/organ/external/tail/monkey
 	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/monkey
