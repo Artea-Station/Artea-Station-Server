@@ -60,7 +60,7 @@
 
 /proc/random_features()
 	if(!GLOB.tails_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/, GLOB.tails_list,  add_blank = TRUE)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails, GLOB.tails_list,  add_blank = TRUE)
 	if(!GLOB.tails_list_human.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_list_human,  add_blank = TRUE)
 	if(!GLOB.tails_list_lizard.len)

@@ -118,7 +118,7 @@
 
 	// We want to ensure that the IPC gets their chassis and their head correctly.
 	for(var/obj/item/bodypart/limb as anything in target.bodyparts)
-		if(initial(limb.limb_id) != SPECIES_SYNTH && initial(limb.base_limb_id) != SPECIES_SYNTH) // No messing with limbs that aren't actually synthetic.
+		if(initial(limb.limb_id) != SPECIES_SYNTH) // No messing with limbs that aren't actually synthetic.
 			continue
 
 		if(limb.body_zone == BODY_ZONE_HEAD)
