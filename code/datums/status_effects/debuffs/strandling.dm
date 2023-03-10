@@ -12,7 +12,7 @@
 /datum/status_effect/strandling/on_apply()
 	RegisterSignal(owner, COMSIG_CARBON_PRE_BREATHE, PROC_REF(on_breathe))
 	RegisterSignal(owner, COMSIG_ATOM_TOOL_ACT(TOOL_WIRECUTTER), PROC_REF(on_cut))
-	RegisterSignal(owner, COMSIG_CARBON_PRE_HELP_ACT, PROC_REF(on_self_check))
+	RegisterSignal(owner, COMSIG_CARBON_PRE_MISC_HELP, PROC_REF(on_self_check))
 	return TRUE
 
 /datum/status_effect/strandling/on_remove()

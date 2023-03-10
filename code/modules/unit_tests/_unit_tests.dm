@@ -126,7 +126,6 @@
 #include "nuke_cinematic.dm"
 #include "objectives.dm"
 #include "operating_table.dm"
-#include "organ_set_bonus.dm"
 #include "outfit_sanity.dm"
 #include "paintings.dm"
 #include "pills.dm"
