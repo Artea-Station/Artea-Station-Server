@@ -254,11 +254,13 @@ if grep -P 'addtimer\((?=.*TIMER_OVERRIDE)(?!.*TIMER_UNIQUE).*\)' code/**/*.dm; 
     echo -e "${RED}ERROR: TIMER_OVERRIDE used without TIMER_UNIQUE.${NC}"
     st=1
 fi;
-if grep -P '^/*var/' code/**/*.dm; then
 
 section "unit tests"
+unit_test_files="code/modules/unit_tests/**/**.dm"
 part "mob/living/carbon/human usage"
-if $grep 'mob/living/carbon/human[, (){}]' $code_files; then
+if $grep 'allocate\(/mob/living/carbon/human[,\)]' $unit_test_files ||
+	$grep 'new /mob/living/carbon/human\s?\(' $unit_test_files ||
+	$grep 'var/mob/living/carbon/human/\w+\s?=\s?new' $unit_test_files ; then
 	echo
 	echo -e "${RED}ERROR: Usage of mob/living/carbon/human detected in a unit test, please use mob/living/carbon/human/consistent.${NC}"
 	st=1
