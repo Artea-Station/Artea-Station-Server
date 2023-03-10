@@ -80,7 +80,7 @@
 	if(thinking_IC)
 		active_thinking_indicator = mutable_appearance('icons/mob/effects/talk.dmi', "[bubble_icon]3", TYPING_LAYER)
 	else
-		active_thinking_indicator = mutable_appearance('icons/effects/looc.dmi', "loocthinking", TYPING_LAYER)
+		active_thinking_indicator = mutable_appearance('icons/mob/effects/talk.dmi', "loocthinking", TYPING_LAYER)
 	add_overlay(active_thinking_indicator)
 
 /mob/living/remove_thinking_indicator()
@@ -95,7 +95,7 @@
 	if(thinking_IC)
 		active_typing_indicator = mutable_appearance('icons/mob/effects/talk.dmi', "[bubble_icon]0", TYPING_LAYER)
 	else
-		active_typing_indicator = mutable_appearance('icons/effects/looc.dmi', "looctyping", TYPING_LAYER)
+		active_typing_indicator = mutable_appearance('icons/mob/effects/talk.dmi', "looctyping", TYPING_LAYER)
 	add_overlay(active_typing_indicator)
 
 /mob/living/remove_typing_indicator()
