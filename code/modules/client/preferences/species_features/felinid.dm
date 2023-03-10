@@ -9,7 +9,7 @@
 	main_feature_name = "Tail"
 
 /datum/preference/choiced/tail_human/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state)
-	return "m_tail_[original_icon_state]_FRONT"
+	return "m_tail_cat_[original_icon_state]_FRONT"
 
 /datum/preference/choiced/tail_human/init_possible_values()
 	var/list/tails = list()
