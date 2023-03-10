@@ -35,9 +35,6 @@
 
 	remove_from_all_data_huds()
 	GLOB.mob_living_list -= src
-	if(imaginary_group)
-		imaginary_group -= src
-		QDEL_LIST(imaginary_group)
 	QDEL_LAZYLIST(diseases)
 	QDEL_LIST(surgeries)
 	return ..()
@@ -138,7 +135,7 @@
 			if(M.pulledby == src && !too_strong)
 				mob_swap = TRUE
 			else if(
-				!(HAS_TRAIT(M, TRAIT_NOMOBSWAP) || HAS_TRAIT(src, TRAIT_NOMOBSWAP)) &&\
+				!(HAS_TRAIT(M, TRAIT_NOMOBSWAP) || HAS_TRAIT(src, TRAIT_NOMOBSWAP))&&\
 				((HAS_TRAIT(M, TRAIT_RESTRAINED) && !too_strong) || !their_combat_mode) &&\
 				(HAS_TRAIT(src, TRAIT_RESTRAINED) || !combat_mode)
 			)
@@ -282,8 +279,6 @@
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_LIVING_TRY_PULL, AM, force) & COMSIG_LIVING_CANCEL_PULL)
 		return FALSE
-	if(SEND_SIGNAL(AM, COMSIG_LIVING_TRYING_TO_PULL, src, force) & COMSIG_LIVING_CANCEL_PULL)
-		return FALSE
 
 	AM.add_fingerprint(src)
 
@@ -295,6 +290,7 @@
 		stop_pulling()
 
 	changeNext_move(CLICK_CD_GRABBING)
+	animate_interact(AM, INTERACT_PULL)
 
 	if(AM.pulledby)
 		if(!supress_message)
@@ -409,6 +405,7 @@
 		stop_pulling()
 
 /mob/living/stop_pulling()
+	animate_interact(pulling, INTERACT_UNPULL)
 	if(ismob(pulling))
 		reset_pull_offsets(pulling)
 	..()
@@ -436,19 +433,13 @@
 /mob/living/verb/succumb(whispered as null)
 	set hidden = TRUE
 	if (!CAN_SUCCUMB(src))
-		if(HAS_TRAIT(src, TRAIT_SUCCUMB_OVERRIDE))
-			if(whispered)
-				to_chat(src, text="You are unable to succumb to death! Unless you just press the UI button.", type=MESSAGE_TYPE_INFO)
-				return
-		else
-			to_chat(src, text="You are unable to succumb to death! This life continues.", type=MESSAGE_TYPE_INFO)
-			return
+		to_chat(src, text="You are unable to succumb to death! This life continues.", type=MESSAGE_TYPE_INFO)
+		return
 	log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] with [round(health, 0.1)] points of health!", LOG_ATTACK)
 	adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
 	updatehealth()
 	if(!whispered)
 		to_chat(src, span_notice("You have given up life and succumbed to death."))
-	investigate_log("has succumbed to death.", INVESTIGATE_DEATHS)
 	death()
 
 /**
@@ -563,7 +554,6 @@
 		return
 	if(new_resting == resting)
 		return
-
 	. = resting
 	resting = new_resting
 	if(new_resting)
@@ -589,7 +579,6 @@
 				to_chat(src, span_notice("You stand up."))
 			get_up(instant)
 
-	SEND_SIGNAL(src, COMSIG_LIVING_RESTING, new_resting, silent, instant)
 	update_resting()
 
 
@@ -600,7 +589,7 @@
 
 /mob/living/proc/get_up(instant = FALSE)
 	set waitfor = FALSE
-	if(!instant && !do_after(src, 1 SECONDS, src, timed_action_flags = (IGNORE_USER_LOC_CHANGE|IGNORE_TARGET_LOC_CHANGE|IGNORE_HELD_ITEM), extra_checks = CALLBACK(src, TYPE_PROC_REF(/mob/living, rest_checks_callback)), interaction_key = DOAFTER_SOURCE_GETTING_UP))
+	if(!instant && !do_mob(src, src, 1 SECONDS, timed_action_flags = (IGNORE_USER_LOC_CHANGE|IGNORE_TARGET_LOC_CHANGE|IGNORE_HELD_ITEM), extra_checks = CALLBACK(src, /mob/living/proc/rest_checks_callback), interaction_key = DOAFTER_SOURCE_GETTING_UP))
 		return
 	if(resting || body_position == STANDING_UP || HAS_TRAIT(src, TRAIT_FLOORED))
 		return
@@ -697,7 +686,6 @@
 	med_hud_set_status()
 	update_health_hud()
 	update_stamina()
-	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 
 /mob/living/update_health_hud()
 	var/severity = 0
@@ -867,25 +855,6 @@
 	stop_sound_channel(CHANNEL_HEARTBEAT)
 	SEND_SIGNAL(src, COMSIG_LIVING_POST_FULLY_HEAL, heal_flags)
 
-/**
- * Called by strange_reagent, with the amount of healing the strange reagent is doing
- * It uses the healing amount on brute/fire damage, and then uses the excess healing for revive
- */
-/mob/living/proc/do_strange_reagent_revival(healing_amount)
-	var/brute_loss = getBruteLoss()
-	if(brute_loss)
-		var/brute_healing = min(healing_amount * 0.5, brute_loss) // 50% of the healing goes to brute
-		setBruteLoss(round(brute_loss - brute_healing, DAMAGE_PRECISION), updating_health=FALSE, forced=TRUE)
-		healing_amount = max(0, healing_amount - brute_healing)
-
-	var/fire_loss = getFireLoss()
-	if(fire_loss && healing_amount)
-		var/fire_healing = min(healing_amount, fire_loss) // rest of the healing goes to fire
-		setFireLoss(round(fire_loss - fire_healing, DAMAGE_PRECISION), updating_health=TRUE, forced=TRUE)
-		healing_amount = max(0, healing_amount - fire_healing)
-
-	revive(NONE, excess_healing=max(healing_amount, 0), force_grab_ghost=FALSE) // and any excess healing is passed along
-
 /// Checks if we are actually able to ressuscitate this mob.
 /// (We don't want to revive then to have them instantly die again)
 /mob/living/proc/can_be_revived()
@@ -974,7 +943,7 @@
 			TH.transfer_mob_blood_dna(src)
 
 /mob/living/carbon/human/makeTrail(turf/T)
-	if(HAS_TRAIT(src, TRAIT_NOBLOOD) || !is_bleeding() || HAS_TRAIT(src, TRAIT_NOBLOOD))
+	if((NOBLOOD in dna.species.species_traits) || !is_bleeding() || HAS_TRAIT(src, TRAIT_NOBLEED))
 		return
 	..()
 
@@ -1185,8 +1154,6 @@
 		return FALSE
 	if(is_away_level(T.z))
 		return FALSE
-	if(onSyndieBase() && !(ROLE_SYNDICATE in user.faction))
-		return FALSE
 	if(user != null && src == user)
 		return FALSE
 	if(invisibility || alpha == 0)//cloaked
@@ -1202,54 +1169,24 @@
 /mob/living/can_hold_items(obj/item/I)
 	return usable_hands && ..()
 
-/mob/living/can_perform_action(atom/movable/target, action_bitflags)
-	if(!istype(target))
-		CRASH("Missing target arg for can_perform_action")
-
-	// If the MOBILITY_UI bitflag is not set it indicates the mob's hands are cutoff, blocked, or handcuffed
-	// Note - AI's and borgs have the MOBILITY_UI bitflag set even though they don't have hands
-	// Also if it is not set, the mob could be incapcitated, knocked out, unconscious, asleep, EMP'd, etc.
-	if(!(mobility_flags & MOBILITY_UI) && !(action_bitflags & ALLOW_RESTING))
+/mob/living/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, need_hands = FALSE, floor_okay=FALSE)
+	if(!(mobility_flags & MOBILITY_UI) && !floor_okay)
 		to_chat(src, span_warning("You can't do that right now!"))
 		return FALSE
-
-	// NEED_HANDS is already checked by MOBILITY_UI for humans so this is for silicons
-	if((action_bitflags & NEED_HANDS))
-		if(!can_hold_items(isitem(target) ? target : null)) // almost redundant if it weren't for mobs
-			to_chat(src, span_warning("You don't have the physical ability to do this!"))
+	if(be_close && !Adjacent(M) && (M.loc != src))
+		if(no_tk)
+			to_chat(src, span_warning("You are too far away!"))
 			return FALSE
-
-	if(!Adjacent(target) && (target.loc != src))
-		if(issilicon(src) && !ispAI(src))
-			if(!(action_bitflags & ALLOW_SILICON_REACH)) // silicons can ignore range checks (except pAIs)
-				to_chat(src, span_warning("You are too far away!"))
-				return FALSE
-		else // just a normal carbon mob
-			if((action_bitflags & FORBID_TELEKINESIS_REACH))
-				to_chat(src, span_warning("You are too far away!"))
-				return FALSE
-
-			var/datum/dna/mob_DNA = has_dna()
-			if(!mob_DNA || !mob_DNA.check_mutation(/datum/mutation/human/telekinesis) || !tkMaxRangeCheck(src, target))
-				to_chat(src, span_warning("You are too far away!"))
-				return FALSE
-
-	if((action_bitflags & NEED_DEXTERITY) && !ISADVANCEDTOOLUSER(src))
+		var/datum/dna/D = has_dna()
+		if(!D || !D.check_mutation(/datum/mutation/human/telekinesis) || !tkMaxRangeCheck(src, M))
+			to_chat(src, span_warning("You are too far away!"))
+			return FALSE
+	if(need_hands && !can_hold_items(isitem(M) ? M : null)) //almost redundant if it weren't for mobs,
+		to_chat(src, span_warning("You don't have the physical ability to do this!"))
+		return FALSE
+	if(!no_dexterity && !ISADVANCEDTOOLUSER(src))
 		to_chat(src, span_warning("You don't have the dexterity to do this!"))
 		return FALSE
-
-	if((action_bitflags & NEED_LITERACY) && !is_literate())
-		to_chat(src, span_warning("You can't comprehend any of this!"))
-		return FALSE
-
-	if((action_bitflags & NEED_LIGHT) && !has_light_nearby() && !has_nightvision())
-		to_chat(src, span_warning("You need more light to do this!"))
-		return FALSE
-
-	if((action_bitflags & NEED_GRAVITY) && !has_gravity())
-		to_chat(src, span_warning("You need gravity to do this!"))
-		return FALSE
-
 	return TRUE
 
 /mob/living/proc/can_use_guns(obj/item/G)//actually used for more than guns!
@@ -1372,18 +1309,18 @@
 
 		if(WABBAJACK_ANIMAL)
 			var/picked_animal = pick(
-				/mob/living/basic/carp,
+				/mob/living/simple_animal/hostile/carp,
 				/mob/living/simple_animal/hostile/bear,
 				/mob/living/simple_animal/hostile/mushroom,
-				/mob/living/basic/statue,
+				/mob/living/simple_animal/hostile/netherworld/statue,
 				/mob/living/simple_animal/hostile/retaliate/bat,
 				/mob/living/simple_animal/hostile/retaliate/goat,
 				/mob/living/simple_animal/hostile/killertomato,
-				/mob/living/basic/giant_spider,
-				/mob/living/basic/giant_spider/hunter,
+				/mob/living/simple_animal/hostile/giant_spider,
+				/mob/living/simple_animal/hostile/giant_spider/hunter,
 				/mob/living/simple_animal/hostile/blob/blobbernaut/independent,
-				/mob/living/basic/carp/magic,
-				/mob/living/basic/carp/magic/chaos,
+				/mob/living/simple_animal/hostile/carp/ranged,
+				/mob/living/simple_animal/hostile/carp/ranged/chaos,
 				/mob/living/simple_animal/hostile/asteroid/basilisk/watcher,
 				/mob/living/simple_animal/hostile/asteroid/goliath/beast,
 				/mob/living/simple_animal/hostile/headcrab,
@@ -1393,18 +1330,18 @@
 				/mob/living/simple_animal/hostile/megafauna/dragon/lesser,
 				/mob/living/simple_animal/hostile/gorilla,
 				/mob/living/simple_animal/parrot,
-				/mob/living/basic/pet/dog/corgi,
+				/mob/living/simple_animal/pet/dog/corgi,
 				/mob/living/simple_animal/crab,
-				/mob/living/basic/pet/dog/pug,
+				/mob/living/simple_animal/pet/dog/pug,
 				/mob/living/simple_animal/pet/cat,
-				/mob/living/basic/mouse,
+				/mob/living/simple_animal/mouse,
 				/mob/living/simple_animal/chicken,
 				/mob/living/basic/cow,
 				/mob/living/simple_animal/hostile/lizard,
 				/mob/living/simple_animal/pet/fox,
 				/mob/living/simple_animal/butterfly,
 				/mob/living/simple_animal/pet/cat/cak,
-				/mob/living/basic/pet/dog/breaddog,
+				/mob/living/simple_animal/pet/dog/breaddog,
 				/mob/living/simple_animal/chick,
 			)
 			new_mob = new picked_animal(loc)
@@ -1480,7 +1417,7 @@
 /// Global list that containes cached fire overlays for mobs
 GLOBAL_LIST_EMPTY(fire_appearances)
 
-/mob/living/proc/ignite_mob(silent)
+/mob/living/proc/ignite_mob()
 	if(fire_stacks <= 0)
 		return FALSE
 
@@ -1488,7 +1425,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	if(!fire_status || fire_status.on_fire)
 		return FALSE
 
-	return fire_status.ignite(silent)
+	return fire_status.ignite()
 
 /mob/living/proc/update_fire()
 	var/datum/status_effect/fire_handler/fire_handler = has_status_effect(/datum/status_effect/fire_handler)
@@ -1688,7 +1625,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		else
 			registered_z = null
 
-/mob/living/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
+/mob/living/on_changed_z_level(turf/old_turf, turf/new_turf)
 	..()
 	update_z(new_turf?.z)
 
@@ -1796,8 +1733,8 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 			updatehealth()
 		if(NAMEOF(src, resize))
 			update_transform()
-		if(NAMEOF(src, lighting_cutoff))
-			sync_lighting_plane_cutoff()
+		if(NAMEOF(src, lighting_alpha))
+			sync_lighting_plane_alpha()
 
 
 /mob/living/vv_get_header()
@@ -1824,7 +1761,6 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	VV_DROPDOWN_OPTION(VV_HK_REMOVE_MOOD, "Remove Mood Event")
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_HALLUCINATION, "Give Hallucination")
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_DELUSION_HALLUCINATION, "Give Delusion Hallucination")
-	VV_DROPDOWN_OPTION(VV_HK_GIVE_GUARDIAN_SPIRIT, "Give Guardian Spirit")
 
 /mob/living/vv_do_topic(list/href_list)
 	. = ..()
@@ -1847,10 +1783,6 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		if(!check_rights(NONE))
 			return
 		admin_give_delusion(usr)
-	if(href_list[VV_HK_GIVE_GUARDIAN_SPIRIT])
-		if(!check_rights(NONE))
-			return
-		admin_give_guardian(usr)
 
 /mob/living/proc/move_to_error_room()
 	var/obj/effect/landmark/error/error_landmark = locate(/obj/effect/landmark/error) in GLOB.landmarks_list
@@ -1973,7 +1905,8 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		if(istransparentturf(front_hole))
 			ceiling = front_hole
 		else
-			for(var/turf/checkhole in TURF_NEIGHBORS(ceiling))
+			var/list/checkturfs = block(locate(x-1,y-1,ceiling.z),locate(x+1,y+1,ceiling.z))-ceiling-front_hole //Try find hole near of us
+			for(var/turf/checkhole in checkturfs)
 				if(istransparentturf(checkhole))
 					ceiling = checkhole
 					break
@@ -2021,8 +1954,8 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 			floor = front_hole
 			lower_level = get_step_multiz(front_hole, DOWN)
 		else
-			// Try to find a hole near us
-			for(var/turf/checkhole in TURF_NEIGHBORS(floor))
+			var/list/checkturfs = block(locate(x-1,y-1,z),locate(x+1,y+1,z))-floor //Try find hole near of us
+			for(var/turf/checkhole in checkturfs)
 				if(istransparentturf(checkhole))
 					floor = checkhole
 					lower_level = get_step_multiz(checkhole, DOWN)
@@ -2254,7 +2187,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		return
 	. = body_position
 	body_position = new_value
-	SEND_SIGNAL(src, COMSIG_LIVING_SET_BODY_POSITION, new_value, .)
+	SEND_SIGNAL(src, COMSIG_LIVING_SET_BODY_POSITION)
 	if(new_value == LYING_DOWN) // From standing to lying down.
 		on_lying_down()
 	else // From lying down to standing up.
@@ -2437,53 +2370,6 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	. = ..()
 	add_mood_event("gaming", /datum/mood_event/gaming)
 
-/**
- * Helper proc for basic and simple animals to return true if the passed sentience type matches theirs
- * Living doesn't have a sentience type though so it always returns false if not a basic or simple mob
- */
-/mob/living/proc/compare_sentience_type(compare_type)
-	return FALSE
-
-/// Proc called when targetted by a lazarus injector
-/mob/living/proc/lazarus_revive(mob/living/reviver, malfunctioning)
-	revive(HEAL_ALL)
-	befriend(reviver)
-	faction = (malfunctioning) ? list("[REF(reviver)]") : list(FACTION_NEUTRAL)
-	if (malfunctioning)
-		reviver.log_message("has revived mob [key_name(src)] with a malfunctioning lazarus injector.", LOG_GAME)
-
-/// Proc for giving a mob a new 'friend', generally used for AI control and targetting. Returns false if already friends.
-/mob/living/proc/befriend(mob/living/new_friend)
-	SHOULD_CALL_PARENT(TRUE)
-	var/friend_ref = REF(new_friend)
-	if (faction.Find(friend_ref))
-		return FALSE
-	faction |= friend_ref
-	if (ai_controller)
-		var/list/friends = ai_controller.blackboard[BB_FRIENDS_LIST]
-		if (!friends)
-			friends = list()
-		friends[WEAKREF(new_friend)] = TRUE
-		ai_controller.blackboard[BB_FRIENDS_LIST] = friends
-	SEND_SIGNAL(src, COMSIG_LIVING_BEFRIENDED, new_friend)
-	return TRUE
-
-/// Proc for removing a friend you added with the proc 'befriend'. Returns true if you removed a friend.
-/mob/living/proc/unfriend(mob/living/old_friend)
-	SHOULD_CALL_PARENT(TRUE)
-	var/friend_ref = REF(old_friend)
-	if (!faction.Find(friend_ref))
-		return FALSE
-	faction -= friend_ref
-	if (ai_controller)
-		var/list/friends = ai_controller.blackboard[BB_FRIENDS_LIST]
-		if (!friends)
-			return
-		friends[WEAKREF(old_friend)] = FALSE
-		ai_controller.blackboard[BB_FRIENDS_LIST] = friends
-	SEND_SIGNAL(src, COMSIG_LIVING_UNFRIENDED, old_friend)
-	return TRUE
-
 /// Admin only proc for making the mob hallucinate a certain thing
 /mob/living/proc/admin_give_hallucination(mob/admin)
 	if(!admin || !check_rights(NONE))
@@ -2514,54 +2400,3 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	log_admin("[key_name(admin)] gave [src] a delusion hallucination. (Type: [delusion_args[1]])")
 	// Not using the wrapper here because we already have a list / arglist
 	_cause_hallucination(delusion_args)
-
-/mob/living/proc/admin_give_guardian(mob/admin)
-	if(!admin || !check_rights(NONE))
-		return
-	var/del_mob = FALSE
-	var/mob/old_mob
-	var/ai_control = FALSE
-	var/list/possible_players = list("None", "Poll Ghosts") + sort_list(GLOB.clients)
-	var/client/guardian_client = tgui_input_list(admin, "Pick the player to put in control.", "Guardian Controller", possible_players)
-	if(!guardian_client)
-		return
-	else if(guardian_client == "None")
-		guardian_client = null
-		ai_control = (tgui_alert(admin, "Do you want to give the spirit AI control?", "Guardian Controller", list("Yes", "No")) == "Yes")
-	else if(guardian_client == "Poll Ghosts")
-		var/list/candidates = poll_ghost_candidates("Do you want to play as an admin created Guardian Spirit of [real_name]?", ROLE_PAI, FALSE, 100, POLL_IGNORE_HOLOPARASITE)
-		if(LAZYLEN(candidates))
-			var/mob/dead/observer/candidate = pick(candidates)
-			guardian_client = candidate.client
-		else
-			tgui_alert(admin, "No ghost candidates.", "Guardian Controller")
-			return
-	else
-		old_mob = guardian_client.mob
-		if(isobserver(old_mob) || tgui_alert(admin, "Do you want to delete [guardian_client]'s old mob?", "Guardian Controller", list("Yes"," No")) == "Yes")
-			del_mob = TRUE
-	var/picked_type = tgui_input_list(admin, "Pick the guardian type.", "Guardian Controller", subtypesof(/mob/living/simple_animal/hostile/guardian))
-	var/picked_theme = tgui_input_list(admin, "Pick the guardian theme.", "Guardian Controller", list(GUARDIAN_THEME_TECH, GUARDIAN_THEME_MAGIC, GUARDIAN_THEME_CARP, GUARDIAN_THEME_MINER, "Random"))
-	if(picked_theme == "Random")
-		picked_theme = null //holopara code handles not having a theme by giving a random one
-	var/picked_name = tgui_input_text(admin, "Name the guardian, leave empty to let player name it.", "Guardian Controller")
-	var/picked_color = input(admin, "Set the guardian's color, cancel to let player set it.", "Guardian Controller", "#ffffff") as color|null
-	if(tgui_alert(admin, "Confirm creation.", "Guardian Controller", list("Yes", "No")) != "Yes")
-		return
-	var/mob/living/simple_animal/hostile/guardian/summoned_guardian = new picked_type(src, picked_theme)
-	summoned_guardian.set_summoner(src, different_person = TRUE)
-	if(picked_name)
-		summoned_guardian.fully_replace_character_name(null, picked_name)
-	if(picked_color)
-		summoned_guardian.set_guardian_color(picked_color)
-	summoned_guardian.key = guardian_client?.key
-	guardian_client?.init_verbs()
-	if(del_mob)
-		qdel(old_mob)
-	if(ai_control)
-		summoned_guardian.can_have_ai = TRUE
-		summoned_guardian.toggle_ai(AI_ON)
-		summoned_guardian.manifest()
-	message_admins(span_adminnotice("[key_name_admin(admin)] gave a guardian spirit controlled by [guardian_client || "AI"] to [src]."))
-	log_admin("[key_name(admin)] gave a guardian spirit controlled by [guardian_client] to [src].")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Guardian Spirit")
