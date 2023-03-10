@@ -51,7 +51,7 @@
 	var/auto_dir_align = TRUE
 
 	///Sound to play when knocked on
-	var/knock_sound = 'sound/effects/door_metal_knock_1.ogg'
+	var/knock_sound = 'goon/sounds/door_metal_knock_1.ogg'
 
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
