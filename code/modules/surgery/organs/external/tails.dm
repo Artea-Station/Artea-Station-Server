@@ -68,7 +68,7 @@
 ///Tail parent type (which is MONKEEEEEEEEEEE by default), with wagging functionality
 /datum/bodypart_overlay/mutant/tail
 	layers = EXTERNAL_FRONT|EXTERNAL_BEHIND
-	feature_key = "tail_monkey"
+	feature_key = "tail"
 	var/wagging = FALSE
 
 /datum/bodypart_overlay/mutant/tail/get_base_icon_state()
@@ -104,7 +104,7 @@
 ///Monkey tail bodypart overlay
 /datum/bodypart_overlay/mutant/tail/monkey
 	color_source = NONE
-	feature_key = "tail_monkey"
+	feature_key = "tail"
 
 /obj/item/organ/external/tail/lizard
 	name = "lizard tail"
