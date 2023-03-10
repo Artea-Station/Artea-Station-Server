@@ -236,9 +236,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// Species code is really odd...
 	var/properly_gained = FALSE
 
-	///How are we treated regarding processing reagents, by default we process them as if we're organic
-	var/reagent_flags = PROCESS_ORGANIC
-
 ///////////
 // PROCS //
 ///////////
