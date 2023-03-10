@@ -8,7 +8,7 @@
 		RND_CATEGORY_CIRCUITRY + RND_CATEGORY_CIRCUITRY_CORE
 	)
 	materials = list(/datum/material/glass = 1000, /datum/material/iron = 1000)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/circuit_multitool
 	name = "Circuit Multitool"
@@ -20,7 +20,7 @@
 		RND_CATEGORY_CIRCUITRY + RND_CATEGORY_CIRCUITRY_CORE
 	)
 	materials = list(/datum/material/glass = 1000, /datum/material/iron = 1000)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/usb_cable
 	name = "USB Cable"
@@ -33,14 +33,14 @@
 	)
 	// Yes, it would make sense to make them take plastic, but then less people would make them, and I think they're cool
 	materials = list(/datum/material/iron = 2500)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/component
 	name = "Component ( NULL ENTRY )"
 	desc = "A component that goes into an integrated circuit."
 	build_type = COMPONENT_PRINTER
 	materials = list(/datum/material/glass = 1000)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 	category = list(
 		RND_CATEGORY_CIRCUITRY + RND_SUBCATEGORY_CIRCUITRY_COMPONENTS
 	)

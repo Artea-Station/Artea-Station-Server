@@ -11,7 +11,7 @@
 	materials = list(/datum/material/glass = 1000, /datum/material/gold = 200)
 	build_path = /obj/item/aicard
 	category = list(RND_CATEGORY_AI)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/paicard
 	name = "Personal Artificial Intelligence Card"
@@ -21,7 +21,7 @@
 	materials = list(/datum/material/glass = 500, /datum/material/iron = 500)
 	build_path = /obj/item/pai_card
 	category = list(RND_CATEGORY_AI)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_SERVICE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SERVICE
 
 /datum/design/ai_cam_upgrade
 	name = "AI Surveillance Software Update"
@@ -31,7 +31,7 @@
 	materials = list(/datum/material/iron = 5000, /datum/material/glass = 5000, /datum/material/gold = 15000, /datum/material/silver = 15000, /datum/material/diamond = 20000, /datum/material/plasma = 10000)
 	build_path = /obj/item/surveillance_upgrade
 	category = list(RND_CATEGORY_AI)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 ////////////////////////////////////////
 //////////Disk Construction Disks///////
@@ -46,7 +46,7 @@
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_SCIENCE
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/design_disk_adv
 	name = "Advanced Design Storage Disk"
@@ -58,7 +58,7 @@
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_SCIENCE
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/tech_disk
 	name = "Technology Data Storage Disk"
@@ -70,4 +70,4 @@
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_SCIENCE
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING

@@ -3,12 +3,17 @@
 	name = "\improper Jellyperson"
 	plural_form = "Jellypeople"
 	id = SPECIES_JELLYPERSON
-	say_mod = "chirps"
-	species_traits = list(MUTCOLORS,EYECOLOR,NOBLOOD)
+	species_traits = list(
+		MUTCOLORS,
+		EYECOLOR,
+	)
 	inherent_traits = list(
 		TRAIT_TOXINLOVER,
+		TRAIT_NOBLOOD,
 	)
+	mutanttongue = /obj/item/organ/internal/tongue/jelly
 	mutantlungs = /obj/item/organ/internal/lungs/slime
+	mutantheart = null
 	meat = /obj/item/food/meat/slab/human/mutant/slime
 	exotic_blood = /datum/reagent/toxin/slimejelly
 	var/datum/action/innate/regenerate_limbs/regenerate_limbs
@@ -23,11 +28,11 @@
 	ass_image = 'icons/ass/assslime.png'
 
 	bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/jelly,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/jelly,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/jelly,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/jelly,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/jelly,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/jelly,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/jelly,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/jelly,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/jelly,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/jelly,
 	)
 
@@ -82,7 +87,7 @@
 	qdel(consumed_limb)
 	H.blood_volume += 20
 
-// Slimes have both NOBLOOD and an exotic bloodtype set, so they need to be handled uniquely here.
+// Slimes have both TRAIT_NOBLOOD and an exotic bloodtype set, so they need to be handled uniquely here.
 // They may not be roundstart but in the unlikely event they become one might as well not leave a glaring issue open.
 /datum/species/jelly/create_pref_blood_perks()
 	var/list/to_add = list()
@@ -145,7 +150,7 @@
 	name = "\improper Slimeperson"
 	plural_form = "Slimepeople"
 	id = SPECIES_SLIMEPERSON
-	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,NOBLOOD)
+	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR)
 	hair_color = "mutcolor"
 	hair_alpha = 150
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
@@ -154,11 +159,11 @@
 	var/datum/action/innate/swap_body/swap_body
 
 	bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/slime,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/slime,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/slime,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/slime,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/slime,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/slime,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/slime,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/slime,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/slime,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/slime,
 	)
 
@@ -441,11 +446,11 @@
 	id = SPECIES_LUMINESCENT
 	examine_limb_id = SPECIES_LUMINESCENT
 	bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/luminescent,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/luminescent,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/luminescent,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/luminescent,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/luminescent,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/luminescent,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/luminescent,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/luminescent,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/luminescent,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/luminescent,
 	)
 	var/glow_intensity = LUMINESCENT_DEFAULT_GLOW

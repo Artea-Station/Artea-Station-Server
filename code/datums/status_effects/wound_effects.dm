@@ -8,6 +8,7 @@
 /datum/status_effect/determined
 	id = "determined"
 	alert_type = /atom/movable/screen/alert/status_effect/determined
+	remove_on_fullheal = TRUE
 
 /datum/status_effect/determined/on_apply()
 	. = ..()
@@ -31,9 +32,9 @@
 	alert_type = /atom/movable/screen/alert/status_effect/limp
 	var/msg_stage = 0//so you dont get the most intense messages immediately
 	/// The left leg of the limping person
-	var/obj/item/bodypart/l_leg/left
+	var/obj/item/bodypart/leg/left/left
 	/// The right leg of the limping person
-	var/obj/item/bodypart/r_leg/right
+	var/obj/item/bodypart/leg/right/right
 	/// Which leg we're limping with next
 	var/obj/item/bodypart/next_leg
 	/// How many deciseconds we limp for on the left leg

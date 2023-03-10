@@ -656,7 +656,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living.", confidential = TRUE)
 			return
 
-		L.revive(full_heal = TRUE, admin_revive = TRUE)
+		L.revive(ADMIN_HEAL_ALL)
 		message_admins(span_danger("Admin [key_name_admin(usr)] healed / revived [key_name_admin(L)]!"))
 		log_admin("[key_name(usr)] healed / Revived [key_name(L)].")
 
@@ -1118,7 +1118,7 @@
 	else if(href_list["dupe_marked_datum"])
 		if(!check_rights(R_SPAWN))
 			return
-		return DuplicateObject(marked_datum, perfectcopy=1, newloc=get_turf(usr))
+		return duplicate_object(marked_datum, spawning_location = get_turf(usr))
 
 	else if(href_list["object_list"]) //this is the laggiest thing ever
 		if(!check_rights(R_SPAWN))

@@ -1,11 +1,11 @@
 /datum/job/roboticist
 	title = JOB_ROBOTICIST
 	description = "Build and repair the AI and cyborgs, create mechs."
-	department_head = list(JOB_RESEARCH_DIRECTOR)
+	department_head = list(JOB_CHIEF_ENGINEER)
 	faction = FACTION_STATION
 	total_positions = 2
 	spawn_positions = 2
-	supervisors = SUPERVISOR_RD
+	supervisors = SUPERVISOR_CE
 	selection_color = "#ffeeff"
 	exp_requirements = 60
 	exp_required_type = EXP_TYPE_CREW
@@ -15,11 +15,11 @@
 	outfit = /datum/outfit/job/roboticist
 	plasmaman_outfit = /datum/outfit/plasmaman/robotics
 	departments_list = list(
-		/datum/job_department/science,
+		/datum/job_department/engineering,
 		)
 
 	paycheck = PAYCHECK_CREW
-	paycheck_department = ACCOUNT_SCI
+	paycheck_department = ACCOUNT_ENG
 
 	display_order = JOB_DISPLAY_ORDER_ROBOTICIST
 

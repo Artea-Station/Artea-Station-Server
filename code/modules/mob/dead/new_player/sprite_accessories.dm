@@ -1685,7 +1685,7 @@
 /////////////////////////////
 
 /datum/sprite_accessory/body_markings
-	icon = 'icons/mob/species/mutant_bodyparts.dmi'
+	icon = 'icons/mob/species/lizard/lizard_misc.dmi'
 
 /datum/sprite_accessory/body_markings/none
 	name = "None"
@@ -1707,8 +1707,10 @@
 	gender_specific = 1
 
 /datum/sprite_accessory/tails
-	icon = 'icons/mob/species/mutant_bodyparts.dmi'
 	em_block = TRUE
+
+/datum/sprite_accessory/tails/lizard
+	icon = 'icons/mob/species/lizard/lizard_tails.dmi'
 
 /datum/sprite_accessory/tails/lizard/smooth
 	name = "Smooth"
@@ -1728,11 +1730,13 @@
 
 /datum/sprite_accessory/tails/human/cat
 	name = "Cat"
+	icon = 'icons/mob/species/human/cat_features.dmi'
 	icon_state = "cat"
 	color_src = HAIR
 
 /datum/sprite_accessory/tails/monkey
 	name = "Monkey"
+	icon = 'icons/mob/species/monkey/monkey_tail.dmi'
 	icon_state = "monkey"
 	color_src = FALSE
 
@@ -1781,7 +1785,7 @@
 	icon_state = "hibiscus"
 
 /datum/sprite_accessory/snouts
-	icon = 'icons/mob/species/mutant_bodyparts.dmi'
+	icon = 'icons/mob/species/lizard/lizard_misc.dmi'
 	em_block = TRUE
 
 /datum/sprite_accessory/snouts/sharp
@@ -1801,7 +1805,7 @@
 	icon_state = "roundlight"
 
 /datum/sprite_accessory/horns
-	icon = 'icons/mob/species/mutant_bodyparts.dmi'
+	icon = 'icons/mob/species/lizard/lizard_misc.dmi'
 	em_block = TRUE
 
 /datum/sprite_accessory/horns/none
@@ -1829,7 +1833,7 @@
 	icon_state = "angler"
 
 /datum/sprite_accessory/ears
-	icon = 'icons/mob/species/mutant_bodyparts.dmi'
+	icon = 'icons/mob/species/human/cat_features.dmi'
 	em_block = TRUE
 
 /datum/sprite_accessory/ears/none
@@ -1847,11 +1851,11 @@
 	icon_state = "none"
 
 /datum/sprite_accessory/wings
-	icon = 'icons/mob/clothing/wings.dmi'
+	icon = 'icons/mob/species/wings.dmi'
 	em_block = TRUE
 
 /datum/sprite_accessory/wings_open
-	icon = 'icons/mob/clothing/wings.dmi'
+	icon = 'icons/mob/species/wings.dmi'
 	em_block = TRUE
 
 /datum/sprite_accessory/wings/angel
@@ -1972,7 +1976,7 @@
 	dimension_y = 32
 
 /datum/sprite_accessory/frills
-	icon = 'icons/mob/species/mutant_bodyparts.dmi'
+	icon = 'icons/mob/species/lizard/lizard_misc.dmi'
 
 /datum/sprite_accessory/frills/none
 	name = "None"
@@ -1991,11 +1995,11 @@
 	icon_state = "aqua"
 
 /datum/sprite_accessory/spines
-	icon = 'icons/mob/species/mutant_bodyparts.dmi'
+	icon = 'icons/mob/species/lizard/lizard_spines.dmi'
 	em_block = TRUE
 
 /datum/sprite_accessory/spines_animated
-	icon = 'icons/mob/species/mutant_bodyparts.dmi'
+	icon = 'icons/mob/species/lizard/lizard_spines.dmi'
 	em_block = TRUE
 
 /datum/sprite_accessory/spines/none
@@ -2057,7 +2061,7 @@
 	name = DIGITIGRADE_LEGS
 
 /datum/sprite_accessory/caps
-	icon = 'icons/mob/species/mutant_bodyparts.dmi'
+	icon = 'icons/mob/species/mush_cap.dmi'
 	color_src = HAIR
 	em_block = TRUE
 
@@ -2163,6 +2167,10 @@
 	name = "Plasmafire"
 	icon_state = "plasmafire"
 
+/datum/sprite_accessory/moth_wings/moffra
+	name = "Moffra"
+	icon_state = "moffra"
+
 /datum/sprite_accessory/moth_antennae //Finally splitting the sprite
 	icon = 'icons/mob/species/moth/moth_antennae.dmi'
 	color_src = null
@@ -2245,6 +2253,10 @@
 /datum/sprite_accessory/moth_antennae/plasmafire
 	name = "Plasmafire"
 	icon_state = "plasmafire"
+
+/datum/sprite_accessory/moth_antennae/moffra
+	name = "Moffra"
+	icon_state = "moffra"
 
 /datum/sprite_accessory/moth_markings // the markings that moths can have. finally something other than the boring tan
 	icon = 'icons/mob/species/moth/moth_markings.dmi'

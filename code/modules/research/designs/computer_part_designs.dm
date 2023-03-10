@@ -11,7 +11,7 @@
 	category = list(
 		RND_CATEGORY_MODULAR_COMPUTERS + RND_SUBCATEGORY_MODULAR_COMPUTERS_PARTS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/disk/advanced
 	name = "Advanced Hard Disk Drive"
@@ -22,7 +22,7 @@
 	category = list(
 		RND_CATEGORY_MODULAR_COMPUTERS + RND_SUBCATEGORY_MODULAR_COMPUTERS_PARTS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/disk/super
 	name = "Super Hard Disk Drive"
@@ -33,7 +33,7 @@
 	category = list(
 		RND_CATEGORY_MODULAR_COMPUTERS + RND_SUBCATEGORY_MODULAR_COMPUTERS_PARTS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/disk/cluster
 	name = "Cluster Hard Disk Drive"
@@ -44,7 +44,7 @@
 	category = list(
 		RND_CATEGORY_MODULAR_COMPUTERS + RND_SUBCATEGORY_MODULAR_COMPUTERS_PARTS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/disk/small
 	name = "Solid State Drive"
@@ -55,7 +55,7 @@
 	category = list(
 		RND_CATEGORY_MODULAR_COMPUTERS + RND_SUBCATEGORY_MODULAR_COMPUTERS_PARTS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/disk/micro
 	name = "Micro Solid State Drive"
@@ -66,7 +66,7 @@
 	category = list(
 		RND_CATEGORY_MODULAR_COMPUTERS + RND_SUBCATEGORY_MODULAR_COMPUTERS_PARTS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 // Data disks
 /datum/design/portabledrive/basic
@@ -78,7 +78,7 @@
 	category = list(
 		RND_CATEGORY_MODULAR_COMPUTERS + RND_SUBCATEGORY_MODULAR_COMPUTERS_PARTS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/portabledrive/advanced
 	name = "Advanced Data Disk"
@@ -89,7 +89,7 @@
 	category = list(
 		RND_CATEGORY_MODULAR_COMPUTERS + RND_SUBCATEGORY_MODULAR_COMPUTERS_PARTS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/portabledrive/super
 	name = "Super Data Disk"
@@ -100,7 +100,7 @@
 	category = list(
 		RND_CATEGORY_MODULAR_COMPUTERS + RND_SUBCATEGORY_MODULAR_COMPUTERS_PARTS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 // Card slot
 /datum/design/cardslot
@@ -112,7 +112,7 @@
 	category = list(
 		RND_CATEGORY_MODULAR_COMPUTERS + RND_SUBCATEGORY_MODULAR_COMPUTERS_PARTS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 // Batteries
 /datum/design/battery/controller
@@ -124,7 +124,7 @@
 	category = list(
 		RND_CATEGORY_MODULAR_COMPUTERS + RND_SUBCATEGORY_MODULAR_COMPUTERS_PARTS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/battery/normal
 	name = "Battery Module"
@@ -135,7 +135,7 @@
 	category = list(
 		RND_CATEGORY_MODULAR_COMPUTERS + RND_SUBCATEGORY_MODULAR_COMPUTERS_PARTS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/battery/advanced
 	name = "Advanced Battery Module"
@@ -146,7 +146,7 @@
 	category = list(
 		RND_CATEGORY_MODULAR_COMPUTERS + RND_SUBCATEGORY_MODULAR_COMPUTERS_PARTS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/battery/super
 	name = "Super Battery Module"
@@ -157,7 +157,7 @@
 	category = list(
 		RND_CATEGORY_MODULAR_COMPUTERS + RND_SUBCATEGORY_MODULAR_COMPUTERS_PARTS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/battery/nano
 	name = "Nano Battery Module"
@@ -168,7 +168,7 @@
 	category = list(
 		RND_CATEGORY_MODULAR_COMPUTERS + RND_SUBCATEGORY_MODULAR_COMPUTERS_PARTS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/battery/micro
 	name = "Micro Battery Module"
@@ -179,4 +179,4 @@
 	category = list(
 		RND_CATEGORY_MODULAR_COMPUTERS + RND_SUBCATEGORY_MODULAR_COMPUTERS_PARTS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING

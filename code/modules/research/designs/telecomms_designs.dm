@@ -10,7 +10,7 @@
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_TELECOMMS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/telecomms_bus
 	name = "Bus Mainframe Board"
@@ -20,7 +20,7 @@
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_TELECOMMS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/telecomms_hub
 	name = "Hub Mainframe Board"
@@ -30,7 +30,7 @@
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_TELECOMMS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/telecomms_relay
 	name = "Relay Mainframe Board"
@@ -40,7 +40,7 @@
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_TELECOMMS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/telecomms_processor
 	name = "Processor Unit Board"
@@ -50,7 +50,7 @@
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_TELECOMMS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/telecomms_server
 	name = "Server Mainframe Board"
@@ -60,7 +60,7 @@
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_TELECOMMS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/telecomms_messaging
 	name = "Messaging Server Board"
@@ -70,7 +70,7 @@
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_TELECOMMS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/subspace_broadcaster
 	name = "Subspace Broadcaster Board"
@@ -80,4 +80,4 @@
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_TELECOMMS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING

@@ -61,7 +61,7 @@
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_SCIENCE
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/diagnostic_hud_night
 	name = "Night Vision Diagnostic HUD"
@@ -73,7 +73,7 @@
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_SCIENCE
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /////////////////////////////////////////
 //////////////////Misc///////////////////
@@ -89,7 +89,7 @@
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_ENGINEERING
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/welding_mask
 	name = "Welding Gas Mask"
@@ -101,7 +101,7 @@
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_ENGINEERING
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/bright_helmet
 	name = "Workplace-Ready Firefighter Helmet"
@@ -113,7 +113,7 @@
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_ENGINEERING
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mauna_mug
 	name = "Mauna Mug"
@@ -125,7 +125,7 @@
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_SCIENCE
 	)
 	build_path = /obj/item/reagent_containers/cup/maunamug
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/rolling_table
 	name = "Rolly poly"
@@ -137,7 +137,7 @@
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_SCIENCE
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/portaseeder
 	name = "Portable Seed Extractor"
@@ -231,7 +231,7 @@
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_MISC
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_SECURITY
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SECURITY
 
 /datum/design/magboots
 	name = "Magnetic Boots"
@@ -267,7 +267,7 @@
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_CHEMISTRY
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_MEDICAL
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_MEDICAL
 
 /datum/design/nv_sci_goggles
 	name = "Night Vision Science Goggles"
@@ -279,7 +279,7 @@
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_CHEMISTRY
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_MEDICAL
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_MEDICAL
 
 /datum/design/roastingstick
 	name = "Advanced Roasting Stick"
@@ -315,7 +315,7 @@
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_SCIENCE
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/anomaly_neutralizer
 	name = "Anomaly Neutralizer"
@@ -327,7 +327,7 @@
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_SCIENCE
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/donksoft_refill
 	name = "Donksoft Toy Vendor Refill"
@@ -351,7 +351,7 @@
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_GAS_TANKS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_CARGO
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_CARGO
 
 /datum/design/plasma_tank
 	name = "Plasma Tank"
@@ -363,7 +363,7 @@
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_GAS_TANKS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/id
 	name = "Identification Card"
@@ -398,7 +398,7 @@
 	category = list(
 		RND_CATEGORY_CONSTRUCTION + RND_SUBCATEGORY_CONSTRUCTION_MATERIALS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO | DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_CARGO | DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/plasticducky
 	name = "Rubber Ducky"
@@ -422,7 +422,7 @@
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_ENGINEERING
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SECURITY | DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SECURITY
 
 /////////////////////////////////////////
 ////////////Janitor Designs//////////////
@@ -643,7 +643,7 @@
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_SCIENCE
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/knight_armour
 	name = "Knight Armour"

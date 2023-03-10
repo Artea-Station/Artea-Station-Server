@@ -2,11 +2,10 @@
 	name = "Flyperson"
 	plural_form = "Flypeople"
 	id = SPECIES_FLYPERSON
-	say_mod = "buzzes"
-	species_traits = list(HAS_FLESH, HAS_BONE, TRAIT_ANTENNAE)
 	inherent_traits = list(
 		TRAIT_CAN_USE_FLIGHT_POTION,
 		TRAIT_TACKLING_FRAIL_ATTACKER,
+		TRAIT_ANTENNAE,
 	)
 	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID|MOB_BUG
 	meat = /obj/item/food/meat/slab/human/mutant/fly
@@ -16,6 +15,7 @@
 	toxic_food = NONE
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/fly
+	wing_types = list(/obj/item/organ/external/wings/functional/fly)
 
 	mutanttongue = /obj/item/organ/internal/tongue/fly
 	mutantheart = /obj/item/organ/internal/heart/fly
@@ -26,11 +26,11 @@
 	mutant_organs = list(/obj/item/organ/internal/fly, /obj/item/organ/internal/fly/groin)
 
 	bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/fly,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/fly,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/fly,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/fly,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/fly,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/fly,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/fly,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/fly,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/fly,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/fly,
 	)
 

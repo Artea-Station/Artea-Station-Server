@@ -18,7 +18,6 @@
 	var/maximum_allowed = 2
 	/// The possible target machinery and the jobs tied to each one.
 	var/list/applicable_jobs = list(
-		JOB_RESEARCH_DIRECTOR = /obj/machinery/rnd/production/protolathe/department/science,
 		JOB_CHIEF_MEDICAL_OFFICER = /obj/machinery/rnd/production/techfab/department/medical,
 		JOB_CHIEF_ENGINEER = /obj/machinery/rnd/production/protolathe/department/engineering,
 		JOB_HEAD_OF_PERSONNEL = /obj/machinery/rnd/production/techfab/department/service,
