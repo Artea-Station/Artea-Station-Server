@@ -93,14 +93,6 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 	return new_msg
 
 /mob/living/say(message, bubble_type,list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof)
-	var/list/filter_result
-	var/list/soft_filter_result
-	if(client && !forced && !filterproof)
-		//The filter doesn't act on the sanitized message, but the raw message.
-		filter_result = CAN_BYPASS_FILTER(src) ? null : is_ic_filtered(message)
-		if(!filter_result)
-			soft_filter_result = CAN_BYPASS_FILTER(src) ? null : is_soft_ic_filtered(message)
-
 	if(sanitize)
 		message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 	if(!message || message == "")
