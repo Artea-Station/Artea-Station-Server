@@ -254,7 +254,16 @@ if grep -P 'addtimer\((?=.*TIMER_OVERRIDE)(?!.*TIMER_UNIQUE).*\)' code/**/*.dm; 
     echo -e "${RED}ERROR: TIMER_OVERRIDE used without TIMER_UNIQUE.${NC}"
     st=1
 fi;
-if grep -P '^/*var/' code/**/*.dm; then
+
+unit_test_files="code/modules/unit_tests/**/**.dm"
+if grep 'allocate\(/mob/living/carbon/human[,\)]' $unit_test_files ||
+	grep 'new /mob/living/carbon/human\s?\(' $unit_test_files ||
+	grep 'var/mob/living/carbon/human/\w+\s?=\s?new' $unit_test_files ; then
+	echo
+	echo -e "${RED}ERROR: Usage of mob/living/carbon/human detected in a unit test, please use mob/living/carbon/human/consistent.${NC}"
+	st=1
+fi;
+if grep '^/*var/' code/**/*.dm; then
 	echo
     echo -e "${RED}ERROR: Unmanaged global var use detected in code, please use the helpers.${NC}"
     st=1

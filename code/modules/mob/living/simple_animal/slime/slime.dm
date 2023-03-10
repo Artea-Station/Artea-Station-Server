@@ -241,7 +241,7 @@
 			. += "Power Level: [powerlevel]"
 
 
-/mob/living/simple_animal/slime/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/slime/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(!forced)
 		amount = -abs(amount)
 	return ..() //Heals them
@@ -351,7 +351,7 @@
 		if(..()) //successful attack
 			attacked += 10
 
-/mob/living/simple_animal/slime/attack_alien(mob/living/carbon/alien/humanoid/user, list/modifiers)
+/mob/living/simple_animal/slime/attack_alien(mob/living/carbon/alien/adult/user, list/modifiers)
 	if(..()) //if harm or disarm intent.
 		attacked += 10
 		discipline_slime(user)

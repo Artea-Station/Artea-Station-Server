@@ -95,8 +95,8 @@
 		owner.set_heartattack(TRUE)
 		failed = TRUE
 
-/obj/item/organ/internal/heart/get_availability(datum/species/owner_species)
-	return !(NOBLOOD in owner_species.species_traits)
+/obj/item/organ/internal/heart/get_availability(datum/species/owner_species, mob/living/owner_mob)
+	return owner_species.mutantheart
 
 /obj/item/organ/internal/heart/cursed
 	name = "cursed heart"
@@ -128,7 +128,7 @@
 	if(world.time > (last_pump + pump_delay))
 		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
 			var/mob/living/carbon/human/accursed_human = owner
-			if(accursed_human.dna && !(NOBLOOD in accursed_human.dna.species.species_traits))
+			if(accursed_human.dna && !HAS_TRAIT(accursed_human, TRAIT_NOBLOOD))
 				accursed_human.blood_volume = max(accursed_human.blood_volume - blood_loss, 0)
 				to_chat(accursed_human, span_userdanger("You have to keep pumping your blood!"))
 				if(add_colour)
@@ -165,7 +165,7 @@
 
 		var/mob/living/carbon/human/accursed = owner
 		if(istype(accursed))
-			if(accursed.dna && !(NOBLOOD in accursed.dna.species.species_traits))
+			if(accursed.dna && !HAS_TRAIT(accursed, TRAIT_NOBLOOD))
 				accursed.blood_volume = min(accursed.blood_volume + cursed_heart.blood_loss*0.5, BLOOD_VOLUME_MAXIMUM)
 				accursed.remove_client_colour(/datum/client_colour/cursed_heart_blood)
 				cursed_heart.add_colour = TRUE
@@ -251,7 +251,7 @@
 	if(owner.health < 5 && COOLDOWN_FINISHED(src, adrenaline_cooldown))
 		COOLDOWN_START(src, adrenaline_cooldown, rand(25 SECONDS, 1 MINUTES))
 		to_chat(owner, span_userdanger("You feel yourself dying, but you refuse to give up!"))
-		owner.heal_overall_damage(15, 15, 0, BODYTYPE_ORGANIC)
+		owner.heal_overall_damage(15, 15, BODYTYPE_ORGANIC)
 		if(owner.reagents.get_reagent_amount(/datum/reagent/medicine/ephedrine) < 20)
 			owner.reagents.add_reagent(/datum/reagent/medicine/ephedrine, 10)
 
@@ -296,7 +296,7 @@
 	. += shine
 
 
-/obj/item/organ/internal/heart/ethereal/proc/on_owner_fully_heal(mob/living/carbon/healed, admin_heal)
+/obj/item/organ/internal/heart/ethereal/proc/on_owner_fully_heal(mob/living/carbon/healed, heal_flags)
 	SIGNAL_HANDLER
 
 	QDEL_NULL(current_crystal) //Kicks out the ethereal
@@ -481,13 +481,22 @@
 		. += shine
 
 /obj/structure/ethereal_crystal/proc/heal_ethereal()
-	ethereal_heart.owner.revive(TRUE, FALSE)
+	ethereal_heart.owner.revive(HEAL_ALL)
 	to_chat(ethereal_heart.owner, span_notice("You burst out of the crystal with vigour... </span><span class='userdanger'>But at a cost."))
 	var/datum/brain_trauma/picked_trauma
 	if(prob(10)) //10% chance for a severe trauma
 		picked_trauma = pick(subtypesof(/datum/brain_trauma/severe))
 	else
 		picked_trauma = pick(subtypesof(/datum/brain_trauma/mild))
-	ethereal_heart.owner.gain_trauma(picked_trauma, TRAUMA_RESILIENCE_ABSOLUTE)
-	playsound(get_turf(ethereal_heart.owner), 'sound/effects/ethereal_revive.ogg', 100)
-	qdel(src)
+
+	// revive will regenerate organs, so our heart refence is going to be null'd. Unreliable
+	var/mob/living/carbon/regenerating = ethereal_heart.owner
+
+	playsound(get_turf(regenerating), 'sound/effects/ethereal_revive.ogg', 100)
+	to_chat(regenerating, span_notice("You burst out of the crystal with vigour... </span><span class='userdanger'>But at a cost."))
+	regenerating.gain_trauma(picked_trauma, TRAUMA_RESILIENCE_ABSOLUTE)
+	regenerating.revive(HEAL_ALL & ~HEAL_REFRESH_ORGANS)
+	// revive calls fully heal -> deletes the crystal.
+	// this qdeleted check is just for sanity.
+	if(!QDELETED(src))
+		qdel(src)

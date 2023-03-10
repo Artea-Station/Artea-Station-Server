@@ -50,10 +50,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///The alpha used by the hair. 255 is completely solid, 0 is invisible.
 	var/hair_alpha = 255
 
-	///Examine text when the person has brute damage.
-	var/brute_damage_desc = DEFAULT_BRUTE_EXAMINE_TEXT
-	///Examine text when the person has burn damage.
-	var/burn_damage_desc = DEFAULT_BURN_EXAMINE_TEXT
 	///Examine text when the person has cellular damage.
 	var/cellular_damage_desc = DEFAULT_CLONE_EXAMINE_TEXT
 	///This is used for children, it will determine their default limb ID for use of examine. See [/mob/living/carbon/human/proc/examine].
@@ -82,6 +78,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/nojumpsuit = FALSE
 	///Affects the speech message, for example: Motharula flutters, "My speech message is flutters!"
 	var/say_mod = "says"
+	///flags for inventory slots the race can't equip stuff to. Golems cannot wear jumpsuits, for example.
+	var/no_equip_flags
 	///What languages this species can understand and say. Use a [language holder datum][/datum/language_holder] in this var.
 	var/species_language_holder = /datum/language_holder
 	/**
@@ -98,11 +96,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/list/mutant_organs = list()
 	///The bodyparts this species uses. assoc of bodypart string - bodypart type. Make sure all the fucking entries are in or I'll skin you alive.
 	var/list/bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest,
 	)
 
@@ -146,15 +144,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// A path to an outfit that is important for species life e.g. plasmaman outfit
 	var/datum/outfit/outfit_important_for_life
 
-	///Is this species a flying species? Used as an easy check for some things
-	var/flying_species = FALSE
-	///The actual flying ability given to flying species
-	var/datum/action/innate/flight/fly
 	//Dictates which wing icons are allowed for a given species. If count is >1 a radial menu is used to choose between all icons in list
-	var/list/wings_icons = list("Angel")
-	///Used to determine what description to give when using a potion of flight, if false it will describe them as growing new wings
-	var/has_innate_wings = FALSE
-
+	var/list/wing_types = list(/obj/item/organ/external/wings/functional/angel)
 	/// The natural temperature for a body
 	var/bodytemp_normal = BODYTEMP_NORMAL
 	/// Minimum amount of kelvin moved toward normal body temperature per tick.
@@ -175,13 +166,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	///List of factions the mob gain upon gaining this species.
 	var/list/inherent_factions
-
-	///Punch-specific attack verb.
-	var/attack_verb = SFX_PUNCH
-	/// The visual effect of the attack.
-	var/attack_effect = ATTACK_EFFECT_PUNCH
-	var/sound/attack_sound = 'sound/weapons/punch1.ogg'
-	var/sound/miss_sound = 'sound/weapons/punchmiss.ogg'
 
 	///What gas does this species breathe? Used by suffocation screen alerts, most of actual gas breathing is handled by mutantlungs. See [life.dm][code/modules/mob/living/carbon/human/life.dm]
 	var/breathid = "o2"
@@ -248,13 +232,17 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// This supresses the "dosen't appear to be himself" examine text for if the mob is run by an AI controller. Should be used on any NPC human subtypes. Monkeys are the prime example.
 	var/ai_controlled_species = FALSE
 
+	/// Was on_species_gain ever actually called?
+	/// Species code is really odd...
+	var/properly_gained = FALSE
+
 ///////////
 // PROCS //
 ///////////
 
 
 /datum/species/New()
-	wings_icons = string_list(wings_icons)
+	wing_types = string_list(wing_types)
 
 	if(!plural_form)
 		plural_form = "[name]\s"
@@ -352,40 +340,58 @@ GLOBAL_LIST_EMPTY(features_by_species)
  */
 /datum/species/proc/regenerate_organs(mob/living/carbon/C, datum/species/old_species, replace_current = TRUE, list/excluded_zones, visual_only = FALSE)
 	//what should be put in if there is no mutantorgan (brains handled separately)
-	var/list/slot_mutantorgans = list(ORGAN_SLOT_BRAIN = mutantbrain, ORGAN_SLOT_HEART = mutantheart, ORGAN_SLOT_LUNGS = mutantlungs, ORGAN_SLOT_APPENDIX = mutantappendix, \
-	ORGAN_SLOT_EYES = mutanteyes, ORGAN_SLOT_EARS = mutantears, ORGAN_SLOT_TONGUE = mutanttongue, ORGAN_SLOT_LIVER = mutantliver, ORGAN_SLOT_STOMACH = mutantstomach)
+	var/list/slot_mutantorgans = list(
+		ORGAN_SLOT_BRAIN = mutantbrain,
+		ORGAN_SLOT_HEART = mutantheart,
+		ORGAN_SLOT_LUNGS = mutantlungs,
+		ORGAN_SLOT_APPENDIX = mutantappendix,
+		ORGAN_SLOT_EYES = mutanteyes,
+		ORGAN_SLOT_EARS = mutantears,
+		ORGAN_SLOT_TONGUE = mutanttongue,
+		ORGAN_SLOT_LIVER = mutantliver,
+		ORGAN_SLOT_STOMACH = mutantstomach,
+	)
 
-	for(var/slot in list(ORGAN_SLOT_BRAIN, ORGAN_SLOT_HEART, ORGAN_SLOT_LUNGS, ORGAN_SLOT_APPENDIX, \
-	ORGAN_SLOT_EYES, ORGAN_SLOT_EARS, ORGAN_SLOT_TONGUE, ORGAN_SLOT_LIVER, ORGAN_SLOT_STOMACH))
+	for(var/slot in assoc_to_keys(slot_mutantorgans))
 
 		var/obj/item/organ/oldorgan = C.getorganslot(slot) //used in removing
 		var/obj/item/organ/neworgan = slot_mutantorgans[slot] //used in adding
+		if(!neworgan) //these can be null, if so we shouldn't regenerate
+			continue
 
 		if(visual_only && !initial(neworgan.visual))
 			continue
 
 		var/used_neworgan = FALSE
 		neworgan = SSwardrobe.provide_type(neworgan)
-		var/should_have = neworgan.get_availability(src) //organ proc that points back to a species trait (so if the species is supposed to have this organ)
+		var/should_have = neworgan.get_availability(src, C) //organ proc that points back to a species trait (so if the species is supposed to have this organ)
 
-		if(oldorgan && (!should_have || replace_current) && !(oldorgan.zone in excluded_zones) && !(oldorgan.organ_flags & ORGAN_UNREMOVABLE))
+		/*
+		 * There is an existing organ in this slot, what should we do with it? Probably remove it!
+		 *
+		 * We will remove it if (and only if):
+		 * - We should not have the organ OR replace_current is passed to force old organs to regenerate
+		 * - The replaced organ is not in an excluded zone
+		 * - The replaced organ is not unremovable or synthetic (an implant)
+		 */
+		if(oldorgan && (!should_have || replace_current) && !(oldorgan.zone in excluded_zones) && !(oldorgan.organ_flags & (ORGAN_UNREMOVABLE|ORGAN_SYNTHETIC)))
 			if(slot == ORGAN_SLOT_BRAIN)
 				var/obj/item/organ/internal/brain/brain = oldorgan
 				if(!brain.decoy_override)//"Just keep it if it's fake" - confucius, probably
 					brain.before_organ_replacement(neworgan)
-					brain.Remove(C,TRUE, TRUE) //brain argument used so it doesn't cause any... sudden death.
+					brain.Remove(C, special=TRUE, no_id_transfer=TRUE) //brain argument used so it doesn't cause any... sudden death.
 					QDEL_NULL(brain)
 					oldorgan = null //now deleted
 			else
 				oldorgan.before_organ_replacement(neworgan)
-				oldorgan.Remove(C,TRUE)
+				oldorgan.Remove(C, special=TRUE)
 				QDEL_NULL(oldorgan) //we cannot just tab this out because we need to skip the deleting if it is a decoy brain.
 
 		if(oldorgan)
 			oldorgan.setOrganDamage(0)
 		else if(should_have && !(initial(neworgan.zone) in excluded_zones))
 			used_neworgan = TRUE
-			neworgan.Insert(C, TRUE, FALSE)
+			neworgan.Insert(C, special=TRUE, drop_if_replaced=FALSE)
 
 		if(!used_neworgan)
 			qdel(neworgan)
@@ -396,12 +402,22 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			// just yet as we'll be properly replacing it later.
 			if(mutantorgan in mutant_organs)
 				continue
-			var/obj/item/organ/I = C.getorgan(mutantorgan)
-			if(I)
-				I.Remove(C)
-				QDEL_NULL(I)
+			var/obj/item/organ/current_organ = C.getorgan(mutantorgan)
+			if(current_organ)
+				current_organ.Remove(C)
+				QDEL_NULL(current_organ)
+	for(var/obj/item/organ/external/external_organ in C.internal_organs)
+		// External organ checking. We need to check the external organs owned by the carbon itself,
+		// because we want to also remove ones not shared by its species.
+		// This should be done even if species was not changed.
+		if(external_organ in external_organs)
+			continue // Don't remove external organs this species is supposed to have.
+		external_organ.Remove(C)
+		QDEL_NULL(external_organ)
 
-	for(var/organ_path in mutant_organs)
+	var/list/species_organs = mutant_organs + external_organs
+
+	for(var/organ_path in species_organs)
 		var/obj/item/organ/current_organ = C.getorgan(organ_path)
 		if(!current_organ || replace_current)
 			var/obj/item/organ/replacement = SSwardrobe.provide_type(organ_path)
@@ -411,7 +427,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(current_organ)
 				current_organ.before_organ_replacement(replacement)
 			// organ.Insert will qdel any current organs in that slot, so we don't need to.
-			replacement.Insert(C, TRUE, FALSE)
+			replacement.Insert(C, special=TRUE, drop_if_replaced=FALSE)
 
 /datum/species/proc/worn_items_fit_body_check(mob/living/carbon/wearer)
 	for(var/obj/item/equipped_item in wearer.get_all_worn_items())
@@ -438,7 +454,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	C.mob_biotypes = inherent_biotypes
 
-	replace_body(C, src)
+	if (old_species.type != type)
+		replace_body(C, src)
+
 	regenerate_organs(C, old_species, visual_only = C.visual_only_organs)
 
 	INVOKE_ASYNC(src, PROC_REF(worn_items_fit_body_check), C)
@@ -466,13 +484,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		for(var/obj/item/organ/external/organ_path as anything in external_organs)
 			//Load a persons preferences from DNA
 			var/obj/item/organ/external/new_organ = SSwardrobe.provide_type(organ_path)
-			new_organ.Insert(human)
+			new_organ.Insert(human, special=TRUE, drop_if_replaced=FALSE)
 
 		if(human.dna.features["tail"] && human.dna.features["tail"] != "None")
 			var/obj/item/organ/external/tail/cat/tail = new
 			tail.Insert(human, drop_if_replaced = FALSE)
-		else
-			mutantears = /obj/item/organ/external/tail
 
 		if(human.dna.features["ears"] && human.dna.features["ears"] != "None")
 			var/obj/item/organ/internal/ears/cat/ears = new
@@ -498,13 +514,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		for(var/i in inherent_factions)
 			C.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
 
-	if(flying_species && isnull(fly))
-		fly = new
-		fly.Grant(C)
-
 	C.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species, multiplicative_slowdown=speedmod)
 
 	SEND_SIGNAL(C, COMSIG_SPECIES_GAIN, src, old_species)
+
+	properly_gained = TRUE
 
 /**
  * Proc called when a carbon is no longer this species.
@@ -522,7 +536,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		C.dna.blood_type = random_blood_type()
 	for(var/X in inherent_traits)
 		REMOVE_TRAIT(C, X, SPECIES_TRAIT)
-	for(var/obj/item/organ/external/organ as anything in C.external_organs)
+	for(var/obj/item/organ/external/organ in C.internal_organs)
 		organ.Remove(C)
 		qdel(organ)
 
@@ -556,6 +570,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
  */
 /datum/species/proc/handle_body(mob/living/carbon/human/species_human)
 	species_human.remove_overlay(BODY_LAYER)
+	var/height_offset = species_human.get_top_offset() // From high changed by varying limb height
 	if(HAS_TRAIT(species_human, TRAIT_INVISIBLE_MAN))
 		return handle_mutant_bodyparts(species_human)
 	var/list/standing = list()
@@ -570,6 +585,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(OFFSET_FACE in species_human.dna.species.offset_features)
 				lip_overlay.pixel_x += species_human.dna.species.offset_features[OFFSET_FACE][1]
 				lip_overlay.pixel_y += species_human.dna.species.offset_features[OFFSET_FACE][2]
+			lip_overlay.pixel_y += height_offset
 			standing += lip_overlay
 
 		// eyes
@@ -585,6 +601,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(OFFSET_FACE in species_human.dna.species.offset_features)
 				add_pixel_x = species_human.dna.species.offset_features[OFFSET_FACE][1]
 				add_pixel_y = species_human.dna.species.offset_features[OFFSET_FACE][2]
+			add_pixel_y += height_offset
 
 			if(!eye_organ)
 				no_eyeslay = mutable_appearance('icons/mob/species/human/human_face.dmi', "eyes_missing", -BODY_LAYER)
@@ -595,33 +612,38 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				eye_organ.refresh(call_update = FALSE)
 
 			if(!no_eyeslay)
-				for(var/eye_overlay in eye_organ.generate_body_overlay(species_human))
+				for(var/mutable_appearance/eye_overlay in eye_organ.generate_body_overlay(species_human))
+					eye_overlay.pixel_y += height_offset
 					standing += eye_overlay
 
 	// organic body markings
 	if(HAS_MARKINGS in species_traits)
 		var/obj/item/bodypart/chest/chest = species_human.get_bodypart(BODY_ZONE_CHEST)
-		var/obj/item/bodypart/r_arm/right_arm = species_human.get_bodypart(BODY_ZONE_R_ARM)
-		var/obj/item/bodypart/l_arm/left_arm = species_human.get_bodypart(BODY_ZONE_L_ARM)
-		var/obj/item/bodypart/r_leg/right_leg = species_human.get_bodypart(BODY_ZONE_R_LEG)
-		var/obj/item/bodypart/l_leg/left_leg = species_human.get_bodypart(BODY_ZONE_L_LEG)
+		var/obj/item/bodypart/arm/right/right_arm = species_human.get_bodypart(BODY_ZONE_R_ARM)
+		var/obj/item/bodypart/arm/left/left_arm = species_human.get_bodypart(BODY_ZONE_L_ARM)
+		var/obj/item/bodypart/leg/right/right_leg = species_human.get_bodypart(BODY_ZONE_R_LEG)
+		var/obj/item/bodypart/leg/left/left_leg = species_human.get_bodypart(BODY_ZONE_L_LEG)
 		var/datum/sprite_accessory/markings = GLOB.moth_markings_list[species_human.dna.features["moth_markings"]]
 
 		if(!HAS_TRAIT(species_human, TRAIT_HUSK))
 			if(noggin && (IS_ORGANIC_LIMB(noggin)))
 				var/mutable_appearance/markings_head_overlay = mutable_appearance(markings.icon, "[markings.icon_state]_head", -BODY_LAYER)
+				markings_head_overlay.pixel_y += height_offset
 				standing += markings_head_overlay
 
 			if(chest && (IS_ORGANIC_LIMB(chest)))
 				var/mutable_appearance/markings_chest_overlay = mutable_appearance(markings.icon, "[markings.icon_state]_chest", -BODY_LAYER)
+				markings_chest_overlay.pixel_y += height_offset
 				standing += markings_chest_overlay
 
 			if(right_arm && (IS_ORGANIC_LIMB(right_arm)))
 				var/mutable_appearance/markings_r_arm_overlay = mutable_appearance(markings.icon, "[markings.icon_state]_r_arm", -BODY_LAYER)
+				markings_r_arm_overlay.pixel_y += height_offset
 				standing += markings_r_arm_overlay
 
 			if(left_arm && (IS_ORGANIC_LIMB(left_arm)))
 				var/mutable_appearance/markings_l_arm_overlay = mutable_appearance(markings.icon, "[markings.icon_state]_l_arm", -BODY_LAYER)
+				markings_l_arm_overlay.pixel_y += height_offset
 				standing += markings_l_arm_overlay
 
 			if(right_leg && (IS_ORGANIC_LIMB(right_leg)))
@@ -644,15 +666,19 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					underwear_overlay = mutable_appearance(underwear.icon, underwear.icon_state, -BODY_LAYER)
 				if(!underwear.use_static)
 					underwear_overlay.color = species_human.underwear_color
+				underwear_overlay.pixel_y += height_offset
 				standing += underwear_overlay
 
 		if(species_human.undershirt)
 			var/datum/sprite_accessory/undershirt/undershirt = GLOB.undershirt_list[species_human.undershirt]
 			if(undershirt)
+				var/mutable_appearance/working_shirt
 				if(species_human.dna.species.sexes && species_human.physique == FEMALE)
-					standing += wear_female_version(undershirt.icon_state, undershirt.icon, BODY_LAYER)
+					working_shirt = wear_female_version(undershirt.icon_state, undershirt.icon, BODY_LAYER)
 				else
-					standing += mutable_appearance(undershirt.icon, undershirt.icon_state, -BODY_LAYER)
+					working_shirt = mutable_appearance(undershirt.icon, undershirt.icon_state, -BODY_LAYER)
+				working_shirt.pixel_y += height_offset
+				standing += working_shirt
 
 		if(species_human.socks && species_human.num_legs >= 2 && !(src.bodytype & BODYTYPE_DIGITIGRADE))
 			var/datum/sprite_accessory/socks/socks = GLOB.socks_list[species_human.socks]
@@ -790,11 +816,16 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	human_mob.hairstyle = random_hairstyle(human_mob.gender)
 	human_mob.update_body_parts()
 
-///Proc that will randomise the underwear (i.e. top, pants and socks) of a species' associated mob
-/datum/species/proc/randomize_active_underwear(mob/living/carbon/human/human_mob)
+///Proc that will randomise the underwear (i.e. top, pants and socks) of a species' associated mob,
+/// but will not update the body right away.
+/datum/species/proc/randomize_active_underwear_only(mob/living/carbon/human/human_mob)
 	human_mob.undershirt = random_undershirt(human_mob.gender)
 	human_mob.underwear = random_underwear(human_mob.gender)
 	human_mob.socks = random_socks(human_mob.gender)
+
+///Proc that will randomise the underwear (i.e. top, pants and socks) of a species' associated mob
+/datum/species/proc/randomize_active_underwear(mob/living/carbon/human/human_mob)
+	randomize_active_underwear_only(human_mob)
 	human_mob.update_body()
 
 ///Proc that will randomize all the external organs (i.e. horns, frills, tails etc.) of a species' associated mob
@@ -802,9 +833,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	for(var/obj/item/organ/external/organ_path as anything in external_organs)
 		var/obj/item/organ/external/randomized_organ = human_mob.getorgan(organ_path)
 		if(randomized_organ)
-			var/new_look = pick(randomized_organ.get_global_feature_list())
-			human_mob.dna.features["[randomized_organ.feature_key]"] = new_look
-			mutant_bodyparts["[randomized_organ.feature_key]"] = new_look
+			var/datum/bodypart_overlay/mutant/overlay = randomized_organ.bodypart_overlay
+			var/new_look = pick(overlay.get_global_feature_list())
+			human_mob.dna.features["[overlay.feature_key]"] = new_look
+			mutant_bodyparts["[overlay.feature_key]"] = new_look
 
 ///Proc that randomizes all the appearance elements (external organs, markings, hair etc.) of a species' associated mob. Function set by child procs
 /datum/species/proc/randomize_features(mob/living/carbon/human/human_mob)
@@ -875,7 +907,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(ITEM_SLOT_BELT)
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_CHEST)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || IS_ORGANIC_LIMB(O)))
+			if(!H.w_uniform && !HAS_TRAIT(H, TRAIT_NO_JUMPSUIT) && (!O || IS_ORGANIC_LIMB(O)))
 				if(!disable_warning)
 					to_chat(H, span_warning("You need a jumpsuit before you can attach this [I.name]!"))
 				return FALSE
@@ -905,7 +937,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(ITEM_SLOT_ID)
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_CHEST)
-			if(!H.w_uniform && !nojumpsuit && (!O || IS_ORGANIC_LIMB(O)))
+			if(!H.w_uniform && !HAS_TRAIT(H, TRAIT_NO_JUMPSUIT) && (!O || IS_ORGANIC_LIMB(O)))
 				if(!disable_warning)
 					to_chat(H, span_warning("You need a jumpsuit before you can attach this [I.name]!"))
 				return FALSE
@@ -918,7 +950,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_L_LEG)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || IS_ORGANIC_LIMB(O)))
+			if(!H.w_uniform && !HAS_TRAIT(H, TRAIT_NO_JUMPSUIT) && (!O || IS_ORGANIC_LIMB(O)))
 				if(!disable_warning)
 					to_chat(H, span_warning("You need a jumpsuit before you can attach this [I.name]!"))
 				return FALSE
@@ -931,7 +963,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_R_LEG)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || IS_ORGANIC_LIMB(O)))
+			if(!H.w_uniform && !HAS_TRAIT(H, TRAIT_NO_JUMPSUIT) && (!O || IS_ORGANIC_LIMB(O)))
 				if(!disable_warning)
 					to_chat(H, span_warning("You need a jumpsuit before you can attach this [I.name]!"))
 				return FALSE
@@ -1065,9 +1097,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/spec_fully_heal(mob/living/carbon/human/H)
 	return
 
-
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(target.body_position == STANDING_UP || (target.health >= 0 && !HAS_TRAIT(target, TRAIT_FAKEDEATH)))
+	if(SEND_SIGNAL(target, COMSIG_CARBON_PRE_HELP, user, attacker_style) & COMPONENT_BLOCK_HELP_ACT)
+		return TRUE
+
+	if(target.body_position == STANDING_UP || target.appears_alive())
 		target.help_shake_act(user)
 		if(target != user)
 			log_combat(user, target, "shaken")
@@ -1102,11 +1136,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return TRUE
 	else
 
-		var/atk_verb = user.dna.species.attack_verb
-		var/atk_effect = user.dna.species.attack_effect
-		if(target.body_position == LYING_DOWN)
-			atk_verb = "kick"
-			atk_effect = ATTACK_EFFECT_KICK
+		var/obj/item/organ/internal/brain/brain = user.getorganslot(ORGAN_SLOT_BRAIN)
+		var/obj/item/bodypart/attacking_bodypart
+		if(brain)
+			attacking_bodypart = brain.get_attacking_limb(target)
+		if(!attacking_bodypart)
+			attacking_bodypart = user.get_active_hand()
+		var/atk_verb = attacking_bodypart.unarmed_attack_verb
+		var/atk_effect = attacking_bodypart.unarmed_attack_effect
 
 		if(atk_effect == ATTACK_EFFECT_BITE)
 			if(user.is_mouth_covered(mask_only = TRUE))
@@ -1114,19 +1151,19 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				return FALSE
 		user.do_attack_animation(target, atk_effect)
 
-		var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
+		var/damage = rand(attacking_bodypart.unarmed_damage_low, attacking_bodypart.unarmed_damage_high)
 
 		var/obj/item/bodypart/affecting = target.get_bodypart(target.get_random_valid_zone(user.zone_selected))
 
 		var/miss_chance = 100//calculate the odds that a punch misses entirely. considers stamina and brute damage of the puncher. punches miss by default to prevent weird cases
-		if(user.dna.species.punchdamagelow)
-			if(atk_effect == ATTACK_EFFECT_KICK || HAS_TRAIT(user, TRAIT_PERFECT_ATTACKER)) //kicks never miss (provided your species deals more than 0 damage)
+		if(attacking_bodypart.unarmed_damage_low)
+			if((target.body_position == LYING_DOWN) || HAS_TRAIT(user, TRAIT_PERFECT_ATTACKER)) //kicks never miss (provided your species deals more than 0 damage)
 				miss_chance = 0
 			else
-				miss_chance = min((user.dna.species.punchdamagehigh/user.dna.species.punchdamagelow) + user.getStaminaLoss() + (user.getBruteLoss()*0.5), 100) //old base chance for a miss + various damage. capped at 100 to prevent weirdness in prob()
+				miss_chance = min((attacking_bodypart.unarmed_damage_high/attacking_bodypart.unarmed_damage_low) + user.getStaminaLoss() + (user.getBruteLoss()*0.5), 100) //old base chance for a miss + various damage. capped at 100 to prevent weirdness in prob()
 
 		if(!damage || !affecting || prob(miss_chance))//future-proofing for species that have 0 damage/weird cases where no zone is targeted
-			playsound(target.loc, user.dna.species.miss_sound, 25, TRUE, -1)
+			playsound(target.loc, attacking_bodypart.unarmed_miss_sound, 25, TRUE, -1)
 			target.visible_message(span_danger("[user]'s [atk_verb] misses [target]!"), \
 							span_danger("You avoid [user]'s [atk_verb]!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, user)
 			to_chat(user, span_warning("Your [atk_verb] misses [target]!"))
@@ -1135,7 +1172,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		var/armor_block = target.run_armor_check(affecting, MELEE)
 
-		playsound(target.loc, user.dna.species.attack_sound, 25, TRUE, -1)
+		playsound(target.loc, attacking_bodypart.unarmed_attack_sound, 25, TRUE, -1)
 
 		target.visible_message(span_danger("[user] [atk_verb]ed [target]!"), \
 						span_userdanger("You're [atk_verb]ed by [user]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, user)
@@ -1149,19 +1186,20 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			target.dismembering_strike(user, affecting.body_zone)
 
 		var/attack_direction = get_dir(user, target)
+		var/attack_type = attacking_bodypart.attack_type
 		if(atk_effect == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
-			target.apply_damage(damage*1.5, user.dna.species.attack_type, affecting, armor_block, attack_direction = attack_direction)
-			if((damage * 1.5) >= 9)
+			if(damage >= 9)
 				target.force_say()
 			log_combat(user, target, "kicked")
+			target.apply_damage(damage, attack_type, affecting, armor_block, attack_direction = attack_direction)
 		else//other attacks deal full raw damage + 1.5x in stamina damage
-			target.apply_damage(damage, user.dna.species.attack_type, affecting, armor_block, attack_direction = attack_direction)
+			target.apply_damage(damage, attack_type, affecting, armor_block, attack_direction = attack_direction)
 			target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
 			if(damage >= 9)
 				target.force_say()
 			log_combat(user, target, "punched")
 
-		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
+		if((target.stat != DEAD) && damage >= attacking_bodypart.unarmed_stun_threshold)
 			target.visible_message(span_danger("[user] knocks [target] down!"), \
 							span_userdanger("You're knocked down by [user]!"), span_hear("You hear aggressive shuffling followed by a loud thud!"), COMBAT_MESSAGE_RANGE, user)
 			to_chat(user, span_danger("You knock [target] down!"))
@@ -1482,11 +1520,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			H.adjustCloneLoss(damage_amount)
 		if(STAMINA)
 			var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.stamina_mod
-			if(BP)
-				if(BP.receive_damage(0, 0, damage_amount))
-					H.update_stamina()
-			else
-				H.adjustStaminaLoss(damage_amount)
+			H.adjustStaminaLoss(damage_amount)
 		if(BRAIN)
 			var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.brain_mod
 			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, damage_amount)
@@ -1779,7 +1813,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		// Very high pressure, show an alert and take damage
 		if(HAZARD_HIGH_PRESSURE to INFINITY)
 			if(!HAS_TRAIT(H, TRAIT_RESISTHIGHPRESSURE))
-				H.adjustBruteLoss(min(((adjusted_pressure / HAZARD_HIGH_PRESSURE) - 1) * PRESSURE_DAMAGE_COEFFICIENT, MAX_HIGH_PRESSURE_DAMAGE) * H.physiology.pressure_mod * delta_time)
+				H.adjustBruteLoss(min(((adjusted_pressure / HAZARD_HIGH_PRESSURE) - 1) * PRESSURE_DAMAGE_COEFFICIENT, MAX_HIGH_PRESSURE_DAMAGE) * H.physiology.pressure_mod * delta_time, required_bodytype = BODYTYPE_ORGANIC)
 				H.throw_alert(ALERT_PRESSURE, /atom/movable/screen/alert/highpressure, 2)
 			else
 				H.clear_alert(ALERT_PRESSURE)
@@ -1806,7 +1840,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(HAS_TRAIT(H, TRAIT_RESISTLOWPRESSURE))
 				H.clear_alert(ALERT_PRESSURE)
 			else
-				H.adjustBruteLoss(LOW_PRESSURE_DAMAGE * H.physiology.pressure_mod * delta_time)
+				H.adjustBruteLoss(LOW_PRESSURE_DAMAGE * H.physiology.pressure_mod * delta_time, required_bodytype = BODYTYPE_ORGANIC)
 				H.throw_alert(ALERT_PRESSURE, /atom/movable/screen/alert/lowpressure, 2)
 
 
@@ -1847,49 +1881,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	former_tail_owner.clear_mood_event("tail_lost")
 	former_tail_owner.clear_mood_event("tail_balance_lost")
 	former_tail_owner.clear_mood_event("wrong_tail_regained")
-
-///////////////
-//FLIGHT SHIT//
-///////////////
-
-/datum/species/proc/GiveSpeciesFlight(mob/living/carbon/human/H)
-	if(flying_species) //species that already have flying traits should not work with this proc
-		return
-	flying_species = TRUE
-	var/wings_icon
-	if(wings_icons.len > 1)
-		if(!H.client)
-			wings_icon = pick(wings_icons)
-		else
-			var/list/wings = list()
-			for(var/W in wings_icons)
-				var/datum/sprite_accessory/S = GLOB.wings_list[W] //Gets the datum for every wing this species has, then prompts user with a radial menu
-				var/image/img = image(icon = 'icons/mob/clothing/wings.dmi', icon_state = "m_wingsopen_[S.icon_state]_BEHIND") //Process the HUD elements
-				img.transform *= 0.5
-				img.pixel_x = -32
-				if(wings[S.name])
-					stack_trace("Different wing types with repeated names. Please fix as this may cause issues.")
-				else
-					wings[S.name] = img
-			wings_icon = show_radial_menu(H, H, wings, tooltips = TRUE)
-			if(!wings_icon)
-				wings_icon = pick(wings_icons)
-	else
-		wings_icon = wings_icons[1]
-
-	var/obj/item/organ/external/wings/functional/wings = new(null, wings_icon, H.physique)
-	wings.Insert(H)
-	handle_mutant_bodyparts(H)
-
-/**
- * The human species version of [/mob/living/carbon/proc/get_biological_state]. Depends on the HAS_FLESH and HAS_BONE species traits, having bones lets you have bone wounds, having flesh lets you have burn, slash, and piercing wounds
- */
-/datum/species/proc/get_biological_state(mob/living/carbon/human/H)
-	. = BIO_INORGANIC
-	if(HAS_FLESH in species_traits)
-		. |= BIO_JUST_FLESH
-	if(HAS_BONE in species_traits)
-		. |= BIO_JUST_BONE
 
 ///Species override for unarmed attacks because the attack_hand proc was made by a mouth-breathing troglodyte on a tricycle. Also to whoever thought it would be a good idea to make it so the original spec_unarmedattack was not actually linked to unarmed attack needs to be checked by a doctor because they clearly have a vast empty space in their head.
 /datum/species/proc/spec_unarmedattack(mob/living/carbon/human/user, atom/target, modifiers)
@@ -2035,7 +2026,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	// and language perk last, as it comes at the end of the perks list
 	species_perks += create_pref_unique_perks()
 	species_perks += create_pref_blood_perks()
-	species_perks += create_pref_combat_perks()
 	species_perks += create_pref_damage_perks()
 	species_perks += create_pref_temperature_perks()
 	species_perks += create_pref_traits_perks()
@@ -2072,25 +2062,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
  */
 /datum/species/proc/create_pref_unique_perks()
 	return null
-
-/**
- * Adds adds any perks related to combat.
- * For example, the damage type of their punches.
- *
- * Returns a list containing perks, or an empty list.
- */
-/datum/species/proc/create_pref_combat_perks()
-	var/list/to_add = list()
-
-	if(attack_type != BRUTE)
-		to_add += list(list(
-			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
-			SPECIES_PERK_ICON = "fist-raised",
-			SPECIES_PERK_NAME = "Elemental Attacker",
-			SPECIES_PERK_DESC = "[plural_form] deal [attack_type] damage with their punches instead of brute.",
-		))
-
-	return to_add
 
 /**
  * Adds adds any perks related to sustaining damage.
@@ -2206,8 +2177,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/create_pref_blood_perks()
 	var/list/to_add = list()
 
-	// NOBLOOD takes priority by default
-	if(NOBLOOD in species_traits)
+	// TRAIT_NOBLOOD takes priority by default
+	if(TRAIT_NOBLOOD in inherent_traits)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "tint-slash",
@@ -2337,8 +2308,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//Note for future: Potentionally add a new C.dna.species() to build a template species for more accurate limb replacement
 
 	if((new_species.digitigrade_customization == DIGITIGRADE_OPTIONAL && target.dna.features["legs"] == DIGITIGRADE_LEGS) || new_species.digitigrade_customization == DIGITIGRADE_FORCED)
-		new_species.bodypart_overrides[BODY_ZONE_R_LEG] = /obj/item/bodypart/r_leg/digitigrade
-		new_species.bodypart_overrides[BODY_ZONE_L_LEG] = /obj/item/bodypart/l_leg/digitigrade
+		new_species.bodypart_overrides[BODY_ZONE_R_LEG] = /obj/item/bodypart/leg/right/digitigrade
+		new_species.bodypart_overrides[BODY_ZONE_L_LEG] = /obj/item/bodypart/leg/left/digitigrade
 
 	for(var/obj/item/bodypart/old_part as anything in target.bodyparts)
 		if(old_part.change_exempt_flags & BP_BLOCK_CHANGE_SPECIES)
@@ -2351,3 +2322,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			new_part.replace_limb(target, TRUE)
 			new_part.update_limb(is_creating = TRUE)
 			qdel(old_part)
+
+/// Creates body parts for the target completely from scratch based on the species
+/datum/species/proc/create_fresh_body(mob/living/carbon/target)
+	target.create_bodyparts(bodypart_overrides)

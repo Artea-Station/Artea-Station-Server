@@ -56,6 +56,7 @@
 //Organ defines for carbon mobs
 #define ORGAN_ORGANIC 1
 #define ORGAN_ROBOTIC 2
+#define ORGAN_MINERAL 3 // Used for the plasmaman liver
 
 #define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/species/human/bodyparts_greyscale.dmi'
 #define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
@@ -103,6 +104,8 @@
 #define SPECIES_LIZARD_SILVER "silverscale"
 #define SPECIES_NIGHTMARE "nightmare"
 #define SPECIES_MONKEY "monkey"
+#define SPECIES_MONKEY_FREAK "monkey_freak"
+#define SPECIES_MONKEY_HUMAN_LEGGED "monkey_human_legged"
 #define SPECIES_MOTH "moth"
 #define SPECIES_MUSHROOM "mush"
 #define SPECIES_PLASMAMAN "plasmaman"
@@ -110,6 +113,7 @@
 #define SPECIES_SHADOW "shadow"
 #define SPECIES_SKELETON "skeleton"
 #define SPECIES_SNAIL "snail"
+#define SPECIES_TALLBOY "tallboy"
 #define SPECIES_VAMPIRE "vampire"
 #define SPECIES_ZOMBIE "zombie"
 #define SPECIES_ZOMBIE_INFECTIOUS "memezombie"
@@ -208,10 +212,10 @@
 //Health doll screws for human mobs
 #define SCREWYDOLL_HEAD /obj/item/bodypart/head
 #define SCREWYDOLL_CHEST /obj/item/bodypart/chest
-#define SCREWYDOLL_L_ARM /obj/item/bodypart/l_arm
-#define SCREWYDOLL_R_ARM /obj/item/bodypart/r_arm
-#define SCREWYDOLL_L_LEG /obj/item/bodypart/l_leg
-#define SCREWYDOLL_R_LEG /obj/item/bodypart/r_leg
+#define SCREWYDOLL_L_ARM /obj/item/bodypart/arm/left
+#define SCREWYDOLL_R_ARM /obj/item/bodypart/arm/right
+#define SCREWYDOLL_L_LEG /obj/item/bodypart/leg/left
+#define SCREWYDOLL_R_LEG /obj/item/bodypart/leg/right
 
 //Threshold levels for beauty for humans
 #define BEAUTY_LEVEL_HORRID -66
@@ -603,21 +607,16 @@
 #define GRADIENT_APPLIES_TO_HAIR (1<<0)
 #define GRADIENT_APPLIES_TO_FACIAL_HAIR (1<<1)
 
-/// Sign Language defines
-#define SIGN_ONE_HAND 0
-#define SIGN_HANDS_FULL 1
-#define SIGN_ARMLESS 2
-#define SIGN_TRAIT_BLOCKED 3
-#define SIGN_CUFFED 4
-
 // Mob Overlays Indexes
 /// Total number of layers for mob overlays
-#define TOTAL_LAYERS 32 //KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
+#define TOTAL_LAYERS 33 //KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
 /// Mutations layer - Tk headglows, cold resistance glow, etc
-#define MUTATIONS_LAYER 32
+#define MUTATIONS_LAYER 33
 /// Mutantrace features (tail when looking south) that must appear behind the body parts
-#define BODY_BEHIND_LAYER 31
-/// Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
+#define BODY_BEHIND_LAYER 32
+/// Layer for bodyparts that should appear behind every other bodypart - Mostly, legs when facing WEST or EAST
+#define BODYPARTS_LOW_LAYER 31
+/// Layer for most bodyparts, appears above BODYPARTS_LOW_LAYER and below BODYPARTS_HIGH_LAYER
 #define BODYPARTS_LAYER 30
 /// Mutantrace features (snout, body markings) that must appear above the body parts
 #define BODY_ADJ_LAYER 29
@@ -633,8 +632,8 @@
 #define ID_LAYER 24
 /// ID card layer
 #define ID_CARD_LAYER 23
-/// Hands body part layer (or is this for the arm? not sure...)
-#define HANDS_PART_LAYER 22
+/// Layer for bodyparts that should appear above every other bodypart - Currently only used for hands
+#define BODYPARTS_HIGH_LAYER 22
 /// Gloves layer
 #define GLOVES_LAYER 21
 /// Shoes layer
@@ -688,6 +687,14 @@
 /// Draws organ on all EXTERNAL layers
 #define ALL_EXTERNAL_OVERLAYS EXTERNAL_FRONT | EXTERNAL_ADJACENT | EXTERNAL_BEHIND
 
+// Bitflags for external organs restylability
+/// This organ allows restyle through plant restyling (like secateurs)
+#define EXTERNAL_RESTYLE_PLANT (1 << 1)
+/// This organ allows restyling with flesh restyling stuff (surgery or something idk)
+#define EXTERNAL_RESTYLE_FLESH (1 << 2)
+/// This organ allows restyling with enamel restyling (like a fucking file or something?). It's for horns and shit
+#define EXTERNAL_RESTYLE_ENAMEL (1 << 3)
+
 //Mob Overlay Index Shortcuts for alternate_worn_layer, layers
 //Because I *KNOW* somebody will think layer+1 means "above"
 //IT DOESN'T OK, IT MEANS "UNDER"
@@ -725,6 +732,62 @@
 
 /// Possible value of [/atom/movable/buckle_lying]. If set to a different (positive-or-zero) value than this, the buckling thing will force a lying angle on the buckled.
 #define NO_BUCKLE_LYING -1
+
+// Flags for fully_heal().
+
+/// Special flag that means this heal is an admin heal and goes above and beyond
+/// Note, this includes things like removing suicide status and handcuffs / legcuffs, use with slight caution.
+#define HEAL_ADMIN (1<<0)
+/// Heals all brute damage.
+#define HEAL_BRUTE (1<<1)
+/// Heals all burn damage.
+#define HEAL_BURN (1<<2)
+/// Heals all toxin damage, slime people included.
+#define HEAL_TOX (1<<3)
+/// Heals all oxyloss.
+#define HEAL_OXY (1<<4)
+/// Heals all cellular damage.
+#define HEAL_CLONE (1<<5)
+/// Heals all stamina damage.
+#define HEAL_STAM (1<<6)
+/// Restore all limbs to their initial state.
+#define HEAL_LIMBS (1<<7)
+/// Heals all organs from failing.
+#define HEAL_ORGANS (1<<8)
+/// A "super" heal organs, this refreshes all organs entirely, deleting old and replacing them with new.
+#define HEAL_REFRESH_ORGANS (1<<9)
+/// Removes all wounds.
+#define HEAL_WOUNDS (1<<10)
+/// Removes all brain traumas, not including permanent ones.
+#define HEAL_TRAUMAS (1<<11)
+/// Removes all reagents present.
+#define HEAL_ALL_REAGENTS (1<<12)
+/// Removes all non-positive diseases.
+#define HEAL_NEGATIVE_DISEASES (1<<13)
+/// Restores body temperature back to nominal.
+#define HEAL_TEMP (1<<14)
+/// Restores blood levels to normal.
+#define HEAL_BLOOD (1<<15)
+/// Removes all non-positive mutations (neutral included).
+#define HEAL_NEGATIVE_MUTATIONS (1<<16)
+/// Removes status effects with this flag set that also have remove_on_fullheal = TRUE.
+#define HEAL_STATUS (1<<17)
+/// Same as above, removes all CC related status effects with this flag set that also have remove_on_fullheal = TRUE.
+#define HEAL_CC_STATUS (1<<18)
+/// Deletes any restraints on the mob (handcuffs / legcuffs)
+#define HEAL_RESTRAINTS (1<<19)
+
+/// Combination flag to only heal the main damage types.
+#define HEAL_DAMAGE (HEAL_BRUTE|HEAL_BURN|HEAL_TOX|HEAL_OXY|HEAL_CLONE|HEAL_STAM)
+/// Combination flag to only heal things messed up things about the mob's body itself.
+#define HEAL_BODY (HEAL_LIMBS|HEAL_ORGANS|HEAL_REFRESH_ORGANS|HEAL_WOUNDS|HEAL_TRAUMAS|HEAL_BLOOD|HEAL_TEMP)
+/// Combination flag to heal negative things affecting the mob.
+#define HEAL_AFFLICTIONS (HEAL_NEGATIVE_DISEASES|HEAL_NEGATIVE_MUTATIONS|HEAL_ALL_REAGENTS|HEAL_STATUS|HEAL_CC_STATUS)
+
+/// Full heal that isn't admin forced
+#define HEAL_ALL ~(HEAL_ADMIN|HEAL_RESTRAINTS)
+/// Heals everything and is as strong as / is an admin heal
+#define ADMIN_HEAL_ALL ALL
 
 /// Checking flags for [/mob/proc/can_read()]
 #define READING_CHECK_LITERACY (1<<0)
