@@ -70,4 +70,4 @@
 	if(!hand)
 		return null
 	else
-		return hand.get_offset(dir)
+		return hand.get_interact_particle_offset(dir)

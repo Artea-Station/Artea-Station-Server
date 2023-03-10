@@ -489,8 +489,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(human.dna.features["tail"] && human.dna.features["tail"] != "None")
 			var/obj/item/organ/external/tail/cat/tail = new
 			tail.Insert(human, drop_if_replaced = FALSE)
-		else
-			mutantears = /obj/item/organ/external/tail
 
 		if(human.dna.features["ears"] && human.dna.features["ears"] != "None")
 			var/obj/item/organ/internal/ears/cat/ears = new
