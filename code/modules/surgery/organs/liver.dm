@@ -103,7 +103,6 @@
 	var/obj/belly = liver_owner.getorganslot(ORGAN_SLOT_STOMACH)
 	var/list/cached_reagents = liver_owner.reagents.reagent_list
 	var/liver_damage = 0
-	var/provide_pain_message = HAS_NO_TOXIN
 
 	if(filterToxins && !HAS_TRAIT(liver_owner, TRAIT_TOXINLOVER))
 		for(var/datum/reagent/toxin/toxin in cached_reagents)

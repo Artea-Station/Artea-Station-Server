@@ -79,9 +79,6 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	randomize_human(src)
 	dna.initialize_dna(skip_index = TRUE) //Skip stuff that requires full round init.
 
-/mob/living/carbon/human/dummy/log_mob_tag(text)
-	return
-
 /proc/create_consistent_human_dna(mob/living/carbon/human/target)
 	target.create_dna()
 	target.dna.initialize_dna(skip_index = TRUE)
