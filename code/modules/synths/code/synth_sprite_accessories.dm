@@ -134,20 +134,20 @@
 *******************************************/
 
 /datum/sprite_accessory/antenna
-	icon = 'modular_skyrat/master_files/icons/mob/sprite_accessory/ipc_antennas.dmi'
+	icon = 'icons/mob/species/synth/synth_antennas.dmi'
 	color_src = MUTCOLORS
 
-/datum/sprite_accessory/antenna/is_hidden(mob/living/carbon/human/wearer, obj/item/bodypart/bodypart)
-	if(!wearer.head || !bodypart)
-		return FALSE
-	// if(key in wearer.try_hide_mutant_parts)
-	// 	return TRUE
-//	Exception for MODs
-	if(istype(wearer.head, /obj/item/clothing/head/mod))
-		return FALSE
-//	Hide accessory if flagged to do so
-	if((wearer.head.flags_inv & HIDEEARS || wearer.wear_mask.flags_inv & HIDEEARS))
-		return TRUE
+// /datum/sprite_accessory/antenna/is_hidden(mob/living/carbon/human/wearer, obj/item/bodypart/bodypart)
+// 	if(!wearer.head || !bodypart)
+// 		return FALSE
+// 	// if(key in wearer.try_hide_mutant_parts)
+// 	// 	return TRUE
+// //	Exception for MODs
+// 	if(istype(wearer.head, /obj/item/clothing/head/mod))
+// 		return FALSE
+// //	Hide accessory if flagged to do so
+// 	if((wearer.head.flags_inv & HIDEEARS || wearer.wear_mask.flags_inv & HIDEEARS))
+// 		return TRUE
 
 /datum/sprite_accessory/antenna/none
 	name = "None"
@@ -207,7 +207,7 @@
 /datum/sprite_accessory/synth_chassis/mammal
 	name = "Mammal Chassis"
 	icon = 'icons/mob/species/synth/mammal_parts_greyscale.dmi'
-	icon_state = "synthmammal"
+	icon_state = "mammal"
 	color_src = MUTCOLORS
 	dimorphic = TRUE
 	is_digi_compatible = TRUE
@@ -295,7 +295,7 @@
 /datum/sprite_accessory/synth_head/mammal
 	name = "Mammal Head"
 	icon = 'icons/mob/species/synth/mammal_parts_greyscale.dmi'
-	icon_state = "synthmammal"
+	icon_state = "mammal"
 	color_src = MUTCOLORS
 	dimorphic = TRUE
 

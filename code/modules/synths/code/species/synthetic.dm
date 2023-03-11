@@ -36,7 +36,7 @@
 		MUTANT_SYNTH_HEAD = "Default Head",
 	)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
-	species_language_holder = /datum/language_holder/machine
+	species_language_holder = /datum/language_holder/synthetic
 	mutant_organs = list(/obj/item/organ/internal/cyberimp/arm/power_cord)
 	mutantbrain = /obj/item/organ/internal/brain/synth
 	mutantstomach = /obj/item/organ/internal/stomach/synth

@@ -2,7 +2,7 @@
 	name = "synthetic voicebox"
 	desc = "A voice synthesizer that allows synths to communicate with lifeforms. Tuned to sound less agressive than robotic voiceboxes."
 	status = ORGAN_ROBOTIC
-	icon = 'modular_skyrat/master_files/icons/obj/surgery.dmi'
+	icon = 'icons/mob/species/synth/surgery.dmi'
 	icon_state = "tongue-ipc"
 	say_mod = "beeps"
 	modifies_speech = TRUE

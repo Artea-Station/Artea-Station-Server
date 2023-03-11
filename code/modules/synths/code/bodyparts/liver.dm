@@ -3,6 +3,6 @@
 	desc = "An electronic device that processes the beneficial chemicals for the synthetic user."
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
-	icon = 'modular_skyrat/master_files/icons/obj/surgery.dmi'
+	icon = 'icons/mob/species/synth/surgery.dmi'
 	icon_state = "liver-ipc"
 	filterToxins = FALSE //We dont filter them, we're immune to them

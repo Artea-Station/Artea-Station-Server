@@ -4,7 +4,7 @@
 /obj/item/organ/internal/lungs/synth
 	name = "heat sink"
 	desc = "A device that transfers generated heat to a fluid medium to cool it down. Required to keep your synthetics cool-headed. It's shape resembles lungs." //Purposefully left the 'fluid medium' ambigious for interpretation of the character, whether it be air or fluid cooling
-	icon = 'modular_skyrat/master_files/icons/obj/surgery.dmi'
+	icon = 'icons/mob/species/synth/surgery.dmi'
 	icon_state = "lungs-ipc"
 	safe_nitro_min = 0
 	safe_nitro_max = 0

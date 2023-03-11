@@ -3,7 +3,7 @@
 
 /obj/item/organ/internal/stomach/synth
 	name = "synth power cell"
-	icon = 'modular_skyrat/master_files/icons/obj/surgery.dmi'
+	icon = 'icons/mob/species/synth/surgery.dmi'
 	icon_state = "stomach-ipc"
 	w_class = WEIGHT_CLASS_NORMAL
 	zone = "chest"

@@ -1,4 +1,5 @@
 /datum/preference/choiced/synth_brain
+	main_feature_name = "Synth Brain"
 	category = PREFERENCE_CATEGORY_APPEARANCE
 	savefile_key = "synth_brain"
 	savefile_identifier = PREFERENCE_CHARACTER
@@ -6,7 +7,11 @@
 	should_generate_icons = TRUE
 
 /datum/preference/choiced/synth_brain/init_possible_values()
-	return list(ORGAN_PREF_POSI_BRAIN = icon(), ORGAN_PREF_MMI_BRAIN, ORGAN_PREF_CIRCUIT_BRAIN)
+	return list(
+		ORGAN_PREF_POSI_BRAIN = icon('icons/mob/species/synth/surgery.dmi', "posibrain-ipc"),
+		ORGAN_PREF_MMI_BRAIN = icon('icons/mob/species/synth/surgery.dmi', "mmi-ipc"),
+		ORGAN_PREF_CIRCUIT_BRAIN = icon('icons/mob/species/synth/surgery.dmi', "circuit-occupied"),
+	)
 
 /datum/preference/choiced/synth_brain/create_default_value()
 	return ORGAN_PREF_CIRCUIT_BRAIN
@@ -48,11 +53,15 @@
 
 /datum/preference/choiced/mutant/synth_screen
 	savefile_key = "feature_ipc_screen"
-	main_feature_name = "IPC Screen"
+	main_feature_name = "Synth Screen"
 	relevant_mutant_bodypart = MUTANT_SYNTH_SCREEN
 	crop_area = list(11, 22, 21, 32) // We want just the head.
 	greyscale_color = DEFAULT_SYNTH_SCREEN_COLOR
 	color_feature_id = "synth_screen_color"
+
+/datum/preference/choiced/mutant/synth_screen/New()
+	. = ..()
+	sprite_accessory = GLOB.synth_screens
 
 /datum/preference/choiced/mutant/synth_screen/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state)
 	return "m_ipc_screen_[original_icon_state]_FRONT_UNDER"
@@ -78,6 +87,14 @@
 	color_feature_id = "ipc_antenna_color"
 	greyscale_color = DEFAULT_SYNTH_PART_COLOR
 
+/datum/preference/choiced/mutant/synth_antenna/New()
+	. = ..()
+	sprite_accessory = GLOB.synth_antennae
+
+/datum/preference/choiced/mutant/synth_antenna/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state)
+	// If this isn't the right type, we have much bigger problems.
+	return "m_ipc_antenna_[original_icon_state]_ADJ"
+
 /datum/preference/color/mutant/synth_antenna
 	savefile_key = "ipc_antenna_color"
 	relevant_mutant_bodypart = MUTANT_SYNTH_ANTENNA
@@ -96,7 +113,12 @@
 	main_feature_name = "Chassis Appearance"
 	relevant_mutant_bodypart = MUTANT_SYNTH_CHASSIS
 	crop_area = list(8, 8, 24, 24) // We want just the body.
+	color_feature_id = "ipc_chassis_color"
 	greyscale_color = DEFAULT_SYNTH_PART_COLOR
+
+/datum/preference/choiced/mutant/synth_chassis/New()
+	. = ..()
+	sprite_accessory = GLOB.synth_chassi
 
 /datum/preference/choiced/mutant/synth_chassis/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state)
 	// If this isn't the right type, we have much bigger problems.
@@ -119,7 +141,10 @@
 	crop_area = list(11, 22, 21, 32) // We want just the head.
 	greyscale_color = DEFAULT_SYNTH_PART_COLOR
 	color_feature_id = "ipc_head_color"
-	sprite_accessory = /datum/sprite_accessory/synth_head
+
+/datum/preference/choiced/mutant/synth_head/New()
+	. = ..()
+	sprite_accessory = GLOB.synth_heads
 
 /datum/preference/choiced/mutant/synth_head/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state)
 	// If this isn't the right type, we have much bigger problems.
@@ -129,48 +154,3 @@
 /datum/preference/color/mutant/synth_head
 	savefile_key = "ipc_head_color"
 	relevant_mutant_bodypart = MUTANT_SYNTH_HEAD
-
-// Synth Hair Opacity
-
-/datum/preference/toggle/hair_opacity
-	category = PREFERENCE_CATEGORY_APPEARANCE_LIST
-	savefile_identifier = PREFERENCE_CHARACTER
-	savefile_key = "feature_hair_opacity_toggle"
-
-/datum/preference/toggle/hair_opacity/is_accessible(datum/preferences/preferences)
-	..()
-	if(!preferences)
-		return FALSE
-	var/datum/species/species = preferences.read_preference(/datum/preference/choiced/species)
-	if(!species)
-		return FALSE // Fuck knows why this would be null, but I'm not risking it.
-	var/list/traits = initial(species.species_traits)
-	return (HAIR in traits) // Sadly, hair opacity doesn't work on species without hair, so let's skip the confusion.
-
-/datum/preference/numeric/hair_opacity
-	category = PREFERENCE_CATEGORY_APPEARANCE_LIST
-	savefile_identifier = PREFERENCE_CHARACTER
-	savefile_key = "feature_hair_opacity"
-	relevant_mutant_bodypart = MUTANT_SYNTH_HAIR
-	maximum = 255
-	minimum = 40 // Any lower, and hair's borderline invisible on lighter colours.
-
-/datum/preference/numeric/hair_opacity/create_default_value()
-	return maximum
-
-/datum/preference/numeric/hair_opacity/is_accessible(datum/preferences/preferences)
-	..()
-	if(!preferences)
-		return FALSE
-	var/datum/species/species = preferences.read_preference(/datum/preference/choiced/species)
-	if(!species)
-		return FALSE // Fuck knows why this would be null, but I'm not risking it.
-	var/list/traits = initial(species.species_traits)
-	return (HAIR in traits) && preferences.read_preference(/datum/preference/toggle/hair_opacity)
-
-/datum/preference/numeric/hair_opacity/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
-	if(!preferences || !is_accessible(target, preferences))
-		return FALSE
-
-	target.hair_alpha = value
-	return TRUE

@@ -357,12 +357,16 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	var/greyscale_color
 
 /// Automatically handles generating icon states and values for mutant parts.
-/datum/preference/choiced/proc/generate_mutant_valid_values(/datum/sprite_accessory/base_sprite_accessory, dir = SOUTH, generate_empty = FALSE)
+/datum/preference/choiced/proc/generate_mutant_valid_values(list/accessories, dir = SOUTH, generate_empty = FALSE)
 	var/list/data = list()
 	if(generate_empty)
 		data["None"] = icon('icons/mob/landmarks.dmi', "x")
 
-	for(var/datum/sprite_accessory/accessory as anything in subtypesof(base_sprite_accessory))
+	for(var/datum/sprite_accessory/accessory as anything in accessories)
+		accessory = accessories[accessory]
+		if(!accessory)
+			continue
+
 		data[initial(accessory.name)] = generate_icon(accessory, dir)
 
 	return data
