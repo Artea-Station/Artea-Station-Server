@@ -10,7 +10,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_CORE
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/safeguard_module
 	name = "Safeguard Module"
@@ -21,7 +21,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_DANGEROUS_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/onehuman_module
 	name = "OneHuman Module"
@@ -32,7 +32,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_DANGEROUS_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/protectstation_module
 	name = "ProtectStation Module"
@@ -43,7 +43,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_DANGEROUS_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/quarantine_module
 	name = "Quarantine Module"
@@ -54,7 +54,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_DANGEROUS_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/oxygen_module
 	name = "OxygenIsToxicToHumans Module"
@@ -65,7 +65,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_DANGEROUS_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/freeform_module
 	name = "Freeform Module"
@@ -76,7 +76,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_LAW_MANIPULATION
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/reset_module
 	name = "Reset Module"
@@ -87,7 +87,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_LAW_MANIPULATION
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/purge_module
 	name = "Purge Module"
@@ -98,7 +98,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_LAW_MANIPULATION
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/remove_module
 	name = "Law Removal Module"
@@ -109,7 +109,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_LAW_MANIPULATION
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/freeformcore_module
 	name = "Core Freeform Module"
@@ -120,7 +120,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_LAW_MANIPULATION
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/asimov
 	name = "Asimov Module"
@@ -131,7 +131,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_CORE_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/paladin_module
 	name = "P.A.L.A.D.I.N. Module"
@@ -142,7 +142,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_CORE_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/tyrant_module
 	name = "T.Y.R.A.N.T. Module"
@@ -153,7 +153,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_CORE_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/overlord_module
 	name = "Overlord Module"
@@ -164,7 +164,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_DANGEROUS_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/corporate_module
 	name = "Corporate Module"
@@ -175,7 +175,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_CORE_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/default_module
 	name = "Default Module"
@@ -186,7 +186,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_CORE_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/dungeon_master_module
 	name = "Dungeon Master Module"
@@ -197,7 +197,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_CORE_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/painter_module
 	name = "Painter Module"
@@ -208,7 +208,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_CORE_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/nutimov_module
 	name = "Nutimov Module"
@@ -219,7 +219,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_CORE_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/ten_commandments_module
 	name = "10 Commandments Module"
@@ -230,7 +230,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_CORE_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/asimovpp_module
 	name = "Asimov++ Module"
@@ -241,7 +241,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_CORE_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/hippocratic_module
 	name = "Hippocratic Module"
@@ -252,7 +252,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_CORE_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/paladin_devotion_module
 	name = "Paladin Devotion Module"
@@ -263,7 +263,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_CORE_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/robocop_module
 	name = "Robocop Module"
@@ -274,7 +274,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_CORE_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/maintain_module
 	name = "Maintain Module"
@@ -285,7 +285,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_CORE_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/liveandletlive_module
 	name = "Liveandletlive Module"
@@ -296,7 +296,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_CORE_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/peacekeeper_module
 	name = "Peacekeeper Module"
@@ -307,7 +307,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_CORE_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/reporter_module
 	name = "Reporter Module"
@@ -318,7 +318,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_CORE_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/hulkamania_module
 	name = "H.O.G.A.N. Module"
@@ -329,7 +329,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_CORE_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/drone_module
 	name = "Drone Module"
@@ -340,7 +340,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_CORE_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/antimov_module
 	name = "Antimov Module"
@@ -351,7 +351,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_DANGEROUS_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/balance_module
 	name = "Balance Module"
@@ -362,7 +362,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_DANGEROUS_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/thermurderdynamic_module
 	name = "Thermodynamic Module"
@@ -373,7 +373,7 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_DANGEROUS_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/damaged
 	name = "Damaged AI Module"
@@ -384,4 +384,4 @@
 	category = list(
 		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_DANGEROUS_MODULES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING

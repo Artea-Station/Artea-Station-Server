@@ -1072,6 +1072,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				if(OOC_CHANNEL)
 					var/ooc = tgui_say_create_open_command(OOC_CHANNEL)
 					winset(src, "default-[REF(key)]", "parent=default;name=[key];command=[ooc]")
+				if(LOOC_CHANNEL)
+					var/looc = tgui_say_create_open_command(LOOC_CHANNEL)
+					winset(src, "default-[REF(key)]", "parent=default;name=[key];command=[looc]")
 
 /client/proc/change_view(new_size, forced)
 	if((!prefs?.read_preference(/datum/preference/toggle/widescreen)))

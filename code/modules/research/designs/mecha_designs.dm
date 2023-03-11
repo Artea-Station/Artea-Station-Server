@@ -10,7 +10,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_RIPLEY
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/ripley_peri
 	name = "APLU \"Ripley\" Peripherals Control module"
@@ -20,7 +20,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_RIPLEY
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/odysseus_main
 	name = "\"Odysseus\" Central Control module"
@@ -30,7 +30,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_ODYSSEUS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/odysseus_peri
 	name = "\"Odysseus\" Peripherals Control module"
@@ -40,7 +40,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_ODYSSEUS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/gygax_main
 	name = "\"Gygax\" Central Control module"
@@ -50,7 +50,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_GYGAX
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/gygax_peri
 	name = "\"Gygax\" Peripherals Control module"
@@ -60,7 +60,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_GYGAX
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/gygax_targ
 	name = "\"Gygax\" Weapons & Targeting Control module"
@@ -70,7 +70,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_GYGAX
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/durand_main
 	name = "\"Durand\" Central Control module"
@@ -80,7 +80,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_DURAND
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/durand_peri
 	name = "\"Durand\" Peripherals Control module"
@@ -90,7 +90,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_DURAND
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/durand_targ
 	name = "\"Durand\" Weapons & Targeting Control module"
@@ -100,7 +100,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_DURAND
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/honker_main
 	name = "\"H.O.N.K.\" Central Control module"
@@ -110,7 +110,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_HONK
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/honker_peri
 	name = "\"H.O.N.K.\" Peripherals Control module"
@@ -120,7 +120,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_HONK
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/honker_targ
 	name = "\"H.O.N.K.\" Weapons & Targeting Control module"
@@ -130,7 +130,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_HONK
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/phazon_main
 	name = "\"Phazon\" Central Control module"
@@ -141,7 +141,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_PHAZON
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/phazon_peri
 	name = "\"Phazon\" Peripherals Control module"
@@ -152,7 +152,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_PHAZON
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/phazon_targ
 	name = "\"Phazon\" Weapons & Targeting Control module"
@@ -163,7 +163,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_PHAZON
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/clarke_main
 	name = "\"Clarke\" Central Control module"
@@ -173,7 +173,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_CLARKE
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/clarke_peri
 	name = "\"Clarke\" Peripherals Control module"
@@ -183,7 +183,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_CLARKE
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/savannah_ivanov_main
 	name = "\"Savannah-Ivanov\" Central Control module"
@@ -193,7 +193,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_SAVANNAH_IVANOV
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/savannah_ivanov_peri
 	name = "\"Savannah-Ivanov\" Peripherals Control module"
@@ -203,7 +203,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_SAVANNAH_IVANOV
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/savannah_ivanov_targ
 	name = "\"Savannah-Ivanov\" Weapons & Targeting Control module"
@@ -213,7 +213,7 @@
 	category = list(
 		RND_CATEGORY_EXOSUIT_BOARDS + RND_SUBCATEGORY_EXOSUIT_BOARDS_SAVANNAH_IVANOV
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 ////////////////////////////////////////
 /////////// Mecha Equpment /////////////
@@ -241,7 +241,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_scattershot_ammo
 	name = "LBX AC 10 Ammunition"
@@ -265,7 +265,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_carbine
 	name = "FNX-99 \"Hades\" Carbine"
@@ -289,7 +289,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_carbine_ammo
 	name = "FNX-99 Carbine Ammunition"
@@ -313,7 +313,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_ion
 	name = "MKIV Ion Heavy Cannon"
@@ -337,7 +337,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_tesla
 	name = "MKI Tesla Cannon"
@@ -361,7 +361,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_laser
 	name = "CH-PS \"Immolator\" Laser"
@@ -385,7 +385,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_laser_heavy
 	name = "CH-LC \"Solaris\" Laser Cannon"
@@ -409,7 +409,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_disabler
 	name = "CH-DS \"Peacemaker\" Disabler"
@@ -433,7 +433,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_grenade_launcher
 	name = "SGL-6 Grenade Launcher"
@@ -457,7 +457,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_grenade_launcher_ammo
 	name = "SGL-6 Grenade Launcher Ammunition"
@@ -481,7 +481,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_missile_rack
 	name = "BRM-6 Missile Rack"
@@ -505,7 +505,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_missile_rack_ammo
 	name = "BRM-6 Missile Rack Ammunition"
@@ -529,7 +529,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/clusterbang_launcher
 	name = "SOB-3 Clusterbang Launcher"
@@ -553,7 +553,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/clusterbang_launcher_ammo
 	name = "SOB-3 Clusterbang Launcher Ammunition"
@@ -577,7 +577,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_wormhole_gen
 	name = "Localized Wormhole Generator"
@@ -607,7 +607,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_CLARKE + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_teleporter
 	name = "Teleporter Module"
@@ -637,7 +637,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_CLARKE + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_rcd
 	name = "RCD Module"
@@ -667,7 +667,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_CLARKE + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_thrusters
 	name = "RCS Thruster Package"
@@ -697,7 +697,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_CLARKE + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_gravcatapult
 	name = "Gravitational Catapult Module"
@@ -727,7 +727,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_CLARKE + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_repair_droid
 	name = "Repair Droid Module"
@@ -757,7 +757,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_CLARKE + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_ccw_armor
 	name = "Reactive Armor Booster Module"
@@ -787,7 +787,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_CLARKE + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_proj_armor
 	name = "Reflective Armor Booster Module"
@@ -817,7 +817,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_CLARKE + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_diamond_drill
 	name = "Diamond Mining Drill"
@@ -837,7 +837,7 @@
 		RND_CATEGORY_MECHFAB_RIPLEY + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MINING,
 		RND_CATEGORY_MECHFAB_CLARKE + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MINING
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_plasma_cutter
 	name = "217-D Heavy Plasma Cutter"
@@ -865,7 +865,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_CLARKE + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mecha_kineticgun
 	name = "Exosuit Proto-Kinetic Accelerator"
@@ -893,7 +893,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_CLARKE + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_lmg
 	name = "Ultra AC 2 LMG"
@@ -915,7 +915,7 @@
 		RND_CATEGORY_MECHFAB_DURAND + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_lmg_ammo
 	name = "Ultra AC 2 Ammunition"
@@ -937,7 +937,7 @@
 		RND_CATEGORY_MECHFAB_DURAND + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_sleeper
 	name = "Mounted Sleeper"
@@ -955,7 +955,7 @@
 		RND_CATEGORY_MECHFAB_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MEDICAL,
 		RND_CATEGORY_MECHFAB_ODYSSEUS + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_syringe_gun
 	name = "Exosuit Medical (Syringe Gun)"
@@ -973,7 +973,7 @@
 		RND_CATEGORY_MECHFAB_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MEDICAL,
 		RND_CATEGORY_MECHFAB_ODYSSEUS + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_medical_beamgun
 	name = "Exosuit Medical (Medical Beamgun)"
@@ -991,4 +991,4 @@
 		RND_CATEGORY_MECHFAB_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MEDICAL,
 		RND_CATEGORY_MECHFAB_ODYSSEUS + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING

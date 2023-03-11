@@ -205,8 +205,8 @@
 	else
 		human.remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
 
-/obj/item/organ/internal/stomach/get_availability(datum/species/owner_species)
-	return !((TRAIT_NOHUNGER in owner_species.inherent_traits) || (NOSTOMACH in owner_species.species_traits))
+/obj/item/organ/internal/stomach/get_availability(datum/species/owner_species, mob/living/owner_mob)
+	return owner_species.mutantstomach
 
 /obj/item/organ/internal/stomach/proc/handle_disgust(mob/living/carbon/human/disgusted, delta_time, times_fired)
 	var/old_disgust = disgusted.old_disgust

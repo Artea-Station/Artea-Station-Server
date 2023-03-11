@@ -64,7 +64,7 @@
 	///Keeps track of if we're playing the alarm sound loop (as only one firelock per group should be). Used during power changes.
 	var/is_playing_alarm = FALSE
 
-	var/knock_sound = 'sound/effects/glassknock.ogg'
+	knock_sound = 'sound/effects/glassknock.ogg'
 	var/bash_sound = 'sound/effects/glassbash.ogg'
 
 
@@ -132,7 +132,7 @@
 
 	if (isnull(held_item))
 		if(density)
-			if(isalienhumanoid(living_user) || issilicon(living_user))
+			if(isalienadult(living_user) || issilicon(living_user))
 				context[SCREENTIP_CONTEXT_LMB] = "Open"
 				return CONTEXTUAL_SCREENTIP_SET
 			if(!living_user.combat_mode)
@@ -461,14 +461,14 @@
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 
-	if(!user.combat_mode)
-		user.visible_message(span_notice("[user] knocks on [src]."), \
-			span_notice("You knock on [src]."))
-		playsound(src, knock_sound, 50, TRUE)
+	if(!user.combat_mode || modifiers[RIGHT_CLICK])
+		knock_on(user)
+		return TRUE
 	else
 		user.visible_message(span_warning("[user] bashes [src]!"), \
 			span_warning("You bash [src]!"))
 		playsound(src, bash_sound, 100, TRUE)
+		return TRUE
 
 /obj/machinery/door/firedoor/wrench_act(mob/living/user, obj/item/tool)
 	add_fingerprint(user)

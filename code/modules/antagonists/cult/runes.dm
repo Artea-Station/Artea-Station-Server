@@ -139,18 +139,17 @@ structure_check() searches for nearby cultist structures required for the invoca
 	if(user)
 		invokers += user
 	if(req_cultists > 1 || istype(src, /obj/effect/rune/convert))
-		var/list/things_in_range = range(1, src)
-		for(var/mob/living/L in things_in_range)
-			if(IS_CULTIST(L))
-				if(L == user)
-					continue
-				if(ishuman(L))
-					var/mob/living/carbon/human/H = L
-					if((HAS_TRAIT(H, TRAIT_MUTE)) || H.silent)
-						continue
-				if(L.stat)
-					continue
-				invokers += L
+		for(var/mob/living/cultist in range(1, src))
+			if(!IS_CULTIST(cultist))
+				continue
+			if(cultist == user)
+				continue
+			if(!cultist.can_speak(allow_mimes = TRUE))
+				continue
+			if(cultist.stat != CONSCIOUS)
+				continue
+			invokers += cultist
+
 	return invokers
 
 /obj/effect/rune/proc/invoke(list/invokers)
@@ -604,8 +603,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 			fail_invoke()
 			return
 		sacrifices_used += SOULS_TO_REVIVE
-		mob_to_revive.revive(full_heal = TRUE, admin_revive = TRUE) //This does remove traits and such, but the rune might actually see some use because of it!
-		mob_to_revive.grab_ghost()
+		mob_to_revive.revive(ADMIN_HEAL_ALL) //This does remove traits and such, but the rune might actually see some use because of it! //Why did you think this was a good idea
+
 	if(!mob_to_revive.client || mob_to_revive.client.is_afk())
 		set waitfor = FALSE
 		var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as a [mob_to_revive.real_name], an inactive blood cultist?", ROLE_CULTIST, ROLE_CULTIST, 5 SECONDS, mob_to_revive)

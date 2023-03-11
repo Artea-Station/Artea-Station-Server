@@ -1,6 +1,6 @@
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
-	create_reagents(1000, REAGENT_HOLDER_ALIVE)
+	create_carbon_reagents()
 	update_body_parts() //to update the carbon's new bodyparts appearance
 	register_context()
 
@@ -203,6 +203,12 @@
 
 /mob/living/carbon/proc/canBeHandcuffed()
 	return FALSE
+
+/mob/living/carbon/proc/create_carbon_reagents()
+	if (!isnull(reagents))
+		return
+
+	create_reagents(1000, REAGENT_HOLDER_ALIVE)
 
 /mob/living/carbon/Topic(href, href_list)
 	..()
@@ -419,6 +425,8 @@
 	if((HAS_TRAIT(src, TRAIT_NOHUNGER) || HAS_TRAIT(src, TRAIT_TOXINLOVER)) && !force)
 		return TRUE
 
+	SEND_SIGNAL(src, COMSIG_CARBON_VOMITED, distance, force)
+	var/starting_dir = dir
 	if(nutrition < 100 && !blood && !force)
 		if(message)
 			visible_message(span_warning("[src] dry heaves!"), \
@@ -457,7 +465,7 @@
 		else
 			if(T)
 				T.add_vomit_floor(src, vomit_type, purge_ratio) //toxic barf looks different || call purge when doing detoxicfication to pump more chems out of the stomach.
-		T = get_step(T, dir)
+		T = get_step(T, starting_dir)
 		if (T?.is_blocked_turf())
 			break
 	return TRUE
@@ -514,14 +522,11 @@
 		return
 	var/total_burn = 0
 	var/total_brute = 0
-	var/total_stamina = 0
 	for(var/X in bodyparts) //hardcoded to streamline things a bit
 		var/obj/item/bodypart/BP = X
 		total_brute += (BP.brute_dam * BP.body_damage_coeff)
 		total_burn += (BP.burn_dam * BP.body_damage_coeff)
-		total_stamina += (BP.stamina_dam * BP.stam_damage_coeff)
 	set_health(round(maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute, DAMAGE_PRECISION))
-	staminaloss = round(total_stamina, DAMAGE_PRECISION)
 	update_stat()
 	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD*2) && stat == DEAD )
 		become_husk(BURN)
@@ -646,7 +651,7 @@
 	if(!client)
 		return
 
-	if(health <= crit_threshold)
+	if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOCRITOVERLAY))
 		var/severity = 0
 		switch(health)
 			if(-20 to -10)
@@ -848,6 +853,18 @@
 	update_worn_handcuffs()
 	update_hud_handcuffed()
 
+/mob/living/carbon/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
+	if(excess_healing)
+		if(dna && !HAS_TRAIT(src, TRAIT_NOBLOOD))
+			blood_volume += (excess_healing * 2) //1 excess = 10 blood
+
+		for(var/obj/item/organ/organ as anything in internal_organs)
+			if(organ.organ_flags & ORGAN_SYNTHETIC)
+				continue
+			organ.applyOrganDamage(excess_healing * -1) //1 excess = 5 organ damage healed
+
+	return ..()
+
 /mob/living/carbon/heal_and_revive(heal_to = 75, revive_message)
 	// We can't heal them if they're missing a heart
 	if(needs_heart() && !getorganslot(ORGAN_SLOT_HEART))
@@ -863,36 +880,46 @@
 
 	return ..()
 
-/mob/living/carbon/fully_heal(admin_revive = FALSE)
-	if(reagents)
-		reagents.clear_reagents()
-	if(mind)
-		for(var/addiction_type in subtypesof(/datum/addiction))
-			mind.remove_addiction_points(addiction_type, MAX_ADDICTION_POINTS) //Remove the addiction!
-	for(var/obj/item/organ/organ as anything in internal_organs)
-		organ.setOrganDamage(0)
-	for(var/thing in diseases)
-		var/datum/disease/D = thing
-		if(D.severity != DISEASE_SEVERITY_POSITIVE)
-			D.cure(FALSE)
-	for(var/thing in all_wounds)
-		var/datum/wound/W = thing
-		W.remove_wound()
-	if(admin_revive)
-		suiciding = FALSE
+/mob/living/carbon/fully_heal(heal_flags = HEAL_ALL)
+
+	// Should be handled via signal on embedded, or via heal on bodypart
+	// Otherwise I don't care to give it a separate flag
+	remove_all_embedded_objects()
+
+	if(heal_flags & HEAL_NEGATIVE_DISEASES)
+		for(var/datum/disease/disease as anything in diseases)
+			if(disease.severity != DISEASE_SEVERITY_POSITIVE)
+				disease.cure(FALSE)
+
+	if(heal_flags & HEAL_WOUNDS)
+		for(var/datum/wound/wound as anything in all_wounds)
+			wound.remove_wound()
+
+	if(heal_flags & HEAL_LIMBS)
 		regenerate_limbs()
-		regenerate_organs()
+
+	if(heal_flags & (HEAL_REFRESH_ORGANS|HEAL_ORGANS))
+		regenerate_organs(regenerate_existing = (heal_flags & HEAL_REFRESH_ORGANS))
+
+	if(heal_flags & HEAL_TRAUMAS)
+		cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
+		// Addictions are like traumas
+		if(mind)
+			for(var/addiction_type in subtypesof(/datum/addiction))
+				mind.remove_addiction_points(addiction_type, MAX_ADDICTION_POINTS) //Remove the addiction!
+
+	if(heal_flags & HEAL_RESTRAINTS)
 		QDEL_NULL(handcuffed)
 		QDEL_NULL(legcuffed)
 		set_handcuffed(null)
 		update_handcuffed()
-	cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
-	..()
+
+	return ..()
 
 /mob/living/carbon/can_be_revived()
-	. = ..()
 	if(!getorgan(/obj/item/organ/internal/brain) && (!mind || !mind.has_antag_datum(/datum/antagonist/changeling)) || HAS_TRAIT(src, TRAIT_HUSK))
 		return FALSE
+	return ..()
 
 /mob/living/carbon/proc/can_defib()
 
@@ -948,11 +975,14 @@
 		to_chat(user, span_notice("You retrieve some of [src]\'s internal organs!"))
 	remove_all_embedded_objects()
 
-/mob/living/carbon/proc/create_bodyparts()
+/// Creates body parts for this carbon completely from scratch.
+/// Optionally takes a map of body zones to what type to instantiate instead of them.
+/mob/living/carbon/proc/create_bodyparts(list/overrides)
 	var/l_arm_index_next = -1
 	var/r_arm_index_next = 0
-	for(var/bodypart_path in bodyparts)
-		var/obj/item/bodypart/bodypart_instance = new bodypart_path()
+	for(var/obj/item/bodypart/bodypart_path as anything in bodyparts)
+		var/real_body_part_path = overrides?[initial(bodypart_path.body_zone)] || bodypart_path
+		var/obj/item/bodypart/bodypart_instance = new real_body_part_path()
 		bodypart_instance.set_owner(src)
 		bodyparts.Remove(bodypart_path)
 		add_bodypart(bodypart_instance)
@@ -967,7 +997,7 @@
 				hand_bodyparts += bodypart_instance
 
 
-///Proc to hook behavior on bodypart additions. Do not directly call. You're looking for [/obj/item/bodypart/proc/attach_limb()].
+///Proc to hook behavior on bodypart additions. Do not directly call. You're looking for [/obj/item/bodypart/proc/try_attach_limb()].
 /mob/living/carbon/proc/add_bodypart(obj/item/bodypart/new_bodypart)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
@@ -988,7 +1018,7 @@
 ///Proc to hook behavior on bodypart removals.  Do not directly call. You're looking for [/obj/item/bodypart/proc/drop_limb()].
 /mob/living/carbon/proc/remove_bodypart(obj/item/bodypart/old_bodypart)
 	SHOULD_NOT_OVERRIDE(TRUE)
-
+	old_bodypart.on_removal()
 	bodyparts -= old_bodypart
 	switch(old_bodypart.body_part)
 		if(LEG_LEFT, LEG_RIGHT)
@@ -1041,15 +1071,15 @@
 				if(BODY_ZONE_CHEST)
 					limbtypes = typesof(/obj/item/bodypart/chest)
 				if(BODY_ZONE_R_ARM)
-					limbtypes = typesof(/obj/item/bodypart/r_arm)
+					limbtypes = typesof(/obj/item/bodypart/arm/right)
 				if(BODY_ZONE_L_ARM)
-					limbtypes = typesof(/obj/item/bodypart/l_arm)
+					limbtypes = typesof(/obj/item/bodypart/arm/left)
 				if(BODY_ZONE_HEAD)
 					limbtypes = typesof(/obj/item/bodypart/head)
 				if(BODY_ZONE_L_LEG)
-					limbtypes = typesof(/obj/item/bodypart/l_leg)
+					limbtypes = typesof(/obj/item/bodypart/leg/left)
 				if(BODY_ZONE_R_LEG)
-					limbtypes = typesof(/obj/item/bodypart/r_leg)
+					limbtypes = typesof(/obj/item/bodypart/leg/right)
 			switch(edit_action)
 				if("remove")
 					if(BP)
@@ -1226,14 +1256,6 @@
 /mob/living/carbon/is_face_visible()
 	return !(wear_mask?.flags_inv & HIDEFACE) && !(head?.flags_inv & HIDEFACE)
 
-/**
- * get_biological_state is a helper used to see what kind of wounds we roll for. By default we just assume carbons (read:monkeys) are flesh and bone, but humans rely on their species datums
- *
- * go look at the species def for more info [/datum/species/proc/get_biological_state]
- */
-/mob/living/carbon/proc/get_biological_state()
-	return BIO_FLESH_BONE
-
 /// Returns whether or not the carbon should be able to be shocked
 /mob/living/carbon/proc/should_electrocute(power_source)
 	if (ismecha(loc))
@@ -1310,9 +1332,9 @@
 
 
 /mob/living/carbon/get_attack_type()
-	var/datum/species/species = dna?.species
-	if (species)
-		return species.attack_type
+	if(has_active_hand())
+		var/obj/item/bodypart/arm/active_arm = get_active_hand()
+		return active_arm.attack_type
 	return ..()
 
 
@@ -1337,54 +1359,6 @@
 	to_chat(src, span_danger("You shove [target.name] into [name]!"))
 	log_combat(shover, target, "shoved", addition = "into [name]")
 	return COMSIG_CARBON_SHOVE_HANDLED
-
-#define HANDS_FULL 0
-#define ONE_HAND 1
-#define HANDCUFFS_DISABLE_AMOUNT 2
-
-// Checks to see how many hands this person has to sign with.
-/mob/living/carbon/proc/check_signables_state()
-	// when a hand gets dismembered it gets null'd in hand_bodyparts but for
-	// get_empty_held_index() it will still be counted as empty and will be +1'd
-	var/healthy_hands = 0 // hands that aren't disabled or amputated
-	var/total_hands = length(held_items)
-
-	// being handcuffed, having a missing or disabled arm will count as empty and be +1 incremented
-	var/available_hands = length(get_empty_held_indexes())
-
-	for(var/obj/item/bodypart/hand as anything in hand_bodyparts)
-		if(hand && !hand.bodypart_disabled)
-			healthy_hands++
-
-	if(!healthy_hands) // No arms at all
-		return SIGN_ARMLESS
-
-	var/unhealthy_hands = total_hands - healthy_hands
-	available_hands -= unhealthy_hands // get_empty_held_indexes() counts a disabled or amputed hand as +1
-
-	// items like slappers/zombie claws/etc. should be ignored
-	for(var/obj/item/held_item in held_items)
-		if(held_item.item_flags & HAND_ITEM)
-			available_hands++
-
-	if(handcuffed)
-		available_hands -= HANDCUFFS_DISABLE_AMOUNT
-
-	// If you have 3 hands and are handcuffed you should still be able to sign
-	if(handcuffed && !available_hands) // Cuffed, usually will show visual effort to sign
-		return SIGN_CUFFED
-	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED) || HAS_TRAIT(src, TRAIT_EMOTEMUTE))
-		return SIGN_TRAIT_BLOCKED
-
-	switch(available_hands)
-		if(HANDS_FULL)
-			return SIGN_HANDS_FULL
-		if(ONE_HAND)
-			return SIGN_ONE_HAND
-
-#undef HANDS_FULL
-#undef ONE_HAND
-#undef HANDCUFFS_DISABLE_AMOUNT
 
 /**
  * This proc is a helper for spraying blood for things like slashing/piercing wounds and dismemberment.

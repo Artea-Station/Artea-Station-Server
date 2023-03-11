@@ -145,7 +145,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Blacklist for mobs that can't read or write
 #define TRAIT_ILLITERATE "illiterate"
 #define TRAIT_BLIND "blind"
+/// Mute. Can't talk.
 #define TRAIT_MUTE "mute"
+/// Emotemute. Can't... emote.
 #define TRAIT_EMOTEMUTE "emotemute"
 #define TRAIT_DEAF "deaf"
 #define TRAIT_NEARSIGHT "nearsighted"
@@ -212,8 +214,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Prevents plasmamen from self-igniting if only their helmet is missing
 #define TRAIT_NOSELFIGNITION_HEAD_ONLY "no_selfignition_head_only"
 #define TRAIT_NOGUNS "no_guns"
+///This carbon doesn't get hungry
 #define TRAIT_NOHUNGER "no_hunger"
+///This carbon doesn't bleed
+#define TRAIT_NOBLOOD "noblood"
 #define TRAIT_NOMETABOLISM "no_metabolism"
+// Use when you want a mob to be able to metabolize plasma temporarily (e.g. plasma fixation disease symptom)
+#define TRAIT_PLASMA_LOVER_METABOLISM "plasma_lover_metabolism"
 #define TRAIT_NOCLONELOSS "no_cloneloss"
 #define TRAIT_TOXIMMUNE "toxin_immune"
 #define TRAIT_EASYDISMEMBER "easy_dismember"
@@ -223,6 +230,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HARDLY_WOUNDED "hard_limb_wound"
 #define TRAIT_NEVER_WOUNDED "never_wounded"
 #define TRAIT_TOXINLOVER "toxinlover"
+/// Doesn't get overlays from being in critical.
+#define TRAIT_NOCRITOVERLAY "no_crit_overlay"
 /// Gets a mood boost from being in the hideout.
 #define TRAIT_VAL_CORRIN_MEMBER "val_corrin_member"
 /// reduces the use time of syringes, pills, patches and medigels but only when using on someone
@@ -242,6 +251,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOSOFTCRIT "nosoftcrit"
 #define TRAIT_MINDSHIELD "mindshield"
 #define TRAIT_DISSECTED "dissected"
+/// Lets the user succumb even if they got NODEATH
+#define TRAIT_SUCCUMB_OVERRIDE "succumb_override"
 /// Can hear observers
 #define TRAIT_SIXTHSENSE "sixth_sense"
 #define TRAIT_FEARLESS "fearless"
@@ -301,6 +312,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOFLASH "noflash"
 /// prevents xeno huggies implanting skeletons
 #define TRAIT_XENO_IMMUNE "xeno_immune"
+/// Allows the species to equip items that normally require a jumpsuit without having one equipped. Used by golems.
+#define TRAIT_NO_JUMPSUIT "no_jumpsuit"
 #define TRAIT_NAIVE "naive"
 #define TRAIT_PRIMITIVE "primitive"
 #define TRAIT_GUNFLIP "gunflip"
@@ -321,7 +334,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HALLUCINATION_SUPPRESSED "hallucination_suppressed"
 /// overrides the update_fire proc to always add fire (for lava)
 #define TRAIT_PERMANENTLY_ONFIRE "permanently_onfire"
-/// Galactic Common Sign Language
+/// Indicates if the mob is currently speaking with sign language
 #define TRAIT_SIGN_LANG "sign_language"
 /// This mob is able to use sign language over the radio.
 #define TRAIT_CAN_SIGN_ON_COMMS "can_sign_on_comms"
@@ -351,8 +364,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_KISS_OF_DEATH "kiss_of_death"
 /// Used to activate french kissing
 #define TRAIT_GARLIC_BREATH "kiss_of_garlic_death"
-/// Used on limbs in the process of turning a human into a plasmaman while in plasma lava
-#define TRAIT_PLASMABURNT "plasma_burnt"
 /// Addictions don't tick down, basically they're permanently addicted
 #define TRAIT_HOPELESSLY_ADDICTED "hopelessly_addicted"
 /// This mob has a cult halo.
@@ -396,7 +407,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // You're immune to the hallucination effect of the supermatter, either
 // through force of will, or equipment. Present on /mob or /datum/mind
 #define TRAIT_MADNESS_IMMUNE "supermatter_madness_immune"
-
 // You can stare into the abyss, and it turns pink.
 // Being close enough to the supermatter makes it heal at higher temperatures
 // and emit less heat. Present on /mob or /datum/mind
@@ -840,6 +850,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define ITEM_SCALING_TRAIT "item_scaling"
 /// Trait given by Objects that provide blindsight
 #define ITEM_BLIND_TRAIT "blind_item_trait"
+/// Trait given by choking
+#define CHOKING_TRAIT "choking_trait"
 
 /**
 * Trait granted by [/mob/living/carbon/Initialize] and
@@ -937,3 +949,23 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Makes a species be better/worse at defending against tackling depending on their tail's status
 #define TRAIT_TACKLING_TAILED_DEFENDER "tackling_tailed_defender"
+
+/// some trait sorces dirived from bodyparts BODYPART_TRAIT is generic.
+#define BODYPART_TRAIT "bodypart"
+#define HEAD_TRAIT "head"
+#define CHEST_TRAIT "chest"
+#define RIGHT_ARM_TRAIT "right_arm"
+#define LEFT_ARM_TRAIT "left_arm"
+#define RIGHT_LEG_TRAIT "right_leg"
+#define LEFT_LEG_TRAIT "left_leg"
+
+///without a human having this trait, they speak as if they have no tongue.
+#define TRAIT_SPEAKS_CLEARLY "speaks_clearly"
+
+// specific sources for TRAIT_SPEAKS_CLEARLY
+
+///trait source that tongues should use
+#define SPEAKING_FROM_TONGUE "tongue"
+///trait source that sign language should use
+#define SPEAKING_FROM_HANDS "hands"
+

@@ -32,7 +32,6 @@
 	target_jobs = list(
 		// Medical
 		/datum/job/doctor,
-		/datum/job/virologist,
 		/datum/job/paramedic,
 		/datum/job/psychologist,
 		/datum/job/chemist,
@@ -45,8 +44,6 @@
 		// Cargo
 		/datum/job/cargo_technician,
 		// Science
-		/datum/job/geneticist,
-		/datum/job/scientist,
 		/datum/job/roboticist,
 		// Engineering
 		/datum/job/station_engineer,
@@ -86,7 +83,6 @@
 		// Heads of staff
 		/datum/job/head_of_personnel,
 		/datum/job/chief_medical_officer,
-		/datum/job/research_director,
 		/datum/job/quartermaster,
 	)
 

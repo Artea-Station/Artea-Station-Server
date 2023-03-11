@@ -89,23 +89,23 @@ GLOBAL_LIST_INIT(turfs_openspace, typecacheof(list(
 #define isdullahan(A) (is_species(A, /datum/species/dullahan))
 #define ismonkey(A) (is_species(A, /datum/species/monkey))
 #define isandroid(A) (is_species(A, /datum/species/android))
+#define isnightmare(A) (is_species(A, /datum/species/shadow/nightmare))
+
 
 //More carbon mobs
 #define isalien(A) (istype(A, /mob/living/carbon/alien))
 
-#define isalienhumanoid(A) (istype(A, /mob/living/carbon/alien/humanoid))
-
 #define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
 
-#define isalienadult(A) (istype(A, /mob/living/carbon/alien/humanoid) || istype(A, /mob/living/simple_animal/hostile/alien))
+#define isalienadult(A) (istype(A, /mob/living/carbon/alien/adult) || istype(A, /mob/living/simple_animal/hostile/alien))
 
-#define isalienhunter(A) (istype(A, /mob/living/carbon/alien/humanoid/hunter))
+#define isalienhunter(A) (istype(A, /mob/living/carbon/alien/adult/hunter))
 
-#define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
+#define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/adult/sentinel))
 
-#define isalienroyal(A) (istype(A, /mob/living/carbon/alien/humanoid/royal))
+#define isalienroyal(A) (istype(A, /mob/living/carbon/alien/adult/royal))
 
-#define isalienqueen(A) (istype(A, /mob/living/carbon/alien/humanoid/royal/queen))
+#define isalienqueen(A) (istype(A, /mob/living/carbon/alien/adult/royal/queen))
 
 //Silicon mobs
 #define issilicon(A) (istype(A, /mob/living/silicon))
@@ -275,9 +275,7 @@ GLOBAL_LIST_INIT(book_types, typecacheof(list(
 #define is_chaplain_job(job_type) (istype(job_type, /datum/job/chaplain))
 #define is_clown_job(job_type) (istype(job_type, /datum/job/clown))
 #define is_detective_job(job_type) (istype(job_type, /datum/job/detective))
-#define is_scientist_job(job_type) (istype(job_type, /datum/job/scientist))
 #define is_security_officer_job(job_type) (istype(job_type, /datum/job/security_officer))
-#define is_research_director_job(job_type) (istype(job_type, /datum/job/research_director))
 #define is_unassigned_job(job_type) (istype(job_type, /datum/job/unassigned))
 
 #define isprojectilespell(thing) (istype(thing, /datum/action/cooldown/spell/pointed/projectile))

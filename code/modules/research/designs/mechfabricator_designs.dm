@@ -36,7 +36,7 @@
 	name = "Cyborg Left Arm"
 	id = "borg_l_arm"
 	build_type = MECHFAB
-	build_path = /obj/item/bodypart/l_arm/robot
+	build_path = /obj/item/bodypart/arm/left/robot
 	materials = list(/datum/material/iron=10000)
 	construction_time = 200
 	category = list(
@@ -47,7 +47,7 @@
 	name = "Cyborg Right Arm"
 	id = "borg_r_arm"
 	build_type = MECHFAB
-	build_path = /obj/item/bodypart/r_arm/robot
+	build_path = /obj/item/bodypart/arm/right/robot
 	materials = list(/datum/material/iron=10000)
 	construction_time = 200
 	category = list(
@@ -58,7 +58,7 @@
 	name = "Cyborg Left Leg"
 	id = "borg_l_leg"
 	build_type = MECHFAB
-	build_path = /obj/item/bodypart/l_leg/robot
+	build_path = /obj/item/bodypart/leg/left/robot
 	materials = list(/datum/material/iron=10000)
 	construction_time = 200
 	category = list(
@@ -69,7 +69,7 @@
 	name = "Cyborg Right Leg"
 	id = "borg_r_leg"
 	build_type = MECHFAB
-	build_path = /obj/item/bodypart/r_leg/robot
+	build_path = /obj/item/bodypart/leg/right/robot
 	materials = list(/datum/material/iron=10000)
 	construction_time = 200
 	category = list(
@@ -824,7 +824,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_CLARKE + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_mining_scanner
 	name = "Mining Scanner"
@@ -887,7 +887,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_CLARKE + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_mousetrap_mortar
 	name = "Mousetrap Mortar"
@@ -904,7 +904,7 @@
 		RND_CATEGORY_MECHFAB_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_HONK,
 		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_banana_mortar
 	name = "Banana Mortar"
@@ -921,7 +921,7 @@
 		RND_CATEGORY_MECHFAB_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_HONK,
 		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_honker
 	name = "HoNkER BlAsT 5000"
@@ -938,7 +938,7 @@
 		RND_CATEGORY_MECHFAB_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_HONK,
 		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mech_punching_glove
 	name = "Oingo Boingo Punch-face"
@@ -955,7 +955,7 @@
 		RND_CATEGORY_MECHFAB_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_HONK,
 		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /////////////////////////////////////////
 //////////////Borg Upgrades//////////////
@@ -1237,7 +1237,7 @@
 	category = list(
 		RND_CATEGORY_MECHFAB_CYBORG + RND_SUBCATEGORY_MECHFAB_CYBORG_CONTROL_INTERFACES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mmi/medical
 	build_type = PROTOLATHE | AWAY_LATHE
@@ -1258,7 +1258,7 @@
 	category = list(
 		RND_CATEGORY_MECHFAB_CYBORG + RND_SUBCATEGORY_MECHFAB_CYBORG_CONTROL_INTERFACES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 //Misc
 /datum/design/mecha_tracking
@@ -1286,7 +1286,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
 		RND_CATEGORY_MECHFAB_CLARKE + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mecha_tracking_ai_control
 	name = "AI Control Beacon"
@@ -1313,7 +1313,7 @@
 		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_CONTROL_INTERFACES,
 		RND_CATEGORY_MECHFAB_CLARKE + RND_SUBCATEGORY_MECHFAB_CONTROL_INTERFACES
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/synthetic_flash
 	name = "Flash"
@@ -1329,7 +1329,7 @@
 	category = list(
 		RND_CATEGORY_MECHFAB_CYBORG + RND_SUBCATEGORY_MECHFAB_CYBORG_COMPONENTS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 //MODsuit construction
 

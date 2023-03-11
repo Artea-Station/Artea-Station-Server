@@ -15,12 +15,6 @@
 	var/list/obj/item/organ/internal/internal_organs = list()
 	///Same as [above][/mob/living/carbon/var/internal_organs], but stores "slot ID" - "organ" pairs for easy access.
 	var/list/internal_organs_slot = list()
-	///List of [/obj/item/organ/external] in the mob, similarly used as internal_organs.
-	var/list/obj/item/organ/external/external_organs = list()
-	///Same as [above][/mob/living/carbon/var/external_organs], but stores "ID" = "organ" pairs.
-	var/list/external_organs_slot = list()
-	///Can't talk. Value goes down every life proc. NOTE TO FUTURE CODERS: DO NOT INITIALIZE NUMERICAL VARS AS NULL OR I WILL MURDER YOU.
-	var/silent = 0
 	///How many dream images we have left to send
 	var/dreaming = 0
 
@@ -68,14 +62,16 @@
 	/// Total level of visualy impairing items
 	var/tinttotal = 0
 
-	///Gets filled up in [create_bodyparts()][/mob/living/carbon/proc/create_bodyparts]
+	/// Gets filled up in [/datum/species/proc/replace_body].
+	/// Will either contain a list of typepaths if nothing has been created yet,
+	/// or a list of the body part objects.
 	var/list/bodyparts = list(
 		/obj/item/bodypart/chest,
 		/obj/item/bodypart/head,
-		/obj/item/bodypart/l_arm,
-		/obj/item/bodypart/r_arm,
-		/obj/item/bodypart/r_leg,
-		/obj/item/bodypart/l_leg,
+		/obj/item/bodypart/arm/left,
+		/obj/item/bodypart/arm/right,
+		/obj/item/bodypart/leg/right,
+		/obj/item/bodypart/leg/left,
 	)
 
 	/// A collection of arms (or actually whatever the fug /bodyparts you monsters use to wreck my systems)
@@ -115,5 +111,8 @@
 
 	/// Only load in visual organs
 	var/visual_only_organs = FALSE
+
+	/// Stores the result of our last known top_offset generation for optimisation purposes when drawing limb icons.
+	var/last_top_offset
 
 	COOLDOWN_DECLARE(bleeding_message_cd)

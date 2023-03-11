@@ -71,6 +71,7 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment/protein = 6, /datum/reagent/consumable/nutriment/vitamin = 4, /datum/reagent/consumable/capsaicin = 2)
 	tastes = list("meat" = 1, "heat" = 1, "veggies" = 1)
 	foodtypes = MEAT | VEGETABLES | GORE
+	trash_type = /obj/item/reagent_containers/cup/bowl
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/food/tsatsikh
