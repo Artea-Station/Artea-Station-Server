@@ -57,9 +57,10 @@ export const FeatureColorInput = (props: FeatureValueProps<string>) => {
         <Stack.Item>
           <Box
             style={{
-              background: props.value.startsWith('#')
-                ? props.value
-                : `#${props.value}`,
+              background:
+                props.value && props.value.startsWith('#')
+                  ? props.value
+                  : `#${props.value}`,
               border: '2px solid white',
               'box-sizing': 'content-box',
               height: '11px',

@@ -67,9 +67,6 @@
 	///This damage is taken when the body temp is too hot.
 	var/unsuitable_heat_damage
 
-	/// List of weather immunity traits that are then added on Initialize(), see traits.dm.
-	var/list/weather_immunities
-
 	///Healable by medical stacks? Defaults to yes.
 	var/healable = 1
 
@@ -518,7 +515,7 @@
 		return
 	return ..()
 
-/mob/living/simple_animal/revive(full_heal = FALSE, admin_revive = FALSE)
+/mob/living/simple_animal/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()
 	if(!.)
 		return

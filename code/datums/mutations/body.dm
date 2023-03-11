@@ -376,20 +376,20 @@
 	owner.update_transform()
 	owner.visible_message(span_danger("[owner] suddenly shrinks!"), span_notice("Everything around you seems to grow.."))
 
-/datum/mutation/human/spastic
-	name = "Spastic"
+/datum/mutation/human/spasms
+	name = "Muscle Spasms"
 	desc = "Subject suffers from muscle spasms."
 	quality = NEGATIVE
 	text_gain_indication = "<span class='warning'>You flinch.</span>"
 	text_lose_indication = "<span class='notice'>Your flinching subsides.</span>"
 	difficulty = 16
 
-/datum/mutation/human/spastic/on_acquiring()
+/datum/mutation/human/spasms/on_acquiring()
 	if(..())
 		return
 	owner.apply_status_effect(/datum/status_effect/spasms)
 
-/datum/mutation/human/spastic/on_losing()
+/datum/mutation/human/spasms/on_losing()
 	if(..())
 		return
 	owner.remove_status_effect(/datum/status_effect/spasms)
@@ -494,7 +494,7 @@
 		head.drop_organs()
 		qdel(head)
 		owner.regenerate_icons()
-	RegisterSignal(owner, COMSIG_CARBON_ATTACH_LIMB, PROC_REF(abortattachment))
+	RegisterSignal(owner, COMSIG_ATTEMPT_CARBON_ATTACH_LIMB, PROC_REF(abortattachment))
 
 /datum/mutation/human/headless/on_losing()
 	. = ..()
@@ -503,7 +503,7 @@
 	var/obj/item/organ/internal/brain/brain = owner.getorganslot(ORGAN_SLOT_BRAIN)
 	if(brain) //so this doesn't instantly kill you. we could delete the brain, but it lets people cure brain issues they /really/ shouldn't be
 		brain.zone = BODY_ZONE_HEAD
-	UnregisterSignal(owner, COMSIG_CARBON_ATTACH_LIMB)
+	UnregisterSignal(owner, COMSIG_ATTEMPT_CARBON_ATTACH_LIMB)
 	var/successful = owner.regenerate_limb(BODY_ZONE_HEAD)
 	if(!successful)
 		stack_trace("HARS mutation head regeneration failed! (usually caused by headless syndrome having a head)")

@@ -481,7 +481,6 @@
 		JOB_HEAD_OF_SECURITY,
 		JOB_PRISONER,
 		JOB_QUARTERMASTER,
-		JOB_RESEARCH_DIRECTOR,
 		JOB_SECURITY_OFFICER,
 		JOB_WARDEN,
 	)
@@ -661,7 +660,6 @@
 		/datum/job_department/cargo,
 		/datum/job_department/engineering,
 		/datum/job_department/medical,
-		/datum/job_department/science,
 		/datum/job_department/security,
 		/datum/job_department/service,
 	)

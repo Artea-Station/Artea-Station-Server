@@ -341,7 +341,8 @@
 			breather.adjustFireLoss(15)
 			if (prob(freon_pp/2))
 				to_chat(breather, span_alert("Your throat closes up!"))
-				breather.silent = max(breather.silent, 3)
+				breather.set_silence_if_lower(6 SECONDS)
+
 		else
 			breather.adjustFireLoss(freon_pp/4)
 		gas_breathed = breath_gases[/datum/gas/freon][MOLES]
@@ -533,8 +534,8 @@
 		owner.visible_message(span_danger("[owner] grabs [owner.p_their()] throat, struggling for breath!"), span_userdanger("You suddenly feel like you can't breathe!"))
 		failed = TRUE
 
-/obj/item/organ/internal/lungs/get_availability(datum/species/owner_species)
-	return !(TRAIT_NOBREATH in owner_species.inherent_traits)
+/obj/item/organ/internal/lungs/get_availability(datum/species/owner_species, mob/living/owner_mob)
+	return owner_species.mutantlungs
 
 /obj/item/organ/internal/lungs/plasmaman
 	name = "plasma filter"
@@ -612,7 +613,7 @@
 /obj/item/organ/internal/lungs/ashwalker/Initialize(mapload)
 	. = ..()
 
-	var/datum/gas_mixture/immutable/planetary/mix = SSair.planetary[LAVALAND_DEFAULT_ATMOS]
+	var/datum/gas_mixture/immutable/planetary/mix = SSair.planetary[PLANETARY_ATMOS]
 
 	if(!mix?.total_moles()) // this typically means we didn't load lavaland, like if we're using #define LOWMEMORYMODE
 		return

@@ -1,5 +1,5 @@
 /datum/preference/color/heterochromatic
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE_LIST
 	savefile_key = "heterochromatic"
 	savefile_identifier = PREFERENCE_CHARACTER
 
@@ -9,7 +9,7 @@
 
 	return "Heterochromatic" in preferences.all_quirks
 
-/datum/preference/color/heterochromatic/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/color/heterochromatic/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	for(var/datum/quirk/heterochromatic/hetero_quirk in target.quirks)
 		hetero_quirk.color = value
 		hetero_quirk.link_to_holder()

@@ -68,7 +68,20 @@
 		else if(HAS_TRAIT(src, TRAIT_PRETENDER_ROYAL_METABOLISM))
 			. += "A diet of imitation caviar, and signs of insomnia, implies that this is the liver of <em>someone who wants to be a head of staff</em>."
 
+/obj/item/organ/internal/liver/before_organ_replacement(obj/item/organ/replacement)
+	. = ..()
+	if(!istype(replacement, type))
+		return
 
+	var/datum/job/owner_job = owner.mind?.assigned_role
+	if(!owner_job || !LAZYLEN(owner_job.liver_traits))
+		return
+
+	// Transfer over liver traits from jobs, if we should have them
+	for(var/readded_trait in owner_job.liver_traits)
+		if(!HAS_TRAIT_FROM(src, readded_trait, JOB_TRAIT))
+			continue
+		ADD_TRAIT(replacement, readded_trait, JOB_TRAIT)
 
 #define HAS_SILENT_TOXIN 0 //don't provide a feedback message if this is the only toxin present
 #define HAS_NO_TOXIN 1
@@ -88,16 +101,19 @@
 
 	var/provide_pain_message = HAS_NO_TOXIN
 	var/obj/belly = liver_owner.getorganslot(ORGAN_SLOT_STOMACH)
-	if(filterToxins && !HAS_TRAIT(owner, TRAIT_TOXINLOVER))
-		//handle liver toxin filtration
-		for(var/datum/reagent/toxin/toxin in liver_owner.reagents.reagent_list)
-			var/thisamount = liver_owner.reagents.get_reagent_amount(toxin.type)
+	var/list/cached_reagents = liver_owner.reagents.reagent_list
+
+	if(filterToxins && !HAS_TRAIT(liver_owner, TRAIT_TOXINLOVER))
+		for(var/datum/reagent/toxin/toxin in cached_reagents)
+			if(status != toxin.affected_organtype) //this particular toxin does not affect this type of organ
+				continue
+			var/amount = round(toxin.volume, CHEMICAL_QUANTISATION_LEVEL) // this is an optimization
 			if(belly)
-				thisamount += belly.reagents.get_reagent_amount(toxin.type)
-			if (thisamount && thisamount <= toxTolerance * (maxHealth - damage) / maxHealth ) //toxTolerance is effectively multiplied by the % that your liver's health is at
+				amount += belly.reagents.get_reagent_amount(toxin.type)
+			if (amount && amount <= toxTolerance * (maxHealth - damage) / maxHealth ) //toxTolerance is effectively multiplied by the % that your liver's health is at
 				liver_owner.reagents.remove_reagent(toxin.type, 0.5 * delta_time)
 			else
-				damange_to_deal += (thisamount * toxLethality * delta_time)
+				damange_to_deal += (amount * toxLethality * delta_time)
 				if(provide_pain_message != HAS_PAINFUL_TOXIN)
 					provide_pain_message = toxin.silent_toxin ? HAS_SILENT_TOXIN : HAS_PAINFUL_TOXIN
 
@@ -196,18 +212,14 @@
 	for(var/datum/reagent/chem as anything in carbon_owner.reagents.reagent_list)
 		chem.on_mob_dead(carbon_owner, delta_time)
 
-#undef HAS_SILENT_TOXIN
-#undef HAS_NO_TOXIN
-#undef HAS_PAINFUL_TOXIN
-#undef LIVER_FAILURE_STAGE_SECONDS
-
-/obj/item/organ/internal/liver/get_availability(datum/species/species)
-	return !(TRAIT_NOMETABOLISM in species.inherent_traits)
+/obj/item/organ/internal/liver/get_availability(datum/species/owner_species, mob/living/owner_mob)
+	return owner_species.mutantliver
 
 /obj/item/organ/internal/liver/plasmaman
 	name = "reagent processing crystal"
 	icon_state = "liver-p"
 	desc = "A large crystal that is somehow capable of metabolizing chemicals, these are found in plasmamen."
+	status = ORGAN_MINERAL
 
 /obj/item/organ/internal/liver/alien
 	name = "alien liver" // doesnt matter for actual aliens because they dont take toxin damage
@@ -255,5 +267,3 @@
 		COOLDOWN_START(src, severe_cooldown, 10 SECONDS)
 	if(prob(emp_vulnerability/severity)) //Chance of permanent effects
 		organ_flags |= ORGAN_SYNTHETIC_EMP //Starts organ faliure - gonna need replacing soon.
-
-

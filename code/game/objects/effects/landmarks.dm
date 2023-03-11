@@ -158,10 +158,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Paramedic"
 	icon_state = "Paramedic"
 
-/obj/effect/landmark/start/scientist
-	name = "Scientist"
-	icon_state = "Scientist"
-
 /obj/effect/landmark/start/chemist
 	name = "Chemist"
 	icon_state = "Chemist"
@@ -170,21 +166,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Roboticist"
 	icon_state = "Roboticist"
 
-/obj/effect/landmark/start/research_director
-	name = JOB_RESEARCH_DIRECTOR
-	icon_state = JOB_RESEARCH_DIRECTOR
-
-/obj/effect/landmark/start/geneticist
-	name = "Geneticist"
-	icon_state = "Geneticist"
-
 /obj/effect/landmark/start/chief_medical_officer
 	name = "Chief Medical Officer"
 	icon_state = "Chief Medical Officer"
-
-/obj/effect/landmark/start/virologist
-	name = "Virologist"
-	icon_state = "Virologist"
 
 /obj/effect/landmark/start/psychologist
 	name = "Psychologist"

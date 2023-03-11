@@ -1,7 +1,7 @@
 /datum/preference/choiced/pod_hair
 	savefile_key = "feature_pod_hair"
 	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE
 	main_feature_name = "Hairstyle"
 	should_generate_icons = TRUE
 
@@ -29,5 +29,5 @@
 /datum/preference/choiced/pod_hair/create_default_value()
 	return pick(GLOB.pod_hair_list)
 
-/datum/preference/choiced/pod_hair/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/pod_hair/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.dna.features["pod_hair"] = value

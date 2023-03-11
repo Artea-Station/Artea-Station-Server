@@ -1,0 +1,97 @@
+2023-03-02:
+  QuacksQ:
+  - rscadd: lobby camera!
+2023-03-07:
+  GuiltyNeko:
+  - rscdel: tab no longer changes tgui say channels
+  QuacksQ:
+  - qol: New ORM TGUI.
+  - qol: renamed spastic to muscle spasms.
+  - imageadd: New Material and ore sprites ported from TG!
+  - imageadd: New veggie and fruit sprites ported from TG.
+  - bugfix: Fixes split personality kicking out the original owner of the body.
+  - bugfix: Fixes low wall painting.
+  RimiNosha:
+  - rscadd: Humans now can select ears and tails. Other parts to come later.
+  - qol: Overhauled the prefs menu. There now should be far less information overload
+      for new players in the future.
+  - qol: All species can now pick their exact colors, instead of being restricted
+      to a list. Moths do not use this system, due to them using pre-colored icons.
+  - soundadd: Added a small sound when characters are selected.
+  - soundadd: A misc extra sound for mouseclicks, currently unused.
+  - rscdel: Effectively removes the random and hardcore random prefs.
+  - bugfix: Cat tails should now be visible when facing south again.
+  - code_imp: De-spaghetti'd skin_tone code.
+  - code_imp: Minimum age is now 18.
+  - rscdel: Removed agender and dyncolor traits.
+  - rscdel: Removed mutant colours and ethereal colours from DNA. Skin_tone now handles
+      that, with species.fixed_mut_color being used for statically colored races (golems).
+  - qol: You can now rotate both directions in preferences.
+  - code_imp: The preference datum is now passed to preference.apply_to_human, allowing
+      them to read other prefs.
+  - bugfix: Fixes TGUI dev server not working on byond 514.
+  - bugfix: Pixel scaling is now used for the preview in the prefs UI. Not noticeable
+      at the moment cause we don't allow rescaling yet.
+  - qol: Lighting is now notably more dim and warm. Most places will have very noticeably
+      darker lighting.
+  - qol: Night shift now actually feels dim.
+  - code_imp: Night shift light values are now dynamically generated. Less overhead
+      for custom lights by mappers.
+  nevimer:
+  - balance: chasms no longer kill you, you can climb out of chasms if you are healthy
+      enough.
+  - rscadd: Azarak Combat's hand to hand moves from skyrat have been ported, and fixed.
+2023-03-10:
+  QuacksQ:
+  - imageadd: Techfabs now have a cool sprite instead of being a protolathe!
+  - rscadd: Free CPU time and performance.
+  - bugfix: Shuttle walls merging with station walls.
+  - bugfix: Low walls with blast doors not smoothing properly.
+  - bugfix: Papercode has been significantly improved and trivially filled paper forms
+      should no longer lag or crash players' game clients.
+  - qol: Borg IDs are shown on the ORM now when interacted with.
+  - imageadd: Adds bay air alarms!
+  RimiNosha:
+  - qol: ALT+Directional key rotation now works properly again.
+  - rscdel: RD, Genetecist and Scientist jobs and loadouts.
+  - code_imp: 'Robotics is now in it''s rightful department: Engineering.'
+  - balance: CE now has the Rdplex skillchip, for those times where it's needed.
+  - bugfix: Cargo shuttle should actually work now.
+  - rscadd: Added a new maintenance light subtype. Dim and extremely warm, being basically
+      orange.
+  - qol: Made lights actually hang off of walls.
+  - bugfix: Mobile docking ports now actually autoset their sizes for the shuttle
+      template they're on.
+  - rscdel: Virologist job. Go touch grass.
+  - qol: Random virus outbreaks are now only summonable by admins and player factors.
+  - code_imp: 3 months of species and organ fixes. Code less fuck.
+  - qol: Machines now have interact particles.
+  nevimer:
+  - code_imp: shower is now on the wall mount layer
+  - bugfix: modsuits wont poof on clickdrag while worn
+  - code_imp: DNR now frees up occupied job slots
+  - rscadd: LOOC is added to the game.
+  - rscadd: LOOC has typing indicators.
+  scriptis (original), RimiNosha (port and reagents functionality):
+  - refactor: mechfabs, autolathes, component printers, and module duplicators now
+      use techfab tgui components
+  - refactor: every single design is now categorized and subcategorized
+  - refactor: mechfabs and autolathes are now in typescript
+  - qol: techfabs now have icons for what you're about to print
+  - qol: techfab material icons are now animated
+  - qol: techfab material icons now fade when no materials are available
+  - qol: techfab searching no longer lags like hell
+  - qol: techfab searching now searches all recipes instead of just the current category
+  - qol: techfabs now have subcategorization (stock part users rejoice)
+  - qol: techfabs now announce when new recipes are available
+  - qol: numerous other techfab ui tweaks
+  - balance: some designs that were formerly autolathe exclusive can now be printed
+      at some departmental techfabs
+  - bugfix: Reagents display on the mechfab UI once again.
+2023-03-11:
+  QuacksQ:
+  - imageadd: Ported lightfixture and light sprites from Skyrat because they look
+      nicer than the TG ones.
+  - soundadd: Added a knocking sound ported from DD.
+  - bugfix: Fixed icons and sound files being in the wrong folders and licensing issues.
+  - soundadd: added the ability to knock on doors!

@@ -16,11 +16,11 @@
 
 	area_type = /area
 	protected_areas = list(/area/space)
-	target_trait = ZTRAIT_STATION
 
 	overlay_layer = ABOVE_OPEN_TURF_LAYER //Covers floors only
 	overlay_plane = FLOOR_PLANE
 	immunity_type = TRAIT_LAVA_IMMUNE
+	multiply_blend_on_main_stage = TRUE
 	/// We don't draw on walls, so this ends up lookin weird
 	/// Can't really use like, the emissive system here because I am not about to make
 	/// all walls block emissive
@@ -42,5 +42,18 @@
 	if(mob_to_check.movement_type & (FLYING|FLOATING))
 		return FALSE
 
-/datum/weather/floor_is_lava/weather_act(mob/living/victim)
-	victim.adjustFireLoss(3)
+/datum/weather/floor_is_lava/weather_act(mob/living/L)
+	if(issilicon(L))
+		return
+	if(istype(L.buckled, /obj/structure/bed))
+		return
+	for(var/obj/structure/O in L.loc)
+		if(O.density)
+			return
+	if(L.loc.density)
+		return
+	if(!L.client) //Only sentient people are going along with it!
+		return
+	if(L.movement_type & FLYING)
+		return
+	L.adjustFireLoss(3)

@@ -34,7 +34,6 @@
 #define JOB_CAPTAIN "Captain"
 #define JOB_HEAD_OF_PERSONNEL "Head of Personnel"
 #define JOB_HEAD_OF_SECURITY "Head of Security"
-#define JOB_RESEARCH_DIRECTOR "Research Director"
 #define JOB_CHIEF_ENGINEER "Chief Engineer"
 #define JOB_CHIEF_MEDICAL_OFFICER "Chief Medical Officer"
 #define JOB_INTERNAL_AFFAIRS_AGENT "Internal Affairs Agent"
@@ -53,15 +52,11 @@
 //Engineering
 #define JOB_STATION_ENGINEER "Station Engineer"
 #define JOB_ATMOSPHERIC_TECHNICIAN "Atmospheric Technician"
+#define JOB_ROBOTICIST "Roboticist"
 //Medical
 #define JOB_MEDICAL_DOCTOR "Medical Doctor"
 #define JOB_PARAMEDIC "Paramedic"
 #define JOB_CHEMIST "Chemist"
-#define JOB_VIROLOGIST "Virologist"
-//Science
-#define JOB_SCIENTIST "Scientist"
-#define JOB_ROBOTICIST "Roboticist"
-#define JOB_GENETICIST "Geneticist"
 //Supply
 #define JOB_QUARTERMASTER "Quartermaster"
 #define JOB_CARGO_TECHNICIAN "Cargo Technician"
@@ -126,11 +121,7 @@
 #define JOB_DISPLAY_ORDER_MEDICAL_DOCTOR 23
 #define JOB_DISPLAY_ORDER_PARAMEDIC 24
 #define JOB_DISPLAY_ORDER_CHEMIST 25
-#define JOB_DISPLAY_ORDER_VIROLOGIST 26
-#define JOB_DISPLAY_ORDER_RESEARCH_DIRECTOR 27
-#define JOB_DISPLAY_ORDER_SCIENTIST 28
 #define JOB_DISPLAY_ORDER_ROBOTICIST 29
-#define JOB_DISPLAY_ORDER_GENETICIST 30
 #define JOB_DISPLAY_ORDER_HEAD_OF_SECURITY 31
 #define JOB_DISPLAY_ORDER_WARDEN 32
 #define JOB_DISPLAY_ORDER_DETECTIVE 33
@@ -151,8 +142,6 @@
 #define DEPARTMENT_CARGO "Cargo"
 #define DEPARTMENT_BITFLAG_ENGINEERING (1<<4)
 #define DEPARTMENT_ENGINEERING "Engineering"
-#define DEPARTMENT_BITFLAG_SCIENCE (1<<5)
-#define DEPARTMENT_SCIENCE "Science"
 #define DEPARTMENT_BITFLAG_MEDICAL (1<<6)
 #define DEPARTMENT_MEDICAL "Medical"
 #define DEPARTMENT_BITFLAG_SILICON (1<<7)
@@ -161,6 +150,8 @@
 #define DEPARTMENT_ASSISTANT "Assistant"
 #define DEPARTMENT_BITFLAG_CAPTAIN (1<<9)
 #define DEPARTMENT_CAPTAIN "Captain"
+#define DEPARTMENT_BITFLAG_CIVILLIAN (1<<10)
+#define DEPARTMENT_BITFLAG_MISC (1<<11)
 
 /* Job datum job_flags */
 /// Whether the mob is announced on arrival.

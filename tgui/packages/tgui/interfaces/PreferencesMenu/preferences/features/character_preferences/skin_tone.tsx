@@ -1,6 +1,6 @@
 import { sortBy } from 'common/collections';
 import { Box, Stack } from '../../../../../components';
-import { Feature, FeatureChoicedServerData, FeatureValueProps, StandardizedDropdown } from '../base';
+import { CheckboxInput, Feature, FeatureChoicedServerData, FeatureColorInput, FeatureValueProps, StandardizedDropdown } from '../base';
 
 type HexValue = {
   lightness: number;
@@ -58,4 +58,14 @@ export const skin_tone: Feature<string, string, SkinToneServerData> = {
       />
     );
   },
+};
+
+export const skin_color: Feature<string> = {
+  name: 'Skin color',
+  component: FeatureColorInput,
+};
+
+export const use_skin_tone: Feature<boolean> = {
+  name: 'Use skin tones',
+  component: CheckboxInput,
 };

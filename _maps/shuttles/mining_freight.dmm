@@ -9,6 +9,7 @@
 "c" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
+/obj/item/wrench,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining)
 "d" = (
@@ -80,12 +81,9 @@
 	},
 /obj/docking_port/mobile{
 	dir = 8;
-	dwidth = 3;
-	height = 5;
 	shuttle_id = "mining_common";
 	name = "lavaland shuttle";
-	port_direction = 4;
-	width = 7
+	port_direction = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
 	dir = 4
@@ -106,9 +104,10 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining)
 "p" = (
-/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/structure/shuttle/engine/heater,
-/turf/open/floor/plating,
+/obj/effect/turf_decal/bot_red,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
+/turf/open/floor/mineral/plastitanium,
 /area/template_noop)
 "q" = (
 /obj/structure/ore_box,
@@ -120,8 +119,14 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/mining)
 "s" = (
-/obj/structure/shuttle/engine/propulsion/burst,
+/obj/machinery/atmospherics/components/unary/engine,
 /turf/open/floor/plating/airless,
+/area/shuttle/mining)
+"w" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible,
+/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining)
 
 (1,1,1) = {"
@@ -147,7 +152,7 @@ b
 d
 g
 k
-n
+w
 p
 s
 "}

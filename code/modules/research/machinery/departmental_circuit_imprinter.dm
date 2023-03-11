@@ -7,6 +7,6 @@
 /obj/machinery/rnd/production/circuit_imprinter/department/science
 	name = "department circuit imprinter (Science)"
 	circuit = /obj/item/circuitboard/machine/circuit_imprinter/department/science
-	allowed_department_flags = DEPARTMENT_BITFLAG_SCIENCE
+	allowed_department_flags = DEPARTMENT_BITFLAG_ENGINEERING
 	department_tag = "Science"
 	payment_department = ACCOUNT_SCI

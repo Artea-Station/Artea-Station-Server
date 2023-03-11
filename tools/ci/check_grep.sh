@@ -254,7 +254,16 @@ if grep -P 'addtimer\((?=.*TIMER_OVERRIDE)(?!.*TIMER_UNIQUE).*\)' code/**/*.dm; 
     echo -e "${RED}ERROR: TIMER_OVERRIDE used without TIMER_UNIQUE.${NC}"
     st=1
 fi;
-if grep -P '^/*var/' code/**/*.dm; then
+
+unit_test_files="code/modules/unit_tests/**/**.dm"
+if grep 'allocate\(/mob/living/carbon/human[,\)]' $unit_test_files ||
+	grep 'new /mob/living/carbon/human\s?\(' $unit_test_files ||
+	grep 'var/mob/living/carbon/human/\w+\s?=\s?new' $unit_test_files ; then
+	echo
+	echo -e "${RED}ERROR: Usage of mob/living/carbon/human detected in a unit test, please use mob/living/carbon/human/consistent.${NC}"
+	st=1
+fi;
+if grep '^/*var/' code/**/*.dm; then
 	echo
     echo -e "${RED}ERROR: Unmanaged global var use detected in code, please use the helpers.${NC}"
     st=1
@@ -289,19 +298,11 @@ if grep -i '/obj/effect/mapping_helpers/custom_icon' _maps/**/*.dmm; then
     echo -e "${RED}ERROR: Custom icon helper found. Please include DMI files as standard assets instead for repository maps.${NC}"
     st=1
 fi;
-for json in _maps/*.json
-do
-    map_path=$(jq -r '.map_path' $json)
-    while read map_file; do
-        filename="_maps/$map_path/$map_file"
-        if [ ! -f $filename ]
-        then
-			echo
-            echo -e "${RED}ERROR: Found an invalid file reference to $filename in _maps/$json ${NC}"
-            st=1
-        fi
-    done < <(jq -r '[.map_file] | flatten | .[]' $json)
-done
+if grep -P '^/obj/docking_port/mobile.*\{\n[^}]*(width|height|dwidth|dheight)[^}]*\}' _maps/**/*.dmm; then
+	echo
+	echo -e "${RED}ERROR: Custom mobile docking_port sizes detected. This is done automatically and should not be varedits.${NC}"
+	st=1
+fi;
 
 # Check for non-515 compatable .proc/ syntax
 if grep -P --exclude='__byond_version_compat.dm' '\.proc/' code/**/*.dm; then

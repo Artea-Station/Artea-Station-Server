@@ -40,11 +40,9 @@
 	excludefromjob = list(
 		JOB_CAPTAIN,
 		JOB_CHIEF_ENGINEER,
-		JOB_RESEARCH_DIRECTOR,
 		JOB_CHIEF_MEDICAL_OFFICER,
 		JOB_HEAD_OF_SECURITY,
 		JOB_STATION_ENGINEER,
-		JOB_SCIENTIST,
 		JOB_ATMOSPHERIC_TECHNICIAN,
 	)
 	exists_on_map = TRUE
@@ -130,7 +128,7 @@
 	name = "a hand teleporter"
 	targetitem = /obj/item/hand_tele
 	difficulty = 5
-	excludefromjob = list(JOB_CAPTAIN, JOB_RESEARCH_DIRECTOR, JOB_HEAD_OF_PERSONNEL)
+	excludefromjob = list(JOB_CAPTAIN, JOB_HEAD_OF_PERSONNEL)
 	exists_on_map = TRUE
 
 /obj/item/hand_tele/add_stealing_item_objective()
@@ -199,7 +197,6 @@
 	name = "the reactive teleport armor"
 	targetitem = /obj/item/clothing/suit/armor/reactive/teleport
 	difficulty = 5
-	excludefromjob = list(JOB_RESEARCH_DIRECTOR)
 	exists_on_map = TRUE
 
 /obj/item/clothing/suit/armor/reactive/teleport/add_stealing_item_objective()
@@ -232,7 +229,7 @@
 	name = "the source code for Project Goon from the master R&D server mainframe"
 	targetitem = /obj/item/computer_hardware/hard_drive/cluster/hdd_theft
 	difficulty = 10
-	excludefromjob = list(JOB_RESEARCH_DIRECTOR, JOB_SCIENTIST, JOB_ROBOTICIST, JOB_GENETICIST)
+	excludefromjob = list(JOB_ROBOTICIST)
 	exists_on_map = TRUE
 
 /obj/item/computer_hardware/hard_drive/cluster/hdd_theft/add_stealing_item_objective()
@@ -263,7 +260,7 @@
 	difficulty = 3
 	excludefromjob = list(
 		JOB_CHIEF_ENGINEER, JOB_STATION_ENGINEER, JOB_ATMOSPHERIC_TECHNICIAN,
-		JOB_RESEARCH_DIRECTOR, JOB_SCIENTIST, JOB_ROBOTICIST,
+		JOB_ROBOTICIST,
 	)
 
 /datum/objective_item/steal/plasma/check_special_completion(obj/item/tank/T)
@@ -309,7 +306,6 @@
 	name = "an unused sample of slime extract"
 	targetitem = /obj/item/slime_extract
 	difficulty = 3
-	excludefromjob = list(JOB_RESEARCH_DIRECTOR, JOB_SCIENTIST)
 
 /datum/objective_item/steal/slime/check_special_completion(obj/item/slime_extract/E)
 	if(E.Uses > 0)

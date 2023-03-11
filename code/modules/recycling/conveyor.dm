@@ -238,7 +238,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		return
 
 	var/static/list/unconveyables = typecacheof(list(/obj/effect, /mob/dead))
-	if(!istype(moving) || is_type_in_typecache(moving, unconveyables) || moving == src)
+	if(!istype(moving) || is_type_in_typecache(moving, unconveyables) || moving == src || QDELETED(moving))
 		return
 	moving.AddComponent(/datum/component/convey, movedir, speed * 1 SECONDS)
 

@@ -34,7 +34,7 @@ SUBSYSTEM_DEF(air)
 	var/list/pipe_init_dirs_cache = list()
 	//atmos singletons
 	var/list/gas_reactions = list()
-	var/list/atmos_gen
+	var/list/z_level_to_gas_string = list()
 	var/list/planetary = list() //Lets cache static planetary mixes
 	/// List of gas string -> canonical gas mixture
 	var/list/strings_to_mix = list()
@@ -236,7 +236,6 @@ SUBSYSTEM_DEF(air)
 	atmos_machinery = SSair.atmos_machinery
 	pipe_init_dirs_cache = SSair.pipe_init_dirs_cache
 	gas_reactions = SSair.gas_reactions
-	atmos_gen = SSair.atmos_gen
 	planetary = SSair.planetary
 	active_super_conductivity = SSair.active_super_conductivity
 	high_pressure_delta = SSair.high_pressure_delta
@@ -664,12 +663,6 @@ GLOBAL_LIST_EMPTY(colored_images)
 
 	return pipe_init_dirs_cache[type]["[init_dir]"]["[dir]"]
 
-/datum/controller/subsystem/air/proc/generate_atmos()
-	atmos_gen = list()
-	for(var/T in subtypesof(/datum/atmosphere))
-		var/datum/atmosphere/atmostype = T
-		atmos_gen[initial(atmostype.id)] = new atmostype
-
 /// Takes a gas string, returns the matching mutable gas_mixture
 /datum/controller/subsystem/air/proc/parse_gas_string(gas_string, gastype = /datum/gas_mixture)
 	var/datum/gas_mixture/cached = strings_to_mix["[gas_string]-[gastype]"]
@@ -704,12 +697,9 @@ GLOBAL_LIST_EMPTY(colored_images)
 	return canonical_mix.copy()
 
 /datum/controller/subsystem/air/proc/preprocess_gas_string(gas_string)
-	if(!atmos_gen)
-		generate_atmos()
-	if(!atmos_gen[gas_string])
+	if(!z_level_to_gas_string[gas_string])
 		return gas_string
-	var/datum/atmosphere/mix = atmos_gen[gas_string]
-	return mix.gas_string
+	return z_level_to_gas_string[gas_string]
 
 /**
  * Adds a given machine to the processing system for SSAIR_ATMOSMACHINERY processing.
@@ -837,3 +827,9 @@ GLOBAL_LIST_EMPTY(colored_images)
 					ui.user.client.images -= GLOB.colored_images
 				plane.alpha = 0
 			return TRUE
+
+/datum/controller/subsystem/air/proc/register_planetary_atmos(datum/atmosphere/atmos_datum, level)
+	var/datum/gas_mixture/immutable/planetary/our_gasmix = new
+	our_gasmix.parse_string_immutable(atmos_datum.gas_string)
+	planetary["[level]"] = our_gasmix
+	z_level_to_gas_string["[level]"] = atmos_datum.gas_string

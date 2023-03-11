@@ -452,32 +452,6 @@
 	if(CONFIG_GET(flag/security_has_maint_access))
 		access |= list(ACCESS_MAINT_TUNNELS)
 
-/datum/id_trim/job/geneticist
-	assignment = "Geneticist"
-	trim_state = "trim_geneticist"
-	department_color = COLOR_SCIENCE_PINK
-	subdepartment_color = COLOR_SCIENCE_PINK
-	sechud_icon_state = SECHUD_GENETICIST
-	minimal_access = list(
-		ACCESS_GENETICS,
-		ACCESS_MECH_SCIENCE,
-		ACCESS_MINERAL_STOREROOM,
-		ACCESS_MORGUE,
-		ACCESS_RESEARCH,
-		ACCESS_SCIENCE,
-		)
-	extra_access = list(
-		ACCESS_ROBOTICS,
-		ACCESS_TECH_STORAGE,
-		ACCESS_XENOBIOLOGY,
-		)
-	template_access = list(
-		ACCESS_CAPTAIN,
-		ACCESS_CHANGE_IDS,
-		ACCESS_RD,
-		)
-	job = /datum/job/geneticist
-
 /datum/id_trim/job/head_of_personnel
 	assignment = "Head of Personnel"
 	intern_alt_name = "Head of Personnel-in-Training"
@@ -812,54 +786,6 @@
 	)
 	job = /datum/job/quartermaster
 
-/datum/id_trim/job/research_director
-	assignment = "Research Director"
-	intern_alt_name = "Research Director-in-Training"
-	trim_state = "trim_scientist"
-	department_color = COLOR_COMMAND_BLUE
-	subdepartment_color = COLOR_SCIENCE_PINK
-	department_state = "departmenthead"
-	sechud_icon_state = SECHUD_RESEARCH_DIRECTOR
-	minimal_access = list(
-		ACCESS_AI_UPLOAD,
-		ACCESS_AUX_BASE,
-		ACCESS_BRIG_ENTRANCE,
-		ACCESS_COMMAND,
-		ACCESS_CONSTRUCTION,
-		ACCESS_EVA,
-		ACCESS_GATEWAY,
-		ACCESS_GENETICS,
-		ACCESS_KEYCARD_AUTH,
-		ACCESS_NETWORK,
-		ACCESS_MAINT_TUNNELS,
-		ACCESS_MECH_ENGINE,
-		ACCESS_MECH_MINING,
-		ACCESS_MECH_SECURITY,
-		ACCESS_MECH_SCIENCE,
-		ACCESS_MINERAL_STOREROOM,
-		ACCESS_MINISAT,
-		ACCESS_MORGUE,
-		ACCESS_ORDNANCE,
-		ACCESS_ORDNANCE_STORAGE,
-		ACCESS_RC_ANNOUNCE,
-		ACCESS_RESEARCH,
-		ACCESS_ROBOTICS,
-		ACCESS_SCIENCE,
-		ACCESS_TECH_STORAGE,
-		ACCESS_TELEPORTER,
-		ACCESS_XENOBIOLOGY,
-		)
-	minimal_wildcard_access = list(
-		ACCESS_RD,
-		)
-	extra_access = list()
-	extra_wildcard_access = list()
-	template_access = list(
-		ACCESS_CAPTAIN,
-		ACCESS_CHANGE_IDS,
-		)
-	job = /datum/job/research_director
-
 /datum/id_trim/job/roboticist
 	assignment = "Roboticist"
 	trim_state = "trim_roboticist"
@@ -886,33 +812,6 @@
 		ACCESS_RD,
 		)
 	job = /datum/job/roboticist
-
-/datum/id_trim/job/scientist
-	assignment = "Scientist"
-	trim_state = "trim_scientist"
-	department_color = COLOR_SCIENCE_PINK
-	subdepartment_color = COLOR_SCIENCE_PINK
-	sechud_icon_state = SECHUD_SCIENTIST
-	minimal_access = list(
-		ACCESS_AUX_BASE,
-		ACCESS_MECH_SCIENCE,
-		ACCESS_MINERAL_STOREROOM,
-		ACCESS_ORDNANCE,
-		ACCESS_ORDNANCE_STORAGE,
-		ACCESS_RESEARCH,
-		ACCESS_SCIENCE,
-		ACCESS_XENOBIOLOGY,
-		)
-	extra_access = list(
-		ACCESS_GENETICS,
-		ACCESS_ROBOTICS,
-		)
-	template_access = list(
-		ACCESS_CAPTAIN,
-		ACCESS_CHANGE_IDS,
-		ACCESS_RD,
-		)
-	job = /datum/job/scientist
 
 /// Sec officers have departmental variants. They each have their own trims with bonus departmental accesses.
 /datum/id_trim/job/security_officer
@@ -1099,30 +998,6 @@
 		ACCESS_CE,
 		)
 	job = /datum/job/station_engineer
-
-/datum/id_trim/job/virologist
-	assignment = "Virologist"
-	trim_state = "trim_virologist"
-	department_color = COLOR_MEDICAL_BLUE
-	subdepartment_color = COLOR_MEDICAL_BLUE
-	sechud_icon_state = SECHUD_VIROLOGIST
-	minimal_access = list(
-		ACCESS_MECH_MEDICAL,
-		ACCESS_MEDICAL,
-		ACCESS_MINERAL_STOREROOM,
-		ACCESS_VIROLOGY,
-		)
-	extra_access = list(
-		ACCESS_PLUMBING,
-		ACCESS_MORGUE,
-		ACCESS_SURGERY,
-		)
-	template_access = list(
-		ACCESS_CAPTAIN,
-		ACCESS_CHANGE_IDS,
-		ACCESS_CMO,
-		)
-	job = /datum/job/virologist
 
 /datum/id_trim/job/warden
 	assignment = "Warden"

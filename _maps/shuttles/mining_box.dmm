@@ -33,12 +33,9 @@
 	},
 /obj/docking_port/mobile{
 	dir = 8;
-	dwidth = 3;
-	height = 5;
 	shuttle_id = "mining";
 	name = "mining shuttle";
-	port_direction = 4;
-	width = 7
+	port_direction = 4
 	},
 /turf/open/floor/plating,
 /area/shuttle/mining)
@@ -48,25 +45,26 @@
 /area/shuttle/mining)
 "j" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/open/floor/plating,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/mining)
 "k" = (
 /obj/structure/ore_box,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/mining)
 "l" = (
-/obj/structure/shuttle/engine/propulsion/burst,
-/turf/open/floor/plating/airless,
+/obj/machinery/atmospherics/components/unary/engine,
+/turf/open/floor/plating,
+/area/shuttle/mining)
+"q" = (
+/obj/machinery/atmospherics/components/unary/portables_connector/visible,
+/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/mining)
+"F" = (
+/obj/structure/table,
+/obj/item/wrench,
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/mining)
 "Q" = (
 /obj/structure/chair/comfy/shuttle{
@@ -86,7 +84,7 @@ a
 "}
 (2,1,1) = {"
 a
-c
+F
 e
 g
 f
@@ -98,7 +96,7 @@ b
 d
 Q
 e
-f
+q
 j
 l
 "}

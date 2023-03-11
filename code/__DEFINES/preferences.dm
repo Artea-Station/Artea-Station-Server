@@ -74,6 +74,8 @@
 #define EXP_TYPE_SCIENCE "Science"
 #define EXP_TYPE_SUPPLY "Supply"
 #define EXP_TYPE_SECURITY "Security"
+#define EXP_TYPE_CIVILLIAN "Civillian"
+#define EXP_TYPE_MISC "Miscellanous"
 #define EXP_TYPE_SILICON "Silicon"
 #define EXP_TYPE_SERVICE "Service"
 #define EXP_TYPE_ANTAG "Antag"
@@ -120,24 +122,33 @@
 /// Open the keybindings window
 #define PREFERENCE_TAB_KEYBINDINGS 2
 
-/// These will be shown in the character sidebar, but at the bottom.
-#define PREFERENCE_CATEGORY_FEATURES "features"
-
 /// Any preferences that will show to the sides of the character in the setup menu.
 #define PREFERENCE_CATEGORY_CLOTHING "clothing"
 
-/// Preferences that will be put into the 3rd list, and are not contextual.
-#define PREFERENCE_CATEGORY_NON_CONTEXTUAL "non_contextual"
+/// Any preferences that will show to the sides of the character in the setup menu.
+#define PREFERENCE_CATEGORY_CLOTHING_LIST "clothing_list"
 
-/// Will be put under the game preferences window.
-#define PREFERENCE_CATEGORY_GAME_PREFERENCES "game_preferences"
+/// These will show in the appearance prefs tab.
+#define PREFERENCE_CATEGORY_APPEARANCE "appearance"
 
-/// These will show in the list to the right of the character preview.
-#define PREFERENCE_CATEGORY_SECONDARY_FEATURES "secondary_features"
+/// These will show in the appearance prefs tab, in a list at the bottom. DO NOT USE FOR PREFS WITH ICONS.
+#define PREFERENCE_CATEGORY_APPEARANCE_LIST "appearance_list"
+
+/// These will show in the OOC prefs tab.
+#define PREFERENCE_CATEGORY_OOC_INFO "ooc_info"
 
 /// These are preferences that are supplementary for main features,
 /// such as hair color being affixed to hair.
 #define PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES "supplemental_features"
+
+/// Preferences that have their own handling. Not to be confused with MISC_LIST.
+#define PREFERENCE_CATEGORY_MISC "misc"
+
+/// Preferences that will be put into the misc preferences tab.
+#define PREFERENCE_CATEGORY_MISC_LIST "misc_list"
+
+/// Will be put under the game preferences window.
+#define PREFERENCE_CATEGORY_GAME_PREFERENCES "game_preferences"
 
 // Playtime is tracked in minutes
 /// The time needed to unlock hardcore random mode in preferences

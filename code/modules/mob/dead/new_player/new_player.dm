@@ -332,7 +332,7 @@
 		dat += dept_data.Join()
 		dat += "</fieldset><br>"
 		column_counter++
-		if(column_counter > 0 && (column_counter % 3 == 0))
+		if(column_counter > 0 && (column_counter % 4 == 0))
 			dat += "</td><td valign='top'>"
 	dat += "</td></tr></table></center>"
 	dat += "<div><center><a href='byond://?src=[REF(src)];SelectedJob=Random'>Random Job</a></center></div>"

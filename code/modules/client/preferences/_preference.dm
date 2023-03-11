@@ -28,6 +28,9 @@
 /// For instance, hair color being supplemental to hair.
 #define SUPPLEMENTAL_FEATURE_KEY "supplemental_feature"
 
+/// The required list size for crop parameters in generate_icon.
+#define REQUIRED_CROP_LIST_SIZE 4
+
 /// An assoc list list of types to instantiated `/datum/preference` instances
 GLOBAL_LIST_INIT(preference_entries, init_preference_entries())
 
@@ -199,7 +202,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /// Apply this preference onto the given human.
 /// Must be overriden by subtypes.
 /// Called when the savefile_identifier == PREFERENCE_CHARACTER.
-/datum/preference/proc/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/proc/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_CALL_PARENT(FALSE)
 	CRASH("`apply_to_human()` was not implemented for [type]!")
@@ -347,6 +350,37 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	var/main_feature_name
 
 	abstract_type = /datum/preference/choiced
+
+	/// A list of the four co-ordinates to crop to, if `generate_icons` is enabled. Useful for icons whose main contents are smaller than 32x32. Please keep it square.
+	var/list/crop_area
+	/// A color to apply to the icon if it's greyscale, and `generate_icons` is enabled.
+	var/greyscale_color
+
+/// Allows for dynamic assigning of icon states.
+/datum/preference/choiced/proc/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state)
+	return original_icon_state
+
+/// Generates and allows for post-processing on icons, such as greyscaling and cropping.
+/datum/preference/choiced/proc/generate_icon(datum/sprite_accessory/sprite_accessory, dir = SOUTH)
+	if(!sprite_accessory.icon_state || sprite_accessory.icon_state == "None")
+		return icon('icons/mob/landmarks.dmi', "x")
+
+	icon_exists(sprite_accessory.icon, generate_icon_state(sprite_accessory, sprite_accessory.icon_state), TRUE)
+
+	var/icon/icon_to_process = icon(sprite_accessory.icon, generate_icon_state(sprite_accessory, sprite_accessory.icon_state), dir, 1)
+
+	if(islist(crop_area) && crop_area.len == REQUIRED_CROP_LIST_SIZE)
+		icon_to_process.Crop(crop_area[1], crop_area[2], crop_area[3], crop_area[4])
+		icon_to_process.Scale(32, 32)
+	else if(crop_area)
+		stack_trace("Invalid crop paramater! The provided crop area list is not four entries long, or is not a list!")
+
+	var/color = sanitize_hexcolor(greyscale_color)
+	if(color && sprite_accessory.color_src)
+		// This isn't perfect, but I don't want to add the significant overhead to make it be.
+		icon_to_process.ColorTone(color)
+
+	return icon_to_process
 
 /// Returns a list of every possible value.
 /// The first time this is called, will run `init_values()`.
@@ -533,3 +567,5 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /datum/preference/toggle/is_valid(value)
 	return value == TRUE || value == FALSE
+
+#undef REQUIRED_CROP_LIST_SIZE

@@ -4,19 +4,17 @@
 
 	icon_state = "" //Remove the inherent human icon that is visible on the map editor. We're rendering ourselves limb by limb, having it still be there results in a bug where the basic human icon appears below as south in all directions and generally looks nasty.
 
-	//initialize limbs first
-	create_bodyparts()
-
 	setup_mood()
 
+	create_dna()
+	dna.species.create_fresh_body(src)
 	setup_human_dna()
+
+	create_carbon_reagents()
+	set_species(dna.species.type)
+
 	prepare_huds() //Prevents a nasty runtime on human init
 
-	if(dna.species)
-		INVOKE_ASYNC(src, PROC_REF(set_species), dna.species.type)
-
-	//initialise organs
-	create_internal_organs() //most of it is done in set_species now, this is only for parent call
 	physiology = new()
 
 	. = ..()
@@ -42,7 +40,6 @@
 
 /mob/living/carbon/human/proc/setup_human_dna()
 	//initialize dna. for spawned humans; overwritten by other code
-	create_dna(src)
 	randomize_human(src)
 	dna.initialize_dna()
 
@@ -756,18 +753,16 @@
 	for(var/t in get_disabled_limbs()) //Disabled limbs
 		hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[t]7"))
 
-/mob/living/carbon/human/fully_heal(admin_revive = FALSE)
-	dna?.species.spec_fully_heal(src)
-	if(admin_revive)
-		regenerate_limbs()
-		regenerate_organs()
-	remove_all_embedded_objects()
-	set_heartattack(FALSE)
-	for(var/datum/mutation/human/HM in dna.mutations)
-		if(HM.quality != POSITIVE)
-			dna.remove_mutation(HM.name)
-	set_coretemperature(get_body_temp_normal(apply_change=FALSE))
-	heat_exposure_stacks = 0
+/mob/living/carbon/human/fully_heal(heal_flags = HEAL_ALL)
+	if(heal_flags & HEAL_NEGATIVE_MUTATIONS)
+		for(var/datum/mutation/human/existing_mutation in dna.mutations)
+			if(existing_mutation.quality != POSITIVE)
+				dna.remove_mutation(existing_mutation.name)
+
+	if(heal_flags & HEAL_TEMP)
+		set_coretemperature(get_body_temp_normal(apply_change = FALSE))
+		heat_exposure_stacks = 0
+
 	return ..()
 
 /mob/living/carbon/human/is_nearsighted()
@@ -777,7 +772,7 @@
 	return ..()
 
 /mob/living/carbon/human/vomit(lost_nutrition = 10, blood = FALSE, stun = TRUE, distance = 1, message = TRUE, vomit_type = VOMIT_TOXIC, harm = TRUE, force = FALSE, purge_ratio = 0.1)
-	if(blood && (NOBLOOD in dna.species.species_traits) && !HAS_TRAIT(src, TRAIT_TOXINLOVER))
+	if(blood && HAS_TRAIT(src, TRAIT_NOBLOOD) && !HAS_TRAIT(src, TRAIT_TOXINLOVER))
 		if(message)
 			visible_message(span_warning("[src] dry heaves!"), \
 							span_userdanger("You try to throw up, but there's nothing in your stomach!"))
@@ -981,12 +976,12 @@
 	return ..()
 
 /mob/living/carbon/human/is_bleeding()
-	if(NOBLOOD in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NOBLOOD))
 		return FALSE
 	return ..()
 
 /mob/living/carbon/human/get_total_bleed_rate()
-	if(NOBLOOD in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NOBLOOD))
 		return FALSE
 	return ..()
 
@@ -1003,9 +998,10 @@
 	var/race = null
 	var/use_random_name = TRUE
 
-/mob/living/carbon/human/species/Initialize(mapload)
-	. = ..()
-	INVOKE_ASYNC(src, PROC_REF(set_species), race)
+/mob/living/carbon/human/species/create_dna()
+	dna = new /datum/dna(src)
+	if (!isnull(race))
+		dna.species = new race
 
 /mob/living/carbon/human/species/set_species(datum/species/mrace, icon_update, pref_load)
 	. = ..()

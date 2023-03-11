@@ -185,7 +185,7 @@
 		if(open.blocks_air)
 			continue
 		var/datum/gas_mixture/environment = open.return_air()
-		var/temp = round(environment.return_temperature()) 
+		var/temp = round(environment.return_temperature())
 		var/image/pic = image('icons/turf/overlays.dmi', open, "greyOverlay", ABOVE_ALL_MOB_LAYER)
 		// Lower than TEMP_SHADE_CYAN should be deep blue
 		switch(temp)
@@ -205,7 +205,7 @@
 				pic.color = COLOR_RED
 		pic.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		pic.alpha = 200
-		flick_overlay(pic, list(viewer.client), duration)
+		flick_overlay_global(pic, list(viewer.client), duration)
 
 
 #undef MODE_NONE

@@ -30,13 +30,16 @@
 	/// Stripe paint of the wall
 	var/stripe_paint
 	var/opening = FALSE
+	/// Material Set Name
+	var/matset_name
 
 	/// Typecache of the neighboring objects that we want to neighbor stripe overlay with
 	var/static/list/neighbor_typecache
 
 /obj/structure/falsewall/Initialize()
+	color = null //Clear the mapaid color. This should hopefully not cause problems.
+	//This has to be stripped before the supercall so it doesn't end up in atom_colours.
 	. = ..()
-	color = null //Clear the color that's a mapping aid
 	air_update_turf(TRUE, TRUE)
 	set_wall_information(plating_material, reinf_material, wall_paint, stripe_paint)
 
@@ -59,10 +62,7 @@
 
 /obj/structure/falsewall/update_name()
 	. = ..()
-	if(reinf_material)
-		name = "reinforced wall"
-	else
-		name = "wall"
+	name = matset_name
 
 /obj/structure/falsewall/attack_hand(mob/user, list/modifiers)
 	if(opening)
@@ -122,6 +122,8 @@
 			neighbor_typecache = typecacheof(list(/obj/machinery/door/airlock, /obj/structure/window/reinforced/fulltile, /obj/structure/window/fulltile, /obj/structure/window/reinforced/shuttle, /obj/machinery/door/poddoor))
 		for(var/cardinal in GLOB.cardinals)
 			var/turf/step_turf = get_step(src, cardinal)
+			if(!can_area_smooth(step_turf))
+				continue
 			for(var/atom/movable/movable_thing as anything in step_turf)
 				if(neighbor_typecache[movable_thing.type])
 					neighbor_stripe ^= cardinal
@@ -188,7 +190,7 @@
 	stripe_paint = new_stripe_paint
 	set_materials(plating_mat, reinf_mat)
 
-/// Painfully copypasted from /turf/closed/wall
+/// Painfully copypasted from /turf/closed/wall (Twice!)
 /obj/structure/falsewall/proc/set_materials(plating_mat, reinf_mat)
 	var/datum/material/plating_mat_ref
 	if(plating_mat)
@@ -204,6 +206,14 @@
 
 	plating_material = plating_mat
 	reinf_material = reinf_mat
+
+	if(reinf_material)
+		name = "reinforced [plating_mat_ref.name] [plating_mat_ref.wall_name]"
+		desc = "It seems to be a section of hull reinforced with [reinf_mat_ref.name] and plated with [plating_mat_ref.name]."
+	else
+		name = "[plating_mat_ref.name] [plating_mat_ref.wall_name]"
+		desc = "It seems to be a section of hull plated with [plating_mat_ref.name]."
+	matset_name = name
 
 	update_greyscale()
 	update_appearance()
@@ -357,7 +367,7 @@
 	icon = 'icons/turf/walls/metal_wall.dmi'
 	plating_material = /datum/material/titanium
 	smoothing_groups = list(SMOOTH_GROUP_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTERS_BLASTDOORS, SMOOTH_GROUP_SHUTTLE_PARTS)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_LOW_WALL, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTERS_BLASTDOORS, SMOOTH_GROUP_SHUTTLE_PARTS)
 
 /obj/structure/falsewall/plastitanium
 	name = "wall"
