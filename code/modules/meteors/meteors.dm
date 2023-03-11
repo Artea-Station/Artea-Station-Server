@@ -31,58 +31,57 @@ GLOBAL_LIST_INIT(meteorsD, list(/obj/effect/meteor/medium=15, /obj/effect/meteor
 ///////////////////////////////
 
 /proc/spawn_meteors(number = 10, list/meteortypes)
-	for(var/i in 1 to number)
-		spawn_meteor(meteortypes)
+	for(var/i = 0; i < number; i++)
+		spawn_meteor(pick_weight(meteortypes))
 
-/proc/spawn_meteor(list/meteortypes)
+/proc/spawn_meteor(meteor_type, dir, z_level, padding = MAP_EDGE_PAD)
 	var/turf/pickedstart
 	var/turf/pickedgoal
 	var/max_i = 10//number of tries to spawn meteor.
-	while(!isspaceturf(pickedstart))
-		var/startSide = pick(GLOB.cardinals)
-		var/startZ = pick(SSmapping.levels_by_trait(ZTRAIT_STATION))
-		pickedstart = spaceDebrisStartLoc(startSide, startZ)
-		pickedgoal = spaceDebrisFinishLoc(startSide, startZ)
+	while(!isspaceturf(pickedstart) && !isopenspaceturf(pickedstart))
+		var/startSide = dir || pick(GLOB.cardinals)
+		var/startZ = z_level || pick(SSmapping.levels_by_trait(ZTRAIT_STATION))
+		pickedstart = spaceDebrisStartLoc(startSide, startZ, padding)
+		pickedgoal = spaceDebrisFinishLoc(startSide, startZ, padding)
 		max_i--
 		if(max_i<=0)
 			return
-	var/Me = pick_weight(meteortypes)
-	new Me(pickedstart, pickedgoal)
+	new meteor_type(pickedstart, pickedgoal)
 
-/proc/spaceDebrisStartLoc(startSide, Z)
+/proc/spaceDebrisStartLoc(startSide, Z, padding)
 	var/starty
 	var/startx
 	switch(startSide)
 		if(NORTH)
-			starty = world.maxy-(TRANSITIONEDGE + MAP_EDGE_PAD)
-			startx = rand((TRANSITIONEDGE + MAP_EDGE_PAD), world.maxx-(TRANSITIONEDGE + MAP_EDGE_PAD))
+			starty = world.maxy-(TRANSITIONEDGE + padding)
+			startx = rand((TRANSITIONEDGE + padding), world.maxx-(TRANSITIONEDGE + padding))
 		if(EAST)
-			starty = rand((TRANSITIONEDGE + MAP_EDGE_PAD),world.maxy-(TRANSITIONEDGE + MAP_EDGE_PAD))
-			startx = world.maxx-(TRANSITIONEDGE + MAP_EDGE_PAD)
+			starty = rand((TRANSITIONEDGE + padding),world.maxy-(TRANSITIONEDGE + padding))
+			startx = world.maxx-(TRANSITIONEDGE + padding)
 		if(SOUTH)
-			starty = (TRANSITIONEDGE + MAP_EDGE_PAD)
-			startx = rand((TRANSITIONEDGE + MAP_EDGE_PAD), world.maxx-(TRANSITIONEDGE + MAP_EDGE_PAD))
+			starty = (TRANSITIONEDGE + padding)
+			startx = rand((TRANSITIONEDGE + padding), world.maxx-(TRANSITIONEDGE + padding))
 		if(WEST)
-			starty = rand((TRANSITIONEDGE + MAP_EDGE_PAD), world.maxy-(TRANSITIONEDGE + MAP_EDGE_PAD))
-			startx = (TRANSITIONEDGE + MAP_EDGE_PAD)
+			starty = rand((TRANSITIONEDGE + padding), world.maxy-(TRANSITIONEDGE + padding))
+			startx = (TRANSITIONEDGE + padding)
 	. = locate(startx, starty, Z)
 
-/proc/spaceDebrisFinishLoc(startSide, Z)
+/proc/spaceDebrisFinishLoc(startSide, Z, padding)
 	var/endy
 	var/endx
 	switch(startSide)
 		if(NORTH)
-			endy = (TRANSITIONEDGE + MAP_EDGE_PAD)
-			endx = rand((TRANSITIONEDGE + MAP_EDGE_PAD), world.maxx-(TRANSITIONEDGE + MAP_EDGE_PAD))
+			endy = (TRANSITIONEDGE + padding)
+			endx = rand((TRANSITIONEDGE + padding), world.maxx-(TRANSITIONEDGE + padding))
 		if(EAST)
-			endy = rand((TRANSITIONEDGE + MAP_EDGE_PAD), world.maxy-(TRANSITIONEDGE + MAP_EDGE_PAD))
-			endx = (TRANSITIONEDGE + MAP_EDGE_PAD)
+			endy = rand((TRANSITIONEDGE + padding), world.maxy-(TRANSITIONEDGE + padding))
+			endx = (TRANSITIONEDGE + padding)
 		if(SOUTH)
-			endy = world.maxy-(TRANSITIONEDGE + MAP_EDGE_PAD)
-			endx = rand((TRANSITIONEDGE + MAP_EDGE_PAD), world.maxx-(TRANSITIONEDGE + MAP_EDGE_PAD))
+			endy = world.maxy-(TRANSITIONEDGE + padding)
+			endx = rand((TRANSITIONEDGE + padding), world.maxx-(TRANSITIONEDGE + padding))
 		if(WEST)
-			endy = rand((TRANSITIONEDGE + MAP_EDGE_PAD),world.maxy-(TRANSITIONEDGE + MAP_EDGE_PAD))
-			endx = world.maxx-(TRANSITIONEDGE + MAP_EDGE_PAD)
+			endy = rand((TRANSITIONEDGE + padding),world.maxy-(TRANSITIONEDGE + padding))
+			endx = world.maxx-(TRANSITIONEDGE + padding)
 	. = locate(endx, endy, Z)
 
 ///////////////////////
@@ -115,6 +114,8 @@ GLOBAL_LIST_INIT(meteorsD, list(/obj/effect/meteor/medium=15, /obj/effect/meteor
 	var/list/meteordrop = list(/obj/item/stack/ore/iron)
 	///How much stuff to spawn when you die
 	var/dropamt = 2
+	/// How much damage the meteor would need to deal to the shields to be completely dispersed
+	var/shield_damage = 5
 
 	///The thing we're moving towards, usually a turf
 	var/atom/dest
@@ -123,6 +124,7 @@ GLOBAL_LIST_INIT(meteorsD, list(/obj/effect/meteor/medium=15, /obj/effect/meteor
 
 	///Used by Stray Meteor event to indicate meteor type (the type of sensor that "detected" it) in announcement
 	var/signature = "motion"
+	var/del_timer
 
 /obj/effect/meteor/Initialize(mapload, turf/target)
 	. = ..()
@@ -133,6 +135,8 @@ GLOBAL_LIST_INIT(meteorsD, list(/obj/effect/meteor/medium=15, /obj/effect/meteor
 	chase_target(target)
 
 /obj/effect/meteor/Destroy()
+	if (del_timer)
+		deltimer(del_timer)
 	GLOB.meteor_list -= src
 	return ..()
 
@@ -145,7 +149,7 @@ GLOBAL_LIST_INIT(meteorsD, list(/obj/effect/meteor/medium=15, /obj/effect/meteor
 		var/turf/T = get_turf(loc)
 		ram_turf(T)
 
-		if(prob(10) && !isspaceturf(T))//randomly takes a 'hit' from ramming
+		if(prob(10) && !isspaceturf(T) && !isopenspaceturf(T))//randomly takes a 'hit' from ramming
 			get_hit()
 
 	if(z != z_original || loc == get_turf(dest))
@@ -154,6 +158,16 @@ GLOBAL_LIST_INIT(meteorsD, list(/obj/effect/meteor/medium=15, /obj/effect/meteor
 
 /obj/effect/meteor/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE //Keeps us from drifting for no reason
+
+/obj/effect/meteor/Initialize(mapload, target)
+	. = ..()
+	z_original = z
+	GLOB.meteor_list += src
+	SSaugury.register_doom(src, threat)
+	SpinAnimation()
+	del_timer = QDEL_IN(src, lifetime)
+	dest = target
+	chase_target(target)
 
 /obj/effect/meteor/Bump(atom/A)
 	. = ..() //What could go wrong
@@ -246,6 +260,7 @@ GLOBAL_LIST_INIT(meteorsD, list(/obj/effect/meteor/medium=15, /obj/effect/meteor
 	meteorsound = 'sound/weapons/gun/smg/shot.ogg'
 	meteordrop = list(/obj/item/stack/ore/glass)
 	threat = 1
+	shield_damage = 2
 
 //Medium-sized
 /obj/effect/meteor/medium
@@ -265,6 +280,7 @@ GLOBAL_LIST_INIT(meteorsD, list(/obj/effect/meteor/medium=15, /obj/effect/meteor
 	heavy = TRUE
 	dropamt = 4
 	threat = 10
+	shield_damage = 10
 
 /obj/effect/meteor/big/meteor_effect()
 	..()
@@ -281,6 +297,7 @@ GLOBAL_LIST_INIT(meteorsD, list(/obj/effect/meteor/medium=15, /obj/effect/meteor
 	meteordrop = list(/obj/item/stack/ore/plasma)
 	threat = 20
 	signature = "thermal"
+	shield_damage = 15
 
 /obj/effect/meteor/flaming/meteor_effect()
 	..()
@@ -295,6 +312,8 @@ GLOBAL_LIST_INIT(meteorsD, list(/obj/effect/meteor/medium=15, /obj/effect/meteor
 	meteordrop = list(/obj/item/stack/ore/uranium)
 	threat = 15
 	signature = "radiation"
+	shield_damage = 15
+
 
 /obj/effect/meteor/irradiated/meteor_effect()
 	..()
@@ -474,6 +493,7 @@ GLOBAL_LIST_INIT(meteorsD, list(/obj/effect/meteor/medium=15, /obj/effect/meteor
 	meteordrop = list(/obj/item/stack/ore/plasma)
 	threat = 50
 	signature = "armageddon"
+	shield_damage = 30
 
 /obj/effect/meteor/tunguska/Move()
 	. = ..()

@@ -69,6 +69,7 @@
 #include "achievements.dm"
 #include "anchored_mobs.dm"
 #include "anonymous_themes.dm"
+#include "atmosphere.dm"
 #include "autowiki.dm"
 #include "barsigns.dm"
 #include "bespoke_id.dm"

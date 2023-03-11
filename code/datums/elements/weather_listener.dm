@@ -5,13 +5,11 @@
 	var/weather_type
 	//What events to change the track on
 	var/list/sound_change_signals
-	//The weather type we're working with
-	var/weather_trait
 	//The playlist of sounds to draw from. Pass by ref
 	var/list/playlist
 
 
-/datum/element/weather_listener/Attach(datum/target, w_type, trait, weather_playlist)
+/datum/element/weather_listener/Attach(datum/target, w_type, weather_playlist)
 	. = ..()
 	if(!weather_type)
 		weather_type = w_type
@@ -21,7 +19,6 @@
 			COMSIG_WEATHER_WINDDOWN(weather_type),
 			COMSIG_WEATHER_END(weather_type)
 		)
-		weather_trait = trait
 		playlist = weather_playlist
 
 	RegisterSignal(target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(handle_z_level_change), override = TRUE)
@@ -33,13 +30,10 @@
 
 /datum/element/weather_listener/proc/handle_z_level_change(datum/source, turf/old_loc, turf/new_loc)
 	SIGNAL_HANDLER
-	var/list/fitting_z_levels = SSmapping.levels_by_trait(weather_trait)
-	if(!(new_loc.z in fitting_z_levels))
-		return
-	var/datum/component/our_comp = source.AddComponent(/datum/component/area_sound_manager, playlist, list(), COMSIG_MOB_LOGOUT, fitting_z_levels)
+	var/datum/component/our_comp = source.AddComponent(/datum/component/area_sound_manager, playlist, list(), COMSIG_MOB_LOGOUT)
 	our_comp.RegisterSignal(SSdcs, sound_change_signals, /datum/component/area_sound_manager/proc/handle_change)
 
 /datum/element/weather_listener/proc/handle_logout(datum/source)
 	SIGNAL_HANDLER
-	source.RemoveElement(/datum/element/weather_listener, weather_type, weather_trait, playlist)
+	source.RemoveElement(/datum/element/weather_listener, weather_type, playlist)
 

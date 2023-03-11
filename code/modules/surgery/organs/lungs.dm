@@ -613,7 +613,7 @@
 /obj/item/organ/internal/lungs/ashwalker/Initialize(mapload)
 	. = ..()
 
-	var/datum/gas_mixture/immutable/planetary/mix = SSair.planetary[LAVALAND_DEFAULT_ATMOS]
+	var/datum/gas_mixture/immutable/planetary/mix = SSair.planetary[PLANETARY_ATMOS]
 
 	if(!mix?.total_moles()) // this typically means we didn't load lavaland, like if we're using #define LOWMEMORYMODE
 		return

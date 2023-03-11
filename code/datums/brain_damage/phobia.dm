@@ -150,10 +150,6 @@
 	phobia_type = "greytide"
 	random_gain = FALSE
 
-/datum/brain_trauma/mild/phobia/lizards
-	phobia_type = "lizards"
-	random_gain = FALSE
-
 /datum/brain_trauma/mild/phobia/skeletons
 	phobia_type = "skeletons"
 	random_gain = FALSE
