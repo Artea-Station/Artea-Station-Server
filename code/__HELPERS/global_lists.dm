@@ -32,8 +32,8 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_antennae, GLOB.moth_antennae_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_markings, GLOB.moth_markings_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/pod_hair, GLOB.pod_hair_list)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/screen, GLOB.synth_screens)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/antenna, GLOB.synth_antennae)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/screen, GLOB.synth_screens, add_blank = TRUE)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/antenna, GLOB.synth_antennae, add_blank = TRUE)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/synth_head, GLOB.synth_heads)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/synth_chassis, GLOB.synth_chassi)
 
