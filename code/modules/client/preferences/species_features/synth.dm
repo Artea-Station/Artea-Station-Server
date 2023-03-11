@@ -49,7 +49,7 @@
 /datum/preference/choiced/mutant_choice/synth_screen
 	savefile_key = "feature_ipc_screen"
 	main_feature_name = "IPC Screen"
-	category = PREFERENCE_CATEGORY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE
 	relevant_mutant_bodypart = MUTANT_SYNTH_SCREEN
 	default_accessory_type = /datum/sprite_accessory/screen/none
 	should_generate_icons = TRUE
@@ -89,6 +89,7 @@
 /// IPC Antennas
 
 /datum/preference/choiced/mutant_choice/synth_antenna
+	category = PREFERENCE_CATEGORY_APPEARANCE_LIST
 	savefile_key = "feature_ipc_antenna"
 	relevant_mutant_bodypart = MUTANT_SYNTH_ANTENNA
 	default_accessory_type = /datum/sprite_accessory/antenna/none
@@ -97,13 +98,13 @@
 	return TRUE
 
 /datum/preference/tri_color/synth_antenna
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE_LIST
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "ipc_antenna_color"
 	relevant_mutant_bodypart = MUTANT_SYNTH_ANTENNA
 
 /datum/preference/tri_bool/synth_antenna_emissive
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE_LIST
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "ipc_antenna_emissive"
 	relevant_mutant_bodypart = MUTANT_SYNTH_ANTENNA
@@ -113,7 +114,7 @@
 /datum/preference/choiced/mutant_choice/synth_chassis
 	savefile_key = "feature_ipc_chassis"
 	main_feature_name = "Chassis Appearance"
-	category = PREFERENCE_CATEGORY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE
 	relevant_mutant_bodypart = MUTANT_SYNTH_CHASSIS
 	default_accessory_type = /datum/sprite_accessory/synth_chassis/default
 	should_generate_icons = TRUE
@@ -147,7 +148,7 @@
 /datum/preference/choiced/mutant_choice/synth_head
 	savefile_key = "feature_ipc_head"
 	main_feature_name = "Head Appearance"
-	category = PREFERENCE_CATEGORY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE
 	relevant_mutant_bodypart = MUTANT_SYNTH_HEAD
 	default_accessory_type = /datum/sprite_accessory/synth_head/default
 	should_generate_icons = TRUE
@@ -159,6 +160,9 @@
 	// If this isn't the right type, we have much bigger problems.
 	var/datum/sprite_accessory/synth_head/head = sprite_accessory
 	return "[original_icon_state]_head[head.dimorphic ? "_m" : ""]"
+
+/datum/preference/choiced/mutant_choice/synth_head/init_possible_values()
+	return generate_mutant_valid_values(/datum/sprite_accessory/synth_head, generate_empty = TRUE)
 
 /datum/preference/choiced/mutant_choice/synth_head/is_part_enabled(datum/preferences/preferences)
 	return TRUE
@@ -183,7 +187,7 @@
 	relevant_mutant_bodypart = MUTANT_SYNTH_HAIR
 
 /datum/preference/numeric/hair_opacity
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_APPEARANCE_LIST
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "feature_hair_opacity"
 	relevant_mutant_bodypart = MUTANT_SYNTH_HAIR

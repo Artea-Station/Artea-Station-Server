@@ -95,7 +95,7 @@
 
 	var/screen_mutant_bodypart = transformer.dna.features[MUTANT_SYNTH_SCREEN]
 
-	if(!screen && screen_mutant_bodypart && screen_mutant_bodypart[MUTANT_INDEX_NAME] && screen_mutant_bodypart[MUTANT_INDEX_NAME] != "None")
+	if(!screen && screen_mutant_bodypart && transformer.dna.features[MUTANT_SYNTH_SCREEN] && transformer.dna.features[MUTANT_SYNTH_SCREEN] != "None")
 		screen = new
 		screen.Grant(transformer)
 

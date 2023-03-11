@@ -1,5 +1,5 @@
-#define MUTANT_SYNTH_ANTENNA "ipc_antenna"
-#define MUTANT_SYNTH_SCREEN "ipc_screen"
+#define MUTANT_SYNTH_ANTENNA "synth_antenna"
+#define MUTANT_SYNTH_SCREEN "synth_screen"
 #define MUTANT_SYNTH_CHASSIS "synth_chassis"
 #define MUTANT_SYNTH_HEAD "synth_head"
 #define MUTANT_SYNTH_HAIR "synth_hair"

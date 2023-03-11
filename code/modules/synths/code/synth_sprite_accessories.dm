@@ -135,31 +135,23 @@
 
 /datum/sprite_accessory/antenna
 	icon = 'modular_skyrat/master_files/icons/mob/sprite_accessory/ipc_antennas.dmi'
-	color_src = USE_ONE_COLOR
-	default_color = DEFAULT_SECONDARY
-	recommended_species = list(SPECIES_SYNTH)
-	key = MUTANT_SYNTH_ANTENNA
-	generic = "Antenna"
-	relevent_layers = list(BODY_ADJ_LAYER)
-	genetic = FALSE
+	color_src = MUTCOLORS
 
 /datum/sprite_accessory/antenna/is_hidden(mob/living/carbon/human/wearer, obj/item/bodypart/bodypart)
 	if(!wearer.head || !bodypart)
 		return FALSE
-	if(key in wearer.try_hide_mutant_parts)
-		return TRUE
+	// if(key in wearer.try_hide_mutant_parts)
+	// 	return TRUE
 //	Exception for MODs
 	if(istype(wearer.head, /obj/item/clothing/head/mod))
 		return FALSE
 //	Hide accessory if flagged to do so
-	if((wearer.head.flags_inv & HIDEHAIR || (wearer.wear_mask && (wearer.wear_mask.flags_inv & HIDEHAIR))) \
-		&& !(wearer.head.flags_inv & SHOWSPRITEEARS || wearer.wear_mask.flags_inv & SHOWSPRITEEARS))
+	if((wearer.head.flags_inv & HIDEEARS || wearer.wear_mask.flags_inv & HIDEEARS))
 		return TRUE
 
 /datum/sprite_accessory/antenna/none
 	name = "None"
 	icon_state = "None"
-	recommended_species = null
 
 /datum/sprite_accessory/antenna/antennae
 	name = "Angled Antennae"
