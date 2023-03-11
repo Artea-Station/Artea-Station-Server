@@ -3,7 +3,7 @@
 ************** IPC SCREENS ****************
 *******************************************/
 /datum/sprite_accessory/screen
-	icon = 'modular_skyrat/master_files/icons/mob/sprite_accessory/ipc_screens.dmi'
+	icon = 'icons/mob/species/synth/screens.dmi'
 
 /datum/sprite_accessory/screen/none
 	name = "None"
@@ -179,12 +179,9 @@
 	var/dimorphic = FALSE
 	/// If true, allows for digitigrade to be used.
 	var/is_digi_compatible = FALSE
-	icon = BODYPART_ICON_IPC
+	icon = 'icons/mob/species/synth/synth_parts.dmi'
 	icon_state = "ipc"
 	color_src = null
-	factual = FALSE
-	key = MUTANT_SYNTH_CHASSIS
-	generic = "Chassis Type"
 
 /datum/sprite_accessory/synth_chassis/default
 	name = "Default Chassis"
@@ -197,7 +194,7 @@
 
 /datum/sprite_accessory/synth_chassis/human
 	name = "Human Chassis"
-	icon = BODYPART_ICON_HUMAN
+	icon = 'icons/mob/species/synth/human_parts_greyscale.dmi'
 	icon_state = "human"
 	color_src = MUTCOLORS
 	dimorphic = TRUE
@@ -209,7 +206,7 @@
 
 /datum/sprite_accessory/synth_chassis/mammal
 	name = "Mammal Chassis"
-	icon = BODYPART_ICON_SYNTHMAMMAL
+	icon = 'icons/mob/species/synth/mammal_parts_greyscale.dmi'
 	icon_state = "synthmammal"
 	color_src = MUTCOLORS
 	dimorphic = TRUE
@@ -217,7 +214,7 @@
 
 /datum/sprite_accessory/synth_chassis/lizard
 	name = "Lizard Chassis"
-	icon = BODYPART_ICON_SYNTHLIZARD
+	icon = 'icons/mob/species/synth/synthliz_parts_greyscale.dmi'
 	icon_state = "synthliz"
 	color_src = MUTCOLORS
 	dimorphic = TRUE
@@ -271,12 +268,9 @@
 /datum/sprite_accessory/synth_head
 	/// Boolean for if this is actually dimorphic.
 	var/dimorphic = FALSE
-	icon = BODYPART_ICON_IPC
+	icon = 'icons/mob/species/synth/synth_parts.dmi'
 	icon_state = "ipc"
 	color_src = null
-	factual = FALSE
-	key = MUTANT_SYNTH_HEAD
-	generic = "Head Type"
 
 /datum/sprite_accessory/synth_head/default
 	name = "Default Head"
@@ -288,7 +282,7 @@
 
 /datum/sprite_accessory/synth_head/human
 	name = "Human Head"
-	icon = BODYPART_ICON_HUMAN
+	icon = 'icons/mob/species/synth/human_parts_greyscale.dmi'
 	icon_state = "human"
 	color_src = MUTCOLORS
 	dimorphic = TRUE
@@ -300,14 +294,14 @@
 
 /datum/sprite_accessory/synth_head/mammal
 	name = "Mammal Head"
-	icon = BODYPART_ICON_SYNTHMAMMAL
+	icon = 'icons/mob/species/synth/mammal_parts_greyscale.dmi'
 	icon_state = "synthmammal"
 	color_src = MUTCOLORS
 	dimorphic = TRUE
 
 /datum/sprite_accessory/synth_head/lizard
 	name = "Lizard Head"
-	icon = BODYPART_ICON_SYNTHLIZARD
+	icon = 'icons/mob/species/synth/synthliz_parts_greyscale.dmi'
 	icon_state = "synthliz"
 	color_src = MUTCOLORS
 	dimorphic = TRUE

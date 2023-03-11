@@ -94,7 +94,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	target.dna.features["tail"] = "None"
 	target.dna.features["tail_lizard"] = "Smooth"
 	target.dna.features["pod_hair"] = "Ivy"
-	targer.dna.features[MUTANT_SYNTH_SCREEN] = "None"
+	target.dna.features[MUTANT_SYNTH_SCREEN] = "None"
 
 /// Provides a dummy that is consistently bald, white, naked, etc.
 /mob/living/carbon/human/dummy/consistent

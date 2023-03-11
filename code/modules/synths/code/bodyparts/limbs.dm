@@ -1,6 +1,6 @@
 // Synth bois!
 /obj/item/bodypart/head/robot/synth
-	icon_greyscale = BODYPART_ICON_IPC
+	icon_greyscale = 'icons/mob/species/synth/synth_parts.dmi'
 	limb_id = SPECIES_SYNTH
 	should_draw_greyscale = TRUE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
@@ -8,28 +8,28 @@
 	burn_reduction = 0
 
 /obj/item/bodypart/chest/robot/synth
-	icon_greyscale = BODYPART_ICON_IPC
+	icon_greyscale = 'icons/mob/species/synth/synth_parts.dmi'
 	should_draw_greyscale = TRUE
 	limb_id = SPECIES_SYNTH
 	brute_reduction = 0
 	burn_reduction = 0
 
 /obj/item/bodypart/arm/left/robot/synth
-	icon_greyscale = BODYPART_ICON_IPC
+	icon_greyscale = 'icons/mob/species/synth/synth_parts.dmi'
 	limb_id = SPECIES_SYNTH
 	should_draw_greyscale = TRUE
 	brute_reduction = 0
 	burn_reduction = 0
 
 /obj/item/bodypart/arm/right/robot/synth
-	icon_greyscale = BODYPART_ICON_IPC
+	icon_greyscale = 'icons/mob/species/synth/synth_parts.dmi'
 	limb_id = SPECIES_SYNTH
 	should_draw_greyscale = TRUE
 	brute_reduction = 0
 	burn_reduction = 0
 
 /obj/item/bodypart/leg/left/robot/synth
-	icon_greyscale = BODYPART_ICON_IPC
+	icon_greyscale = 'icons/mob/species/synth/synth_parts.dmi'
 	limb_id = SPECIES_SYNTH
 	should_draw_greyscale = TRUE
 	// digitigrade_type = /obj/item/bodypart/leg/left/robot/digitigrade
@@ -37,7 +37,7 @@
 	burn_reduction = 0
 
 /obj/item/bodypart/leg/right/robot/synth
-	icon_greyscale = BODYPART_ICON_IPC
+	icon_greyscale = 'icons/mob/species/synth/synth_parts.dmi'
 	should_draw_greyscale = TRUE
 	limb_id = SPECIES_SYNTH
 	// digitigrade_type = /obj/item/bodypart/leg/right/robot/digitigrade
@@ -45,7 +45,7 @@
 	burn_reduction = 0
 
 /obj/item/bodypart/leg/left/robot/digitigrade
-	icon_greyscale = BODYPART_ICON_SYNTHLIZARD
+	icon_greyscale = 'icons/mob/species/synth/synthliz_parts_greyscale.dmi'
 	should_draw_greyscale = TRUE
 	limb_id = BODYPART_ID_DIGITIGRADE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC | BODYTYPE_DIGITIGRADE
@@ -58,7 +58,7 @@
 // 	check_mutant_compatability()
 
 /obj/item/bodypart/leg/right/robot/digitigrade
-	icon_greyscale = BODYPART_ICON_SYNTHLIZARD
+	icon_greyscale = 'icons/mob/species/synth/synthliz_parts_greyscale.dmi'
 	should_draw_greyscale = TRUE
 	limb_id = BODYPART_ID_DIGITIGRADE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC | BODYTYPE_DIGITIGRADE
