@@ -132,8 +132,6 @@ SUBSYSTEM_DEF(job)
 			GLOB.supply_positions[job.title] = TRUE
 		if(/datum/job_department/engineering in job.departments_list)
 			GLOB.engineering_positions[job.title] = TRUE
-		if(/datum/job_department/science in job.departments_list)
-			GLOB.science_positions[job.title] = TRUE
 		if(/datum/job_department/medical in job.departments_list)
 			GLOB.medical_positions[job.title] = TRUE
 		if(/datum/job_department/silicon in job.departments_list)
