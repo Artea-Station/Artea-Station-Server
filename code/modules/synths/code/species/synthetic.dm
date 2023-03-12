@@ -93,6 +93,9 @@
 		appendix.Remove(transformer)
 		qdel(appendix)
 
+	if(isdummy(transformer)) // This is to make the dummy work properly with the synth parts. Cursed code.
+		set_limb_icons(transformer)
+
 	var/screen_mutant_bodypart = transformer.dna.features[MUTANT_SYNTH_SCREEN]
 
 	if(!screen && screen_mutant_bodypart && transformer.dna.features[MUTANT_SYNTH_SCREEN] && transformer.dna.features[MUTANT_SYNTH_SCREEN] != "None")
@@ -101,15 +104,18 @@
 
 /datum/species/synthetic/replace_body(mob/living/carbon/target, datum/species/new_species)
 	. = ..()
+	set_limb_icons(target)
+
+/datum/species/synthetic/proc/set_limb_icons(mob/living/carbon/target)
 	var/head = target.dna.features[MUTANT_SYNTH_HEAD]
 	var/chassis = target.dna.features[MUTANT_SYNTH_CHASSIS]
-	if(!chassis && !head)
-		return
+	if(!chassis || !head)
+		CRASH("Unable to apply chassis or head due to missing features! ([head] | [chassis])")
 
 	var/datum/sprite_accessory/synth_head/head_of_choice = GLOB.synth_heads[head]
 	var/datum/sprite_accessory/synth_chassis/chassis_of_choice = GLOB.synth_chassi[chassis]
 	if(!chassis_of_choice && !head_of_choice)
-		return
+		CRASH("Unable to apply chassis or head due to invalid values! ([head] & [head_of_choice] | [chassis] & [chassis_of_choice])")
 
 	examine_limb_id = chassis_of_choice.icon_state
 
@@ -127,13 +133,22 @@
 		if(limb.body_zone == BODY_ZONE_HEAD)
 			if(head_of_choice.color_src && head_color)
 				limb.variable_color = head_color
+			else
+				limb.variable_color = null
+			log_world("Setting synth limb appearance: [chassis_of_choice.icon] : [chassis_of_choice.icon_state]")
 			limb.change_appearance(head_of_choice.icon, head_of_choice.icon_state, !!head_of_choice.color_src, head_of_choice.dimorphic)
+			limb.name = "\improper [chassis_of_choice.name] [parse_zone(limb.body_zone)]"
+			limb.update_limb(is_creating = TRUE)
 			continue
 
 		if(chassis_of_choice.color_src && chassis_color)
 			limb.variable_color = chassis_color
+		else
+			limb.variable_color = null
+		log_world("Setting synth limb appearance: [chassis_of_choice.icon] : [chassis_of_choice.icon_state]")
 		limb.change_appearance(chassis_of_choice.icon, chassis_of_choice.icon_state, !!chassis_of_choice.color_src, limb.body_part == CHEST && chassis_of_choice.dimorphic)
-		limb.name = "\improper[chassis_of_choice.name] [parse_zone(limb.body_zone)]"
+		limb.name = "\improper [chassis_of_choice.name] [parse_zone(limb.body_zone)]"
+		limb.update_limb(is_creating = TRUE)
 
 /datum/species/synthetic/on_species_loss(mob/living/carbon/human/human)
 	. = ..()

@@ -46,6 +46,8 @@
 			return "ADJ"
 		if(BODY_FRONT_LAYER)
 			return "FRONT"
+		if(BODY_FRONT_UNDER_CLOTHES)
+			return "FRONT_UNDER"
 
 ///Converts a bitflag to the right layer. I'd love to make this a static index list, but byond made an attempt on my life when i did
 /datum/bodypart_overlay/proc/bitflag_to_layer(layer)
@@ -56,13 +58,15 @@
 			return BODY_ADJ_LAYER
 		if(EXTERNAL_FRONT)
 			return BODY_FRONT_LAYER
+		if(EXTERNAL_FRONT_UNDER_CLOTHES)
+			return BODY_FRONT_UNDER_CLOTHES
 
 ///Check whether we can draw the overlays. You generally don't want lizard snouts to draw over an EVA suit
 /datum/bodypart_overlay/proc/can_draw_on_bodypart(mob/living/carbon/human/human)
 	return TRUE
 
 ///Colorizes the limb it's inserted to, if required.
-/datum/bodypart_overlay/proc/override_color(rgb_value)
+/datum/bodypart_overlay/proc/override_color(obj/item/bodypart/bodypart)
 	CRASH("External organ color set to override with no override proc.")
 
 ///Generate a unique identifier to cache with. If you change something about the image, but the icon cache stays the same, it'll simply pull the unchanged image out of the cache

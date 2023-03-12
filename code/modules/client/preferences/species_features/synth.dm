@@ -2,7 +2,6 @@
 	main_feature_name = "Synth Brain"
 	category = PREFERENCE_CATEGORY_APPEARANCE
 	savefile_key = "synth_brain"
-	savefile_identifier = PREFERENCE_CHARACTER
 	priority = PREFERENCE_PRIORITY_NAMES // Apply after species, cause that's super important.
 	should_generate_icons = TRUE
 
@@ -58,6 +57,7 @@
 	crop_area = list(11, 22, 21, 32) // We want just the head.
 	greyscale_color = DEFAULT_SYNTH_SCREEN_COLOR
 	color_feature_id = "synth_screen_color"
+	organ_to_add = /obj/item/organ/external/screen
 
 /datum/preference/choiced/mutant/synth_screen/New()
 	. = ..()
@@ -86,6 +86,7 @@
 	crop_area = list(11, 22, 21, 32) // We want just the head.
 	color_feature_id = "ipc_antenna_color"
 	greyscale_color = DEFAULT_SYNTH_PART_COLOR
+	organ_to_add = /obj/item/organ/external/synth_antenna
 
 /datum/preference/choiced/mutant/synth_antenna/New()
 	. = ..()
@@ -120,6 +121,9 @@
 	. = ..()
 	sprite_accessory = GLOB.synth_chassi
 
+/datum/preference/choiced/mutant/synth_chassis/create_default_value()
+	return "Default Chassis"
+
 /datum/preference/choiced/mutant/synth_chassis/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state)
 	// If this isn't the right type, we have much bigger problems.
 	var/datum/sprite_accessory/synth_chassis/chassis = sprite_accessory
@@ -127,7 +131,6 @@
 
 /datum/preference/color/mutant/synth_chassis
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
-	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "ipc_chassis_color"
 	relevant_mutant_bodypart = MUTANT_SYNTH_CHASSIS
 
@@ -145,6 +148,9 @@
 /datum/preference/choiced/mutant/synth_head/New()
 	. = ..()
 	sprite_accessory = GLOB.synth_heads
+
+/datum/preference/choiced/mutant/synth_head/create_default_value()
+	return "Default Head"
 
 /datum/preference/choiced/mutant/synth_head/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state)
 	// If this isn't the right type, we have much bigger problems.
