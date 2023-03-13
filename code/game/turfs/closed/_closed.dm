@@ -259,7 +259,7 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 	base_icon_state = "wall"
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SHUTTERS_BLASTDOORS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_LOW_WALL)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SHUTTERS_BLASTDOORS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_LOW_WALL, SMOOTH_GROUP_WINDOW_FULLTILE)
 
 	reinf_material = /datum/material/iron
 	plating_material = /datum/material/alloy/plasteel
