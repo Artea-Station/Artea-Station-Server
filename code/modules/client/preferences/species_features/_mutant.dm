@@ -19,10 +19,12 @@
 /datum/preference/choiced/mutant/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.dna.features[relevant_mutant_bodypart] = value
 	if(organ_to_add)
-		var/datum/accessory = sprite_accessory[value]
+		var/datum/sprite_accessory/accessory = sprite_accessory[value]
 		if(!accessory)
 			CRASH("Accessory is null for [value]!")
-		organ_to_add = new(FALSE, accessory.type)
+		if(accessory.name == "None")
+			return
+		organ_to_add = new organ_to_add(FALSE, accessory.type)
 		organ_to_add.Insert(target, TRUE, FALSE)
 
 /datum/preference/choiced/mutant/is_accessible(datum/preferences/preferences)
