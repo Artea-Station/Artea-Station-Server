@@ -8,7 +8,8 @@
 	var/color_feature_id
 	/// The global list containing the sprite accessories to use. Override New to set.
 	var/list/sprite_accessory
-	var/obj/item/organ/external/organ_to_add
+	/// The typepath of the external organ to add.
+	var/organ_to_add = null
 
 /datum/preference/choiced/mutant/create_default_value()
 	return "None"
@@ -24,8 +25,8 @@
 			CRASH("Accessory is null for [value]!")
 		if(accessory.name == "None")
 			return
-		organ_to_add = new organ_to_add(FALSE, accessory.type)
-		organ_to_add.Insert(target, TRUE, FALSE)
+		var/obj/item/organ/external/new_organ_to_add = new organ_to_add(FALSE, accessory.type)
+		new_organ_to_add.Insert(target, TRUE, FALSE)
 
 /datum/preference/choiced/mutant/is_accessible(datum/preferences/preferences)
 	. = ..()

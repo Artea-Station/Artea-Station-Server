@@ -114,7 +114,7 @@
 
 	var/datum/sprite_accessory/synth_head/head_of_choice = GLOB.synth_heads[head]
 	var/datum/sprite_accessory/synth_chassis/chassis_of_choice = GLOB.synth_chassi[chassis]
-	if(!chassis_of_choice && !head_of_choice)
+	if(!chassis_of_choice || !head_of_choice)
 		CRASH("Unable to apply chassis or head due to invalid values! ([head] & [head_of_choice] | [chassis] & [chassis_of_choice])")
 
 	examine_limb_id = chassis_of_choice.icon_state
@@ -127,7 +127,7 @@
 
 	// We want to ensure that the IPC gets their chassis and their head correctly.
 	for(var/obj/item/bodypart/limb as anything in target.bodyparts)
-		if(initial(limb.limb_id) != SPECIES_SYNTH) // No messing with limbs that aren't actually synthetic.
+		if(initial(limb.limb_id) != SPECIES_SYNTH && initial(limb.limb_id) != "synth_digi") // No messing with limbs that aren't actually synthetic.
 			continue
 
 		if(limb.body_zone == BODY_ZONE_HEAD)

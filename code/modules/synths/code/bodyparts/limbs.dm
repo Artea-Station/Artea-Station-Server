@@ -44,10 +44,10 @@
 	brute_reduction = 0
 	burn_reduction = 0
 
-/obj/item/bodypart/leg/left/robot/digitigrade
+/obj/item/bodypart/leg/left/robot/synth/digitigrade
 	icon_greyscale = 'icons/mob/species/synth/synthliz_parts_greyscale.dmi'
 	should_draw_greyscale = TRUE
-	limb_id = BODYPART_ID_DIGITIGRADE
+	limb_id = "synth_digi"
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC | BODYTYPE_DIGITIGRADE
 	// base_limb_id = BODYPART_ID_DIGITIGRADE
 	brute_reduction = 0
@@ -57,10 +57,10 @@
 // 	. = ..()
 // 	check_mutant_compatability()
 
-/obj/item/bodypart/leg/right/robot/digitigrade
+/obj/item/bodypart/leg/right/robot/synth/digitigrade
 	icon_greyscale = 'icons/mob/species/synth/synthliz_parts_greyscale.dmi'
 	should_draw_greyscale = TRUE
-	limb_id = BODYPART_ID_DIGITIGRADE
+	limb_id = "synth_digi"
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC | BODYTYPE_DIGITIGRADE
 	// base_limb_id = BODYPART_ID_DIGITIGRADE
 	brute_reduction = 0
