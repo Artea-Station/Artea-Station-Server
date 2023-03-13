@@ -2,7 +2,6 @@
 	main_feature_name = "Synth Brain"
 	category = PREFERENCE_CATEGORY_APPEARANCE
 	savefile_key = "synth_brain"
-	priority = PREFERENCE_PRIORITY_NAMES // Apply after species, cause that's super important.
 	should_generate_icons = TRUE
 
 /datum/preference/choiced/synth_brain/init_possible_values()

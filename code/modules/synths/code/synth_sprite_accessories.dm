@@ -5,10 +5,12 @@
 /datum/sprite_accessory/screen
 	icon = 'icons/mob/species/synth/screens.dmi'
 	gender_specific = FALSE
+	color_src = null
 
 /datum/sprite_accessory/screen/none
 	name = "None"
 	icon_state = null
+	color_src = MUTCOLORS
 
 /datum/sprite_accessory/screen/blank
 	name = "Blank"
@@ -69,10 +71,12 @@
 /datum/sprite_accessory/screen/scroll
 	name = "Scroll"
 	icon_state = "scroll"
+	color_src = MUTCOLORS
 
 /datum/sprite_accessory/screen/console
 	name = "Console"
 	icon_state = "console"
+	color_src = MUTCOLORS
 
 /datum/sprite_accessory/screen/rgb
 	name = "RGB"
@@ -81,6 +85,7 @@
 /datum/sprite_accessory/screen/golglider
 	name = "Gol Glider"
 	icon_state = "golglider"
+	color_src = MUTCOLORS
 
 /datum/sprite_accessory/screen/rainbow
 	name = "Rainbow"
@@ -93,6 +98,7 @@
 /datum/sprite_accessory/screen/static
 	name = "Static"
 	icon_state = "static"
+	color_src = MUTCOLORS
 
 //Oracle Station sprites
 
@@ -103,31 +109,36 @@
 /datum/sprite_accessory/screen/redtext
 	name = "Red Text"
 	icon_state = "redtext"
-	color_src = 0
 
 /datum/sprite_accessory/screen/sinewave
 	name = "Sine Wave"
 	icon_state = "sinewave"
+	color_src = MUTCOLORS
 
 /datum/sprite_accessory/screen/squarewave
 	name = "Square Wave"
 	icon_state = "squarewave"
+	color_src = MUTCOLORS
 
 /datum/sprite_accessory/screen/ecgwave
 	name = "ECG Wave"
 	icon_state = "ecgwave"
+	color_src = MUTCOLORS
 
 /datum/sprite_accessory/screen/eyes
 	name = "Eyes"
 	icon_state = "eyes"
+	color_src = MUTCOLORS
 
 /datum/sprite_accessory/screen/textdrop
 	name = "Text Drop"
 	icon_state = "textdrop"
+	color_src = MUTCOLORS
 
 /datum/sprite_accessory/screen/stars
 	name = "Stars"
 	icon_state = "stars"
+	color_src = MUTCOLORS
 
 
 /******************************************

@@ -32,7 +32,7 @@
 	icon_greyscale = 'icons/mob/species/synth/synth_parts.dmi'
 	limb_id = SPECIES_SYNTH
 	should_draw_greyscale = TRUE
-	// digitigrade_type = /obj/item/bodypart/leg/left/robot/digitigrade
+	digitigrade_type = /obj/item/bodypart/leg/left/robot/synth/digitigrade
 	brute_reduction = 0
 	burn_reduction = 0
 
@@ -40,7 +40,7 @@
 	icon_greyscale = 'icons/mob/species/synth/synth_parts.dmi'
 	should_draw_greyscale = TRUE
 	limb_id = SPECIES_SYNTH
-	// digitigrade_type = /obj/item/bodypart/leg/right/robot/digitigrade
+	digitigrade_type = /obj/item/bodypart/leg/right/robot/synth/digitigrade
 	brute_reduction = 0
 	burn_reduction = 0
 

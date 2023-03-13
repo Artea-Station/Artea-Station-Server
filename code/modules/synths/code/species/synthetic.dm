@@ -82,7 +82,8 @@
 
 /datum/species/synthetic/spec_death(gibbed, mob/living/carbon/human/transformer)
 	. = ..()
-	saved_screen = screen
+	var/obj/item/organ/external/screen/screen_organ = transformer.getorganslot(MUTANT_SYNTH_SCREEN)
+	saved_screen = screen_organ.bodypart_overlay?.sprite_datum?.name || "None"
 	switch_to_screen(transformer, "BSOD")
 	addtimer(CALLBACK(src, PROC_REF(switch_to_screen), transformer, "Blank"), 5 SECONDS)
 
@@ -164,12 +165,12 @@
 	if(!screen)
 		return
 
-	tranformer.dna.features[MUTANT_SYNTH_SCREEN] = screen_name
-	tranformer.update_body()
+	var/obj/item/organ/external/screen/screen_organ = tranformer.getorganslot(MUTANT_SYNTH_SCREEN)
+	screen_organ?.bodypart_overlay?.set_appearance_from_name(screen_name)
 
 /datum/species/synthetic/random_name(gender, unique, lastname)
 	var/randname = pick(GLOB.posibrain_names)
-	randname = "[randname]-[rand(100, 999)]"
+	randname = "[randname]-[rand(0, 9)][rand(0, 9)][rand(0, 9)]"
 	return randname
 
 /datum/species/synthetic/get_types_to_preload()
