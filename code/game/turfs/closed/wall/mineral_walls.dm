@@ -46,6 +46,9 @@
 	article = "a"
 	name = "uranium wall"
 	desc = "A wall with uranium plating. This is probably a bad idea."
+	icon = 'icons/turf/walls/stone_wall.dmi'
+	plating_material = /datum/material/uranium
+	color = "#007a00" //To display in mapping softwares
 
 	/// Mutex to prevent infinite recursion when propagating radiation pulses
 	var/active = null
