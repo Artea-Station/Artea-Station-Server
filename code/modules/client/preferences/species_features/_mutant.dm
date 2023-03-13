@@ -1,5 +1,6 @@
 
 /datum/preference/choiced/mutant
+	priority = PREFERENCE_PRIORITY_NAME_MODIFICATIONS // Otherwise organs will get qdel'd on body replacement.
 	abstract_type = /datum/preference/choiced/mutant
 	category = PREFERENCE_CATEGORY_APPEARANCE
 	savefile_identifier = PREFERENCE_CHARACTER
@@ -9,7 +10,7 @@
 	/// The global list containing the sprite accessories to use. Override New to set.
 	var/list/sprite_accessory
 	/// The typepath of the external organ to add.
-	var/organ_to_add = null
+	var/organ_to_add
 
 /datum/preference/choiced/mutant/create_default_value()
 	return "None"

@@ -135,8 +135,7 @@
 				limb.variable_color = head_color
 			else
 				limb.variable_color = null
-			log_world("Setting synth limb appearance: [chassis_of_choice.icon] : [chassis_of_choice.icon_state]")
-			limb.change_appearance(head_of_choice.icon, head_of_choice.icon_state, !!head_of_choice.color_src, head_of_choice.dimorphic)
+			limb.change_appearance(head_of_choice.icon, head_of_choice.icon_state, !!head_of_choice.color_src, head_of_choice.gender_specific)
 			limb.name = "\improper [chassis_of_choice.name] [parse_zone(limb.body_zone)]"
 			limb.update_limb(is_creating = TRUE)
 			continue
@@ -145,8 +144,7 @@
 			limb.variable_color = chassis_color
 		else
 			limb.variable_color = null
-		log_world("Setting synth limb appearance: [chassis_of_choice.icon] : [chassis_of_choice.icon_state]")
-		limb.change_appearance(chassis_of_choice.icon, chassis_of_choice.icon_state, !!chassis_of_choice.color_src, limb.body_part == CHEST && chassis_of_choice.dimorphic)
+		limb.change_appearance(chassis_of_choice.icon, chassis_of_choice.icon_state, !!chassis_of_choice.color_src, limb.body_part == CHEST && chassis_of_choice.gender_specific)
 		limb.name = "\improper [chassis_of_choice.name] [parse_zone(limb.body_zone)]"
 		limb.update_limb(is_creating = TRUE)
 

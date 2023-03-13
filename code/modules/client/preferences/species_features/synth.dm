@@ -110,6 +110,7 @@
 /// IPC Chassis
 
 /datum/preference/choiced/mutant/synth_chassis
+	priority = PREFERENCE_PRIORITY_DEFAULT
 	savefile_key = "feature_ipc_chassis"
 	main_feature_name = "Chassis Appearance"
 	relevant_mutant_bodypart = MUTANT_SYNTH_CHASSIS
@@ -127,7 +128,7 @@
 /datum/preference/choiced/mutant/synth_chassis/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state)
 	// If this isn't the right type, we have much bigger problems.
 	var/datum/sprite_accessory/synth_chassis/chassis = sprite_accessory
-	return "[original_icon_state]_chest[chassis.dimorphic ? "_m" : ""]"
+	return "[original_icon_state]_chest[chassis.gender_specific ? "_m" : ""]"
 
 /datum/preference/color/mutant/synth_chassis
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
@@ -137,6 +138,7 @@
 /// IPC Head
 
 /datum/preference/choiced/mutant/synth_head
+	priority = PREFERENCE_PRIORITY_DEFAULT
 	savefile_key = "feature_ipc_head"
 	main_feature_name = "Head Appearance"
 	relevant_mutant_bodypart = MUTANT_SYNTH_HEAD
@@ -155,7 +157,7 @@
 /datum/preference/choiced/mutant/synth_head/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state)
 	// If this isn't the right type, we have much bigger problems.
 	var/datum/sprite_accessory/synth_head/head = sprite_accessory
-	return "[original_icon_state]_head[head.dimorphic ? "_m" : ""]"
+	return "[original_icon_state]_head[head.gender_specific ? "_m" : ""]"
 
 /datum/preference/color/mutant/synth_head
 	savefile_key = "ipc_head_color"

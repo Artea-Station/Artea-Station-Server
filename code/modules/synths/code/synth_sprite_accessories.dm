@@ -4,6 +4,7 @@
 *******************************************/
 /datum/sprite_accessory/screen
 	icon = 'icons/mob/species/synth/screens.dmi'
+	gender_specific = FALSE
 
 /datum/sprite_accessory/screen/none
 	name = "None"
@@ -136,6 +137,7 @@
 /datum/sprite_accessory/antenna
 	icon = 'icons/mob/species/synth/synth_antennas.dmi'
 	color_src = MUTCOLORS
+	gender_specific = FALSE
 
 // /datum/sprite_accessory/antenna/is_hidden(mob/living/carbon/human/wearer, obj/item/bodypart/bodypart)
 // 	if(!wearer.head || !bodypart)
@@ -175,8 +177,7 @@
 
 //Chasises - snowflake phantom accessory for choosing chassises
 /datum/sprite_accessory/synth_chassis
-	/// Boolean for if the body is actually dimorphic.
-	var/dimorphic = FALSE
+	gender_specific = FALSE
 	/// If true, allows for digitigrade to be used.
 	var/is_digi_compatible = FALSE
 	icon = 'icons/mob/species/synth/synth_parts.dmi'
@@ -197,7 +198,7 @@
 	icon = 'icons/mob/species/synth/human_parts_greyscale.dmi'
 	icon_state = "human"
 	color_src = MUTCOLORS
-	dimorphic = TRUE
+	gender_specific = TRUE
 
 /datum/sprite_accessory/synth_chassis/android
 	name = "Android Chassis"
@@ -209,7 +210,7 @@
 	icon = 'icons/mob/species/synth/mammal_parts_greyscale.dmi'
 	icon_state = "mammal"
 	color_src = MUTCOLORS
-	dimorphic = TRUE
+	gender_specific = TRUE
 	is_digi_compatible = TRUE
 
 /datum/sprite_accessory/synth_chassis/lizard
@@ -217,7 +218,7 @@
 	icon = 'icons/mob/species/synth/synthliz_parts_greyscale.dmi'
 	icon_state = "synthliz"
 	color_src = MUTCOLORS
-	dimorphic = TRUE
+	gender_specific = TRUE
 	is_digi_compatible = TRUE
 
 /datum/sprite_accessory/synth_chassis/mcgreyscale
@@ -266,8 +267,7 @@
 
 //Heads - snowflake phantom accessory for choosing IPC heads (hell yeah!)
 /datum/sprite_accessory/synth_head
-	/// Boolean for if this is actually dimorphic.
-	var/dimorphic = FALSE
+	gender_specific = FALSE
 	icon = 'icons/mob/species/synth/synth_parts.dmi'
 	icon_state = "ipc"
 	color_src = null
@@ -285,7 +285,7 @@
 	icon = 'icons/mob/species/synth/human_parts_greyscale.dmi'
 	icon_state = "human"
 	color_src = MUTCOLORS
-	dimorphic = TRUE
+	gender_specific = TRUE
 
 /datum/sprite_accessory/synth_head/android
 	name = "Android Head"
@@ -297,14 +297,14 @@
 	icon = 'icons/mob/species/synth/mammal_parts_greyscale.dmi'
 	icon_state = "mammal"
 	color_src = MUTCOLORS
-	dimorphic = TRUE
+	gender_specific = TRUE
 
 /datum/sprite_accessory/synth_head/lizard
 	name = "Lizard Head"
 	icon = 'icons/mob/species/synth/synthliz_parts_greyscale.dmi'
 	icon_state = "synthliz"
 	color_src = MUTCOLORS
-	dimorphic = TRUE
+	gender_specific = TRUE
 
 /datum/sprite_accessory/synth_head/mcgreyscale
 	name = "Morpheus Cyberkinetics (Greyscale)"

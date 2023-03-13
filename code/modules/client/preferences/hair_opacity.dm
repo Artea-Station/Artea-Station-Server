@@ -18,7 +18,6 @@
 	category = PREFERENCE_CATEGORY_APPEARANCE_LIST
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "feature_hair_opacity"
-	relevant_mutant_bodypart = MUTANT_SYNTH_HAIR
 	maximum = 255
 	minimum = 40 // Any lower, and hair's borderline invisible on lighter colours.
 
