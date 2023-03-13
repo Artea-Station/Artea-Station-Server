@@ -11,5 +11,5 @@
 	if(!new_ipc_screen)
 		return
 
-	human.dna.features[MUTANT_SYNTH_SCREEN] = new_ipc_screen
-	human.update_body()
+	var/obj/item/organ/external/screen/screen = human.getorganslot(MUTANT_SYNTH_SCREEN)
+	screen?.bodypart_overlay?.set_appearance_from_name(new_ipc_screen)
