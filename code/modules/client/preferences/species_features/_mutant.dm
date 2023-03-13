@@ -43,6 +43,7 @@
 
 /datum/preference/color/mutant
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
+	abstract_type = /datum/preference/color/mutant
 	savefile_identifier = PREFERENCE_CHARACTER
 
 // Mutant color. Used to automagically apply a color to a mutant part. Very nice.
