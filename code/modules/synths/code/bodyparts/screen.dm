@@ -31,15 +31,15 @@
 		return
 	var/obj/item/organ/external/screen/screen_organ = owner.getorganslot(MUTANT_SYNTH_SCREEN)
 	saved_screen = screen_organ.bodypart_overlay?.sprite_datum?.name || "None"
-	switch_to_screen(owner, "BSOD")
-	addtimer(CALLBACK(src, PROC_REF(switch_to_screen), owner, "Blank"), 5 SECONDS)
+	switch_to_screen("BSOD")
+	addtimer(CALLBACK(src, PROC_REF(switch_to_screen), "Blank"), 5 SECONDS)
 
 /obj/item/organ/external/screen/owner_revived()
 	. = ..()
 	if(!owner)
 		return
-	switch_to_screen(owner, "Console")
-	addtimer(CALLBACK(src, PROC_REF(switch_to_screen), owner, saved_screen), 5 SECONDS)
+	switch_to_screen("Console")
+	addtimer(CALLBACK(src, PROC_REF(switch_to_screen), saved_screen), 5 SECONDS)
 	playsound(owner.loc, 'sound/machines/chime.ogg', 50, TRUE)
 	owner.visible_message(span_notice("[owner]'s [owner.getorganslot(MUTANT_SYNTH_SCREEN) ? "monitor lights up" : "eyes flicker to life"]!"), span_notice("All systems nominal. You're back online!"))
 
@@ -50,12 +50,13 @@
  * * tranformer - The human that will be affected by the screen change (read: IPC).
  * * screen_name - The name of the screen to switch the ipc_screen mutant bodypart to.
  */
-/obj/item/organ/external/screen/proc/switch_to_screen(mob/living/carbon/human/tranformer, screen_name)
+/obj/item/organ/external/screen/proc/switch_to_screen(screen_name)
 	if(!screen)
 		return
 
 	var/obj/item/organ/external/screen/screen_organ = tranformer.getorganslot(MUTANT_SYNTH_SCREEN)
 	screen_organ?.bodypart_overlay?.set_appearance_from_name(screen_name)
+	owner.update_body(TRUE)
 
 /datum/bodypart_overlay/mutant/screen
 	layers = EXTERNAL_FRONT_UNDER_CLOTHES
