@@ -33,10 +33,12 @@
 /obj/item/bodypart/leg/left/lizard
 	icon_greyscale = 'icons/mob/species/lizard/bodyparts.dmi'
 	limb_id = SPECIES_LIZARD
+	digitigrade_type = /obj/item/bodypart/leg/left/digitigrade
 
 /obj/item/bodypart/leg/right/lizard
 	icon_greyscale = 'icons/mob/species/lizard/bodyparts.dmi'
 	limb_id = SPECIES_LIZARD
+	digitigrade_type = /obj/item/bodypart/leg/right/digitigrade
 
 /obj/item/bodypart/leg/left/digitigrade
 	icon_greyscale = 'icons/mob/species/lizard/bodyparts.dmi'
