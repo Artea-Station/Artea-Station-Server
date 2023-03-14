@@ -70,12 +70,6 @@
 			to_chat(human, span_warning("Alert: Critical damage taken! Cooling systems failing!"))
 			do_sparks(3, TRUE, human)
 
-/datum/species/synthetic/spec_revival(mob/living/carbon/human/transformer)
-	switch_to_screen(transformer, "Console")
-	addtimer(CALLBACK(src, PROC_REF(switch_to_screen), transformer, saved_screen), 5 SECONDS)
-	playsound(transformer.loc, 'sound/machines/chime.ogg', 50, TRUE)
-	transformer.visible_message(span_notice("[transformer]'s [transformer.getorganslot(MUTANT_SYNTH_SCREEN) ? "monitor lights up" : "eyes flicker to life"]!"), span_notice("All systems nominal. You're back online!"))
-
 /datum/species/synthetic/on_species_gain(mob/living/carbon/human/transformer)
 	. = ..()
 	var/obj/item/organ/internal/appendix/appendix = transformer.getorganslot(ORGAN_SLOT_APPENDIX)

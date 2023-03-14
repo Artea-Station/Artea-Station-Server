@@ -856,10 +856,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			H.adjustBruteLoss(0.5 * delta_time)
 
 /datum/species/proc/spec_death(gibbed, mob/living/carbon/human/H)
-	return
+	for(var/obj/item/organ/organ in H.internal_organs)
+		organ.owner_death()
 
 /datum/species/proc/spec_revival(mob/living/carbon/human/human)
-	return
+	for(var/obj/item/organ/organ in H.internal_organs)
+		organ.owner_revived()
 
 /datum/species/proc/can_equip(obj/item/I, slot, disable_warning, mob/living/carbon/human/H, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
 	if(slot in no_equip)

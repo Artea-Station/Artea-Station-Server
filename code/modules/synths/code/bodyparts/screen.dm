@@ -25,7 +25,7 @@
 		screen.Remove(organ_owner)
 	. = ..()
 
-/obj/item/organ/external/screen/on_death(delta_time, times_fired)
+/obj/item/organ/external/screen/owner_death()
 	. = ..()
 	if(!owner)
 		return
@@ -33,6 +33,15 @@
 	saved_screen = screen_organ.bodypart_overlay?.sprite_datum?.name || "None"
 	switch_to_screen(owner, "BSOD")
 	addtimer(CALLBACK(src, PROC_REF(switch_to_screen), owner, "Blank"), 5 SECONDS)
+
+/obj/item/organ/external/screen/owner_revived()
+	. = ..()
+	if(!owner)
+		return
+	switch_to_screen(transformer, "Console")
+	addtimer(CALLBACK(src, PROC_REF(switch_to_screen), transformer, saved_screen), 5 SECONDS)
+	playsound(transformer.loc, 'sound/machines/chime.ogg', 50, TRUE)
+	transformer.visible_message(span_notice("[transformer]'s [transformer.getorganslot(MUTANT_SYNTH_SCREEN) ? "monitor lights up" : "eyes flicker to life"]!"), span_notice("All systems nominal. You're back online!"))
 
 /**
  * Simple proc to switch the screen of a monitor-enabled synth, while updating their appearance.
