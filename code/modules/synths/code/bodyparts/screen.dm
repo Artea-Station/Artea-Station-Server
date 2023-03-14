@@ -47,14 +47,13 @@
  * Simple proc to switch the screen of a monitor-enabled synth, while updating their appearance.
  *
  * Arguments:
- * * tranformer - The human that will be affected by the screen change (read: IPC).
  * * screen_name - The name of the screen to switch the ipc_screen mutant bodypart to.
  */
 /obj/item/organ/external/screen/proc/switch_to_screen(screen_name)
 	if(!screen)
 		return
 
-	var/obj/item/organ/external/screen/screen_organ = tranformer.getorganslot(MUTANT_SYNTH_SCREEN)
+	var/obj/item/organ/external/screen/screen_organ = owner.getorganslot(MUTANT_SYNTH_SCREEN)
 	screen_organ?.bodypart_overlay?.set_appearance_from_name(screen_name)
 	owner.update_body(TRUE)
 
