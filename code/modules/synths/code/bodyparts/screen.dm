@@ -38,16 +38,16 @@
 	. = ..()
 	if(!owner)
 		return
-	switch_to_screen(transformer, "Console")
-	addtimer(CALLBACK(src, PROC_REF(switch_to_screen), transformer, saved_screen), 5 SECONDS)
-	playsound(transformer.loc, 'sound/machines/chime.ogg', 50, TRUE)
-	transformer.visible_message(span_notice("[transformer]'s [transformer.getorganslot(MUTANT_SYNTH_SCREEN) ? "monitor lights up" : "eyes flicker to life"]!"), span_notice("All systems nominal. You're back online!"))
+	switch_to_screen(owner, "Console")
+	addtimer(CALLBACK(src, PROC_REF(switch_to_screen), owner, saved_screen), 5 SECONDS)
+	playsound(owner.loc, 'sound/machines/chime.ogg', 50, TRUE)
+	owner.visible_message(span_notice("[owner]'s [owner.getorganslot(MUTANT_SYNTH_SCREEN) ? "monitor lights up" : "eyes flicker to life"]!"), span_notice("All systems nominal. You're back online!"))
 
 /**
  * Simple proc to switch the screen of a monitor-enabled synth, while updating their appearance.
  *
  * Arguments:
- * * transformer - The human that will be affected by the screen change (read: IPC).
+ * * tranformer - The human that will be affected by the screen change (read: IPC).
  * * screen_name - The name of the screen to switch the ipc_screen mutant bodypart to.
  */
 /obj/item/organ/external/screen/proc/switch_to_screen(mob/living/carbon/human/tranformer, screen_name)
