@@ -25,7 +25,7 @@
 	icon = 'icons/obj/art/statuelarge.dmi'
 	icon_state = "skull"
 	icon_preview = 'icons/obj/previews.dmi'
-	icon_state_preview = "skull
+	icon_state_preview = "skull"
 
 /obj/structure/statue/bone/skull/half
 	desc = "The gaping maw of a dead, titanic monster. This one is cracked in half."

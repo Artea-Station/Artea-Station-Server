@@ -16,7 +16,7 @@
 GLOBAL_LIST_INIT(human_recipes, list( \
 	new/datum/stack_recipe("bloated human costume", /obj/item/clothing/suit/hooded/bloated_human, 5, category = CAT_CLOTHING), \
 	new/datum/stack_recipe("human skin hat", /obj/item/clothing/head/fedora/human_leather, 1, category = CAT_CLOTHING), \
-	)
+	))
 
 /obj/item/stack/sheet/animalhide/human/get_main_recipes()
 	. = ..()
