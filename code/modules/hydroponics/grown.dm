@@ -13,6 +13,7 @@
 /obj/item/food/grown
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	worn_icon = 'icons/mob/clothing/head/hydroponics.dmi'
+	icon_state = "berrypile"
 	name = "fresh produce" // so recipe text doesn't say 'snack'
 	max_volume = 100
 	w_class = WEIGHT_CLASS_SMALL
