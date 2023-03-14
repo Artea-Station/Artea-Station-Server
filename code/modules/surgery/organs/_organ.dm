@@ -147,6 +147,14 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 /obj/item/organ/proc/on_life(delta_time, times_fired)
 	CRASH("Oh god oh fuck something is calling parent organ life")
 
+/// Called when the owner dies. Handled in species.
+/obj/item/organ/proc/owner_death()
+	return
+
+/// Called when the owner is revived. Handles in species.
+/obj/item/organ/proc/owner_revived()
+	return
+
 /obj/item/organ/examine(mob/user)
 	. = ..()
 

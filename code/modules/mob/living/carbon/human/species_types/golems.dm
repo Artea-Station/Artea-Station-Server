@@ -425,6 +425,7 @@
 	examine_limb_id = SPECIES_GOLEM
 
 /datum/species/golem/sand/spec_death(gibbed, mob/living/carbon/human/H)
+	. = ..()
 	H.visible_message(span_danger("[H] turns into a pile of sand!"))
 	for(var/obj/item/W in H)
 		H.dropItemToGround(W)
@@ -456,6 +457,7 @@
 	examine_limb_id = SPECIES_GOLEM
 
 /datum/species/golem/glass/spec_death(gibbed, mob/living/carbon/human/H)
+	. = ..()
 	playsound(H, SFX_SHATTER, 70, TRUE)
 	H.visible_message(span_danger("[H] shatters!"))
 	for(var/obj/item/W in H)
@@ -677,6 +679,7 @@
 	..()
 
 /datum/species/golem/bananium/spec_death(gibbed, mob/living/carbon/human/H)
+	. = ..()
 	playsound(get_turf(H), 'sound/misc/sadtrombone.ogg', 70, FALSE)
 
 /datum/species/golem/bananium/proc/handle_speech(datum/source, list/speech_args)
@@ -828,6 +831,7 @@
 	..()
 
 /datum/species/golem/cloth/spec_death(gibbed, mob/living/carbon/human/H)
+	. = ..()
 	if(gibbed)
 		return
 	if(H.on_fire)
@@ -1318,6 +1322,7 @@
 	var/datum/action/cooldown/spell/pointed/projectile/cryo/cryo
 
 /datum/species/golem/snow/spec_death(gibbed, mob/living/carbon/human/H)
+	. = ..()
 	H.visible_message(span_danger("[H] turns into a pile of snow!"))
 	for(var/obj/item/W in H)
 		H.dropItemToGround(W)

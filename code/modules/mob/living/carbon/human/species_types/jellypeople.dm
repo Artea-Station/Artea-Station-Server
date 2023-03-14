@@ -192,6 +192,7 @@
 			bodies |= C
 
 /datum/species/jelly/slime/spec_death(gibbed, mob/living/carbon/human/H)
+	. = ..()
 	if(slime_split)
 		if(!H.mind || !H.mind.active)
 			return

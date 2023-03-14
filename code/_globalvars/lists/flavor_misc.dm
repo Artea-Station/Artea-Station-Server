@@ -39,6 +39,10 @@ GLOBAL_LIST_EMPTY(moth_antennae_list)
 GLOBAL_LIST_EMPTY(moth_markings_list)
 GLOBAL_LIST_EMPTY(caps_list)
 GLOBAL_LIST_EMPTY(pod_hair_list)
+GLOBAL_LIST_EMPTY(synth_screens)
+GLOBAL_LIST_EMPTY(synth_antennae)
+GLOBAL_LIST_EMPTY(synth_heads)
+GLOBAL_LIST_EMPTY(synth_chassi)
 
 GLOBAL_LIST_INIT(color_list_ethereal, list(
 	"Blue" = "#3399ff",

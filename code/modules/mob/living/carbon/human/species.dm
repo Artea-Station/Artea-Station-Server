@@ -708,6 +708,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	source.remove_overlay(BODY_BEHIND_LAYER)
 	source.remove_overlay(BODY_ADJ_LAYER)
 	source.remove_overlay(BODY_FRONT_LAYER)
+	source.remove_overlay(BODY_FRONT_UNDER_CLOTHES)
 
 	if(!mutant_bodyparts || HAS_TRAIT(source, TRAIT_INVISIBLE_MAN))
 		return
@@ -799,6 +800,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	source.apply_overlay(BODY_BEHIND_LAYER)
 	source.apply_overlay(BODY_ADJ_LAYER)
 	source.apply_overlay(BODY_FRONT_LAYER)
+	source.apply_overlay(BODY_FRONT_UNDER_CLOTHES)
 
 //This exists so sprite accessories can still be per-layer without having to include that layer's
 //number in their sprite name, which causes issues when those numbers change.
@@ -810,6 +812,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			return "ADJ"
 		if(BODY_FRONT_LAYER)
 			return "FRONT"
+		if(BODY_FRONT_UNDER_CLOTHES)
+			return "FRONT_UNDER"
 
 ///Proc that will randomise the hair, or primary appearance element (i.e. for moths wings) of a species' associated mob
 /datum/species/proc/randomize_main_appearance_element(mob/living/carbon/human/human_mob)
@@ -851,8 +855,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if((H.health < H.crit_threshold) && takes_crit_damage && H.stat != DEAD)
 			H.adjustBruteLoss(0.5 * delta_time)
 
-/datum/species/proc/spec_death(gibbed, mob/living/carbon/human/H)
-	return
+/datum/species/proc/spec_death(gibbed, mob/living/carbon/human/human)
+	for(var/obj/item/organ/organ in human.internal_organs)
+		organ.owner_death()
+
+/datum/species/proc/spec_revival(mob/living/carbon/human/human)
+	for(var/obj/item/organ/organ in human.internal_organs)
+		organ.owner_revived()
 
 /datum/species/proc/can_equip(obj/item/I, slot, disable_warning, mob/living/carbon/human/H, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
 	if(slot in no_equip)
@@ -2306,10 +2315,21 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/replace_body(mob/living/carbon/target, datum/species/new_species)
 	new_species ||= target.dna.species //If no new species is provided, assume its src.
 	//Note for future: Potentionally add a new C.dna.species() to build a template species for more accurate limb replacement
+	var/ignore_digi = FALSE // You can jack into this var with other checks, if you want.
+	if(issynthetic(target))
+		var/chassis = target.dna.features[MUTANT_SYNTH_CHASSIS]
+		if(chassis)
+			var/datum/sprite_accessory/synth_chassis/chassis_accessory = GLOB.synth_chassi[chassis]
+			if(chassis_accessory && !chassis_accessory.is_digi_compatible)
+				ignore_digi = TRUE
 
-	if((new_species.digitigrade_customization == DIGITIGRADE_OPTIONAL && target.dna.features["legs"] == DIGITIGRADE_LEGS) || new_species.digitigrade_customization == DIGITIGRADE_FORCED)
-		new_species.bodypart_overrides[BODY_ZONE_R_LEG] = /obj/item/bodypart/leg/right/digitigrade
-		new_species.bodypart_overrides[BODY_ZONE_L_LEG] = /obj/item/bodypart/leg/left/digitigrade
+	if(!ignore_digi && ((new_species.digitigrade_customization == DIGITIGRADE_OPTIONAL && target.dna.features["legs"] == DIGITIGRADE_LEGS) || new_species.digitigrade_customization == DIGITIGRADE_FORCED))
+		var/obj/item/bodypart/leg/right/r_leg = new_species.bodypart_overrides[BODY_ZONE_R_LEG]
+		if(r_leg)
+			new_species.bodypart_overrides[BODY_ZONE_R_LEG] = initial(r_leg.digitigrade_type)
+		var/obj/item/bodypart/leg/left/l_leg = new_species.bodypart_overrides[BODY_ZONE_L_LEG]
+		if(l_leg)
+			new_species.bodypart_overrides[BODY_ZONE_L_LEG] = initial(l_leg.digitigrade_type)
 
 	for(var/obj/item/bodypart/old_part as anything in target.bodyparts)
 		if(old_part.change_exempt_flags & BP_BLOCK_CHANGE_SPECIES)

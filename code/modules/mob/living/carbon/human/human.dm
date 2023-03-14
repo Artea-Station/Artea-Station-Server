@@ -567,6 +567,11 @@
 		if(..())
 			dropItemToGround(I)
 
+/mob/living/carbon/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
+	. = ..()
+	if(. && dna?.species)
+		dna.species.spec_revival(src)
+
 /**
  * Wash the hands, cleaning either the gloves if equipped and not obscured, otherwise the hands themselves if they're not obscured.
  *
