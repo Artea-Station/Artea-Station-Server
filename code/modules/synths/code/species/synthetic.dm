@@ -61,10 +61,6 @@
 	coldmod = 1.2
 	heatmod = 2 // TWO TIMES DAMAGE FROM BEING TOO HOT?! WHAT?! No wonder lava is literal instant death for us.
 	siemens_coeff = 1.4 // Not more because some shocks will outright crit you, which is very unfun
-	/// The innate action that synths get, if they've got a screen selected on species being set.
-	var/datum/action/innate/monitor_change/screen
-	/// This is the screen that is given to the user after they get revived. On death, their screen is temporarily set to BSOD before it turns off, hence the need for this var.
-	var/saved_screen = "Blank"
 
 /datum/species/synthetic/spec_life(mob/living/carbon/human/human)
 	if(human.stat == SOFT_CRIT || human.stat == HARD_CRIT)
@@ -78,14 +74,7 @@
 	switch_to_screen(transformer, "Console")
 	addtimer(CALLBACK(src, PROC_REF(switch_to_screen), transformer, saved_screen), 5 SECONDS)
 	playsound(transformer.loc, 'sound/machines/chime.ogg', 50, TRUE)
-	transformer.visible_message(span_notice("[transformer]'s [screen ? "monitor lights up" : "eyes flicker to life"]!"), span_notice("All systems nominal. You're back online!"))
-
-/datum/species/synthetic/spec_death(gibbed, mob/living/carbon/human/transformer)
-	. = ..()
-	var/obj/item/organ/external/screen/screen_organ = transformer.getorganslot(MUTANT_SYNTH_SCREEN)
-	saved_screen = screen_organ.bodypart_overlay?.sprite_datum?.name || "None"
-	switch_to_screen(transformer, "BSOD")
-	addtimer(CALLBACK(src, PROC_REF(switch_to_screen), transformer, "Blank"), 5 SECONDS)
+	transformer.visible_message(span_notice("[transformer]'s [transformer.getorganslot(MUTANT_SYNTH_SCREEN) ? "monitor lights up" : "eyes flicker to life"]!"), span_notice("All systems nominal. You're back online!"))
 
 /datum/species/synthetic/on_species_gain(mob/living/carbon/human/transformer)
 	. = ..()
@@ -96,12 +85,6 @@
 
 	if(isdummy(transformer)) // This is to make the dummy work properly with the synth parts. Cursed code.
 		set_limb_icons(transformer)
-
-	var/screen_mutant_bodypart = transformer.dna.features[MUTANT_SYNTH_SCREEN]
-
-	if(!screen && screen_mutant_bodypart && transformer.dna.features[MUTANT_SYNTH_SCREEN] && transformer.dna.features[MUTANT_SYNTH_SCREEN] != "None")
-		screen = new
-		screen.Grant(transformer)
 
 /datum/species/synthetic/replace_body(mob/living/carbon/target, datum/species/new_species)
 	. = ..()
@@ -148,25 +131,6 @@
 		limb.change_appearance(chassis_of_choice.icon, chassis_of_choice.icon_state, !!chassis_of_choice.color_src, limb.body_part == CHEST && chassis_of_choice.gender_specific)
 		limb.name = "\improper [chassis_of_choice.name] [parse_zone(limb.body_zone)]"
 		limb.update_limb(is_creating = TRUE)
-
-/datum/species/synthetic/on_species_loss(mob/living/carbon/human/human)
-	. = ..()
-	if(screen)
-		screen.Remove(human)
-
-/**
- * Simple proc to switch the screen of a monitor-enabled synth, while updating their appearance.
- *
- * Arguments:
- * * transformer - The human that will be affected by the screen change (read: IPC).
- * * screen_name - The name of the screen to switch the ipc_screen mutant bodypart to.
- */
-/datum/species/synthetic/proc/switch_to_screen(mob/living/carbon/human/tranformer, screen_name)
-	if(!screen)
-		return
-
-	var/obj/item/organ/external/screen/screen_organ = tranformer.getorganslot(MUTANT_SYNTH_SCREEN)
-	screen_organ?.bodypart_overlay?.set_appearance_from_name(screen_name)
 
 /datum/species/synthetic/random_name(gender, unique, lastname)
 	var/randname = pick(GLOB.posibrain_names)
