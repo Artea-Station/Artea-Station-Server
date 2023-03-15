@@ -30,6 +30,7 @@
 
 /obj/item/food/muffin/moffin
 	name = "moffin"
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "moffin"
 	desc = "A delicious and spongy little cake."
 	tastes = list("muffin" = 3, "dust" = 1, "lint" = 1)
