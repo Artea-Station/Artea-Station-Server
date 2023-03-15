@@ -31,14 +31,14 @@
 /obj/item/food/muffin/moffin
 	name = "moffin"
 	icon = 'icons/obj/food/food.dmi'
-	icon_state = "moffin"
+	icon_state = null
 	desc = "A delicious and spongy little cake."
 	tastes = list("muffin" = 3, "dust" = 1, "lint" = 1)
 	foodtypes = CLOTH | GRAIN | SUGAR | BREAKFAST
 
 /obj/item/food/muffin/moffin/Initialize(mapload)
 	. = ..()
-	icon_state = "[icon_state]_[rand(1, 3)]"
+	icon_state = "[moffin]_[rand(1, 3)]"
 
 /obj/item/food/muffin/moffin/examine(mob/user)
 	. = ..()
