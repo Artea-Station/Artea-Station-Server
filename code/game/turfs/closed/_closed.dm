@@ -50,6 +50,134 @@
 	baseturfs = /turf/closed/indestructible/sandstone
 	smoothing_flags = SMOOTH_BITMASK
 
+
+/turf/closed/indestructible/alien
+	name = "alien wall"
+	desc = "A wall with alien alloy plating."
+	icon = 'icons/turf/walls/legacy/abductor_wall.dmi'
+	icon_state = "abductor_wall-0"
+	base_icon_state = "abductor_wall"
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS)
+
+/turf/closed/indestructible/abductor
+	icon_state = "alien1"
+
+/turf/closed/indestructible/opshuttle
+	icon_state = "wall3"
+
+/turf/closed/indestructible/cult
+	name = "runed metal wall"
+	desc = "A cold metal wall engraved with indecipherable symbols. Studying them causes your head to pound. Effectively impervious to conventional methods of destruction."
+	icon = 'icons/turf/walls/legacy/cult_wall.dmi'
+	icon_state = "cult_wall-0"
+	base_icon_state = "cult_wall"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS)
+
+/turf/closed/indestructible/fakedoor
+	name = "CentCom Access"
+	icon = 'icons/obj/doors/airlocks/centcom/airlock.dmi'
+	icon_state = "fake_door"
+
+/turf/closed/indestructible/rock
+	name = "dense rock"
+	desc = "An extremely densely-packed rock, most mining tools or explosives would never get through this."
+	icon = 'icons/turf/mining.dmi'
+	icon_state = "rock"
+
+/turf/closed/indestructible/rock/snow
+	name = "mountainside"
+	desc = "An extremely densely-packed rock, sheeted over with centuries worth of ice and snow."
+	icon = 'icons/turf/walls.dmi'
+	icon_state = "snowrock"
+	bullet_sizzle = TRUE
+	bullet_bounce_sound = null
+
+/turf/closed/indestructible/rock/snow/ice
+	name = "iced rock"
+	desc = "Extremely densely-packed sheets of ice and rock, forged over the years of the harsh cold."
+	icon = 'icons/turf/walls.dmi'
+	icon_state = "icerock"
+
+/turf/closed/indestructible/rock/snow/ice/ore
+	icon = 'icons/turf/walls/legacy/icerock_wall.dmi'
+	icon_state = "icerock_wall-0"
+	base_icon_state = "icerock_wall"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	canSmoothWith = list(SMOOTH_GROUP_CLOSED_TURFS)
+	pixel_x = -4
+	pixel_y = -4
+
+/turf/closed/indestructible/wood
+	icon = 'icons/turf/walls/legacy/wood_wall.dmi'
+	icon_state = "wood_wall-0"
+	base_icon_state = "wood_wall"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS)
+
+/turf/closed/indestructible/paper
+	name = "thick paper wall"
+	desc = "A wall layered with impenetrable sheets of paper."
+	icon = 'icons/turf/walls.dmi'
+	icon_state = "paperwall"
+
+/turf/closed/indestructible/necropolis
+	name = "necropolis wall"
+	desc = "A seemingly impenetrable wall."
+	icon = 'icons/turf/walls.dmi'
+	icon_state = "necro"
+	explosion_block = 50
+	baseturfs = /turf/closed/indestructible/necropolis
+
+/turf/closed/indestructible/necropolis/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	underlay_appearance.icon = 'icons/turf/floors.dmi'
+	underlay_appearance.icon_state = "necro1"
+	return TRUE
+
+/turf/closed/indestructible/iron
+	name = "impervious iron wall"
+	desc = "A wall with tough iron plating."
+	icon = 'icons/turf/walls/legacy/iron_wall.dmi'
+	icon_state = "iron_wall-0"
+	base_icon_state = "iron_wall"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS)
+	opacity = FALSE
+
+/turf/closed/indestructible/boss
+	name = "necropolis wall"
+	desc = "A thick, seemingly indestructible stone wall."
+	icon = 'icons/turf/walls/legacy/boss_wall.dmi'
+	icon_state = "boss_wall-0"
+	base_icon_state = "boss_wall"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_BOSS_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_BOSS_WALLS)
+	explosion_block = 50
+	baseturfs = /turf/closed/wall/indestructible/reinforced/boss
+
+/turf/closed/wall/indestructible/reinforced/boss/see_through
+	opacity = FALSE
+
+/turf/closed/wall/indestructible/reinforced/boss/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	underlay_appearance.icon = 'icons/turf/floors.dmi'
+	underlay_appearance.icon_state = "basalt"
+	return TRUE
+
+/turf/closed/indestructible/hierophant
+	name = "wall"
+	desc = "A wall made out of a strange metal. The squares on it pulse in a predictable pattern."
+	icon = 'icons/turf/walls/legacy/hierophant_wall.dmi'
+	icon_state = "wall"
+	smoothing_flags = SMOOTH_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_HIERO_WALL)
+	canSmoothWith = list(SMOOTH_GROUP_HIERO_WALL)
+
+
 /turf/closed/indestructible/oldshuttle/corner
 	icon_state = "corner"
 
@@ -93,82 +221,63 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 	desc = null
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/turf/closed/indestructible/reinforced
+
+//Walls that will be greyscaled
+/turf/closed/wall/indestructible
 	name = "reinforced wall"
 	desc = "A huge chunk of reinforced metal used to separate rooms. Effectively impervious to conventional methods of destruction."
-	icon = 'icons/turf/walls/legacy/reinforced_wall.dmi'
-	icon_state = "reinforced_wall-0"
-	base_icon_state = "reinforced_wall"
+	explosion_block = 50
+
+/turf/closed/wall/indestructible/rust_heretic_act()
+	return
+
+/turf/closed/wall/indestructible/TerraformTurf(path, new_baseturf, flags, defer_change = FALSE, ignore_air = FALSE)
+	return
+
+/turf/closed/wall/indestructible/acid_act(acidpwr, acid_volume, acid_id)
+	return FALSE
+
+/turf/closed/wall/indestructible/Melt()
+	to_be_destroyed = FALSE
+	return src
+
+/turf/closed/wall/indestructible/singularity_act()
+	return
+
+/turf/closed/wall/indestructible/uranium
+	icon = 'icons/turf/walls/stone_wall.dmi'
+	desc = "A wall with uranium plating. This is probably a bad idea. Effectively impervious to conventional methods of destruction."
+	smoothing_flags = SMOOTH_BITMASK
+	plating_material = /datum/material/uranium
+	color = "#007a00" //To display in mapping softwares
+
+/turf/closed/wall/indestructible/reinforced
+	name = "reinforced wall"
+	desc = "A huge chunk of reinforced metal used to separate rooms. Effectively impervious to conventional methods of destruction."
+	icon = 'icons/turf/walls/solid_wall_reinforced.dmi'
+	icon_state = "wall-0"
+	base_icon_state = "wall"
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_LOW_WALL, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTERS_BLASTDOORS)
 
+	reinf_material = /datum/material/iron
+	plating_material = /datum/material/alloy/plasteel
 
-/turf/closed/indestructible/riveted
-	icon = 'icons/turf/walls/legacy/riveted.dmi'
-	icon_state = "riveted-0"
-	base_icon_state = "riveted"
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS)
-	canSmoothWith = list(SMOOTH_GROUP_CLOSED_TURFS)
-
-/turf/closed/indestructible/syndicate
-	icon = 'icons/turf/walls/legacy/plastitanium_wall.dmi'
-	icon_state = "plastitanium_wall-0"
-	base_icon_state = "plastitanium_wall"
+/turf/closed/wall/indestructible/reinforced/syndicate
+	icon = 'icons/turf/walls/metal_wall.dmi'
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
 
-/turf/closed/indestructible/riveted/uranium
-	icon = 'icons/turf/walls/legacy/uranium_wall.dmi'
-	icon_state = "uranium_wall-0"
-	base_icon_state = "uranium_wall"
-	smoothing_flags = SMOOTH_BITMASK
+	reinf_material = /datum/material/iron
+	plating_material = /datum/material/alloy/plastitanium
+	color = "#3a313a" //To display in mapping softwares
 
-/turf/closed/indestructible/riveted/plastinum
+/turf/closed/wall/indestructible/reinforced/plastinum
 	name = "plastinum wall"
 	desc = "A luxurious wall made out of a plasma-platinum alloy. Effectively impervious to conventional methods of destruction."
-	icon = 'icons/turf/walls/legacy/plastinum_wall.dmi'
-	icon_state = "plastinum_wall-0"
-	base_icon_state = "plastinum_wall"
-
-/turf/closed/indestructible/wood
-	icon = 'icons/turf/walls/legacy/wood_wall.dmi'
-	icon_state = "wood_wall-0"
-	base_icon_state = "wood_wall"
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WALLS)
-
-
-/turf/closed/indestructible/alien
-	name = "alien wall"
-	desc = "A wall with alien alloy plating."
-	icon = 'icons/turf/walls/legacy/abductor_wall.dmi'
-	icon_state = "abductor_wall-0"
-	base_icon_state = "abductor_wall"
-	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WALLS)
-
-
-/turf/closed/indestructible/cult
-	name = "runed metal wall"
-	desc = "A cold metal wall engraved with indecipherable symbols. Studying them causes your head to pound. Effectively impervious to conventional methods of destruction."
-	icon = 'icons/turf/walls/legacy/cult_wall.dmi'
-	icon_state = "cult_wall-0"
-	base_icon_state = "cult_wall"
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WALLS)
-
-
-/turf/closed/indestructible/abductor
-	icon_state = "alien1"
-
-/turf/closed/indestructible/opshuttle
-	icon_state = "wall3"
-
+	color = "#b3c0c7" //To display in mapping softwares
 
 /turf/closed/indestructible/fakeglass
 	name = "window"
@@ -202,97 +311,3 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 	icon_state = null
 	underlays += mutable_appearance('icons/obj/structures.dmi', "grille")
 	underlays += mutable_appearance('icons/turf/floors.dmi', "plating")
-
-/turf/closed/indestructible/fakedoor
-	name = "CentCom Access"
-	icon = 'icons/obj/doors/airlocks/centcom/airlock.dmi'
-	icon_state = "fake_door"
-
-/turf/closed/indestructible/rock
-	name = "dense rock"
-	desc = "An extremely densely-packed rock, most mining tools or explosives would never get through this."
-	icon = 'icons/turf/mining.dmi'
-	icon_state = "rock"
-
-/turf/closed/indestructible/rock/snow
-	name = "mountainside"
-	desc = "An extremely densely-packed rock, sheeted over with centuries worth of ice and snow."
-	icon = 'icons/turf/walls.dmi'
-	icon_state = "snowrock"
-	bullet_sizzle = TRUE
-	bullet_bounce_sound = null
-
-/turf/closed/indestructible/rock/snow/ice
-	name = "iced rock"
-	desc = "Extremely densely-packed sheets of ice and rock, forged over the years of the harsh cold."
-	icon = 'icons/turf/walls.dmi'
-	icon_state = "icerock"
-
-/turf/closed/indestructible/rock/snow/ice/ore
-	icon = 'icons/turf/walls/legacy/icerock_wall.dmi'
-	icon_state = "icerock_wall-0"
-	base_icon_state = "icerock_wall"
-	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
-	canSmoothWith = list(SMOOTH_GROUP_CLOSED_TURFS)
-	pixel_x = -4
-	pixel_y = -4
-
-
-/turf/closed/indestructible/paper
-	name = "thick paper wall"
-	desc = "A wall layered with impenetrable sheets of paper."
-	icon = 'icons/turf/walls.dmi'
-	icon_state = "paperwall"
-
-/turf/closed/indestructible/necropolis
-	name = "necropolis wall"
-	desc = "A seemingly impenetrable wall."
-	icon = 'icons/turf/walls.dmi'
-	icon_state = "necro"
-	explosion_block = 50
-	baseturfs = /turf/closed/indestructible/necropolis
-
-/turf/closed/indestructible/necropolis/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
-	underlay_appearance.icon = 'icons/turf/floors.dmi'
-	underlay_appearance.icon_state = "necro1"
-	return TRUE
-
-/turf/closed/indestructible/iron
-	name = "impervious iron wall"
-	desc = "A wall with tough iron plating."
-	icon = 'icons/turf/walls/legacy/iron_wall.dmi'
-	icon_state = "iron_wall-0"
-	base_icon_state = "iron_wall"
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WALLS)
-	opacity = FALSE
-
-/turf/closed/indestructible/riveted/boss
-	name = "necropolis wall"
-	desc = "A thick, seemingly indestructible stone wall."
-	icon = 'icons/turf/walls/legacy/boss_wall.dmi'
-	icon_state = "boss_wall-0"
-	base_icon_state = "boss_wall"
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_BOSS_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_BOSS_WALLS)
-	explosion_block = 50
-	baseturfs = /turf/closed/indestructible/riveted/boss
-
-/turf/closed/indestructible/riveted/boss/see_through
-	opacity = FALSE
-
-/turf/closed/indestructible/riveted/boss/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
-	underlay_appearance.icon = 'icons/turf/floors.dmi'
-	underlay_appearance.icon_state = "basalt"
-	return TRUE
-
-/turf/closed/indestructible/riveted/hierophant
-	name = "wall"
-	desc = "A wall made out of a strange metal. The squares on it pulse in a predictable pattern."
-	icon = 'icons/turf/walls/legacy/hierophant_wall.dmi'
-	icon_state = "wall"
-	smoothing_flags = SMOOTH_CORNERS
-	smoothing_groups = list(SMOOTH_GROUP_HIERO_WALL)
-	canSmoothWith = list(SMOOTH_GROUP_HIERO_WALL)

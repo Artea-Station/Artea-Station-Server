@@ -74,12 +74,16 @@
  * Arguments:
  * * target - The atom we're trying to smooth with.
  */
-/atom/proc/can_area_smooth(target)
+/atom/proc/can_area_smooth(atom/target)
 	var/area/target_area = get_area(target)
 	var/area/source_area = get_area(src)
-	if((!source_area.area_limited_icon_smoothing || istype(target_area, source_area.area_limited_icon_smoothing)) && (!target_area.area_limited_icon_smoothing || istype(source_area, target_area.area_limited_icon_smoothing)))
-		return TRUE
-	return FALSE
+	if(!target_area)
+		return FALSE
+	if(target_area.area_limited_icon_smoothing && !istype(source_area, target_area.area_limited_icon_smoothing))
+		return FALSE
+	if(source_area.area_limited_icon_smoothing && !istype(target_area, source_area.area_limited_icon_smoothing))
+		return FALSE
+	return TRUE
 
 ///Scans all adjacent turfs to find targets to smooth with.
 /atom/proc/calculate_adjacencies()
