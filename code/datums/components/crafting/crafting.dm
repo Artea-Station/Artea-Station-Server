@@ -379,13 +379,13 @@
 	data["categories"] = list()
 	data["foodtypes"] = list()
 
-		if(user.has_dna())
+	if(user.has_dna())
 		var/mob/living/carbon/carbon = user
 		data["diet"] = carbon.dna.species.get_species_diet()
 
-		for(var/datum/crafting_recipe/recipe as anything in (mode ? GLOB.cooking_recipes : GLOB.crafting_recipes))
-			if(!is_recipe_available(recipe, user))
-				continue
+	for(var/datum/crafting_recipe/recipe as anything in (mode ? GLOB.cooking_recipes : GLOB.crafting_recipes))
+		if(!is_recipe_available(recipe, user))
+			continue
 
 		if(recipe.category && !(recipe.category in data["categories"]))
 			data["categories"] += recipe.category
