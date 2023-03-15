@@ -97,8 +97,8 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 /datum/material/uranium
 	name = "uranium"
 	desc = "Uranium"
-	color = rgb(48, 237, 26)
-	greyscale_colors = rgb(48, 237, 26)
+	color = rgb(0, 122, 0)
+	greyscale_colors = rgb(0, 122, 0)
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE, MAT_CATEGORY_ITEM_MATERIAL=TRUE)
 	sheet_type = /obj/item/stack/sheet/mineral/uranium
 	value_per_unit = 0.05
@@ -107,6 +107,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	wall_greyscale_config = /datum/greyscale_config/stone_wall
 	wall_type = /turf/closed/wall/mineral/uranium
 	false_wall_type = /obj/structure/falsewall/uranium
+	wall_greyscale_config = /datum/greyscale_config/stone_wall
 
 /datum/material/uranium/on_applied(atom/source, amount, material_flags)
 	. = ..()
