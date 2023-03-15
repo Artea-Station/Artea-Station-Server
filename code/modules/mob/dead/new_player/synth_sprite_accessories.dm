@@ -150,18 +150,6 @@
 	color_src = MUTCOLORS
 	gender_specific = FALSE
 
-// /datum/sprite_accessory/antenna/is_hidden(mob/living/carbon/human/wearer, obj/item/bodypart/bodypart)
-// 	if(!wearer.head || !bodypart)
-// 		return FALSE
-// 	// if(key in wearer.try_hide_mutant_parts)
-// 	// 	return TRUE
-// //	Exception for MODs
-// 	if(istype(wearer.head, /obj/item/clothing/head/mod))
-// 		return FALSE
-// //	Hide accessory if flagged to do so
-// 	if((wearer.head.flags_inv & HIDEEARS || wearer.wear_mask.flags_inv & HIDEEARS))
-// 		return TRUE
-
 /datum/sprite_accessory/antenna/none
 	name = "None"
 	icon_state = "None"

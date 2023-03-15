@@ -133,3 +133,9 @@
 
 /datum/species/synthetic/get_types_to_preload()
 	return ..() - typesof(/obj/item/organ/internal/cyberimp/arm/power_cord) // Don't cache things that lead to hard deletions.
+
+/datum/species/synthetic/get_species_description()
+	return "Very broad and versitile in appearance and function, synths have been a staple of many a station's crew due to their ease of transport compared to humans."
+
+/datum/species/synthetic/get_species_lore()
+	return list("Work in progress.")
