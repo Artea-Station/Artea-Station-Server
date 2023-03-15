@@ -1,3 +1,23 @@
+// Action
+/datum/action/innate/monitor_change
+	name = "Screen Change"
+	check_flags = AB_CHECK_CONSCIOUS
+	button_icon = 'icons/mob/actions/actions_silicon.dmi'
+	button_icon_state = "drone_vision"
+
+/datum/action/innate/monitor_change/Activate()
+	var/mob/living/carbon/human/human = owner
+	var/new_ipc_screen = tgui_input_list(usr, "Choose your character's screen:", "Monitor Display", GLOB.synth_screens)
+
+	log_world(new_ipc_screen)
+
+	if(!new_ipc_screen)
+		return
+
+	var/obj/item/organ/external/screen/screen = human.getorganslot(MUTANT_SYNTH_SCREEN)
+	screen?.switch_to_screen(new_ipc_screen)
+
+// Organ
 /obj/item/organ/external/screen
 	name = "screen"
 	preference = "feature_ipc_screen"
@@ -50,13 +70,14 @@
  * * screen_name - The name of the screen to switch the ipc_screen mutant bodypart to.
  */
 /obj/item/organ/external/screen/proc/switch_to_screen(screen_name)
-	if(!screen)
+	if(!screen || !screen_name)
 		return
 
 	var/obj/item/organ/external/screen/screen_organ = owner.getorganslot(MUTANT_SYNTH_SCREEN)
 	screen_organ?.bodypart_overlay?.set_appearance_from_name(screen_name)
 	owner.update_body(TRUE)
 
+// Bodypart overlay
 /datum/bodypart_overlay/mutant/screen
 	layers = EXTERNAL_FRONT_UNDER_CLOTHES
 	feature_key = MUTANT_SYNTH_SCREEN

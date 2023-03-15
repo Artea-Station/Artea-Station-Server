@@ -6,6 +6,9 @@
 /datum/preference/toggle/use_skin_tone/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	return
 
+/datum/preference/toggle/use_skin_tone/is_accessible(datum/preferences/preferences)
+	return ..() && !issynthetic(preferences?.read_preference(/datum/preference/choiced/species))
+
 /datum/preference/color/skin_color
 	category = PREFERENCE_CATEGORY_APPEARANCE_LIST
 	savefile_identifier = PREFERENCE_CHARACTER
@@ -17,7 +20,7 @@
 		target.dna.update_dna_identity()
 
 /datum/preference/color/skin_color/is_accessible(datum/preferences/preferences)
-	if (!..(preferences) || preferences?.read_preference(/datum/preference/toggle/use_skin_tone))
+	if (!..(preferences) || preferences?.read_preference(/datum/preference/toggle/use_skin_tone) || issynthetic(preferences?.read_preference(/datum/preference/choiced/species)))
 		return FALSE
 
 	return TRUE
@@ -55,7 +58,7 @@
 		target.dna.update_dna_identity()
 
 /datum/preference/choiced/skin_tone/is_accessible(datum/preferences/preferences)
-	if (!..(preferences) || !preferences?.read_preference(/datum/preference/toggle/use_skin_tone))
+	if (!..(preferences) || !preferences?.read_preference(/datum/preference/toggle/use_skin_tone) || issynthetic(preferences?.read_preference(/datum/preference/choiced/species)))
 		return FALSE
 
 	return TRUE
