@@ -268,10 +268,11 @@
 	if(prob(emp_vulnerability/severity)) //Chance of permanent effects
 		organ_flags |= ORGAN_SYNTHETIC_EMP //Starts organ faliure - gonna need replacing soon.
 
-/obj/item/organ/internal/heart/synth
-	name = "hydraulic pump engine"
-	desc = "An electronic device that handles the hydraulic pumps, powering one's robotic limbs. Without this, synthetics are unable to move."
+/obj/item/organ/internal/liver/synth
+	name = "reagent processing unit"
+	desc = "An electronic device that processes the beneficial chemicals for the synthetic user."
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
 	icon = 'icons/mob/species/synth/surgery.dmi'
-	icon_state = "heart-ipc"
+	icon_state = "liver-ipc"
+	filterToxins = FALSE //We dont filter them, we're immune to them
