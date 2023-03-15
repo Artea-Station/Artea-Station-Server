@@ -123,7 +123,7 @@
 				/obj/item/reagent_containers/cup/glass/bottle = 1)
 	parts = list(/obj/item/reagent_containers/cup/glass/bottle = 1)
 	time = 4 SECONDS
-	category = CAT_CHEMISTR
+	category = CAT_CHEMISTRY
 
 /datum/crafting_recipe/stunprod
 	name = "Stunprod"
@@ -1763,7 +1763,6 @@
 	reqs = list(
 		/obj/item/stack/sheet/iron = 2,
 		/obj/item/stack/rods = 1,
-		/obj/item/pillow = 1,
 	)
 	category = CAT_ENTERTAINMENT
 	time = 10 SECONDS

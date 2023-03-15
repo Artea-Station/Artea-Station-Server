@@ -1083,4 +1083,4 @@
 	color = "#efeff0"
 	nutriment_factor = 1.5 * REAGENTS_METABOLISM
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
-	default_container = /obj/item/reagent_containers/condiment/creamer
+	default_container = /obj/item/reagent_containers/condiment/pack/creamer

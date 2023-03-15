@@ -128,8 +128,8 @@
 	category = CAT_BREAD
 
 /datum/crafting_recipe/food/reaction/uncooked_rice
-	result = /obj/item/food/uncooked_rice
-	reaction = /datum/chemical_reaction/food/uncooked_rice
+	result = /obj/item/food/salad/ricebowl
+	reaction = /datum/chemical_reaction/food/ricebowl
 	category = CAT_SALAD
 
 /datum/crafting_recipe/food/reaction/bbqsauce
@@ -621,8 +621,8 @@
 	category = CAT_EGG
 
 /datum/crafting_recipe/food/microwave/boiledrice
-	reqs = list(/obj/item/food/uncooked_rice = 1)
-	result = /obj/item/food/boiledrice
+	reqs = list(/obj/item/food/salad/ricebowl = 1)
+	result = /obj/item/food/salad/boiledrice
 	category = CAT_SALAD
 
 /datum/crafting_recipe/food/microwave/boiledspaghetti
@@ -646,12 +646,12 @@
 
 /datum/crafting_recipe/food/microwave/cakehat
 	reqs = list(/obj/item/food/cake/birthday = 1)
-	result = /obj/item/clothing/head/utility/hardhat/cakehat
+	result = /obj/item/clothing/head/hardhat/cakehat
 	category = CAT_CAKE
 
 /datum/crafting_recipe/food/microwave/cakehat/energycake
 	reqs = list(/obj/item/food/cake/birthday/energy = 1)
-	result = /obj/item/clothing/head/utility/hardhat/cakehat/energycake
+	result = /obj/item/clothing/head/hardhat/cakehat/energycake
 	category = CAT_CAKE
 
 /datum/crafting_recipe/food/microwave/cheese_curds

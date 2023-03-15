@@ -112,7 +112,7 @@ GLOBAL_LIST_INIT(monkey_recipes, list ( \
 	merge_type = /obj/item/stack/sheet/animalhide/xeno
 
 GLOBAL_LIST_INIT(xeno_recipes, list ( \
-	new/datum/stack_recipe("alien helmet", /obj/item/clothing/head/costume/xenos, 1, category = CAT_CLOTHING), \
+	new/datum/stack_recipe("alien helmet", /obj/item/clothing/head/xenos, 1, category = CAT_CLOTHING), \
 	new/datum/stack_recipe("alien suit", /obj/item/clothing/suit/costume/xenos, 2, category = CAT_CLOTHING), \
 	))
 

@@ -202,4 +202,4 @@
 		/obj/item/food/chocolatebar = 1
 	)
 	result = /obj/item/food/chocolatebunny
-		category = CAT_MISCFOOD
+	category = CAT_MISCFOOD

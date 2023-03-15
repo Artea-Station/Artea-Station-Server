@@ -32,7 +32,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 		new/datum/stack_recipe("teal comfy chair", /obj/structure/chair/comfy/teal, 2, one_per_turf = TRUE, on_solid_ground = TRUE, category = CAT_FURNITURE), \
 		)), \
 	new/datum/stack_recipe_list("sofas", list(
-		new /datum/stack_recipe("sofa (middle)", /obj/structure/chair/sofa/middle, 1, one_per_turf = TRUE, on_solid_ground = TRUE, category = CAT_FURNITURE),
+		new /datum/stack_recipe("sofa (middle)", /obj/structure/chair/sofa, 1, one_per_turf = TRUE, on_solid_ground = TRUE, category = CAT_FURNITURE),
 		new /datum/stack_recipe("sofa (left)", /obj/structure/chair/sofa/left, 1, one_per_turf = TRUE, on_solid_ground = TRUE, category = CAT_FURNITURE),
 		new /datum/stack_recipe("sofa (right)", /obj/structure/chair/sofa/right, 1, one_per_turf = TRUE, on_solid_ground = TRUE, category = CAT_FURNITURE),
 		new /datum/stack_recipe("sofa (corner)", /obj/structure/chair/sofa/corner, 1, one_per_turf = TRUE, on_solid_ground = TRUE, category = CAT_FURNITURE)
@@ -301,7 +301,7 @@ GLOBAL_LIST_INIT(wood_recipes, list ( \
 	new/datum/stack_recipe("picture frame", /obj/item/wallframe/picture, 1, time = 1 SECONDS, category = CAT_ENTERTAINMENT),\
 	new/datum/stack_recipe("painting frame", /obj/item/wallframe/painting, 1, time = 1 SECONDS, category = CAT_ENTERTAINMENT),\
 	new/datum/stack_recipe("display case chassis", /obj/structure/displaycase_chassis, 5, one_per_turf = TRUE, on_solid_ground = TRUE, category = CAT_FURNITURE), \
-	new/datum/stack_recipe("wooden buckler", /obj/item/shield/buckler, 20, time = 4 SECONDS, category = CAT_EQUIPMENT), \
+	new/datum/stack_recipe("wooden buckler", /obj/item/shield/riot/buckler, 20, time = 4 SECONDS, category = CAT_EQUIPMENT), \
 	new/datum/stack_recipe("apiary", /obj/structure/beebox, 40, time = 5 SECONDS, category = CAT_TOOLS),\
 	new/datum/stack_recipe("tiki mask", /obj/item/clothing/mask/gas/tiki_mask, 2, category = CAT_CLOTHING), \
 	new/datum/stack_recipe("honey frame", /obj/item/honey_frame, 5, time = 1 SECONDS, category = CAT_TOOLS),\
@@ -357,7 +357,7 @@ GLOBAL_LIST_INIT(bamboo_recipes, list ( \
 	new/datum/stack_recipe("bamboo spear", /obj/item/spear/bamboospear, 25, time = 9 SECONDS, category = CAT_WEAPON_MELEE), \
 	new/datum/stack_recipe("blow gun", /obj/item/gun/syringe/blowgun, 10, time = 7 SECONDS, category = CAT_WEAPON_RANGED), \
 	new/datum/stack_recipe("crude syringe", /obj/item/reagent_containers/syringe/crude, 5, time = 1 SECONDS, category = CAT_CHEMISTRY), \
-	new/datum/stack_recipe("rice hat", /obj/item/clothing/head/costume/rice_hat, 10, time = 7 SECONDS, category = CAT_CLOTHING), \
+	new/datum/stack_recipe("rice hat", /obj/item/clothing/head/rice_hat, 10, time = 7 SECONDS, category = CAT_CLOTHING), \
 	null, \
 	new/datum/stack_recipe("bamboo stool", /obj/structure/chair/stool/bamboo, 2, time = 1 SECONDS, one_per_turf = TRUE, on_solid_ground = TRUE, category = CAT_FURNITURE), \
 	new/datum/stack_recipe("bamboo mat piece", /obj/item/stack/tile/bamboo, 1, 4, 20, category = CAT_TILES), \
@@ -429,7 +429,6 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	new/datum/stack_recipe("19x19 canvas", /obj/item/canvas/nineteen_nineteen, 3, category = CAT_ENTERTAINMENT), \
 	new/datum/stack_recipe("23x19 canvas", /obj/item/canvas/twentythree_nineteen, 4, category = CAT_ENTERTAINMENT), \
 	new/datum/stack_recipe("23x23 canvas", /obj/item/canvas/twentythree_twentythree, 5, category = CAT_ENTERTAINMENT), \
-	new/datum/stack_recipe("pillow", /obj/item/pillow, 3, category = CAT_FURNITURE), \
 	))
 
 /obj/item/stack/sheet/cloth
@@ -517,7 +516,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
 GLOBAL_LIST_INIT(cardboard_recipes, list ( \
 	new/datum/stack_recipe("box", /obj/item/storage/box, category = CAT_CONTAINERS), \
 	new/datum/stack_recipe("cardborg suit", /obj/item/clothing/suit/costume/cardborg, 3, category = CAT_CLOTHING), \
-	new/datum/stack_recipe("cardborg helmet", /obj/item/clothing/head/costume/cardborg, category = CAT_CLOTHING), \
+	new/datum/stack_recipe("cardborg helmet", /obj/item/clothing/head/cardborg, category = CAT_CLOTHING), \
 	new/datum/stack_recipe("large box", /obj/structure/closet/cardboard, 4, one_per_turf = TRUE, on_solid_ground = TRUE, category = CAT_CONTAINERS), \
 	new/datum/stack_recipe("cardboard cutout", /obj/item/cardboard_cutout, 5, category = CAT_ENTERTAINMENT), \
 	null, \
@@ -561,8 +560,8 @@ GLOBAL_LIST_INIT(cardboard_recipes, list ( \
 		new /datum/stack_recipe("extended oxygen tank box", /obj/item/storage/box/engitank, category = CAT_CONTAINERS), \
 		null, \
 
-		new /datum/stack_recipe("survival box", /obj/item/storage/box/survival/crafted, category = CAT_CONTAINERS), \
-		new /datum/stack_recipe("extended tank survival box", /obj/item/storage/box/survival/engineer/crafted, category = CAT_CONTAINERS), \
+		new /datum/stack_recipe("survival box", /obj/item/storage/box/survival, category = CAT_CONTAINERS), \
+		new /datum/stack_recipe("extended tank survival box", /obj/item/storage/box/survival/engineer, category = CAT_CONTAINERS), \
 		new /datum/stack_recipe("disk box", /obj/item/storage/box/disks, category = CAT_CONTAINERS), \
 		new /datum/stack_recipe("light tubes box", /obj/item/storage/box/lights/tubes, category = CAT_CONTAINERS), \
 		new /datum/stack_recipe("light bulbs box", /obj/item/storage/box/lights/bulbs, category = CAT_CONTAINERS), \
@@ -625,7 +624,7 @@ GLOBAL_LIST_INIT(bronze_recipes, list ( \
 	new/datum/stack_recipe("pinion airlock assembly", /obj/structure/door_assembly/door_assembly_bronze, 4, time = 5 SECONDS, one_per_turf = TRUE, on_solid_ground = TRUE, category = CAT_DOORS), \
 	new/datum/stack_recipe("bronze pinion airlock assembly", /obj/structure/door_assembly/door_assembly_bronze/seethru, 4, time = 5 SECONDS, one_per_turf = TRUE, on_solid_ground = TRUE, category = CAT_DOORS), \
 	new/datum/stack_recipe("bronze floor tile", /obj/item/stack/tile/bronze, 1, 4, 20, category = CAT_TILES), \
-	new/datum/stack_recipe("bronze hat", /obj/item/clothing/head/costume/bronze, category = CAT_CLOTHING), \
+	new/datum/stack_recipe("bronze hat", /obj/item/clothing/head/bronze, category = CAT_CLOTHING), \
 	new/datum/stack_recipe("bronze suit", /obj/item/clothing/suit/costume/bronze, category = CAT_CLOTHING), \
 	new/datum/stack_recipe("bronze boots", /obj/item/clothing/shoes/bronze, category = CAT_CLOTHING), \
 	null,
