@@ -195,7 +195,6 @@ GLOBAL_LIST_INIT(leather_recipes, list ( \
 	new/datum/stack_recipe("leather satchel", /obj/item/storage/backpack/satchel/leather, 5, category = CAT_CLOTHING), \
 	new/datum/stack_recipe("sheriff vest", /obj/item/clothing/accessory/vest_sheriff, 4, category = CAT_CLOTHING), \
 	new/datum/stack_recipe("leather jacket", /obj/item/clothing/suit/jacket/leather, 7, category = CAT_CLOTHING), \
-	new/datum/stack_recipe("biker jacket", /obj/item/clothing/suit/jacket/leather/biker, 7, category = CAT_CLOTHING), \
 	new/datum/stack_recipe_list("belts", list( \
 		new/datum/stack_recipe("tool belt", /obj/item/storage/belt/utility, 4, category = CAT_CONTAINERS), \
 		new/datum/stack_recipe("botanical belt", /obj/item/storage/belt/plant, 2, category = CAT_CONTAINERS), \
@@ -206,11 +205,11 @@ GLOBAL_LIST_INIT(leather_recipes, list ( \
 		new/datum/stack_recipe("bandolier", /obj/item/storage/belt/bandolier, 5, category = CAT_CONTAINERS), \
 	)),
 	new/datum/stack_recipe_list("cowboy hats", list( \
-		new/datum/stack_recipe("sheriff hat", /obj/item/clothing/head/cowboy/brown, 2, category = CAT_CLOTHING), \
-		new/datum/stack_recipe("desperado hat", /obj/item/clothing/head/cowboy/black, 2, category = CAT_CLOTHING), \
-		new/datum/stack_recipe("ten-gallon hat", /obj/item/clothing/head/cowboy/white, 2, category = CAT_CLOTHING), \
-		new/datum/stack_recipe("deputy hat", /obj/item/clothing/head/cowboy/red, 2, category = CAT_CLOTHING), \
-		new/datum/stack_recipe("drifter hat", /obj/item/clothing/head/cowboy/grey, 2, category = CAT_CLOTHING), \
+		new/datum/stack_recipe("sheriff hat", /obj/item/clothing/head/cowboy_hat_brown, 2, category = CAT_CLOTHING), \
+		new/datum/stack_recipe("desperado hat", /obj/item/clothing/head/cowboy_hat_black, 2, category = CAT_CLOTHING), \
+		new/datum/stack_recipe("ten-gallon hat", /obj/item/clothing/head/cowboy_hat_white, 2, category = CAT_CLOTHING), \
+		new/datum/stack_recipe("deputy hat", /obj/item/clothing/head/cowboy_hat_red, 2, category = CAT_CLOTHING), \
+		new/datum/stack_recipe("drifter hat", /obj/item/clothing/head/cowboy_hat_grey, 2, category = CAT_CLOTHING), \
 	)),
 ))
 
