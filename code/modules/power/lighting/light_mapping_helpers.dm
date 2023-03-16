@@ -93,65 +93,65 @@
 
 // -------- Directional presets
 // The directions are backwards on the lights we have now
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light, DEFAULT_WALL_MOUNT_OFFSET)
 
 // ---- Broken tube
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/broken, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/broken, DEFAULT_WALL_MOUNT_OFFSET)
 
 // ---- Tube construct
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/structure/light_construct, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/structure/light_construct, DEFAULT_WALL_MOUNT_OFFSET)
 
 // ---- Tube frames
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/built, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/built, DEFAULT_WALL_MOUNT_OFFSET)
 
 // ---- No nightlight tubes
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/no_nightlight, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/no_nightlight, DEFAULT_WALL_MOUNT_OFFSET)
 
 // ---- Warm light tubes
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/warm, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/warm, DEFAULT_WALL_MOUNT_OFFSET)
 
 // ---- No nightlight warm light tubes
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/warm/no_nightlight, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/warm/no_nightlight, DEFAULT_WALL_MOUNT_OFFSET)
 
 // ---- Cold light tubes
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/cold, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/cold, DEFAULT_WALL_MOUNT_OFFSET)
 
 // ---- No nightlight cold light tubes
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/cold/no_nightlight, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/cold/no_nightlight, DEFAULT_WALL_MOUNT_OFFSET)
 
 // ---- Red tubes
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/red, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/red, DEFAULT_WALL_MOUNT_OFFSET)
 
 // ---- Red dim tubes
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/red/dim, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/red/dim, DEFAULT_WALL_MOUNT_OFFSET)
 
 // ---- Blacklight tubes
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/blacklight, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/blacklight, DEFAULT_WALL_MOUNT_OFFSET)
 
 // ---- Dim tubes
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/dim, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/dim, DEFAULT_WALL_MOUNT_OFFSET)
 
 
 // -------- Bulb lights
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small, DEFAULT_WALL_MOUNT_OFFSET)
 
 // ---- Bulb construct
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/structure/light_construct/small, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/structure/light_construct/small, DEFAULT_WALL_MOUNT_OFFSET)
 
 // ---- Bulb frames
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/built, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/built, DEFAULT_WALL_MOUNT_OFFSET)
 
 // ---- Broken bulbs
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/broken, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/broken, DEFAULT_WALL_MOUNT_OFFSET)
 
 // ---- Red bulbs
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/red, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/red, DEFAULT_WALL_MOUNT_OFFSET)
 
 // ---- Red dim bulbs
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/red/dim, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/red/dim, DEFAULT_WALL_MOUNT_OFFSET)
 
 // ---- Blacklight bulbs
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/blacklight, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/blacklight, DEFAULT_WALL_MOUNT_OFFSET)
 
 // ---- Maintenance bulbs
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/maintenance, 21, 0, 10, -10)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/maintenance, DEFAULT_WALL_MOUNT_OFFSET)
