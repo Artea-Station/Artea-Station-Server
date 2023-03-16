@@ -1,23 +1,30 @@
 import { BooleanLike } from 'common/react';
 import { useBackend } from '../backend';
-import { Box, Dimmer, Divider, Icon, Section, Stack, StyleableSection, Tooltip } from '../components';
+import { AnimatedNumber, Box, Dimmer, Divider, Icon, Section, Stack, StyleableSection, Tooltip } from '../components';
 import { Button } from '../components/Button';
 import { Window } from '../layouts';
 
 type Data = {
-  food_types: Record<string, Record<string, string>>;
-  selection: Record<number, Array<string>>;
+  food_types: Record<string, Record<string, number>>;
+  selection: Record<string, number>;
   points: number;
   enabled: BooleanLike;
   invalid: string;
   race_disabled: BooleanLike;
 };
 
+const FOOD_TOXIC = 1;
+const FOOD_DISLIKED = 2;
+const FOOD_NEUTRAL = 3;
+const FOOD_LIKED = 4;
+const DEFAULT_FOOD_VALUE = 4; // Yes, four, cause byond lists start at 1, while JS starts at 0.
+const OBSCURE_FOOD = 5;
+
 export const FoodPreferences = (props, context) => {
   const { act, data } = useBackend<Data>(context);
 
   return (
-    <Window width={800} height={500}>
+    <Window width={850} height={500}>
       <Window.Content scrollable>
         {
           <StyleableSection
@@ -51,7 +58,7 @@ export const FoodPreferences = (props, context) => {
                     )}
                     <span
                       style={{ 'color': data.invalid ? '#bd2020' : 'inherit' }}>
-                      Points left: {data.points}
+                      Points left: <AnimatedNumber value={data.points} />
                     </span>
                   </Box>
                 </Tooltip>
@@ -93,7 +100,7 @@ export const FoodPreferences = (props, context) => {
               (!data.enabled && (
                 <ErrorOverlay>Your food preferences are disabled!</ErrorOverlay>
               ))}
-            <Box style={{ 'columns': '21em' }}>
+            <Box style={{ 'columns': '30em' }}>
               {Object.entries(data.food_types).map((element) => {
                 const { 0: foodName, 1: foodPointValues } = element;
                 return (
@@ -102,7 +109,7 @@ export const FoodPreferences = (props, context) => {
                       title={
                         <>
                           {foodName}
-                          {foodPointValues['6'] && (
+                          {foodPointValues[OBSCURE_FOOD] && (
                             <Tooltip content="This food doesn't count towards your maximum likes, and is free!">
                               <span
                                 style={{
@@ -125,18 +132,19 @@ export const FoodPreferences = (props, context) => {
                       }}>
                       <FoodButton
                         foodName={foodName}
-                        foodPreference={3}
+                        foodPreference={FOOD_TOXIC}
                         selected={
-                          data.selection[foodName] === '1' ||
+                          data.selection[foodName] === FOOD_TOXIC ||
                           (!data.selection[foodName] &&
-                            foodPointValues['5'] === '1')
+                            foodPointValues[DEFAULT_FOOD_VALUE.toString()] ===
+                              FOOD_TOXIC)
                         }
                         content={
                           <>
                             Toxic
                             {foodPointValues &&
-                              !foodPointValues['6'] &&
-                              ' (' + foodPointValues['1'] + ')'}
+                              !foodPointValues[OBSCURE_FOOD] &&
+                              ' (' + foodPointValues[FOOD_TOXIC - 1] + ')'}
                           </>
                         }
                         color="olive"
@@ -144,18 +152,19 @@ export const FoodPreferences = (props, context) => {
                       />
                       <FoodButton
                         foodName={foodName}
-                        foodPreference={2}
+                        foodPreference={FOOD_DISLIKED}
                         selected={
-                          data.selection[foodName] === '2' ||
+                          data.selection[foodName] === FOOD_DISLIKED ||
                           (!data.selection[foodName] &&
-                            foodPointValues['5'] === '2')
+                            foodPointValues[DEFAULT_FOOD_VALUE.toString()] ===
+                              FOOD_DISLIKED)
                         }
                         content={
                           <>
                             Disliked
                             {foodPointValues &&
-                              !foodPointValues['6'] &&
-                              ' (' + foodPointValues['2'] + ')'}
+                              !foodPointValues[OBSCURE_FOOD] &&
+                              ' (' + foodPointValues[FOOD_DISLIKED - 1] + ')'}
                           </>
                         }
                         color="red"
@@ -163,18 +172,19 @@ export const FoodPreferences = (props, context) => {
                       />
                       <FoodButton
                         foodName={foodName}
-                        foodPreference={3}
+                        foodPreference={FOOD_NEUTRAL}
                         selected={
-                          data.selection[foodName] === '3' ||
+                          data.selection[foodName] === FOOD_NEUTRAL ||
                           (!data.selection[foodName] &&
-                            foodPointValues['5'] === '3')
+                            foodPointValues[DEFAULT_FOOD_VALUE.toString()] ===
+                              FOOD_NEUTRAL)
                         }
                         content={
                           <>
                             Neutral
                             {foodPointValues &&
-                              !foodPointValues['6'] &&
-                              ' (' + foodPointValues['3'] + ')'}
+                              !foodPointValues[OBSCURE_FOOD] &&
+                              ' (' + foodPointValues[FOOD_NEUTRAL - 1] + ')'}
                           </>
                         }
                         color="grey"
@@ -182,18 +192,19 @@ export const FoodPreferences = (props, context) => {
                       />
                       <FoodButton
                         foodName={foodName}
-                        foodPreference={1}
+                        foodPreference={FOOD_LIKED}
                         selected={
-                          data.selection[foodName] === '4' ||
+                          data.selection[foodName] === FOOD_LIKED ||
                           (!data.selection[foodName] &&
-                            foodPointValues['5'] === '4')
+                            foodPointValues[DEFAULT_FOOD_VALUE.toString()] ===
+                              FOOD_LIKED)
                         }
                         content={
                           <>
                             Liked
                             {foodPointValues &&
-                              !foodPointValues['6'] &&
-                              ' (' + foodPointValues['4'] + ')'}
+                              !foodPointValues[OBSCURE_FOOD] &&
+                              ' (' + foodPointValues[FOOD_LIKED - 1] + ')'}
                           </>
                         }
                         color="green"
@@ -232,7 +243,8 @@ const FoodButton = (props, context) => {
 const ErrorOverlay = (props, context) => {
   return (
     <Dimmer style={{ 'align-items': 'stretch' }}>
-      <Stack vertical mt="7em">
+      {/* prettier-ignore */}
+      <Stack vertical mt="5.2em"> {/* Perfectly aligned in some empty space so it's more legible.*/}
         <Stack.Item color="#bd2020" textAlign="center">
           <h1>{props.children}</h1>
         </Stack.Item>

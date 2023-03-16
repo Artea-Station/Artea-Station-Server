@@ -142,13 +142,10 @@ GLOBAL_DATUM_INIT(food_prefs_menu, /datum/food_prefs_menu, new)
 	for(var/food_entry in preferences.food_preferences)
 		var/food_preference = preferences.food_preferences[food_entry]
 		var/list/food_points_entry = GLOB.food_ic_flag_to_point_values[food_entry]
-		if(!food_points_entry || food_points_entry[FOOD_PREFERENCE_OBSCURE])
+		if(!food_points_entry || food_points_entry.Find(FOOD_PREFERENCE_OBSCURE))
 			continue
 
-		if(food_preference >= food_points_entry[FOOD_PREFERENCE_DEFAULT])
-			points += food_points_entry[food_preference]
-		else
-			points -= food_points_entry[food_preference]
+		points += food_points_entry[food_preference]
 
 	return points
 
