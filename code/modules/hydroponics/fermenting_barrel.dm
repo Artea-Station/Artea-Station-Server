@@ -75,13 +75,6 @@
 	icon_state = open ? "barrel_open" : "barrel"
 	return ..()
 
-/datum/crafting_recipe/fermenting_barrel
-	name = "Wooden Barrel"
-	result = /obj/structure/fermenting_barrel
-	reqs = list(/obj/item/stack/sheet/mineral/wood = 8)
-	time = 50
-	category = CAT_PRIMAL
-
 //lil gunpowder barrel fer pirates since it's a nice reagent holder
 
 /obj/structure/fermenting_barrel/gunpowder
