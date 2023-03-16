@@ -507,6 +507,9 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 
 		preference.apply_to_human(character, read_preference(preference.type), src)
 
+	for (var/datum/preference_middleware/preference_middleware as anything in middleware)
+		preference_middleware.apply_to_human(character, src)
+
 	character.dna.real_name = character.real_name
 
 	if(icon_updates)

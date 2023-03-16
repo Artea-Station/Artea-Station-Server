@@ -26,7 +26,7 @@ const CharacterControls = (props: {
           tooltipPosition="top"
         />
       </Stack.Item>
-      <Stack.Item grow>
+      <Stack.Item>
         <Button
           onClick={() => props.handleRotate('-90')}
           fontSize="22px"

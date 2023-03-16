@@ -98,8 +98,6 @@ GLOBAL_DATUM_INIT(food_prefs_menu, /datum/food_prefs_menu, new)
 /datum/food_prefs_menu/ui_data(mob/user)
 	var/datum/preferences/preferences = user.client.prefs
 
-	var/datum/species/species = preferences.read_preference(/datum/preference/choiced/species)
-
 	return list(
 		"selection" = preferences.food_preferences,
 		"points" = calculate_points(preferences),
@@ -142,12 +140,15 @@ GLOBAL_DATUM_INIT(food_prefs_menu, /datum/food_prefs_menu, new)
 	var/points = 0
 
 	for(var/food_entry in preferences.food_preferences)
-		var/list/food_preference = preferences.food_preferences[food_entry]
+		var/food_preference = preferences.food_preferences[food_entry]
 		var/list/food_points_entry = GLOB.food_ic_flag_to_point_values[food_entry]
-		if(!food_points_entry)
+		if(!food_points_entry || food_points_entry[FOOD_PREFERENCE_OBSCURE])
 			continue
 
-		points += food_points_entry[food_preference]
+		if(food_preference >= food_points_entry[FOOD_PREFERENCE_DEFAULT])
+			points += food_points_entry[food_preference]
+		else
+			points -= food_points_entry[food_preference]
 
 	return points
 

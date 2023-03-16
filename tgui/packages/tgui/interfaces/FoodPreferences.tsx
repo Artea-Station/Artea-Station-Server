@@ -125,7 +125,7 @@ export const FoodPreferences = (props, context) => {
                       }}>
                       <FoodButton
                         foodName={foodName}
-                        foodFlag={3}
+                        foodPreference={3}
                         selected={
                           data.selection[foodName] === '1' ||
                           (!data.selection[foodName] &&
@@ -144,7 +144,7 @@ export const FoodPreferences = (props, context) => {
                       />
                       <FoodButton
                         foodName={foodName}
-                        foodFlag={2}
+                        foodPreference={2}
                         selected={
                           data.selection[foodName] === '2' ||
                           (!data.selection[foodName] &&
@@ -163,7 +163,7 @@ export const FoodPreferences = (props, context) => {
                       />
                       <FoodButton
                         foodName={foodName}
-                        foodFlag={3}
+                        foodPreference={3}
                         selected={
                           data.selection[foodName] === '3' ||
                           (!data.selection[foodName] &&
@@ -182,7 +182,7 @@ export const FoodPreferences = (props, context) => {
                       />
                       <FoodButton
                         foodName={foodName}
-                        foodFlag={1}
+                        foodPreference={1}
                         selected={
                           data.selection[foodName] === '4' ||
                           (!data.selection[foodName] &&
@@ -213,7 +213,7 @@ export const FoodPreferences = (props, context) => {
 
 const FoodButton = (props, context) => {
   const { act } = useBackend(context);
-  const { foodName, foodFlag, color, selected, ...rest } = props;
+  const { foodName, foodPreference, color, selected, ...rest } = props;
   return (
     <Button
       icon={selected ? 'check-square-o' : 'square-o'}
@@ -221,7 +221,7 @@ const FoodButton = (props, context) => {
       onClick={() =>
         act('change_food', {
           food_name: foodName,
-          food_flag: foodFlag,
+          food_preference: foodPreference,
         })
       }
       {...rest}
