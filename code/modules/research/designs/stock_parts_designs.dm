@@ -14,13 +14,13 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
-/datum/design/bs_rped
+/datum/design/adv_rped
 	name = "Bluespace RPED"
 	desc = "Powered by bluespace technology, this RPED variant can upgrade buildings from a distance, without needing to remove the panel first."
-	id = "bs_rped"
+	id = "adv_rped"
 	build_type = PROTOLATHE | AWAY_LATHE
 	materials = list(/datum/material/iron = 15000, /datum/material/glass = 5000, /datum/material/silver = 2500) //hardcore
-	build_path = /obj/item/storage/part_replacer/bluespace
+	build_path = /obj/item/storage/part_replacer/advanced
 	category = list(
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_EXCHANGERS
 	)
@@ -66,19 +66,6 @@
 	lathe_time_factor = 0.2
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
-/datum/design/quadratic_capacitor
-	name = "Quadratic Capacitor"
-	desc = "A stock part used in the construction of various devices."
-	id = "quadratic_capacitor"
-	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/iron = 200, /datum/material/glass = 200, /datum/material/gold = 100, /datum/material/diamond = 100)
-	build_path = /obj/item/stock_parts/capacitor/quadratic
-	category = list(
-		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_4
-	)
-	lathe_time_factor = 0.2
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
-
 //Scanning modules
 /datum/design/basic_scanning
 	name = "Basic Scanning Module"
@@ -115,19 +102,6 @@
 	build_path = /obj/item/stock_parts/scanning_module/phasic
 	category = list(
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_3
-	)
-	lathe_time_factor = 0.2
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
-
-/datum/design/triphasic_scanning
-	name = "Triphasic Scanning Module"
-	desc = "A stock part used in the construction of various devices."
-	id = "triphasic_scanning"
-	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/iron = 200, /datum/material/glass = 200, /datum/material/diamond = 30, /datum/material/bluespace = 30)
-	build_path = /obj/item/stock_parts/scanning_module/triphasic
-	category = list(
-		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_4
 	)
 	lathe_time_factor = 0.2
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
@@ -172,19 +146,6 @@
 	lathe_time_factor = 0.2
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
-/datum/design/femto_mani
-	name = "Femto Manipulator"
-	desc = "A stock part used in the construction of various devices."
-	id = "femto_mani"
-	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/iron = 200, /datum/material/diamond = 30, /datum/material/titanium = 30)
-	build_path = /obj/item/stock_parts/manipulator/femto
-	category = list(
-		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_4
-	)
-	lathe_time_factor = 0.2
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
-
 //Micro-lasers
 /datum/design/basic_micro_laser
 	name = "Basic Micro-Laser"
@@ -225,19 +186,6 @@
 	lathe_time_factor = 0.2
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
-/datum/design/quadultra_micro_laser
-	name = "Quad-Ultra Micro-Laser"
-	desc = "A stock part used in the construction of various devices."
-	id = "quadultra_micro_laser"
-	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/iron = 200, /datum/material/glass = 200, /datum/material/uranium = 100, /datum/material/diamond = 60)
-	build_path = /obj/item/stock_parts/micro_laser/quadultra
-	category = list(
-		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_4
-	)
-	lathe_time_factor = 0.2
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
-
 /datum/design/basic_matter_bin
 	name = "Basic Matter Bin"
 	desc = "A stock part used in the construction of various devices."
@@ -273,19 +221,6 @@
 	build_path = /obj/item/stock_parts/matter_bin/super
 	category = list(
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_3
-	)
-	lathe_time_factor = 0.2
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
-
-/datum/design/bluespace_matter_bin
-	name = "Bluespace Matter Bin"
-	desc = "A stock part used in the construction of various devices."
-	id = "bluespace_matter_bin"
-	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/iron = 250, /datum/material/diamond = 100, /datum/material/bluespace = 100)
-	build_path = /obj/item/stock_parts/matter_bin/bluespace
-	category = list(
-		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_4
 	)
 	lathe_time_factor = 0.2
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING

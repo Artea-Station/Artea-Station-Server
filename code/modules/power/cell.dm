@@ -363,17 +363,6 @@
 /obj/item/stock_parts/cell/hyper/empty
 	empty = TRUE
 
-/obj/item/stock_parts/cell/bluespace
-	name = "bluespace power cell"
-	desc = "A rechargeable transdimensional power cell."
-	icon_state = "bscell"
-	maxcharge = 40000
-	custom_materials = list(/datum/material/glass=600)
-	chargerate = 4000
-
-/obj/item/stock_parts/cell/bluespace/empty
-	empty = TRUE
-
 /obj/item/stock_parts/cell/infinite
 	name = "infinite-capacity power cell"
 	icon_state = "icell"
