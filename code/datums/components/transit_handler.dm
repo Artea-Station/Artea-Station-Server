@@ -8,6 +8,7 @@
 	transit_instance = transit_instance_
 	transit_instance.affected_movables[parent] = TRUE
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_parent_moved))
+	RegisterSignal(parent, COMSIG_PARENT_QDELETING, PROC_REF(handle_parent_qdel))
 
 /datum/component/transit_handler/proc/on_parent_moved(atom/movable/source, atom/old_loc, Dir, Forced)
 	var/turf/new_location = get_turf(parent)
@@ -19,3 +20,7 @@
 	UnregisterSignal(parent, COMSIG_MOVABLE_MOVED)
 	transit_instance.affected_movables -= parent
 	return ..()
+
+/datum/component/transit_handler/proc/handle_parent_qdel()
+	SIGNAL_HANDLER
+	qdel(src)
