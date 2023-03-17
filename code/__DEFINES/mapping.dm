@@ -1,1 +1,0 @@
-#define DEFAULT_WALL_MOUNT_OFFSET 22, 0, 11, -11
