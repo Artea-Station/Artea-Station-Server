@@ -23,4 +23,7 @@
 
 /datum/component/transit_handler/proc/handle_parent_qdel()
 	SIGNAL_HANDLER
+	if(parent)
+		UnregisterSignal(parent, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
+	ClearFromParent()
 	qdel(src)
