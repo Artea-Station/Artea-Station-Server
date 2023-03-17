@@ -299,6 +299,8 @@
 		ACCESS_RC_ANNOUNCE,
 		ACCESS_TCOMMS,
 		ACCESS_TECH_STORAGE,
+		ACCESS_ROBOTICS,
+		ACCESS_SCIENCE,
 		)
 	minimal_wildcard_access = list(
 		ACCESS_CE,
