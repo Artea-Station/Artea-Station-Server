@@ -19,14 +19,7 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 	create_storage(type = /datum/storage/rped)
 
 /obj/item/storage/part_replacer/pre_attack(obj/attacked_object, mob/living/user, params)
-	if(!ismachinery(attacked_object) && !istype(attacked_object, /obj/structure/frame/machine))
-		return ..()
-
-	if(!user.Adjacent(attacked_object)) // no TK upgrading.
-		if(ismachinery(attacked_object))
-			var/obj/machinery/machine = attacked_object
-			to_chat(user, machine.display_parts(user))
-
+	if((!ismachinery(attacked_object) && !istype(attacked_object, /obj/structure/frame/machine)) || !user.Adjacent(attacked_object)) // no TK upgrading.
 		return ..()
 
 	if(ismachinery(attacked_object))
@@ -46,6 +39,20 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 	attacked_frame.attackby(src, user)
 	return TRUE
 
+/obj/item/storage/part_replacer/afterattack(obj/attacked_object, mob/living/user, adjacent, params)
+	if(!ismachinery(attacked_object))
+		return ..()
+
+	var/obj/machinery/attacked_machinery = attacked_object
+
+	if(!attacked_machinery.component_parts || (!user.Adjacent(attacked_machinery) && !ignores_panel))
+		return ..()
+
+	if(ignores_panel)
+		to_chat(user, attacked_machinery.display_parts(user))
+
+	return
+
 /obj/item/storage/part_replacer/proc/play_rped_sound()
 	//Plays the sound for RPED exhanging or installing parts.
 	if(alt_sound && prob(1))
@@ -55,7 +62,7 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 
 /obj/item/storage/part_replacer/advanced
 	name = "advanced rapid part exchange device"
-	desc = "A version of the RPED that automatically handles opening panels, along with having a higher capacity for parts. Unfortunately more bulky than the standard version."
+	desc = "A version of the RPED that automatically handles opening panels and can scan machine parts from range, along with having a higher capacity for parts. Unfortunately more bulky than the standard version."
 	icon_state = "BS_RPED"
 	inhand_icon_state = "BS_RPED"
 	ignores_panel = TRUE
