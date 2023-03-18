@@ -84,28 +84,28 @@
 	air_contents.merge(removed)
 	trunk_check()
 
-/obj/machinery/disposal/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/disposal/attackby(obj/item/held_item, mob/living/user, params)
 	add_fingerprint(user)
 	if(!pressure_charging && !full_pressure && !flush)
-		if(I.tool_behaviour == TOOL_SCREWDRIVER)
+		if(held_item.tool_behaviour == TOOL_SCREWDRIVER)
 			panel_open = !panel_open
-			I.play_tool_sound(src)
+			held_item.play_tool_sound(src)
 			to_chat(user, span_notice("You [panel_open ? "remove":"attach"] the screws around the power connection."))
 			return
-		else if(I.tool_behaviour == TOOL_WELDER && panel_open)
-			if(!I.tool_start_check(user, amount=0))
+		else if(held_item.tool_behaviour == TOOL_WELDER && panel_open)
+			if(!held_item.tool_start_check(user, amount=0))
 				return
 
 			to_chat(user, span_notice("You start slicing the floorweld off \the [src]..."))
-			if(I.use_tool(src, user, 20, volume=100) && panel_open)
+			if(held_item.use_tool(src, user, 20, volume=100) && panel_open)
 				to_chat(user, span_notice("You slice the floorweld off \the [src]."))
 				deconstruct()
 			return
 
 	if(!user.combat_mode)
-		if((I.item_flags & ABSTRACT) || !user.temporarilyRemoveItemFromInventory(I))
+		if((held_item.item_flags & ABSTRACT) || !user.temporarilyRemoveItemFromInventory(held_item))
 			return
-		place_item_in_disposal(I, user)
+		place_item_in_disposal(held_item, user)
 		update_appearance()
 		return 1 //no afterattack
 	else
@@ -130,9 +130,9 @@
 				to_chat(king, span_notice("You just find more garbage and dirt. Lovely, but beneath you now."))
 				new pickedtrash(get_turf(king))
 
-/obj/machinery/disposal/proc/place_item_in_disposal(obj/item/I, mob/user)
-	I.forceMove(src)
-	user.visible_message(span_notice("[user.name] places \the [I] into \the [src]."), span_notice("You place \the [I] into \the [src]."))
+/obj/machinery/disposal/proc/place_item_in_disposal(obj/item/held_item, mob/user)
+	held_item.forceMove(src)
+	user.visible_message(span_notice("[user.name] places \the [held_item] into \the [src]."), span_notice("You place \the [held_item] into \the [src]."))
 
 //mouse drop another mob or self
 /obj/machinery/disposal/MouseDrop_T(mob/living/target, mob/living/user)
@@ -225,7 +225,7 @@
 	flush = FALSE
 
 /obj/machinery/disposal/proc/newHolderDestination(obj/structure/disposalholder/H)
-	for(var/obj/item/delivery/O in src)
+	for(var/obj/item/delivery/storage_item in src)
 		H.tomail = TRUE
 		return
 
@@ -244,16 +244,16 @@
 	qdel(H)
 
 /obj/machinery/disposal/deconstruct(disassembled = TRUE)
-	var/turf/T = loc
+	var/turf/held_storage = loc
 	if(!(flags_1 & NODECONSTRUCT_1))
 		if(stored)
-			stored.forceMove(T)
+			stored.forceMove(held_storage)
 			src.transfer_fingerprints_to(stored)
 			stored.set_anchored(FALSE)
 			stored.set_density(TRUE)
 			stored.update_appearance()
 	for(var/atom/movable/AM in src) //out, out, darned crowbar!
-		AM.forceMove(T)
+		AM.forceMove(held_storage)
 	..()
 
 //How disposal handles getting a storage dump from a storage object
@@ -287,13 +287,13 @@
 	icon_state = "disposal"
 
 // attack by item places it in to disposal
-/obj/machinery/disposal/bin/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/storage/bag/trash)) //Not doing component overrides because this is a specific type.
-		var/obj/item/storage/bag/trash/T = I
+/obj/machinery/disposal/bin/attackby(obj/item/held_item, mob/user, params)
+	if(istype(held_item, /obj/item/storage/bag/trash) || istype(held_item, /obj/item/storage/part_replacer)) //Not doing component overrides because this is a specific type.
+		var/obj/item/storage/held_storage = held_item
 		to_chat(user, span_warning("You empty the bag."))
-		for(var/obj/item/O in T.contents)
-			T.atom_storage.attempt_remove(O,src)
-		T.update_appearance()
+		for(var/obj/item/storage_item in held_storage.contents)
+			held_storage.atom_storage.attempt_remove(storage_item, src)
+		held_storage.update_appearance()
 		update_appearance()
 	else
 		return ..()
@@ -473,8 +473,8 @@
 	if(trunk)
 		trunk.linked = src // link the pipe trunk to self
 
-/obj/machinery/disposal/delivery_chute/place_item_in_disposal(obj/item/I, mob/user)
-	if(I.CanEnterDisposals())
+/obj/machinery/disposal/delivery_chute/place_item_in_disposal(obj/item/held_item, mob/user)
+	if(held_item.CanEnterDisposals())
 		..()
 		flush()
 
@@ -496,8 +496,8 @@
 				return
 
 	if(isobj(AM))
-		var/obj/O = AM
-		O.forceMove(src)
+		var/obj/storage_item = AM
+		storage_item.forceMove(src)
 	else if(ismob(AM))
 		var/mob/M = AM
 		if(prob(2)) // to prevent mobs being stuck in infinite loops
