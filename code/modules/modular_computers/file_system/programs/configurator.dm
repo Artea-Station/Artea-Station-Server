@@ -22,7 +22,7 @@
 	var/obj/item/computer_hardware/hard_drive/hard_drive = computer.all_components[MC_HDD]
 	var/obj/item/computer_hardware/battery/battery_module = computer.all_components[MC_CELL]
 
-	var/list/data = get_header_data()
+	var/list/data = list()
 
 	data["disk_size"] = hard_drive.max_capacity
 	data["disk_used"] = hard_drive.used_capacity
