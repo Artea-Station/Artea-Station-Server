@@ -58,7 +58,6 @@
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_PDA_MESSAGE_MENU_RIGGED))
 		explode(usr, from_message_menu = TRUE)
-		return
 
 /obj/item/modular_computer/tablet/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = ..()

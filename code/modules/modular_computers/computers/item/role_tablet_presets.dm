@@ -378,7 +378,6 @@
 	greyscale_colors = "#891417#80FF80"
 	saved_identification = "John Doe"
 	saved_job = "Citizen"
-	invisible = TRUE
 	device_theme = "syndicate"
 
 /obj/item/modular_computer/tablet/pda/syndicate/Initialize(mapload)
