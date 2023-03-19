@@ -111,7 +111,6 @@
 	. = ..()
 	if(.)
 		return
-
 	switch(action)
 		if("PDA_ringSet")
 			var/t = tgui_input_text(usr, "Enter a new ringtone", "Ringtone", "", 20)
@@ -188,7 +187,7 @@
 
 
 /datum/computer_file/program/messenger/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 
 	data["owner"] = computer.saved_identification
 	data["messages"] = messages

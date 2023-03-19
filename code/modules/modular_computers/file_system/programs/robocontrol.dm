@@ -22,8 +22,8 @@
 	)
 
 /datum/computer_file/program/robocontrol/ui_data(mob/user)
-	var/list/data = get_header_data()
-	var/turf/current_turf = get_turf(ui_host())
+	var/list/data = list()
+	var/turf/current_turf = get_turf(computer.ui_host())
 	var/list/botlist = list()
 	var/list/mulelist = list()
 
@@ -88,7 +88,7 @@
 
 /datum/computer_file/program/robocontrol/ui_act(action, list/params, datum/tgui/ui)
 	. = ..()
-	if(.)
+	if (.)
 		return
 	var/mob/current_user = ui.user
 	var/obj/item/computer_hardware/card_slot/card_slot
@@ -132,7 +132,7 @@
 				GLOB.data_core.manifest_modify(id_card.registered_name, id_card.assignment, id_card.get_trim_assignment())
 				card_slot.try_eject(current_user)
 			else
-				playsound(get_turf(ui_host()) , 'sound/machines/buzz-sigh.ogg', 25, FALSE)
+				playsound(get_turf(computer.ui_host()) , 'sound/machines/buzz-sigh.ogg', 25, FALSE)
 		if("changedroneaccess")
 			if(!computer || !card_slot || !id_card)
 				to_chat(current_user, span_notice("No ID found, authorization failed."))

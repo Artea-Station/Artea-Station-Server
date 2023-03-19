@@ -74,7 +74,7 @@
 
 /datum/computer_file/program/scipaper_program/ui_data()
 	// Program Headers:
-	var/list/data = get_header_data()
+	var/list/data = list()
 	data["currentTab"]  = current_tab
 
 	// First page. Form submission.
@@ -153,7 +153,6 @@
 	. = ..()
 	if (.)
 		return
-
 	switch(action)
 		if("et_alia")
 			paper_to_be.et_alia = !paper_to_be.et_alia
@@ -211,7 +210,7 @@
 					playsound(computer, 'sound/machines/ping.ogg', 25)
 					return TRUE
 			playsound(computer, 'sound/machines/terminal_error.ogg', 25)
-			return FALSE
+			return TRUE
 
 /// Publication and adding points.
 /datum/computer_file/program/scipaper_program/proc/publish()

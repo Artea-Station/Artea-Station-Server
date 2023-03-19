@@ -372,13 +372,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		. += mutable_appearance(init_icon, "broken")
 
 
-// On-click handling. Turns on the computer if it's off and opens the GUI.
-/obj/item/modular_computer/interact(mob/user)
-	if(enabled)
-		ui_interact(user)
-	else
-		turn_on(user)
-
 /obj/item/modular_computer/CtrlShiftClick(mob/user)
 	. = ..()
 	if(.)
@@ -561,7 +554,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		program.alert_pending = FALSE
 		idle_threads.Remove(program)
 		update_appearance()
-		updateUsrDialog()
 		return TRUE
 
 	if(!program.is_supported_by_hardware(hardware_flag, 1, user))
@@ -581,7 +573,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	active_program = program
 	program.alert_pending = FALSE
 	update_appearance()
-	updateUsrDialog()
+	ui_interact(user)
 	return TRUE
 
 // Returns 0 for No Signal, 1 for Low Signal and 2 for Good Signal. 3 is for wired connection (always-on)
