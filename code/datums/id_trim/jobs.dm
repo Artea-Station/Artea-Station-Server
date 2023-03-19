@@ -811,6 +811,7 @@
 	template_access = list(
 		ACCESS_CAPTAIN,
 		ACCESS_CHANGE_IDS,
+		ACCESS_CE,
 		)
 	job = /datum/job/roboticist
 
