@@ -17,6 +17,8 @@
 	var/category = PROGRAM_CATEGORY_MISC
 	/// Program-specific screen icon state
 	var/program_icon_state = null
+	///Boolean on whether the program will appear at the top on PDA menus, or in the app list with everything else.
+	var/header_program = FALSE
 	/// Set to 1 for program to require nonstop NTNet connection to run. If NTNet connection is lost program crashes.
 	var/requires_ntnet = FALSE
 	/// Optional, if above is set to 1 checks for specific function of NTNet (currently NTNET_SOFTWAREDOWNLOAD, NTNET_PEERTOPEER, NTNET_SYSTEMCONTROL and NTNET_COMMUNICATION)

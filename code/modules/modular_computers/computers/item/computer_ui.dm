@@ -153,7 +153,6 @@
 			shutdown_computer()
 			return TRUE
 		if("PC_minimize")
-			var/mob/user = usr
 			if(!active_program)
 				return
 			//header programs can't be minimized.
