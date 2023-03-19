@@ -15,6 +15,7 @@
 
 /obj/item/modular_computer/deconstruct(disassembled = TRUE)
 	break_apart()
+	return ..()
 
 /obj/item/modular_computer/proc/break_apart()
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -30,4 +31,3 @@
 			if(prob(25))
 				H.take_damage(rand(10,30), BRUTE, 0, 0)
 	relay_qdel()
-	qdel(src)

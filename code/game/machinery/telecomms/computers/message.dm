@@ -394,6 +394,9 @@
 						// Get out list of viable tablets
 						var/list/viewable_tablets = list()
 						for (var/obj/item/modular_computer/tablet in GLOB.TabletMessengers)
+							var/datum/computer_file/program/messenger/message_app = locate() in tablet.stored_files
+							if(message_app.invisible)
+								continue
 							if(!tablet.saved_identification || tablet.invisible)
 								continue
 							viewable_tablets += tablet
