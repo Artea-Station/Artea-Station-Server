@@ -355,10 +355,12 @@
 
 /obj/item/modular_computer/tablet/pda/curator
 	name = "curator PDA"
+	desc = "A small experimental microcomputer."
 	greyscale_config = null
 	greyscale_colors = null
 	icon_state = "pda-library"
 	inserted_item = /obj/item/pen/fountain
+	long_ranged = TRUE
 	starting_programs = list(
 		/datum/computer_file/program/newscaster,
 	)
@@ -391,3 +393,4 @@
 	icon_state = "pda-clear"
 	greyscale_config = null
 	greyscale_colors = null
+	long_ranged = TRUE
