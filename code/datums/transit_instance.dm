@@ -49,10 +49,7 @@
 
 //Movable moved in transit
 /datum/transit_instance/proc/MovableMoved(atom/movable/moved)
-	if(!moved)
-		stack_trace("null movable on Movable Moved in Transit Instance")
-		return
-	if(!moved.loc || !isturf(moved.loc))
+	if(!moved?.loc || !isturf(moved.loc))
 		return
 	var/turf/my_turf = moved.loc
 	if(!reservation.IsAdjacentToEdgeOrOutOfBounds(my_turf))
