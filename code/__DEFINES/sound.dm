@@ -25,6 +25,14 @@
 
 #define CHANNEL_HIGHEST_AVAILABLE 1015
 
+// TODO: This is currently set to 2 because of legacy audio volumes. Re-balance all audio with a target of NUM_E or 3
+/// Logarithmic exponent for volume levels - Good values are 2, NUM_E, 3 and 4, depending on loudness.
+#define LOGARITHMIC_AUDIO_VOLUME_EXPONENT 2
+// I hate the following but my smooth brain can't come up with a better way to multiply this correctly.
+// (x²) * 0.01 would work, but the multiplier is dependent on the exponent.
+/// Helper macro for converting linear volume to logarithmic.
+#define LOG_AUDIOVOLUME(X) (((X * 0.01) ** LOGARITHMIC_AUDIO_VOLUME_EXPONENT) * 100)
+
 #define MAX_INSTRUMENT_CHANNELS (128 * 6)
 
 #define SOUND_MINIMUM_PRESSURE 10
