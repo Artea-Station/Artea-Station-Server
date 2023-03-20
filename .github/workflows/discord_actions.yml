@@ -13,5 +13,6 @@ jobs:
       uses: Ilshidur/action-discord@0.3.2
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WIKI_WEBHOOK }}
-      args: "<@&1087482685838082109>, PR https://github.com/Artea-Station/Artea-Station-Server/pull/{{ EVENT_PAYLOAD.pull_request.id }} requires attention."
+      with:
+        args: "<@&1087482685838082109>, PR https://github.com/Artea-Station/Artea-Station-Server/pull/{{ EVENT_PAYLOAD.pull_request.id }} requires attention."
 
