@@ -17,9 +17,9 @@
 	transit_instance.MovableMoved(parent)
 
 /datum/component/transit_handler/Destroy()
+	transit_instance.affected_movables -= parent
 	UnregisterSignal(parent, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
 	ClearFromParent()
-	transit_instance.affected_movables -= parent
 	return ..()
 
 /datum/component/transit_handler/proc/handle_parent_qdel()
