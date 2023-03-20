@@ -18,6 +18,8 @@ SUBSYSTEM_DEF(mapping)
 
 	var/list/map_templates = list()
 
+	var/list/planet_templates = list()
+
 	var/list/ruins_templates = list()
 
 	///List of ruins, separated by their theme
@@ -63,12 +65,16 @@ SUBSYSTEM_DEF(mapping)
 	/// list of traits and their associated z leves
 	var/list/z_trait_levels = list()
 
+
+	/// The overmap object of the main loaded station, for easy access
+	var/datum/overmap_object/station_overmap_object
+
+//dlete dis once #39770 is resolved
 /datum/controller/subsystem/mapping/PreInit()
-	..()
 #ifdef FORCE_MAP
 	config = load_map_config(FORCE_MAP, FORCE_MAP_DIRECTORY)
 #else
-	config = load_map_config(error_if_missing = FALSE)
+	config = load_map_config(error_if_missing = TRUE)
 #endif
 
 /datum/controller/subsystem/mapping/Initialize()
@@ -81,21 +87,14 @@ SUBSYSTEM_DEF(mapping)
 			to_chat(world, span_boldannounce("Unable to load next or default map config, defaulting to Meta Station."))
 			config = old_config
 	initialize_biomes()
+	preloadTemplates()
 	loadWorld()
 	determine_fake_sale()
 	repopulate_sorted_areas()
 	process_teleport_locs() //Sets up the wizard teleport locations
-	preloadTemplates()
 
 #ifndef LOWMEMORYMODE
-	// Create space ruin levels
-	while (space_levels_so_far < config.space_ruin_levels)
-		++space_levels_so_far
-		add_new_zlevel("Empty Area [space_levels_so_far]", ZTRAITS_SPACE)
-	// and one level with no ruins
-	for (var/i in 1 to config.space_empty_levels)
-		++space_levels_so_far
-		empty_space = add_new_zlevel("Empty Area [space_levels_so_far]", list(ZTRAIT_LINKAGE = CROSSLINKED))
+	empty_space = add_new_zlevel("Empty Area [space_levels_so_far]", list(ZTRAIT_LINKAGE = UNAFFECTED))
 
 	// Pick a random away mission.
 	if(CONFIG_GET(flag/roundstart_away))
@@ -164,11 +163,7 @@ SUBSYSTEM_DEF(mapping)
  */
 /datum/controller/subsystem/mapping/proc/setup_ruins()
 	// Generate mining ruins
-	var/list/lava_ruins = levels_by_trait(ZTRAIT_LAVA_RUINS)
-	if (lava_ruins.len)
-		seedRuins(lava_ruins, CONFIG_GET(number/lavaland_budget), list(/area/lavaland/surface/outdoors/unexplored), themed_ruins[ZTRAIT_LAVA_RUINS], clear_below = TRUE)
-		for (var/lava_z in lava_ruins)
-			spawn_rivers(lava_z)
+	loading_ruins = TRUE
 
 	var/list/ice_ruins = levels_by_trait(ZTRAIT_ICE_RUINS)
 	if (ice_ruins.len)
@@ -271,8 +266,25 @@ Used by the AI doomsday and the self-destruct nuke.
 	z_list = SSmapping.z_list
 	multiz_levels = SSmapping.multiz_levels
 
-#define INIT_ANNOUNCE(X) to_chat(world, span_boldannounce("[X]")); log_world(X)
-/datum/controller/subsystem/mapping/proc/LoadGroup(list/errorList, name, path, files, list/traits, list/default_traits, silent = FALSE)
+
+#define INIT_ANNOUNCE(X) to_chat(world, "<span class='boldannounce'>[X]</span>"); log_world(X)
+/datum/controller/subsystem/mapping/proc/LoadGroup(
+					list/errorList,
+					name,
+					path,
+					files,
+					list/traits,
+					list/default_traits,
+					silent = FALSE,
+					datum/overmap_object/ov_obj = null,
+					weather_controller_type,
+					atmosphere_type,
+					rock_color,
+					plant_color,
+					grass_color,
+					water_color,
+					ore_node_seeder_type
+					)
 	. = list()
 	var/start_time = REALTIMEOFDAY
 
@@ -305,9 +317,40 @@ Used by the AI doomsday and the self-destruct nuke.
 	// preload the relevant space_level datums
 	var/start_z = world.maxz + 1
 	var/i = 0
+	var/list/space_levels = list()
 	for (var/level in traits)
-		add_new_zlevel("[name][i ? " [i + 1]" : ""]", level)
+		space_levels += add_new_zlevel("[name][i ? " [i + 1]" : ""]", level, null, overmap_obj = ov_obj)
 		++i
+	var/datum/atmosphere/atmos
+	if(atmosphere_type)
+		atmos = new atmosphere_type()
+	var/datum/ore_node_seeder/ore_node_seeder
+	if(ore_node_seeder_type)
+		ore_node_seeder = new ore_node_seeder_type
+	for(var/c in space_levels)
+		var/datum/space_level/level = c
+		if(ore_node_seeder)
+			ore_node_seeder.SeedToLevel(level.z_value)
+		if(atmos)
+			SSair.register_planetary_atmos(atmos, level.z_value)
+		if(rock_color)
+			level.rock_color = rock_color
+		if(plant_color)
+			level.plant_color = plant_color
+		if(grass_color)
+			level.grass_color = grass_color
+		if(water_color)
+			level.water_color = water_color
+	if(atmos)
+		qdel(atmos)
+	if(ore_node_seeder)
+		qdel(ore_node_seeder)
+	//Apply the weather controller to the levels if able
+	if(weather_controller_type)
+		var/datum/weather_controller/weather_controller = new weather_controller_type(space_levels)
+		if(ov_obj)
+			weather_controller.LinkOvermapObject(ov_obj)
+	space_levels = null
 
 	// load the maps
 	for (var/P in parsed_maps)
@@ -325,10 +368,31 @@ Used by the AI doomsday and the self-destruct nuke.
 	// ensure we have space_level datums for compiled-in maps
 	InitializeDefaultZLevels()
 
+	//Load overmap
+	SSovermap.MappingInit()
+
 	// load the station
 	station_start = world.maxz + 1
 	INIT_ANNOUNCE("Loading [config.map_name]...")
-	LoadGroup(FailedZs, "Station", config.map_path, config.map_file, config.traits, ZTRAITS_STATION)
+	station_overmap_object = new config.overmap_object_type(SSovermap.main_system, rand(3,10), rand(3,10))
+	var/picked_rock_color = CHECK_AND_PICK_OR_NULL(config.rock_color)
+	var/picked_plant_color = CHECK_AND_PICK_OR_NULL(config.plant_color)
+	var/picked_grass_color = CHECK_AND_PICK_OR_NULL(config.grass_color)
+	var/picked_water_color = CHECK_AND_PICK_OR_NULL(config.water_color)
+	LoadGroup(FailedZs,
+			"Station",
+			config.map_path,
+			config.map_file,
+			config.traits,
+			ZTRAITS_STATION,
+			ov_obj = station_overmap_object,
+			weather_controller_type = config.weather_controller_type,
+			atmosphere_type = config.atmosphere_type,
+			rock_color = picked_rock_color,
+			plant_color = picked_plant_color,
+			grass_color = picked_grass_color,
+			water_color = picked_water_color,
+			ore_node_seeder_type = config.ore_node_seeder_type)
 
 	if(SSdbcore.Connect())
 		var/datum/db_query/query_round_map_name = SSdbcore.NewQuery({"
@@ -339,14 +403,25 @@ Used by the AI doomsday and the self-destruct nuke.
 
 #ifndef LOWMEMORYMODE
 	// TODO: remove this when the DB is prepared for the z-levels getting reordered
-	while (world.maxz < (5 - 1) && space_levels_so_far < config.space_ruin_levels)
+	while (world.maxz < 5 && space_levels_so_far < config.space_ruin_levels)
 		++space_levels_so_far
-		add_new_zlevel("Empty Area [space_levels_so_far]", ZTRAITS_SPACE)
-
+		add_new_zlevel("Ruins Area [space_levels_so_far]", ZTRAITS_SPACE, overmap_obj = new /datum/overmap_object/ruins(SSovermap.main_system, rand(1,SSovermap.main_system.maxx), rand(1,SSovermap.main_system.maxy)))
+	//Load planets
 	if(config.minetype == "lavaland")
-		LoadGroup(FailedZs, "Lavaland", "map_files/Mining", "Lavaland.dmm", default_traits = ZTRAITS_LAVALAND)
+		var/datum/planet_template/lavaland_template = planet_templates[/datum/planet_template/lavaland]
+		lavaland_template.LoadTemplate(SSovermap.main_system, rand(3,10), rand(3,10))
 	else if (!isnull(config.minetype) && config.minetype != "none")
 		INIT_ANNOUNCE("WARNING: An unknown minetype '[config.minetype]' was set! This is being ignored! Update the maploader code!")
+
+	var/list/planet_list = SPAWN_PLANET_WEIGHT_LIST
+	if(config.amount_of_planets_spawned)
+		for(var/i in 1 to config.amount_of_planets_spawned)
+			if(!length(planet_list))
+				break
+			var/picked_planet_type = pick_weight(planet_list)
+			planet_list -= picked_planet_type
+			var/datum/planet_template/picked_template = planet_templates[picked_planet_type]
+			picked_template.LoadTemplate(SSovermap.main_system, rand(5,25), rand(5,25))
 #endif
 
 	if(LAZYLEN(FailedZs)) //but seriously, unless the server's filesystem is messed up this will never happen
@@ -361,8 +436,6 @@ Used by the AI doomsday and the self-destruct nuke.
 	// Custom maps are removed after station loading so the map files does not persist for no reason.
 	if(config.map_path == CUSTOM_MAP_PATH)
 		fdel("_maps/custom/[config.map_file]")
-		// And as the file is now removed set the next map to default.
-		next_map_config = load_default_map_config()
 
 GLOBAL_LIST_EMPTY(the_station_areas)
 
@@ -451,7 +524,6 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 
 /datum/controller/subsystem/mapping/proc/changemap(datum/map_config/change_to)
 	if(!change_to.MakeNextMap())
-		next_map_config = load_default_map_config()
 		message_admins("Failed to set new map with next_map.json for [change_to.map_name]! Using default as backup!")
 		return
 
@@ -471,10 +543,15 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
 		map_templates[T.name] = T
 
+	preloadPlanetTemplates()
 	preloadRuinTemplates()
 	preloadShuttleTemplates()
 	preloadShelterTemplates()
 	preloadHolodeckTemplates()
+
+/datum/controller/subsystem/mapping/proc/preloadPlanetTemplates()
+	for(var/path in subtypesof(/datum/planet_template))
+		planet_templates[path] = new path()
 
 /datum/controller/subsystem/mapping/proc/preloadRuinTemplates()
 	// Still supporting bans by filename
@@ -664,3 +741,10 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		isolated_ruins_z = add_new_zlevel("Isolated Ruins/Reserved", list(ZTRAIT_RESERVED = TRUE, ZTRAIT_ISOLATED_RUINS = TRUE))
 		initialize_reserved_level(isolated_ruins_z.z_value)
 	return isolated_ruins_z.z_value
+
+/datum/controller/subsystem/mapping/proc/GetLevelWeatherController(z_value)
+	var/datum/space_level/level = z_list[z_value]
+	if(!level)
+		return
+	level.AssertWeatherController()
+	return level.weather_controller

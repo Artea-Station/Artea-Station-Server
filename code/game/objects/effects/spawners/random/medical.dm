@@ -147,3 +147,41 @@
 		/obj/item/storage/box/masks,
 		/obj/item/storage/box/syringes,
 	)
+
+/obj/effect/spawner/random/medical/equipment
+	name = "medical equipment spawner"
+	loot = list(
+		/obj/effect/spawner/random/medical/medicine/five = 1,
+		/obj/effect/spawner/random/medical/medkit = 1,
+		/obj/item/bodybag = 1,
+		/obj/machinery/iv_drip = 1,
+		/obj/structure/closet/crate/freezer/blood = 1,
+		/obj/structure/closet/crate/freezer/surplus_limbs = 1,
+		/obj/item/storage/backpack/duffelbag/med/surgery = 1,
+		/obj/item/storage/organbox = 1
+	)
+
+/obj/effect/spawner/random/medical/medicine
+	name = "medicine spawner"
+	loot = list(
+		/obj/item/stack/medical/bruise_pack = 5,
+		/obj/item/stack/medical/ointment= 5,
+		/obj/item/reagent_containers/hypospray/medipen = 5,
+		/obj/item/stack/medical/gauze/twelve = 5,
+		/obj/item/stack/medical/bone_gel/four = 5,
+		/obj/item/stack/medical/suture = 5,
+		/obj/item/stack/medical/mesh = 5,
+		/obj/effect/spawner/random/engineering/toolbox = 1,
+		/obj/item/storage/pill_bottle/mining = 1,
+		/obj/item/storage/pill_bottle/mannitol = 1,
+		/obj/item/storage/pill_bottle/iron = 5,
+		/obj/item/storage/pill_bottle/probital = 1,
+		/obj/item/storage/pill_bottle/potassiodide = 1,
+		/obj/item/storage/pill_bottle/mutadone = 1,
+		/obj/item/storage/pill_bottle/epinephrine = 5,
+		/obj/item/storage/pill_bottle/multiver = 5
+	)
+
+/obj/effect/spawner/random/medical/medicine/five
+	name = "5x medicine spawner"
+	spawn_loot_count = 5

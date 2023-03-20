@@ -851,6 +851,9 @@ GLOBAL_LIST_EMPTY(flora_uprooting_tools_typepaths)
 	. = ..()
 	icon_state = "bush[rand(1, 3)]"
 
+/obj/structure/flora/bush/goldenbush
+	icon_state = "goldenbush"
+
 /*********
  * Rocks *
  *********/

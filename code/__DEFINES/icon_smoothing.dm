@@ -95,7 +95,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS S_TURF(53) ///turf/closed/wall/mineral/titanium/survival
 #define SMOOTH_GROUP_HOTEL_WALLS S_TURF(54) ///turf/closed/indestructible/hotelwall
 #define SMOOTH_GROUP_MINERAL_WALLS S_TURF(55) ///turf/closed/mineral, /turf/closed/indestructible
-#define SMOOTH_GROUP_BOSS_WALLS S_TURF(56) ///turf/closed/indestructible/riveted/boss
+#define SMOOTH_GROUP_BOSS_WALLS S_TURF(56) ///turf/closed/wall/indestructible/reinforced/boss
 
 #define MAX_S_TURF SMOOTH_GROUP_BOSS_WALLS //Always match this value with the one above it.
 

@@ -39,6 +39,10 @@
 	///are we registered in SSshuttles?
 	var/registered = FALSE
 
+	var/datum/overmap_object/shuttle/my_overmap_object
+	var/possible_destinations
+	var/obj/docking_port/stationary/freeform_port
+
 ///register to SSshuttles
 /obj/docking_port/proc/register()
 	if(registered)
@@ -280,6 +284,7 @@
 	var/datum/turf_reservation/reserved_area
 	var/area/shuttle/transit/assigned_area
 	var/obj/docking_port/mobile/owner
+	var/datum/transit_instance/transit_instance
 
 /obj/docking_port/stationary/transit/Initialize(mapload)
 	. = ..()
@@ -289,6 +294,8 @@
 	if(force)
 		if(get_docked())
 			log_world("A transit dock was destroyed while something was docked to it.")
+		if(transit_instance)
+			QDEL_NULL(transit_instance)
 		SSshuttle.transit_docking_ports -= src
 		if(owner)
 			if(owner.assigned_transit == src)
@@ -429,6 +436,37 @@
 	var/can_move_docking_ports = FALSE
 	var/list/hidden_turfs = list()
 
+	var/list/all_extensions = list()
+	var/list/engine_extensions = list()
+
+	var/overmap_shuttle_type = /datum/overmap_object/shuttle
+
+	/// The direction override that overmap objects representing this shuttle apply to it. Needs to be tracked seperately to the old method because shuttles should work fine without overmap objects. Null means not overriden, direction means it is (with 0 being stop)
+	var/overmap_parallax_dir
+
+/obj/docking_port/mobile/proc/DrawDockingThrust()
+	var/drawn_power = 0
+	for(var/i in engine_extensions)
+		var/datum/shuttle_extension/engine/ext = i
+		if(!ext.turned_on)
+			continue
+		drawn_power += ext.DrawThrust(5)
+
+	if(drawn_power > 1)
+		return TRUE
+	else
+		return FALSE
+
+/obj/docking_port/mobile/proc/TurnEnginesOn()
+	for(var/i in engine_extensions)
+		var/datum/shuttle_extension/engine/ext = i
+		ext.turned_on = TRUE
+
+/obj/docking_port/mobile/proc/TurnEnginesOff()
+	for(var/i in engine_extensions)
+		var/datum/shuttle_extension/engine/ext = i
+		ext.turned_on = FALSE
+
 /**
  * Actions to be taken after shuttle is loaded but before it has been moved out of transit z-level to its final location
  *
@@ -471,13 +509,19 @@
 	SSshuttle.mobile_docking_ports -= src
 
 /obj/docking_port/mobile/Destroy(force)
-	unregister()
-	destination = null
-	previous = null
-	QDEL_NULL(assigned_transit) //don't need it where we're goin'!
-	shuttle_areas = null
-	remove_ripples()
-	return ..()
+	if(force)
+		unregister()
+		for(var/i in all_extensions)
+			var/datum/shuttle_extension/extension = i
+			extension.RemoveFromShuttle()
+		engine_extensions = null
+		all_extensions = null
+		destination = null
+		previous = null
+		QDEL_NULL(assigned_transit) //don't need it where we're goin'!
+		shuttle_areas = null
+		remove_ripples()
+	. = ..()
 
 /obj/docking_port/mobile/Initialize(mapload)
 	. = ..()
@@ -612,7 +656,38 @@
 		mode = SHUTTLE_IDLE
 		return
 	previous = null
-	if(!destination)
+	if(destination == "overmap")
+		destination = null
+		timer = INFINITY
+		var/datum/space_level/S = SSmapping.get_level(z)
+		var/datum/overmap_object/current_overmap_object = S.related_overmap_object
+		var/spawn_x_coord
+		var/spawn_y_coord
+		var/datum/overmap_sun_system/system_to_spawn_in
+		if(!current_overmap_object)
+			WARNING("NO CURRENT OVERMAP OBJECT WHEN ATTEMPT TO GO TO OVERMAP.")
+			//Fallback to not ruin gameplay
+			spawn_x_coord = 1
+			spawn_y_coord = 1
+			system_to_spawn_in = SSovermap.main_system
+		else
+			spawn_x_coord = current_overmap_object.x
+			spawn_y_coord = current_overmap_object.y
+			system_to_spawn_in = current_overmap_object.current_system
+
+		var/datum/overmap_object/shuttle/spawned_shuttle = new overmap_shuttle_type(system_to_spawn_in, spawn_x_coord, spawn_y_coord)
+		spawned_shuttle.RegisterToShuttle(src)
+		if(my_overmap_object.shuttle_controller)
+			my_overmap_object.shuttle_controller.busy = FALSE
+		if(freeform_port)
+			if(freeform_port?.get_docked())
+				freeform_port.delete_after = TRUE
+				freeform_port.shuttle_id = null
+				freeform_port.name = "Old [freeform_port.name]"
+				freeform_port = null
+			else
+				QDEL_NULL(freeform_port)
+	else if(!destination)
 		// sent to transit with no destination -> unlimited timer
 		timer = INFINITY
 	var/obj/docking_port/stationary/S0 = get_docked()

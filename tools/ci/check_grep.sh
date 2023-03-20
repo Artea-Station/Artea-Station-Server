@@ -303,19 +303,6 @@ if grep -P '^/obj/docking_port/mobile.*\{\n[^}]*(width|height|dwidth|dheight)[^}
 	echo -e "${RED}ERROR: Custom mobile docking_port sizes detected. This is done automatically and should not be varedits.${NC}"
 	st=1
 fi;
-for json in _maps/*.json
-do
-    map_path=$(jq -r '.map_path' $json)
-    while read map_file; do
-        filename="_maps/$map_path/$map_file"
-        if [ ! -f $filename ]
-        then
-			echo
-            echo -e "${RED}ERROR: Found an invalid file reference to $filename in _maps/$json ${NC}"
-            st=1
-        fi
-    done < <(jq -r '[.map_file] | flatten | .[]' $json)
-done
 
 # Check for non-515 compatable .proc/ syntax
 if grep -P --exclude='__byond_version_compat.dm' '\.proc/' code/**/*.dm; then

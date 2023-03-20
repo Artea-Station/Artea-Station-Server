@@ -135,3 +135,41 @@
 	icon_state = "beacon"
 	spawn_loot_chance = 35
 	loot = list(/obj/item/beacon)
+
+/obj/effect/spawner/random/engineering/powercell
+	name = "powercell spawner"
+	loot = list(
+		/obj/item/stock_parts/cell = 1,
+		/obj/item/stock_parts/cell/crap = 1,
+		/obj/item/stock_parts/cell/upgraded = 1,
+		/obj/item/stock_parts/cell/upgraded/plus = 1,
+		/obj/item/stock_parts/cell/high = 1
+	)
+
+/obj/effect/spawner/random/engineering/bomb_supply
+	name = "bomb supply spawner"
+	loot = list(
+		/obj/item/assembly/igniter = 1,
+		/obj/item/assembly/prox_sensor = 1,
+		/obj/item/assembly/signaler = 1,
+		/obj/item/assembly/timer = 1
+	)
+
+/obj/effect/spawner/random/engineering/tech_supply
+	name = "tech supply spawner"
+	loot = list(
+		/obj/effect/spawner/random/engineering/toolbox = 1,
+		/obj/effect/spawner/random/engineering/bomb_supply = 1,
+		/obj/effect/spawner/random/engineering/powercell = 1,
+		/obj/effect/spawner/random/engineering/tool_advanced = 1,
+		/obj/effect/spawner/random/engineering/tool = 1,
+		/obj/item/storage/belt/utility = 1,
+		/obj/item/clothing/gloves/color/yellow = 1,
+		/obj/item/clothing/gloves/color/fyellow = 1,
+		/obj/item/stack/cable_coil = 1,
+		/obj/item/assembly/flash = 1
+	)
+
+/obj/effect/spawner/random/engineering/tech_supply/five
+	name = "5x tech supply spawner"
+	spawn_loot_count = 5

@@ -254,7 +254,7 @@
 	underfloor_accessibility = 2 //This avoids strangeness when routing pipes / wires along catwalks over lava
 
 /turf/open/lava/smooth/lava_land_surface
-	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
+	initial_gas_mix = PLANETARY_ATMOS
 	planetary_atmos = TRUE
 	baseturfs = /turf/open/lava/smooth/lava_land_surface
 

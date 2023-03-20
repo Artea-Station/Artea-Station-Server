@@ -1,6 +1,6 @@
 /obj/effect/abstract/interact
 	name = "You shouldn't see this!"
-	icon = 'icons/mob/interact.dmi'
+	icon = 'goon/icons/mob/interact.dmi'
 	icon_state = "interact"
 	alpha = 180
 	plane = GAME_PLANE_UPPER_FOV_HIDDEN
