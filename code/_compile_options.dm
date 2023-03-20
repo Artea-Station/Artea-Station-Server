@@ -12,12 +12,12 @@
 #define DATUMVAR_DEBUGGING_MODE
 
 ///Used to find the sources of harddels, quite laggy, don't be surpised if it freezes your client for a good while
-//#define REFERENCE_TRACKING
+#define REFERENCE_TRACKING
 #ifdef REFERENCE_TRACKING
 
 ///Used for doing dry runs of the reference finder, to test for feature completeness
 ///Slightly slower, higher in memory. Just not optimal
-//#define REFERENCE_TRACKING_DEBUG
+#define REFERENCE_TRACKING_DEBUG
 
 ///Run a lookup on things hard deleting by default.
 //#define GC_FAILURE_HARD_LOOKUP
@@ -38,7 +38,7 @@
 // Displays static object lighting updates
 // Also enables some debug vars on sslighting that can be used to modify
 // How extensively we prune lighting corners to update
-#define VISUALIZE_LIGHT_UPDATES
+//#define VISUALIZE_LIGHT_UPDATES
 
 #define VISUALIZE_ACTIVE_TURFS //Highlights atmos active turfs in green
 #define TRACK_MAX_SHARE //Allows max share tracking, for use in the atmos debugging ui
