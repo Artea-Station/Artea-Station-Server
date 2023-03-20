@@ -126,18 +126,20 @@ GLOBAL_LIST_INIT(meteorsD, list(/obj/effect/meteor/medium=15, /obj/effect/meteor
 	var/signature = "motion"
 	var/del_timer
 
-/obj/effect/meteor/Initialize(mapload, turf/target)
+/obj/effect/meteor/Initialize(mapload, target)
 	. = ..()
 	z_original = z
 	GLOB.meteor_list += src
 	SSaugury.register_doom(src, threat)
 	SpinAnimation()
+	del_timer = QDEL_IN(src, lifetime)
+	dest = target
 	chase_target(target)
 
 /obj/effect/meteor/Destroy()
+	GLOB.meteor_list -= src
 	if (del_timer)
 		deltimer(del_timer)
-	GLOB.meteor_list -= src
 	return ..()
 
 /obj/effect/meteor/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
@@ -158,16 +160,6 @@ GLOBAL_LIST_INIT(meteorsD, list(/obj/effect/meteor/medium=15, /obj/effect/meteor
 
 /obj/effect/meteor/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE //Keeps us from drifting for no reason
-
-/obj/effect/meteor/Initialize(mapload, target)
-	. = ..()
-	z_original = z
-	GLOB.meteor_list += src
-	SSaugury.register_doom(src, threat)
-	SpinAnimation()
-	del_timer = QDEL_IN(src, lifetime)
-	dest = target
-	chase_target(target)
 
 /obj/effect/meteor/Bump(atom/A)
 	. = ..() //What could go wrong

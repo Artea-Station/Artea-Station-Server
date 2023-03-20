@@ -194,7 +194,8 @@
 /obj/item/paper_bin/bundlenatural
 	name = "natural paper bundle"
 	desc = "A bundle of paper created using traditional methods."
-	icon_state = null
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "paper_bundle"
 	papertype = /obj/item/paper/natural
 	resistance_flags = FLAMMABLE
 	bin_overlay_string = "paper_bundle_overlay"
