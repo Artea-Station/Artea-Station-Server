@@ -278,7 +278,7 @@
 	. = ..()
 	if(.)
 		return
-	if(modifiers[RIGHT_CLICK])
+	if(islist(modifiers) && modifiers[RIGHT_CLICK])
 		knock_on(user)
 		return TRUE
 	if(try_remove_seal(user))
