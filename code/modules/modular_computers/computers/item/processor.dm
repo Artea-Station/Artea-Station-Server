@@ -30,6 +30,7 @@
 	idle_threads = list()
 	machinery_computer = comp
 	machinery_computer.cpu = src
+	internal_cell = machinery_computer.internal_cell
 	hardware_flag = machinery_computer.hardware_flag
 	max_hardware_size = machinery_computer.max_hardware_size
 	steel_sheet_cost = machinery_computer.steel_sheet_cost
