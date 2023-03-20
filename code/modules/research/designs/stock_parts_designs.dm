@@ -19,7 +19,7 @@
 	desc = "A version of the RPED that automatically handles opening panels and can scan machine parts from range, along with having a higher capacity for parts. Unfortunately more bulky than the standard version."
 	id = "adv_rped"
 	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/iron = 15000, /datum/material/glass = 5000, /datum/material/silver = 2500) //hardcore
+	materials = list(/datum/material/iron = 15000, /datum/material/plasma = 15000, /datum/material/glass = 5000, /datum/material/silver = 2500) //hardcore
 	build_path = /obj/item/storage/part_replacer/advanced
 	category = list(
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_EXCHANGERS
@@ -45,7 +45,7 @@
 	desc = "A stock part used in the construction of various devices."
 	id = "adv_capacitor"
 	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/iron = 1500, /datum/material/glass = 1500)
+	materials = list(/datum/material/iron = 1500, /datum/material/glass = 1500, /datum/material/silver = 500)
 	build_path = /obj/item/stock_parts/capacitor/adv
 	category = list(
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_2
@@ -58,7 +58,7 @@
 	desc = "A stock part used in the construction of various devices."
 	id = "super_capacitor"
 	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/iron = 2000, /datum/material/glass = 2000, /datum/material/gold = 1000)
+	materials = list(/datum/material/iron = 2000, /datum/material/glass = 2000, /datum/material/gold = 500)
 	build_path = /obj/item/stock_parts/capacitor/super
 	category = list(
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_3
@@ -85,7 +85,7 @@
 	desc = "A stock part used in the construction of various devices."
 	id = "adv_scanning"
 	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/iron = 1500, /datum/material/glass = 1000)
+	materials = list(/datum/material/iron = 1500, /datum/material/glass = 1000, /datum/material/silver = 500)
 	build_path = /obj/item/stock_parts/scanning_module/adv
 	category = list(
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_2
@@ -98,7 +98,7 @@
 	desc = "A stock part used in the construction of various devices."
 	id = "phasic_scanning"
 	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/iron = 2000, /datum/material/glass = 1500, /datum/material/silver = 600)
+	materials = list(/datum/material/iron = 2000, /datum/material/glass = 1500, /datum/material/uranium = 100)
 	build_path = /obj/item/stock_parts/scanning_module/phasic
 	category = list(
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_3
@@ -125,7 +125,7 @@
 	desc = "A stock part used in the construction of various devices."
 	id = "nano_mani"
 	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/iron = 1500)
+	materials = list(/datum/material/iron = 1500, /datum/material/titanium = 500)
 	build_path = /obj/item/stock_parts/manipulator/nano
 	category = list(
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_2
@@ -138,7 +138,7 @@
 	desc = "A stock part used in the construction of various devices."
 	id = "pico_mani"
 	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/iron = 2000)
+	materials = list(/datum/material/iron = 2000, /datum/material/uranium = 100, /datum/material/diamond = 100)
 	build_path = /obj/item/stock_parts/manipulator/pico
 	category = list(
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_3
@@ -165,7 +165,7 @@
 	desc = "A stock part used in the construction of various devices."
 	id = "high_micro_laser"
 	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/iron = 1500, /datum/material/glass = 1000)
+	materials = list(/datum/material/iron = 1500, /datum/material/glass = 1000, /datum/material/titanium = 500)
 	build_path = /obj/item/stock_parts/micro_laser/high
 	category = list(
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_2
@@ -178,7 +178,7 @@
 	desc = "A stock part used in the construction of various devices."
 	id = "ultra_micro_laser"
 	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/iron = 2000, /datum/material/glass = 1500, /datum/material/uranium = 600)
+	materials = list(/datum/material/iron = 2000, /datum/material/glass = 1500, /datum/material/uranium = 120)
 	build_path = /obj/item/stock_parts/micro_laser/ultra
 	category = list(
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_3
@@ -204,7 +204,7 @@
 	desc = "A stock part used in the construction of various devices."
 	id = "adv_matter_bin"
 	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/iron = 1500)
+	materials = list(/datum/material/iron = 1500, /datum/material/titanium = 500)
 	build_path = /obj/item/stock_parts/matter_bin/adv
 	category = list(
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_2
@@ -217,7 +217,7 @@
 	desc = "A stock part used in the construction of various devices."
 	id = "super_matter_bin"
 	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/iron = 2000)
+	materials = list(/datum/material/iron = 2000, /datum/material/plasma = 500, /datum/material/diamond = 100)
 	build_path = /obj/item/stock_parts/matter_bin/super
 	category = list(
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_3

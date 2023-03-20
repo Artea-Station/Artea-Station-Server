@@ -151,32 +151,32 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 	name = "capacitor"
 	desc = "A basic capacitor used in the construction of a variety of devices."
 	icon_state = "capacitor"
-	custom_materials = list(/datum/material/iron=500, /datum/material/glass=500)
+	custom_materials = list(/datum/material/iron = 800, /datum/material/glass = 800)
 
 /obj/item/stock_parts/scanning_module
 	name = "scanning module"
 	desc = "A compact, high resolution scanning module used in the construction of certain devices."
 	icon_state = "scan_module"
-	custom_materials = list(/datum/material/iron=500, /datum/material/glass=200)
+	custom_materials = list(/datum/material/iron = 800, /datum/material/glass = 400)
 
 /obj/item/stock_parts/manipulator
 	name = "micro-manipulator"
 	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "micro_mani"
-	custom_materials = list(/datum/material/iron=300)
+	custom_materials = list(/datum/material/iron = 800)
 	base_name = "manipulator"
 
 /obj/item/stock_parts/micro_laser
 	name = "micro-laser"
 	desc = "A tiny laser used in certain devices."
 	icon_state = "micro_laser"
-	custom_materials = list(/datum/material/iron=100, /datum/material/glass=200)
+	custom_materials = list(/datum/material/iron = 800, /datum/material/glass = 400)
 
 /obj/item/stock_parts/matter_bin
 	name = "matter bin"
 	desc = "A container designed to hold compressed matter awaiting reconstruction."
 	icon_state = "matter_bin"
-	custom_materials = list(/datum/material/iron=800)
+	custom_materials = list(/datum/material/iron = 800)
 
 //Rating 2
 
@@ -186,7 +186,7 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 	icon_state = "adv_capacitor"
 	rating = 2
 	energy_rating = 3
-	custom_materials = list(/datum/material/iron=500, /datum/material/glass=500)
+	custom_materials = list(/datum/material/iron = 1200, /datum/material/glass = 1200, /datum/material/titanium = 400)
 
 /obj/item/stock_parts/scanning_module/adv
 	name = "advanced scanning module"
@@ -194,7 +194,7 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 	icon_state = "adv_scan_module"
 	rating = 2
 	energy_rating = 3
-	custom_materials = list(/datum/material/iron=500, /datum/material/glass=200)
+	custom_materials = list(/datum/material/iron = 1200, /datum/material/glass = 1200, /datum/material/titanium = 400)
 
 /obj/item/stock_parts/manipulator/nano
 	name = "nano-manipulator"
@@ -202,7 +202,7 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 	icon_state = "nano_mani"
 	rating = 2
 	energy_rating = 3
-	custom_materials = list(/datum/material/iron=300)
+	custom_materials = list(/datum/material/iron = 1200, /datum/material/titanium = 400)
 
 /obj/item/stock_parts/micro_laser/high
 	name = "high-power micro-laser"
@@ -210,7 +210,7 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 	icon_state = "high_micro_laser"
 	rating = 2
 	energy_rating = 3
-	custom_materials = list(/datum/material/iron=100, /datum/material/glass=200)
+	custom_materials = list(/datum/material/iron = 1200, /datum/material/glass = 800, /datum/material/titanium = 400)
 
 /obj/item/stock_parts/matter_bin/adv
 	name = "advanced matter bin"
@@ -218,7 +218,7 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 	icon_state = "advanced_matter_bin"
 	rating = 2
 	energy_rating = 3
-	custom_materials = list(/datum/material/iron=800)
+	custom_materials = list(/datum/material/iron = 1200, /datum/material/titanium = 400)
 
 //Rating 3
 
@@ -228,7 +228,7 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 	icon_state = "super_capacitor"
 	rating = 3
 	energy_rating = 5
-	custom_materials = list(/datum/material/iron=500, /datum/material/glass=500)
+	custom_materials = list(/datum/material/iron = 1600, /datum/material/glass = 1600, /datum/material/gold = 400)
 
 /obj/item/stock_parts/scanning_module/phasic
 	name = "phasic scanning module"
@@ -236,7 +236,7 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 	icon_state = "super_scan_module"
 	rating = 3
 	energy_rating = 5
-	custom_materials = list(/datum/material/iron=500, /datum/material/glass=200)
+	custom_materials = list(/datum/material/iron = 1600, /datum/material/glass = 1200, /datum/material/uranium = 80)
 
 /obj/item/stock_parts/manipulator/pico
 	name = "pico-manipulator"
@@ -244,7 +244,7 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 	icon_state = "pico_mani"
 	rating = 3
 	energy_rating = 5
-	custom_materials = list(/datum/material/iron=300)
+	custom_materials = list(/datum/material/iron = 1600, /datum/material/uranium = 80, /datum/material/diamond = 80)
 
 /obj/item/stock_parts/micro_laser/ultra
 	name = "ultra-high-power micro-laser"
@@ -252,7 +252,7 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 	desc = "A tiny laser used in certain devices."
 	rating = 3
 	energy_rating = 5
-	custom_materials = list(/datum/material/iron=100, /datum/material/glass=200)
+	custom_materials = list(/datum/material/iron = 1600, /datum/material/glass = 1200, /datum/material/uranium = 100 /* rounded */)
 
 /obj/item/stock_parts/matter_bin/super
 	name = "super matter bin"
@@ -260,7 +260,7 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 	icon_state = "super_matter_bin"
 	rating = 3
 	energy_rating = 5
-	custom_materials = list(/datum/material/iron=800)
+	custom_materials = list(/datum/material/iron = 1600, /datum/material/plasma = 400, /datum/material/diamond = 80)
 
 // Subspace stock parts
 
