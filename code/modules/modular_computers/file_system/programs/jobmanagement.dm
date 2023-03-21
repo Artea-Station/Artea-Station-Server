@@ -69,8 +69,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	. = ..()
 	if(.)
 		return
-	var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
-	var/obj/item/card/id/user_id = card_slot?.stored_card
+	var/obj/item/card/id/user_id = computer.computer_id_slot
+	if(!user_id || !(ACCESS_CHANGE_IDS in user_id.access))
+		return TRUE
 
 	if(!user_id || !(ACCESS_CHANGE_IDS in user_id.access))
 		return TRUE

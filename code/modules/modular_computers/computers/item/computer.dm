@@ -39,6 +39,13 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		/datum/computer_file/program/filemanager,
 	)
 
+	///The program currently active on the tablet.
+	var/datum/computer_file/program/active_program
+	///Idle programs on background. They still receive process calls but can't be interacted with.
+	var/list/idle_threads = list()
+	/// Amount of programs that can be ran at once
+	var/max_idle_programs = 2
+
 	///Flag of the type of device the modular computer is, deciding what types of apps it can run.
 	var/hardware_flag = NONE
 //	Options: PROGRAM_ALL | PROGRAM_CONSOLE | PROGRAM_LAPTOP | PROGRAM_TABLET
@@ -70,13 +77,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/base_idle_power_usage = 5
 
 	var/bypass_state = FALSE // bypassing the set icon state
-
-	var/enabled = 0 // Whether the computer is turned on.
 	var/upgradable = TRUE // whether or not the computer can be upgraded
 	var/deconstructable = TRUE // whether or not the computer can be deconstructed
-	var/screen_on = 1 // Whether the computer is active/opened/it's screen is on.
-	var/device_theme = "ntos" // Sets the theme for the main menu, hardware config, and file browser apps. Overridden by certain non-NT devices.
-	var/datum/computer_file/program/active_program = null // A currently active program running on the computer.
 
 	var/last_battery_percent = 0 // Used for deciding if battery percentage has chandged
 	var/last_world_time = "00:00"
