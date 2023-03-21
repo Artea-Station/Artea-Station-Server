@@ -350,7 +350,7 @@
 
 		equipped.sec_hud_set_ID()
 
-	var/obj/item/modular_computer/tablet/pda/pda = equipped.get_item_by_slot(pda_slot)
+	var/obj/item/modular_computer/pda/pda = equipped.get_item_by_slot(pda_slot)
 
 	if(istype(pda))
 		pda.saved_identification = equipped.real_name
@@ -360,7 +360,7 @@
 		var/client/equipped_client = GLOB.directory[ckey(equipped.mind?.key)]
 
 		if(equipped_client)
-			pda.update_ringtone(equipped_client)
+			pda.update_ringtone_pref(equipped_client)
 
 
 /datum/outfit/job/get_chameleon_disguise_info()

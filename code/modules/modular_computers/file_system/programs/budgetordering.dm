@@ -235,7 +235,7 @@
 			var/turf/T = get_turf(src)
 			var/datum/supply_order/SO = new(pack, name, rank, ckey, reason, account)
 			SO.generateRequisition(T)
-			var/obj/item/card/id/id_card = computer.computer_id_slot?.GetID()
+			if((requestonly && !self_paid) || !(computer.computer_id_slot?.GetID()))
 				SSshuttle.request_list += SO
 			else
 				SSshuttle.shopping_list += SO

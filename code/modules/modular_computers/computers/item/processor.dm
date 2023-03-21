@@ -25,9 +25,7 @@
 	if(!comp || !istype(comp, /obj/machinery/modular_computer))
 		CRASH("Inapropriate type passed to obj/item/modular_computer/processor/New()! Aborting.")
 	// Obtain reference to machinery computer
-	all_components = list()
-	idle_threads = list()
-	machinery_computer = comp
+	machinery_computer = loc
 	machinery_computer.cpu = src
 	internal_cell = machinery_computer.internal_cell
 	hardware_flag = machinery_computer.hardware_flag

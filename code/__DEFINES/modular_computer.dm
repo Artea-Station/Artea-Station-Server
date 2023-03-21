@@ -41,6 +41,7 @@
 ///On station, good signal
 #define NTNET_GOOD_SIGNAL 2
 ///Using a Computer, ethernet-connected.
+#define NTNET_ETHERNET_SIGNAL 3
 
 /// The default ringtone of the Messenger app.
 #define MESSENGER_RINGTONE_DEFAULT "beep"
