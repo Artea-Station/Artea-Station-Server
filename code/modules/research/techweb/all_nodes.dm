@@ -110,7 +110,6 @@
 		"spoon",
 		"status_display_frame",
 		"sticky_tape",
-		"tablet",
 		"tape",
 		"tech_disk",
 		"timer",

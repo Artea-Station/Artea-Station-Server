@@ -61,7 +61,7 @@
 		data += active_program.ui_static_data(user)
 		return data
 
-	data["show_imprint"] = istype(src, /obj/item/modular_computer/tablet)
+	data["show_imprint"] = istype(src, /obj/item/modular_computer/pda)
 
 	return data
 
