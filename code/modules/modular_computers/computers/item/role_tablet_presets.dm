@@ -377,7 +377,7 @@
 
 /obj/item/modular_computer/pda/assistant
 	name = "assistant PDA"
-	default_applications = list(
+	starting_programs = list(
 		/datum/computer_file/program/bounty_board,
 	)
 

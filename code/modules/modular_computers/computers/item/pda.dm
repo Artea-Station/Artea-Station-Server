@@ -34,7 +34,6 @@
 	///Static list of default PDA apps to install on Initialize.
 	var/static/list/datum/computer_file/pda_programs = list(
 		/datum/computer_file/program/messenger,
-		/datum/computer_file/program/nt_pay,
 		/datum/computer_file/program/notepad,
 	)
 	///List of items that can be stored in a PDA
@@ -223,21 +222,20 @@
  * Arguments:
  * * ringtone_client - The client whose prefs we'll use to set the ringtone of this PDA.
  */
-/obj/item/modular_computer/pda/proc/update_ringtone_pref(client/ringtone_client)
-	if(!ringtone_client)
+/obj/item/modular_computer/pda/proc/update_pda_prefs(client/owner_client)
+	if(!owner_client)
 		return
 
-	var/new_ringtone = ringtone_client?.prefs?.read_preference(/datum/preference/text/pda_ringtone)
+	var/new_ringtone = owner_client.prefs.read_preference(/datum/preference/text/pda_ringtone)
+	if(new_ringtone && (new_ringtone != MESSENGER_RINGTONE_DEFAULT))
+		update_ringtone(new_ringtone)
 
-	if(!new_ringtone || new_ringtone == MESSENGER_RINGTONE_DEFAULT)
+	/// A simple proc to set the ringtone from a pda.
+/obj/item/modular_computer/pda/proc/update_ringtone(new_ringtone)
+	if(!istext(new_ringtone))
 		return
-
-	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
-
-	if(!drive)
-		return
-
-	for(var/datum/computer_file/program/messenger/messenger_app in drive.stored_files)
+	var/datum/computer_file/program/messenger/messenger_app = locate() in stored_files
+	if(messenger_app)
 		messenger_app.ringtone = new_ringtone
 
 /**

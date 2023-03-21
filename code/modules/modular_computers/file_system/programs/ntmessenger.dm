@@ -112,12 +112,15 @@
 		if("PDA_ringSet")
 			var/new_ringtone = tgui_input_text(usr, "Enter a new ringtone", "Ringtone", ringtone, MESSENGER_RINGTONE_MAX_LENGTH)
 			var/mob/living/usr_mob = usr
-			if(in_range(computer, usr_mob) && computer.loc == usr_mob && t)
-				if(SEND_SIGNAL(computer, COMSIG_TABLET_CHANGE_ID, usr_mob, t) & COMPONENT_STOP_RINGTONE_CHANGE)
-					return
-				else
-					ringtone = t
-					return(UI_UPDATE)
+			if(!new_ringtone || !in_range(computer, usr_mob) || computer.loc != usr_mob)
+				return
+
+			if(SEND_SIGNAL(computer, COMSIG_TABLET_CHANGE_ID, usr_mob, new_ringtone) & COMPONENT_STOP_RINGTONE_CHANGE)
+				return
+
+			ringtone = new_ringtone
+			return UI_UPDATE
+
 		if("PDA_ringer_status")
 			ringer_status = !ringer_status
 			return(UI_UPDATE)
