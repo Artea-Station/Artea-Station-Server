@@ -36,3 +36,4 @@
 	. = ..()
 	if(action == "toggle_ooc_info")
 		ui.user.client.prefs.write_preference(GLOB.preference_entries[/datum/preference/toggle/inspection_ooc], !ui.user.client.prefs.read_preference(/datum/preference/toggle/inspection_ooc))
+		return TRUE
