@@ -29,11 +29,11 @@
 		"species" = obscured ? "Unknown Species" : human.dna?.species || "Unknown Species",
 		"species_lore" = obscured ? list() : human.dna?.species?.get_species_lore() || list(),
 		"inspection_data" = inspection_data,
-		"show_ooc" = user.client.prefs.read_preference(/datum/preference/toggle/inspection_ooc),
+		"show_ooc" = user.client.viewing_ooc_info,
 	)
 
 /datum/inspection_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(action == "toggle_ooc_info")
-		ui.user.client.prefs.write_preference(GLOB.preference_entries[/datum/preference/toggle/inspection_ooc], !ui.user.client.prefs.read_preference(/datum/preference/toggle/inspection_ooc))
+		ui.user.client.viewing_ooc_info = !ui.user.client.viewing_ooc_info
 		return TRUE

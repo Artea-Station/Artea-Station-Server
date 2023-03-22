@@ -40,12 +40,3 @@
 /datum/preference/text/inspection/legs
 	savefile_key = "legs_inspection_text"
 	bodypart = BODY_ZONE_LEGS
-
-// Stores whether you're looking at OOC info of other players or not in the panel, cause there isn't a better alternative as far as I know.
-/datum/preference/toggle/inspection_ooc
-	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
-	savefile_key = "inspection_ooc"
-
-/datum/preference/toggle/inspection_ooc/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
-	return
