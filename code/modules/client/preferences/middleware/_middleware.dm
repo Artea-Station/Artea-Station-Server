@@ -50,3 +50,9 @@
 /// Called when a character is changed.
 /datum/preference_middleware/proc/on_new_character(mob/user)
 	return
+
+/// Called when applying preferences to a mob.
+/datum/preference_middleware/proc/apply_to_human(mob/living/carbon/human/target, datum/preferences/preferences)
+	SHOULD_NOT_SLEEP(TRUE)
+	SHOULD_CALL_PARENT(FALSE)
+	return

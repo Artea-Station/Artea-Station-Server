@@ -9,6 +9,7 @@ import { Gender, GENDERS } from './preferences/gender';
 
 const CharacterControls = (props: {
   handleRotate: (String) => void;
+  handleFood: () => void;
   handleOpenSpecies: () => void;
   gender: Gender;
   setGender: (gender: Gender) => void;
@@ -25,7 +26,7 @@ const CharacterControls = (props: {
           tooltipPosition="top"
         />
       </Stack.Item>
-      <Stack.Item grow>
+      <Stack.Item>
         <Button
           onClick={() => props.handleRotate('-90')}
           fontSize="22px"
@@ -35,7 +36,17 @@ const CharacterControls = (props: {
         />
       </Stack.Item>
 
-      <Stack.Item justify="right" align="right">
+      <Stack.Item>
+        <Button
+          onClick={props.handleFood}
+          fontSize="22px"
+          icon="drumstick-bite"
+          tooltip="Edit Food Preferences"
+          tooltipPosition="top"
+        />
+      </Stack.Item>
+
+      <Stack.Item>
         <Button
           onClick={props.handleOpenSpecies}
           fontSize="22px"
@@ -46,7 +57,7 @@ const CharacterControls = (props: {
       </Stack.Item>
 
       {props.showGender && (
-        <Stack.Item justify="right" align="right">
+        <Stack.Item>
           <GenderButton
             gender={props.gender}
             handleSetGender={props.setGender}
@@ -170,6 +181,9 @@ export const IndexPage = (context, parentContext) => {
                 handleOpenSpecies={() => setCurrentPage(Page.Species)}
                 handleRotate={(dir) => {
                   act('rotate', { 'dir': dir });
+                }}
+                handleFood={() => {
+                  act('open_food');
                 }}
                 setGender={createSetPreference(act, 'gender')}
                 showGender={
