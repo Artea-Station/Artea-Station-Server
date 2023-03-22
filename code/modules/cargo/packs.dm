@@ -1469,7 +1469,7 @@
 	name = "Tank Transfer Valves Crate"
 	desc = "The key ingredient for making a lot of people very angry very fast. Contains two tank transfer valves. Requires RD access to open."
 	cost = CARGO_CRATE_VALUE * 12
-	access = ACCESS_RD
+	access = ACCESS_CE
 	contains = list(/obj/item/transfer_valve,
 					/obj/item/transfer_valve)
 	crate_name = "tank transfer valves crate"

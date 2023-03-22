@@ -224,9 +224,10 @@
 	access_list += ACCESS_MINISAT
 	return access_list
 
+/// ARTEA TODO: Doesn't actually set RD. This should be removed when we stop using TG maps!!
 /obj/effect/mapping_helpers/airlock/access/any/science/rd/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_RD
+	access_list += ACCESS_CE
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/science/maintenance/get_access()
@@ -690,9 +691,10 @@
 	access_list += ACCESS_MINISAT
 	return access_list
 
+/// ARTEA TODO: Doesn't actually set RD. This should be removed when we stop using TG maps!!
 /obj/effect/mapping_helpers/airlock/access/all/science/rd/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_RD
+	access_list += ACCESS_CE
 	return access_list
 
 // -------------------- Security access helpers
