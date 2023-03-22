@@ -16,7 +16,7 @@ export const broad_inspection_text: Feature<string> = {
 export const face_inspection_text: Feature<string> = {
   name: 'Face Inspection Text',
   description:
-    "A longer text description of your character's face. Hidden when your eyes/face is obscured.",
+    "A longer text description of your character's face. Hidden when your eyes/face are obscured.",
   component: FeatureTextInput,
 };
 
