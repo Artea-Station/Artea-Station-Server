@@ -207,6 +207,15 @@ export const IndexPage = (context, parentContext) => {
                     Antagonists
                   </BigPageButton>
                 </Stack.Item>
+
+                <Stack.Item>
+                  <BigPageButton
+                    page={Page.Inspection}
+                    setPage={setCurrentPage}
+                    tooltip="The flavour text that's shown for your character!">
+                    Inspection Text
+                  </BigPageButton>
+                </Stack.Item>
               </Stack>
             </Stack.Item>
 

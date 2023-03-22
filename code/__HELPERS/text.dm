@@ -1188,3 +1188,13 @@ GLOBAL_LIST_INIT(binary, list("0","1"))
 /proc/sanitize_css_class_name(name)
 	var/static/regex/regex = new(@"[^a-zA-Z0-9]","g")
 	return replacetext(name, regex, "")
+
+/// Returns a or an depending on what the text starts with.
+/proc/prefix_a_or_an(text)
+	var/start = lowertext(text[1])
+	if(!start)
+		return "a"
+	if(start == "a" || start == "e" || start == "i" || start == "o" || start == "u")
+		return "an"
+	else
+		return "a"
