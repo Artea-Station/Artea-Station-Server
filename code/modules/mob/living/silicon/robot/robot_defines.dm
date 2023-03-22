@@ -169,14 +169,6 @@
 	set_model = /obj/item/robot_model/miner
 	icon_state = "miner"
 
-/mob/living/silicon/robot/model/peacekeeper
-	set_model = /obj/item/robot_model/peacekeeper
-	icon_state = "peace"
-
-/mob/living/silicon/robot/model/security
-	set_model = /obj/item/robot_model/security
-	icon_state = "sec"
-
 /mob/living/silicon/robot/model/service
 	set_model = /obj/item/robot_model/service
 	icon_state = "brobot"

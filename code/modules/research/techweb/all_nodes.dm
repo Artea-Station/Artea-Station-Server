@@ -912,11 +912,6 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
 
-/datum/techweb_node/cyborg_upg_util/New()
-	. = ..()
-	if(!CONFIG_GET(flag/disable_secborg))
-		design_ids += "borg_upgrade_disablercooler"
-
 /datum/techweb_node/cyborg_upg_engiminer
 	id = "cyborg_upg_engiminer"
 	display_name = "Cyborg Upgrades: Engineering & Mining"
