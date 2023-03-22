@@ -149,10 +149,6 @@
 	. = ..()
 	INVOKE_ASYNC(model, TYPE_PROC_REF(/obj/item/robot_model, transform_to), set_model, TRUE)
 
-/mob/living/silicon/robot/model/clown
-	set_model = /obj/item/robot_model/clown
-	icon_state = "clown"
-
 /mob/living/silicon/robot/model/engineering
 	set_model = /obj/item/robot_model/engineering
 	icon_state = "engineer"
