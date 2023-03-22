@@ -1038,17 +1038,6 @@
 		RND_CATEGORY_MECHFAB_CYBORG_MODULES + RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_ALL
 	)
 
-/datum/design/borg_transform_clown
-	name = "Clown Module"
-	id = "borg_transform_clown"
-	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/transform/clown
-	materials = list(/datum/material/iron = 15000, /datum/material/glass = 15000, /datum/material/bananium = 1000)
-	construction_time = 120
-	category = list(
-		RND_CATEGORY_MECHFAB_CYBORG_MODULES + RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_ALL
-	)
-
 /datum/design/borg_upgrade_selfrepair
 	name = "Self-Repair Module"
 	id = "borg_upgrade_selfrepair"
