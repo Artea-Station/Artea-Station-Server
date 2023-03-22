@@ -45,7 +45,6 @@
 	enabled = FALSE,
 	uplink_flag = UPLINK_TRAITORS,
 	starting_tc = TELECRYSTALS_DEFAULT,
-	has_progression = FALSE,
 	datum/uplink_handler/uplink_handler_override,
 )
 	if(!isitem(parent))
@@ -80,7 +79,6 @@
 		uplink_handler.has_objectives = FALSE
 		uplink_handler.uplink_flag = uplink_flag
 		uplink_handler.telecrystals = starting_tc
-		uplink_handler.has_progression = has_progression
 		uplink_handler.purchase_log = purchase_log
 	else
 		uplink_handler = uplink_handler_override

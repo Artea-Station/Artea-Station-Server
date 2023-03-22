@@ -47,7 +47,6 @@
 			uplink.uplink_handler = uplink_handler
 		else
 			uplink_handler = uplink.uplink_handler
-		uplink_handler.has_progression = TRUE
 		SStraitor.register_uplink_handler(uplink_handler)
 
 		uplink_handler.has_objectives = TRUE
