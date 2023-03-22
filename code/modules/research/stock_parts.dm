@@ -73,8 +73,6 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 	atom_storage.max_slots = 100
 	atom_storage.max_total_storage = 200
 
-/obj/item/storage/part_replacer/advanced/tier1
-
 /obj/item/storage/part_replacer/advanced/tier1/PopulateContents()
 	for(var/i in 1 to 10)
 		new /obj/item/stock_parts/capacitor(src)
@@ -83,8 +81,6 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 		new /obj/item/stock_parts/micro_laser(src)
 		new /obj/item/stock_parts/matter_bin(src)
 		new /obj/item/stock_parts/cell/high(src)
-
-/obj/item/storage/part_replacer/advanced/tier2
 
 /obj/item/storage/part_replacer/advanced/tier2/PopulateContents()
 	for(var/i in 1 to 10)
@@ -95,8 +91,6 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 		new /obj/item/stock_parts/matter_bin/adv(src)
 		new /obj/item/stock_parts/cell/super(src)
 
-/obj/item/storage/part_replacer/advanced/tier3
-
 /obj/item/storage/part_replacer/advanced/tier3/PopulateContents()
 	for(var/i in 1 to 10)
 		new /obj/item/stock_parts/capacitor/super(src)
@@ -106,8 +100,7 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 		new /obj/item/stock_parts/matter_bin/super(src)
 		new /obj/item/stock_parts/cell/hyper(src)
 
-/obj/item/storage/part_replacer/cargo //used in a cargo crate
-
+//used in a cargo crate
 /obj/item/storage/part_replacer/cargo/PopulateContents()
 	for(var/i in 1 to 10)
 		new /obj/item/stock_parts/capacitor(src)
