@@ -222,7 +222,7 @@
  * Arguments:
  * * ringtone_client - The client whose prefs we'll use to set the ringtone of this PDA.
  */
-/obj/item/modular_computer/pda/proc/update_pda_prefs(client/owner_client)
+/obj/item/modular_computer/pda/proc/update_ringtone_pref(client/owner_client)
 	if(!owner_client)
 		return
 

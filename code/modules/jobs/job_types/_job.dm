@@ -123,6 +123,8 @@
 	/// Does this job ignore human authority?
 	var/ignore_human_authority = FALSE
 
+	/// custom ringtone for this job
+	var/job_tone
 
 /datum/job/New()
 	. = ..()
@@ -355,12 +357,13 @@
 	if(istype(pda))
 		pda.saved_identification = equipped.real_name
 		pda.saved_job = equipped_job.title
+		pda.update_ringtone(equipped_job.job_tone)
 		pda.UpdateDisplay()
 
 		var/client/equipped_client = GLOB.directory[ckey(equipped.mind?.key)]
 
 		if(equipped_client)
-			pda.update_pda_prefs(equipped_client)
+			pda.update_ringtone_pref(equipped_client)
 
 
 /datum/outfit/job/get_chameleon_disguise_info()
