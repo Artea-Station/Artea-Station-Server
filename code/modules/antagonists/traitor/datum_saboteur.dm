@@ -18,7 +18,7 @@
 	name = "\improper Syndicate Saboteur"
 	roundend_category = "Syndicate Saboteurs"
 	antagpanel_category = "Syndicate Saboteur"
-	job_rank = ROLE_SYNDICATE_SABOTEUR
+	job_rank = ROLE_TRAITOR
 	progression_enabled = FALSE
 	/// The final objective the traitor has to accomplish, be it escaping, hijacking, or just martyrdom.
 	var/datum/objective/ending_objective

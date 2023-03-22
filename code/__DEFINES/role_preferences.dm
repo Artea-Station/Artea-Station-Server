@@ -16,7 +16,6 @@
 #define ROLE_OPERATIVE "Operative"
 #define ROLE_TRAITOR "Traitor"
 #define ROLE_WIZARD "Wizard"
-#define ROLE_SYNDICATE_SABOTEUR "Syndicate Saboteur"
 
 // Midround roles
 #define ROLE_ABDUCTOR "Abductor"
@@ -36,7 +35,6 @@
 #define ROLE_SPACE_DRAGON "Space Dragon"
 #define ROLE_SPIDER "Spider"
 #define ROLE_WIZARD_MIDROUND "Wizard (Midround)"
-#define ROLE_SLEEPER_SABOTEUR "Sleeper Saboteur"
 
 // Latejoin roles
 #define ROLE_HERETIC_SMUGGLER "Heretic Smuggler"
@@ -115,7 +113,6 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_REV_HEAD = 14,
 	ROLE_TRAITOR = 0,
 	ROLE_WIZARD = 14,
-	ROLE_SYNDICATE_SABOTEUR = 0,
 
 	// Midround
 	ROLE_ABDUCTOR = 0,
@@ -135,8 +132,6 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_SPACE_DRAGON = 0,
 	ROLE_SPIDER = 0,
 	ROLE_WIZARD_MIDROUND = 14,
-	ROLE_SLEEPER_SABOTEUR = 0,
-
 	// Latejoin
 	ROLE_HERETIC_SMUGGLER = 0,
 	ROLE_PROVOCATEUR = 14,
