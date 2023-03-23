@@ -135,7 +135,13 @@
 #define PREFERENCE_CATEGORY_APPEARANCE_LIST "appearance_list"
 
 /// These will show in the OOC prefs tab.
-#define PREFERENCE_CATEGORY_OOC_INFO "ooc_info"
+#define PREFERENCE_CATEGORY_INSPECTION_LIST "inspection_list"
+
+/// These will show in the OOC prefs tab.
+#define PREFERENCE_CATEGORY_CONTENT_LIST "content_list"
+
+/// These will show in the OOC prefs tab.
+#define PREFERENCE_CATEGORY_OOC_LIST "ooc_list"
 
 /// These are preferences that are supplementary for main features,
 /// such as hair color being affixed to hair.

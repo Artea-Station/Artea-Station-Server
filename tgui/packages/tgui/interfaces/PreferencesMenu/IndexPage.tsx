@@ -245,6 +245,16 @@ export const IndexPage = (context, parentContext) => {
                     Quirks
                   </BigPageButton>
                 </Stack.Item>
+
+                <Stack.Item>
+                  <BigPageButton
+                    page={Page.Content}
+                    setPage={setCurrentPage}
+                    tooltip="What kind of content you want to be subjected to in-game!"
+                    tooltipPosition="bottom">
+                    Content
+                  </BigPageButton>
+                </Stack.Item>
               </Stack>
             </Stack.Item>
 
@@ -265,6 +275,16 @@ export const IndexPage = (context, parentContext) => {
                     setPage={setCurrentPage}
                     tooltip="Various settings!">
                     Misc
+                  </BigPageButton>
+                </Stack.Item>
+
+                <Stack.Item>
+                  <BigPageButton
+                    page={Page.OOC}
+                    setPage={setCurrentPage}
+                    tooltip="Information related to you, the player!"
+                    tooltipPosition="bottom">
+                    OOC
                   </BigPageButton>
                 </Stack.Item>
               </Stack>
