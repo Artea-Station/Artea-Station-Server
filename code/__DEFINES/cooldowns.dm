@@ -63,6 +63,9 @@
 #define MOB_SHARED_COOLDOWN_2 (1<<1)
 #define MOB_SHARED_COOLDOWN_3 (1<<2)
 
+// UI Cooldowns
+#define COOLDOWN_MATCHMAKING_PANEL_REFRESH "matchmaking_refresh"
+
 //TIMER COOLDOWN MACROS
 
 #define COMSIG_CD_STOP(cd_index) "cooldown_[cd_index]"

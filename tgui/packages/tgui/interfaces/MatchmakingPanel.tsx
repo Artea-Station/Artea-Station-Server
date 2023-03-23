@@ -15,14 +15,14 @@ type CharacterData = {
 
 type Data = {
   other_players;
-  personal_erp_status;
-  personal_is_victim;
+  erp_status;
+  is_victim;
 };
 
 export const MatchmakingPanel = (props, context) => {
   const { act, data } = useBackend<Data>(context);
 
-  const { personal_is_victim, personal_erp_status } = data;
+  const { is_victim, erp_status } = data;
 
   const [overlay] = useLocalState(context, 'overlay', null);
 
@@ -31,17 +31,17 @@ export const MatchmakingPanel = (props, context) => {
       <Window.Content scrollable>
         {(overlay && <ViewCharacter />) || (
           <Fragment>
-            <Section title="Controls">
+            <Section title="Self Information">
               <LabeledList>
                 <LabeledList.Item label="Is Victim">
                   <Button
                     fluid
-                    content={personal_is_victim}
+                    content={is_victim}
                     onClick={() => act('toggle_victim_status')}
                   />
                 </LabeledList.Item>
                 <LabeledList.Item label="ERP Status">
-                  {personal_erp_status}
+                  {erp_status}
                 </LabeledList.Item>
               </LabeledList>
             </Section>

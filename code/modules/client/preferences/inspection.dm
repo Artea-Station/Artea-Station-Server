@@ -43,4 +43,5 @@
 	bodypart = BODY_ZONE_LEGS
 
 /datum/preference/text/inspection/ooc_notes
+	category = PREFERENCE_CATEGORY_OOC_LIST
 	savefile_key = "ooc_notes"

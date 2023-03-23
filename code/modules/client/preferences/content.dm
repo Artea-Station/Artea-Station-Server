@@ -11,6 +11,7 @@
 /datum/preference/choiced/content
 	category = PREFERENCE_CATEGORY_CONTENT_LIST
 	savefile_identifier = PREFERENCE_CHARACTER
+	abstract_type = /datum/preference/choiced/content
 
 /datum/preference/choiced/content/erp_status
 	savefile_key = "erp_status"
