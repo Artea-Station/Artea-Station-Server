@@ -46,7 +46,8 @@
 /obj/item/wallframe/airalarm
 	name = "air alarm frame"
 	desc = "Used for building Air Alarms."
-	icon_state = "alarm_bitem"
+	icon = 'icons/obj/airalarm.dmi'
+	icon_state = "alarm_assembly"
 	result_path = /obj/machinery/airalarm
 	pixel_shift = 21
 
@@ -915,7 +916,7 @@
 /obj/machinery/airalarm/away //general away mission access
 	req_access = list(ACCESS_AWAY_GENERAL)
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 21)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/airalarm, 32, -17, 22, -22)
 
 /obj/item/circuit_component/air_alarm_general
 	display_name = "Air Alarm"

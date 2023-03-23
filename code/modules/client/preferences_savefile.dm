@@ -168,19 +168,20 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	apply_all_client_preferences()
 
 	//general preferences
-	lastchangelog = savefile.get_entry("lastchangelog")
-	be_special = savefile.get_entry("be_special")
-	default_slot = savefile.get_entry("default_slot")
-	chat_toggles = savefile.get_entry("chat_toggles")
-	toggles = savefile.get_entry("toggles")
-	ignoring = savefile.get_entry("ignoring")
+	lastchangelog = savefile.get_entry("lastchangelog", lastchangelog)
+	be_special = savefile.get_entry("be_special", be_special)
+	default_slot = savefile.get_entry("default_slot", default_slot)
+	chat_toggles = savefile.get_entry("chat_toggles", chat_toggles)
+	toggles = savefile.get_entry("toggles", toggles)
+	ignoring = savefile.get_entry("ignoring", ignoring)
+	food_preferences = savefile.get_entry("food_preferences", food_preferences)
 
 	// OOC commendations
-	hearted_until = savefile.get_entry("hearted_until")
+	hearted_until = savefile.get_entry("hearted_until", hearted_until)
 	if(hearted_until > world.realtime)
 		hearted = TRUE
 	//favorite outfits
-	favorite_outfits = savefile.get_entry("favorite_outfits")
+	favorite_outfits = savefile.get_entry("favorite_outfits", favorite_outfits)
 
 	var/list/parsed_favs = list()
 	for(var/typetext in favorite_outfits)
@@ -190,7 +191,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	favorite_outfits = unique_list(parsed_favs)
 
 	// Custom hotkeys
-	key_bindings = savefile.get_entry("key_bindings")
+	key_bindings = savefile.get_entry("key_bindings", key_bindings)
 
 	//try to fix any outdated data if necessary
 	if(needs_update >= 0)
@@ -210,6 +211,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	be_special = sanitize_be_special(SANITIZE_LIST(be_special))
 	key_bindings = sanitize_keybindings(key_bindings)
 	favorite_outfits = SANITIZE_LIST(favorite_outfits)
+
+	if(!islist(food_preferences))
+		food_preferences = list()
 
 	if(needs_update >= 0) //save the updated version
 		var/old_default_slot = default_slot
@@ -255,6 +259,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	savefile.set_entry("toggles", toggles)
 	savefile.set_entry("chat_toggles", chat_toggles)
 	savefile.set_entry("ignoring", ignoring)
+	savefile.set_entry("food_preferences", food_preferences)
 	savefile.set_entry("key_bindings", key_bindings)
 	savefile.set_entry("hearted_until", (hearted_until > world.realtime ? hearted_until : null))
 	savefile.set_entry("favorite_outfits", favorite_outfits)

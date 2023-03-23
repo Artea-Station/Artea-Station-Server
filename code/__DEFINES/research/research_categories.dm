@@ -104,10 +104,9 @@
 #define RND_SUBCATEGORY_STOCK_PARTS_MISC "/Miscellaneous Parts"
 #define RND_SUBCATEGORY_STOCK_PARTS_TURBINE "/Turbine Parts"
 #define RND_SUBCATEGORY_STOCK_PARTS_TELECOMMS "/Telecommunications Parts"
-#define RND_SUBCATEGORY_STOCK_PARTS_1 "/Tier 1 Parts"
-#define RND_SUBCATEGORY_STOCK_PARTS_2 "/Tier 2 Parts"
-#define RND_SUBCATEGORY_STOCK_PARTS_3 "/Tier 3 Parts"
-#define RND_SUBCATEGORY_STOCK_PARTS_4 "/Tier 4 Parts"
+#define RND_SUBCATEGORY_STOCK_PARTS_1 "/Basic Parts"
+#define RND_SUBCATEGORY_STOCK_PARTS_2 "/Intermediate Parts"
+#define RND_SUBCATEGORY_STOCK_PARTS_3 "/Advanced Parts"
 #define RND_SUBCATEGORY_STOCK_PARTS_EXCHANGERS "/Exchange Devices"
 
 #define RND_CATEGORY_SYNDICATE "/Illegal Designs"

@@ -117,8 +117,6 @@
 #define ACCESS_ROBOTICS "robotics"
 /// Access to the Xenobiology division of Science.
 #define ACCESS_XENOBIOLOGY "xenobiology"
-/// Access for the Research Director's personal quarters in mapping, as well as some other RD-related things.
-#define ACCESS_RD "rd"
 
 /// General access for Service, allows for entry to the Service Hallway.
 #define ACCESS_SERVICE "service"
@@ -350,7 +348,6 @@
 	ACCESS_HOS, \
 	ACCESS_HOP, \
 	ACCESS_QM, \
-	ACCESS_RD, \
 )
 
 /// Captains private rooms. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_CAPTAIN)
@@ -456,7 +453,6 @@
 	ACCESS_NETWORK, \
 	ACCESS_ORDNANCE, \
 	ACCESS_ORDNANCE_STORAGE, \
-	ACCESS_RD, \
 	ACCESS_RESEARCH, \
 	ACCESS_ROBOTICS, \
 	ACCESS_SCIENCE, \

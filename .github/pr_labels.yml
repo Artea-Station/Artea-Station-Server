@@ -57,28 +57,23 @@ labels:
   - label: "Removal"
     matcher:
       body: "^del:"
-  # Synced labels
   - label: "SQL"
-    sync: true
     matcher:
       files:
         any:
           - "SQL/**/*"
   - label: "Mapping"
-    sync: true
     matcher:
       files:
         any:
           - "_maps/**/*"
   - label: "Tools"
-    sync: true
     matcher:
       files:
         any:
           - "tools/**/*"
           - "BUILD.bat"
   - label: "Repository"
-    sync: true
     matcher:
       files:
         any:
@@ -92,7 +87,6 @@ labels:
           - Dockerfile
           - README.md
   - label: "Continuous Integration"
-    sync: true
     matcher:
       files:
         any:

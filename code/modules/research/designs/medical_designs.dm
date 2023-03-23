@@ -13,18 +13,6 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_ENGINEERING
 
-/datum/design/bluespacebeaker
-	name = "Bluespace Beaker"
-	desc = "A bluespace beaker, powered by experimental bluespace technology and Element Cuban combined with the Compound Pete. Can hold up to 300 units."
-	id = "bluespacebeaker"
-	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/glass = 5000, /datum/material/plastic = 3000, /datum/material/diamond = 1000, /datum/material/bluespace = 1000)
-	category = list(
-		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_CHEMISTRY
-	)
-	build_path = /obj/item/reagent_containers/cup/beaker/bluespace
-	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_ENGINEERING
-
 /datum/design/noreactbeaker
 	name = "Cryostasis Beaker"
 	desc = "A cryostasis beaker that allows for chemical storage without reactions. Can hold up to 50 units."
@@ -65,18 +53,6 @@
 	build_type = PROTOLATHE | AWAY_LATHE
 	materials = list(/datum/material/glass = 2500, /datum/material/gold = 1000, /datum/material/titanium = 1000)
 	build_path = /obj/item/ph_meter
-	category = list(
-		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_CHEMISTRY
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_ENGINEERING
-
-/datum/design/bluespacesyringe
-	name = "Bluespace Syringe"
-	desc = "An advanced syringe that can hold 60 units of chemicals"
-	id = "bluespacesyringe"
-	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/glass = 2000, /datum/material/plasma = 1000, /datum/material/diamond = 1000, /datum/material/bluespace = 500)
-	build_path = /obj/item/reagent_containers/syringe/bluespace
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_CHEMISTRY
 	)

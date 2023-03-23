@@ -695,10 +695,7 @@
 	description = "Extreme reduction in space required for bluespace engines, leading to portable bluespace technology."
 	prereq_ids = list("bluespace_travel", "practical_bluespace", "high_efficiency")
 	design_ids = list(
-		"bluespace_matter_bin",
 		"bluespacebodybag",
-		"femto_mani",
-		"triphasic_scanning",
 		"wormholeprojector",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
@@ -721,10 +718,8 @@
 	description = "Using bluespace to make things faster and better."
 	prereq_ids = list("bluespace_basic", "engineering")
 	design_ids = list(
-		"bluespacebeaker",
-		"bluespacesyringe",
 		"bluespace_coffeepot",
-		"bs_rped",
+		"adv_rped",
 		"minerbag_holding",
 		"ore_silo",
 		"phasic_scanning",
@@ -733,18 +728,6 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	discount_experiments = list(/datum/experiment/scanning/points/machinery_pinpoint_scan/tier2_scanmodules = 3500)
-
-/datum/techweb_node/bluespace_power
-	id = "bluespace_power"
-	display_name = "Bluespace Power Technology"
-	description = "Even more powerful.. power!"
-	prereq_ids = list("adv_power", "practical_bluespace")
-	design_ids = list(
-		"bluespace_cell",
-		"quadratic_capacitor",
-	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 4000)
-	discount_experiments = list(/datum/experiment/scanning/points/machinery_pinpoint_scan/tier3_cells = 3000)
 
 /datum/techweb_node/regulated_bluespace
 	id = "regulated_bluespace"
@@ -1039,20 +1022,6 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
 	discount_experiments = list(/datum/experiment/scanning/points/machinery_pinpoint_scan/tier2_microlaser = 1500)
-
-/datum/techweb_node/emp_super
-	id = "emp_super"
-	display_name = "Quantum Electromagnetic Technology" //bs
-	description = "Even better electromagnetic technology."
-	prereq_ids = list("emp_adv")
-	design_ids = list(
-		"quadultra_micro_laser",
-	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 15000)
-	discount_experiments = list(
-		/datum/experiment/scanning/points/machinery_pinpoint_scan/tier3_microlaser = 4000,
-		/datum/experiment/ordnance/gaseous/noblium = 10000,
-	)
 
 /////////////////////////Clown tech/////////////////////////
 /datum/techweb_node/clown
@@ -1830,7 +1799,7 @@
 	id = "adv_mecha_armor"
 	display_name = "Exosuit Heavy Armor Research"
 	description = "Recreating heavy armor with new rapid fabrication techniques."
-	prereq_ids = list("adv_mecha", "bluespace_power")
+	prereq_ids = list("adv_mecha")
 	design_ids = list(
 		"mech_ccw_armor",
 		"mech_proj_armor",

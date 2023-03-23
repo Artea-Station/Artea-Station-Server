@@ -183,7 +183,7 @@ GLOBAL_LIST_INIT(department_order_cooldowns, list(
 	name = "science order console"
 	circuit = /obj/item/circuitboard/computer/science_orders
 	department_delivery_areas = list(/area/station/science/research)
-	override_access = ACCESS_RD
+	override_access = ACCESS_CE
 	req_one_access = REGION_ACCESS_RESEARCH
 	dep_groups = list("Science", "Livestock")
 

@@ -894,23 +894,19 @@
 	if(!istype(replacer_tool))
 		return FALSE
 
-	if((flags_1 & NODECONSTRUCT_1) && !replacer_tool.works_from_distance)
+	if((flags_1 & NODECONSTRUCT_1) && !replacer_tool.ignores_panel)
 		return FALSE
 
-	var/shouldplaysound = 0
 	if(!component_parts)
 		return FALSE
 
-	if(!panel_open && !replacer_tool.works_from_distance)
+	if(!panel_open && !replacer_tool.ignores_panel)
 		to_chat(user, display_parts(user))
-		if(shouldplaysound)
-			replacer_tool.play_rped_sound()
 		return FALSE
 
 	var/obj/item/circuitboard/machine/machine_board = locate(/obj/item/circuitboard/machine) in component_parts
 	var/required_type
-	if(replacer_tool.works_from_distance)
-		to_chat(user, display_parts(user))
+
 	if(!machine_board)
 		return FALSE
 
@@ -922,13 +918,6 @@
 		for(var/obj/item/secondary_part in replacer_tool.contents)
 			if(!istype(secondary_part, required_type) || !istype(primary_part, required_type))
 				continue
-			// If it's a corrupt or rigged cell, attempting to send it through Bluespace could have unforeseen consequences.
-			if(istype(secondary_part, /obj/item/stock_parts/cell) && replacer_tool.works_from_distance)
-				var/obj/item/stock_parts/cell/checked_cell = secondary_part
-				// If it's rigged or corrupted, max the charge. Then explode it.
-				if(checked_cell.rigged || checked_cell.corrupted)
-					checked_cell.charge = checked_cell.maxcharge
-					checked_cell.explode()
 			if(secondary_part.get_part_rating() > primary_part.get_part_rating())
 				if(istype(secondary_part,/obj/item/stack)) //conveniently this will mean primary_part is also a stack and I will kill the first person to prove me wrong
 					var/obj/item/stack/primary_stack = primary_part
@@ -945,13 +934,11 @@
 				replacer_tool.atom_storage.attempt_insert(primary_part, user, TRUE)
 				component_parts -= primary_part
 				to_chat(user, span_notice("[capitalize(primary_part.name)] replaced with [secondary_part.name]."))
-				shouldplaysound = 1 //Only play the sound when parts are actually replaced!
+				replacer_tool.play_rped_sound()
 				break
 
 	RefreshParts()
 
-	if(shouldplaysound)
-		replacer_tool.play_rped_sound()
 	return TRUE
 
 /obj/machinery/proc/display_parts(mob/user)

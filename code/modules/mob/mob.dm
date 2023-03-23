@@ -1220,6 +1220,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_DIRECT_CONTROL, "Assume Direct Control")
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_DIRECT_CONTROL, "Give Direct Control")
 	VV_DROPDOWN_OPTION(VV_HK_OFFER_GHOSTS, "Offer Control to Ghosts")
+	VV_DROPDOWN_OPTION(VV_HK_LOAD_PREFS, "Load Prefs Onto Mob")
 
 /mob/vv_do_topic(list/href_list)
 	. = ..()
@@ -1271,6 +1272,10 @@
 		if(!check_rights(NONE))
 			return
 		offer_control(src)
+	if(href_list[VV_HK_LOAD_PREFS])
+		if(!check_rights(NONE))
+			return
+		vv_load_prefs(src)
 
 /**
  * extra var handling for the logging var
