@@ -7,7 +7,7 @@
 	desc = "A basic power cell that holds 1 MJ of energy."
 	id = "basic_cell"
 	build_type = PROTOLATHE | AWAY_LATHE | AUTOLATHE |MECHFAB
-	materials = list(/datum/material/iron = 700, /datum/material/glass = 50)
+	materials = list(/datum/material/iron = 1500, /datum/material/glass = 1500)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/empty
 	category = list(
@@ -20,7 +20,7 @@
 	desc = "A power cell that holds 10 MJ of energy."
 	id = "high_cell"
 	build_type = PROTOLATHE | AWAY_LATHE | AUTOLATHE | MECHFAB
-	materials = list(/datum/material/iron = 700, /datum/material/glass = 60)
+	materials = list(/datum/material/iron = 2000, /datum/material/glass = 2000, /datum/material/silver = 1000)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/high/empty
 	category = list(
@@ -33,7 +33,7 @@
 	desc = "A power cell that holds 20 MJ of energy."
 	id = "super_cell"
 	build_type = PROTOLATHE | AWAY_LATHE | MECHFAB
-	materials = list(/datum/material/iron = 700, /datum/material/glass = 70)
+	materials = list(/datum/material/iron = 2500, /datum/material/glass = 2500, /datum/material/gold = 1000)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/super/empty
 	category = list(
@@ -46,7 +46,7 @@
 	desc = "A power cell that holds 30 MJ of energy."
 	id = "hyper_cell"
 	build_type = PROTOLATHE | AWAY_LATHE | MECHFAB
-	materials = list(/datum/material/iron = 700, /datum/material/gold = 150, /datum/material/silver = 150, /datum/material/glass = 80)
+	materials = list(/datum/material/iron = 3000, /datum/material/glass = 3000, /datum/material/gold = 1000, /datum/material/silver = 1000, /datum/material/plasma = 3000) // Stronk cell requires stronk resources.
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/hyper/empty
 	category = list(
@@ -54,22 +54,9 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
-/datum/design/bluespace_cell
-	name = "Bluespace Power Cell"
-	desc = "A power cell that holds 40 MJ of energy."
-	id = "bluespace_cell"
-	build_type = PROTOLATHE | AWAY_LATHE | MECHFAB
-	materials = list(/datum/material/iron = 800, /datum/material/gold = 120, /datum/material/glass = 160, /datum/material/diamond = 160, /datum/material/titanium = 300, /datum/material/bluespace = 100)
-	construction_time=100
-	build_path = /obj/item/stock_parts/cell/bluespace/empty
-	category = list(
-		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_4
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
-
 /datum/design/inducer
 	name = "Inducer"
-	desc = "The NT-75 Electromagnetic Power Inducer can wirelessly induce electric charge in an object, allowing you to recharge power cells without having to remove them."
+	desc = "The NT-75 Electromagnetic Power Inducer can wirelessly induce electric charge in an object, allowing you to recharge power cells without having to remove them. Despite the rumors, there is no microwave transformer inside."
 	id = "inducer"
 	build_type = PROTOLATHE | AWAY_LATHE
 	materials = list(/datum/material/iron = 3000, /datum/material/glass = 1000)
