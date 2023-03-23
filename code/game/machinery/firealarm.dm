@@ -145,10 +145,6 @@
 		. += mutable_appearance(icon, "fire_on")
 		. += emissive_appearance(icon, "fire_on", alpha = src.alpha)
 
-	if(!panel_open && my_area?.fire_detect && my_area?.fire) //It just looks horrible with the panel open
-		. += mutable_appearance(icon, "fire_detected")
-		. += emissive_appearance(icon, "fire_detected", alpha = src.alpha) //Pain
-
 /obj/machinery/firealarm/emp_act(severity)
 	. = ..()
 
