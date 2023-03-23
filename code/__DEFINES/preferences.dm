@@ -113,6 +113,7 @@
 #define PREFERENCE_PLAYER "player"
 
 // Values for /datum/preferences/current_tab
+// Append _list to the end of values that arent main features for ease of readability.
 /// Open the character preference window
 #define PREFERENCE_TAB_CHARACTER_PREFERENCES 0
 
@@ -133,6 +134,9 @@
 
 /// These will show in the appearance prefs tab, in a list at the bottom. DO NOT USE FOR PREFS WITH ICONS.
 #define PREFERENCE_CATEGORY_APPEARANCE_LIST "appearance_list"
+
+/// These will show in the inspection prefs tab.
+#define PREFERENCE_CATEGORY_INSPECTION_LIST "inspection_list"
 
 /// These will show in the OOC prefs tab.
 #define PREFERENCE_CATEGORY_OOC_INFO "ooc_info"

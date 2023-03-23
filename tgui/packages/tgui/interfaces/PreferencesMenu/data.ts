@@ -132,6 +132,8 @@ export type PreferencesMenuData = {
 
     other: Record<string, string>;
 
+    inspection_list: Record<string, string>;
+
     game_preferences: Record<string, unknown>;
     non_contextual: {
       random_body: RandomSetting;
