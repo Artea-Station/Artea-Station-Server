@@ -12,6 +12,7 @@ import { QuirksPage } from './QuirksPage';
 import { IndexPage } from './IndexPage';
 import { ClothingPage } from './ClothingPage';
 import { MiscPage } from './MiscPage';
+import { InspectionPage } from './InspectionPage';
 import { OOCPage } from './OOCPage';
 import { ContentPage } from './ContentPage';
 
@@ -24,6 +25,7 @@ export enum Page {
   Quirks,
   Clothing,
   Misc,
+  Inspection,
   OOC,
   Content,
 }
@@ -104,6 +106,10 @@ export const CharacterPreferenceWindow = (props, context) => {
       pageContents = <MiscPage />;
       break;
 
+    case Page.Inspection:
+      pageContents = <InspectionPage />;
+      break;
+      
     case Page.OOC:
       pageContents = <OOCPage />;
       break;
