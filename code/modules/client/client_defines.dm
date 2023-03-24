@@ -267,3 +267,6 @@
 	/// Holder variables for viewport scaling.
 	var/last_view_x_dim = 7
 	var/last_view_y_dim = 7
+
+	/// Whether the client is viewing OOC information in the inspect menu or not.
+	var/viewing_ooc_info = TRUE

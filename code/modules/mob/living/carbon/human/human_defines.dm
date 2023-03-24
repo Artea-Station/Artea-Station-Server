@@ -87,3 +87,6 @@
 
 	/// Alpha of the hair. Takes precedent over species hair_alpha if non-null.
 	var/hair_alpha
+  
+	/// The inspection panel datum attached to this mob.
+	var/datum/inspection_panel/inspection_panel = new

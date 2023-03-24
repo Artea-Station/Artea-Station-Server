@@ -38,7 +38,7 @@
 		organ_owner.adjustToxLoss(2 * delta_time, updating_health = TRUE, forced = TRUE)
 	else if(inflamation_stage)
 		inflamation(delta_time)
-	else if(DT_PROB(APPENDICITIS_PROB, delta_time))
+	else if(DT_PROB(APPENDICITIS_PROB, delta_time) && !(organ_owner?.z in SSmapping.z_trait_levels[ZTRAIT_CENTCOM]))
 		become_inflamed()
 
 /obj/item/organ/internal/appendix/proc/become_inflamed()

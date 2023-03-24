@@ -160,7 +160,7 @@
 
 /obj/item/mod/control/pre_equipped/traitor_elite
 	theme = /datum/mod_theme/elite
-	applied_cell = /obj/item/stock_parts/cell/bluespace
+	applied_cell = /obj/item/stock_parts/cell/hyper
 	initial_modules = list(
 		/obj/item/mod/module/storage/syndicate,
 		/obj/item/mod/module/emp_shield,
@@ -184,7 +184,7 @@
 
 /obj/item/mod/control/pre_equipped/elite
 	theme = /datum/mod_theme/elite
-	applied_cell = /obj/item/stock_parts/cell/bluespace
+	applied_cell = /obj/item/stock_parts/cell/hyper
 	req_access = list(ACCESS_SYNDICATE)
 	initial_modules = list(
 		/obj/item/mod/module/storage/syndicate,
@@ -316,7 +316,7 @@
 
 /obj/item/mod/control/pre_equipped/apocryphal
 	theme = /datum/mod_theme/apocryphal
-	applied_cell = /obj/item/stock_parts/cell/bluespace
+	applied_cell = /obj/item/stock_parts/cell/hyper
 	req_access = list(ACCESS_CENT_SPECOPS)
 	initial_modules = list(
 		/obj/item/mod/module/storage/bluespace,

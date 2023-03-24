@@ -24,7 +24,7 @@
 	var/charge = 0
 	///Maximum charge in cell units
 	var/maxcharge = 1000
-	custom_materials = list(/datum/material/iron=700, /datum/material/glass=50)
+	custom_materials = list(/datum/material/iron = 1200, /datum/material/glass = 1200)
 	grind_results = list(/datum/reagent/lithium = 15, /datum/reagent/iron = 5, /datum/reagent/silicon = 5)
 	///If the cell has been booby-trapped by injecting it with plasma. Chance on use() to explode.
 	var/rigged = FALSE
@@ -289,13 +289,14 @@
 	name = "upgraded power cell"
 	desc = "A power cell with a slightly higher capacity than normal!"
 	maxcharge = 2500
-	custom_materials = list(/datum/material/glass=50)
+	custom_materials = list(/datum/material/iron = 200, /datum/material/glass = 200, /datum/material/silver = 200)
 	chargerate = 1000
 
 /obj/item/stock_parts/cell/upgraded/plus
 	name = "upgraded power cell+"
 	desc = "A power cell with an even higher capacity than the base model!"
 	maxcharge = 5000
+	custom_materials = list(/datum/material/iron = 400, /datum/material/glass = 400, /datum/material/silver = 400)
 
 /obj/item/stock_parts/cell/secborg
 	name = "security borg rechargeable D battery"
@@ -337,7 +338,7 @@
 	name = "high-capacity power cell"
 	icon_state = "hcell"
 	maxcharge = 10000
-	custom_materials = list(/datum/material/glass=60)
+	custom_materials = list(/datum/material/iron = 1600, /datum/material/glass = 1600, /datum/material/silver = 800)
 	chargerate = 1500
 
 /obj/item/stock_parts/cell/high/empty
@@ -347,7 +348,7 @@
 	name = "super-capacity power cell"
 	icon_state = "scell"
 	maxcharge = 20000
-	custom_materials = list(/datum/material/glass=300)
+	custom_materials = list(/datum/material/iron = 2000, /datum/material/glass = 2000, /datum/material/gold = 800)
 	chargerate = 2000
 
 /obj/item/stock_parts/cell/super/empty
@@ -357,21 +358,10 @@
 	name = "hyper-capacity power cell"
 	icon_state = "hpcell"
 	maxcharge = 30000
-	custom_materials = list(/datum/material/glass=400)
+	custom_materials = list(/datum/material/iron = 2400, /datum/material/glass = 2400, /datum/material/gold = 800, /datum/material/silver = 800, /datum/material/plasma = 2400) // Stronk cell requires stronk resources.
 	chargerate = 3000
 
 /obj/item/stock_parts/cell/hyper/empty
-	empty = TRUE
-
-/obj/item/stock_parts/cell/bluespace
-	name = "bluespace power cell"
-	desc = "A rechargeable transdimensional power cell."
-	icon_state = "bscell"
-	maxcharge = 40000
-	custom_materials = list(/datum/material/glass=600)
-	chargerate = 4000
-
-/obj/item/stock_parts/cell/bluespace/empty
 	empty = TRUE
 
 /obj/item/stock_parts/cell/infinite

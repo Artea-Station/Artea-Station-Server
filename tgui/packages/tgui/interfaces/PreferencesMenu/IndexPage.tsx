@@ -9,6 +9,7 @@ import { Gender, GENDERS } from './preferences/gender';
 
 const CharacterControls = (props: {
   handleRotate: (String) => void;
+  handleFood: () => void;
   handleOpenSpecies: () => void;
   gender: Gender;
   setGender: (gender: Gender) => void;
@@ -25,7 +26,7 @@ const CharacterControls = (props: {
           tooltipPosition="top"
         />
       </Stack.Item>
-      <Stack.Item grow>
+      <Stack.Item>
         <Button
           onClick={() => props.handleRotate('-90')}
           fontSize="22px"
@@ -35,7 +36,17 @@ const CharacterControls = (props: {
         />
       </Stack.Item>
 
-      <Stack.Item justify="right" align="right">
+      <Stack.Item>
+        <Button
+          onClick={props.handleFood}
+          fontSize="22px"
+          icon="drumstick-bite"
+          tooltip="Edit Food Preferences"
+          tooltipPosition="top"
+        />
+      </Stack.Item>
+
+      <Stack.Item>
         <Button
           onClick={props.handleOpenSpecies}
           fontSize="22px"
@@ -46,7 +57,7 @@ const CharacterControls = (props: {
       </Stack.Item>
 
       {props.showGender && (
-        <Stack.Item justify="right" align="right">
+        <Stack.Item>
           <GenderButton
             gender={props.gender}
             handleSetGender={props.setGender}
@@ -171,6 +182,9 @@ export const IndexPage = (context, parentContext) => {
                 handleRotate={(dir) => {
                   act('rotate', { 'dir': dir });
                 }}
+                handleFood={() => {
+                  act('open_food');
+                }}
                 setGender={createSetPreference(act, 'gender')}
                 showGender={
                   data.character_preferences.misc.species
@@ -205,6 +219,15 @@ export const IndexPage = (context, parentContext) => {
                     setPage={setCurrentPage}
                     tooltip="Which evil guys you wanna be randomly rolled as!">
                     Antagonists
+                  </BigPageButton>
+                </Stack.Item>
+
+                <Stack.Item>
+                  <BigPageButton
+                    page={Page.Inspection}
+                    setPage={setCurrentPage}
+                    tooltip="The flavour text that's shown for your character!">
+                    Inspection Text
                   </BigPageButton>
                 </Stack.Item>
               </Stack>

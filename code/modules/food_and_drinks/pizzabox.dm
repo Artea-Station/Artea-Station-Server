@@ -366,9 +366,9 @@
 
 	//list our ckey and assign it a favourite pizza
 	if(!pizza_preferences[nommer.ckey])
-		if(nommer.has_quirk(/datum/quirk/pineapple_liker))
+		if(nommer.client?.prefs?.food_preferences["pineapple"] == FOOD_PREFERENCE_LIKED)
 			pizza_preferences[nommer.ckey] = /obj/item/food/pizza/pineapple
-		else if(nommer.has_quirk(/datum/quirk/pineapple_hater))
+		else if(nommer.client?.prefs?.food_preferences["pineapple"] <= FOOD_PREFERENCE_DISLIKED)
 			var/list/pineapple_pizza_liker = pizza_types.Copy()
 			pineapple_pizza_liker -= /obj/item/food/pizza/pineapple
 			pizza_preferences[nommer.ckey] = pick_weight(pineapple_pizza_liker)

@@ -2,6 +2,10 @@
 /mob/living/proc/get_bodypart(zone)
 	return
 
+/// Helper proc for finding if a bodypart exists, is visible, and has associated inspection text. Used for the inspection panel.
+/mob/living/proc/bodypart_inspection_text(zone, ignore_visibility = FALSE)
+	return FALSE
+
 /mob/living/carbon/get_bodypart(zone)
 	RETURN_TYPE(/obj/item/bodypart)
 
@@ -10,6 +14,30 @@
 	for(var/obj/item/bodypart/bodypart as anything in bodyparts)
 		if(bodypart.body_zone == zone)
 			return bodypart
+
+/mob/living/carbon/bodypart_inspection_text(zone, ignore_visibility = FALSE)
+	var/zone_for_sanity_check = zone
+	switch(zone)
+		if(BODY_ZONE_BROAD)
+			return dna.inspection_text[BODY_ZONE_BROAD]
+
+		if(BODY_ZONE_PRECISE_EYES)
+			if(getorganslot(ORGAN_SLOT_EYES) && !is_eyes_covered())
+				return dna.inspection_text[BODY_ZONE_PRECISE_EYES]
+			return
+
+		if(BODY_ZONE_ARMS)
+			zone_for_sanity_check = get_bodypart(BODY_ZONE_L_ARM)?.body_zone || get_bodypart(BODY_ZONE_R_ARM)?.body_zone
+		if(BODY_ZONE_LEGS)
+			zone_for_sanity_check = get_bodypart(BODY_ZONE_L_LEG)?.body_zone || get_bodypart(BODY_ZONE_R_LEG)?.body_zone
+
+	if(!get_bodypart(zone_for_sanity_check))
+		return
+
+	if(!ignore_visibility && (zone_for_sanity_check in get_covered_body_zones()))
+		return
+
+	return dna.inspection_text[zone]
 
 ///Replaces a single limb and deletes the old one if there was one
 /mob/living/carbon/proc/del_and_replace_bodypart(obj/item/bodypart/new_limb, special)

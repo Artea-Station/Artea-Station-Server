@@ -88,6 +88,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	/// If set to TRUE, will update character_profiles on the next ui_data tick.
 	var/tainted_character_profiles = FALSE
 
+	/// An assoc list of food types to liked or dislike values. If null or empty, default species tastes are used instead on application.
+	/// If a food doesn't exist in this list, it uses the default value.
+	var/list/food_preferences = list()
+
 /datum/preferences/Destroy(force, ...)
 	QDEL_NULL(character_preview_view)
 	QDEL_LIST(middleware)
@@ -278,6 +282,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if (!update_preference(requested_preference, new_color))
 				return FALSE
 
+			return TRUE
+		if ("open_food")
+			GLOB.food_prefs_menu.ui_interact(usr)
 			return TRUE
 
 	for (var/datum/preference_middleware/preference_middleware as anything in middleware)
@@ -499,6 +506,9 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 			continue
 
 		preference.apply_to_human(character, read_preference(preference.type), src)
+
+	for (var/datum/preference_middleware/preference_middleware as anything in middleware)
+		preference_middleware.apply_to_human(character, src)
 
 	character.dna.real_name = character.real_name
 
