@@ -34,7 +34,7 @@ export const AppearancePage = (context, parentContext) => {
         ];
 
         return (
-          <Stack>
+          <Stack height="100%">
             <Stack.Item>
               <CharacterPreview
                 height="300px"

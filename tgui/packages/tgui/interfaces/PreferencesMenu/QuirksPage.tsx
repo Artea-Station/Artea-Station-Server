@@ -217,7 +217,7 @@ export const QuirksPage = (props, context) => {
         };
 
         return (
-          <Stack align="center" fill>
+          <Stack fill>
             <Stack.Item basis="50%">
               <Stack vertical fill align="center">
                 <Stack.Item>
@@ -265,7 +265,7 @@ export const QuirksPage = (props, context) => {
               </Stack>
             </Stack.Item>
 
-            <Stack.Item>
+            <Stack.Item mt="35%">
               <Icon name="exchange-alt" size={1.5} ml={2} mr={2} />
             </Stack.Item>
 

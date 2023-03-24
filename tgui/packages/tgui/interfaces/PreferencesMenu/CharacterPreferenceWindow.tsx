@@ -109,7 +109,7 @@ export const CharacterPreferenceWindow = (props, context) => {
     case Page.Inspection:
       pageContents = <InspectionPage />;
       break;
-      
+
     case Page.OOC:
       pageContents = <OOCPage />;
       break;
@@ -156,7 +156,7 @@ export const CharacterPreferenceWindow = (props, context) => {
 
           <Stack.Divider />
 
-          <Stack.Item>{pageContents}</Stack.Item>
+          <Stack.Item height="100%">{pageContents}</Stack.Item>
         </Stack>
       </Window.Content>
     </Window>
