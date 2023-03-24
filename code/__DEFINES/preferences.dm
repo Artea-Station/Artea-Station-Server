@@ -138,10 +138,7 @@
 /// These will show in the inspection prefs tab.
 #define PREFERENCE_CATEGORY_INSPECTION_LIST "inspection_list"
 
-/// These will show in the OOC prefs tab.
-#define PREFERENCE_CATEGORY_INSPECTION_LIST "inspection_list"
-
-/// These will show in the OOC prefs tab.
+/// These will show in the content prefs tab.
 #define PREFERENCE_CATEGORY_CONTENT_LIST "content_list"
 
 /// These will show in the OOC prefs tab.
