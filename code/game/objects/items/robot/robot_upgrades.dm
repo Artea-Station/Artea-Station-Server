@@ -54,36 +54,6 @@
 			R.notify_ai(AI_NOTIFICATION_CYBORG_RENAMED, oldname, R.real_name)
 		usr.log_message("used a cyborg reclassification board to rename [oldkeyname] to [key_name(R)]", LOG_GAME)
 
-/obj/item/borg/upgrade/disablercooler
-	name = "cyborg rapid disabler cooling module"
-	desc = "Used to cool a mounted disabler, increasing the potential current in it and thus its recharge rate."
-	icon_state = "cyborg_upgrade3"
-	require_model = TRUE
-	model_type = list(/obj/item/robot_model/security)
-	model_flags = BORG_MODEL_SECURITY
-
-/obj/item/borg/upgrade/disablercooler/action(mob/living/silicon/robot/R, user = usr)
-	. = ..()
-	if(.)
-		var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.model.modules
-		if(!T)
-			to_chat(user, span_warning("There's no disabler in this unit!"))
-			return FALSE
-		if(T.charge_delay <= 2)
-			to_chat(R, span_warning("A cooling unit is already installed!"))
-			to_chat(user, span_warning("There's no room for another cooling unit!"))
-			return FALSE
-
-		T.charge_delay = max(2 , T.charge_delay - 4)
-
-/obj/item/borg/upgrade/disablercooler/deactivate(mob/living/silicon/robot/R, user = usr)
-	. = ..()
-	if (.)
-		var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.model.modules
-		if(!T)
-			return FALSE
-		T.charge_delay = initial(T.charge_delay)
-
 /obj/item/borg/upgrade/thrusters
 	name = "ion thruster upgrade"
 	desc = "An energy-operated thruster system for cyborgs."
@@ -662,12 +632,6 @@
 	. = ..()
 	if(. && new_model)
 		R.model.transform_to(new_model)
-
-/obj/item/borg/upgrade/transform/clown
-	name = "borg model picker (Clown)"
-	desc = "Allows you to to turn a cyborg into a clown, honk."
-	icon_state = "cyborg_upgrade3"
-	new_model = /obj/item/robot_model/clown
 
 /obj/item/borg/upgrade/circuit_app
 	name = "circuit manipulation apparatus"

@@ -275,41 +275,6 @@
 		return FALSE
 	return TRUE
 
-/obj/item/robot_model/clown
-	name = "Clown"
-	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
-		/obj/item/toy/crayon/rainbow,
-		/obj/item/instrument/bikehorn,
-		/obj/item/stamp/clown,
-		/obj/item/bikehorn,
-		/obj/item/bikehorn/airhorn,
-		/obj/item/paint/anycolor,
-		/obj/item/soap/nanotrasen/cyborg,
-		/obj/item/pneumatic_cannon/pie/selfcharge/cyborg,
-		/obj/item/razor, //killbait material
-		/obj/item/lipstick/purple,
-		/obj/item/reagent_containers/spray/waterflower/cyborg,
-		/obj/item/borg/cyborghug/peacekeeper,
-		/obj/item/borg/lollipop,
-		/obj/item/picket_sign/cyborg,
-		/obj/item/reagent_containers/borghypo/clown,
-		/obj/item/extinguisher/mini)
-	emag_modules = list(
-		/obj/item/reagent_containers/borghypo/clown/hacked,
-		/obj/item/reagent_containers/spray/waterflower/cyborg/hacked)
-	model_select_icon = "service"
-	cyborg_base_icon = "clown"
-	hat_offset = -2
-
-/obj/item/robot_model/clown/respawn_consumable(mob/living/silicon/robot/cyborg, coeff = 1)
-	. = ..()
-	var/obj/item/soap/nanotrasen/cyborg/soap = locate(/obj/item/soap/nanotrasen/cyborg) in basic_modules
-	if(!soap)
-		return
-	if(soap.uses < initial(soap.uses))
-		soap.uses += ROUND_UP(initial(soap.uses) / 100) * coeff
-
 /obj/item/robot_model/engineering
 	name = "Engineering"
 	basic_modules = list(
@@ -664,60 +629,6 @@
 /obj/item/robot_model/miner/Destroy()
 	QDEL_NULL(mining_scanner)
 	return ..()
-
-/obj/item/robot_model/peacekeeper
-	name = "Peacekeeper"
-	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
-		/obj/item/rsf/cookiesynth,
-		/obj/item/harmalarm,
-		/obj/item/reagent_containers/borghypo/peace,
-		/obj/item/holosign_creator/cyborg,
-		/obj/item/borg/cyborghug/peacekeeper,
-		/obj/item/extinguisher,
-		/obj/item/borg/projectile_dampen)
-	emag_modules = list(/obj/item/reagent_containers/borghypo/peace/hacked)
-	cyborg_base_icon = "peace"
-	model_select_icon = "standard"
-	model_traits = list(TRAIT_PUSHIMMUNE)
-	hat_offset = -2
-
-/obj/item/robot_model/peacekeeper/do_transform_animation()
-	..()
-	to_chat(loc, "<span class='userdanger'>Under ASIMOV, you are an enforcer of the PEACE and preventer of HUMAN HARM. \
-	You are not a security member and you are expected to follow orders and prevent harm above all else. Space law means nothing to you.</span>")
-
-/obj/item/robot_model/security
-	name = "Security"
-	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
-		/obj/item/restraints/handcuffs/cable/zipties,
-		/obj/item/melee/baton/security/loaded,
-		/obj/item/gun/energy/disabler/cyborg,
-		/obj/item/clothing/mask/gas/sechailer/cyborg,
-		/obj/item/extinguisher/mini)
-	radio_channels = list(RADIO_CHANNEL_SECURITY)
-	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
-	cyborg_base_icon = "sec"
-	model_select_icon = "security"
-	model_traits = list(TRAIT_PUSHIMMUNE)
-	hat_offset = 3
-
-/obj/item/robot_model/security/do_transform_animation()
-	..()
-	to_chat(loc, "<span class='userdanger'>While you have picked the security model, you still have to follow your laws, NOT Space Law. \
-	For Asimov, this means you must follow criminals' orders unless there is a law 1 reason not to.</span>")
-
-/obj/item/robot_model/security/respawn_consumable(mob/living/silicon/robot/cyborg, coeff = 1)
-	..()
-	var/obj/item/gun/energy/e_gun/advtaser/cyborg/taser = locate(/obj/item/gun/energy/e_gun/advtaser/cyborg) in basic_modules
-	if(taser)
-		if(taser.cell.charge < taser.cell.maxcharge)
-			var/obj/item/ammo_casing/energy/shot = taser.ammo_type[taser.select]
-			taser.cell.give(shot.e_cost * coeff)
-			taser.update_appearance()
-		else
-			taser.charge_timer = 0
 
 /obj/item/robot_model/service
 	name = "Service"
