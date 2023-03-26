@@ -213,7 +213,7 @@
 /datum/dynamic_ruleset/midround/from_living/autotraitor
 	name = "Syndicate Sleeper Agent"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
-	antag_datum = /datum/antagonist/traitor
+	antag_datum = /datum/antagonist/traitor/saboteur
 	antag_flag = ROLE_SLEEPER_AGENT
 	antag_flag_override = ROLE_TRAITOR
 	protected_roles = list(

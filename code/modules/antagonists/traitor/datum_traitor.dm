@@ -30,6 +30,9 @@
 
 	var/uplink_sale_count = 3
 
+	/// If the traitor should have progression enabled or not on their uplink
+	var/progression_enabled = TRUE
+
 /datum/antagonist/traitor/New(give_objectives = TRUE)
 	. = ..()
 	src.give_objectives = give_objectives
@@ -47,10 +50,10 @@
 			uplink.uplink_handler = uplink_handler
 		else
 			uplink_handler = uplink.uplink_handler
-		uplink_handler.has_progression = TRUE
+		uplink_handler.has_progression = progression_enabled
 		SStraitor.register_uplink_handler(uplink_handler)
 
-		uplink_handler.has_objectives = TRUE
+		uplink_handler.has_objectives = progression_enabled
 		uplink_handler.generate_objectives()
 
 		if(uplink_handler.progression_points < SStraitor.current_global_progression)
@@ -67,7 +70,7 @@
 					continue
 		uplink_handler.extra_purchasable += create_uplink_sales(uplink_sale_count, /datum/uplink_category/discounts, -1, uplink_items)
 
-	if(give_objectives)
+	if(give_objectives && progression_enabled)
 		forge_traitor_objectives()
 
 	pick_employer()
