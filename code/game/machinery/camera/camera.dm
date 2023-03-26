@@ -48,11 +48,11 @@
 	/// A copy of the last paper object that was shown to this camera.
 	var/obj/item/paper/last_shown_paper
 
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/camera, 22, 0, 11, -11)
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/camera/autoname, 22, 0, 11, -11)
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/camera/emp_proof, 22, 0, 11, -11)
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/camera/motion, 22, 0, 11, -11)
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/camera/xray, 22, 0, 11, -11)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/camera, 35, -15, 25, -25)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/camera/autoname, 35, -15, 25, -25)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/camera/emp_proof, 35, -15, 25, -25)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/camera/motion, 35, -15, 25, -25)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/camera/xray, 35, -15, 25, -25)
 
 /obj/machinery/camera/preset/ordnance //Bomb test site in space
 	name = "Hardened Bomb-Test Camera"
