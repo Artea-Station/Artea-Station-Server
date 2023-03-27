@@ -1,22 +1,40 @@
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Icon, LabeledList, Section, Table } from '../components';
+import { Box, Button, Icon, LabeledList, NoticeBox, Section, StyleableSection, Table } from '../components';
 import { Window } from '../layouts';
 
 type CharacterData = {
-  name;
-  species;
-  is_victim;
-  erp_status;
-  character_ad;
-  ooc_notes;
-  flavor_text;
+  'name';
+  'species';
+  'ooc_notes';
+  'is_victim';
+  'erp_status';
+  'erp_orientation';
+  'erp_position';
+  'erp_non_con';
+  'brainwashing';
+  'borging';
+  'kidnapping';
+  'isolation';
+  'torture';
+  'death';
+  'flavor_text';
 };
 
 type Data = {
   other_players;
   erp_status;
   is_victim;
+};
+
+const MatchmakingCategory = (props, context) => {
+  return (
+    <StyleableSection
+      childStyle={{ 'border-left': '0.1666666667em solid #4972a1' }}
+      title={props.title}>
+      {props.children}
+    </StyleableSection>
+  );
 };
 
 export const MatchmakingPanel = (props, context) => {
@@ -54,10 +72,16 @@ export const MatchmakingPanel = (props, context) => {
 };
 
 const ViewCharacter = (props, context) => {
+  const { data } = useBackend<Data>(context);
   const [overlay, setOverlay] = useLocalState<CharacterData | null>(
     context,
     'overlay',
     null
+  );
+  const [overrideERPCheck, setOverrideERPCheck] = useLocalState<boolean>(
+    context,
+    'overrideERPCheck',
+    false
   );
 
   if (!overlay) {
@@ -77,12 +101,55 @@ const ViewCharacter = (props, context) => {
       <Section title="Species">
         <Box>{overlay.species}</Box>
       </Section>
-      <Section title="Can Be Victim">
-        <Box p={1}>{overlay.is_victim}</Box>
-      </Section>
-      <Section title="ERP Status">
-        <Box>{overlay.erp_status}</Box>
-      </Section>
+      <MatchmakingCategory title="ERP Preferences">
+        <Section title="ERP Status">
+          <Box>{overlay.erp_status}</Box>
+        </Section>
+        {data.erp_status !== 'No' && !overrideERPCheck ? (
+          <>
+            <Section title="ERP Orientation">
+              <Box>{overlay.erp_orientation}</Box>
+            </Section>
+            <Section title="ERP Position">
+              <Box>{overlay.erp_position}</Box>
+            </Section>
+            <Section title="ERP Non-Con">
+              <NoticeBox>
+                Remember, non-con should be performed in a private environment,
+                for the OOC comfort of others!
+              </NoticeBox>
+              <Box>{overlay.erp_non_con}</Box>
+            </Section>
+          </>
+        ) : (
+          <Button onClick={setOverrideERPCheck(true)}>Show ERP Prefs?</Button>
+        )}
+      </MatchmakingCategory>
+      <MatchmakingCategory title="General Content Preferences">
+        <Section title="Can Be Antag Objective">
+          <Box>{overlay.is_victim}</Box>
+        </Section>
+        <Section title="Can Be Borged">
+          <Box>{overlay.borging}</Box>
+        </Section>
+        <Section title="Can Be Isolated">
+          <NoticeBox>
+            This is stuff like locker welding, bolting, etc someone with no way
+            to interact with the outside world. See &quot;gay baby jailing&quot;
+            for an example.
+          </NoticeBox>
+          <Box>{overlay.isolation}</Box>
+        </Section>
+        <Section title="Can Be Kidnapped">
+          <Box>{overlay.kidnapping}</Box>
+        </Section>
+        <Section title="Can Be Brainwashed">
+          <Box>{overlay.brainwashing}</Box>
+        </Section>
+        <Section title="Can Be Killed For An Objective">
+          <Box>{overlay.death}</Box>
+        </Section>
+      </MatchmakingCategory>
       <Section title="OOC Notes">
         <Box style={{ 'word-break': 'break-all' }} preserveWhitespace>
           {overlay.ooc_notes || 'Unset.'}

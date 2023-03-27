@@ -76,12 +76,21 @@ GLOBAL_DATUM_INIT(matchmaking_panel, /datum/matchmaking_panel, new)
 		if(!name)
 			continue
 
-		directory_mobs.Add(list(list(
+		directory_mobs += list(list(
 			"name" = name,
 			"species" = species,
 			"ooc_notes" = client.prefs.read_preference(/datum/preference/text/inspection/ooc_notes),
 			"is_victim" = client.prefs.read_preference(/datum/preference/toggle/be_victim) ? "Yes" : "No",
 			"erp_status" = client.prefs.read_preference(/datum/preference/choiced/content/erp_status),
+			"erp_orientation" = client.prefs.read_preference(/datum/preference/choiced/content/erp_orientation),
+			"erp_position" = client.prefs.read_preference(/datum/preference/choiced/content/erp_position),
+			"erp_non_con" = client.prefs.read_preference(/datum/preference/choiced/content/erp_non_con),
+			"brainwashing" = client.prefs.read_preference(/datum/preference/choiced/content/brainwashing),
+			"borging" = client.prefs.read_preference(/datum/preference/choiced/content/borging),
+			"kidnapping" = client.prefs.read_preference(/datum/preference/choiced/content/kidnapping),
+			"isolation" = client.prefs.read_preference(/datum/preference/choiced/content/isolation),
+			"torture" = client.prefs.read_preference(/datum/preference/choiced/content/torture),
+			"death" = client.prefs.read_preference(/datum/preference/choiced/content/death),
 			"flavor_text" = flavor_text,
-		)))
+		))
 	return directory_mobs

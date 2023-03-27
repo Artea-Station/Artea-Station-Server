@@ -162,3 +162,7 @@
 #define PLAYTIME_HARDCORE_RANDOM 120 // 2 hours
 /// The time needed to unlock the gamer cloak in preferences
 #define PLAYTIME_VETERAN 300000 // 5,000 hours
+
+/// Checks given content preference, returns FALSE if the value is "No" or "Prefer Not".
+/// Not particularly performant, and arguably shitcode, so please don't use this inside large loops or hot procs.
+#define CONTENT_PREFERENCE_CHECK(pref_value) (#pref_value != "No" && #pref_value != "Prefer Not")
