@@ -310,6 +310,8 @@
 	unarmed_damage_low = 2
 	unarmed_damage_high = 15
 	unarmed_stun_threshold = 10
+	/// The type of the digitigrade limb that should replace this one.
+	var/digitigrade_type
 
 /obj/item/bodypart/leg/left
 	name = "left leg"

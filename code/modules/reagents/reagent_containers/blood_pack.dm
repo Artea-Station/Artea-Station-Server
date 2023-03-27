@@ -68,6 +68,11 @@
 /obj/item/reagent_containers/blood/universal
 	blood_type = "U"
 
+// I cannot wait to get rid of this. This is so many levels of awful wrapped into one. - Rimi
+/obj/item/reagent_containers/blood/oil
+	blood_type = "Oil"
+	unique_blood = /datum/reagent/fuel/oil
+
 /obj/item/reagent_containers/blood/attackby(obj/item/tool, mob/user, params)
 	if (istype(tool, /obj/item/pen) || istype(tool, /obj/item/toy/crayon))
 		if(!user.can_write(tool))

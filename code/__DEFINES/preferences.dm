@@ -166,3 +166,8 @@
 /// Checks given content preference, returns FALSE if the value is "No" or "Prefer Not".
 /// Not particularly performant, and arguably shitcode, so please don't use this inside large loops or hot procs.
 #define CONTENT_PREFERENCE_CHECK(pref_value) (#pref_value != "No" && #pref_value != "Prefer Not")
+
+// Synth brain preferences
+#define ORGAN_PREF_POSI_BRAIN "Positronic Brain"
+#define ORGAN_PREF_MMI_BRAIN "Man-Machine Interface"
+#define ORGAN_PREF_CIRCUIT_BRAIN "Circuitboard"

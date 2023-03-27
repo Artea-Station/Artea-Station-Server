@@ -67,12 +67,13 @@
 	var/obj/item/bodypart/limb = receiver.get_bodypart(deprecise_zone(zone))
 
 	if(!limb)
+		log_world("No limb found for [zone] | [src.name]")
 		return FALSE
 
 	. = ..()
 
 	if(!.)
-		return
+		return FALSE
 
 	if(bodypart_overlay.imprint_on_next_insertion) //We only want this set *once*
 

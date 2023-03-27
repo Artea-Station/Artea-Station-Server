@@ -1,4 +1,4 @@
-import { FeatureColorInput, Feature, FeatureChoiced, FeatureDropdownInput } from './base';
+import { FeatureColorInput, Feature, FeatureChoiced, FeatureDropdownInput, FeatureNumberInput, CheckboxInput } from './base';
 
 export const eye_color: Feature<string> = {
   name: 'Eye color',
@@ -78,4 +78,34 @@ export const feature_vampire_status: Feature<string> = {
 export const heterochromatic: Feature<string> = {
   name: 'Heterochromatic (Right Eye) color',
   component: FeatureColorInput,
+};
+
+export const ipc_antenna_color: Feature<string> = {
+  name: 'Synth Antenna Color',
+  component: FeatureColorInput,
+};
+
+export const synth_screen_color: Feature<string> = {
+  name: 'Synth Screen Color',
+  component: FeatureColorInput,
+};
+
+export const ipc_head_color: Feature<string> = {
+  name: 'Synth Head Color',
+  component: FeatureColorInput,
+};
+
+export const ipc_chassis_color: Feature<string> = {
+  name: 'Synth Chassis Color',
+  component: FeatureColorInput,
+};
+
+export const feature_hair_opacity: Feature<number> = {
+  name: 'Hair Opacity',
+  component: FeatureNumberInput,
+};
+
+export const feature_hair_opacity_toggle: Feature<boolean> = {
+  name: 'Custom Hair Opacity',
+  component: CheckboxInput,
 };
