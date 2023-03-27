@@ -162,3 +162,16 @@
 		"No",
 		"Unset",
 	)
+
+/datum/preference/choiced/content/round_removal
+	savefile_key = "content_round_removal"
+	default_value = "Unset"
+
+/datum/preference/choiced/content/round_removal/init_possible_values()
+	return list(
+		"Liked",
+		"Yes",
+		"Prefer Not",
+		"No",
+		"Unset",
+	)

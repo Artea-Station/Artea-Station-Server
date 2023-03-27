@@ -4,21 +4,22 @@ import { Box, Button, Icon, LabeledList, NoticeBox, Section, StyleableSection, T
 import { Window } from '../layouts';
 
 type CharacterData = {
-  'name';
-  'species';
-  'ooc_notes';
-  'is_victim';
-  'erp_status';
-  'erp_orientation';
-  'erp_position';
-  'erp_non_con';
-  'brainwashing';
-  'borging';
-  'kidnapping';
-  'isolation';
-  'torture';
-  'death';
-  'flavor_text';
+  name;
+  species;
+  ooc_notes;
+  is_victim;
+  erp_status;
+  erp_orientation;
+  erp_position;
+  erp_non_con;
+  brainwashing;
+  borging;
+  kidnapping;
+  isolation;
+  torture;
+  death;
+  round_removal;
+  flavor_text;
 };
 
 type Data = {
@@ -148,6 +149,13 @@ const ViewCharacter = (props, context) => {
         </Section>
         <Section title="Can Be Killed For An Objective">
           <Box>{overlay.death}</Box>
+        </Section>
+        <Section title="Can Be Round Removed">
+          <NoticeBox>
+            This means cremating, beheading and hiding the brain, and other such
+            ways of ensuring someone cannot return to the round.
+          </NoticeBox>
+          <Box>{overlay.round_removal}</Box>
         </Section>
       </MatchmakingCategory>
       <Section title="OOC Notes">

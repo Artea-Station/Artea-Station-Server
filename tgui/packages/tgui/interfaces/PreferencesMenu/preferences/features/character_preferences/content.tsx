@@ -69,3 +69,10 @@ export const content_death: Feature<string> = {
     'Whether you want to be, or are fine with being killed as part of an antag objective. Be aware that this does !!NOT!! protect antagonists from killing you as part of a broader plan, or in collateral. This just protects you from being explicitly labeled to be killed.',
   component: FeatureDropdownInput,
 };
+
+export const content_round_removal: Feature<string> = {
+  name: 'Round Removal',
+  description:
+    "Whether you want to be, or are fine with being round removed by players. Do note that there are of course, certain situations which can result in round removals due to TG's mechanics, which cannot be helped.",
+  component: FeatureDropdownInput,
+};

@@ -91,6 +91,7 @@ GLOBAL_DATUM_INIT(matchmaking_panel, /datum/matchmaking_panel, new)
 			"isolation" = client.prefs.read_preference(/datum/preference/choiced/content/isolation),
 			"torture" = client.prefs.read_preference(/datum/preference/choiced/content/torture),
 			"death" = client.prefs.read_preference(/datum/preference/choiced/content/death),
+			"round_removal" = client.prefs.read_preference(/datum/preference/choiced/content/round_removal),
 			"flavor_text" = flavor_text,
 		))
 	return directory_mobs
