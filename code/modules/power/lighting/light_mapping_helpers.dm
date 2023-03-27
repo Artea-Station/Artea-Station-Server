@@ -93,65 +93,65 @@
 
 // -------- Directional presets
 // The directions are backwards on the lights we have now
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light, 23, 0, 12, -12)
 
 // ---- Broken tube
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/broken, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/broken, 23, 0, 12, -12)
 
 // ---- Tube construct
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/structure/light_construct, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/structure/light_construct, 23, 0, 12, -12)
 
 // ---- Tube frames
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/built, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/built, 23, 0, 12, -12)
 
 // ---- No nightlight tubes
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/no_nightlight, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/no_nightlight, 23, 0, 12, -12)
 
 // ---- Warm light tubes
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/warm, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/warm, 23, 0, 12, -12)
 
 // ---- No nightlight warm light tubes
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/warm/no_nightlight, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/warm/no_nightlight, 23, 0, 12, -12)
 
 // ---- Cold light tubes
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/cold, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/cold, 23, 0, 12, -12)
 
 // ---- No nightlight cold light tubes
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/cold/no_nightlight, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/cold/no_nightlight, 23, 0, 12, -12)
 
 // ---- Red tubes
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/red, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/red, 23, 0, 12, -12)
 
 // ---- Red dim tubes
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/red/dim, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/red/dim, 23, 0, 12, -12)
 
 // ---- Blacklight tubes
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/blacklight, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/blacklight, 23, 0, 12, -12)
 
 // ---- Dim tubes
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/dim, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/dim, 23, 0, 12, -12)
 
 
 // -------- Bulb lights
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small, 23, 0, 12, -12)
 
 // ---- Bulb construct
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/structure/light_construct/small, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/structure/light_construct/small, 23, 0, 12, -12)
 
 // ---- Bulb frames
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/built, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/built, 23, 0, 12, -12)
 
 // ---- Broken bulbs
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/broken, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/broken, 23, 0, 12, -12)
 
 // ---- Red bulbs
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/red, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/red, 23, 0, 12, -12)
 
 // ---- Red dim bulbs
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/red/dim, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/red/dim, 23, 0, 12, -12)
 
 // ---- Blacklight bulbs
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/blacklight, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/blacklight, 23, 0, 12, -12)
 
 // ---- Maintenance bulbs
-MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/maintenance, 37, -16, 15, -15)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light/small/maintenance, 23, 0, 12, -12)
