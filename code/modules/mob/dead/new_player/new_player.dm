@@ -38,6 +38,7 @@
 
 /mob/dead/new_player/prepare_huds()
 	return
+
 /mob/dead/new_player/Topic(href, href_list[])
 	if(src != usr)
 		return
