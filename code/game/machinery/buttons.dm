@@ -63,10 +63,8 @@
 		. += "doorctrl_assembly-emagged"
 		. += emissive_appearance(icon, "doorctrl_assembly-emagged")
 	else if(length(req_access))
-		. += "doorctrl_assembly-is_id"
 		. += emissive_appearance(icon, "doorctrl_assembly-is_id_em")
 	else
-		. += "doorctrl_assembly-no_id"
 		. += emissive_appearance(icon, "doorctrl_assembly-no_id_em")
 
 /obj/machinery/button/screwdriver_act(mob/living/user, obj/item/tool)
