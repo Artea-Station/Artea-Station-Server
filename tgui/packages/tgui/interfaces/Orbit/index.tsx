@@ -59,8 +59,9 @@ const ObservableSearch = (props, context) => {
     /** Returns the most orbited observable that matches the search. */
     const mostRelevant: Observable = flow([
       // Filters out anything that doesn't match search
-      filter<Observable>((observable) =>
-        observable.name?.toLowerCase().includes(searchQuery?.toLowerCase())
+      filter<Observable>(
+        (observable) =>
+          !!observable.name?.toLowerCase().includes(searchQuery?.toLowerCase())
       ),
       // Sorts descending by orbiters
       sortBy<Observable>((poi) => -(poi.orbiters || 0)),
@@ -188,8 +189,8 @@ const ObservableSection = (
     ''
   );
   const filteredSection: Observable[] = flow([
-    filter<Observable>((poi) =>
-      poi.name?.toLowerCase().includes(searchQuery?.toLowerCase())
+    filter<Observable>(
+      (poi) => !!poi.name?.toLowerCase().includes(searchQuery?.toLowerCase())
     ),
     sortBy<Observable>((observable) =>
       getDisplayName(observable.full_name, observable.name)
