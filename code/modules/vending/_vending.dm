@@ -825,20 +825,20 @@ GLOBAL_LIST_EMPTY(vending_products)
 /obj/machinery/vending/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	if(!istype(W))
 		return FALSE
-	if((flags_1 & NODECONSTRUCT_1) && !W.works_from_distance)
+	if((flags_1 & NODECONSTRUCT_1) && !W.ignores_panel)
 		return FALSE
 	if(!component_parts || !refill_canister)
 		return FALSE
 
 	var/moved = 0
-	if(panel_open || W.works_from_distance)
-		if(W.works_from_distance)
-			display_parts(user)
+	if(panel_open || W.ignores_panel)
+		if(W.ignores_panel)
+			to_chat(user, display_parts(user))
 		for(var/I in W)
 			if(istype(I, refill_canister))
 				moved += restock(I)
 	else
-		display_parts(user)
+		to_chat(user, display_parts(user))
 	if(moved)
 		to_chat(user, span_notice("[moved] items restocked."))
 		W.play_rped_sound()

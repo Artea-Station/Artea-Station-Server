@@ -89,11 +89,11 @@
 
 /obj/item/storage/box/stockparts/deluxe/PopulateContents()
 	var/static/items_inside = list(
-		/obj/item/stock_parts/capacitor/quadratic = 3,
-		/obj/item/stock_parts/scanning_module/triphasic = 3,
-		/obj/item/stock_parts/manipulator/femto = 3,
-		/obj/item/stock_parts/micro_laser/quadultra = 3,
-		/obj/item/stock_parts/matter_bin/bluespace = 3,
+		/obj/item/stock_parts/capacitor/super = 3,
+		/obj/item/stock_parts/scanning_module/phasic = 3,
+		/obj/item/stock_parts/manipulator/pico = 3,
+		/obj/item/stock_parts/micro_laser/ultra = 3,
+		/obj/item/stock_parts/matter_bin/super = 3,
 		)
 	generate_items_inside(items_inside,src)
 

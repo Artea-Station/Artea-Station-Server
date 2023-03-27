@@ -16,6 +16,7 @@ export enum Food {
   Junkfood = 'JUNKFOOD',
   Meat = 'MEAT',
   Nuts = 'NUTS',
+  Oranges = 'ORANGES',
   Pineapple = 'PINEAPPLE',
   Raw = 'RAW',
   Seafood = 'SEAFOOD',
@@ -130,6 +131,8 @@ export type PreferencesMenuData = {
     clothing: Record<string, string>;
 
     other: Record<string, string>;
+
+    inspection_list: Record<string, string>;
 
     game_preferences: Record<string, unknown>;
     non_contextual: {

@@ -308,6 +308,8 @@
 		ACCESS_RC_ANNOUNCE,
 		ACCESS_TCOMMS,
 		ACCESS_TECH_STORAGE,
+		ACCESS_ROBOTICS,
+		ACCESS_SCIENCE,
 		)
 	minimal_wildcard_access = list(
 		ACCESS_CE,
@@ -834,7 +836,7 @@
 	template_access = list(
 		ACCESS_CAPTAIN,
 		ACCESS_CHANGE_IDS,
-		ACCESS_RD,
+		ACCESS_CE,
 		)
 	job = /datum/job/roboticist
 

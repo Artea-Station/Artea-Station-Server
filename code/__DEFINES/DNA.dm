@@ -90,6 +90,10 @@
 #define NO_TONGUE 20
 #define NOAPPENDIX 21
 
+#define REVIVES_BY_HEALING 24
+#define ROBOTIC_LIMBS 25
+#define ROBOTIC_DNA_ORGANS 26
+
 //organ slots
 #define ORGAN_SLOT_ADAMANTINE_RESONATOR "adamantine_resonator"
 #define ORGAN_SLOT_APPENDIX "appendix"

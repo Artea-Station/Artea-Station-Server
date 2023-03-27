@@ -7,7 +7,7 @@ import { resolveAsset } from '../../assets';
 import { BooleanLike } from 'common/react';
 import { Box, Tabs, Button, Stack, Section, Tooltip } from '../../components';
 import { Objective, ObjectiveMenu } from './ObjectiveMenu';
-import { calculateProgression, calculateReputationLevel, reputationDefault, reputationLevelsTooltip } from './calculateReputationLevel';
+import { calculateProgression, calculateReputationLevel, reputationLevelsTooltip } from './calculateReputationLevel';
 
 type UplinkItem = {
   id: string;
@@ -244,62 +244,63 @@ export class Uplink extends Component<{}, UplinkState> {
                     </Box>
                   </Stack.Item>
                   <Stack.Item align="center">
-                    <Box bold fontSize={1.2}>
-                      <Tooltip
-                        content={
-                          (!!has_progression && (
-                            <Box>
+                    {!!has_progression && (
+                      <Box bold fontSize={1.2}>
+                        <Tooltip
+                          content={
+                            (
                               <Box>
-                                Your current level of reputation.&nbsp;
-                                Reputation determines what quality of objective
-                                you get and what items you can purchase.&nbsp;
-                                <Box mt={0.5}>
-                                  {/* A minute in deciseconds */}
-                                  Reputation passively increases by{' '}
-                                  <Box color="green" as="span">
-                                    {calculateProgression(
-                                      current_progression_scaling
-                                    )}
-                                  </Box>
-                                  &nbsp;every minute
-                                </Box>
-                                {Math.abs(progressionPercentage) > 0 && (
+                                <Box>
+                                  Your current level of reputation.&nbsp;
+                                  Reputation determines what quality of
+                                  objective you get and what items you can
+                                  purchase.&nbsp;
                                   <Box mt={0.5}>
-                                    Because your reputation is{' '}
-                                    {progressionPercentage < 0
-                                      ? 'ahead '
-                                      : 'behind '}
-                                    of where it should be, you are getting
-                                    <Box
-                                      as="span"
-                                      color={
-                                        progressionPercentage < 0
-                                          ? 'red'
-                                          : 'green'
-                                      }
-                                      ml={1}
-                                      mr={1}>
-                                      {progressionPercentage}%
+                                    {/* A minute in deciseconds */}
+                                    Reputation passively increases by{' '}
+                                    <Box color="green" as="span">
+                                      {calculateProgression(
+                                        current_progression_scaling
+                                      )}
                                     </Box>
-                                    {progressionPercentage < 0
-                                      ? 'less'
-                                      : 'more'}{' '}
-                                    reputation every minute
+                                    &nbsp;every minute
                                   </Box>
-                                )}
-                                {reputationLevelsTooltip}
+                                  {Math.abs(progressionPercentage) > 0 && (
+                                    <Box mt={0.5}>
+                                      Because your reputation is{' '}
+                                      {progressionPercentage < 0
+                                        ? 'ahead '
+                                        : 'behind '}
+                                      of where it should be, you are getting
+                                      <Box
+                                        as="span"
+                                        color={
+                                          progressionPercentage < 0
+                                            ? 'red'
+                                            : 'green'
+                                        }
+                                        ml={1}
+                                        mr={1}>
+                                        {progressionPercentage}%
+                                      </Box>
+                                      {progressionPercentage < 0
+                                        ? 'less'
+                                        : 'more'}{' '}
+                                      reputation every minute
+                                    </Box>
+                                  )}
+                                  {reputationLevelsTooltip}
+                                </Box>
                               </Box>
-                            </Box>
-                          )) ||
-                          'Your current level of reputation. You are a respected elite and do not need to improve your reputation.'
-                        }>
-                        {/* If we have no progression,
+                            ) ||
+                            'Your current level of reputation. You are a respected elite and do not need to improve your reputation.'
+                          }>
+                          {/* If we have no progression,
                       just give them a generic title */}
-                        {has_progression
-                          ? calculateReputationLevel(progression_points, false)
-                          : calculateReputationLevel(reputationDefault, false)}
-                      </Tooltip>
-                    </Box>
+                          {calculateReputationLevel(progression_points, false)}
+                        </Tooltip>
+                      </Box>
+                    )}
                     <Box color="good" bold fontSize={1.2} textAlign="right">
                       {telecrystals} TC
                     </Box>

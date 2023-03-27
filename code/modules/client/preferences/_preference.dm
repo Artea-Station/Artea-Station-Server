@@ -356,6 +356,19 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// A color to apply to the icon if it's greyscale, and `generate_icons` is enabled.
 	var/greyscale_color
 
+/// Automatically handles generating icon states and values for mutant parts.
+/datum/preference/choiced/proc/generate_mutant_valid_values(list/accessories, dir = SOUTH)
+	var/list/data = list()
+
+	for(var/datum/sprite_accessory/accessory as anything in accessories)
+		accessory = accessories[accessory]
+		if(!accessory)
+			continue
+
+		data[initial(accessory.name)] = generate_icon(accessory, dir)
+
+	return data
+
 /// Allows for dynamic assigning of icon states.
 /datum/preference/choiced/proc/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state)
 	return original_icon_state
@@ -567,5 +580,28 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /datum/preference/toggle/is_valid(value)
 	return value == TRUE || value == FALSE
+
+/// A string-based preference accepting arbitrary string values entered by the user, with a maximum length.
+/datum/preference/text
+	abstract_type = /datum/preference/text
+
+	/// What is the maximum length of the value allowed in this field?
+	var/maximum_value_length = 256
+
+	/// Should we strip HTML the input or simply restrict it to the maximum_value_length?
+	var/should_strip_html = TRUE
+
+
+/datum/preference/text/deserialize(input, datum/preferences/preferences)
+	return should_strip_html ? STRIP_HTML_SIMPLE(input, maximum_value_length) : copytext(input, 1, maximum_value_length)
+
+/datum/preference/text/create_default_value()
+	return ""
+
+/datum/preference/text/is_valid(value)
+	return istext(value) && length(value) < maximum_value_length
+
+/datum/preference/text/compile_constant_data()
+	return list("maximum_length" = maximum_value_length)
 
 #undef REQUIRED_CROP_LIST_SIZE
