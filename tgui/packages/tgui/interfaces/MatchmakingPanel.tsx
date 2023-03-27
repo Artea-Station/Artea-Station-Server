@@ -1,6 +1,7 @@
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Icon, LabeledList, NoticeBox, Section, StyleableSection, Table } from '../components';
+import { TableCell, TableRow } from '../components/Table';
 import { Window } from '../layouts';
 
 type CharacterData = {
@@ -26,15 +27,27 @@ type Data = {
   other_players;
   erp_status;
   is_victim;
+  ref_to_load?;
 };
 
-const MatchmakingCategory = (props, context) => {
-  return (
-    <StyleableSection
-      childStyle={{ 'border-left': '0.1666666667em solid #4972a1' }}
-      title={props.title}>
+const MatchmakingEntry = (props, context) => {
+  return props.small ? (
+    <TableCell
+      width="15rem"
+      style={{
+        'border-bottom': '0.1666666667em solid #4972a1',
+        'padding': '0.5rem',
+      }}>
       {props.children}
-    </StyleableSection>
+    </TableCell>
+  ) : (
+    <TableCell
+      style={{
+        'border-bottom': '0.1666666667em solid #4972a1',
+        'padding': '0.5rem',
+      }}>
+      {props.children}
+    </TableCell>
   );
 };
 
@@ -43,7 +56,20 @@ export const MatchmakingPanel = (props, context) => {
 
   const { is_victim, erp_status } = data;
 
-  const [overlay] = useLocalState(context, 'overlay', null);
+  const [overlay, setOverlay] = useLocalState<CharacterData | null>(
+    context,
+    'overlay',
+    null
+  );
+
+  if (data.ref_to_load) {
+    const foundEntries = data.other_players.filter(
+      (entry) => entry.ref === data.ref_to_load
+    );
+    if (foundEntries.length) {
+      setOverlay(foundEntries[0]);
+    }
+  }
 
   return (
     <Window width={640} height={480} resizeable>
@@ -102,71 +128,104 @@ const ViewCharacter = (props, context) => {
       <Section title="Species">
         <Box>{overlay.species}</Box>
       </Section>
-      <MatchmakingCategory title="ERP Preferences">
-        <Section title="ERP Status">
-          <Box>{overlay.erp_status}</Box>
-        </Section>
-        {data.erp_status !== 'No' && !overrideERPCheck ? (
-          <>
-            <Section title="ERP Orientation">
-              <Box>{overlay.erp_orientation}</Box>
-            </Section>
-            <Section title="ERP Position">
-              <Box>{overlay.erp_position}</Box>
-            </Section>
-            <Section title="ERP Non-Con">
-              <NoticeBox>
-                Remember, non-con should be performed in a private environment,
-                for the OOC comfort of others!
-              </NoticeBox>
-              <Box>{overlay.erp_non_con}</Box>
-            </Section>
-          </>
-        ) : (
-          <Button onClick={setOverrideERPCheck(true)}>Show ERP Prefs?</Button>
-        )}
-      </MatchmakingCategory>
-      <MatchmakingCategory title="General Content Preferences">
-        <Section title="Can Be Antag Objective">
-          <Box>{overlay.is_victim}</Box>
-        </Section>
-        <Section title="Can Be Borged">
-          <Box>{overlay.borging}</Box>
-        </Section>
-        <Section title="Can Be Isolated">
-          <NoticeBox>
-            This is stuff like locker welding, bolting, etc someone with no way
-            to interact with the outside world. See &quot;gay baby jailing&quot;
-            for an example.
-          </NoticeBox>
-          <Box>{overlay.isolation}</Box>
-        </Section>
-        <Section title="Can Be Kidnapped">
-          <Box>{overlay.kidnapping}</Box>
-        </Section>
-        <Section title="Can Be Brainwashed">
-          <Box>{overlay.brainwashing}</Box>
-        </Section>
-        <Section title="Can Be Killed For An Objective">
-          <Box>{overlay.death}</Box>
-        </Section>
-        <Section title="Can Be Round Removed">
-          <NoticeBox>
-            This means cremating, beheading and hiding the brain, and other such
-            ways of ensuring someone cannot return to the round.
-          </NoticeBox>
-          <Box>{overlay.round_removal}</Box>
-        </Section>
-      </MatchmakingCategory>
       <Section title="OOC Notes">
-        <Box style={{ 'word-break': 'break-all' }} preserveWhitespace>
-          {overlay.ooc_notes || 'Unset.'}
-        </Box>
+        <Box preserveWhitespace>{overlay.ooc_notes || 'Unset.'}</Box>
       </Section>
       <Section title="Broad Inspection Text">
-        <Box style={{ 'word-break': 'break-all' }} preserveWhitespace>
-          {overlay.flavor_text || 'Unset.'}
-        </Box>
+        <Box preserveWhitespace>{overlay.flavor_text || 'Unset.'}</Box>
+      </Section>
+      <Section title="Preferences">
+        <StyleableSection title="ERP" textStyle={{ 'color': '#dddddd' }}>
+          <Table style={{ 'table-layout': 'fixed' }} id="erp_table">
+            <TableRow>
+              <MatchmakingEntry small>Status</MatchmakingEntry>
+              <MatchmakingEntry>{overlay.erp_status}</MatchmakingEntry>
+            </TableRow>
+
+            {data.erp_status !== 'No' || overrideERPCheck ? (
+              <>
+                <TableRow>
+                  <MatchmakingEntry small>Orientation</MatchmakingEntry>
+                  <MatchmakingEntry>{overlay.erp_orientation}</MatchmakingEntry>
+                </TableRow>
+                <TableRow>
+                  <MatchmakingEntry small>Position</MatchmakingEntry>
+                  <MatchmakingEntry>{overlay.erp_position}</MatchmakingEntry>
+                </TableRow>
+                <TableRow>
+                  <MatchmakingEntry small>Non-Con</MatchmakingEntry>
+                  <MatchmakingEntry>
+                    <NoticeBox>
+                      Remember, non-con should be performed in a private
+                      environment, for the OOC comfort of others!
+                    </NoticeBox>
+                    {overlay.erp_non_con}
+                  </MatchmakingEntry>
+                </TableRow>
+              </>
+            ) : (
+              <TableRow>
+                <MatchmakingEntry>
+                  <Button
+                    onClick={() => setOverrideERPCheck(true)}
+                    content="Show ERP Prefs?"
+                  />
+                </MatchmakingEntry>
+                <MatchmakingEntry />
+              </TableRow>
+            )}
+          </Table>
+        </StyleableSection>
+        <StyleableSection
+          title="General Content"
+          textStyle={{ 'color': '#dddddd' }}>
+          <Table style={{ 'table-layout': 'fixed' }}>
+            <TableRow>
+              <MatchmakingEntry small>Can Be Antag Objective</MatchmakingEntry>
+              <MatchmakingEntry>{overlay.is_victim}</MatchmakingEntry>
+            </TableRow>
+            <TableRow>
+              <MatchmakingEntry small>Can Be Borged</MatchmakingEntry>
+              <MatchmakingEntry>{overlay.borging}</MatchmakingEntry>
+            </TableRow>
+            <TableRow>
+              <MatchmakingEntry small>Can Be Isolated</MatchmakingEntry>
+              <MatchmakingEntry>
+                <NoticeBox>
+                  This is stuff like locker welding, bolting, etc someone with
+                  no way to interact with the outside world. See &quot;gay baby
+                  jailing&quot; for an example.
+                </NoticeBox>
+                {overlay.isolation}
+              </MatchmakingEntry>
+            </TableRow>
+            <TableRow>
+              <MatchmakingEntry small>Can Be Kidnapped</MatchmakingEntry>
+              <MatchmakingEntry>{overlay.kidnapping}</MatchmakingEntry>
+            </TableRow>
+            <TableRow>
+              <MatchmakingEntry small>Can Be Brainwashed</MatchmakingEntry>
+              <MatchmakingEntry>{overlay.brainwashing}</MatchmakingEntry>
+            </TableRow>
+            <TableRow>
+              <MatchmakingEntry>
+                Can Be Killed For An Objective
+              </MatchmakingEntry>
+              <MatchmakingEntry>{overlay.death}</MatchmakingEntry>
+            </TableRow>
+            <TableRow>
+              <MatchmakingEntry small>Can Be Round Removed</MatchmakingEntry>
+              <MatchmakingEntry>
+                <NoticeBox>
+                  This means cremating, beheading and hiding the brain, and
+                  other such ways of ensuring someone cannot return to the
+                  round.
+                </NoticeBox>
+                {overlay.round_removal}
+              </MatchmakingEntry>
+            </TableRow>
+          </Table>
+        </StyleableSection>
       </Section>
     </Section>
   );

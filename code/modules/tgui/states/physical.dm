@@ -53,3 +53,20 @@ GLOBAL_DATUM_INIT(physical_obscured_state, /datum/ui_state/physical_obscured_sta
 
 /mob/living/silicon/ai/physical_obscured_can_use_topic(src_object)
 	return UI_UPDATE // AIs are not physical.
+
+/**
+ * tgui state: physical_obscured_state
+ *
+ * Short-circuits the default state to only check physical distance, being in view doesn't matter. Doesn't tell the window to close
+ */
+
+GLOBAL_DATUM_INIT(physical_obscured_no_close_state, /datum/ui_state/physical_obscured_no_close_state, new)
+
+/datum/ui_state/physical_obscured_no_close_state/can_use_topic(src_object, mob/user)
+	. = user.shared_ui_interaction(src_object)
+	if(. == UI_CLOSE)
+		. = UI_DISABLED
+
+	if(. > UI_DISABLED)
+		var/state = user.physical_obscured_can_use_topic(src_object)
+		return min(., state == UI_CLOSE ? UI_DISABLED : state)

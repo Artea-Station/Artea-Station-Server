@@ -1,6 +1,6 @@
 import { classes } from 'common/react';
 import { sendAct, useBackend } from '../../backend';
-import { Autofocus, Box, Button, Flex, LabeledList, Popper, Stack, TrackOutsideClicks } from '../../components';
+import { Autofocus, Box, Button, Flex, LabeledList, Popper, Stack, Tooltip, TrackOutsideClicks } from '../../components';
 import { PreferencesMenuData } from './data';
 import features from './preferences/features';
 import { FeatureChoicedServerData, FeatureValueInput } from './preferences/features/base';
@@ -231,16 +231,31 @@ export const PreferenceList = (props: {
               key={featureId}
               label={feature.name}
               verticalAlign="middle">
-              <Stack fill>
-                <Stack.Item grow>
-                  <FeatureValueInput
-                    act={props.act}
-                    feature={feature}
-                    featureId={featureId}
-                    value={value}
-                  />
-                </Stack.Item>
-              </Stack>
+              {feature.description ? (
+                <Tooltip content={<Box>{feature.description}</Box>}>
+                  <Stack fill>
+                    <Stack.Item grow>
+                      <FeatureValueInput
+                        act={props.act}
+                        feature={feature}
+                        featureId={featureId}
+                        value={value}
+                      />
+                    </Stack.Item>
+                  </Stack>
+                </Tooltip>
+              ) : (
+                <Stack fill>
+                  <Stack.Item grow>
+                    <FeatureValueInput
+                      act={props.act}
+                      feature={feature}
+                      featureId={featureId}
+                      value={value}
+                    />
+                  </Stack.Item>
+                </Stack>
+              )}
             </LabeledList.Item>
           );
         })}

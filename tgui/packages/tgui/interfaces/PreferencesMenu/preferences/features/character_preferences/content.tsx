@@ -73,6 +73,6 @@ export const content_death: Feature<string> = {
 export const content_round_removal: Feature<string> = {
   name: 'Round Removal',
   description:
-    "Whether you want to be, or are fine with being round removed by players. Do note that there are of course, certain situations which can result in round removals due to TG's mechanics, which cannot be helped.",
+    'Whether you want to be, or are fine with being round removed by players. Do note that there are of course, certain situations which can result in round removals due to game mechanics, which cannot be helped in certain situations.',
   component: FeatureDropdownInput,
 };

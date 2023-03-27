@@ -291,8 +291,7 @@ export const IndexPage = (context, parentContext) => {
                   <BigPageButton
                     page={Page.OOC}
                     setPage={setCurrentPage}
-                    tooltip="Information related to you, the player!"
-                    tooltipPosition="bottom">
+                    tooltip="Information related to you, the player!">
                     OOC
                   </BigPageButton>
                 </Stack.Item>

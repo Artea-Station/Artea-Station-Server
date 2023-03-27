@@ -3,6 +3,8 @@ GLOBAL_LIST_EMPTY(matchmaking_other_players)
 GLOBAL_DATUM_INIT(matchmaking_panel, /datum/matchmaking_panel, new)
 
 /datum/matchmaking_panel
+	/// Set this var if you want to load someone's data on next open. Use the \ref macro. Open the UI immediately after setting.
+	var/ref_to_load
 
 /datum/matchmaking_panel/ui_state(mob/user)
 	return GLOB.always_state
@@ -78,6 +80,7 @@ GLOBAL_DATUM_INIT(matchmaking_panel, /datum/matchmaking_panel, new)
 
 		directory_mobs += list(list(
 			"name" = name,
+			"ref" = "\ref[client.mob]",
 			"species" = species,
 			"ooc_notes" = client.prefs.read_preference(/datum/preference/text/inspection/ooc_notes),
 			"is_victim" = client.prefs.read_preference(/datum/preference/toggle/be_victim) ? "Yes" : "No",
