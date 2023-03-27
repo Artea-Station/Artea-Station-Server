@@ -38,6 +38,23 @@
 
 /mob/dead/new_player/prepare_huds()
 	return
+/mob/dead/new_player/Topic(href, href_list[])
+	if(src != usr)
+		return
+
+	if(!client)
+		return
+
+	if(client.interviewee)
+		return FALSE
+
+	if(href_list["viewpoll"])
+		var/datum/poll_question/poll = locate(href_list["viewpoll"]) in GLOB.polls
+		poll_player(poll)
+
+	if(href_list["votepollref"])
+		var/datum/poll_question/poll = locate(href_list["votepollref"]) in GLOB.polls
+		vote_on_poll_handler(poll, href_list)
 
 //When you cop out of the round (NB: this HAS A SLEEP FOR PLAYER INPUT IN IT)
 /mob/dead/new_player/proc/make_me_an_observer()
