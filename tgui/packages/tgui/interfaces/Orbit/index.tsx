@@ -4,7 +4,7 @@ import { capitalizeFirst, multiline } from 'common/string';
 import { useBackend, useLocalState } from 'tgui/backend';
 import { Button, Collapsible, Icon, Input, LabeledList, NoticeBox, Section, Stack } from 'tgui/components';
 import { Window } from 'tgui/layouts';
-import { collateAntagonists, getDisplayColor, getDisplayName, isJobOrNameMatch } from './helpers';
+import { collateAntagonists, getDisplayColor, getDisplayName } from './helpers';
 import { ANTAG2COLOR } from './constants';
 import { JobToIcon } from '../common/JobToIcon';
 import type { AntagGroup, Observable, OrbitData } from './types';
