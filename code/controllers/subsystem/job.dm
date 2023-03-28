@@ -878,7 +878,7 @@ SUBSYSTEM_DEF(job)
 		return JOB_UNAVAILABLE_GENERIC
 
 	for(var/content_preference in subtypesof(/datum/preference/choiced/content))
-		if(player.client.prefs.read_preference(content_preference) == "Unset")
+		if(player.client.prefs.read_preference(content_preference) == "Unset" && !is_admin(player.client))
 			JobDebug("[debug_prefix] Error: [get_job_unavailable_error_message(JOB_UNAVAILABLE_CONTENT_PREFS_UNSET)], Player: [player][add_job_to_log ? ", Job: [possible_job]" : ""]")
 			return JOB_UNAVAILABLE_CONTENT_PREFS_UNSET
 
