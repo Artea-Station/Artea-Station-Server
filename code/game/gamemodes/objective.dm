@@ -14,8 +14,10 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/martyr_compatible = FALSE //If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 	///can this be granted by admins?
 	var/admin_grantable = FALSE
-	/// List of preference datums to read, with the value to return false on if it matches.
-	var/list/preferences_to_respect = list()
+	/// List of preference datums to read, with the value to block antagonism on if it matches.
+	var/list/preferences_to_respect = list(
+		/datum/preference/toggle/be_victim = TRUE,
+	)
 
 /datum/objective/New(text)
 	if(text)
@@ -204,6 +206,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	martyr_compatible = TRUE
 	admin_grantable = TRUE
 	preferences_to_respect = list(
+		/datum/preference/toggle/be_victim = TRUE,
 		/datum/preference/choiced/content/death = "Prefer Not",
 	)
 	var/target_role_type = FALSE
@@ -245,6 +248,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	martyr_compatible = TRUE
 	admin_grantable = TRUE
 	preferences_to_respect = list(
+		/datum/preference/toggle/be_victim = TRUE,
 		/datum/preference/choiced/content/death = "Prefer Not",
 		/datum/preference/choiced/content/isolation = "No",
 	)
@@ -745,6 +749,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	name = "absorb"
 	admin_grantable = TRUE
 	preferences_to_respect = list(
+		/datum/preference/toggle/be_victim = TRUE,
 		/datum/preference/choiced/content/death = "Prefer Not",
 	)
 
@@ -813,6 +818,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	name = "absorb changeling"
 	explanation_text = "Absorb another Changeling."
 	preferences_to_respect = list(
+		/datum/preference/toggle/be_victim = TRUE,
 		/datum/preference/choiced/content/death = "Prefer Not",
 	)
 
@@ -839,6 +845,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	name = "destroy AI"
 	martyr_compatible = TRUE
 	preferences_to_respect = list(
+		/datum/preference/toggle/be_victim = TRUE,
 		/datum/preference/choiced/content/death = "Prefer Not",
 	)
 
