@@ -38,7 +38,6 @@
 		STOP_PROCESSING(SSobj, src)
 		CRASH("A fake nuke disk tried to call process(). Who the fuck and how the fuck")
 
-	var/turf/new_turf = get_turf(src)
 	/// How comfy is our disk?
 	var/disk_comfort_level = 0
 
