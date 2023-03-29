@@ -15,7 +15,7 @@
 
 /datum/round_event/market_crash/setup()
 	start_when = 1
-	end_when = rand(25, 50)
+	end_when = rand(100, 200)
 	announce_when = 2
 
 /datum/round_event/market_crash/announce(fake)

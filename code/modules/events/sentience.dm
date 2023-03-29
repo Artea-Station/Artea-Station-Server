@@ -29,18 +29,6 @@ GLOBAL_LIST_INIT(high_priority_sentience, typecacheof(list(
 	role_name = "random animal"
 	var/animals = 1
 	var/one = "one"
-	fakeable = TRUE
-
-/datum/round_event/ghost_role/sentience/announce(fake)
-	var/sentience_report = ""
-
-	var/data = pick("scans from our long-range sensors", "our sophisticated probabilistic models", "our omnipotence", "the communications traffic on your station", "energy emissions we detected", "\[REDACTED\]")
-	var/pets = pick("animals/bots", "bots/animals", "pets", "simple animals", "lesser lifeforms", "\[REDACTED\]")
-	var/strength = pick("human", "moderate", "lizard", "security", "command", "clown", "low", "very low", "\[REDACTED\]")
-
-	sentience_report += "Based on [data], we believe that [one] of the station's [pets] has developed [strength] level intelligence, and the ability to communicate."
-
-	priority_announce(sentience_report,"[command_name()] Medium-Priority Update")
 
 /datum/round_event/ghost_role/sentience/spawn_role()
 	var/list/mob/dead/observer/candidates
