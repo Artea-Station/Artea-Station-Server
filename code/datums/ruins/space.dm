@@ -264,3 +264,9 @@
 	suffix = "botanical_haven.dmm"
 	name = "Botanical Haven"
 	description = "A small sanctuary for plants and botanists, hidden away in a rusted structure."
+
+/datum/map_template/ruin/space/waystation
+	id = "waystation"
+	suffix = "waystation.dmm"
+	name = "Waystation"
+	description = "A waytation for a backwater subsector of Spinward gets attacked by the syndicate due to bad luck."
