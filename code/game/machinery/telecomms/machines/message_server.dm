@@ -128,11 +128,7 @@
 		var/datum/data_tablet_msg/msg = new(PDAsignal.format_target(), "[PDAsignal.data["name"]] ([PDAsignal.data["job"]])", PDAsignal.data["message"], PDAsignal.data["photo"])
 		pda_msgs += msg
 		signal.logged = msg
-	else if(istype(signal, /datum/signal/subspace/messaging/rc))
-		var/datum/data_rc_msg/msg = new(signal.data["rec_dpt"], signal.data["send_dpt"], signal.data["message"], signal.data["stamped"], signal.data["verified"], signal.data["priority"])
-		signal.logged = msg
-		if(signal.data["send_dpt"]) // don't log messages not from a department but allow them to work
-			rc_msgs += msg
+
 	signal.data["reject"] = FALSE
 
 	// pass it along to either the hub or the broadcaster
@@ -185,15 +181,6 @@
 			for(var/datum/computer_file/program/messenger/app in drive.stored_files)
 				if(!QDELETED(app))
 					app.receive_message(src)
-
-// Request Console signal datum
-/datum/signal/subspace/messaging/rc/broadcast()
-	if (!logged)  // Like /pda, only if logged
-		return
-	var/rec_dpt = ckey(data["rec_dpt"])
-	for (var/obj/machinery/requests_console/Console in GLOB.allConsoles)
-		if(ckey(Console.department) == rec_dpt || (data["ore_update"] && Console.receive_ore_updates))
-			Console.createmessage(data["sender"], data["send_dpt"], data["message"], data["verified"], data["stamped"], data["priority"], data["notify_freq"])
 
 // Log datums stored by the message server.
 /datum/data_tablet_msg

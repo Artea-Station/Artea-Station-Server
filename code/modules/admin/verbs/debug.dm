@@ -321,15 +321,6 @@
 			areas_with_air_alarm.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/machinery/requests_console/RC in GLOB.machines)
-		var/area/A = get_area(RC)
-		if(!A)
-			dat += "Skipped over [RC] in invalid location, [RC.loc].<br>"
-			continue
-		if(!(A.type in areas_with_RC))
-			areas_with_RC.Add(A.type)
-		CHECK_TICK
-
 	for(var/obj/machinery/light/L in GLOB.machines)
 		var/area/A = get_area(L)
 		if(!A)

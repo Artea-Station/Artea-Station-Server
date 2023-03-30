@@ -1,3 +1,17 @@
+/obj/machinery/arrivals_shuttle_console
+	name = "arrivals shuttle console"
+	desc = "A console intended to send requests to different departments on the station."
+	icon = 'icons/obj/terminals.dmi'
+	icon_state = "req_comp_off"
+	base_icon_state = "req_comp"
+	resistance_flags = INDESTRUCTIBLE
+
+/obj/machinery/arrivals_shuttle_console/update_overlays()
+	. = ..()
+	. += "req_comp0"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/arrivals_shuttle_console, 30)
+
 /obj/docking_port/mobile/arrivals
 	name = "arrivals shuttle"
 	shuttle_id = "arrival"
@@ -14,7 +28,7 @@
 	var/damaged //too damaged to undock?
 	var/list/areas //areas in our shuttle
 	var/list/queued_announces //people coming in that we have to announce
-	var/obj/machinery/requests_console/console
+	var/obj/machinery/arrivals_shuttle_console/console
 	var/force_depart = FALSE
 	var/perma_docked = FALSE //highlander with RESPAWN??? OH GOD!!!
 	var/obj/docking_port/stationary/target_dock  // for badminry
@@ -38,7 +52,7 @@
 		for(var/obj/structure/chair/C in A)
 			new_latejoin += C
 		if(!console)
-			console = locate(/obj/machinery/requests_console) in A
+			console = locate(/obj/machinery/arrivals_shuttle_console) in A
 		areas += A
 
 	if(SSjob.latejoin_trackers.len)
