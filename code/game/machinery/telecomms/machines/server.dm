@@ -72,7 +72,7 @@
 
 
 /obj/machinery/telecomms/server/presets/pathfinders
-	id = "Science Server"
+	id = "Pathfinders Server"
 	freq_listening = list(FREQ_PATHFINDERS)
 	autolinkers = list("pathfinders")
 
