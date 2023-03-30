@@ -178,7 +178,7 @@ export const Telecomms = (props, context) => {
                             RADIO_CHANNELS.find(
                               (channel) => channel.freq === entry
                             ).name
-                          }{' '}
+                          }
                           ]
                         </Box>
                       )}
