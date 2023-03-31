@@ -17,6 +17,11 @@
 		if (required_living_minutes >= living_minutes)
 			client.interviewee = TRUE
 
+	/// Artea's own scuffed version of discord verification, cause TGCode's version doesn't quite do what we need it to.
+	var/datum/discord_link_record/discord_link = SSdiscord.find_discord_link_by_ckey(client.ckey)
+	if(!discord_link?.discord_id)
+		client.interviewee = TRUE
+
 	. = ..()
 	if(!. || !client)
 		return FALSE

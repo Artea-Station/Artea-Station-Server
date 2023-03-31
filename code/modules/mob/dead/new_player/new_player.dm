@@ -323,14 +323,10 @@
 		var/procpath/verb_path = v
 		remove_verb(src, verb_path)
 
-	/// Artea's own scuffed version of discord verification, cause TGCode's version doesn't quite do what we need it to.
-	var/datum/discord_link_record/discord_link = SSdiscord.find_discord_link_by_ckey(client.ckey)
-	if(!discord_link?.discord_id)
-		client.interviewee = TRUE
-		var/message = "<h3 class='good'>Welcome!</h3>Considering this is either your first time connecting, or you haven't given our bot your discord link token, you will be unable to play until you go into the <span class='good'>OOC</span> tab > <span class='good'>Verify Discord Account</span>, and follow the given instructions!<br><br>This is required to prevent spam and underage users!<br><br>If you have already verified, reconnect. Contact an admin if this notice does not go away."
-		var/datum/browser/window = new/datum/browser(usr, "discordverification", "Discord verification")
-		window.set_content("<span>[message]</span>")
-		window.open()
+	var/message = "<h3 class='good'>Welcome!</h3>Considering this is either your first time connecting, or you haven't given our bot your discord link token, you will be unable to play until you go into the <span class='good'>OOC</span> tab > <span class='good'>Verify Discord Account</span>, and follow the given instructions!<br><br>This is required to prevent spam and underage users!<br><br>If you have already verified, reconnect. Contact an admin if this notice does not go away."
+	var/datum/browser/window = new/datum/browser(usr, "discordverification", "Discord verification")
+	window.set_content("<span>[message]</span>")
+	window.open()
 
 	// Add verb for re-running verification, and fixing tgui
 	add_verb(client, /client/verb/verify_in_discord)
