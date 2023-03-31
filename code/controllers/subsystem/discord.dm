@@ -30,7 +30,7 @@
  */
 SUBSYSTEM_DEF(discord)
 	name = "Discord"
-	wait = 3000
+	wait = 5 MINUTES
 	init_order = INIT_ORDER_DISCORD
 
 	/// People to save to notify file
@@ -80,6 +80,8 @@ SUBSYSTEM_DEF(discord)
 		return // Dont re-write the file
 	// If we are all clear
 	write_notify_file()
+	// Reset this, we don't want to force people to have to wait an entire round to join.
+	reverify_cache = list()
 
 /datum/controller/subsystem/discord/Shutdown()
 	write_notify_file() // Guaranteed force-write on server close
