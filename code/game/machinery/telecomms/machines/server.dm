@@ -70,7 +70,6 @@
 	. = ..()
 	name = id
 
-
 /obj/machinery/telecomms/server/presets/pathfinders
 	id = "Pathfinders Server"
 	freq_listening = list(FREQ_PATHFINDERS)
