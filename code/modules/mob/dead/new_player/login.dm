@@ -40,10 +40,10 @@
 	asset_datum.send(client)
 
 	// The parent call for Login() may do a bunch of stuff, like add verbs.
-	// Delaying the register_for_interview until the very end makes sure it can clean everything up
-	// and set the player's client up for interview.
+	// Delaying the prepare_for_linking until the very end makes sure it can clean everything up
+	// and set the player's client up for linking.
 	if(client.interviewee)
-		register_for_interview()
+		prepare_for_linking()
 		return
 
 	if(SSticker.current_state < GAME_STATE_SETTING_UP)
