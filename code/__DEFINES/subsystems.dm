@@ -131,7 +131,8 @@
 #define INIT_ORDER_TITLE 100
 #define INIT_ORDER_GARBAGE 99
 #define INIT_ORDER_DBCORE 95
-#define INIT_ORDER_BLACKBOX 94
+#define INIT_ORDER_DISCORD 94
+#define INIT_ORDER_BLACKBOX 95
 #define INIT_ORDER_SERVER_MAINT 93
 #define INIT_ORDER_INPUT 85
 #define INIT_ORDER_SOUNDS 83
@@ -139,7 +140,6 @@
 #define INIT_ORDER_GREYSCALE 81
 #define INIT_ORDER_VIS 80
 #define INIT_ORDER_SECURITY_LEVEL 79 // We need to load before events so that it has a security level to choose from.
-#define INIT_ORDER_DISCORD 78
 #define INIT_ORDER_ACHIEVEMENTS 77
 #define INIT_ORDER_STATION 74 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
 #define INIT_ORDER_QUIRKS 73
