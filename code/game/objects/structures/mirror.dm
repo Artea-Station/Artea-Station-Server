@@ -285,7 +285,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror, 28)
 	span_notice("Perfect. Much better! Now <i>nobody</i> will be able to resist yo-"))
 
 	var/turf/user_turf = get_turf(user)
-	var/list/levels = SSmapping.levels_by_trait(ZTRAIT_SPACE_RUINS)
+	var/list/levels = SSmapping.levels_by_trait(ZTRAIT_STATION)
 	var/turf/dest
 	if(length(levels))
 		dest = locate(user_turf.x, user_turf.y, pick(levels))

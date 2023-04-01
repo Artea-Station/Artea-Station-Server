@@ -11,7 +11,7 @@
 /obj/item/clothing/gloves/butchering/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering/wearable, \
-	speed = 0.5 SECONDS, \
+	speed = 10 SECONDS, \
 	effectiveness = 125, \
 	bonus_modifier = 0, \
 	butcher_sound = null, \
