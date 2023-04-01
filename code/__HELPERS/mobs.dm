@@ -60,7 +60,7 @@
 
 /proc/random_features()
 	if(!GLOB.tails_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/, GLOB.tails_list,  add_blank = TRUE)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails, GLOB.tails_list,  add_blank = TRUE)
 	if(!GLOB.tails_list_human.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_list_human,  add_blank = TRUE)
 	if(!GLOB.tails_list_lizard.len)
@@ -89,11 +89,18 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_markings, GLOB.moth_markings_list)
 	if(!GLOB.pod_hair_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/pod_hair, GLOB.pod_hair_list)
+	if(!GLOB.synth_screens.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/screen, GLOB.synth_screens)
+	if(!GLOB.synth_screens.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/antenna, GLOB.synth_antennae)
+	if(!GLOB.synth_screens.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/synth_head, GLOB.synth_heads)
+	if(!GLOB.synth_screens.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/synth_chassis, GLOB.synth_chassi)
 
 	//For now we will always return none for tail_human and ears. | "For now" he says.
 	return(list(
 		"mcolor" = "#[pick("7F","FF")][pick("7F","FF")][pick("7F","FF")]",
-		"ethcolor" = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)],
 		"tail" = "None",
 		"tail_lizard" = "Smooth",
 		"wings" = "None",
@@ -109,6 +116,10 @@
 		"moth_antennae" = pick(GLOB.moth_antennae_list),
 		"moth_markings" = pick(GLOB.moth_markings_list),
 		"pod_hair" = pick(GLOB.pod_hair_list),
+		MUTANT_SYNTH_SCREEN = pick(GLOB.synth_screens),
+		MUTANT_SYNTH_ANTENNA = pick(GLOB.synth_antennae),
+		MUTANT_SYNTH_HEAD = pick(GLOB.synth_heads),
+		MUTANT_SYNTH_CHASSIS = pick(GLOB.synth_chassi),
 	))
 
 /proc/random_hairstyle(gender)

@@ -863,6 +863,9 @@
 				continue
 			organ.applyOrganDamage(excess_healing * -1) //1 excess = 5 organ damage healed
 
+	if(dna?.species)
+		dna.species.spec_revival(src)
+
 	return ..()
 
 /mob/living/carbon/heal_and_revive(heal_to = 75, revive_message)

@@ -14,7 +14,7 @@
 		if(HAS_TRAIT(L, TRAIT_PROSOPAGNOSIA) || HAS_TRAIT(L, TRAIT_INVISIBLE_MAN))
 			obscure_name = TRUE
 
-	. = list("<span class='info'>This is <EM>[!obscure_name ? name : "Unknown"]</EM>!")
+	. = list("<span class='info'>This is <EM>[!obscure_name ? name : "Unknown"]</EM>[obscure_name ? "" : ", [prefix_a_or_an(dna?.species.name)] <EM>[dna?.species.name]</EM>"]!")
 
 	var/obscured = check_obscured_slots()
 
@@ -93,6 +93,12 @@
 		. += "[t_He] [t_is] wearing [wear_id.get_examine_string(user)]."
 
 		. += wear_id.get_id_examine_strings(user)
+
+	// Custom inspect text
+	if(length(dna?.inspection_text))
+		if(dna.inspection_text[BODY_ZONE_PREVIEW])
+			. += "[dna.inspection_text[BODY_ZONE_PREVIEW]]"
+		. += " <a href='?src=[REF(src)];open_inspection_panel=1'>Examine closely...</a>"
 
 	//Status effects
 	var/list/status_examines = get_status_effect_examinations()
@@ -442,3 +448,10 @@
 		if(101 to INFINITY)
 			age_text = "withering away"
 	. += list(span_notice("[p_they(TRUE)] appear[p_s()] to be [age_text]."))
+
+/mob/living/carbon/human/Topic(href, href_list)
+	. = ..()
+
+	if(href_list["open_inspection_panel"])
+		inspection_panel.holder = src
+		inspection_panel.ui_interact(usr)

@@ -58,6 +58,8 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	var/datum/species/species = new /datum/species/human
 	///first value is mutant color
 	var/list/features = list("FFF")
+	/// Assoc list of bodyparts to their custom descriptions. Separate from features for ease of iteration.
+	var/list/inspection_text = list()
 	///Stores the hashed values of the person's non-human features
 	var/unique_features
 	///Stores the real name of the person who originally got this dna datum. Used primarely for changelings,
@@ -105,6 +107,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	destination.dna.blood_type = blood_type
 	destination.dna.unique_features = unique_features
 	destination.dna.features = features.Copy()
+	destination.dna.inspection_text = inspection_text.Copy()
 	destination.dna.real_name = real_name
 	destination.dna.temporary_mutations = temporary_mutations.Copy()
 	if(transfer_SE)
@@ -121,6 +124,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	new_dna.unique_features = unique_features
 	new_dna.blood_type = blood_type
 	new_dna.features = features.Copy()
+	new_dna.inspection_text = inspection_text.Copy()
 	new_dna.species = new species.type
 	new_dna.species.species_traits = species.species_traits
 	new_dna.real_name = real_name
@@ -195,7 +199,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	if(features["body_markings"])
 		L[DNA_LIZARD_MARKINGS_BLOCK] = construct_block(GLOB.body_markings_list.Find(features["body_markings"]), GLOB.body_markings_list.len)
 	if(features["tail"])
-		L[DNA_TAIL_BLOCK] = construct_block(GLOB.tails_list.Find(features["tail"]), GLOB.tails_list_human.len)
+		L[DNA_TAIL_BLOCK] = construct_block(GLOB.tails_list.Find(features["tail"]), GLOB.tails_list.len)
 	if(features["tail_lizard"])
 		L[DNA_LIZARD_TAIL_BLOCK] = construct_block(GLOB.tails_list_lizard.Find(features["tail_lizard"]), GLOB.tails_list_lizard.len)
 	if(features["snout"])
