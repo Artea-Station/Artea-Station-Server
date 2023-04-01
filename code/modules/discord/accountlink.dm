@@ -22,13 +22,13 @@
 	// Simple sanity check to prevent a user doing this too often
 	var/cached_one_time_token = SSdiscord.reverify_cache[usr.ckey]
 	if(cached_one_time_token && cached_one_time_token != "")
-		message = "<h3 class='good'>Welcome!</h3>You already generated your one time token, it is [cached_one_time_token].<br><br>You can verify yourself in discord by using the command <span class='bad'>\" [prefix]verify [cached_one_time_token] \"</span><br><br>If you already verified, wait five minutes before rejoining the server."
+		message = "<h3 class='good'>Welcome!</h3>You already generated your one time token, it is <span class='bad'>[cached_one_time_token]</span><br><br>You can verify yourself in discord by using the command <span class='bad'>[prefix]verify [cached_one_time_token] inside the #user-bot-spam channel!</span><br><br>If you already verified, please reconnect to the server to update your verification status."
 
 	else
 		// Will generate one if an expired one doesn't exist already, otherwise will grab existing token
 		var/one_time_token = SSdiscord.get_or_generate_one_time_token_for_ckey(ckey)
 		SSdiscord.reverify_cache[usr.ckey] = one_time_token
-		message = "<h3 class='good'>Welcome!</h3>Your one time token is: <span class='bad'>[one_time_token]</span><br><br>You can now verify yourself in discord, by using the command <span class='bad'>[prefix]verify [one_time_token]</span>"
+		message = "<h3 class='good'>Welcome!</h3>Your one time token is: <span class='bad'>[one_time_token]</span><br><br>You can now verify yourself in discord, by using the command <span class='bad'>[prefix]verify [one_time_token]</span> inside the #user-bot-spam channel!<br><br>Once you've done this, reconnect to be able to play!"
 
 	//Now give them a browse window so they can't miss whatever we told them
 	var/datum/browser/window = new/datum/browser(usr, "discordverification", "Discord verification")

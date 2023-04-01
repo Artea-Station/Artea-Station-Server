@@ -225,7 +225,7 @@ SUBSYSTEM_DEF(discord)
 /datum/controller/subsystem/discord/proc/find_discord_link_by_ckey(ckey, timebound = FALSE)
 	var/timeboundsql = ""
 	if(timebound)
-		timeboundsql = "AND timestamp >= Now() - INTERVAL 4 HOUR"
+		timeboundsql = "AND timestamp >= Now() - INTERVAL 1 HOUR"
 
 	var/query = "SELECT CAST(discord_id AS CHAR(25)), ckey, MAX(timestamp), one_time_token FROM [format_table_name("discord_links")] WHERE ckey = :ckey [timeboundsql] GROUP BY ckey, discord_id, one_time_token LIMIT 1"
 	var/datum/db_query/query_get_discord_link_record = SSdbcore.NewQuery(
