@@ -165,7 +165,7 @@ SUBSYSTEM_DEF(discord)
 	// Insert into the table, null in the discord id, id and timestamp and valid fields so the db fills them out where needed
 	// If ckey already exists (requires database to have ckey flagged as unique!!), update the timestamp and token.
 	var/datum/db_query/query_insert_link_record = SSdbcore.NewQuery(
-		"INSERT INTO [format_table_name("discord_links")] (ckey, one_time_token) VALUES(:ckey, :token) ON DUPLICATE KEY UPDATE one_time_token = VALUES(:token), timestamp = VALUES(CURRENT_TIMESTAMP)",
+		"INSERT INTO [format_table_name("discord_links")] (ckey, one_time_token) VALUES(:ckey, :token) ON DUPLICATE KEY UPDATE one_time_token = :token, timestamp = CURRENT_TIMESTAMP",
 		list("ckey" = ckey_for, "token" = one_time_token)
 	)
 
