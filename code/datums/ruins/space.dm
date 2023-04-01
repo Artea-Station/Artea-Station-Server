@@ -52,13 +52,6 @@
 	name = "Asteroid 6"
 	description = "This asteroid has brittle bone disease, so it is fortunate asteroids dont have bones."
 
-/datum/map_template/ruin/space/deep_storage
-	id = "deep-storage"
-	suffix = "deepstorage.dmm"
-	name = "Survivalist Bunker"
-	description = "Assume the best, prepare for the worst. Generally, you should do so by digging a three-man heavily fortified bunker into a giant unused asteroid. \
-	Then make it self sufficient, mask any evidence of construction, hook it covertly into the telecommunications network and hope for the best."
-
 /datum/map_template/ruin/space/bigderelict1
 	id = "bigderelict1"
 	suffix = "bigderelict1.dmm"
@@ -144,13 +137,6 @@
 	description = "A caravan route used by passing cargo freights has been ambushed by a salvage team manned by the syndicate. \
 	The caravan managed to send off a distress message before being surrounded, their video feed cutting off as the sound of gunfire and a parrot was heard."
 
-/datum/map_template/ruin/space/originalcontent
-	id = "paperwizard"
-	suffix = "originalcontent.dmm"
-	name = "A Giant Ball of Paper in Space"
-	description = "Sightings of a giant wad of paper hurling through the depths of space have been recently reported by multiple outposts near this sector. \
-	A giant wad of paper, really? Damn prank callers."
-
 /datum/map_template/ruin/space/mech_transport
 	id = "mech-transport"
 	suffix = "mechtransport.dmm"
@@ -164,23 +150,11 @@
 	description = "Based on the trace elements we've detected on the gutted asteroids, we suspect that a mining ship using a restricted engine is somewhere in the area. \
 	We'd like to request a patrol vessel to investigate."
 
-/datum/map_template/ruin/space/spacehotel
-	id = "spacehotel"
-	suffix = "spacehotel.dmm"
-	name = "The Twin-Nexus Hotel"
-	description = "An interstellar hotel, where the weary spaceman can rest their head and relax, assured that the residental staff will not murder them in their sleep. Probably."
-
 /datum/map_template/ruin/space/turreted_outpost
 	id = "turreted-outpost"
 	suffix = "turretedoutpost.dmm"
 	name = "Unnamed Turreted Outpost"
 	description = "We'd ask them to stop blaring that ruskiepop music, but none of us are brave enough to go near those death turrets they have."
-
-/datum/map_template/ruin/space/oldshuttle
-	id = "spaceman-origins"
-	suffix = "shuttlerelic.dmm"
-	name = "Strange Ship"
-	description = "A ship seemingly lost, drifting along the stars. This thing looks like it belongs in ancient times."
 
 /datum/map_template/ruin/space/way_home
 	id = "way-home"
@@ -188,32 +162,11 @@
 	name = "Salvation"
 	description = "In the darkest times, we will find our way home."
 
-/datum/map_template/ruin/space/djstation
-	id = "djstation"
-	suffix = "djstation.dmm"
-	name = "DJ Station"
-	description = "Until very recently this pirate radio station was used to harangue local space stations over a variety of perceived \"ethics violations\". \
-	It seems like someone finally got sick of it, but the equipment still works."
-
 /datum/map_template/ruin/space/thederelict
 	id = "thederelict"
 	suffix = "thederelict.dmm"
 	name = "Kosmicheskaya Stantsiya 13"
 	description = "The true fate of Kosmicheskaya Stantsiya 13 is an open question to this day. Most corporations deny its existence, for fear of questioning on what became of its crew."
-
-/datum/map_template/ruin/space/abandonedteleporter
-	id = "abandonedteleporter"
-	suffix = "abandonedteleporter.dmm"
-	name = "Abandoned Teleporter"
-	description = "In space construction the teleporter is often the first system brought online. \
-	This lonely, half-built teleporter is a sign of a proposed structure that for one reason or another just never got built."
-
-/datum/map_template/ruin/space/crashedclownship
-	id = "crashedclownship"
-	suffix = "crashedclownship.dmm"
-	name = "Crashed Clown Ship"
-	description = "For centuries the promise of a new clown homeworld has been the siren call for countless clown vessels. \
-	Alas, the clown's lust for shenanigans means that successful voyages are almost unheard of, with most vessels falling to hilarious consequences almost immediately."
 
 /datum/map_template/ruin/space/crashedship
 	id = "crashedship"
@@ -222,13 +175,6 @@
 	description = "The SSCV Atrus was chartered to survey over 600 planets in its maiden voyage. \
 	Hopefully the SSC is content with an indepth analysis of just this asteroid."
 
-/datum/map_template/ruin/space/listeningstation
-	id = "listeningstation"
-	suffix = "listeningstation.dmm"
-	name = "Syndicate Listening Station"
-	description = "Listening stations form the backbone of the syndicate's information-gathering operations. \
-	Assignment to these stations is dreaded by most agents, as it entails long and lonely shifts listening to nearby stations chatter incessantly about the most meaningless things."
-
 /datum/map_template/ruin/space/old_ai_sat
 	id = "oldAIsat"
 	suffix = "oldAIsat.dmm"
@@ -236,12 +182,6 @@
 	description = "When the inspector told the employees that they were all fired, and that their jobs \"could be done by trained lizards anyway\", they reacted badly. \
 	This event and others is the reason why Central always sends an ERT squad with their competent inspectors. Incompetent inspectors are told they can \"do it alone\" because they're \"that pro\". \
 	Incompetent inspectors believe this."
-
-/datum/map_template/ruin/space/oldteleporter
-	id = "oldteleporter"
-	suffix = "oldteleporter.dmm"
-	name = "Detached Teleporter"
-	description = "The structure of this surprisingly intact teleporter suggests that it was once part of a larger structure, but what remains of said structure, if anything, can only be guessed at."
 
 /datum/map_template/ruin/space/vaporwave
 	id = "vaporwave"
@@ -256,13 +196,6 @@
 	name = "Waylaid Buses"
 	description = "There seems to be a pair of buses that pulled over for repairs. What were they doing...? Their shipment sure  seems to be filled with a strange mix. \
 	Anyway, it looks like some people tried to fix it up for a long time but didn't really get anywhere..."
-
-/datum/map_template/ruin/space/oldstation
-	id = "oldstation"
-	suffix = "oldstation.dmm"
-	name = "Ancient Space Station"
-	description = "The crew of a space station awaken one hundred years after a crisis. Awaking to a derelict space station on the verge of collapse, and a hostile force of invading \
-	hivebots. Can the surviving crew overcome the odds and survive and rebuild, or will the cold embrace of the stars become their new home?"
 
 /datum/map_template/ruin/space/gondoland
 	id = "gondolaasteroid"
@@ -295,12 +228,6 @@
 	suffix = "hilbertresearchfacility.dmm"
 	name = "Hilbert Research Facility"
 	description = "A research facility of great bluespace discoveries. Long since abandoned, willingly or not..."
-
-/datum/map_template/ruin/space/clownplanet
-	id = "clownplanet"
-	suffix = "clownplanet.dmm"
-	name = "Clown Planet"
-	description = "Thought lost in 2552, this minor planet has recently been rediscovered."
 
 /datum/map_template/ruin/space/clericden
 	id = "clericden"
