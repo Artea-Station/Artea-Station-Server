@@ -2,7 +2,7 @@
 // All items in this .dm and the associated .dmi were made by VG station and all credit should go to them.
 
 // -<| IMPORTANT MAPPER NOTE |>-
-// Change the 'color' variable on any white sprite to simply recolour it!
+// To change the color of one of the decals please create a new subtype! DO NOT VAR EDIT THEM IN SDMM!!!
 
 /obj/effect/turf_decal/vg_decals
 	icon = 'icons/turf/vgstation_decals.dmi'
