@@ -14,13 +14,13 @@
 /datum/preference/choiced/tail_human/init_possible_values()
 	var/list/tails = list()
 
-	for(var/key in GLOB.tails_list_human)
+	for(var/key in GLOB.tails_list)
 		if(!key)
 			continue
 		if(key == "None")
 			tails[key] = icon('icons/mob/landmarks.dmi', "x")
 			continue
-		tails[key] = generate_icon(GLOB.tails_list_human[key], NORTH)
+		tails[key] = generate_icon(GLOB.tails_list[key], NORTH)
 
 	return tails
 
