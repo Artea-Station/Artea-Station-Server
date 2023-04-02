@@ -61,6 +61,7 @@
 /area/ruin/unpowered)
 "fP" = (
 /obj/structure/table/reinforced,
+/obj/item/disk/tech_disk/spaceloot,
 /turf/open/floor/carpet,
 /area/ruin/unpowered)
 "gx" = (
@@ -154,7 +155,6 @@
 "kd" = (
 /obj/structure/window/reinforced/spawner,
 /obj/item/stack/cable_coil/cut,
-/obj/structure/frame/machine,
 /turf/open/floor/circuit/off,
 /area/ruin/unpowered)
 "lq" = (
@@ -242,7 +242,7 @@
 	network = list()
 	},
 /obj/machinery/light/small/broken/directional/south,
-/turf/open/floor/plating,
+/turf/open/floor/iron/smooth,
 /area/ruin/unpowered)
 "qf" = (
 /obj/machinery/light/red/directional/east,
@@ -348,6 +348,10 @@
 /area/ruin/unpowered)
 "vW" = (
 /turf/open/floor/plating/airless,
+/area/ruin/unpowered)
+"ww" = (
+/obj/structure/guncase,
+/turf/open/floor/iron/smooth,
 /area/ruin/unpowered)
 "yb" = (
 /obj/item/bedsheet/brown,
@@ -465,11 +469,15 @@
 /area/ruin/unpowered)
 "FM" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/turf/open/floor/plating,
+/obj/structure/closet/secure_closet/armory2,
+/turf/open/floor/iron/smooth,
 /area/ruin/unpowered)
 "FP" = (
 /obj/effect/decal/cleanable/cobweb,
-/turf/open/floor/plating,
+/obj/structure/displaycase/noalert{
+	start_showpiece_type = /obj/item/gun/energy/e_gun/mini
+	},
+/turf/open/floor/iron/smooth,
 /area/ruin/unpowered)
 "Hc" = (
 /turf/open/floor/iron/showroomfloor,
@@ -481,6 +489,7 @@
 "HC" = (
 /obj/structure/table/wood,
 /obj/machinery/light/small/broken/directional/east,
+/obj/item/disk/tech_disk/spaceloot,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "In" = (
@@ -554,7 +563,8 @@
 /turf/open/floor/circuit/off,
 /area/ruin/unpowered)
 "LS" = (
-/turf/open/floor/plating,
+/obj/item/chair,
+/turf/open/floor/iron/smooth,
 /area/ruin/unpowered)
 "Mk" = (
 /obj/effect/turf_decal/tile/red/half,
@@ -715,7 +725,6 @@
 "YQ" = (
 /obj/structure/window/reinforced/spawner/west,
 /obj/structure/window/reinforced/spawner,
-/obj/item/circuitboard/machine/teleporter_hub,
 /turf/open/floor/circuit/off,
 /area/ruin/unpowered)
 "ZL" = (
@@ -1088,7 +1097,7 @@ ib
 lS
 rM
 FP
-LS
+hV
 rM
 hi
 hi
@@ -1115,7 +1124,7 @@ Oo
 bO
 zw
 lq
-LS
+hV
 pF
 rM
 hi
@@ -1143,7 +1152,7 @@ Oo
 zw
 hT
 rM
-LS
+ww
 LS
 rM
 hi
@@ -1172,7 +1181,7 @@ zw
 bO
 rM
 FM
-LS
+hV
 rM
 hi
 hi
