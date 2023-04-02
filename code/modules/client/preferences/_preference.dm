@@ -391,7 +391,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	var/color = sanitize_hexcolor(greyscale_color)
 	if(color && sprite_accessory.color_src)
 		// This isn't perfect, but I don't want to add the significant overhead to make it be.
-		icon_to_process.ColorTone(color)
+		icon_to_process.Blend(color)
 
 	return icon_to_process
 
