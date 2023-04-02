@@ -81,7 +81,7 @@
 	var/list/scrubber_list = list()
 	for(var/obj/machinery/atmospherics/components/unary/vent_scrubber/scrubber in GLOB.machines)
 		var/turf/scrubber_turf = get_turf(scrubber)
-		if(scrubber_turf && is_station_level(scrubber_turf.z) && !scrubber.welded && !scrubber.clogged)
+		if(scrubber_turf && is_station_level(scrubber_turf.z) && !scrubber.welded && !scrubber.clogged && !istype(get_area(scrubber), /area/station/engineering/supermatter))
 			scrubber_list += scrubber
 	return pick(scrubber_list)
 

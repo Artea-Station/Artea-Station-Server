@@ -50,9 +50,9 @@
 /datum/round_event_control/sandstorm
 	name = "Sandstorm"
 	typepath = /datum/round_event/sandstorm
-	weight = 0
-	max_occurrences = 0
-	earliest_start = 0 MINUTES
+	weight = 8
+	max_occurrences = 1
+	earliest_start = 1 HOURS
 	category = EVENT_CATEGORY_SPACE
 	description = "The station is pelted by an extreme amount of sand for several minutes."
 

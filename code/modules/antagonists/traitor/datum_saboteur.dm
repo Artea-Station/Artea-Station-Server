@@ -15,11 +15,12 @@
 
 /// Progresionless traitor
 /datum/antagonist/traitor/saboteur
-	name = "\improper Syndicate Saboteur"
-	roundend_category = "Syndicate Saboteurs"
-	antagpanel_category = "Syndicate Saboteur"
+	name = "\improper Darkoth Saboteur"
+	roundend_category = "Darkoth Saboteurs"
+	antagpanel_category = "Darkoth Saboteur"
 	job_rank = ROLE_TRAITOR
 	progression_enabled = FALSE
+	suicide_cry = "FOR HOUSE DARKOTH!!"
 	/// The final objective the traitor has to accomplish, be it escaping, hijacking, or just martyrdom.
 	var/datum/objective/ending_objective
 
