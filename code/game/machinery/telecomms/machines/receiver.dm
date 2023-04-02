@@ -48,7 +48,7 @@
 	id = "Receiver A"
 	network = "tcommsat"
 	autolinkers = list("receiverA") // link to relay
-	freq_listening = list(FREQ_SCIENCE, FREQ_MEDICAL, FREQ_SUPPLY, FREQ_SERVICE)
+	freq_listening = list(FREQ_PATHFINDERS, FREQ_MEDICAL, FREQ_SUPPLY, FREQ_SERVICE)
 
 
 //--PRESET RIGHT--//

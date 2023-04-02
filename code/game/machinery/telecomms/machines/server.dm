@@ -70,11 +70,10 @@
 	. = ..()
 	name = id
 
-
-/obj/machinery/telecomms/server/presets/science
-	id = "Science Server"
-	freq_listening = list(FREQ_SCIENCE)
-	autolinkers = list("science")
+/obj/machinery/telecomms/server/presets/pathfinders
+	id = "Pathfinders Server"
+	freq_listening = list(FREQ_PATHFINDERS)
+	autolinkers = list("pathfinders")
 
 /obj/machinery/telecomms/server/presets/medical
 	id = "Medical Server"

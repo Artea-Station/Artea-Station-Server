@@ -97,7 +97,7 @@
 #define span_robot(str) ("<span class='robot'>" + str + "</span>")
 #define span_rose(str) ("<span class='rose'>" + str + "</span>")
 #define span_sans(str) ("<span class='sans'>" + str + "</span>")
-#define span_sciradio(str) ("<span class='sciradio'>" + str + "</span>")
+#define span_pathradio(str) ("<span class='pathradio'>" + str + "</span>")
 #define span_secradio(str) ("<span class='secradio'>" + str + "</span>")
 #define span_servradio(str) ("<span class='servradio'>" + str + "</span>")
 #define span_singing(str) ("<span class='singing'>" + str + "</span>")
