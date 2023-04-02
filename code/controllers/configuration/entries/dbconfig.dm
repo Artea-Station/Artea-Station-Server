@@ -1,6 +1,9 @@
 /datum/config_entry/flag/sql_enabled // for sql switching
 	protection = CONFIG_ENTRY_LOCKED
 
+/datum/config_entry/flag/discord_verification // for sql switching
+	protection = CONFIG_ENTRY_LOCKED
+
 /datum/config_entry/string/address
 	default = "localhost"
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
