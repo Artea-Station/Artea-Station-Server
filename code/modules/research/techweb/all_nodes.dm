@@ -1069,7 +1069,6 @@
 	description = "Data disks used for storing modular computer stuff."
 	prereq_ids = list("comptech")
 	design_ids = list(
-		"cardslot",
 		"portadrive_advanced",
 		"portadrive_basic",
 		"portadrive_super",
