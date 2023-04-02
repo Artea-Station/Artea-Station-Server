@@ -16,7 +16,7 @@ export const ClothingPage = (context, parentContext) => {
     <ServerPreferencesFetcher
       render={(serverData) => {
         return (
-          <Stack>
+          <Stack height="100%">
             <Stack.Item>
               <CharacterPreview
                 height="300px"

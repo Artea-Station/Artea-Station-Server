@@ -3,7 +3,7 @@
 	var/mob/living/holder
 
 /datum/inspection_panel/ui_state(mob/user)
-	return GLOB.always_state
+	return GLOB.physical_obscured_no_close_state
 
 /datum/inspection_panel/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

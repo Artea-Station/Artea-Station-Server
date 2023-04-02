@@ -113,6 +113,8 @@
 			return "[jobtitle] is already filled to capacity."
 		if(JOB_UNAVAILABLE_ANTAG_INCOMPAT)
 			return "[jobtitle] is not compatible with some antagonist role assigned to you."
+		if(JOB_UNAVAILABLE_CONTENT_PREFS_UNSET)
+			return "You haven't set your content preferences for your character."
 
 	return GENERIC_JOB_UNAVAILABLE_ERROR
 

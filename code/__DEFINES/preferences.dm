@@ -138,8 +138,11 @@
 /// These will show in the inspection prefs tab.
 #define PREFERENCE_CATEGORY_INSPECTION_LIST "inspection_list"
 
+/// These will show in the content prefs tab.
+#define PREFERENCE_CATEGORY_CONTENT_LIST "content_list"
+
 /// These will show in the OOC prefs tab.
-#define PREFERENCE_CATEGORY_OOC_INFO "ooc_info"
+#define PREFERENCE_CATEGORY_OOC_LIST "ooc_list"
 
 /// These are preferences that are supplementary for main features,
 /// such as hair color being affixed to hair.
@@ -159,6 +162,10 @@
 #define PLAYTIME_HARDCORE_RANDOM 120 // 2 hours
 /// The time needed to unlock the gamer cloak in preferences
 #define PLAYTIME_VETERAN 300000 // 5,000 hours
+
+/// Checks given content preference, returns FALSE if the value is "No" or "Prefer Not".
+/// Not particularly performant, and arguably shitcode, so please don't use this inside large loops or hot procs.
+#define CONTENT_PREFERENCE_CHECK(pref_value) (#pref_value != "No" && #pref_value != "Prefer Not")
 
 // Synth brain preferences
 #define ORGAN_PREF_POSI_BRAIN "Positronic Brain"
