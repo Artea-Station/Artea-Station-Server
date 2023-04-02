@@ -84,7 +84,6 @@
 
 	data["programs"] = list()
 	for(var/datum/computer_file/program/program in stored_files)
-
 		data["programs"] += list(list(
 			"name" = program.filename,
 			"desc" = program.filedesc,
@@ -100,7 +99,6 @@
 	data["pai"] = inserted_pai
 	return data
 
-
 // Handles user's GUI input
 /obj/item/modular_computer/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
@@ -112,6 +110,9 @@
 		if(human_user.check_chunky_fingers())
 			balloon_alert(human_user, "fingers are too big!")
 			return TRUE
+
+	if(active_program)
+		active_program.ui_act(action, params, ui, state)
 
 	switch(action)
 		if("PC_exit")
@@ -185,7 +186,7 @@
 						return TRUE
 
 				if("ID")
-					if(RemoveID())
+					if(RemoveID(user))
 						playsound(src, 'sound/machines/card_slide.ogg', 50)
 						return TRUE
 
@@ -201,11 +202,10 @@
 					usr.put_in_hands(inserted_pai)
 					to_chat(usr, span_notice("You remove [inserted_pai] from the [name]."))
 					inserted_pai = null
+					update_appearance(UPDATE_ICON)
 				if("interact")
 					inserted_pai.attack_self(usr)
 			return UI_UPDATE
-		else
-			return
 
 /obj/item/modular_computer/ui_host()
 	if(physical)
