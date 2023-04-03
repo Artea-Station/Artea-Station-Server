@@ -13,11 +13,12 @@
 
 MUTANT_CHOICED_NEW(tail_human, GLOB.tails_list)
 
-/datum/preference/choiced/mutant/tail_human/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state)
-	return "m_tail_[original_icon_state]_FRONT"
+/datum/preference/choiced/mutant/tail_human/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state, suffix)
 
-/datum/preference/choiced/mutant/tail_human/create_default_value()
-	return "None"
+	if(icon_exists(sprite_accessory.icon, "m_tail_lizard_[original_icon_state]_FRONT[suffix]"))
+		return "m_tail_lizard_[original_icon_state]_FRONT[suffix]"
+
+	return "m_tail_[original_icon_state]_FRONT[suffix]"
 
 /datum/preference/color/mutant/tail_human
 	savefile_key = "tail_human_color"
@@ -37,11 +38,8 @@ MUTANT_CHOICED_NEW(tail_human, GLOB.tails_list)
 
 MUTANT_CHOICED_NEW(ears, GLOB.ears_list)
 
-/datum/preference/choiced/mutant/ears/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state)
-	return "m_ears_[original_icon_state]_FRONT"
-
-/datum/preference/choiced/mutant/ears/create_default_value()
-	return "None"
+/datum/preference/choiced/mutant/ears/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state, suffix)
+	return "m_ears_[original_icon_state]_FRONT[suffix]"
 
 /datum/preference/color/mutant/ears
 	savefile_key = "ears_color"
@@ -59,11 +57,12 @@ MUTANT_CHOICED_NEW(ears, GLOB.ears_list)
 
 MUTANT_CHOICED_NEW(horns, GLOB.horns_list)
 
-/datum/preference/choiced/mutant/horns/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state)
-	return "m_horns_[original_icon_state]_FRONT"
+/datum/preference/choiced/mutant/horns/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state, suffix)
 
-/datum/preference/choiced/mutant/ears/create_default_value()
-	return "None"
+	if(icon_exists(sprite_accessory.icon, "m_horns_[original_icon_state]_FRONT[suffix]"))
+		return "m_horns_[original_icon_state]_FRONT[suffix]"
+
+	return "m_horns_[original_icon_state]_ADJ[suffix]"
 
 /datum/preference/color/mutant/horns
 	savefile_key = "horns_color"

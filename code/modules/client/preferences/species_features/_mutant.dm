@@ -51,9 +51,6 @@
 /datum/preference/color/mutant/deserialize(input, datum/preferences/preferences)
 	return sanitize_hexcolor_list(input)
 
-/datum/preference/color/mutant/serialize(input)
-	return sanitize_hexcolor_list(input)
-
 /// Helper proc that ensures the list is in the correct format. Potentially destructive.
 /datum/preference/color/mutant/proc/sanitize_hexcolor_list(list/input)
 	if(!istype(input) || length(input) != 3)
@@ -68,14 +65,7 @@
 	return list(random_color(), random_color(), random_color())
 
 /datum/preference/color/mutant/is_valid(list/value)
-	if(!istype(value) || length(value) != 3)
-		return FALSE
-
-	for(var/index in value)
-		if(!findtext(value[index], GLOB.is_color))
-			return FALSE
-
-	return TRUE
+	return islist(value) && value.len == 3 && (findtext(value[1], GLOB.is_color) && findtext(value[2], GLOB.is_color) && findtext(value[3], GLOB.is_color))
 
 // Mutant color. Used to automagically apply a color to a mutant part. Very nice.
 /datum/preference/color/mutant/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
@@ -87,5 +77,5 @@
 
 	return list(
 		"size" = length(accessory.color_layer_names),
-		"value" = value,
+		"value" = serialize(value),
 	)

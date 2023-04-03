@@ -90,9 +90,6 @@
 
 	wag_flags = WAG_ABLE
 
-/datum/bodypart_overlay/mutant/tail/get_global_feature_list()
-	return GLOB.tails_list
-
 /obj/item/organ/external/tail/monkey
 	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/monkey
 

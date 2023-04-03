@@ -152,7 +152,7 @@
 
 /datum/sprite_accessory/antenna/none
 	name = "None"
-	icon_state = "None"
+	icon_state = "none"
 
 /datum/sprite_accessory/antenna/antennae
 	name = "Angled Antennae"

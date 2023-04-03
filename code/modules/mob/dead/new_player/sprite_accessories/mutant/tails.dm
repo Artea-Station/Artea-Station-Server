@@ -1,9 +1,11 @@
 /datum/sprite_accessory/tails
 	em_block = TRUE
 	organ_type_to_use = /obj/item/organ/external/tail
+	key = "tail"
 
 /datum/sprite_accessory/tails/lizard
 	icon = 'icons/mob/species/lizard/lizard_tails.dmi'
+	key = "tail_lizard"
 
 /datum/sprite_accessory/tails/lizard/smooth
 	name = "Smooth"

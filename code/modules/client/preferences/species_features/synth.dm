@@ -62,8 +62,8 @@
 	. = ..()
 	sprite_accessory = GLOB.synth_screens
 
-/datum/preference/choiced/mutant/synth_screen/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state)
-	return "m_ipc_screen_[original_icon_state]_FRONT_UNDER"
+/datum/preference/choiced/mutant/synth_screen/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state, suffix)
+	return "m_ipc_screen_[original_icon_state]_FRONT_UNDER[suffix]"
 
 /datum/preference/color/mutant/synth_screen_color
 	savefile_key = "synth_screen_color"
@@ -90,9 +90,9 @@
 
 MUTANT_CHOICED_NEW(synth_antenna, GLOB.synth_antennae)
 
-/datum/preference/choiced/mutant/synth_antenna/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state)
+/datum/preference/choiced/mutant/synth_antenna/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state, suffix)
 	// If this isn't the right type, we have much bigger problems.
-	return "m_ipc_antenna_[original_icon_state]_ADJ"
+	return "m_ipc_antenna_[original_icon_state]_ADJ[suffix]"
 
 /datum/preference/color/mutant/synth_antenna
 	savefile_key = "ipc_antenna_color"
@@ -122,10 +122,10 @@ MUTANT_CHOICED_NEW(synth_chassis, GLOB.synth_chassi)
 /datum/preference/choiced/mutant/synth_chassis/create_default_value()
 	return "Default Chassis"
 
-/datum/preference/choiced/mutant/synth_chassis/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state)
+/datum/preference/choiced/mutant/synth_chassis/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state, suffix)
 	// If this isn't the right type, we have much bigger problems.
 	var/datum/sprite_accessory/synth_chassis/chassis = sprite_accessory
-	return "[original_icon_state]_chest[chassis.gender_specific ? "_m" : ""]"
+	return "[original_icon_state]_chest[chassis.gender_specific ? "_m" : ""][suffix]"
 
 /datum/preference/color/mutant/synth_chassis
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
@@ -150,10 +150,10 @@ MUTANT_CHOICED_NEW(synth_head, GLOB.synth_heads)
 /datum/preference/choiced/mutant/synth_head/create_default_value()
 	return "Default Head"
 
-/datum/preference/choiced/mutant/synth_head/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state)
+/datum/preference/choiced/mutant/synth_head/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state, suffix)
 	// If this isn't the right type, we have much bigger problems.
 	var/datum/sprite_accessory/synth_head/head = sprite_accessory
-	return "[original_icon_state]_head[head.gender_specific ? "_m" : ""]"
+	return "[original_icon_state]_head[head.gender_specific ? "_m" : ""][suffix]"
 
 /datum/preference/color/mutant/synth_head
 	savefile_key = "ipc_head_color"

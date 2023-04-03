@@ -55,8 +55,14 @@ GLOBAL_LIST_INIT(sprite_accessory_layers, list( \
 			else
 				male += D.name
 				female += D.name
+
+	var/list/temp_list = sort_list(accessory_list)
+	accessory_list.Cut()
+
 	if(add_blank)
-		accessory_list["None"] = new /datum/sprite_accessory/blank
+		accessory_list += list("None" = new /datum/sprite_accessory/blank)
+
+	accessory_list += temp_list
 
 	return accessory_list
 

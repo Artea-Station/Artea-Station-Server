@@ -362,7 +362,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 	for(var/datum/sprite_accessory/accessory as anything in accessories)
 		accessory = accessories[accessory]
-		if(!accessory)
+		if(!accessory || !accessory.name)
 			continue
 
 		data[initial(accessory.name)] = generate_icon(accessory, dir)
@@ -371,18 +371,18 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /// Allows for dynamic assigning of icon states.
 /datum/preference/choiced/proc/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state, suffix)
-	return "[original_icon_state]_[suffix]"
+	return "[original_icon_state][suffix]"
 
 /// Generates and allows for post-processing on icons, such as greyscaling and cropping.
 /datum/preference/choiced/proc/generate_icon(datum/sprite_accessory/sprite_accessory, dir = SOUTH)
-	if(!sprite_accessory.icon_state || sprite_accessory.icon_state == "None")
+	if(!sprite_accessory.icon_state || lowertext(sprite_accessory.icon_state) == "none")
 		return icon('icons/mob/landmarks.dmi', "x")
 
 	var/list/icon_states_to_use = list()
 
 	if(sprite_accessory.color_src == TRI_COLOR_LAYERS)
 		for(var/index in sprite_accessory.color_layer_names)
-			icon_states_to_use += generate_icon_state(sprite_accessory, sprite_accessory.icon_state, sprite_accessory.color_layer_names[index])
+			icon_states_to_use += generate_icon_state(sprite_accessory, sprite_accessory.icon_state, "_[sprite_accessory.color_layer_names[index]]")
 	else
 		icon_states_to_use += generate_icon_state(sprite_accessory, sprite_accessory.icon_state)
 
