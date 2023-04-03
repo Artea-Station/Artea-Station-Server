@@ -27,7 +27,7 @@
 		NOTRANSSTING,
 	)
 	mutant_bodyparts = list(
-		"tail" = "None",
+		MUTANT_TAIL = "None",
 		"ears" = "None",
 		"legs" = "Normal Legs",
 		MUTANT_SYNTH_ANTENNA = "None",
@@ -96,9 +96,6 @@
 		CRASH("Unable to apply chassis or head due to invalid values! ([head] & [head_of_choice] | [chassis] & [chassis_of_choice])")
 
 	examine_limb_id = chassis_of_choice.icon_state
-
-	if(chassis_of_choice.color_src || head_of_choice.color_src)
-		species_traits += MUTCOLORS
 
 	var/head_color = target.dna.features["[MUTANT_SYNTH_HEAD]_color"]
 	var/chassis_color = target.dna.features["[MUTANT_SYNTH_CHASSIS]_color"]

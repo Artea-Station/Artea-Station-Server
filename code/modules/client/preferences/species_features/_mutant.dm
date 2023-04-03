@@ -1,4 +1,3 @@
-
 /datum/preference/choiced/mutant
 	priority = PREFERENCE_PRIORITY_NAME_MODIFICATIONS // Otherwise organs will get qdel'd on body replacement.
 	abstract_type = /datum/preference/choiced/mutant
@@ -46,6 +45,47 @@
 	abstract_type = /datum/preference/color/mutant
 	savefile_identifier = PREFERENCE_CHARACTER
 
+	/// The path of the mutant choice datum to read from. Important.
+	var/choiced_preference_datum
+
+/datum/preference/color/mutant/deserialize(input, datum/preferences/preferences)
+	return sanitize_hexcolor_list(input)
+
+/datum/preference/color/mutant/serialize(input)
+	return sanitize_hexcolor_list(input)
+
+/// Helper proc that ensures the list is in the correct format. Potentially destructive.
+/datum/preference/color/mutant/proc/sanitize_hexcolor_list(list/input)
+	if(!istype(input) || length(input) != 3)
+		return create_default_value()
+
+	for(var/index in input)
+		input[index] = sanitize_hexcolor(input[index], default = random_color())
+
+	return input
+
+/datum/preference/color/mutant/create_default_value()
+	return list(random_color(), random_color(), random_color())
+
+/datum/preference/color/mutant/is_valid(list/value)
+	if(!istype(value) || length(value) != 3)
+		return FALSE
+
+	for(var/index in value)
+		if(!findtext(value[index], GLOB.is_color))
+			return FALSE
+
+	return TRUE
+
 // Mutant color. Used to automagically apply a color to a mutant part. Very nice.
 /datum/preference/color/mutant/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.dna.features["[relevant_mutant_bodypart]_color"] = value
+
+/datum/preference/color/mutant/compile_ui_data(mob/user, value, datum/preferences/preferences)
+	var/datum/preference/choiced/mutant/pref = GLOB.preference_entries[choiced_preference_datum]
+	var/datum/sprite_accessory/accessory = pref.sprite_accessory[preferences.read_preference(choiced_preference_datum)]
+
+	return list(
+		"size" = length(accessory.color_layer_names),
+		"value" = value,
+	)

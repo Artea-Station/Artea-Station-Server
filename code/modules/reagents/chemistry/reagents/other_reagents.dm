@@ -474,30 +474,8 @@
 					if ("albino")
 						exposed_human.skin_tone = "caucasian1"
 
-			if(MUTCOLORS in exposed_human.dna.species.species_traits) //take current alien color and darken it slightly
-				var/newcolor = ""
-				var/string = exposed_human.skin_tone
-				var/len = length(string)
-				var/char = ""
-				var/ascii = 0
-				for(var/i=1, i<=len, i += length(char))
-					char = string[i]
-					ascii = text2ascii(char)
-					switch(ascii)
-						if(48)
-							newcolor += "0"
-						if(49 to 57)
-							newcolor += ascii2text(ascii-1) //numbers 1 to 9
-						if(97)
-							newcolor += "9"
-						if(98 to 102)
-							newcolor += ascii2text(ascii-1) //letters b to f lowercase
-						if(65)
-							newcolor += "9"
-						if(66 to 70)
-							newcolor += ascii2text(ascii+31) //letters B to F - translates to lowercase
-						else
-							break
+			else //take current alien color and darken it slightly
+				var/newcolor = darken_color(exposed_human.skin_tone)
 				if(ReadHSV(newcolor)[3] >= ReadHSV("#7F7F7F")[3])
 					exposed_human.skin_tone = newcolor
 			exposed_human.update_body(is_creating = TRUE)
@@ -520,8 +498,8 @@
 			affected_human.dna.species.species_traits += HAIR
 		if(affected_human.dna.species.use_skintones)
 			affected_human.skin_tone = "orange"
-		else if(MUTCOLORS in affected_human.dna.species.species_traits) //Aliens with custom colors simply get turned orange
-			affected_human.dna.features["mcolor"] = "#ff8800"
+		else//Aliens with custom colors simply get turned orange
+			affected_human.skin_tone = "#ff8800"
 		affected_human.update_body(is_creating = TRUE)
 		if(DT_PROB(3.5, delta_time))
 			if(affected_human.w_uniform)

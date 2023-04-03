@@ -720,7 +720,7 @@
 // Sprites ported from Skyrat.
 
 /datum/sprite_accessory/hair/skyrat
-	icon = 'icons/mob/sprite_accessory/human/sr_hair.dmi'
+	icon = 'icons/mob/species/human/sr_hair.dmi'
 
 /datum/sprite_accessory/hair/skyrat/pigtails4
 	name = "Pigtails 4"

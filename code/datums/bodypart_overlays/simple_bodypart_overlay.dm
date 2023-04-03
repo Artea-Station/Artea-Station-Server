@@ -8,8 +8,12 @@
 	///Color we apply to our overlay (none by default)
 	var/draw_color
 
-/datum/bodypart_overlay/simple/get_image(layer, obj/item/bodypart/limb)
-	return image(icon, icon_state, layer = layer)
+/datum/bodypart_overlay/simple/get_images(layer, obj/item/bodypart/limb)
+	return list(image(icon, icon_state, layer = layer))
 
-/datum/bodypart_overlay/simple/color_image(image/overlay, layer)
-	overlay.color = draw_color
+/datum/bodypart_overlay/simple/color_images(list/image/overlays, layer)
+	if(!overlays)
+		return
+
+	for(var/image/overlay in overlays)
+		overlay.color = draw_color

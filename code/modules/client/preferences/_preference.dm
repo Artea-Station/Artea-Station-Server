@@ -370,30 +370,45 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	return data
 
 /// Allows for dynamic assigning of icon states.
-/datum/preference/choiced/proc/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state)
-	return original_icon_state
+/datum/preference/choiced/proc/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state, suffix)
+	return "[original_icon_state]_[suffix]"
 
 /// Generates and allows for post-processing on icons, such as greyscaling and cropping.
 /datum/preference/choiced/proc/generate_icon(datum/sprite_accessory/sprite_accessory, dir = SOUTH)
 	if(!sprite_accessory.icon_state || sprite_accessory.icon_state == "None")
 		return icon('icons/mob/landmarks.dmi', "x")
 
-	icon_exists(sprite_accessory.icon, generate_icon_state(sprite_accessory, sprite_accessory.icon_state), TRUE)
+	var/list/icon_states_to_use = list()
 
-	var/icon/icon_to_process = icon(sprite_accessory.icon, generate_icon_state(sprite_accessory, sprite_accessory.icon_state), dir, 1)
+	if(sprite_accessory.color_src == TRI_COLOR_LAYERS)
+		for(var/index in sprite_accessory.color_layer_names)
+			icon_states_to_use += generate_icon_state(sprite_accessory, sprite_accessory.icon_state, sprite_accessory.color_layer_names[index])
+	else
+		icon_states_to_use += generate_icon_state(sprite_accessory, sprite_accessory.icon_state)
 
-	if(islist(crop_area) && crop_area.len == REQUIRED_CROP_LIST_SIZE)
-		icon_to_process.Crop(crop_area[1], crop_area[2], crop_area[3], crop_area[4])
-		icon_to_process.Scale(32, 32)
-	else if(crop_area)
-		stack_trace("Invalid crop paramater! The provided crop area list is not four entries long, or is not a list!")
+	for(var/icon_state in icon_states_to_use)
+		icon_exists(sprite_accessory.icon, icon_state, TRUE)
 
+	var/icon/icon_to_return = icon('icons/mob/species/tails.dmi', "blank_template", SOUTH, 1)
 	var/color = sanitize_hexcolor(greyscale_color)
-	if(color && sprite_accessory.color_src)
-		// This isn't perfect, but I don't want to add the significant overhead to make it be.
-		icon_to_process.Blend(color)
 
-	return icon_to_process
+	for(var/index in icon_states_to_use)
+		var/icon/icon_to_process = icon(sprite_accessory.icon, icon_states_to_use[index], dir, 1)
+
+		if(islist(crop_area) && crop_area.len == REQUIRED_CROP_LIST_SIZE)
+			icon_to_process.Crop(crop_area[1], crop_area[2], crop_area[3], crop_area[4])
+			icon_to_process.Scale(32, 32)
+		else if(crop_area)
+			stack_trace("Invalid crop paramater! The provided crop area list is not four entries long, or is not a list!")
+
+		if(color && sprite_accessory.color_src)
+			// Turns out I ended up making this perfect. Welp.
+			icon_to_process.Blend(color)
+			color = darken_color(color) // Darken colour for the next layer to be able to tell it apart.
+
+		icon_to_return.Blend(icon_to_process, ICON_OVERLAY)
+
+	return icon_to_return
 
 /// Returns a list of every possible value.
 /// The first time this is called, will run `init_values()`.

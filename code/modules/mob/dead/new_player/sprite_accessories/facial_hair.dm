@@ -165,7 +165,7 @@
 // Sprites ported from Skyrat.
 
 /datum/sprite_accessory/facial_hair/skyrat
-	icon = 'icons/mob/sprite_accessory/human/sr_facialhair.dmi'
+	icon = 'icons/mob/species/human/sr_facialhair.dmi'
 
 /datum/sprite_accessory/facial_hair/skyrat/sideburns
 	name = "Sideburns"

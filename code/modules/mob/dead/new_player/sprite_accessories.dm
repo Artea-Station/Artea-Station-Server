@@ -1,3 +1,11 @@
+GLOBAL_LIST_EMPTY_TYPED(cached_sprite_accessory_sprites, /icon)
+GLOBAL_LIST_INIT(sprite_accessory_layers, list( \
+	BODY_BEHIND_LAYER, \
+	BODY_ADJ_LAYER, \
+	BODY_FRONT_UNDER_CLOTHES, \
+	BODY_FRONT_LAYER, \
+))
+
 /*
 
 	Hello and welcome to sprite_accessories: For sprite accessories, such as hair,
@@ -59,6 +67,8 @@
 	var/icon_state
 	/// The preview name of the accessory.
 	var/name
+	/// Is appended onto icon_state. Used for caching purposes. Unfortunately used for nothing else, as sprite_overlay handes the rendering.
+	var/key
 	/// Determines if the accessory will be skipped or included in random hair generations.
 	var/gender = NEUTER
 	/// Something that can be worn by either gender, but looks different on each.
@@ -68,10 +78,11 @@
 	/**
 	 * Currently only used by mutantparts so don't worry about hair and stuff.
 	 * This is the source that this accessory will get its color from. Default is MUTCOLOR, but can also be HAIR, FACEHAIR, EYECOLOR and 0 if none.
+	 * Also takes TRI_COLOR_LAYERS, which allows for up to three individually colored layers.
 	 */
 	var/color_src = MUTCOLORS
 	/// Decides if this sprite has an "inner" part, such as the fleshy parts on ears.
-	var/hasinner
+	var/hasinner = FALSE
 	/// Is this part locked from roundstart selection? Used for parts that apply effects.
 	var/locked = FALSE
 	/// Should we center the sprite?
@@ -84,6 +95,24 @@
 	var/em_block = FALSE
 	/// Organ to use for this sprite accessory. The organ's sprites are overriden by the accessory sprites.
 	var/organ_type_to_use
+	/// A list of indexes to layer names. See /datum/sprite_accessory/New() for the defaults.
+	var/list/color_layer_names = list()
+
+/datum/sprite_accessory/New()
+	. = ..()
+	if(color_src == TRI_COLOR_LAYERS)
+		color_layer_names = list()
+		if(!GLOB.cached_sprite_accessory_sprites[icon])
+			GLOB.cached_sprite_accessory_sprites[icon] = icon_states(new /icon(icon))
+		for(var/layer in GLOB.sprite_accessory_layers)
+			var/layertext = layer == BODY_BEHIND_LAYER ? "BEHIND" : (layer == BODY_ADJ_LAYER ? "ADJ" : "FRONT")
+			var/key_text = key? "[key]_" : ""
+			if("m_[key_text][icon_state]_[layertext]_primary" in GLOB.cached_sprite_accessory_sprites[icon])
+				color_layer_names["1"] = "primary"
+			if("m_[key_text][icon_state]_[layertext]_secondary" in GLOB.cached_sprite_accessory_sprites[icon])
+				color_layer_names["2"] = "secondary"
+			if("m_[key_text][icon_state]_[layertext]_tertiary" in GLOB.cached_sprite_accessory_sprites[icon])
+				color_layer_names["3"] = "tertiary"
 
 /datum/sprite_accessory/blank
 	name = "None"

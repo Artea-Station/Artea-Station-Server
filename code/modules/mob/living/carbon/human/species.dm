@@ -486,7 +486,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			var/obj/item/organ/external/new_organ = SSwardrobe.provide_type(organ_path)
 			new_organ.Insert(human, special=TRUE, drop_if_replaced=FALSE)
 
-		if(human.dna.features["tail"] && human.dna.features["tail"] != "None")
+		if(human.dna.features["tail"] && human.dna.features[MUTANT_TAIL] != "None")
 			var/obj/item/organ/external/tail/cat/tail = new
 			tail.Insert(human, drop_if_replaced = FALSE)
 

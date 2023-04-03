@@ -68,6 +68,7 @@
 /datum/preference/color/mutant/synth_screen_color
 	savefile_key = "synth_screen_color"
 	relevant_mutant_bodypart = MUTANT_SYNTH_SCREEN
+	choiced_preference_datum = /datum/preference/choiced/mutant/synth_screen
 
 // ARTEA TODO: Emissives but not shit and broken
 // /datum/preference/toggle/emissive/ipc_screen_emissive
@@ -87,9 +88,7 @@
 	greyscale_color = DEFAULT_SYNTH_PART_COLOR
 	organ_to_add = /obj/item/organ/external/synth_antenna
 
-/datum/preference/choiced/mutant/synth_antenna/New()
-	. = ..()
-	sprite_accessory = GLOB.synth_antennae
+MUTANT_CHOICED_NEW(synth_antenna, GLOB.synth_antennae)
 
 /datum/preference/choiced/mutant/synth_antenna/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state)
 	// If this isn't the right type, we have much bigger problems.
@@ -98,6 +97,7 @@
 /datum/preference/color/mutant/synth_antenna
 	savefile_key = "ipc_antenna_color"
 	relevant_mutant_bodypart = MUTANT_SYNTH_ANTENNA
+	choiced_preference_datum = /datum/preference/choiced/mutant/synth_antenna
 
 // ARTEA TODO: Emissives but not shit and broken
 // /datum/preference/tri_bool/synth_antenna_emissive
@@ -117,9 +117,7 @@
 	color_feature_id = "ipc_chassis_color"
 	greyscale_color = DEFAULT_SYNTH_PART_COLOR
 
-/datum/preference/choiced/mutant/synth_chassis/New()
-	. = ..()
-	sprite_accessory = GLOB.synth_chassi
+MUTANT_CHOICED_NEW(synth_chassis, GLOB.synth_chassi)
 
 /datum/preference/choiced/mutant/synth_chassis/create_default_value()
 	return "Default Chassis"
@@ -133,6 +131,7 @@
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	savefile_key = "ipc_chassis_color"
 	relevant_mutant_bodypart = MUTANT_SYNTH_CHASSIS
+	choiced_preference_datum = /datum/preference/choiced/mutant/synth_chassis
 
 /// IPC Head
 
@@ -146,9 +145,7 @@
 	greyscale_color = DEFAULT_SYNTH_PART_COLOR
 	color_feature_id = "ipc_head_color"
 
-/datum/preference/choiced/mutant/synth_head/New()
-	. = ..()
-	sprite_accessory = GLOB.synth_heads
+MUTANT_CHOICED_NEW(synth_head, GLOB.synth_heads)
 
 /datum/preference/choiced/mutant/synth_head/create_default_value()
 	return "Default Head"
@@ -161,3 +158,4 @@
 /datum/preference/color/mutant/synth_head
 	savefile_key = "ipc_head_color"
 	relevant_mutant_bodypart = MUTANT_SYNTH_HEAD
+	choiced_preference_datum = /datum/preference/choiced/mutant/synth_head
