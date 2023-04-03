@@ -547,6 +547,10 @@
 /area/ruin/space/has_grav/powered/botanical_haven
 	name = "\improper Botanical Haven"
 
+// Space Ghost Kitchen
+/area/ruin/space/space_ghost_restaurant
+	name = "\improper Space Ghost Restaurant"=
+
 // Ruin of Waystation
 /area/ruin/space/has_grav/waystation
 	name = "Waystation Maintenance"
