@@ -236,6 +236,9 @@
 	for(var/mob/candidate_mob as anything in group)
 		if(!candidate_mob.key || !candidate_mob.client || (ignore_category && GLOB.poll_ignore[ignore_category] && (candidate_mob.ckey in GLOB.poll_ignore[ignore_category])))
 			continue
+		for(var/content_preference in subtypesof(/datum/preference/choiced/content))
+			if(candidate_mob.client.prefs.read_preference(content_preference) == "Unset")
+				continue
 		if(be_special_flag)
 			if(!(candidate_mob.client.prefs) || !(be_special_flag in candidate_mob.client.prefs.be_special))
 				continue

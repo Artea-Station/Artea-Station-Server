@@ -872,10 +872,15 @@ SUBSYSTEM_DEF(job)
  * * debug_prefix - Logging prefix for the JobDebug log entries. For example, GRJ during GiveRandomJob or DO during DivideOccupations.
  * * add_job_to_log - If TRUE, appends the job type to the log entry. If FALSE, does not. Set to FALSE when check is part of iterating over players for a specific job, set to TRUE when check is part of iterating over jobs for a specific player and you don't want extra log entry spam.
  */
-/datum/controller/subsystem/job/proc/check_job_eligibility(mob/dead/new_player/player, datum/job/possible_job, debug_prefix = "", add_job_to_log = FALSE)
+/datum/controller/subsystem/job/proc/check_job_eligibility(mob/player, datum/job/possible_job, debug_prefix = "", add_job_to_log = FALSE)
 	if(!player.mind)
 		JobDebug("[debug_prefix] player has no mind, Player: [player][add_job_to_log ? ", Job: [possible_job]" : ""]")
 		return JOB_UNAVAILABLE_GENERIC
+
+	for(var/content_preference in subtypesof(/datum/preference/choiced/content))
+		if(player.client.prefs.read_preference(content_preference) == "Unset" && !is_admin(player.client))
+			JobDebug("[debug_prefix] Error: [get_job_unavailable_error_message(JOB_UNAVAILABLE_CONTENT_PREFS_UNSET)], Player: [player][add_job_to_log ? ", Job: [possible_job]" : ""]")
+			return JOB_UNAVAILABLE_CONTENT_PREFS_UNSET
 
 	if(possible_job.title in player.mind.restricted_roles)
 		JobDebug("[debug_prefix] Error: [get_job_unavailable_error_message(JOB_UNAVAILABLE_ANTAG_INCOMPAT, possible_job.title)], Player: [player][add_job_to_log ? ", Job: [possible_job]" : ""]")

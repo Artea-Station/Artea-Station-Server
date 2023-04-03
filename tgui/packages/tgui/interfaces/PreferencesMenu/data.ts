@@ -130,6 +130,10 @@ export type PreferencesMenuData = {
 
     clothing: Record<string, string>;
 
+    content_list: Record<string, string>;
+
+    ooc_list: Record<string, string>;
+
     other: Record<string, string>;
 
     inspection_list: Record<string, string>;

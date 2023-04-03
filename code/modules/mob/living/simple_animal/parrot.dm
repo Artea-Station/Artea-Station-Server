@@ -247,8 +247,8 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 				channel_to_add = RADIO_TOKEN_COMMAND
 			if (RADIO_CHANNEL_SECURITY)
 				channel_to_add = RADIO_TOKEN_SECURITY
-			if (RADIO_CHANNEL_SCIENCE)
-				channel_to_add = RADIO_TOKEN_SCIENCE
+			if (RADIO_CHANNEL_PATHFINDERS)
+				channel_to_add = RADIO_TOKEN_PATHFINDERS
 			if (RADIO_CHANNEL_MEDICAL)
 				channel_to_add = RADIO_TOKEN_MEDICAL
 			if (RADIO_CHANNEL_SUPPLY)

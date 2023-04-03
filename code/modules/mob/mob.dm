@@ -771,6 +771,11 @@
 
 	M.key = key
 
+/// Used to open the matchmaking panel.
+/mob/verb/matchmaking_panel()
+	set name = "Matchmaking Panel"
+	set category = "OOC"
+	GLOB.matchmaking_panel.ui_interact(usr)
 
 /**
  * Sometimes helps if the user is stuck in another perspective or camera

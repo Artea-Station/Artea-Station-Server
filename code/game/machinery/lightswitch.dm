@@ -19,7 +19,7 @@
 		/obj/item/circuit_component/light_switch,
 	))
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light_switch, 32, -18, 33, -33)
 
 /obj/machinery/light_switch/Initialize(mapload)
 	. = ..()

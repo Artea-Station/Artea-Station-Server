@@ -4,7 +4,7 @@ This file has the basic atom/movable level speech procs.
 And the base of the send_speech() proc, which is the core of saycode.
 */
 GLOBAL_LIST_INIT(freqtospan, list(
-	"[FREQ_SCIENCE]" = "sciradio",
+	"[FREQ_PATHFINDERS]" = "pathradio",
 	"[FREQ_MEDICAL]" = "medradio",
 	"[FREQ_ENGINEERING]" = "engradio",
 	"[FREQ_SUPPLY]" = "suppradio",

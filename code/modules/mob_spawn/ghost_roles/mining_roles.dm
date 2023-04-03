@@ -227,7 +227,7 @@
 
 /obj/effect/mob_spawn/ghost_role/human/ash_walker/allow_spawn(mob/user, silent = FALSE)
 	if(!(user.key in team.players_spawned))//one per person unless you get a bonus spawn
-		return TRUE
+		return ..()
 	to_chat(user, span_warning("<b>You have exhausted your usefulness to the Necropolis</b>."))
 	return FALSE
 

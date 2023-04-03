@@ -47,3 +47,9 @@ export const legs_inspection_text: Feature<string> = {
     "A longer text description of your character's legs. Hidden when your legs are obscured.",
   component: FeatureTextInput,
 };
+
+export const ooc_notes: Feature<string> = {
+  name: 'OOC Notes',
+  description: 'Stuff that you want to say about yourself OOCly!',
+  component: FeatureTextInput,
+};

@@ -26,8 +26,7 @@
 	var/resistance = pick(
 		50;TRAUMA_RESILIENCE_BASIC,
 		30;TRAUMA_RESILIENCE_SURGERY,
-		15;TRAUMA_RESILIENCE_LOBOTOMY,
-		5;TRAUMA_RESILIENCE_MAGIC)
+	)
 
 	var/trauma_type = pick_weight(list(
 		BRAIN_TRAUMA_MILD = 60,

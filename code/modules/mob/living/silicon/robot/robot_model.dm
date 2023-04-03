@@ -53,6 +53,8 @@
 	var/list/ride_offset_y = list("north" = 4, "south" = 4, "east" = 3, "west" = 3)
 	///List of skins the borg can be reskinned to, optional
 	var/list/borg_skins
+	/// Should this borg be hidden on the matchmaking panel?
+	var/hidden_from_matchmaking = FALSE
 
 /obj/item/robot_model/Initialize(mapload)
 	. = ..()
@@ -609,7 +611,7 @@
 		/obj/item/gun/energy/recharge/kinetic_accelerator/cyborg,
 		/obj/item/gps/cyborg,
 		/obj/item/stack/marker_beacon)
-	radio_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_SUPPLY)
+	radio_channels = list(RADIO_CHANNEL_PATHFINDERS, RADIO_CHANNEL_SUPPLY)
 	emag_modules = list(/obj/item/borg/stun)
 	cyborg_base_icon = "miner"
 	model_select_icon = "miner"
@@ -687,6 +689,7 @@
 	model_select_icon = "malf"
 	model_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = 3
+	hidden_from_matchmaking = TRUE
 
 /obj/item/robot_model/syndicate/rebuild_modules()
 	..()
@@ -724,6 +727,7 @@
 	model_select_icon = "malf"
 	model_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = 3
+	hidden_from_matchmaking = TRUE
 
 /obj/item/robot_model/saboteur
 	name = "Syndicate Saboteur"
@@ -758,6 +762,7 @@
 	model_traits = list(TRAIT_PUSHIMMUNE, TRAIT_NEGATES_GRAVITY)
 	hat_offset = -4
 	canDispose = TRUE
+	hidden_from_matchmaking = TRUE
 
 /obj/item/robot_model/syndicate/kiltborg
 	name = "Highlander"
@@ -769,6 +774,7 @@
 	hat_offset = -2
 	breakable_modules = FALSE
 	locked_transform = FALSE //GO GO QUICKLY AND SLAUGHTER THEM ALL
+	hidden_from_matchmaking = TRUE
 
 /obj/item/robot_model/syndicate/kiltborg/be_transformed_to(obj/item/robot_model/old_model)
 	. = ..()
