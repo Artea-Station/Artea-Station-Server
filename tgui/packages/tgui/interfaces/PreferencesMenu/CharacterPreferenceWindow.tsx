@@ -13,6 +13,8 @@ import { IndexPage } from './IndexPage';
 import { ClothingPage } from './ClothingPage';
 import { MiscPage } from './MiscPage';
 import { InspectionPage } from './InspectionPage';
+import { OOCPage } from './OOCPage';
+import { ContentPage } from './ContentPage';
 
 export enum Page {
   Index,
@@ -24,6 +26,8 @@ export enum Page {
   Clothing,
   Misc,
   Inspection,
+  OOC,
+  Content,
 }
 
 const CharacterProfiles = (props: {
@@ -106,6 +110,14 @@ export const CharacterPreferenceWindow = (props, context) => {
       pageContents = <InspectionPage />;
       break;
 
+    case Page.OOC:
+      pageContents = <OOCPage />;
+      break;
+
+    case Page.Content:
+      pageContents = <ContentPage />;
+      break;
+
     default:
       exhaustiveCheck(currentPage);
   }
@@ -144,7 +156,7 @@ export const CharacterPreferenceWindow = (props, context) => {
 
           <Stack.Divider />
 
-          <Stack.Item>{pageContents}</Stack.Item>
+          <Stack.Item height="100%">{pageContents}</Stack.Item>
         </Stack>
       </Window.Content>
     </Window>

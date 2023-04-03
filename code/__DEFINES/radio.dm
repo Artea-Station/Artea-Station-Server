@@ -17,9 +17,9 @@
 #define RADIO_KEY_COMMAND "c"
 #define RADIO_TOKEN_COMMAND ":c"
 
-#define RADIO_CHANNEL_SCIENCE "Science"
-#define RADIO_KEY_SCIENCE "n"
-#define RADIO_TOKEN_SCIENCE ":n"
+#define RADIO_CHANNEL_PATHFINDERS "Pathfinders"
+#define RADIO_KEY_PATHFINDERS "f"
+#define RADIO_TOKEN_PATHFINDERS ":f"
 
 #define RADIO_CHANNEL_MEDICAL "Medical"
 #define RADIO_KEY_MEDICAL "m"
@@ -63,7 +63,7 @@
 #define FREQ_CENTCOM 1337  // CentCom comms frequency, gray
 #define FREQ_SUPPLY 1347  // Supply comms frequency, light brown
 #define FREQ_SERVICE 1349  // Service comms frequency, green
-#define FREQ_SCIENCE 1351  // Science comms frequency, plum
+#define FREQ_PATHFINDERS 1351  // Science comms frequency, purple
 #define FREQ_COMMAND 1353  // Command comms frequency, gold
 #define FREQ_MEDICAL 1355  // Medical comms frequency, soft blue
 #define FREQ_ENGINEERING 1357  // Engineering comms frequency, orange

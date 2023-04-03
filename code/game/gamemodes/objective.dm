@@ -14,6 +14,10 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/martyr_compatible = FALSE //If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 	///can this be granted by admins?
 	var/admin_grantable = FALSE
+	/// List of preference datums to read, with the value to block antagonism on if it matches.
+	var/list/preferences_to_respect = list(
+		/datum/preference/toggle/be_victim = TRUE,
+	)
 
 /datum/objective/New(text)
 	if(text)
@@ -127,6 +131,8 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 			continue
 		if(possible_target in blacklist)
 			continue
+		if(is_preference_blocked(possible_target.current.client))
+			continue
 		possible_targets += possible_target
 	if(try_target_late_joiners)
 		var/list/all_possible_targets = possible_targets.Copy()
@@ -141,6 +147,15 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	update_explanation_text()
 	return target
 
+/datum/objective/proc/is_preference_blocked(client/client_to_check)
+	if(!client_to_check?.prefs)
+		return TRUE
+
+	for(var/preference_datum in preferences_to_respect)
+		if(client_to_check.prefs.read_preference(preference_datum) == preferences_to_respect[preference_datum])
+			return TRUE
+
+	return FALSE
 
 /datum/objective/proc/update_explanation_text()
 	if(team_explanation_text && LAZYLEN(get_owners()) > 1)
@@ -190,8 +205,11 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	name = "assasinate"
 	martyr_compatible = TRUE
 	admin_grantable = TRUE
+	preferences_to_respect = list(
+		/datum/preference/toggle/be_victim = TRUE,
+		/datum/preference/choiced/content/death = "Prefer Not",
+	)
 	var/target_role_type = FALSE
-
 
 /datum/objective/assassinate/check_completion()
 	return completed || (!considered_alive(target) || considered_afk(target) || considered_exiled(target))
@@ -229,8 +247,12 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	name = "maroon"
 	martyr_compatible = TRUE
 	admin_grantable = TRUE
+	preferences_to_respect = list(
+		/datum/preference/toggle/be_victim = TRUE,
+		/datum/preference/choiced/content/death = "Prefer Not",
+		/datum/preference/choiced/content/isolation = "No",
+	)
 	var/target_role_type = FALSE
-
 
 /datum/objective/maroon/check_completion()
 	if (!target)
@@ -726,6 +748,10 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 /datum/objective/absorb
 	name = "absorb"
 	admin_grantable = TRUE
+	preferences_to_respect = list(
+		/datum/preference/toggle/be_victim = TRUE,
+		/datum/preference/choiced/content/death = "Prefer Not",
+	)
 
 /datum/objective/absorb/proc/gen_amount_goal(lowbound = 4, highbound = 6)
 	target_amount = rand (lowbound,highbound)
@@ -791,6 +817,10 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 /datum/objective/absorb_changeling
 	name = "absorb changeling"
 	explanation_text = "Absorb another Changeling."
+	preferences_to_respect = list(
+		/datum/preference/toggle/be_victim = TRUE,
+		/datum/preference/choiced/content/death = "Prefer Not",
+	)
 
 /datum/objective/absorb_changeling/check_completion()
 	var/list/datum/mind/owners = get_owners()
@@ -814,6 +844,10 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 /datum/objective/destroy
 	name = "destroy AI"
 	martyr_compatible = TRUE
+	preferences_to_respect = list(
+		/datum/preference/toggle/be_victim = TRUE,
+		/datum/preference/choiced/content/death = "Prefer Not",
+	)
 
 /datum/objective/destroy/find_target(dupe_search_range)
 	var/list/possible_targets = active_ais(1)

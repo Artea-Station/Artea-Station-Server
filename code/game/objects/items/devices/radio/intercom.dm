@@ -141,7 +141,7 @@
 	pixel_shift = 26
 	custom_materials = list(/datum/material/iron = 75, /datum/material/glass = 25)
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom, 26)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/item/radio/intercom, 30, -18, 34, -34)
 
 /obj/item/radio/intercom/chapel
 	name = "Confessional intercom"
@@ -152,5 +152,5 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom, 26)
 	set_frequency(1481)
 	set_broadcasting(TRUE)
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/prison, 26)
-MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/chapel, 26)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/item/radio/intercom/prison, 30, -18, 34, -34)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/item/radio/intercom/chapel, 30, -18, 34, -34)

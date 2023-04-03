@@ -52,12 +52,20 @@
 
 /obj/machinery/button/update_overlays()
 	. = ..()
-	if(!panel_open)
+	if(panel_open)
+		if(device)
+			. += "button-device"
+		if(board)
+			. += "button-board"
 		return
-	if(device)
-		. += "button-device"
-	if(board)
-		. += "button-board"
+
+	if(obj_flags & EMAGGED)
+		. += "doorctrl_assembly-emagged"
+		. += emissive_appearance(icon, "doorctrl_assembly-emagged")
+	else if(length(req_access))
+		. += emissive_appearance(icon, "doorctrl_assembly-is_id_em")
+	else
+		. += emissive_appearance(icon, "doorctrl_assembly-no_id_em")
 
 /obj/machinery/button/screwdriver_act(mob/living/user, obj/item/tool)
 	if(panel_open || allowed(user))
@@ -112,8 +120,10 @@
 		return
 	req_access = list()
 	req_one_access = list()
+
 	playsound(src, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	obj_flags |= EMAGGED
+	update_appearance()
 
 	// The device inside can be emagged by swiping the button
 	// returning TRUE will prevent feedback (so we can do our own)
@@ -311,7 +321,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/door, 24)
 /obj/item/wallframe/button
 	name = "button frame"
 	desc = "Used for building buttons."
-	icon_state = "button"
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "button-open"
 	result_path = /obj/machinery/button
 	custom_materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
 	pixel_shift = 24

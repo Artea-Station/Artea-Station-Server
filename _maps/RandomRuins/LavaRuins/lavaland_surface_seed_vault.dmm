@@ -49,20 +49,13 @@
 /obj/item/gun/energy/floragun{
 	pixel_y = 6
 	},
-/obj/item/gun/energy/floragun{
-	pixel_y = 4
-	},
-/obj/item/gun/energy/floragun{
-	pixel_y = 2
-	},
-/obj/item/gun/energy/floragun,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/turf_decal/trimline/green/filled/line,
 /turf/open/floor/iron/dark,
 /area/ruin/powered/seedvault)
 "ak" = (
-/obj/effect/mob_spawn/ghost_role/human/seed_vault,
 /obj/machinery/light/directional/north,
+/obj/machinery/hydroponics,
 /turf/open/floor/iron/freezer,
 /area/ruin/powered/seedvault)
 "al" = (
@@ -80,15 +73,10 @@
 /obj/structure/loom,
 /turf/open/floor/iron/dark,
 /area/ruin/powered/seedvault)
-"ap" = (
-/obj/machinery/light/directional/north,
-/obj/effect/mob_spawn/ghost_role/human/seed_vault,
-/turf/open/floor/iron/freezer,
-/area/ruin/powered/seedvault)
 "aq" = (
 /obj/machinery/light/directional/north,
-/obj/effect/mob_spawn/ghost_role/human/seed_vault,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/machinery/hydroponics,
 /turf/open/floor/iron/freezer,
 /area/ruin/powered/seedvault)
 "ar" = (
@@ -141,25 +129,11 @@
 	},
 /obj/structure/table/glass,
 /obj/effect/turf_decal/trimline/green/filled/end,
-/obj/machinery/airalarm/directional/north,
-/turf/open/floor/iron/dark,
-/area/ruin/powered/seedvault)
-"ax" = (
-/obj/structure/reagent_dispensers/watertank/high,
-/obj/effect/turf_decal/trimline/green/line{
-	dir = 9
-	},
-/obj/effect/turf_decal/trimline/green/filled/corner,
 /turf/open/floor/iron/dark,
 /area/ruin/powered/seedvault)
 "ay" = (
 /obj/structure/reagent_dispensers/watertank/high,
-/obj/effect/turf_decal/trimline/green/line{
-	dir = 5
-	},
-/obj/effect/turf_decal/trimline/green/filled/corner{
-	dir = 8
-	},
+/obj/effect/turf_decal/trimline/green,
 /turf/open/floor/iron/dark,
 /area/ruin/powered/seedvault)
 "az" = (
@@ -228,16 +202,6 @@
 /obj/machinery/light/directional/north,
 /turf/open/floor/vault,
 /area/ruin/powered/seedvault)
-"aJ" = (
-/obj/structure/reagent_dispensers/watertank/high,
-/obj/effect/turf_decal/trimline/green/line{
-	dir = 10
-	},
-/obj/effect/turf_decal/trimline/green/filled/corner{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/ruin/powered/seedvault)
 "aK" = (
 /obj/structure/sink/directional/west,
 /obj/machinery/light/directional/north,
@@ -246,13 +210,8 @@
 "aL" = (
 /obj/structure/table/wood,
 /obj/item/geneshears{
-	pixel_x = 6
-	},
-/obj/item/geneshears,
-/obj/item/geneshears{
 	pixel_x = -6
 	},
-/obj/item/geneshears,
 /turf/open/floor/vault,
 /area/ruin/powered/seedvault)
 "aM" = (
@@ -264,13 +223,7 @@
 /area/ruin/powered/seedvault)
 "aO" = (
 /obj/machinery/light/directional/east,
-/obj/structure/reagent_dispensers/watertank/high,
-/obj/effect/turf_decal/trimline/green/line{
-	dir = 6
-	},
-/obj/effect/turf_decal/trimline/green/filled/corner{
-	dir = 1
-	},
+/obj/machinery/airalarm/directional/east,
 /turf/open/floor/iron/dark,
 /area/ruin/powered/seedvault)
 "aQ" = (
@@ -645,14 +598,7 @@
 "GN" = (
 /obj/structure/table/wood,
 /obj/item/secateurs{
-	pixel_x = -6
-	},
-/obj/item/secateurs{
 	pixel_x = 6
-	},
-/obj/item/secateurs,
-/obj/item/secateurs{
-	pixel_x = -6
 	},
 /turf/open/floor/vault,
 /area/ruin/powered/seedvault)
@@ -769,7 +715,7 @@ aa
 (5,1,1) = {"
 aa
 ac
-ap
+ak
 ah
 as
 PH
@@ -791,7 +737,7 @@ aa
 (6,1,1) = {"
 aa
 ac
-ap
+ak
 Vn
 Bb
 Bb
@@ -923,7 +869,7 @@ ac
 (12,1,1) = {"
 ac
 af
-am
+aO
 al
 al
 PH
@@ -1056,8 +1002,8 @@ aa
 aa
 ac
 ac
-ax
-aJ
+al
+al
 oR
 KF
 sv
@@ -1079,7 +1025,7 @@ aa
 aa
 ac
 ay
-aO
+am
 ah
 ac
 aB

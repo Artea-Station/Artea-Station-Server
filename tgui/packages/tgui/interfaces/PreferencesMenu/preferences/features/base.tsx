@@ -17,7 +17,7 @@ export type Feature<
   name: string;
   component: FeatureValue<TReceiving, TSending, TServerData>;
   category?: string;
-  description?: string;
+  description?: string | InfernoNode;
 };
 
 /**

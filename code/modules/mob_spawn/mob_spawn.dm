@@ -155,7 +155,7 @@
 	if(!uses) //just in case
 		to_chat(user, span_warning("This spawner is out of charges!"))
 		return
-	if(is_banned_from(user.key, role_ban))
+	if(CONFIG_GET(flag/sql_enabled) && is_banned_from(user.key, role_ban))
 		to_chat(user, span_warning("You are banned from this role!"))
 		return
 	if(!allow_spawn(user, silent = FALSE))
@@ -191,6 +191,12 @@
 
 ///override this to add special spawn conditions to a ghost role
 /obj/effect/mob_spawn/ghost_role/proc/allow_spawn(mob/user, silent = FALSE)
+	for(var/content_preference in subtypesof(/datum/preference/choiced/content))
+		if(user.client.prefs.read_preference(content_preference) == "Unset")
+			if(!silent)
+				to_chat(user, span_warning("You can't spawn as [prompt_name] due to unset content preferences!"))
+			return FALSE
+
 	return TRUE
 
 ///these mob spawn subtypes trigger immediately (New or Initialize) and are not player controlled... since they're dead, you know?

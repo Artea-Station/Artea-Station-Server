@@ -27,16 +27,14 @@
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "bi" = (
 /obj/structure/rack,
-/obj/item/reagent_containers/syringe/bluespace{
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/syringe/bluespace{
-	pixel_y = 8
-	},
 /obj/structure/window/reinforced/survival_pod{
 	dir = 4
 	},
 /obj/machinery/door/window/survival_pod,
+/obj/item/reagent_containers/syringe,
+/obj/item/reagent_containers/syringe{
+	pixel_y = 8
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "bE" = (
@@ -346,12 +344,6 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "hW" = (
-/obj/structure/spawner/nether{
-	light_color = "#FF0000";
-	light_power = 2;
-	light_range = 2;
-	max_mobs = 2
-	},
 /obj/effect/gibspawner/human,
 /obj/effect/rune/raise_dead,
 /turf/open/floor/cult,
@@ -438,10 +430,8 @@
 /turf/template_noop,
 /area/ruin/unpowered/no_grav)
 "jJ" = (
-/obj/item/reagent_containers/cup/beaker/bluespace{
-	pixel_y = 5
-	},
 /obj/structure/table/reinforced/rglass,
+/obj/item/reagent_containers/cup/beaker/meta,
 /turf/open/floor/mineral/titanium/tiled/blue,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "jK" = (
@@ -809,8 +799,8 @@
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "tL" = (
 /obj/machinery/light/broken/directional/south,
-/obj/item/slime_cookie/bluespace,
 /obj/structure/table/reinforced/plastitaniumglass,
+/obj/item/food/fortunecookie,
 /turf/open/floor/mineral/plastitanium,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "ua" = (
@@ -980,9 +970,6 @@
 /turf/open/floor/glass,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "xc" = (
-/obj/structure/displaycase{
-	start_showpiece_type = /obj/item/hilbertshotel
-	},
 /obj/machinery/light/floor{
 	brightness = 2;
 	bulb_colour = "#deefff";
@@ -1115,7 +1102,10 @@
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "zq" = (
 /obj/structure/table/reinforced/rglass,
-/obj/item/food/grown/tomato/blue/bluespace,
+/obj/item/seeds/kudzu,
+/obj/structure/sign/poster/contraband/kudzu{
+	pixel_y = 32
+	},
 /turf/open/floor/glass,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "zu" = (
@@ -1258,8 +1248,10 @@
 /turf/open/floor/mineral/titanium/tiled/white,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "BJ" = (
-/turf/closed/wall/indestructible/reinforced/plastinum,
-/area/ruin/space/has_grav/powered/hilbertresearchfacility/secretroom)
+/obj/structure/table/reinforced/rglass,
+/obj/item/food/grown/potato/sweet,
+/turf/open/floor/glass,
+/area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "BL" = (
 /obj/structure/table/wood,
 /obj/item/folder/white,
@@ -1798,7 +1790,7 @@
 /area/ruin/unpowered/no_grav)
 "Nl" = (
 /obj/structure/table/reinforced/rglass,
-/obj/item/food/grown/tomato/blue,
+/obj/item/food/grown/korta_nut/sweet,
 /turf/open/floor/glass,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Np" = (
@@ -1850,8 +1842,11 @@
 /turf/open/floor/iron/grimy,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Ok" = (
-/turf/closed/wall/indestructible/reinforced/plastinum,
-/area/ruin/space/has_grav/powered/hilbertresearchfacility)
+/obj/structure/displaycase{
+	start_showpiece_type = /obj/item/circuitboard/machine/propulsion_engine
+	},
+/turf/open/floor/circuit/green/anim,
+/area/ruin/space/has_grav/powered/hilbertresearchfacility/secretroom)
 "OA" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Dormitory 3"
@@ -2132,9 +2127,11 @@
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "TO" = (
 /obj/machinery/light/broken/directional/south,
-/obj/item/slime_extract/bluespace,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced/plastitaniumglass,
+/obj/item/slime_cookie/gold,
+/obj/item/slime_cookie/red,
+/obj/item/slime_cookie/pyrite,
 /turf/open/floor/mineral/plastitanium,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "TT" = (
@@ -2144,12 +2141,12 @@
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "TV" = (
 /obj/structure/table/reinforced/rglass,
-/obj/item/grown/bananapeel/bluespace,
+/obj/item/food/grown/onion/red,
 /turf/open/floor/glass,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Uc" = (
 /obj/structure/table/reinforced/rglass,
-/obj/item/food/grown/banana/bluespace,
+/obj/item/food/grown/rice,
 /turf/open/floor/glass,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Ui" = (
@@ -2514,7 +2511,7 @@ Ut
 Ut
 Ut
 Bo
-Ok
+Bo
 Ym
 za
 Sc
@@ -2522,7 +2519,7 @@ ie
 UH
 vZ
 Qu
-Ok
+Bo
 Bo
 Ut
 Ut
@@ -2678,7 +2675,7 @@ Jp
 IO
 SR
 XY
-Nl
+BJ
 Bo
 Ut
 Ut
@@ -2865,7 +2862,7 @@ Bo
 Bo
 Bo
 Bo
-Ok
+Bo
 yZ
 Rj
 CO
@@ -2873,8 +2870,8 @@ Rj
 CO
 Rj
 QA
-Ok
-Ok
+Bo
+Bo
 cg
 cg
 he
@@ -2902,7 +2899,7 @@ Ut
 Bo
 uW
 uW
-Ok
+Bo
 vq
 Bo
 GJ
@@ -2941,17 +2938,17 @@ Ut
 Bo
 La
 La
-Ok
 Bo
 Bo
 Bo
-Ok
+Bo
+Bo
 CP
 Bo
 CP
-Ok
 Bo
-Ok
+Bo
+Bo
 cg
 cg
 cg
@@ -3022,17 +3019,17 @@ qX
 rM
 Bo
 cg
-Ok
-Ok
+Bo
+Bo
 XP
 XP
 XP
-Ok
-Ok
+Bo
+Bo
 cg
 cg
 cg
-Ok
+Bo
 Bo
 Bo
 Bo
@@ -3055,23 +3052,23 @@ Bo
 rb
 eB
 ks
-Ok
+Bo
 Bo
 qR
 Bo
-Ok
 Bo
-Ok
+Bo
+Bo
 CV
 Ru
 Fo
 Ru
 LD
-Ok
 Bo
 Bo
 Bo
-Ok
+Bo
+Bo
 Hf
 FF
 Gl
@@ -3110,13 +3107,13 @@ Rk
 Bo
 To
 To
-Ok
-Ok
+Bo
+Bo
 hT
 fv
 QV
 ua
-Ok
+Bo
 Bo
 Bo
 Ut
@@ -3194,7 +3191,7 @@ wh
 Gl
 WJ
 ua
-Ok
+Bo
 Bo
 Bo
 Ut
@@ -3212,23 +3209,23 @@ Bo
 AZ
 Dh
 mC
-Ok
+Bo
 Bo
 rQ
-Ok
 Bo
-Ok
+Bo
+Bo
 BH
 hk
 KC
 Xw
 LE
-Ok
 Bo
 Bo
 Bo
 Bo
-Ok
+Bo
+Bo
 Mh
 Fv
 QV
@@ -3256,13 +3253,13 @@ bi
 sz
 Bo
 cg
-Ok
-Ok
+Bo
+Bo
 Dy
 KC
 Jh
-Ok
-Ok
+Bo
+Bo
 Wg
 Bo
 cg
@@ -3305,13 +3302,13 @@ Hb
 WA
 Bo
 cg
-Ok
+Bo
 Bo
 pI
 eC
 KL
 Bo
-Ok
+Bo
 cg
 cg
 ch
@@ -3330,7 +3327,7 @@ cg
 cg
 cg
 Bo
-Ok
+Bo
 th
 Bo
 cg
@@ -3345,11 +3342,11 @@ Xq
 Bo
 cg
 cg
-Ok
 Bo
 Bo
 Bo
-Ok
+Bo
+Bo
 cg
 cg
 ch
@@ -3371,7 +3368,7 @@ cg
 cg
 Bo
 Bo
-Ok
+Bo
 cg
 cg
 Bo
@@ -3536,8 +3533,8 @@ KC
 KC
 Bo
 RL
-Ok
-Ok
+Bo
+Bo
 cg
 cg
 cg
@@ -3614,7 +3611,7 @@ KC
 Xw
 Bo
 Bk
-Ok
+Bo
 Bo
 Bo
 Bo
@@ -3641,7 +3638,7 @@ Bo
 Bo
 Bo
 Bo
-Ok
+Bo
 cg
 cg
 cg
@@ -3673,17 +3670,17 @@ Ut
 cg
 cg
 Bo
-Ok
+Bo
 ln
 Uy
 Fn
 gx
 Fn
 nh
-Ok
 Bo
 Bo
-Ok
+Bo
+Bo
 cg
 cg
 Bo
@@ -3711,7 +3708,7 @@ Ut
 Ut
 cg
 Bo
-Ok
+Bo
 cE
 wo
 VT
@@ -3724,13 +3721,13 @@ La
 ty
 Bo
 cg
-Ok
-Ok
+Bo
+Bo
 Dy
 KC
 Jh
-Ok
-Ok
+Bo
+Bo
 XI
 Bo
 EI
@@ -3761,15 +3758,15 @@ xm
 oi
 ZV
 up
-Ok
 Bo
-Ok
+Bo
+Bo
 BI
 hk
 KC
 Xw
 MD
-Ok
+Bo
 Bo
 Bo
 kw
@@ -3917,15 +3914,15 @@ Sh
 pC
 wo
 uG
-Ok
 Bo
-Ok
+Bo
+Bo
 BI
 hk
 KC
 Xw
 MD
-Ok
+Bo
 Bo
 Bo
 Ze
@@ -3945,7 +3942,7 @@ Ut
 cg
 cg
 Bo
-Ok
+Bo
 cQ
 wo
 Ny
@@ -3958,13 +3955,13 @@ La
 ty
 Bo
 cg
-Ok
-Ok
+Bo
+Bo
 Dy
 KC
 Jh
-Ok
-Ok
+Bo
+Bo
 cg
 Bo
 EI
@@ -3985,17 +3982,17 @@ Ut
 cg
 cg
 Bo
-Ok
+Bo
 dq
 Uy
 SD
 iY
 SD
 np
-Ok
 Bo
 Bo
-Ok
+Bo
+Bo
 cg
 cg
 Bo
@@ -4031,7 +4028,7 @@ Bo
 Bo
 Bo
 Bo
-Ok
+Bo
 cg
 cg
 cg
@@ -4357,11 +4354,11 @@ Bo
 cg
 cg
 cg
-Ok
 Bo
 Bo
 Bo
-Ok
+Bo
+Bo
 cg
 cg
 cg
@@ -4404,7 +4401,7 @@ Bo
 Bo
 Bo
 Bo
-Ok
+Bo
 cg
 cg
 Ut
@@ -4426,13 +4423,13 @@ rJ
 Rq
 cg
 cg
-Ok
-Ok
+Bo
+Bo
 Dy
 KC
 Jh
-Ok
-Ok
+Bo
+Bo
 cg
 cg
 Bo
@@ -4465,13 +4462,13 @@ tr
 va
 Rq
 cg
-Ok
+Bo
 BM
 hk
 KC
 Xw
 Nc
-Ok
+Bo
 Bo
 Bo
 Bo
@@ -4621,15 +4618,15 @@ es
 Rq
 cg
 Bo
-Ok
+Bo
 Gy
 zw
 Gs
 zw
 NQ
-Ok
 Bo
-Ok
+Bo
+Bo
 Zk
 sU
 ba
@@ -4660,13 +4657,13 @@ Rq
 cg
 Rq
 cg
-Ok
-Ok
+Bo
+Bo
 XP
 XP
 XP
-Ok
-Ok
+Bo
+Bo
 cg
 Bo
 Zy
@@ -4707,7 +4704,7 @@ on
 Bo
 cg
 cg
-Ok
+Bo
 Bo
 Bo
 Bo
@@ -4715,7 +4712,7 @@ Bo
 EP
 Bo
 jK
-Ok
+Bo
 Bo
 Bo
 Bo
@@ -4777,13 +4774,13 @@ cg
 cg
 cg
 cg
-Ok
-Ok
+Bo
+Bo
 Ee
 sU
 Lr
-Ok
-Ok
+Bo
+Bo
 cg
 cg
 cg
@@ -4793,7 +4790,7 @@ JV
 ky
 Bo
 Bo
-Ok
+Bo
 cg
 cg
 Ut
@@ -4815,22 +4812,22 @@ cg
 cg
 cg
 cg
-Ok
-Ok
+Bo
+Bo
 Eu
 EM
 pq
 io
 Eu
-Ok
-Ok
+Bo
+Bo
 cg
 cg
-Ok
 Bo
 Bo
 Bo
-Ok
+Bo
+Bo
 cg
 cg
 cg
@@ -4971,15 +4968,15 @@ cg
 cg
 cg
 cg
-Ok
-Ok
+Bo
+Bo
 BL
 EY
 BY
 BY
 PL
-Ok
-Ok
+Bo
+Bo
 cg
 cg
 cg
@@ -5011,13 +5008,13 @@ cg
 cg
 cg
 cg
-Ok
 Bo
-Ok
+Bo
+Bo
 Hu
-Ok
 Bo
-Ok
+Bo
+Bo
 cg
 cg
 cg
@@ -5088,10 +5085,10 @@ Ut
 cg
 cg
 cg
-Ok
 Bo
 Bo
-Ok
+Bo
+Bo
 La
 Bo
 Bo
@@ -5101,7 +5098,7 @@ Bo
 Bo
 Bo
 Bo
-Ok
+Bo
 cg
 cg
 cg
@@ -5140,14 +5137,14 @@ PR
 KC
 KC
 PR
-Ok
-Ok
+Bo
+Bo
 cg
 Iy
-BJ
-BJ
-BJ
-BJ
+Iy
+Iy
+Iy
+Iy
 Ut
 "}
 (70,1,1) = {"
@@ -5180,13 +5177,13 @@ Ba
 Ba
 Ba
 Ba
-Ok
+Bo
 Bo
 Iy
 sj
 sj
-sj
-BJ
+Ok
+Iy
 Ut
 "}
 (71,1,1) = {"
@@ -5225,7 +5222,7 @@ vT
 sj
 xc
 sj
-BJ
+Iy
 Ut
 "}
 (72,1,1) = {"
@@ -5244,13 +5241,13 @@ Ut
 Ut
 cg
 cg
-Ok
 Bo
 Bo
 Bo
 Bo
 Bo
 Bo
+Bo
 vr
 vr
 vr
@@ -5258,13 +5255,13 @@ vr
 vr
 vr
 vr
-Ok
+Bo
 Bo
 Iy
 sj
 sj
-sj
-BJ
+Ok
+Iy
 Ut
 "}
 (73,1,1) = {"
@@ -5296,14 +5293,14 @@ PR
 KC
 KC
 PR
-Ok
-Ok
+Bo
+Bo
 cg
 Iy
-BJ
-BJ
-BJ
-BJ
+Iy
+Iy
+Iy
+Iy
 Ut
 "}
 (74,1,1) = {"
@@ -5327,7 +5324,6 @@ cg
 cg
 cg
 cg
-Ok
 Bo
 Bo
 Bo
@@ -5335,7 +5331,8 @@ Bo
 Bo
 Bo
 Bo
-Ok
+Bo
+Bo
 cg
 cg
 cg

@@ -25,9 +25,9 @@
 /datum/round_event/meteor_wave/proc/determine_wave_type()
 	if(!wave_name)
 		wave_name = pick_weight(list(
-			"normal" = 50,
-			"threatening" = 40,
-			"catastrophic" = 10))
+			"normal" = 65,
+			"threatening" = 30,
+			"catastrophic" = 5))
 	switch(wave_name)
 		if("normal")
 			wave_type = GLOB.meteors_normal

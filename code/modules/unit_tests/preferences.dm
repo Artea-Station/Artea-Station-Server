@@ -41,7 +41,6 @@
 	var/list/prefs_categories_to_check = list(
 		PREFERENCE_CATEGORY_APPEARANCE,
 		PREFERENCE_CATEGORY_CLOTHING,
-		PREFERENCE_CATEGORY_OOC_INFO,
 	)
 
 /datum/unit_test/preferences_valid_main_feature_name/Run()

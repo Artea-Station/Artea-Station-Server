@@ -18,24 +18,11 @@
 	description = "Not exactly what you expected."
 	suffix = "icemoon_surface_lust.dmm"
 
-/datum/map_template/ruin/icemoon/asteroid
-	name = "Asteroid Site"
-	id = "asteroidsite"
-	description = "Surprised to see us here?"
-	suffix = "icemoon_surface_asteroid.dmm"
-
 /datum/map_template/ruin/icemoon/engioutpost
 	name = "Engineer Outpost"
 	id = "engioutpost"
 	description = "Blown up by an unfortunate accident."
 	suffix = "icemoon_surface_engioutpost.dmm"
-
-/datum/map_template/ruin/icemoon/fountain
-	name = "Fountain Hall"
-	id = "fountain"
-	description = "The fountain has a warning on the side. DANGER: May have undeclared side effects that only become obvious when implemented."
-	prefix = "_maps/RandomRuins/AnywhereRuins/"
-	suffix = "fountain_hall.dmm"
 
 /datum/map_template/ruin/icemoon/abandoned_homestead
 	name = "Abandoned Homestead"
@@ -85,18 +72,6 @@
 	description = "Who knows what lies within?"
 	suffix = "icemoon_underground_abandoned_village.dmm"
 
-/datum/map_template/ruin/icemoon/underground/library
-	name = "Buried Library"
-	id = "buriedlibrary"
-	description = "A once grand library, now lost to the confines of the Ice Moon."
-	suffix = "icemoon_underground_library.dmm"
-
-/datum/map_template/ruin/icemoon/underground/wrath
-	name = "Ruin of Wrath"
-	id = "wrath"
-	description = "You'll fight and fight and just keep fighting."
-	suffix = "icemoon_underground_wrath.dmm"
-
 /datum/map_template/ruin/icemoon/underground/hermit
 	name = "Frozen Shack"
 	id = "hermitshack"
@@ -109,37 +84,11 @@
 	description = "I guess we never really left you huh?"
 	suffix = "icemoon_underground_lavaland.dmm"
 
-/datum/map_template/ruin/icemoon/underground/puzzle
-	name = "Ancient Puzzle"
-	id = "puzzle"
-	description = "Mystery to be solved."
-	suffix = "icemoon_underground_puzzle.dmm"
-
-/datum/map_template/ruin/icemoon/underground/bathhouse
-	name = "Bath House"
-	id = "bathhouse"
-	description = "A warm, safe place."
-	suffix = "icemoon_underground_bathhouse.dmm"
-
 /datum/map_template/ruin/icemoon/underground/wendigo_cave
 	name = "Wendigo Cave"
 	id = "wendigocave"
 	description = "Into the jaws of the beast."
 	suffix = "icemoon_underground_wendigo_cave.dmm"
-
-/datum/map_template/ruin/icemoon/underground/free_golem
-	name = "Free Golem Ship"
-	id = "golem-ship"
-	description = "Lumbering humanoids, made out of precious metals, move inside this ship. They frequently leave to mine more minerals, which they somehow turn into more of them. \
-	Seem very intent on research and individual liberty, and also geology-based naming?"
-	prefix = "_maps/RandomRuins/AnywhereRuins/"
-	suffix = "golem_ship.dmm"
-
-/datum/map_template/ruin/icemoon/underground/mailroom
-	name = "Frozen-over Post Office"
-	id = "mailroom"
-	description = "This is where all of your paychecks went. Signed, the management."
-	suffix = "icemoon_underground_mailroom.dmm"
 
 /datum/map_template/ruin/icemoon/underground/frozen_comms
 	name = "Frozen Communicatons Outpost"
@@ -154,9 +103,3 @@
 	description = "Rumors have developed over the many years of Freyja plasma mining. These rumors suggest that the ghosts of dead mistreated excavation staff have returned to \
 	exact revenge on their (now former) employers. Coorperate reminds all staff that rumors are just that: Old Housewife tales meant to scare misbehaving kids to bed."
 	suffix = "icemoon_underground_abandoned_plasma_facility.dmm"
-
-/datum/map_template/ruin/icemoon/underground/hotsprings
-	name = "Hot Springs"
-	id = "hotsprings"
-	description = "Just relax and take a dip, nothing will go wrong, I swear!"
-	suffix = "icemoon_underground_hotsprings.dmm"

@@ -113,6 +113,8 @@
 			return "[jobtitle] is already filled to capacity."
 		if(JOB_UNAVAILABLE_ANTAG_INCOMPAT)
 			return "[jobtitle] is not compatible with some antagonist role assigned to you."
+		if(JOB_UNAVAILABLE_CONTENT_PREFS_UNSET)
+			return "You haven't set your content preferences for your character."
 
 	return GENERIC_JOB_UNAVAILABLE_ERROR
 
@@ -307,12 +309,12 @@
 	return TRUE
 
 /**
- * Prepares a client for the interview system, and provides them with a new interview
+ * Prepares a client for the discord link system, and provides them with a noice
  *
  * This proc will both prepare the user by removing all verbs from them, as well as
- * giving them the interview form and forcing it to appear.
+ * giving them the notice.
  */
-/mob/dead/new_player/proc/register_for_interview()
+/mob/dead/new_player/proc/prepare_for_linking()
 	// First we detain them by removing all the verbs they have on client
 	for (var/v in client.verbs)
 		var/procpath/verb_path = v
@@ -323,11 +325,11 @@
 		var/procpath/verb_path = v
 		remove_verb(src, verb_path)
 
-	// Then we create the interview form and show it to the client
-	var/datum/interview/I = GLOB.interviews.interview_for_client(client)
-	if (I)
-		I.ui_interact(src)
+	var/message = "<h3 class='good'>Welcome!</h3>Considering this is either your first time connecting, or you haven't given our bot your discord link token, you will be unable to play until you go into the <span class='good'>OOC</span> tab > <span class='good'>Verify Discord Account</span>, and follow the given instructions!<br><br>This is required to prevent spam and underage users!<br><br>If you have already verified, reconnect. Contact an admin if this notice does not go away."
+	var/datum/browser/window = new/datum/browser(usr, "discordverification", "Discord verification")
+	window.set_content("<span>[message]</span>")
+	window.open()
 
-	// Add verb for re-opening the interview panel, fixing chat and re-init the verbs for the stat panel
-	add_verb(src, /mob/dead/new_player/proc/open_interview)
+	// Add verb for re-running verification, and fixing tgui
+	add_verb(client, /client/verb/verify_in_discord)
 	add_verb(client, /client/verb/fix_tgui_panel)
