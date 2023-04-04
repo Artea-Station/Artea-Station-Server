@@ -27,12 +27,35 @@
 	name = "Cat"
 	icon = 'icons/mob/species/human/cat_features.dmi'
 	icon_state = "cat"
+	color_src = MUTCOLORS
 
 /datum/sprite_accessory/tails/monkey
 	name = "Monkey"
 	icon = 'icons/mob/species/monkey/monkey_tail.dmi'
 	icon_state = "monkey"
 	color_src = FALSE
+
+// Snowflake entries to allow tri-color without screwing lizard code.
+/datum/sprite_accessory/tails/lizard_human
+	icon = 'icons/mob/species/lizard/lizard_tails.dmi'
+	key = "tail_lizard"
+	color_src = MUTCOLORS
+
+/datum/sprite_accessory/tails/lizard_human/smooth
+	name = "Smooth"
+	icon_state = "smooth"
+
+/datum/sprite_accessory/tails/lizard_human/dtiger
+	name = "Dark Tiger"
+	icon_state = "dtiger"
+
+/datum/sprite_accessory/tails/lizard_human/ltiger
+	name = "Light Tiger"
+	icon_state = "ltiger"
+
+/datum/sprite_accessory/tails/lizard_human/spikes
+	name = "Spikes"
+	icon_state = "spikes"
 
 // Sprites ported from Skyrat.
 

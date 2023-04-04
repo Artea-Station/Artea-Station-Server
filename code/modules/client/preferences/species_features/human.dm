@@ -7,10 +7,12 @@
 	can_randomize = FALSE
 	relevant_mutant_bodypart = MUTANT_TAIL
 	should_generate_icons = TRUE
-	greyscale_color = "#643f0e"
+	greyscale_color = COLOR_DARK_BROWN
 	main_feature_name = "Tail"
 	color_feature_id = "tail_human_color"
 	organ_to_add = /obj/item/organ/external/tail
+	sprite_direction = NORTH
+	accessories_to_ignore = list(/datum/sprite_accessory/tails/lizard)
 
 MUTANT_CHOICED_NEW(tail_human, GLOB.tails_list)
 
@@ -33,7 +35,7 @@ MUTANT_CHOICED_NEW(tail_human, GLOB.tails_list)
 	can_randomize = FALSE
 	relevant_mutant_bodypart = "ears"
 	should_generate_icons = TRUE
-	greyscale_color = "#643f0e"
+	greyscale_color = COLOR_DARK_BROWN
 	main_feature_name = "Ears"
 	color_feature_id = "ears_color"
 	organ_to_add = /obj/item/organ/internal/ears

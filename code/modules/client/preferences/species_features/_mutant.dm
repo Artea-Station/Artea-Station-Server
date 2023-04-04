@@ -10,12 +10,16 @@
 	var/list/sprite_accessory
 	/// The typepath of the external organ to add.
 	var/organ_to_add
+	/// Direction to render the preview on. Can take NORTH, SOUTH, EAST, WEST.
+	var/sprite_direction = SOUTH
+	/// A list of types to exclude, including their subtypes.
+	var/list/accessories_to_ignore
 
 /datum/preference/choiced/mutant/create_default_value()
 	return "None"
 
 /datum/preference/choiced/mutant/init_possible_values()
-	return generate_mutant_valid_values(sprite_accessory)
+	return generate_mutant_valid_values(sprite_accessory, sprite_direction, accessories_to_ignore)
 
 /datum/preference/choiced/mutant/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.dna.features[relevant_mutant_bodypart] = value
@@ -60,7 +64,7 @@
 		return create_default_value()
 
 	for(var/index = 1, index < 4, index++)
-		input[index] = sanitize_hexcolor("#[input[index]]", default = random_color())
+		input[index] = sanitize_hexcolor(input[index], include_crunch = FALSE, default = random_color())
 
 	return input
 

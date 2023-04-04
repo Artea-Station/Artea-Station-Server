@@ -106,7 +106,7 @@
 		var/datum/sprite_accessory/gradient/gradient = GLOB.facial_hair_gradients_list[gradient_key]
 		var/icon/temp = icon(gradient.icon, gradient.icon_state)
 		temp.Blend(hair_icon, ICON_ADD)
-		temp.ColorTone("#ff0000")
+		temp.Blend("#ff0000", ICON_MULTIPLY)
 		var/icon/temp_hair = icon(hair_icon)
 		temp_hair.Blend(temp, ICON_OVERLAY)
 		hair_gradients[gradient_key] = temp_hair
@@ -192,7 +192,7 @@
 		var/datum/sprite_accessory/gradient/gradient = GLOB.hair_gradients_list[gradient_key]
 		var/icon/temp = icon(gradient.icon, gradient.icon_state)
 		temp.Blend(hair_icon, ICON_ADD)
-		temp.ColorTone("#ff0000")
+		temp.Blend("#ff0000", ICON_MULTIPLY)
 		var/icon/temp_hair = icon(hair_icon)
 		temp_hair.Blend(temp, ICON_OVERLAY)
 		hair_gradients[gradient_key] = temp_hair

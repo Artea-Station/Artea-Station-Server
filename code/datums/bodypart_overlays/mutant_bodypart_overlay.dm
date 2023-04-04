@@ -3,7 +3,9 @@
 	///Sprite datum we use to draw on the bodypart
 	var/datum/sprite_accessory/sprite_datum
 
-	///Defines what kind of 'organ' we're looking at. Sprites have names like 'm_mothwings_firemoth_ADJ'. 'mothwings' would then be feature_key
+	/// Defines what kind of 'organ' we're looking at. Sprites have names like 'm_mothwings_firemoth_ADJ'. 'mothwings' would then be feature_key
+	/// This value is a default, and sprite_accessory.key is used instead of this if it's defined.
+	/// The default override color proc always uses the initial value of this.
 	var/feature_key = ""
 
 	/// The color this organ draws with. Updated by bodypart/inherit_color()
@@ -45,6 +47,12 @@
 /datum/bodypart_overlay/mutant/get_images(image_layer, obj/item/bodypart/limb)
 	if(!sprite_datum)
 		return
+
+	// Override feature key with what the sprite_datum wants, otherwise, use our initial value. Useful for weird uses elsewhere.
+	if(sprite_datum.key)
+		feature_key = sprite_datum.key
+	else
+		feature_key = initial(feature_key)
 
 	overlay_indexes_to_color = list()
 
@@ -89,19 +97,27 @@
 
 	var/index = 1
 
+	if(!length(sprite_datum.color_layer_names))
+		var/image/overlay = overlays[1]
+		if(sprite_datum.color_src)
+			overlay.color = islist(draw_color) ? "#[draw_color[index]]" : draw_color
+		else
+			overlay.color = null
+		return
+
 	for(var/color_index in sprite_datum.color_layer_names)
+
 		var/color_index_num = text2num(color_index)
 		if(color_index_num > length(overlays))
 			break
 
 		var/image/overlay = overlays[color_index_num]
+		if(sprite_datum.color_src)
+			overlay.color = islist(draw_color) ? "#[draw_color[index]]" : draw_color
+			index++
+		else
+			overlay.color = null
 
-		switch(sprite_datum.color_src)
-			if(TRI_COLOR_LAYERS)
-				overlay.color = islist(draw_color) ? draw_color[index] : draw_color
-				index++
-			else
-				overlay.color = sprite_datum.color_src ? draw_color : null
 
 /datum/bodypart_overlay/mutant/added_to_limb(obj/item/bodypart/limb)
 	inherit_color(limb)
@@ -121,7 +137,8 @@
 	. = list()
 	. += "[get_base_icon_state()]"
 	. += "[feature_key]"
-	. += "[draw_color]"
+	if(sprite_datum.color_src)
+		. += "[islist(draw_color) ? jointext(draw_color, ";") : draw_color]"
 	return .
 
 ///Return a dumb glob list for this specific feature (called from parse_sprite)
@@ -145,7 +162,7 @@
 	return TRUE
 
 /datum/bodypart_overlay/mutant/override_color(obj/item/bodypart/bodypart)
-	return sprite_datum?.color_src ? bodypart.owner.dna.features["[feature_key]_color"] : null
+	return sprite_datum?.color_src ? bodypart.owner.dna.features["[initial(feature_key)]_color"] : null
 
 ///Sprite accessories are singletons, stored list("Big Snout" = instance of /datum/sprite_accessory/snout/big), so here we get that singleton
 /datum/bodypart_overlay/mutant/proc/fetch_sprite_datum(datum/sprite_accessory/accessory_path)

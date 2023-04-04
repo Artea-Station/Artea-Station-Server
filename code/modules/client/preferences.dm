@@ -266,14 +266,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if (!istype(requested_preference, /datum/preference/color))
 				return FALSE
 
-			var/default_value = read_preference(requested_preference.type)
+			var/old_value = read_preference(requested_preference.type)
 
 			// Yielding
 			var/new_color = input(
 				usr,
 				"Select new color",
 				null,
-				default_value || COLOR_WHITE,
+				old_value || COLOR_WHITE,
 			) as color | null
 
 			if (!new_color)
@@ -300,25 +300,25 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if (!istype(requested_preference, /datum/preference/color/mutant))
 				return FALSE
 
-			var/default_value_list = read_preference(requested_preference.type)
-			if (!islist(default_value_list))
+			var/old_value_list = read_preference(requested_preference.type)
+			if (!islist(old_value_list))
 				return FALSE
-			var/default_value = default_value_list[index_key]
+			var/old_value = old_value_list[index_key]
 
 			// Yielding
 			var/new_color = input(
 				usr,
 				"Select new color",
 				null,
-				"#[default_value]" || COLOR_WHITE,
+				"#[old_value]" || COLOR_WHITE,
 			) as color | null
 
 			if (!new_color)
 				return FALSE
 
-			default_value_list[index_key] = new_color
+			old_value_list[index_key] = copytext(new_color, 2)
 
-			if (!update_preference(requested_preference, default_value_list))
+			if (!update_preference(requested_preference, jointext(old_value_list, ";")))
 				return FALSE
 
 			return TRUE
