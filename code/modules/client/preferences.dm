@@ -290,6 +290,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if ("set_tricolor_preference")
 			var/requested_preference_key = params["preference"]
 			var/index_key = params["value"]
+			if(!isnum(index_key))
+				return FALSE
 
 			var/datum/preference/requested_preference = GLOB.preference_entries_by_key[requested_preference_key]
 			if (isnull(requested_preference))
@@ -308,7 +310,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				usr,
 				"Select new color",
 				null,
-				default_value || COLOR_WHITE,
+				"#[default_value]" || COLOR_WHITE,
 			) as color | null
 
 			if (!new_color)

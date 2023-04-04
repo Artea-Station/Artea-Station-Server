@@ -10,6 +10,7 @@
 	greyscale_color = "#643f0e"
 	main_feature_name = "Tail"
 	color_feature_id = "tail_human_color"
+	organ_to_add = /obj/item/organ/external/tail
 
 MUTANT_CHOICED_NEW(tail_human, GLOB.tails_list)
 
@@ -35,6 +36,7 @@ MUTANT_CHOICED_NEW(tail_human, GLOB.tails_list)
 	greyscale_color = "#643f0e"
 	main_feature_name = "Ears"
 	color_feature_id = "ears_color"
+	organ_to_add = /obj/item/organ/internal/ears
 
 MUTANT_CHOICED_NEW(ears, GLOB.ears_list)
 
@@ -54,6 +56,7 @@ MUTANT_CHOICED_NEW(ears, GLOB.ears_list)
 	should_generate_icons = TRUE
 	greyscale_color = COLOR_ASSEMBLY_BROWN
 	color_feature_id = "horns_color"
+	organ_to_add = /obj/item/organ/external/horns
 
 MUTANT_CHOICED_NEW(horns, GLOB.horns_list)
 

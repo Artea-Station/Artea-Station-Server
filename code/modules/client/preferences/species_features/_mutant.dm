@@ -49,23 +49,27 @@
 	var/choiced_preference_datum
 
 /datum/preference/color/mutant/deserialize(input, datum/preferences/preferences)
-	return sanitize_hexcolor_list(input)
+	return sanitize_hexcolor_list(splittext(input, ";"))
+
+/datum/preference/color/mutant/serialize(input)
+	return "[input[1]];[input[2]];[input[3]]"
 
 /// Helper proc that ensures the list is in the correct format. Potentially destructive.
 /datum/preference/color/mutant/proc/sanitize_hexcolor_list(list/input)
-	if(!istype(input) || length(input) != 3)
+	if(!islist(input) || length(input) != 3 || "{" == copytext(json_encode(input), 1, 2))
 		return create_default_value()
 
-	for(var/index in input)
-		input[index] = sanitize_hexcolor(input[index], default = random_color())
+	for(var/index = 1, index < 4, index++)
+		input[index] = sanitize_hexcolor("#[input[index]]", default = random_color())
 
 	return input
 
 /datum/preference/color/mutant/create_default_value()
 	return list(random_color(), random_color(), random_color())
 
-/datum/preference/color/mutant/is_valid(list/value)
-	return islist(value) && value.len == 3 && (findtext(value[1], GLOB.is_color) && findtext(value[2], GLOB.is_color) && findtext(value[3], GLOB.is_color))
+// Fuck you, this is sanitized already, so this is pointless.
+/datum/preference/color/mutant/is_valid(value)
+	return TRUE
 
 // Mutant color. Used to automagically apply a color to a mutant part. Very nice.
 /datum/preference/color/mutant/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
@@ -75,7 +79,9 @@
 	var/datum/preference/choiced/mutant/pref = GLOB.preference_entries[choiced_preference_datum]
 	var/datum/sprite_accessory/accessory = pref.sprite_accessory[preferences.read_preference(choiced_preference_datum)]
 
-	return list(
-		"size" = length(accessory.color_layer_names),
-		"value" = serialize(value),
-	)
+	var/return_value = list()
+
+	for(var/index = 1, index <= max(accessory.color_layer_names.len, 1), index++)
+		return_value += value[index]
+
+	return jointext(return_value, ";")

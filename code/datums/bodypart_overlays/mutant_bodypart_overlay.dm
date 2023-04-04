@@ -10,7 +10,7 @@
 	/// Can be null, a color, or a list.
 	var/draw_color
 	///Where does this organ inherit it's color from?
-	var/color_source = ORGAN_COLOR_INHERIT
+	var/color_source = ORGAN_COLOR_OVERRIDE
 	///Take on the dna/preference from whoever we're gonna be inserted in
 	var/imprint_on_next_insertion = TRUE
 	/// A simple list of indexes to color (as we don't want to color emissives, MOD overlays or inner ears)
@@ -90,10 +90,11 @@
 	var/index = 1
 
 	for(var/color_index in sprite_datum.color_layer_names)
-		if(color_index > length(overlays))
+		var/color_index_num = text2num(color_index)
+		if(color_index_num > length(overlays))
 			break
 
-		var/image/overlay = overlays[color_index]
+		var/image/overlay = overlays[color_index_num]
 
 		switch(sprite_datum.color_src)
 			if(TRI_COLOR_LAYERS)
@@ -144,7 +145,7 @@
 	return TRUE
 
 /datum/bodypart_overlay/mutant/override_color(obj/item/bodypart/bodypart)
-	return sprite_datum?.color_src ? bodypart.owner.dna.features["[MUTANT_SYNTH_SCREEN]_color"] : null
+	return sprite_datum?.color_src ? bodypart.owner.dna.features["[feature_key]_color"] : null
 
 ///Sprite accessories are singletons, stored list("Big Snout" = instance of /datum/sprite_accessory/snout/big), so here we get that singleton
 /datum/bodypart_overlay/mutant/proc/fetch_sprite_datum(datum/sprite_accessory/accessory_path)

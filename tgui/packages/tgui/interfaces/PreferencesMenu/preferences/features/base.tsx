@@ -383,15 +383,8 @@ export const FeatureTextInput = (
     />
   );
 };
-
-type TriColorInputData = {
-  size: number;
-  value: string[];
-};
-
-export const FeatureTriColorInput = (
-  props: FeatureValueProps<TriColorInputData>
-) => {
+export const FeatureTriColorInput = (props: FeatureValueProps<string>) => {
+  const value = props.value.split(';');
   const buttonFromValue = (index) => {
     return (
       <Stack.Item>
@@ -406,9 +399,9 @@ export const FeatureTriColorInput = (
             <Stack.Item>
               <Box
                 style={{
-                  background: props.value.value[index].startsWith('#')
-                    ? props.value.value[index]
-                    : `#${props.value.value[index]}`,
+                  background: value[index].startsWith('#')
+                    ? value[index]
+                    : `#${value[index]}`,
                   border: '2px solid white',
                   'box-sizing': 'content-box',
                   height: '11px',
@@ -430,11 +423,9 @@ export const FeatureTriColorInput = (
   };
   return (
     <Stack align="center" fill>
-      {() => {
-        for (let i = 0; i >= props.value.size; i++) {
-          buttonFromValue(i);
-        }
-      }}
+      {value.length > 0 && buttonFromValue(0)}
+      {value.length > 1 && buttonFromValue(1)}
+      {value.length > 2 && buttonFromValue(2)}
     </Stack>
   );
 };

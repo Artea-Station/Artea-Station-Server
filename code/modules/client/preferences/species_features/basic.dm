@@ -113,7 +113,7 @@
 
 	return hair_gradients
 
-/datum/preference/choiced/hair_gradient/compile_constant_data()
+/datum/preference/choiced/facial_hair_gradient/compile_constant_data()
 	. = ..()
 	.[SUPPLEMENTAL_FEATURE_KEY] = "facial_hair_gradient_color"
 
@@ -210,10 +210,6 @@
 
 /datum/preference/choiced/hair_gradient/create_default_value()
 	return "None"
-
-/datum/preference/choiced/hair_gradient/ui_static_data(mob/user)
-	. = ..()
-	.[SUPPLEMENTAL_FEATURE_KEY] = "hair_gradient_color"
 
 /datum/preference/color/hair_gradient
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
