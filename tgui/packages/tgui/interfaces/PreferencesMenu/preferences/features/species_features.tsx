@@ -80,7 +80,7 @@ export const heterochromatic: Feature<string> = {
   component: FeatureColorInput,
 };
 
-export const ipc_antenna_color: Feature<string> = {
+export const synth_antenna_color: Feature<string> = {
   name: 'Synth Antenna Color',
   component: FeatureTriColorInput,
 };
@@ -90,12 +90,12 @@ export const synth_screen_color: Feature<string> = {
   component: FeatureTriColorInput,
 };
 
-export const ipc_head_color: Feature<string> = {
+export const synth_head_color: Feature<string> = {
   name: 'Synth Head Color',
   component: FeatureTriColorInput,
 };
 
-export const ipc_chassis_color: Feature<string> = {
+export const synth_chassis_color: Feature<string> = {
   name: 'Synth Chassis Color',
   component: FeatureTriColorInput,
 };

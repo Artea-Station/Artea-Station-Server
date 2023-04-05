@@ -7,20 +7,20 @@
 
 /datum/action/innate/monitor_change/Activate()
 	var/mob/living/carbon/human/human = owner
-	var/new_ipc_screen = tgui_input_list(usr, "Choose your character's screen:", "Monitor Display", GLOB.synth_screens)
+	var/new_synth_screen = tgui_input_list(usr, "Choose your character's screen:", "Monitor Display", GLOB.synth_screens)
 
-	log_world(new_ipc_screen)
+	log_world(new_synth_screen)
 
-	if(!new_ipc_screen)
+	if(!new_synth_screen)
 		return
 
 	var/obj/item/organ/external/screen/screen = human.getorganslot(MUTANT_SYNTH_SCREEN)
-	screen?.switch_to_screen(new_ipc_screen)
+	screen?.switch_to_screen(new_synth_screen)
 
 // Organ
 /obj/item/organ/external/screen
 	name = "screen"
-	preference = "feature_ipc_screen"
+	preference = "feature_synth_screen"
 	organ_flags = ORGAN_ROBOTIC
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/screen
@@ -67,7 +67,7 @@
  * Simple proc to switch the screen of a monitor-enabled synth, while updating their appearance.
  *
  * Arguments:
- * * screen_name - The name of the screen to switch the ipc_screen mutant bodypart to.
+ * * screen_name - The name of the screen to switch the synth_screen mutant bodypart to.
  */
 /obj/item/organ/external/screen/proc/switch_to_screen(screen_name)
 	if(!screen || !screen_name)

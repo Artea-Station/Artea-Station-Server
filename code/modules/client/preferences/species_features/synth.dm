@@ -53,7 +53,7 @@
 /// IPC Screens
 
 /datum/preference/choiced/mutant/synth_screen
-	savefile_key = "feature_ipc_screen"
+	savefile_key = "feature_synth_screen"
 	main_feature_name = "Synth Screen"
 	relevant_mutant_bodypart = MUTANT_SYNTH_SCREEN
 	crop_area = list(11, 22, 21, 32) // We want just the head.
@@ -65,7 +65,7 @@
 	sprite_accessory = GLOB.synth_screens
 
 /datum/preference/choiced/mutant/synth_screen/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state, suffix)
-	return "m_ipc_screen_[original_icon_state]_FRONT_UNDER[suffix]"
+	return "m_synth_screen_[original_icon_state]_FRONT_UNDER[suffix]"
 
 /datum/preference/color/mutant/synth_screen_color
 	savefile_key = "synth_screen_color"
@@ -73,20 +73,20 @@
 	choiced_preference_datum = /datum/preference/choiced/mutant/synth_screen
 
 // ARTEA TODO: Emissives but not shit and broken
-// /datum/preference/toggle/emissive/ipc_screen_emissive
+// /datum/preference/toggle/emissive/synth_screen_emissive
 // 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 // 	savefile_identifier = PREFERENCE_CHARACTER
-// 	savefile_key = "ipc_screen_emissive"
+// 	savefile_key = "synth_screen_emissive"
 // 	relevant_mutant_bodypart = MUTANT_SYNTH_SCREEN
 
 /// IPC Antennas
 
 /datum/preference/choiced/mutant/synth_antenna
 	main_feature_name = "Synth Antennae"
-	savefile_key = "feature_ipc_antenna"
+	savefile_key = "feature_synth_antenna"
 	relevant_mutant_bodypart = MUTANT_SYNTH_ANTENNA
 	crop_area = list(11, 22, 21, 32) // We want just the head.
-	color_feature_id = "ipc_antenna_color"
+	color_feature_id = "synth_antenna_color"
 	greyscale_color = DEFAULT_SYNTH_PART_COLOR
 	organ_to_add = /obj/item/organ/external/synth_antenna
 
@@ -94,10 +94,10 @@ MUTANT_CHOICED_NEW(synth_antenna, GLOB.synth_antennae)
 
 /datum/preference/choiced/mutant/synth_antenna/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state, suffix)
 	// If this isn't the right type, we have much bigger problems.
-	return "m_ipc_antenna_[original_icon_state]_ADJ[suffix]"
+	return "m_synth_antenna_[original_icon_state]_ADJ[suffix]"
 
 /datum/preference/color/mutant/synth_antenna
-	savefile_key = "ipc_antenna_color"
+	savefile_key = "synth_antenna_color"
 	relevant_mutant_bodypart = MUTANT_SYNTH_ANTENNA
 	choiced_preference_datum = /datum/preference/choiced/mutant/synth_antenna
 
@@ -105,18 +105,18 @@ MUTANT_CHOICED_NEW(synth_antenna, GLOB.synth_antennae)
 // /datum/preference/tri_bool/synth_antenna_emissive
 // 	category = PREFERENCE_CATEGORY_APPEARANCE_LIST
 // 	savefile_identifier = PREFERENCE_CHARACTER
-// 	savefile_key = "ipc_antenna_emissive"
+// 	savefile_key = "synth_antenna_emissive"
 // 	relevant_mutant_bodypart = MUTANT_SYNTH_ANTENNA
 
 /// IPC Chassis
 
 /datum/preference/choiced/mutant/synth_chassis
 	priority = PREFERENCE_PRIORITY_DEFAULT
-	savefile_key = "feature_ipc_chassis"
+	savefile_key = "feature_synth_chassis"
 	main_feature_name = "Chassis Appearance"
 	relevant_mutant_bodypart = MUTANT_SYNTH_CHASSIS
 	crop_area = list(8, 8, 24, 24) // We want just the body.
-	color_feature_id = "ipc_chassis_color"
+	color_feature_id = "synth_chassis_color"
 
 MUTANT_CHOICED_NEW(synth_chassis, GLOB.synth_chassi)
 
@@ -129,8 +129,7 @@ MUTANT_CHOICED_NEW(synth_chassis, GLOB.synth_chassi)
 	return "[original_icon_state]_chest[chassis.gender_specific ? "_m" : ""][suffix]"
 
 /datum/preference/color/mutant/synth_chassis
-	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
-	savefile_key = "ipc_chassis_color"
+	savefile_key = "synth_chassis_color"
 	relevant_mutant_bodypart = MUTANT_SYNTH_CHASSIS
 	choiced_preference_datum = /datum/preference/choiced/mutant/synth_chassis
 
@@ -138,12 +137,12 @@ MUTANT_CHOICED_NEW(synth_chassis, GLOB.synth_chassi)
 
 /datum/preference/choiced/mutant/synth_head
 	priority = PREFERENCE_PRIORITY_DEFAULT
-	savefile_key = "feature_ipc_head"
+	savefile_key = "feature_synth_head"
 	main_feature_name = "Head Appearance"
 	relevant_mutant_bodypart = MUTANT_SYNTH_HEAD
 	should_generate_icons = TRUE
 	crop_area = list(11, 22, 21, 32) // We want just the head.
-	color_feature_id = "ipc_head_color"
+	color_feature_id = "synth_head_color"
 
 MUTANT_CHOICED_NEW(synth_head, GLOB.synth_heads)
 
@@ -156,6 +155,6 @@ MUTANT_CHOICED_NEW(synth_head, GLOB.synth_heads)
 	return "[original_icon_state]_head[head.gender_specific ? "_m" : ""][suffix]"
 
 /datum/preference/color/mutant/synth_head
-	savefile_key = "ipc_head_color"
+	savefile_key = "synth_head_color"
 	relevant_mutant_bodypart = MUTANT_SYNTH_HEAD
 	choiced_preference_datum = /datum/preference/choiced/mutant/synth_head
