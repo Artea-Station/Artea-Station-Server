@@ -1,6 +1,6 @@
 /obj/item/organ/external/synth_antenna
 	name = "synth antenna"
-	preference = "feature_synth_antenna"
+	preference = "feature_ipc_antenna"
 	organ_flags = ORGAN_ROBOTIC
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/synth_antenna
