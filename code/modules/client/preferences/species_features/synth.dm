@@ -47,6 +47,13 @@
 
 	keep_me_safe.transfer_to(target, TRUE)
 
+/datum/preference/choiced/synth_brain/is_accessible(datum/preferences/preferences)
+	..()
+	if(!preferences)
+		return FALSE
+
+	return preferences.read_preference(/datum/preference/choiced/species) == /datum/species/synthetic
+
 /// IPC Screens
 
 /datum/preference/choiced/mutant/synth_screen
@@ -54,7 +61,6 @@
 	main_feature_name = "Synth Screen"
 	relevant_mutant_bodypart = MUTANT_SYNTH_SCREEN
 	crop_area = list(11, 22, 21, 32) // We want just the head.
-	greyscale_color = DEFAULT_SYNTH_SCREEN_COLOR
 	color_feature_id = "synth_screen_color"
 	organ_to_add = /obj/item/organ/external/screen
 
@@ -115,7 +121,6 @@ MUTANT_CHOICED_NEW(synth_antenna, GLOB.synth_antennae)
 	relevant_mutant_bodypart = MUTANT_SYNTH_CHASSIS
 	crop_area = list(8, 8, 24, 24) // We want just the body.
 	color_feature_id = "ipc_chassis_color"
-	greyscale_color = DEFAULT_SYNTH_PART_COLOR
 
 MUTANT_CHOICED_NEW(synth_chassis, GLOB.synth_chassi)
 
@@ -142,7 +147,6 @@ MUTANT_CHOICED_NEW(synth_chassis, GLOB.synth_chassi)
 	relevant_mutant_bodypart = MUTANT_SYNTH_HEAD
 	should_generate_icons = TRUE
 	crop_area = list(11, 22, 21, 32) // We want just the head.
-	greyscale_color = DEFAULT_SYNTH_PART_COLOR
 	color_feature_id = "ipc_head_color"
 
 MUTANT_CHOICED_NEW(synth_head, GLOB.synth_heads)

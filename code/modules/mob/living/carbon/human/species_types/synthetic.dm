@@ -30,6 +30,7 @@
 		MUTANT_TAIL = "None",
 		"ears" = "None",
 		"legs" = "Normal Legs",
+		MUTANT_HORNS = "None",
 		MUTANT_SYNTH_ANTENNA = "None",
 		MUTANT_SYNTH_SCREEN = "None",
 		MUTANT_SYNTH_CHASSIS = "Default Chassis",

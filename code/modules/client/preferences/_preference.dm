@@ -406,7 +406,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 		else if(crop_area)
 			stack_trace("Invalid crop paramater! The provided crop area list is not four entries long, or is not a list!")
 
-		if(color && sprite_accessory.color_src)
+		if(greyscale_color && sprite_accessory.color_src) // I intentionally use greyscale_color here.
 			// Turns out I ended up making this perfect. Welp.
 			icon_to_process.Blend(color, ICON_MULTIPLY)
 			color = "#[darken_color(darken_color(copytext(color, 2)))]" // Darken colour for the next layer to be able to tell it apart. YES, I KNOW THIS IS CURSED, BUT I DON'T WANT TO THINK ABOUT CHARACTER CODES - Rimi

@@ -39,10 +39,15 @@ MUTANT_CHOICED_NEW(tail_human, GLOB.tails_list)
 	main_feature_name = "Ears"
 	color_feature_id = "ears_color"
 	organ_to_add = /obj/item/organ/internal/ears
+	crop_area = list(11, 22, 21, 32) // We want just the head area.
 
 MUTANT_CHOICED_NEW(ears, GLOB.ears_list)
 
 /datum/preference/choiced/mutant/ears/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state, suffix)
+
+	if(icon_exists(sprite_accessory.icon, "m_ears_[original_icon_state]_ADJ[suffix]") && !findtext(sprite_accessory.icon_state, "bigwolf")) // Look, don't judge me, this was the easiest way to do it, and I've been dealing with fucking ear code for nearly 4 hours now - Rimi
+		return "m_ears_[original_icon_state]_ADJ[suffix]"
+
 	return "m_ears_[original_icon_state]_FRONT[suffix]"
 
 /datum/preference/color/mutant/ears
@@ -59,6 +64,7 @@ MUTANT_CHOICED_NEW(ears, GLOB.ears_list)
 	greyscale_color = COLOR_ASSEMBLY_BROWN
 	color_feature_id = "horns_color"
 	organ_to_add = /obj/item/organ/external/horns
+	crop_area = list(11, 22, 21, 32) // We want just the head area.
 
 MUTANT_CHOICED_NEW(horns, GLOB.horns_list)
 

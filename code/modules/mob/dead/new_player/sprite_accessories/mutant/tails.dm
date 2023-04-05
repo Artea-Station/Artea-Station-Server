@@ -178,18 +178,6 @@
 	name = "Servelyn"
 	icon_state = "tiger2"
 
-/datum/sprite_accessory/tails/skyrat/shade
-	name = "Shade"
-	icon_state = "shadekin_large"
-
-/datum/sprite_accessory/tails/skyrat/shade_long
-	name = "Shade (Long)"
-	icon_state = "shadekinlong_large"
-
-/datum/sprite_accessory/tails/skyrat/shade_striped
-	name = "Shade (Striped)"
-	icon_state = "shadekinlongstriped_large"
-
 /datum/sprite_accessory/tails/skyrat/akula_shark
 	name = "Shark"
 	icon_state = "shark"
@@ -255,6 +243,7 @@
 /datum/sprite_accessory/tails/skyrat/tailmaw_wag
 	name = "Tailmaw (Wag)"
 	icon_state = "tailmawwag"
+	color_src = MUTCOLORS
 
 /datum/sprite_accessory/tails/skyrat/tentacle
 	name = "Tentacle"
