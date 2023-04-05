@@ -49,7 +49,7 @@
 		/obj/item/bodypart/arm/right/moth,
 	)
 
-	for (var/obj/item/bodypart/body_part in body_parts)
+	for (var/obj/item/bodypart/body_part as anything in body_parts)
 		var/gender = (initial(body_part.is_dimorphic)) ? "_m" : ""
 		moth_body.Blend(icon('icons/mob/species/moth/bodyparts.dmi', "moth_[body_part][gender]"), ICON_OVERLAY)
 
@@ -61,8 +61,8 @@
 		var/icon/icon_with_markings = new(moth_body)
 
 		if (markings_name != "None")
-			for (var/body_part in body_parts)
-				var/icon/body_part_icon = icon(markings.icon, "[markings.icon_state]_[body_part.body_zone]")
+			for (var/obj/item/bodypart/body_part as anything in body_parts)
+				var/icon/body_part_icon = icon(markings.icon, "[markings.icon_state]_[initial(body_part.body_zone)]")
 				body_part_icon.Crop(1, 1, 32, 32)
 				icon_with_markings.Blend(body_part_icon, ICON_OVERLAY)
 
