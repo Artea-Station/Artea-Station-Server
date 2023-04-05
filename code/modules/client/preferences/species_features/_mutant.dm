@@ -4,6 +4,7 @@
 	category = PREFERENCE_CATEGORY_APPEARANCE
 	savefile_identifier = PREFERENCE_CHARACTER
 	should_generate_icons = TRUE
+	can_randomize = FALSE // Let's not force folk with mutant horrors beyond their comprehension, and force them to clean up a crappy randomly generated partslist.
 	/// The ID to use for supplemental features. If null, it won't do anything.
 	var/color_feature_id
 	/// The global list containing the sprite accessories to use. Override New to set.

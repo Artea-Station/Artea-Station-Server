@@ -99,8 +99,14 @@
 
 	examine_limb_id = chassis_of_choice.icon_state
 
-	var/head_color = target.dna.features["[MUTANT_SYNTH_HEAD]_color"][1]
-	var/chassis_color = target.dna.features["[MUTANT_SYNTH_CHASSIS]_color"][1]
+	var/list/head_color_list = target.dna.features["[MUTANT_SYNTH_HEAD]_color"]
+	var/list/chassis_color_list = target.dna.features["[MUTANT_SYNTH_CHASSIS]_color"]
+
+	if(!length(head_color_list) || !length(chassis_color_list))
+		CRASH("Unable to apply chassis or head due to missing color features!")
+
+	var/head_color = "#[head_color_list[1]]"
+	var/chassis_color = "#[chassis_color_list[1]]"
 
 	// We want to ensure that the IPC gets their chassis and their head correctly.
 	for(var/obj/item/bodypart/limb as anything in target.bodyparts)

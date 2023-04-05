@@ -119,3 +119,8 @@ export const ears_color: Feature<string> = {
   name: 'Ears Color',
   component: FeatureTriColorInput,
 };
+
+export const horns_color: Feature<string> = {
+  name: 'Horns Color',
+  component: FeatureTriColorInput,
+};

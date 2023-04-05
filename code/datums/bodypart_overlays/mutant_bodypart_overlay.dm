@@ -81,13 +81,13 @@
 				index++
 
 		else
-			overlay_indexes_to_color += 1
 			var/mutable_appearance/layer_image = mutable_appearance(sprite_datum.icon, finished_icon_state, -image_layer)
 
 			if(sprite_datum.center)
 				center_image(layer_image, sprite_datum.dimension_x, sprite_datum.dimension_y)
 
 			returned_images += layer_image
+			overlay_indexes_to_color += 1
 
 	return returned_images
 
