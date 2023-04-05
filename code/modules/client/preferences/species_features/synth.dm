@@ -2,7 +2,10 @@
 	main_feature_name = "Synth Brain"
 	category = PREFERENCE_CATEGORY_APPEARANCE
 	savefile_key = "synth_brain"
+	savefile_identifier = PREFERENCE_CHARACTER
+	priority = PREFERENCE_PRIORITY_NAMES
 	should_generate_icons = TRUE
+	relevant_mutant_bodypart = "synth_brain"
 
 /datum/preference/choiced/synth_brain/init_possible_values()
 	return list(
@@ -46,13 +49,6 @@
 		return
 
 	keep_me_safe.transfer_to(target, TRUE)
-
-/datum/preference/choiced/synth_brain/is_accessible(datum/preferences/preferences)
-	..()
-	if(!preferences)
-		return FALSE
-
-	return preferences.read_preference(/datum/preference/choiced/species) == /datum/species/synthetic
 
 /// IPC Screens
 

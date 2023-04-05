@@ -35,6 +35,7 @@
 		MUTANT_SYNTH_SCREEN = "None",
 		MUTANT_SYNTH_CHASSIS = "Default Chassis",
 		MUTANT_SYNTH_HEAD = "Default Head",
+		"synth_brain" = ORGAN_PREF_CIRCUIT_BRAIN,
 	)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/synthetic
@@ -98,8 +99,8 @@
 
 	examine_limb_id = chassis_of_choice.icon_state
 
-	var/head_color = target.dna.features["[MUTANT_SYNTH_HEAD]_color"]
-	var/chassis_color = target.dna.features["[MUTANT_SYNTH_CHASSIS]_color"]
+	var/head_color = target.dna.features["[MUTANT_SYNTH_HEAD]_color"][1]
+	var/chassis_color = target.dna.features["[MUTANT_SYNTH_CHASSIS]_color"][1]
 
 	// We want to ensure that the IPC gets their chassis and their head correctly.
 	for(var/obj/item/bodypart/limb as anything in target.bodyparts)

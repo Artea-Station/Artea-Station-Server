@@ -63,6 +63,7 @@ MUTANT_CHOICED_NEW(ears, GLOB.ears_list)
 	should_generate_icons = TRUE
 	greyscale_color = COLOR_ASSEMBLY_BROWN
 	color_feature_id = "horns_color"
+	relevant_mutant_bodypart = MUTANT_HORNS
 	organ_to_add = /obj/item/organ/external/horns
 	crop_area = list(11, 22, 21, 32) // We want just the head area.
 
