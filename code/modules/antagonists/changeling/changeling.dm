@@ -711,7 +711,9 @@
 	user.underwear = chosen_profile.underwear
 	user.underwear_color = chosen_profile.underwear_color
 	user.undershirt = chosen_profile.undershirt
+	user.undershirt_color = chosen_profile.undershirt_color
 	user.socks = chosen_profile.socks
+	user.socks_color = chosen_profile.socks_color
 	user.age = chosen_profile.age
 	user.physique = chosen_profile.physique
 	user.grad_style = LAZYLISTDUPLICATE(chosen_profile.grad_style)
@@ -845,8 +847,12 @@
 	var/underwear_color
 	/// The undershirt worn by the profile source
 	var/undershirt
+	/// The undershirt color of the profile source
+	var/undershirt_color
 	/// The socks worn by the profile source
 	var/socks
+	/// The socks color of the profile source
+	var/socks_color
 	/// A list of paths for any skill chips the profile source had installed
 	var/list/skillchips = list()
 	/// What scars the profile sorce had, in string form (like persistent scars)
@@ -891,7 +897,9 @@
 	new_profile.underwear = underwear
 	new_profile.underwear_color = underwear_color
 	new_profile.undershirt = undershirt
+	new_profile.undershirt_color = undershirt_color
 	new_profile.socks = socks
+	new_profile.socks_color = socks_color
 	new_profile.worn_icon_list = worn_icon_list.Copy()
 	new_profile.worn_icon_state_list = worn_icon_state_list.Copy()
 	new_profile.skillchips = skillchips.Copy()
