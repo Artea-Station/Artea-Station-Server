@@ -61,6 +61,12 @@ GLOBAL_LIST_INIT(sprite_accessory_layers, list( \
 
 	if(add_blank)
 		accessory_list += list("None" = new /datum/sprite_accessory/blank)
+	else
+		// Catch sprite accessory datums that have snowflake none entries.
+		var/none_entry = accessory_list["None"]
+		if(none_entry)
+			temp_list -= "None"
+			accessory_list += list("None" = none_entry)
 
 	accessory_list += temp_list
 
