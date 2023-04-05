@@ -81,10 +81,26 @@
 	should_generate_icons = TRUE
 
 /datum/preference/choiced/socks/init_possible_values()
-	return generate_values_for_underwear(GLOB.socks_list, list("human_r_leg", "human_l_leg"))
+	return generate_values_for_underwear(GLOB.socks_list, list("human_r_leg", "human_l_leg"), COLOR_ALMOST_BLACK)
 
 /datum/preference/choiced/socks/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.socks = value
+
+/datum/preference/color/socks_color
+	savefile_key = "socks_color"
+	savefile_identifier = PREFERENCE_CHARACTER
+	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
+
+/datum/preference/color/socks_color/apply_to_human(mob/living/carbon/human/target, value)
+	target.socks_color = value
+
+/datum/preference/color/socks_color/is_accessible(datum/preferences/preferences)
+	if (!..(preferences))
+		return FALSE
+
+	var/species_type = preferences.read_preference(/datum/preference/choiced/species)
+	var/datum/species/species = new species_type
+	return !(NO_UNDERWEAR in species.species_traits)
 
 /// Undershirt preference
 /datum/preference/choiced/undershirt
@@ -110,7 +126,10 @@
 
 		if (accessory_name != "Nude")
 			var/datum/sprite_accessory/accessory = GLOB.undershirt_list[accessory_name]
-			icon_with_undershirt.Blend(icon('icons/mob/clothing/underwear.dmi', accessory.icon_state), ICON_OVERLAY)
+			var/icon/undershirt_icon = icon('icons/mob/clothing/underwear.dmi', accessory.icon_state)
+			if(accessory.color_src)
+				undershirt_icon.Blend(COLOR_ALMOST_BLACK, ICON_MULTIPLY)
+			icon_with_undershirt.Blend(undershirt_icon, ICON_OVERLAY)
 
 		icon_with_undershirt.Crop(9, 9, 23, 23)
 		icon_with_undershirt.Scale(32, 32)
@@ -120,6 +139,26 @@
 
 /datum/preference/choiced/undershirt/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.undershirt = value
+
+/datum/preference/choiced/undershirt/compile_constant_data()
+	. = ..()
+	.[SUPPLEMENTAL_FEATURE_KEY] = "undershirt_color"
+
+/datum/preference/color/undershirt_color
+	savefile_key = "undershirt_color"
+	savefile_identifier = PREFERENCE_CHARACTER
+	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
+
+/datum/preference/color/undershirt_color/apply_to_human(mob/living/carbon/human/target, value)
+	target.undershirt_color = value
+
+/datum/preference/color/undershirt_color/is_accessible(datum/preferences/preferences)
+	if (!..(preferences))
+		return FALSE
+
+	var/species_type = preferences.read_preference(/datum/preference/choiced/species)
+	var/datum/species/species = new species_type
+	return !(NO_UNDERWEAR in species.species_traits)
 
 /// Underwear preference
 /datum/preference/choiced/underwear

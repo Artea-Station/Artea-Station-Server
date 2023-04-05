@@ -43,7 +43,11 @@
 	var/underwear = "Nude" //Which underwear the player wants
 	var/underwear_color = "#000000"
 	var/undershirt = "Nude" //Which undershirt the player wants
+	///Color of the undershirt
+	var/undershirt_color = "#FFFFFF"
 	var/socks = "Nude" //Which socks the player wants
+	///Color of the socks
+	var/socks_color = "#FFFFFF"
 	var/backpack = DBACKPACK //Which backpack type the player has chosen.
 	var/jumpsuit_style = PREF_SUIT //suit/skirt
 

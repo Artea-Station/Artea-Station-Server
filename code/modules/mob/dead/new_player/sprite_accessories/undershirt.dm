@@ -282,3 +282,272 @@
 	name = "T-Shirt (Yellow)"
 	icon_state = "yellowshirt"
 	gender = NEUTER
+
+// Skyrat undershirts.
+
+/datum/sprite_accessory/undershirt/tanktop_alt
+	name = "Tank Top - Alt"
+	icon_state = "tanktop_alt"
+	use_static = null
+
+/datum/sprite_accessory/undershirt/tanktop_midriff
+	name = "Tank Top - Midriff"
+	icon_state = "tank_midriff"
+	gender = FEMALE
+	use_static = null
+
+/datum/sprite_accessory/undershirt/tanktop_midriff_alt
+	name = "Tank Top - Midriff Halterneck"
+	icon_state = "tank_midriff_alt"
+	gender = FEMALE
+	use_static = null
+
+/datum/sprite_accessory/undershirt/tankstripe
+	name = "Tank Top - Striped"
+	icon_state = "tank_stripes"
+	use_static = TRUE
+
+/datum/sprite_accessory/undershirt/tank_top_sun
+	name = "Tank top - Sun"
+	icon_state = "tank_sun"
+	use_static = TRUE
+
+/datum/sprite_accessory/undershirt/babydoll
+	name = "Baby-Doll"
+	icon_state = "babydoll"
+	gender = FEMALE
+	use_static = null
+
+/datum/sprite_accessory/undershirt/bra
+	name = "Bra"
+	icon_state = "bra"
+	gender = FEMALE
+	use_static = null
+
+/datum/sprite_accessory/undershirt/bra_alt
+	name = "Bra - Alt"
+	icon_state = "bra_alt"
+	gender = FEMALE
+	use_static = null
+
+/datum/sprite_accessory/undershirt/bra_thin
+	name = "Bra - Thin"
+	icon_state = "bra_thin"
+	gender = FEMALE
+	use_static = null
+
+/datum/sprite_accessory/undershirt/bra_kinky
+	name = "Bra - Kinky Black"
+	icon_state = "bra_kinky"
+	gender = FEMALE
+	use_static = TRUE
+
+/datum/sprite_accessory/undershirt/bra_freedom
+	name = "Bra - Freedom"
+	icon_state = "bra_assblastusa"
+	gender = FEMALE
+	use_static = TRUE
+
+/datum/sprite_accessory/undershirt/bra_commie
+	name = "Bra - Commie"
+	icon_state = "bra_commie"
+	gender = FEMALE
+	use_static = TRUE
+
+/datum/sprite_accessory/undershirt/bra_beekini
+	name = "Bra - Bee-kini"
+	icon_state = "bra_bee-kini"
+	gender = FEMALE
+	use_static = TRUE
+
+/datum/sprite_accessory/undershirt/bra_uk
+	name = "Bra - UK"
+	icon_state = "bra_uk"
+	gender = FEMALE
+	use_static = TRUE
+
+/datum/sprite_accessory/undershirt/bra_neko
+	name = "Bra - Neko"
+	icon_state = "bra_neko"
+	gender = FEMALE
+	use_static = null
+
+/datum/sprite_accessory/undershirt/halterneck_bra
+	name = "Bra - Halterneck"
+	icon_state = "halterneck_bra"
+	gender = FEMALE
+	use_static = null
+
+/datum/sprite_accessory/undershirt/sports_bra
+	name = "Bra, Sports"
+	icon_state = "sports_bra"
+	gender = FEMALE
+	use_static = null
+
+/datum/sprite_accessory/undershirt/sports_bra_alt
+	name = "Bra, Sports - Alt"
+	icon_state = "sports_bra_alt"
+	gender = FEMALE
+	use_static = null
+
+/datum/sprite_accessory/undershirt/bra_strapless
+	name = "Bra, Strapless"
+	icon_state = "bra_strapless"
+	gender = FEMALE
+	use_static = null
+
+/datum/sprite_accessory/undershirt/bra_latex
+	name = "Bra, Latex"
+	icon_state = "bra_latex"
+	gender = FEMALE
+	use_static = TRUE
+
+/datum/sprite_accessory/undershirt/striped_bra
+	name = "Bra - Striped"
+	icon_state = "striped_bra"
+	gender = FEMALE
+	use_static = null
+
+/datum/sprite_accessory/undershirt/sarashi
+	name = "Bra - Sarashi"
+	icon_state = "bandages"
+	gender = NEUTER
+	use_static = null
+
+/datum/sprite_accessory/undershirt/fishnet_sleeves
+	name = "Fishnet - Sleeved"
+	icon_state = "fishnet_sleeves"
+	gender = FEMALE
+	use_static = TRUE
+
+/datum/sprite_accessory/undershirt/fishnet_sleeves/alt
+	name = "Fishnet - Sleeved (Greyscale)"
+	icon_state = "fishnet_sleeves_alt"
+	use_static = null
+
+/datum/sprite_accessory/undershirt/fishnet_base
+	name = "Fishnet - Sleeveless"
+	icon_state = "fishnet_body"
+	gender = FEMALE
+	use_static = TRUE
+
+/datum/sprite_accessory/undershirt/fishnet_base/alt
+	name = "Fishnet - Sleeveless (Greyscale)"
+	icon_state = "fishnet_body_alt"
+	use_static = null
+
+/datum/sprite_accessory/undershirt/swimsuit
+	name = "Swimsuit Top"
+	icon_state = "bra_swimming"
+	gender = FEMALE
+	use_static = null
+
+/datum/sprite_accessory/undershirt/corset
+	name = "Corset"
+	icon_state = "corset"
+	gender = FEMALE
+	use_static = TRUE
+
+/datum/sprite_accessory/undershirt/chastbra
+	name = "Chastity Bra"
+	icon_state = "chastbra"
+	gender = FEMALE
+	use_static = TRUE
+
+/datum/sprite_accessory/undershirt/pasties
+	name = "Pasties"
+	icon_state = "pasties"
+	gender = FEMALE
+	use_static = null
+
+/datum/sprite_accessory/undershirt/pasties_alt
+	name = "Pasties - Alt"
+	icon_state = "pasties_alt"
+	gender = FEMALE
+	use_static = null
+
+/datum/sprite_accessory/undershirt/shibari
+	name = "Shibari"
+	icon_state = "shibari"
+	gender = FEMALE
+	use_static = null
+
+/datum/sprite_accessory/undershirt/shibari_sleeves
+	name = "Shibari Sleeves"
+	icon_state = "shibari_sleeves"
+	gender = FEMALE
+	use_static = null
+
+/datum/sprite_accessory/undershirt/bulletclub //4 life
+	name = "Shirt - Black Skull"
+	icon_state = "shirt_bc"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/striped
+	name = "Shirt - Black Stripes"
+	icon_state = "longstripe"
+	gender = NEUTER
+	use_static = TRUE
+
+/datum/sprite_accessory/undershirt/striped/blue
+	name = "Shirt - Blue Stripes"
+	icon_state = "longstripe_blue"
+
+/datum/sprite_accessory/undershirt/binder
+	name = "Binder"
+	icon_state = "binder"
+	gender = MALE
+	use_static = null
+
+/datum/sprite_accessory/undershirt/binder/strapless
+	name = "Binder - Strapless"
+	icon_state = "binder_strapless"
+
+/datum/sprite_accessory/undershirt/turtleneck
+	name = "Sweater - Turtleneck"
+	icon_state = "turtleneck"
+	use_static = null
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/turtleneck/smooth
+	name = "Sweater - Smooth Turtleneck"
+	icon_state = "turtleneck_smooth"
+
+/datum/sprite_accessory/undershirt/turtleneck/sleeveless
+	name = "Sweater - Sleeveless Turtleneck"
+	icon_state = "turtleneck_sleeveless"
+
+/datum/sprite_accessory/undershirt/offshoulder
+	name = "Shirt - Off-Shoulder"
+	icon_state = "one_arm"
+	gender = FEMALE
+	use_static = null
+
+/datum/sprite_accessory/undershirt/buttondown
+	name = "Shirt - Buttondown"
+	icon_state = "buttondown"
+	gender = NEUTER
+	use_static = null
+
+/datum/sprite_accessory/undershirt/buttondown/short_sleeve
+	name = "Shirt - Short Sleeved Buttondown"
+	icon_state = "buttondown_short"
+
+/datum/sprite_accessory/undershirt/leotard
+	name = "Shirt - Leotard"
+	icon_state = "leotard"
+	gender = FEMALE
+	use_static = null
+
+/datum/sprite_accessory/undershirt/leotard/turtleneck
+	name = "Shirt - Turtleneck Leotard"
+	icon_state = "leotard_turtleneck"
+
+/datum/sprite_accessory/undershirt/leotard/turtleneck/sleeveless
+	name = "Shirt - Turtleneck Leotard Sleeveless"
+	icon_state = "leotard_turtleneck_sleeveless"
+
+/datum/sprite_accessory/undershirt/lizared
+	name = "LIZARED Top"
+	icon_state = "lizared_top"
+	use_static = TRUE
