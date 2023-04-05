@@ -1,31 +1,3 @@
-/proc/generate_lizard_side_shots(list/sprite_accessories, key, include_snout = TRUE)
-	var/list/values = list()
-
-	var/icon/lizard = icon('icons/mob/species/lizard/bodyparts.dmi', "lizard_head", EAST)
-	var/icon/eyes = icon('icons/mob/species/human/human_face.dmi', "eyes", EAST)
-	eyes.Blend(COLOR_GRAY, ICON_MULTIPLY)
-	lizard.Blend(eyes, ICON_OVERLAY)
-
-	if (include_snout)
-		lizard.Blend(icon('icons/mob/species/lizard/lizard_misc.dmi', "m_snout_round_ADJ", EAST), ICON_OVERLAY)
-
-	for (var/name in sprite_accessories)
-		var/datum/sprite_accessory/sprite_accessory = sprite_accessories[name]
-
-		var/icon/final_icon = icon(lizard)
-
-		if (sprite_accessory.icon_state != "none")
-			var/icon/accessory_icon = icon(sprite_accessory.icon, "m_[key]_[sprite_accessory.icon_state]_ADJ", EAST)
-			final_icon.Blend(accessory_icon, ICON_OVERLAY)
-
-		final_icon.Crop(11, 20, 23, 32)
-		final_icon.Scale(32, 32)
-		final_icon.Blend(COLOR_VIBRANT_LIME, ICON_MULTIPLY)
-
-		values[name] = final_icon
-
-	return values
-
 /datum/preference/choiced/lizard_body_markings
 	savefile_key = "feature_lizard_body_markings"
 	savefile_identifier = PREFERENCE_CHARACTER
@@ -64,31 +36,26 @@
 /datum/preference/choiced/lizard_body_markings/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.dna.features["body_markings"] = value
 
-/datum/preference/choiced/lizard_frills
+/datum/preference/choiced/mutant/lizard_frills
 	savefile_key = "feature_lizard_frills"
-	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_APPEARANCE
 	main_feature_name = "Frills"
+	relevant_mutant_bodypart = MUTANT_FRILLS
 	should_generate_icons = TRUE
+	color_feature_id = "lizard_frills_color"
+	organ_to_add = /obj/item/organ/external/frills
+	sprite_direction = EAST
+	greyscale_color = COLOR_VIBRANT_LIME
+	crop_area = list(11, 22, 21, 32) // We want just the head.
 
-/datum/preference/choiced/lizard_frills/init_possible_values()
-	return generate_lizard_side_shots(GLOB.frills_list, "frills")
+MUTANT_CHOICED_NEW(lizard_frills, GLOB.frills_list)
 
-/datum/preference/choiced/lizard_frills/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
-	target.dna.features["frills"] = value
+/datum/preference/choiced/mutant/lizard_frills/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state, suffix)
+	return "m_frills_[original_icon_state]_ADJ[suffix]"
 
-/datum/preference/choiced/lizard_horns
-	savefile_key = "feature_lizard_horns"
-	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_APPEARANCE
-	main_feature_name = "Horns"
-	should_generate_icons = TRUE
-
-/datum/preference/choiced/lizard_horns/init_possible_values()
-	return generate_lizard_side_shots(GLOB.horns_list, "horns")
-
-/datum/preference/choiced/lizard_horns/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
-	target.dna.features["horns"] = value
+/datum/preference/color/mutant/lizard_frills
+	savefile_key = "lizard_frills_color"
+	relevant_mutant_bodypart = MUTANT_FRILLS
+	choiced_preference_datum = /datum/preference/choiced/mutant/lizard_frills
 
 /datum/preference/choiced/lizard_legs
 	savefile_key = "feature_lizard_legs"
@@ -102,18 +69,29 @@
 /datum/preference/choiced/lizard_legs/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.dna.features["legs"] = value
 
-/datum/preference/choiced/lizard_snout
+/datum/preference/choiced/mutant/lizard_snout
 	savefile_key = "feature_lizard_snout"
-	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_APPEARANCE
 	main_feature_name = "Snout"
 	should_generate_icons = TRUE
+	relevant_mutant_bodypart = MUTANT_SNOUT
+	color_feature_id = "lizard_snout_color"
+	organ_to_add = /obj/item/organ/external/snout
+	sprite_direction = EAST
+	greyscale_color = COLOR_VIBRANT_LIME
+	crop_area = list(14, 22, 24, 32) // We want just the head.
 
-/datum/preference/choiced/lizard_snout/init_possible_values()
-	return generate_lizard_side_shots(GLOB.snouts_list, "snout", include_snout = FALSE)
+MUTANT_CHOICED_NEW(lizard_snout, GLOB.snouts_list)
 
-/datum/preference/choiced/lizard_snout/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
-	target.dna.features["snout"] = value
+/datum/preference/choiced/mutant/lizard_snout/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state, suffix)
+	return "m_snout_[original_icon_state]_ADJ[suffix]"
+
+/datum/preference/choiced/mutant/lizard_snout/create_default_value()
+	return pick(sprite_accessory)
+
+/datum/preference/color/mutant/lizard_snout
+	savefile_key = "lizard_snout_color"
+	relevant_mutant_bodypart = MUTANT_SNOUT
+	choiced_preference_datum = /datum/preference/choiced/mutant/lizard_snout
 
 /datum/preference/choiced/lizard_spines
 	savefile_key = "feature_lizard_spines"

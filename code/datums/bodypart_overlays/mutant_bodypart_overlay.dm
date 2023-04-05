@@ -167,11 +167,19 @@
 ///Sprite accessories are singletons, stored list("Big Snout" = instance of /datum/sprite_accessory/snout/big), so here we get that singleton
 /datum/bodypart_overlay/mutant/proc/fetch_sprite_datum(datum/sprite_accessory/accessory_path)
 	var/list/feature_list = get_global_feature_list()
+	var/feature = feature_list[initial(accessory_path.name)]
 
-	return feature_list[initial(accessory_path.name)]
+	if(!feature)
+		CRASH("Oh god oh fuck, why is this null?! [type] | [accessory_path]")
+
+	return feature
 
 ///Get the singleton from the sprite name
 /datum/bodypart_overlay/mutant/proc/fetch_sprite_datum_from_name(accessory_name)
 	var/list/feature_list = get_global_feature_list()
+	var/feature = feature_list[accessory_name]
 
-	return feature_list[accessory_name]
+	if(!feature)
+		CRASH("Oh god oh fuck, why is this null?! [type] | [accessory_name]")
+
+	return feature

@@ -45,7 +45,7 @@ export const ChoicedSelection = (
       <Stack vertical fill>
         <Stack.Item>
           <Stack fill>
-            {supplementalFeature && (
+            {supplementalFeature !== undefined && (
               <Stack.Item>
                 {features[supplementalFeature].description ? (
                   <Tooltip

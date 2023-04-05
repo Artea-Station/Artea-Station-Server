@@ -65,6 +65,13 @@ MUTANT_CHOICED_NEW(horns, GLOB.horns_list)
 
 	return "m_horns_[original_icon_state]_ADJ[suffix]"
 
+/datum/preference/color/mutant/horns/is_accessible(datum/preferences/preferences)
+	. = ..()
+	if(. || !preferences)
+		return
+
+	return preferences.read_preference(/datum/preference/choiced/species) == /datum/species/lizard
+
 /datum/preference/color/mutant/horns
 	savefile_key = "horns_color"
 	relevant_mutant_bodypart = MUTANT_HORNS

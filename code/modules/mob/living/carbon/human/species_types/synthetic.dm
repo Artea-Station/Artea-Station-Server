@@ -102,11 +102,8 @@
 	var/list/head_color_list = target.dna.features["[MUTANT_SYNTH_HEAD]_color"]
 	var/list/chassis_color_list = target.dna.features["[MUTANT_SYNTH_CHASSIS]_color"]
 
-	if(!length(head_color_list) || !length(chassis_color_list))
-		CRASH("Unable to apply chassis or head due to missing color features!")
-
-	var/head_color = "#[head_color_list[1]]"
-	var/chassis_color = "#[chassis_color_list[1]]"
+	var/head_color = length(head_color_list) ? "#[head_color_list[1]]" : null
+	var/chassis_color = length(chassis_color_list) ? "#[chassis_color_list[1]]" : null
 
 	// We want to ensure that the IPC gets their chassis and their head correctly.
 	for(var/obj/item/bodypart/limb as anything in target.bodyparts)

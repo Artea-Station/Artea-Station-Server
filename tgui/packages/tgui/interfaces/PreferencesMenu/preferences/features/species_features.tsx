@@ -128,3 +128,13 @@ export const horns_color: Feature<string> = {
   name: 'Horns Color',
   component: FeatureTriColorInput,
 };
+
+export const lizard_frills_color: Feature<string> = {
+  name: 'Frills Color',
+  component: FeatureTriColorInput,
+};
+
+export const lizard_snout_color: Feature<string> = {
+  name: 'Snout Color',
+  component: FeatureTriColorInput,
+};
