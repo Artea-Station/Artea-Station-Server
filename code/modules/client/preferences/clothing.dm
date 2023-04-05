@@ -131,7 +131,7 @@
 		if (accessory_name != "Nude")
 			var/datum/sprite_accessory/accessory = GLOB.undershirt_list[accessory_name]
 			var/icon/undershirt_icon = icon('icons/mob/clothing/underwear.dmi', accessory.icon_state)
-			if(accessory.color_src)
+			if(!accessory.use_static)
 				undershirt_icon.Blend(COLOR_ALMOST_BLACK, ICON_MULTIPLY)
 			icon_with_undershirt.Blend(undershirt_icon, ICON_OVERLAY)
 
