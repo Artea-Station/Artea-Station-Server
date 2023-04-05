@@ -28,7 +28,7 @@
 		var/datum/sprite_accessory/accessory = sprite_accessory[value]
 		if(!accessory)
 			CRASH("Accessory is null for [value]!")
-		if(accessory.name == "None")
+		if(accessory.name == "None" || !is_accessible(preferences))
 			return
 		var/obj/item/organ/external/new_organ_to_add = new organ_to_add(FALSE, accessory.type)
 		new_organ_to_add.Insert(target, TRUE, FALSE)
