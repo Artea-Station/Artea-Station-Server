@@ -114,7 +114,7 @@
 			continue
 
 		if(limb.body_zone == BODY_ZONE_HEAD)
-			if(head_of_choice.color_src && head_color)
+			if(head_of_choice.color_src && head_color && head_color != COLOR_BLACK) // If someone sets their colour to pure black, assume they want skin_tone as their colour.
 				limb.variable_color = head_color
 			else
 				limb.variable_color = null
@@ -123,7 +123,7 @@
 			limb.update_limb(is_creating = TRUE)
 			continue
 
-		if(chassis_of_choice.color_src && chassis_color)
+		if(chassis_of_choice.color_src && chassis_color && chassis_color != COLOR_BLACK) // Ditto
 			limb.variable_color = chassis_color
 		else
 			limb.variable_color = null
