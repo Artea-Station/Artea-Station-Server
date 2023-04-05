@@ -86,6 +86,10 @@
 /datum/preference/choiced/socks/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.socks = value
 
+/datum/preference/choiced/socks/compile_constant_data()
+	. = ..()
+	.[SUPPLEMENTAL_FEATURE_KEY] = "socks_color"
+
 /datum/preference/color/socks_color
 	savefile_key = "socks_color"
 	savefile_identifier = PREFERENCE_CHARACTER

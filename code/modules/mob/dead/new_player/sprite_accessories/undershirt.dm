@@ -5,6 +5,7 @@
 /datum/sprite_accessory/undershirt
 	icon = 'icons/mob/clothing/underwear.dmi'
 	em_block = TRUE
+	use_static = TRUE
 
 /datum/sprite_accessory/undershirt/nude
 	name = "Nude"
@@ -305,10 +306,12 @@
 /datum/sprite_accessory/undershirt/tankstripe
 	name = "Tank Top - Striped"
 	icon_state = "tank_stripes"
+	use_static = TRUE
 
 /datum/sprite_accessory/undershirt/tank_top_sun
 	name = "Tank top - Sun"
 	icon_state = "tank_sun"
+	use_static = TRUE
 
 /datum/sprite_accessory/undershirt/babydoll
 	name = "Baby-Doll"
@@ -338,26 +341,31 @@
 	name = "Bra - Kinky Black"
 	icon_state = "bra_kinky"
 	gender = FEMALE
+	use_static = TRUE
 
 /datum/sprite_accessory/undershirt/bra_freedom
 	name = "Bra - Freedom"
 	icon_state = "bra_assblastusa"
 	gender = FEMALE
+	use_static = TRUE
 
 /datum/sprite_accessory/undershirt/bra_commie
 	name = "Bra - Commie"
 	icon_state = "bra_commie"
 	gender = FEMALE
+	use_static = TRUE
 
 /datum/sprite_accessory/undershirt/bra_beekini
 	name = "Bra - Bee-kini"
 	icon_state = "bra_bee-kini"
 	gender = FEMALE
+	use_static = TRUE
 
 /datum/sprite_accessory/undershirt/bra_uk
 	name = "Bra - UK"
 	icon_state = "bra_uk"
 	gender = FEMALE
+	use_static = TRUE
 
 /datum/sprite_accessory/undershirt/bra_neko
 	name = "Bra - Neko"
@@ -393,6 +401,7 @@
 	name = "Bra, Latex"
 	icon_state = "bra_latex"
 	gender = FEMALE
+	use_static = TRUE
 
 /datum/sprite_accessory/undershirt/striped_bra
 	name = "Bra - Striped"
@@ -410,6 +419,7 @@
 	name = "Fishnet - Sleeved"
 	icon_state = "fishnet_sleeves"
 	gender = FEMALE
+	use_static = TRUE
 
 /datum/sprite_accessory/undershirt/fishnet_sleeves/alt
 	name = "Fishnet - Sleeved (Greyscale)"
@@ -420,6 +430,7 @@
 	name = "Fishnet - Sleeveless"
 	icon_state = "fishnet_body"
 	gender = FEMALE
+	use_static = TRUE
 
 /datum/sprite_accessory/undershirt/fishnet_base/alt
 	name = "Fishnet - Sleeveless (Greyscale)"
@@ -436,11 +447,13 @@
 	name = "Corset"
 	icon_state = "corset"
 	gender = FEMALE
+	use_static = TRUE
 
 /datum/sprite_accessory/undershirt/chastbra
 	name = "Chastity Bra"
 	icon_state = "chastbra"
 	gender = FEMALE
+	use_static = TRUE
 
 /datum/sprite_accessory/undershirt/pasties
 	name = "Pasties"
@@ -475,6 +488,7 @@
 	name = "Shirt - Black Stripes"
 	icon_state = "longstripe"
 	gender = NEUTER
+	use_static = TRUE
 
 /datum/sprite_accessory/undershirt/striped/blue
 	name = "Shirt - Blue Stripes"
@@ -537,3 +551,4 @@
 /datum/sprite_accessory/undershirt/lizared
 	name = "LIZARED Top"
 	icon_state = "lizared_top"
+	use_static = TRUE
