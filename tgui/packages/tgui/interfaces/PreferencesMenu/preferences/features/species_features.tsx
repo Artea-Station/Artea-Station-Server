@@ -70,6 +70,16 @@ export const underwear_color: Feature<string> = {
   component: FeatureColorInput,
 };
 
+export const undershirt_color: Feature<string> = {
+  name: 'Undershirt Color',
+  component: FeatureColorInput,
+};
+
+export const socks_color: Feature<string> = {
+  name: 'Socks Color',
+  component: FeatureColorInput,
+};
+
 export const feature_vampire_status: Feature<string> = {
   name: 'Vampire status',
   component: FeatureDropdownInput,

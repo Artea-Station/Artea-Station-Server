@@ -5,6 +5,7 @@
 /datum/sprite_accessory/socks
 	icon = 'icons/mob/clothing/underwear.dmi'
 	em_block = TRUE
+	use_static = TRUE
 
 /datum/sprite_accessory/socks/nude
 	name = "Nude"
@@ -209,7 +210,6 @@
 /datum/sprite_accessory/socks/leggings/stirrups/gym
 	name = "Thigh-high Stirrups (black with stripe)"
 	icon_state = "leggings-stir-black"
-	use_static = TRUE
 
 /datum/sprite_accessory/socks/bee_thigh
 	name = "Thigh-high - Bee (Old)"
@@ -312,4 +312,3 @@
 /datum/sprite_accessory/socks/leggings/latex
 	name = "Socks - Latex"
 	icon_state = "socks_latex"
-	use_static = TRUE
