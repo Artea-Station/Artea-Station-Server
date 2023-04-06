@@ -4,7 +4,7 @@ import { Window } from '../layouts';
 import { resolveAsset } from '../assets';
 import { formatTime } from '../format';
 import { capitalize } from 'common/string';
-import nt_logo from '../assets/bg-nanotrasen.svg';
+import nt_logo from '../assets/bg-artea.svg';
 import { Fragment } from 'inferno';
 
 type ExplorationEventData = {
