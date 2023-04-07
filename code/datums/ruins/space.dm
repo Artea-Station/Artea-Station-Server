@@ -258,3 +258,9 @@
 	suffix = "spinwardsmoothies.dmm"
 	name = "Spinward Smoothies"
 	description = "A branch of the beloved Spinward Smoothies chain of smoothie bars."
+
+/datum/map_template/ruin/space/botanical_haven
+	id = "botanical_haven"
+	suffix = "botanical_haven.dmm"
+	name = "Botanical Haven"
+	description = "A small sanctuary for plants and botanists, hidden away in a rusted structure."

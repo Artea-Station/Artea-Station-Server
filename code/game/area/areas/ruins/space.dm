@@ -542,3 +542,7 @@
 
 /area/ruin/space/has_grav/spinwardsmoothies
 	name = "Spinward Smoothies"
+
+// Botnanical Haven
+/area/ruin/space/has_grav/powered/botanical_haven
+	name = "\improper Botanical Haven"
