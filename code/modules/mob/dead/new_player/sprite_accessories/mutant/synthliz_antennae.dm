@@ -2,7 +2,6 @@
 
 //Synth Antennae
 /datum/sprite_accessory/antenna/synthliz
-	key = "ipc_antenna"
 	icon = 'icons/mob/species/synth/synthliz_antennas.dmi'
 	name = "Synthetic Lizard - Antennae"
 	icon_state = "synth_antennae"

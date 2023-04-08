@@ -36,6 +36,8 @@
 		MUTANT_SYNTH_CHASSIS = "Default Chassis",
 		MUTANT_SYNTH_HEAD = "Default Head",
 		"synth_brain" = ORGAN_PREF_CIRCUIT_BRAIN,
+		"body_markings" = "None",
+		MUTANT_SNOUT = "None",
 	)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/synthetic

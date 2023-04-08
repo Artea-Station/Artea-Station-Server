@@ -18,7 +18,7 @@
 		"legs" = "Normal Legs",
 		MUTANT_HORNS = "None",
 		MUTANT_FRILLS = "None",
-		MUTANT_SNOUT = "Round"
+		MUTANT_SNOUT = "Round",
 		)
 	external_organs = list(
 		/obj/item/organ/external/spines = "None",

@@ -760,10 +760,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				var/mutable_appearance/accessory_overlay = mutable_appearance(accessory.icon, layer = -layer)
 
 				var/index_text = ""
-				if(length(accessory.color_layer_names))
-					if(!accessory.color_layer_names[index])
-						continue
-
+				if(length(accessory.color_layer_names) && accessory.color_layer_names[index])
 					index_text = "_[accessory.color_layer_names[index]]"
 
 				if(accessory.gender_specific)

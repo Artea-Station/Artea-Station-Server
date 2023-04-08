@@ -64,7 +64,7 @@
 	if(!GLOB.tails_list_lizard.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/lizard, GLOB.tails_list_lizard, add_blank = TRUE)
 	if(!GLOB.snouts_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/snouts, GLOB.snouts_list)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/snouts, GLOB.snouts_list, add_blank = TRUE)
 	if(!GLOB.horns_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/horns, GLOB.horns_list)
 	if(!GLOB.ears_list.len)
