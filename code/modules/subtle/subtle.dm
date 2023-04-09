@@ -105,13 +105,6 @@
 			for(var/mob/mob_in_view as anything in in_view)
 				if(!istype(mob_in_view))
 					in_view.Remove(mob_in_view)
-			var/list/targets = list(SUBTLE_ONE_TILE_TEXT, SUBTLE_SAME_TILE_TEXT) + in_view
-			target = tgui_input_list(user, "Pick a target", "Target Selection", targets)
-			switch(target)
-				if(SUBTLE_ONE_TILE_TEXT)
-					target = SUBTLE_DEFAULT_DISTANCE
-				if(SUBTLE_SAME_TILE_TEXT)
-					target = SUBTLE_SAME_TILE_DISTANCE
 			subtler_message = subtler_emote
 		else
 			return FALSE
