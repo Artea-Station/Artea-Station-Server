@@ -4,7 +4,7 @@
 /datum/quirk/alcohol_tolerance
 	name = "Alcohol Tolerance"
 	desc = "You become drunk more slowly and suffer fewer drawbacks from alcohol."
-	icon = "beer"
+	icon = FA_ICON_BEER
 	value = 4
 	mob_trait = TRAIT_ALCOHOL_TOLERANCE
 	gain_text = "<span class='notice'>You feel like you could drink a whole keg!</span>"
@@ -15,7 +15,7 @@
 /datum/quirk/apathetic
 	name = "Apathetic"
 	desc = "You just don't care as much as other people. That's nice to have in a place like this, I guess."
-	icon = "meh"
+	icon = FA_ICON_MEH
 	value = 4
 	quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_MOODLET_BASED
 	medical_record_text = "Patient was administered the Apathy Evaluation Scale but did not bother to complete it."
@@ -30,7 +30,7 @@
 /datum/quirk/drunkhealing
 	name = "Drunken Resilience"
 	desc = "Nothing like a good drink to make you feel on top of the world. Whenever you're drunk, you slowly recover from injuries."
-	icon = "wine-bottle"
+	icon = FA_ICON_WINE_BOTTLE
 	value = 8
 	gain_text = "<span class='notice'>You feel like a drink would do you good.</span>"
 	lose_text = "<span class='danger'>You no longer feel like drinking would ease your pain.</span>"
@@ -53,7 +53,7 @@
 /datum/quirk/empath
 	name = "Empath"
 	desc = "Whether it's a sixth sense or careful study of body language, it only takes you a quick glance at someone to understand how they feel."
-	icon = "smile-beam"
+	icon = FA_ICON_SMILE_BEAM
 	value = 8
 	mob_trait = TRAIT_EMPATH
 	gain_text = "<span class='notice'>You feel in tune with those around you.</span>"
@@ -64,7 +64,7 @@
 /datum/quirk/item_quirk/clown_enjoyer
 	name = "Clown Enjoyer"
 	desc = "You enjoy clown antics and get a mood boost from wearing your clown pin."
-	icon = "map-pin"
+	icon = FA_ICON_MAP_PIN
 	value = 2
 	mob_trait = TRAIT_CLOWN_ENJOYER
 	gain_text = "<span class='notice'>You are a big enjoyer of clowns.</span>"
@@ -93,7 +93,7 @@
 /datum/quirk/item_quirk/mime_fan
 	name = "Mime Fan"
 	desc = "You're a fan of mime antics and get a mood boost from wearing your mime pin."
-	icon = "thumbtack"
+	icon = FA_ICON_THUMBTACK
 	value = 2
 	mob_trait = TRAIT_MIME_FAN
 	gain_text = "<span class='notice'>You are a big fan of the Mime.</span>"
@@ -123,7 +123,7 @@
 /datum/quirk/freerunning
 	name = "Freerunning"
 	desc = "You're great at quick moves! You can climb tables more quickly and take no damage from short falls."
-	icon = "running"
+	icon = FA_ICON_RUNNING
 	value = 8
 	mob_trait = TRAIT_FREERUNNING
 	gain_text = "<span class='notice'>You feel lithe on your feet!</span>"
@@ -134,7 +134,7 @@
 /datum/quirk/friendly
 	name = "Friendly"
 	desc = "You give the best hugs, especially when you're in the right mood."
-	icon = "hands-helping"
+	icon = FA_ICON_HANDS_HELPING
 	value = 2
 	mob_trait = TRAIT_FRIENDLY
 	gain_text = "<span class='notice'>You want to hug someone.</span>"
@@ -146,7 +146,7 @@
 /datum/quirk/jolly
 	name = "Jolly"
 	desc = "You sometimes just feel happy, for no reason at all."
-	icon = "grin"
+	icon = FA_ICON_GRIN
 	value = 4
 	mob_trait = TRAIT_JOLLY
 	quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_MOODLET_BASED
@@ -156,7 +156,7 @@
 /datum/quirk/light_step
 	name = "Light Step"
 	desc = "You walk with a gentle step; footsteps and stepping on sharp objects is quieter and less painful. Also, your hands and clothes will not get messed in case of stepping in blood."
-	icon = "shoe-prints"
+	icon = FA_ICON_SHOE_PRINTS
 	value = 4
 	mob_trait = TRAIT_LIGHT_STEP
 	gain_text = "<span class='notice'>You walk with a little more litheness.</span>"
@@ -167,7 +167,7 @@
 /datum/quirk/item_quirk/musician
 	name = "Musician"
 	desc = "You can tune handheld musical instruments to play melodies that clear certain negative effects and soothe the soul."
-	icon = "guitar"
+	icon = FA_ICON_GUITAR
 	value = 2
 	mob_trait = TRAIT_MUSICIAN
 	gain_text = "<span class='notice'>You know everything about musical instruments.</span>"
@@ -181,7 +181,7 @@
 /datum/quirk/night_vision
 	name = "Night Vision"
 	desc = "You can see slightly more clearly in full darkness than most people."
-	icon = "eye"
+	icon = FA_ICON_MOON
 	value = 4
 	mob_trait = TRAIT_NIGHT_VISION
 	gain_text = "<span class='notice'>The shadows seem a little less dark.</span>"
@@ -210,7 +210,7 @@
 /datum/quirk/selfaware
 	name = "Self-Aware"
 	desc = "You know your body well, and can accurately assess the extent of your wounds."
-	icon = "bone"
+	icon = FA_ICON_BONE
 	value = 8
 	mob_trait = TRAIT_SELF_AWARE
 	medical_record_text = "Patient demonstrates an uncanny knack for self-diagnosis."
@@ -219,7 +219,7 @@
 /datum/quirk/skittish
 	name = "Skittish"
 	desc = "You're easy to startle, and hide frequently. Run into a closed locker to jump into it, as long as you have access. You can walk to avoid this."
-	icon = "trash"
+	icon = FA_ICON_TRASH
 	value = 8
 	mob_trait = TRAIT_SKITTISH
 	medical_record_text = "Patient demonstrates a high aversion to danger and has described hiding in containers out of fear."
@@ -228,7 +228,7 @@
 /datum/quirk/item_quirk/spiritual
 	name = "Spiritual"
 	desc = "You hold a spiritual belief, whether in God, nature or the arcane rules of the universe. You gain comfort from the presence of holy people, and believe that your prayers are more special than others. Being in the chapel makes you happy."
-	icon = "bible"
+	icon = FA_ICON_BIBLE
 	value = 4
 	mob_trait = TRAIT_SPIRITUAL
 	gain_text = "<span class='notice'>You have faith in a higher power.</span>"
@@ -249,7 +249,7 @@
 /datum/quirk/item_quirk/tagger
 	name = "Tagger"
 	desc = "You're an experienced artist. People will actually be impressed by your graffiti, and you can get twice as many uses out of drawing supplies."
-	icon = "spray-can"
+	icon = FA_ICON_SPRAY_CAN
 	value = 4
 	mob_trait = TRAIT_TAGGER
 	gain_text = "<span class='notice'>You know how to tag walls efficiently.</span>"
@@ -263,12 +263,25 @@
 	)
 
 /datum/quirk/item_quirk/tagger/add_unique(client/client_source)
-	give_item_to_holder(/obj/item/toy/crayon/spraycan, list(LOCATION_BACKPACK = ITEM_SLOT_BACKPACK, LOCATION_HANDS = ITEM_SLOT_HANDS))
+	var/obj/item/toy/crayon/spraycan/can = new
+	can.set_painting_tool_color(client_source?.prefs.read_preference(/datum/preference/color/paint_color))
+	give_item_to_holder(can, list(LOCATION_BACKPACK = ITEM_SLOT_BACKPACK, LOCATION_HANDS = ITEM_SLOT_HANDS))
+
+/datum/quirk/throwingarm
+	name = "Throwing Arm"
+	desc = "Your arms have a lot of heft to them! Objects that you throw just always seem to fly further than everyone elses, and you never miss a toss."
+	icon = FA_ICON_BASEBALL
+	value = 7
+	mob_trait = TRAIT_THROWINGARM
+	gain_text = span_notice("Your arms are full of energy!")
+	lose_text = span_danger("Your arms ache a bit.")
+	medical_record_text = "Patient displays mastery over throwing balls."
+	mail_goodies = list(/obj/item/toy/beach_ball/baseball, /obj/item/toy/basketball, /obj/item/toy/dodgeball)
 
 /datum/quirk/voracious
 	name = "Voracious"
 	desc = "Nothing gets between you and your food. You eat faster and can binge on junk food! Being fat suits you just fine."
-	icon = "drumstick-bite"
+	icon = FA_ICON_DRUMSTICK_BITE
 	value = 4
 	mob_trait = TRAIT_VORACIOUS
 	gain_text = "<span class='notice'>You feel HONGRY.</span>"
@@ -278,7 +291,7 @@
 /datum/quirk/item_quirk/signer
 	name = "Signer"
 	desc = "You possess excellent communication skills in sign language."
-	icon = "hands"
+	icon = FA_ICON_HANDS
 	value = 4
 	quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_CHANGES_APPEARANCE
 	mail_goodies = list(/obj/item/clothing/gloves/radio)

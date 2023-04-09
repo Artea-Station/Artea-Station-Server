@@ -4,7 +4,7 @@
 /datum/quirk/extrovert
 	name = "Extrovert"
 	desc = "You are energized by talking to others, and enjoy spending your free time in the bar."
-	icon = "users"
+	icon = FA_ICON_USERS
 	value = 0
 	mob_trait = TRAIT_EXTROVERT
 	gain_text = "<span class='notice'>You feel like hanging out with other people.</span>"
@@ -15,7 +15,7 @@
 /datum/quirk/introvert
 	name = "Introvert"
 	desc = "You are energized by having time to yourself, and enjoy spending your free time in the library."
-	icon = "book-reader"
+	icon = FA_ICON_BOOK_READER
 	value = 0
 	mob_trait = TRAIT_INTROVERT
 	gain_text = "<span class='notice'>You feel like reading a good book quietly.</span>"
@@ -26,7 +26,7 @@
 /datum/quirk/no_taste
 	name = "Ageusia"
 	desc = "You can't taste anything! Toxic food will still poison you."
-	icon = "meh-blank"
+	icon = FA_ICON_MEH_BLANK
 	value = 0
 	mob_trait = TRAIT_AGEUSIA
 	gain_text = "<span class='notice'>You can't taste anything!</span>"
@@ -37,7 +37,7 @@
 /datum/quirk/foreigner
 	name = "Foreigner"
 	desc = "You're not from around here. You don't know Galactic Common!"
-	icon = "language"
+	icon = FA_ICON_LANGUAGE
 	value = 0
 	gain_text = "<span class='notice'>The words being spoken around you don't make any sense."
 	lose_text = "<span class='notice'>You've developed fluency in Galactic Common."
@@ -59,7 +59,7 @@
 /datum/quirk/vegetarian
 	name = "Vegetarian"
 	desc = "You find the idea of eating meat morally and physically repulsive."
-	icon = "carrot"
+	icon = FA_ICON_CARROT
 	value = 0
 	gain_text = "<span class='notice'>You feel repulsion at the idea of eating meat.</span>"
 	lose_text = "<span class='notice'>You feel like eating meat isn't that bad.</span>"
@@ -91,7 +91,7 @@
 /datum/quirk/snob
 	name = "Snob"
 	desc = "You care about the finer things, if a room doesn't look nice its just not really worth it, is it?"
-	icon = "user-tie"
+	icon = FA_ICON_USER_TIE
 	value = 0
 	gain_text = "<span class='notice'>You feel like you understand what things should look like.</span>"
 	lose_text = "<span class='notice'>Well who cares about deco anyways?</span>"
@@ -102,7 +102,7 @@
 /datum/quirk/heterochromatic
 	name = "Heterochromatic"
 	desc = "One of your eyes is a different color than the other!"
-	icon = "eye-low-vision" // Ignore the icon name, its actually a fairly good representation of different color eyes
+	icon = FA_ICON_EYE_LOW_VISION // Ignore the icon name, its actually a fairly good representation of different color eyes
 	quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_CHANGES_APPEARANCE
 	value = 0
 	mail_goodies = list(/obj/item/clothing/glasses/eyepatch)
@@ -157,7 +157,7 @@
 /datum/quirk/monochromatic
 	name = "Monochromacy"
 	desc = "You suffer from full colorblindness, and perceive nearly the entire world in blacks and whites."
-	icon = "adjust"
+	icon = FA_ICON_ADJUST
 	value = 0
 	medical_record_text = "Patient is afflicted with almost complete color blindness."
 	mail_goodies = list( // Noir detective wannabe
@@ -181,7 +181,7 @@
 /datum/quirk/phobia
 	name = "Phobia"
 	desc = "You are irrationally afraid of something."
-	icon = "spider"
+	icon = FA_ICON_SPIDER
 	value = 0
 	medical_record_text = "Patient has an irrational fear of something."
 	mail_goodies = list(/obj/item/clothing/glasses/blindfold, /obj/item/storage/pill_bottle/psicodine)
@@ -202,7 +202,7 @@
 /datum/quirk/shifty_eyes
 	name = "Shifty Eyes"
 	desc = "Your eyes tend to wander all over the place, whether you mean to or not, causing people to sometimes think you're looking directly at them when you aren't."
-	icon = "far fa-eye"
+	icon = FA_ICON_EYE
 	value = 0
 	medical_record_text = "Fucking creep kept staring at me the whole damn checkup. I'm only diagnosing this because it's less awkward than thinking it was on purpose."
 	mob_trait = TRAIT_SHIFTY_EYES
@@ -211,7 +211,7 @@
 /datum/quirk/item_quirk/bald
 	name = "Smooth-Headed"
 	desc = "You have no hair and are quite insecure about it! Keep your wig on, or at least your head covered up."
-	icon = "egg"
+	icon = FA_ICON_EGG
 	value = 0
 	mob_trait = TRAIT_BALD
 	gain_text = "<span class='notice'>Your head is as smooth as can be, it's terrible.</span>"
@@ -267,7 +267,7 @@
 /datum/quirk/item_quirk/photographer
 	name = "Photographer"
 	desc = "You carry your camera and personal photo album everywhere you go, and your scrapbooks are legendary among your coworkers."
-	icon = "camera"
+	icon = FA_ICON_CAMERA
 	value = 0
 	mob_trait = TRAIT_PHOTOGRAPHER
 	gain_text = "<span class='notice'>You know everything about photography.</span>"
@@ -297,7 +297,7 @@
 /datum/quirk/item_quirk/colorist
 	name = "Colorist"
 	desc = "You like carrying around a hair dye spray to quickly apply color patterns to your hair."
-	icon = "fill-drip"
+	icon = FA_ICON_FILL_DRIP
 	value = 0
 	medical_record_text = "Patient enjoys dyeing their hair with pretty colors."
 	mail_goodies = list(/obj/item/dyespray)
@@ -309,7 +309,7 @@
 /datum/quirk/gamer
 	name = "Gamer"
 	desc = "You are a hardcore gamer, and you have a need to game. You love winning and hate losing. You only like gamer food."
-	icon = "gamepad"
+	icon = FA_ICON_GAMEPAD
 	value = 0
 	gain_text = span_notice("You feel the sudden urge to game.")
 	lose_text = span_notice("You've lost all interest in gaming.")
@@ -406,7 +406,7 @@
 /datum/quirk/item_quirk/pride_pin
 	name = "Pride Pin"
 	desc = "Show off your pride with this changing pride pin!"
-	icon = "rainbow"
+	icon = FA_ICON_RAINBOW
 	value = 0
 	gain_text = "<span class='notice'>You feel fruity.</span>"
 	lose_text = "<span class='danger'>You feel only slightly less fruity than before.</span>"
