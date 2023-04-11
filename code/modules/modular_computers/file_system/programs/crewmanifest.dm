@@ -12,7 +12,7 @@
 	detomatix_resistance = DETOMATIX_RESIST_MAJOR
 
 /datum/computer_file/program/crew_manifest/ui_static_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 	data["manifest"] = GLOB.data_core.get_manifest()
 	return data
 
@@ -20,7 +20,6 @@
 	. = ..()
 	if(.)
 		return
-
 	switch(action)
 		if("PRG_print")
 			if(computer) //This option should never be called if there is no printer
@@ -29,7 +28,7 @@
 								[GLOB.data_core ? GLOB.data_core.get_manifest_html(0) : ""]
 								"}
 				if(!computer.print_text(contents,text("crew manifest ([])", station_time_timestamp())))
-					to_chat(usr, span_notice("Hardware error: Printer was unable to print the file. It may be out of paper."))
+					to_chat(usr, span_notice("Printer is out of paper."))
 					return
 				else
 					computer.visible_message(span_notice("\The [computer] prints out a paper."))

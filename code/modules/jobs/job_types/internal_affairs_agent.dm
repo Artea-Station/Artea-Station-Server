@@ -34,7 +34,7 @@
 	id = /obj/item/card/id/advanced/silver
 	id_trim = /datum/id_trim/job/internal_affairs_agent
 	uniform = /obj/item/clothing/under/suit/black_really
-	belt = /obj/item/modular_computer/tablet/pda/internal_affairs_agent
+	belt = /obj/item/modular_computer/pda/internal_affairs_agent
 	ears = /obj/item/radio/headset/headset_internalaffairs
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	shoes = /obj/item/clothing/shoes/laceup
