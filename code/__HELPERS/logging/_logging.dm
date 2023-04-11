@@ -118,6 +118,8 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 			log_speech_indicators(log_text)
 		if(LOG_LOOC)
 			log_looc(log_text)
+		if(LOG_SUBTLER)
+			log_subtler(log_text)
 		else
 			stack_trace("Invalid individual logging type: [message_type]. Defaulting to [LOG_GAME] (LOG_GAME).")
 			log_game(log_text)
