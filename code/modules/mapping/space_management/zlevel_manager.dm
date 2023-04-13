@@ -16,8 +16,12 @@
 		var/datum/space_level/S = new(I, features[DL_NAME], features[DL_TRAITS])
 		z_list += S
 
+/// Generates a real, honest to god new z level. Will create the actual space, and also generate a datum that holds info about the new plot of land
+/// Accepts the name, traits list, datum type, and if we should manage the turfs we create
 /datum/controller/subsystem/mapping/proc/add_new_zlevel(name, traits = list(), z_type = /datum/space_level, datum/overmap_object/overmap_obj = null)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_Z, args)
+	UNTIL(!adding_new_zlevel)
+	adding_new_zlevel = TRUE
 	var/new_z = z_list.len + 1
 	if (world.maxz < new_z)
 		world.incrementMaxZ()

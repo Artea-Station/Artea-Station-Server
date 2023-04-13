@@ -81,6 +81,10 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	var/old_directional_opacity = directional_opacity
 	var/old_dynamic_lumcount = dynamic_lumcount
 	var/old_rcd_memory = rcd_memory
+	var/old_opacity = opacity
+	// I'm so sorry brother
+	// This is used for a starlight optimization
+	var/old_light_range = light_range
 
 	var/old_bp = blueprint_data
 	blueprint_data = null
@@ -133,7 +137,12 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		W.cut_overlay(GLOB.fullbright_overlay)
 
 	if(SSlighting.initialized)
-		W.lighting_object = old_lighting_object
+		// Space tiles should never have lighting objects
+		if(!space_lit)
+			// Should have a lighting object if we never had one
+			lighting_object = old_lighting_object || new /datum/lighting_object(src)
+		else if (old_lighting_object)
+			qdel(old_lighting_object, force = TRUE)
 
 		directional_opacity = old_directional_opacity
 		recalculate_directional_opacity()
@@ -141,11 +150,36 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		if(lighting_object && !lighting_object.needs_update)
 			lighting_object.update()
 
-		for(var/turf/open/space/space_tile in RANGE_TURFS(1, src))
-			space_tile.update_starlight()
+	// If we're space, then we're either lit, or not, and impacting our neighbors, or not
+	if(isspaceturf(src) && CONFIG_GET(flag/starlight))
+		var/turf/open/space/lit_turf = src
+		// This also counts as a removal, so we need to do a full rebuild
+		if(!ispath(old_type, /turf/open/space))
+			lit_turf.update_starlight()
+			for(var/turf/open/space/space_tile in RANGE_TURFS(1, src) - src)
+				space_tile.update_starlight()
+		else if(old_light_range)
+			lit_turf.enable_starlight()
 
-	QUEUE_SMOOTH_NEIGHBORS(src)
-	QUEUE_SMOOTH(src)
+	// If we're a cordon we count against a light, but also don't produce any ourselves
+	else if (istype(src, /turf/cordon) && CONFIG_GET(flag/starlight))
+		// This counts as removing a source of starlight, so we need to update the space tile to inform it
+		if(!ispath(old_type, /turf/open/space))
+			for(var/turf/open/space/space_tile in RANGE_TURFS(1, src))
+				space_tile.update_starlight()
+
+	// If we're not either, but were formerly a space turf, then we want light
+	else if(ispath(old_type, /turf/open/space) && CONFIG_GET(flag/starlight))
+		for(var/turf/open/space/space_tile in RANGE_TURFS(1, src))
+			space_tile.enable_starlight()
+
+	if(old_opacity != opacity && SSticker)
+		GLOB.cameranet.bareMajorChunkChange(src)
+
+	// only queue for smoothing if SSatom initialized us, and we'd be changing smoothing state
+	if(flags_1 & INITIALIZED_1)
+		QUEUE_SMOOTH_NEIGHBORS(src)
+		QUEUE_SMOOTH(src)
 
 	return W
 
@@ -170,7 +204,8 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 			if(stashed_group.should_display || SSair.display_all_groups)
 				stashed_group.display_turf(newTurf)
 	else
-		SSair.remove_from_active(src) //Clean up wall excitement, and refresh excited groups
+		if(excited || excited_group)
+			SSair.remove_from_active(src) //Clean up wall excitement, and refresh excited groups
 		if(ispath(path,/turf/closed) || ispath(path,/turf/cordon))
 			flags |= CHANGETURF_RECALC_ADJACENT
 		return ..()
@@ -301,14 +336,6 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 			SSair.add_to_active(src)
 	else //In effect, I want closed turfs to make their tile active when sheered, but we need to queue it since they have no adjacent turfs
 		CALCULATE_ADJACENT_TURFS(src, (!(ispath(oldType, /turf/closed) && isopenturf(src)) ? NORMAL_TURF : MAKE_ACTIVE))
-	//update firedoor adjacency
-	var/list/turfs_to_check = get_adjacent_open_turfs(src) | src
-	for(var/I in turfs_to_check)
-		var/turf/T = I
-		for(var/obj/machinery/door/firedoor/FD in T)
-			FD.CalculateAffectingAreas()
-
-	HandleTurfChange(src)
 
 /turf/open/AfterChange(flags, oldType)
 	..()

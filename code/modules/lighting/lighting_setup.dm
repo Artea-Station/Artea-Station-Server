@@ -8,6 +8,6 @@
 		for(var/turf/T in A)
 			if(T.always_lit)
 				continue
-			new/datum/lighting_object(T)
+			new /datum/lighting_object(T)
 			CHECK_TICK
 		CHECK_TICK

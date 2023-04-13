@@ -498,6 +498,9 @@ GLOBAL_LIST_EMPTY(map_model_default)
 
 		if(GLOB.use_preloader && instance)//second preloader pass, for those atoms that don't ..() in New()
 			world.preloader_load(instance)
+	// If this isn't template work, we didn't change our turf and we changed area, then we've gotta handle area lighting transfer
+	else if(!no_changeturf && old_area)
+		crds.transfer_area_lighting(old_area, crds.loc)
 	MAPLOADING_CHECK_TICK
 
 	//finally instance all remainings objects/mobs

@@ -29,6 +29,8 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 /turf/open/openspace/airless/planetary
 	planetary_atmos = TRUE
 
+// Reminder, any behavior code written here needs to be duped to /turf/open/space/openspace
+// I am so sorry
 /turf/open/openspace/Initialize(mapload) // handle plane and layer here so that they don't cover other obs/turfs in Dream Maker
 	. = ..()
 	overlays += GLOB.openspace_backdrop_one_for_all //Special grey square for projecting backdrop darkness filter on it.
