@@ -67,12 +67,14 @@ SUBSYSTEM_DEF(mapping)
 	/// list of traits and their associated z leves
 	var/list/z_trait_levels = list()
 
-
 	/// The overmap object of the main loaded station, for easy access
 	var/datum/overmap_object/station_overmap_object
+	
+	/// list of lazy templates that have been loaded
+	var/list/loaded_lazy_templates
 
-//dlete dis once #39770 is resolved
 /datum/controller/subsystem/mapping/PreInit()
+	..()
 #ifdef FORCE_MAP
 	config = load_map_config(FORCE_MAP, FORCE_MAP_DIRECTORY)
 #else
@@ -294,6 +296,7 @@ Used by the AI doomsday and the self-destruct nuke.
 
 	z_list = SSmapping.z_list
 	multiz_levels = SSmapping.multiz_levels
+	loaded_lazy_templates = SSmapping.loaded_lazy_templates
 
 
 #define INIT_ANNOUNCE(X) to_chat(world, "<span class='boldannounce'>[X]</span>"); log_world(X)
@@ -774,3 +777,16 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		return
 	level.AssertWeatherController()
 	return level.weather_controller
+
+/datum/controller/subsystem/mapping/proc/lazy_load_template(template_key, force = FALSE)
+	RETURN_TYPE(/datum/turf_reservation)
+	if(LAZYACCESS(loaded_lazy_templates, template_key)  && !force)
+		var/datum/lazy_template/template = GLOB.lazy_templates[template_key]
+		return template.reservations[1]
+	LAZYSET(loaded_lazy_templates, template_key, TRUE)
+
+	var/datum/lazy_template/target = GLOB.lazy_templates[template_key]
+	if(!target)
+		CRASH("Attempted to lazy load a template key that does not exist: '[template_key]'")
+
+	return target.lazy_load()
