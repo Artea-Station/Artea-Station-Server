@@ -93,7 +93,7 @@
 
 /mob/living/silicon/robot/model/syndicate/create_modularInterface()
 	if(!modularInterface)
-		modularInterface = new /obj/item/modular_computer/tablet/integrated/syndicate(src)
+		modularInterface = new /obj/item/modular_computer/pda/silicon/cyborg/syndicate(src)
 		modularInterface.saved_identification = real_name
 		modularInterface.saved_job = "Cyborg"
 	return ..()
@@ -107,12 +107,10 @@
  */
 /mob/living/silicon/robot/proc/set_modularInterface_theme()
 	if(istype(model, /obj/item/robot_model/syndicate) || emagged)
-		modularInterface.device_theme = "syndicate"
+		modularInterface.device_theme = PDA_THEME_SYNDICATE
 		modularInterface.icon_state = "tablet-silicon-syndicate"
-		modularInterface.icon_state_powered = "tablet-silicon-syndicate"
-		modularInterface.icon_state_unpowered = "tablet-silicon-syndicate"
 	else
-		modularInterface.device_theme = "ntos"
+		modularInterface.device_theme = PDA_THEME_NTOS
 		modularInterface.icon_state = "tablet-silicon"
 		modularInterface.icon_state_powered = "tablet-silicon"
 		modularInterface.icon_state_unpowered = "tablet-silicon"

@@ -157,6 +157,9 @@
 /// Will be put under the game preferences window.
 #define PREFERENCE_CATEGORY_GAME_PREFERENCES "game_preferences"
 
+/// Preferences that will be put into the 3rd list, and are not contextual.
+#define PREFERENCE_CATEGORY_NON_CONTEXTUAL "non_contextual"
+
 // Playtime is tracked in minutes
 /// The time needed to unlock hardcore random mode in preferences
 #define PLAYTIME_HARDCORE_RANDOM 120 // 2 hours
