@@ -138,7 +138,7 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 
 	if(SSlighting.initialized)
 		// Space tiles should never have lighting objects
-		if(!space_lit)
+		if(!always_lit)
 			// Should have a lighting object if we never had one
 			lighting_object = old_lighting_object || new /datum/lighting_object(src)
 		else if (old_lighting_object)

@@ -69,7 +69,7 @@ SUBSYSTEM_DEF(mapping)
 
 	/// The overmap object of the main loaded station, for easy access
 	var/datum/overmap_object/station_overmap_object
-	
+
 	/// list of lazy templates that have been loaded
 	var/list/loaded_lazy_templates
 
@@ -113,7 +113,7 @@ SUBSYSTEM_DEF(mapping)
 	run_map_generation()
 	// Add the first transit level
 	var/datum/space_level/base_transit = add_reservation_zlevel()
-	require_area_resort()
+	GLOB.sortedAreas = null
 	// Set up Z-level transitions.
 	setup_map_transitions()
 	generate_station_area_list()

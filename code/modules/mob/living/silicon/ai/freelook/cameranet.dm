@@ -30,10 +30,6 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 /datum/cameranet/proc/chunkGenerated(x, y, z)
 	x &= ~(CHUNK_SIZE - 1)
 	y &= ~(CHUNK_SIZE - 1)
-	if(GET_LOWEST_STACK_OFFSET(z) != 0)
-		var/turf/lowest = get_lowest_turf(locate(x, y, z))
-		return chunks["[x],[y],[lowest.z]"]
-
 	return chunks["[x],[y],[z]"]
 
 // Returns the chunk in the x, y, z.

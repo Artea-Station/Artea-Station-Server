@@ -26,7 +26,7 @@
 		costs = hidden_static_list_for_fun1; \
 		counting = hidden_static_list_for_fun2 ; \
 	} \
-	INIT_COST(hidden_static_list_for_fun1, hidden_static_list_for_fun2)
+	INIT_COST(hidden_static_list_for_fun1, hidden_static_list_for_fun2) \
 	_usage = TICK_USAGE;
 
 
