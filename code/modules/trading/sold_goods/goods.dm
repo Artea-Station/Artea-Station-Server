@@ -157,9 +157,6 @@
 /datum/sold_goods/cable_coil
 	path = /obj/item/stack/cable_coil
 
-/datum/sold_goods/computer_battery
-	path = /obj/item/computer_hardware/battery
-
 /datum/sold_goods/laptop
 	cost = 500
 	path = /obj/item/modular_computer/laptop/preset/civilian

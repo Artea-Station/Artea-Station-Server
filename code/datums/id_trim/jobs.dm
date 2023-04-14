@@ -580,6 +580,7 @@
 /datum/id_trim/job/internal_affairs_agent
 	assignment = "Internal Affairs Agent"
 	trim_state = "trim_lawyer"
+	orbit_icon = "print"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_SECURITY_RED
 	sechud_icon_state = SECHUD_INTERNAL_AFFAIRS_AGENT

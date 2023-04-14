@@ -110,7 +110,6 @@
 		"spoon",
 		"status_display_frame",
 		"sticky_tape",
-		"tablet",
 		"tape",
 		"tech_disk",
 		"timer",
@@ -829,7 +828,7 @@
 	id = "server_shell"
 	display_name = "Server Technology Research"
 	description = "Grants access to a server shell that has a very high capacity for components."
-	prereq_ids = list("adv_shells", "computer_hardware_basic")
+	prereq_ids = list("adv_shells", "computer_data_disks")
 	design_ids = list(
 		"server_shell",
 	)
@@ -1064,30 +1063,17 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
 
-/datum/techweb_node/computer_hardware_basic //Modular computers are shitty and nearly useless so until someone makes them actually useful this can be easy to get.
-	id = "computer_hardware_basic"
-	display_name = "Computer Hardware"
-	description = "How computer hardware is made."
+/datum/techweb_node/data_disks
+	id = "computer_data_disks"
+	display_name = "Computer Data Disks"
+	description = "Data disks used for storing modular computer stuff."
 	prereq_ids = list("comptech")
 	design_ids = list(
-		"bat_advanced",
-		"bat_control",
-		"bat_micro",
-		"bat_nano",
-		"bat_normal",
-		"bat_super",
-		"cardslot",
-		"hdd_advanced",
-		"hdd_basic",
-		"hdd_cluster",
-		"hdd_super",
 		"portadrive_advanced",
 		"portadrive_basic",
 		"portadrive_super",
-		"ssd_micro",
-		"ssd_small",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)  //they are really shitty
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 
 /datum/techweb_node/computer_board_gaming
 	id = "computer_board_gaming"

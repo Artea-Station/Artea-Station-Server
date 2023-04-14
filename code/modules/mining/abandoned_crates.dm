@@ -157,7 +157,7 @@
 			for(var/i in 1 to 5)
 				new /obj/item/toy/snappop/phoenix(src)
 		if(41 to 45)
-			new /obj/item/modular_computer/tablet/pda/clear(src)
+			new /obj/item/modular_computer/pda/clear(src)
 		if(46 to 50)
 			new /obj/item/storage/box/syndie_kit/chameleon/broken
 		if(51 to 52) // 2% chance
@@ -202,7 +202,7 @@
 			new /obj/item/toy/plush/beeplushie(src)
 		if(85 to 86)
 			new /obj/item/defibrillator/compact(src)
-		if(87 to 88) 
+		if(87 to 88)
 			new /obj/item/weed_extract(src)
 		if(89) //1% chance
 			new /obj/item/melee/energy/sword/bananium(src)

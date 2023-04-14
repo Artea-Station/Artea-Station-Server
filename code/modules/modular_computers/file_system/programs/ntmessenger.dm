@@ -7,6 +7,7 @@
 	extended_desc = "This program allows old-school communication with other modular devices."
 	size = 0
 	undeletable = TRUE // It comes by default in tablets, can't be downloaded, takes no space and should obviously not be able to be deleted.
+	header_program = TRUE
 	available_on_ntnet = FALSE
 	usage_flags = PROGRAM_TABLET
 	ui_header = "ntnrc_idle.gif"
@@ -15,7 +16,7 @@
 	alert_able = TRUE
 
 	/// The current ringtone (displayed in the chat when a message is received).
-	var/ringtone = "beep"
+	var/ringtone = MESSENGER_RINGTONE_DEFAULT
 	/// Whether or not the ringtone is currently on.
 	var/ringer_status = TRUE
 	/// Whether or not we're sending and receiving messages.
@@ -27,7 +28,9 @@
 	/// even more wisdom from PDA.dm - "no everyone spamming" (prevents people from spamming the same message over and over)
 	var/last_text_everyone
 	/// Scanned photo for sending purposes.
-	var/datum/picture/picture
+	var/datum/picture/saved_image
+	/// Whether the user is invisible to the message list.
+	var/invisible = FALSE
 	/// Whether or not we allow emojis to be sent by the user.
 	var/allow_emojis = FALSE
 	/// Whether or not we're currently looking at the message list.
@@ -42,18 +45,16 @@
 	/// The path for the current loaded image in rsc
 	var/photo_path
 
-	/// Whether or not this app is loaded on a silicon's tablet.
-	var/is_silicon = FALSE
 	/// Whether or not we're in a mime PDA.
 	var/mime_mode = FALSE
 	/// Whether this app can send messages to all.
 	var/spam_mode = FALSE
 
-/datum/computer_file/program/messenger/try_insert(obj/item/attacking_item, mob/living/user)
+/datum/computer_file/program/messenger/application_attackby(obj/item/attacking_item, mob/living/user)
 	if(!istype(attacking_item, /obj/item/photo))
 		return FALSE
 	var/obj/item/photo/pic = attacking_item
-	computer.saved_image = pic.picture
+	saved_image = pic.picture
 	ProcessPhoto()
 	return TRUE
 
@@ -82,11 +83,8 @@
 		sortmode = GLOBAL_PROC_REF(cmp_pdaname_asc)
 
 	for(var/obj/item/modular_computer/P in sort_list(GLOB.TabletMessengers, sortmode))
-		var/obj/item/computer_hardware/hard_drive/drive = P.all_components[MC_HDD]
-		if(!drive)
-			continue
-		for(var/datum/computer_file/program/messenger/app in drive.stored_files)
-			if(!P.saved_identification || !P.saved_job || P.invisible || app.monitor_hidden)
+		for(var/datum/computer_file/program/messenger/app in P.stored_files)
+			if(!P.saved_identification || !P.saved_job || app.invisible || app.monitor_hidden)
 				continue
 			dictionary += P
 
@@ -96,8 +94,8 @@
 	return "[messenger.saved_identification] ([messenger.saved_job])"
 
 /datum/computer_file/program/messenger/proc/ProcessPhoto()
-	if(computer.saved_image)
-		var/icon/img = computer.saved_image.picture_image
+	if(saved_image)
+		var/icon/img = saved_image.picture_image
 		var/deter_path = "tmp_msg_photo[rand(0, 99999)].png"
 		usr << browse_rsc(img, deter_path) // funny random assignment for now, i'll make an actual key later
 		photo_path = deter_path
@@ -111,17 +109,19 @@
 	. = ..()
 	if(.)
 		return
-
 	switch(action)
 		if("PDA_ringSet")
-			var/t = tgui_input_text(usr, "Enter a new ringtone", "Ringtone", "", 20)
+			var/new_ringtone = tgui_input_text(usr, "Enter a new ringtone", "Ringtone", ringtone, MESSENGER_RINGTONE_MAX_LENGTH)
 			var/mob/living/usr_mob = usr
-			if(in_range(computer, usr_mob) && computer.loc == usr_mob && t)
-				if(SEND_SIGNAL(computer, COMSIG_TABLET_CHANGE_ID, usr_mob, t) & COMPONENT_STOP_RINGTONE_CHANGE)
-					return
-				else
-					ringtone = t
-					return(UI_UPDATE)
+			if(!new_ringtone || !in_range(computer, usr_mob) || computer.loc != usr_mob)
+				return
+
+			if(SEND_SIGNAL(computer, COMSIG_TABLET_CHANGE_ID, usr_mob, new_ringtone) & COMPONENT_STOP_RINGTONE_CHANGE)
+				return
+
+			ringtone = new_ringtone
+			return UI_UPDATE
+
 		if("PDA_ringer_status")
 			ringer_status = !ringer_status
 			return(UI_UPDATE)
@@ -165,45 +165,48 @@
 				to_chat(usr, span_notice("ERROR: User no longer exists."))
 				return
 
-			var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
-
-			for(var/datum/computer_file/program/messenger/app in drive.stored_files)
+			for(var/datum/computer_file/program/messenger/app in computer.stored_files)
 				if(!app.sending_and_receiving && !sending_virus)
 					to_chat(usr, span_notice("ERROR: Device has receiving disabled."))
 					return
 				if(sending_virus)
-					var/obj/item/computer_hardware/hard_drive/portable/virus/disk = computer.all_components[MC_SDD]
+					var/obj/item/computer_disk/virus/disk = computer.inserted_disk
 					if(istype(disk))
-						disk.send_virus(target, usr)
+						disk.send_virus(src, target, usr)
 						return(UI_UPDATE)
 				send_message(usr, list(target))
 				return(UI_UPDATE)
 		if("PDA_clearPhoto")
-			computer.saved_image = null
+			saved_image = null
 			photo_path = null
 			return(UI_UPDATE)
 		if("PDA_toggleVirus")
 			sending_virus = !sending_virus
 			return(UI_UPDATE)
 
-
-/datum/computer_file/program/messenger/ui_data(mob/user)
-	var/list/data = get_header_data()
+/datum/computer_file/program/messenger/ui_static_data(mob/user)
+	var/list/data = ..()
 
 	data["owner"] = computer.saved_identification
-	data["messages"] = messages
 	data["ringer_status"] = ringer_status
 	data["sending_and_receiving"] = sending_and_receiving
-	data["messengers"] = ScrubMessengerList()
-	data["viewing_messages"] = viewing_messages
 	data["sortByJob"] = sort_by_job
-	data["isSilicon"] = is_silicon
+	data["isSilicon"] = issilicon(user)
+	data["viewing_messages"] = viewing_messages
+
+	return data
+
+/datum/computer_file/program/messenger/ui_data(mob/user)
+	var/list/data = list()
+
+	data["messages"] = messages
+	data["messengers"] = ScrubMessengerList()
 	data["photo"] = photo_path
 	data["canSpam"] = spam_mode
 
-	var/obj/item/computer_hardware/hard_drive/portable/virus/disk = computer.all_components[MC_SDD]
-	if(disk)
-		data["virus_attach"] = istype(disk, /obj/item/computer_hardware/hard_drive/portable/virus)
+	var/obj/item/computer_disk/virus/disk = computer.inserted_disk
+	if(disk && istype(disk))
+		data["virus_attach"] = TRUE
 		data["sending_virus"] = sending_virus
 
 	return data
@@ -341,11 +344,11 @@
 	messages += list(message_data)
 
 	var/mob/living/L = null
-	if(holder.holder.loc && isliving(holder.holder.loc))
-		L = holder.holder.loc
+	if(computer.loc && isliving(computer.loc))
+		L = computer.loc
 	//Maybe they are a pAI!
 	else
-		L = get(holder.holder, /mob/living/silicon)
+		L = get(computer, /mob/living/silicon)
 
 	if(L && (L.stat == CONSCIOUS || L.stat == SOFT_CRIT))
 		var/reply = "(<a href='byond://?src=[REF(src)];choice=[signal.data["rigged"] ? "mess_us_up" : "Message"];skiprefresh=1;target=[signal.data["ref"]]'>Reply</a>)"
@@ -387,6 +390,6 @@
 				send_message(usr, list(locate(href_list["target"])))
 			if("mess_us_up")
 				if(!HAS_TRAIT(src, TRAIT_PDA_CAN_EXPLODE))
-					var/obj/item/modular_computer/tablet/comp = computer
+					var/obj/item/modular_computer/pda/comp = computer
 					comp.explode(usr, from_message_menu = TRUE)
 					return
