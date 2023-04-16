@@ -105,6 +105,12 @@
 	if(.)
 		return
 
+	if(ishuman(usr) && !allow_chunky) //in /datum/computer_file/program/ui_act() too
+		var/mob/living/carbon/human/human_user = usr
+		if(human_user.check_chunky_fingers())
+			balloon_alert(human_user, "fingers are too big!")
+			return TRUE
+
 	if(active_program)
 		active_program.ui_act(action, params, ui, state)
 
