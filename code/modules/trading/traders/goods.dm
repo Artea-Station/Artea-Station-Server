@@ -50,7 +50,6 @@
 		/datum/sold_goods/electronics/firelock,
 		/datum/sold_goods/electronics/firealarm,
 		/datum/sold_goods/cable_coil,
-		/datum/sold_goods/computer_battery,
 		/datum/sold_goods/laptop,
 		/datum/sold_goods/cell,
 		/datum/sold_goods/high_cell

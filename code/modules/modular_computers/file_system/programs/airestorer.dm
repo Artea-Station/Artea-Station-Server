@@ -59,7 +59,7 @@
 
 	return TRUE
 
-/datum/computer_file/program/ai_restorer/try_insert(obj/item/attacking_item, mob/living/user)
+/datum/computer_file/program/ai_restorer/application_attackby(obj/item/attacking_item, mob/living/user)
 	if(!computer)
 		return FALSE
 	if(!istype(attacking_item, /obj/item/aicard))
@@ -118,7 +118,7 @@
 				return TRUE
 
 /datum/computer_file/program/ai_restorer/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 
 	data["ejectable"] = TRUE
 	data["AI_present"] = !!stored_card?.AI
