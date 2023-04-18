@@ -356,7 +356,7 @@
 		return ..()
 
 	for (var/image/overlay in overlays)
-		var/list/rgb_list = rgb2num(draw_color)
+		var/list/rgb_list = rgb2num(draw_color ? draw_color : COLOR_VIBRANT_LIME)
 		overlay.color = rgb(color_inverse_base - rgb_list[1], color_inverse_base - rgb_list[2], color_inverse_base - rgb_list[3]) //inversa da color
 
 /datum/bodypart_overlay/mutant/pod_hair/can_draw_on_bodypart(mob/living/carbon/human/human)
