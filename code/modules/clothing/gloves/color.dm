@@ -138,10 +138,11 @@
 
 /obj/item/clothing/gloves/color/red/insulated
 	name = "insulated gloves"
-	desc = "These gloves provide protection against electric shock."
+	desc = "These gloves provide protection against electric shock. The thickness of the rubber makes your fingers seem bigger."
 	siemens_coefficient = 0
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 50, FIRE = 0, ACID = 0)
 	resistance_flags = NONE
+	clothing_traits = list(TRAIT_CHUNKYFINGERS)
 
 /obj/item/clothing/gloves/color/rainbow
 	name = "rainbow gloves"
