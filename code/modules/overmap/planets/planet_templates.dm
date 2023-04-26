@@ -109,7 +109,10 @@
 	//Pass them to the ruin seeder
 	SeedRuins(z_levels)
 
-	INIT_ANNOUNCE("Loaded [name] in [(REALTIMEOFDAY - start_time)/10]s!")
+	var/msg = "Loaded [name] in [(REALTIMEOFDAY - start_time)/10]s!"
+
+	to_chat(world, span_boldannounce(msg))
+	log_world(msg)
 
 //Due to the particular way ruins are seeded right now this will be handled through a proc, rather than data-driven as of now
 /datum/planet_template/proc/SeedRuins(list/z_levels)
