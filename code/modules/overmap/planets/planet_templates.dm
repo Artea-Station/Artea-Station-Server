@@ -38,7 +38,7 @@
 	var/ore_node_seeder_type = /datum/ore_node_seeder
 
 /datum/planet_template/proc/LoadTemplate(datum/overmap_sun_system/system, coordinate_x, coordinate_y)
-	var/time_start = REALTIMEOFDAY
+	var/start_time = REALTIMEOFDAY
 	var/old_z = world.maxz
 	var/datum/overmap_object/linked_overmap_object = new overmap_type(system, coordinate_x, coordinate_y)
 	var/picked_rock_color = CHECK_AND_PICK_OR_NULL(rock_color)
