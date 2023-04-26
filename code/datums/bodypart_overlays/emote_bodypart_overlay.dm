@@ -14,7 +14,7 @@
 
 /datum/bodypart_overlay/simple/emote/get_images(layer, obj/item/bodypart/limb)
 	var/list/image/images = ..()
-	var/image/image = images[0]
+	var/image/image = images[1]
 	image.pixel_x = offset_x
 	image.pixel_y = offset_y
 	return images
