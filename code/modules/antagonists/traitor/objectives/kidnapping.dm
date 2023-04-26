@@ -53,11 +53,9 @@
 		/datum/job/curator,
 		// Cargo
 		/datum/job/cargo_technician,
-		// Science
-		/datum/job/roboticist,
 		// Engineering
 		/datum/job/station_engineer,
-		/datum/job/atmospheric_technician,
+		/datum/job/roboticist,
 	)
 
 /datum/traitor_objective/kidnapping/less_common
