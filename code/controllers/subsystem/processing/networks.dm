@@ -50,7 +50,9 @@ SUBSYSTEM_DEF(networks)
 	return ..()
 
 /datum/controller/subsystem/networks/Initialize()
-	assign_areas_root_ids(GLOB.sortedAreas) // setup area names before Initialize
+	assign_areas_root_ids(get_sorted_areas()) // setup area names before Initialize
+
+	// At round start, fix the network_id's so the station root is on them
 	initialized = TRUE
 	// Now when the objects Initialize they will join the right network
 	return SS_INIT_SUCCESS

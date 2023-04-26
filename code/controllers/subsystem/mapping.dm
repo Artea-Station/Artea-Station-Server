@@ -94,7 +94,7 @@ SUBSYSTEM_DEF(mapping)
 	preloadTemplates()
 	loadWorld()
 	determine_fake_sale()
-	repopulate_sorted_areas()
+	require_area_resort()
 	process_teleport_locs() //Sets up the wizard teleport locations
 
 #ifndef LOWMEMORYMODE
@@ -113,7 +113,7 @@ SUBSYSTEM_DEF(mapping)
 	run_map_generation()
 	// Add the first transit level
 	var/datum/space_level/base_transit = add_reservation_zlevel()
-	GLOB.sortedAreas = null
+	require_area_resort()
 	// Set up Z-level transitions.
 	setup_map_transitions()
 	generate_station_area_list()
@@ -127,6 +127,7 @@ SUBSYSTEM_DEF(mapping)
 	// Cache for sonic speed
 	var/list/unused_turfs = src.unused_turfs
 	var/list/world_contents = GLOB.areas_by_type[world.area].contents
+	var/list/world_turf_contents = GLOB.areas_by_type[world.area].contained_turfs
 	var/list/lists_to_reserve = src.lists_to_reserve
 	var/index = 0
 	while(length(lists_to_reserve))
@@ -141,8 +142,11 @@ SUBSYSTEM_DEF(mapping)
 			T.empty(RESERVED_TURF_TYPE, RESERVED_TURF_TYPE, null, TRUE)
 			LAZYINITLIST(unused_turfs["[T.z]"])
 			unused_turfs["[T.z]"] |= T
+			var/area/old_area = T.loc
+			old_area.turfs_to_uncontain += T
 			T.flags_1 |= UNUSED_RESERVATION_TURF
 			world_contents += T
+			world_turf_contents += T
 			packet.len--
 			packetlen = length(packet)
 
@@ -489,7 +493,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		log_world("ERROR: Station areas list failed to generate!")
 
 /datum/controller/subsystem/mapping/proc/run_map_generation()
-	for(var/area/A in world)
+	for(var/area/A as anything in GLOB.areas)
 		A.RunGeneration()
 
 /datum/controller/subsystem/mapping/proc/maprotate()
@@ -774,6 +778,17 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		var/datum/biome/biome_instance = new biome_path()
 		biomes[biome_path] += biome_instance
 
+/datum/controller/subsystem/mapping/proc/reg_in_areas_in_z(list/areas)
+	for(var/B in areas)
+		var/area/A = B
+		A.reg_in_areas_in_z()
+
+/datum/controller/subsystem/mapping/proc/get_isolated_ruin_z()
+	if(!isolated_ruins_z)
+		isolated_ruins_z = add_new_zlevel("Isolated Ruins/Reserved", list(ZTRAIT_RESERVED = TRUE, ZTRAIT_ISOLATED_RUINS = TRUE))
+		initialize_reserved_level(isolated_ruins_z.z_value)
+	return isolated_ruins_z.z_value
+
 /datum/controller/subsystem/mapping/proc/build_area_turfs(z_level, space_guaranteed)
 	// If we know this is filled with default tiles, we can use the default area
 	// Faster
@@ -785,17 +800,6 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	for(var/turf/to_contain as anything in Z_TURFS(z_level))
 		var/area/our_area = to_contain.loc
 		our_area.contained_turfs += to_contain
-
-/datum/controller/subsystem/mapping/proc/reg_in_areas_in_z(list/areas)
-	for(var/B in areas)
-		var/area/A = B
-		A.reg_in_areas_in_z()
-
-/datum/controller/subsystem/mapping/proc/get_isolated_ruin_z()
-	if(!isolated_ruins_z)
-		isolated_ruins_z = add_new_zlevel("Isolated Ruins/Reserved", list(ZTRAIT_RESERVED = TRUE, ZTRAIT_ISOLATED_RUINS = TRUE))
-		initialize_reserved_level(isolated_ruins_z.z_value)
-	return isolated_ruins_z.z_value
 
 /datum/controller/subsystem/mapping/proc/GetLevelWeatherController(z_value)
 	var/datum/space_level/level = z_list[z_value]

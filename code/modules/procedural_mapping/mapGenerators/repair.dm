@@ -36,7 +36,7 @@
 	var/list/obj/structure/cable/cables = list()
 	var/list/atom/atoms = list()
 
-	repopulate_sorted_areas()
+	require_area_resort()
 
 	var/list/generation_turfs = block(
 		locate(bounds[MAP_MINX], bounds[MAP_MINY], SSmapping.station_start),

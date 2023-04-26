@@ -48,7 +48,10 @@
 
 #define TEST_PRE 0
 #define TEST_DEFAULT 1
-#define TEST_DEL_WORLD INFINITY
+/// After most test steps, used for tests that run long so shorter issues can be noticed faster
+#define TEST_LONGER 10
+/// This must be the last test to run due to the inherent nature of the test iterating every single tangible atom in the game and qdeleting all of them (while taking long sleeps to make sure the garbage collector fires properly) taking a large amount of time.
+#define TEST_CREATE_AND_DESTROY INFINITY
 
 /// Change color to red on ANSI terminal output, if enabled with -DANSICOLORS.
 #ifdef ANSICOLORS
@@ -69,6 +72,7 @@
 #include "achievements.dm"
 #include "anchored_mobs.dm"
 #include "anonymous_themes.dm"
+#include "area_contents.dm"
 #include "atmosphere.dm"
 #include "autowiki.dm"
 #include "barsigns.dm"
