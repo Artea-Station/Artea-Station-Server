@@ -176,8 +176,7 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	if(old_opacity != opacity && SSticker)
 		GLOB.cameranet.bareMajorChunkChange(src)
 
-	// only queue for smoothing if SSatom initialized us, and we'd be changing smoothing state
-	if(flags_1 & INITIALIZED_1)
+	if(flags_1 & INITIALIZED_1) // only queue for smoothing if SSatom initialized us
 		QUEUE_SMOOTH_NEIGHBORS(src)
 		QUEUE_SMOOTH(src)
 

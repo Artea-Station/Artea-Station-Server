@@ -156,10 +156,8 @@
 	if((T.y+height) - 1 > world.maxy)
 		return
 
-	var/list/border = block(locate(max(T.x-1, 1), max(T.y-1, 1),  T.z),
-							locate(min(T.x+width+1, world.maxx), min(T.y+height+1, world.maxy), T.z))
-	for(var/L in border)
-		var/turf/turf_to_disable = L
+	for(var/border_turf in CORNER_BLOCK_OFFSET(T, width + 2, height + 2, -1, -1))
+		var/turf/turf_to_disable = border_turf
 		SSair.remove_from_active(turf_to_disable) //stop processing turfs along the border to prevent runtimes, we return it in initTemplateBounds()
 		turf_to_disable.atmos_adjacent_turfs?.Cut()
 
@@ -175,6 +173,7 @@
 	parsed.turf_blacklist = turf_blacklist
 	if(!parsed.load(T.x, T.y, T.z, cropMap=TRUE, no_changeturf=(SSatoms.initialized == INITIALIZATION_INSSATOMS), placeOnTop=should_place_on_top))
 		return
+
 	var/list/bounds = parsed.bounds
 	if(!bounds)
 		return
