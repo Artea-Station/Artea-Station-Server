@@ -25,9 +25,6 @@
 	plating_material = /datum/material/diamond
 	color = "#71c8f7" //To display in mapping softwares
 
-/turf/closed/wall/mineral/diamond/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 41)
-	return ..()
-
 /turf/closed/wall/mineral/bananium
 	name = "bananium wall"
 	desc = "A wall with bananium plating. Honk!"
@@ -90,9 +87,6 @@
 	radiate()
 	return ..()
 
-/turf/closed/wall/mineral/uranium/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 41)
-	return ..()
-
 /turf/closed/wall/mineral/plasma
 	name = "plasma wall"
 	desc = "A wall with plasma plating. This is definitely a bad idea."
@@ -120,9 +114,6 @@
 			return
 	return ..()
 
-/turf/closed/wall/mineral/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 0)
-	return ..() //No recoil damage, wood is weak
-
 /turf/closed/wall/mineral/wood/nonmetal
 	desc = "A solidly wooden wall. It's a bit weaker than a wall made with metal."
 	hardness = 50
@@ -142,9 +133,6 @@
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = null
 	plating_material = /datum/material/snow
-
-/turf/closed/wall/mineral/snow/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 0)
-	return ..() //No recoil damage, snow is weak
 
 /turf/closed/wall/mineral/abductor
 	name = "alien wall"

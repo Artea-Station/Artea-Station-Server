@@ -25,7 +25,6 @@
 	var/mob/living/carbon/human/H = owner.current
 	if(!istype(H))
 		return
-	H.dna.add_mutation(/datum/mutation/human/hulk)
 	H.dna.add_mutation(/datum/mutation/human/xray)
 	H.dna.add_mutation(/datum/mutation/human/pressure_adaptation)
 	H.dna.add_mutation(/datum/mutation/human/telekinesis)

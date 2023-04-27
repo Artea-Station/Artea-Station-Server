@@ -299,7 +299,7 @@
 
 		// Species and body temperature
 		var/datum/species/targetspecies = humantarget.dna.species
-		var/mutant = humantarget.dna.check_mutation(/datum/mutation/human/hulk) \
+		var/mutant = humantarget.dna.check_mutation(/datum/mutation/human/epilepsy) \
 			|| targetspecies.mutantlungs != initial(targetspecies.mutantlungs) \
 			|| targetspecies.mutantbrain != initial(targetspecies.mutantbrain) \
 			|| targetspecies.mutantheart != initial(targetspecies.mutantheart) \
