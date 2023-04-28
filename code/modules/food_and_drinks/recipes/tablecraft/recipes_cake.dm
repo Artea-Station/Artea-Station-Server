@@ -174,6 +174,7 @@
 	category = CAT_CAKE
 
 /datum/crafting_recipe/food/pavlovakorta/on_craft_completion(mob/user, obj/item/food/cake/pavlova/result)
+	. = ..()
 	result.foodtypes = NUTS | FRUIT | SUGAR
 	result.AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/cakeslice/pavlova/nuts, 5, 30)
 

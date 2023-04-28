@@ -218,6 +218,7 @@
 			to_chat(usr, span_notice("You print [multiplier] item(s) from the [src]"))
 			use_power(power)
 			icon_state = "autolathe_n"
+			playsound(src, 'sound/machines/piston_lower.ogg', 75, TRUE)
 			var/time = is_stack ? 32 : (32 * coeff * multiplier) ** 0.8
 			addtimer(CALLBACK(src, PROC_REF(make_item), power, materials_used, custom_materials, multiplier, coeff, is_stack, usr), time)
 			. = TRUE
@@ -331,6 +332,7 @@
 					if(!istype(M, /datum/material/glass) && !istype(M, /datum/material/iron))
 						user.client.give_award(/datum/award/achievement/misc/getting_an_upgrade, user)
 
+	playsound(src, 'sound/machines/piston_raise.ogg', 75, TRUE)
 
 	icon_state = "autolathe"
 	busy = FALSE

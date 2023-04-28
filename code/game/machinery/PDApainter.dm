@@ -228,6 +228,7 @@
 	stored_id_card = new_id_card
 	new_id_card.add_fingerprint(user)
 	update_icon()
+	playsound(src, 'sound/machinery/id_insert.ogg', 75, TRUE)
 	return TRUE
 
 /**
@@ -245,6 +246,7 @@
 
 		stored_id_card = null
 		update_appearance(UPDATE_ICON)
+		playsound(src, 'sound/machines/id_eject.ogg', 75, TRUE)
 
 /obj/machinery/pdapainter/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

@@ -13,6 +13,9 @@
 	var/time_to_screwdrive = 20
 	var/authenticated = 0
 
+	/// Timestamp for the next possible click sound.
+	var/next_clicksound
+
 /obj/machinery/computer/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 
@@ -134,3 +137,9 @@
 	SHOULD_CALL_PARENT(TRUE)
 	. = ..()
 	update_use_power(IDLE_POWER_USE)
+
+/obj/machinery/computer/interact(mob/user, special_state)
+	. = ..()
+	if(world.time > next_clicksound && isliving(user))
+		next_clicksound = world.time + (2 SECONDS)
+		playsound(src, SFX_KEYBOARD, 25, TRUE)

@@ -265,6 +265,7 @@
 	mode = HEATER_MODE_STANDBY
 	usr.visible_message(span_notice("[usr] switches [on ? "on" : "off"] \the [src]."), span_notice("You switch [on ? "on" : "off"] \the [src]."))
 	update_appearance()
+	playsound(src, SFX_SWITCH, 75, TRUE)
 	if (on)
 		SSair.start_processing_machine(src)
 

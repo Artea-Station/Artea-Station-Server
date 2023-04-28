@@ -25,6 +25,8 @@
 	///Bank account we're connected to.
 	var/datum/bank_account/synced_bank_account
 
+	interaction_sound = SFX_KEYBOARD
+
 /obj/machinery/computer/bank_machine/Initialize(mapload)
 	. = ..()
 	radio = new(src)
