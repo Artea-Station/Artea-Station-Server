@@ -1,3 +1,6 @@
+// A cache of icons for floor tile stacks.
+GLOBAL_LIST_EMPTY(tile_stack_icon_cache)
+
 /**
  * TILE STACKS
  *
@@ -41,6 +44,34 @@
 			values += dir2text(set_dir)
 		tile_rotate_dirs = tile_dir_list(values, turf_type)
 
+	// Maybe not the most performant, but honestly, tile stacks are relatively far and few between, and the spriting upkeep for a separate, near *identical* set of icons for tiles is nonsensical.
+	if(turf_type)
+		icon = get_or_create_tile_stack_icon(turf_type)
+		var/turf/turf_typed_type = turf_type
+		icon_state = initial(turf_typed_type.icon_state)
+
+/proc/get_or_create_tile_stack_icon(turf/turf_type)
+	var/icon_state_to_use = initial(turf_type.icon_state)
+	var/icon_for_cache = initial(turf_type.icon)
+
+	var/cached_icon = GLOB.tile_stack_icon_cache["[icon_for_cache]:[icon_state_to_use]"]
+
+	if(cached_icon) // Oh hey, it exists in cache, use it!
+		return cached_icon
+
+	var/icon/icon_to_use = icon(icon_for_cache, icon_state_to_use, frame = 1)
+	// Make it smol
+	icon_to_use.Scale(17, 17)
+	// Cut the corners off.
+	icon_to_use.DrawBox("#00000000", 1, 1, 1, 1)
+	icon_to_use.DrawBox("#00000000", 17, 1, 17, 1)
+	icon_to_use.DrawBox("#00000000", 1, 17, 1, 17)
+	icon_to_use.DrawBox("#00000000", 17, 17, 21, 17)
+	var/icon/final_icon = icon('icons/obj/tiles.dmi', "blank")
+	final_icon.Blend(icon_to_use, ICON_OVERLAY, 9, 9) // Drop our resized and trimmed tile in
+	final_icon.Blend(icon('icons/obj/tiles.dmi', "blank_border"), ICON_OVERLAY) // Drop a neat border around it to make it easier to spot on the floor
+	GLOB.tile_stack_icon_cache["[icon_for_cache]:[icon_state_to_use]"] = final_icon // Add to cache
+	return final_icon
 
 /obj/item/stack/tile/examine(mob/user)
 	. = ..()
