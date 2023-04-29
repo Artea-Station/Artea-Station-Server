@@ -630,7 +630,7 @@
 /obj/machinery/ui_act(action, list/params)
 	add_fingerprint(usr)
 	update_last_used(usr)
-	playsound(src, interaction_sound, 50, TRUE)
+	playsound(src, interaction_sound, 50, TRUE, ignore_walls = FALSE)
 	return ..()
 
 /obj/machinery/Topic(href, href_list)
