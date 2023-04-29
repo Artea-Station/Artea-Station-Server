@@ -494,7 +494,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (-14))
 			new M.sheet_type(loc, FLOOR(custom_materials[M] / MINERAL_MATERIAL_AMOUNT, 1))
 
 /obj/structure/sink/proc/begin_reclamation()
-	START_PROCESSING(SSmachines, src)
+	START_PROCESSING(SSprocessing, src)
 
 /obj/structure/sink/kitchen
 	name = "kitchen sink"

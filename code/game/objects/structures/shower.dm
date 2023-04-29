@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(shower_mode_descriptions, list(
 	density = FALSE
 	layer = WALL_OBJ_LAYER
 	use_power = NO_POWER_USE
-	subsystem_type = /datum/controller/subsystem/processing/plumbing
+	subsystem_type = /datum/controller/subsystem/processing
 	///Does the user want the shower on or off?
 	var/intended_on = FALSE
 	///Is the shower actually spitting out water currently
