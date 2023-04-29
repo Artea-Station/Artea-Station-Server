@@ -74,9 +74,9 @@
 /datum/crafting_recipe/proc/on_craft_completion(mob/user, atom/result)
 	SHOULD_CALL_PARENT(TRUE)
 
-	playsound(src, 'sound/effects/treechop3.ogg', 75, TRUE)
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/effects/treechop2.ogg', 75, TRUE), 0.25 SECONDS)
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/effects/treechop1.ogg', 75, TRUE), 0.5 SECONDS)
+	playsound(user, 'sound/effects/treechop3.ogg', 75, TRUE)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), user, 'sound/effects/treechop2.ogg', 75, TRUE), 0.25 SECONDS)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), user, 'sound/effects/treechop1.ogg', 75, TRUE), 0.5 SECONDS)
 	return
 
 ///Check if the pipe used for atmospheric device crafting is the proper one
