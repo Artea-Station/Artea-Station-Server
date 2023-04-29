@@ -24,8 +24,8 @@
 	var/list/weighted_flora_spawn_list
 	///Expanded list of flora that can spawn in the area. Reads from the weighted list
 	var/list/flora_spawn_list
-	///Weighted list of extra features that can spawn in the area, such as geysers.
-	var/list/weighted_feature_spawn_list
+	///Weighted list of extra features that can spawn in the area, such as geysers. Optional.
+	var/list/weighted_feature_spawn_list = list()
 	///Expanded list of extra features that can spawn in the area. Reads from the weighted list
 	var/list/feature_spawn_list
 
