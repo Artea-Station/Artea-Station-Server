@@ -308,7 +308,7 @@
 					'sound/misc/sadtrombone.ogg',
 					'sound/items/AirHorn.ogg',
 					'sound/effects/reee.ogg',
-					 'sound/items/WEEOO1.ogg',
+					'sound/items/WEEOO1.ogg',
 					'sound/voice/beepsky/iamthelaw.ogg',
 					'sound/voice/beepsky/creep.ogg',
 					'sound/magic/Fireball.ogg' ,'sound/effects/pray.ogg',
