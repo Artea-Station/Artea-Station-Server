@@ -25,9 +25,12 @@
 
 	volume = 1000
 
-/obj/machinery/portable_atmospherics/pump/Destroy()
+/obj/machinery/portable_atmospherics/pump/New(loc, ...)
 	sound_loop = new /datum/looping_sound/air_pump(src)
 	sound_loop.volume = 25 // This is loud.
+	. = ..()
+
+/obj/machinery/portable_atmospherics/pump/Destroy()
 	var/turf/local_turf = get_turf(src)
 	local_turf.assume_air(air_contents)
 	return ..()
