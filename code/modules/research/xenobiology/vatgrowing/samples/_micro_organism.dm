@@ -27,7 +27,7 @@
 	var/list/resulting_atoms = list()
 
 ///Handles growth of the micro_organism. This only runs if the micro organism is in the growing vat. Reagents is the growing vats reagents
-/datum/micro_organism/cell_line/proc/handle_growth(obj/machinery/plumbing/growing_vat/vat)
+/datum/micro_organism/cell_line/proc/handle_growth(/obj/machinery/growing_vat/vat)
 	if(!try_eat(vat.reagents))
 		return FALSE
 	growth = max(growth, growth + calculate_growth(vat.reagents, vat.biological_sample)) //Prevent you from having minus growth.
@@ -70,7 +70,7 @@
 		. -= virus_suspectibility
 
 ///Called once a cell line reaches 100 growth. Then we check if any cell_line is too far so we can perform an epic fail roll
-/datum/micro_organism/cell_line/proc/finish_growing(obj/machinery/plumbing/growing_vat/vat)
+/datum/micro_organism/cell_line/proc/finish_growing(/obj/machinery/growing_vat/vat)
 	var/risk = 0 //Penalty for failure, goes up based on how much growth the other cell_lines have
 
 	for(var/datum/micro_organism/cell_line/cell_line in vat.biological_sample.micro_organisms)
@@ -86,7 +86,7 @@
 	succeed_growing(vat)
 	return TRUE
 
-/datum/micro_organism/cell_line/proc/fuck_up_growing(obj/machinery/plumbing/growing_vat/vat)
+/datum/micro_organism/cell_line/proc/fuck_up_growing(/obj/machinery/growing_vat/vat)
 	vat.visible_message(span_warning("The biological sample in [vat] seems to have dissipated!"))
 	if(prob(50))
 		new /obj/effect/gibspawner/generic(get_turf(vat)) //Spawn some gibs.
@@ -94,7 +94,7 @@
 		return
 	QDEL_NULL(vat.biological_sample)
 
-/datum/micro_organism/cell_line/proc/succeed_growing(obj/machinery/plumbing/growing_vat/vat)
+/datum/micro_organism/cell_line/proc/succeed_growing(/obj/machinery/growing_vat/vat)
 	var/datum/effect_system/fluid_spread/smoke/smoke = new
 	smoke.set_up(0, holder = vat, location = vat.loc)
 	smoke.start()
