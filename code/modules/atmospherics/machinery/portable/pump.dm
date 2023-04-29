@@ -20,15 +20,24 @@
 	///Player configurable, sets what's the release pressure
 	var/target_pressure = ONE_ATMOSPHERE
 
+	/// The passive sounds this scrubber emits.
+	var/datum/looping_sound/sound_loop
+
 	volume = 1000
 
 /obj/machinery/portable_atmospherics/pump/Destroy()
+	sound_loop = new /datum/looping_sound/air_pump(src)
+	sound_loop.volume = 25 // This is loud.
 	var/turf/local_turf = get_turf(src)
 	local_turf.assume_air(air_contents)
 	return ..()
 
 /obj/machinery/portable_atmospherics/pump/update_icon_state()
 	icon_state = "[initial(icon_state)]_[on]"
+	if(on)
+		sound_loop.start()
+	else
+		sound_loop.stop()
 	return ..()
 
 /obj/machinery/portable_atmospherics/pump/update_overlays()
