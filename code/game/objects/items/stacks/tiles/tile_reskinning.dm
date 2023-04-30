@@ -21,16 +21,16 @@ GLOBAL_LIST_EMPTY(tile_dir_lists)
 	if(.)
 		return
 	for(var/path in values)
-		var/obj/item/stack/tile/type_cast_path = path
-		values[path] = image(icon = initial(type_cast_path.icon), icon_state = initial(type_cast_path.icon_state))
+		var/obj/item/stack/tile/tile_stack = path
+		values[path] = get_or_create_tile_stack_icon(initial(tile_stack.turf_type))
 	return GLOB.tile_reskin_lists[string_id] = values
 
-/obj/item/stack/tile/proc/tile_dir_list(list/values, atom/type_cast_path)
+/obj/item/stack/tile/proc/tile_dir_list(list/values, turf/turf_path)
 	. = GLOB.tile_dir_lists[type]
 	if(.)
 		return
 	for(var/set_dir in values)
-		var/image/turf_image = image(icon = initial(type_cast_path.icon), icon_state = initial(type_cast_path.icon_state), dir = text2dir(set_dir))
+		var/image/turf_image = image(icon = initial(turf_path.icon), icon_state = initial(turf_path.icon_state), dir = text2dir(set_dir))
 		turf_image.transform = turf_image.transform.Scale(0.5, 0.5)
 		values[set_dir] = turf_image
 	return GLOB.tile_dir_lists[type] = values
