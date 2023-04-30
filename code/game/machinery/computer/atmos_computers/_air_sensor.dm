@@ -21,7 +21,7 @@
 	return ..()
 
 /obj/machinery/air_sensor/Destroy()
-	broadcast_destruction(frequency)
+	broadcast_destruction(src.frequency)
 	SSair.stop_processing_machine(src)
 	SSradio.remove_object(src, frequency)
 	return ..()
@@ -33,7 +33,7 @@
 		"timestamp" = world.time,
 	))
 	var/datum/radio_frequency/connection = SSradio.return_frequency(frequency)
-	connection.post_signal(null, signal, filter = RADIO_ATMOSIA)
+	INVOKE_ASYNC(connection, TYPE_PROC_REF(/datum/radio_frequency, post_signal), null, signal, RADIO_ATMOSIA)
 
 /obj/machinery/air_sensor/update_icon_state()
 	icon_state = "gsensor[on]"
