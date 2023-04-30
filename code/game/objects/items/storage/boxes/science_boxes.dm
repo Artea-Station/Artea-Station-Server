@@ -18,10 +18,6 @@
 	for(var/i in 1 to 7)
 		new /obj/item/petri_dish(src)
 
-/obj/item/storage/box/plumbing
-	name = "box of plumbing supplies"
-	desc = "Contains a small supply of pipes, water recyclers, and iron to connect to the rest of the station."
-
 //Disk boxes
 
 /obj/item/storage/box/disks
