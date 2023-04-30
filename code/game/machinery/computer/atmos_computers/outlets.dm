@@ -23,15 +23,6 @@
 	if(new_frequency)
 		radio_connection = SSradio.add_object(src, new_frequency, RADIO_ATMOSIA)
 
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/proc/broadcast_destruction(frequency)
-	var/datum/signal/signal = new(list(
-		"sigtype" = "destroyed",
-		"tag" = id_tag,
-		"timestamp" = world.time,
-	))
-	var/datum/radio_frequency/connection = SSradio.return_frequency(frequency)
-	connection.post_signal(null, signal, filter = RADIO_ATMOSIA)
-
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/plasma_output
 	name = "plasma tank output inlet"
 	chamber_id = ATMOS_GAS_MONITOR_PLAS

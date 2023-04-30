@@ -18,15 +18,6 @@
 	. = ..()
 	SSair.broadcast_destruction(id_tag, frequency)
 
-/obj/machinery/meter/monitored/proc/broadcast_destruction(frequency)
-	var/datum/signal/signal = new(list(
-		"sigtype" = "destroyed",
-		"tag" = id_tag,
-		"timestamp" = world.time,
-	))
-	var/datum/radio_frequency/connection = SSradio.return_frequency(frequency)
-	connection.post_signal(null, signal, filter = RADIO_ATMOSIA)
-
 /obj/machinery/meter/monitored/process_atmos()
 	. = ..()
 	if(!radio_connection)
