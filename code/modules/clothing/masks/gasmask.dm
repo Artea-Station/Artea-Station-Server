@@ -15,12 +15,9 @@
 	var/list/gas_filters
 	///Type of filter that spawns on roundstart
 	var/starting_filter_type = /obj/item/gas_filter
-	///Does the mask have an FOV?
-	var/has_fov = TRUE
 
 /obj/item/clothing/mask/gas/Initialize(mapload)
 	. = ..()
-	init_fov()
 	if(!max_filters || !starting_filter_type)
 		return
 
@@ -77,11 +74,6 @@
 	if(LAZYLEN(gas_filters) <= 0)
 		has_filter = FALSE
 	return filtered_breath
-
-/// Initializes the FoV component for the gas mask
-/obj/item/clothing/mask/gas/proc/init_fov()
-	if (has_fov)
-		AddComponent(/datum/component/clothing_fov_visor, FOV_90_DEGREES)
 
 /**
  * Getter for overall filter durability, takes into consideration all filters filter_status
