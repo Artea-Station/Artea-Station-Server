@@ -313,27 +313,6 @@
 			dismantle_wall(1)
 			return
 
-/turf/closed/wall/attack_hulk(mob/living/carbon/user)
-	..()
-	var/obj/item/bodypart/arm = user.hand_bodyparts[user.active_hand_index]
-	if(!arm)
-		return
-	if(arm.bodypart_disabled)
-		return
-	if(prob(hardness))
-		playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
-		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced = "hulk")
-		hulk_recoil(arm, user)
-		dismantle_wall(1)
-
-	else
-		playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
-		add_dent(WALL_DENT_HIT)
-		user.visible_message(span_danger("[user] smashes \the [src]!"), \
-					span_danger("You smash \the [src]!"), \
-					span_hear("You hear a booming smash!"))
-	return TRUE
-
 /**
  *Deals damage back to the hulk's arm.
  *
@@ -345,12 +324,6 @@
  **arg1 is the arm to deal damage to.
  **arg2 is the hulk
  */
-/turf/closed/wall/proc/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 20)
-	arm.receive_damage(brute = damage, blocked = 0, wound_bonus = CANT_WOUND)
-	var/datum/mutation/human/hulk/smasher = locate(/datum/mutation/human/hulk) in hulkman.dna.mutations
-	if(!smasher || !damage) //sanity check but also snow and wood walls deal no recoil damage, so no arm breaky
-		return
-	smasher.break_an_arm(arm)
 
 /turf/closed/wall/attack_hand(mob/user, list/modifiers)
 	. = ..()
