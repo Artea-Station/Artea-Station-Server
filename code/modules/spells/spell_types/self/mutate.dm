@@ -45,5 +45,5 @@
 	invocation = "BIRUZ BENNAR"
 	invocation_type = INVOCATION_SHOUT
 
-	mutations_to_add = list(/datum/mutation/human/laser_eyes, /datum/mutation/human/hulk)
+	mutations_to_add = list(/datum/mutation/human/laser_eyes)
 	mutation_duration = 30 SECONDS

@@ -132,11 +132,6 @@
 			target.updateappearance(mutcolor_update = TRUE, mutations_overlay_update = TRUE)
 	return TRUE
 
-/obj/item/dnainjector/timed/hulk
-	name = "\improper DNA injector (Hulk)"
-	desc = "This will make you big and strong, but give you a bad skin condition."
-	add_mutations = list(/datum/mutation/human/hulk)
-
 /obj/item/dnainjector/timed/h2m
 	name = "\improper DNA injector (Human > Monkey)"
 	desc = "Will make you a flea bag."
@@ -320,16 +315,6 @@
 /obj/item/dnainjector/removeglow
 	name = "\improper DNA injector (Anti-Glowy)"
 	remove_mutations = list(/datum/mutation/human/glow)
-
-/obj/item/dnainjector/hulkmut
-	name = "\improper DNA injector (Hulk)"
-	desc = "This will make you big and strong, but give you a bad skin condition."
-	add_mutations = list(/datum/mutation/human/hulk)
-
-/obj/item/dnainjector/antihulk
-	name = "\improper DNA injector (Anti-Hulk)"
-	desc = "Cures green skin."
-	remove_mutations = list(/datum/mutation/human/hulk)
 
 /obj/item/dnainjector/h2m
 	name = "\improper DNA injector (Human > Monkey)"
