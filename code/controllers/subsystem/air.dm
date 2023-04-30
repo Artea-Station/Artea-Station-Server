@@ -858,7 +858,8 @@ GLOBAL_LIST_EMPTY(colored_images)
 	planetary["[level]"] = our_gasmix
 	z_level_to_gas_string["[level]"] = atmos_datum.gas_string
 
-/datum/controller/subsystem/air/proc/broadcast_air_sensor_destruction(id_tag, frequency)
+/// Helper proc to remove an atmos-monitor'd component from the network. Done here to avoid harddels from GC/async SSradio overlap.
+/datum/controller/subsystem/air/proc/broadcast_destruction(id_tag, frequency)
 	var/datum/signal/signal = new(list(
 		"sigtype" = "destroyed",
 		"tag" = id_tag,

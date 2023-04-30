@@ -16,7 +16,7 @@
 
 /obj/machinery/meter/monitored/on_deconstruction()
 	. = ..()
-	INVOKE_ASYNC(src, PROC_REF(broadcast_destruction), src.frequency)
+	SSair.broadcast_destruction(id_tag, frequency)
 
 /obj/machinery/meter/monitored/proc/broadcast_destruction(frequency)
 	var/datum/signal/signal = new(list(
