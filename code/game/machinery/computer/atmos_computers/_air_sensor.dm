@@ -21,7 +21,7 @@
 	return ..()
 
 /obj/machinery/air_sensor/Destroy()
-	SSair.broadcast_air_sensor_destruction(src.frequency)
+	SSair.broadcast_air_sensor_destruction(id_tag, frequency)
 	SSair.stop_processing_machine(src)
 	SSradio.remove_object(src, frequency)
 	return ..()
