@@ -244,9 +244,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	if(!istype(robot))
 		return INITIALIZE_HINT_QDEL
 
-/obj/item/claymore/highlander/robot/process()
-	loc.plane = GAME_PLANE_UPPER_FOV_HIDDEN
-
 /obj/item/katana
 	name = "katana"
 	desc = "Woefully underpowered in D20."
