@@ -857,3 +857,13 @@ GLOBAL_LIST_EMPTY(colored_images)
 	our_gasmix.parse_string_immutable(atmos_datum.gas_string)
 	planetary["[level]"] = our_gasmix
 	z_level_to_gas_string["[level]"] = atmos_datum.gas_string
+
+/// Helper proc to remove an atmos-monitor'd component from the network. Done here to avoid harddels from GC/async SSradio overlap.
+/datum/controller/subsystem/air/proc/broadcast_destruction(id_tag, frequency)
+	var/datum/signal/signal = new(list(
+		"sigtype" = "destroyed",
+		"tag" = id_tag,
+		"timestamp" = world.time,
+	))
+	var/datum/radio_frequency/connection = SSradio.return_frequency(frequency)
+	INVOKE_ASYNC(connection, TYPE_PROC_REF(/datum/radio_frequency, post_signal), null, signal, RADIO_ATMOSIA)

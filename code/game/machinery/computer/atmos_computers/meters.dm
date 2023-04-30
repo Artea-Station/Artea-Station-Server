@@ -16,16 +16,7 @@
 
 /obj/machinery/meter/monitored/on_deconstruction()
 	. = ..()
-	INVOKE_ASYNC(src, PROC_REF(broadcast_destruction), src.frequency)
-
-/obj/machinery/meter/monitored/proc/broadcast_destruction(frequency)
-	var/datum/signal/signal = new(list(
-		"sigtype" = "destroyed",
-		"tag" = id_tag,
-		"timestamp" = world.time,
-	))
-	var/datum/radio_frequency/connection = SSradio.return_frequency(frequency)
-	connection.post_signal(null, signal, filter = RADIO_ATMOSIA)
+	SSair.broadcast_destruction(id_tag, frequency)
 
 /obj/machinery/meter/monitored/process_atmos()
 	. = ..()
