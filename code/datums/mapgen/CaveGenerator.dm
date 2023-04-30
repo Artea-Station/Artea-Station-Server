@@ -25,7 +25,7 @@
 	///Expanded list of flora that can spawn in the area. Reads from the weighted list
 	var/list/flora_spawn_list
 	///Weighted list of extra features that can spawn in the area, such as geysers. Optional.
-	var/list/weighted_feature_spawn_list = list()
+	var/list/weighted_feature_spawn_list
 	///Expanded list of extra features that can spawn in the area. Reads from the weighted list
 	var/list/feature_spawn_list
 
@@ -60,7 +60,8 @@
 	if(!weighted_flora_spawn_list)
 		weighted_flora_spawn_list = list(/obj/structure/flora/ash/leaf_shroom = 2 , /obj/structure/flora/ash/cap_shroom = 2 , /obj/structure/flora/ash/stem_shroom = 2 , /obj/structure/flora/ash/cacti = 1, /obj/structure/flora/ash/tall_shroom = 2, /obj/structure/flora/ash/seraka = 2)
 	flora_spawn_list = expand_weights(weighted_flora_spawn_list)
-	feature_spawn_list = expand_weights(weighted_feature_spawn_list)
+	if(weighted_feature_spawn_list)
+		feature_spawn_list = expand_weights(weighted_feature_spawn_list)
 	open_turf_types = expand_weights(weighted_open_turf_types)
 	closed_turf_types = expand_weights(weighted_closed_turf_types)
 
@@ -107,7 +108,7 @@
 			spawned_something = TRUE
 
 		//FEATURE SPAWNING HERE
-		if(feature_allowed && prob(feature_spawn_chance))
+		if(feature_allowed && feature_spawn_list && prob(feature_spawn_chance))
 			var/can_spawn = TRUE
 
 			var/atom/picked_feature = pick(feature_spawn_list)
