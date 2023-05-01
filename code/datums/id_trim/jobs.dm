@@ -103,36 +103,6 @@
 		access |= list(
 			ACCESS_MAINT_TUNNELS)
 
-/datum/id_trim/job/atmospheric_technician
-	assignment = "Atmospheric Technician"
-	trim_state = "trim_atmospherictechnician"
-	orbit_icon = "fan"
-	department_color = COLOR_ENGINEERING_ORANGE
-	subdepartment_color = COLOR_ENGINEERING_ORANGE
-	sechud_icon_state = SECHUD_ATMOSPHERIC_TECHNICIAN
-	minimal_access = list(
-		ACCESS_ATMOSPHERICS,
-		ACCESS_AUX_BASE,
-		ACCESS_CONSTRUCTION,
-		ACCESS_ENGINEERING,
-		ACCESS_EXTERNAL_AIRLOCKS,
-		ACCESS_MAINT_TUNNELS,
-		ACCESS_MECH_ENGINE,
-		ACCESS_MINERAL_STOREROOM,
-		)
-	extra_access = list(
-		ACCESS_ENGINE_EQUIP,
-		ACCESS_MINISAT,
-		ACCESS_TCOMMS,
-		ACCESS_TECH_STORAGE,
-		)
-	template_access = list(
-		ACCESS_CAPTAIN,
-		ACCESS_CHANGE_IDS,
-		ACCESS_CE,
-		)
-	job = /datum/job/atmospheric_technician
-
 /datum/id_trim/job/bartender
 	assignment = "Bartender"
 	trim_state = "trim_bartender"
@@ -1008,6 +978,7 @@
 	subdepartment_color = COLOR_ENGINEERING_ORANGE
 	sechud_icon_state = SECHUD_STATION_ENGINEER
 	minimal_access = list(
+		ACCESS_ATMOSPHERICS,
 		ACCESS_AUX_BASE,
 		ACCESS_CONSTRUCTION,
 		ACCESS_ENGINEERING,
@@ -1019,9 +990,6 @@
 		ACCESS_MINISAT,
 		ACCESS_TCOMMS,
 		ACCESS_TECH_STORAGE,
-		)
-	extra_access = list(
-		ACCESS_ATMOSPHERICS,
 		)
 	template_access = list(
 		ACCESS_CAPTAIN,

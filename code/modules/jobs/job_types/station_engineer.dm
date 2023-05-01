@@ -32,7 +32,8 @@
 		/obj/item/storage/box/lights/mixed = 20,
 		/obj/item/lightreplacer = 10,
 		/obj/item/holosign_creator/engineering = 8,
-		/obj/item/clothing/head/hardhat/red/upgraded = 1
+		/obj/item/clothing/head/hardhat/red/upgraded = 1,
+		/obj/item/rpd_upgrade/unwrench = 30,
 	)
 	rpg_title = "Crystallomancer"
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE | JOB_REOPEN_ON_ROUNDSTART_LOSS | JOB_ASSIGN_QUIRKS | JOB_CAN_BE_INTERN
