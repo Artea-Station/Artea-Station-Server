@@ -19,10 +19,6 @@
 	// as a wise man once wrote: "pull over that ass too fat"
 	REMOVE_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
-/mob/living/carbon/alien/adult/royal/on_standing_up(new_lying_angle)
-	. = ..()
-	plane = initial(plane)
-
 /mob/living/carbon/alien/adult/royal/can_inject(mob/user, target_zone, injection_flags)
 	return FALSE
 
