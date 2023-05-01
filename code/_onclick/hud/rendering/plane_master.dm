@@ -75,29 +75,6 @@
 	if(istype(mymob) && mymob.client?.prefs?.read_preference(/datum/preference/toggle/ambient_occlusion))
 		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
 
-/atom/movable/screen/plane_master/game_world_upper
-	name = "upper game world plane master"
-	plane = GAME_PLANE_UPPER
-	render_relay_plane = GAME_PLANE
-	appearance_flags = PLANE_MASTER //should use client color
-	blend_mode = BLEND_OVERLAY
-
-/atom/movable/screen/plane_master/game_world_above
-	name = "above game world plane master"
-	plane = ABOVE_GAME_PLANE
-	render_relay_plane = GAME_PLANE
-	appearance_flags = PLANE_MASTER //should use client color
-	blend_mode = BLEND_OVERLAY
-
-/atom/movable/screen/plane_master/game_world_above_no_mouse
-	name = "above game world no mouse plane master"
-	plane = ABOVE_GAME_NO_MOUSE_PLANE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-	render_relay_plane = GAME_PLANE
-	appearance_flags = PLANE_MASTER
-	blend_mode = BLEND_OVERLAY
-
 /atom/movable/screen/plane_master/massive_obj
 	name = "massive object plane master"
 	plane = MASSIVE_OBJ_PLANE

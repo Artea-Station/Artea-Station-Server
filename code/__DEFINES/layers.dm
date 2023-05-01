@@ -20,11 +20,6 @@
 #define FLOOR_PLANE -8
 
 #define GAME_PLANE -7
-#define GAME_PLANE_UPPER -5
-
-///Slightly above the game plane but does not catch mouse clicks. Useful for certain visuals that should be clicked through, like seethrough trees
-#define ABOVE_GAME_NO_MOUSE_PLANE -3
-#define ABOVE_GAME_PLANE -2
 
 // PLANE_SPACE layer(s)
 #define SPACE_LAYER 1.8
@@ -61,7 +56,6 @@
 // Anything aboe this layer is not "on" a turf for the purposes of washing
 // I hate this life of ours
 #define FLOOR_CLEAN_LAYER 2.55
-
 #define BELOW_OPEN_DOOR_LAYER 2.6
 #define BLASTDOOR_LAYER 2.65
 #define SHUTTER_LAYER 2.67
@@ -74,6 +68,7 @@
 #define LOW_WALL_LAYER 2.86
 #define BELOW_OBJ_LAYER 2.9
 #define LOW_ITEM_LAYER 2.95
+
 //#define OBJ_LAYER 3 //For easy recordkeeping; this is a byond define
 #define CLOSED_DOOR_LAYER 3.1
 #define CLOSED_FIREDOOR_LAYER 3.11
@@ -87,33 +82,27 @@
 #define NOT_HIGH_OBJ_LAYER 3.5
 #define HIGH_OBJ_LAYER 3.6
 #define BELOW_MOB_LAYER 3.7
-
-// GAME_PLANE_FOV_HIDDEN layers
 #define LOW_MOB_LAYER 3.75
 #define LYING_MOB_LAYER 3.8
 #define VEHICLE_LAYER 3.9
 #define MOB_BELOW_PIGGYBACK_LAYER 3.94
+
 //#define MOB_LAYER 4 //For easy recordkeeping; this is a byond define
 #define MOB_SHIELD_LAYER 4.01
 #define MOB_ABOVE_PIGGYBACK_LAYER 4.06
 #define MOB_UPPER_LAYER 4.07
-#define HITSCAN_PROJECTILE_LAYER 4.09 //above all mob but still hidden by FoV
-
-// GAME_PLANE_UPPER layers
+#define HITSCAN_PROJECTILE_LAYER 4.09
 #define ABOVE_MOB_LAYER 4.1
 #define WALL_OBJ_LAYER 4.25
 #define EDGED_TURF_LAYER 4.3
 #define ON_EDGED_TURF_LAYER 4.35
 #define SPACEVINE_LAYER 4.4
-
-// GAME_PLANE_UPPER_FOV_HIDDEN layers
 #define LARGE_MOB_LAYER 4.5
 #define SPACEVINE_MOB_LAYER 4.6
 
 // Intermediate layer used by both GAME_PLANE_FOV_HIDDEN and ABOVE_GAME_PLANE
 #define ABOVE_ALL_MOB_LAYER 4.7
 
-// ABOVE_GAME_PLANE layers
 //#define FLY_LAYER 5 //For easy recordkeeping; this is a byond define
 #define GASFIRE_LAYER 5.05
 #define RIPPLE_LAYER 5.1
