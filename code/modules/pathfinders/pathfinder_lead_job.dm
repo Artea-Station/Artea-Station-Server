@@ -32,11 +32,11 @@
 	family_heirlooms = list(/obj/item/clothing/head/hardhat, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters, /obj/item/storage/toolbox/mechanical/old/heirloom)
 
 	mail_goodies = list(
-		/obj/item/stack/sheet/mineral/diamond = 15,
-		/obj/item/stack/sheet/mineral/uranium/five = 15,
-		/obj/item/stack/sheet/mineral/plasma/five = 15,
-		/obj/item/stack/sheet/mineral/gold = 15,
-		/obj/effect/spawner/random/ore = 3,
+		/obj/effect/spawner/random/decoration/carpet = 15,
+		/obj/item/stack/medical/suture = 15,
+		/obj/item/stack/medical/mesh = 15,
+		/obj/item/reagent_containers/hypospray/medipen = 15,
+		/obj/item/reagent_containers/hypospray/medipen/blood_loss = 6,
 		/obj/effect/spawner/random/weapon/ammo = 6,
 	)
 	rpg_title = "Orbiter Captain"

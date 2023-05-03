@@ -28,7 +28,8 @@
 
 	mail_goodies = list(
 		/obj/item/tank/internals/emergency_oxygen/engi = 8,
-		/obj/effect/spawner/random/ore_scarce = 3,
+		/obj/item/stack/medical/bruise_pack = 3,
+		/obj/item/stack/medical/ointment = 3,
 		/obj/effect/spawner/random/food_or_drink/donkpockets = 1,
 		/obj/effect/spawner/random/entertainment/musical_instrument = 4,
 	)

@@ -14,6 +14,8 @@ They shouldn't be too far from cargo.
 - Some miscellaneous low-end medical gear, like epipens, sutures, meshes, and potentially a couple of patches for brute damage.
 - Two pathfinder medkits
 - Five flashlights.
+- Two mining lockers.
+- One mining points machine.
 
 ### Weapons
 
