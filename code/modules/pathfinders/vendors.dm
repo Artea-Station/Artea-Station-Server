@@ -7,7 +7,7 @@
 	products = list(
 		/obj/item/clothing/under/rank/pathfinder = 2,
 		/obj/item/clothing/under/rank/pathfinder/skirt = 2,
-		/obj/item/clothing/head/beret/pathfinder = 2,
+		/obj/item/clothing/head/beret/pathfinders = 2,
 		/obj/item/clothing/shoes/jackboots = 2,
 		/obj/item/radio/headset/headset_sci = 2,
 		)

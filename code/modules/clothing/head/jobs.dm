@@ -363,8 +363,8 @@
 
 //Pathfinders
 
-/obj/item/clothing/head/beret/cargo
-	name = "pathfinder beret"
+/obj/item/clothing/head/beret/pathfinders
+	name = "pathfinders beret"
 	desc = "Highly impractical for spacer use! Perfect!"
 	greyscale_colors = "#575577"
 	flags_1 = NONE

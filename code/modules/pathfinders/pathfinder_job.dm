@@ -27,7 +27,10 @@
 	family_heirlooms = list(/obj/item/clothing/head/hardhat, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters, /obj/item/storage/toolbox/mechanical/old/heirloom)
 
 	mail_goodies = list(
-		/obj/item/tank/internals = 1
+		/obj/item/tank/internals/emergency_oxygen/engi = 8,
+		/obj/effect/spawner/random/ore_scarce = 3,
+		/obj/effect/spawner/random/food_or_drink/donkpockets = 1,
+		/obj/effect/spawner/random/entertainment/musical_instrument = 4,
 	)
 	rpg_title = "Orbiter"
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE | JOB_REOPEN_ON_ROUNDSTART_LOSS | JOB_ASSIGN_QUIRKS | JOB_CAN_BE_INTERN
@@ -38,17 +41,12 @@
 	jobtype = /datum/job/pathfinder
 
 	id_trim = /datum/id_trim/job/pathfinder
-	uniform = /obj/item/clothing/under/rank/pathfinders
+	uniform = /obj/item/clothing/under/rank/pathfinder
 	ears = /obj/item/radio/headset/headset_pth
 	shoes = /obj/item/clothing/shoes/jackboots
 	belt = /obj/item/modular_computer/pda/pathfinder
 
 	box = /obj/item/storage/box/survival/engineer
-
-/datum/outfit/job/pathfinder/gloved
-	name = "Pathfinder (Gloves)"
-
-	gloves = /obj/item/clothing/gloves/color/yellow
 
 /datum/outfit/job/pathfinder/mod
 	name = "Pathfinder (MODsuit)"
@@ -74,3 +72,27 @@
 	back = /obj/item/mod/control/pre_equipped/pathfinders/medic
 	mask = /obj/item/clothing/mask/breath
 	internals_slot = ITEM_SLOT_SUITSTORE
+
+/datum/id_trim/job/pathfinder
+	assignment = "Pathfinder"
+	trim_state = "trim_virologist"
+	orbit_icon = "ship"
+	department_color = COLOR_PATHFINDERS_PURPLE
+	subdepartment_color = COLOR_PATHFINDERS_DARK_PURPLE
+	sechud_icon_state = SECHUD_PATHFINDER
+	minimal_access = list(
+		ACCESS_PATHFINDERS,
+		ACCESS_PATHFINDERS_DOCK,
+		ACCESS_PATHFINDERS_STORAGE,
+		ACCESS_EXTERNAL_AIRLOCKS,
+		ACCESS_MAINT_TUNNELS,
+		)
+	extra_access = list(
+		ACCESS_ATMOSPHERICS,
+		)
+	template_access = list(
+		ACCESS_CAPTAIN,
+		ACCESS_CHANGE_IDS,
+		ACCESS_PATHFINDERS_LEAD,
+		)
+	job = /datum/job/pathfinder

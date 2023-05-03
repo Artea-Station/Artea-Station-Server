@@ -1,4 +1,4 @@
-/obj/item/circuitboard/machine/techfab/department/cargo
+/obj/item/circuitboard/machine/techfab/department/pathfinders
 	name = "\improper Departmental Techfab - Pathfinders"
 	greyscale_colors = COLOR_PATHFINDERS_DARK_PURPLE
 	build_path = /obj/machinery/rnd/production/techfab/department/pathfinders

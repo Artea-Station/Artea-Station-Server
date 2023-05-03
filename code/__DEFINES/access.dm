@@ -142,7 +142,7 @@
 #define ACCESS_PATHFINDERS "pathfinders"
 #define ACCESS_PATHFINDERS_DOCK "pathfinders_dock"
 #define ACCESS_PATHFINDERS_STORAGE "pathfinders_storage"
-#define ACCESS_PATHFINDERS_LEADER "pathfinders_leader"
+#define ACCESS_PATHFINDERS_LEAD "PATHFINDERS_LEAD"
 
 /// - - - AWAY MISSIONS - - -
 /*For generic away-mission/ruin access. Why would normal crew have access to a long-abandoned derelict
@@ -358,7 +358,7 @@
 	ACCESS_HOS, \
 	ACCESS_HOP, \
 	ACCESS_QM, \
-	ACCESS_PATHFINDERS_LEADER, \
+	ACCESS_PATHFINDERS_LEAD, \
 )
 
 /// Captains private rooms. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_CAPTAIN)

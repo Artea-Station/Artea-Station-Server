@@ -18,7 +18,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/pathfinders/leader/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_PATHFINDERS_LEADER
+	access_list += ACCESS_PATHFINDERS_LEAD
 	return access_list
 
 // Any
@@ -42,5 +42,5 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/pathfinders/leader/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_PATHFINDERS_LEADER
+	access_list += ACCESS_PATHFINDERS_LEAD
 	return access_list

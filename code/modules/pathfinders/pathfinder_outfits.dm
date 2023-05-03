@@ -1,4 +1,4 @@
-/obj/item/clothing/under/rank/pathfinders
+/obj/item/clothing/under/rank/pathfinder
 	icon = 'icons/obj/clothing/under/pathfinders.dmi'
 	worn_icon = 'icons/mob/clothing/under/pathfinders.dmi'
 
@@ -9,7 +9,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
 
-/obj/item/clothing/under/rank/pathfinders/skirt
+/obj/item/clothing/under/rank/pathfinder/skirt
 	name = "pathfinder's jumpskirt"
 	desc = "A comfy and durable jumpskirt. Comes with pockets!"
 	icon_state = "pathfinder_skirt"

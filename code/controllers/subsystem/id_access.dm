@@ -188,6 +188,12 @@ SUBSYSTEM_DEF(id_access)
 			"templates" = list(),
 			"pdas" = list(),
 		),
+		"[ACCESS_PATHFINDERS_LEAD]" = list(
+			"regions" = list(REGION_PATHFINDERS),
+			"head" = JOB_PATHFINDER_LEAD,
+			"templates" = list(),
+			"pdas" = list(),
+		),
 	)
 
 	var/list/station_job_trims = subtypesof(/datum/id_trim/job)
@@ -284,6 +290,10 @@ SUBSYSTEM_DEF(id_access)
 	desc_by_access["[ACCESS_PSYCHOLOGY]"] = "Psychology"
 	desc_by_access["[ACCESS_CMO]"] = "CMO Office"
 	desc_by_access["[ACCESS_QM]"] = "Quartermaster"
+	desc_by_access["[ACCESS_PATHFINDERS]"] = "Pathfinders"
+	desc_by_access["[ACCESS_PATHFINDERS_DOCK]"] = "Pathfinders Dock"
+	desc_by_access["[ACCESS_PATHFINDERS_STORAGE]"] = "Pathfinders Storage"
+	desc_by_access["[ACCESS_PATHFINDERS_LEAD]"] = "Pathfinders Lead"
 	desc_by_access["[ACCESS_SURGERY]"] = "Surgery"
 	desc_by_access["[ACCESS_THEATRE]"] = "Theatre"
 	desc_by_access["[ACCESS_RESEARCH]"] = "Science"
