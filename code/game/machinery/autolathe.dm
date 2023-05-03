@@ -218,6 +218,7 @@
 			to_chat(usr, span_notice("You print [multiplier] item(s) from the [src]"))
 			use_power(power)
 			icon_state = "autolathe_n"
+			playsound(src, 'sound/machines/piston_lower.ogg', 75, TRUE)
 			var/time = is_stack ? 32 : (32 * coeff * multiplier) ** 0.8
 			addtimer(CALLBACK(src, PROC_REF(make_item), power, materials_used, custom_materials, multiplier, coeff, is_stack, usr), time)
 			. = TRUE
@@ -247,6 +248,7 @@
 		return TRUE
 
 	if(istype(attacking_item, /obj/item/disk/design_disk))
+		playsound(src, 'sound/machines/terminal_processing.ogg', 75, ignore_walls = FALSE)
 		user.visible_message(span_notice("[user] begins to load \the [attacking_item] in \the [src]..."),
 			balloon_alert(user, "uploading design..."),
 			span_hear("You hear the chatter of a floppy drive."))
@@ -263,6 +265,9 @@
 					LAZYADD(not_imported, blueprint.name)
 			if(not_imported)
 				to_chat(user, span_warning("The following design[length(not_imported) > 1 ? "s" : ""] couldn't be imported: [english_list(not_imported)]"))
+
+			playsound(src, 'sound/machines/terminal_success.ogg', 75, ignore_walls = FALSE)
+
 		busy = FALSE
 		update_static_data_for_all_viewers()
 		return TRUE
@@ -331,6 +336,7 @@
 					if(!istype(M, /datum/material/glass) && !istype(M, /datum/material/iron))
 						user.client.give_award(/datum/award/achievement/misc/getting_an_upgrade, user)
 
+	playsound(src, 'sound/machines/piston_raise.ogg', 75, TRUE)
 
 	icon_state = "autolathe"
 	busy = FALSE

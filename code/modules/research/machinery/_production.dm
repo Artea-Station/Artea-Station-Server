@@ -213,6 +213,8 @@
 	for(var/i in 1 to amount)
 		new path(get_turf(src))
 
+	playsound(src, 'sound/machines/piston_raise.ogg', 75, TRUE)
+
 	SSblackbox.record_feedback("nested tally", "item_printed", amount, list("[type]", "[path]"))
 
 /obj/machinery/rnd/production/proc/efficient_with(path)
@@ -321,6 +323,7 @@
 
 	var/time_coefficient = design.lathe_time_factor * efficiency_coeff
 
+	playsound(src, 'sound/machines/piston_lower.ogg', 75, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(reset_busy)), (30 * time_coefficient * print_quantity) ** 0.5)
 	addtimer(CALLBACK(src, PROC_REF(do_print), design.build_path, print_quantity, efficient_mats, design.dangerous_construction), (32 * time_coefficient * print_quantity) ** 0.8)
 

@@ -42,7 +42,11 @@
 	///Radio connection from the air alarm
 	var/radio_filter_in
 
+	/// The passive sounds this scrubber emits.
+	var/datum/looping_sound/sound_loop
+
 /obj/machinery/atmospherics/components/unary/vent_pump/New()
+	sound_loop = new /datum/looping_sound/air_pump(src)
 	if(!id_tag)
 		id_tag = SSnetworks.assign_random_name()
 	. = ..()
@@ -67,9 +71,11 @@
 
 	if(welded)
 		icon_state = "vent_welded"
+		sound_loop.stop()
 		return
 
 	if(!nodes[1] || !on || !is_operational)
+		sound_loop.stop()
 		if(icon_state == "vent_welded")
 			icon_state = "vent_off"
 			return
@@ -79,6 +85,8 @@
 		else // pump_direction == SIPHONING
 			icon_state = "vent_in-off"
 		return
+
+	sound_loop.start()
 
 	if(icon_state == ("vent_out-off" || "vent_in-off" || "vent_off"))
 		if(pump_direction & RELEASING)

@@ -72,6 +72,11 @@
 	return TRUE
 
 /datum/crafting_recipe/proc/on_craft_completion(mob/user, atom/result)
+	SHOULD_CALL_PARENT(TRUE)
+
+	playsound(user, 'sound/effects/treechop3.ogg', 75, TRUE)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), user, 'sound/effects/treechop2.ogg', 75, TRUE), 0.25 SECONDS)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), user, 'sound/effects/treechop1.ogg', 75, TRUE), 0.5 SECONDS)
 	return
 
 ///Check if the pipe used for atmospheric device crafting is the proper one
@@ -367,6 +372,7 @@
 	category = CAT_ROBOT
 
 /datum/crafting_recipe/medbot/on_craft_completion(mob/user, atom/result)
+	. = ..()
 	var/mob/living/simple_animal/bot/medbot/bot = result
 	var/obj/item/storage/medkit/medkit = bot.contents[3]
 	bot.medkit_type = medkit
@@ -1364,6 +1370,7 @@
 	var/obj/item/stock_parts/cell/cell = locate(/obj/item/stock_parts/cell) in range(1)
 	if(!cell)
 		return
+	. = ..()
 	var/obj/machinery/space_heater/improvised_chem_heater/heater = result
 	var/turf/turf = get_turf(cell)
 	heater.forceMove(turf)
@@ -1401,6 +1408,7 @@
 	category = CAT_ATMOSPHERIC
 
 /datum/crafting_recipe/pipe/on_craft_completion(mob/user, atom/result)
+	. = ..()
 	var/obj/item/pipe/crafted_pipe = result
 	crafted_pipe.pipe_type = /obj/machinery/atmospherics/pipe/smart
 	crafted_pipe.pipe_color = COLOR_VERY_LIGHT_GRAY
@@ -1423,6 +1431,7 @@
 	return atmos_pipe_check(user, collected_requirements)
 
 /datum/crafting_recipe/layer_adapter/on_craft_completion(mob/user, atom/result)
+	. = ..()
 	var/obj/item/pipe/crafted_pipe = result
 	crafted_pipe.pipe_type = /obj/machinery/atmospherics/pipe/layer_manifold
 	crafted_pipe.pipe_color = COLOR_VERY_LIGHT_GRAY
@@ -1444,6 +1453,7 @@
 	return atmos_pipe_check(user, collected_requirements)
 
 /datum/crafting_recipe/color_adapter/on_craft_completion(mob/user, atom/result)
+	. = ..()
 	var/obj/item/pipe/crafted_pipe = result
 	crafted_pipe.pipe_type = /obj/machinery/atmospherics/pipe/color_adapter
 	crafted_pipe.pipe_color = COLOR_VERY_LIGHT_GRAY
@@ -1465,6 +1475,7 @@
 	return atmos_pipe_check(user, collected_requirements)
 
 /datum/crafting_recipe/he_pipe/on_craft_completion(mob/user, atom/result)
+	. = ..()
 	var/obj/item/pipe/crafted_pipe = result
 	crafted_pipe.pipe_type = /obj/machinery/atmospherics/pipe/heat_exchanging/manifold4w
 	crafted_pipe.pipe_color = COLOR_VERY_LIGHT_GRAY
@@ -1486,6 +1497,7 @@
 	return atmos_pipe_check(user, collected_requirements)
 
 /datum/crafting_recipe/he_junction/on_craft_completion(mob/user, atom/result)
+	. = ..()
 	var/obj/item/pipe/crafted_pipe = result
 	crafted_pipe.pipe_type = /obj/machinery/atmospherics/pipe/heat_exchanging/junction
 	crafted_pipe.pipe_color = COLOR_VERY_LIGHT_GRAY
@@ -1508,6 +1520,7 @@
 	return atmos_pipe_check(user, collected_requirements)
 
 /datum/crafting_recipe/pressure_pump/on_craft_completion(mob/user, atom/result)
+	. = ..()
 	var/obj/item/pipe/crafted_pipe = result
 	crafted_pipe.pipe_type = /obj/machinery/atmospherics/components/binary/pump
 	crafted_pipe.pipe_color = COLOR_VERY_LIGHT_GRAY
@@ -1529,6 +1542,7 @@
 	return atmos_pipe_check(user, collected_requirements)
 
 /datum/crafting_recipe/manual_valve/on_craft_completion(mob/user, atom/result)
+	. = ..()
 	var/obj/item/pipe/crafted_pipe = result
 	crafted_pipe.pipe_type = /obj/machinery/atmospherics/components/binary/valve
 	crafted_pipe.pipe_color = COLOR_VERY_LIGHT_GRAY
@@ -1551,6 +1565,7 @@
 	return atmos_pipe_check(user, collected_requirements)
 
 /datum/crafting_recipe/vent/on_craft_completion(mob/user, atom/result)
+	. = ..()
 	var/obj/item/pipe/crafted_pipe = result
 	crafted_pipe.pipe_type = /obj/machinery/atmospherics/components/unary/vent_pump
 	crafted_pipe.pipe_color = COLOR_VERY_LIGHT_GRAY
@@ -1573,6 +1588,7 @@
 	return atmos_pipe_check(user, collected_requirements)
 
 /datum/crafting_recipe/scrubber/on_craft_completion(mob/user, atom/result)
+	. = ..()
 	var/obj/item/pipe/crafted_pipe = result
 	crafted_pipe.pipe_type = /obj/machinery/atmospherics/components/unary/vent_scrubber
 	crafted_pipe.pipe_color = COLOR_VERY_LIGHT_GRAY
@@ -1595,6 +1611,7 @@
 	return atmos_pipe_check(user, collected_requirements)
 
 /datum/crafting_recipe/filter/on_craft_completion(mob/user, atom/result)
+	. = ..()
 	var/obj/item/pipe/crafted_pipe = result
 	crafted_pipe.pipe_type = /obj/machinery/atmospherics/components/trinary/filter
 	crafted_pipe.pipe_color = COLOR_VERY_LIGHT_GRAY
@@ -1617,6 +1634,7 @@
 	return atmos_pipe_check(user, collected_requirements)
 
 /datum/crafting_recipe/mixer/on_craft_completion(mob/user, atom/result)
+	. = ..()
 	var/obj/item/pipe/crafted_pipe = result
 	crafted_pipe.pipe_type = /obj/machinery/atmospherics/components/trinary/mixer
 	crafted_pipe.pipe_color = COLOR_VERY_LIGHT_GRAY
@@ -1638,6 +1656,7 @@
 	return atmos_pipe_check(user, collected_requirements)
 
 /datum/crafting_recipe/connector/on_craft_completion(mob/user, atom/result)
+	. = ..()
 	var/obj/item/pipe/crafted_pipe = result
 	crafted_pipe.pipe_type = /obj/machinery/atmospherics/components/unary/portables_connector
 	crafted_pipe.pipe_color = COLOR_VERY_LIGHT_GRAY
@@ -1659,6 +1678,7 @@
 	return atmos_pipe_check(user, collected_requirements)
 
 /datum/crafting_recipe/passive_vent/on_craft_completion(mob/user, atom/result)
+	. = ..()
 	var/obj/item/pipe/crafted_pipe = result
 	crafted_pipe.pipe_type = /obj/machinery/atmospherics/components/unary/passive_vent
 	crafted_pipe.pipe_color = COLOR_VERY_LIGHT_GRAY
@@ -1681,6 +1701,7 @@
 	return atmos_pipe_check(user, collected_requirements)
 
 /datum/crafting_recipe/injector/on_craft_completion(mob/user, atom/result)
+	. = ..()
 	var/obj/item/pipe/crafted_pipe = result
 	crafted_pipe.pipe_type = /obj/machinery/atmospherics/components/unary/outlet_injector
 	crafted_pipe.pipe_color = COLOR_VERY_LIGHT_GRAY
@@ -1702,6 +1723,7 @@
 	return atmos_pipe_check(user, collected_requirements)
 
 /datum/crafting_recipe/he_exchanger/on_craft_completion(mob/user, atom/result)
+	. = ..()
 	var/obj/item/pipe/crafted_pipe = result
 	crafted_pipe.pipe_type = /obj/machinery/atmospherics/components/unary/heat_exchanger
 	crafted_pipe.pipe_color = COLOR_VERY_LIGHT_GRAY
@@ -1746,6 +1768,7 @@
 	return TRUE
 
 /datum/crafting_recipe/toiletbong/on_craft_completion(mob/user, atom/result)
+	. = ..()
 	var/obj/structure/toiletbong/toiletbong = result
 	var/obj/structure/toilet/toilet = locate(/obj/structure/toilet) in range(1, user.loc)
 	for (var/obj/item/cistern_item in toilet.contents)

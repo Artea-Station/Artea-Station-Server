@@ -28,7 +28,7 @@
 		contained_id = P
 		user.visible_message(span_notice("[user] inserts an ID card into the console."), \
 							span_notice("You insert the ID card into the console."))
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+		playsound(src, 'sound/machines/id_insert.ogg', 50, FALSE)
 		updateUsrDialog()
 
 /obj/machinery/computer/prisoner/proc/id_eject(mob/user)
@@ -42,7 +42,7 @@
 		contained_id = null
 		user.visible_message(span_notice("[user] gets an ID card from the console."), \
 							span_notice("You get the ID card from the console."))
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+		playsound(src, 'sound/machines/id_eject.ogg', 50, FALSE)
 		updateUsrDialog()
 
 /obj/machinery/computer/prisoner/attackby(obj/item/I, mob/user)
