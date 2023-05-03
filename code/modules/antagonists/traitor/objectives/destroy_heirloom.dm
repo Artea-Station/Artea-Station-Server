@@ -62,8 +62,6 @@
 	/// 45 minutes in, syndicate won't care about uncommon heirlooms anymore
 	progression_maximum = 45 MINUTES
 	target_jobs = list(
-		// Cargo
-		/datum/job/shaft_miner,
 		// Service
 		/datum/job/chaplain,
 		/datum/job/bartender,

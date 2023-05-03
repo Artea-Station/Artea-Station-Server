@@ -26,6 +26,6 @@
 /obj/item/encryptionkey/heads/pl
 	name = "\proper the pathfinder lead's encryption key"
 	icon_state = "cypherkey_research"
-	channels = list(RADIO_CHANNEL_PATHFINDERS = 1, RADIO_CHANNEL_COMMAND = 1)
+	channels = list(RADIO_CHANNEL_PATHFINDERS = 1, RADIO_CHANNEL_SUPPLY = 1, RADIO_CHANNEL_COMMAND = 1)
 	greyscale_config = /datum/greyscale_config/encryptionkey_pathfinders
 	greyscale_colors = "#847A96#575577"
