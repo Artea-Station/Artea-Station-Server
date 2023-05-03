@@ -787,22 +787,19 @@
 	assignment = "Roboticist"
 	trim_state = "trim_roboticist"
 	orbit_icon = "battery-half"
-	department_color = COLOR_SCIENCE_PINK
-	subdepartment_color = COLOR_SCIENCE_PINK
+	department_color = COLOR_ENGINEERING_ORANGE
+	subdepartment_color = COLOR_ENGINEERING_ORANGE
 	sechud_icon_state = SECHUD_ROBOTICIST
 	minimal_access = list(
 		ACCESS_AUX_BASE,
 		ACCESS_MECH_SCIENCE,
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_MORGUE,
-		ACCESS_RESEARCH,
 		ACCESS_ROBOTICS,
-		ACCESS_SCIENCE,
 		ACCESS_TECH_STORAGE,
-		)
-	extra_access = list(
-		ACCESS_GENETICS,
-		ACCESS_XENOBIOLOGY,
+		ACCESS_CONSTRUCTION,
+		ACCESS_ENGINEERING,
+		ACCESS_ENGINE_EQUIP,
 		)
 	template_access = list(
 		ACCESS_CAPTAIN,
