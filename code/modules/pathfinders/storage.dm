@@ -10,7 +10,6 @@
 
 /obj/item/storage/medkit/pathfinder/PopulateContents()
 	atom_storage.max_slots = 8
-	COLOR_PATHFINDERS_PURPLE
 	if(empty)
 		return
 	var/static/items_inside = list(

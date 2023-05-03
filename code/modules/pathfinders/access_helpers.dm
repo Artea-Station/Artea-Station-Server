@@ -14,7 +14,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/pathfinders/storage/get_access()
 	var/list/access_list = ..()
 	access_list += ACCESS_PATHFINDERS_STORAGE
-	COLOR_SCIENCE_PINK
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/pathfinders/leader/get_access()
