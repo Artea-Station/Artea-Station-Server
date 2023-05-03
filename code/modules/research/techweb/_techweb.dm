@@ -328,7 +328,7 @@
 		add_design_by_id(id)
 	update_node_status(node)
 	if(get_that_dosh)
-		var/datum/bank_account/science_department_bank_account = SSeconomy.get_dep_account(ACCOUNT_SCI)
+		var/datum/bank_account/science_department_bank_account = SSeconomy.get_dep_account(ACCOUNT_PTH)
 		science_department_bank_account?.adjust_money(SSeconomy.techweb_bounty)
 	return TRUE
 

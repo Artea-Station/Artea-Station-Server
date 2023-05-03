@@ -41,7 +41,7 @@
 	department_tag = "Science"
 	circuit = /obj/item/circuitboard/machine/techfab/department/science
 	stripe_color = "#D381C9"
-	payment_department = ACCOUNT_SCI
+	payment_department = ACCOUNT_PTH
 
 /obj/machinery/rnd/production/techfab/department/security
 	name = "department techfab (Security)"

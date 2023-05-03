@@ -368,10 +368,15 @@
 	name = "\improper Medbay PDA & ID Painter"
 	target_dept = REGION_MEDBAY
 
-/// Science departmental variant. Limited to PDAs defined in the SSid_access.sub_department_managers_tgui data structure.
+/// Science departmental variant. Limited to PDAs defined in the SSid_access.sub_department_managers_tgui data structure. Defunct, do not use, purely here to keep me from having to update TG maps (which are going to be gone soon)
 /obj/machinery/pdapainter/research
 	name = "\improper Research PDA & ID Painter"
-	target_dept = REGION_RESEARCH
+	target_dept = REGION_PATHFINDERS
+
+/// Pathfinders departmental variant. Limited to PDAs defined in the SSid_access.sub_department_managers_tgui data structure.
+/obj/machinery/pdapainter/pathfinders
+	name = "\improper Pathfinders PDA & ID Painter"
+	target_dept = REGION_PATHFINDERS
 
 /// Engineering departmental variant. Limited to PDAs defined in the SSid_access.sub_department_managers_tgui data structure.
 /obj/machinery/pdapainter/engineering

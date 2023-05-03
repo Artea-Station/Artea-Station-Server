@@ -866,6 +866,11 @@
 	icon_file = 'icons/obj/radio.dmi'
 	json_config = 'code/datums/greyscale/json_configs/encryptionkey_research.json'
 
+/datum/greyscale_config/encryptionkey_pathfinders
+	name = "Pathfinders Encryptionkey"
+	icon_file = 'icons/obj/radio.dmi'
+	json_config = 'code/datums/greyscale/json_configs/encryptionkey_pathfinders.json'
+
 /datum/greyscale_config/encryptionkey_syndicate
 	name = "Syndicate Encryptionkey"
 	icon_file = 'icons/obj/radio.dmi'
