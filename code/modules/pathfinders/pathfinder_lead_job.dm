@@ -48,6 +48,7 @@
 	name = "Pathfinder Lead"
 	jobtype = /datum/job/pathfinder_lead
 
+	id = /obj/item/card/id/advanced/silver
 	id_trim = /datum/id_trim/job/pathfinder_lead
 	uniform = /obj/item/clothing/under/rank/pathfinder
 	ears = /obj/item/radio/headset/heads/pl
