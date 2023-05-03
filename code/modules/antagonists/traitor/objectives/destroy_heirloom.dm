@@ -43,11 +43,9 @@
 		/datum/job/lawyer,
 		// Cargo
 		/datum/job/cargo_technician,
-		// Science
-		/datum/job/roboticist,
 		// Engineering
 		/datum/job/station_engineer,
-		/datum/job/atmospheric_technician,
+		/datum/job/roboticist,
 	)
 
 /// This is only for assistants, because the syndies are a lot less likely to give a shit about what an assistant does, so they're a lot less likely to appear

@@ -195,7 +195,7 @@
 /obj/item/modular_computer/pda/roboticist
 	name = "roboticist PDA"
 	greyscale_config = /datum/greyscale_config/tablet/stripe_split
-	greyscale_colors = "#484848#0099CC#D94927"
+	greyscale_colors = "#484848#0099CC#D99A2E"
 	starting_programs = list(
 		/datum/computer_file/program/robocontrol,
 	)
