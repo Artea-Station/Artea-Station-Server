@@ -74,7 +74,7 @@
 	trim_state = "trim_virologist"
 	orbit_icon = "anchor"
 	department_color = COLOR_COMMAND_BLUE
-	subdepartment_color = COLOR_PATHFINDERS_PURPLE
+	subdepartment_color = COLOR_PATHFINDERS_DARK_PURPLE
 	department_state = "departmenthead"
 	sechud_icon_state = SECHUD_PATHFINDER_LEAD
 	extra_wildcard_access = list()

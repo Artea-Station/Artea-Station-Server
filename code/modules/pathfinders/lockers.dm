@@ -30,6 +30,6 @@
 		/obj/item/circuitboard/computer/pathfinders_shuttle = 1,
 		/obj/item/inducer = 2,
 		/obj/item/stock_parts/cell/high = 2,
-		/obj/item/storage/box/stockparts = 2,
+		/obj/item/storage/box/stockparts/basic = 2,
 	)
 	generate_items_inside(items_inside,src)
