@@ -183,8 +183,10 @@
 	if(device && device.next_activate > world.time)
 		return
 
+	playsound(user, SFX_SWITCH, 100, TRUE)
+
 	if(!allowed(user))
-		to_chat(user, span_alert("Access Denied."))
+		to_chat(user, span_alert("Access denied to [src]."))
 		flick("[skin]-denied", src)
 		return
 

@@ -148,6 +148,8 @@
 	var/always_area_sensitive = FALSE
 	///Multiplier for power consumption.
 	var/machine_power_rectifier = 1
+	/// The sound that plays on UI interaction.
+	var/interaction_sound = SFX_PDA
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)
@@ -628,6 +630,7 @@
 /obj/machinery/ui_act(action, list/params)
 	add_fingerprint(usr)
 	update_last_used(usr)
+	playsound(src, interaction_sound, 50, TRUE, ignore_walls = FALSE)
 	return ..()
 
 /obj/machinery/Topic(href, href_list)

@@ -105,6 +105,12 @@
 	if(.)
 		return
 
+	// Just plays a fitting sound for the computer on interact.
+	if(hardware_flag == PROGRAM_TABLET)
+		playsound(src, 'sound/machines/pda_click.ogg', 50, TRUE, ignore_walls = FALSE)
+	else
+		playsound(src, SFX_TERMINAL_TYPE, 50, TRUE, ignore_walls = FALSE)
+
 	if(active_program)
 		active_program.ui_act(action, params, ui, state)
 

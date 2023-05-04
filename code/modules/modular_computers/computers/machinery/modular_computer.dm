@@ -41,6 +41,9 @@
 	///CPU that handles most logic while this type only handles power and other specific things.
 	var/obj/item/modular_computer/processor/cpu
 
+	/// Timestamp for the next possible click sound.
+	var/next_clicksound
+
 /obj/machinery/modular_computer/Initialize(mapload)
 	. = ..()
 	cpu = new(src)
@@ -109,6 +112,10 @@
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 // On-click handling. Turns on the computer if it's off and opens the GUI.
 /obj/machinery/modular_computer/interact(mob/user)
+	if(world.time > next_clicksound && isliving(user))
+		next_clicksound = world.time + (2 SECONDS)
+		playsound(src, SFX_KEYBOARD, 25, TRUE)
+
 	if(cpu)
 		return cpu.interact(user)
 	return ..()

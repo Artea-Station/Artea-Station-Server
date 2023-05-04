@@ -31,6 +31,14 @@
 		/datum/gas/halon,
 	)
 
+	/// The passive sounds this scrubber emits.
+	var/datum/looping_sound/sound_loop
+
+/obj/machinery/portable_atmospherics/scrubber/New(loc, ...)
+	sound_loop = new /datum/looping_sound/air_pump(src)
+	sound_loop.volume = 25 // This is loud.
+	. = ..()
+
 /obj/machinery/portable_atmospherics/scrubber/Destroy()
 	var/turf/T = get_turf(src)
 	T.assume_air(air_contents)
@@ -38,6 +46,10 @@
 
 /obj/machinery/portable_atmospherics/scrubber/update_icon_state()
 	icon_state = "[initial(icon_state)]_[on]"
+	if(on)
+		sound_loop.start()
+	else
+		sound_loop.stop()
 	return ..()
 
 /obj/machinery/portable_atmospherics/scrubber/update_overlays()
