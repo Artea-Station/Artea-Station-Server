@@ -71,6 +71,7 @@ Nothing else in the console has ID requirements.
 			if(!user.transferItemToLoc(D, src))
 				to_chat(user, span_warning("[D] is stuck to your hand!"))
 				return
+			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 75, TRUE)
 			t_disk = D
 		else if (istype(D, /obj/item/disk/design_disk))
 			if(d_disk)
@@ -79,6 +80,7 @@ Nothing else in the console has ID requirements.
 			if(!user.transferItemToLoc(D, src))
 				to_chat(user, span_warning("[D] is stuck to your hand!"))
 				return
+			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 75, TRUE)
 			d_disk = D
 		else
 			to_chat(user, span_warning("Machine cannot accept disks in that format."))
@@ -330,6 +332,7 @@ Nothing else in the console has ID requirements.
 						design.build_type |= AUTOLATHE
 					design.category |= RND_CATEGORY_IMPORTED
 				d_disk.blueprints[slot] = design
+			playsound(src, 'sound/machines/terminal_prompt.ogg', 75, TRUE)
 			return TRUE
 		if ("uploadDesignSlot")
 			if(QDELETED(d_disk))
@@ -337,6 +340,7 @@ Nothing else in the console has ID requirements.
 				return TRUE
 			var/n = text2num(params["slot"])
 			stored_research.add_design(d_disk.blueprints[n], TRUE)
+			playsound(src, 'sound/machines/terminal_processing.ogg', 75, TRUE)
 			return TRUE
 		if ("clearDesignSlot")
 			if(QDELETED(d_disk))
@@ -346,6 +350,7 @@ Nothing else in the console has ID requirements.
 			var/datum/design/D = d_disk.blueprints[n]
 			say("Wiping design [D.name] from design disk.")
 			d_disk.blueprints[n] = null
+			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 75, TRUE)
 			return TRUE
 		if ("eraseDisk")
 			if (params["type"] == RND_DESIGN_DISK)
@@ -362,6 +367,7 @@ Nothing else in the console has ID requirements.
 				qdel(t_disk.stored_research)
 				t_disk.stored_research = new
 				say("Wiping technology disk.")
+			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 75, TRUE)
 			return TRUE
 		if ("uploadDisk")
 			if (params["type"] == RND_DESIGN_DISK)
@@ -377,6 +383,7 @@ Nothing else in the console has ID requirements.
 					return TRUE
 				say("Uploading technology disk.")
 				t_disk.stored_research.copy_research_to(stored_research)
+			playsound(src, 'sound/machines/terminal_processing.ogg', 75, TRUE)
 			return TRUE
 		if ("loadTech")
 			if(QDELETED(t_disk))
@@ -384,6 +391,7 @@ Nothing else in the console has ID requirements.
 				return
 			stored_research.copy_research_to(t_disk.stored_research)
 			say("Downloading to technology disk.")
+			playsound(src, 'sound/machines/terminal_prompt.ogg', 75, TRUE)
 			return TRUE
 
 /obj/machinery/computer/rdconsole/proc/eject_disk(type)
@@ -393,6 +401,8 @@ Nothing else in the console has ID requirements.
 	if(type == RND_TECH_DISK && t_disk)
 		t_disk.forceMove(get_turf(src))
 		t_disk = null
+
+	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 75, TRUE)
 
 #undef RND_TECH_DISK
 #undef RND_DESIGN_DISK

@@ -253,6 +253,7 @@
 			return TRUE
 
 		say("Obstruction cleared. The fabrication of [stored_part] is now complete.")
+		playsound(src, 'sound/machines/piston_raise.ogg', 75, TRUE)
 		stored_part.forceMove(exit)
 		stored_part = null
 
@@ -270,6 +271,7 @@
 		// Then attempt to dispense it and if appropriate build the next item.
 		dispense_built_part(being_built)
 		if(process_queue)
+			playsound(src, 'sound/machines/piston_lower.ogg', 75, TRUE)
 			build_next_in_queue(FALSE)
 		return TRUE
 
@@ -293,6 +295,7 @@
 		return FALSE
 
 	say("The fabrication of [I] is now complete.")
+	playsound(src, 'sound/machines/piston_raise.ogg', 75, TRUE)
 	I.forceMove(exit)
 
 	top_job_id += 1

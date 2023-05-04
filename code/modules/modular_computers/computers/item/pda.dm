@@ -35,6 +35,7 @@
 	var/static/list/datum/computer_file/pda_programs = list(
 		/datum/computer_file/program/messenger,
 		/datum/computer_file/program/notepad,
+		/datum/computer_file/program/crew_manifest,
 	)
 	///List of items that can be stored in a PDA
 	var/static/list/contained_item = list(
@@ -151,7 +152,7 @@
 		return
 	balloon_alert(user, "inserted [attacking_item]")
 	inserted_item = attacking_item
-	playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
+	playsound(src, 'sound/machines/id_insert.ogg', 50, TRUE)
 
 /obj/item/modular_computer/pda/AltClick(mob/user)
 	. = ..()
@@ -186,7 +187,7 @@
 		user.put_in_hands(inserted_item)
 		inserted_item = null
 		update_appearance()
-		playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
+		playsound(src, 'sound/machines/pen_remove.ogg', 50, TRUE)
 
 /obj/item/modular_computer/pda/proc/explode(mob/target, mob/bomber, from_message_menu = FALSE)
 	var/turf/current_turf = get_turf(src)

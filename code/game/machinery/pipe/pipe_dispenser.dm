@@ -9,6 +9,7 @@
 	desc = "Dispenses countless types of pipes. Very useful if you need pipes."
 	density = TRUE
 	interaction_flags_machine = INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_OFFLINE
+	interaction_sound = SFX_KEYBOARD
 	var/wait = 0
 	var/piping_layer = PIPING_LAYER_DEFAULT
 	///color of pipe
