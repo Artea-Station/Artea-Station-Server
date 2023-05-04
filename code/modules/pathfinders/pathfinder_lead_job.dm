@@ -1,4 +1,4 @@
-/datum/job/pathfinder_lead
+/datum/job/lead_pathfinder
 	title = JOB_PATHFINDER_LEAD
 	description = "Be the captain that isn't actually the captain, and be the one who gets yelled at when there's no materials."
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
@@ -16,7 +16,7 @@
 	exp_required_type_department = EXP_TYPE_PATHFINDERS
 	exp_granted_type = EXP_TYPE_CREW
 
-	outfit = /datum/outfit/job/pathfinder_lead
+	outfit = /datum/outfit/job/lead_pathfinder
 	departments_list = list(
 		/datum/job_department/pathfinders,
 		/datum/job_department/command,
@@ -44,12 +44,12 @@
 
 	voice_of_god_power = 1.4 //Command staff has authority
 
-/datum/outfit/job/pathfinder_lead
-	name = "Pathfinder Lead"
-	jobtype = /datum/job/pathfinder_lead
+/datum/outfit/job/lead_pathfinder
+	name = "Lead Pathfinder"
+	jobtype = /datum/job/lead_pathfinder
 
 	id = /obj/item/card/id/advanced/silver
-	id_trim = /datum/id_trim/job/pathfinder_lead
+	id_trim = /datum/id_trim/job/lead_pathfinder
 	uniform = /obj/item/clothing/under/rank/pathfinder
 	ears = /obj/item/radio/headset/heads/pl
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -60,7 +60,7 @@
 
 	box = /obj/item/storage/box/survival/engineer
 
-/datum/outfit/job/pathfinder_lead/mod
+/datum/outfit/job/lead_pathfinder/mod
 	name = "Pathfinder (MODsuit)"
 
 	suit_store = /obj/item/tank/internals/oxygen
@@ -68,9 +68,9 @@
 	mask = /obj/item/clothing/mask/breath
 	internals_slot = ITEM_SLOT_SUITSTORE
 
-/datum/id_trim/job/pathfinder_lead
-	assignment = "Pathfinder Lead"
-	intern_alt_name = "Honorary Pathfinder Lead"
+/datum/id_trim/job/lead_pathfinder
+	assignment = "Lead Pathfinder"
+	intern_alt_name = "Honorary Lead Pathfinder"
 	trim_state = "trim_virologist"
 	orbit_icon = "anchor"
 	department_color = COLOR_COMMAND_BLUE
