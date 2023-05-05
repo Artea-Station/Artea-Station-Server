@@ -346,3 +346,9 @@
 	inhand_icon_state = "tmc_jumpsuit"
 	can_adjust = FALSE
 
+/obj/item/clothing/under/costume/bunny_suit
+	name = "bunny suit"
+	desc = "Makes the wearer more attractive, even men."
+	icon_state = "bunny_suit"
+	inhand_icon_state = "bunny_suit"
+	can_adjust = FALSE
