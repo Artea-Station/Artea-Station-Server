@@ -147,6 +147,7 @@
 		/obj/item/clothing/head/jackbros = 5,
 		/obj/item/clothing/under/costume/jackbros = 5,
 		/obj/item/clothing/under/costume/deckers = 5,
+		/obj/item/clothing/under/costume/bunny_suit = 5,
 	)
 	contraband = list(
 		/obj/item/clothing/glasses/blindfold = 1,
