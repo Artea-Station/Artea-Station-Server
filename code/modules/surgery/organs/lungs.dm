@@ -341,7 +341,8 @@
 			breather.adjustFireLoss(15)
 			if (prob(freon_pp/2))
 				to_chat(breather, span_alert("Your throat closes up!"))
-				breather.silent = max(breather.silent, 3)
+				breather.set_silence_if_lower(6 SECONDS)
+
 		else
 			breather.adjustFireLoss(freon_pp/4)
 		gas_breathed = breath_gases[/datum/gas/freon][MOLES]
@@ -533,8 +534,8 @@
 		owner.visible_message(span_danger("[owner] grabs [owner.p_their()] throat, struggling for breath!"), span_userdanger("You suddenly feel like you can't breathe!"))
 		failed = TRUE
 
-/obj/item/organ/internal/lungs/get_availability(datum/species/owner_species)
-	return !(TRAIT_NOBREATH in owner_species.inherent_traits)
+/obj/item/organ/internal/lungs/get_availability(datum/species/owner_species, mob/living/owner_mob)
+	return owner_species.mutantlungs
 
 /obj/item/organ/internal/lungs/plasmaman
 	name = "plasma filter"
@@ -612,7 +613,7 @@
 /obj/item/organ/internal/lungs/ashwalker/Initialize(mapload)
 	. = ..()
 
-	var/datum/gas_mixture/immutable/planetary/mix = SSair.planetary[LAVALAND_DEFAULT_ATMOS]
+	var/datum/gas_mixture/immutable/planetary/mix = SSair.planetary[PLANETARY_ATMOS]
 
 	if(!mix?.total_moles()) // this typically means we didn't load lavaland, like if we're using #define LOWMEMORYMODE
 		return
@@ -675,3 +676,39 @@
 	breath_gases[/datum/gas/oxygen][MOLES] += gas_breathed
 	breath_gases[/datum/gas/hydrogen][MOLES] += gas_breathed*2
 	breath_gases[/datum/gas/water_vapor][MOLES] -= gas_breathed
+
+#define SYNTH_LIGHT_EMP_TEMPERATURE_POWER 30
+#define SYNTH_HEAVY_EMP_TEMPERATURE_POWER 100
+
+/obj/item/organ/internal/lungs/synth
+	name = "heat sink"
+	desc = "A device that transfers generated heat to a fluid medium to cool it down. Required to keep your synthetics cool-headed. It's shape resembles lungs." //Purposefully left the 'fluid medium' ambigious for interpretation of the character, whether it be air or fluid cooling
+	icon = 'icons/mob/species/synth/surgery.dmi'
+	icon_state = "lungs-ipc"
+	safe_nitro_min = 0
+	safe_nitro_max = 0
+	safe_co2_min = 0
+	safe_co2_max = 0
+	safe_plasma_min = 0
+	safe_plasma_max = 0
+	safe_oxygen_min = 0	//What are you doing man, dont breathe with those!
+	safe_oxygen_max = 0
+	status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_SYNTHETIC
+
+/obj/item/organ/internal/lungs/synth/emp_act(severity)
+	. = ..()
+
+	if(. & EMP_PROTECT_SELF)
+		return
+
+	switch(severity)
+		if(EMP_HEAVY)
+			to_chat(owner, span_warning("Alert: Critical cooling system failure!"))
+			owner.adjust_bodytemperature(SYNTH_HEAVY_EMP_TEMPERATURE_POWER * TEMPERATURE_DAMAGE_COEFFICIENT)
+
+		if(EMP_LIGHT)
+			owner.adjust_bodytemperature(SYNTH_LIGHT_EMP_TEMPERATURE_POWER * TEMPERATURE_DAMAGE_COEFFICIENT)
+
+#undef SYNTH_LIGHT_EMP_TEMPERATURE_POWER
+#undef SYNTH_HEAVY_EMP_TEMPERATURE_POWER

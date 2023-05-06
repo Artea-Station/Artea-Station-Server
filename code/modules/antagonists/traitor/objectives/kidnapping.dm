@@ -53,12 +53,9 @@
 		/datum/job/curator,
 		// Cargo
 		/datum/job/cargo_technician,
-		// Science
-		/datum/job/geneticist,
-		/datum/job/roboticist,
 		// Engineering
 		/datum/job/station_engineer,
-		/datum/job/atmospheric_technician,
+		/datum/job/roboticist,
 	)
 
 /datum/traitor_objective/kidnapping/less_common
@@ -70,14 +67,10 @@
 /datum/traitor_objective/kidnapping/uncommon //Hard to fish out victims
 	progression_maximum = 45 MINUTES
 	target_jobs = list(
-		// Medical
-		/datum/job/virologist,
 		// Cargo
 		/datum/job/shaft_miner,
 		// Service
 		/datum/job/cook,
-		// Science
-		/datum/job/scientist,
 	)
 
 	progression_reward = list(4 MINUTES, 8 MINUTES)
@@ -95,7 +88,6 @@
 		// Heads of staff
 		/datum/job/head_of_personnel,
 		/datum/job/chief_medical_officer,
-		/datum/job/research_director,
 		/datum/job/quartermaster,
 	)
 

@@ -1,5 +1,5 @@
 /datum/preference/choiced/uplink_location
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_MISC_LIST
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "uplink_loc"
 	can_randomize = FALSE
@@ -22,5 +22,5 @@
 /datum/preference/choiced/uplink_location/create_default_value()
 	return UPLINK_PDA
 
-/datum/preference/choiced/uplink_location/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/uplink_location/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	return

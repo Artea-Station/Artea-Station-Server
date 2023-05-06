@@ -17,7 +17,7 @@
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "RD-server-on"
 	base_icon_state = "RD-server"
-	req_access = list(ACCESS_RD)
+	req_access = list(ACCESS_CE)
 
 	/// if TRUE, we are currently operational and giving out research points.
 	var/working = TRUE
@@ -102,7 +102,7 @@
 	var/obj/machinery/rnd/server/temp_server
 	var/list/servers = list()
 	var/list/consoles = list()
-	req_access = list(ACCESS_RD)
+	req_access = list(ACCESS_CE)
 	var/badmin = 0
 	circuit = /obj/item/circuitboard/computer/rdservercontrol
 
@@ -174,7 +174,7 @@
 /// Master R&D server. As long as this still exists and still holds the HDD for the theft objective, research points generate at normal speed. Destroy it or an antag steals the HDD? Half research speed.
 /obj/machinery/rnd/server/master
 	max_integrity = 1800 //takes roughly ~15s longer to break then full deconstruction.
-	var/obj/item/computer_hardware/hard_drive/cluster/hdd_theft/source_code_hdd
+	var/obj/item/computer_disk/hdd_theft/source_code_hdd
 	var/deconstruction_state = HDD_PANEL_CLOSED
 	var/front_panel_screws = 4
 	var/hdd_wires = 6
@@ -229,7 +229,7 @@
 	return TRUE
 
 /obj/machinery/rnd/server/master/attackby(obj/item/attacking_item, mob/user, params)
-	if(istype(attacking_item, /obj/item/computer_hardware/hard_drive/cluster/hdd_theft))
+	if(istype(attacking_item, /obj/item/computer_disk/hdd_theft))
 		switch(deconstruction_state)
 			if(HDD_PANEL_CLOSED)
 				balloon_alert(user, "you can't find a place to insert it!")

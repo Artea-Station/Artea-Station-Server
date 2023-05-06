@@ -1,7 +1,7 @@
 /datum/round_event_control/radiation_storm
 	name = "Radiation Storm"
 	typepath = /datum/round_event/radiation_storm
-	max_occurrences = 1
+	max_occurrences = 0
 	category = EVENT_CATEGORY_SPACE
 	description = "Radiation storm affects the station, forcing the crew to escape to maintenance."
 
@@ -18,4 +18,5 @@
 	//sound not longer matches the text, but an audible warning is probably good
 
 /datum/round_event/radiation_storm/start()
-	SSweather.run_weather(/datum/weather/rad_storm)
+	var/datum/weather_controller/weather = STATION_WEATHER_CONTROLLER
+	weather.RunWeather(/datum/weather/rad_storm)

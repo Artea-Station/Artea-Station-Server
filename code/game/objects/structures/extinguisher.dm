@@ -2,7 +2,7 @@
 	name = "extinguisher cabinet"
 	desc = "A small wall mounted cabinet designed to hold a fire extinguisher."
 	icon = 'icons/obj/wallmounts.dmi'
-	icon_state = "extinguisher_closed"
+	icon_state = "extinguisher_empty_closed"
 	anchored = TRUE
 	density = FALSE
 	max_integrity = 200
@@ -10,15 +10,16 @@
 	var/obj/item/extinguisher/stored_extinguisher
 	var/opened = FALSE
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/extinguisher_cabinet, 29)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/structure/extinguisher_cabinet, 29, -18, 25, -25)
 
 /obj/structure/extinguisher_cabinet/Initialize(mapload, ndir, building)
 	. = ..()
 	if(building)
 		opened = TRUE
-		icon_state = "extinguisher_empty"
+		icon_state = "extinguisher_empty_closed"
 	else
 		stored_extinguisher = new /obj/item/extinguisher(src)
+		update_icon_state()
 
 /obj/structure/extinguisher_cabinet/examine(mob/user)
 	. = ..()
@@ -123,16 +124,18 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/extinguisher_cabinet, 29)
 		update_appearance()
 
 /obj/structure/extinguisher_cabinet/update_icon_state()
-	if(!opened)
-		icon_state = "extinguisher_closed"
-		return ..()
+	var/open_text = opened ? "open" : "closed"
+	var/extinguisher_text = "standard"
+
 	if(!stored_extinguisher)
-		icon_state = "extinguisher_empty"
-		return ..()
-	if(istype(stored_extinguisher, /obj/item/extinguisher/mini))
-		icon_state = "extinguisher_mini"
-		return ..()
-	icon_state = "extinguisher_full"
+		extinguisher_text = "empty"
+	else if(istype(stored_extinguisher, /obj/item/extinguisher/advanced))
+		extinguisher_text = "advanced"
+	else if(istype(stored_extinguisher, /obj/item/extinguisher/mini))
+		extinguisher_text = "mini"
+
+	icon_state = "extinguisher_[extinguisher_text]_[open_text]"
+
 	return ..()
 
 /obj/structure/extinguisher_cabinet/atom_break(damage_flag)
@@ -160,6 +163,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/extinguisher_cabinet, 29)
 /obj/item/wallframe/extinguisher_cabinet
 	name = "extinguisher cabinet frame"
 	desc = "Used for building wall-mounted extinguisher cabinets."
-	icon_state = "extinguisher"
+	icon = 'icons/obj/wallmounts.dmi'
+	icon_state = "extinguisher_empty_open"
 	result_path = /obj/structure/extinguisher_cabinet
 	pixel_shift = 29

@@ -16,6 +16,7 @@ export enum Food {
   Junkfood = 'JUNKFOOD',
   Meat = 'MEAT',
   Nuts = 'NUTS',
+  Oranges = 'ORANGES',
   Pineapple = 'PINEAPPLE',
   Raw = 'RAW',
   Seafood = 'SEAFOOD',
@@ -124,8 +125,19 @@ export type PreferencesMenuData = {
   character_profiles: (string | null)[];
 
   character_preferences: {
+    appearance: Record<string, string>;
+    appearance_list: Record<string, string>;
+
     clothing: Record<string, string>;
-    features: Record<string, string>;
+
+    content_list: Record<string, string>;
+
+    ooc_list: Record<string, string>;
+
+    other: Record<string, string>;
+
+    inspection_list: Record<string, string>;
+
     game_preferences: Record<string, unknown>;
     non_contextual: {
       random_body: RandomSetting;
@@ -141,6 +153,8 @@ export type PreferencesMenuData = {
       joblessrole: JoblessRole;
       species: string;
     };
+
+    misc_list: Record<string, string>;
 
     randomization: Record<string, RandomSetting>;
   };

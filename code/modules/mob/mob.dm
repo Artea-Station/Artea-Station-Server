@@ -771,6 +771,11 @@
 
 	M.key = key
 
+/// Used to open the matchmaking panel.
+/mob/verb/matchmaking_panel()
+	set name = "Matchmaking Panel"
+	set category = "OOC"
+	GLOB.matchmaking_panel.ui_interact(usr)
 
 /**
  * Sometimes helps if the user is stuck in another perspective or camera
@@ -1080,8 +1085,8 @@
 					break
 				search_id = 0
 
-		else if( search_pda && istype(A, /obj/item/modular_computer/tablet/pda) )
-			var/obj/item/modular_computer/tablet/pda/PDA = A
+		else if( search_pda && istype(A, /obj/item/modular_computer/pda) )
+			var/obj/item/modular_computer/pda/PDA = A
 			if(PDA.saved_identification == oldname)
 				PDA.saved_identification = newname
 				PDA.UpdateDisplay()
@@ -1220,6 +1225,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_DIRECT_CONTROL, "Assume Direct Control")
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_DIRECT_CONTROL, "Give Direct Control")
 	VV_DROPDOWN_OPTION(VV_HK_OFFER_GHOSTS, "Offer Control to Ghosts")
+	VV_DROPDOWN_OPTION(VV_HK_LOAD_PREFS, "Load Prefs Onto Mob")
 
 /mob/vv_do_topic(list/href_list)
 	. = ..()
@@ -1271,6 +1277,10 @@
 		if(!check_rights(NONE))
 			return
 		offer_control(src)
+	if(href_list[VV_HK_LOAD_PREFS])
+		if(!check_rights(NONE))
+			return
+		vv_load_prefs(src)
 
 /**
  * extra var handling for the logging var

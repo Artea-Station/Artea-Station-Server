@@ -117,12 +117,6 @@
 		eye_left.overlays += emissive_appearance(eye_left.icon, eye_left.icon_state, alpha = eye_left.alpha)
 		eye_right.overlays += emissive_appearance(eye_right.icon, eye_right.icon_state, alpha = eye_right.alpha)
 
-	// Cry emote overlay
-	if (HAS_TRAIT(parent, TRAIT_CRYING)) // Caused by the *cry emote
-		var/mutable_appearance/tears_overlay = mutable_appearance('icons/mob/species/human/human_face.dmi', "tears", -BODY_ADJ_LAYER)
-		tears_overlay.color = COLOR_DARK_CYAN
-		overlays += tears_overlay
-
 	if(OFFSET_FACE in parent.dna?.species.offset_features)
 		var/offset = parent.dna.species.offset_features[OFFSET_FACE]
 		for(var/mutable_appearance/overlay in overlays)
@@ -558,3 +552,25 @@
 	adapt_light.forceMove(src)
 	REMOVE_TRAIT(unadapted, TRAIT_UNNATURAL_RED_GLOWY_EYES, ORGAN_TRAIT)
 	return ..()
+
+/obj/item/organ/internal/eyes/synth
+	name = "optical sensors"
+	icon_state = "cybernetic_eyeballs"
+	desc = "A very basic set of optical sensors with no extra vision modes or functions."
+	status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_SYNTHETIC
+
+/obj/item/organ/internal/eyes/synth/emp_act(severity)
+	. = ..()
+
+	if(!owner || . & EMP_PROTECT_SELF)
+		return
+
+	to_chat(owner, span_warning("Electromagnetic interference clouds your optics with static."))
+	owner.flash_act(visual = TRUE)
+
+	switch(severity)
+		if(EMP_LIGHT)
+			owner.adjustOrganLoss(ORGAN_SLOT_EYES, SYNTH_ORGAN_LIGHT_EMP_DAMAGE)
+		if(EMP_HEAVY)
+			owner.adjustOrganLoss(ORGAN_SLOT_EYES, SYNTH_ORGAN_HEAVY_EMP_DAMAGE)

@@ -199,9 +199,9 @@
 	default = list( //DEFAULTS
 	/mob/living/simple_animal = 1,
 	/mob/living/silicon/pai = 1,
-	/mob/living/carbon/alien/humanoid/hunter = -1,
-	/mob/living/carbon/alien/humanoid/royal/praetorian = 1,
-	/mob/living/carbon/alien/humanoid/royal/queen = 3
+	/mob/living/carbon/alien/adult/hunter = -1,
+	/mob/living/carbon/alien/adult/royal/praetorian = 1,
+	/mob/living/carbon/alien/adult/royal/queen = 3
 	)
 
 /datum/config_entry/keyed_list/multiplicative_movespeed/ValidateAndSet()
@@ -315,9 +315,6 @@
 /datum/config_entry/number/overflow_cap
 	default = -1
 	min_val = -1
-
-/datum/config_entry/string/overflow_job
-	default = JOB_ASSISTANT
 
 /datum/config_entry/flag/starlight
 /datum/config_entry/flag/grey_assistants

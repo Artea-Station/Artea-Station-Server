@@ -18,8 +18,14 @@
 			client.interviewee = TRUE
 
 	. = ..()
-	if(!. || !client)
+	if(!. || !client || !SSdiscord)
 		return FALSE
+
+	/// Artea's own scuffed version of discord verification, cause TGCode's version doesn't quite do what we need it to.
+	if(CONFIG_GET(flag/sql_enabled) && CONFIG_GET(flag/discord_verification))
+		var/datum/discord_link_record/discord_link = SSdiscord.find_discord_link_by_ckey(client.ckey)
+		if(!discord_link?.discord_id)
+			client.interviewee = TRUE
 
 	var/motd = global.config.motd
 	if(motd)
@@ -40,10 +46,10 @@
 	asset_datum.send(client)
 
 	// The parent call for Login() may do a bunch of stuff, like add verbs.
-	// Delaying the register_for_interview until the very end makes sure it can clean everything up
-	// and set the player's client up for interview.
+	// Delaying the prepare_for_linking until the very end makes sure it can clean everything up
+	// and set the player's client up for linking.
 	if(client.interviewee)
-		register_for_interview()
+		prepare_for_linking()
 		return
 
 	if(SSticker.current_state < GAME_STATE_SETTING_UP)

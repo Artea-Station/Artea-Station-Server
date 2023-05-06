@@ -145,10 +145,6 @@
 		. += mutable_appearance(icon, "fire_on")
 		. += emissive_appearance(icon, "fire_on", alpha = src.alpha)
 
-	if(!panel_open && my_area?.fire_detect && my_area?.fire) //It just looks horrible with the panel open
-		. += mutable_appearance(icon, "fire_detected")
-		. += emissive_appearance(icon, "fire_detected", alpha = src.alpha) //Pain
-
 /obj/machinery/firealarm/emp_act(severity)
 	. = ..()
 
@@ -417,7 +413,7 @@
 	to_chat(user, span_notice("You [ my_area.fire_detect ? "enable" : "disable" ] the local firelock thermal sensors!"))
 	user.log_message("[ my_area.fire_detect ? "enabled" : "disabled" ] firelock sensors using [src].", LOG_GAME)
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 26)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/firealarm, 30, -16, 33, -33)
 
 /*
  * Return of Party button

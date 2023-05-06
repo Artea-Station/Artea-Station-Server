@@ -40,7 +40,8 @@
 /atom/Click(location, control, params)
 	if(flags_1 & INITIALIZED_1)
 		SEND_SIGNAL(src, COMSIG_CLICK, location, control, params, usr)
-
+		if(SEND_SIGNAL(usr, COMSIG_CLICKON, src, params) & COMSIG_CANCEL_CLICKON)
+			return
 		usr.ClickOn(src, params)
 
 /atom/DblClick(location,control,params)
@@ -389,7 +390,7 @@
 			human_user.changeNext_move(CLICK_CD_MELEE)
 			return TRUE
 	else if(isalien(user))
-		var/mob/living/carbon/alien/humanoid/alien_boy = user
+		var/mob/living/carbon/alien/adult/alien_boy = user
 		if(alien_boy.grab(src))
 			alien_boy.changeNext_move(CLICK_CD_MELEE)
 			return TRUE

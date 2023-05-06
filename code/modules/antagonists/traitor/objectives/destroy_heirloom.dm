@@ -32,7 +32,6 @@
 	target_jobs = list(
 		// Medical
 		/datum/job/doctor,
-		/datum/job/virologist,
 		/datum/job/paramedic,
 		/datum/job/psychologist,
 		/datum/job/chemist,
@@ -44,13 +43,9 @@
 		/datum/job/lawyer,
 		// Cargo
 		/datum/job/cargo_technician,
-		// Science
-		/datum/job/geneticist,
-		/datum/job/scientist,
-		/datum/job/roboticist,
 		// Engineering
 		/datum/job/station_engineer,
-		/datum/job/atmospheric_technician,
+		/datum/job/roboticist,
 	)
 
 /// This is only for assistants, because the syndies are a lot less likely to give a shit about what an assistant does, so they're a lot less likely to appear
@@ -86,7 +81,6 @@
 		// Heads of staff
 		/datum/job/head_of_personnel,
 		/datum/job/chief_medical_officer,
-		/datum/job/research_director,
 		/datum/job/quartermaster,
 	)
 

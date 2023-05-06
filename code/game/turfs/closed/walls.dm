@@ -43,6 +43,8 @@
 	var/d_state = INTACT
 	/// Whether this wall is rusted or not, to apply the rusted overlay
 	var/rusted
+	/// Material Set Name
+	var/matset_name
 
 	var/list/dent_decals
 
@@ -75,19 +77,16 @@
 
 /turf/closed/wall/update_name()
 	. = ..()
-	name = ""
 	if(rusted)
-		name = "rusted "
-	if(reinf_material)
-		name += "reinforced wall"
+		name = "rusted "+ matset_name
 	else
-		name += "wall"
+		name = matset_name
 
 /turf/closed/wall/Initialize(mapload)
 	. = ..()
 	color = null // Remove the color that was set for mapping clarity
 	set_materials(plating_material, reinf_material)
-	if(is_station_level(src))
+	if(is_station_level(z))
 		GLOB.station_turfs += src
 
 /turf/closed/wall/Destroy()
@@ -127,6 +126,8 @@
 			))
 	for(var/cardinal in GLOB.cardinals)
 		var/turf/step_turf = get_step(src, cardinal)
+		if(!can_area_smooth(step_turf))
+			continue
 		for(var/atom/movable/movable_thing as anything in step_turf)
 			if(neighbor_typecache[movable_thing.type])
 				neighbor_stripe ^= cardinal
@@ -219,6 +220,13 @@
 	plating_material = plating_mat
 	reinf_material = reinf_mat
 
+	if(reinf_material)
+		name = "reinforced [plating_mat_ref.name] [plating_mat_ref.wall_name]"
+		desc = "It seems to be a section of hull reinforced with [reinf_mat_ref.name] and plated with [plating_mat_ref.name]."
+	else
+		name = "[plating_mat_ref.name] [plating_mat_ref.wall_name]"
+		desc = "It seems to be a section of hull plated with [plating_mat_ref.name]."
+	matset_name = name
 	update_greyscale()
 	update_appearance()
 
@@ -305,27 +313,6 @@
 			dismantle_wall(1)
 			return
 
-/turf/closed/wall/attack_hulk(mob/living/carbon/user)
-	..()
-	var/obj/item/bodypart/arm = user.hand_bodyparts[user.active_hand_index]
-	if(!arm)
-		return
-	if(arm.bodypart_disabled)
-		return
-	if(prob(hardness))
-		playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
-		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced = "hulk")
-		hulk_recoil(arm, user)
-		dismantle_wall(1)
-
-	else
-		playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
-		add_dent(WALL_DENT_HIT)
-		user.visible_message(span_danger("[user] smashes \the [src]!"), \
-					span_danger("You smash \the [src]!"), \
-					span_hear("You hear a booming smash!"))
-	return TRUE
-
 /**
  *Deals damage back to the hulk's arm.
  *
@@ -337,12 +324,6 @@
  **arg1 is the arm to deal damage to.
  **arg2 is the hulk
  */
-/turf/closed/wall/proc/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 20)
-	arm.receive_damage(brute = damage, blocked = 0, wound_bonus = CANT_WOUND)
-	var/datum/mutation/human/hulk/smasher = locate(/datum/mutation/human/hulk) in hulkman.dna.mutations
-	if(!smasher || !damage) //sanity check but also snow and wood walls deal no recoil damage, so no arm breaky
-		return
-	smasher.break_an_arm(arm)
 
 /turf/closed/wall/attack_hand(mob/user, list/modifiers)
 	. = ..()

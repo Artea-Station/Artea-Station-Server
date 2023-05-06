@@ -27,8 +27,12 @@
 /datum/surgery_step/incise/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	if ishuman(target)
 		var/mob/living/carbon/human/human_target = target
-		if (!(NOBLOOD in human_target.dna.species.species_traits))
-			display_results(user, target, span_notice("Blood pools around the incision in [human_target]'s [parse_zone(target_zone)]."),
+		if (!HAS_TRAIT(human_target, TRAIT_NOBLOOD))
+			display_results(
+				user,
+				target,
+				span_notice("Blood pools around the incision in [human_target]'s [parse_zone(target_zone)]."),
+				span_notice("Blood pools around the incision in [human_target]'s [parse_zone(target_zone)]."),
 				span_notice("Blood pools around the incision in [human_target]'s [parse_zone(target_zone)]."),
 				span_notice("Blood pools around the incision in [human_target]'s [parse_zone(target_zone)]."))
 			var/obj/item/bodypart/target_bodypart = target.get_bodypart(target_zone)

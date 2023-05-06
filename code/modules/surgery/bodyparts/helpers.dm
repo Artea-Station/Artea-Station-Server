@@ -2,6 +2,10 @@
 /mob/living/proc/get_bodypart(zone)
 	return
 
+/// Helper proc for finding if a bodypart exists, is visible, and has associated inspection text. Used for the inspection panel.
+/mob/living/proc/bodypart_inspection_text(zone, ignore_visibility = FALSE)
+	return FALSE
+
 /mob/living/carbon/get_bodypart(zone)
 	RETURN_TYPE(/obj/item/bodypart)
 
@@ -11,12 +15,36 @@
 		if(bodypart.body_zone == zone)
 			return bodypart
 
+/mob/living/carbon/bodypart_inspection_text(zone, ignore_visibility = FALSE)
+	var/zone_for_sanity_check = zone
+	switch(zone)
+		if(BODY_ZONE_BROAD)
+			return dna.inspection_text[BODY_ZONE_BROAD]
+
+		if(BODY_ZONE_PRECISE_EYES)
+			if(getorganslot(ORGAN_SLOT_EYES) && !is_eyes_covered())
+				return dna.inspection_text[BODY_ZONE_PRECISE_EYES]
+			return
+
+		if(BODY_ZONE_ARMS)
+			zone_for_sanity_check = get_bodypart(BODY_ZONE_L_ARM)?.body_zone || get_bodypart(BODY_ZONE_R_ARM)?.body_zone
+		if(BODY_ZONE_LEGS)
+			zone_for_sanity_check = get_bodypart(BODY_ZONE_L_LEG)?.body_zone || get_bodypart(BODY_ZONE_R_LEG)?.body_zone
+
+	if(!get_bodypart(zone_for_sanity_check))
+		return
+
+	if(!ignore_visibility && (zone_for_sanity_check in get_covered_body_zones()))
+		return
+
+	return dna.inspection_text[zone]
+
 ///Replaces a single limb and deletes the old one if there was one
 /mob/living/carbon/proc/del_and_replace_bodypart(obj/item/bodypart/new_limb, special)
 	var/obj/item/bodypart/old_limb = get_bodypart(new_limb.body_zone)
 	if(old_limb)
 		qdel(old_limb)
-	new_limb.attach_limb(src, special = special)
+	new_limb.try_attach_limb(src, special = special)
 
 /mob/living/carbon/has_hand_for_held_index(i)
 	if(!i)
@@ -70,10 +98,7 @@
 	return TRUE
 
 
-/mob/living/proc/get_missing_limbs()
-	return list()
-
-/mob/living/carbon/get_missing_limbs()
+/mob/living/carbon/proc/get_missing_limbs()
 	RETURN_TYPE(/list)
 	var/list/full = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
 	for(var/zone in full)
@@ -143,19 +168,19 @@
 			new_bodypart = new /obj/item/bodypart/chest/larva()
 	. = new_bodypart
 
-/mob/living/carbon/alien/humanoid/newBodyPart(zone)
+/mob/living/carbon/alien/adult/newBodyPart(zone)
 	var/obj/item/bodypart/new_bodypart
 	switch(zone)
 		if(BODY_ZONE_L_ARM)
-			new_bodypart = new /obj/item/bodypart/l_arm/alien()
+			new_bodypart = new /obj/item/bodypart/arm/left/alien()
 		if(BODY_ZONE_R_ARM)
-			new_bodypart = new /obj/item/bodypart/r_arm/alien()
+			new_bodypart = new /obj/item/bodypart/arm/right/alien()
 		if(BODY_ZONE_HEAD)
 			new_bodypart = new /obj/item/bodypart/head/alien()
 		if(BODY_ZONE_L_LEG)
-			new_bodypart = new /obj/item/bodypart/l_leg/alien()
+			new_bodypart = new /obj/item/bodypart/leg/left/alien()
 		if(BODY_ZONE_R_LEG)
-			new_bodypart = new /obj/item/bodypart/r_leg/alien()
+			new_bodypart = new /obj/item/bodypart/leg/right/alien()
 		if(BODY_ZONE_CHEST)
 			new_bodypart = new /obj/item/bodypart/chest/alien()
 	if(new_bodypart)
@@ -192,3 +217,6 @@
 			. = "#fff4e6"
 		if("orange")
 			. = "#ffc905"
+		else
+			. = skin_tone // This is to allow custom skin colors. Yes, this is the easiest way. It is safe? Nope. Is it the only way to do it without randomly breaking stuff? Yup.
+

@@ -1,6 +1,7 @@
 # A script and syntax for applying path updates to maps.
 import re
 import os
+import os.path
 import sys
 import argparse
 from mapmerge2 import frontend
@@ -169,12 +170,18 @@ def update_all_maps(map_directory, updates, verbose=False):
 
 
 def main(args):
+    updates = []
     if args.inline:
         print("Using replacement:", args.update_source)
         updates = [args.update_source]
     else:
-        with open(args.update_source) as f:
-            updates = [line for line in f if line and not line.startswith("#") and not line.isspace()]
+        if os.path.isdir(args.update_source):
+            for fle in [f for f in os.listdir(args.update_source) if os.path.isfile(os.path.join(args.update_source, f))]:
+                with open(args.update_source + "/" + fle) as f:
+                    updates += [line for line in f if line and not line.startswith("#") and not line.isspace()]
+        else:
+            with open(args.update_source) as f:
+                updates += [line for line in f if line and not line.startswith("#") and not line.isspace()]
         print(f"Using {len(updates)} replacements from file:", args.update_source)
 
     if args.map:
@@ -185,11 +192,11 @@ def main(args):
 
 
 if __name__ == "__main__":
-    prog = __spec__.name.replace('.__main__', '')
+    #prog = __spec__.name.replace('.__main__', '')
     if os.name == 'nt' and len(sys.argv) <= 1:
         print("usage: drag-and-drop a path script .txt onto `Update Paths.bat`\n  or")
 
-    parser = argparse.ArgumentParser(prog=prog, description=desc, formatter_class=argparse.RawTextHelpFormatter)
+    parser = argparse.ArgumentParser(description=desc, formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument("update_source", help="update file path / line of update notation")
     parser.add_argument("--map", "-m", help="path to update, defaults to all maps in maps directory")
     parser.add_argument("--directory", "-d", help="path to maps directory, defaults to _maps/")

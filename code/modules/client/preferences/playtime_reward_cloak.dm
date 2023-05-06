@@ -2,7 +2,7 @@
 /// gained over 5K playtime hours.
 /// If true, it allows the user to get a cool looking roundstart cloak.
 /datum/preference/toggle/playtime_reward_cloak
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_CLOTHING_LIST
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "playtime_reward_cloak"
 
@@ -12,7 +12,7 @@
 
 	return preferences.parent?.is_veteran()
 
-/datum/preference/toggle/playtime_reward_cloak/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/toggle/playtime_reward_cloak/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	return
 
 /// Returns whether the client should receive the gamer cloak

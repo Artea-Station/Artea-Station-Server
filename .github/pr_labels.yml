@@ -6,26 +6,26 @@ labels:
   # Area Labels
   - label: "Administration"
     matcher:
-      body: "^admin:"
+      body: "admin:"
   - label: "Config Update"
     matcher:
-      body: "^config:"
+      body: "config:"
       files:
         any:
           - "code/controllers/configuration/entries/**/*"
           - "config/**/*"
   - label: "Grammar and Formatting"
     matcher:
-      body: "^spellcheck:"
+      body: "spellcheck:"
   - label: "Sounds"
     matcher:
-      body: "^sound(?:add|del):"
+      body: "sound(?:add|del):"
       files:
         any:
           - "sound/**/*"
   - label: "Sprites"
     matcher:
-      body: "^image(?:add|del):"
+      body: "image(?:add|del):"
       files:
         any:
           - "icons/**/*"
@@ -39,7 +39,7 @@ labels:
   # Type Labels
   - label: "Balance"
     matcher:
-      body: "^balance:"
+      body: "balance:"
   - label: "Port"
     matcher:
       title: ".*\\[PORT\\].*"
@@ -47,38 +47,33 @@ labels:
     matcher:
       title: ".*fixes.*"
       body: "fix:"
-      branch: "^fix/.*"
+      branch: "fix/.*"
   - label: "Quality of Life"
     matcher:
-      body: "^qol:"
+      body: "qol:"
   - label: "Refactor"
     matcher:
-      body: "^refactor:"
+      body: "refactor:"
   - label: "Removal"
     matcher:
-      body: "^del:"
-  # Synced labels
+      body: "del:"
   - label: "SQL"
-    sync: true
     matcher:
       files:
         any:
           - "SQL/**/*"
   - label: "Mapping"
-    sync: true
     matcher:
       files:
         any:
           - "_maps/**/*"
   - label: "Tools"
-    sync: true
     matcher:
       files:
         any:
           - "tools/**/*"
           - "BUILD.bat"
   - label: "Repository"
-    sync: true
     matcher:
       files:
         any:
@@ -92,7 +87,6 @@ labels:
           - Dockerfile
           - README.md
   - label: "Continuous Integration"
-    sync: true
     matcher:
       files:
         any:

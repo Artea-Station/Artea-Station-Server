@@ -34,7 +34,7 @@ SUBSYSTEM_DEF(air)
 	var/list/pipe_init_dirs_cache = list()
 	//atmos singletons
 	var/list/gas_reactions = list()
-	var/list/atmos_gen
+	var/list/z_level_to_gas_string = list()
 	var/list/planetary = list() //Lets cache static planetary mixes
 	/// List of gas string -> canonical gas mixture
 	var/list/strings_to_mix = list()
@@ -236,7 +236,6 @@ SUBSYSTEM_DEF(air)
 	atmos_machinery = SSair.atmos_machinery
 	pipe_init_dirs_cache = SSair.pipe_init_dirs_cache
 	gas_reactions = SSair.gas_reactions
-	atmos_gen = SSair.atmos_gen
 	planetary = SSair.planetary
 	active_super_conductivity = SSair.active_super_conductivity
 	high_pressure_delta = SSair.high_pressure_delta
@@ -523,7 +522,6 @@ SUBSYSTEM_DEF(air)
 	queued_for_activation.Cut()
 
 /datum/controller/subsystem/air/proc/setup_allturfs()
-	var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz))
 	var/list/active_turfs = src.active_turfs
 	times_fired++
 
@@ -537,14 +535,39 @@ SUBSYSTEM_DEF(air)
 	active_turfs.Cut()
 	var/time = 0
 
-	for(var/turf/T as anything in turfs_to_init)
-		if (!T.init_air)
+	var/list/turf/open/difference_check = list()
+	for(var/turf/setup as anything in ALL_TURFS())
+		if (!setup.init_air)
 			continue
 		// We pass the tick as the current step so if we sleep the step changes
 		// This way we can make setting up adjacent turfs O(n) rather then O(n^2)
-		T.Initalize_Atmos(time)
+		setup.Initalize_Atmos(time)
+		// We assert that we'll only get open turfs here
+		difference_check += setup
 		if(CHECK_TICK)
 			time--
+
+	// Now we're gonna compare for differences
+	// Taking advantage of current cycle being set to negative before this run to do A->B B->A prevention
+	for(var/turf/open/potential_diff as anything in difference_check)
+		// I can't use 0 here, so we're gonna do this instead. If it ever breaks I'll eat my shoe
+		potential_diff.current_cycle = -INFINITE
+		for(var/turf/open/enemy_tile as anything in potential_diff.atmos_adjacent_turfs)
+			// If it's already been processed, then it's already talked to us
+			if(enemy_tile.current_cycle == -INFINITE)
+				continue
+			// .air instead of .return_air() because we can guarentee that the proc won't do anything
+			if(potential_diff.air.compare(enemy_tile.air))
+				//testing("Active turf found. Return value of compare(): [T.air.compare(enemy_tile.air)]")
+				if(!potential_diff.excited)
+					potential_diff.excited = TRUE
+					SSair.active_turfs += potential_diff
+				if(!enemy_tile.excited)
+					enemy_tile.excited = TRUE
+					SSair.active_turfs += enemy_tile
+				// No sense continuing to iterate
+				break
+		CHECK_TICK
 
 	if(active_turfs.len)
 		var/starting_ats = active_turfs.len
@@ -664,12 +687,6 @@ GLOBAL_LIST_EMPTY(colored_images)
 
 	return pipe_init_dirs_cache[type]["[init_dir]"]["[dir]"]
 
-/datum/controller/subsystem/air/proc/generate_atmos()
-	atmos_gen = list()
-	for(var/T in subtypesof(/datum/atmosphere))
-		var/datum/atmosphere/atmostype = T
-		atmos_gen[initial(atmostype.id)] = new atmostype
-
 /// Takes a gas string, returns the matching mutable gas_mixture
 /datum/controller/subsystem/air/proc/parse_gas_string(gas_string, gastype = /datum/gas_mixture)
 	var/datum/gas_mixture/cached = strings_to_mix["[gas_string]-[gastype]"]
@@ -704,12 +721,9 @@ GLOBAL_LIST_EMPTY(colored_images)
 	return canonical_mix.copy()
 
 /datum/controller/subsystem/air/proc/preprocess_gas_string(gas_string)
-	if(!atmos_gen)
-		generate_atmos()
-	if(!atmos_gen[gas_string])
+	if(!z_level_to_gas_string[gas_string])
 		return gas_string
-	var/datum/atmosphere/mix = atmos_gen[gas_string]
-	return mix.gas_string
+	return z_level_to_gas_string[gas_string]
 
 /**
  * Adds a given machine to the processing system for SSAIR_ATMOSMACHINERY processing.
@@ -837,3 +851,19 @@ GLOBAL_LIST_EMPTY(colored_images)
 					ui.user.client.images -= GLOB.colored_images
 				plane.alpha = 0
 			return TRUE
+
+/datum/controller/subsystem/air/proc/register_planetary_atmos(datum/atmosphere/atmos_datum, level)
+	var/datum/gas_mixture/immutable/planetary/our_gasmix = new
+	our_gasmix.parse_string_immutable(atmos_datum.gas_string)
+	planetary["[level]"] = our_gasmix
+	z_level_to_gas_string["[level]"] = atmos_datum.gas_string
+
+/// Helper proc to remove an atmos-monitor'd component from the network. Done here to avoid harddels from GC/async SSradio overlap.
+/datum/controller/subsystem/air/proc/broadcast_destruction(id_tag, frequency)
+	var/datum/signal/signal = new(list(
+		"sigtype" = "destroyed",
+		"tag" = id_tag,
+		"timestamp" = world.time,
+	))
+	var/datum/radio_frequency/connection = SSradio.return_frequency(frequency)
+	INVOKE_ASYNC(connection, TYPE_PROC_REF(/datum/radio_frequency, post_signal), null, signal, RADIO_ATMOSIA)

@@ -102,7 +102,7 @@ export const RADIO_CHANNELS = [
     color: '#6ca729',
   },
   {
-    name: 'Science',
+    name: 'Pathfinders',
     freq: 1351,
     color: '#c68cfa',
   },

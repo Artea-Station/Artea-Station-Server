@@ -84,3 +84,9 @@
 
 	/// When an braindead player has their equipment fiddled with, we log that info here for when they come back so they know who took their ID while they were DC'd for 30 seconds
 	var/list/afk_thefts
+
+	/// Alpha of the hair. Takes precedent over species hair_alpha if non-null.
+	var/hair_alpha
+
+	/// The inspection panel datum attached to this mob.
+	var/datum/inspection_panel/inspection_panel = new

@@ -125,7 +125,7 @@
 	result = /obj/item/banner/medical/mundane
 	time = 40
 	reqs = list(/obj/item/stack/rods = 2,
-				/obj/item/clothing/under/rank/medical = 1)
+				/obj/item/clothing/under/rank/medical/doctor = 1)
 	category = CAT_MISC
 
 /obj/item/banner/medical/special_inspiration(mob/living/carbon/human/H)
@@ -141,10 +141,6 @@
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
 	warcry = "For Cuban Pete!"
-
-/obj/item/banner/science/Initialize(mapload)
-	. = ..()
-	job_loyalties = DEPARTMENT_BITFLAG_SCIENCE
 
 /obj/item/banner/science/mundane
 	inspiration_available = FALSE

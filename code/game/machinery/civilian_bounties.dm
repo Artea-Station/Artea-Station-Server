@@ -196,24 +196,20 @@
 ///Self explanitory, holds the ID card in the console for bounty payout and manipulation.
 /obj/machinery/computer/piratepad_control/civilian/proc/id_insert(mob/user, obj/item/inserting_item, obj/item/target)
 	var/obj/item/card/id/card_to_insert = inserting_item
-	var/holder_item = FALSE
+
+	if(inserted_scan_id)
+		id_eject(user, target)
+		return
 
 	if(!isidcard(card_to_insert))
 		card_to_insert = inserting_item.RemoveID()
-		holder_item = TRUE
 
 	if(!card_to_insert || !user.transferItemToLoc(card_to_insert, src))
 		return FALSE
 
-	if(target)
-		if(holder_item && inserting_item.InsertID(target))
-			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
-		else
-			id_eject(user, target)
-
 	user.visible_message(span_notice("[user] inserts \the [card_to_insert] into \the [src]."),
 						span_notice("You insert \the [card_to_insert] into \the [src]."))
-	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+	playsound(src, 'sound/machines/id_insert.ogg', 50, FALSE)
 	ui_interact(user)
 	return TRUE
 
@@ -222,15 +218,15 @@
 	if(!target)
 		to_chat(user, span_warning("That slot is empty!"))
 		return FALSE
-	else
-		target.forceMove(drop_location())
-		if(!issilicon(user) && Adjacent(user))
-			user.put_in_hands(target)
-		user.visible_message(span_notice("[user] gets \the [target] from \the [src]."), \
-							span_notice("You get \the [target] from \the [src]."))
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
-		inserted_scan_id = null
-		return TRUE
+
+	target.forceMove(drop_location())
+	if(!issilicon(user) && Adjacent(user))
+		user.put_in_hands(target)
+	user.visible_message(span_notice("[user] gets \the [target] from \the [src]."), \
+						span_notice("You get \the [target] from \the [src]."))
+	playsound(src, 'sound/machines/id_eject.ogg', 50, FALSE)
+	inserted_scan_id = null
+	return TRUE
 
 ///Upon completion of a civilian bounty, one of these is created. It is sold to cargo to give the cargo budget bounty money, and the person who completed it cash.
 /obj/item/bounty_cube

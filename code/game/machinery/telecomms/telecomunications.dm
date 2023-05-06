@@ -51,6 +51,8 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	///Looping sounds for any servers
 	var/datum/looping_sound/server/soundloop
 
+	interaction_sound = SFX_KEYBOARD
+
 /// relay signal to all linked machinery that are of type [filter]. If signal has been sent [amount] times, stop sending
 /obj/machinery/telecomms/proc/relay_information(datum/signal/subspace/signal, filter, copysig, amount = 20)
 	if(!on)

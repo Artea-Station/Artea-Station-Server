@@ -10,14 +10,14 @@
 	/// Current ID card inserted into the machine.
 	var/obj/item/card/id/stored_id_card = null
 	/// Current PDA inserted into the machine.
-	var/obj/item/modular_computer/tablet/pda/stored_pda = null
+	var/obj/item/modular_computer/pda/stored_pda = null
 	/// A blacklist of PDA types that we should not be able to paint.
 	var/static/list/pda_type_blacklist = list(
-		/obj/item/modular_computer/tablet/pda/heads,
-		/obj/item/modular_computer/tablet/pda/clear,
-		/obj/item/modular_computer/tablet/pda/syndicate,
-		/obj/item/modular_computer/tablet/pda/chameleon,
-		/obj/item/modular_computer/tablet/pda/chameleon/broken)
+		/obj/item/modular_computer/pda/heads,
+		/obj/item/modular_computer/pda/clear,
+		/obj/item/modular_computer/pda/syndicate,
+		/obj/item/modular_computer/pda/chameleon,
+		/obj/item/modular_computer/pda/chameleon/broken)
 	/// A list of the PDA types that this machine can currently paint.
 	var/list/pda_types = list()
 	/// A list of the card trims that this machine can currently imprint onto a card.
@@ -130,7 +130,7 @@
 		to_chat(user, span_warning("The machine rejects your [O]. This ID card does not appear to be compatible with the PDA Painter."))
 		return
 
-	if(istype(O, /obj/item/modular_computer/tablet/pda))
+	if(istype(O, /obj/item/modular_computer/pda))
 		insert_pda(O, user)
 		return
 
@@ -171,7 +171,7 @@
  * * new_pda - The PDA to insert.
  * * user - The user to try and eject the PDA into the hands of.
  */
-/obj/machinery/pdapainter/proc/insert_pda(obj/item/modular_computer/tablet/pda/new_pda, mob/living/user)
+/obj/machinery/pdapainter/proc/insert_pda(obj/item/modular_computer/pda/new_pda, mob/living/user)
 	if(!istype(new_pda))
 		return FALSE
 
@@ -203,6 +203,7 @@
 
 		stored_pda = null
 		update_icon()
+		playsound(src, 'sound/machines/id_eject.ogg', 75, TRUE)
 
 /**
  * Insert an ID card into the machine.
@@ -228,6 +229,7 @@
 	stored_id_card = new_id_card
 	new_id_card.add_fingerprint(user)
 	update_icon()
+	playsound(src, 'sound/machines/id_insert.ogg', 75, TRUE)
 	return TRUE
 
 /**
@@ -245,6 +247,7 @@
 
 		stored_id_card = null
 		update_appearance(UPDATE_ICON)
+		playsound(src, 'sound/machines/id_eject.ogg', 75, TRUE)
 
 /obj/machinery/pdapainter/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -290,7 +293,7 @@
 				return TRUE
 
 			var/obj/item/held_item = usr.get_active_held_item()
-			if(istype(held_item, /obj/item/modular_computer/tablet/pda))
+			if(istype(held_item, /obj/item/modular_computer/pda))
 				// If we successfully inserted, we've ejected the old item. Return early.
 				if(insert_pda(held_item, usr))
 					return TRUE
@@ -320,7 +323,7 @@
 				return TRUE
 
 			var/selection = params["selection"]
-			var/obj/item/modular_computer/tablet/pda/pda_path = /obj/item/modular_computer/tablet/pda
+			var/obj/item/modular_computer/pda/pda_path = /obj/item/modular_computer/pda
 
 			for(var/path in pda_types)
 				if(pda_types[path] == selection)
@@ -333,6 +336,7 @@
 				stored_pda.icon = initial(pda_path.icon)
 			stored_pda.icon_state = initial(pda_path.icon_state)
 			stored_pda.desc = initial(pda_path.desc)
+			playsound(src, 'sound/machines/printer.ogg', 75, TRUE)
 
 			return TRUE
 		if("trim_card")
@@ -345,6 +349,7 @@
 					continue
 
 				if(SSid_access.apply_trim_to_card(stored_id_card, path, copy_access = FALSE))
+					playsound(src, 'sound/machines/printer.ogg', 75, TRUE)
 					return TRUE
 
 				to_chat(usr, span_warning("The trim you selected could not be added to \the [stored_id_card]. You will need a rarer ID card to imprint that trim data."))
@@ -355,6 +360,7 @@
 				return TRUE
 
 			stored_id_card.clear_account()
+			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 75, TRUE)
 
 			return TRUE
 

@@ -63,26 +63,12 @@
 	gloves = /obj/item/clothing/gloves/color/plasmaman/white
 	head = /obj/item/clothing/head/helmet/space/plasmaman/chemist
 
-/datum/outfit/plasmaman/science
-	name = "Science Plasmaman"
-
-	uniform = /obj/item/clothing/under/plasmaman/science
-	gloves = /obj/item/clothing/gloves/color/plasmaman/white
-	head = /obj/item/clothing/head/helmet/space/plasmaman/science
-
 /datum/outfit/plasmaman/robotics
 	name = "Robotics Plasmaman"
 
 	uniform = /obj/item/clothing/under/plasmaman/robotics
 	gloves = /obj/item/clothing/gloves/color/plasmaman/robot
 	head = /obj/item/clothing/head/helmet/space/plasmaman/robotics
-
-/datum/outfit/plasmaman/genetics
-	name = "Genetics Plasmaman"
-
-	uniform = /obj/item/clothing/under/plasmaman/genetics
-	gloves = /obj/item/clothing/gloves/color/plasmaman/white
-	head = /obj/item/clothing/head/helmet/space/plasmaman/genetics
 
 /datum/outfit/plasmaman/engineering
 	name = "Engineering Plasmaman"
@@ -211,13 +197,6 @@
 	uniform = /obj/item/clothing/under/plasmaman/chief_medical_officer
 	gloves = /obj/item/clothing/gloves/color/plasmaman/white
 	head = /obj/item/clothing/head/helmet/space/plasmaman/chief_medical_officer
-
-/datum/outfit/plasmaman/research_director
-	name = "Research Director Plasmaman"
-
-	uniform = /obj/item/clothing/under/plasmaman/research_director
-	gloves = /obj/item/clothing/gloves/color/plasmaman/research_director
-	head = /obj/item/clothing/head/helmet/space/plasmaman/research_director
 
 /datum/outfit/plasmaman/centcom_commander
 	name = "CentCom Command Plasmaman"

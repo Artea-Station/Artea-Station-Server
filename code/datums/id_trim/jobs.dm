@@ -79,6 +79,7 @@
 /datum/id_trim/job/assistant
 	assignment = "Assistant"
 	trim_state = "trim_assistant"
+	orbit_icon = "toolbox"
 	sechud_icon_state = SECHUD_ASSISTANT
 	minimal_access = list()
 	extra_access = list(
@@ -102,38 +103,10 @@
 		access |= list(
 			ACCESS_MAINT_TUNNELS)
 
-/datum/id_trim/job/atmospheric_technician
-	assignment = "Atmospheric Technician"
-	trim_state = "trim_atmospherictechnician"
-	department_color = COLOR_ENGINEERING_ORANGE
-	subdepartment_color = COLOR_ENGINEERING_ORANGE
-	sechud_icon_state = SECHUD_ATMOSPHERIC_TECHNICIAN
-	minimal_access = list(
-		ACCESS_ATMOSPHERICS,
-		ACCESS_AUX_BASE,
-		ACCESS_CONSTRUCTION,
-		ACCESS_ENGINEERING,
-		ACCESS_EXTERNAL_AIRLOCKS,
-		ACCESS_MAINT_TUNNELS,
-		ACCESS_MECH_ENGINE,
-		ACCESS_MINERAL_STOREROOM,
-		)
-	extra_access = list(
-		ACCESS_ENGINE_EQUIP,
-		ACCESS_MINISAT,
-		ACCESS_TCOMMS,
-		ACCESS_TECH_STORAGE,
-		)
-	template_access = list(
-		ACCESS_CAPTAIN,
-		ACCESS_CHANGE_IDS,
-		ACCESS_CE,
-		)
-	job = /datum/job/atmospheric_technician
-
 /datum/id_trim/job/bartender
 	assignment = "Bartender"
 	trim_state = "trim_bartender"
+	orbit_icon = "cocktail"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SERVICE_LIME
 	sechud_icon_state = SECHUD_BARTENDER
@@ -158,6 +131,7 @@
 /datum/id_trim/job/botanist
 	assignment = "Botanist"
 	trim_state = "trim_botanist"
+	orbit_icon = "seedling"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SERVICE_LIME
 	sechud_icon_state = SECHUD_BOTANIST
@@ -182,6 +156,7 @@
 	assignment = "Captain"
 	intern_alt_name = "Captain-in-Training"
 	trim_state = "trim_captain"
+	orbit_icon = "crown"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_COMMAND_BLUE
 	department_state = "departmenthead"
@@ -204,6 +179,7 @@
 /datum/id_trim/job/cargo_technician
 	assignment = "Cargo Technician"
 	trim_state = "trim_cargotechnician"
+	orbit_icon = "box"
 	department_color = COLOR_CARGO_BROWN
 	subdepartment_color = COLOR_CARGO_BROWN
 	sechud_icon_state = SECHUD_CARGO_TECHNICIAN
@@ -228,6 +204,7 @@
 /datum/id_trim/job/chaplain
 	assignment = "Chaplain"
 	trim_state = "trim_chaplain"
+	orbit_icon = "cross"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SERVICE_LIME
 	sechud_icon_state = SECHUD_CHAPLAIN
@@ -249,6 +226,7 @@
 /datum/id_trim/job/chemist
 	assignment = "Chemist"
 	trim_state = "trim_chemist"
+	orbit_icon = "prescription-bottle"
 	department_color = COLOR_MEDICAL_BLUE
 	subdepartment_color = COLOR_MEDICAL_BLUE
 	sechud_icon_state = SECHUD_CHEMIST
@@ -275,6 +253,7 @@
 	assignment = "Chief Engineer"
 	intern_alt_name = "Chief Engineer-in-Training"
 	trim_state = "trim_stationengineer"
+	orbit_icon = "user-astronaut"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_ENGINEERING_ORANGE
 	department_state = "departmenthead"
@@ -299,6 +278,8 @@
 		ACCESS_RC_ANNOUNCE,
 		ACCESS_TCOMMS,
 		ACCESS_TECH_STORAGE,
+		ACCESS_ROBOTICS,
+		ACCESS_SCIENCE,
 		)
 	minimal_wildcard_access = list(
 		ACCESS_CE,
@@ -316,6 +297,7 @@
 	assignment = "Chief Medical Officer"
 	intern_alt_name = "Chief Medical Officer-in-Training"
 	trim_state = "trim_medicaldoctor"
+	orbit_icon = "user-md"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_MEDICAL_BLUE
 	department_state = "departmenthead"
@@ -353,6 +335,7 @@
 /datum/id_trim/job/clown
 	assignment = "Clown"
 	trim_state = "trim_clown"
+	orbit_icon = "face-grin-tears"
 	department_color = COLOR_MAGENTA
 	subdepartment_color = COLOR_MAGENTA
 	sechud_icon_state = SECHUD_CLOWN
@@ -371,6 +354,7 @@
 /datum/id_trim/job/cook
 	assignment = "Cook"
 	trim_state = "trim_cook"
+	orbit_icon = "utensils"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SERVICE_LIME
 	sechud_icon_state = SECHUD_COOK
@@ -398,6 +382,7 @@
 /datum/id_trim/job/curator
 	assignment = "Curator"
 	trim_state = "trim_curator"
+	orbit_icon = "book"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SERVICE_LIME
 	sechud_icon_state = SECHUD_CURATOR
@@ -418,6 +403,7 @@
 /datum/id_trim/job/detective
 	assignment = "Detective"
 	trim_state = "trim_detective"
+	orbit_icon = "user-secret"
 	department_color = COLOR_SECURITY_RED
 	subdepartment_color = COLOR_SECURITY_RED
 	sechud_icon_state = SECHUD_DETECTIVE
@@ -452,36 +438,11 @@
 	if(CONFIG_GET(flag/security_has_maint_access))
 		access |= list(ACCESS_MAINT_TUNNELS)
 
-/datum/id_trim/job/geneticist
-	assignment = "Geneticist"
-	trim_state = "trim_geneticist"
-	department_color = COLOR_SCIENCE_PINK
-	subdepartment_color = COLOR_SCIENCE_PINK
-	sechud_icon_state = SECHUD_GENETICIST
-	minimal_access = list(
-		ACCESS_GENETICS,
-		ACCESS_MECH_SCIENCE,
-		ACCESS_MINERAL_STOREROOM,
-		ACCESS_MORGUE,
-		ACCESS_RESEARCH,
-		ACCESS_SCIENCE,
-		)
-	extra_access = list(
-		ACCESS_ROBOTICS,
-		ACCESS_TECH_STORAGE,
-		ACCESS_XENOBIOLOGY,
-		)
-	template_access = list(
-		ACCESS_CAPTAIN,
-		ACCESS_CHANGE_IDS,
-		ACCESS_RD,
-		)
-	job = /datum/job/geneticist
-
 /datum/id_trim/job/head_of_personnel
 	assignment = "Head of Personnel"
 	intern_alt_name = "Head of Personnel-in-Training"
 	trim_state = "trim_headofpersonnel"
+	orbit_icon = "dog"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_SERVICE_LIME
 	department_state = "departmenthead"
@@ -532,6 +493,7 @@
 	assignment = "Head of Security"
 	intern_alt_name = "Head of Security-in-Training"
 	trim_state = "trim_securityofficer"
+	orbit_icon = "user-shield"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_SECURITY_RED
 	department_state = "departmenthead"
@@ -588,6 +550,7 @@
 /datum/id_trim/job/internal_affairs_agent
 	assignment = "Internal Affairs Agent"
 	trim_state = "trim_lawyer"
+	orbit_icon = "print"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_SECURITY_RED
 	sechud_icon_state = SECHUD_INTERNAL_AFFAIRS_AGENT
@@ -607,6 +570,7 @@
 /datum/id_trim/job/janitor
 	assignment = "Janitor"
 	trim_state = "trim_janitor"
+	orbit_icon = "broom"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SERVICE_LIME
 	sechud_icon_state = SECHUD_JANITOR
@@ -627,6 +591,7 @@
 /datum/id_trim/job/lawyer
 	assignment = "Lawyer"
 	trim_state = "trim_lawyer"
+	orbit_icon = "gavel"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SECURITY_RED
 	sechud_icon_state = SECHUD_LAWYER
@@ -647,6 +612,7 @@
 /datum/id_trim/job/medical_doctor
 	assignment = "Medical Doctor"
 	trim_state = "trim_medicaldoctor"
+	orbit_icon = "staff-snake"
 	department_color = COLOR_MEDICAL_BLUE
 	subdepartment_color = COLOR_MEDICAL_BLUE
 	sechud_icon_state = SECHUD_MEDICAL_DOCTOR
@@ -672,6 +638,7 @@
 /datum/id_trim/job/mime
 	assignment = "Mime"
 	trim_state = "trim_mime"
+	orbit_icon = "comment-slash"
 	department_color = COLOR_SILVER
 	subdepartment_color = COLOR_WHITE
 	sechud_icon_state = SECHUD_MIME
@@ -690,6 +657,7 @@
 /datum/id_trim/job/paramedic
 	assignment = "Paramedic"
 	trim_state = "trim_paramedic"
+	orbit_icon = "truck-medical"
 	department_color = COLOR_MEDICAL_BLUE
 	subdepartment_color = COLOR_MEDICAL_BLUE
 	sechud_icon_state = SECHUD_PARAMEDIC
@@ -719,6 +687,7 @@
 /datum/id_trim/job/prisoner
 	assignment = "Prisoner"
 	trim_state = "trim_warden"
+	orbit_icon = "lock"
 	department_color = COLOR_PRISONER_BLACK
 	subdepartment_color = COLOR_PRISONER_ORANGE
 	sechud_icon_state = SECHUD_PRISONER
@@ -761,6 +730,7 @@
 /datum/id_trim/job/psychologist
 	assignment = "Psychologist"
 	trim_state = "trim_psychologist"
+	orbit_icon = "brain"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_MEDICAL_BLUE
 	sechud_icon_state = SECHUD_PSYCHOLOGIST
@@ -781,6 +751,7 @@
 /datum/id_trim/job/quartermaster
 	assignment = "Quartermaster"
 	trim_state = "trim_quartermaster"
+	orbit_icon = "sack-dollar"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_CARGO_BROWN
 	department_state = "departmenthead"
@@ -812,112 +783,36 @@
 	)
 	job = /datum/job/quartermaster
 
-/datum/id_trim/job/research_director
-	assignment = "Research Director"
-	intern_alt_name = "Research Director-in-Training"
-	trim_state = "trim_scientist"
-	department_color = COLOR_COMMAND_BLUE
-	subdepartment_color = COLOR_SCIENCE_PINK
-	department_state = "departmenthead"
-	sechud_icon_state = SECHUD_RESEARCH_DIRECTOR
-	minimal_access = list(
-		ACCESS_AI_UPLOAD,
-		ACCESS_AUX_BASE,
-		ACCESS_BRIG_ENTRANCE,
-		ACCESS_COMMAND,
-		ACCESS_CONSTRUCTION,
-		ACCESS_EVA,
-		ACCESS_GATEWAY,
-		ACCESS_GENETICS,
-		ACCESS_KEYCARD_AUTH,
-		ACCESS_NETWORK,
-		ACCESS_MAINT_TUNNELS,
-		ACCESS_MECH_ENGINE,
-		ACCESS_MECH_MINING,
-		ACCESS_MECH_SECURITY,
-		ACCESS_MECH_SCIENCE,
-		ACCESS_MINERAL_STOREROOM,
-		ACCESS_MINISAT,
-		ACCESS_MORGUE,
-		ACCESS_ORDNANCE,
-		ACCESS_ORDNANCE_STORAGE,
-		ACCESS_RC_ANNOUNCE,
-		ACCESS_RESEARCH,
-		ACCESS_ROBOTICS,
-		ACCESS_SCIENCE,
-		ACCESS_TECH_STORAGE,
-		ACCESS_TELEPORTER,
-		ACCESS_XENOBIOLOGY,
-		)
-	minimal_wildcard_access = list(
-		ACCESS_RD,
-		)
-	extra_access = list()
-	extra_wildcard_access = list()
-	template_access = list(
-		ACCESS_CAPTAIN,
-		ACCESS_CHANGE_IDS,
-		)
-	job = /datum/job/research_director
-
 /datum/id_trim/job/roboticist
 	assignment = "Roboticist"
 	trim_state = "trim_roboticist"
-	department_color = COLOR_SCIENCE_PINK
-	subdepartment_color = COLOR_SCIENCE_PINK
+	orbit_icon = "battery-half"
+	department_color = COLOR_ENGINEERING_ORANGE
+	subdepartment_color = COLOR_ENGINEERING_ORANGE
 	sechud_icon_state = SECHUD_ROBOTICIST
 	minimal_access = list(
 		ACCESS_AUX_BASE,
 		ACCESS_MECH_SCIENCE,
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_MORGUE,
-		ACCESS_RESEARCH,
 		ACCESS_ROBOTICS,
-		ACCESS_SCIENCE,
 		ACCESS_TECH_STORAGE,
-		)
-	extra_access = list(
-		ACCESS_GENETICS,
-		ACCESS_XENOBIOLOGY,
+		ACCESS_CONSTRUCTION,
+		ACCESS_ENGINEERING,
+		ACCESS_ENGINE_EQUIP,
 		)
 	template_access = list(
 		ACCESS_CAPTAIN,
 		ACCESS_CHANGE_IDS,
-		ACCESS_RD,
+		ACCESS_CE,
 		)
 	job = /datum/job/roboticist
-
-/datum/id_trim/job/scientist
-	assignment = "Scientist"
-	trim_state = "trim_scientist"
-	department_color = COLOR_SCIENCE_PINK
-	subdepartment_color = COLOR_SCIENCE_PINK
-	sechud_icon_state = SECHUD_SCIENTIST
-	minimal_access = list(
-		ACCESS_AUX_BASE,
-		ACCESS_MECH_SCIENCE,
-		ACCESS_MINERAL_STOREROOM,
-		ACCESS_ORDNANCE,
-		ACCESS_ORDNANCE_STORAGE,
-		ACCESS_RESEARCH,
-		ACCESS_SCIENCE,
-		ACCESS_XENOBIOLOGY,
-		)
-	extra_access = list(
-		ACCESS_GENETICS,
-		ACCESS_ROBOTICS,
-		)
-	template_access = list(
-		ACCESS_CAPTAIN,
-		ACCESS_CHANGE_IDS,
-		ACCESS_RD,
-		)
-	job = /datum/job/scientist
 
 /// Sec officers have departmental variants. They each have their own trims with bonus departmental accesses.
 /datum/id_trim/job/security_officer
 	assignment = "Security Officer"
 	trim_state = "trim_securityofficer"
+	orbit_icon = "shield-halved"
 	department_color = COLOR_SECURITY_RED
 	subdepartment_color = COLOR_SECURITY_RED
 	sechud_icon_state = SECHUD_SECURITY_OFFICER
@@ -1038,6 +933,7 @@
 /datum/id_trim/job/shaft_miner
 	assignment = "Shaft Miner"
 	trim_state = "trim_shaftminer"
+	orbit_icon = "digging"
 	department_color = COLOR_CARGO_BROWN
 	subdepartment_color = COLOR_SCIENCE_PINK
 	sechud_icon_state = SECHUD_SHAFT_MINER
@@ -1074,10 +970,12 @@
 /datum/id_trim/job/station_engineer
 	assignment = "Station Engineer"
 	trim_state = "trim_stationengineer"
+	orbit_icon = "gears"
 	department_color = COLOR_ENGINEERING_ORANGE
 	subdepartment_color = COLOR_ENGINEERING_ORANGE
 	sechud_icon_state = SECHUD_STATION_ENGINEER
 	minimal_access = list(
+		ACCESS_ATMOSPHERICS,
 		ACCESS_AUX_BASE,
 		ACCESS_CONSTRUCTION,
 		ACCESS_ENGINEERING,
@@ -1090,9 +988,6 @@
 		ACCESS_TCOMMS,
 		ACCESS_TECH_STORAGE,
 		)
-	extra_access = list(
-		ACCESS_ATMOSPHERICS,
-		)
 	template_access = list(
 		ACCESS_CAPTAIN,
 		ACCESS_CHANGE_IDS,
@@ -1100,33 +995,10 @@
 		)
 	job = /datum/job/station_engineer
 
-/datum/id_trim/job/virologist
-	assignment = "Virologist"
-	trim_state = "trim_virologist"
-	department_color = COLOR_MEDICAL_BLUE
-	subdepartment_color = COLOR_MEDICAL_BLUE
-	sechud_icon_state = SECHUD_VIROLOGIST
-	minimal_access = list(
-		ACCESS_MECH_MEDICAL,
-		ACCESS_MEDICAL,
-		ACCESS_MINERAL_STOREROOM,
-		ACCESS_VIROLOGY,
-		)
-	extra_access = list(
-		ACCESS_PLUMBING,
-		ACCESS_MORGUE,
-		ACCESS_SURGERY,
-		)
-	template_access = list(
-		ACCESS_CAPTAIN,
-		ACCESS_CHANGE_IDS,
-		ACCESS_CMO,
-		)
-	job = /datum/job/virologist
-
 /datum/id_trim/job/warden
 	assignment = "Warden"
 	trim_state = "trim_warden"
+	orbit_icon = "handcuffs"
 	department_color = COLOR_SECURITY_RED
 	subdepartment_color = COLOR_SECURITY_RED
 	sechud_icon_state = SECHUD_WARDEN

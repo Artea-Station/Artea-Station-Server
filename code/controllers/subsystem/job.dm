@@ -24,9 +24,10 @@ SUBSYSTEM_DEF(job)
 	var/initial_players_to_assign = 0 //used for checking against population caps
 
 	var/list/prioritized_jobs = list()
-	var/list/latejoin_trackers = list()
 
-	var/overflow_role = /datum/job/assistant
+	var/list/latejoin_trackers = list() //Don't read this list, use GetLateJoinTurfs() instead
+
+	var/overflow_role
 
 	var/list/level_order = list(JP_HIGH,JP_MEDIUM,JP_LOW)
 
@@ -43,11 +44,10 @@ SUBSYSTEM_DEF(job)
 	var/list/chain_of_command = list(
 		JOB_CAPTAIN = 1,
 		JOB_HEAD_OF_PERSONNEL = 2,
-		JOB_RESEARCH_DIRECTOR = 3,
-		JOB_CHIEF_ENGINEER = 4,
-		JOB_CHIEF_MEDICAL_OFFICER = 5,
-		JOB_HEAD_OF_SECURITY = 6,
-		JOB_QUARTERMASTER = 7,
+		JOB_CHIEF_ENGINEER = 3,
+		JOB_CHIEF_MEDICAL_OFFICER = 4,
+		JOB_HEAD_OF_SECURITY = 5,
+		JOB_QUARTERMASTER = 6,
 	)
 
 	/// If TRUE, some player has been assigned Captaincy or Acting Captaincy at some point during the shift and has been given the spare ID safe code.
@@ -66,34 +66,35 @@ SUBSYSTEM_DEF(job)
 	setup_job_lists()
 	if(!length(all_occupations))
 		SetupOccupations()
-	set_overflow_role(CONFIG_GET(string/overflow_job))
+	generate_selectable_species()
+	set_overflow_role()
 	return SS_INIT_SUCCESS
 
-
 /datum/controller/subsystem/job/proc/set_overflow_role(new_overflow_role)
-	var/datum/job/new_overflow = ispath(new_overflow_role) ? GetJobType(new_overflow_role) : GetJob(new_overflow_role)
-	if(!new_overflow)
-		JobDebug("Failed to set new overflow role: [new_overflow_role]")
-		CRASH("set_overflow_role failed | new_overflow_role: [isnull(new_overflow_role) ? "null" : new_overflow_role]")
+	if(!new_overflow_role)
+		new_overflow_role = SSmapping.config.overflow_job
+	var/datum/job/new_overflow = GetJobType(new_overflow_role)
 	var/cap = CONFIG_GET(number/overflow_cap)
 
 	new_overflow.allow_bureaucratic_error = FALSE
 	new_overflow.spawn_positions = cap
 	new_overflow.total_positions = cap
 
-	if(new_overflow.type == overflow_role)
-		return
-	var/datum/job/old_overflow = GetJobType(overflow_role)
-	old_overflow.allow_bureaucratic_error = initial(old_overflow.allow_bureaucratic_error)
-	old_overflow.spawn_positions = initial(old_overflow.spawn_positions)
-	old_overflow.total_positions = initial(old_overflow.total_positions)
-	overflow_role = new_overflow.type
-	JobDebug("Overflow role set to : [new_overflow.type]")
+	if(new_overflow_role != overflow_role)
+		if(overflow_role)
+			var/datum/job/old_overflow = GetJobType(overflow_role)
+			old_overflow.allow_bureaucratic_error = initial(old_overflow.allow_bureaucratic_error)
+			old_overflow.spawn_positions = initial(old_overflow.spawn_positions)
+			old_overflow.total_positions = initial(old_overflow.total_positions)
+		overflow_role = new_overflow_role
+		JobDebug("Overflow role set to : [new_overflow_role]")
 
+/datum/controller/subsystem/job/proc/SetupOccupations(faction)
+	if(!faction)
+		faction = SSmapping.config.job_faction
 
-/datum/controller/subsystem/job/proc/SetupOccupations()
-	name_occupations = list()
 	type_occupations = list()
+	name_occupations = list()
 
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!length(all_jobs))
@@ -119,6 +120,23 @@ SUBSYSTEM_DEF(job)
 			log_job_debug("Removed [job.title] due to map config")
 			continue
 		new_all_occupations += job
+
+		//Register the job in the global lists
+		if(/datum/job_department/command in job.departments_list)
+			GLOB.command_positions[job.title] = TRUE
+		if(/datum/job_department/security in job.departments_list)
+			GLOB.security_positions[job.title] = TRUE
+		if(/datum/job_department/service in job.departments_list)
+			GLOB.service_positions[job.title] = TRUE
+		if(/datum/job_department/cargo in job.departments_list)
+			GLOB.supply_positions[job.title] = TRUE
+		if(/datum/job_department/engineering in job.departments_list)
+			GLOB.engineering_positions[job.title] = TRUE
+		if(/datum/job_department/medical in job.departments_list)
+			GLOB.medical_positions[job.title] = TRUE
+		if(/datum/job_department/silicon in job.departments_list)
+			GLOB.nonhuman_positions[job.title] = TRUE
+
 		name_occupations[job.title] = job
 		type_occupations[job_type] = job
 		if(job.job_flags & JOB_NEW_PLAYER_JOINABLE)
@@ -854,10 +872,15 @@ SUBSYSTEM_DEF(job)
  * * debug_prefix - Logging prefix for the JobDebug log entries. For example, GRJ during GiveRandomJob or DO during DivideOccupations.
  * * add_job_to_log - If TRUE, appends the job type to the log entry. If FALSE, does not. Set to FALSE when check is part of iterating over players for a specific job, set to TRUE when check is part of iterating over jobs for a specific player and you don't want extra log entry spam.
  */
-/datum/controller/subsystem/job/proc/check_job_eligibility(mob/dead/new_player/player, datum/job/possible_job, debug_prefix = "", add_job_to_log = FALSE)
+/datum/controller/subsystem/job/proc/check_job_eligibility(mob/player, datum/job/possible_job, debug_prefix = "", add_job_to_log = FALSE)
 	if(!player.mind)
 		JobDebug("[debug_prefix] player has no mind, Player: [player][add_job_to_log ? ", Job: [possible_job]" : ""]")
 		return JOB_UNAVAILABLE_GENERIC
+
+	for(var/content_preference in subtypesof(/datum/preference/choiced/content))
+		if(player.client.prefs.read_preference(content_preference) == "Unset" && !is_admin(player.client))
+			JobDebug("[debug_prefix] Error: [get_job_unavailable_error_message(JOB_UNAVAILABLE_CONTENT_PREFS_UNSET)], Player: [player][add_job_to_log ? ", Job: [possible_job]" : ""]")
+			return JOB_UNAVAILABLE_CONTENT_PREFS_UNSET
 
 	if(possible_job.title in player.mind.restricted_roles)
 		JobDebug("[debug_prefix] Error: [get_job_unavailable_error_message(JOB_UNAVAILABLE_ANTAG_INCOMPAT, possible_job.title)], Player: [player][add_job_to_log ? ", Job: [possible_job]" : ""]")

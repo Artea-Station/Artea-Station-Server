@@ -11,8 +11,10 @@
 	icon_state = null
 
 	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
+	///The power cell, null by default as we use the APC we're in
+	var/internal_cell = null
 	///A flag that describes this device type
-	var/hardware_flag = 0
+	var/hardware_flag = NONE
 	///Power usage during last tick
 	var/last_power_usage = 0
 	/// Amount of programs that can be ran at once
@@ -27,19 +29,20 @@
 	var/screen_icon_state_menu = "menu"
 	///Icon state overlay when the computer is powered, but not 'switched on'.
 	var/screen_icon_screensaver = "standby"
-	///Maximal hardware size. Currently, tablets have 1, laptops 2 and consoles 3. Limits what hardware types can be installed.
-	var/max_hardware_size = 0
 	///Amount of steel sheets refunded when disassembling an empty frame of this computer.
 	var/steel_sheet_cost = 10
 	///Light luminosity when turned on
 	var/light_strength = 0
-	///Power usage when the computer is open (screen is active) and can be interacted with. Remember hardware can use power too.
+	///Power usage when the computer is open (screen is active) and can be interacted with.
 	var/base_active_power_usage = 100
 	///Power usage when the computer is idle and screen is off (currently only applies to laptops)
 	var/base_idle_power_usage = 10
 
 	///CPU that handles most logic while this type only handles power and other specific things.
 	var/obj/item/modular_computer/processor/cpu
+
+	/// Timestamp for the next possible click sound.
+	var/next_clicksound
 
 /obj/machinery/modular_computer/Initialize(mapload)
 	. = ..()
@@ -109,6 +112,10 @@
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 // On-click handling. Turns on the computer if it's off and opens the GUI.
 /obj/machinery/modular_computer/interact(mob/user)
+	if(world.time > next_clicksound && isliving(user))
+		next_clicksound = world.time + (2 SECONDS)
+		playsound(src, SFX_KEYBOARD, 25, TRUE)
+
 	if(cpu)
 		return cpu.interact(user)
 	return ..()

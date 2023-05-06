@@ -68,16 +68,16 @@
 	damage_multiplier = 2
 
 /obj/item/organ/internal/ears/cat/Insert(mob/living/carbon/human/ear_owner, special = 0, drop_if_replaced = TRUE)
-	..()
-	if(istype(ear_owner))
+	. = ..()
+	if(istype(ear_owner) && ear_owner.dna)
 		color = ear_owner.hair_color
 		ear_owner.dna.features["ears"] = ear_owner.dna.species.mutant_bodyparts["ears"] = "Cat"
 		ear_owner.dna.update_uf_block(DNA_EARS_BLOCK)
 		ear_owner.update_body()
 
 /obj/item/organ/internal/ears/cat/Remove(mob/living/carbon/human/ear_owner,  special = 0)
-	..()
-	if(istype(ear_owner))
+	. = ..()
+	if(istype(ear_owner) && ear_owner.dna)
 		color = ear_owner.hair_color
 		ear_owner.dna.species.mutant_bodyparts -= "ears"
 		ear_owner.update_body()
@@ -122,3 +122,44 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	applyOrganDamage(40/severity)
+
+#define SYNTH_BAD_EFFECT_DURATION 30 SECONDS
+#define SYNTH_DEAF_STACKS 30
+#define SYNTH_KNOCKDOWN_POWER 40
+#define SYNTH_HEAVY_EMP_MULTIPLIER 2
+
+/obj/item/organ/internal/ears/synth
+	name = "auditory sensors"
+	icon = 'icons/mob/species/synth/surgery.dmi'
+	icon_state = "ears-ipc"
+	desc = "A pair of microphones intended to be installed in an IPC head, that grant the ability to hear."
+	zone = BODY_ZONE_HEAD
+	slot = ORGAN_SLOT_EARS
+	gender = PLURAL
+	status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_SYNTHETIC
+
+/obj/item/organ/internal/ears/synth/emp_act(severity)
+	. = ..()
+
+	if(!owner || . & EMP_PROTECT_SELF)
+		return
+
+	switch(severity)
+		if(EMP_HEAVY)
+			owner.set_jitter_if_lower(SYNTH_BAD_EFFECT_DURATION * SYNTH_HEAVY_EMP_MULTIPLIER)
+			owner.set_dizzy_if_lower(SYNTH_BAD_EFFECT_DURATION * SYNTH_HEAVY_EMP_MULTIPLIER)
+			owner.Knockdown(SYNTH_KNOCKDOWN_POWER * SYNTH_HEAVY_EMP_MULTIPLIER)
+			adjustEarDamage(SYNTH_ORGAN_HEAVY_EMP_DAMAGE, SYNTH_DEAF_STACKS)
+			to_chat(owner, span_warning("Your system reports a complete lack of input from your auditory sensors."))
+
+		if(EMP_LIGHT)
+			owner.set_jitter_if_lower(SYNTH_BAD_EFFECT_DURATION)
+			owner.set_dizzy_if_lower(SYNTH_BAD_EFFECT_DURATION)
+			owner.Knockdown(SYNTH_KNOCKDOWN_POWER)
+			to_chat(owner, span_warning("Your system reports anomalous feedback from your auditory sensors."))
+
+#undef SYNTH_BAD_EFFECT_DURATION
+#undef SYNTH_DEAF_STACKS
+#undef SYNTH_KNOCKDOWN_POWER
+#undef SYNTH_HEAVY_EMP_MULTIPLIER

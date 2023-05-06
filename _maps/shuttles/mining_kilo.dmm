@@ -85,7 +85,6 @@
 /area/shuttle/mining/large)
 "n" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/mining/large)
 "o" = (
@@ -132,7 +131,6 @@
 /obj/machinery/door/airlock/mining{
 	name = "Mining Shuttle Cockpit"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /turf/open/floor/iron/dark,
 /area/shuttle/mining/large)
 "t" = (
@@ -178,6 +176,8 @@
 	dir = 4
 	},
 /obj/machinery/light/small/directional/north,
+/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining/large)
 "v" = (
@@ -187,7 +187,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/mining/large)
 "w" = (
@@ -195,12 +194,16 @@
 	dir = 1
 	},
 /obj/machinery/light/small/directional/north,
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 8
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining/large)
 "x" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining/large)
 "y" = (
@@ -216,9 +219,7 @@
 /area/shuttle/mining/large)
 "z" = (
 /obj/effect/turf_decal/box/corners,
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining/large)
 "A" = (
@@ -228,10 +229,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
-	dir = 4
-	},
 /obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/mining/large)
 "B" = (
@@ -239,23 +238,26 @@
 	dir = 8
 	},
 /obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining/large)
 "C" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/mining/large)
 "D" = (
-/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/structure/shuttle/engine/heater,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 "E" = (
 /obj/effect/turf_decal/box/corners,
 /obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining/large)
 "F" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/machinery/atmospherics/components/unary/engine,
 /turf/open/floor/plating/airless,
 /area/shuttle/mining/large)
 "G" = (
@@ -267,6 +269,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 "H" = (
@@ -283,7 +286,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 "J" = (
@@ -294,6 +296,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 "K" = (
@@ -306,9 +309,6 @@
 	dir = 4
 	},
 /obj/machinery/light/small/directional/west,
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 1
-	},
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 "L" = (
@@ -319,19 +319,15 @@
 	dir = 1
 	},
 /obj/docking_port/mobile{
-	dwidth = 3;
-	height = 10;
 	shuttle_id = "mining";
 	name = "mining shuttle";
-	port_direction = 2;
-	width = 7
+	port_direction = 2
 	},
 /obj/structure/cable,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 

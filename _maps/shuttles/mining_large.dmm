@@ -316,6 +316,8 @@
 /obj/effect/turf_decal/box/white/corners{
 	dir = 4
 	},
+/obj/machinery/atmospherics/components/unary/portables_connector,
+/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /turf/open/floor/iron/dark,
 /area/shuttle/mining/large)
 "u" = (
@@ -353,11 +355,13 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /turf/open/floor/iron/dark,
 /area/shuttle/mining/large)
 "y" = (
 /obj/machinery/light/small/directional/south,
 /obj/effect/turf_decal/box/white/corners,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /turf/open/floor/iron/dark,
 /area/shuttle/mining/large)
 "z" = (
@@ -373,6 +377,7 @@
 	},
 /obj/effect/turf_decal/stripes/white/line,
 /obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /turf/open/floor/iron/dark,
 /area/shuttle/mining/large)
 "A" = (
@@ -381,11 +386,13 @@
 	dir = 8
 	},
 /obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /turf/open/floor/iron/dark,
 /area/shuttle/mining/large)
 "B" = (
 /obj/effect/turf_decal/box/white/corners,
 /obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /turf/open/floor/iron/dark,
 /area/shuttle/mining/large)
 "C" = (
@@ -396,6 +403,7 @@
 /obj/item/crowbar/red,
 /obj/item/wrench,
 /obj/item/flashlight,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 "D" = (
@@ -413,6 +421,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 "F" = (
@@ -424,6 +433,7 @@
 	dir = 1;
 	layer = 2.9
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /turf/open/floor/plating/airless,
 /area/shuttle/mining/large)
 "H" = (
@@ -432,7 +442,7 @@
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 "I" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/machinery/atmospherics/components/unary/engine,
 /turf/open/floor/plating/airless,
 /area/shuttle/mining/large)
 "J" = (
@@ -443,12 +453,9 @@
 	dir = 1
 	},
 /obj/docking_port/mobile{
-	dwidth = 3;
-	height = 10;
 	shuttle_id = "mining";
 	name = "mining shuttle";
-	port_direction = 2;
-	width = 7
+	port_direction = 2
 	},
 /obj/structure/cable,
 /turf/open/floor/plating,

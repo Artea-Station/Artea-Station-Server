@@ -101,37 +101,6 @@
 	for(var/ore in ores_to_process)
 		smelt_ore(ore)
 
-/obj/machinery/mineral/ore_redemption/proc/send_console_message()
-	var/datum/component/material_container/mat_container = materials.mat_container
-	if(!mat_container || !is_station_level(z))
-		return
-
-	console_notify_timer = null
-
-	var/area/A = get_area(src)
-	var/msg = "Now available in [A]:<br>"
-
-	var/has_minerals = FALSE
-
-	for(var/mat in mat_container.materials)
-		var/datum/material/M = mat
-		var/mineral_amount = mat_container.materials[mat] / MINERAL_MATERIAL_AMOUNT
-		if(mineral_amount)
-			has_minerals = TRUE
-		msg += "[capitalize(M.name)]: [mineral_amount] sheets<br>"
-
-	if(!has_minerals)
-		return
-
-	var/datum/signal/subspace/messaging/rc/signal = new(src, list(
-		"ore_update" = TRUE,
-		"sender" = "Ore Redemption Machine",
-		"message" = msg,
-		"verified" = "<font color='green'><b>Verified by Ore Redemption Machine</b></font>",
-		"priority" = REQ_NORMAL_MESSAGE_PRIORITY
-	))
-	signal.send_to_receivers()
-
 /obj/machinery/mineral/ore_redemption/pickup_item(datum/source, atom/movable/target, direction)
 	if(QDELETED(target))
 		return
@@ -146,10 +115,6 @@
 		smelt_ore(O)
 	else
 		return
-
-	if(!console_notify_timer)
-		// gives 5 seconds for a load of ores to be sucked up by the ORM before it sends out request console notifications. This should be enough time for most deposits that people make
-		console_notify_timer = addtimer(CALLBACK(src, PROC_REF(send_console_message)), 5 SECONDS)
 
 /obj/machinery/mineral/ore_redemption/default_unfasten_wrench(mob/user, obj/item/I)
 	. = ..()
@@ -209,21 +174,28 @@
 /obj/machinery/mineral/ore_redemption/ui_data(mob/user)
 	var/list/data = list()
 	data["unclaimedPoints"] = points
-
 	data["materials"] = list()
 	var/datum/component/material_container/mat_container = materials.mat_container
 	if (mat_container)
-		for(var/mat in mat_container.materials)
-			var/datum/material/M = mat
-			var/amount = mat_container.materials[M]
+		for(var/datum/material/material as anything in mat_container.materials)
+			var/amount = mat_container.materials[material]
 			var/sheet_amount = amount / MINERAL_MATERIAL_AMOUNT
-			var/ref = REF(M)
-			data["materials"] += list(list("name" = M.name, "id" = ref, "amount" = sheet_amount, "value" = ore_values[M.type]))
+			data["materials"] += list(list(
+				"name" = material.name,
+				"id" = REF(material),
+				"amount" = sheet_amount,
+				"category" = "material",
+				"value" = ore_values[material.type],
+			))
 
-		data["alloys"] = list()
-		for(var/v in stored_research.researched_designs)
-			var/datum/design/D = SSresearch.techweb_design_by_id(v)
-			data["alloys"] += list(list("name" = D.name, "id" = D.id, "amount" = can_smelt_alloy(D)))
+		for(var/research in stored_research.researched_designs)
+			var/datum/design/alloy = SSresearch.techweb_design_by_id(research)
+			data["materials"] += list(list(
+				"name" = alloy.name,
+				"id" = alloy.id,
+				"category" = "alloy",
+				"amount" = can_smelt_alloy(alloy),
+			))
 
 	if (!mat_container)
 		data["disconnected"] = "local mineral storage is unavailable"
@@ -232,17 +204,46 @@
 	else if (materials.on_hold())
 		data["disconnected"] = "mineral withdrawal is on hold"
 
-	data["diskDesigns"] = list()
-	data["hasDisk"] = FALSE
-	if(inserted_disk)
-		data["hasDisk"] = TRUE
-		if(inserted_disk.blueprints.len)
-			var/index = 1
-			for (var/datum/design/thisdesign in inserted_disk.blueprints)
-				if(thisdesign)
-					data["diskDesigns"] += list(list("name" = thisdesign.name, "index" = index, "canupload" = thisdesign.build_type&SMELTER))
-				index++
+	var/obj/item/card/id/card
+	if(isliving(user))
+		var/mob/living/customer = user
+		card = customer.get_idcard(hand_first = TRUE)
+		if(card?.registered_account)
+			data["user"] = list(
+				"name" = card.registered_account.account_holder,
+				"cash" = card.registered_account.account_balance,
+			)
+
+		else if(issilicon(user))
+			var/mob/living/silicon/silicon_player = user
+			data["user"] = list(
+				"name" = silicon_player.name,
+				"cash" = "No valid account",
+			)
 	return data
+
+/obj/machinery/mineral/ore_redemption/ui_static_data(mob/user)
+	var/list/data = list()
+
+	var/datum/component/material_container/mat_container = materials.mat_container
+	if (mat_container)
+		for(var/datum/material/material as anything in mat_container.materials)
+			var/obj/material_display = initial(material.sheet_type)
+			data["material_icons"] += list(list(
+				"id" = REF(material),
+				"product_icon" = icon2base64(getFlatIcon(image(icon = initial(material_display.icon), icon_state = initial(material_display.icon_state)), no_anim=TRUE)),
+			))
+
+	for(var/research in stored_research.researched_designs)
+		var/datum/design/alloy = SSresearch.techweb_design_by_id(research)
+		var/obj/alloy_display = initial(alloy.build_path)
+		data["material_icons"] += list(list(
+			"id" = alloy.id,
+			"product_icon" = icon2base64(getFlatIcon(image(icon = initial(alloy_display.icon), icon_state = initial(alloy_display.icon_state)), no_anim=TRUE)),
+		))
+
+	return data
+
 
 /obj/machinery/mineral/ore_redemption/ui_act(action, params)
 	. = ..()

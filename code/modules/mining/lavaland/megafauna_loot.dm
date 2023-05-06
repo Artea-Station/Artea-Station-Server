@@ -964,11 +964,13 @@
 	if(!user_area || !user_turf || (is_type_in_list(user_area, excluded_areas)))
 		to_chat(user, span_warning("Something is preventing you from using the staff here."))
 		return
+	var/datum/weather_controller/weather_controller = SSmapping.GetLevelWeatherController(user_turf.z)
 	var/datum/weather/affected_weather
-	for(var/datum/weather/weather as anything in SSweather.processing)
-		if((user_turf.z in weather.impacted_z_levels) && ispath(user_area.type, weather.area_type))
-			affected_weather = weather
-			break
+	if(weather_controller.current_weathers)
+		for(var/datum/weather/weather as anything in weather_controller.current_weathers)
+			if((user_turf.z in weather.impacted_z_levels) && ispath(user_area.type, weather.area_type))
+				affected_weather = weather
+				break
 	if(!affected_weather)
 		return
 	if(affected_weather.stage == END_STAGE)
@@ -989,7 +991,7 @@
 	var/old_transform = user.transform
 	user.transform *= 1.2
 	animate(user, color = old_color, transform = old_transform, time = 1 SECONDS)
-	affected_weather.wind_down()
+	weather_controller.RunWeather(/datum/weather/ash_storm, FALSE)
 	user.log_message("has dispelled a storm at [AREACOORD(user_turf)].", LOG_GAME)
 
 /obj/item/storm_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -1009,7 +1011,8 @@
 		balloon_alert(user, "you don't want to harm!")
 		return
 	var/power_boosted = FALSE
-	for(var/datum/weather/weather as anything in SSweather.processing)
+	var/datum/weather_controller/weather_controller = SSmapping.GetLevelWeatherController(target_turf.z)
+	for(var/datum/weather/weather as anything in weather_controller.current_weathers)
 		if(weather.stage != MAIN_STAGE)
 			continue
 		if((target_turf.z in weather.impacted_z_levels) && ispath(target_area.type, weather.area_type))

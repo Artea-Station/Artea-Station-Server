@@ -1,21 +1,33 @@
 import { exhaustiveCheck } from 'common/exhaustive';
 import { useBackend, useLocalState } from '../../backend';
-import { Button, Stack } from '../../components';
+import { Box, Dropdown, Flex, Icon, Stack } from '../../components';
 import { Window } from '../../layouts';
 import { PreferencesMenuData } from './data';
 import { PageButton } from './PageButton';
 import { AntagsPage } from './AntagsPage';
 import { JobsPage } from './JobsPage';
-import { MainPage } from './MainPage';
+import { AppearancePage } from './AppearancePage';
 import { SpeciesPage } from './SpeciesPage';
 import { QuirksPage } from './QuirksPage';
+import { IndexPage } from './IndexPage';
+import { ClothingPage } from './ClothingPage';
+import { MiscPage } from './MiscPage';
+import { InspectionPage } from './InspectionPage';
+import { OOCPage } from './OOCPage';
+import { ContentPage } from './ContentPage';
 
-enum Page {
+export enum Page {
+  Index,
   Antags,
-  Main,
+  Appearance,
   Jobs,
   Species,
   Quirks,
+  Clothing,
+  Misc,
+  Inspection,
+  OOC,
+  Content,
 }
 
 const CharacterProfiles = (props: {
@@ -23,23 +35,25 @@ const CharacterProfiles = (props: {
   onClick: (index: number) => void;
   profiles: (string | null)[];
 }) => {
-  const { profiles } = props;
+  const { profiles, activeSlot, onClick } = props;
 
   return (
-    <Stack justify="center" wrap>
-      {profiles.map((profile, slot) => (
-        <Stack.Item key={slot}>
-          <Button
-            selected={slot === props.activeSlot}
-            onClick={() => {
-              props.onClick(slot);
-            }}
-            fluid>
-            {profile ?? 'New Character'}
-          </Button>
-        </Stack.Item>
-      ))}
-    </Stack>
+    <Flex align="center" justify="center">
+      <Flex.Item width="25%" fontSize="1.2em">
+        <Dropdown
+          width="100%"
+          selected={activeSlot}
+          displayText={profiles[activeSlot]}
+          options={profiles.map((profile, slot) => ({
+            value: slot,
+            displayText: profile ?? 'New Character',
+          }))}
+          onSelected={(slot) => {
+            onClick(slot);
+          }}
+        />
+      </Flex.Item>
+    </Flex>
   );
 };
 
@@ -49,33 +63,61 @@ export const CharacterPreferenceWindow = (props, context) => {
   const [currentPage, setCurrentPage] = useLocalState(
     context,
     'currentPage',
-    Page.Main
+    Page.Index
   );
 
   let pageContents;
 
   switch (currentPage) {
+    case Page.Index:
+      pageContents = <IndexPage parentContext={context} data={data} />;
+      break;
+
     case Page.Antags:
       pageContents = <AntagsPage />;
       break;
+
     case Page.Jobs:
       pageContents = <JobsPage />;
       break;
-    case Page.Main:
-      pageContents = (
-        <MainPage openSpecies={() => setCurrentPage(Page.Species)} />
-      );
 
+    case Page.Appearance:
+      pageContents = (
+        <AppearancePage
+          openSpecies={() => setCurrentPage(Page.Species)}
+          parentContext={context}
+        />
+      );
       break;
+
     case Page.Species:
-      pageContents = (
-        <SpeciesPage closeSpecies={() => setCurrentPage(Page.Main)} />
-      );
-
+      pageContents = <SpeciesPage />;
       break;
+
     case Page.Quirks:
       pageContents = <QuirksPage />;
       break;
+
+    case Page.Clothing:
+      pageContents = <ClothingPage />;
+      break;
+
+    case Page.Misc:
+      pageContents = <MiscPage />;
+      break;
+
+    case Page.Inspection:
+      pageContents = <InspectionPage />;
+      break;
+
+    case Page.OOC:
+      pageContents = <OOCPage />;
+      break;
+
+    case Page.Content:
+      pageContents = <ContentPage />;
+      break;
+
     default:
       exhaustiveCheck(currentPage);
   }
@@ -85,6 +127,17 @@ export const CharacterPreferenceWindow = (props, context) => {
       <Window.Content scrollable>
         <Stack vertical fill>
           <Stack.Item>
+            {!(currentPage === Page.Index) && (
+              <Box width="8em" position="absolute">
+                <PageButton
+                  currentPage={currentPage}
+                  page={Page.Index}
+                  setPage={setCurrentPage}>
+                  <Icon name="arrow-left" />
+                  Index
+                </PageButton>
+              </Box>
+            )}
             <CharacterProfiles
               activeSlot={data.active_slot - 1}
               onClick={(slot) => {
@@ -95,7 +148,6 @@ export const CharacterPreferenceWindow = (props, context) => {
               profiles={data.character_profiles}
             />
           </Stack.Item>
-
           {!data.content_unlocked && (
             <Stack.Item align="center">
               Buy BYOND premium for more slots!
@@ -104,54 +156,7 @@ export const CharacterPreferenceWindow = (props, context) => {
 
           <Stack.Divider />
 
-          <Stack.Item>
-            <Stack fill>
-              <Stack.Item grow>
-                <PageButton
-                  currentPage={currentPage}
-                  page={Page.Main}
-                  setPage={setCurrentPage}
-                  otherActivePages={[Page.Species]}>
-                  Character
-                </PageButton>
-              </Stack.Item>
-
-              <Stack.Item grow>
-                <PageButton
-                  currentPage={currentPage}
-                  page={Page.Jobs}
-                  setPage={setCurrentPage}>
-                  {/*
-                    Fun fact: This isn't "Jobs" so that it intentionally
-                    catches your eyes, because it's really important!
-                  */}
-                  Occupations
-                </PageButton>
-              </Stack.Item>
-
-              <Stack.Item grow>
-                <PageButton
-                  currentPage={currentPage}
-                  page={Page.Antags}
-                  setPage={setCurrentPage}>
-                  Antagonists
-                </PageButton>
-              </Stack.Item>
-
-              <Stack.Item grow>
-                <PageButton
-                  currentPage={currentPage}
-                  page={Page.Quirks}
-                  setPage={setCurrentPage}>
-                  Quirks
-                </PageButton>
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-
-          <Stack.Divider />
-
-          <Stack.Item>{pageContents}</Stack.Item>
+          <Stack.Item height="100%">{pageContents}</Stack.Item>
         </Stack>
       </Window.Content>
     </Window>

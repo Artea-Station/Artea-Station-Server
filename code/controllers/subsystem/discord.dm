@@ -30,7 +30,7 @@
  */
 SUBSYSTEM_DEF(discord)
 	name = "Discord"
-	wait = 3000
+	wait = 5 MINUTES
 	init_order = INIT_ORDER_DISCORD
 
 	/// People to save to notify file
@@ -80,6 +80,8 @@ SUBSYSTEM_DEF(discord)
 		return // Dont re-write the file
 	// If we are all clear
 	write_notify_file()
+	// Reset this, we don't want to force people to have to wait an entire round to join.
+	reverify_cache = list()
 
 /datum/controller/subsystem/discord/Shutdown()
 	write_notify_file() // Guaranteed force-write on server close
@@ -161,8 +163,9 @@ SUBSYSTEM_DEF(discord)
 		not_unique = find_discord_link_by_token(one_time_token, timebound = TRUE)
 
 	// Insert into the table, null in the discord id, id and timestamp and valid fields so the db fills them out where needed
+	// If ckey already exists (requires database to have ckey flagged as unique!!), update the timestamp and token.
 	var/datum/db_query/query_insert_link_record = SSdbcore.NewQuery(
-		"INSERT INTO [format_table_name("discord_links")] (ckey, one_time_token) VALUES(:ckey, :token)",
+		"INSERT INTO [format_table_name("discord_links")] (ckey, one_time_token) VALUES(:ckey, :token) ON DUPLICATE KEY UPDATE one_time_token = :token, timestamp = CURRENT_TIMESTAMP",
 		list("ckey" = ckey_for, "token" = one_time_token)
 	)
 
@@ -222,7 +225,7 @@ SUBSYSTEM_DEF(discord)
 /datum/controller/subsystem/discord/proc/find_discord_link_by_ckey(ckey, timebound = FALSE)
 	var/timeboundsql = ""
 	if(timebound)
-		timeboundsql = "AND timestamp >= Now() - INTERVAL 4 HOUR"
+		timeboundsql = "AND timestamp >= Now() - INTERVAL 1 HOUR"
 
 	var/query = "SELECT CAST(discord_id AS CHAR(25)), ckey, MAX(timestamp), one_time_token FROM [format_table_name("discord_links")] WHERE ckey = :ckey [timeboundsql] GROUP BY ckey, discord_id, one_time_token LIMIT 1"
 	var/datum/db_query/query_get_discord_link_record = SSdbcore.NewQuery(

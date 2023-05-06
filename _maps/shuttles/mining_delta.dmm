@@ -69,12 +69,9 @@
 	},
 /obj/docking_port/mobile{
 	dir = 4;
-	dwidth = 3;
-	height = 5;
 	shuttle_id = "mining";
 	name = "mining shuttle";
-	port_direction = 8;
-	width = 7
+	port_direction = 8
 	},
 /turf/open/floor/iron/white,
 /area/shuttle/mining)
@@ -106,14 +103,13 @@
 /turf/open/floor/iron,
 /area/shuttle/mining)
 "o" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/atmospherics/components/unary/portables_connector/visible,
+/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /turf/open/floor/iron,
 /area/shuttle/mining)
 "p" = (
@@ -212,17 +208,10 @@
 /area/shuttle/mining)
 "r" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
+/turf/open/floor/iron,
 /area/shuttle/mining)
 "s" = (
 /obj/structure/ore_box,
@@ -232,12 +221,8 @@
 /turf/open/floor/iron,
 /area/shuttle/mining)
 "t" = (
-/obj/structure/shuttle/engine/propulsion/burst,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/components/unary/engine,
 /turf/open/floor/plating/airless,
 /area/shuttle/mining)
 

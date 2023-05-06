@@ -38,45 +38,17 @@
 		STOP_PROCESSING(SSobj, src)
 		CRASH("A fake nuke disk tried to call process(). Who the fuck and how the fuck")
 
-	var/turf/new_turf = get_turf(src)
+	/// How comfy is our disk?
+	var/disk_comfort_level = 0
 
-	if (is_secured())
-		last_secured_location = new_turf
+	//Go through and check for items that make disk comfy
+	for(var/obj/comfort_item in loc)
+		if(istype(comfort_item, /obj/item/bedsheet) || istype(comfort_item, /obj/structure/bed))
+			disk_comfort_level++
+
+	if(disk_comfort_level >= 2 && last_disk_move < world.time - 5000 && prob((world.time - 5000 - last_disk_move)*0.0001))
+		visible_message(span_notice("[src] sleeps soundly. Sleep tight, disky."))
 		last_disk_move = world.time
-		var/datum/round_event_control/operative/loneop = locate(/datum/round_event_control/operative) in SSevents.control
-		if(istype(loneop) && loneop.occurrences < loneop.max_occurrences && prob(loneop.weight))
-			loneop.weight = max(loneop.weight - 1, 0)
-			if(loneop.weight % 5 == 0 && SSticker.totalPlayers > 1)
-				message_admins("[src] is secured (currently in [ADMIN_VERBOSEJMP(new_turf)]). The weight of Lone Operative is now [loneop.weight].")
-			log_game("[src] being secured has reduced the weight of the Lone Operative event to [loneop.weight].")
-	else
-		/// How comfy is our disk?
-		var/disk_comfort_level = 0
-
-		//Go through and check for items that make disk comfy
-		for(var/obj/comfort_item in loc)
-			if(istype(comfort_item, /obj/item/bedsheet) || istype(comfort_item, /obj/structure/bed))
-				disk_comfort_level++
-
-		if(last_disk_move < world.time - 5000 && prob((world.time - 5000 - last_disk_move)*0.0001))
-			var/datum/round_event_control/operative/loneop = locate(/datum/round_event_control/operative) in SSevents.control
-			if(istype(loneop) && loneop.occurrences < loneop.max_occurrences)
-				loneop.weight += 1
-				if(loneop.weight % 5 == 0 && SSticker.totalPlayers > 1)
-					if(disk_comfort_level >= 2)
-						visible_message(span_notice("[src] sleeps soundly. Sleep tight, disky."))
-					message_admins("[src] is unsecured in [ADMIN_VERBOSEJMP(new_turf)]. The weight of Lone Operative is now [loneop.weight].")
-				log_game("[src] was left unsecured in [loc_name(new_turf)]. Weight of the Lone Operative event increased to [loneop.weight].")
-
-/obj/item/disk/nuclear/proc/is_secured()
-	if (last_secured_location == get_turf(src))
-		return FALSE
-
-	var/mob/holder = pulledby || get(src, /mob)
-	if (isnull(holder?.client))
-		return FALSE
-
-	return TRUE
 
 /obj/item/disk/nuclear/examine(mob/user)
 	. = ..()

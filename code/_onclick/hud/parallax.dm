@@ -9,7 +9,6 @@
 		C.parallax_layers_cached = list()
 		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/layer_1(null, screenmob)
 		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/layer_2(null, screenmob)
-		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/planet(null, screenmob)
 		if(SSparallax.random_layer)
 			C.parallax_layers_cached += new SSparallax.random_layer(null, screenmob)
 		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/layer_3(null, screenmob)
@@ -90,6 +89,7 @@
 	. = FALSE
 	var/mob/screenmob = viewmob || mymob
 	var/client/C = screenmob.client
+
 	if(new_parallax_movedir == C.parallax_movedir)
 		return
 	var/animatedir = new_parallax_movedir
@@ -172,8 +172,20 @@
 		return
 
 	var/area/areaobj = posobj.loc
+
+	var/destined_parallax_movedir = areaobj.parallax_movedir
+	var/datum/space_level/my_level
+	if(SSmapping && screenmob.z)
+		my_level = SSmapping.z_list[screenmob.z]
+	if(my_level && my_level.related_overmap_object)
+		destined_parallax_movedir = my_level.parallax_direction_override
+	else if(SSshuttle.is_in_shuttle_bounds(screenmob))
+		var/obj/docking_port/mobile/mobile_shuttle = SSshuttle.get_containing_shuttle(screenmob)
+		if(mobile_shuttle && !isnull(mobile_shuttle.overmap_parallax_dir))
+			destined_parallax_movedir = mobile_shuttle.overmap_parallax_dir
+
 	// Update the movement direction of the parallax if necessary (for shuttles)
-	set_parallax_movedir(areaobj.parallax_movedir, FALSE, screenmob)
+	set_parallax_movedir(destined_parallax_movedir, FALSE, screenmob)
 
 	var/force = FALSE
 	if(!C.previous_turf || (C.previous_turf.z != posobj.z))
@@ -193,42 +205,33 @@
 	var/largest_change = max(abs(offset_x), abs(offset_y))
 	var/max_allowed_dist = (glide_rate / world.tick_lag) + 1
 	// If we aren't already moving/don't allow parallax, have made some movement, and that movement was smaller then our "glide" size, animate
-	var/run_parralax = (C.do_parallax_animations && glide_rate && !areaobj.parallax_movedir && C.dont_animate_parallax <= world.time && largest_change <= max_allowed_dist)
+	var/run_parralax = (C.do_parallax_animations && glide_rate && !destined_parallax_movedir && C.dont_animate_parallax <= world.time && largest_change <= max_allowed_dist)
 
-	for(var/atom/movable/screen/parallax_layer/parallax_layer as anything in C.parallax_layers)
-		var/our_speed = parallax_layer.speed
+	for(var/atom/movable/screen/parallax_layer/L as anything in C.parallax_layers)
+		var/our_speed = L.speed
 		var/change_x
 		var/change_y
-		if(parallax_layer.absolute)
-			// We use change here so the typically large absolute objects (just lavaland for now) don't jitter so much
-			change_x = (posobj.x - SSparallax.planet_x_offset) * our_speed + parallax_layer.offset_x
-			change_y = (posobj.y - SSparallax.planet_y_offset) * our_speed + parallax_layer.offset_y
-		else
-			change_x = offset_x * our_speed
-			change_y = offset_y * our_speed
 
-			// This is how we tile parralax sprites
-			// It doesn't use change because we really don't want to animate this
-			if(parallax_layer.offset_x - change_x > 240)
-				parallax_layer.offset_x -= 480
-			else if(parallax_layer.offset_x - change_x < -240)
-				parallax_layer.offset_x += 480
-			if(parallax_layer.offset_y - change_y > 240)
-				parallax_layer.offset_y -= 480
-			else if(parallax_layer.offset_y - change_y < -240)
-				parallax_layer.offset_y += 480
+		change_x = offset_x * L.speed
+		L.offset_x -= change_x
+		change_y = offset_y * L.speed
+		L.offset_y -= change_y
 
-		// Now that we have our offsets, let's do our positioning
-		parallax_layer.offset_x -= change_x
-		parallax_layer.offset_y -= change_y
+		if(L.offset_x > 240)
+			L.offset_x -= 480
+		if(L.offset_x < -240)
+			L.offset_x += 480
+		if(L.offset_y > 240)
+			L.offset_y -= 480
+		if(L.offset_y < -240)
+			L.offset_y += 480
 
-		parallax_layer.screen_loc = "CENTER-7:[round(parallax_layer.offset_x, 1)],CENTER-7:[round(parallax_layer.offset_y, 1)]"
 
-		// We're going to use a transform to "glide" that last movement out, so it looks nicer
-		// Don't do any animates if we're not actually moving enough distance yeah? thanks lad
 		if(run_parralax && (largest_change * our_speed > 1))
-			parallax_layer.transform = matrix(1,0,change_x, 0,1,change_y)
-			animate(parallax_layer, transform=matrix(), time = glide_rate)
+			L.transform = matrix(1, 0, offset_x*L.speed, 0, 1, offset_y*L.speed)
+			animate(L, transform=matrix(), time = glide_rate)
+
+		L.screen_loc = "CENTER-7:[round(L.offset_x,1)],CENTER-7:[round(L.offset_y,1)]"
 
 /atom/movable/proc/update_parallax_contents()
 	for(var/mob/client_mob as anything in client_mobs_in_contents)
@@ -248,7 +251,6 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 	var/offset_x = 0
 	var/offset_y = 0
 	var/view_sized
-	var/absolute = FALSE
 	blend_mode = BLEND_ADD
 	plane = PLANE_SPACE_PARALLAX
 	screen_loc = "CENTER-7,CENTER-7"
@@ -321,37 +323,3 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 /atom/movable/screen/parallax_layer/random/asteroids
 	icon_state = "asteroids"
 	layer = 4
-
-/atom/movable/screen/parallax_layer/planet
-	icon_state = "planet"
-	blend_mode = BLEND_OVERLAY
-	absolute = TRUE //Status of seperation
-	speed = 3
-	layer = 30
-
-/atom/movable/screen/parallax_layer/planet/Initialize(mapload, mob/owner)
-	. = ..()
-	if(!owner?.client)
-		return
-	var/static/list/connections = list(
-		COMSIG_MOVABLE_Z_CHANGED = PROC_REF(on_z_change),
-		COMSIG_MOB_LOGOUT = PROC_REF(on_mob_logout),
-	)
-	AddComponent(/datum/component/connect_mob_behalf, owner.client, connections)
-	on_z_change(owner)
-
-/atom/movable/screen/parallax_layer/planet/proc/on_mob_logout(mob/source)
-	SIGNAL_HANDLER
-	var/client/boss = source.canon_client
-	on_z_change(boss.mob)
-
-/atom/movable/screen/parallax_layer/planet/proc/on_z_change(mob/source)
-	SIGNAL_HANDLER
-	var/client/boss = source.client
-	var/turf/posobj = get_turf(boss?.eye)
-	if(!posobj)
-		return
-	invisibility = is_station_level(posobj.z) ? 0 : INVISIBILITY_ABSTRACT
-
-/atom/movable/screen/parallax_layer/planet/update_o()
-	return //Shit won't move

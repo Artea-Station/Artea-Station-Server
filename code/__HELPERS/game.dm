@@ -113,20 +113,40 @@
 	object_to_change.screen_loc = screen_loc
 	return object_to_change
 
+/// Adds an image to a client's `.images`. Useful as a callback.
+/proc/add_image_to_client(image/image_to_remove, client/add_to)
+	add_to?.images += image_to_remove
+
+/// Like add_image_to_client, but will add the image from a list of clients
+/proc/add_image_to_clients(image/image_to_remove, list/show_to)
+	for(var/client/add_to as anything in show_to)
+		add_to.images += image_to_remove
+
 /// Removes an image from a client's `.images`. Useful as a callback.
 /proc/remove_image_from_client(image/image_to_remove, client/remove_from)
 	remove_from?.images -= image_to_remove
 
-///Like remove_image_from_client, but will remove the image from a list of clients
-/proc/remove_images_from_clients(image/image_to_remove, list/show_to)
-	for(var/client/remove_from in show_to)
+/// Like remove_image_from_client, but will remove the image from a list of clients
+/proc/remove_image_from_clients(image/image_to_remove, list/hide_from)
+	for(var/client/remove_from as anything in hide_from)
 		remove_from.images -= image_to_remove
 
 ///Add an image to a list of clients and calls a proc to remove it after a duration
-/proc/flick_overlay(image/image_to_show, list/show_to, duration)
+/proc/flick_overlay_global(image/image_to_show, list/show_to, duration)
+	if(!show_to || !length(show_to) || !image_to_show)
+		return
 	for(var/client/add_to in show_to)
 		add_to.images += image_to_show
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(remove_images_from_clients), image_to_show, show_to), duration, TIMER_CLIENT_TIME)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(remove_image_from_clients), image_to_show, show_to), duration, TIMER_CLIENT_TIME)
+
+/// Flicks a certain overlay onto an atom, handling icon_state strings
+/atom/proc/flick_overlay(image_to_show, list/show_to, duration, layer)
+	var/image/passed_image = \
+		istext(image_to_show) \
+			? image(icon, src, image_to_show, layer) \
+			: image_to_show
+
+	flick_overlay_global(passed_image, show_to, duration)
 
 ///wrapper for flick_overlay(), flicks to everyone who can see the target atom
 /proc/flick_overlay_view(image/image_to_show, atom/target, duration)
@@ -134,7 +154,7 @@
 	for(var/mob/viewer as anything in viewers(target))
 		if(viewer.client)
 			viewing += viewer.client
-	flick_overlay(image_to_show, viewing, duration)
+	flick_overlay_global(image_to_show, viewing, duration)
 
 ///Get active players who are playing in the round
 /proc/get_active_player_count(alive_check = 0, afk_check = 0, human_check = 0)
@@ -209,6 +229,9 @@
 
 ///Calls the show_candidate_poll_window() to all eligible ghosts
 /proc/poll_candidates(question, jobban_type, be_special_flag = 0, poll_time = 300, ignore_category = null, flashwindow = TRUE, list/group = null)
+	if (group.len == 0)
+		return list()
+
 	var/time_passed = world.time
 	if (!question)
 		question = "Would you like to be a special role?"
@@ -216,6 +239,9 @@
 	for(var/mob/candidate_mob as anything in group)
 		if(!candidate_mob.key || !candidate_mob.client || (ignore_category && GLOB.poll_ignore[ignore_category] && (candidate_mob.ckey in GLOB.poll_ignore[ignore_category])))
 			continue
+		for(var/content_preference in subtypesof(/datum/preference/choiced/content))
+			if(candidate_mob.client.prefs.read_preference(content_preference) == "Unset")
+				continue
 		if(be_special_flag)
 			if(!(candidate_mob.client.prefs) || !(be_special_flag in candidate_mob.client.prefs.be_special))
 				continue

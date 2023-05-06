@@ -15,31 +15,67 @@
 		"basic_micro_laser",
 		"basic_scanning",
 		"bepis",
+		"blast",
+		"bounced_radio",
+		"bowl",
 		"bucket",
-		"c38_rubber",
 		"c-reader",
-		"circuit_imprinter",
+		"c38_rubber",
+		"camera_assembly",
+		"camera_film",
+		"camera",
+		"capbox",
+		"chisel",
 		"circuit_imprinter_offstation",
+		"circuit_imprinter",
+		"circuit",
+		"circuitgreen",
+		"circuitred",
+		"coffee_cartridge",
 		"coffeemaker",
 		"coffeepot",
-		"coffee_cartridge",
+		"condenser",
 		"conveyor_belt",
 		"conveyor_switch",
+		"custom_vendor_refill",
 		"design_disk",
 		"destructive_analyzer",
 		"destructive_scanner",
 		"desttagger",
 		"doppler_array",
+		"drinking_glass",
+		"earmuffs",
+		"electropack",
 		"experi_scanner",
 		"experimentor",
+		"extinguisher",
 		"fax",
+		"fishing_rod",
+		"flashlight",
+		"fluid_ducts",
+		"foam_dart",
+		"fork",
 		"gas_filter",
+		"handcuffs_s",
 		"handlabel",
+		"health_sensor",
+		"holodisk",
+		"igniter",
+		"infrared_emitter",
+		"intercom_frame",
+		"kitchen_knife",
+		"laptop",
+		"light_bulb",
+		"light_tube",
 		"mechfab",
 		"micro_mani",
+		"miniature_power_cell",
+		"newscaster_frame",
 		"oven_tray",
 		"packagewrap",
+		"pet_carrier",
 		"plasmaglass",
+		"plasmaman_gas_filter",
 		"plasmareinforcedglass",
 		"plasteel",
 		"plastic_fork",
@@ -47,28 +83,48 @@
 		"plastic_spoon",
 		"plastitanium",
 		"plastitaniumglass",
-		"plasmaman_gas_filter",
+		"plate",
+		"prox_sensor",
+		"radio_headset",
 		"rdconsole",
 		"rdserver",
 		"rdservercontrol",
-		"restaurant_portal",
+		"receiver",
+		"recorder",
 		"rglass",
 		"roll",
 		"salestagger",
 		"sec_38",
-		"sec_Islug",
 		"sec_beanbag_slug",
 		"sec_dart",
+		"sec_Islug",
 		"sec_rshot",
+		"servingtray",
+		"shaker",
+		"shot_glass",
+		"signaler",
+		"slime_scanner",
+		"solar_panel",
+		"solar_tracker",
 		"space_heater",
+		"spoon",
+		"status_display_frame",
+		"sticky_tape",
+		"tape",
 		"tech_disk",
+		"timer",
 		"titaniumglass",
-		"toner",
 		"toner_large",
+		"toner",
+		"toy_armblade",
+		"toy_balloon",
+		"toygun",
 		"trapdoor_electronics",
 		"turbine_part_compressor",
 		"turbine_part_rotor",
 		"turbine_part_stator",
+		"turret_control",
+		"voice_analyzer",
 		"watering_can",
 	)
 
@@ -215,6 +271,7 @@
 		"dropper",
 		"hemostat",
 		"large_beaker",
+		"mmi_m",
 		"operating",
 		"petri_dish",
 		"pillbottle",
@@ -550,6 +607,7 @@
 		"forcefield_projector",
 		"magboots",
 		"rcd_loaded",
+		"rcd_ammo",
 		"rpd_loaded",
 		"sheetifier",
 		"weldingmask",
@@ -624,7 +682,6 @@
 		"bluespace_pod",
 		"launchpad",
 		"launchpad_console",
-		"quantumpad",
 		"tele_hub",
 		"tele_station",
 		"teleconsole",
@@ -638,12 +695,7 @@
 	description = "Extreme reduction in space required for bluespace engines, leading to portable bluespace technology."
 	prereq_ids = list("bluespace_travel", "practical_bluespace", "high_efficiency")
 	design_ids = list(
-		"bluespace_matter_bin",
 		"bluespacebodybag",
-		"femto_mani",
-		"quantum_keycard",
-		"swapper",
-		"triphasic_scanning",
 		"wormholeprojector",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
@@ -666,10 +718,8 @@
 	description = "Using bluespace to make things faster and better."
 	prereq_ids = list("bluespace_basic", "engineering")
 	design_ids = list(
-		"bluespacebeaker",
-		"bluespacesyringe",
 		"bluespace_coffeepot",
-		"bs_rped",
+		"adv_rped",
 		"minerbag_holding",
 		"ore_silo",
 		"phasic_scanning",
@@ -678,18 +728,6 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	discount_experiments = list(/datum/experiment/scanning/points/machinery_pinpoint_scan/tier2_scanmodules = 3500)
-
-/datum/techweb_node/bluespace_power
-	id = "bluespace_power"
-	display_name = "Bluespace Power Technology"
-	description = "Even more powerful.. power!"
-	prereq_ids = list("adv_power", "practical_bluespace")
-	design_ids = list(
-		"bluespace_cell",
-		"quadratic_capacitor",
-	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 4000)
-	discount_experiments = list(/datum/experiment/scanning/points/machinery_pinpoint_scan/tier3_cells = 3000)
 
 /datum/techweb_node/regulated_bluespace
 	id = "regulated_bluespace"
@@ -790,7 +828,7 @@
 	id = "server_shell"
 	display_name = "Server Technology Research"
 	description = "Grants access to a server shell that has a very high capacity for components."
-	prereq_ids = list("adv_shells", "computer_hardware_basic")
+	prereq_ids = list("adv_shells", "computer_data_disks")
 	design_ids = list(
 		"server_shell",
 	)
@@ -855,11 +893,6 @@
 		"borg_upgrade_trashofholding",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
-
-/datum/techweb_node/cyborg_upg_util/New()
-	. = ..()
-	if(!CONFIG_GET(flag/disable_secborg))
-		design_ids += "borg_upgrade_disablercooler"
 
 /datum/techweb_node/cyborg_upg_engiminer
 	id = "cyborg_upg_engiminer"
@@ -985,20 +1018,6 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
 	discount_experiments = list(/datum/experiment/scanning/points/machinery_pinpoint_scan/tier2_microlaser = 1500)
 
-/datum/techweb_node/emp_super
-	id = "emp_super"
-	display_name = "Quantum Electromagnetic Technology" //bs
-	description = "Even better electromagnetic technology."
-	prereq_ids = list("emp_adv")
-	design_ids = list(
-		"quadultra_micro_laser",
-	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 15000)
-	discount_experiments = list(
-		/datum/experiment/scanning/points/machinery_pinpoint_scan/tier3_microlaser = 4000,
-		/datum/experiment/ordnance/gaseous/noblium = 10000,
-	)
-
 /////////////////////////Clown tech/////////////////////////
 /datum/techweb_node/clown
 	id = "clown"
@@ -1007,7 +1026,6 @@
 	prereq_ids = list("base")
 	design_ids = list(
 		"air_horn",
-		"borg_transform_clown",
 		"honk_chassis",
 		"honk_head",
 		"honk_left_arm",
@@ -1045,30 +1063,17 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
 
-/datum/techweb_node/computer_hardware_basic //Modular computers are shitty and nearly useless so until someone makes them actually useful this can be easy to get.
-	id = "computer_hardware_basic"
-	display_name = "Computer Hardware"
-	description = "How computer hardware is made."
+/datum/techweb_node/data_disks
+	id = "computer_data_disks"
+	display_name = "Computer Data Disks"
+	description = "Data disks used for storing modular computer stuff."
 	prereq_ids = list("comptech")
 	design_ids = list(
-		"bat_advanced",
-		"bat_control",
-		"bat_micro",
-		"bat_nano",
-		"bat_normal",
-		"bat_super",
-		"cardslot",
-		"hdd_advanced",
-		"hdd_basic",
-		"hdd_cluster",
-		"hdd_super",
 		"portadrive_advanced",
 		"portadrive_basic",
 		"portadrive_super",
-		"ssd_micro",
-		"ssd_small",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)  //they are really shitty
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 
 /datum/techweb_node/computer_board_gaming
 	id = "computer_board_gaming"
@@ -1285,6 +1290,9 @@
 		"superresonator",
 		"triggermod",
 		"mecha_kineticgun",
+		"mining_drill",
+		"mining_brace",
+		"metal_density_scanner",
 	)//e a r l y    g a  m e)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
@@ -1298,6 +1306,7 @@
 		"hypermod",
 		"jackhammer",
 		"plasmacutter_adv",
+		"adv_metal_density_scanner",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 7500)
 	discount_experiments = list(/datum/experiment/scanning/random/material/hard/one = 5000)
@@ -1783,7 +1792,7 @@
 	id = "adv_mecha_armor"
 	display_name = "Exosuit Heavy Armor Research"
 	description = "Recreating heavy armor with new rapid fabrication techniques."
-	prereq_ids = list("adv_mecha", "bluespace_power")
+	prereq_ids = list("adv_mecha")
 	design_ids = list(
 		"mech_ccw_armor",
 		"mech_proj_armor",

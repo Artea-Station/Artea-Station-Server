@@ -53,7 +53,7 @@
 		/obj/item/restraints/handcuffs,
 		/obj/item/paper/fluff/jobs/prisoner/letter,
 		/obj/item/storage/wallet/random,
-		/obj/item/modular_computer/tablet/pda,
+		/obj/item/modular_computer/pda,
 		/obj/item/radio/off,
 	)
 
@@ -88,4 +88,29 @@
 		/obj/item/food/grown/cannabis/death = 45, //i mean, it's been there for a while?
 		/obj/item/food/grown/cannabis/rainbow = 15,
 		/obj/item/food/grown/cannabis/ultimate = 1,
+	)
+
+/obj/effect/spawner/random/contraband/random
+	name = "contraband spawner"
+	loot = list(
+		/obj/item/gun/ballistic/automatic/pistol = 1,
+		/obj/item/switchblade = 3,
+		/obj/item/poster/random_contraband = 1,
+		/obj/item/food/grown/cannabis = 1,
+		/obj/item/food/grown/cannabis/rainbow = 1,
+		/obj/item/food/grown/cannabis/white = 1,
+		/obj/item/storage/box/fireworks/dangerous = 1,
+		/obj/item/storage/pill_bottle/zoom = 1,
+		/obj/item/storage/pill_bottle/happy = 1,
+		/obj/item/storage/pill_bottle/lsd = 1,
+		/obj/item/storage/pill_bottle/aranesp = 1,
+		/obj/item/storage/pill_bottle/stimulant = 1,
+		/obj/item/toy/cards/deck/syndicate = 1,
+		/obj/item/reagent_containers/cup/bottle/fentanyl = 1,
+		/obj/item/clothing/under/syndicate/tacticool = 1,
+		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
+		/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 1,
+		/obj/item/clothing/mask/gas/syndicate = 1,
+		/obj/item/clothing/neck/necklace/dope = 1,
+		/obj/item/melee/baton/security/cattleprod = 1
 	)

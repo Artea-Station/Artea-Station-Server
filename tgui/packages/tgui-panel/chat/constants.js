@@ -28,6 +28,7 @@ export const MESSAGE_TYPE_INFO = 'info';
 export const MESSAGE_TYPE_WARNING = 'warning';
 export const MESSAGE_TYPE_DEADCHAT = 'deadchat';
 export const MESSAGE_TYPE_OOC = 'ooc';
+export const MESSAGE_TYPE_LOOC = 'looc';
 export const MESSAGE_TYPE_ADMINPM = 'adminpm';
 export const MESSAGE_TYPE_COMBAT = 'combat';
 export const MESSAGE_TYPE_ADMINCHAT = 'adminchat';
@@ -35,6 +36,7 @@ export const MESSAGE_TYPE_MODCHAT = 'modchat';
 export const MESSAGE_TYPE_EVENTCHAT = 'eventchat';
 export const MESSAGE_TYPE_ADMINLOG = 'adminlog';
 export const MESSAGE_TYPE_ATTACKLOG = 'attacklog';
+export const MESSAGE_TYPE_ADMINLOOC = 'adminlooc';
 export const MESSAGE_TYPE_DEBUG = 'debug';
 
 // Metadata for each message type
@@ -59,7 +61,7 @@ export const MESSAGE_TYPES = [
     name: 'Radio',
     description: 'All departments of radio messages',
     selector:
-      '.alert, .minorannounce, .syndradio, .centcomradio, .aiprivradio, .comradio, .secradio, .gangradio, .engradio, .medradio, .sciradio, .suppradio, .servradio, .radio, .deptradio, .binarysay, .newscaster, .resonate',
+      '.alert, .minorannounce, .syndradio, .centcomradio, .aiprivradio, .comradio, .secradio, .gangradio, .engradio, .medradio, .pathradio, .suppradio, .servradio, .radio, .deptradio, .binarysay, .newscaster, .resonate',
   },
   {
     type: MESSAGE_TYPE_INFO,
@@ -86,6 +88,12 @@ export const MESSAGE_TYPES = [
     name: 'OOC',
     description: 'The bluewall of global OOC messages',
     selector: '.ooc, .adminooc, .adminobserverooc, .oocplain',
+  },
+  {
+    type: MESSAGE_TYPE_LOOC,
+    name: 'LOOC',
+    description: 'Local OOC messages',
+    selector: '.looc',
   },
   {
     type: MESSAGE_TYPE_ADMINPM,
@@ -130,6 +138,13 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_ATTACKLOG,
     name: 'Attack Log',
     description: 'Urist McTraitor has shot John Doe',
+    admin: true,
+  },
+  {
+    type: MESSAGE_TYPE_ADMINLOOC,
+    name: 'Admin Local OOC',
+    description: 'All LOOC messages, regardless of distance',
+    selector: '.adminlooc',
     admin: true,
   },
   {

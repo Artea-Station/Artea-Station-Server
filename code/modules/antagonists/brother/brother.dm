@@ -37,8 +37,10 @@
 	var/mob/living/carbon/human/dummy/consistent/brother1 = new
 	var/mob/living/carbon/human/dummy/consistent/brother2 = new
 
-	brother1.dna.features["ethcolor"] = GLOB.color_list_ethereal["Faint Red"]
 	brother1.set_species(/datum/species/ethereal)
+	brother1.dna.species.fixed_mut_color = GLOB.color_list_ethereal["Faint Red"]
+	brother1.update_body(is_creating = TRUE)
+	brother1.update_mutations_overlay()
 
 	brother2.dna.features["moth_antennae"] = "Plain"
 	brother2.dna.features["moth_markings"] = "None"
@@ -49,7 +51,7 @@
 	brother1_icon.Blend(icon('icons/effects/blood.dmi', "maskblood"), ICON_OVERLAY)
 	brother1_icon.Shift(WEST, 8)
 
-	var/icon/brother2_icon = render_preview_outfit(/datum/outfit/job/scientist/consistent, brother2)
+	var/icon/brother2_icon = render_preview_outfit(/datum/outfit/job/assistant/consistent, brother2)
 	brother2_icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
 	brother2_icon.Shift(EAST, 8)
 

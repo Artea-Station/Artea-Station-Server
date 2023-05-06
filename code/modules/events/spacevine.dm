@@ -8,8 +8,6 @@
 #define GAS_MUTATION_REMOVAL_MULTIPLIER 3
 /// Determines the probability that the thorn mutation will harm someone who passes through or attacks it
 #define THORN_MUTATION_CUT_PROB 10
-/// Determines the probability that a kudzu plant with the flowering mutation will spawn a venus flower bud
-#define FLOWERING_MUTATION_SPAWN_PROB 10
 /// Maximum energy used per atmos tick that the temperature stabilisation mutation will use to bring the temperature to T20C
 #define TEMP_STABILISATION_MUTATION_MAXIMUM_ENERGY 40000
 
@@ -50,7 +48,7 @@
 	name = "Space Vines"
 	typepath = /datum/round_event/spacevine
 	weight = 15
-	max_occurrences = 3
+	max_occurrences = 1
 	min_players = 10
 	category = EVENT_CATEGORY_ENTITIES
 	description = "Kudzu begins to overtake the station. Might spawn man-traps."
@@ -388,21 +386,6 @@
 		. = expected_damage * 0.5
 	else
 		. = expected_damage
-
-/datum/spacevine_mutation/flowering
-	name = "Flowering"
-	hue = "#66DE93"
-	quality = NEGATIVE
-	severity = SEVERITY_MAJOR
-
-/datum/spacevine_mutation/flowering/on_grow(obj/structure/spacevine/holder)
-	if(holder.energy == 2 && prob(FLOWERING_MUTATION_SPAWN_PROB) && !locate(/obj/structure/alien/resin/flower_bud) in range(5,holder))
-		var/obj/structure/alien/resin/flower_bud/spawned_flower_bud = new/obj/structure/alien/resin/flower_bud(get_turf(holder))
-		spawned_flower_bud.trait_flags = holder.trait_flags
-
-/datum/spacevine_mutation/flowering/on_cross(obj/structure/spacevine/holder, mob/living/crosser)
-	if(prob(25))
-		holder.entangle(crosser)
 
 // SPACE VINES (Note that this code is very similar to Biomass code)
 /obj/structure/spacevine
@@ -750,7 +733,6 @@
 #undef EXPLOSION_MUTATION_IMPACT_RADIUS
 #undef GAS_MUTATION_REMOVAL_MULTIPLIER
 #undef THORN_MUTATION_CUT_PROB
-#undef FLOWERING_MUTATION_SPAWN_PROB
 #undef VINE_FREEZING_POINT
 #undef SEVERITY_TRIVIAL
 #undef SEVERITY_MINOR
