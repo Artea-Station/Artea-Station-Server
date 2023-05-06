@@ -442,22 +442,10 @@
 /obj/structure/window/reinforced/attackby_secondary(obj/item/tool, mob/user, params)
 	switch(state)
 		if(RWINDOW_SECURE)
-			if(tool.tool_behaviour == TOOL_WELDER)
-				if(tool.tool_start_check(user))
-					user.visible_message(span_notice("[user] holds \the [tool] to the security screws on \the [src]..."),
-						span_notice("You begin heating the security screws on \the [src]..."))
-					if(tool.use_tool(src, user, 15 SECONDS, volume = 100))
-						to_chat(user, span_notice("The security screws are glowing white hot and look ready to be removed."))
-						state = RWINDOW_BOLTS_HEATED
-						addtimer(CALLBACK(src, PROC_REF(cool_bolts)), 30 SECONDS)
-			else if (tool.tool_behaviour)
-				to_chat(user, span_warning("The security screws need to be heated first!"))
-
-		if(RWINDOW_BOLTS_HEATED)
 			if(tool.tool_behaviour == TOOL_SCREWDRIVER)
-				user.visible_message(span_notice("[user] digs into the heated security screws and starts removing them..."),
-										span_notice("You dig into the heated screws hard and they start turning..."))
-				if(tool.use_tool(src, user, 50, volume = 50))
+				user.visible_message(span_notice("[user] digs into the security screws and starts removing them..."),
+										span_notice("You dig into the screws hard and they start turning..."))
+				if(tool.use_tool(src, user, 25, volume = 50))
 					state = RWINDOW_BOLTS_OUT
 					to_chat(user, span_notice("The screws come out, and a gap forms around the edge of the pane."))
 			else if (tool.tool_behaviour)
@@ -467,7 +455,7 @@
 			if(tool.tool_behaviour == TOOL_CROWBAR)
 				user.visible_message(span_notice("[user] wedges \the [tool] into the gap in the frame and starts prying..."),
 										span_notice("You wedge \the [tool] into the gap in the frame and start prying..."))
-				if(tool.use_tool(src, user, 40, volume = 50))
+				if(tool.use_tool(src, user, 20, volume = 50))
 					state = RWINDOW_POPPED
 					to_chat(user, span_notice("The panel pops out of the frame, exposing some thin metal bars that looks like they can be cut."))
 			else if (tool.tool_behaviour)
@@ -477,7 +465,7 @@
 			if(tool.tool_behaviour == TOOL_WIRECUTTER)
 				user.visible_message(span_notice("[user] starts cutting the exposed bars on \the [src]..."),
 										span_notice("You start cutting the exposed bars on \the [src]"))
-				if(tool.use_tool(src, user, 20, volume = 50))
+				if(tool.use_tool(src, user, 10, volume = 50))
 					state = RWINDOW_BARS_CUT
 					to_chat(user, span_notice("The panels falls out of the way exposing the frame bolts."))
 			else if (tool.tool_behaviour)
@@ -487,7 +475,7 @@
 			if(tool.tool_behaviour == TOOL_WRENCH)
 				user.visible_message(span_notice("[user] starts unfastening \the [src] from the frame..."),
 					span_notice("You start unfastening the bolts from the frame..."))
-				if(tool.use_tool(src, user, 40, volume = 50))
+				if(tool.use_tool(src, user, 20, volume = 50))
 					to_chat(user, span_notice("You unscrew the bolts from the frame and the window pops loose."))
 					state = WINDOW_OUT_OF_FRAME
 					set_anchored(FALSE)
