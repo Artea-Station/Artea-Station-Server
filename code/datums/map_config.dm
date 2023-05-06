@@ -5,7 +5,7 @@
 
 /datum/map_config
 	// Metadata
-	var/config_filename = "_maps/metastation.json"
+	var/config_filename = "_maps/kilostation.json"
 	var/defaulted = TRUE  // set to FALSE by LoadConfig() succeeding
 	// Config from maps.txt
 	var/config_max_users = 0
@@ -14,9 +14,9 @@
 	var/votable = FALSE
 
 	// Config actually from the JSON - should default to Meta
-	var/map_name = "Meta Station"
-	var/map_path = "map_files/MetaStation"
-	var/map_file = "MetaStation.dmm"
+	var/map_name = "Kilo Station"
+	var/map_path = "map_files/KiloStation"
+	var/map_file = "KiloStation.dmm"
 
 	var/traits = null
 	var/space_ruin_levels = 7
@@ -26,17 +26,18 @@
 
 	var/allow_custom_shuttles = TRUE
 	var/shuttles = list(
-		"cargo" = "cargo_box",
-		"ferry" = "ferry_fancy",
-		"whiteship" = "whiteship_meta",
-		"emergency" = "emergency_meta")
+		"cargo" = "cargo_kilo",
+		"ferry" = "ferry_kilo",
+		"whiteship" = "whiteship_kilo",
+		"emergency" = "emergency_kilo")
 
 	var/job_faction = FACTION_STATION
 
 	var/overflow_job = /datum/job/assistant
 
 	/// Dictionary of job sub-typepath to template changes dictionary
-	var/job_changes = list()
+	var/job_changes = list("cook" = list("additional_cqc_areas" = list("/area/service/bar/atrium")),
+						"captain" = list("special_charter" = "asteroid"))
 	/// List of additional areas that count as a part of the library
 	var/library_areas = list()
 
@@ -79,7 +80,7 @@
  * Proc that simply loads the default map config, which should always be functional.
  */
 /proc/load_default_map_config()
-	return new /datum/map_config/metastation
+	return new /datum/map_config/kilostation
 
 /**
  * Proc handling the loading of map configs. Will return the default map config using [/proc/load_default_map_config] if the loading of said file fails for any reason whatsoever, so we always have a working map for the server to run.
