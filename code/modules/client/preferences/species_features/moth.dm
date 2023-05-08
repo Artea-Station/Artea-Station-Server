@@ -9,7 +9,8 @@
 	var/list/values = list()
 
 	var/icon/moth_head = icon('icons/mob/species/moth/bodyparts.dmi', "moth_head")
-	moth_head.Blend(icon('icons/mob/species/human/human_face.dmi', "motheyes"), ICON_OVERLAY)
+	moth_head.Blend(icon('icons/mob/species/human/human_face.dmi', "motheyes_l"), ICON_OVERLAY)
+	moth_head.Blend(icon('icons/mob/species/human/human_face.dmi', "motheyes_r"), ICON_OVERLAY)
 
 	for (var/antennae_name in GLOB.moth_antennae_list)
 		var/datum/sprite_accessory/antennae = GLOB.moth_antennae_list[antennae_name]
@@ -48,19 +49,20 @@
 		/obj/item/bodypart/arm/right/moth,
 	)
 
-	for (var/obj/item/bodypart/body_part in body_parts)
+	for (var/obj/item/bodypart/body_part as anything in body_parts)
 		var/gender = (initial(body_part.is_dimorphic)) ? "_m" : ""
 		moth_body.Blend(icon('icons/mob/species/moth/bodyparts.dmi', "moth_[body_part][gender]"), ICON_OVERLAY)
 
-	moth_body.Blend(icon('icons/mob/species/human/human_face.dmi', "motheyes"), ICON_OVERLAY)
+	moth_body.Blend(icon('icons/mob/species/human/human_face.dmi', "motheyes_r"), ICON_OVERLAY)
+	moth_body.Blend(icon('icons/mob/species/human/human_face.dmi', "motheyes_l"), ICON_OVERLAY)
 
 	for (var/markings_name in GLOB.moth_markings_list)
 		var/datum/sprite_accessory/markings = GLOB.moth_markings_list[markings_name]
 		var/icon/icon_with_markings = new(moth_body)
 
 		if (markings_name != "None")
-			for (var/body_part in body_parts)
-				var/icon/body_part_icon = icon(markings.icon, "[markings.icon_state]_[body_part]")
+			for (var/obj/item/bodypart/body_part as anything in body_parts)
+				var/icon/body_part_icon = icon(markings.icon, "[markings.icon_state]_[initial(body_part.body_zone)]")
 				body_part_icon.Crop(1, 1, 32, 32)
 				icon_with_markings.Blend(body_part_icon, ICON_OVERLAY)
 

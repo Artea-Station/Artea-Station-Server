@@ -12,11 +12,12 @@
 	///The bodypart that the overlay is currently applied to
 	var/datum/weakref/attached_bodypart
 
-/datum/bodypart_overlay/simple/emote/get_image(layer, obj/item/bodypart/limb)
-	var/image/image = ..()
+/datum/bodypart_overlay/simple/emote/get_images(layer, obj/item/bodypart/limb)
+	var/list/image/images = ..()
+	var/image/image = images[1]
 	image.pixel_x = offset_x
 	image.pixel_y = offset_y
-	return image
+	return images
 
 /datum/bodypart_overlay/simple/emote/added_to_limb(obj/item/bodypart/limb)
 	attached_bodypart = WEAKREF(limb)

@@ -45,15 +45,31 @@ export const ChoicedSelection = (
       <Stack vertical fill>
         <Stack.Item>
           <Stack fill>
-            {supplementalFeature && (
+            {supplementalFeature !== undefined && (
               <Stack.Item>
-                <FeatureValueInput
-                  act={act}
-                  feature={features[supplementalFeature]}
-                  featureId={supplementalFeature}
-                  shrink
-                  value={supplementalValue}
-                />
+                {features[supplementalFeature].description ? (
+                  <Tooltip
+                    position="right"
+                    content={
+                      <Box>{features[supplementalFeature].description}</Box>
+                    }>
+                    <FeatureValueInput
+                      act={act}
+                      feature={features[supplementalFeature]}
+                      featureId={supplementalFeature}
+                      shrink
+                      value={supplementalValue}
+                    />
+                  </Tooltip>
+                ) : (
+                  <FeatureValueInput
+                    act={act}
+                    feature={features[supplementalFeature]}
+                    featureId={supplementalFeature}
+                    shrink
+                    value={supplementalValue}
+                  />
+                )}
               </Stack.Item>
             )}
 

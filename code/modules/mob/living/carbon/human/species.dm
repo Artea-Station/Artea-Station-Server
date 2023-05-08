@@ -236,6 +236,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// Species code is really odd...
 	var/properly_gained = FALSE
 
+	/// A fuckton of snowflake code just for those precious ears because they are still for *some* reason internal organs.
+	var/datum/bodypart_overlay/mutant/ears_overlay_handler
+
 ///////////
 // PROCS //
 ///////////
@@ -486,7 +489,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			var/obj/item/organ/external/new_organ = SSwardrobe.provide_type(organ_path)
 			new_organ.Insert(human, special=TRUE, drop_if_replaced=FALSE)
 
-		if(human.dna.features["tail"] && human.dna.features["tail"] != "None")
+		if(human.dna.features["tail"] && human.dna.features[MUTANT_TAIL] != "None")
 			var/obj/item/organ/external/tail/cat/tail = new
 			tail.Insert(human, drop_if_replaced = FALSE)
 
@@ -677,13 +680,18 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					working_shirt = wear_female_version(undershirt.icon_state, undershirt.icon, BODY_LAYER)
 				else
 					working_shirt = mutable_appearance(undershirt.icon, undershirt.icon_state, -BODY_LAYER)
+				if(!undershirt.use_static)
+					working_shirt.color = species_human.undershirt_color
 				working_shirt.pixel_y += height_offset
 				standing += working_shirt
 
 		if(species_human.socks && species_human.num_legs >= 2 && !(src.bodytype & BODYTYPE_DIGITIGRADE))
 			var/datum/sprite_accessory/socks/socks = GLOB.socks_list[species_human.socks]
 			if(socks)
-				standing += mutable_appearance(socks.icon, socks.icon_state, -BODY_LAYER)
+				var/mutable_appearance/socks_overlay = mutable_appearance(socks.icon, socks.icon_state, -BODY_LAYER)
+				if(!socks.use_static)
+					socks_overlay.color = species_human.socks_color
+				standing += socks_overlay
 
 	if(standing.len)
 		species_human.overlays_standing[BODY_LAYER] = standing
@@ -715,10 +723,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/obj/item/bodypart/head/noggin = source.get_bodypart(BODY_ZONE_HEAD)
 
-	if(mutant_bodyparts["human_tail"])
-		if(!source.dna.features["human_tail"] || source.dna.features["human_tail"] == "None")
-			bodyparts_to_add -= "human_tail"
-
 	if(mutant_bodyparts["ears"])
 		if(!source.dna.features["ears"] || source.dna.features["ears"] == "None" || source.head && (source.head.flags_inv & HIDEHAIR) || (source.wear_mask && (source.wear_mask.flags_inv & HIDEHAIR)) || !noggin)
 			bodyparts_to_add -= "ears"
@@ -746,41 +750,56 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(!accessory || accessory.icon_state == "none")
 				continue
 
-			var/mutable_appearance/accessory_overlay = mutable_appearance(accessory.icon, layer = -layer)
-
-			if(accessory.gender_specific)
-				accessory_overlay.icon_state = "[g]_[bodypart]_[accessory.icon_state]_[layertext]"
+			var/list/layer_indexes
+			if(length(accessory.color_layer_names))
+				layer_indexes = accessory.color_layer_names
 			else
-				accessory_overlay.icon_state = "m_[bodypart]_[accessory.icon_state]_[layertext]"
+				layer_indexes = list("1" = null)
 
-			if(accessory.em_block)
-				accessory_overlay.overlays += emissive_blocker(accessory_overlay.icon, accessory_overlay.icon_state, accessory_overlay.alpha)
+			for(var/index in layer_indexes)
+				var/mutable_appearance/accessory_overlay = mutable_appearance(accessory.icon, layer = -layer)
 
-			if(accessory.center)
-				accessory_overlay = center_image(accessory_overlay, accessory.dimension_x, accessory.dimension_y)
+				var/index_text = ""
+				if(length(accessory.color_layer_names) && accessory.color_layer_names[index])
+					index_text = "_[accessory.color_layer_names[index]]"
 
-			if(!(HAS_TRAIT(source, TRAIT_HUSK)))
-				if(!forced_colour)
-					switch(accessory.color_src)
-						if(MUTCOLORS)
-							if(fixed_mut_color)
-								accessory_overlay.color = fixed_mut_color
-							else
-								accessory_overlay.color = source.skin_tone
-						if(HAIR)
-							if(hair_color == "mutcolor")
-								accessory_overlay.color = source.skin_tone
-							else if(hair_color == "fixedmutcolor")
-								accessory_overlay.color = fixed_mut_color
-							else
-								accessory_overlay.color = source.hair_color
-						if(FACEHAIR)
-							accessory_overlay.color = source.facial_hair_color
-						if(EYECOLOR)
-							accessory_overlay.color = source.eye_color_left
+				if(accessory.gender_specific)
+					accessory_overlay.icon_state = "[g]_[bodypart]_[accessory.icon_state]_[layertext][index_text]"
 				else
-					accessory_overlay.color = forced_colour
-			standing += accessory_overlay
+					accessory_overlay.icon_state = "m_[bodypart]_[accessory.icon_state]_[layertext][index_text]"
+
+				if(accessory.em_block)
+					accessory_overlay.overlays += emissive_blocker(accessory_overlay.icon, accessory_overlay.icon_state, accessory_overlay.alpha)
+
+				if(accessory.center)
+					accessory_overlay = center_image(accessory_overlay, accessory.dimension_x, accessory.dimension_y)
+
+				if(!(HAS_TRAIT(source, TRAIT_HUSK)))
+					if(!forced_colour)
+						switch(accessory.color_src)
+							if(TRI_COLOR_LAYERS)
+								accessory_overlay.color = "#[source.dna.features["[bodypart]_color"][text2num(index)]]"
+							if(MUTCOLORS)
+								if(source.dna.features["[bodypart]_color"])
+									accessory_overlay.color = "#[source.dna.features["[bodypart]_color"][1]]"
+								else if(fixed_mut_color)
+									accessory_overlay.color = fixed_mut_color
+								else
+									accessory_overlay.color = source.skin_tone
+							if(HAIR)
+								if(hair_color == "mutcolor")
+									accessory_overlay.color = source.skin_tone
+								else if(hair_color == "fixedmutcolor")
+									accessory_overlay.color = fixed_mut_color
+								else
+									accessory_overlay.color = source.hair_color
+							if(FACEHAIR)
+								accessory_overlay.color = source.facial_hair_color
+							if(EYECOLOR)
+								accessory_overlay.color = source.eye_color_left
+					else
+						accessory_overlay.color = forced_colour
+				standing += accessory_overlay
 
 			if(accessory.hasinner)
 				var/mutable_appearance/inner_accessory_overlay = mutable_appearance(accessory.icon, layer = -layer)
