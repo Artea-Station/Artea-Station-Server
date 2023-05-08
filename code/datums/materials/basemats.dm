@@ -570,3 +570,19 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	victim.apply_damage(30, BURN, BODY_ZONE_HEAD, wound_bonus = 5)
 	source_item?.reagents?.add_reagent(/datum/reagent/toxin/plasma, source_item.reagents.total_volume*5)
 	return TRUE
+
+/datum/material/engine_fuel
+	name = "solid engine fuel"
+	desc = "A solid sheet of engine fuel. Inert in this state, and relatively safe."
+	color = "#4ed6ffc8"
+	greyscale_colors = "#4ed6ffc8"
+	alpha = 200
+	categories = list(MAT_CATEGORY_ORE = FALSE, MAT_CATEGORY_ITEM_MATERIAL = TRUE)
+	sheet_type = /obj/item/stack/sheet/bluespace_crystal
+	value_per_unit = 0.15
+	wall_type = null
+
+/datum/material/bluespace/on_accidental_mat_consumption(mob/living/carbon/victim, obj/item/source_item)
+	victim.reagents.add_reagent(/datum/reagent/bluespace, rand(5, 8))
+	source_item?.reagents?.add_reagent(/datum/reagent/bluespace, source_item.reagents.total_volume*(2/5))
+	return TRUE

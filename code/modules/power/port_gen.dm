@@ -279,3 +279,14 @@
 
 /obj/machinery/power/port_gen/pacman/pre_loaded
 	sheets = 15
+
+
+// These are purposefully shit.
+/obj/machinery/power/port_gen/pacman/shuttle
+	desc = "A portable generator that, while lasting longer than it's more traditional bretheren, suffers from cripplingly low power generation, though it works well enough for powering smaller shuttles."
+	icon_state = "portgen2_0"
+	base_icon = "portgen2"
+	max_sheets = 20
+	time_per_sheet = 300 // 5 Minutes
+	power_gen = 1000
+	sheet_path = /obj/item/stack/sheet/mineral/engine_fuel

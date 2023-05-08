@@ -495,3 +495,28 @@ GLOBAL_LIST_INIT(metalhydrogen_recipes, list(
 	mats_per_unit = list(/datum/material/zaukerite = MINERAL_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/mineral/zaukerite
 	material_type = /datum/material/zaukerite
+
+/*
+ * Shuttle Fuel
+ * Keeps the lights on inside a shuttle for 5 minutes a sheet.
+ */
+/obj/item/stack/sheet/mineral/engine_fuel
+	name = "solid engine fuel"
+	icon_state = "sheet-enginefuel"
+	inhand_icon_state = "sheet-adamantine" // Look, it's a pain in the ass dealing with directionals.
+	singular_name = "engine fuel sheet"
+	sheettype = "solid engine fuel"
+	mats_per_unit = list(/datum/material/engine_fuel=MINERAL_MATERIAL_AMOUNT)
+	grind_results = list(/datum/reagent/fuel = 20)
+	point_value = 20
+	merge_type = /obj/item/stack/sheet/mineral/engine_fuel
+	material_type = /datum/material/engine_fuel
+
+/obj/item/stack/sheet/mineral/engine_fuel/five
+	amount = 5
+
+/obj/item/stack/sheet/mineral/engine_fuel/thirty
+	amount = 30
+
+/obj/item/stack/sheet/mineral/engine_fuel/fifty
+	amount = 50
