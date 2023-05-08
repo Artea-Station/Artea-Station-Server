@@ -31,6 +31,10 @@
 	dictionary_key = /datum/wires/airlock/engineering
 	proper_name = "Engineering Airlock"
 
+/datum/wires/airlock/pathfinders
+	dictionary_key = /datum/wires/airlock/pathfinders
+	proper_name = "Pathfinders Airlock"
+
 /datum/wires/airlock/medbay
 	dictionary_key = /datum/wires/airlock/medbay
 	proper_name = "Medbay Airlock"
