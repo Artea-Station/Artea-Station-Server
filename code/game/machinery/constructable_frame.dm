@@ -312,3 +312,10 @@
 			var/obj/item/I = X
 			I.forceMove(loc)
 	..()
+
+/obj/structure/frame/machine/wired
+	state = 2
+	icon_state = "box_1"
+
+/obj/structure/frame/machine/wired/anchored
+	anchored = TRUE
