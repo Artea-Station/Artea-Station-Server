@@ -78,7 +78,7 @@
 
 	var/image/plasma_image = image(image_icon, image_holder, image_state, FLY_LAYER)
 	plasma_image.alpha = 50
-	plasma_image.plane = ABOVE_GAME_PLANE
+	plasma_image.plane = GAME_PLANE
 	flood_images += plasma_image
 
 /datum/hallucination/fake_flood/Destroy()
@@ -96,7 +96,6 @@
 	icon_state = "nothing"
 	anchored = TRUE
 	layer = FLY_LAYER
-	plane = ABOVE_GAME_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 #undef FAKE_FLOOD_EXPAND_TIME

@@ -11,7 +11,6 @@
 	faction += "[REF(src)]"
 	GLOB.mob_living_list += src
 	SSpoints_of_interest.make_point_of_interest(src)
-	update_fov()
 
 /mob/living/prepare_huds()
 	..()
@@ -759,9 +758,6 @@
 	else if(full_heal_flags & HEAL_ADMIN)
 		updatehealth()
 		get_up(TRUE)
-
-	// The signal is called after everything else so components can properly check the updated values
-	SEND_SIGNAL(src, COMSIG_LIVING_REVIVE, full_heal_flags)
 
 /**
  * Heals up the mob up to [heal_to] of the main damage types.
