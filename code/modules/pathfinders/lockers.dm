@@ -1,0 +1,86 @@
+/obj/structure/closet/secure_closet/pathfinders_tools
+	name = "Pathfinders Tool Locker"
+	desc = "Filled with tools that'd prove helpful for shuttle repairs and retrofitting."
+	req_access = list(ACCESS_PATHFINDERS_STORAGE)
+	icon_state = "science"
+	icon_door = "science"
+
+/obj/structure/closet/secure_closet/pathfinders_tools/PopulateContents()
+	..()
+	var/static/items_inside = list(
+		/obj/item/storage/toolbox/mechanical = 2,
+		/obj/item/multitool = 2,
+		/obj/item/pipe_dispenser = 1,
+		/obj/item/airlock_painter = 1,
+		/obj/item/pipe_painter = 1,
+		/obj/item/stack/sheet/iron/fifty = 1,
+	)
+	generate_items_inside(items_inside,src)
+
+/obj/structure/closet/secure_closet/pathfinders_materials
+	name = "Pathfinders Emergency Materials Locker"
+	desc = "You feel like you really should take some of what's inside with you onto the shuttle."
+	req_access = list(ACCESS_PATHFINDERS_STORAGE)
+	icon_state = "science"
+	icon_door = "science"
+
+/obj/structure/closet/secure_closet/pathfinders_materials/PopulateContents()
+	..()
+	var/static/items_inside = list(
+		/obj/item/circuitboard/computer/pathfinders_shuttle = 1,
+		/obj/item/inducer = 2,
+		/obj/item/stock_parts/cell/high = 2,
+		/obj/item/storage/box/stockparts/basic = 2,
+	)
+	generate_items_inside(items_inside,src)
+
+/obj/item/storage/bag/garment/pathfinder_lead
+	name = "pathfinder lead's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the pathfinder lead."
+
+/obj/item/storage/bag/garment/pathfinder_lead/PopulateContents()
+	new /obj/item/clothing/under/rank/pathfinder(src)
+	new /obj/item/clothing/under/rank/pathfinder/skirt(src)
+	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/clothing/shoes/sneakers/purple(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/science/rd(src)
+
+/obj/item/storage/photo_album/pl
+	name = "photo album (Pathfinder Lead)"
+	icon_state = "album_purple"
+	persistence_id = "PL"
+
+/obj/item/storage/lockbox/medal/pl
+	name = "Pathfinder Lead medal box"
+	desc = "A locked box used to store medals to be given to those exhibiting excellence in pathfinding."
+	req_access = list(ACCESS_PATHFINDERS_LEAD)
+
+/obj/item/storage/lockbox/medal/pl/PopulateContents()
+	for(var/i in 1 to 2)
+		new /obj/item/clothing/accessory/medal/silver/pathfinding(src)
+
+/obj/item/clothing/accessory/medal/silver/pathfinding
+	name = "\improper Robust Pathfinder Medal"
+	desc = "Awarded for standing out to the pathfinder lead."
+
+/obj/structure/closet/secure_closet/pathfinder_lead
+	name = "\proper pathfinder lead's locker"
+	req_access = list(ACCESS_PATHFINDERS_LEAD)
+	icon_state = "rd"
+
+/obj/structure/closet/secure_closet/pathfinder_lead/PopulateContents()
+	..()
+
+	new /obj/item/storage/bag/garment/pathfinder_lead(src)
+	new /obj/item/radio/headset/heads/pl(src)
+	new /obj/item/megaphone/command(src)
+	new /obj/item/storage/medkit/pathfinder(src)
+	new /obj/item/healthanalyzer(src)
+	new /obj/item/assembly/flash/handheld(src)
+	new /obj/item/door_remote/pathfinders(src)
+	new /obj/item/clothing/neck/petcollar(src)
+	new /obj/item/pet_carrier(src)
+	new /obj/item/gun/energy/e_gun/mini(src)
+	new /obj/item/circuitboard/machine/techfab/department/pathfinders(src)
+	new /obj/item/storage/photo_album/pl(src)
+	new /obj/item/storage/lockbox/medal/pl(src)

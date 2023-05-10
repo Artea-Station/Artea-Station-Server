@@ -930,43 +930,6 @@
 		ACCESS_XENOBIOLOGY,
 	)
 
-/datum/id_trim/job/shaft_miner
-	assignment = "Shaft Miner"
-	trim_state = "trim_shaftminer"
-	orbit_icon = "digging"
-	department_color = COLOR_CARGO_BROWN
-	subdepartment_color = COLOR_SCIENCE_PINK
-	sechud_icon_state = SECHUD_SHAFT_MINER
-	minimal_access = list(
-		ACCESS_AUX_BASE,
-		ACCESS_CARGO,
-		ACCESS_MECH_MINING,
-		ACCESS_MINERAL_STOREROOM,
-		ACCESS_MINING,
-		ACCESS_MINING_STATION,
-		)
-	extra_access = list(
-		ACCESS_MAINT_TUNNELS,
-		)
-	template_access = list(
-		ACCESS_CAPTAIN,
-		ACCESS_CHANGE_IDS,
-		ACCESS_QM,
-		)
-	job = /datum/job/shaft_miner
-
-/// ID card obtained from the mining Disney dollar points vending machine.
-/datum/id_trim/job/shaft_miner/spare
-	minimal_access = list(
-		ACCESS_CARGO,
-		ACCESS_MECH_MINING,
-		ACCESS_MINERAL_STOREROOM,
-		ACCESS_MINING,
-		ACCESS_MINING_STATION,
-		)
-	extra_access = list()
-	template_access = null
-
 /datum/id_trim/job/station_engineer
 	assignment = "Station Engineer"
 	trim_state = "trim_stationengineer"
