@@ -29410,14 +29410,10 @@
 /area/station/command/heads_quarters/qm)
 "iNU" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/airlock/research/glass{
-	name = "Robotics Lab"
+/turf/open/floor/iron/stairs/left{
+	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/robotics,
-/turf/open/floor/iron/dark,
-/area/station/science/robotics/lab)
+/area/space)
 "iNZ" = (
 /obj/structure/table,
 /obj/effect/turf_decal/tile/red{
@@ -31745,10 +31741,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
-"jBh" = (
-/obj/effect/spawner/structure/window,
-/turf/open/floor/plating,
-/area/station/science/robotics/lab)
 "jBi" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -33926,11 +33918,11 @@
 /turf/open/floor/grass,
 /area/station/medical/psychology)
 "kkT" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/burnt_floor,
-/obj/effect/spawner/random/trash/mess,
-/turf/open/floor/plating,
-/area/station/maintenance/starboard/fore)
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/stairs/right{
+	dir = 1
+	},
+/area/space)
 "kkV" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -40572,6 +40564,7 @@
 /area/station/hallway/primary/central)
 "mnl" = (
 /obj/effect/landmark/start/assistant,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/station/hallway/primary/starboard)
 "mnE" = (
@@ -50596,6 +50589,8 @@
 /obj/effect/turf_decal/tile/neutral/half{
 	dir = 4
 	},
+/obj/machinery/rnd/production/techfab/department/pathfinders,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
 /area/space)
 "pwF" = (
@@ -53984,8 +53979,8 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
 	cycle_id = "cargo-maint-passthrough"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/general,
 /obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/pathfinders,
 /turf/open/floor/iron/dark,
 /area/station/maintenance/starboard)
 "qxh" = (
@@ -61268,6 +61263,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
 /obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/pathfinders,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard)
 "sIq" = (
@@ -61954,14 +61950,6 @@
 /turf/closed/wall/rust,
 /area/station/service/chapel)
 "sQT" = (
-/obj/machinery/door/airlock/research{
-	id_tag = "ResearchInt";
-	name = "Research Division"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/science/general,
 /turf/open/floor/iron/dark,
 /area/space)
 "sQZ" = (
@@ -72104,15 +72092,6 @@
 /turf/open/floor/iron,
 /area/station/engineering/hallway)
 "vPW" = (
-/obj/machinery/door/airlock/research{
-	id_tag = "ResearchInt";
-	name = "Research Division"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 4
-	},
-/obj/effect/landmark/navigate_destination,
-/obj/effect/mapping_helpers/airlock/access/all/science/general,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -117289,9 +117268,9 @@ app
 bBF
 bBF
 app
-jBh
-iNU
-jBh
+bBF
+bBF
+bBF
 bBF
 nYP
 ujZ
@@ -117798,7 +117777,7 @@ eiT
 lRk
 oMA
 nfX
-fVM
+pSe
 gVC
 gDT
 lRk
@@ -118069,12 +118048,12 @@ aaa
 aaa
 aaa
 rhK
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+hfV
+hfV
+hfV
+hfV
+hfV
+hfV
 qwR
 dzp
 mrt
@@ -118313,8 +118292,8 @@ lRk
 yaK
 pSe
 iBh
-dJm
-bUx
+pSe
+fVM
 lRk
 aaa
 aaa
@@ -118325,13 +118304,13 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+iNU
+hfV
+hfV
+hfV
+hfV
+hfV
+hfV
 fbZ
 nOJ
 bls
@@ -118570,9 +118549,9 @@ lRk
 lRk
 nfX
 vIR
-nSf
+dJm
+bUx
 lRk
-lRk
 aaa
 aaa
 aaa
@@ -118582,13 +118561,13 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+kkT
+hfV
+hfV
+hfV
+hfV
+hfV
+hfV
 vOX
 tPN
 uoA
@@ -118827,11 +118806,11 @@ jcs
 lRk
 bhB
 vIR
-kkT
-fvU
-aaa
-aaa
-aaa
+nSf
+lRk
+lRk
+aMU
+aMU
 aaa
 aaa
 aaa
@@ -118840,10 +118819,10 @@ aaa
 aaa
 aaa
 rhK
-aaa
-aaa
-aaa
-aaa
+hfV
+hfV
+hfV
+hfV
 dfv
 xwJ
 rZV
@@ -119097,10 +119076,10 @@ aaa
 aaa
 aaa
 aMU
-aaa
-aaa
-aaa
-aaa
+hfV
+hfV
+hfV
+hfV
 vOX
 rZV
 rZV
@@ -119355,7 +119334,7 @@ aaa
 aMU
 aMU
 aMU
-aaa
+sQT
 aMU
 aMU
 rZV
@@ -120123,7 +120102,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+sQT
 hfV
 hfV
 hfV
