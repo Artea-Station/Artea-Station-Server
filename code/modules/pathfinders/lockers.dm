@@ -34,11 +34,11 @@
 	)
 	generate_items_inside(items_inside,src)
 
-/obj/item/storage/bag/garment/pathfinder_lead
-	name = "pathfinder lead's garment bag"
-	desc = "A bag for storing extra clothes and shoes. This one belongs to the pathfinder lead."
+/obj/item/storage/bag/garment/lead_pathfinder
+	name = "lead pathfinder's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the lead pathfinder."
 
-/obj/item/storage/bag/garment/pathfinder_lead/PopulateContents()
+/obj/item/storage/bag/garment/lead_pathfinder/PopulateContents()
 	new /obj/item/clothing/under/rank/pathfinder(src)
 	new /obj/item/clothing/under/rank/pathfinder/skirt(src)
 	new /obj/item/clothing/gloves/color/black(src)
@@ -46,12 +46,12 @@
 	new /obj/item/clothing/suit/hooded/wintercoat/science/rd(src)
 
 /obj/item/storage/photo_album/pl
-	name = "photo album (Pathfinder Lead)"
+	name = "photo album (Lead Pathfinder)"
 	icon_state = "album_purple"
 	persistence_id = "PL"
 
 /obj/item/storage/lockbox/medal/pl
-	name = "Pathfinder Lead medal box"
+	name = "Lead Pathfinder medal box"
 	desc = "A locked box used to store medals to be given to those exhibiting excellence in pathfinding."
 	req_access = list(ACCESS_PATHFINDERS_LEAD)
 
@@ -61,17 +61,17 @@
 
 /obj/item/clothing/accessory/medal/silver/pathfinding
 	name = "\improper Robust Pathfinder Medal"
-	desc = "Awarded for standing out to the pathfinder lead."
+	desc = "Awarded for standing out to the lead pathfinder."
 
-/obj/structure/closet/secure_closet/pathfinder_lead
-	name = "\proper pathfinder lead's locker"
+/obj/structure/closet/secure_closet/lead_pathfinder
+	name = "\proper lead pathfinder's locker"
 	req_access = list(ACCESS_PATHFINDERS_LEAD)
 	icon_state = "rd"
 
-/obj/structure/closet/secure_closet/pathfinder_lead/PopulateContents()
+/obj/structure/closet/secure_closet/lead_pathfinder/PopulateContents()
 	..()
 
-	new /obj/item/storage/bag/garment/pathfinder_lead(src)
+	new /obj/item/storage/bag/garment/lead_pathfinder(src)
 	new /obj/item/radio/headset/heads/pl(src)
 	new /obj/item/megaphone/command(src)
 	new /obj/item/storage/medkit/pathfinder(src)

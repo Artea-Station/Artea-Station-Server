@@ -85,6 +85,8 @@
 #define ACCESS_VIROLOGY "virology"
 /// Access to the Psychologist's office.
 #define ACCESS_PSYCHOLOGY "psychology"
+/// Access to the medical shuttle.
+#define ACCESS_MEDICAL_SHUTTLE "medical_shuttle"
 /// Access for the Chief Medical Officer's personal quarters in mapping, as well as some other CMO-related things.
 #define ACCESS_CMO "cmo"
 
@@ -315,6 +317,7 @@
 	ACCESS_PHARMACY, \
 	ACCESS_PLUMBING, \
 	ACCESS_PSYCHOLOGY, \
+	ACCESS_MEDICAL_SHUTTLE, \
 	ACCESS_QM, \
 	ACCESS_RESEARCH, \
 	ACCESS_ROBOTICS, \
@@ -453,6 +456,7 @@
 	ACCESS_PSYCHOLOGY, \
 	ACCESS_SURGERY, \
 	ACCESS_VIROLOGY, \
+	ACCESS_MEDICAL_SHUTTLE, \
 )
 /// Name for the Research region.
 #define REGION_PATHFINDERS "Pathfinders"

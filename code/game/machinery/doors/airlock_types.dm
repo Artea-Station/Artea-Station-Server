@@ -24,6 +24,10 @@
 	airlock_paint = "#BBBBBB"
 	stripe_paint = "#5995BA"
 
+/obj/machinery/door/airlock/medical/shuttle
+	assemblytype = /obj/structure/door_assembly/door_assembly_medical_shuttle
+	stripe_paint = "#575577"
+
 /obj/machinery/door/airlock/hydroponics	//Hydroponics front doors!
 	assemblytype = /obj/structure/door_assembly/door_assembly_hydro
 	airlock_paint = "#559958"
@@ -72,6 +76,11 @@
 	airlock_paint = "#BBBBBB"
 	stripe_paint = "#2a7a25"
 
+/obj/machinery/door/airlock/pathfinders
+	assemblytype = /obj/structure/door_assembly/door_assembly_pathfinders
+	airlock_paint = "#847A96"
+	stripe_paint = "#575577"
+
 //////////////////////////////////
 /*
 	Station Airlocks Glass
@@ -113,6 +122,10 @@
 	normal_integrity = 400
 
 /obj/machinery/door/airlock/medical/glass
+	opacity = FALSE
+	glass = TRUE
+
+/obj/machinery/door/airlock/medical/shuttle/glass
 	opacity = FALSE
 	glass = TRUE
 
@@ -164,6 +177,10 @@
 	opacity = FALSE
 	glass = TRUE
 	normal_integrity = 200
+
+/obj/machinery/door/airlock/pathfinders/glass
+	opacity = FALSE
+	glass = TRUE
 
 //////////////////////////////////
 /*

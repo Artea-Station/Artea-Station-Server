@@ -41,7 +41,7 @@
 #define JOB_HEAD_OF_SECURITY "Head of Security"
 #define JOB_CHIEF_ENGINEER "Chief Engineer"
 #define JOB_CHIEF_MEDICAL_OFFICER "Chief Medical Officer"
-#define JOB_PATHFINDER_LEAD "Pathfinder Lead"
+#define JOB_PATHFINDER_LEAD "Lead Pathfinder"
 #define JOB_INTERNAL_AFFAIRS_AGENT "Internal Affairs Agent"
 //Silicon
 #define JOB_AI "AI"
@@ -196,4 +196,4 @@
 #define SUPERVISOR_HOS "the Head of Security"
 #define SUPERVISOR_QM "the Quartermaster"
 #define SUPERVISOR_RD "the Research Director"
-#define SUPERVISOR_PL "the Pathfinder Lead"
+#define SUPERVISOR_PL "the Lead Pathfinder"

@@ -102,7 +102,7 @@
 /datum/job_department/pathfinders
 	department_name = DEPARTMENT_PATHFINDERS
 	department_bitflags = DEPARTMENT_BITFLAG_PATHFINDERS
-	department_head = /datum/job/pathfinder_lead
+	department_head = /datum/job/lead_pathfinder
 	department_experience_type = EXP_TYPE_PATHFINDERS
 	display_order = 7
 	label_class = "pathfinders"
