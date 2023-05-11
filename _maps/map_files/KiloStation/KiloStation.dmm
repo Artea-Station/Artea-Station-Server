@@ -2134,6 +2134,12 @@
 /obj/structure/girder,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
+"aEh" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/iron,
+/area/station/pathfinders/dock)
 "aEi" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
@@ -6355,11 +6361,11 @@
 "ccq" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
+/obj/structure/disposalpipe/junction{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/station/pathfinders)
 "ccr" = (
@@ -10919,6 +10925,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/station/pathfinders)
 "dsw" = (
@@ -11653,6 +11662,9 @@
 /obj/effect/mapping_helpers/airlock/access/all/pathfinders/leader,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/door/airlock/pathfinders{
+	dir = 8
+	},
 /turf/open/floor/carpet,
 /area/station/pathfinders/lead_office)
 "dFA" = (
@@ -27630,6 +27642,7 @@
 /obj/machinery/door/airlock/pathfinders/glass{
 	name = "Lead Pathfinder Office"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/dark,
 /area/station/pathfinders/lead_office)
 "ieu" = (
@@ -35286,9 +35299,9 @@
 /obj/machinery/holopad,
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
+/obj/structure/disposalpipe/junction/flip,
 /turf/open/floor/iron,
 /area/station/pathfinders)
 "krr" = (
@@ -39400,6 +39413,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/light/directional/south,
 /obj/structure/cable,
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
 "lBB" = (
@@ -46760,6 +46776,17 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
+"nRR" = (
+/obj/effect/turf_decal/tile/pathfinders_purple/half/contrasted,
+/obj/effect/turf_decal/tile/pathfinders_purple{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/station/pathfinders/lead_office)
 "nSf" = (
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
@@ -47577,6 +47604,16 @@
 /obj/item/food/grown/poppy,
 /turf/open/floor/iron/dark,
 /area/station/service/chapel)
+"ogX" = (
+/obj/effect/turf_decal/tile/pathfinders_purple/half/contrasted{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/pathfinders_purple{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/iron,
+/area/station/pathfinders/dock)
 "ohj" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 8
@@ -52339,6 +52376,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/firealarm/directional/south,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/station/pathfinders/lead_office)
 "pCb" = (
@@ -52692,6 +52732,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/station/pathfinders)
 "pGy" = (
@@ -56173,6 +56216,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/station/pathfinders)
 "qGi" = (
@@ -60162,6 +60208,16 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/station/security/medical)
+"rNK" = (
+/obj/effect/turf_decal/tile/pathfinders_purple/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/pathfinders_purple,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/station/pathfinders)
 "rNN" = (
 /obj/structure/chair{
 	name = "Judge"
@@ -63170,6 +63226,9 @@
 	name = "Pathfinder Dock"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/pathfinders/dock,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/station/pathfinders/dock)
 "sHQ" = (
@@ -63194,9 +63253,6 @@
 /area/space/nearstation)
 "sIo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/structure/cable,
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/pathfinders,
 /turf/open/floor/plating,
@@ -64939,12 +64995,9 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
-/obj/structure/rack,
-/obj/item/bodybag{
-	pixel_y = 5
-	},
-/obj/item/bodybag{
-	pixel_y = 5
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/station/pathfinders)
@@ -72211,6 +72264,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
 /obj/machinery/light_switch/directional/south,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
 "vnw" = (
@@ -77426,6 +77482,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
 /turf/open/floor/iron,
 /area/station/pathfinders/lead_office)
 "wGD" = (
@@ -82360,7 +82419,10 @@
 /turf/open/floor/iron,
 /area/station/engineering/storage_shared)
 "ydT" = (
-/obj/item/kirbyplants/random,
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/station/pathfinders/lead_office)
 "ydV" = (
@@ -120879,7 +120941,7 @@ xbz
 hiZ
 fGd
 jxQ
-hiZ
+rNK
 fuw
 gzB
 dso
@@ -122163,7 +122225,7 @@ xoD
 fPl
 wcO
 pln
-wGB
+nRR
 uWm
 rRf
 aqf
@@ -122422,8 +122484,8 @@ qMG
 vxP
 wGB
 iej
-lDs
-xXh
+ogX
+aEh
 lBk
 aMU
 qGq
