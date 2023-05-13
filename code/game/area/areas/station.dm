@@ -1494,8 +1494,11 @@
 /area/station/pathfinders/dock
 	name = "\improper Pathfinders Dock"
 
+
 /area/station/pathfinders/locker_room
 	name = "\improper Pathfinders Locker room"
 
 /area/station/pathfinders/lead_office
 	name = "\improper Lead Pathfinder Office"
+
+
