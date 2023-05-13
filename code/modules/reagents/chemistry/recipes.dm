@@ -35,10 +35,6 @@
 	var/optimal_temp = 500
 	/// Temperature at which reaction explodes - If any reaction is this hot, it explodes!
 	var/overheat_temp = 900
-	/// Lowest value of pH determining pH a 1 value for pH based rate reactions (Plateu phase)
-	var/optimal_ph_min = 5
-	/// Higest value for above
-	var/optimal_ph_max = 9
 	/// How far out pH wil react, giving impurity place (Exponential phase)
 	var/determin_ph_range = 4
 	/// How sharp the temperature exponential curve is (to the power of value)
@@ -51,8 +47,6 @@
 	var/H_ion_release = 0.01
 	/// Optimal/max rate possible if all conditions are perfect
 	var/rate_up_lim = 30
-	/// If purity is below 0.15, it calls OverlyImpure() too. Set to 0 to disable this.
-	var/purity_min = 0.15
 	/// bitflags for clear conversions; REACTION_CLEAR_IMPURE, REACTION_CLEAR_INVERSE, REACTION_CLEAR_RETAIN, REACTION_INSTANT
 	var/reaction_flags = NONE
 	///Tagging vars
@@ -107,7 +101,7 @@
  * Outputs:
  * * returning END_REACTION will end the associated reaction - flagging it for deletion and preventing any reaction in that timestep from happening. Make sure to set the vars in the holder to one that can't start it from starting up again.
  */
-/datum/chemical_reaction/proc/reaction_step(datum/reagents/holder, datum/equilibrium/reaction, delta_t, delta_ph, step_reaction_vol)
+/datum/chemical_reaction/proc/reaction_step(datum/reagents/holder, datum/equilibrium/reaction, delta_t, step_reaction_vol)
 	return
 
 /**
@@ -146,16 +140,11 @@
 	if(!reagent)//Failures can delete R
 		return
 	if(reaction_flags & (REACTION_CLEAR_IMPURE | REACTION_CLEAR_INVERSE))
-		if(reagent.purity == 1)
-			return
-
 		var/cached_volume = reagent.volume
-		var/cached_purity = reagent.purity
-		if((reaction_flags & REACTION_CLEAR_INVERSE) && reagent.inverse_chem)
-			if(reagent.inverse_chem_val > reagent.purity)
-				holder.remove_reagent(reagent.type, cached_volume, FALSE)
-				holder.add_reagent(reagent.inverse_chem, cached_volume, FALSE, added_purity = 1-cached_purity)
-				return
+		if((reaction_flags & REACTION_CLEAR_INVERSE) && reagent.inverse_chem && )
+			holder.remove_reagent(reagent.type, cached_volume, FALSE)
+			holder.add_reagent(reagent.inverse_chem, cached_volume, FALSE)
+			return
 
 /**
  * Occurs when a reation is overheated (i.e. past it's overheatTemp)

@@ -43,8 +43,6 @@ GLOBAL_LIST_INIT(medicine_reagents, build_medicine_reagents())
 /datum/chemical_reaction/randomized
 
 	//Increase default leniency because these are already hard enough
-	optimal_ph_min = 1
-	optimal_ph_max = 13
 	temp_exponent_factor = 0
 	ph_exponent_factor = 1
 	H_ion_release = 0
@@ -117,13 +115,10 @@ GLOBAL_LIST_INIT(medicine_reagents, build_medicine_reagents())
 				thermic_constant = (rand(-200, 200))
 
 	if(randomize_req_ph)
-		optimal_ph_min = min_ph + rand(0, inoptimal_range_ph)
-		optimal_ph_max = max((max_ph + rand(0, inoptimal_range_ph)), (min_ph + 1)) //Always ensure we've a window of 1
-		determin_ph_range = inoptimal_range_ph
+				determin_ph_range = inoptimal_range_ph
 		H_ion_release = (rand(0, 25)/100)// 0 - 0.25
 
 	if(randomize_impurity_minimum)
-		purity_min = (rand(0, 4)/10)
 
 	if(randomize_impurity_reagents)
 		for(var/rid in required_reagents)
@@ -232,12 +227,9 @@ GLOBAL_LIST_INIT(medicine_reagents, build_medicine_reagents())
 	overheat_temp = recipe_data["overheat_temp"]
 	thermic_constant = recipe_data["thermic_constant"]
 
-	optimal_ph_min = recipe_data["optimal_ph_min"]
-	optimal_ph_max = recipe_data["optimal_ph_max"]
 	determin_ph_range = recipe_data["determin_ph_range"]
 	H_ion_release = recipe_data["H_ion_release"]
 
-	purity_min = recipe_data["purity_min"]
 
 	var/temp_results = unwrap_reagent_list(recipe_data["results"])
 	if(!temp_results)

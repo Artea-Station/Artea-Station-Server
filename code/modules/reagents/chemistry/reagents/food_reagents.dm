@@ -313,7 +313,6 @@
 	description = "A special oil that noticeably chills the body. Extracted from chilly peppers and slimes."
 	color = "#8BA6E9" // rgb: 139, 166, 233
 	taste_description = "mint"
-	ph = 13 //HMM! I wonder
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	///40 joules per unit.
 	specific_heat = 40
@@ -368,7 +367,6 @@
 	color = "#B31008" // rgb: 179, 16, 8
 	taste_description = "scorching agony"
 	penetrates_skin = NONE
-	ph = 7.4
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	default_container = /obj/item/reagent_containers/cup/bottle/capsaicin
 
@@ -481,7 +479,6 @@
 	description = "A blinding substance extracted from certain onions."
 	color = "#c0c9a0"
 	taste_description = "bitterness"
-	ph = 5
 
 /datum/reagent/consumable/tearjuice/expose_mob(mob/living/exposed_mob, methods = INGEST, reac_volume)
 	. = ..()
@@ -750,7 +747,6 @@
 	description = "An ichor, derived from a certain mushroom, makes for a bad time."
 	color = "#1d043d"
 	taste_description = "bitter mushroom"
-	ph = 12
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/entpoly/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
@@ -772,7 +768,6 @@
 	description = "A stimulating ichor which causes luminescent fungi to grow on the skin. "
 	color = "#b5a213"
 	taste_description = "tingling mushroom"
-	ph = 11.2
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	//Lazy list of mobs affected by the luminosity of this reagent.
 	var/list/mobs_affected
@@ -807,7 +802,6 @@
 	color = "#d3a308"
 	nutriment_factor = 3 * REAGENTS_METABOLISM
 	taste_description = "fruity mushroom"
-	ph = 10.4
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/vitfro/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
@@ -823,7 +817,6 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#eef442" // rgb: 238, 244, 66
 	taste_description = "mournful honking"
-	ph = 9.2
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 
@@ -882,7 +875,6 @@
 	taste_description = "indescribable"
 	quality = FOOD_AMAZING
 	taste_mult = 100
-	ph = 6.1
 
 /datum/reagent/consumable/nutriment/peptides
 	name = "Peptides"

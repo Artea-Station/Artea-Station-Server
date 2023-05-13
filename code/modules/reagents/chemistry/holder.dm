@@ -104,8 +104,6 @@
 	var/atom/my_atom = null
 	/// Current temp of the holder volume
 	var/chem_temp = 150
-	///pH of the whole system
-	var/ph = CHEMICAL_NORMAL_PH
 	/// unused
 	var/last_tick = 1
 	/// various flags, see code\__DEFINES\reagents.dm
@@ -162,7 +160,7 @@
  * * override_base_ph - ingore the present pH of the reagent, and instead use the default (i.e. if buffers/reactions alter it)
  * * ignore splitting - Don't call the process that handles reagent spliting in a mob (impure/inverse) - generally leave this false unless you care about REAGENTS_DONOTSPLIT flags (see reagent defines)
  */
-/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = DEFAULT_REAGENT_TEMPERATURE, added_purity = null, added_ph, no_react = FALSE, override_base_ph = FALSE, ignore_splitting = FALSE)
+/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = DEFAULT_REAGENT_TEMPERATURE, no_react = FALSE, ignore_splitting = FALSE)
 	// Prevents small amount problems, as well as zero and below zero amounts.
 	if(amount <= CHEMICAL_QUANTISATION_LEVEL)
 		return FALSE
@@ -178,15 +176,11 @@
 	if(!glob_reagent)
 		stack_trace("[my_atom] attempted to add a reagent called '[reagent]' which doesn't exist. ([usr])")
 		return FALSE
-	if(isnull(added_purity)) //Because purity additions can be 0
-		added_purity = glob_reagent.creation_purity //Usually 1
-	if(!added_ph)
-		added_ph = glob_reagent.ph
 
 	//Split up the reagent if it's in a mob
 	var/has_split = FALSE
 	if(!ignore_splitting && (flags & REAGENT_HOLDER_ALIVE)) //Stomachs are a pain - they will constantly call on_mob_add unless we split on addition to stomachs, but we also want to make sure we don't double split
-		var/adjusted_vol = process_mob_reagent_purity(glob_reagent, amount, added_purity)
+		var/adjusted_vol = process_mob_reagent_purity(glob_reagent, amount)
 		if(!adjusted_vol) //If we're inverse or FALSE cancel addition
 			return TRUE
 			/* We return true here because of #63301
@@ -772,7 +766,7 @@
 * * added_purity - the purity of the added volume
 * returns the volume of the original, pure, reagent to add / keep
 */
-/datum/reagents/proc/process_mob_reagent_purity(datum/reagent/reagent, added_volume, added_purity)
+/datum/reagents/proc/process_mob_reagent_purity(datum/reagent/reagent, added_volume)
 	if(!reagent)
 		stack_trace("Attempted to process a mob's reagent purity for a null reagent!")
 		return FALSE
@@ -1479,7 +1473,6 @@
 	for(var/datum/reagent/reagent as anything in reagent_list)
 		total_ph += (reagent.ph * reagent.volume)
 	//Keep limited
-	ph = clamp(total_ph/total_volume, 0, 14)
 
 /**
  * Outputs a log-friendly list of reagents based on an external reagent list.

@@ -12,7 +12,6 @@ export const ChemHeater = (props, context) => {
     targetTemp,
     isActive,
     isFlashing,
-    currentpH,
     isBeakerLoaded,
     currentTemp,
     beakerCurrentVolume,
@@ -180,41 +179,7 @@ export const ChemHeater = (props, context) => {
           </Table>
         </Section>
         {!!isBeakerLoaded && (
-          <Section
-            title="Reactions"
-            buttons={
-              <Flex>
-                <Flex.Item color="label">
-                  <AnimatedNumber
-                    value={currentpH}
-                    format={(value) => 'pH: ' + round(value, 3)}
-                  />
-                </Flex.Item>
-                <Flex.Item>
-                  <RoundGauge
-                    size={1.6}
-                    value={currentpH}
-                    minValue={0}
-                    maxValue={14}
-                    alertAfter={isFlashing}
-                    content={'test'}
-                    format={() => ''}
-                    ranges={{
-                      'red': [-0.22, 1.5],
-                      'orange': [1.5, 3],
-                      'yellow': [3, 4.5],
-                      'olive': [4.5, 5],
-                      'good': [5, 6],
-                      'green': [6, 8.5],
-                      'teal': [8.5, 9.5],
-                      'blue': [9.5, 11],
-                      'purple': [11, 12.5],
-                      'violet': [12.5, 14],
-                    }}
-                  />
-                </Flex.Item>
-              </Flex>
-            }>
+          <Section title="Reactions">
             {(activeReactions.length === 0 && (
               <Box color="label">No active reactions.</Box>
             )) || (
@@ -255,12 +220,12 @@ export const ChemHeater = (props, context) => {
                           content={'test'}
                           format={(value) => ''}
                           ml={5}
-                          ranges={{
+                          /* ranges={{
                             'red': [0, reaction.minPure],
                             'orange': [reaction.minPure, reaction.inverse],
                             'yellow': [reaction.inverse, 0.8],
                             'green': [0.8, 1],
-                          }}
+                          }}*/
                         />
                       )}
                     </Table.Cell>

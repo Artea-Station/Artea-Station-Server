@@ -135,14 +135,6 @@
 	QDEL_NULL(alkaline_beaker)
 	return ..()
 
-/obj/machinery/plumbing/reaction_chamber/chem/process(delta_time)
-	//add acidic/alkaine buffer if over/under limit
-	if(reagents.is_reacting && reagents.ph < alkaline_limit)
-		alkaline_beaker.reagents.trans_to(reagents, 1 * delta_time)
-	if(reagents.is_reacting && reagents.ph > acidic_limit)
-		acidic_beaker.reagents.trans_to(reagents, 1 * delta_time)
-	..()
-
 /obj/machinery/plumbing/reaction_chamber/chem/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -151,7 +143,6 @@
 
 /obj/machinery/plumbing/reaction_chamber/chem/ui_data(mob/user)
 	. = ..()
-	.["ph"] = round(reagents.ph, 0.01)
 	.["reagentAcidic"] = acidic_limit
 	.["reagentAlkaline"] = alkaline_limit
 	return .
