@@ -122,7 +122,7 @@
 	techweb_to_publish.published_papers[experiment_path][tier] = src
 	techweb_to_publish.scientific_cooperation[partner_path] += gains[SCIPAPER_COOPERATION_INDEX]
 	if(istype(techweb_to_publish, /datum/techweb/science))
-		var/datum/bank_account/dept_budget = SSeconomy.get_dep_account(ACCOUNT_SCI)
+		var/datum/bank_account/dept_budget = SSeconomy.get_dep_account(ACCOUNT_PTH)
 		if(dept_budget)
 			dept_budget.adjust_money(gains[SCIPAPER_FUNDING_INDEX] * SCIPAPER_GAIN_TO_MONEY)
 

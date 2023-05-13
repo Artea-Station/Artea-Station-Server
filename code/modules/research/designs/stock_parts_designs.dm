@@ -12,7 +12,7 @@
 	category = list(
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_EXCHANGERS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/adv_rped
 	name = "Advanced Rapid Part Exchange Device (ARPED)"
@@ -38,7 +38,7 @@
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_1
 	)
 	lathe_time_factor = 0.2
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/adv_capacitor
 	name = "Advanced Capacitor"
@@ -51,7 +51,7 @@
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_2
 	)
 	lathe_time_factor = 0.2
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/super_capacitor
 	name = "Super Capacitor"
@@ -78,7 +78,7 @@
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_1
 	)
 	lathe_time_factor = 0.2
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/adv_scanning
 	name = "Advanced Scanning Module"
@@ -91,7 +91,7 @@
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_2
 	)
 	lathe_time_factor = 0.2
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/phasic_scanning
 	name = "Phasic Scanning Module"
@@ -118,7 +118,7 @@
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_1
 	)
 	lathe_time_factor = 0.2
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/nano_mani
 	name = "Nano Manipulator"
@@ -131,7 +131,7 @@
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_2
 	)
 	lathe_time_factor = 0.2
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/pico_mani
 	name = "Pico Manipulator"
@@ -158,7 +158,7 @@
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_1
 	)
 	lathe_time_factor = 0.2
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/high_micro_laser
 	name = "High-Power Micro-Laser"
@@ -171,7 +171,7 @@
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_2
 	)
 	lathe_time_factor = 0.2
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/ultra_micro_laser
 	name = "Ultra-High-Power Micro-Laser"
@@ -197,7 +197,7 @@
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_1
 	)
 	lathe_time_factor = 0.2
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/adv_matter_bin
 	name = "Advanced Matter Bin"
@@ -210,7 +210,7 @@
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_2
 	)
 	lathe_time_factor = 0.2
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/super_matter_bin
 	name = "Super Matter Bin"
@@ -248,7 +248,7 @@
 	category = list(
 		RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_TELECOMMS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/subspace_amplifier
 	name = "Subspace Amplifier"

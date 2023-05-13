@@ -1,12 +1,12 @@
 /obj/item/circuitboard/machine/spaceship_navigation_beacon
-	name = "Bluespace Navigation Gigabeacon (Machine Board)"
+	name = "Navigation Gigabeacon (Machine Board)"
 	build_path = /obj/machinery/spaceship_navigation_beacon
 	req_components = list()
 
 
 /obj/machinery/spaceship_navigation_beacon
-	name = "Bluespace Navigation Gigabeacon"
-	desc = "A device that creates a bluespace anchor that allow ships jump near to it."
+	name = "Navigation Gigabeacon"
+	desc = "A device that creates a virtual docking port which allows ships to jump near to it, regardless of safety settings."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "core"
 	base_icon_state = "core"

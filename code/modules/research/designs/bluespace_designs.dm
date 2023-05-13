@@ -75,7 +75,7 @@
 	category = list(
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_MINING
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
+	departmental_flags = DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/swapper
 	name = "Quantum Spin Inverter"

@@ -550,6 +550,7 @@
 		/obj/machinery/vending/wardrobe/chem_wardrobe = "ChemDrobe",
 		/obj/machinery/vending/wardrobe/gene_wardrobe = "GeneDrobe",
 		/obj/machinery/vending/wardrobe/viro_wardrobe = "ViroDrobe",
+		/obj/machinery/vending/wardrobe/pathfinder_wardrobe = "PathDrobe",
 		/obj/machinery/vending/clothing = "ClothesMate",
 		/obj/machinery/vending/medical = "NanoMed Plus",
 		/obj/machinery/vending/drugs = "NanoDrug Plus",

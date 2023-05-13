@@ -180,6 +180,11 @@
 	access_list += list(ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS)
 	return access_list
 
+/obj/effect/mapping_helpers/airlock/access/any/medical/shuttle/get_access()
+	var/list/access_list = ..()
+	access_list += ACCESS_MEDICAL_SHUTTLE
+	return access_list
+
 // -------------------- Science access helpers
 /obj/effect/mapping_helpers/airlock/access/any/science
 	icon_state = "access_helper_sci"
@@ -645,6 +650,11 @@
 /obj/effect/mapping_helpers/airlock/access/all/medical/psychology/get_access()
 	var/list/access_list = ..()
 	access_list += ACCESS_PSYCHOLOGY
+	return access_list
+
+/obj/effect/mapping_helpers/airlock/access/all/medical/shuttle/get_access()
+	var/list/access_list = ..()
+	access_list += ACCESS_MEDICAL_SHUTTLE
 	return access_list
 
 // -------------------- Science access helpers

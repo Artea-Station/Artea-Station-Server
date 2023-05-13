@@ -190,7 +190,7 @@
 		)
 	refill_canister = /obj/item/vending_refill/wardrobe/robo_wardrobe
 	extra_price = PAYCHECK_COMMAND * 1.2
-	payment_department = ACCOUNT_SCI
+	payment_department = ACCOUNT_PTH
 /obj/item/vending_refill/wardrobe/robo_wardrobe
 	machine_name = "RoboDrobe"
 
@@ -217,7 +217,7 @@
 		/obj/item/clothing/mask/gas = 3,
 		)
 	refill_canister = /obj/item/vending_refill/wardrobe/science_wardrobe
-	payment_department = ACCOUNT_SCI
+	payment_department = ACCOUNT_PTH
 /obj/item/vending_refill/wardrobe/science_wardrobe
 	machine_name = "SciDrobe"
 
@@ -495,7 +495,7 @@
 		/obj/item/storage/backpack/duffelbag/genetics = 2,
 	)
 	refill_canister = /obj/item/vending_refill/wardrobe/gene_wardrobe
-	payment_department = ACCOUNT_SCI
+	payment_department = ACCOUNT_PTH
 /obj/item/vending_refill/wardrobe/gene_wardrobe
 	machine_name = "GeneDrobe"
 

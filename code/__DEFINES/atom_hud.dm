@@ -109,6 +109,8 @@
 #define SECHUD_STATION_ENGINEER "hudstationengineer"
 #define SECHUD_WARDEN "hudwarden"
 #define SECHUD_INTERNAL_AFFAIRS_AGENT "hudinternalaffairs"
+#define SECHUD_PATHFINDER_LEAD "hudpathfinderlead"
+#define SECHUD_PATHFINDER "hudpathfinder"
 
 #define SECHUD_CHEF "hudchef"
 
