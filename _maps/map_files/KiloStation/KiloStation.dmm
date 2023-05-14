@@ -3911,11 +3911,12 @@
 /turf/open/floor/iron,
 /area/station/commons/locker)
 "bla" = (
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
+/obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
+/obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
-	dir = 4
+	dir = 8
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/robotics/lab)
@@ -5623,16 +5624,6 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/security/prison/safe)
-"bPx" = (
-/obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/station/science/robotics/lab)
 "bPK" = (
 /obj/structure/flora/bush/sparsegrass/style_random,
 /obj/structure/flora/bush/lavendergrass/style_random,
@@ -21205,20 +21196,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /turf/open/floor/iron,
 /area/station/engineering/storage_shared)
-"goK" = (
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 4
-	},
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/station/pathfinders/pathfinders_armory)
 "goY" = (
 /obj/structure/chair/pew/right{
 	dir = 4
@@ -39551,6 +39528,18 @@
 	},
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
+"lBo" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/holopad,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/dark,
+/area/station/pathfinders/pathfinders_armory)
 "lBB" = (
 /obj/structure/bed,
 /obj/machinery/iv_drip,
@@ -65929,9 +65918,11 @@
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 4
 	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/holopad,
-/obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/station/pathfinders/pathfinders_armory)
 "tpp" = (
@@ -66883,22 +66874,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
 /turf/open/floor/iron/dark,
 /area/station/security/checkpoint/customs)
-"tCR" = (
-/obj/effect/turf_decal/tile/pathfinders_purple/anticorner/contrasted,
-/obj/effect/turf_decal/tile/pathfinders_purple{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/pathfinders_purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/turf/open/floor/iron,
-/area/station/pathfinders/dock)
 "tCU" = (
 /turf/closed/wall,
 /area/station/maintenance/port/aft)
@@ -80293,6 +80268,22 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/station/medical/chemistry)
+"xtp" = (
+/obj/effect/turf_decal/tile/pathfinders_purple/anticorner/contrasted,
+/obj/effect/turf_decal/tile/pathfinders_purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/pathfinders_purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/turf/open/floor/iron,
+/area/station/pathfinders/dock)
 "xtt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -80314,6 +80305,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/security/office)
+"xtv" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/station/science/robotics/lab)
 "xtC" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -119726,7 +119726,7 @@ ggZ
 bBF
 sVN
 dqw
-bla
+xtv
 lGQ
 qoF
 nJK
@@ -119985,7 +119985,7 @@ ylT
 lWg
 gpP
 bLf
-bPx
+bla
 vqN
 bBF
 oAO
@@ -126417,10 +126417,10 @@ rWl
 pxQ
 eUp
 wfe
-tCR
+xtp
 bAk
-goK
 tpn
+lBo
 imp
 rMO
 iZa
