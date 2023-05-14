@@ -174,6 +174,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Cyborg"
 	icon_state = "Cyborg"
 
+/obj/effect/landmark/start/lead_pathfinder
+	name = "Lead Pathfinder"
+	icon_state = "Lead Pathfinder"
+
+/obj/effect/landmark/start/pathfinder
+	name = "Pathfinder"
+	icon_state = "Pathfinder"
 
 /obj/effect/landmark/start/ai
 	name = "AI"
