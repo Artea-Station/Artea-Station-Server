@@ -7,7 +7,7 @@
  *
  * Not intended as a replacement for the mob verb
  */
-/atom/movable/proc/point_at(atom/pointed_atom)
+/atom/movable/proc/point_at(atom/pointed_atom, params = "" as text, mob/M)
 	if(!isturf(loc))
 		return
 
@@ -22,7 +22,27 @@
 	var/turf/our_tile = get_turf(src)
 	var/obj/visual = new /obj/effect/temp_visual/point(our_tile, invisibility)
 
-	animate(visual, pixel_x = (tile.x - our_tile.x) * world.icon_size + pointed_atom.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + pointed_atom.pixel_y, time = 1.7, easing = EASE_OUT)
+	/// Set position
+	var/final_x = (tile.x - our_tile.x) * world.icon_size + pointed_atom.pixel_x
+	var/final_y = (tile.y - our_tile.y) * world.icon_size + pointed_atom.pixel_y
+	var/list/click_params = params2list(params)
+	if(!length(click_params) || !click_params["screen-loc"])
+		animate(visual, pixel_x = (tile.x - our_tile.x) * world.icon_size + pointed_atom.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + pointed_atom.pixel_y, time = 1.7, easing = EASE_OUT)
+		return
+	else
+		var/list/actual_view = getviewsize(M.client ? M.client.view : world.view)
+		var/list/split_coords = splittext(click_params["screen-loc"], ",")
+		final_x = (text2num(splittext(split_coords[1], ":")[1]) - actual_view[1] / 2) * world.icon_size + (text2num(splittext(split_coords[1], ":")[2]) - world.icon_size)
+		final_y = (text2num(splittext(split_coords[2], ":")[1]) - actual_view[2] / 2) * world.icon_size + (text2num(splittext(split_coords[2], ":")[2]) - world.icon_size)
+	//
+
+	/// Set rotation
+	var/matrix/rotated_matrix = new()
+	rotated_matrix.TurnTo(0, get_pixel_angle(-final_y, -final_x))
+	visual.transform = rotated_matrix
+	//
+
+	animate(visual, pixel_x = final_x, pixel_y = final_y, time = 1.7, easing = EASE_OUT)
 
 /atom/movable/proc/create_point_bubble(atom/pointed_atom)
 	var/obj/effect/thought_bubble_effect = new
@@ -95,14 +115,15 @@
  *
  * overridden here and in /mob/dead/observer for different point span classes and sanity checks
  */
-/mob/verb/pointed(atom/A as mob|obj|turf in view())
+/mob/verb/pointed(atom/A as mob|obj|turf in view(), params = "" as text)
 	set name = "Point To"
 	set category = "Object"
 
 	if(istype(A, /obj/effect/temp_visual/point))
 		return FALSE
-
-	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(_pointed), A))
+	point_at(A, params, usr)
+	SEND_SIGNAL(src, COMSIG_MOB_POINTED, A)
+	return TRUE
 
 /// possibly delayed verb that finishes the pointing process starting in [/mob/verb/pointed()].
 /// either called immediately or in the tick after pointed() was called, as per the [DEFAULT_QUEUE_OR_CALL_VERB()] macro
