@@ -1502,3 +1502,6 @@
 
 /area/station/pathfinders/pathfinders_server_room
 	name = "\improper Pathfinders Server Room"
+
+/area/station/pathfinders/pathfinders_armory
+	name = "\improper Pathfinders Armory"

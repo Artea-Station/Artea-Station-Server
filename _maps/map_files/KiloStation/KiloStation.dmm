@@ -4855,6 +4855,11 @@
 /obj/structure/sign/departments/security,
 /turf/closed/wall,
 /area/station/maintenance/fore)
+"bAk" = (
+/obj/machinery/door/airlock/pathfinders,
+/obj/effect/mapping_helpers/airlock/access/all/pathfinders/storage,
+/turf/open/floor/iron/dark,
+/area/station/pathfinders/dock)
 "bAs" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/food/grown/poppy/geranium{
@@ -9447,6 +9452,11 @@
 "cXh" = (
 /turf/closed/wall,
 /area/station/security/brig)
+"cXm" = (
+/obj/effect/turf_decal/box/red,
+/obj/structure/closet/secure_closet/pathfinder_weapons,
+/turf/open/floor/engine,
+/area/station/pathfinders/pathfinders_armory)
 "cXv" = (
 /obj/structure/table,
 /obj/item/food/energybar,
@@ -10795,15 +10805,20 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/starboard)
 "drn" = (
-/obj/effect/turf_decal/tile/pathfinders_purple/anticorner/contrasted,
-/obj/effect/turf_decal/tile/pathfinders_purple{
-	dir = 4
+/obj/structure/table,
+/obj/item/storage/medkit/pathfinder{
+	pixel_y = 4
 	},
-/obj/effect/turf_decal/tile/pathfinders_purple{
-	dir = 8
+/obj/item/mod/module/pathfinder{
+	pixel_y = 4
 	},
-/obj/item/kirbyplants/random,
-/turf/open/floor/iron,
+/obj/effect/turf_decal/bot,
+/obj/machinery/light/directional/south,
+/obj/structure/sign/warning/no_smoking/circle/directional/south,
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
 /area/station/pathfinders/dock)
 "drp" = (
 /obj/structure/table,
@@ -12837,6 +12852,11 @@
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/fore)
+"dWy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/structure/steam_vent,
+/turf/open/floor/plating,
+/area/station/maintenance/starboard)
 "dWG" = (
 /turf/closed/wall/r_wall,
 /area/station/security/prison/safe)
@@ -14942,12 +14962,14 @@
 /turf/open/floor/iron,
 /area/station/security/brig)
 "eDJ" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
+"eDP" = (
+/turf/closed/wall,
+/area/station/pathfinders/pathfinders_armory)
 "eDT" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -23259,6 +23281,7 @@
 /obj/structure/cable,
 /obj/effect/mapping_helpers/broken_floor,
 /obj/machinery/light/small/directional/north,
+/obj/effect/spawner/random/structure/steam_vent,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard)
 "gRP" = (
@@ -26182,10 +26205,15 @@
 /turf/open/floor/iron/dark,
 /area/station/security/processing)
 "hKd" = (
-/obj/effect/spawner/random/structure/crate_loot,
-/obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating,
-/area/station/maintenance/starboard)
+/obj/machinery/door/airlock/maintenance,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/access/any/science/maintenance,
+/turf/open/floor/iron/dark,
+/area/station/maintenance/starboard/fore)
 "hKg" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -27114,7 +27142,6 @@
 "hWa" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
 "hWw" = (
@@ -28296,12 +28323,15 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/central/fore)
 "imp" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/trash,
-/obj/effect/mapping_helpers/broken_floor,
-/obj/structure/sign/poster/contraband/random/directional/east,
-/turf/open/floor/plating,
-/area/station/maintenance/starboard)
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/obj/machinery/light/red/directional/south,
+/turf/open/floor/iron/dark,
+/area/station/pathfinders/pathfinders_armory)
 "imM" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -30783,6 +30813,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
+"iWe" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
+/area/station/maintenance/starboard/fore)
 "iWj" = (
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
@@ -31015,9 +31052,11 @@
 /area/station/medical/virology)
 "iZa" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/burnt_floor,
-/obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/any/science/maintenance,
+/obj/effect/mapping_helpers/broken_floor,
+/obj/machinery/light/small/directional/north,
+/obj/structure/rack,
+/obj/effect/spawner/random/engineering/tool,
+/obj/effect/spawner/random/engineering/flashlight,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard)
 "iZm" = (
@@ -31094,6 +31133,16 @@
 /obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/station/medical/medbay/lobby)
+"jaq" = (
+/obj/effect/turf_decal/tile/pathfinders_purple/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/pathfinders_purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/iron,
+/area/station/pathfinders/dock)
 "jas" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
@@ -33369,11 +33418,12 @@
 /turf/open/floor/iron/dark,
 /area/station/medical/morgue)
 "jKR" = (
-/obj/machinery/light/small/directional/north,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/trash/mess,
-/turf/open/floor/plating,
-/area/station/maintenance/starboard)
+/obj/effect/turf_decal/box/red,
+/obj/structure/closet/secure_closet/pathfinders_ballistic,
+/obj/machinery/light_switch/directional/north,
+/obj/machinery/power/apc/auto_name/directional/east,
+/turf/open/floor/engine,
+/area/station/pathfinders/pathfinders_armory)
 "jKZ" = (
 /obj/machinery/vending/sustenance,
 /turf/open/floor/iron/white,
@@ -33913,22 +33963,12 @@
 /turf/open/floor/iron,
 /area/station/commons/locker)
 "jTd" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/item/flashlight{
-	pixel_y = 7
+/obj/effect/turf_decal/tile/pathfinders_purple/half/contrasted,
+/obj/effect/turf_decal/tile/pathfinders_purple{
+	dir = 8
 	},
-/obj/item/flashlight{
-	pixel_y = 7
-	},
-/obj/item/knife/combat/survival{
-	pixel_y = 2
-	},
-/obj/item/knife/combat/survival{
-	pixel_y = 2
-	},
-/obj/machinery/light_switch/directional/south,
-/turf/open/floor/iron/dark,
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/iron,
 /area/station/pathfinders/dock)
 "jTk" = (
 /obj/structure/flora/rock/pile/style_random{
@@ -35900,10 +35940,15 @@
 /turf/open/floor/iron/dark,
 /area/station/maintenance/aft)
 "kBj" = (
-/obj/effect/turf_decal/tile/pathfinders_purple/half/contrasted{
+/obj/effect/turf_decal/tile/pathfinders_purple/anticorner/contrasted,
+/obj/effect/turf_decal/tile/pathfinders_purple{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/pathfinders_purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -36026,6 +36071,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/ce)
+"kDp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/spawner/random/engineering/atmospherics_portable,
+/turf/open/floor/plating,
+/area/station/maintenance/starboard)
 "kDw" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -40420,6 +40471,9 @@
 	},
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/hop)
+"lSB" = (
+/turf/closed/wall/r_wall/rust,
+/area/station/pathfinders/pathfinders_armory)
 "lSE" = (
 /obj/machinery/conveyor{
 	dir = 1;
@@ -44804,10 +44858,6 @@
 /turf/open/floor/iron/smooth_large,
 /area/station/maintenance/department/chapel/monastery)
 "niN" = (
-/obj/effect/turf_decal/tile/pathfinders_purple/half/contrasted,
-/obj/effect/turf_decal/tile/pathfinders_purple{
-	dir = 8
-	},
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
 "niQ" = (
@@ -49605,6 +49655,13 @@
 /obj/item/pen/blue,
 /turf/open/floor/iron/dark,
 /area/station/security/interrogation)
+"oJt" = (
+/obj/structure/table/reinforced/rglass,
+/obj/effect/turf_decal/bot_red,
+/obj/machinery/recharger,
+/obj/structure/sign/poster/contraband/random/directional/east,
+/turf/open/floor/engine,
+/area/station/pathfinders/pathfinders_armory)
 "oJH" = (
 /obj/structure/flora/bush/sparsegrass/style_random,
 /obj/structure/flora/bush/grassy/style_random,
@@ -50957,10 +51014,7 @@
 /turf/closed/wall/rust,
 /area/station/maintenance/port/greater)
 "pho" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/structure/barricade,
-/obj/structure/grille/broken,
-/turf/open/floor/plating,
+/turf/closed/wall/r_wall,
 /area/station/maintenance/starboard)
 "phx" = (
 /obj/effect/turf_decal/tile/pathfinders_purple/half/contrasted{
@@ -53153,6 +53207,9 @@
 	},
 /obj/item/wrench,
 /obj/item/radio/intercom/directional/south,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/station/pathfinders/dock)
 "pKM" = (
@@ -54045,10 +54102,8 @@
 "pYj" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
-/obj/effect/spawner/random/engineering/tool,
-/obj/effect/spawner/random/engineering/tool,
-/obj/item/stack/cable_coil,
-/obj/item/multitool,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/iron/dark,
 /area/station/pathfinders/dock)
 "pYm" = (
@@ -57577,6 +57632,13 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
+"qYd" = (
+/obj/structure/table/reinforced/rglass,
+/obj/effect/turf_decal/bot_red,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/turf/open/floor/engine,
+/area/station/pathfinders/pathfinders_armory)
 "qYr" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -59425,6 +59487,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/structure/sign/poster/contraband/random/directional/south,
+/obj/machinery/light_switch/directional/south,
 /turf/open/floor/iron/dark,
 /area/station/pathfinders/dock)
 "rzr" = (
@@ -60297,11 +60360,8 @@
 /turf/open/floor/wood,
 /area/station/maintenance/port/fore)
 "rMO" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/firecloset,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plating,
-/area/station/maintenance/starboard)
+/turf/closed/wall/r_wall,
+/area/station/pathfinders/pathfinders_armory)
 "rNg" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -60884,6 +60944,15 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark/corner,
 /area/station/hallway/primary/starboard)
+"rUt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/structure/table_frame,
+/obj/item/stack/sheet/glass,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/spawner/random/maintenance/two,
+/turf/open/floor/plating,
+/area/station/maintenance/starboard)
 "rUD" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -63773,6 +63842,18 @@
 /obj/item/storage/box{
 	pixel_y = 4
 	},
+/obj/item/flashlight{
+	pixel_y = 7
+	},
+/obj/item/flashlight{
+	pixel_y = 7
+	},
+/obj/item/knife/combat/survival{
+	pixel_y = 2
+	},
+/obj/item/knife/combat/survival{
+	pixel_y = 2
+	},
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
 "sME" = (
@@ -63840,6 +63921,12 @@
 /obj/effect/mapping_helpers/burnt_floor,
 /turf/open/floor/plating,
 /area/station/maintenance/port/fore)
+"sNE" = (
+/obj/effect/turf_decal/box/red,
+/obj/structure/closet/secure_closet/pathfinder_weapons,
+/obj/machinery/firealarm/directional/north,
+/turf/open/floor/engine,
+/area/station/pathfinders/pathfinders_armory)
 "sNR" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -64484,17 +64571,17 @@
 /turf/open/floor/plating,
 /area/station/maintenance/solars/starboard/aft)
 "sWe" = (
-/obj/structure/table,
-/obj/item/storage/medkit/pathfinder{
-	pixel_y = 4
+/obj/effect/turf_decal/tile/pathfinders_purple/anticorner/contrasted,
+/obj/effect/turf_decal/tile/pathfinders_purple{
+	dir = 4
 	},
-/obj/item/mod/module/pathfinder{
-	pixel_y = 4
+/obj/effect/turf_decal/tile/pathfinders_purple{
+	dir = 8
 	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/light/directional/south,
-/obj/structure/sign/warning/no_smoking/circle/directional/south,
-/turf/open/floor/iron/dark,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/iron,
 /area/station/pathfinders/dock)
 "sWj" = (
 /obj/machinery/computer/station_alert{
@@ -65803,6 +65890,15 @@
 /obj/machinery/power/apc/auto_name/directional/west,
 /turf/open/floor/wood,
 /area/station/security/detectives_office)
+"tpn" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/station/pathfinders/pathfinders_armory)
 "tpp" = (
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
@@ -66418,7 +66514,8 @@
 /turf/open/floor/iron/dark,
 /area/station/security/warden)
 "typ" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners,
+/obj/effect/turf_decal/tile/pathfinders_purple,
+/obj/effect/turf_decal/stripes/corner,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 8
 	},
@@ -67651,6 +67748,12 @@
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating,
 /area/station/maintenance/disposal)
+"tSa" = (
+/obj/effect/turf_decal/box/red,
+/obj/structure/closet/secure_closet/pathfinder_weapons,
+/obj/machinery/airalarm/directional/west,
+/turf/open/floor/engine,
+/area/station/pathfinders/pathfinders_armory)
 "tSc" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -68041,6 +68144,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
 /area/station/command/gateway)
+"tYa" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/turf/open/floor/plating,
+/area/station/maintenance/starboard/fore)
 "tYd" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -70025,9 +70134,12 @@
 	},
 /area/station/hallway/primary/port)
 "uAD" = (
-/obj/effect/turf_decal/tile/pathfinders_purple,
-/turf/open/floor/iron,
-/area/station/pathfinders/dock)
+/obj/structure/girder,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/burnt_floor,
+/obj/structure/grille/broken,
+/turf/open/floor/plating,
+/area/station/maintenance/starboard)
 "uAE" = (
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
 /turf/closed/wall/rust,
@@ -75745,11 +75857,8 @@
 /turf/open/floor/iron,
 /area/station/commons/fitness/recreation)
 "wfe" = (
-/obj/effect/turf_decal/tile/pathfinders_purple/half/contrasted,
-/obj/effect/turf_decal/tile/pathfinders_purple{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/oil,
+/obj/effect/turf_decal/tile/pathfinders_purple,
+/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
 "wfk" = (
@@ -75853,10 +75962,7 @@
 /area/station/hallway/primary/central)
 "whe" = (
 /obj/machinery/firealarm/directional/south,
-/obj/effect/turf_decal/tile/pathfinders_purple/anticorner/contrasted,
-/obj/effect/turf_decal/tile/pathfinders_purple{
-	dir = 4
-	},
+/obj/effect/turf_decal/tile/pathfinders_purple/half/contrasted,
 /obj/effect/turf_decal/tile/pathfinders_purple{
 	dir = 8
 	},
@@ -119805,9 +119911,9 @@ lRk
 fvU
 lRk
 ieu
-weK
-jcp
-wrR
+tYa
+hKd
+iWe
 fRw
 lRk
 gSW
@@ -125497,7 +125603,7 @@ uSz
 gaP
 oSA
 vOX
-wCY
+fkP
 sJS
 acm
 oUz
@@ -125745,16 +125851,16 @@ kDx
 usW
 pYj
 gdr
-uAD
+niN
 whe
-jXS
-qpD
-vOX
+oRr
+rMO
+lSB
+rMO
+rMO
 pho
 rZV
-rZV
-rZV
-mrt
+ugD
 sJS
 aaQ
 oUz
@@ -126004,14 +126110,14 @@ xSu
 gdr
 niN
 jTd
-jXS
-hKd
-vOX
-jKR
+oRr
+sNE
+tSa
+cXm
 rMO
-rZV
-xZL
-xZL
+uAD
+fkP
+fkP
 rZV
 qJs
 rLR
@@ -126261,13 +126367,13 @@ pxQ
 eUp
 wfe
 sWe
-mur
-rZV
-rZV
+bAk
+tpn
+tpn
 imp
-ugD
+rMO
 iZa
-wCY
+qgJ
 rZV
 rZV
 aaa
@@ -126516,15 +126622,15 @@ vuW
 eDJ
 hWa
 typ
-niN
+sWe
 pKG
-jXS
-aeu
-rZV
-rZV
-rZV
-vOX
-wCY
+oRr
+jKR
+oJt
+qYd
+lSB
+kDp
+qgJ
 rZV
 aaa
 aaa
@@ -126770,18 +126876,18 @@ aeu
 jmW
 mur
 cDv
-kBj
-kBj
+jaq
+cdy
 kBj
 drn
 jXS
-jXS
-aeu
-aeu
-aeu
-aeu
-rZV
-xZL
+oRr
+rMO
+rMO
+lSB
+rMO
+rUt
+dWy
 sJS
 aaa
 aaa
@@ -127036,9 +127142,9 @@ aeu
 aeu
 aeu
 aeu
-aeu
+eDP
 rZV
-wCY
+ugD
 sJS
 aaa
 aaa
@@ -127295,7 +127401,7 @@ aeu
 aeu
 aeu
 vOX
-wCY
+fkP
 sJS
 aaa
 aaa
@@ -127552,7 +127658,7 @@ aeu
 aeu
 aeu
 rZV
-wCY
+qgJ
 rZV
 aaa
 aaa
@@ -127809,7 +127915,7 @@ aeU
 aeu
 aeu
 rZV
-wCY
+fkP
 vOX
 aaa
 aaa

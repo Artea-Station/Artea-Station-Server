@@ -84,3 +84,28 @@
 	new /obj/item/circuitboard/machine/techfab/department/pathfinders(src)
 	new /obj/item/storage/photo_album/pl(src)
 	new /obj/item/storage/lockbox/medal/pl(src)
+
+/obj/structure/closet/secure_closet/pathfinder_weapons
+	name = "\proper pathfinder's weapons locker"
+	req_access = list(ACCESS_PATHFINDERS_STORAGE)
+	icon_state = "armory"
+
+/obj/structure/closet/secure_closet/pathfinder_weapons/PopulateContents()
+	..()
+
+	new /obj/item/gun/energy/laser(src)
+	new /obj/item/clothing/suit/armor/vest(src)
+	new /obj/item/flashlight(src)
+
+/obj/structure/closet/secure_closet/pathfinders_ballistic
+	name = "\proper pathfinder's ballistics locker"
+	req_access = list(ACCESS_PATHFINDERS_LEAD)
+	icon_state = "tac"
+
+/obj/structure/closet/secure_closet/pathfinders_ballistic/PopulateContents()
+	..()
+
+	new /obj/item/gun/ballistic/automatic/pistol(src)
+	new /obj/item/ammo_box/magazine/m9mm(src)
+	new /obj/item/ammo_box/magazine/m9mm(src)
+	new /obj/item/flashlight(src)
