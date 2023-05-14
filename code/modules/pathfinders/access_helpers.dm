@@ -50,7 +50,7 @@
 	access_list += ACCESS_PATHFINDERS_LEAD
 	return access_list
 
-/obj/effect/mapping_helpers/airlock/any/pathfinders/pathfinders_server_room/get_access()
+/obj/effect/mapping_helpers/airlock/access/any/pathfinders/pathfinders_server_room/get_access()
 	var/list/access_list = ..()
 	access_list += ACCESS_PATHFINDERS_SERVER_ROOM
 	return access_list
