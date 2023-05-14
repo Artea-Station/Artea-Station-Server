@@ -3911,12 +3911,11 @@
 /turf/open/floor/iron,
 /area/station/commons/locker)
 "bla" = (
-/obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
-/obj/effect/turf_decal/tile/red{
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
-	dir = 8
+	dir = 4
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/robotics/lab)
@@ -26828,7 +26827,10 @@
 /area/station/hallway/secondary/exit/departure_lounge)
 "hRU" = (
 /obj/structure/table/glass,
-/obj/machinery/fax,
+/obj/machinery/fax{
+	fax_name = "Pathfinder Office";
+	name = "Pathfinders Office Fax Machine"
+	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
@@ -39528,18 +39530,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
-"lBo" = (
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/holopad,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/dark,
-/area/station/pathfinders/pathfinders_armory)
 "lBB" = (
 /obj/structure/bed,
 /obj/machinery/iv_drip,
@@ -42075,8 +42065,11 @@
 /area/station/command/heads_quarters/cmo)
 "mrm" = (
 /obj/structure/table/reinforced/rglass,
-/obj/machinery/fax,
 /obj/effect/turf_decal/bot,
+/obj/machinery/fax{
+	fax_name = "Lead Pathfinders Office";
+	name = "Lead Pathfinders Fax Machine"
+	},
 /turf/open/floor/iron/dark/small,
 /area/station/pathfinders/lead_office)
 "mrt" = (
@@ -59454,6 +59447,16 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/maintenance/port/lesser)
+"ryy" = (
+/obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/station/science/robotics/lab)
 "ryK" = (
 /obj/structure/table,
 /obj/structure/sign/departments/medbay/alt/directional/east,
@@ -68234,6 +68237,22 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/station/pathfinders/locker_room)
+"tYL" = (
+/obj/effect/turf_decal/tile/pathfinders_purple/anticorner/contrasted,
+/obj/effect/turf_decal/tile/pathfinders_purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/pathfinders_purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/turf/open/floor/iron,
+/area/station/pathfinders/dock)
 "tYZ" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -78668,6 +78687,18 @@
 /obj/structure/cable,
 /turf/open/floor/iron/showroomfloor,
 /area/station/pathfinders/locker_room)
+"wTk" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/holopad,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/dark,
+/area/station/pathfinders/pathfinders_armory)
 "wTx" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/effect/decal/cleanable/dirt,
@@ -80268,22 +80299,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/station/medical/chemistry)
-"xtp" = (
-/obj/effect/turf_decal/tile/pathfinders_purple/anticorner/contrasted,
-/obj/effect/turf_decal/tile/pathfinders_purple{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/pathfinders_purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/turf/open/floor/iron,
-/area/station/pathfinders/dock)
 "xtt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -80305,15 +80320,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/security/office)
-"xtv" = (
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/station/science/robotics/lab)
 "xtC" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -119726,7 +119732,7 @@ ggZ
 bBF
 sVN
 dqw
-xtv
+bla
 lGQ
 qoF
 nJK
@@ -119985,7 +119991,7 @@ ylT
 lWg
 gpP
 bLf
-bla
+ryy
 vqN
 bBF
 oAO
@@ -126417,10 +126423,10 @@ rWl
 pxQ
 eUp
 wfe
-xtp
+tYL
 bAk
 tpn
-lBo
+wTk
 imp
 rMO
 iZa
