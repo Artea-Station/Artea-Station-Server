@@ -410,6 +410,10 @@
 	name = "\improper Quartermaster's Office"
 	icon_state = "qm_office"
 
+/area/station/command/heads_quarters/pl
+	name = "\improper Pathfinder Lead's Office"
+	icon_state = "pl_office"
+
 //Command - Teleporters
 
 /area/station/command/teleporter
@@ -738,6 +742,33 @@
 	name = "Engineering"
 	icon_state = "engine"
 
+/// These are special areas just for engines. Be aware that engines *eat* power, and therefor, you should avoid putting any machines that aren't engines inside these room.
+/area/station/engineering/engine
+	name = "Ship Engines - DO NOT USE"
+	icon_state = "ship_engines"
+
+/area/station/engineering/engine/central
+	name = "Central Ship Engines"
+
+/area/station/engineering/engine/central/lesser
+	name = "Lesser Central Ship Engines"
+
+/area/station/engineering/engine/port
+	name = "Port Ship Engines"
+
+/area/station/engineering/engine/port/lesser
+	name = "Lesser Port Ship Engines"
+
+/area/station/engineering/engine/starboard
+	name = "Starboard Ship Engines"
+
+/area/station/engineering/engine/starboard/lesser
+	name = "Lesser Starboard Ship Engines"
+
+/area/station/engineering/engine
+	name = "Ship Engines"
+	icon_state = "ship_engines"
+
 /area/station/engineering/hallway
 	name = "Engineering Hallway"
 	icon_state = "engine_hallway"
@@ -1050,6 +1081,10 @@
 	mood_bonus = 3
 	mood_message = "I feel at ease here."
 	ambientsounds = list('sound/ambience/aurora_caelus_short.ogg')
+
+/area/station/medical/emergency_shuttle_dock
+	name = "\improper Medbay Emergency Shuttle Dock"
+	icon_state = "pathfinders"
 
 //Security
 ///When adding a new area to the security areas, make sure to add it to /datum/bounty/item/security/paperwork as well!
@@ -1443,3 +1478,27 @@
 
 /area/station/maintenance/external/port/bow
 	name = "\improper Port Bow External Hull Access"
+
+//Pathfinder areas
+
+/area/station/pathfinders
+	name = "\improper Pathfinders Lobby"
+	icon_state = "pathfinders"
+	ambience_index = AMBIENCE_ENGI
+	airlock_wires = /datum/wires/airlock/pathfinders
+	sound_environment = SOUND_AREA_STANDARD_STATION
+
+/area/station/pathfinders/storage
+	name = "\improper Pathfinders Storeroom"
+
+/area/station/pathfinders/dock
+	name = "\improper Pathfinders Dock"
+
+
+/area/station/pathfinders/locker_room
+	name = "\improper Pathfinders Locker room"
+
+/area/station/pathfinders/lead_office
+	name = "\improper Lead Pathfinder Office"
+
+

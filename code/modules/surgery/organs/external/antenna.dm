@@ -11,7 +11,6 @@
 /datum/bodypart_overlay/mutant/synth_antenna
 	layers = EXTERNAL_ADJACENT
 	feature_key = MUTANT_SYNTH_ANTENNA
-	color_source = ORGAN_COLOR_OVERRIDE
 
 /datum/bodypart_overlay/mutant/synth_antenna/get_global_feature_list()
 	return GLOB.synth_antennae

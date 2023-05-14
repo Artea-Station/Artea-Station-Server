@@ -36,7 +36,7 @@
 	category = list(
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_MINING
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
+	departmental_flags = DEPARTMENT_BITFLAG_CARGO | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/drill_diamond
 	name = "Diamond-Tipped Mining Drill"
@@ -48,7 +48,7 @@
 	category = list(
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_MINING
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
+	departmental_flags = DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/plasmacutter
 	name = "Plasma Cutter"
@@ -60,7 +60,7 @@
 	category = list(
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_MINING
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO | DEPARTMENT_BITFLAG_ENGINEERING
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/plasmacutter_adv
 	name = "Advanced Plasma Cutter"
@@ -72,7 +72,7 @@
 	category = list(
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_MINING
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
+	departmental_flags = DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/jackhammer
 	name = "Sonic Jackhammer"
@@ -84,7 +84,7 @@
 	category = list(
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_MINING
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
+	departmental_flags = DEPARTMENT_BITFLAG_CARGO | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/superresonator
 	name = "Upgraded Resonator"
@@ -96,7 +96,7 @@
 	category = list(
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_MINING
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
+	departmental_flags = DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/trigger_guard_mod
 	name = "Kinetic Accelerator Trigger Guard Mod"
@@ -108,7 +108,7 @@
 	category = list(
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_PKA_MODS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
+	departmental_flags = DEPARTMENT_BITFLAG_CARGO | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/damage_mod
 	name = "Kinetic Accelerator Damage Mod"
@@ -120,7 +120,7 @@
 	category = list(
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_PKA_MODS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
+	departmental_flags = DEPARTMENT_BITFLAG_CARGO | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/damage_mod/borg
 	id = "damagemod_b"
@@ -140,7 +140,7 @@
 	category = list(
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_PKA_MODS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
+	departmental_flags = DEPARTMENT_BITFLAG_CARGO | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/cooldown_mod/borg
 	id = "cooldownmod_b"
@@ -160,7 +160,7 @@
 	category = list(
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_PKA_MODS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
+	departmental_flags = DEPARTMENT_BITFLAG_CARGO | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/range_mod/borg
 	id = "rangemod_b"
@@ -180,7 +180,7 @@
 	category = list(
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_PKA_MODS
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
+	departmental_flags = DEPARTMENT_BITFLAG_CARGO | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/hyperaccelerator/borg
 	id = "hypermod_b"
@@ -198,7 +198,7 @@
 	materials = list(/datum/material/glass = 1000)
 	build_path = /obj/item/circuitboard/machine/mining_drill
 	category = list(RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_MINING)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
+	departmental_flags = DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/mining_brace
 	name = "Machine Design (Mining Brace)"
@@ -208,7 +208,7 @@
 	materials = list(/datum/material/glass = 1000)
 	build_path = /obj/item/circuitboard/machine/mining_brace
 	category = list(RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_MINING)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
+	departmental_flags = DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/metal_density_scanner
 	name = "Metal Density Scanner"
@@ -218,7 +218,7 @@
 	materials = list(/datum/material/iron = 3000, /datum/material/glass = 1000)
 	build_path = /obj/item/metal_density_scanner
 	category = list(RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_MINING)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
+	departmental_flags = DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/adv_metal_density_scanner
 	name = "Advanced Metal Density Scanner"
@@ -228,4 +228,4 @@
 	materials = list(/datum/material/iron = 3000, /datum/material/glass = 1000, /datum/material/gold = 500)
 	build_path = /obj/item/metal_density_scanner/adv
 	category = list(RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_MINING)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
+	departmental_flags = DEPARTMENT_BITFLAG_PATHFINDERS

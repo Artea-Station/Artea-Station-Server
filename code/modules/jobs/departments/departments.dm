@@ -99,13 +99,23 @@
 	ui_color = "#cf9c6c"
 	nation_prefixes = list("Cargo", "Guna", "Suppli", "Mule", "Crate", "Ore", "Mini", "Shaf")
 
+/datum/job_department/pathfinders
+	department_name = DEPARTMENT_PATHFINDERS
+	department_bitflags = DEPARTMENT_BITFLAG_PATHFINDERS
+	department_head = /datum/job/lead_pathfinder
+	department_experience_type = EXP_TYPE_PATHFINDERS
+	display_order = 7
+	label_class = "pathfinders"
+	ui_color = "#847A96"
+	nation_prefixes = list("Ship", "Boat", "Jet", "Orbit")
+
 
 /datum/job_department/service
 	department_name = DEPARTMENT_SERVICE
 	department_bitflags = DEPARTMENT_BITFLAG_SERVICE
 	department_head = /datum/job/head_of_personnel
 	department_experience_type = EXP_TYPE_SERVICE
-	display_order = 7
+	display_order = 8
 	label_class = "service"
 	ui_color = "#7cc46a"
 	nation_prefixes = list("Honka", "Boozo", "Fatu", "Danka", "Mimi", "Libra", "Jani", "Religi")
@@ -116,7 +126,7 @@
 	department_bitflags = DEPARTMENT_BITFLAG_SILICON
 	department_head = /datum/job/ai
 	department_experience_type = EXP_TYPE_SILICON
-	display_order = 8
+	display_order = 9
 	label_class = "silicon"
 	ui_color = "#5dbda0"
 

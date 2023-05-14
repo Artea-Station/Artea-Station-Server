@@ -361,6 +361,15 @@
 	flags_1 = NONE
 
 
+//Pathfinders
+
+/obj/item/clothing/head/beret/pathfinders
+	name = "pathfinders beret"
+	desc = "Highly impractical for spacer use! Perfect!"
+	greyscale_colors = "#575577"
+	flags_1 = NONE
+
+
 //Curator
 
 /obj/item/clothing/head/fedora/curator

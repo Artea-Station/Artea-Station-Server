@@ -15,4 +15,4 @@
 	contraband = list(/obj/item/assembly/health = 3)
 	default_price = PAYCHECK_CREW
 	extra_price = PAYCHECK_CREW
-	payment_department = ACCOUNT_SCI
+	payment_department = ACCOUNT_PTH

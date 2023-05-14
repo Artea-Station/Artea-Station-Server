@@ -136,6 +136,8 @@ SUBSYSTEM_DEF(job)
 			GLOB.medical_positions[job.title] = TRUE
 		if(/datum/job_department/silicon in job.departments_list)
 			GLOB.nonhuman_positions[job.title] = TRUE
+		if(/datum/job_department/pathfinders in job.departments_list)
+			GLOB.nonhuman_positions[job.title] = TRUE
 
 		name_occupations[job.title] = job
 		type_occupations[job_type] = job

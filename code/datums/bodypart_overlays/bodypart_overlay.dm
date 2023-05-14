@@ -12,15 +12,15 @@
 ///Wrapper for getting the proper image, colored and everything
 /datum/bodypart_overlay/proc/get_overlay(layer, obj/item/bodypart/limb)
 	layer = bitflag_to_layer(layer)
-	. = get_image(layer, limb)
-	color_image(., layer, limb)
+	. = get_images(layer, limb)
+	color_images(., layer, limb)
 
 ///Generate the image. Needs to be overriden
-/datum/bodypart_overlay/proc/get_image(layer, obj/item/bodypart/limb)
-	CRASH("Get image needs to be overridden")
+/datum/bodypart_overlay/proc/get_images(layer, obj/item/bodypart/limb)
+	CRASH("Get images needs to be overridden")
 
 ///Color the image
-/datum/bodypart_overlay/proc/color_image(image/overlay, layer)
+/datum/bodypart_overlay/proc/color_images(image/overlay, layer)
 	return
 
 ///Called on being added to a limb

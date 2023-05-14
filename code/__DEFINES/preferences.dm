@@ -70,6 +70,7 @@
 #define EXP_TYPE_CREW "Crew"
 #define EXP_TYPE_COMMAND "Command"
 #define EXP_TYPE_ENGINEERING "Engineering"
+#define EXP_TYPE_PATHFINDERS "Pathfinders"
 #define EXP_TYPE_MEDICAL "Medical"
 #define EXP_TYPE_SCIENCE "Science"
 #define EXP_TYPE_SUPPLY "Supply"

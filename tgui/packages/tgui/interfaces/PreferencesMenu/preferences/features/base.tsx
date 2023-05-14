@@ -383,3 +383,49 @@ export const FeatureTextInput = (
     />
   );
 };
+export const FeatureTriColorInput = (props: FeatureValueProps<string>) => {
+  const value = props.value.split(';');
+  const buttonFromValue = (index) => {
+    return (
+      <Stack.Item>
+        <Button
+          onClick={() => {
+            props.act('set_tricolor_preference', {
+              preference: props.featureId,
+              value: index + 1,
+            });
+          }}>
+          <Stack align="center" fill>
+            <Stack.Item>
+              <Box
+                style={{
+                  background: value[index].startsWith('#')
+                    ? value[index]
+                    : `#${value[index]}`,
+                  border: '2px solid white',
+                  'box-sizing': 'content-box',
+                  height: '11px',
+                  width: '11px',
+                  ...(props.shrink
+                    ? {
+                      'margin': '1px',
+                    }
+                    : {}),
+                }}
+              />
+            </Stack.Item>
+
+            {!props.shrink && <Stack.Item>Change</Stack.Item>}
+          </Stack>
+        </Button>
+      </Stack.Item>
+    );
+  };
+  return (
+    <Stack align="center" fill>
+      {value.length > 0 && buttonFromValue(0)}
+      {value.length > 1 && buttonFromValue(1)}
+      {value.length > 2 && buttonFromValue(2)}
+    </Stack>
+  );
+};

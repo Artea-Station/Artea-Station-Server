@@ -26,7 +26,7 @@
 	)
 	refill_canister = /obj/item/vending_refill/robotics
 	default_price = PAYCHECK_COMMAND
-	payment_department = ACCOUNT_SCI
+	payment_department = ACCOUNT_PTH
 
 /obj/item/vending_refill/robotics
 	machine_name = "Robotech Deluxe"

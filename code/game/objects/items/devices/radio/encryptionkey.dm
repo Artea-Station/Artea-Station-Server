@@ -175,13 +175,6 @@
 	greyscale_config = /datum/greyscale_config/encryptionkey_cargo
 	greyscale_colors = "#49241a#7b3f2e"
 
-/obj/item/encryptionkey/headset_mining
-	name = "mining radio encryption key"
-	icon_state = "cypherkey_cargo"
-	channels = list(RADIO_CHANNEL_SUPPLY = 1, RADIO_CHANNEL_PATHFINDERS = 1)
-	greyscale_config = /datum/greyscale_config/encryptionkey_cargo
-	greyscale_colors = "#49241a#bc4a9b"
-
 /obj/item/encryptionkey/headset_service
 	name = "service radio encryption key"
 	icon_state = "cypherkey_service"

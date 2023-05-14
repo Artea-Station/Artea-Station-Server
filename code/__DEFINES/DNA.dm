@@ -73,6 +73,8 @@
 #define NO_UNDERWEAR 9
 #define NO_DNA_COPY 10
 #define DRINKSBLOOD 11
+// Not for mutantraces, but the flags are reused in sprite accessories.
+#define TRI_COLOR_LAYERS 12
 
 #define NOSTOMACH 10
 
@@ -120,7 +122,7 @@
 #define ORGAN_SLOT_ZOMBIE "zombie_infection"
 
 /// Organ slot external
-#define ORGAN_SLOT_EXTERNAL_TAIL "tail"
+#define ORGAN_SLOT_EXTERNAL_TAIL MUTANT_TAIL
 #define ORGAN_SLOT_EXTERNAL_SPINES "spines"
 #define ORGAN_SLOT_EXTERNAL_SNOUT "snout"
 #define ORGAN_SLOT_EXTERNAL_FRILLS "frills"

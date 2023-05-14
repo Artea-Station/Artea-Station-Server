@@ -1,6 +1,6 @@
 ///Tail parent, it doesn't do very much.
 /obj/item/organ/external/tail
-	name = "tail"
+	name = MUTANT_TAIL
 	desc = "A severed tail. What did you cut this off of?"
 	icon_state = "severedtail"
 
@@ -68,7 +68,7 @@
 ///Tail parent type (which is MONKEEEEEEEEEEE by default), with wagging functionality
 /datum/bodypart_overlay/mutant/tail
 	layers = EXTERNAL_FRONT|EXTERNAL_BEHIND
-	feature_key = "tail"
+	feature_key = MUTANT_TAIL
 	var/wagging = FALSE
 
 /datum/bodypart_overlay/mutant/tail/get_base_icon_state()
@@ -83,24 +83,19 @@
 	return TRUE
 
 /obj/item/organ/external/tail/cat
-	name = "tail"
+	name = MUTANT_TAIL
 	preference = "feature_human_tail"
 
-	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/hair_colored
+	bodypart_overlay = /datum/bodypart_overlay/mutant/tail
 
 	wag_flags = WAG_ABLE
-
-///Cat tail bodypart overlay
-/datum/bodypart_overlay/mutant/tail/hair_colored
-	color_source = ORGAN_COLOR_HAIR
 
 /obj/item/organ/external/tail/monkey
 	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/monkey
 
 ///Monkey tail bodypart overlay
 /datum/bodypart_overlay/mutant/tail/monkey
-	color_source = NONE
-	feature_key = "tail"
+	feature_key = MUTANT_TAIL
 
 /obj/item/organ/external/tail/lizard
 	name = "lizard tail"
@@ -142,7 +137,7 @@
 
 ///Lizard tail bodypart overlay datum
 /datum/bodypart_overlay/mutant/tail/lizard
-	feature_key = "tail_lizard"
+	feature_key = MUTANT_LIZARD_TAIL
 
 /datum/bodypart_overlay/mutant/tail/lizard/get_global_feature_list()
 	return GLOB.tails_list_lizard

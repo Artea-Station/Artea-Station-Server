@@ -1298,10 +1298,6 @@
 	registered_name = "Prisoner #13-007"
 	trim = /datum/id_trim/job/prisoner/seven
 
-/obj/item/card/id/advanced/mining
-	name = "mining ID"
-	trim = /datum/id_trim/job/shaft_miner/spare
-
 /obj/item/card/id/advanced/highlander
 	name = "highlander ID"
 	registered_name = "Highlander"
