@@ -1499,3 +1499,6 @@
 
 /area/station/pathfinders/lead_office
 	name = "\improper Lead Pathfinder Office"
+
+/area/station/pathfinders/pathfinders_server_room
+	name = "\improper Pathfinders Server Room"
