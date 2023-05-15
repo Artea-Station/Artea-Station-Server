@@ -61,6 +61,7 @@
 /datum/outfit/job/pathfinder/medic
 	name = "Pathfinder Medic"
 
+	ears = /obj/item/radio/headset/headset_pth_medic
 	gloves = /obj/item/clothing/gloves/color/latex
 	backpack_contents = list(
 		/obj/item/storage/medkit/pathfinder = 1
