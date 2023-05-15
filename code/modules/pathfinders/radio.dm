@@ -6,8 +6,8 @@
 
 /obj/item/radio/headset/headset_pth_medic
 	name = "pathfinders medical radio headset"
-	desc = "A spacey headset with extra blue. Does not come with a doctorate or medical comms access."
-	icon_state = "pathfindermedical_headset"
+	desc = "A spacey headset with extra blue. Does not come with a doctorate."
+	icon_state = "pathfindermed_headset"
 	keyslot = new /obj/item/encryptionkey/headset_pthmed
 
 /obj/item/encryptionkey/headset_pth
