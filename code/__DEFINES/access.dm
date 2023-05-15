@@ -145,6 +145,7 @@
 #define ACCESS_PATHFINDERS_DOCK "pathfinders_dock"
 #define ACCESS_PATHFINDERS_STORAGE "pathfinders_storage"
 #define ACCESS_PATHFINDERS_LEAD "PATHFINDERS_LEAD"
+#define ACCESS_PATHFINDERS_SERVER_ROOM "pathfinders_server_room"
 
 /// - - - AWAY MISSIONS - - -
 /*For generic away-mission/ruin access. Why would normal crew have access to a long-abandoned derelict
@@ -466,6 +467,7 @@
 	ACCESS_PATHFINDERS, \
 	ACCESS_PATHFINDERS_DOCK, \
 	ACCESS_PATHFINDERS_STORAGE, \
+	ACCESS_PATHFINDERS_SERVER_ROOM, \
 	ACCESS_MINING, \
 	ACCESS_MINING_STATION, \
 )
