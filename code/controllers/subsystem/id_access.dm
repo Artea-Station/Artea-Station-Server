@@ -294,6 +294,7 @@ SUBSYSTEM_DEF(id_access)
 	desc_by_access["[ACCESS_PATHFINDERS_DOCK]"] = "Pathfinders Dock"
 	desc_by_access["[ACCESS_PATHFINDERS_STORAGE]"] = "Pathfinders Storage"
 	desc_by_access["[ACCESS_PATHFINDERS_LEAD]"] = "Pathfinders Lead"
+	desc_by_access["[ACCESS_PATHFINDERS_SERVER_ROOM]"] = "Pathfinders Server room"
 	desc_by_access["[ACCESS_SURGERY]"] = "Surgery"
 	desc_by_access["[ACCESS_THEATRE]"] = "Theatre"
 	desc_by_access["[ACCESS_RESEARCH]"] = "Science"
