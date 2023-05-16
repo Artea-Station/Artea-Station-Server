@@ -61,7 +61,7 @@
 	box = /obj/item/storage/box/survival/engineer
 
 /datum/outfit/job/lead_pathfinder/mod
-	name = "Pathfinder (MODsuit)"
+	name = "Lead Pathfinder (MODsuit)"
 
 	suit_store = /obj/item/tank/internals/oxygen
 	back = /obj/item/mod/control/pre_equipped/pathfinders
@@ -89,6 +89,7 @@
 		ACCESS_PATHFINDERS_DOCK,
 		ACCESS_PATHFINDERS_LEAD,
 		ACCESS_PATHFINDERS_STORAGE,
+		ACCESS_PATHFINDERS_SERVER_ROOM
 		)
 	minimal_wildcard_access = list(
 		ACCESS_PATHFINDERS_LEAD,

@@ -91,6 +91,7 @@
 /obj/effect/mapping_helpers
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = ""
+	anchored = TRUE
 	var/late = FALSE
 
 /obj/effect/mapping_helpers/Initialize(mapload)

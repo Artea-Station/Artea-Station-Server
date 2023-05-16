@@ -7,31 +7,6 @@ export const be_victim: Feature<boolean> = {
   component: CheckboxInput,
 };
 
-export const erp_status: Feature<string> = {
-  name: 'ERP Status',
-  description: 'Whether you want to ERP, and the dom/sub role you prefer.',
-  component: FeatureDropdownInput,
-};
-
-export const erp_orientation: Feature<string> = {
-  name: 'ERP Status',
-  description: 'Whether you want to ERP, and the dom/sub role you prefer.',
-  component: FeatureDropdownInput,
-};
-
-export const erp_position: Feature<string> = {
-  name: 'ERP Position',
-  description: 'What position you enjoy taking during ERP.',
-  component: FeatureDropdownInput,
-};
-
-export const erp_non_con: Feature<string> = {
-  name: 'ERP Non-Con Preference',
-  description:
-    "Whether you want to partake in non consensual ERP. Be ware that this should be done in private locations, for other player's sakes.",
-  component: FeatureDropdownInput,
-};
-
 export const content_brainwashing: Feature<string> = {
   name: 'Brainwashing',
   description: 'Whether you want to be, or are fine with being brainwashed.',
@@ -74,5 +49,30 @@ export const content_round_removal: Feature<string> = {
   name: 'Round Removal',
   description:
     'Whether you want to be, or are fine with being round removed by players. Do note that there are of course, certain situations which can result in round removals due to game mechanics, which cannot be helped in certain situations.',
+  component: FeatureDropdownInput,
+};
+
+export const erp_status: Feature<string> = {
+  name: 'ERP Status',
+  description: 'Whether you want to ERP, and the dom/sub role you prefer.',
+  component: FeatureDropdownInput,
+};
+
+export const erp_orientation: Feature<string> = {
+  name: 'ERP Status',
+  description: 'Whether you want to ERP, and the dom/sub role you prefer.',
+  component: FeatureDropdownInput,
+};
+
+export const erp_position: Feature<string> = {
+  name: 'ERP Position',
+  description: 'What position you enjoy taking during ERP.',
+  component: FeatureDropdownInput,
+};
+
+export const erp_non_con: Feature<string> = {
+  name: 'ERP Non-Con Preference',
+  description:
+    "Whether you want to partake in non consensual ERP. Be ware that this should be done in private locations, for other player's sakes.",
   component: FeatureDropdownInput,
 };

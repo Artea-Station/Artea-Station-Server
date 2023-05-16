@@ -25,67 +25,6 @@
 		CRASH("No default value set for [type]!")
 	return default_value
 
-/datum/preference/choiced/content/erp_status
-	savefile_key = "erp_status"
-	default_value = "No"
-
-/datum/preference/choiced/content/erp_status/init_possible_values()
-	return list(
-		"No",
-		"Check OOC Notes",
-		"Yes",
-		"Yes - Dom",
-		"Yes - Dom Lean",
-		"Yes - Switch",
-		"Yes - Sub Lean",
-		"Yes - Sub",
-	)
-
-/datum/preference/choiced/content/erp_orientation
-	savefile_key = "erp_orientation"
-	default_value = "Asexual"
-
-/datum/preference/choiced/content/erp_orientation/init_possible_values()
-	return list(
-		"Asexual",
-		"Female",
-		"Feminine",
-		"Pansexual - Female Lean",
-		"Pansexual - Feminine Lean",
-		"Pansexual",
-		"Pansexual - Masculine Lean",
-		"Pansexual - Male Lean",
-		"Masculine",
-		"Male",
-	)
-
-/datum/preference/choiced/content/erp_position
-	savefile_key = "erp_position"
-	default_value = "None"
-
-/datum/preference/choiced/content/erp_position/init_possible_values()
-	return list(
-		"Top",
-		"Top Lean",
-		"Switch",
-		"Bottom Lean",
-		"Bottom",
-		"None",
-	)
-
-/datum/preference/choiced/content/erp_non_con
-	savefile_key = "erp_non_con"
-	default_value = "No"
-
-/datum/preference/choiced/content/erp_non_con/init_possible_values()
-	return list(
-		"No",
-		"Check OOC Notes",
-		"Yes - Dom",
-		"Yes",
-		"Yes - Sub",
-	)
-
 /datum/preference/choiced/content/death
 	savefile_key = "content_death"
 	default_value = "Unset"
@@ -174,4 +113,65 @@
 		"Prefer Not",
 		"No",
 		"Unset",
+	)
+
+/datum/preference/choiced/content/erp_status
+	savefile_key = "erp_status"
+	default_value = "No"
+
+/datum/preference/choiced/content/erp_status/init_possible_values()
+	return list(
+		"No",
+		"Check OOC Notes",
+		"Yes",
+		"Yes - Dom",
+		"Yes - Dom Lean",
+		"Yes - Switch",
+		"Yes - Sub Lean",
+		"Yes - Sub",
+	)
+
+/datum/preference/choiced/content/erp_orientation
+	savefile_key = "erp_orientation"
+	default_value = "Asexual"
+
+/datum/preference/choiced/content/erp_orientation/init_possible_values()
+	return list(
+		"Asexual",
+		"Female",
+		"Feminine",
+		"Pansexual - Female Lean",
+		"Pansexual - Feminine Lean",
+		"Pansexual",
+		"Pansexual - Masculine Lean",
+		"Pansexual - Male Lean",
+		"Masculine",
+		"Male",
+	)
+
+/datum/preference/choiced/content/erp_position
+	savefile_key = "erp_position"
+	default_value = "None"
+
+/datum/preference/choiced/content/erp_position/init_possible_values()
+	return list(
+		"Top",
+		"Top Lean",
+		"Switch",
+		"Bottom Lean",
+		"Bottom",
+		"None",
+	)
+
+/datum/preference/choiced/content/erp_non_con
+	savefile_key = "erp_non_con"
+	default_value = "No"
+
+/datum/preference/choiced/content/erp_non_con/init_possible_values()
+	return list(
+		"No",
+		"Check OOC Notes",
+		"Yes - Dom",
+		"Yes",
+		"Yes - Sub",
 	)
