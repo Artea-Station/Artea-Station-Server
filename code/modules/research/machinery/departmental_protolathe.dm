@@ -46,7 +46,7 @@
 	department_tag = "Science"
 	circuit = /obj/item/circuitboard/machine/protolathe/department/science
 	stripe_color = "#D381C9"
-	payment_department = ACCOUNT_SCI
+	payment_department = ACCOUNT_PTH
 
 /obj/machinery/rnd/production/protolathe/department/security
 	name = "department protolathe (Security)"

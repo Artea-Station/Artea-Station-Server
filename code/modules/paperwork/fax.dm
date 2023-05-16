@@ -9,6 +9,7 @@
 	pass_flags = PASSTABLE
 	circuit = /obj/item/circuitboard/machine/fax
 	interaction_sound = SFX_KEYBOARD
+	pixel_y = 6 // Makes these look right on tables
 	/// The unique ID by which the fax will build a list of existing faxes.
 	var/fax_id
 	/// The name of the fax displayed in the list. Not necessarily unique to some EMAG jokes.

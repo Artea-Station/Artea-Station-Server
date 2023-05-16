@@ -27,13 +27,17 @@
 		NOTRANSSTING,
 	)
 	mutant_bodyparts = list(
-		"tail" = "None",
+		MUTANT_TAIL = "None",
 		"ears" = "None",
 		"legs" = "Normal Legs",
+		MUTANT_HORNS = "None",
 		MUTANT_SYNTH_ANTENNA = "None",
 		MUTANT_SYNTH_SCREEN = "None",
 		MUTANT_SYNTH_CHASSIS = "Default Chassis",
 		MUTANT_SYNTH_HEAD = "Default Head",
+		"synth_brain" = ORGAN_PREF_CIRCUIT_BRAIN,
+		"body_markings" = "None",
+		MUTANT_SNOUT = "None",
 	)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/synthetic
@@ -97,11 +101,11 @@
 
 	examine_limb_id = chassis_of_choice.icon_state
 
-	if(chassis_of_choice.color_src || head_of_choice.color_src)
-		species_traits += MUTCOLORS
+	var/list/head_color_list = target.dna.features["[MUTANT_SYNTH_HEAD]_color"]
+	var/list/chassis_color_list = target.dna.features["[MUTANT_SYNTH_CHASSIS]_color"]
 
-	var/head_color = target.dna.features["[MUTANT_SYNTH_HEAD]_color"]
-	var/chassis_color = target.dna.features["[MUTANT_SYNTH_CHASSIS]_color"]
+	var/head_color = length(head_color_list) ? "#[head_color_list[1]]" : null
+	var/chassis_color = length(chassis_color_list) ? "#[chassis_color_list[1]]" : null
 
 	// We want to ensure that the IPC gets their chassis and their head correctly.
 	for(var/obj/item/bodypart/limb as anything in target.bodyparts)
@@ -109,7 +113,7 @@
 			continue
 
 		if(limb.body_zone == BODY_ZONE_HEAD)
-			if(head_of_choice.color_src && head_color)
+			if(head_of_choice.color_src && head_color && head_color != COLOR_BLACK) // If someone sets their colour to pure black, assume they want skin_tone as their colour.
 				limb.variable_color = head_color
 			else
 				limb.variable_color = null
@@ -118,7 +122,7 @@
 			limb.update_limb(is_creating = TRUE)
 			continue
 
-		if(chassis_of_choice.color_src && chassis_color)
+		if(chassis_of_choice.color_src && chassis_color && chassis_color != COLOR_BLACK) // Ditto
 			limb.variable_color = chassis_color
 		else
 			limb.variable_color = null

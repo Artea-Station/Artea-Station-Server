@@ -116,7 +116,7 @@ SUBSYSTEM_DEF(id_access)
 	accesses_by_region[REGION_GENERAL] = REGION_ACCESS_GENERAL
 	accesses_by_region[REGION_SECURITY] = REGION_ACCESS_SECURITY
 	accesses_by_region[REGION_MEDBAY] = REGION_ACCESS_MEDBAY
-	accesses_by_region[REGION_RESEARCH] = REGION_ACCESS_RESEARCH
+	accesses_by_region[REGION_PATHFINDERS] = REGION_ACCESS_PATHFINDERS
 	accesses_by_region[REGION_ENGINEERING] = REGION_ACCESS_ENGINEERING
 	accesses_by_region[REGION_SUPPLY] = REGION_ACCESS_SUPPLY
 	accesses_by_region[REGION_COMMAND] = REGION_ACCESS_COMMAND
@@ -185,6 +185,12 @@ SUBSYSTEM_DEF(id_access)
 		"[ACCESS_QM]" = list(
 			"regions" = list(REGION_SUPPLY),
 			"head" = JOB_QUARTERMASTER,
+			"templates" = list(),
+			"pdas" = list(),
+		),
+		"[ACCESS_PATHFINDERS_LEAD]" = list(
+			"regions" = list(REGION_PATHFINDERS),
+			"head" = JOB_PATHFINDER_LEAD,
 			"templates" = list(),
 			"pdas" = list(),
 		),
@@ -283,6 +289,11 @@ SUBSYSTEM_DEF(id_access)
 	desc_by_access["[ACCESS_PSYCHOLOGY]"] = "Psychology"
 	desc_by_access["[ACCESS_CMO]"] = "CMO Office"
 	desc_by_access["[ACCESS_QM]"] = "Quartermaster"
+	desc_by_access["[ACCESS_PATHFINDERS]"] = "Pathfinders"
+	desc_by_access["[ACCESS_PATHFINDERS_DOCK]"] = "Pathfinders Dock"
+	desc_by_access["[ACCESS_PATHFINDERS_STORAGE]"] = "Pathfinders Storage"
+	desc_by_access["[ACCESS_PATHFINDERS_LEAD]"] = "Pathfinders Lead"
+	desc_by_access["[ACCESS_PATHFINDERS_SERVER_ROOM]"] = "Pathfinders Server room"
 	desc_by_access["[ACCESS_SURGERY]"] = "Surgery"
 	desc_by_access["[ACCESS_THEATRE]"] = "Theatre"
 	desc_by_access["[ACCESS_RESEARCH]"] = "Science"

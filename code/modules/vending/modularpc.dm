@@ -18,7 +18,7 @@
 	refill_canister = /obj/item/vending_refill/modularpc
 	default_price = PAYCHECK_CREW
 	extra_price = PAYCHECK_COMMAND
-	payment_department = ACCOUNT_SCI
+	payment_department = ACCOUNT_PTH
 
 /obj/item/vending_refill/modularpc
 	machine_name = "Deluxe Silicate Selections"

@@ -266,14 +266,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if (!istype(requested_preference, /datum/preference/color))
 				return FALSE
 
-			var/default_value = read_preference(requested_preference.type)
+			var/old_value = read_preference(requested_preference.type)
 
 			// Yielding
 			var/new_color = input(
 				usr,
 				"Select new color",
 				null,
-				default_value || COLOR_WHITE,
+				old_value || COLOR_WHITE,
 			) as color | null
 
 			if (!new_color)
@@ -285,6 +285,42 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			return TRUE
 		if ("open_food")
 			GLOB.food_prefs_menu.ui_interact(usr)
+			return TRUE
+
+		if ("set_tricolor_preference")
+			var/requested_preference_key = params["preference"]
+			var/index_key = params["value"]
+			if(!isnum(index_key))
+				return FALSE
+
+			var/datum/preference/requested_preference = GLOB.preference_entries_by_key[requested_preference_key]
+			if (isnull(requested_preference))
+				return FALSE
+
+			if (!istype(requested_preference, /datum/preference/color/mutant))
+				return FALSE
+
+			var/old_value_list = read_preference(requested_preference.type)
+			if (!islist(old_value_list))
+				return FALSE
+			var/old_value = old_value_list[index_key]
+
+			// Yielding
+			var/new_color = input(
+				usr,
+				"Select new color",
+				null,
+				"#[old_value]" || COLOR_WHITE,
+			) as color | null
+
+			if (!new_color)
+				return FALSE
+
+			old_value_list[index_key] = copytext(new_color, 2)
+
+			if (!update_preference(requested_preference, jointext(old_value_list, ";")))
+				return FALSE
+
 			return TRUE
 
 	for (var/datum/preference_middleware/preference_middleware as anything in middleware)
@@ -327,7 +363,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		LAZYINITLIST(preferences[preference.category])
 
 		var/value = read_preference(preference.type)
-		var/data = preference.compile_ui_data(user, value)
+		var/data = preference.compile_ui_data(user, value, src)
 
 		preferences[preference.category][preference.savefile_key] = data
 

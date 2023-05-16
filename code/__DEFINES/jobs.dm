@@ -41,6 +41,7 @@
 #define JOB_HEAD_OF_SECURITY "Head of Security"
 #define JOB_CHIEF_ENGINEER "Chief Engineer"
 #define JOB_CHIEF_MEDICAL_OFFICER "Chief Medical Officer"
+#define JOB_PATHFINDER_LEAD "Lead Pathfinder"
 #define JOB_INTERNAL_AFFAIRS_AGENT "Internal Affairs Agent"
 //Silicon
 #define JOB_AI "AI"
@@ -62,6 +63,8 @@
 #define JOB_MEDICAL_DOCTOR "Medical Doctor"
 #define JOB_PARAMEDIC "Paramedic"
 #define JOB_CHEMIST "Chemist"
+//Pathfinders
+#define JOB_PATHFINDER "Pathfinder"
 //Supply
 #define JOB_QUARTERMASTER "Quartermaster"
 #define JOB_CARGO_TECHNICIAN "Cargo Technician"
@@ -133,6 +136,8 @@
 #define JOB_DISPLAY_ORDER_SECURITY_OFFICER 34
 #define JOB_DISPLAY_ORDER_PRISONER 35
 #define JOB_DISPLAY_ORDER_INTERNAL_AFFAIRS_AGENT 36
+#define JOB_DISPLAY_ORDER_PATHFINDER_LEAD 37
+#define JOB_DISPLAY_ORDER_PATHFINDER 38
 
 
 #define DEPARTMENT_UNASSIGNED "No Department"
@@ -147,6 +152,8 @@
 #define DEPARTMENT_CARGO "Cargo"
 #define DEPARTMENT_BITFLAG_ENGINEERING (1<<4)
 #define DEPARTMENT_ENGINEERING "Engineering"
+#define DEPARTMENT_BITFLAG_PATHFINDERS (1<<5)
+#define DEPARTMENT_PATHFINDERS "Pathfinders"
 #define DEPARTMENT_BITFLAG_MEDICAL (1<<6)
 #define DEPARTMENT_MEDICAL "Medical"
 #define DEPARTMENT_BITFLAG_SILICON (1<<7)
@@ -189,3 +196,4 @@
 #define SUPERVISOR_HOS "the Head of Security"
 #define SUPERVISOR_QM "the Quartermaster"
 #define SUPERVISOR_RD "the Research Director"
+#define SUPERVISOR_PL "the Lead Pathfinder"

@@ -147,12 +147,11 @@
 
 /datum/sprite_accessory/antenna
 	icon = 'icons/mob/species/synth/synth_antennas.dmi'
-	color_src = MUTCOLORS
-	gender_specific = FALSE
+	key = "synth_antenna"
 
 /datum/sprite_accessory/antenna/none
 	name = "None"
-	icon_state = "None"
+	icon_state = "none"
 
 /datum/sprite_accessory/antenna/antennae
 	name = "Angled Antennae"
