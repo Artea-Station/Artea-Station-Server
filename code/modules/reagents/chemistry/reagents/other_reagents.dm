@@ -2017,11 +2017,11 @@
 
 /datum/reagent/concentrated_barbers_aid/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(current_cycle > 20 / creation_purity)
+	if(current_cycle > 20)
 		if(!ishuman(affected_mob))
 			return
 		var/mob/living/carbon/human/human_mob = affected_mob
-		if(creation_purity == 1 && human_mob.has_quirk(/datum/quirk/item_quirk/bald))
+		if(human_mob.has_quirk(/datum/quirk/item_quirk/bald))
 			human_mob.remove_quirk(/datum/quirk/item_quirk/bald)
 		var/datum/species/species_datum = human_mob.dna?.species
 		if(!species_datum)
@@ -2585,20 +2585,6 @@
 		drinker.adjustBruteLoss(2 * REM * delta_time, FALSE)
 	..()
 	return TRUE
-
-/datum/reagent/universal_indicator
-	name = "Universal Indicator"
-	description = "A solution that can be used to create pH paper booklets, or sprayed on things to colour them by their pH."
-	taste_description = "a strong chemical taste"
-	color = "#1f8016"
-
-//Colours things by their pH
-/datum/reagent/universal_indicator/expose_atom(atom/exposed_atom, reac_volume)
-	. = ..()
-	if(exposed_atom.reagents)
-		var/color
-		CONVERT_PH_TO_COLOR(exposed_atom.reagents.ph, color)
-		exposed_atom.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
 
 // [Original ants concept by Keelin on Goon]
 /datum/reagent/ants

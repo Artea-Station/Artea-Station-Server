@@ -18,52 +18,10 @@
 
 /datum/reagent/reaction_agent/acidic_buffer
 	name = "Strong Acidic Buffer"
-	description = "This reagent will consume itself and move the pH of a beaker towards acidity when added to another."
+	description = "This reagent will act as an inverting catalyst for chem reactions when added. Doesn't work on all chems."
 	color = "#fbc314"
 	inverse_chem = null
 	fallback_icon_state = "acid_buffer_fallback"
-	///The strength of the buffer where (volume/holder.total_volume)*strength. So for 1u added to 50u the ph will decrease by 0.4
-	var/strength = 30
-
-//Consumes self on addition and shifts ph
-/datum/reagent/reaction_agent/acidic_buffer/intercept_reagents_transfer(datum/reagents/target, amount)
-	. = ..()
-	if(!.)
-		return
-	if(target.ph <= ph)
-		target.my_atom.audible_message(span_warning("The beaker froths as the buffer is added, to no effect."))
-		playsound(target.my_atom, 'sound/chemistry/bufferadd.ogg', 50, TRUE)
-		holder.remove_reagent(type, amount)//Remove from holder because it's not transfered
-		return
-	var/ph_change = -((amount/target.total_volume)*strength)
-	target.adjust_all_reagents_ph(ph_change, ph, 14)
-	target.my_atom.audible_message(span_warning("The beaker fizzes as the ph changes!"))
-	playsound(target.my_atom, 'sound/chemistry/bufferadd.ogg', 50, TRUE)
-	holder.remove_reagent(type, amount)
-
-/datum/reagent/reaction_agent/basic_buffer
-	name = "Strong Basic Buffer"
-	description = "This reagent will consume itself and move the pH of a beaker towards alkalinity when added to another."
-	color = "#3853a4"
-	inverse_chem = null
-	fallback_icon_state = "base_buffer_fallback"
-	///The strength of the buffer where (volume/holder.total_volume)*strength. So for 1u added to 50u the ph will increase by 0.4
-	var/strength = 30
-
-/datum/reagent/reaction_agent/basic_buffer/intercept_reagents_transfer(datum/reagents/target, amount)
-	. = ..()
-	if(!.)
-		return
-	if(target.ph >= ph)
-		target.my_atom.audible_message(span_warning("The beaker froths as the buffer is added, to no effect."))
-		playsound(target.my_atom, 'sound/chemistry/bufferadd.ogg', 50, TRUE)
-		holder.remove_reagent(type, amount)//Remove from holder because it's not transfered
-		return
-	var/ph_change = (amount/target.total_volume)*strength
-	target.adjust_all_reagents_ph(ph_change, 0, ph)
-	target.my_atom.audible_message(span_warning("The beaker froths as the ph changes!"))
-	playsound(target.my_atom, 'sound/chemistry/bufferadd.ogg', 50, TRUE)
-	holder.remove_reagent(type, amount)
 
 //purity testor/reaction agent prefactors
 
@@ -76,27 +34,6 @@
 	name = "Interim Product Beta"
 	description = "This reagent is a prefactor to the reaction speed agent reagent, and will react with stable plasma to create it"
 	color = "#8a3aa9"
-
-/datum/reagent/reaction_agent/purity_tester
-	name = "Purity Tester"
-	description = "This reagent will consume itself and violently react if there is a highly impure reagent in the beaker."
-	color = "#ffffff"
-
-/datum/reagent/reaction_agent/purity_tester/intercept_reagents_transfer(datum/reagents/target, amount)
-	. = ..()
-	if(!.)
-		return
-	var/is_inverse = FALSE
-	for(var/_reagent in target.reagent_list)
-		var/datum/reagent/reaction_agent/reagent = _reagent
-		if(reagent.purity <= reagent.inverse_chem_val)
-			is_inverse = TRUE
-	if(is_inverse)
-		target.my_atom.audible_message(span_warning("The beaker bubbles violently as the reagent is added!"))
-		playsound(target.my_atom, 'sound/chemistry/bufferadd.ogg', 50, TRUE)
-	else
-		target.my_atom.audible_message(span_warning("The added reagent doesn't seem to do much."))
-	holder.remove_reagent(type, amount)
 
 /datum/reagent/reaction_agent/speed_agent
 	name = "Tempomyocin"

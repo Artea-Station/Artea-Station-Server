@@ -20,8 +20,7 @@
 /datum/reagent/catalyst_agent/speed/consider_catalyst(datum/equilibrium/equilibrium)
 	. = ..()
 	if(.)
-		equilibrium.speed_mod = creation_purity*modifier //So a purity 1 = the modifier, and a purity 0 = the inverse modifier. For this we don't want a negative speed_mod (I have no idea what happens if we do)
-		equilibrium.time_deficit += (creation_purity)*(0.05 * modifier) //give the reaction a little boost too (40% faster)
+		equilibrium.time_deficit += 0.05 * modifier //give the reaction a little boost too (40% faster)
 
 /datum/reagent/catalyst_agent/ph
 	name ="pH Catalyst Agent"
@@ -29,7 +28,7 @@
 /datum/reagent/catalyst_agent/ph/consider_catalyst(datum/equilibrium/equilibrium)
 	. = ..()
 	if(.)
-		equilibrium.h_ion_mod = ((creation_purity-0.5)*2)*modifier //So a purity 1 = the modifier, and a purity 0 = the inverse modifier
+		equilibrium.h_ion_mod = (0.5*2)*modifier //So a purity 1 = the modifier, and a purity 0 = the inverse modifier
 
 /datum/reagent/catalyst_agent/temperature
 	name = "Temperature Catalyst Agent"
@@ -37,7 +36,7 @@
 /datum/reagent/catalyst_agent/temperature/consider_catalyst(datum/equilibrium/equilibrium)
 	. = ..()
 	if(.)
-		equilibrium.thermic_mod = ((creation_purity-0.5)*2)*modifier //So a purity 1 = the modifier, and a purity 0 = the inverse modifier
+		equilibrium.thermic_mod = (0.5*2)*modifier //So a purity 1 = the modifier, and a purity 0 = the inverse modifier
 
 ///These affect medicines
 /datum/reagent/catalyst_agent/speed/medicine

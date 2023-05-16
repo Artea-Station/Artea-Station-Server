@@ -57,7 +57,7 @@
 
 /datum/reagent/impurity/eigenswap/on_mob_life(mob/living/carbon/affected_mob)
 	. = ..()
-	if(!prob(creation_purity * 100))
+	if(!prob(50))
 		return
 	var/list/cached_hand_items = affected_mob.held_items
 	var/index = 1

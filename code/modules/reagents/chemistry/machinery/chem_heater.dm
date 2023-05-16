@@ -273,7 +273,6 @@
 			continue
 		var/overheat = FALSE
 		var/danger = FALSE
-		var/purity_alert = 2 //same as flashing
 		if(!(flashing == ENABLE_FLASHING))//So that the pH meter flashes for ANY reactions out of optimal
 			if(beaker.reagents.has_reagent(/datum/reagent/reaction_agent/acidic_buffer) || beaker.reagents.has_reagent(/datum/reagent/reaction_agent/basic_buffer))
 				flashing = ENABLE_FLASHING
@@ -291,10 +290,9 @@
 				if(entry["name"] == reagent.name) //If we have multiple reaction methods for the same result - combine them
 					entry["reactedVol"] = equilibrium.reacted_vol
 					entry["targetVol"] = round(equilibrium.target_vol, 1)//Use the first result reagent to name the reaction detected
-					entry["quality"] = (entry["quality"] + equilibrium.reaction_quality) /2
 					continue
 		active_reactions.len++
-		active_reactions[length(active_reactions)] = list("name" = reagent.name, "danger" = danger, "purityAlert" = purity_alert, "quality" = equilibrium.reaction_quality, "overheat" = overheat, "inverse" = reagent.inverse_chem_val, "reactedVol" = equilibrium.reacted_vol, "targetVol" = round(equilibrium.target_vol, 1))//Use the first result reagent to name the reaction detected
+		active_reactions[length(active_reactions)] = list("name" = reagent.name, "danger" = danger, "purityAlert" = 2/*same as flashing*/, "overheat" = overheat, "inverse" = reagent.inverse_chem_val, "reactedVol" = equilibrium.reacted_vol, "targetVol" = round(equilibrium.target_vol, 1))//Use the first result reagent to name the reaction detected
 	data["activeReactions"] = active_reactions
 	data["isFlashing"] = flashing
 
@@ -449,22 +447,6 @@ To continue set your target temperature to 390K."}
 			return
 		reagents.trans_id_to(beaker, /datum/reagent/reaction_agent/basic_buffer, dispense_volume)
 		return
-
-
-/obj/machinery/chem_heater/proc/get_purity_color(datum/equilibrium/equilibrium)
-	var/_reagent = equilibrium.reaction.results[1]
-	var/datum/reagent/reagent = equilibrium.holder.get_reagent(_reagent)
-	// Can't be a switch due to http://www.byond.com/forum/post/2750423
-	if(reagent.purity in 1 to INFINITY)
-		return "blue"
-	else if(reagent.purity in 0.8 to 1)
-		return "green"
-	else if(reagent.purity in reagent.inverse_chem_val to 0.8)
-		return "olive"
-	else if(reagent.purity in equilibrium.reaction.purity_min to reagent.inverse_chem_val)
-		return "orange"
-	else if(reagent.purity in -INFINITY to equilibrium.reaction.purity_min)
-		return "red"
 
 //Has a lot of buffer and is upgraded
 /obj/machinery/chem_heater/debug

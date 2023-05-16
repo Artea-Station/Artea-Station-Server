@@ -486,7 +486,6 @@
 	color = "#D2FFFA"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 30
-	purity = REAGENT_STANDARD_PURITY
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	addiction_types = list(/datum/addiction/stimulants = 4) //1.6 per 2 seconds
 	inverse_chem = /datum/reagent/inverse/corazargh
@@ -503,28 +502,28 @@
 	..()
 
 /datum/reagent/medicine/ephedrine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	if(DT_PROB(10 * (1-creation_purity), delta_time) && iscarbon(affected_mob))
+	if(DT_PROB(10, delta_time) && iscarbon(affected_mob))
 		var/obj/item/I = affected_mob.get_active_held_item()
 		if(I && affected_mob.dropItemToGround(I))
 			to_chat(affected_mob, span_notice("Your hands spaz out and you drop what you were holding!"))
 			affected_mob.set_jitter_if_lower(20 SECONDS)
 
-	affected_mob.AdjustAllImmobility(-20 * REM * delta_time * normalise_creation_purity())
-	affected_mob.adjustStaminaLoss(-1 * REM * delta_time * normalise_creation_purity(), FALSE)
+	affected_mob.AdjustAllImmobility(-20 * REM * delta_time)
+	affected_mob.adjustStaminaLoss(-1 * REM * delta_time, FALSE)
 	..()
 	return TRUE
 
 /datum/reagent/medicine/ephedrine/overdose_process(mob/living/affected_mob, delta_time, times_fired)
-	if(DT_PROB(1 * (1 + (1-normalise_creation_purity())), delta_time) && iscarbon(affected_mob))
+	if(DT_PROB(2, delta_time) && iscarbon(affected_mob))
 		var/datum/disease/D = new /datum/disease/heart_failure
 		affected_mob.ForceContractDisease(D)
 		to_chat(affected_mob, span_userdanger("You're pretty sure you just felt your heart stop for a second there.."))
 		affected_mob.playsound_local(affected_mob, 'sound/effects/singlebeat.ogg', 100, 0)
 
-	if(DT_PROB(3.5 * (1 + (1-normalise_creation_purity())), delta_time))
+	if(DT_PROB(5.5, delta_time))
 		to_chat(affected_mob, span_notice("[pick("Your head pounds.", "You feel a tight pain in your chest.", "You find it hard to stay still.", "You feel your heart practically beating out of your chest.")]"))
 
-	if(DT_PROB(18 * (1 + (1-normalise_creation_purity())), delta_time))
+	if(DT_PROB(20, delta_time))
 		affected_mob.adjustToxLoss(1, FALSE, required_biotype = affected_biotype)
 		affected_mob.losebreath++
 		. = TRUE
@@ -591,7 +590,6 @@
 	color = "#404040" //oculine is dark grey, inacusiate is light grey
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	taste_description = "dull toxin"
-	purity = REAGENT_STANDARD_PURITY
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	inverse_chem = /datum/reagent/inverse/oculine
 	inverse_chem_val = 0.45
@@ -609,7 +607,7 @@
 	improve_eyesight(affected_mob, eyes)
 
 /datum/reagent/medicine/oculine/proc/improve_eyesight(mob/living/carbon/affected_mob, obj/item/organ/internal/eyes/eyes)
-	delta_light = creation_purity*30
+	delta_light = 30
 	if(eyes.lighting_alpha)
 		eyes.lighting_alpha -= delta_light
 	else
@@ -637,17 +635,14 @@
 	restore_eyesight(prev_affected_mob, eyes)
 
 /datum/reagent/medicine/oculine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	affected_mob.adjust_blindness(-2 * REM * delta_time * normalise_creation_purity())
-	affected_mob.adjust_blurriness(-2 * REM * delta_time * normalise_creation_purity())
+	affected_mob.adjust_blindness(-2 * REM * delta_time)
+	affected_mob.adjust_blurriness(-2 * REM * delta_time)
 	var/obj/item/organ/internal/eyes/eyes = affected_mob.getorganslot(ORGAN_SLOT_EYES)
 	if (!eyes)
 		return ..()
-	var/fix_prob = 10
-	if(creation_purity >= 1)
-		fix_prob = 100
-	eyes.applyOrganDamage(-2 * REM * delta_time * normalise_creation_purity(), required_organtype = affected_organtype)
+	eyes.applyOrganDamage(-2 * REM * delta_time, required_organtype = affected_organtype)
 	if(HAS_TRAIT_FROM(affected_mob, TRAIT_BLIND, EYE_DAMAGE))
-		if(DT_PROB(fix_prob, delta_time))
+		if(DT_PROB(70, delta_time))
 			to_chat(affected_mob, span_warning("Your vision slowly returns..."))
 			affected_mob.cure_blind(EYE_DAMAGE)
 			affected_mob.cure_nearsighted(EYE_DAMAGE)
@@ -669,14 +664,13 @@
 	name = "Inacusiate"
 	description = "Rapidly repairs damage to the patient's ears to cure deafness, assuming the source of said deafness isn't from genetic mutations, chronic deafness, or a total defecit of ears." //by "chronic" deafness, we mean people with the "deaf" quirk
 	color = "#606060" // ditto
-	purity = REAGENT_STANDARD_PURITY
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	inverse_chem_val = 0.3
 	inverse_chem = /datum/reagent/impurity/inacusiate
 
 /datum/reagent/medicine/inacusiate/on_mob_add(mob/living/affected_mob, amount)
 	. = ..()
-	if(creation_purity >= 1)
+	if(volume >= 20)
 		RegisterSignal(affected_mob, COMSIG_MOVABLE_HEAR, PROC_REF(owner_hear))
 
 //Lets us hear whispers from far away!
@@ -693,7 +687,7 @@
 	var/obj/item/organ/internal/ears/ears = affected_mob.getorganslot(ORGAN_SLOT_EARS)
 	if(!ears)
 		return ..()
-	ears.adjustEarDamage(-4 * REM * delta_time * normalise_creation_purity(), -4 * REM * delta_time * normalise_creation_purity())
+	ears.adjustEarDamage(-4 * REM * delta_time, -4 * REM * delta_time)
 	..()
 
 /datum/reagent/medicine/inacusiate/on_mob_delete(mob/living/affected_mob)
@@ -829,12 +823,11 @@
 	color = "#A0A0A0" //mannitol is light grey, neurine is lighter grey
 	overdose_threshold = 15
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
-	purity = REAGENT_STANDARD_PURITY
 	inverse_chem = /datum/reagent/inverse
 	inverse_chem_val = 0.45
 
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, -2 * REM * delta_time * normalise_creation_purity(), required_organtype = affected_organtype)
+	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, -2 * REM * delta_time, required_organtype = affected_organtype)
 	..()
 
 //Having mannitol in you will pause the brain damage from brain tumor (so it heals an even 2 brain damage instead of 1.8)
@@ -868,7 +861,6 @@
 	description = "Reacts with neural tissue, helping reform damaged connections. Can cure minor traumas."
 	color = "#C0C0C0" //ditto
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED | REAGENT_DEAD_PROCESS
-	purity = REAGENT_STANDARD_PURITY
 	inverse_chem_val = 0.5
 	inverse_chem = /datum/reagent/inverse/neurine
 	///brain damage level when we first started taking the chem
@@ -880,8 +872,7 @@
 	if(!iscarbon(affected_mob))
 		return
 	var/mob/living/carbon/affected_carbon = affected_mob
-	if(creation_purity >= 1)
-		initial_bdamage = affected_carbon.getOrganLoss(ORGAN_SLOT_BRAIN)
+	initial_bdamage = affected_carbon.getOrganLoss(ORGAN_SLOT_BRAIN)
 
 /datum/reagent/medicine/neurine/on_mob_delete(mob/living/affected_mob)
 	. = ..()
@@ -894,13 +885,13 @@
 
 /datum/reagent/medicine/neurine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	if(holder.has_reagent(/datum/reagent/consumable/ethanol/neurotoxin))
-		holder.remove_reagent(/datum/reagent/consumable/ethanol/neurotoxin, 5 * REM * delta_time * normalise_creation_purity())
-	if(DT_PROB(8 * normalise_creation_purity(), delta_time))
+		holder.remove_reagent(/datum/reagent/consumable/ethanol/neurotoxin, 5 * REM * delta_time)
+	if(DT_PROB(8, delta_time))
 		affected_mob.cure_trauma_type(resilience = TRAUMA_RESILIENCE_BASIC)
 	..()
 
 /datum/reagent/medicine/neurine/on_mob_dead(mob/living/carbon/affected_mob, delta_time)
-	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, -1 * REM * delta_time * normalise_creation_purity(), required_organtype = affected_organtype)
+	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, -1 * REM * delta_time, required_organtype = affected_organtype)
 	..()
 
 /datum/reagent/medicine/mutadone
@@ -922,7 +913,6 @@
 	description = "Purges alcoholic substance from the patient's body and eliminates its side effects."
 	color = "#00B4C8"
 	taste_description = "raw egg"
-	purity = REAGENT_STANDARD_PURITY
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	inverse_chem_val = 0.35
 	inverse_chem = /datum/reagent/inverse/antihol
@@ -932,9 +922,9 @@
 	affected_mob.set_drowsyness(0)
 	affected_mob.remove_status_effect(/datum/status_effect/speech/slurring/drunk)
 	affected_mob.remove_status_effect(/datum/status_effect/confusion)
-	affected_mob.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3 * REM * delta_time * normalise_creation_purity(), FALSE, TRUE)
+	affected_mob.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3 * REM * delta_time, FALSE, TRUE)
 	affected_mob.adjustToxLoss(-0.2 * REM * delta_time, FALSE, required_biotype = affected_biotype)
-	affected_mob.adjust_drunk_effect(-10 * REM * delta_time * normalise_creation_purity())
+	affected_mob.adjust_drunk_effect(-10 * REM * delta_time)
 	..()
 	. = TRUE
 

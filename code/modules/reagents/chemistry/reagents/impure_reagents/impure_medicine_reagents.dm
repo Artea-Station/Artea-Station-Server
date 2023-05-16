@@ -249,7 +249,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 /datum/reagent/impurity/aiuri/on_mob_add(mob/living/owner, amount)
 	. = ..()
 	cached_blurriness = owner.eye_blurry
-	owner.set_blurriness(((creation_purity*10)*(volume/metabolization_rate)) + cached_blurriness)
+	owner.set_blurriness((10*(volume/metabolization_rate)) + cached_blurriness)
 
 /datum/reagent/impurity/aiuri/on_mob_delete(mob/living/owner, amount)
 	. = ..()
@@ -283,7 +283,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 /datum/reagent/inverse/hercuri/overdose_process(mob/living/carbon/owner, delta_time, times_fired)
 	. = ..()
 	owner.adjustOrganLoss(ORGAN_SLOT_LIVER, 2 * REM * delta_time, required_organtype = affected_organtype) //Makes it so you can't abuse it with pyroxadone very easily (liver dies from 25u unless it's fully upgraded)
-	var/heating = 10 * creation_purity * REM * delta_time * TEMPERATURE_DAMAGE_COEFFICIENT
+	var/heating = 10 * REM * delta_time * TEMPERATURE_DAMAGE_COEFFICIENT
 	owner.adjust_bodytemperature(heating) //hot hot
 	if(ishuman(owner))
 		var/mob/living/carbon/human/human = owner
@@ -298,6 +298,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	addiction_types = list(/datum/addiction/medicine = 5)
 
 //Makes patients fall asleep, then boosts the purirty of their medicine reagents if they're asleep
+// This is kinda useless with my changes. - Rimi
 /datum/reagent/inverse/healing/tirimol/on_mob_life(mob/living/carbon/owner, delta_time, times_fired)
 	switch(current_cycle)
 		if(1 to 10)//same delay as chloral hydrate
@@ -312,14 +313,12 @@ Basically, we fill the time between now and 2s from now with hands based off the
 						continue
 					if(!istype(reagent, /datum/reagent/medicine))
 						continue
-					reagent.creation_purity *= 1.25
 					cached_reagent_list += reagent
 
 			else if(!owner.IsSleeping() && length(cached_reagent_list))
 				for(var/datum/reagent/reagent as anything in cached_reagent_list)
 					if(!reagent)
 						continue
-					reagent.creation_purity *= 0.8
 				cached_reagent_list = list()
 	..()
 
@@ -329,7 +328,6 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	for(var/datum/reagent/reagent as anything in cached_reagent_list)
 		if(!reagent)
 			continue
-		reagent.creation_purity *= 0.8
 	cached_reagent_list = list()
 	..()
 
@@ -373,13 +371,13 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	cached_cold_level_2 = lungs.cold_level_2_threshold
 	cached_cold_level_3 = lungs.cold_level_3_threshold
 	//Heat threshold is increased
-	lungs.heat_level_1_threshold *= creation_purity * 1.5
-	lungs.heat_level_2_threshold *= creation_purity * 1.5
-	lungs.heat_level_3_threshold *= creation_purity * 1.5
+	lungs.heat_level_1_threshold *= 1.5
+	lungs.heat_level_2_threshold *= 1.5
+	lungs.heat_level_3_threshold *= 1.5
 	//Cold threshold is decreased
-	lungs.cold_level_1_threshold *= creation_purity * 0.5
-	lungs.cold_level_2_threshold *= creation_purity * 0.5
-	lungs.cold_level_3_threshold *= creation_purity * 0.5
+	lungs.cold_level_1_threshold *= 0.5
+	lungs.cold_level_2_threshold *= 0.5
+	lungs.cold_level_3_threshold *= 0.5
 
 /datum/reagent/inverse/healing/convermol/proc/on_removed_organ(mob/prev_owner, obj/item/organ/organ)
 	SIGNAL_HANDLER
@@ -423,7 +421,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	time_until_next_poison -= delta_time * (1 SECONDS)
 	if (time_until_next_poison <= 0)
 		time_until_next_poison = poison_interval
-		owner.adjustToxLoss(creation_purity * 1, required_biotype = affected_biotype)
+		owner.adjustToxLoss(1, required_biotype = affected_biotype)
 
 	..()
 
@@ -446,7 +444,6 @@ Basically, we fill the time between now and 2s from now with hands based off the
 			continue
 		if(istype(reagent, /datum/reagent/medicine))
 			continue
-		reagent.creation_purity *= 0.8
 		cached_reagent_list += reagent
 	..()
 
@@ -459,7 +456,6 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	for(var/datum/reagent/reagent as anything in cached_reagent_list)
 		if(!reagent)
 			continue
-		reagent.creation_purity *= 1.25
 	cached_reagent_list = null
 
 //Multiver
@@ -475,7 +471,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	if(length(affected_mob.reagents.reagent_list) > 1)
 		affected_mob.adjustOrganLoss(ORGAN_SLOT_LUNGS, 0.5 * delta_time, required_organtype = affected_organtype) //Hey! It's everyone's favourite drawback from multiver!
 		return ..()
-	affected_mob.adjustToxLoss(-2 * REM * creation_purity * delta_time, FALSE, required_biotype = affected_biotype)
+	affected_mob.adjustToxLoss(-2 * REM * delta_time, FALSE, required_biotype = affected_biotype)
 	..()
 	return TRUE
 
@@ -526,9 +522,9 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT)
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
 	for(var/datum/wound/iter_wound as anything in affected_mob.all_wounds)
-		iter_wound.adjust_blood_flow(1-creation_purity)
-	affected_mob.adjustBruteLoss(5 * (1-creation_purity) * delta_time, required_bodytype = affected_bodytype)
-	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, (1 + (1-creation_purity)) * delta_time, required_organtype = affected_organtype)
+		iter_wound.adjust_blood_flow(1)
+	affected_mob.adjustBruteLoss(5 * (1) * delta_time, required_bodytype = affected_bodytype)
+	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, (1 + (1)) * delta_time, required_organtype = affected_organtype)
 	if(affected_mob.health < HEALTH_THRESHOLD_CRIT)
 		affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nooartrium)
 	if(affected_mob.health < HEALTH_THRESHOLD_FULLCRIT)
@@ -628,7 +624,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	.=..()
 	if(temp_trauma)
 		return
-	if(!(DT_PROB(creation_purity*10, delta_time)))
+	if(!(DT_PROB(10, delta_time)))
 		return
 	var/traumalist = subtypesof(/datum/brain_trauma)
 	var/list/forbiddentraumas = list(/datum/brain_trauma/severe/split_personality,  // Split personality uses a ghost, I don't want to use a ghost for a temp thing
@@ -753,7 +749,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 /datum/reagent/inverse/oculine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	if(headache)
 		return ..()
-	if(DT_PROB(100*(1-creation_purity), delta_time))
+	if(DT_PROB(100, delta_time))
 		affected_mob.become_blind(IMPURE_OCULINE)
 		to_chat(affected_mob, span_danger("You suddenly develop a pounding headache as your vision fluxuates."))
 		headache = TRUE

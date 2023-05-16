@@ -35,12 +35,8 @@
 	var/optimal_temp = 500
 	/// Temperature at which reaction explodes - If any reaction is this hot, it explodes!
 	var/overheat_temp = 900
-	/// How far out pH wil react, giving impurity place (Exponential phase)
-	var/determin_ph_range = 4
 	/// How sharp the temperature exponential curve is (to the power of value)
 	var/temp_exponent_factor = 2
-	/// How sharp the pH exponential curve is (to the power of value)
-	var/ph_exponent_factor = 2
 	/// How much the temperature will change (with no intervention) (i.e. for 30u made the temperature will increase by 100, same with 300u. The final temp will always be start + this value, with the exception con beakers with different specific heats)
 	var/thermic_constant = 50
 	/// pH change per 1u reaction
@@ -141,7 +137,7 @@
 		return
 	if(reaction_flags & (REACTION_CLEAR_IMPURE | REACTION_CLEAR_INVERSE))
 		var/cached_volume = reagent.volume
-		if((reaction_flags & REACTION_CLEAR_INVERSE) && reagent.inverse_chem && )
+		if((reaction_flags & REACTION_CLEAR_INVERSE) && reagent.inverse_chem)
 			holder.remove_reagent(reagent.type, cached_volume, FALSE)
 			holder.add_reagent(reagent.inverse_chem, cached_volume, FALSE)
 			return
@@ -178,12 +174,7 @@
  * * step_volume_added - how much product (across all products) was added for this single step
  */
 /datum/chemical_reaction/proc/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
-	var/affected_list = results + required_reagents
-	for(var/_reagent in affected_list)
-		var/datum/reagent/reagent = holder.get_reagent(_reagent)
-		if(!reagent)
-			continue
-		reagent.purity = clamp((reagent.purity-0.01), 0, 1) //slowly reduce purity of reagents
+	return
 
 /**
  * Magical mob spawning when chemicals react
@@ -337,7 +328,7 @@
 			invert_reagents.add_reagent(reagent.inverse_chem, reagent.volume, no_react = TRUE)
 			holder.remove_reagent(reagent.type, reagent.volume)
 			continue
-		invert_reagents.add_reagent(reagent.type, reagent.volume, added_purity = reagent.purity, no_react = TRUE)
+		invert_reagents.add_reagent(reagent.type, reagent.volume, no_react = TRUE)
 		sum_volume += reagent.volume
 		holder.remove_reagent(reagent.type, reagent.volume)
 	if(!force_range)
@@ -359,7 +350,7 @@
 	var/sum_volume = 0
 	for (var/datum/reagent/reagent as anything in holder.reagent_list)
 		if((reagent.type in required_reagents) || (reagent.type in results))
-			reagents.add_reagent(reagent.type, reagent.volume, added_purity = reagent.purity, no_react = TRUE)
+			reagents.add_reagent(reagent.type, reagent.volume, no_react = TRUE)
 			holder.remove_reagent(reagent.type, reagent.volume)
 	if(!force_range)
 		force_range = (sum_volume/6) + 3

@@ -133,7 +133,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	if((methods & penetrates_skin) && exposed_mob.reagents) //smoke, foam, spray
 		var/amount = round(reac_volume*clamp((1 - touch_protection), 0, 1), 0.1)
 		if(amount >= 0.5)
-			exposed_mob.reagents.add_reagent(type, amount, added_purity = purity)
+			exposed_mob.reagents.add_reagent(type, amount)
 
 /// Applies this reagent to an [/obj]
 /datum/reagent/proc/expose_obj(obj/exposed_obj, reac_volume)
@@ -171,7 +171,6 @@ Primarily used in reagents/reaction_agents
 
 /// Called when this reagent is first added to a mob
 /datum/reagent/proc/on_mob_add(mob/living/L, amount)
-	overdose_threshold /= max(normalise_creation_purity(), 1) //Maybe??? Seems like it would help pure chems be even better but, if I normalised this to 1, then everything would take a 25% reduction
 	return
 
 /// Called when this reagent is removed while inside a mob
@@ -235,21 +234,6 @@ Primarily used in reagents/reaction_agents
 /// Should return a associative list where keys are taste descriptions and values are strength ratios
 /datum/reagent/proc/get_taste_description(mob/living/taster)
 	return list("[taste_description]" = 1)
-
-/**
- * Used when you want the default reagents purity to be equal to the normal effects
- * (i.e. if default purity is 0.75, and your reacted purity is 1, then it will return 1.33)
- *
- * Arguments
- * * normalise_num_to - what number/purity value you're normalising to. If blank it will default to the compile value of purity for this chem
- * * creation_purity - creation_purity override, if desired. This is the purity of the reagent that you're normalising from.
- */
-/datum/reagent/proc/normalise_creation_purity(normalise_num_to, creation_purity)
-	if(!normalise_num_to)
-		normalise_num_to = initial(purity)
-	if(!creation_purity)
-		creation_purity = src.creation_purity
-	return creation_purity / normalise_num_to
 
 /**
  * Input a reagent_list, outputs pretty readable text!

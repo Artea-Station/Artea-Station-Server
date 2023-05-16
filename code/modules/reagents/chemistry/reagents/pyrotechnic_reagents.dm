@@ -212,8 +212,7 @@
 	if(istype(exposed_mob) && (methods & (TOUCH|VAPOR|PATCH)))
 		exposed_mob.adjust_fire_stacks(min(reac_volume/4, 20))
 
-#define CRYO_SPEED_PREFACTOR 0.4
-#define CRYO_SPEED_CONSTANT 0.1
+#define CRYO_SPEED_CONSTANT 1.6
 
 /datum/reagent/cryostylane
 	name = "Cryostylane"
@@ -221,7 +220,6 @@
 	color = "#0000DC"
 	metabolization_rate = 0.05 * REAGENTS_METABOLISM
 	taste_description = "icey bitterness"
-	purity = REAGENT_STANDARD_PURITY
 	self_consuming = TRUE
 	inverse_chem_val = 0.5
 	inverse_chem = /datum/reagent/inverse/cryostylane
@@ -236,7 +234,7 @@
 
 /datum/reagent/cryostylane/on_mob_add(mob/living/affected_mob, amount)
 	. = ..()
-	affected_mob.mob_surgery_speed_mod = 1-((CRYO_SPEED_PREFACTOR * (1 - creation_purity))+CRYO_SPEED_CONSTANT) //10% - 30% slower
+	affected_mob.mob_surgery_speed_mod = CRYO_SPEED_CONSTANT //10% - 30% slower
 	affected_mob.color = COLOR_CYAN
 
 /datum/reagent/cryostylane/on_mob_delete(mob/living/affected_mob)
@@ -266,7 +264,6 @@
 	for(var/mob/living/simple_animal/slime/exposed_slime in exposed_turf)
 		exposed_slime.adjustToxLoss(rand(15,30))
 
-#undef CRYO_SPEED_PREFACTOR
 #undef CRYO_SPEED_CONSTANT
 
 /datum/reagent/pyrosium

@@ -25,15 +25,11 @@
 	var/step_target_vol = INFINITY
 	///How much of the reaction has been made so far. Mostly used for subprocs, but it keeps track across the whole reaction and is added to every step.
 	var/reacted_vol = 0
-	///What our last delta_ph was
-	var/reaction_quality = 1
 	///If we're done with this reaction so that holder can clear it.
 	var/to_delete = FALSE
 	///Result vars, private - do not edit unless in reaction_step()
 	///How much we're adding
 	var/delta_t
-	///How pure our step is
-	var/delta_ph
 	///Modifiers from catalysts, do not use negative numbers.
 	///I should write a better handiler for modifying these
 	///Speed mod
@@ -251,7 +247,6 @@
 	delta_time = deal_with_time(delta_time)
 
 	delta_t = 0 //how far off optimal temp we care
-	delta_ph = 0 //How far off the pH we are
 	var/cached_temp = holder.chem_temp
 
 	//Begin checks
@@ -298,13 +293,6 @@
 	//Calculate how much product to make and how much reactant to remove factors..
 	for(var/reagent in reaction.required_reagents)
 		holder.remove_reagent(reagent, (delta_chem_factor * reaction.required_reagents[reagent]), safety = TRUE)
-		//Apply pH changes
-		var/pH_adjust
-		if(reaction.reaction_flags & REACTION_PH_VOL_CONSTANT)
-			pH_adjust = ((delta_chem_factor * reaction.required_reagents[reagent])/target_vol)*(reaction.H_ion_release*h_ion_mod)
-		else //Default adds pH independant of volume
-			pH_adjust = (delta_chem_factor * reaction.required_reagents[reagent])*(reaction.H_ion_release*h_ion_mod)
-		holder.adjust_specific_reagent_ph(reagent, pH_adjust)
 
 	var/step_add
 	for(var/product in reaction.results)
@@ -313,13 +301,6 @@
 		//Default handiling
 		holder.add_reagent(product, step_add, null, cached_temp)
 
-		//Apply pH changes
-		var/pH_adjust
-		if(reaction.reaction_flags & REACTION_PH_VOL_CONSTANT)
-			pH_adjust = (step_add/target_vol)*(reaction.H_ion_release*h_ion_mod)
-		else
-			pH_adjust = step_add*(reaction.H_ion_release*h_ion_mod)
-		holder.adjust_specific_reagent_ph(product, pH_adjust)
 		reacted_vol += step_add
 		total_step_added += step_add
 
@@ -342,9 +323,6 @@
 		holder.my_atom.audible_message(span_notice("[icon2html(holder.my_atom, viewers(DEFAULT_MESSAGE_RANGE, src))] [reaction.mix_message]"))
 		if(reaction.mix_sound)
 			playsound(get_turf(holder.my_atom), reaction.mix_sound, 80, TRUE)
-
-	//Used for UI output
-	reaction_quality = purity
 
 	//post reaction checks
 	if(!(check_fail_states(total_step_added)))
