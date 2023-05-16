@@ -45,7 +45,7 @@
 	ducting_layer = SECOND_DUCT_LAYER
 
 /datum/component/plumbing/acidic_input/send_request(dir)
-	process_request(amount = MACHINE_REAGENT_TRANSFER, reagent = /datum/reagent/reaction_agent/acidic_buffer, dir = dir)
+	process_request(amount = MACHINE_REAGENT_TRANSFER, reagent = /datum/reagent/acetaldehyde, dir = dir)
 
 ///Special connect that we currently use for reaction chambers. Being used so we can keep certain inputs separate, like into a special internal base container
 /datum/component/plumbing/alkaline_input
@@ -55,6 +55,6 @@
 	ducting_layer = FOURTH_DUCT_LAYER
 
 /datum/component/plumbing/alkaline_input/send_request(dir)
-	process_request(amount = MACHINE_REAGENT_TRANSFER, reagent = /datum/reagent/reaction_agent/basic_buffer, dir = dir)
+	process_request(amount = MACHINE_REAGENT_TRANSFER, reagent = /datum/reagent/acetaldehyde, dir = dir)
 
 

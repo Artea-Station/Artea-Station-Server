@@ -1,8 +1,6 @@
 import { round, toFixed } from 'common/math';
-import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { AnimatedNumber, Box, Button, Flex, Icon, NumberInput, ProgressBar, RoundGauge, Section, Table } from '../components';
-import { COLORS } from '../constants';
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
 
@@ -16,29 +14,18 @@ export const ChemHeater = (props, context) => {
     currentTemp,
     beakerCurrentVolume,
     beakerMaxVolume,
-    acidicBufferVol,
-    basicBufferVol,
     dispenseVolume,
     upgradeLevel,
-    tutorialMessage,
     beakerContents = [],
     activeReactions = [],
   } = data;
   return (
-    <Window width={330} height={tutorialMessage ? 680 : 350}>
+    <Window width={330} height={350}>
       <Window.Content scrollable>
         <Section
           title="Controls"
           buttons={
             <Flex>
-              <Button
-                icon={'question'}
-                selected={tutorialMessage}
-                content={'Help'}
-                left={-2}
-                tooltip={'Guides you through a tutorial reaction!'}
-                onClick={() => act('help')}
-              />
               <Button
                 icon={isActive ? 'power-off' : 'times'}
                 selected={isActive}
@@ -94,40 +81,6 @@ export const ChemHeater = (props, context) => {
                   }
                 />
               </Table.Cell>
-              <Table.Cell collapsing color="label">
-                Acidic:
-              </Table.Cell>
-              <Table.Cell>
-                <Button
-                  icon={'syringe'}
-                  disabled={!acidicBufferVol}
-                  tooltip={'Inject'}
-                  tooltipPosition={'left'}
-                  onClick={() =>
-                    act('acidBuffer', {
-                      target: 1,
-                    })
-                  }
-                />
-              </Table.Cell>
-              <Table.Cell
-                color={COLORS.reagent.acidicbuffer}
-                textAlign="center">
-                {acidicBufferVol + 'u'}
-              </Table.Cell>
-              <Table.Cell>
-                <Button
-                  icon={'upload'}
-                  tooltip={'Draw all'}
-                  tooltipPosition={'top'}
-                  disabled={acidicBufferVol === 100}
-                  onClick={() =>
-                    act('acidBuffer', {
-                      target: -100,
-                    })
-                  }
-                />
-              </Table.Cell>
             </Table.Row>
             <Table.Row>
               <Table.Cell collapsing color="label">
@@ -143,37 +96,6 @@ export const ChemHeater = (props, context) => {
                   )) ||
                     '—'}
                 </Box>
-              </Table.Cell>
-              <Table.Cell collapsing color="label">
-                Basic:
-              </Table.Cell>
-              <Table.Cell>
-                <Button
-                  icon={'syringe'}
-                  tooltip={'Inject'}
-                  tooltipPosition={'left'}
-                  disabled={!basicBufferVol}
-                  onClick={() =>
-                    act('basicBuffer', {
-                      target: 1,
-                    })
-                  }
-                />
-              </Table.Cell>
-              <Table.Cell color={COLORS.reagent.basicbuffer} textAlign="center">
-                {basicBufferVol + 'u'}
-              </Table.Cell>
-              <Table.Cell>
-                <Button
-                  icon={'upload'}
-                  tooltip={'Draw all'}
-                  disabled={basicBufferVol === 100}
-                  onClick={() =>
-                    act('basicBuffer', {
-                      target: -100,
-                    })
-                  }
-                />
               </Table.Cell>
             </Table.Row>
           </Table>
@@ -252,12 +174,6 @@ export const ChemHeater = (props, context) => {
                 <Table.Row />
               </Table>
             )}
-          </Section>
-        )}
-        {tutorialMessage && (
-          <Section title="Tutorial" preserveWhitespace>
-            <img src={resolveAsset('chem_help_advisor.gif')} width="30px" />
-            {tutorialMessage}
           </Section>
         )}
         <Section
