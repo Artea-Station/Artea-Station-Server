@@ -803,17 +803,6 @@
 
 ////////////////////////////////////
 
-/datum/chemical_reaction/universal_indicator
-	results = list(/datum/reagent/universal_indicator = 3)//rough density excahnge
-	required_reagents = list(/datum/reagent/ash = 1, /datum/reagent/consumable/ethanol = 1, /datum/reagent/iodine = 1)
-	required_temp = 274
-	optimal_temp = 350
-	overheat_temp = NO_OVERHEAT
-	thermic_constant = 0
-	rate_up_lim = 50
-	mix_message = "The mixture's colors swirl together."
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL
-
 /datum/chemical_reaction/eigenstate
 	results = list(/datum/reagent/eigenstate = 1)
 	required_reagents = list(/datum/reagent/bluespace = 1, /datum/reagent/stable_plasma = 1, /datum/reagent/consumable/caramel = 1)
