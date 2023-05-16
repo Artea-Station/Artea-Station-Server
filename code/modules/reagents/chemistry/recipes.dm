@@ -39,8 +39,6 @@
 	var/temp_exponent_factor = 2
 	/// How much the temperature will change (with no intervention) (i.e. for 30u made the temperature will increase by 100, same with 300u. The final temp will always be start + this value, with the exception con beakers with different specific heats)
 	var/thermic_constant = 50
-	/// pH change per 1u reaction
-	var/H_ion_release = 0.01
 	/// Optimal/max rate possible if all conditions are perfect
 	var/rate_up_lim = 30
 	/// bitflags for clear conversions; REACTION_CLEAR_IMPURE, REACTION_CLEAR_INVERSE, REACTION_CLEAR_RETAIN, REACTION_INSTANT

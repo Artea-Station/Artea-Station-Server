@@ -14,9 +14,7 @@
 
 /datum/chemical_reaction/food
 	optimal_temp = 400
-	temp_exponent_factor = 1
 	thermic_constant = 0
-	H_ion_release = 0
 	reaction_tags = REACTION_TAG_FOOD | REACTION_TAG_EASY
 
 /datum/chemical_reaction/food/tofu

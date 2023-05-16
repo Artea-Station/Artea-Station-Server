@@ -41,12 +41,6 @@ GLOBAL_LIST_INIT(medicine_reagents, build_medicine_reagents())
 #define RNGCHEM_OUTPUT "output"
 
 /datum/chemical_reaction/randomized
-
-	//Increase default leniency because these are already hard enough
-	temp_exponent_factor = 0
-	ph_exponent_factor = 1
-	H_ion_release = 0
-
 	var/persistent = FALSE
 	var/persistence_period = 7 //Will reset every x days
 	var/created //creation timestamp
@@ -60,17 +54,6 @@ GLOBAL_LIST_INIT(medicine_reagents, build_medicine_reagents())
 	///If the reaction can be exothermic or endothermic randomly too
 	var/exo_or_endothermic = FALSE
 
-	///If pH is randomised
-	var/randomize_req_ph = FALSE
-	///Lowest pH value possible
-	var/min_ph = 0
-	///Highest pH value possible
-	var/max_ph = 14
-	///How much the range can deviate, and also affects impure range
-	var/inoptimal_range_ph = 3
-
-	///If the impurity failure threshold is randomized between 0 - 0.4
-	var/randomize_impurity_minimum = FALSE
 	///If the impure/inverse/failure reagents are randomized
 	var/randomize_impurity_reagents = FALSE
 
@@ -113,12 +96,6 @@ GLOBAL_LIST_INIT(medicine_reagents, build_medicine_reagents())
 				overheat_temp = 400
 			if(exo_or_endothermic)
 				thermic_constant = (rand(-200, 200))
-
-	if(randomize_req_ph)
-				determin_ph_range = inoptimal_range_ph
-		H_ion_release = (rand(0, 25)/100)// 0 - 0.25
-
-	if(randomize_impurity_minimum)
 
 	if(randomize_impurity_reagents)
 		for(var/rid in required_reagents)
@@ -196,13 +173,6 @@ GLOBAL_LIST_INIT(medicine_reagents, build_medicine_reagents())
 	recipe_data["overheat_temp"] = overheat_temp
 	recipe_data["thermic_constant"] = thermic_constant
 
-	recipe_data["optimal_ph_min"] = optimal_ph_min
-	recipe_data["optimal_ph_max"] = optimal_ph_max
-	recipe_data["determin_ph_range"] = determin_ph_range
-	recipe_data["H_ion_release"] = H_ion_release
-
-	recipe_data["purity_min"] = purity_min
-
 	recipe_data["results"] = results
 	recipe_data["required_container"] = required_container
 
@@ -226,9 +196,6 @@ GLOBAL_LIST_INIT(medicine_reagents, build_medicine_reagents())
 	optimal_temp = recipe_data["optimal_temp"]
 	overheat_temp = recipe_data["overheat_temp"]
 	thermic_constant = recipe_data["thermic_constant"]
-
-	determin_ph_range = recipe_data["determin_ph_range"]
-	H_ion_release = recipe_data["H_ion_release"]
 
 
 	var/temp_results = unwrap_reagent_list(recipe_data["results"])
@@ -337,12 +304,6 @@ GLOBAL_LIST_INIT(medicine_reagents, build_medicine_reagents())
 			dat += "<li> taking care of it's exothermic nature</li>"
 		else if(recipe.thermic_constant < 0)
 			dat += "<li> taking care of it's endothermic nature</li>"
-	var/datum/chemical_reaction/randomized/random_recipe = recipe
-	if(random_recipe)
-		if(random_recipe.randomize_req_ph)
-			dat += "<li> keeping your pH between [recipe.optimal_ph_min] and [recipe.optimal_ph_max]</li>"
-		if(random_recipe.randomize_impurity_minimum)
-			dat += "<li> and your purity above [recipe.purity_min]</li>"
 	dat += "</ul>"
 	dat += "."
 	add_raw_text(dat.Join(""))

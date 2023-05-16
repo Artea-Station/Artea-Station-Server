@@ -213,7 +213,7 @@
 		var/overheat = FALSE
 		var/danger = FALSE
 		if(!(flashing == ENABLE_FLASHING))//So that the pH meter flashes for ANY reactions out of optimal
-			if(beaker.reagents.has_reagent(/datum/reagent/reaction_agent/acidic_buffer) || beaker.reagents.has_reagent(/datum/reagent/reaction_agent/basic_buffer))
+			if(beaker.reagents.has_reagent(/datum/reagent/acidic_inversifier))
 				flashing = ENABLE_FLASHING
 				danger = TRUE
 		if(equilibrium.reaction.is_cold_recipe)

@@ -209,12 +209,12 @@
 			SSblackbox.record_feedback("tally", "chemical_reaction", 1, "[reaction.type] overheated reaction steps")
 			reaction.overheated(holder, src, step_volume_added)
 
-	//is our product too impure?
+	//is our product going to be inversed?
 	for(var/product in reaction.results)
 		var/datum/reagent/reagent = holder.has_reagent(product)
 		if(!reagent) //might be missing from overheat exploding
 			continue
-		if (holder.has_reagent(/datum/reagent/reaction_agent/acidic_buffer) || holder.has_reagent(/datum/reagent/reaction_agent/basic_buffer))//If inversifier is present, call the proc
+		if (holder.has_reagent(/datum/reagent/acidic_inversifier))//If inversifier is present, call the proc
 			SSblackbox.record_feedback("tally", "chemical_reaction", 1, "[reaction.type] overly impure reaction steps")
 			reaction.overly_impure(holder, src, step_volume_added)
 
@@ -232,9 +232,8 @@
 * Then alters the holder pH and temperature, and calls reaction_step
 * Arguments:
 * * delta_time - the time displacement between the last call and the current, 1 is a standard step
-* * purity_modifier - how much to modify the step's purity by (0 - 1)
 */
-/datum/equilibrium/proc/react_timestep(delta_time, purity_modifier = 1)
+/datum/equilibrium/proc/react_timestep(delta_time)
 	if(to_delete)
 		//This occurs when it explodes
 		return FALSE

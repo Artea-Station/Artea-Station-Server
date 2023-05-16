@@ -10,11 +10,7 @@
 	required_temp = 320
 	optimal_temp = 600
 	overheat_temp = 800
-	determin_ph_range = 5
-	temp_exponent_factor = 0.5
-	ph_exponent_factor = 4
 	thermic_constant = 1000
-	H_ion_release = -0.25
 	rate_up_lim = 1
 
 /datum/chemical_reaction/medical_speed_catalyst/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)

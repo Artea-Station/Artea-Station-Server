@@ -1,31 +1,11 @@
-/datum/chemical_reaction/basic_buffer
-	results = list(/datum/reagent/reaction_agent/basic_buffer = 10)
-	required_reagents = list(/datum/reagent/ammonia = 3, /datum/reagent/chlorine = 2, /datum/reagent/hydrogen = 2, /datum/reagent/oxygen = 2) //vagely NH4OH + NH4Cl buffer
-	mix_message = "The solution fizzes in the beaker."
-	//FermiChem vars:
-	required_temp = 250
-	optimal_temp = 500
-	overheat_temp = NO_OVERHEAT
-	determin_ph_range = 0
-	temp_exponent_factor = 4
-	ph_exponent_factor = 0
-	thermic_constant = 0
-	H_ion_release = 0.01
-	rate_up_lim = 15
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL
-
-/datum/chemical_reaction/acidic_buffer
-	results = list(/datum/reagent/reaction_agent/acidic_buffer = 10)
+/datum/chemical_reaction/acidic_inversifier
+	results = list(/datum/reagent/acidic_inversifier = 10)
 	required_reagents = list(/datum/reagent/sodium = 2, /datum/reagent/hydrogen = 2, /datum/reagent/consumable/ethanol = 2, /datum/reagent/water = 2)
 	mix_message = "The solution froths in the beaker."
 	required_temp = 250
 	optimal_temp = 500
 	overheat_temp = NO_OVERHEAT
-	determin_ph_range = 0
-	temp_exponent_factor = 4
-	ph_exponent_factor = 0
 	thermic_constant = 0
-	H_ion_release = -0.01
 	rate_up_lim = 20
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL
 
@@ -42,11 +22,7 @@
 	required_temp = 800
 	optimal_temp = 300
 	overheat_temp = -1 //no overheat
-	determin_ph_range = 5
-	temp_exponent_factor = 1
-	ph_exponent_factor = 0
 	thermic_constant = -400
-	H_ion_release = 0
 	rate_up_lim = 4
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL | REACTION_TAG_COMPETITIVE
 
@@ -59,11 +35,7 @@
 	required_temp = 50
 	optimal_temp = 500
 	overheat_temp = 500
-	determin_ph_range = 5
-	temp_exponent_factor = 1
-	ph_exponent_factor = 2
 	thermic_constant = -800
-	H_ion_release = -0.02
 	rate_up_lim = 6
 	reaction_flags = REACTION_COMPETITIVE //Competes with /datum/chemical_reaction/prefactor_a/competitive
 	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_DANGEROUS | REACTION_TAG_CHEMICAL | REACTION_TAG_COMPETITIVE
@@ -96,7 +68,6 @@
 /datum/chemical_reaction/prefactor_a/purity_tester
 	results = list(/datum/reagent/reaction_agent/purity_tester = 5)
 	required_reagents = list(/datum/reagent/prefactor_a = 5, /datum/reagent/stable_plasma = 5)
-	H_ion_release = 0.05
 	thermic_constant = 0
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL | REACTION_TAG_COMPETITIVE
 
@@ -104,7 +75,6 @@
 /datum/chemical_reaction/prefactor_b/speed_agent
 	results = list(/datum/reagent/reaction_agent/speed_agent = 5)
 	required_reagents = list(/datum/reagent/prefactor_b = 5, /datum/reagent/stable_plasma = 5)
-	H_ion_release = -0.15
 	thermic_constant = 0
 	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_DANGEROUS | REACTION_TAG_CHEMICAL | REACTION_TAG_COMPETITIVE
 

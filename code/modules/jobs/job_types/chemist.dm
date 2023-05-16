@@ -49,7 +49,7 @@
 	ears = /obj/item/radio/headset/headset_med
 	glasses = /obj/item/clothing/glasses/science
 	shoes = /obj/item/clothing/shoes/sneakers/white
-	l_pocket = /obj/item/reagent_containers/cup/bottle/random_buffer
+	l_pocket = /obj/item/reagent_containers/cup/bottle/acidic_inversifier
 	r_pocket = /obj/item/reagent_containers/dropper
 
 	backpack = /obj/item/storage/backpack/chemistry

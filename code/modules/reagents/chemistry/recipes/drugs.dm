@@ -16,22 +16,14 @@
 	required_temp = 372
 	optimal_temp = 376//Wow this is tight
 	overheat_temp = 380
-	determin_ph_range = 5
-	temp_exponent_factor = 1
-	ph_exponent_factor = 1.4
 	thermic_constant = 0.1 //exothermic nature is equal to impurty
-	H_ion_release = -0.025
 	rate_up_lim = 12.5
 	reaction_flags = REACTION_HEAT_ARBITARY //Heating up is arbitary because of submechanics of this reaction.
 	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_EXPLOSIVE | REACTION_TAG_DRUG | REACTION_TAG_DANGEROUS
 
 //The less pure it is, the faster it heats up. tg please don't hate me for making your meth even more dangerous
 /datum/chemical_reaction/methamphetamine/reaction_step(datum/reagents/holder, datum/equilibrium/reaction, delta_t, step_reaction_vol)
-	var/datum/reagent/meth = holder.get_reagent(/datum/reagent/drug/methamphetamine)
-	if(!meth)//First step
-		reaction.thermic_mod = (1-delta_ph)*5
-		return
-	reaction.thermic_mod = (1-meth.purity)*5
+	reaction.thermic_mod = 5
 
 /datum/chemical_reaction/methamphetamine/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
 	. = ..()
@@ -40,15 +32,6 @@
 /datum/chemical_reaction/methamphetamine/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
 	. = ..()
 	temp_meth_explosion(holder, equilibrium.reacted_vol)
-
-/datum/chemical_reaction/methamphetamine/reaction_finish(datum/reagents/holder, datum/equilibrium/reaction, react_vol)
-	var/datum/reagent/meth = holder.get_reagent(/datum/reagent/drug/methamphetamine)
-	if(!meth)//Other procs before this can already blow us up
-		return ..()
-	if(meth.purity < purity_min)
-		temp_meth_explosion(holder, react_vol)
-		return
-	return ..()
 
 //Refactoring of explosions is coming later, this is till then so it still explodes
 /datum/chemical_reaction/methamphetamine/proc/temp_meth_explosion(datum/reagents/holder, explode_vol)

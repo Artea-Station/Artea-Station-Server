@@ -10,11 +10,7 @@
 	required_temp = 250
 	optimal_temp = 1000
 	overheat_temp = 550
-	determin_ph_range = 4
-	temp_exponent_factor = 1
-	ph_exponent_factor = 4
 	thermic_constant = 100
-	H_ion_release = 4
 	rate_up_lim = 55
 	reaction_flags = REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_BRUTE
@@ -22,15 +18,6 @@
 /datum/chemical_reaction/medicine/helbital/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
 	explode_fire_vortex(holder, equilibrium, 1, 1, "impure")
 	holder.chem_temp += 2.5
-	var/datum/reagent/helbital = holder.get_reagent(/datum/reagent/medicine/c2/helbital)
-	if(!helbital)
-		return
-	if(helbital.purity <= 0.25)
-		if(prob(25))
-			new /obj/effect/hotspot(holder.my_atom.loc)
-			holder.remove_reagent(/datum/reagent/medicine/c2/helbital, 2)
-			holder.chem_temp += 5
-			holder.my_atom.audible_message(span_notice("[icon2html(holder.my_atom, viewers(DEFAULT_MESSAGE_RANGE, src))] The impurity of the reacting helbital is too great causing [holder.my_atom] to let out a hearty burst of flame, evaporating part of the product!"))
 
 /datum/chemical_reaction/medicine/helbital/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
 	. = ..()//drains product
@@ -41,9 +28,6 @@
 	var/datum/reagent/helbital = holder.get_reagent(/datum/reagent/medicine/c2/helbital)
 	if(!helbital)
 		return
-	if(helbital.purity <= 0.1) //So people don't ezmode this by keeping it at min
-		explode_fire(holder, null, 3)
-		clear_products(holder)
 
 /datum/chemical_reaction/medicine/libital
 	results = list(/datum/reagent/medicine/c2/libital = 3)
@@ -51,11 +35,7 @@
 	required_temp = 225
 	optimal_temp = 700
 	overheat_temp = 840
-	determin_ph_range = 4
-	temp_exponent_factor = 1.75
-	ph_exponent_factor = 1
 	thermic_constant = 75
-	H_ion_release = -6.5
 	rate_up_lim = 40
 	reaction_flags = REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_BRUTE
@@ -66,11 +46,7 @@
 	required_temp = 225
 	optimal_temp = 700
 	overheat_temp = 750
-	determin_ph_range = 2
-	temp_exponent_factor = 0.75
-	ph_exponent_factor = 4
 	thermic_constant = 50
-	H_ion_release = -2.5
 	rate_up_lim = 30
 	reaction_flags = REACTION_CLEAR_INVERSE | REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_BRUTE
@@ -86,11 +62,7 @@
 	required_temp = 200
 	optimal_temp = 300
 	overheat_temp = 500
-	determin_ph_range = 6
-	temp_exponent_factor = 1
-	ph_exponent_factor = 2
 	thermic_constant = -175 //Though, it is a test in endothermicity
-	H_ion_release = -2.5
 	rate_up_lim = 30
 	reaction_flags = REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_BURN
@@ -101,11 +73,7 @@
 	required_temp = 50
 	optimal_temp = 300
 	overheat_temp = 315
-	determin_ph_range = 3
-	temp_exponent_factor = 5
-	ph_exponent_factor = 2
 	thermic_constant = -400
-	H_ion_release = 3
 	rate_up_lim = 35
 	reaction_flags = REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_BURN
@@ -125,10 +93,7 @@
 	required_temp = 47
 	optimal_temp = 10
 	overheat_temp = 5
-	determin_ph_range = 1
-	temp_exponent_factor = 3
 	thermic_constant = -40
-	H_ion_release = 3.7
 	rate_up_lim = 50
 	reaction_flags = REACTION_PH_VOL_CONSTANT | REACTION_CLEAR_INVERSE
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_BURN
@@ -152,11 +117,7 @@
 	mix_message = "The mixture rapidly turns into a dense pink liquid."
 	optimal_temp = 420
 	overheat_temp = 570 //Ash will be created before this - so it's pretty rare that overheat is actually triggered
-	determin_ph_range = 2
-	temp_exponent_factor = 0.75
-	ph_exponent_factor = 1.25
 	thermic_constant = 15
-	H_ion_release = -1
 	rate_up_lim = 50
 	reaction_flags = REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_OXY
@@ -193,11 +154,7 @@
 	optimal_temp = 1
 	optimal_temp = 900
 	overheat_temp = 720
-	determin_ph_range = 2
-	temp_exponent_factor = 4
-	ph_exponent_factor = 1.8
 	thermic_constant = -20
-	H_ion_release = 3
 	rate_up_lim = 50
 	reaction_flags = REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_OXY
@@ -207,8 +164,6 @@
 	var/datum/reagent/oxy = holder.has_reagent(/datum/reagent/oxygen)
 	if(oxy)
 		holder.remove_reagent(/datum/reagent/oxygen, 0.25)
-	else
-		holder.adjust_all_reagents_ph(-0.05*step_reaction_vol)//pH drifts faster
 
 //Sleepytime for chem
 /datum/chemical_reaction/medicine/tirimol/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, impure = FALSE)
@@ -236,11 +191,7 @@
 	required_temp = 320
 	optimal_temp = 280
 	overheat_temp = NO_OVERHEAT
-	determin_ph_range = 2
-	temp_exponent_factor = 1
-	ph_exponent_factor = 0.5
 	thermic_constant = -500
-	H_ion_release = -2
 	rate_up_lim = 15
 	reaction_flags = REACTION_PH_VOL_CONSTANT | REACTION_CLEAR_INVERSE
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_TOXIN
@@ -252,11 +203,7 @@
 	required_temp = 380
 	optimal_temp = 400
 	overheat_temp = 410
-	determin_ph_range = 4
-	temp_exponent_factor = 0.1
-	ph_exponent_factor = 1
 	thermic_constant = 0
-	H_ion_release = 0.015
 	rate_up_lim = 10
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_PLANT | REACTION_TAG_TOXIN
 
@@ -270,33 +217,20 @@
 		explode_fire_square(holder, equilibrium, 1)
 		holder.my_atom.fire_act(holder.chem_temp, monover.volume)//I'm kinda banking on this setting the thing on fire. If you see this, then it didn't!
 
-/datum/chemical_reaction/medicine/multiver/reaction_step(datum/reagents/holder, datum/equilibrium/reaction, delta_t, step_reaction_vol)
-	. = ..()
-	if(delta_ph < 0.35)
-		//normalise delta_ph
-		var/norm_d_ph = 1-(delta_ph/0.35)
-		holder.chem_temp += norm_d_ph*12 //0 - 48 per second)
-	if(delta_ph < 0.1)
-		holder.my_atom.visible_message(span_notice("[icon2html(holder.my_atom, viewers(DEFAULT_MESSAGE_RANGE, src))] The Monover begins to glow!"))
-
 /datum/chemical_reaction/medicine/syriniver
 	results = list(/datum/reagent/medicine/c2/syriniver = 5)
 	required_reagents = list(/datum/reagent/sulfur = 1, /datum/reagent/fluorine = 1, /datum/reagent/toxin = 1, /datum/reagent/nitrous_oxide = 2)
 	required_temp = 250
 	optimal_temp = 310
 	overheat_temp = NO_OVERHEAT
-	determin_ph_range = 6
-	temp_exponent_factor = 2
-	ph_exponent_factor = 0.5
 	thermic_constant = -20
-	H_ion_release = -5.5
 	rate_up_lim = 20 //affected by pH too
 	reaction_flags = REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_TOXIN
 
 /datum/chemical_reaction/medicine/syriniver/reaction_step(datum/reagents/holder, datum/equilibrium/reaction, delta_t, step_reaction_vol)
 	. = ..()
-	reaction.delta_t = delta_t * delta_ph
+	reaction.delta_t = delta_t
 
 /datum/chemical_reaction/medicine/penthrite
 	results = list(/datum/reagent/medicine/c2/penthrite = 3)
@@ -304,11 +238,7 @@
 	required_temp = 255
 	optimal_temp = 350
 	overheat_temp = 450
-	determin_ph_range = 3
-	temp_exponent_factor = 1
-	ph_exponent_factor = 1
 	thermic_constant = 150
-	H_ion_release = -0.5
 	rate_up_lim = 15
 	reaction_flags = REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_TOXIN

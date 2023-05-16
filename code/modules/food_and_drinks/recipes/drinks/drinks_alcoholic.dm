@@ -1,9 +1,7 @@
 /// Drink recipe base
 /datum/chemical_reaction/drink
 	optimal_temp = 250
-	temp_exponent_factor = 1
 	thermic_constant = 0
-	H_ion_release = 0
 	rate_up_lim = 60
 	reaction_tags = REACTION_TAG_DRINK | REACTION_TAG_EASY
 

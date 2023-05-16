@@ -145,7 +145,6 @@
 	required_temp = 525
 	optimal_temp = 550
 	overheat_temp = 575
-	temp_exponent_factor = 0.2
 	thermic_constant = 35 //gives a bonus 15C wiggle room
 	rate_up_lim = 25 //Give a chance to pull back
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL
@@ -374,7 +373,6 @@
 /datum/chemical_reaction/ammonia
 	results = list(/datum/reagent/ammonia = 3)
 	required_reagents = list(/datum/reagent/hydrogen = 3, /datum/reagent/nitrogen = 1)
-	H_ion_release = -0.02 //handmade is more neutral
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL | REACTION_TAG_PLANT
 
 /datum/chemical_reaction/diethylamine
@@ -396,7 +394,6 @@
 /datum/chemical_reaction/weedkiller
 	results = list(/datum/reagent/toxin/plantbgone/weedkiller = 5)
 	required_reagents = list(/datum/reagent/toxin = 1, /datum/reagent/ammonia = 4)
-	H_ion_release = -0.05		// Push towards acidic
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_PLANT
 
 /datum/chemical_reaction/pestkiller
@@ -788,7 +785,6 @@
 	optimal_temp = 200
 	overheat_temp = 0
 	thermic_constant = 0
-	H_ion_release = 0
 	rate_up_lim = 50
 	mix_message = "The solution freezes up into ice!"
 	reaction_flags = REACTION_COMPETITIVE
@@ -801,7 +797,6 @@
 	optimal_temp = 350
 	overheat_temp = NO_OVERHEAT
 	thermic_constant = 0
-	H_ion_release = 0
 	rate_up_lim = 50
 	mix_message = "The ice melts back into water!"
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL | REACTION_TAG_DRINK
@@ -815,7 +810,6 @@
 	optimal_temp = 350
 	overheat_temp = NO_OVERHEAT
 	thermic_constant = 0
-	H_ion_release = 0
 	rate_up_lim = 50
 	mix_message = "The mixture's colors swirl together."
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL
@@ -829,11 +823,7 @@
 	required_temp = 350
 	optimal_temp = 600
 	overheat_temp = 650
-	determin_ph_range = 5
-	temp_exponent_factor = 1.5
-	ph_exponent_factor = 3
 	thermic_constant = 12
-	H_ion_release = -0.05
 	rate_up_lim = 10
 	reaction_flags = REACTION_HEAT_ARBITARY
 	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_UNIQUE | REACTION_TAG_OTHER

@@ -206,7 +206,7 @@
 		var/overheat = FALSE
 		var/danger = FALSE
 		if(flashing != ENABLE_FLASHING)//So that the pH meter flashes for ANY reactions out of optimal
-			if(reagents.has_reagent(/datum/reagent/reaction_agent/acidic_buffer) || reagents.has_reagent(/datum/reagent/reaction_agent/basic_buffer))
+			if(reagents.has_reagent(/datum/reagent/acidic_inversifier))
 				flashing = ENABLE_FLASHING
 		if(equilibrium.reaction.is_cold_recipe)
 			if(equilibrium.reaction.overheat_temp > reagents.chem_temp && equilibrium.reaction.overheat_temp != NO_OVERHEAT)
@@ -236,7 +236,6 @@
 			list("name" = "overheat_temp" , "var" = edit_recipe.overheat_temp),
 			list("name" = "temp_exponent_factor" , "var" = edit_recipe.temp_exponent_factor),
 			list("name" = "thermic_constant" , "var" = edit_recipe.thermic_constant),
-			list("name" = "H_ion_release" , "var" = edit_recipe.H_ion_release),
 			list("name" = "rate_up_lim" , "var" = edit_recipe.rate_up_lim),
 		)
 
@@ -329,7 +328,6 @@ optimal_temp = [edit_recipe.optimal_temp]
 overheat_temp = [edit_recipe.overheat_temp]
 temp_exponent_factor = [edit_recipe.temp_exponent_factor]
 thermic_constant = [edit_recipe.thermic_constant]
-H_ion_release = [edit_recipe.H_ion_release]
 rate_up_lim = [edit_recipe.rate_up_lim]"}
 			say(export)
 			text2file(export, "[GLOB.log_directory]/chem_parse.txt")
