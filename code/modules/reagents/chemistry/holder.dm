@@ -757,7 +757,7 @@
 	if(reagent.chemical_flags & REAGENT_DONOTSPLIT)
 		return added_volume
 
-	if(reagent.inverse_chem)//Turns all of a added reagent into the inverse chem
+	if(reagent.inverse_chem && (has_reagent(/datum/reagent/reaction_agent/acidic_buffer) || has_reagent(/datum/reagent/reaction_agent/basic_buffer)))//Turns all of a added reagent into the inverse chem
 		add_reagent(reagent.inverse_chem, added_volume, FALSE)
 		var/datum/reagent/inverse_reagent = has_reagent(reagent.inverse_chem)
 		if(inverse_reagent.chemical_flags & REAGENT_SNEAKYNAME)
