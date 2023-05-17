@@ -848,7 +848,6 @@
 			var/required_temp = reaction.required_temp
 			var/is_cold_recipe = reaction.is_cold_recipe
 			var/meets_temp_requirement = FALSE
-			var/meets_ph_requirement = FALSE
 			var/granularity = 1
 			if(!(reaction.reaction_flags & REACTION_INSTANT))
 				granularity = CHEMICAL_VOLUME_MINIMUM
@@ -887,7 +886,7 @@
 				meets_temp_requirement = TRUE
 
 			if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && matching_other)
-				if(meets_temp_requirement && meets_ph_requirement)
+				if(meets_temp_requirement)
 					possible_reactions += reaction
 				else
 					LAZYADD(failed_but_capable_reactions, reaction)
