@@ -411,7 +411,6 @@
 		"holobarrier_med",
 		"limbgrower",
 		"meta_beaker",
-		"ph_meter",
 		"piercesyringe",
 		"plasmarefiller",
 		"smoke_machine",
