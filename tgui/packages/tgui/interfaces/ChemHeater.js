@@ -9,7 +9,6 @@ export const ChemHeater = (props, context) => {
   const {
     targetTemp,
     isActive,
-    isFlashing,
     isBeakerLoaded,
     currentTemp,
     beakerCurrentVolume,
@@ -40,26 +39,6 @@ export const ChemHeater = (props, context) => {
                 Heat
               </Table.Cell>
               <Table.Cell />
-              <Table.Cell bold collapsing color="label">
-                Buffers
-              </Table.Cell>
-              <Table.Cell />
-              <Table.Cell>
-                <NumberInput
-                  width="45px"
-                  unit="u"
-                  step={1}
-                  stepPixelSize={3}
-                  value={dispenseVolume}
-                  minValue={1}
-                  maxValue={10}
-                  onDrag={(e, value) =>
-                    act('disp_vol', {
-                      target: value,
-                    })
-                  }
-                />
-              </Table.Cell>
             </Table.Row>
             <Table.Row>
               <Table.Cell collapsing color="label">

@@ -90,13 +90,20 @@
  * * reaction - the equilibrium reaction holder that is reaction is processed within - use this to edit delta_t and delta
  * * holder - the datum that holds this reagent, be it a beaker or anything else
  * * created_volume - volume created per step
- * * added_purity - how pure the created volume is per step
  *
  * Outputs:
  * * returning END_REACTION will end the associated reaction - flagging it for deletion and preventing any reaction in that timestep from happening. Make sure to set the vars in the holder to one that can't start it from starting up again.
  */
 /datum/chemical_reaction/proc/reaction_step(datum/reagents/holder, datum/equilibrium/reaction, delta_t, step_reaction_vol)
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	for(var/id in results)
+		var/datum/reagent/reagent = holder.has_reagent(id)
+		if(!reagent)
+			continue
+		if(reagent.inverse_chem && holder.has_reagent(/datum/reagent/acidic_inversifier) && !(reaction_flags & REACTION_CLEAR_INVERSE))
+			var/cached_volume = reagent.volume
+			holder.remove_reagent(reagent.type, cached_volume, FALSE)
+			holder.add_reagent(reagent.inverse_chem, cached_volume, FALSE)
 
 /**
  * Stuff that occurs at the end of a reaction. This will proc if the beaker is forced to stop and start again (say for sudden temperature changes).
@@ -133,12 +140,10 @@
 /datum/chemical_reaction/proc/reaction_clear_check(datum/reagent/reagent, datum/reagents/holder)
 	if(!reagent)//Failures can delete R
 		return
-	if(reaction_flags & (REACTION_CLEAR_IMPURE | REACTION_CLEAR_INVERSE))
+	if(reagent.inverse_chem && holder.has_reagent(/datum/reagent/acidic_inversifier) && (reaction_flags & REACTION_CLEAR_INVERSE))
 		var/cached_volume = reagent.volume
-		if((reaction_flags & REACTION_CLEAR_INVERSE) && reagent.inverse_chem)
-			holder.remove_reagent(reagent.type, cached_volume, FALSE)
-			holder.add_reagent(reagent.inverse_chem, cached_volume, FALSE)
-			return
+		holder.remove_reagent(reagent.type, cached_volume, FALSE)
+		holder.add_reagent(reagent.inverse_chem, cached_volume, FALSE)
 
 /**
  * Occurs when a reation is overheated (i.e. past it's overheatTemp)

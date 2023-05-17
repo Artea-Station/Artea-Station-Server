@@ -13,7 +13,6 @@
 	var/target_temperature = 300
 	var/heater_coefficient = 0.05
 	var/on = FALSE
-	var/dispense_volume = 1
 	//The list of active clients using this heater, so that we can update the UI on a reaction_step. I assume there are multiple clients possible.
 	var/list/ui_client_list
 
@@ -234,7 +233,6 @@
 		active_reactions[length(active_reactions)] = list("name" = reagent.name, "danger" = danger, "purityAlert" = 2/*same as flashing*/, "overheat" = overheat, "inverse" = reagent.inverse_chem_val, "reactedVol" = equilibrium.reacted_vol, "targetVol" = round(equilibrium.target_vol, 1))//Use the first result reagent to name the reaction detected
 	data["activeReactions"] = active_reactions
 	data["isFlashing"] = flashing
-	data["dispenseVolume"] = dispense_volume
 
 	return data
 
@@ -257,18 +255,11 @@
 			//Eject doesn't turn it off, so you can preheat for beaker swapping
 			replace_beaker(usr)
 			. = TRUE
-		if("disp_vol")
-			var/target = params["target"]
-			if(text2num(target) != null)
-				target = text2num(target) //Because the input is flipped
-				. = TRUE
-			if(.)
-				dispense_volume = target
 
 //Has a lot of buffer and is upgraded
 /obj/machinery/chem_heater/debug
 	name = "Debug Reaction Chamber"
-	desc = "Now with even more buffers!"
+	desc = "Now with even more speed!"
 
 /obj/machinery/chem_heater/debug/Initialize(mapload)
 	. = ..()

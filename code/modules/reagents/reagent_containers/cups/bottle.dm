@@ -214,8 +214,8 @@
 	list_reagents = list(/datum/reagent/medicine/atropine = 30)
 
 /obj/item/reagent_containers/cup/bottle/acidic_inversifier
-	name = "Acidic buffer bottle"
-	desc = "A small bottle of acidic buffer."
+	name = "Acidic inversifier bottle"
+	desc = "A small bottle of acidic inversifier. Used to make reactions create their inverse when present, if they have one."
 	list_reagents = list(/datum/reagent/acidic_inversifier = 30)
 
 /obj/item/reagent_containers/cup/bottle/romerol
