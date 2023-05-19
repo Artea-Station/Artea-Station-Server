@@ -39,3 +39,4 @@
 	has_gravity = STANDARD_GRAVITY
 	name = "Test Room"
 	icon_state = "test_room"
+	luminosity = 1
