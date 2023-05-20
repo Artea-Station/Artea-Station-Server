@@ -187,8 +187,6 @@
 	icon_state = "jetpack-sec"
 	inhand_icon_state = "jetpack-sec"
 
-
-
 /obj/item/tank/jetpack/carbondioxide
 	name = "jetpack (carbon dioxide)"
 	desc = "A tank of compressed carbon dioxide for use as propulsion in zero-gravity areas. Painted black to indicate that it should not be used as a source for internals."
@@ -196,3 +194,63 @@
 	inhand_icon_state = "jetpack-black"
 	distribute_pressure = 0
 	gas_type = /datum/gas/carbon_dioxide
+
+/obj/item/tank/jetpack/suit
+	name = "hardsuit jetpack upgrade"
+	desc = "A modular, compact set of thrusters designed to integrate with a hardsuit. It is fueled by a tank inserted into the suit's storage compartment."
+	icon_state = "jetpack-mining"
+	w_class = WEIGHT_CLASS_NORMAL
+	actions_types = list(/datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
+	volume = 1
+	slot_flags = null
+	gas_type = null
+	full_speed = FALSE
+	var/datum/gas_mixture/temp_air_contents
+	var/obj/item/tank/internals/tank = null
+	var/mob/living/carbon/human/cur_user
+
+/obj/item/tank/jetpack/suit/Initialize(mapload)
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
+	temp_air_contents = air_contents
+
+/obj/item/tank/jetpack/suit/attack_self()
+	return
+
+/obj/item/tank/jetpack/suit/cycle(mob/user)
+	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit))
+		to_chat(user, "<span class='warning'>\The [src] must be connected to a hardsuit!</span>")
+		return
+
+	var/mob/living/carbon/human/H = user
+	if(!istype(H.s_store, /obj/item/tank/internals))
+		to_chat(user, "<span class='warning'>You need a tank in your suit storage!</span>")
+		return
+	..()
+
+/obj/item/tank/jetpack/suit/turn_on(mob/user)
+	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit) || !ishuman(loc.loc) || loc.loc != user)
+		return
+	var/mob/living/carbon/human/H = user
+	tank = H.s_store
+	air_contents = tank.air_contents
+	START_PROCESSING(SSobj, src)
+	cur_user = user
+	..()
+
+/obj/item/tank/jetpack/suit/turn_off(mob/user)
+	tank = null
+	air_contents = temp_air_contents
+	STOP_PROCESSING(SSobj, src)
+	cur_user = null
+	..()
+
+/obj/item/tank/jetpack/suit/process()
+	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit) || !ishuman(loc.loc))
+		turn_off(cur_user)
+		return
+	var/mob/living/carbon/human/H = loc.loc
+	if(!tank || tank != H.s_store)
+		turn_off(cur_user)
+		return
+	..()
