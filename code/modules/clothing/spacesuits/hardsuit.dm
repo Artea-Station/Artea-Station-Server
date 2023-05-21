@@ -530,26 +530,6 @@
 	icon_state = "caparmor"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/swat/captain
 
-	//Old Prototype
-/obj/item/clothing/head/helmet/space/hardsuit/ancient
-	name = "prototype RIG hardsuit helmet"
-	desc = "Early prototype RIG hardsuit helmet, designed to quickly shift over a user's head. Design constraints of the helmet mean it has no inbuilt cameras, thus it restricts the users visability."
-	icon_state = "hardsuit0-ancient"
-	armor = list(MELEE = 30,  BULLET = 5, LASER = 5, ENERGY = 10, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 75, STAMINA = 30)
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/plasmacutter, /obj/item/gun/energy/plasmacutter/adv, /obj/item/gun/energy/laser/retro, /obj/item/gun/energy/laser/retro/old, /obj/item/gun/energy/e_gun/old)
-	hardsuit_type = "ancient"
-	resistance_flags = FIRE_PROOF
-
-/obj/item/clothing/suit/space/hardsuit/ancient
-	name = "prototype RIG hardsuit"
-	desc = "Prototype powered RIG hardsuit. Provides excellent protection from the elements of space while being comfortable to move around in, thanks to the powered locomotives. Remains very bulky however."
-	icon_state = "hardsuit-ancient"
-	armor = list(MELEE = 30,  BULLET = 5, LASER = 5, ENERGY = 10, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 75, STAMINA = 30)
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/laser/retro, /obj/item/gun/energy/laser/retro/old, /obj/item/gun/energy/e_gun/old)
-	slowdown = 3
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ancient
-	resistance_flags = FIRE_PROOF
-
 /////////////SHIELDED//////////////////////////////////
 
 /obj/item/clothing/suit/space/hardsuit/shielded
