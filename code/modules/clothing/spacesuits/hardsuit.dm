@@ -2,6 +2,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit
 	name = "hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has radiation shielding."
+	icon = 'icons/mob/clothing/head/hardsuit_head.dmi'
 	icon_state = "hardsuit0-engineering"
 	max_integrity = 300
 	armor = list(MELEE = 10,  BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 10, BIO = 100, RAD = 75, FIRE = 50, ACID = 75, STAMINA = 20)
@@ -87,6 +88,7 @@
 /obj/item/clothing/suit/space/hardsuit
 	name = "hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has radiation shielding."
+	icon = 'icons/mob/clothing/suits/hardsuit.dmi'
 	icon_state = "hardsuit-engineering"
 	max_integrity = 300
 	armor = list(MELEE = 10,  BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 10, BIO = 100, RAD = 75, FIRE = 50, ACID = 75, STAMINA = 20)
@@ -375,30 +377,6 @@
 		var/mob/living/carbon/H = loc
 		H.update_equipment_speed_mods()
 
-//Elite Syndie suit
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
-	name = "elite syndicate hardsuit helmet"
-	desc = "An elite version of the syndicate helmet, with improved armour and fireproofing. It is in EVA mode. Property of Gorlex Marauders."
-	alt_desc = "An elite version of the syndicate helmet, with improved armour and fireproofing. It is in combat mode. Property of Gorlex Marauders."
-	icon_state = "hardsuit0-syndielite"
-	hardsuit_type = "syndielite"
-	armor = list(MELEE = 60,  BULLET = 60, LASER = 50, ENERGY = 60, BOMB = 55, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, STAMINA = 80)
-	heat_protection = HEAD
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-
-/obj/item/clothing/suit/space/hardsuit/syndi/elite
-	name = "elite syndicate hardsuit"
-	desc = "An elite version of the syndicate hardsuit, with improved armour and fireproofing. It is in travel mode."
-	alt_desc = "An elite version of the syndicate hardsuit, with improved armour and fireproofing. It is in combat mode."
-	icon_state = "hardsuit0-syndielite"
-	hardsuit_type = "syndielite"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
-	armor = list(MELEE = 60,  BULLET = 60, LASER = 50, ENERGY = 60, BOMB = 55, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, STAMINA = 80)
-	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-
 	//Medical hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/medical
 	name = "medical hardsuit helmet"
@@ -426,33 +404,6 @@
 /obj/item/clothing/suit/space/hardsuit/medical/cmo
 	name = "chief medical officer's hardsuit"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/medical/cmo
-
-	//Research Director hardsuit
-/obj/item/clothing/head/helmet/space/hardsuit/rd
-	name = "prototype hardsuit helmet"
-	desc = "A prototype helmet designed for research in a hazardous, low pressure environment. Scientific data flashes across the visor."
-	icon_state = "hardsuit0-rd"
-	hardsuit_type = "rd"
-	resistance_flags = ACID_PROOF | FIRE_PROOF
-	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
-	armor = list(MELEE = 30,  BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 100, BIO = 100, RAD = 60, FIRE = 60, ACID = 80, STAMINA = 30)
-	var/obj/machinery/doppler_array/integrated/bomb_radar
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT
-	actions_types = list(/datum/action/item_action/toggle_helmet_light)
-
-/obj/item/clothing/head/helmet/space/hardsuit/rd/Initialize(mapload)
-	. = ..()
-
-/obj/item/clothing/suit/space/hardsuit/research_director
-	icon_state = "hardsuit-rd"
-	name = "prototype hardsuit"
-	desc = "A prototype suit that protects against hazardous, low pressure environments. Fitted with extensive plating for handling explosives and dangerous research materials."
-	resistance_flags = ACID_PROOF | FIRE_PROOF
-	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT //Same as an emergency firesuit. Not ideal for extended exposure.
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/energy/wormhole_projector,
-	/obj/item/hand_tele, /obj/item/aicard)
-	armor = list(MELEE = 30,  BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 100, BIO = 100, RAD = 60, FIRE = 60, ACID = 80, STAMINA = 30)
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/rd
 
 	//Security hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/security
