@@ -25,7 +25,7 @@
 	/// The character's ID trim
 	var/trim
 	/// The character's ID trim icon for TGUI
-	var/icon
+	var/trim_icon
 
 /datum/record/New(
 	age = 18,
@@ -39,7 +39,7 @@
 	rank = "Unassigned",
 	species = "Human",
 	trim = "Unassigned",
-	icon = "question",
+	trim_icon = "question",
 )
 	src.age = age
 	src.blood_type = blood_type
@@ -52,7 +52,7 @@
 	src.rank = rank
 	src.species = species
 	src.trim = trim
-	src.icon = icon
+	src.trim_icon = trim_icon
 
 /**
  * Crew record datum

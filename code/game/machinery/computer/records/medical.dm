@@ -63,7 +63,7 @@
 			quirk_notes = target.quirk_notes,
 			rank = target.rank,
 			species = target.species,
-			icon = target.icon,
+			icon = target.trim_icon,
 		))
 
 	data["records"] = records

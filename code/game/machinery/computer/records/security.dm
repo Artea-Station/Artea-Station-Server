@@ -129,7 +129,7 @@
 			rank = target.rank,
 			species = target.species,
 			wanted_status = target.wanted_status,
-			icon = target.icon,
+			icon = target.trim_icon,
 		))
 
 	data["records"] = records

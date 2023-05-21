@@ -121,7 +121,8 @@ GLOBAL_DATUM_INIT(manifest, /datum/manifest, new)
 		name = person.real_name,
 		rank = assignment,
 		species = person.dna.species.name,
-		trim = trim_icon,
+		trim = assignment,
+		trim_icon = trim_icon,
 		// Locked specifics
 		dna_ref = person.dna,
 		mind_ref = person.mind,
@@ -139,7 +140,7 @@ GLOBAL_DATUM_INIT(manifest, /datum/manifest, new)
 		rank = assignment,
 		species = person.dna.species.name,
 		trim = assignment,
-		trim = trim_icon,
+		trim_icon = trim_icon,
 		// Crew specific
 		lock_ref = REF(lockfile),
 		major_disabilities = person.get_quirk_string(FALSE, CAT_QUIRK_MAJOR_DISABILITY),
