@@ -411,10 +411,10 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 	/// The client that is watching this view
 	var/client/client
 
-/atom/movable/screen/character_preview_view/Initialize(mapload, datum/preferences/preferences, client/client)
+/atom/movable/screen/character_preview_view/Initialize(mapload, datum/preferences/preferences, client/client, assigned_map = "character_preview_[REF(src)]")
 	. = ..()
 
-	assigned_map = "character_preview_[REF(src)]"
+	src.assigned_map = assigned_map
 	set_position(1, 1)
 
 	src.preferences = preferences
