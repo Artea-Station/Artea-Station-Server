@@ -93,6 +93,7 @@
 	rank = "Unassigned",
 	species = "Human",
 	trim = "Unassigned",
+	trim_icon = "question",
 	/// Crew specific
 	lock_ref,
 	major_disabilities = "None",
@@ -136,6 +137,7 @@
 	rank = "Unassigned",
 	species = "Human",
 	trim = "Unassigned",
+	trim_icon = "question",
 	/// Locked specific
 	datum/dna/dna_ref,
 	datum/mind/mind_ref,
