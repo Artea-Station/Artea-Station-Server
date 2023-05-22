@@ -269,7 +269,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 	///Does the sink have a water recycler to recollect it's water supply?
 	var/has_water_reclaimer = TRUE
 	///Units of water to reclaim per second
-	var/reclaim_rate = 0.5
+	var/reclaim_rate = 0.75
 	///Amount of shift the pixel for placement
 	var/pixel_shift = 14
 
