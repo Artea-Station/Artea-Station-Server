@@ -77,15 +77,6 @@
 	else
 		soundloop.start(user)
 
-/obj/item/clothing/head/helmet/space/hardsuit/proc/display_visor_message(var/msg)
-	var/mob/wearer = loc
-	if(msg && ishuman(wearer))
-		wearer.show_message("[icon2html(src, wearer)]<b><span class='robot'>[msg]</span></b>", MSG_VISUAL)
-
-/obj/item/clothing/head/helmet/space/hardsuit/emp_act(severity)
-	. = ..()
-	display_visor_message("[severity > 1 ? "Light" : "Strong"] electromagnetic pulse detected!")
-
 /obj/item/clothing/suit/space/hardsuit
 	name = "hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has radiation shielding."
