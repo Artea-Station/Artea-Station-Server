@@ -79,8 +79,6 @@
 #define ACCESS_PHARMACY "pharmacy"
 /// Access to the surgery rooms.
 #define ACCESS_SURGERY "surgery"
-/// Allows access to the larger room for Chemistry plumbing machinery setups.
-#define ACCESS_PLUMBING "plumbing"
 /// Access to the Virology portion of the medical department, as well as the virology crate.
 #define ACCESS_VIROLOGY "virology"
 /// Access to the Psychologist's office.
@@ -145,6 +143,7 @@
 #define ACCESS_PATHFINDERS_DOCK "pathfinders_dock"
 #define ACCESS_PATHFINDERS_STORAGE "pathfinders_storage"
 #define ACCESS_PATHFINDERS_LEAD "PATHFINDERS_LEAD"
+#define ACCESS_PATHFINDERS_SERVER_ROOM "pathfinders_server_room"
 
 /// - - - AWAY MISSIONS - - -
 /*For generic away-mission/ruin access. Why would normal crew have access to a long-abandoned derelict
@@ -315,7 +314,6 @@
 	ACCESS_ORDNANCE, \
 	ACCESS_ORDNANCE_STORAGE, \
 	ACCESS_PHARMACY, \
-	ACCESS_PLUMBING, \
 	ACCESS_PSYCHOLOGY, \
 	ACCESS_MEDICAL_SHUTTLE, \
 	ACCESS_QM, \
@@ -452,7 +450,6 @@
 	ACCESS_MEDICAL, \
 	ACCESS_MORGUE, \
 	ACCESS_PHARMACY, \
-	ACCESS_PLUMBING, \
 	ACCESS_PSYCHOLOGY, \
 	ACCESS_SURGERY, \
 	ACCESS_VIROLOGY, \
@@ -466,8 +463,10 @@
 	ACCESS_PATHFINDERS, \
 	ACCESS_PATHFINDERS_DOCK, \
 	ACCESS_PATHFINDERS_STORAGE, \
+	ACCESS_PATHFINDERS_SERVER_ROOM, \
 	ACCESS_MINING, \
 	ACCESS_MINING_STATION, \
+	ACCESS_EXTERNAL_AIRLOCKS, \
 )
 /// Name for the Engineering region.
 #define REGION_ENGINEERING "Engineering"

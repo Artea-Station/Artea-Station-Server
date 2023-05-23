@@ -48,18 +48,6 @@
 	if(W.is_refillable())
 		return FALSE //so we can refill them via their afterattack.
 
-	if(istype(W, /obj/item/stack/sheet/iron) && can_be_tanked)
-		var/obj/item/stack/sheet/iron/metal_stack = W
-		metal_stack.use(1)
-		var/obj/structure/reagent_dispensers/plumbed/storage/new_tank = new /obj/structure/reagent_dispensers/plumbed/storage(drop_location())
-		new_tank.reagents.maximum_volume = reagents.maximum_volume
-		reagents.trans_to(new_tank, reagents.total_volume)
-		new_tank.name = "stationary [name]"
-		new_tank.update_appearance(UPDATE_OVERLAYS)
-		new_tank.set_anchored(anchored)
-		qdel(src)
-		return FALSE
-
 	return ..()
 
 /obj/structure/reagent_dispensers/Initialize(mapload)
@@ -342,49 +330,3 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/reagent_dispensers/wall/virusfood, 30
 	icon_state = "serving"
 	anchored = TRUE
 	reagent_id = /datum/reagent/consumable/nutraslop
-
-/obj/structure/reagent_dispensers/plumbed
-	name = "stationary water tank"
-	anchored = TRUE
-	icon_state = "water_stationary"
-	desc = "A stationary, plumbed, water tank."
-	can_be_tanked = FALSE
-
-/obj/structure/reagent_dispensers/plumbed/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/plumbing/simple_supply)
-
-/obj/structure/reagent_dispensers/plumbed/wrench_act(mob/living/user, obj/item/tool)
-	. = ..()
-	default_unfasten_wrench(user, tool)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
-
-/obj/structure/reagent_dispensers/plumbed/storage
-	name = "stationary storage tank"
-	icon_state = "tank_stationary"
-	reagent_id = null //start empty
-
-/obj/structure/reagent_dispensers/plumbed/storage/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/simple_rotation)
-
-/obj/structure/reagent_dispensers/plumbed/storage/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
-
-/obj/structure/reagent_dispensers/plumbed/storage/update_overlays()
-	. = ..()
-	if(!reagents)
-		return
-
-	if(!reagents.total_volume)
-		return
-
-	var/mutable_appearance/tank_color = mutable_appearance('icons/obj/medical/chemical_tanks.dmi', "tank_chem_overlay")
-	tank_color.color = mix_color_from_reagents(reagents.reagent_list)
-	. += tank_color
-
-/obj/structure/reagent_dispensers/plumbed/fuel
-	name = "stationary fuel tank"
-	icon_state = "fuel_stationary"
-	desc = "A stationary, plumbed, fuel tank."
-	reagent_id = /datum/reagent/fuel

@@ -9,7 +9,7 @@
 		/obj/item/clothing/under/rank/pathfinder/skirt = 2,
 		/obj/item/clothing/head/beret/pathfinders = 2,
 		/obj/item/clothing/shoes/jackboots = 2,
-		/obj/item/radio/headset/headset_sci = 2,
+		/obj/item/radio/headset/headset_pth = 2,
 		)
 	refill_canister = /obj/item/vending_refill/wardrobe/pathfinder_wardrobe
 	payment_department = ACCOUNT_PTH

@@ -61,6 +61,7 @@
 /datum/outfit/job/pathfinder/medic
 	name = "Pathfinder Medic"
 
+	ears = /obj/item/radio/headset/headset_pth_medic
 	gloves = /obj/item/clothing/gloves/color/latex
 	backpack_contents = list(
 		/obj/item/storage/medkit/pathfinder = 1
@@ -85,11 +86,14 @@
 		ACCESS_PATHFINDERS,
 		ACCESS_PATHFINDERS_DOCK,
 		ACCESS_PATHFINDERS_STORAGE,
+		ACCESS_MECH_PATHFINDERS,
 		ACCESS_EXTERNAL_AIRLOCKS,
 		ACCESS_MAINT_TUNNELS,
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
 		)
 	extra_access = list(
-		ACCESS_ATMOSPHERICS,
+		ACCESS_MINERAL_STOREROOM,
 		)
 	template_access = list(
 		ACCESS_CAPTAIN,

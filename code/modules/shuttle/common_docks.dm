@@ -8,7 +8,7 @@
 
 /obj/docking_port/stationary/medium
 	name = "medium dock"
-	shuttle_id = "mediumdock"
+	shuttle_id = "pathfinders"
 	width = 17
 	dwidth = 8
 	height = 13

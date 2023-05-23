@@ -511,16 +511,13 @@
 		if(ASSEMBLY_THIRD_STEP)
 			if(!can_finish_build(I, user, 0))
 				return
-			if(istype(I, /obj/item/stack/ducts)) //Construct
-				var/obj/item/stack/ducts/D = I
-				if(D.get_amount() < 1)
-					to_chat(user, span_warning("You need one fluid duct to finish [src]"))
-					return
-				to_chat(user, span_notice("You start to pipe up [src]..."))
-				if(do_after(user, 40, target = src) && D.use(1))
+			if(istype(I, /obj/item/reagent_containers/cup/bucket)) //Construct
+				to_chat(user, span_notice("You start to add a tank to [src]..."))
+				if(do_after(user, 40, target = src))
 					to_chat(user, span_notice("You pipe up [src]."))
 					var/mob/living/simple_animal/bot/hygienebot/H = new(drop_location())
 					H.name = created_name
+					qdel(I)
 					qdel(src)
 			if(I.tool_behaviour == TOOL_SCREWDRIVER) //deconstruct
 				new /obj/item/assembly/prox_sensor(Tsec)
