@@ -754,17 +754,6 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
 
-/datum/design/plumbing_rcd
-	name = "Plumbing Constructor"
-	id = "plumbing_rcd"
-	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/iron = 75000, /datum/material/glass = 37500, /datum/material/plastic = 1000)
-	build_path = /obj/item/construction/plumbing
-	category = list(
-		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_PLUMBING
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL
-
 /datum/design/gas_filter
 	name = "Gas Filter"
 	id = "gas_filter"
