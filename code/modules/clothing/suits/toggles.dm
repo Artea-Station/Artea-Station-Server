@@ -124,7 +124,6 @@
 		helmet.suit = null
 		qdel(helmet)
 		helmet = null
-	QDEL_NULL(jetpack)
 	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()

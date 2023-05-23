@@ -94,57 +94,11 @@
 	var/hardsuit_type
 
 /obj/item/clothing/suit/space/hardsuit/Initialize(mapload)
-	if(jetpack && ispath(jetpack))
-		jetpack = new jetpack(src)
 	. = ..()
 
 /obj/item/clothing/suit/space/hardsuit/attack_self(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	..()
-
-/obj/item/clothing/suit/space/hardsuit/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/tank/jetpack/suit))
-		if(jetpack)
-			to_chat(user, "<span class='warning'>[src] already has a jetpack installed.</span>")
-			return
-		if(src == user.get_item_by_slot(ITEM_SLOT_OCLOTHING)) //Make sure the player is not wearing the suit before applying the upgrade.
-			to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
-			return
-
-		if(user.transferItemToLoc(I, src))
-			jetpack = I
-			to_chat(user, "<span class='notice'>You successfully install the jetpack into [src].</span>")
-			return
-	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		if(!jetpack)
-			to_chat(user, "<span class='warning'>[src] has no jetpack installed.</span>")
-			return
-		if(src == user.get_item_by_slot(ITEM_SLOT_OCLOTHING))
-			to_chat(user, "<span class='warning'>You cannot remove the jetpack from [src] while wearing it.</span>")
-			return
-
-		jetpack.turn_off(user)
-		jetpack.forceMove(drop_location())
-		jetpack = null
-		to_chat(user, "<span class='notice'>You successfully remove the jetpack from [src].</span>")
-		return
-	return ..()
-
-
-/obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
-	..()
-	if(jetpack)
-		if(slot == ITEM_SLOT_OCLOTHING)
-			for(var/X in jetpack.actions)
-				var/datum/action/A = X
-				A.Grant(user)
-
-/obj/item/clothing/suit/space/hardsuit/dropped(mob/user)
-	..()
-	if(jetpack)
-		for(var/X in jetpack.actions)
-			var/datum/action/A = X
-			A.Remove(user)
 
 /obj/item/clothing/suit/space/hardsuit/ui_action_click(mob/user, datum/actiontype)
 	switch(actiontype.type)
@@ -440,7 +394,6 @@
 	desc = "A special bulky suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
 	armor = list(MELEE = 45,  BULLET = 25, LASER = 30, ENERGY = 40, BOMB = 25, BIO = 100, FIRE = 95, ACID = 95)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
-	jetpack = /obj/item/tank/jetpack/suit
 
 /////////////SHIELDED//////////////////////////////////
 
@@ -486,7 +439,6 @@
 	actions_types = list(
 		/datum/action/item_action/toggle_helmet,
 	)
-	jetpack = /obj/item/tank/jetpack/suit
 
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/ui_action_click(mob/user, datum/actiontype)
 	switch(actiontype.type)
