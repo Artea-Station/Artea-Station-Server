@@ -23,21 +23,21 @@
 	var/current_tick_amount = 0
 	var/radiation_count = 0
 	var/grace = TIME_WITHOUT_RADIATION_BEFORE_RESET
-	var/datum/looping_sound/geiger/soundloop
+	var/datum/looping_sound/geiger/sound
 	/// If the headlamp is broken, used by lighteater
 	var/light_broken = FALSE
 
 /obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload)
 	. = ..()
-	soundloop = new(src, FALSE, TRUE)
-	soundloop.volume = 5
+	sound = new(src, FALSE, TRUE)
+	sound.volume = 5
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()
 	if(!QDELETED(suit))
 		qdel(suit)
 	suit = null
-	QDEL_NULL(soundloop)
+	QDEL_NULL(sound)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
@@ -60,7 +60,7 @@
 	..()
 	if(suit)
 		suit.RemoveHelmet()
-		soundloop.stop(user)
+		sound.stop(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_HEAD)
@@ -71,11 +71,11 @@
 	if(slot != ITEM_SLOT_HEAD)
 		if(suit)
 			suit.RemoveHelmet()
-			soundloop.stop(user)
+			sound.stop(user)
 		else
 			qdel(src)
 	else
-		soundloop.start(user)
+		sound.start(user)
 
 /obj/item/clothing/suit/space/hardsuit
 	name = "hardsuit"
