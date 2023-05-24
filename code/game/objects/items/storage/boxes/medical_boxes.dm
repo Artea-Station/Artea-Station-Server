@@ -104,14 +104,6 @@
 	for(var/i in 1 to 7)
 		new /obj/item/storage/pill_bottle(src)
 
-/obj/item/storage/box/plumbing/PopulateContents()
-	var/list/items_inside = list(
-		/obj/item/stock_parts/water_recycler = 2,
-		/obj/item/stack/ducts/fifty = 1,
-		/obj/item/stack/sheet/iron/ten = 1,
-		)
-	generate_items_inside(items_inside, src)
-
 /obj/item/storage/box/silver_sulf
 	name = "box of silver sulfadiazine patches"
 	desc = "Contains patches used to treat burns."
