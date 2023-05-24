@@ -7,7 +7,7 @@
 	icon_state = "hardsuit0-engineering"
 	max_integrity = 300
 	armor = list(MELEE = 10,  BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 10, BIO = 100, FIRE = 50, ACID = 75)
-	light_system = MOVABLE_LIGHT
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 4
 	light_power = 1
 	light_on = FALSE
@@ -23,21 +23,17 @@
 	var/current_tick_amount = 0
 	var/radiation_count = 0
 	var/grace = TIME_WITHOUT_RADIATION_BEFORE_RESET
-	var/datum/looping_sound/geiger/sound
 	/// If the headlamp is broken, used by lighteater
 	var/light_broken = FALSE
 
 /obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload)
 	. = ..()
-	sound = new(src, FALSE, TRUE)
-	sound.volume = 5
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()
 	if(!QDELETED(suit))
 		qdel(suit)
 	suit = null
-	QDEL_NULL(sound)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
@@ -60,7 +56,6 @@
 	..()
 	if(suit)
 		suit.RemoveHelmet()
-		sound.stop(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_HEAD)
@@ -71,11 +66,8 @@
 	if(slot != ITEM_SLOT_HEAD)
 		if(suit)
 			suit.RemoveHelmet()
-			sound.stop(user)
 		else
 			qdel(src)
-	else
-		sound.start(user)
 
 /obj/item/clothing/suit/space/hardsuit
 	name = "hardsuit"
