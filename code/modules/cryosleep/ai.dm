@@ -11,8 +11,8 @@
 			var/announce_rank = "Artificial Intelligence,"
 			if(GLOB.station_cryopod_computers.len)
 				// Sends an announcement the AI has cryoed.
-				var/obj/machinery/announcement_system/announcer = pick(GLOB.station_cryopod_computers)
-				announcer.announce("CRYOSTORAGE", src.real_name, announce_rank, list())
+				var/obj/machinery/computer/cryopod/announcer = pick(GLOB.station_cryopod_computers)
+				announcer.announce("CRYO_LEAVE", src.real_name, announce_rank)
 			new /obj/structure/ai_core/latejoin_inactive(loc)
 			if(src.mind)
 				//Handle job slot/tater cleanup.
@@ -22,3 +22,4 @@
 			qdel(src)
 		else
 			return
+
