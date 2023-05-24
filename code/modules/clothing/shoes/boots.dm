@@ -53,7 +53,7 @@
 
 /obj/item/clothing/shoes/jackboots/sec
 	icon_state = "jackboots_sec"
-	var/list/squeak_sound = list('sound/effects/footstep/jackboot1.ogg'=1,'sound/effects/footstep/jackboot2.ogg'=1)
+	var/list/squeak_sound = list('sound/effects/suitstep1.ogg'=1,'sound/effects/suitstep2.ogg'=1)
 
 /obj/item/clothing/shoes/jackboots/sec/Initialize(mapload)
 	. = ..()
