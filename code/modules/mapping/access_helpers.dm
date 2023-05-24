@@ -147,7 +147,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/medical/chemistry/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_PLUMBING
+	access_list += ACCESS_PHARMACY
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/medical/virology/get_access()
@@ -624,7 +624,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/medical/chemistry/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_PLUMBING
+	access_list += ACCESS_PHARMACY
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/medical/virology/get_access()

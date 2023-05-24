@@ -126,7 +126,7 @@
 
 /obj/structure/closet/secure_closet/chemical/heisenberg //contains one of each beaker, syringe etc.
 	name = "advanced chemical closet"
-	req_access = list(ACCESS_PLUMBING)
+	req_access = list(ACCESS_PHARMACY)
 
 /obj/structure/closet/secure_closet/chemical/heisenberg/PopulateContents()
 	..()

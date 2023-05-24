@@ -543,7 +543,6 @@ GLOBAL_VAR_INIT(say_disabled, FALSE)
 		/obj/machinery/camera,
 		/obj/machinery/door_buttons,
 		/obj/machinery/door/window, // i kind of wish we didn't have to do it but we have some particularly compact areas that we need to be wary of
-		/obj/machinery/duct,
 		/obj/machinery/firealarm,
 		/obj/machinery/flasher,
 		/obj/machinery/light_switch,

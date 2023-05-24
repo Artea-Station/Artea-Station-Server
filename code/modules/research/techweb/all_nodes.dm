@@ -52,7 +52,6 @@
 		"fax",
 		"fishing_rod",
 		"flashlight",
-		"fluid_ducts",
 		"foam_dart",
 		"fork",
 		"gas_filter",
@@ -275,9 +274,6 @@
 		"operating",
 		"petri_dish",
 		"pillbottle",
-		"plumbing_rcd",
-		"plumbing_rcd_service",
-		"plumbing_rcd_sci",
 		"portable_chem_mixer",
 		"retractor",
 		"scalpel",
@@ -721,7 +717,6 @@
 		"minerbag_holding",
 		"ore_silo",
 		"phasic_scanning",
-		"plumbing_receiver",
 		"roastingstick",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
