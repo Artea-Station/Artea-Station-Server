@@ -11,19 +11,22 @@
 	var/brightness_on = 1
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
-	var/time_to_screwdrive = 20
-	var/authenticated = 0
+	/// Time it takes to deconstruct with a screwdriver.
+	var/time_to_unscrew = 2 SECONDS
+	/// Are we authenticated to use this? Used by things like comms console, security and medical data, and apc controller.
+	var/authenticated = FALSE
 
 	/// Timestamp for the next possible click sound.
 	var/next_clicksound
+
+/datum/armor/machinery_computer
+	fire = 40
+	acid = 20
 
 /obj/machinery/computer/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 
 	power_change()
-
-/obj/machinery/computer/Destroy()
-	. = ..()
 
 /obj/machinery/computer/process()
 	if(machine_stat & (NOPOWER|BROKEN))
@@ -61,7 +64,7 @@
 		return TRUE
 	if(circuit && !(flags_1&NODECONSTRUCT_1))
 		to_chat(user, span_notice("You start to disconnect the monitor..."))
-		if(I.use_tool(src, user, time_to_screwdrive, volume=50))
+		if(I.use_tool(src, user, time_to_unscrew, volume=50))
 			deconstruct(TRUE, user)
 	return TRUE
 
@@ -144,3 +147,4 @@
 	if(world.time > next_clicksound && isliving(user))
 		next_clicksound = world.time + (2 SECONDS)
 		playsound(src, SFX_KEYBOARD, 25, TRUE)
+
