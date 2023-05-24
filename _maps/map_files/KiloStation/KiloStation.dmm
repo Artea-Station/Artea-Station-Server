@@ -32868,7 +32868,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/item/razor,
+/obj/structure/bedsheetbin,
+/obj/item/razor{
+	pixel_x = -11
+	},
 /turf/open/floor/iron,
 /area/station/commons/locker)
 "jDy" = (
@@ -40323,8 +40326,7 @@
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
 "lPU" = (
-/obj/machinery/shower/directional/west,
-/turf/open/floor/plastic,
+/turf/open/floor/plating/rust,
 /area/station/security/prison/shower)
 "lPY" = (
 /obj/effect/turf_decal/stripes/line{
@@ -47158,6 +47160,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/light_switch/directional/west,
 /turf/open/floor/iron/showroomfloor,
 /area/station/commons/toilet/restrooms)
 "nXW" = (
@@ -56285,20 +56288,23 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/aft)
 "qEJ" = (
-/obj/structure/table,
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/blue{
 	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral{
+/obj/machinery/computer/cryopod/directional/east,
+/obj/machinery/cryopod{
 	dir = 8
 	},
-/obj/structure/bedsheetbin,
 /obj/machinery/status_display/evac/directional/south,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/showroomfloor,
 /area/station/commons/toilet/restrooms)
 "qEL" = (
 /obj/effect/turf_decal/bot,
@@ -65782,9 +65788,12 @@
 /turf/open/floor/iron/dark,
 /area/station/service/chapel/monastery)
 "tns" = (
-/obj/machinery/shower/directional/west,
+/obj/machinery/computer/cryopod/directional/east,
+/obj/machinery/cryopod{
+	dir = 8
+	},
 /obj/machinery/airalarm/directional/south,
-/turf/open/floor/plastic,
+/turf/open/floor/plating,
 /area/station/security/prison/shower)
 "tnA" = (
 /obj/effect/turf_decal/siding/wideplating/dark/corner,
@@ -81598,10 +81607,13 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/machinery/washing_machine,
-/obj/machinery/light/directional/east,
 /obj/structure/extinguisher_cabinet/directional/north,
-/obj/machinery/light_switch/directional/east,
+/obj/machinery/light/directional/north,
+/obj/machinery/computer/cryopod/directional/east,
+/obj/machinery/cryopod{
+	pixel_x = -1;
+	dir = 8
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/station/commons/toilet/restrooms)
 "xNc" = (

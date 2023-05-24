@@ -30,7 +30,7 @@ GLOBAL_LIST_EMPTY(valid_cryopods)
 /obj/machinery/computer/cryopod
 	name = "cryogenic oversight console"
 	desc = "An interface between crew and the cryogenic storage oversight systems."
-	icon = 'modular_skyrat/modules/cryosleep/icons/cryogenics.dmi'
+	icon = 'icons/obj/machines/cryogenics.dmi'
 	icon_state = "cellconsole_1"
 	icon_keyboard = null
 	icon_screen = null
@@ -148,7 +148,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/cryopod, 32)
 /obj/machinery/cryopod
 	name = "cryogenic freezer"
 	desc = "Suited for Cyborgs and Humanoids, the pod is a safe place for personnel affected by the Space Sleep Disorder to get some rest."
-	icon = 'modular_skyrat/modules/cryosleep/icons/cryogenics.dmi'
+	icon = 'icons/obj/machines/cryogenics.dmi'
 	icon_state = "cryopod-open"
 	base_icon_state = "cryopod"
 	use_power = FALSE
@@ -497,11 +497,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/cryopod, 32)
 
 // Allows players to cryo others. Checks if they have been AFK for 30 minutes.
 	if(target.key && user != target)
-		if (target.get_organ_by_type(/obj/item/organ/internal/brain) ) //Target the Brain
-			if(!target.mind || target.ssd_indicator ) // Is the character empty / AI Controlled
-				if(target.lastclienttime + ssd_time >= world.time)
-					to_chat(user, span_notice("You can't put [target] into [src] for another [round(((ssd_time - (world.time - target.lastclienttime)) / (1 MINUTES)), 1)] minutes."))
-					log_admin("[key_name(user)] has attempted to put [key_name(target)] into a stasis pod, but they were only disconnected for [round(((world.time - target.lastclienttime) / (1 MINUTES)), 1)] minutes.")
+		if (target.getorgan(/obj/item/organ/internal/brain) ) //Target the Brain
+			if(!target.mind /*|| target.ssd_indicator TODO: uncomment when SSD indicators are added.*/ ) // Is the character empty / AI Controlled
+				if(target.last_client_time + ssd_time >= world.time)
+					to_chat(user, span_notice("You can't put [target] into [src] for another [round(((ssd_time - (world.time - target.last_client_time)) / (1 MINUTES)), 1)] minutes."))
+					log_admin("[key_name(user)] has attempted to put [key_name(target)] into a stasis pod, but they were only disconnected for [round(((world.time - target.last_client_time) / (1 MINUTES)), 1)] minutes.")
 					message_admins("[key_name(user)] has attempted to put [key_name(target)] into a stasis pod. [ADMIN_JMP(src)]")
 					return
 				else if(tgui_alert(user, "Would you like to place [target] into [src]?", "Place into Cryopod?", list("Yes", "No")) == "Yes")
@@ -581,64 +581,5 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/cryopod, 32)
 /obj/machinery/cryopod/update_icon_state()
 	icon_state = state_open ? open_icon_state : base_icon_state
 	return ..()
-
-/// Special wall mounted cryopod for the prison, making it easier to autospawn.
-/obj/machinery/cryopod/prison
-	icon_state = "prisonpod"
-	base_icon_state = "prisonpod"
-	open_icon_state = "prisonpod"
-	density = FALSE
-
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/cryopod/prison, 18)
-
-/obj/machinery/cryopod/prison/set_density(new_value)
-	// Simple way to make it always non-dense.
-	return ..(FALSE)
-
-/obj/machinery/cryopod/prison/close_machine(atom/movable/target, density_to_set = TRUE)
-	. = ..()
-	// Flick the pod for a second when user enters
-	flick("prisonpod-open", src)
-
-// Wake-up notifications
-
-/obj/effect/mob_spawn/ghost_role
-	/// For figuring out where the local cryopod computer is. Must be set for cryo computer announcements.
-	var/area/computer_area
-
-/obj/effect/mob_spawn/ghost_role/create(mob/mob_possessor, newname)
-	var/mob/living/spawned_mob = ..()
-	var/obj/machinery/computer/cryopod/control_computer = find_control_computer()
-
-	var/alt_name = get_alt_name()
-	GLOB.ghost_records.Add(list(list("name" = spawned_mob.real_name, "rank" = alt_name ? alt_name : name)))
-	if(control_computer)
-		control_computer.announce("CRYO_JOIN", spawned_mob.real_name, name)
-
-	return spawned_mob
-
-/obj/effect/mob_spawn/ghost_role/proc/find_control_computer()
-	if(!computer_area)
-		return
-	for(var/cryo_console as anything in GLOB.cryopod_computers)
-		var/obj/machinery/computer/cryopod/console = cryo_console
-		var/area/area = get_area(cryo_console) // Define moment
-		if(area.type == computer_area)
-			return console
-
-	return
-
-/**
- * Returns the the alt name for this spawner, which is 'outfit.name'.
- *
- * For when you might want to use that for things instead of the name var.
- * example: the DS2 spawners, which have a number of different types of spawner with the same name.
- */
-/obj/effect/mob_spawn/ghost_role/get_alt_name()
-	if(use_outfit_name)
-		return initial(outfit.name)
-
-/obj/effect/mob_spawn/ghost_role/human/lavaland_syndicate
-	computer_area = /area/ruin/syndicate_lava_base/dormitories
 
 #undef AHELP_FIRST_MESSAGE
