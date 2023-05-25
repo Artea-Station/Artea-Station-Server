@@ -127,14 +127,12 @@ const ViewCharacter = (props, context) => {
         <Box preserveWhitespace>{overlay.flavor_text || 'Unset.'}</Box>
       </Section>
       <Section title="Content Preferences">
-        <StyleableSection title="ERP" textStyle={{ 'color': '#dddddd' }}>
-          <Table style={{ 'table-layout': 'fixed' }} id="erp_table">
-            <TableRow>
-              <MatchmakingEntry small>Status</MatchmakingEntry>
-              <MatchmakingEntry>{overlay.erp_status}</MatchmakingEntry>
-            </TableRow>
-          </Table>
-        </StyleableSection>
+        <Table style={{ 'table-layout': 'fixed' }} id="erp_table">
+          <TableRow>
+            <MatchmakingEntry small>ERP Status</MatchmakingEntry>
+            <MatchmakingEntry>{overlay.erp_status}</MatchmakingEntry>
+          </TableRow>
+        </Table>
         <StyleableSection
           title="General Content"
           textStyle={{ 'color': '#dddddd' }}>
