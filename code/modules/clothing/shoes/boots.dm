@@ -53,6 +53,12 @@
 
 /obj/item/clothing/shoes/jackboots/sec
 	icon_state = "jackboots_sec"
+	var/list/squeak_sound = list('sound/effects/suitstep1.ogg'=1,'sound/effects/suitstep2.ogg'=1)
+
+/obj/item/clothing/shoes/jackboots/sec/Initialize(mapload)
+	. = ..()
+
+	LoadComponent(/datum/component/squeak, squeak_sound, 50, falloff_exponent = 20)
 
 /obj/item/clothing/shoes/winterboots
 	name = "winter boots"
