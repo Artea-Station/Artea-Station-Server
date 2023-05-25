@@ -10,9 +10,6 @@ type CharacterData = {
   ooc_notes;
   is_victim;
   erp_status;
-  erp_orientation;
-  erp_position;
-  erp_non_con;
   brainwashing;
   borging;
   kidnapping;
@@ -105,11 +102,6 @@ const ViewCharacter = (props, context) => {
     'overlay',
     null
   );
-  const [overrideERPCheck, setOverrideERPCheck] = useLocalState<boolean>(
-    context,
-    'overrideERPCheck',
-    false
-  );
 
   if (!overlay) {
     return <Box />;
@@ -134,46 +126,13 @@ const ViewCharacter = (props, context) => {
       <Section title="Broad Inspection Text">
         <Box preserveWhitespace>{overlay.flavor_text || 'Unset.'}</Box>
       </Section>
-      <Section title="Preferences">
+      <Section title="Content Preferences">
         <StyleableSection title="ERP" textStyle={{ 'color': '#dddddd' }}>
           <Table style={{ 'table-layout': 'fixed' }} id="erp_table">
             <TableRow>
               <MatchmakingEntry small>Status</MatchmakingEntry>
               <MatchmakingEntry>{overlay.erp_status}</MatchmakingEntry>
             </TableRow>
-
-            {data.erp_status !== 'No' || overrideERPCheck ? (
-              <>
-                <TableRow>
-                  <MatchmakingEntry small>Orientation</MatchmakingEntry>
-                  <MatchmakingEntry>{overlay.erp_orientation}</MatchmakingEntry>
-                </TableRow>
-                <TableRow>
-                  <MatchmakingEntry small>Position</MatchmakingEntry>
-                  <MatchmakingEntry>{overlay.erp_position}</MatchmakingEntry>
-                </TableRow>
-                <TableRow>
-                  <MatchmakingEntry small>Non-Con</MatchmakingEntry>
-                  <MatchmakingEntry>
-                    <NoticeBox>
-                      Remember, non-con should be performed in a private
-                      environment, for the OOC comfort of others!
-                    </NoticeBox>
-                    {overlay.erp_non_con}
-                  </MatchmakingEntry>
-                </TableRow>
-              </>
-            ) : (
-              <TableRow>
-                <MatchmakingEntry>
-                  <Button
-                    onClick={() => setOverrideERPCheck(true)}
-                    content="Show ERP Prefs?"
-                  />
-                </MatchmakingEntry>
-                <MatchmakingEntry />
-              </TableRow>
-            )}
           </Table>
         </StyleableSection>
         <StyleableSection
