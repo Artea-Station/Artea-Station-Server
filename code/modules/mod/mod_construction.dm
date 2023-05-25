@@ -79,6 +79,20 @@
 /obj/item/mod/construction/plating/cosmohonk
 	theme = /datum/mod_theme/cosmohonk
 
+// Hardsuits as MOD plating
+
+/obj/item/clothing/suit/space/hardsuit/engine
+	theme = /datum/mod_theme/engineering
+
+/obj/item/clothing/suit/space/hardsuit/engine/atmos
+	theme = /datum/mod_theme/atmospheric
+
+/obj/item/clothing/suit/space/hardsuit/medical
+	theme = /datum/mod_theme/medical
+
+/obj/item/clothing/suit/space/hardsuit/security
+	theme = /datum/mod_theme/security
+
 #define START_STEP "start"
 #define CORE_STEP "core"
 #define SCREWED_CORE_STEP "screwed_core"
@@ -227,6 +241,7 @@
 					step = BOOTS_STEP
 		if(SCREWED_ASSEMBLY_STEP)
 			if(istype(part, /obj/item/mod/construction/plating)) //Construct
+			else if(istype(part, /obj/item/clothing/suit/space/hardsuit))
 				var/obj/item/mod/construction/plating/external_plating = part
 				if(!user.transferItemToLoc(part, src))
 					return

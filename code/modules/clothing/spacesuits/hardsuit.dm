@@ -84,6 +84,7 @@
 	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
 	var/obj/item/tank/jetpack/suit/jetpack = null
 	var/hardsuit_type
+	var/datum/mod_theme/theme = null
 
 /obj/item/clothing/suit/space/hardsuit/Initialize(mapload)
 	. = ..()
