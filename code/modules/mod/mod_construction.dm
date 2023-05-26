@@ -240,8 +240,7 @@
 					balloon_alert(user, "assembly unsecured")
 					step = BOOTS_STEP
 		if(SCREWED_ASSEMBLY_STEP)
-			if(istype(part, /obj/item/mod/construction/plating)) //Construct
-			else if(istype(part, /obj/item/clothing/suit/space/hardsuit))
+			if(istype(part, /obj/item/mod/construction/plating) || istype(part, /obj/item/clothing/suit/space/hardsuit)) //Construct
 				var/obj/item/mod/construction/plating/external_plating = part
 				if(!user.transferItemToLoc(part, src))
 					return
