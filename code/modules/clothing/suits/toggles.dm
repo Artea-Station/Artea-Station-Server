@@ -179,7 +179,7 @@
 			if(H.head)
 				to_chat(H, span_warning("You're already wearing something on your head!"))
 				return
-			else if(H.equip_to_slot_if_possible(helmet,ITEM_SLOT_HEAD,0,0,1))
+			else if(H.equip_to_slot_if_possible(helmet, ITEM_SLOT_HEAD,0,0,1))
 				to_chat(H, span_notice("You engage the helmet on the hardsuit."))
 				suittoggled = TRUE
 				H.update_worn_oversuit()
