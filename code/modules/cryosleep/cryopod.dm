@@ -407,7 +407,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/cryopod, 32)
 	GLOB.prev_favor = GLOB.religious_sect.favor
 	GLOB.prev_sect_type = GLOB.religious_sect.type
 
- // set the altar references to the old religious_sect to null
+ 	// set the altar references to the old religious_sect to null
 	for(var/obj/structure/altar_of_gods/altar in GLOB.chaplain_altars)
 		altar.GetComponent(/datum/component/religious_tool).easy_access_sect = null
 		altar.sect_to_altar = null
