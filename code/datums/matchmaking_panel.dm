@@ -55,7 +55,7 @@ GLOBAL_DATUM_INIT(matchmaking_panel, /datum/matchmaking_panel, new)
 
 		if(ishuman(client.mob))
 			var/mob/living/carbon/human/human = client.mob
-			if(!find_record("name", human.real_name, GLOB.data_core.general))
+			if(!find_record("name", human.real_name, GLOB.manifest.general))
 				continue
 			name = human.real_name
 			species = human.dna.species.name

@@ -1,11 +1,11 @@
 import { Button, Divider, Popper, Stack } from '../../components';
 import { Page } from './CharacterPreferenceWindow';
-import { CharacterPreview } from './CharacterPreview';
 import { useBackend, useLocalState } from '../../backend';
 import { createSetPreference, PreferencesMenuData } from './data';
 import { BigPageButton } from './PageButton';
 import { MultiNameInput, NameInput } from './names';
 import { Gender, GENDERS } from './preferences/gender';
+import { CharacterPreview } from '../common/CharacterPreview';
 
 const CharacterControls = (props: {
   handleRotate: (String) => void;

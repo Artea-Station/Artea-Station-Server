@@ -120,8 +120,8 @@ GLOBAL_DATUM(everyone_a_traitor, /datum/everyone_is_a_traitor_controller)
 		if("manifest")
 			var/dat = "<B>Showing Crew Manifest.</B><HR>"
 			dat += "<table cellspacing=5><tr><th>Name</th><th>Position</th></tr>"
-			for(var/datum/data/record/t in GLOB.data_core.general)
-				dat += "<tr><td>[t.fields["name"]]</td><td>[t.fields["rank"]][t.fields["rank"] != t.fields["trim"] ? " ([t.fields["trim"]])" : ""]</td></tr>"
+			for(var/datum/record/crew/record in GLOB.manifest.general)
+				dat += "<tr><td>[record.name]</td><td>[record.rank][record.rank != record.trim ? " ([record.trim])" : ""]</td></tr>"
 			dat += "</table>"
 			holder << browse(dat, "window=manifest;size=440x410")
 		if("dna")
@@ -457,7 +457,7 @@ GLOBAL_DATUM(everyone_a_traitor, /datum/everyone_is_a_traitor_controller)
 			if(!is_funmin)
 				return
 			if(!SSticker.HasRoundStarted())
-				tgui_alert(usr,"The game hasn't started yet!")
+				tgui_alert(usr,"The game hasn'record started yet!")
 				return
 			if(GLOB.everyone_a_traitor)
 				tgui_alert(usr, "The everyone is a traitor secret has already been triggered")
