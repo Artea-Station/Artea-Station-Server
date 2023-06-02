@@ -687,14 +687,6 @@
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stack/sheet/glass = 1)
 
-/obj/item/circuitboard/machine/chem_mass_spec
-	name = "High-Performance Liquid Chromatography"
-	greyscale_colors = CIRCUIT_COLOR_MEDICAL
-	build_path = /obj/machinery/chem_mass_spec
-	req_components = list(
-	/obj/item/stock_parts/micro_laser = 1,
-	/obj/item/stack/cable_coil = 5)
-
 /obj/item/circuitboard/machine/chem_master
 	name = "ChemMaster 3000"
 	greyscale_colors = CIRCUIT_COLOR_MEDICAL
@@ -1284,17 +1276,6 @@
 		/obj/item/stock_parts/micro_laser = 2,
 		/obj/item/stock_parts/scanning_module = 2
 	)
-
-/obj/item/circuitboard/machine/plumbing_receiver
-	name = "Chemical Recipient"
-	greyscale_colors = CIRCUIT_COLOR_MEDICAL
-	build_path = /obj/machinery/plumbing/receiver
-	req_components = list(
-		/obj/item/stack/ore/bluespace_crystal = 1,
-		/obj/item/stock_parts/capacitor = 2,
-		/obj/item/stack/sheet/glass = 1)
-	def_components = list(/obj/item/stack/ore/bluespace_crystal = /obj/item/stack/ore/bluespace_crystal/artificial)
-	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/skill_station
 	name = "Skill Station"

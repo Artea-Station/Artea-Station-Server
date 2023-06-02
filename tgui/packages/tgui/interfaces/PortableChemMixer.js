@@ -101,12 +101,6 @@ export const PortableChemMixer = (props, context) => {
                   of {chemical.name}
                 </Box>
               ))}
-              {beakerContents.length > 0 && !!data.showpH && (
-                <Box>
-                  pH:
-                  <AnimatedNumber value={data.beakerCurrentpH} />
-                </Box>
-              )}
             </LabeledList.Item>
           </LabeledList>
         </Section>

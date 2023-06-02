@@ -164,7 +164,6 @@
 	data["beakerCurrentVolume"] = beaker ? beaker.reagents.total_volume : null
 	data["beakerMaxVolume"] = beaker ? beaker.volume : null
 	data["beakerTransferAmounts"] = beaker ? list(1,5,10,30,50,100) : null
-	data["showpH"] = show_ph
 	var/chemicals[0]
 	var/is_hallucinating = FALSE
 	if(isliving(user))
@@ -177,19 +176,16 @@
 		if(temp)
 			var/chemname = temp.name
 			var/total_volume = 0
-			var/total_ph = 0
 			for (var/datum/reagents/rs in value["reagents"])
 				total_volume += rs.total_volume
-				total_ph = rs.ph
 			if(is_hallucinating && prob(5))
 				chemname = "[pick_list_replacements("hallucination.json", "chemicals")]"
-			chemicals.Add(list(list("title" = chemname, "id" = ckey(temp.name), "volume" = total_volume, "pH" = total_ph)))
+			chemicals.Add(list(list("title" = chemname, "id" = ckey(temp.name), "volume" = total_volume)))
 	data["chemicals"] = chemicals
 	var/beakerContents[0]
 	if(beaker)
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			beakerContents.Add(list(list("name" = R.name, "id" = ckey(R.name), "volume" = R.volume, "pH" = R.ph))) // list in a list because Byond merges the first list...
-		data["beakerCurrentpH"] = round(beaker.reagents.ph, 0.01)
+			beakerContents.Add(list(list("name" = R.name, "id" = ckey(R.name), "volume" = R.volume))) // list in a list because Byond merges the first list...
 	data["beakerContents"] = beakerContents
 
 	return data

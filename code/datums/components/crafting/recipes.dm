@@ -426,7 +426,7 @@
 	name = "Hygienebot"
 	result = /mob/living/simple_animal/bot/hygienebot
 	reqs = list(/obj/item/bot_assembly/hygienebot = 1,
-				/obj/item/stack/ducts = 1,
+				/obj/item/reagent_containers/cup/bucket = 1,
 				/obj/item/assembly/prox_sensor = 1)
 	tool_behaviors = list(TOOL_WELDER)
 	time = 4 SECONDS
@@ -1328,16 +1328,6 @@
 	reqs = list(
 				/datum/reagent/mercury = 5,
 				/obj/item/pen = 1
-				)
-	category = CAT_CHEMISTRY
-
-/datum/crafting_recipe/ph_booklet
-	name = "pH booklet"
-	result = /obj/item/ph_booklet
-	time = 5 SECONDS
-	reqs = list(
-				/datum/reagent/universal_indicator = 5,
-				/obj/item/paper = 1
 				)
 	category = CAT_CHEMISTRY
 

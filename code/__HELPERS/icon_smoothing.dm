@@ -318,6 +318,12 @@
 	icon_state = "[base_icon_state]-[smoothing_junction]"
 
 
+/turf/set_smoothed_icon_state(new_junction)
+	. = ..()
+
+	if(smoothing_junction != .) //The smoothing changed
+		lighting_object?.update()
+
 /turf/open/floor/set_smoothed_icon_state(new_junction)
 	if(broken || burnt)
 		return

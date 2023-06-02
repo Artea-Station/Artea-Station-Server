@@ -165,6 +165,14 @@
 	port_id = "snowdin"
 	who_can_purchase = null
 
+/datum/map_template/shuttle/pathfinders
+	port_id = "pathfinders"
+	who_can_purchase = null
+
+/datum/map_template/shuttle/pathfinders/ghetto
+	suffix = "ghetto"
+	name = "pathfinding shuttle (Ghetto)"
+
 // Shuttles start here:
 
 /datum/map_template/shuttle/emergency/backup

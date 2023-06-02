@@ -66,13 +66,8 @@
 #define CHEMICAL_VOLUME_MINIMUM 0.001
 ///Round to this, to prevent extreme decimal magic and to keep reagent volumes in line with perceived values.
 #define CHEMICAL_VOLUME_ROUNDING 0.01
-///Default pH for reagents datum
-#define CHEMICAL_NORMAL_PH 7.000
 ///The maximum temperature a reagent holder can attain
 #define CHEMICAL_MAXIMUM_TEMPERATURE 99999
-
-///The default purity of all non reacted reagents
-#define REAGENT_STANDARD_PURITY 0.75
 
 //reagent bitflags, used for altering how they works
 ///allows on_mob_dead() if present in a dead body

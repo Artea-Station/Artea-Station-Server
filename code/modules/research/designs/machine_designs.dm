@@ -207,16 +207,6 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_MEDICAL
 
-/datum/design/board/chem_mass_spec
-	name = "High-Performance Liquid Chromatography Board"
-	desc = "The circuit board for a High-Performance Liquid Chromatography (Machine Board"
-	id = "chem_mass_spec"
-	build_path = /obj/item/circuitboard/machine/chem_mass_spec
-	category = list(
-		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CHEMISTRY
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_MEDICAL
-
 /datum/design/board/smoke_machine
 	name = "Smoke Machine Board"
 	desc = "The circuit board for a smoke machine."
@@ -804,16 +794,6 @@
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_MEDICAL
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL
-
-/datum/design/board/plumbing_receiver
-	name = "Chemical Recipient Board"
-	desc = "The circuit board for a Chemical Recipient."
-	id = "plumbing_receiver"
-	build_path = /obj/item/circuitboard/machine/plumbing_receiver
-	category = list(
-		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CHEMISTRY
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_SERVICE
 
 /datum/design/board/sheetifier
 	name = "Sheet-meister 2000 Board"

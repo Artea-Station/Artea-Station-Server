@@ -121,13 +121,12 @@
 	new /obj/item/storage/box/pillbottles(src)
 	new /obj/item/storage/box/medigels(src)
 	new /obj/item/storage/box/medigels(src)
-	new /obj/item/ph_booklet(src)
 	new /obj/item/reagent_containers/dropper(src)
-	new /obj/item/reagent_containers/cup/bottle/acidic_buffer(src) //hopefully they get the hint
+	new /obj/item/reagent_containers/cup/bottle/acidic_inversifier(src) //hopefully they get the hint
 
 /obj/structure/closet/secure_closet/chemical/heisenberg //contains one of each beaker, syringe etc.
 	name = "advanced chemical closet"
-	req_access = list(ACCESS_PLUMBING)
+	req_access = list(ACCESS_PHARMACY)
 
 /obj/structure/closet/secure_closet/chemical/heisenberg/PopulateContents()
 	..()
