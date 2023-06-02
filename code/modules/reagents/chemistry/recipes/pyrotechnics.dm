@@ -412,15 +412,8 @@
 	required_temp = -200
 	optimal_temp = 300
 	overheat_temp = NO_OVERHEAT //There is an overheat - 50 see reaction_step()
-	optimal_ph_min = 4
-	optimal_ph_max = 10
-	determin_ph_range = 6
-	temp_exponent_factor = 0.5
-	ph_exponent_factor = 1
 	thermic_constant = -7.5
-	H_ion_release = 0
 	rate_up_lim = 10
-	purity_min = 0.2
 	reaction_flags = REACTION_HEAT_ARBITARY
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE | REACTION_TAG_ORGAN
 
@@ -433,15 +426,10 @@
 	return
 
 //purity != temp (above 50) - the colder you are the more impure it becomes
-/datum/chemical_reaction/cryostylane/reaction_step(datum/reagents/holder, datum/equilibrium/reaction, delta_t, delta_ph, step_reaction_vol)
+/datum/chemical_reaction/cryostylane/reaction_step(datum/reagents/holder, datum/equilibrium/reaction, delta_t, step_reaction_vol)
 	. = ..()
 	if(holder.chem_temp < CRYOSTYLANE_UNDERHEAT_TEMP)
 		overheated(holder, reaction, step_reaction_vol)
-	//Modify our purity by holder temperature
-	var/step_temp = ((holder.chem_temp-CRYOSTYLANE_UNDERHEAT_TEMP)/CRYOSTYLANE_IMPURE_TEMPERATURE_RANGE)
-	if(step_temp >= 1) //We're hotter than 300
-		return
-	reaction.delta_ph *= step_temp
 
 /datum/chemical_reaction/cryostylane/reaction_finish(datum/reagents/holder, datum/equilibrium/reaction, react_vol)
 	. = ..()
@@ -482,15 +470,8 @@
 	required_temp = 99999
 	optimal_temp = 300
 	overheat_temp = 0
-	optimal_ph_min = 0
-	optimal_ph_max = 14
-	determin_ph_range = 0
-	temp_exponent_factor = 1
-	ph_exponent_factor = 1
 	thermic_constant = -50 //This is the part that cools things down now
-	H_ion_release = 0
 	rate_up_lim = 4
-	purity_min = 0.15
 	reaction_flags = REACTION_HEAT_ARBITARY
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
@@ -510,7 +491,6 @@
 	required_temp = 0
 	optimal_temp = 20
 	overheat_temp = NO_OVERHEAT
-	temp_exponent_factor = 10
 	thermic_constant = 0
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
@@ -590,6 +570,5 @@
 	optimal_temp = 50
 	overheat_temp = 5
 	thermic_constant= -1
-	H_ion_release = -0.02
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 

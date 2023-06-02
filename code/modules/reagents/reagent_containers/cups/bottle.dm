@@ -213,30 +213,10 @@
 	desc = "A small bottle of atropine."
 	list_reagents = list(/datum/reagent/medicine/atropine = 30)
 
-/obj/item/reagent_containers/cup/bottle/random_buffer
-	name = "Buffer bottle"
-	desc = "A small bottle of chemical buffer."
-
-/obj/item/reagent_containers/cup/bottle/random_buffer/Initialize(mapload)
-	. = ..()
-	if(prob(50))
-		name = "Acidic buffer bottle"
-		desc = "A small bottle of acidic buffer."
-		reagents.add_reagent(/datum/reagent/reaction_agent/acidic_buffer, 30)
-	else
-		name = "Basic buffer bottle"
-		desc = "A small bottle of basic buffer."
-		reagents.add_reagent(/datum/reagent/reaction_agent/basic_buffer, 30)
-
-/obj/item/reagent_containers/cup/bottle/acidic_buffer
-	name = "Acidic buffer bottle"
-	desc = "A small bottle of acidic buffer."
-	list_reagents = list(/datum/reagent/reaction_agent/acidic_buffer = 30)
-
-/obj/item/reagent_containers/cup/bottle/basic_buffer
-	name = "Basic buffer bottle"
-	desc = "A small bottle of basic buffer."
-	list_reagents = list(/datum/reagent/reaction_agent/basic_buffer = 30)
+/obj/item/reagent_containers/cup/bottle/acidic_inversifier
+	name = "Acidic inversifier bottle"
+	desc = "A small bottle of acidic inversifier. Used to make reactions create their inverse when present, if they have one."
+	list_reagents = list(/datum/reagent/acidic_inversifier = 30)
 
 /obj/item/reagent_containers/cup/bottle/romerol
 	name = "romerol bottle"

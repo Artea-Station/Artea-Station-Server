@@ -13,7 +13,6 @@
 	description = "An illegal chemical compound used as drug."
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 30
-	ph = 9
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	addiction_types = list(/datum/addiction/hallucinogens = 10) //4 per 2 seconds
 
@@ -40,7 +39,6 @@
 	description = "A psychoactive drug from the Cannabis plant used for recreational purposes."
 	color = "#059033"
 	overdose_threshold = INFINITY
-	ph = 6
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 
@@ -69,7 +67,6 @@
 	trippy = FALSE
 	overdose_threshold = 15
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
-	ph = 8
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	addiction_types = list(/datum/addiction/nicotine = 18) // 7.2 per 2 seconds
 
@@ -106,7 +103,6 @@
 	reagent_state = LIQUID
 	color = "#0064B4"
 	overdose_threshold = 20
-	ph = 9
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	addiction_types = list(/datum/addiction/opioids = 18) //7.2 per 2 seconds
 
@@ -116,15 +112,6 @@
 	if(DT_PROB(2.5, delta_time))
 		to_chat(affected_mob, span_notice("[high_message]"))
 	affected_mob.add_mood_event("smacked out", /datum/mood_event/narcotic_heavy, name)
-	if(current_cycle == 35 && creation_purity <= 0.6)
-		if(!istype(affected_mob.dna.species, /datum/species/human/krokodil_addict))
-			to_chat(affected_mob, span_userdanger("Your skin falls off easily!"))
-			var/mob/living/carbon/human/affected_human = affected_mob
-			affected_human.facial_hairstyle = "Shaved"
-			affected_human.hairstyle = "Bald"
-			affected_human.update_body_parts() // makes you loose hair as well
-			affected_mob.set_species(/datum/species/human/krokodil_addict)
-			affected_mob.adjustBruteLoss(50 * REM, FALSE, required_bodytype = affected_bodytype) // holy shit your skin just FELL THE FUCK OFF
 	..()
 
 /datum/reagent/drug/krokodil/overdose_process(mob/living/affected_mob, delta_time, times_fired)
@@ -142,7 +129,6 @@
 	color = "#FAFAFA"
 	overdose_threshold = 20
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
-	ph = 5
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	addiction_types = list(/datum/addiction/stimulants = 12) //4.8 per 2 seconds
 
@@ -392,7 +378,6 @@
 	color = "#E700E7" // rgb: 231, 0, 231
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 	taste_description = "mushroom"
-	ph = 11
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	addiction_types = list(/datum/addiction/hallucinogens = 12)
 
@@ -455,7 +440,6 @@
 	reagent_state = LIQUID
 	color = "#9015a9"
 	taste_description = "holodisk cleaner"
-	ph = 5
 	overdose_threshold = 30
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	addiction_types = list(/datum/addiction/hallucinogens = 15)
@@ -581,7 +565,6 @@
 	color = "#638b9b"
 	overdose_threshold = 25
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	ph = 10
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	addiction_types = list(/datum/addiction/maintenance_drugs = 20)
 
@@ -680,7 +663,6 @@
 	reagent_state = SOLID
 	color = "#FAFAFA"
 	taste_description = "numbing bitterness"
-	ph = 8
 	overdose_threshold = 20
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
