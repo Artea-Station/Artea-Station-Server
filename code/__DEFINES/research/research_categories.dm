@@ -26,7 +26,6 @@
 #define RND_SUBCATEGORY_TOOLS_BOTANY "/Botany Tools"
 #define RND_SUBCATEGORY_TOOLS_BOTANY_ADVANCED "/Botany Tools (Advanced)"
 #define RND_SUBCATEGORY_TOOLS_JANITORIAL "/Janitorial Tools"
-#define RND_SUBCATEGORY_TOOLS_PLUMBING "/Plumbing Tools"
 #define RND_SUBCATEGORY_TOOLS_ATMOSPHERICS "/Atmospherics Tools"
 #define RND_SUBCATEGORY_TOOLS_MINING "/Mining Tools"
 #define RND_SUBCATEGORY_TOOLS_CARGO "/Cargo Tools"

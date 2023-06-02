@@ -267,7 +267,8 @@
 		if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
 
-		W.add_dent(WALL_DENT_SHOT, hitx, hity)
+		if(damage_type == BRUTE && W.take_damage(damage, damage_type, attack_dir = REVERSE_DIR(dir), armour_penetration = armour_penetration))
+			W.add_dent(WALL_DENT_SHOT, hitx, hity)
 
 		return BULLET_ACT_HIT
 

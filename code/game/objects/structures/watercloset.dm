@@ -269,7 +269,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 	///Does the sink have a water recycler to recollect it's water supply?
 	var/has_water_reclaimer = TRUE
 	///Units of water to reclaim per second
-	var/reclaim_rate = 0.5
+	var/reclaim_rate = 0.75
 	///Amount of shift the pixel for placement
 	var/pixel_shift = 14
 
@@ -301,7 +301,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (-14))
 	create_reagents(100, NO_REACT)
 	if(src.has_water_reclaimer)
 		reagents.add_reagent(dispensedreagent, 100)
-	AddComponent(/datum/component/plumbing/simple_demand, extend_pipe_to_edge = TRUE)
 
 /obj/structure/sink/examine(mob/user)
 	. = ..()
@@ -495,7 +494,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (-14))
 			new M.sheet_type(loc, FLOOR(custom_materials[M] / MINERAL_MATERIAL_AMOUNT, 1))
 
 /obj/structure/sink/proc/begin_reclamation()
-	START_PROCESSING(SSplumbing, src)
+	START_PROCESSING(SSprocessing, src)
 
 /obj/structure/sink/kitchen
 	name = "kitchen sink"

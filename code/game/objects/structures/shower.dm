@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(shower_mode_descriptions, list(
 	density = FALSE
 	layer = WALL_OBJ_LAYER
 	use_power = NO_POWER_USE
-	subsystem_type = /datum/controller/subsystem/processing/plumbing
+	subsystem_type = /datum/controller/subsystem/processing
 	///Does the user want the shower on or off?
 	var/intended_on = FALSE
 	///Is the shower actually spitting out water currently
@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT(shower_mode_descriptions, list(
 	///How much reagent capacity should the shower begin with when built.
 	var/reagent_capacity = 200
 	///How many units the shower refills every second.
-	var/refill_rate = 0.5
+	var/refill_rate = 0.75
 	///Does the shower have a water recycler to recollect it's water supply?
 	var/has_water_reclaimer = TRUE
 	///Which mode the shower is operating in.
@@ -87,7 +87,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, (-16))
 	if(src.has_water_reclaimer)
 		reagents.add_reagent(reagent_id, reagent_capacity)
 	soundloop = new(src, FALSE)
-	AddComponent(/datum/component/plumbing/simple_demand, extend_pipe_to_edge = TRUE)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
