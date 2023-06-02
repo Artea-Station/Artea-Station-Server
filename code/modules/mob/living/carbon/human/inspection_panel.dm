@@ -30,6 +30,7 @@
 		"species_lore" = obscured ? list() : human.dna?.species?.get_species_lore() || list(),
 		"inspection_data" = inspection_data,
 		"show_ooc" = user.client.viewing_ooc_info,
+		"ooc_notes" = holder.client?.prefs.read_preference(/datum/preference/text/inspection/ooc_notes),
 	)
 
 /datum/inspection_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)

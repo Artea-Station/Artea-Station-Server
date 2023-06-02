@@ -55,7 +55,7 @@ export const InspectionPanel = (props, context) => {
                 onClick={() => act('toggle_ooc_info')}>
                 {show_ooc ? 'Hide' : 'Show'} Extra Info
               </Button>
-              {show_ooc === true && (
+              {show_ooc === 1 && (
                 <Stack.Item grow>
                   <Stack fill>
                     <Stack.Item grow basis={0}>
