@@ -1,4 +1,4 @@
-import { FeatureColorInput, Feature, FeatureChoiced, FeatureDropdownInput, FeatureNumberInput, CheckboxInput, FeatureTriColorInput } from './base';
+import { FeatureColorInput, Feature, FeatureChoiced, FeatureDropdownInput, FeatureNumberInput, CheckboxInput, FeatureTriColorInput, FeatureNumeric } from './base';
 
 export const eye_color: Feature<string> = {
   name: 'Eye color',
@@ -147,4 +147,14 @@ export const lizard_frills_color: Feature<string> = {
 export const lizard_snout_color: Feature<string> = {
   name: 'Snout Color',
   component: FeatureTriColorInput,
+};
+
+export const body_width: FeatureNumeric = {
+  name: 'Body Width',
+  component: FeatureNumberInput,
+};
+
+export const body_height: FeatureNumeric = {
+  name: 'Body Height',
+  component: FeatureNumberInput,
 };

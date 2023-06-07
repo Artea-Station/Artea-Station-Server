@@ -78,6 +78,10 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	var/stability = 100
 	///Did we take something like mutagen? In that case we cant get our genes scanned to instantly cheese all the powers.
 	var/scrambled = FALSE
+	///Current body width, used for proper re-sizing and keeping track of that
+	var/current_body_width = MOB_SCALE_NORMAL
+	///Current body height, used for proper re-sizing and keeping track of that
+	var/current_body_height = MOB_SCALE_NORMAL
 
 /datum/dna/New(mob/living/new_holder)
 	if(istype(new_holder))
@@ -127,6 +131,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	new_dna.species = new species.type
 	new_dna.species.species_traits = species.species_traits
 	new_dna.real_name = real_name
+	new_dna.update_body_size()
 	// Mutations aren't gc managed, but they still aren't templates
 	// Let's do a proper copy
 	for(var/datum/mutation/human/mutation in mutations)
@@ -487,6 +492,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 			var/species_holder = initial(mrace.species_language_holder)
 			language_holder = new species_holder(src)
 		update_atom_languages()
+		dna.update_body_size()
 
 /mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
 	..()
@@ -884,3 +890,35 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		qdel(eyes)
 		visible_message(span_notice("[src] looks up and their eyes melt away!"), span_userdanger("I understand now."))
 		addtimer(CALLBACK(src, PROC_REF(adjustOrganLoss), ORGAN_SLOT_BRAIN, 200), 20)
+
+/datum/dna/proc/update_body_size()
+	var/body_width = features["body_width"]
+	var/body_height = features["body_height"]
+
+	// For catching mobs that don't have this set, or folk who've been screwing with the system.
+	if(!holder)
+		return
+	if(!body_height || !body_width)
+		return
+	if(current_body_width == body_width && current_body_height == body_height)
+		return
+	if(body_height < MOB_SCALE_HEIGHT_MIN || body_height > MOB_SCALE_HEIGHT_MAX || body_width < MOB_SCALE_WIDTH_MIN || body_width > MOB_SCALE_WIDTH_MAX)
+		return
+
+	// Turn these into a transform-friendly number.
+	body_height = round(body_height / 100, 0.01)
+	body_width = round(body_width / 100, 0.01)
+
+	holder.transform = new /matrix // Reset the matrix, cause Translate can't be easily reset cause of potential precision problems.
+
+	holder.transform = holder.transform.Scale(body_width, body_height)
+
+	// Character width is moved to the center by Scale already, so no handling required for width.
+	// Unfortunately, that means we need to mess with some weirdness I barely understand to plant your feet to the ground properly.
+	var/translate_body = (body_height - 1) * 32
+	var/translate_y = translate_body * ( holder.transform.e / body_height )
+
+	holder.transform = holder.transform.Translate(0, translate_y / 2)
+	holder.maptext_height = translate_body // Adjust runechat height
+	current_body_height = body_height
+	current_body_width = body_width
