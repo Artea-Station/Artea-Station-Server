@@ -166,6 +166,7 @@
 	armor = list(MELEE = 40,  BULLET = 5, LASER = 10, ENERGY = 20, BOMB = 50, BIO = 100, FIRE = 100, ACID = 90)
 	heat_protection = CHEST | GROIN | LEGS | FEET | ARMS | HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	slowdown = 0.25
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine/elite
 
 //Mining hardsuit
