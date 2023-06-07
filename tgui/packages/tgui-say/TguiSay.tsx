@@ -236,13 +236,10 @@ export class TguiSay extends Component<{}, State> {
         break;
 
       case KEY.Enter:
-        event.preventDefault();
-        this.handleEnter();
-        break;
-
-      case KEY.Tab:
-        event.preventDefault();
-        this.handleIncrementChannel();
+        if (!event.shiftKey || this.channelIterator.current() !== 'Me') {
+          event.preventDefault();
+          this.handleEnter();
+        }
         break;
 
       case KEY.Escape:
