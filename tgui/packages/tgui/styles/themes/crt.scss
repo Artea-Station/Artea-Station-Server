@@ -13,6 +13,8 @@ $background-radial-opacity: 0.2 !default;
 );
 
 %theme-crt {
+  font-size: 1.2em;
+
   @include meta.load-css(
     '../components/Divider.scss',
     $with: ('color': base.$color-fg)
@@ -31,7 +33,17 @@ $background-radial-opacity: 0.2 !default;
   @include meta.load-css(
     '../components/Input.scss',
     $with: (
-      'text-color': base.$color-fg,
+      'text-color': initial,
+      'background-color': base.$color-bg,
+      'border-color': base.$color-fg,
+      'font-family': $font-family
+    )
+  );
+
+  @include meta.load-css(
+    '../components/TextArea.scss',
+    $with: (
+      'text-color': initial,
       'background-color': base.$color-bg,
       'border-color': base.$color-fg,
       'font-family': $font-family
@@ -152,7 +164,6 @@ $background-radial-opacity: 0.2 !default;
   }
 
   span {
-    color: base.$color-fg;
     font-family: $font-family;
     font-weight: bold;
   }

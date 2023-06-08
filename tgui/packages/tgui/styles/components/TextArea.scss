@@ -10,6 +10,7 @@
 $text-color: Input.$text-color !default;
 $background-color: Input.$background-color !default;
 $border-color: Input.$border-color !default;
+$font-family: Verdana, sans-serif !default;
 
 .TextArea {
   position: relative;
@@ -55,9 +56,9 @@ $border-color: Input.$border-color !default;
   min-height: base.em(17px);
   margin: 0;
   padding: 0 0.5em;
-  font-family: inherit;
+  font-family: $font-family;
   background-color: transparent;
-  color: inherit;
+  color: $text-color;
   box-sizing: border-box;
   // Make sure the div and the textarea wrap words in the same way
   word-wrap: break-word;

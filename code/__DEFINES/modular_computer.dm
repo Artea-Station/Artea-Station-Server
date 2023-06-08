@@ -48,7 +48,7 @@
 #define MESSENGER_RINGTONE_MAX_LENGTH 20
 
 ///Default NtOS PDA theme
-#define PDA_THEME_NTOS "ntos"
+#define PDA_THEME_NTOS "crtntos"
 #define PDA_THEME_DARK_MODE "ntos_darkmode"
 #define PDA_THEME_RETRO "ntOS95"
 #define PDA_THEME_SYNTH "ntos_synth"

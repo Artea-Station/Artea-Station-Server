@@ -108,7 +108,7 @@ export const JobSelection = (props, context) => {
   return (
     <Window
       width={1012}
-      height={data.shuttle_status ? 690 : 666 /* Hahahahahaha */}
+      height={data.shuttle_status ? 690 : 730}
       onComponentDidMount={() => {
         // Send a heartbeat back to DM to let it know the window is alive and well
         act('ui_mounted_with_no_bluescreen');

@@ -1,7 +1,7 @@
 @use 'sass:meta';
 
-$light: #db7827;
-$dark: #111100;
+$light: #397439;
+$dark: #550202;
 
 @use '../../base.scss' with (
   $color-bg: $dark,
@@ -13,7 +13,7 @@ $dark: #111100;
 .theme-crtntos {
   @extend %theme-crt;
 
-  @keyframes yellowConfirmFlicker {
+  @keyframes ntosConfirmFlicker {
     0% {
       background-color: $light;
       color: $dark;
@@ -29,7 +29,7 @@ $dark: #111100;
   }
 
   .Button.ConfirmButton {
-    animation: yellowConfirmFlicker 5s infinite;
+    animation: ntosConfirmFlicker 5s infinite;
     &:hover {
       animation: none;
     }

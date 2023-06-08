@@ -226,9 +226,6 @@ export class TextArea extends Component {
           onBlur={this.handleBlur}
           onScroll={this.handleScroll}
           maxLength={maxLength}
-          style={{
-            'color': displayedValue ? 'rgba(0, 0, 0, 0)' : 'inherit',
-          }}
         />
       </Box>
     );
