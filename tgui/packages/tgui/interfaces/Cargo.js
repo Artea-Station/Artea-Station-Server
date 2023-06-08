@@ -255,11 +255,16 @@ export const CargoCatalog = (props, context) => {
               }
               return (
                 <Table.Row key={pack.name} className="candystripe">
-                  <Table.Cell>{pack.name}</Table.Cell>
+                  <Table.Cell style={{ 'padding-left': '5px' }}>
+                    {pack.name}
+                  </Table.Cell>
                   <Table.Cell collapsing color="label" textAlign="right">
                     {tags.join(', ')}
                   </Table.Cell>
-                  <Table.Cell collapsing textAlign="right">
+                  <Table.Cell
+                    collapsing
+                    textAlign="right"
+                    style={{ 'padding-left': '0px' }}>
                     <Button
                       fluid
                       tooltip={pack.desc}
