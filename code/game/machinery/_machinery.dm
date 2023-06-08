@@ -627,7 +627,7 @@
 	update_last_used(user)
 	. = ..()
 
-/obj/machinery/ui_act(action, list/params)
+/obj/machinery/ui_act(action, list/params, datum/tgui/ui)
 	add_fingerprint(usr)
 	update_last_used(usr)
 	if(ui && ui.status == UI_INTERACTIVE)
