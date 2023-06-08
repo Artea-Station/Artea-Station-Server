@@ -126,6 +126,50 @@
 	helmet_type = /obj/item/clothing/head/radiation
 	storage_type = /obj/item/geiger_counter
 
+/// Hardsuit suit storage units
+
+/obj/machinery/suit_storage_unit/hardsuit/engineering
+	suit_type = /obj/item/clothing/suit/space/hardsuit/engine
+	mask_type = /obj/item/clothing/mask/breath
+
+/obj/machinery/suit_storage_unit/hardsuit/atmospherics
+	suit_type = /obj/item/clothing/suit/space/hardsuit/engine/atmos
+	mask_type = /obj/item/clothing/mask/gas/atmos
+	storage_type = /obj/item/watertank/atmos
+
+/obj/machinery/suit_storage_unit/hardsuit/ce
+	suit_type = /obj/item/clothing/suit/space/hardsuit/engine/elite
+	mask_type = /obj/item/clothing/mask/breath
+	storage_type = /obj/item/clothing/shoes/magboots/advance
+
+/obj/machinery/suit_storage_unit/hardsuit/mining
+	suit_type = /obj/item/clothing/suit/space/hardsuit/mining
+	mask_type = /obj/item/clothing/mask/gas/explorer
+
+/obj/machinery/suit_storage_unit/hardsuit/syndicate
+	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi
+	mask_type = /obj/item/clothing/mask/gas/syndicate
+	storage_type = /obj/item/tank/jetpack/oxygen/harness
+
+/obj/machinery/suit_storage_unit/hardsuit/medical
+	suit_type = /obj/item/clothing/suit/space/hardsuit/medical
+	mask_type = /obj/item/clothing/mask/breath/medical
+	storage_type = /obj/item/tank/internals/oxygen
+
+/obj/machinery/suit_storage_unit/hardsuit/cmo
+	suit_type =	/obj/item/clothing/suit/space/hardsuit/medical/cmo
+	mask_type = /obj/item/clothing/mask/breath/medical
+	storage_type = /obj/item/tank/internals/oxygen
+
+/obj/machinery/suit_storage_unit/hardsuit/security
+	suit_type = /obj/item/clothing/suit/space/hardsuit/security
+	mask_type = /obj/item/clothing/mask/gas/sechailer
+
+/obj/machinery/suit_storage_unit/hardsuit/hos
+	suit_type = /obj/item/clothing/suit/space/hardsuit/security/head_of_security
+	mask_type = /obj/item/clothing/mask/gas/sechailer
+	storage_type = /obj/item/tank/internals/oxygen
+
 /obj/machinery/suit_storage_unit/open
 	state_open = TRUE
 	density = FALSE

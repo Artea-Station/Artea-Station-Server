@@ -668,6 +668,14 @@
 					/obj/item/storage/belt/holster/thermal)
 	crate_name = "thermal pistol crate"
 
+/datum/supply_pack/security/armory/hardsuit_security
+	name = "Security Hardsuit Crate"
+	desc = "Contains a single security hardsuit used for space travel!"
+	cost = CARGO_CRATE_VALUE * 5
+	access = ACCESS_SECURITY
+	contains = list(/obj/item/clothing/suit/space/hardsuit/security)
+	crate_name = "security hardsuit crate"
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Engineering /////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -898,6 +906,23 @@
 	contains = list(/obj/item/circuitboard/computer/sat_control)
 	crate_name= "shield control board crate"
 
+/datum/supply_pack/engineering/hardsuit_engineer
+	name = "Engineering Hardsuit Crate"
+	desc = "Contains a single engineering hardsuit used for space travel!"
+	cost = CARGO_CRATE_VALUE * 5
+	access = ACCESS_ENGINEERING
+	contains = list(/obj/item/clothing/suit/space/hardsuit/engine)
+	crate_type = /obj/structure/closet/crate/secure/engineering
+	crate_name = "engineering hardsuit crate"
+
+/datum/supply_pack/engineering/hardsuit_atmos
+	name = "Atmospherics Hardsuit Crate"
+	desc = "Contains a single atmospherics hardsuit used for space travel! This one is also fire resistant!"
+	cost = CARGO_CRATE_VALUE * 8
+	access = ACCESS_ATMOSPHERICS
+	contains = list(/obj/item/clothing/suit/space/hardsuit/engine/atmos)
+	crate_type = /obj/structure/closet/crate/secure/engineering
+	crate_name = "atmospherics hardsuit crate"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////// Engine Construction /////////////////////////////////
@@ -1319,6 +1344,15 @@
 	access = ACCESS_CMO
 	contains = list(/obj/item/clothing/under/rank/medical/chief_medical_officer/turtleneck,
 					/obj/item/clothing/under/rank/medical/chief_medical_officer/turtleneck/skirt)
+	crate_name = "chief medical officer turtlenecks"
+
+/datum/supply_pack/medical/hardsuit_medical
+	name = "Medical Hardsuit Crate"
+	desc = "Contains a single medical hardsuit used for space travel and rescuing dying pathfinders."
+	cost = CARGO_CRATE_VALUE * 5
+	access = ACCESS_MEDICAL
+	contains = list(/obj/item/clothing/suit/space/hardsuit/medical)
+	crate_name = "medical hardsuit crate"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Science /////////////////////////////////////////
@@ -1688,6 +1722,15 @@
 	access_view = ACCESS_MINING_STATION
 	contains = list(/obj/item/storage/backpack/duffelbag/mining_conscript)
 	crate_name = "shaft miner starter kit"
+	crate_type = /obj/structure/closet/crate/secure
+
+/datum/supply_pack/service/hardsuit_mining
+	name = "Mining Hardsuit Crate"
+	desc = "Contains a single mining hardsuit used for space travel!"
+	cost = CARGO_CRATE_VALUE * 5
+	access = ACCESS_MINING_STATION
+	contains = list(/obj/item/clothing/suit/space/hardsuit/mining)
+	crate_name = "mining hardsuit crate"
 	crate_type = /obj/structure/closet/crate/secure
 
 /datum/supply_pack/service/survivalknives
