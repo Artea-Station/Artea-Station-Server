@@ -176,14 +176,9 @@ const SignalLostModal = (props, context) => {
       textAlign="center"
       width={30}
       height={22}
-      p={0}
-      style={{ 'border-radius': '5%' }}>
+      p={0}>
       <img src={nt_logo} width={64} height={64} />
-      <Box
-        backgroundColor="black"
-        textColor="red"
-        fontSize={2}
-        style={{ 'border-radius': '-10%' }}>
+      <Box backgroundColor="black" textColor="red" fontSize={2}>
         CONNECTION LOST
       </Box>
       <Box p={2} italic>

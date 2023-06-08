@@ -13,7 +13,6 @@ $color-selected: colors.bg(colors.$green) !default;
 $color-caution: colors.bg(colors.$yellow) !default;
 $color-danger: colors.bg(colors.$red) !default;
 $color-transparent-text: rgba(255, 255, 255, 0.5) !default;
-$border-radius: base.$border-radius !default;
 $bg-map: colors.$bg-map !default;
 
 @mixin button-color($color) {
@@ -48,7 +47,6 @@ $bg-map: colors.$bg-map !default;
   margin-right: base.em(2px);
   white-space: nowrap;
   outline: 0;
-  border-radius: $border-radius;
   margin-bottom: base.em(2px);
   // Disable selection in buttons
   user-select: none;
@@ -96,10 +94,6 @@ $bg-map: colors.$bg-map !default;
   display: block;
   margin-left: 0;
   margin-right: 0;
-}
-
-.Button--circular {
-  border-radius: 50%;
 }
 
 .Button--compact {
