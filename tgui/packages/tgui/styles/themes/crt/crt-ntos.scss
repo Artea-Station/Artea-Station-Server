@@ -1,7 +1,7 @@
 @use 'sass:meta';
 
-$light: #397439;
-$dark: #550202;
+$light: #b37b14;
+$dark: #252525;
 
 @use '../../base.scss' with (
   $color-bg: $dark,
@@ -33,5 +33,11 @@ $dark: #550202;
     &:hover {
       animation: none;
     }
+  }
+
+  .Layout__content {
+    background-image: url('../../../assets/bg-artea.svg');
+    background-size: 100%;
+    background-repeat: no-repeat;
   }
 }

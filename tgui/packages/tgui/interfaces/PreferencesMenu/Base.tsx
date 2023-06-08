@@ -114,6 +114,7 @@ export const ChoicedSelection = (
                       style={{
                         height: `${CLOTHING_SELECTION_CELL_SIZE}px`,
                         width: `${CLOTHING_SELECTION_CELL_SIZE}px`,
+                        'background-color': '#b37b14',
                       }}>
                       <Box
                         className={classes([
