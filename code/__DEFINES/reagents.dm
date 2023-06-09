@@ -194,3 +194,11 @@
 #define GRENADE_WIRED 2
 /// Grenade is ready to be finished
 #define GRENADE_READY 3
+
+// Chem cartridge defines
+#define CARTRIDGE_VOLUME_LARGE  500
+#define CARTRIDGE_VOLUME_MEDIUM 250
+#define CARTRIDGE_VOLUME_SMALL  100
+
+// Chemistry dispenser starts with 21
+#define DISPENSER_MAX_CARTRIDGES 21

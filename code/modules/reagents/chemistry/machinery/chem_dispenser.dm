@@ -1,15 +1,6 @@
-/proc/translate_legacy_chem_id(id)
-	switch (id)
-		if ("sacid")
-			return "sulfuricacid"
-		if ("facid")
-			return "fluorosulfuricacid"
-		if ("co2")
-			return "carbondioxide"
-		if ("mine_salve")
-			return "minerssalve"
-		else
-			return ckey(id)
+#define CHEM_DISPENSER_HEATER_COEFFICIENT 1
+// Soft drinks dispenser is much better at cooling cause of the specific temperature it wants water and ice at.
+#define SOFT_DISPENSER_HEATER_COEFFICIENT 3
 
 /obj/machinery/chem_dispenser
 	name = "chem dispenser"
@@ -29,72 +20,30 @@
 	var/recharge_amount = 10
 	var/recharge_counter = 0
 	var/dispensed_temperature = DEFAULT_REAGENT_TEMPERATURE
+	var/heater_coefficient = CHEM_DISPENSER_HEATER_COEFFICIENT
 	///If the UI has the pH meter shown
 	var/show_ph = TRUE
 	var/mutable_appearance/beaker_overlay
 	var/working_state = "dispenser_working"
 	var/nopower_state = "dispenser_nopower"
+	var/ui_title = "Chem Dispenser"
 	var/has_panel_overlay = TRUE
 	var/obj/item/reagent_containers/beaker = null
-	//dispensable_reagents is copypasted in plumbing synthesizers. Please update accordingly. (I didn't make it global because that would limit custom chem dispensers)
-	var/list/dispensable_reagents = list(
-		/datum/reagent/aluminium,
-		/datum/reagent/bromine,
-		/datum/reagent/carbon,
-		/datum/reagent/chlorine,
-		/datum/reagent/copper,
-		/datum/reagent/consumable/ethanol,
-		/datum/reagent/fluorine,
-		/datum/reagent/hydrogen,
-		/datum/reagent/iodine,
-		/datum/reagent/iron,
-		/datum/reagent/lithium,
-		/datum/reagent/mercury,
-		/datum/reagent/nitrogen,
-		/datum/reagent/oxygen,
-		/datum/reagent/phosphorus,
-		/datum/reagent/potassium,
-		/datum/reagent/uranium/radium,
-		/datum/reagent/silicon,
-		/datum/reagent/sodium,
-		/datum/reagent/stable_plasma,
-		/datum/reagent/consumable/sugar,
-		/datum/reagent/sulfur,
-		/datum/reagent/toxin/acid,
-		/datum/reagent/water,
-		/datum/reagent/fuel
-	)
-	//these become available once the manipulator has been upgraded to tier 4 (femto)
-	var/list/upgrade_reagents = list(
-		/datum/reagent/acetone,
-		/datum/reagent/ammonia,
-		/datum/reagent/ash,
-		/datum/reagent/diethylamine,
-		/datum/reagent/fuel/oil,
-		/datum/reagent/saltpetre
-	)
-	var/list/emagged_reagents = list(
-		/datum/reagent/toxin/carpotoxin,
-		/datum/reagent/medicine/mine_salve,
-		/datum/reagent/medicine/morphine,
-		/datum/reagent/drug/space_drugs,
-		/datum/reagent/toxin
-	)
 
-	var/list/recording_recipe
+	var/list/spawn_cartridges
 
-	var/list/saved_recipes = list()
+	/// Associative, label -> cartridge
+	var/list/cartridges = list()
 
 /obj/machinery/chem_dispenser/Initialize(mapload)
 	. = ..()
-	dispensable_reagents = sort_list(dispensable_reagents, GLOBAL_PROC_REF(cmp_reagents_asc))
-	if(emagged_reagents)
-		emagged_reagents = sort_list(emagged_reagents, GLOBAL_PROC_REF(cmp_reagents_asc))
-	if(upgrade_reagents)
-		upgrade_reagents = sort_list(upgrade_reagents, GLOBAL_PROC_REF(cmp_reagents_asc))
 	if(is_operational)
 		begin_processing()
 	update_appearance()
+
+	if(spawn_cartridges)
+		for(var/type in spawn_cartridges)
+			add_cartridge(new type(src))
 
 /obj/machinery/chem_dispenser/Destroy()
 	QDEL_NULL(beaker)
@@ -106,11 +55,24 @@
 	if(panel_open)
 		. += span_notice("[src]'s maintenance hatch is open!")
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads:\n\
-		Recharging <b>[recharge_amount]</b> power units per interval.\n\
-		Power efficiency increased by <b>[round((powerefficiency*1000)-100, 1)]%</b>.</span>"
+		. += "It has [length(cartridges)] cartridges installed, and has space for [DISPENSER_MAX_CARTRIDGES - length(cartridges)] more."
 	. += span_notice("Use <b>RMB</b> to eject a stored beaker.")
 
+// Tries to keep the chem temperature at the dispense temperature
+/obj/machinery/chem_dispenser/process(delta_time)
+	..()
+
+	if(machine_stat & NOPOWER)
+		return
+	for(var/obj/item/reagent_containers/chem_disp_cartridge/cartridge in cartridges)
+		cartridge = cartridges[cartridge]
+		if(cartridge.reagents.total_volume)
+			if(cartridge.reagents.is_reacting)//on_reaction_step() handles this
+				return
+			cartridge.reagents.adjust_thermal_energy((dispensed_temperature - beaker.reagents.chem_temp) * (heater_coefficient * powerefficiency) * delta_time * SPECIFIC_HEAT_DEFAULT * beaker.reagents.total_volume)
+			cartridge.reagents.handle_reactions()
+
+			use_power(active_power_usage * delta_time)
 
 /obj/machinery/chem_dispenser/on_set_is_operational(old_value)
 	if(old_value) //Turned off
@@ -153,12 +115,7 @@
 
 
 /obj/machinery/chem_dispenser/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		to_chat(user, span_warning("[src] has no functional safeties to emag."))
-		return
-	to_chat(user, span_notice("You short out [src]'s safeties."))
-	dispensable_reagents |= emagged_reagents//add the emagged reagents to the dispensable ones
-	obj_flags |= EMAGGED
+	to_chat(user, span_warning("[src] has no safeties to emag!"))
 
 /obj/machinery/chem_dispenser/ex_act(severity, target)
 	if(severity <= EXPLODE_LIGHT)
@@ -187,7 +144,7 @@
 /obj/machinery/chem_dispenser/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "ChemDispenser", name)
+		ui = new(user, src, "ChemDispenser", ui_title)
 
 		var/is_hallucinating = FALSE
 		if(isliving(user))
@@ -230,17 +187,15 @@
 		var/mob/living/living_user = user
 		is_hallucinating = !!living_user.has_status_effect(/datum/status_effect/hallucination)
 
-	for(var/re in dispensable_reagents)
-		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
+	for(var/re in cartridges)
+		var/obj/item/reagent_containers/chem_disp_cartridge/temp = GLOB.chemical_reagents_list[re]
 		if(temp)
-			var/chemname = temp.name
+			var/chemname = temp.label
 			if(is_hallucinating && prob(5))
 				chemname = "[pick_list_replacements("hallucination.json", "chemicals")]"
 			chemicals.Add(list(list("title" = chemname, "id" = ckey(temp.name))))
 	data["chemicals"] = chemicals
-	data["recipes"] = saved_recipes
 
-	data["recordingRecipe"] = recording_recipe
 	data["recipeReagents"] = list()
 	if(beaker?.reagents.ui_reaction_id)
 		var/datum/chemical_reaction/reaction = get_chemical_reaction(beaker.reagents.ui_reaction_id)
@@ -266,23 +221,19 @@
 			if(!is_operational || QDELETED(cell))
 				return
 			var/reagent_name = params["reagent"]
-			if(!recording_recipe)
-				var/reagent = GLOB.name2reagent[reagent_name]
-				if(beaker && dispensable_reagents.Find(reagent))
+			var/obj/item/reagent_containers/cartridge = cartridges.Find(reagent_name)
+			if(beaker && cartridge)
+				var/datum/reagents/holder = beaker.reagents
+				var/to_dispense = max(0, min(amount, holder.maximum_volume - holder.total_volume))
+				if(!cell?.use(to_dispense / powerefficiency))
+					say("Not enough energy to complete operation!")
+					return
+				cartridge.reagents.trans_to(holder, to_dispense)
 
-					var/datum/reagents/holder = beaker.reagents
-					var/to_dispense = max(0, min(amount, holder.maximum_volume - holder.total_volume))
-					if(!cell?.use(to_dispense / powerefficiency))
-						say("Not enough energy to complete operation!")
-						return
-					holder.add_reagent(reagent, to_dispense, reagtemp = dispensed_temperature)
-
-					work_animation()
-			else
-				recording_recipe[reagent_name] += amount
+				work_animation()
 			. = TRUE
 		if("remove")
-			if(!is_operational || recording_recipe)
+			if(!is_operational)
 				return
 			var/amount = text2num(params["amount"])
 			if(beaker && (amount in beaker.possible_transfer_amounts))
@@ -291,70 +242,6 @@
 				. = TRUE
 		if("eject")
 			replace_beaker(usr)
-			. = TRUE
-		if("dispense_recipe")
-			if(!is_operational || QDELETED(cell))
-				return
-
-			var/list/chemicals_to_dispense = saved_recipes[params["recipe"]]
-			if(!LAZYLEN(chemicals_to_dispense))
-				return
-			for(var/key in chemicals_to_dispense)
-				var/reagent = GLOB.name2reagent[translate_legacy_chem_id(key)]
-				var/dispense_amount = chemicals_to_dispense[key]
-				if(!dispensable_reagents.Find(reagent))
-					return
-				if(!recording_recipe)
-					if(!beaker)
-						return
-
-					var/datum/reagents/holder = beaker.reagents
-					var/to_dispense = max(0, min(dispense_amount, holder.maximum_volume - holder.total_volume))
-					if(!to_dispense)
-						continue
-					if(!cell?.use(to_dispense / powerefficiency))
-						say("Not enough energy to complete operation!")
-						return
-					holder.add_reagent(reagent, to_dispense, reagtemp = dispensed_temperature)
-					work_animation()
-				else
-					recording_recipe[key] += dispense_amount
-			. = TRUE
-		if("clear_recipes")
-			if(!is_operational)
-				return
-			var/yesno = tgui_alert(usr, "Clear all recipes?",, list("Yes","No"))
-			if(yesno == "Yes")
-				saved_recipes = list()
-			. = TRUE
-		if("record_recipe")
-			if(!is_operational)
-				return
-			recording_recipe = list()
-			. = TRUE
-		if("save_recording")
-			if(!is_operational)
-				return
-			var/name = tgui_input_text(usr, "What do you want to name this recipe?", "Recipe Name", MAX_NAME_LEN)
-			if(!usr.canUseTopic(src, !issilicon(usr)))
-				return
-			if(saved_recipes[name] && tgui_alert(usr, "\"[name]\" already exists, do you want to overwrite it?",, list("Yes", "No")) == "No")
-				return
-			if(name && recording_recipe)
-				for(var/reagent in recording_recipe)
-					var/reagent_id = GLOB.name2reagent[translate_legacy_chem_id(reagent)]
-					if(!dispensable_reagents.Find(reagent_id))
-						visible_message(span_warning("[src] buzzes."), span_hear("You hear a faint buzz."))
-						to_chat(usr, span_warning("[src] cannot find <b>[reagent]</b>!"))
-						playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
-						return
-				saved_recipes[name] = recording_recipe
-				recording_recipe = null
-				. = TRUE
-		if("cancel_recording")
-			if(!is_operational)
-				return
-			recording_recipe = null
 			. = TRUE
 		if("reaction_lookup")
 			if(beaker)
@@ -366,12 +253,22 @@
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/living/user, params)
+	if(I.tool_behaviour == TOOL_CROWBAR && length(cartridges))
+		var/label = tgui_input_list(user, "Which cartridge would you like to remove?", "Chemical Dispenser", cartridges)
+		if(!label)
+			return
+		var/obj/item/reagent_containers/chem_disp_cartridge/C = remove_cartridge(label)
+		if(C)
+			to_chat(user, span_notice("You remove \the [C] from \the [src]."))
+			C.forceMove(loc)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
 		update_appearance()
 		return
 	if(default_deconstruction_crowbar(I))
 		return
-	if(is_reagent_container(I) && !(I.item_flags & ABSTRACT) && I.is_open_container())
+	if(istype(I, /obj/item/reagent_containers/chem_disp_cartridge))
+		add_cartridge(I, user)
+	else if(is_reagent_container(I) && !(I.item_flags & ABSTRACT) && I.is_open_container())
 		var/obj/item/reagent_containers/B = I
 		. = TRUE //no afterattack
 		if(!user.transferItemToLoc(B, src))
@@ -398,7 +295,8 @@
 	if(beaker?.reagents)
 		R += beaker.reagents
 	for(var/i in 1 to total)
-		Q.add_reagent(pick(dispensable_reagents), 10, reagtemp = dispensed_temperature)
+		var/obj/item/reagent_containers/chem_disp_cartridge = cartridges[pick(cartridges)]
+		chem_disp_cartridge.reagents.trans_to(Q, 10)
 	R += Q
 	chem_splash(get_turf(src), null, 3, R)
 	if(beaker?.reagents)
@@ -422,8 +320,6 @@
 		recharge_amount *= C.rating
 		parts_rating += C.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		if (M.rating > 3)
-			dispensable_reagents |= upgrade_reagents
 		parts_rating += M.rating
 	powerefficiency = round(newpowereff, 0.01)
 
@@ -463,6 +359,41 @@
 /obj/machinery/chem_dispenser/AltClick(mob/user)
 	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
+/obj/machinery/chem_dispenser/proc/add_cartridge(obj/item/reagent_containers/chem_disp_cartridge/C, mob/user)
+	if(!istype(C))
+		if(user)
+			to_chat(user, span_warning("\The [C] will not fit in \the [src]!"))
+		return
+
+	if(length(cartridges) >= DISPENSER_MAX_CARTRIDGES)
+		if(user)
+			to_chat(user, span_warning("\The [src] does not have any slots open for \the [C] to fit into!"))
+		return
+
+	if(!C.label)
+		if(user)
+			to_chat(user, span_warning("\The [C] does not have a label!"))
+		return
+
+	if(cartridges[C.label])
+		if(user)
+			to_chat(user, span_warning("\The [src] already contains a cartridge with that label!"))
+		return
+
+	if(user)
+		if(user.unEquip(C))
+			to_chat(user, span_notice("You add \the [C] to \the [src]."))
+		else
+			return
+
+	C.forceMove(src)
+	cartridges[C.label] = C
+	cartridges = sortTim(cartridges, /proc/cmp_num_string_asc, TRUE)
+
+/obj/machinery/chem_dispenser/proc/remove_cartridge(label)
+	. = cartridges[label]
+	cartridges -= label
+
 /obj/machinery/chem_dispenser/drinks
 	name = "soda dispenser"
 	desc = "Contains a large reservoir of soft drinks."
@@ -471,6 +402,7 @@
 	base_icon_state = "soda_dispenser"
 	has_panel_overlay = FALSE
 	dispensed_temperature = WATER_MATTERSTATE_CHANGE_TEMP // magical mystery temperature of 274.5, where ice does not melt, and water does not freeze
+	heater_coefficient = SOFT_DISPENSER_HEATER_COEFFICIENT
 	amount = 10
 	pixel_y = 6
 	circuit = /obj/item/circuitboard/machine/chem_dispenser/drinks
@@ -555,6 +487,7 @@
 	icon_state = "booze_dispenser"
 	base_icon_state = "booze_dispenser"
 	dispensed_temperature = WATER_MATTERSTATE_CHANGE_TEMP
+	heater_coefficient = SOFT_DISPENSER_HEATER_COEFFICIENT
 	circuit = /obj/item/circuitboard/machine/chem_dispenser/drinks/beer
 	dispensable_reagents = list(
 		/datum/reagent/consumable/ethanol/absinthe,

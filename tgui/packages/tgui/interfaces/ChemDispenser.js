@@ -1,5 +1,4 @@
 import { toFixed } from 'common/math';
-import { toTitleCase } from 'common/string';
 import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { AnimatedNumber, Box, Button, Icon, LabeledList, ProgressBar, Section } from '../components';
@@ -7,24 +6,9 @@ import { Window } from '../layouts';
 
 export const ChemDispenser = (props, context) => {
   const { act, data } = useBackend(context);
-  const recording = !!data.recordingRecipe;
   const { recipeReagents = [] } = data;
-  // TODO: Change how this piece of shit is built on server side
-  // It has to be a list, not a fucking OBJECT!
-  const recipes = Object.keys(data.recipes).map((name) => ({
-    name,
-    contents: data.recipes[name],
-  }));
   const beakerTransferAmounts = data.beakerTransferAmounts || [];
-  const beakerContents =
-    (recording &&
-      Object.keys(data.recordingRecipe).map((id) => ({
-        id,
-        name: toTitleCase(id.replace(/_/, ' ')),
-        volume: data.recordingRecipe[id],
-      }))) ||
-    data.beakerContents ||
-    [];
+  const beakerContents = data.beakerContents || [];
   return (
     <Window width={565} height={620}>
       <Window.Content scrollable>
@@ -59,63 +43,6 @@ export const ChemDispenser = (props, context) => {
               </ProgressBar>
             </LabeledList.Item>
           </LabeledList>
-        </Section>
-        <Section
-          title="Recipes"
-          buttons={
-            <>
-              {!recording && (
-                <Box inline mx={1}>
-                  <Button
-                    color="transparent"
-                    content="Clear recipes"
-                    onClick={() => act('clear_recipes')}
-                  />
-                </Box>
-              )}
-              {!recording && (
-                <Button
-                  icon="circle"
-                  disabled={!data.isBeakerLoaded}
-                  content="Record"
-                  onClick={() => act('record_recipe')}
-                />
-              )}
-              {recording && (
-                <Button
-                  icon="ban"
-                  color="transparent"
-                  content="Discard"
-                  onClick={() => act('cancel_recording')}
-                />
-              )}
-              {recording && (
-                <Button
-                  icon="save"
-                  color="green"
-                  content="Save"
-                  onClick={() => act('save_recording')}
-                />
-              )}
-            </>
-          }>
-          <Box mr={-1}>
-            {recipes.map((recipe) => (
-              <Button
-                key={recipe.name}
-                icon="tint"
-                width="129.5px"
-                lineHeight={1.75}
-                content={recipe.name}
-                onClick={() =>
-                  act('dispense_recipe', {
-                    recipe: recipe.name,
-                  })
-                }
-              />
-            ))}
-            {recipes.length === 0 && <Box color="light-gray">No recipes.</Box>}
-          </Box>
         </Section>
         <Section
           title="Dispense"
