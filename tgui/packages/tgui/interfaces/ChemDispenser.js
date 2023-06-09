@@ -1,7 +1,6 @@
 import { toFixed } from 'common/math';
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { AnimatedNumber, Box, Button, Icon, LabeledList, ProgressBar, Section } from '../components';
+import { AnimatedNumber, Box, Button, LabeledList, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
 export const ChemDispenser = (props, context) => {
@@ -15,26 +14,18 @@ export const ChemDispenser = (props, context) => {
         <Section
           title="Status"
           buttons={
-            <>
-              {recording && (
-                <Box inline mx={1} color="red">
-                  <Icon name="circle" mr={1} />
-                  Recording
-                </Box>
-              )}
-              <Button
-                icon="book"
-                disabled={!data.isBeakerLoaded}
-                content={'Reaction search'}
-                tooltip={
-                  data.isBeakerLoaded
-                    ? 'Look up recipes and reagents!'
-                    : 'Please insert a beaker!'
-                }
-                tooltipPosition="bottom-start"
-                onClick={() => act('reaction_lookup')}
-              />
-            </>
+            <Button
+              icon="book"
+              disabled={!data.isBeakerLoaded}
+              content={'Reaction search'}
+              tooltip={
+                data.isBeakerLoaded
+                  ? 'Look up recipes and reagents!'
+                  : 'Please insert a beaker!'
+              }
+              tooltipPosition="bottom-start"
+              onClick={() => act('reaction_lookup')}
+            />
           }>
           <LabeledList>
             <LabeledList.Item label="Energy">
@@ -82,7 +73,6 @@ export const ChemDispenser = (props, context) => {
             <Button
               key={amount}
               icon="minus"
-              disabled={recording}
               content={amount}
               onClick={() => act('remove', { amount })}
             />
@@ -100,21 +90,11 @@ export const ChemDispenser = (props, context) => {
                   />
                 )
               }>
-              {(recording && 'Virtual beaker') ||
-                (data.isBeakerLoaded && (
-                  <>
-                    <AnimatedNumber
-                      initial={0}
-                      value={data.beakerCurrentVolume}
-                    />
-                    /{data.beakerMaxVolume} units
-                  </>
-                )) ||
-                'No beaker'}
+              {'No beaker'}
             </LabeledList.Item>
             <LabeledList.Item label="Contents">
               <Box color="label">
-                {(!data.isBeakerLoaded && !recording && 'N/A') ||
+                {(!data.isBeakerLoaded && 'N/A') ||
                   (beakerContents.length === 0 && 'Nothing')}
               </Box>
               {beakerContents.map((chemical) => (

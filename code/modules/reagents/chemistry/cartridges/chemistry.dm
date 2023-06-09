@@ -1,86 +1,30 @@
-/obj/item/reagent_containers/chem_disp_cartridge/water
-	spawn_reagent = /datum/reagent/water
+#define NEW_CHEM_CARTRIDGE(X) \
+/obj/item/reagent_containers/chem_disp_cartridge/X { \
+	spawn_reagent = /datum/reagent/X \
+}
 
-
-/obj/item/reagent_containers/chem_disp_cartridge/sugar
-	spawn_reagent = /datum/reagent/sugar
-
-
-/obj/item/reagent_containers/chem_disp_cartridge/hydrazine
-	spawn_reagent = /datum/reagent/hydrazine
-
-
-/obj/item/reagent_containers/chem_disp_cartridge/lithium
-	spawn_reagent = /datum/reagent/lithium
-
-
-/obj/item/reagent_containers/chem_disp_cartridge/carbon
-	spawn_reagent = /datum/reagent/carbon
-
-
-/obj/item/reagent_containers/chem_disp_cartridge/ammonia
-	spawn_reagent = /datum/reagent/ammonia
-
-
-/obj/item/reagent_containers/chem_disp_cartridge/acetone
-	spawn_reagent = /datum/reagent/acetone
-
-
-/obj/item/reagent_containers/chem_disp_cartridge/sodium
-	spawn_reagent = /datum/reagent/sodium
-
-
-/obj/item/reagent_containers/chem_disp_cartridge/aluminium
-	spawn_reagent = /datum/reagent/aluminium
-
-
-/obj/item/reagent_containers/chem_disp_cartridge/silicon
-	spawn_reagent = /datum/reagent/silicon
-
-
-/obj/item/reagent_containers/chem_disp_cartridge/phosphorus
-	spawn_reagent = /datum/reagent/phosphorus
-
-
-/obj/item/reagent_containers/chem_disp_cartridge/sulfur
-	spawn_reagent = /datum/reagent/sulfur
-
-
-/obj/item/reagent_containers/chem_disp_cartridge/hydrochloric
-	spawn_reagent = /datum/reagent/acid/hydrochloric
-
-
-/obj/item/reagent_containers/chem_disp_cartridge/potassium
-	spawn_reagent = /datum/reagent/potassium
-
-
-/obj/item/reagent_containers/chem_disp_cartridge/iron
-	spawn_reagent = /datum/reagent/iron
-
-
-/obj/item/reagent_containers/chem_disp_cartridge/copper
-	spawn_reagent = /datum/reagent/copper
-
-
-/obj/item/reagent_containers/chem_disp_cartridge/mercury
-	spawn_reagent = /datum/reagent/mercury
-
-
-/obj/item/reagent_containers/chem_disp_cartridge/radium
-	spawn_reagent = /datum/reagent/radium
-
-
-/obj/item/reagent_containers/chem_disp_cartridge/ethanol
-	spawn_reagent = /datum/reagent/ethanol
-
-
-/obj/item/reagent_containers/chem_disp_cartridge/acid
-	spawn_reagent = /datum/reagent/acid
-
-
-/obj/item/reagent_containers/chem_disp_cartridge/tungsten
-	spawn_reagent = /datum/reagent/tungsten
-
-
-/obj/item/reagent_containers/chem_disp_cartridge/boron
-	spawn_reagent = /datum/reagent/toxin/boron
+NEW_CHEM_CARTRIDGE(aluminium)
+NEW_CHEM_CARTRIDGE(bromine)
+NEW_CHEM_CARTRIDGE(carbon)
+NEW_CHEM_CARTRIDGE(chlorine)
+NEW_CHEM_CARTRIDGE(copper)
+NEW_CHEM_CARTRIDGE(consumable/ethanol)
+NEW_CHEM_CARTRIDGE(fluorine)
+NEW_CHEM_CARTRIDGE(hydrogen)
+NEW_CHEM_CARTRIDGE(iodine)
+NEW_CHEM_CARTRIDGE(iron)
+NEW_CHEM_CARTRIDGE(lithium)
+NEW_CHEM_CARTRIDGE(mercury)
+NEW_CHEM_CARTRIDGE(nitrogen)
+NEW_CHEM_CARTRIDGE(oxygen)
+NEW_CHEM_CARTRIDGE(phosphorus)
+NEW_CHEM_CARTRIDGE(potassium)
+NEW_CHEM_CARTRIDGE(uranium/radium)
+NEW_CHEM_CARTRIDGE(silicon)
+NEW_CHEM_CARTRIDGE(sodium)
+NEW_CHEM_CARTRIDGE(stable_plasma)
+NEW_CHEM_CARTRIDGE(consumable/sugar)
+NEW_CHEM_CARTRIDGE(sulfur)
+NEW_CHEM_CARTRIDGE(toxin/acid)
+NEW_CHEM_CARTRIDGE(water)
+NEW_CHEM_CARTRIDGE(fuel)

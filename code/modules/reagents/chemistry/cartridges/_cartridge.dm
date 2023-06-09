@@ -12,6 +12,8 @@
 
 	resistance_flags = UNACIDABLE
 
+	desc_controls = "Right-click to open the lid."
+
 	var/spawn_reagent = null
 	var/label = ""
 	var/is_open = FALSE
@@ -65,18 +67,23 @@
 
 	return ..()
 
-/obj/item/reagent_containers/chem_disp_cartridge/attack_self()
-	..()
-	if (is_open_container())
+/obj/item/attack_self_secondary(mob/user, modifiers)
+	if (is_open)
 		to_chat(usr, span_notice("You put the cap on \the [src]."))
 		is_open = FALSE
 	else
 		to_chat(usr, span_notice("You take the cap off \the [src]."))
 		is_open = TRUE
 
+/obj/item/reagent_containers/chem_disp_cartridge/attacked_by(obj/item/attacking_item, mob/living/user)
+	if(istype(attacking_item, /obj/item/pen))
+		setLabel(tgui_input_text(user, "Input (leave blank to clear):", "Set Label Name"))
+		return TRUE
+
+	return ..()
+
 /obj/item/reagent_containers/chem_disp_cartridge/afterattack(obj/target, mob/user)
 	if (!is_open_container())
-		to_chat(user, span_warning("You need to open \the [src] first!"))
 		return
 
 	else if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
