@@ -29,7 +29,33 @@
 	var/has_panel_overlay = TRUE
 	var/obj/item/reagent_containers/beaker = null
 
-	var/list/spawn_cartridges
+	var/list/spawn_cartridges = list(
+		CHEM_CARTRIDGE_S(aluminium),
+		CHEM_CARTRIDGE_S(bromine),
+		CHEM_CARTRIDGE_M(carbon),
+		CHEM_CARTRIDGE_M(chlorine),
+		CHEM_CARTRIDGE_S(copper),
+		CHEM_CARTRIDGE_S(consumable/ethanol),
+		CHEM_CARTRIDGE_S(fluorine),
+		CHEM_CARTRIDGE_M(hydrogen),
+		CHEM_CARTRIDGE_S(iodine),
+		CHEM_CARTRIDGE_S(iron),
+		CHEM_CARTRIDGE_S(lithium),
+		CHEM_CARTRIDGE_S(mercury),
+		CHEM_CARTRIDGE_M(nitrogen),
+		CHEM_CARTRIDGE_M(oxygen),
+		CHEM_CARTRIDGE_S(phosphorus),
+		CHEM_CARTRIDGE_S(potassium),
+		CHEM_CARTRIDGE_S(uranium/radium),
+		CHEM_CARTRIDGE_S(silicon),
+		CHEM_CARTRIDGE_S(sodium),
+		CHEM_CARTRIDGE_S(stable_plasma),
+		CHEM_CARTRIDGE_S(consumable/sugar),
+		CHEM_CARTRIDGE_S(sulfur),
+		CHEM_CARTRIDGE_S(toxin/acid),
+		CHEM_CARTRIDGE_M(water),
+		CHEM_CARTRIDGE_M(fuel),
+	)
 
 	/// Associative, label -> cartridge
 	var/list/cartridges = list()
@@ -62,8 +88,25 @@
 /obj/machinery/chem_dispenser/process(delta_time)
 	..()
 
+/obj/machinery/chem_dispenser/on_set_is_operational(old_value)
+	if(old_value) //Turned off
+		end_processing()
+	else //Turned on
+		begin_processing()
+
+
+/obj/machinery/chem_dispenser/process(delta_time)
 	if(machine_stat & NOPOWER)
 		return
+
+	if (recharge_counter >= 8)
+		var/usedpower = cell.give(recharge_amount)
+		if(usedpower)
+			use_power(active_power_usage + recharge_amount)
+		recharge_counter = 0
+		return
+	recharge_counter += delta_time
+
 	for(var/obj/item/reagent_containers/chem_disp_cartridge/cartridge in cartridges)
 		cartridge = cartridges[cartridge]
 		if(cartridge.reagents.total_volume)
@@ -73,22 +116,6 @@
 			cartridge.reagents.handle_reactions()
 
 			use_power(active_power_usage * delta_time)
-
-/obj/machinery/chem_dispenser/on_set_is_operational(old_value)
-	if(old_value) //Turned off
-		end_processing()
-	else //Turned on
-		begin_processing()
-
-
-/obj/machinery/chem_dispenser/process(delta_time)
-	if (recharge_counter >= 8)
-		var/usedpower = cell.give(recharge_amount)
-		if(usedpower)
-			use_power(active_power_usage + recharge_amount)
-		recharge_counter = 0
-		return
-	recharge_counter += delta_time
 
 /obj/machinery/chem_dispenser/proc/display_beaker()
 	var/mutable_appearance/b_o = beaker_overlay || mutable_appearance(icon, "disp_beaker")
@@ -192,7 +219,7 @@
 			var/chemname = temp.label
 			if(is_hallucinating && prob(5))
 				chemname = "[pick_list_replacements("hallucination.json", "chemicals")]"
-			chemicals.Add(list(list("title" = chemname, "id" = temp.name)))
+			chemicals.Add(list(list("title" = chemname, "id" = temp.label, "amount" = temp.reagents.total_volume, "max" = temp.volume)))
 	data["chemicals"] = chemicals
 
 	data["recipeReagents"] = list()
@@ -220,7 +247,7 @@
 			if(!is_operational || QDELETED(cell))
 				return
 			var/reagent_name = params["reagent"]
-			var/obj/item/reagent_containers/cartridge = cartridges.Find(reagent_name)
+			var/obj/item/reagent_containers/cartridge = cartridges[reagent_name]
 			if(beaker && cartridge)
 				var/datum/reagents/holder = beaker.reagents
 				var/to_dispense = max(0, min(amount, holder.maximum_volume - holder.total_volume))
@@ -275,7 +302,7 @@
 			return
 		replace_beaker(user, B)
 		to_chat(user, span_notice("You add [B] to [src]."))
-		ui_interact(user)
+		sortTim(cartridges, /proc/cmp_num_string_asc, TRUE)
 	else if(!user.combat_mode && !istype(I, /obj/item/card/emag))
 		to_chat(user, span_warning("You can't load [I] into [src]!"))
 		return ..()
@@ -397,235 +424,3 @@
 /obj/machinery/chem_dispenser/proc/remove_cartridge(label)
 	. = cartridges[label]
 	cartridges -= label
-
-/obj/machinery/chem_dispenser/drinks
-	name = "soda dispenser"
-	desc = "Contains a large reservoir of soft drinks."
-	icon = 'icons/obj/medical/chemical.dmi'
-	icon_state = "soda_dispenser"
-	base_icon_state = "soda_dispenser"
-	has_panel_overlay = FALSE
-	dispensed_temperature = WATER_MATTERSTATE_CHANGE_TEMP // magical mystery temperature of 274.5, where ice does not melt, and water does not freeze
-	heater_coefficient = SOFT_DISPENSER_HEATER_COEFFICIENT
-	amount = 10
-	pixel_y = 6
-	circuit = /obj/item/circuitboard/machine/chem_dispenser/drinks
-	working_state = null
-	nopower_state = null
-	pass_flags = PASSTABLE
-	// dispensable_reagents = list(
-	// 	/datum/reagent/consumable/coffee,
-	// 	/datum/reagent/consumable/space_cola,
-	// 	/datum/reagent/consumable/cream,
-	// 	/datum/reagent/consumable/dr_gibb,
-	// 	/datum/reagent/consumable/grenadine,
-	// 	/datum/reagent/consumable/ice,
-	// 	/datum/reagent/consumable/icetea,
-	// 	/datum/reagent/consumable/lemonjuice,
-	// 	/datum/reagent/consumable/lemon_lime,
-	// 	/datum/reagent/consumable/limejuice,
-	// 	/datum/reagent/consumable/menthol,
-	// 	/datum/reagent/consumable/orangejuice,
-	// 	/datum/reagent/consumable/pineapplejuice,
-	// 	/datum/reagent/consumable/pwr_game,
-	// 	/datum/reagent/consumable/shamblers,
-	// 	/datum/reagent/consumable/spacemountainwind,
-	// 	/datum/reagent/consumable/sodawater,
-	// 	/datum/reagent/consumable/space_up,
-	// 	/datum/reagent/consumable/sugar,
-	// 	/datum/reagent/consumable/tea,
-	// 	/datum/reagent/consumable/tomatojuice,
-	// 	/datum/reagent/consumable/tonic,
-	// 	/datum/reagent/water,
-	// )
-	// upgrade_reagents = null
-	// emagged_reagents = list(
-	// 	/datum/reagent/consumable/ethanol/thirteenloko,
-	// 	/datum/reagent/consumable/ethanol/whiskey_cola,
-	// 	/datum/reagent/toxin/mindbreaker,
-	// 	/datum/reagent/toxin/staminatoxin
-	// )
-
-/obj/machinery/chem_dispenser/drinks/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/simple_rotation)
-
-/obj/machinery/chem_dispenser/drinks/setDir()
-	var/old = dir
-	. = ..()
-	if(dir != old)
-		update_appearance()  // the beaker needs to be re-positioned if we rotate
-
-/obj/machinery/chem_dispenser/drinks/display_beaker()
-	var/mutable_appearance/b_o = beaker_overlay || mutable_appearance(icon, "disp_beaker")
-	switch(dir)
-		if(NORTH)
-			b_o.pixel_y = 7
-			b_o.pixel_x = rand(-9, 9)
-		if(EAST)
-			b_o.pixel_x = 4
-			b_o.pixel_y = rand(-5, 7)
-		if(WEST)
-			b_o.pixel_x = -5
-			b_o.pixel_y = rand(-5, 7)
-		else//SOUTH
-			b_o.pixel_y = -7
-			b_o.pixel_x = rand(-9, 9)
-	return b_o
-
-/obj/machinery/chem_dispenser/drinks/fullupgrade //fully ugpraded stock parts, emagged
-	desc = "Contains a large reservoir of soft drinks. This model has had its safeties shorted out."
-	obj_flags = CAN_BE_HIT | EMAGGED
-	flags_1 = NODECONSTRUCT_1
-	circuit = /obj/item/circuitboard/machine/chem_dispenser/drinks/fullupgrade
-
-/obj/machinery/chem_dispenser/drinks/fullupgrade/Initialize(mapload)
-	. = ..()
-	// dispensable_reagents |= emagged_reagents //adds emagged reagents
-
-/obj/machinery/chem_dispenser/drinks/beer
-	name = "booze dispenser"
-	desc = "Contains a large reservoir of the good stuff."
-	icon = 'icons/obj/medical/chemical.dmi'
-	icon_state = "booze_dispenser"
-	base_icon_state = "booze_dispenser"
-	dispensed_temperature = WATER_MATTERSTATE_CHANGE_TEMP
-	heater_coefficient = SOFT_DISPENSER_HEATER_COEFFICIENT
-	circuit = /obj/item/circuitboard/machine/chem_dispenser/drinks/beer
-	// dispensable_reagents = list(
-	// 	/datum/reagent/consumable/ethanol/absinthe,
-	// 	/datum/reagent/consumable/ethanol/ale,
-	// 	/datum/reagent/consumable/ethanol/applejack,
-	// 	/datum/reagent/consumable/ethanol/beer,
-	// 	/datum/reagent/consumable/ethanol/cognac,
-	// 	/datum/reagent/consumable/ethanol/creme_de_cacao,
-	// 	/datum/reagent/consumable/ethanol/creme_de_coconut,
-	// 	/datum/reagent/consumable/ethanol/creme_de_menthe,
-	// 	/datum/reagent/consumable/ethanol/curacao,
-	// 	/datum/reagent/consumable/ethanol/gin,
-	// 	/datum/reagent/consumable/ethanol/hcider,
-	// 	/datum/reagent/consumable/ethanol/kahlua,
-	// 	/datum/reagent/consumable/ethanol/beer/maltliquor,
-	// 	/datum/reagent/consumable/ethanol/navy_rum,
-	// 	/datum/reagent/consumable/ethanol/rum,
-	// 	/datum/reagent/consumable/ethanol/sake,
-	// 	/datum/reagent/consumable/ethanol/tequila,
-	// 	/datum/reagent/consumable/ethanol/triple_sec,
-	// 	/datum/reagent/consumable/ethanol/vermouth,
-	// 	/datum/reagent/consumable/ethanol/vodka,
-	// 	/datum/reagent/consumable/ethanol/whiskey,
-	// 	/datum/reagent/consumable/ethanol/wine,
-	// )
-	// upgrade_reagents = null
-	// emagged_reagents = list(
-	// 	/datum/reagent/consumable/ethanol,
-	// 	/datum/reagent/iron,
-	// 	/datum/reagent/toxin/minttoxin,
-	// 	/datum/reagent/consumable/ethanol/atomicbomb,
-	// 	/datum/reagent/consumable/ethanol/fernet
-	// )
-
-/obj/machinery/chem_dispenser/drinks/beer/fullupgrade //fully ugpraded stock parts, emagged
-	desc = "Contains a large reservoir of the good stuff. This model has had its safeties shorted out."
-	obj_flags = CAN_BE_HIT | EMAGGED
-	flags_1 = NODECONSTRUCT_1
-	circuit = /obj/item/circuitboard/machine/chem_dispenser/drinks/beer/fullupgrade
-
-/obj/machinery/chem_dispenser/drinks/beer/fullupgrade/Initialize(mapload)
-	. = ..()
-	// dispensable_reagents |= emagged_reagents //adds emagged reagents
-
-/obj/machinery/chem_dispenser/mutagen
-	name = "mutagen dispenser"
-	desc = "Creates and dispenses mutagen."
-	// dispensable_reagents = list(/datum/reagent/toxin/mutagen)
-	// upgrade_reagents = null
-	// emagged_reagents = list(/datum/reagent/toxin/plasma)
-
-
-/obj/machinery/chem_dispenser/mutagensaltpeter
-	name = "botanical chemical dispenser"
-	desc = "Creates and dispenses chemicals useful for botany."
-	flags_1 = NODECONSTRUCT_1
-
-	circuit = /obj/item/circuitboard/machine/chem_dispenser/mutagensaltpeter
-
-	// dispensable_reagents = list(
-	// 	/datum/reagent/toxin/mutagen,
-	// 	/datum/reagent/saltpetre,
-	// 	/datum/reagent/plantnutriment/eznutriment,
-	// 	/datum/reagent/plantnutriment/left4zednutriment,
-	// 	/datum/reagent/plantnutriment/robustharvestnutriment,
-	// 	/datum/reagent/water,
-	// 	/datum/reagent/toxin/plantbgone,
-	// 	/datum/reagent/toxin/plantbgone/weedkiller,
-	// 	/datum/reagent/toxin/pestkiller,
-	// 	/datum/reagent/medicine/cryoxadone,
-	// 	/datum/reagent/ammonia,
-	// 	/datum/reagent/ash,
-	// 	/datum/reagent/diethylamine)
-	// upgrade_reagents = null
-
-/obj/machinery/chem_dispenser/fullupgrade //fully ugpraded stock parts, emagged
-	desc = "Creates and dispenses chemicals. This model has had its safeties shorted out."
-	obj_flags = CAN_BE_HIT | EMAGGED
-	flags_1 = NODECONSTRUCT_1
-	circuit = /obj/item/circuitboard/machine/chem_dispenser/fullupgrade
-
-/obj/machinery/chem_dispenser/fullupgrade/Initialize(mapload)
-	. = ..()
-	//dispensable_reagents |= emagged_reagents //adds emagged reagents
-
-/obj/machinery/chem_dispenser/abductor
-	name = "reagent synthesizer"
-	desc = "Synthesizes a variety of reagents using proto-matter."
-	icon = 'icons/obj/abductor.dmi'
-	icon_state = "chem_dispenser"
-	base_icon_state = "chem_dispenser"
-	has_panel_overlay = FALSE
-	circuit = /obj/item/circuitboard/machine/chem_dispenser/abductor
-	working_state = null
-	nopower_state = null
-	use_power = NO_POWER_USE
-	// dispensable_reagents = list(
-	// 	/datum/reagent/aluminium,
-	// 	/datum/reagent/bromine,
-	// 	/datum/reagent/carbon,
-	// 	/datum/reagent/chlorine,
-	// 	/datum/reagent/copper,
-	// 	/datum/reagent/consumable/ethanol,
-	// 	/datum/reagent/fluorine,
-	// 	/datum/reagent/hydrogen,
-	// 	/datum/reagent/iodine,
-	// 	/datum/reagent/iron,
-	// 	/datum/reagent/lithium,
-	// 	/datum/reagent/mercury,
-	// 	/datum/reagent/nitrogen,
-	// 	/datum/reagent/oxygen,
-	// 	/datum/reagent/phosphorus,
-	// 	/datum/reagent/potassium,
-	// 	/datum/reagent/uranium/radium,
-	// 	/datum/reagent/silicon,
-	// 	/datum/reagent/silver,
-	// 	/datum/reagent/sodium,
-	// 	/datum/reagent/stable_plasma,
-	// 	/datum/reagent/consumable/sugar,
-	// 	/datum/reagent/sulfur,
-	// 	/datum/reagent/toxin/acid,
-	// 	/datum/reagent/water,
-	// 	/datum/reagent/fuel,
-	// 	/datum/reagent/acetone,
-	// 	/datum/reagent/ammonia,
-	// 	/datum/reagent/ash,
-	// 	/datum/reagent/diethylamine,
-	// 	/datum/reagent/fuel/oil,
-	// 	/datum/reagent/saltpetre,
-	// 	/datum/reagent/medicine/mine_salve,
-	// 	/datum/reagent/medicine/morphine,
-	// 	/datum/reagent/drug/space_drugs,
-	// 	/datum/reagent/toxin,
-	// 	/datum/reagent/toxin/plasma,
-	// 	/datum/reagent/uranium,
-	// 	/datum/reagent/consumable/liquidelectricity/enriched,
-	// 	/datum/reagent/medicine/c2/synthflesh
-	// )

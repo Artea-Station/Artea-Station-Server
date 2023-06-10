@@ -8,11 +8,12 @@
 	volume = CARTRIDGE_VOLUME_LARGE
 	amount_per_transfer_from_this = 50
 	// Large, but inaccurate. Use a chem dispenser or beaker for accuracy.
-	possible_transfer_amounts = "50;100"
+	possible_transfer_amounts = list("50", "100")
 
 	resistance_flags = UNACIDABLE
+	reagent_flags = AMOUNT_VISIBLE
 
-	desc_controls = "Right-click to open the lid."
+	desc_controls = "Right-click to open and close the lid."
 
 	var/spawn_reagent = null
 	var/label = ""
@@ -26,6 +27,8 @@
 
 /obj/item/reagent_containers/chem_disp_cartridge/New()
 	. = ..()
+	for(var/path in subtypesof(/datum/reagent))
+		log_admin("[path]")
 	if(spawn_reagent)
 		reagents.add_reagent(spawn_reagent, volume)
 		var/datum/reagent/R = spawn_reagent

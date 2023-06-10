@@ -645,16 +645,6 @@
 	def_components = list(/obj/item/stock_parts/cell = /obj/item/stock_parts/cell/high)
 	needs_anchored = FALSE
 
-/obj/item/circuitboard/machine/chem_dispenser/fullupgrade
-	build_path = /obj/machinery/chem_dispenser/fullupgrade
-	req_components = list(
-		/obj/item/stock_parts/matter_bin/super = 2,
-		/obj/item/stock_parts/capacitor/super = 2,
-		/obj/item/stock_parts/manipulator/pico = 2,
-		/obj/item/stack/sheet/glass = 1,
-		/obj/item/stock_parts/cell/hyper = 1,
-	)
-
 /obj/item/circuitboard/machine/chem_dispenser/mutagensaltpeter
 	build_path = /obj/machinery/chem_dispenser/mutagensaltpeter
 	req_components = list(
@@ -1005,30 +995,10 @@
 	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/chem_dispenser/drinks
 
-/obj/item/circuitboard/machine/chem_dispenser/drinks/fullupgrade
-	build_path = /obj/machinery/chem_dispenser/drinks/fullupgrade
-	req_components = list(
-		/obj/item/stock_parts/matter_bin/super = 2,
-		/obj/item/stock_parts/capacitor/super = 2,
-		/obj/item/stock_parts/manipulator/pico = 2,
-		/obj/item/stack/sheet/glass = 1,
-		/obj/item/stock_parts/cell/hyper = 1,
-	)
-
 /obj/item/circuitboard/machine/chem_dispenser/drinks/beer
 	name = "Booze Dispenser"
 	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/chem_dispenser/drinks/beer
-
-/obj/item/circuitboard/machine/chem_dispenser/drinks/beer/fullupgrade
-	build_path = /obj/machinery/chem_dispenser/drinks/beer/fullupgrade
-	req_components = list(
-		/obj/item/stock_parts/matter_bin/super = 2,
-		/obj/item/stock_parts/capacitor/super = 2,
-		/obj/item/stock_parts/manipulator/pico = 2,
-		/obj/item/stack/sheet/glass = 1,
-		/obj/item/stock_parts/cell/hyper = 1,
-	)
 
 /obj/item/circuitboard/machine/chem_master/condi
 	name = "CondiMaster 3000"

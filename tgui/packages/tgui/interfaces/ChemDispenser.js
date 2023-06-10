@@ -57,7 +57,22 @@ export const ChemDispenser = (props, context) => {
                 icon="tint"
                 width="129.5px"
                 lineHeight={1.75}
-                content={chemical.title}
+                content={
+                  <>
+                    {chemical.title}
+                    <br />
+                    <ProgressBar
+                      value={chemical.amount}
+                      maxValue={chemical.max}
+                      width="117px"
+                      ranges={{
+                        good: [70, Infinity],
+                        average: [40, 70],
+                        bad: [-Infinity, 40],
+                      }}
+                    />
+                  </>
+                }
                 onClick={() =>
                   act('dispense', {
                     reagent: chemical.id,
