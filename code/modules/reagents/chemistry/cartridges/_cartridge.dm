@@ -67,7 +67,7 @@
 
 	return ..()
 
-/obj/item/attack_self_secondary(mob/user, modifiers)
+/obj/item/reagent_containers/chem_disp_cartridge/attack_self_secondary(mob/user, modifiers)
 	if (is_open)
 		to_chat(usr, span_notice("You put the cap on \the [src]."))
 		is_open = FALSE
