@@ -279,6 +279,11 @@
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/living/user, params)
+	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
+		update_appearance()
+		return
+	if(default_deconstruction_crowbar(I))
+		return
 	if(I.tool_behaviour == TOOL_CROWBAR && length(cartridges))
 		. = TRUE
 		var/label = tgui_input_list(user, "Which cartridge would you like to remove?", "Chemical Dispenser", cartridges)
@@ -288,11 +293,7 @@
 		if(C)
 			to_chat(user, span_notice("You remove \the [C] from \the [src]."))
 			C.forceMove(loc)
-	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
-		update_appearance()
-		return
-	if(default_deconstruction_crowbar(I))
-		return
+			return
 	if(istype(I, /obj/item/reagent_containers/chem_disp_cartridge))
 		add_cartridge(I, user)
 	else if(is_reagent_container(I) && !(I.item_flags & ABSTRACT) && I.is_open_container())

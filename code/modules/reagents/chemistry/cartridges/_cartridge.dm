@@ -1,5 +1,5 @@
 /obj/item/reagent_containers/chem_disp_cartridge
-	name = "chemical dispenser cartridge"
+	name = "large chemical dispenser cartridge"
 	desc = "This goes in a chemical dispenser."
 	icon_state = "cartridge"
 
@@ -20,9 +20,11 @@
 	var/is_open = FALSE
 
 /obj/item/reagent_containers/chem_disp_cartridge/small
+	name = "small chemical dispenser cartridge"
 	volume = CARTRIDGE_VOLUME_SMALL
 
 /obj/item/reagent_containers/chem_disp_cartridge/medium
+	name = "medium chemical dispenser cartridge"
 	volume = CARTRIDGE_VOLUME_MEDIUM
 
 /obj/item/reagent_containers/chem_disp_cartridge/New()
@@ -86,24 +88,7 @@
 	return ..()
 
 /obj/item/reagent_containers/chem_disp_cartridge/afterattack(obj/target, mob/user)
-	if (!is_open_container())
-		return
-
-	else if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
-		target.add_fingerprint(user)
-
-		if(!target.reagents.total_volume && target.reagents)
-			to_chat(user, span_warning("\The [target] is empty."))
-			return
-
-		if(reagents.total_volume >= reagents.maximum_volume)
-			to_chat(user, span_warning("\The [src] is full."))
-			return
-
-		var/trans = target.reagents.trans_to(src, target:amount_per_transfer_from_this)
-		to_chat(user, span_notice("You fill \the [src] with [trans] units of the contents of \the [target]."))
-
-	else if(target.is_open_container() && target.reagents) //Something like a glass. Player probably wants to transfer TO it.
+	if(target.is_open_container() && target.reagents) //Something like a glass. Player probably wants to transfer TO it.
 
 		if(!reagents.total_volume)
 			to_chat(user, span_warning("\The [src] is empty."))
