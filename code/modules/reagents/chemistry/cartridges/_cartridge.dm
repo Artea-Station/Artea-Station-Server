@@ -11,7 +11,7 @@
 	possible_transfer_amounts = list("50", "100")
 
 	resistance_flags = UNACIDABLE
-	reagent_flags = AMOUNT_VISIBLE
+	reagent_flags = OPENCONTAINER
 
 	desc_controls = "Right-click to open and close the lid."
 

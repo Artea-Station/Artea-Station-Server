@@ -66,7 +66,7 @@
 		for(var/size in cartridge_params)
 			var/pack_cost = cartridge_params[size]
 
-			var/datum/supply_pack/cartridges/pack = new
+			var/datum/supply_pack/cartridges/generated/pack = new
 			pack.name = "[initial(chem.name)] Chem Cartridge ([size])"
 			pack.contains = size == "Small" ? /obj/item/reagent_containers/chem_disp_cartridge/small : size == "Medium" ? /obj/item/reagent_containers/chem_disp_cartridge/medium : /obj/item/reagent_containers/chem_disp_cartridge
 			pack.chem = chem
@@ -82,3 +82,6 @@
 			cartridge.flags_1 |= ADMIN_SPAWNED_1
 		cartridge.setLabel(initial(chem.name))
 		cartridge.reagents.add_reagent(chem, cartridge.volume)
+
+/datum/supply_pack/cartridges/generated/generate_supply_packs()
+	return
