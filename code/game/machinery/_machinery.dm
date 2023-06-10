@@ -627,10 +627,11 @@
 	update_last_used(user)
 	. = ..()
 
-/obj/machinery/ui_act(action, list/params)
+/obj/machinery/ui_act(action, list/params, datum/tgui/ui)
 	add_fingerprint(usr)
 	update_last_used(usr)
-	playsound(src, interaction_sound, 50, TRUE, ignore_walls = FALSE)
+	if(ui && ui.status == UI_INTERACTIVE)
+		playsound(src, interaction_sound, 50, TRUE, ignore_walls = FALSE)
 	return ..()
 
 /obj/machinery/Topic(href, href_list)

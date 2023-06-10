@@ -8057,6 +8057,9 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/station/pathfinders/dock)
 "czy" = (
@@ -12309,20 +12312,16 @@
 /area/station/maintenance/port/lesser)
 "dQc" = (
 /obj/machinery/firealarm/directional/north,
-/obj/effect/turf_decal/tile/pathfinders_purple/anticorner/contrasted{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/pathfinders_purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/pathfinders_purple{
-	dir = 4
-	},
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/item/kirbyplants/random,
-/turf/open/floor/iron,
+/obj/effect/turf_decal/bot,
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
 /area/station/pathfinders/dock)
 "dQx" = (
 /obj/structure/bed/roller,
@@ -19317,6 +19316,9 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
 "fQb" = (
@@ -19604,6 +19606,7 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
 "fUQ" = (
@@ -20160,6 +20163,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/pathfinders/dock,
+/obj/structure/cable,
 /turf/open/floor/iron/dark/small,
 /area/station/pathfinders/dock)
 "gdr" = (
@@ -21947,6 +21951,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
 "gDW" = (
@@ -26730,6 +26737,7 @@
 /obj/machinery/holopad,
 /obj/effect/turf_decal/bot,
 /obj/effect/landmark/event_spawn,
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
 "hWw" = (
@@ -28562,6 +28570,19 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating,
 /area/station/maintenance/department/security)
+"ivV" = (
+/obj/effect/turf_decal/tile/pathfinders_purple/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/pathfinders_purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/station/pathfinders/dock)
 "ivY" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral{
@@ -34738,6 +34759,19 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
+"kqR" = (
+/obj/effect/turf_decal/tile/pathfinders_purple/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/pathfinders_purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/station/pathfinders/dock)
 "kra" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -38040,6 +38074,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light/floor,
+/obj/structure/cable,
 /turf/open/floor/iron/dark/small,
 /area/station/pathfinders/dock)
 "loI" = (
@@ -38947,8 +38982,8 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/light/directional/south,
 /obj/structure/cable,
-/obj/structure/disposalpipe/segment{
-	dir = 9
+/obj/structure/disposalpipe/junction{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
@@ -39102,6 +39137,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/caution/stand_clear,
+/obj/structure/cable,
 /turf/open/floor/iron/dark/small,
 /area/station/pathfinders/dock)
 "lDB" = (
@@ -41734,7 +41770,6 @@
 /obj/effect/turf_decal/tile/pathfinders_purple{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/oil,
 /obj/effect/turf_decal/tile/pathfinders_purple{
 	dir = 4
 	},
@@ -41744,6 +41779,7 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/effect/decal/cleanable/oil,
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
 "mwe" = (
@@ -47915,18 +47951,24 @@
 /turf/open/floor/iron/dark,
 /area/station/service/bar)
 "ovL" = (
-/obj/effect/turf_decal/tile/pathfinders_purple/half/contrasted{
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/effect/turf_decal/tile/pathfinders_purple/anticorner/contrasted{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/pathfinders_purple{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/pathfinders_purple{
+	dir = 8
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
 "ovN" = (
@@ -48709,11 +48751,14 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/security/office)
 "oHs" = (
-/obj/effect/turf_decal/tile/pathfinders_purple/half/contrasted{
-	dir = 8
+/obj/effect/turf_decal/tile/pathfinders_purple/anticorner/contrasted{
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/pathfinders_purple{
 	dir = 8
+	},
+/obj/effect/turf_decal/tile/pathfinders_purple{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
@@ -55169,6 +55214,9 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
 "qzJ" = (
@@ -55936,9 +55984,7 @@
 "qMG" = (
 /obj/structure/table/reinforced/rglass,
 /obj/effect/turf_decal/bot,
-/obj/item/flashlight/lamp{
-	pixel_y = 5
-	},
+/obj/item/flashlight/lantern,
 /turf/open/floor/iron/dark/small,
 /area/station/pathfinders/lead_office)
 "qNh" = (
@@ -56897,6 +56943,9 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
 "qYO" = (
@@ -57776,6 +57825,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
 "roy" = (
@@ -59606,6 +59658,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/pathfinders/dock,
+/obj/structure/cable,
 /turf/open/floor/iron/dark/small,
 /area/station/pathfinders/dock)
 "rOq" = (
@@ -60205,6 +60258,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
 "rWT" = (
@@ -60404,6 +60458,9 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
 /turf/open/floor/iron,
 /area/station/pathfinders/dock)
 "sav" = (
@@ -70693,6 +70750,16 @@
 	},
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
+"vbL" = (
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/effect/turf_decal/tile/pathfinders_purple{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/iron,
+/area/station/pathfinders/dock)
 "vbP" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 8
@@ -124022,7 +124089,7 @@ wrR
 wrR
 tCE
 ovL
-fUO
+vbL
 fUO
 fUO
 saj
@@ -125052,7 +125119,7 @@ xHC
 iJx
 vuW
 rWl
-pxQ
+kqR
 eUp
 wfe
 tYL
@@ -125566,7 +125633,7 @@ jmW
 mur
 cDv
 jaq
-cdy
+ivV
 kBj
 drn
 jXS
