@@ -72,7 +72,7 @@
 
 			var/datum/supply_pack/cartridges/generated/pack = new
 			pack.name = "[initial(chem.name)] Chem Cartridge ([size])"
-			pack.id = "[chem]|[initial(chem.name)]"
+			pack.id = "[chem]|[initial(chem.name)]|[size]"
 			pack.desc = "Contains a single [lowertext(size)] cartridge of [initial(chem.name)]. [initial(chem.description)]"
 			pack.contains = list(size == "Small" ? /obj/item/reagent_containers/chem_disp_cartridge/small : size == "Medium" ? /obj/item/reagent_containers/chem_disp_cartridge/medium : /obj/item/reagent_containers/chem_disp_cartridge)
 			pack.chem = chem
