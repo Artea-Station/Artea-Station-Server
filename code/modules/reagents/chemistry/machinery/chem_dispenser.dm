@@ -106,7 +106,7 @@
 	else
 		recharge_counter += delta_time
 
-	for(var/obj/item/reagent_containers/chem_disp_cartridge/cartridge in cartridges)
+	for(var/obj/item/reagent_containers/chem_disp_cartridge/cartridge as anything in cartridges)
 		cartridge = cartridges[cartridge]
 		if(cartridge.reagents.total_volume)
 			if(cartridge.reagents.is_reacting)//on_reaction_step() handles this
