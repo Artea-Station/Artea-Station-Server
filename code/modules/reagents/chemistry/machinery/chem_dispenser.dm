@@ -103,7 +103,6 @@
 		if(usedpower)
 			use_power(active_power_usage + recharge_amount)
 		recharge_counter = 0
-		return
 	else
 		recharge_counter += delta_time
 
