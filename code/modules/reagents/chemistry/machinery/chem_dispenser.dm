@@ -111,7 +111,7 @@
 		if(cartridge.reagents.total_volume)
 			if(cartridge.reagents.is_reacting)//on_reaction_step() handles this
 				return
-			cartridge.reagents.adjust_thermal_energy((dispensed_temperature - beaker.reagents.chem_temp) * (heater_coefficient * powerefficiency) * delta_time * SPECIFIC_HEAT_DEFAULT * beaker.reagents.total_volume)
+			cartridge.reagents.adjust_thermal_energy((dispensed_temperature - cartridge.reagents.chem_temp) * (heater_coefficient * powerefficiency) * delta_time * SPECIFIC_HEAT_DEFAULT * cartridge.reagents.total_volume)
 			cartridge.reagents.handle_reactions()
 
 			use_power(active_power_usage * delta_time)
