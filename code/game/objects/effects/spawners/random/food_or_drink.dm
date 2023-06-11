@@ -267,7 +267,9 @@
 
 /obj/effect/spawner/random/food_or_drink/chem_cartridge/make_item(spawn_loc, type_path_to_make)
 	var/obj/item/reagent_containers/chem_disp_cartridge/cartridge = new type_path_to_make(spawn_loc)
-	var/obj/item/reagent_containers/chem_disp_cartridge/cartridge_to_ref = pick(cached_whitelist)
+	var/obj/item/reagent_containers/chem_disp_cartridge/cartridge_to_ref
+	while(!cartridge_to_ref || !initial(cartridge_to_ref.spawn_reagent))
+		cartridge_to_ref = pick(cached_whitelist)
 	cartridge.reagents.add_reagent(initial(cartridge_to_ref.spawn_reagent), is_always_full ? cartridge.volume : rand(0, cartridge.volume))
 	return cartridge
 
@@ -290,7 +292,9 @@
 
 /obj/effect/spawner/random/food_or_drink/chem_cartridge/alcohol/make_item(spawn_loc, type_path_to_make)
 	var/obj/item/reagent_containers/chem_disp_cartridge/cartridge = new type_path_to_make(spawn_loc)
-	var/obj/item/reagent_containers/chem_disp_cartridge/cartridge_to_ref = pick(cached_whitelist_alcohol)
+	var/obj/item/reagent_containers/chem_disp_cartridge/cartridge_to_ref
+	while(!cartridge_to_ref || !initial(cartridge_to_ref.spawn_reagent))
+		cartridge_to_ref = pick(cached_whitelist_alcohol)
 	cartridge.reagents.add_reagent(initial(cartridge_to_ref.spawn_reagent), is_always_full ? cartridge.volume : rand(0, cartridge.volume))
 	return cartridge
 
