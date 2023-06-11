@@ -19,4 +19,4 @@
 	job_changes = list("cook" = list("additional_cqc_areas" = list("/area/service/bar/atrium")),
 						"captain" = list("special_charter" = "asteroid"))
 
-	overmap_object_type = /datum/overmap_object/shuttle/station
+	overmap_object_type = /datum/overmap_object/shuttle/ship/kilo
