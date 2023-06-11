@@ -28,5 +28,12 @@
 	unit_name = "chem cartridges"
 	export_types = list(/obj/item/reagent_containers/chem_disp_cartridge)
 
+// This is for returning canisters, so let's not apply elasticity.
 /datum/export/chem_cartridge/get_cost(obj/object, apply_elastic)
-	return ..(object, FALSE) // This is for returning canisters, so let's tell it to not apply elasticity.
+	var/adjusted_cost = init_cost
+	if(typeof(object, /obj/item/reagent_containers/chem_disp_cartridge/small))
+		adjusted_cost /= 2
+	else if(!typeof(object, /obj/item/reagent_containers/chem_disp_cartridge/medium))
+		adjusted_cost *= 2
+	return round(adjusted_cost * amount)
+
