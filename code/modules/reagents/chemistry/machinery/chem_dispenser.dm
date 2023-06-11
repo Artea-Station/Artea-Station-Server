@@ -98,10 +98,12 @@
 	if(machine_stat & NOPOWER)
 		return
 
+	var/power_to_use = active_power_usage
+
 	if (recharge_counter >= 8)
 		var/usedpower = cell.give(recharge_amount)
 		if(usedpower)
-			use_power(active_power_usage + recharge_amount) // Use power for cell
+			power_to_use += recharge_amount
 		recharge_counter = 0
 	else
 		recharge_counter += delta_time
@@ -114,7 +116,7 @@
 			cartridge.reagents.adjust_thermal_energy((dispensed_temperature - cartridge.reagents.chem_temp) * (heater_coefficient * powerefficiency) * delta_time * SPECIFIC_HEAT_DEFAULT * cartridge.reagents.total_volume)
 			cartridge.reagents.handle_reactions()
 
-	use_power(active_power_usage * delta_time) // Use power for passive cooling.
+	use_power(active_power_usage + power_to_use) // Use power for cell
 
 /obj/machinery/chem_dispenser/proc/display_beaker()
 	var/mutable_appearance/b_o = beaker_overlay || mutable_appearance(icon, "disp_beaker")
