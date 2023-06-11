@@ -101,7 +101,7 @@
 	if (recharge_counter >= 8)
 		var/usedpower = cell.give(recharge_amount)
 		if(usedpower)
-			use_power(active_power_usage + recharge_amount)
+			use_power(active_power_usage + recharge_amount) // Use power for cell
 		recharge_counter = 0
 	else
 		recharge_counter += delta_time
@@ -110,11 +110,11 @@
 		cartridge = cartridges[cartridge]
 		if(cartridge.reagents.total_volume)
 			if(cartridge.reagents.is_reacting)//on_reaction_step() handles this
-				return
+				continue
 			cartridge.reagents.adjust_thermal_energy((dispensed_temperature - cartridge.reagents.chem_temp) * (heater_coefficient * powerefficiency) * delta_time * SPECIFIC_HEAT_DEFAULT * cartridge.reagents.total_volume)
 			cartridge.reagents.handle_reactions()
 
-			use_power(active_power_usage * delta_time)
+	use_power(active_power_usage * delta_time) // Use power for passive cooling.
 
 /obj/machinery/chem_dispenser/proc/display_beaker()
 	var/mutable_appearance/b_o = beaker_overlay || mutable_appearance(icon, "disp_beaker")
@@ -302,7 +302,7 @@
 			return
 		replace_beaker(user, B)
 		to_chat(user, span_notice("You add [B] to [src]."))
-		cartridges = sortTim(cartridges, /proc/cmp_text_asc, TRUE)
+		cartridges = sortTim(cartridges, GLOBAL_PROC_REF(cmp_text_asc))
 	else if(!user.combat_mode && !istype(I, /obj/item/card/emag))
 		to_chat(user, span_warning("You can't load [I] into [src]!"))
 		return ..()
@@ -419,7 +419,7 @@
 
 	C.forceMove(src)
 	cartridges[C.label] = C
-	cartridges = sortTim(cartridges, /proc/cmp_text_asc, TRUE)
+	cartridges = sortTim(cartridges, GLOBAL_PROC_REF(cmp_text_asc))
 
 /obj/machinery/chem_dispenser/proc/remove_cartridge(label)
 	. = cartridges[label]
