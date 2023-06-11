@@ -73,7 +73,6 @@
 /obj/machinery/chem_dispenser/Destroy()
 	QDEL_NULL(beaker)
 	QDEL_NULL(cell)
-	QDEL_LIST(cartridges)
 	return ..()
 
 /obj/machinery/chem_dispenser/examine(mob/user)
