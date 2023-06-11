@@ -23,7 +23,7 @@ export const AtmosFilter = (props, context) => {
   const { filter_types = [], on, rate, max_rate } = data;
 
   return (
-    <Window width={420} height={221}>
+    <Window width={420} height={275}>
       <Window.Content>
         <Section>
           <LabeledList>

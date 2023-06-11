@@ -191,7 +191,7 @@ export const CargoCatalog = (props, context) => {
         )
       }>
       <Flex>
-        <Flex.Item ml={-1} mr={1}>
+        <Flex.Item>
           <Tabs vertical>
             <Tabs.Tab
               key="search_results"

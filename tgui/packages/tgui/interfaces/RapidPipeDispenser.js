@@ -254,7 +254,7 @@ export const SmartPipeBlockSection = (props, context) => {
                 default (all directions can connect)`}
               />
             </Stack.Item>
-            <Stack.Item>
+            <Stack.Item style={{ 'margin-left': '1px' }}>
               <Button
                 icon="arrow-up"
                 disabled={!!data.smart_pipe}
@@ -281,7 +281,7 @@ export const SmartPipeBlockSection = (props, context) => {
                 }
               />
             </Stack.Item>
-            <Stack.Item grow>
+            <Stack.Item grow style={{ 'margin-left': '1px' }}>
               <Button icon="circle" onClick={() => act('init_reset', {})} />
             </Stack.Item>
             <Stack.Item>
@@ -317,7 +317,7 @@ export const RapidPipeDispenser = (props, context) => {
   const { act, data } = useBackend(context);
   const { category: rootCategoryIndex } = data;
   return (
-    <Window width={450} height={575}>
+    <Window width={500} height={575}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>

@@ -111,11 +111,18 @@ export const ChoicedSelection = (
                       selected={name === props.selected}
                       tooltip={name}
                       tooltipPosition="right"
-                      style={{
-                        height: `${CLOTHING_SELECTION_CELL_SIZE}px`,
-                        width: `${CLOTHING_SELECTION_CELL_SIZE}px`,
-                        'background-color': '#b37b14',
-                      }}>
+                      style={
+                        name === props.selected
+                          ? {
+                            height: `${CLOTHING_SELECTION_CELL_SIZE}px`,
+                            width: `${CLOTHING_SELECTION_CELL_SIZE}px`,
+                          }
+                          : {
+                            height: `${CLOTHING_SELECTION_CELL_SIZE}px`,
+                            width: `${CLOTHING_SELECTION_CELL_SIZE}px`,
+                            'background-color': '#b37b14',
+                          }
+                      }>
                       <Box
                         className={classes([
                           'preferences32x32',
