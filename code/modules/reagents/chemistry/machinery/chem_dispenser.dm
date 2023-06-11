@@ -104,7 +104,8 @@
 			use_power(active_power_usage + recharge_amount)
 		recharge_counter = 0
 		return
-	recharge_counter += delta_time
+	else
+		recharge_counter += delta_time
 
 	for(var/obj/item/reagent_containers/chem_disp_cartridge/cartridge in cartridges)
 		cartridge = cartridges[cartridge]
