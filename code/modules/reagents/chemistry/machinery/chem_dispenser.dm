@@ -303,7 +303,7 @@
 			return
 		replace_beaker(user, B)
 		to_chat(user, span_notice("You add [B] to [src]."))
-		cartridges = sortTim(cartridges, /proc/cmp_num_string_asc, TRUE)
+		cartridges = sortTim(cartridges, /proc/cmp_text_asc, TRUE)
 	else if(!user.combat_mode && !istype(I, /obj/item/card/emag))
 		to_chat(user, span_warning("You can't load [I] into [src]!"))
 		return ..()
@@ -420,7 +420,7 @@
 
 	C.forceMove(src)
 	cartridges[C.label] = C
-	cartridges = sortTim(cartridges, /proc/cmp_num_string_asc, TRUE)
+	cartridges = sortTim(cartridges, /proc/cmp_text_asc, TRUE)
 
 /obj/machinery/chem_dispenser/proc/remove_cartridge(label)
 	. = cartridges[label]

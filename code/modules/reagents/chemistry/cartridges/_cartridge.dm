@@ -13,11 +13,8 @@
 	resistance_flags = UNACIDABLE
 	reagent_flags = OPENCONTAINER
 
-	desc_controls = "Right-click to open and close the lid."
-
 	var/spawn_reagent = null
 	var/label = ""
-	var/is_open = FALSE
 
 /obj/item/reagent_containers/chem_disp_cartridge/small
 	name = "small chemical dispenser cartridge"
@@ -66,40 +63,9 @@
 		label = ""
 		name = initial(name)
 
-/obj/item/reagent_containers/chem_disp_cartridge/is_open_container()
-	if(!is_open)
-		return FALSE
-
-	return ..()
-
-/obj/item/reagent_containers/chem_disp_cartridge/attack_self_secondary(mob/user, modifiers)
-	if (is_open)
-		to_chat(usr, span_notice("You put the cap on \the [src]."))
-		is_open = FALSE
-	else
-		to_chat(usr, span_notice("You take the cap off \the [src]."))
-		is_open = TRUE
-
 /obj/item/reagent_containers/chem_disp_cartridge/attacked_by(obj/item/attacking_item, mob/living/user)
 	if(istype(attacking_item, /obj/item/pen))
 		setLabel(tgui_input_text(user, "Input (leave blank to clear):", "Set Label Name"))
 		return TRUE
 
 	return ..()
-
-/obj/item/reagent_containers/chem_disp_cartridge/afterattack(obj/target, mob/user)
-	if(target.is_open_container() && target.reagents) //Something like a glass. Player probably wants to transfer TO it.
-
-		if(!reagents.total_volume)
-			to_chat(user, span_warning("\The [src] is empty."))
-			return
-
-		if(target.reagents.total_volume >= target.reagents.maximum_volume)
-			to_chat(user, span_warning("\The [target] is full."))
-			return
-
-		var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
-		to_chat(user, span_notice("You transfer [trans] units of the solution to \the [target]."))
-
-	else
-		return ..()

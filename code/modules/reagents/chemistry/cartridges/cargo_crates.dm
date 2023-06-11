@@ -33,6 +33,7 @@
 
 /datum/supply_pack/medical/chem_cartridge_large_cartridge
 	name = "Chem Cartridge (Large)"
+	desc = "Contains a single, empty large chem cartridge."
 	cost = CARGO_CRATE_VALUE * 2
 
 /datum/supply_pack/medical/chem_cartridge_large_cartridge
@@ -68,9 +69,13 @@
 
 			var/datum/supply_pack/cartridges/generated/pack = new
 			pack.name = "[initial(chem.name)] Chem Cartridge ([size])"
+			pack.id = "[chem]|[initial(chem.name)]"
+			pack.desc = "Contains a single [lowertext(size)] cartridge of [initial(chem.name)]. [initial(chem.description)]"
 			pack.contains = size == "Small" ? /obj/item/reagent_containers/chem_disp_cartridge/small : size == "Medium" ? /obj/item/reagent_containers/chem_disp_cartridge/medium : /obj/item/reagent_containers/chem_disp_cartridge
 			pack.chem = chem
-			pack.cost = is_consumable ? pack_cost * 0.8 : pack_cost * 1.2 // Source: I MADE IT THE FUCK UP
+			pack.cost = is_consumable ? pack_cost * 1.2 : pack_cost * 1.4 // Source: I MADE IT THE FUCK UP
+			if(ispath(chem, /datum/reagent/consumable/ethanol) && chem != /datum/reagent/consumable/ethanol)
+				pack.cost *= 1.2 // Fuck you, alcohol tax time.
 			packs_to_return += pack
 
 	return packs_to_return

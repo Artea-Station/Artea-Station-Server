@@ -7,7 +7,7 @@
 	var/hidden = FALSE
 	/// Is this supply pack purchasable outside of the standard purchasing band? Contraband is available by multitooling the cargo purchasing board.
 	var/contraband = FALSE
-	/// Cost of the crate. DO NOT GO ANY LOWER THAN X1.4 the "CARGO_CRATE_VALUE" value if using regular crates, or infinite profit will be possible!
+	/// Cost of the crate. DO NOT GO ANY LOWER THAN X1.4 the "CARGO_CRATE_VALUE" value if using regular crates, or infinite profit will be possible! // You make me want to kneecap the crate refund. 100cr is fucking nuts. - Rimi
 	var/cost = CARGO_CRATE_VALUE * 1.4
 	/// What access is required to open the crate when spawned?
 	var/access = FALSE
