@@ -48,7 +48,9 @@ NEW_CHEM_CARTRIDGE_M(consumable/space_cola)
 NEW_CHEM_CARTRIDGE_M(consumable/cream)
 NEW_CHEM_CARTRIDGE_M(consumable/dr_gibb)
 NEW_CHEM_CARTRIDGE_M(consumable/grenadine)
-NEW_CHEM_CARTRIDGE_M(consumable/ice)
+/obj/item/reagent_containers/chem_disp_cartridge/medium/consumable/ice
+	spawn_reagent = /datum/reagent/consumable/ice
+	spawn_temperature = WATER_MATTERSTATE_CHANGE_TEMP
 NEW_CHEM_CARTRIDGE_M(consumable/icetea)
 NEW_CHEM_CARTRIDGE_M(consumable/lemonjuice)
 NEW_CHEM_CARTRIDGE_M(consumable/lemon_lime)

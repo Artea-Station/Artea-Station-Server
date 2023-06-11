@@ -14,6 +14,7 @@
 	reagent_flags = OPENCONTAINER
 
 	var/spawn_reagent = null
+	var/spawn_temperature = DEFAULT_REAGENT_TEMPERATURE
 	var/label = ""
 
 /obj/item/reagent_containers/chem_disp_cartridge/small
@@ -29,7 +30,7 @@
 	for(var/path in subtypesof(/datum/reagent))
 		log_admin("[path]")
 	if(spawn_reagent)
-		reagents.add_reagent(spawn_reagent, volume)
+		reagents.add_reagent(spawn_reagent, volume, reagtemp = spawn_temperature)
 		var/datum/reagent/R = spawn_reagent
 		setLabel(initial(R.name))
 
