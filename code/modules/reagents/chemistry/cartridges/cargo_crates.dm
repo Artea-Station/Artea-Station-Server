@@ -59,13 +59,13 @@
 	var/list/found_chems = list()
 
 	for(var/obj/item/reagent_containers/chem_disp_cartridge/cartridge as anything in subtypesof(/obj/item/reagent_containers/chem_disp_cartridge))
-		found_chems += initial(cartridge.spawn_reagent)
-
-	found_chems -= null
+		found_chems[initial(cartridge.spawn_reagent)] = TRUE
 
 	var/list/packs_to_return = list()
 
-	for(var/datum/reagent/chem in found_chems)
+	for(var/datum/reagent/chem as anything in found_chems)
+		if(!chem)
+			continue
 		var/is_consumable = ispath(chem, /datum/reagent/consumable) && chem != /datum/reagent/consumable/ethanol
 		for(var/size in cartridge_params)
 			var/pack_cost = cartridge_params[size]
@@ -74,7 +74,7 @@
 			pack.name = "[initial(chem.name)] Chem Cartridge ([size])"
 			pack.id = "[chem]|[initial(chem.name)]"
 			pack.desc = "Contains a single [lowertext(size)] cartridge of [initial(chem.name)]. [initial(chem.description)]"
-			pack.contains = size == "Small" ? /obj/item/reagent_containers/chem_disp_cartridge/small : size == "Medium" ? /obj/item/reagent_containers/chem_disp_cartridge/medium : /obj/item/reagent_containers/chem_disp_cartridge
+			pack.contains = list(size == "Small" ? /obj/item/reagent_containers/chem_disp_cartridge/small : size == "Medium" ? /obj/item/reagent_containers/chem_disp_cartridge/medium : /obj/item/reagent_containers/chem_disp_cartridge)
 			pack.chem = chem
 			pack.cost = is_consumable ? pack_cost * 1.2 : pack_cost * 1.4 // Source: I MADE IT THE FUCK UP
 			if(ispath(chem, /datum/reagent/consumable/ethanol) && chem != /datum/reagent/consumable/ethanol)
