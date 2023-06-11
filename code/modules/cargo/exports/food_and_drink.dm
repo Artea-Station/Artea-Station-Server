@@ -22,3 +22,11 @@
 		cost_obtained_from_venue_value = TRUE
 
 	return ..()
+
+/datum/export/chem_cartridge
+	cost = 50
+	unit_name = "chem cartridges"
+	export_types = list(/obj/item/reagent_containers/chem_disp_cartridge)
+
+/datum/export/chem_cartridge/get_cost(obj/object, apply_elastic)
+	return ..(object, FALSE) // This is for returning canisters, so let's tell it to not apply elasticity.
