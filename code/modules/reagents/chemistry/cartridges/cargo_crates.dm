@@ -2,6 +2,7 @@
 // Oh shit, I somehow lost all my chems, and need get back in business!
 /datum/supply_pack/medical/chem_cartridge_get_out_of_jail_card
 	name = "Chem Cartridge Luxury Pack (Full Dispenser)"
+	desc = "Contains a full set of chem cartridges of the same size inside a chemist's dispenser at shift start."
 	cost = CARGO_CRATE_VALUE * 20
 	contains = list(
 		CHEM_CARTRIDGE_S(aluminium),
@@ -47,6 +48,8 @@
 // The amount of shit going into this *will* warrant it's own category.
 /datum/supply_pack/cartridges
 	group = "Single Chem Cartridges"
+	access_view = ACCESS_MEDICAL
+	crate_type = /obj/structure/closet/crate/medical
 
 	var/static/list/cartridge_params = list("Small" = CARGO_CRATE_VALUE * 0.6, "Medium" = CARGO_CRATE_VALUE, "Large" = CARGO_CRATE_VALUE * 2)
 
