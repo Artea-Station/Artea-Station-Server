@@ -44,10 +44,11 @@ SUBSYSTEM_DEF(job)
 	var/list/chain_of_command = list(
 		JOB_CAPTAIN = 1,
 		JOB_HEAD_OF_PERSONNEL = 2,
+		JOB_QUARTERMASTER = 5,
 		JOB_CHIEF_ENGINEER = 3,
 		JOB_CHIEF_MEDICAL_OFFICER = 4,
-		JOB_HEAD_OF_SECURITY = 5,
-		JOB_QUARTERMASTER = 6,
+		JOB_HEAD_OF_SECURITY = 6,
+		JOB_PATHFINDER_LEAD = 7, // This is last because the pathfinder lead is the least likely one to be able to stay on the station.
 	)
 
 	/// If TRUE, some player has been assigned Captaincy or Acting Captaincy at some point during the shift and has been given the spare ID safe code.
