@@ -4,13 +4,6 @@
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/mineral/titanium/tiled/blue/airless,
 /area/ruin/space)
-"e" = (
-/obj/machinery/power/shuttle_engine/propulsion/right{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/broken_floor,
-/turf/closed/wall/mineral/titanium,
-/area/ruin/space)
 "g" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass/titanium,
@@ -24,7 +17,6 @@
 /area/ruin/space)
 "i" = (
 /obj/effect/decal/cleanable/glass/titanium,
-/obj/item/storage/pod/directional/south,
 /obj/effect/mapping_helpers/broken_floor,
 /obj/machinery/computer/pod{
 	dir = 8
@@ -46,10 +38,6 @@
 /obj/machinery/light/small/red/dim/directional/south,
 /turf/open/floor/mineral/titanium/tiled/blue/airless,
 /area/ruin/space)
-"l" = (
-/obj/effect/mob_spawn/corpse/human/scientist,
-/turf/open/misc/asteroid/airless,
-/area/ruin/space)
 "n" = (
 /turf/open/space/basic,
 /area/template_noop)
@@ -58,13 +46,15 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space)
 "p" = (
-/obj/machinery/power/shuttle_engine/propulsion/right{
+/obj/machinery/atmospherics/components/unary/engine{
+	pixel_x = 6;
 	dir = 4
 	},
 /turf/closed/wall/mineral/titanium,
 /area/ruin/space)
 "q" = (
-/obj/machinery/power/shuttle_engine/propulsion/right{
+/obj/machinery/atmospherics/components/unary/engine{
+	pixel_x = 6;
 	dir = 4
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
@@ -115,12 +105,6 @@
 "O" = (
 /obj/structure/grille/broken,
 /turf/open/space/basic,
-/area/ruin/space)
-"P" = (
-/obj/machinery/power/shuttle_engine/propulsion/right{
-	dir = 8
-	},
-/turf/closed/wall/mineral/titanium/nodiagonal,
 /area/ruin/space)
 "R" = (
 /turf/closed/mineral/asteroid,
@@ -216,7 +200,7 @@ R
 R
 s
 n
-e
+L
 n
 n
 n
@@ -236,7 +220,7 @@ R
 R
 R
 R
-l
+s
 n
 E
 n
@@ -308,7 +292,7 @@ n
 L
 Y
 S
-P
+X
 n
 s
 s

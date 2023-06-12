@@ -549,7 +549,7 @@
 
 // Space Ghost Kitchen
 /area/ruin/space/space_ghost_restaurant
-	name = "\improper Space Ghost Restaurant"=
+	name = "\improper Space Ghost Restaurant"
 
 // Ruin of Waystation
 /area/ruin/space/has_grav/waystation
