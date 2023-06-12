@@ -1,7 +1,7 @@
 /// Dorms Room Papers
 /obj/item/paper/fluff/ruins/waystation/menu
 	name = "This week's food menu"
-	default_raw_text = "Here is what Corporate sent us for this week, The usual.<BR><BR><B>Monday</B> - Pizza and Mac & Cheese<BR><B>Tuesday</B> - Space Carp Sashimi & Sushi<BR><B>ednesday</B> - Garlic-and-oil nizaya & Khinkali<BR><B>Thursday</B> - QM's birthday, Cake and a bunch of Pastries<BR><B>Frida</B>y - Fish & Chips<BR><BR>Plus whatever kind of booze and food that the techies manage to \"accidentally\" steal from the crates (This is a reminder) -Cook"
+	default_raw_text = "Here is what Corporate sent us for this week, The usual.<BR><BR><B>Monday</B> - Pizza and Mac & Cheese<BR><B>Tuesday</B> - Space Carp Sashimi & Sushi<BR><B>ednesday</B> - Garlic-and-oil nizaya & Khinkali<BR><B>Thursday</B> - QM's birthday, Cake and a bunch of Pastries<BR><B>Friday</B> - Fish & Chips<BR><BR>Plus whatever kind of booze and food that the techies manage to \"accidentally\" steal from the crates (This is a reminder) -Cook"
 
 /obj/item/paper/fluff/ruins/waystation/toilet
 	name = "REMINDER!!"
@@ -10,33 +10,12 @@
 /// Cargo Bay Paper
 /obj/item/paper/fluff/ruins/waystation/sop
 	name = "S.O.P Reminder"
-	default_raw_text= "Quick reminder for the new SOP guidelines.<BR>Please remember to haul all security-locked crates and other high-value items into secure storage. I don't care if you steal from the other crates, those paperwork is on you. Just don't steal anything that would get all of us in trouble, alright?"
+	default_raw_text= "Quick reminder for the new SOP guidelines.<BR>Please remember to haul all security-locked crates and other high-value items into secure storage. I don't care if you steal from the other crates, that paperwork is on you. Just don't steal anything that would get all of us in trouble, alright?"
+
 /// Vault Paper
 /obj/item/paper/fluff/ruins/waystation/memo
 	name = "Memo"
 	default_raw_text= "Please keep the documents from the malfunctioning shuttle safe until someone picks it up. We really shouldn't have this kind of stuff on us."
-/// Syndicate Holodisk
-/obj/item/disk/holodisk/ruin/waystation
-	name = "Ops NUCLEUS - Briefing"
-	preset_image_type = /datum/preset_holoimage/syndicatebattlecruisercaptain
-	preset_record_text = {"
-	NAME Raymond Johnson
-	SAY All right boys, The mission is simple.
-	DELAY 20
-	SAY You will be breaching an distant waystation on the fringe of Nanotrasen territory.
-	DELAY 25
-	SAY Your main objective is to secure highly classified documents about recent Nanotrasen expansion in the Spinward sector.
-	DELAY 20
-	SAY The documents are located in the secure storage room.
-	DELAY 25
-	SAY As for getting there, you lot will be assault-podded from a smuggling ship.
-	DELAY 30
-	SAY Security there is lax, with just a single security officer guarding the entire station.
-	DELAY 25
-	SAY Once you've completed your objectives, Radio-in the smugglers for them to pick you up.
-	DELAY 10
-	SAY This should be a cakewalk, I have the utmost confidence that you will succeed with your objectives. Good luck.
-	DELAY 25"}
 
 // Outfits
 /datum/outfit/waystation/
@@ -72,6 +51,7 @@
 	head = /obj/item/clothing/head/helmet/swat/nanotrasen
 	back = /obj/item/storage/backpack/security
 	l_pocket = /obj/item/ammo_box/magazine/m45
+
 // Corpse Spawner
 /obj/effect/mob_spawn/corpse/human/waystation/cargo_technician
 	name = "Waystation Cargo Hauler"
