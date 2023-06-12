@@ -71,7 +71,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/waystation)
 "bA" = (
-/mob/living/basic/syndicate/melee/sword/space/stormtrooper,
+/mob/living/simple_animal/hostile/syndicate/ranged/shotgun,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/waystation/securestorage)
 "bG" = (
@@ -293,7 +293,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/cargobay)
 "fg" = (
-/obj/machinery/power/shuttle_engine/propulsion,
+/obj/machinery/atmospherics/components/unary/engine,
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/powered/waystation/assaultpod)
 "fm" = (
@@ -495,13 +495,9 @@
 /turf/open/misc/asteroid/airless,
 /area/ruin/space)
 "iR" = (
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 11;
-	height = 24;
+/obj/docking_port/stationary/large{
 	name = "Waystation R-4532: Supply Dock";
-	shuttle_id = "whiteship_waystation";
-	width = 35
+	dir = 4
 	},
 /turf/open/space/basic,
 /area/template_noop)
@@ -548,7 +544,6 @@
 /area/ruin/space/has_grav/waystation/cargooffice)
 "jv" = (
 /obj/structure/grille,
-/obj/effect/spawner/structure/window/reinforced/damaged,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/cargooffice)
 "jy" = (
@@ -736,6 +731,10 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/cargobay)
+"mF" = (
+/mob/living/simple_animal/hostile/syndicate/ranged/smg,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/waystation/cargooffice)
 "mO" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
@@ -954,6 +953,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/dorms)
+"pr" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/syndicate/ranged/smg/space,
+/turf/open/floor/mineral/plastitanium,
+/area/ruin/space/has_grav/powered/waystation/assaultpod)
 "pw" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
@@ -1045,6 +1054,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/waystation/securestorage)
+"qR" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/cable,
+/mob/living/simple_animal/hostile/syndicate/ranged/shotgun,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/waystation/dorms)
 "rh" = (
 /obj/machinery/conveyor{
 	dir = 8;
@@ -1185,14 +1200,6 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/clothing/head/utility/hardhat{
-	pixel_x = -6;
-	pixel_y = 9
-	},
-/obj/item/clothing/head/utility/hardhat{
-	pixel_x = 7;
-	pixel_y = 9
-	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/cargobay)
 "uF" = (
@@ -1952,9 +1959,14 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/waystation/cargobay)
 "JM" = (
-/mob/living/basic/syndicate/ranged/shotgun/space,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/waystation/cargobay)
+/obj/effect/turf_decal/siding/brown{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/cable,
+/mob/living/simple_animal/hostile/syndicate/ranged/shotgun,
+/turf/open/floor/wood,
+/area/ruin/space/has_grav/waystation/qm)
 "Kc" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 1
@@ -2112,8 +2124,8 @@
 "LW" = (
 /obj/effect/turf_decal/loading_area/red,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/mob/living/basic/syndicate/ranged/smg/space,
 /obj/structure/cable,
+/mob/living/simple_animal/hostile/syndicate/ranged/smg/space,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/cargobay)
 "Mi" = (
@@ -2175,6 +2187,12 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/iron/grimy,
 /area/ruin/space/has_grav/waystation/qm)
+"MA" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/cable,
+/mob/living/simple_animal/hostile/syndicate/ranged/smg,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/waystation/dorms)
 "MI" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /obj/effect/decal/cleanable/blood/splatter,
@@ -2316,7 +2334,6 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
-/obj/structure/mop_bucket/janitorialcart,
 /obj/item/mop,
 /obj/item/lightreplacer,
 /turf/open/floor/plating,
@@ -2542,7 +2559,6 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/cargobay)
 "SJ" = (
-/mob/living/basic/syndicate/ranged/shotgun/space,
 /obj/item/ammo_casing/shotgun/buckshot{
 	pixel_x = 6;
 	pixel_y = 1
@@ -2559,7 +2575,6 @@
 /area/ruin/space/has_grav/waystation/dorms)
 "SL" = (
 /obj/structure/grille,
-/obj/effect/spawner/structure/window/reinforced/damaged,
 /obj/effect/mapping_helpers/broken_floor,
 /obj/effect/decal/cleanable/blood/splatter/over_window,
 /turf/open/floor/iron,
@@ -2661,11 +2676,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/dorms)
 "UC" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/mob/living/basic/syndicate/ranged/smg/space,
-/obj/structure/cable,
+/mob/living/simple_animal/hostile/syndicate/ranged/shotgun/space,
 /turf/open/floor/iron,
-/area/ruin/space/has_grav/waystation/cargooffice)
+/area/ruin/space/has_grav/waystation/cargobay)
 "UG" = (
 /turf/closed/wall,
 /area/ruin/space/has_grav/waystation/cargooffice)
@@ -4227,7 +4240,7 @@ HA
 Uy
 QN
 vK
-Fu
+JM
 Fu
 Oq
 TT
@@ -4285,7 +4298,7 @@ oa
 oa
 Id
 SJ
-xw
+qR
 jV
 QN
 QN
@@ -4537,7 +4550,7 @@ xw
 xw
 Dx
 Sm
-UC
+CQ
 HN
 Eh
 TT
@@ -4599,7 +4612,7 @@ xw
 jV
 UG
 Fw
-lP
+mF
 Dc
 ow
 jv
@@ -4793,7 +4806,7 @@ LK
 Ze
 VE
 Oh
-Wz
+pr
 dM
 Wz
 hq
@@ -4843,7 +4856,7 @@ do
 vM
 su
 MP
-xw
+MA
 jV
 UG
 xv
@@ -5227,7 +5240,7 @@ KI
 mu
 CN
 Xa
-bW
+UC
 dz
 mr
 pK
@@ -5408,7 +5421,7 @@ bW
 SD
 Xa
 rq
-JM
+bW
 SD
 bW
 SD
