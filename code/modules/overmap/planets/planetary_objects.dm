@@ -16,7 +16,6 @@
 	icon = 'icons/planet/planet_floors.dmi'
 	initial_gas_mix = PLANETARY_ATMOS
 	tiled_dirt = FALSE
-	always_lit = TRUE
 
 /turf/open/misc/planetary/water
 	gender = PLURAL
