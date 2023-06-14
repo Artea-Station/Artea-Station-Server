@@ -768,11 +768,12 @@
 
 /obj/machinery/door/airlock/attack_hand(mob/user, list/modifiers)
 	. = ..()
-	if(.)
-		return
 	if(!(issilicon(user) || isAdminGhostAI(user)))
 		if(isElectrified() && shock(user, 100))
 			return
+
+	if(.)
+		return
 
 	if(ishuman(user) && prob(40) && density)
 		var/mob/living/carbon/human/H = user
