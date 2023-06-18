@@ -431,6 +431,11 @@
 	. = ..()
 	if ((wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE)))
 		return
+
+	if (dna.species.ignores_agecheck)
+		. += list(span_notice("[p_their(TRUE)] age is hard to discern."))
+		return
+
 	var/age_text
 	switch(age)
 		if(-INFINITY to 25)

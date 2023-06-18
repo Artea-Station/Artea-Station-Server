@@ -47,6 +47,7 @@
 
 	voice_of_god_power = 1.4 //Command staff has authority
 
+	required_character_age = 21 // This is a head, let's not let them be *really* young.
 
 /datum/job/chief_engineer/get_captaincy_announcement(mob/living/captain)
 	return "Due to staffing shortages, newly promoted Acting Captain [captain.real_name] on deck!"

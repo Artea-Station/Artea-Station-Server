@@ -239,6 +239,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// A fuckton of snowflake code just for those precious ears because they are still for *some* reason internal organs.
 	var/datum/bodypart_overlay/mutant/ears_overlay_handler
 
+	/// If TRUE, let's the species use whatever age they want for their ID/job.
+	var/ignores_agecheck = FALSE
+
 ///////////
 // PROCS //
 ///////////

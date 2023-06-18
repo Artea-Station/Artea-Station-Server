@@ -903,9 +903,11 @@ SUBSYSTEM_DEF(job)
 		return JOB_UNAVAILABLE_BANNED
 
 	// Check for character age
-	if(possible_job.required_character_age > player.client.prefs.read_preference(/datum/preference/numeric/age) && possible_job.required_character_age != null)
-		JobDebug("[debug_prefix] Error: [get_job_unavailable_error_message(JOB_UNAVAILABLE_AGE)], Player: [player][add_job_to_log ? ", Job: [possible_job]" : ""]")
-		return JOB_UNAVAILABLE_AGE
+	if(possible_job.required_character_age != null && possible_job.required_character_age > player.client.prefs.read_preference(/datum/preference/numeric/age))
+		var/datum/species/species = player.client.prefs.read_preference(/datum/preference/choiced/species)
+		if(!species.ignores_agecheck)
+			JobDebug("[debug_prefix] Error: [get_job_unavailable_error_message(JOB_UNAVAILABLE_AGE)], Player: [player][add_job_to_log ? ", Job: [possible_job]" : ""]")
+			return JOB_UNAVAILABLE_AGE
 
 	// Need to recheck the player exists after is_banned_from since it can query the DB which may sleep.
 	if(QDELETED(player))
