@@ -44,6 +44,8 @@
 
 	voice_of_god_power = 1.4 //Command staff has authority
 
+	required_character_age = 21 // This is a head, let's not let them be *really* young.
+
 /datum/outfit/job/lead_pathfinder
 	name = "Lead Pathfinder"
 	jobtype = /datum/job/lead_pathfinder
