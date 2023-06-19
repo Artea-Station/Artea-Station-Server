@@ -1,70 +1,75 @@
-/obj/item/reagent_containers/chem_disp_cartridge
+// Large cartridge. Holds 500u.
+/obj/item/reagent_containers/chem_cartridge
 	name = "large chemical dispenser cartridge"
 	desc = "This goes in a chemical dispenser."
+	desc_controls = "Use a pen to set the label."
 	icon_state = "cartridge"
 
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_BULKY
 
 	volume = CARTRIDGE_VOLUME_LARGE
-	amount_per_transfer_from_this = 50
+
 	// Large, but inaccurate. Use a chem dispenser or beaker for accuracy.
 	possible_transfer_amounts = list("50", "100")
+	amount_per_transfer_from_this = 50
 
-	resistance_flags = UNACIDABLE
+	// These are pretty robust devices.
+	resistance_flags = UNACIDABLE | FIRE_PROOF | FREEZE_PROOF
+
+	// Can be transferred to/from, but can't be spilled.
 	reagent_flags = OPENCONTAINER
 
-	var/spawn_reagent = null
+	// If non-null, spawns with the specified reagent filling it's volume.
+	var/spawn_reagent
+	// Spawn temperature. You should only change this if the stored reagent reacts at room temperature (300K).
 	var/spawn_temperature = DEFAULT_REAGENT_TEMPERATURE
-	var/label = ""
+	// Label to use. If empty or null, no label is set. Can be set/unset by players.
+	var/label
 
-/obj/item/reagent_containers/chem_disp_cartridge/small
-	name = "small chemical dispenser cartridge"
-	volume = CARTRIDGE_VOLUME_SMALL
-
-/obj/item/reagent_containers/chem_disp_cartridge/medium
+// Medium cartridge. Holds 250u.
+/obj/item/reagent_containers/chem_cartridge/medium
 	name = "medium chemical dispenser cartridge"
 	volume = CARTRIDGE_VOLUME_MEDIUM
+	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/reagent_containers/chem_disp_cartridge/New()
+// Small cartridge. Holds 100u.
+/obj/item/reagent_containers/chem_cartridge/small
+	name = "small chemical dispenser cartridge"
+	volume = CARTRIDGE_VOLUME_SMALL
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/reagent_containers/chem_cartridge/New()
 	. = ..()
-	for(var/path in subtypesof(/datum/reagent))
-		log_admin("[path]")
 	if(spawn_reagent)
 		reagents.add_reagent(spawn_reagent, volume, reagtemp = spawn_temperature)
 		var/datum/reagent/R = spawn_reagent
 		setLabel(initial(R.name))
+	if(length(label))
+		setLabel(label)
 
-/obj/item/reagent_containers/chem_disp_cartridge/examine(mob/user)
+/obj/item/reagent_containers/chem_cartridge/examine(mob/user)
 	. = ..()
 	to_chat(user, "It has a capacity of [volume] units.")
 	if(reagents.total_volume <= 0)
 		to_chat(user, "It is empty.")
 	else
 		to_chat(user, "It contains [reagents.total_volume] units of liquid.")
-	if(!is_open_container())
-		to_chat(user, "The cap is sealed.")
 
-/obj/item/reagent_containers/chem_disp_cartridge/verb/verb_set_label(L as text)
-	set name = "Set Cartridge Label"
-	set category = "Object"
-	set src in view(usr, 1)
-
-	setLabel(L, usr)
-
-/obj/item/reagent_containers/chem_disp_cartridge/proc/setLabel(L, mob/user = null)
-	if(L)
+/// Sets the label of the cartridge. Care should be taken to sanitize the input before passing it in here.
+/obj/item/reagent_containers/chem_cartridge/proc/setLabel(desired_label, mob/user = null)
+	if(desired_label)
 		if(user)
-			to_chat(user, span_notice("You set the label on \the [src] to '[L]'."))
+			to_chat(user, span_notice("You set the label on \the [src] to '[desired_label]'."))
 
-		label = L
-		name = "[initial(name)] - '[L]'"
+		label = desired_label
+		name = "[initial(name)] - '[desired_label]'"
 	else
 		if(user)
 			to_chat(user, span_notice("You clear the label on \the [src]."))
 		label = ""
 		name = initial(name)
 
-/obj/item/reagent_containers/chem_disp_cartridge/attacked_by(obj/item/attacking_item, mob/living/user)
+/obj/item/reagent_containers/chem_cartridge/attacked_by(obj/item/attacking_item, mob/living/user)
 	if(istype(attacking_item, /obj/item/pen))
 		setLabel(tgui_input_text(user, "Input (leave blank to clear):", "Set Label Name"))
 		return TRUE
@@ -72,7 +77,8 @@
 	return ..()
 
 // WHY THE FUCK IS THIS NOT A BASETYPE THING?!?!?!
-/obj/item/reagent_containers/chem_disp_cartridge/afterattack(obj/target, mob/living/user, proximity)
+// Copy-pasted from beakers. Ugh.
+/obj/item/reagent_containers/chem_cartridge/afterattack(obj/target, mob/living/user, proximity)
 	. = ..()
 	if((!proximity) || !check_allowed_items(target,target_self=1))
 		return
@@ -103,7 +109,8 @@
 
 	target.update_appearance()
 
-/obj/item/reagent_containers/chem_disp_cartridge/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+// Also copy-pasted from beakers.
+/obj/item/reagent_containers/chem_cartridge/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
 	if((!proximity_flag) || !check_allowed_items(target,target_self=1))
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 

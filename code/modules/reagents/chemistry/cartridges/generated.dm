@@ -1,17 +1,20 @@
-// Use the spawn reagents container verb under Admin.Events to get a reagent cartridge that's not here.
+// Use the spawn reagents container verb under "Admin.Events" to get a reagent cartridge that's not here.
+// NOTE: DO NOT ADD NEW CARTRIDGE TYPES UNLESS YOU'RE PREPARED TO MAKE SURE THAT IT'S ACCEPTABLE FOR THE STATION TO ORDER IT.
+// MAKE A FILTER SYSTEM FOR THE CARGO ORDER LIST IF YOU END UP WANTING A PRESET FOR A CHEM THAT YOU DON'T WANT THE STATION TO ORDER.
 
+// Helper macros, cause copying this same shit over and over is *painful*.
 #define NEW_CHEM_CARTRIDGE_S(X) \
-/obj/item/reagent_containers/chem_disp_cartridge/small/X { \
+/obj/item/reagent_containers/chem_cartridge/small/X { \
 	spawn_reagent = /datum/reagent/X \
 }
 
 #define NEW_CHEM_CARTRIDGE_M(X) \
-/obj/item/reagent_containers/chem_disp_cartridge/medium/X { \
+/obj/item/reagent_containers/chem_cartridge/medium/X { \
 	spawn_reagent = /datum/reagent/X \
 }
 
 #define NEW_CHEM_CARTRIDGE_L(X) \
-/obj/item/reagent_containers/chem_disp_cartridge/X { \
+/obj/item/reagent_containers/chem_cartridge/X { \
 	spawn_reagent = /datum/reagent/X \
 }
 
@@ -48,7 +51,7 @@ NEW_CHEM_CARTRIDGE_M(consumable/space_cola)
 NEW_CHEM_CARTRIDGE_M(consumable/cream)
 NEW_CHEM_CARTRIDGE_M(consumable/dr_gibb)
 NEW_CHEM_CARTRIDGE_M(consumable/grenadine)
-/obj/item/reagent_containers/chem_disp_cartridge/medium/consumable/ice
+/obj/item/reagent_containers/chem_cartridge/medium/consumable/ice
 	spawn_reagent = /datum/reagent/consumable/ice
 	spawn_temperature = WATER_MATTERSTATE_CHANGE_TEMP
 NEW_CHEM_CARTRIDGE_M(consumable/icetea)

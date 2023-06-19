@@ -108,7 +108,7 @@
 	else
 		recharge_counter += delta_time
 
-	for(var/obj/item/reagent_containers/chem_disp_cartridge/cartridge as anything in cartridges)
+	for(var/obj/item/reagent_containers/chem_cartridge/cartridge as anything in cartridges)
 		cartridge = cartridges[cartridge]
 		if(cartridge.reagents.total_volume)
 			if(cartridge.reagents.is_reacting)//on_reaction_step() handles this
@@ -215,7 +215,7 @@
 		is_hallucinating = !!living_user.has_status_effect(/datum/status_effect/hallucination)
 
 	for(var/re in cartridges)
-		var/obj/item/reagent_containers/chem_disp_cartridge/temp = cartridges[re]
+		var/obj/item/reagent_containers/chem_cartridge/temp = cartridges[re]
 		if(temp)
 			var/chemname = temp.label
 			if(is_hallucinating && prob(5))
@@ -290,12 +290,12 @@
 		var/label = tgui_input_list(user, "Which cartridge would you like to remove?", "Chemical Dispenser", cartridges)
 		if(!label)
 			return
-		var/obj/item/reagent_containers/chem_disp_cartridge/C = remove_cartridge(label)
+		var/obj/item/reagent_containers/chem_cartridge/C = remove_cartridge(label)
 		if(C)
 			to_chat(user, span_notice("You remove \the [C] from \the [src]."))
 			C.forceMove(loc)
 			return
-	if(istype(I, /obj/item/reagent_containers/chem_disp_cartridge))
+	if(istype(I, /obj/item/reagent_containers/chem_cartridge))
 		add_cartridge(I, user)
 	else if(is_reagent_container(I) && !(I.item_flags & ABSTRACT) && I.is_open_container())
 		var/obj/item/reagent_containers/B = I
@@ -324,8 +324,8 @@
 	if(beaker?.reagents)
 		R += beaker.reagents
 	for(var/i in 1 to total)
-		var/obj/item/reagent_containers/chem_disp_cartridge = cartridges[pick(cartridges)]
-		chem_disp_cartridge.reagents.trans_to(Q, 10)
+		var/obj/item/reagent_containers/chem_cartridge = cartridges[pick(cartridges)]
+		chem_cartridge.reagents.trans_to(Q, 10)
 	R += Q
 	chem_splash(get_turf(src), null, 3, R)
 	if(beaker?.reagents)
@@ -392,7 +392,7 @@
 /obj/machinery/chem_dispenser/AltClick(mob/user)
 	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
-/obj/machinery/chem_dispenser/proc/add_cartridge(obj/item/reagent_containers/chem_disp_cartridge/C, mob/user)
+/obj/machinery/chem_dispenser/proc/add_cartridge(obj/item/reagent_containers/chem_cartridge/C, mob/user)
 	if(!istype(C))
 		if(user)
 			to_chat(user, span_warning("\The [C] will not fit in \the [src]!"))

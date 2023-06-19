@@ -189,16 +189,16 @@
 /obj/effect/spawner/random/medical/chem_cartridge
 	name = "random chem cartridge"
 	loot = list(
-		/obj/item/reagent_containers/chem_disp_cartridge = 1,
-		/obj/item/reagent_containers/chem_disp_cartridge/medium = 5,
-		/obj/item/reagent_containers/chem_disp_cartridge/small = 10,
+		/obj/item/reagent_containers/chem_cartridge = 1,
+		/obj/item/reagent_containers/chem_cartridge/medium = 5,
+		/obj/item/reagent_containers/chem_cartridge/small = 10,
 	)
-	var/static/list/cached_whitelist = (subtypesof(/obj/item/reagent_containers/chem_disp_cartridge) - (typesof(/obj/item/reagent_containers/chem_disp_cartridge/small/consumable) + typesof(/obj/item/reagent_containers/chem_disp_cartridge/medium/consumable) + /obj/item/reagent_containers/chem_disp_cartridge/medium + /obj/item/reagent_containers/chem_disp_cartridge/small)) + /obj/item/reagent_containers/chem_disp_cartridge/small/consumable/ethanol
+	var/static/list/cached_whitelist = (subtypesof(/obj/item/reagent_containers/chem_cartridge) - (typesof(/obj/item/reagent_containers/chem_cartridge/small/consumable) + typesof(/obj/item/reagent_containers/chem_cartridge/medium/consumable) + /obj/item/reagent_containers/chem_cartridge/medium + /obj/item/reagent_containers/chem_cartridge/small)) + /obj/item/reagent_containers/chem_cartridge/small/consumable/ethanol
 	var/is_always_full = FALSE
 
 /obj/effect/spawner/random/medical/chem_cartridge/make_item(spawn_loc, type_path_to_make)
-	var/obj/item/reagent_containers/chem_disp_cartridge/cartridge = new type_path_to_make(spawn_loc)
-	var/obj/item/reagent_containers/chem_disp_cartridge/cartridge_to_ref
+	var/obj/item/reagent_containers/chem_cartridge/cartridge = new type_path_to_make(spawn_loc)
+	var/obj/item/reagent_containers/chem_cartridge/cartridge_to_ref
 	while(!cartridge_to_ref || !initial(cartridge_to_ref.spawn_reagent))
 		cartridge_to_ref = pick(cached_whitelist)
 	cartridge.reagents.add_reagent(initial(cartridge_to_ref.spawn_reagent), is_always_full ? cartridge.volume : rand(0, cartridge.volume))

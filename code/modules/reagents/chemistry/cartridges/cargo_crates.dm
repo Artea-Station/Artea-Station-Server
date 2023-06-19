@@ -94,34 +94,34 @@
 	name = "Chem Cartridge (Large)"
 	desc = "Contains a single, empty large chem cartridge."
 	cost = CARGO_CRATE_VALUE * 2
-	contains = list(/obj/item/reagent_containers/chem_disp_cartridge)
+	contains = list(/obj/item/reagent_containers/chem_cartridge)
 /datum/supply_pack/service/chem_cartridge_medium
 	name = "Chem Cartridge (Medium)"
 	cost = CARGO_CRATE_VALUE
-	contains = list(/obj/item/reagent_containers/chem_disp_cartridge/medium)
+	contains = list(/obj/item/reagent_containers/chem_cartridge/medium)
 
 /datum/supply_pack/service/chem_cartridge_small
 	name = "Chem Cartridge (Small 2x)"
 	cost = CARGO_CRATE_VALUE
-	contains = list(/obj/item/reagent_containers/chem_disp_cartridge/small, /obj/item/reagent_containers/chem_disp_cartridge/small)
+	contains = list(/obj/item/reagent_containers/chem_cartridge/small, /obj/item/reagent_containers/chem_cartridge/small)
 
 /datum/supply_pack/medical/chem_cartridge_large
 	name = "Chem Cartridge (Large)"
 	desc = "Contains a single, empty large chem cartridge."
 	cost = CARGO_CRATE_VALUE * 2
-	contains = list(/obj/item/reagent_containers/chem_disp_cartridge)
+	contains = list(/obj/item/reagent_containers/chem_cartridge)
 
 /datum/supply_pack/medical/chem_cartridge_medium
 	name = "Chem Cartridge (Medium)"
 	desc = "Contains a single, empty medium chem cartridge."
 	cost = CARGO_CRATE_VALUE
-	contains = list(/obj/item/reagent_containers/chem_disp_cartridge/medium)
+	contains = list(/obj/item/reagent_containers/chem_cartridge/medium)
 
 /datum/supply_pack/medical/chem_cartridge_small
 	name = "Chem Cartridge (Small 2x)"
 	desc = "Contains two, empty small chem cartridge."
 	cost = CARGO_CRATE_VALUE
-	contains = list(/obj/item/reagent_containers/chem_disp_cartridge/small, /obj/item/reagent_containers/chem_disp_cartridge/small)
+	contains = list(/obj/item/reagent_containers/chem_cartridge/small, /obj/item/reagent_containers/chem_cartridge/small)
 
 // The amount of shit going into this *will* warrant it's own category.
 /datum/supply_pack/cartridges
@@ -148,7 +148,7 @@
 /datum/supply_pack/cartridges/generate_supply_packs()
 	var/list/found_chems = list()
 
-	for(var/obj/item/reagent_containers/chem_disp_cartridge/cartridge as anything in subtypesof(/obj/item/reagent_containers/chem_disp_cartridge))
+	for(var/obj/item/reagent_containers/chem_cartridge/cartridge as anything in subtypesof(/obj/item/reagent_containers/chem_cartridge))
 		found_chems[initial(cartridge.spawn_reagent)] = TRUE
 
 	var/list/packs_to_return = list()
@@ -159,14 +159,14 @@
 		var/is_consumable = ispath(chem, /datum/reagent/consumable) && chem != /datum/reagent/consumable/ethanol
 		for(var/size in cartridge_params)
 			var/pack_cost = cartridge_params[size]
-			var/obj/item/reagent_containers/chem_disp_cartridge/cartridge
+			var/obj/item/reagent_containers/chem_cartridge/cartridge
 			switch(size)
 				if("Small")
-					cartridge = /obj/item/reagent_containers/chem_disp_cartridge/small
+					cartridge = /obj/item/reagent_containers/chem_cartridge/small
 				if("Medium")
-					cartridge = /obj/item/reagent_containers/chem_disp_cartridge/medium
+					cartridge = /obj/item/reagent_containers/chem_cartridge/medium
 				if("Large")
-					cartridge = /obj/item/reagent_containers/chem_disp_cartridge
+					cartridge = /obj/item/reagent_containers/chem_cartridge
 
 			var/datum/supply_pack/cartridges/generated/pack = new
 			pack.name = "[initial(chem.name)] Chem Cartridge ([size])"
@@ -174,24 +174,29 @@
 			pack.desc = "Contains a single [lowertext(size)] cartridge of [initial(chem.name)]. [initial(chem.description)]"
 			pack.contains = list(cartridge)
 			pack.chem = chem
-			pack.cost = is_consumable ? pack_cost * 1.2 : pack_cost * 1.4 // Source: I MADE IT THE FUCK UP
+			// The thinking behind the price is:
+			// Take base price, and if it's edible, 1.2x the price, and if it's not, 1.4x the price. Pure chems are somewhat expensive this far out, while consumable drink has lesser quality standards.
+			// If it's alcohol, slap another 1.3x on the price, cause decent alcohol is at a *premium* this far out.
+			pack.cost = is_consumable ? pack_cost * 1.2 : pack_cost * 1.4 // Source on the balancing: I MADE IT THE FUCK UP
 			if(botany_chems.Find(chem))
 				pack.group = "Single Botany Cartridges"
 			else if(is_consumable)
 				pack.group = "Single Beverage Cartridges"
 			if(ispath(chem, /datum/reagent/consumable/ethanol) && chem != /datum/reagent/consumable/ethanol)
-				pack.cost *= 1.2 // Fuck you, alcohol tax time.
+				pack.cost *= 1.3 // Fuck you, alcohol tax time.
 			packs_to_return += pack
 
 	return packs_to_return
 
+// Spawn the ordered cartridge and properly set it up with the desired chem.
 /datum/supply_pack/cartridges/fill(obj/structure/closet/crate/crate)
 	for(var/item in contains)
-		var/obj/item/reagent_containers/chem_disp_cartridge/cartridge = new item(crate)
+		var/obj/item/reagent_containers/chem_cartridge/cartridge = new item(crate)
 		if(admin_spawned)
 			cartridge.flags_1 |= ADMIN_SPAWNED_1
 		cartridge.setLabel(initial(chem.name))
 		cartridge.reagents.add_reagent(chem, cartridge.volume)
 
+// Don't endlessly make packs. Thanks.
 /datum/supply_pack/cartridges/generated/generate_supply_packs()
 	return
