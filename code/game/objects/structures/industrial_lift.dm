@@ -22,7 +22,7 @@
 	/// Reference to our lift controller
 	var/datum/lift_controller/lift_controller
 	/// All the atoms this lift is managing
-	var/list/lift_load
+	var/list/lift_load = list()
 	/// The turf of this lift platform, managed by the controller
 	var/obj/structure/industrial_lift/roof/managed_roof
 	/// List of all blacklisted types, to prevent unwanted stuff from moved
@@ -37,7 +37,7 @@
 		COMSIG_ATOM_ENTERED = .proc/AddItemOnLift,
 		COMSIG_ATOM_CREATED = .proc/AddItemOnLift,
 	)
-	AddElement(/datum/element/connect_loc, src, loc_connections)
+	AddElement(/datum/element/connect_loc, loc_connections)
 	if(!id || lift_controller)
 		return ..()
 	new lift_controller_type(src)
@@ -61,7 +61,6 @@
 		return
 	lift_load -= potential_rider
 	UnregisterSignal(potential_rider, COMSIG_PARENT_QDELETING)
-	UNSETEMPTY(lift_load)
 
 /obj/structure/industrial_lift/proc/AddItemOnLift(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
@@ -69,7 +68,6 @@
 		return
 	if(type_blacklist[AM.type] || AM.invisibility == INVISIBILITY_ABSTRACT)
 		return
-	LAZYINITLIST(lift_load)
 	lift_load[AM] = TRUE
 	RegisterSignal(AM, COMSIG_PARENT_QDELETING, .proc/RemoveItemFromLift)
 
