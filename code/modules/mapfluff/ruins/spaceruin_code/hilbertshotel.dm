@@ -494,20 +494,20 @@ GLOBAL_VAR_INIT(hhMysteryRoomNumber, rand(1, 999999))
 		else
 			to_chat(user, "No vacated rooms.")
 
-/obj/effect/landmark/tram/left_part/hilbert
-	destination_id = "left_part_hilbert"
-	tram_id = "tram_hilbert"
-	tgui_icons = list("Reception" = "briefcase", "Botany" = "leaf", "Chemistry" = "flask")
+// /obj/effect/landmark/tram/left_part/hilbert
+// 	destination_id = "left_part_hilbert"
+// 	tram_id = "tram_hilbert"
+// 	tgui_icons = list("Reception" = "briefcase", "Botany" = "leaf", "Chemistry" = "flask")
 
-/obj/effect/landmark/tram/middle_part/hilbert
-	destination_id = "middle_part_hilbert"
-	tram_id = "tram_hilbert"
-	tgui_icons = list("Processing" = "cogs", "Xenobiology" = "paw")
+// /obj/effect/landmark/tram/middle_part/hilbert
+// 	destination_id = "middle_part_hilbert"
+// 	tram_id = "tram_hilbert"
+// 	tgui_icons = list("Processing" = "cogs", "Xenobiology" = "paw")
 
-/obj/effect/landmark/tram/right_part/hilbert
-	destination_id = "right_part_hilbert"
-	tram_id = "tram_hilbert"
-	tgui_icons = list("Ordnance" = "bullseye", "Office" = "user", "Dormitories" = "bed")
+// /obj/effect/landmark/tram/right_part/hilbert
+// 	destination_id = "right_part_hilbert"
+// 	tram_id = "tram_hilbert"
+// 	tgui_icons = list("Ordnance" = "bullseye", "Office" = "user", "Dormitories" = "bed")
 
 /obj/item/keycard/hilbert
 	name = "Hilbert's office keycard"
