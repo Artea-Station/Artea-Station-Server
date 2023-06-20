@@ -115,6 +115,7 @@
 		var/obj/structure/industrial_lift/lift = locate() in loc
 		if(lift)
 			linked_controller = lift.lift_controller
+			lift.AddItemOnLift(null, src)
 	if(linked_controller)
 		name = "[linked_controller.name] control panel"
 		desc = "A panel which interfaces with \the [linked_controller.name] controls."
@@ -155,5 +156,5 @@
 		if("click_reverse")
 			linked_controller.EmergencyRouteReversal()
 			user.visible_message(span_notice("[user] presses on \the [src] button."), span_warning("You press on EMERGENCY REVERSE button!"))
-	playsound(src, get_sfx("terminal_type"), 50)
+	playsound(src, SFX_TERMINAL_TYPE, 50)
 	ui_interact(usr)

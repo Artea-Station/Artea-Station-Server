@@ -31,9 +31,9 @@
 /obj/structure/industrial_lift/Initialize()
 	if(!type_blacklist)
 		InitializeBlacklist()
-	AddElement(/datum/element/footstep_override, FOOTSTEP_CATWALK, FOOTSTEP_HARD_BAREFOOT, FOOTSTEP_CATWALK, FOOTSTEP_CATWALK)
+	//AddElement(/datum/element/footstep_override, FOOTSTEP_CATWALK, FOOTSTEP_HARD_BAREFOOT, FOOTSTEP_CATWALK, FOOTSTEP_CATWALK) // HOW THE FUCK ARE YOU ADDING TO YOURSELF, YOU PIECE OF SHIT?!
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXITED =.proc/UncrossedRemoveItemFromLift,
+		COMSIG_ATOM_EXITED = .proc/UncrossedRemoveItemFromLift,
 		COMSIG_ATOM_ENTERED = .proc/AddItemOnLift,
 		COMSIG_ATOM_CREATED = .proc/AddItemOnLift,
 	)

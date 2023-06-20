@@ -321,7 +321,7 @@
 	x_len = furthest_platform.x - current_position.x
 	y_len = furthest_platform.y - current_position.y
 
-	loop_sound = new sound_loop_type(list(GetSoundTurf()))
+	loop_sound = new sound_loop_type(GetSoundTurf())
 	SSindustrial_lift.AddControllerToInit(src)
 	return ..()
 
