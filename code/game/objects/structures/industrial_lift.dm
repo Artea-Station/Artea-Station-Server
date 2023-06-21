@@ -33,9 +33,9 @@
 		InitializeBlacklist()
 	//AddElement(/datum/element/footstep_override, FOOTSTEP_CATWALK, FOOTSTEP_HARD_BAREFOOT, FOOTSTEP_CATWALK, FOOTSTEP_CATWALK) // HOW THE FUCK ARE YOU ADDING TO YOURSELF, YOU PIECE OF SHIT?!
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXITED = .proc/UncrossedRemoveItemFromLift,
-		COMSIG_ATOM_ENTERED = .proc/AddItemOnLift,
-		COMSIG_ATOM_CREATED = .proc/AddItemOnLift,
+		COMSIG_ATOM_EXITED = PROC_REF(UncrossedRemoveItemFromLift),
+		COMSIG_ATOM_ENTERED = PROC_REF(AddItemOnLift),
+		COMSIG_ATOM_CREATED = PROC_REF(AddItemOnLift),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	if(!id || lift_controller)
@@ -69,7 +69,7 @@
 	if(type_blacklist[AM.type] || AM.invisibility == INVISIBILITY_ABSTRACT)
 		return
 	lift_load[AM] = TRUE
-	RegisterSignal(AM, COMSIG_PARENT_QDELETING, .proc/RemoveItemFromLift)
+	RegisterSignal(AM, COMSIG_PARENT_QDELETING, PROC_REF(RemoveItemFromLift))
 
 /obj/structure/industrial_lift/proc/RemoveAllItemsFromLift()
 	if(!lift_load)

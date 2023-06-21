@@ -6,7 +6,7 @@
 	var/clawfootstep
 	var/heavyfootstep
 	var/static/list/connection_signal = list(
-		COMSIG_MOB_PLAYS_FOOTSTEP = .proc/on_footstep,
+		COMSIG_MOB_PLAYS_FOOTSTEP = PROC_REF(on_footstep),
 	)
 
 /datum/element/footstep_override/Attach(datum/target, _footstep, _barefootstep, _clawfootstep, _heavyfootstep)
