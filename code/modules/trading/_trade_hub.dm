@@ -75,3 +75,7 @@
 
 /datum/trade_hub/randomname
 	possible_names = list("SCG Emporium", "Spacedust Cleaners Co.", "Northwind Traders", "Space Coast Trading", "Plasma Enterprises", "Off-branch Trasen Co.")
+
+/datum/trade_hub/randomname/large
+	max_traders = 8
+	guaranteed_trader_types = list(/datum/trader/mining, /datum/trader/medical, /datum/trader/archeology)

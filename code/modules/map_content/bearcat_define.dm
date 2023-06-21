@@ -23,5 +23,6 @@
 		),
 	)
 	space_ruin_levels = 3
-	global_trading_hub_type = /datum/trade_hub/worldwide/bearcat
+	global_trading_hub_type = /datum/trade_hub/randomname/large
 	overmap_object_type = /datum/overmap_object/shuttle/ship/bearcat
+	job_faction = FACTION_BEARCAT
