@@ -1081,7 +1081,6 @@
 /area/station/cargo/storage)
 "gK" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
@@ -2148,7 +2147,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	id = "bridge blast";
-	name = "bridge blast door"
+	name = "Bridge Blast Door"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/open/floor/iron,
@@ -2759,8 +2758,8 @@
 /area/station/medical/pharmacy)
 "qT" = (
 /obj/machinery/computer{
-	pixel_y = 24;
-	name = "Pretend I'm A Cryo Computer"
+	name = "Pretend I'm A Cryo Computer";
+	pixel_y = 24
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/broken/directional/north,
@@ -3237,9 +3236,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /turf/open/floor/iron/white,
 /area/station/medical/medbay)
-"tY" = (
-/turf/closed/wall,
-/area/station/cargo/warehouse/upper)
 "uc" = (
 /obj/machinery/atmospherics/components/unary/engine,
 /turf/closed/wall,
@@ -3979,7 +3975,6 @@
 /turf/open/floor/iron,
 /area/station/cargo/warehouse/upper)
 "yI" = (
-/obj/structure/lattice/catwalk,
 /turf/closed/wall,
 /area/station/cargo/warehouse/upper)
 "yK" = (
@@ -5621,8 +5616,8 @@
 	dir = 1
 	},
 /obj/machinery/door/window/right/directional/south{
-	req_access = list("service");
-	name = "Service Lathe"
+	name = "Service Lathe";
+	req_access = list("service")
 	},
 /turf/open/floor/iron,
 /area/station/service/bar/backroom)
@@ -6046,7 +6041,7 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "rnd";
-	name = "research lab shutters"
+	name = "Research Lab Shutters"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/white,
@@ -6569,12 +6564,12 @@
 "Pf" = (
 /obj/docking_port/stationary/mining_home/kilo{
 	dir = 4;
-	name = "SS13: Pathfinders Dock";
-	shuttle_id = "pathfinders_home";
-	width = 11;
 	dwidth = 4;
+	height = 14;
+	name = "SS13: Pathfinders Dock";
 	roundstart_template = /datum/map_template/shuttle/pathfinders/ghetto;
-	height = 14
+	shuttle_id = "pathfinders_home";
+	width = 11
 	},
 /turf/open/space/openspace,
 /area/space)
@@ -6979,8 +6974,7 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /turf/open/floor/iron/dark,
-/area/station/engineering/gravity_generator,
-/area/station/engineering/engine_smes)
+/area/station/engineering/gravity_generator)
 "Rw" = (
 /obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable,
@@ -7717,8 +7711,8 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/paint_wall/bridge,
 /obj/machinery/door/poddoor/preopen{
-	id = "bridge window blast";
-	name = "bridge blast door"
+	id = "ridge window blast";
+	name = "Bridge Blast Door"
 	},
 /turf/open/floor/plating,
 /area/station/command/meeting_room)
@@ -7891,9 +7885,9 @@
 	dir = 1
 	},
 /obj/machinery/door/window/right/directional/south{
-	req_access = list("service");
+	dir = 4;
 	name = "Bar Access";
-	dir = 4
+	req_access = list("service")
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -171168,15 +171162,15 @@ Jz
 Ud
 Ud
 mC
-tY
-tY
-tY
-tY
-tY
+yI
+yI
+yI
+yI
+yI
 Os
-tY
+yI
 Os
-tY
+yI
 Kq
 HW
 De
@@ -172967,15 +172961,15 @@ JC
 Ud
 Xi
 Qy
-tY
-tY
-tY
-tY
-tY
+yI
+yI
+yI
+yI
+yI
 Os
-tY
+yI
 Os
-tY
+yI
 Kq
 xO
 De
