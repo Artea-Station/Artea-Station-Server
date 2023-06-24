@@ -86,6 +86,8 @@
 	//If not null, all actions act on master and this is just an access point.
 	var/datum/storage/concrete/master
 
+	var/drop_all_on_deconstruct = TRUE
+
 /datum/storage/New(atom/parent, max_slots, max_specific_storage, max_total_storage, numerical_stacking, allow_quick_gather, allow_quick_empty, collection_mode, attack_hand_interact)
 	boxes = new(null, src)
 	closer = new(null, src)
@@ -134,6 +136,9 @@
 	RegisterSignal(resolve_parent, COMSIG_MOVABLE_MOVED, PROC_REF(close_distance))
 	RegisterSignal(resolve_parent, COMSIG_ITEM_EQUIPPED, PROC_REF(update_actions))
 
+	RegisterSignal(parent, COMSIG_TRY_STORAGE_TAKE, .proc/signal_take_obj)
+	RegisterSignal(parent, COMSIG_TRY_STORAGE_INSERT, .proc/signal_insertion_attempt)
+
 	RegisterSignal(resolve_parent, COMSIG_TOPIC, PROC_REF(topic_handle))
 
 	orient_to_hud()
@@ -155,10 +160,10 @@
 
 	return ..()
 
-/datum/storage/proc/on_deconstruct()
+/datum/storage/proc/on_deconstruct(datum/source, disassembled)
 	SIGNAL_HANDLER
-
-	remove_all()
+	if(drop_all_on_deconstruct)
+		do_quick_empty()
 
 /// Automatically ran on all object insertions: flag marking and view refreshing.
 /datum/storage/proc/handle_enter(datum/source, obj/item/arrived)
@@ -386,14 +391,13 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
  * @param obj/item/to_insert the item we're inserting
  * @param mob/user the user who is inserting the item
  * @param override see item_insertion_feedback()
- * @param force bypass locked storage
  */
-/datum/storage/proc/attempt_insert(obj/item/to_insert, mob/user, override = FALSE, force = FALSE)
+/datum/storage/proc/attempt_insert(obj/item/to_insert, mob/user, override = FALSE)
 	var/obj/item/resolve_location = real_location?.resolve()
 	if(!resolve_location)
 		return FALSE
 
-	if(!can_insert(to_insert, user, force = force))
+	if(!can_insert(to_insert, user))
 		return FALSE
 
 	to_insert.item_flags |= IN_STORAGE
@@ -1101,6 +1105,16 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	animate(resolve_parent, time = 1.5, loop = 0, transform = matrix().Scale(1.07, 0.9))
 	animate(time = 2, transform = null)
 
+/datum/storage/proc/change_master(datum/storage/concrete/new_master)
+	if(new_master == src || (!isnull(new_master) && !istype(new_master)))
+		return FALSE
+	if(master)
+		master.on_slave_unlink(src)
+	master = new_master
+	if(master)
+		master.on_slave_link(src)
+	return TRUE
+
 /datum/storage/proc/master()
 	if(master == src)
 		return //infinite loops yo.
@@ -1266,4 +1280,44 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	M.client.screen -= boxes
 	M.client.screen -= closer
 	M.client.screen -= real_location.contents
+	return TRUE
+
+/datum/storage/proc/Initialize(...)
+	return
+
+/datum/storage/proc/PreTransfer()
+	return
+
+/datum/storage/proc/PostTransfer()
+	return COMPONENT_INCOMPATIBLE
+
+/datum/storage/proc/signal_take_obj(datum/source, atom/movable/AM, new_loc, force = FALSE)
+	SIGNAL_HANDLER
+
+	if(!(AM in real_location()))
+		return FALSE
+	return remove_from_storage(AM, new_loc)
+
+/datum/storage/proc/signal_insertion_attempt(datum/source, obj/item/I, mob/M, silent = FALSE, force = FALSE)
+	SIGNAL_HANDLER
+
+	if((!force && !can_insert(I, TRUE, M)) || (I == parent))
+		return FALSE
+	return handle_item_insertion(I, silent, M)
+
+/datum/storage/proc/contents() //ONLY USE IF YOU NEED TO COPY CONTENTS OF REAL LOCATION, COPYING IS NOT AS FAST AS DIRECT ACCESS!
+	var/atom/real_location = real_location()
+	return real_location.contents.Copy()
+
+/datum/storage/proc/do_quick_empty(atom/_target)
+	if(!_target)
+		_target = get_turf(parent)
+	if(usr)
+		hide_from(usr)
+	var/list/contents = contents()
+	var/atom/real_location = real_location()
+	for(var/obj/item/I in contents)
+		if(I.loc != real_location)
+			continue
+		remove_from_storage(I, _target)
 	return TRUE

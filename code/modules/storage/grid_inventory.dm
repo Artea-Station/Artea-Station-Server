@@ -96,7 +96,6 @@
 	var/storage_flags = NONE
 
 /datum/storage/Initialize(datum/storage/concrete/master)
-	(datum/storage/concrete/master)
 	if(!grid_box_size)
 		grid_box_size = world.icon_size
 	if(!.)
@@ -295,7 +294,7 @@
 	var/sum_w_class = storing.w_class
 	for(var/obj/item/stored_item in real_location)
 		sum_w_class += stored_item.w_class //Adds up the combined w_classes which will be in the storage item if the item is added to it.
-	if(sum_w_class > max_combined_w_class)
+	if(sum_w_class > max_total_storage)
 		if(!stop_messages)
 			to_chat(user, span_warning("[storing] won't fit in [host], make some space!"))
 		return FALSE

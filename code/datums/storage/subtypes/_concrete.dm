@@ -3,8 +3,6 @@
 // /mob/living/Move() in /modules/mob/living/living.dm - hiding storage boxes on mob movement
 
 /datum/storage/concrete
-	can_transfer = TRUE
-	var/drop_all_on_deconstruct = TRUE
 	var/drop_all_on_destroy = FALSE
 	var/transfer_contents_on_component_transfer = FALSE
 	var/list/datum/storage/slaves = list()
@@ -96,11 +94,6 @@
 	if(A in real_location)
 		usr = null
 		remove_from_storage(A, null)
-
-/datum/storage/concrete/proc/on_deconstruct(datum/source, disassembled)
-	SIGNAL_HANDLER
-	if(drop_all_on_deconstruct)
-		do_quick_empty()
 
 /datum/storage/concrete/can_see_contents()
 	. = ..()
