@@ -136,8 +136,8 @@
 	RegisterSignal(resolve_parent, COMSIG_MOVABLE_MOVED, PROC_REF(close_distance))
 	RegisterSignal(resolve_parent, COMSIG_ITEM_EQUIPPED, PROC_REF(update_actions))
 
-	RegisterSignal(parent, COMSIG_TRY_STORAGE_TAKE, .proc/signal_take_obj)
-	RegisterSignal(parent, COMSIG_TRY_STORAGE_INSERT, .proc/signal_insertion_attempt)
+	RegisterSignal(resolve_parent, COMSIG_TRY_STORAGE_TAKE, PROC_REF(signal_take_obj))
+	RegisterSignal(resolve_parent, COMSIG_TRY_STORAGE_INSERT, PROC_REF(signal_insertion_attempt))
 
 	RegisterSignal(resolve_parent, COMSIG_TOPIC, PROC_REF(topic_handle))
 
@@ -1261,7 +1261,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	M.client.screen |= real_location.contents
 	M.set_active_storage(src)
 	LAZYOR(is_using, M)
-	RegisterSignal(M, COMSIG_PARENT_QDELETING, .proc/mob_deleted)
+	RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(mob_deleted))
 	return TRUE
 
 /datum/storage/proc/mob_deleted(datum/source)
