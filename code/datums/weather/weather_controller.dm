@@ -33,6 +33,8 @@
 	if(skyblock == last_checked_skyblock)
 		return
 	last_checked_skyblock = skyblock
+	if(linked_overmap_object && linked_overmap_object.day_night_controller)
+		linked_overmap_object.day_night_controller.update_areas()
 
 /datum/weather_controller/proc/UnlinkOvermapObject()
 	linked_overmap_object.weather_controller = null
