@@ -108,7 +108,7 @@
 
 	//Numbered contents display
 	var/list/datum/numbered_display/numbered_contents
-	if(numerical_stacking)
+	if(display_numerical_stacking)
 		numbered_contents = _process_numerical_display()
 		adjusted_contents = LAZYLEN(numbered_contents)
 

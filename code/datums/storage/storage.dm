@@ -88,6 +88,9 @@
 
 	var/drop_all_on_deconstruct = TRUE
 
+	//stack things of the same type and show as a single object with a number.
+	var/display_numerical_stacking = FALSE
+
 /datum/storage/New(atom/parent, max_slots, max_specific_storage, max_total_storage, numerical_stacking, allow_quick_gather, allow_quick_empty, collection_mode, attack_hand_interact)
 	boxes = new(null, src)
 	closer = new(null, src)
@@ -1143,7 +1146,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 	//Numbered contents display
 	var/list/datum/numbered_display/numbered_contents
-	if(numerical_stacking)
+	if(display_numerical_stacking)
 		numbered_contents = _process_numerical_display()
 		adjusted_contents = numbered_contents.len
 
@@ -1301,7 +1304,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 /datum/storage/proc/signal_insertion_attempt(datum/source, obj/item/I, mob/M, silent = FALSE, force = FALSE)
 	SIGNAL_HANDLER
 
-	if((!force && !can_insert(I, TRUE, M)) || (I == parent))
+	if((!force && !can_be_inserted(I, TRUE, M)) || (I == parent))
 		return FALSE
 	return handle_item_insertion(I, silent, M)
 
