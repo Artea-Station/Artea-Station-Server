@@ -102,6 +102,9 @@ GLOBAL_VAR_INIT(running_create_and_destroy, FALSE)
 	//runtimes if not paired with a landmark
 	ignore += typesof(/obj/structure/industrial_lift)
 
+	ignore += typesof(/obj/item/storage/fish_case)
+	ignore += typesof(/obj/item/storage/part_replacer)
+
 	var/list/cached_contents = spawn_at.contents.Copy()
 	var/original_turf_type = spawn_at.type
 	var/original_baseturfs = islist(spawn_at.baseturfs) ? spawn_at.baseturfs.Copy() : spawn_at.baseturfs
