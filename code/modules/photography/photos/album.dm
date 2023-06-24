@@ -52,7 +52,7 @@
 			continue
 		var/obj/item/photo/old/P = load_photo_from_disk(i)
 		if(istype(P))
-			if(!atom_storage?.attempt_insert(P, override = TRUE))
+			if(!atom_storage?.attempt_insert(P))
 				qdel(P)
 
 /obj/item/storage/photo_album/hos
