@@ -389,6 +389,7 @@
 	master = new_master
 
 /atom/movable/screen/storage/Click(location, control, params)
+	. = ..()
 	var/datum/storage/storage_master = master
 	if(!istype(storage_master))
 		return FALSE
@@ -402,7 +403,7 @@
 
 	var/obj/item/inserted = usr.get_active_held_item()
 	if(inserted)
-		storage_master.attempt_insert(inserted, usr)
+		storage_master.attempt_insert(src, inserted, usr, params, TRUE)
 
 	return TRUE
 

@@ -241,6 +241,11 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		if(damtype == BRUTE)
 			hitsound = SFX_SWING_HIT
 
+	if(grid_width <= 0)
+		grid_width = (w_class * world.icon_size)
+	if(grid_height <= 0)
+		grid_height = (w_class * world.icon_size)
+
 	add_weapon_description()
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_ITEM, src)

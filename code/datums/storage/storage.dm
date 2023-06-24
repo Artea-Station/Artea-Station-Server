@@ -25,6 +25,8 @@
 	var/max_slots = 7
 	/// max weight class for a single item being inserted
 	var/max_specific_storage = WEIGHT_CLASS_NORMAL
+	//max size of objects that will fit.
+	var/max_w_class = WEIGHT_CLASS_SMALL
 	/// max combined weight classes the storage can hold
 	var/max_total_storage = 14
 
@@ -81,9 +83,13 @@
 
 	var/datum/weakref/modeswitch_action_ref
 
+	//If not null, all actions act on master and this is just an access point.
+	var/datum/storage/concrete/master
+
 /datum/storage/New(atom/parent, max_slots, max_specific_storage, max_total_storage, numerical_stacking, allow_quick_gather, allow_quick_empty, collection_mode, attack_hand_interact)
 	boxes = new(null, src)
 	closer = new(null, src)
+	orient2hud()
 
 	src.parent = WEAKREF(parent)
 	src.real_location = src.parent
@@ -1094,3 +1100,170 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 	animate(resolve_parent, time = 1.5, loop = 0, transform = matrix().Scale(1.07, 0.9))
 	animate(time = 2, transform = null)
+
+/datum/storage/proc/master()
+	if(master == src)
+		return //infinite loops yo.
+	return master
+
+/datum/storage/proc/real_location()
+	var/datum/storage/concrete/master = master()
+	return master? master.real_location() : null
+
+/datum/storage/proc/_process_numerical_display()
+	. = list()
+	var/atom/real_location = real_location()
+	for(var/obj/item/I in real_location.contents)
+		if(QDELETED(I))
+			continue
+		if(!.["[I.type]-[I.name]"])
+			.["[I.type]-[I.name]"] = new /datum/numbered_display(I, 1)
+		else
+			var/datum/numbered_display/ND = .["[I.type]-[I.name]"]
+			ND.number++
+
+//This proc determines the size of the inventory to be displayed. Please touch it only if you know what you're doing.
+/datum/storage/proc/orient2hud()
+	var/atom/real_location = real_location()
+	var/adjusted_contents = real_location.contents.len
+
+	//Numbered contents display
+	var/list/datum/numbered_display/numbered_contents
+	if(numerical_stacking)
+		numbered_contents = _process_numerical_display()
+		adjusted_contents = numbered_contents.len
+
+	var/columns = clamp(max_slots, 1, screen_max_columns)
+	var/rows = clamp(CEILING(adjusted_contents / columns, 1), 1, screen_max_rows)
+	standard_orient_objs(rows, columns, numbered_contents)
+
+//This proc draws out the inventory and places the items on it. It uses the standard position.
+/datum/storage/proc/standard_orient_objs(rows, cols, list/obj/item/numerical_display_contents)
+	boxes.screen_loc = "[screen_start_x]:[screen_pixel_x],[screen_start_y]:[screen_pixel_y] to [screen_start_x+cols-1]:[screen_pixel_x],[screen_start_y+rows-1]:[screen_pixel_y]"
+	var/cx = screen_start_x
+	var/cy = screen_start_y
+	if(islist(numerical_display_contents))
+		for(var/type in numerical_display_contents)
+			var/datum/numbered_display/ND = numerical_display_contents[type]
+			ND.sample_object.mouse_opacity = MOUSE_OPACITY_OPAQUE
+			ND.sample_object.screen_loc = "[cx]:[screen_pixel_x],[cy]:[screen_pixel_y]"
+			ND.sample_object.maptext = MAPTEXT("<font color='white'>[(ND.number > 1)? "[ND.number]" : ""]</font>")
+			ND.sample_object.plane = ABOVE_HUD_PLANE
+			cx++
+			if(cx - screen_start_x >= cols)
+				cx = screen_start_x
+				cy++
+				if(cy - screen_start_y >= rows)
+					break
+	else
+		var/atom/real_location = real_location()
+		for(var/obj/O in real_location)
+			if(QDELETED(O))
+				continue
+			O.mouse_opacity = MOUSE_OPACITY_OPAQUE //This is here so storage items that spawn with contents correctly have the "click around item to equip"
+			O.screen_loc = "[cx]:[screen_pixel_x],[cy]:[screen_pixel_y]"
+			O.maptext = ""
+			O.plane = ABOVE_HUD_PLANE
+			cx++
+			if(cx - screen_start_x >= cols)
+				cx = screen_start_x
+				cy++
+				if(cy - screen_start_y >= rows)
+					break
+	closer.screen_loc = "[screen_start_x + cols]:[screen_pixel_x],[screen_start_y]:[screen_pixel_y]"
+
+/datum/storage/proc/handle_item_insertion(obj/item/I, prevent_warning = FALSE, mob/M, datum/storage/remote)
+	var/atom/parent = src.parent
+	var/datum/storage/concrete/master = master()
+	if(!istype(master))
+		return FALSE
+	if(silent)
+		prevent_warning = TRUE
+	if(M)
+		parent.add_fingerprint(M)
+	. = master.handle_item_insertion_from_slave(src, I, prevent_warning, M)
+
+/datum/storage/proc/_insert_physical_item(obj/item/I, override = FALSE)
+	return FALSE
+
+/datum/storage/proc/mob_item_insertion_feedback(mob/user, mob/M, obj/item/I, override = FALSE)
+	if(silent && !override)
+		return
+	if(rustle_sound)
+		playsound(parent, "rustle", 50, TRUE, -5)
+	for(var/mob/viewing in viewers(user, null))
+		if(M == viewing)
+			to_chat(usr, span_notice("You put [I] [insert_preposition]to [parent]."))
+		else if(in_range(M, viewing)) //If someone is standing close enough, they can tell what it is...
+			viewing.show_message(span_notice("[M] puts [I] [insert_preposition]to [parent]."), MSG_VISUAL)
+		else if(I && I.w_class >= 3) //Otherwise they can only see large or normal items from a distance...
+			viewing.show_message(span_notice("[M] puts [I] [insert_preposition]to [parent]."), MSG_VISUAL)
+
+/datum/storage/proc/update_icon()
+	if(isobj(parent))
+		var/obj/O = parent
+		O.update_appearance()
+
+/datum/storage/proc/refresh_mob_views()
+	SIGNAL_HANDLER
+
+//Resets something that is being removed from storage.
+/datum/storage/proc/_removal_reset(atom/movable/thing)
+	if(!istype(thing))
+		return FALSE
+	var/datum/storage/concrete/master = master()
+	if(!istype(master))
+		return FALSE
+	return master._removal_reset(thing)
+
+/datum/storage/proc/_remove_and_refresh(datum/source, atom/movable/gone, direction)
+	SIGNAL_HANDLER
+
+	_removal_reset(gone)
+	refresh_mob_views()
+
+//Call this proc to handle the removal of an item from the storage item. The item will be moved to the new_location target, if that is null it's being deleted
+/datum/storage/proc/remove_from_storage(atom/movable/AM, atom/new_location)
+	if(!istype(AM))
+		return FALSE
+	var/datum/storage/concrete/master = master()
+	if(!istype(master))
+		return FALSE
+	return master.remove_from_storage(AM, new_location)
+
+/datum/storage/proc/show_to(mob/M)
+	if(!M.client)
+		return FALSE
+	var/atom/real_location = real_location()
+	if(M.active_storage != src && (M.stat == CONSCIOUS))
+		for(var/obj/item/I in real_location)
+			if(I.on_found(M))
+				return FALSE
+	if(M.active_storage)
+		M.active_storage.hide_from(M)
+	orient2hud()
+	M.client.screen |= boxes
+	M.client.screen |= closer
+	M.client.screen |= real_location.contents
+	M.set_active_storage(src)
+	LAZYOR(is_using, M)
+	RegisterSignal(M, COMSIG_PARENT_QDELETING, .proc/mob_deleted)
+	return TRUE
+
+/datum/storage/proc/mob_deleted(datum/source)
+	SIGNAL_HANDLER
+	hide_from(source)
+
+/datum/storage/proc/hide_from(mob/M)
+	if(M.active_storage == src)
+		M.set_active_storage(null)
+	LAZYREMOVE(is_using, M)
+
+	UnregisterSignal(M, COMSIG_PARENT_QDELETING)
+	if(!M.client)
+		return TRUE
+	var/atom/real_location = real_location()
+	M.client.screen -= boxes
+	M.client.screen -= closer
+	M.client.screen -= real_location.contents
+	return TRUE
