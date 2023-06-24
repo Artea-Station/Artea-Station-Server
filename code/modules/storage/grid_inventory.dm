@@ -340,14 +340,13 @@
 	return master.remove_from_storage(removed, new_location)
 
 //This proc is called when you want to place an item into the storage item
-/datum/storage/attempt_insert(datum/source, obj/item/attacking_item, mob/user, params, storage_click = FALSE)
+/datum/storage/attackby(datum/source, obj/item/attacking_item, mob/user, params, storage_click = FALSE)
 	if(istype(attacking_item, /obj/item/hand_labeler))
 		var/obj/item/hand_labeler/labeler = attacking_item
 		if(labeler.mode)
 			return FALSE
-	. = TRUE //no afterattack
 	if(iscyborg(user))
-		return
+		return TRUE
 	if(!can_be_inserted(attacking_item, FALSE, user, params = params, storage_click = storage_click))
 		var/atom/real_location = real_location()
 		if(LAZYLEN(real_location.contents) >= max_slots) //don't use items on the backpack if they don't fit

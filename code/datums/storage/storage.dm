@@ -1380,3 +1380,19 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(!istype(master))
 		return FALSE
 	return master.slave_can_insert_object(src, I, stop_messages, M)
+
+//This proc is called when you want to place an item into the storage item.
+/datum/storage/proc/attackby(datum/source, obj/item/I, mob/M, params)
+	SIGNAL_HANDLER
+
+	if(!I.attackby_storage_insert(src, parent, M))
+		return FALSE
+	. = TRUE //no afterattack
+	if(iscyborg(M))
+		return
+	if(!can_be_inserted(I, FALSE, M))
+		var/atom/real_location = real_location()
+		if(real_location.contents.len >= max_slots) //don't use items on the backpack if they don't fit
+			return TRUE
+		return FALSE
+	handle_item_insertion(I, FALSE, M)
