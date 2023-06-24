@@ -1321,3 +1321,62 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 			continue
 		remove_from_storage(I, _target)
 	return TRUE
+
+/datum/storage/proc/can_be_inserted(obj/item/I, stop_messages = FALSE, mob/M)
+	if(!istype(I) || (I.item_flags & ABSTRACT))
+		return FALSE //Not an item
+	if(I == parent)
+		return FALSE //no paradoxes for you
+	var/atom/real_location = real_location()
+	var/atom/host = parent
+	if(real_location == I.loc)
+		return FALSE //Means the item is already in the storage item
+	if(locked)
+		if(M && !stop_messages)
+			host.add_fingerprint(M)
+			to_chat(M, span_warning("[host] seems to be locked!"))
+		return FALSE
+	if(real_location.contents.len >= max_slots)
+		if(!stop_messages)
+			to_chat(M, span_warning("[host] is full, make some space!"))
+		return FALSE //Storage item is full
+	if(length(can_hold))
+		if(!is_type_in_typecache(I, can_hold))
+			if(!stop_messages)
+				to_chat(M, span_warning("[host] cannot hold [I]!"))
+			return FALSE
+	if(is_type_in_typecache(I, cant_hold) || HAS_TRAIT(I, TRAIT_NO_STORAGE_INSERT) || (can_hold_trait && !HAS_TRAIT(I, can_hold_trait))) //Items which this container can't hold.
+		if(!stop_messages)
+			to_chat(M, span_warning("[host] cannot hold [I]!"))
+		return FALSE
+	if(I.w_class > max_w_class && !is_type_in_typecache(I, exception_hold))
+		if(!stop_messages)
+			to_chat(M, span_warning("[I] is too big for [host]!"))
+		return FALSE
+	var/datum/storage/biggerfish = real_location.loc.GetComponent(/datum/storage)
+	if(biggerfish && biggerfish.max_w_class < max_w_class) //return false if we are inside of another container, and that container has a smaller max_w_class than us (like if we're a bag in a box)
+		if(!stop_messages)
+			to_chat(M, span_warning("[I] can't fit in [host] while [real_location.loc] is in the way!"))
+		return FALSE
+	var/sum_w_class = I.w_class
+	for(var/obj/item/_I in real_location)
+		sum_w_class += _I.w_class //Adds up the combined w_classes which will be in the storage item if the item is added to it.
+	if(sum_w_class > max_total_storage)
+		if(!stop_messages)
+			to_chat(M, span_warning("[I] won't fit in [host], make some space!"))
+		return FALSE
+	if(isitem(host))
+		var/obj/item/IP = host
+		var/datum/storage/STR_I = I.GetComponent(/datum/storage)
+		if((I.w_class >= IP.w_class) && STR_I && !allow_big_nesting)
+			if(!stop_messages)
+				to_chat(M, span_warning("[IP] cannot hold [I] as it's a storage item of the same size!"))
+			return FALSE //To prevent the stacking of same sized storage items.
+	if(HAS_TRAIT(I, TRAIT_NODROP)) //SHOULD be handled in unEquip, but better safe than sorry.
+		if(!stop_messages)
+			to_chat(M, span_warning("\the [I] is stuck to your hand, you can't put it in \the [host]!"))
+		return FALSE
+	var/datum/storage/concrete/master = master()
+	if(!istype(master))
+		return FALSE
+	return master.slave_can_insert_object(src, I, stop_messages, M)

@@ -384,12 +384,17 @@
 	screen_loc = "LEFT,BOTTOM to RIGHT,TOP"
 	plane = HUD_PLANE
 
+	// Store mouse properties so we can force call updateGrid when we rotate objects, swap, etc.
+	var/list/lastMouseProps
+
 /atom/movable/screen/storage/Initialize(mapload, new_master)
 	. = ..()
 	master = new_master
 
 /atom/movable/screen/storage/Click(location, control, params)
-	. = ..()
+
+	var/list/modifiers = params2list(params)
+
 	var/datum/storage/storage_master = master
 	if(!istype(storage_master))
 		return FALSE
@@ -403,6 +408,12 @@
 
 	var/obj/item/inserted = usr.get_active_held_item()
 	if(inserted)
+		if(LAZYACCESS(modifiers, CTRL_CLICK))
+			inserted.inventory_flip(usr)
+			// force update grid
+			if(lastMouseProps.len == 3)
+				MouseMove(lastMouseProps[1], lastMouseProps[2], lastMouseProps[3])
+			return
 		storage_master.attempt_insert(src, inserted, usr, params, TRUE)
 
 	return TRUE

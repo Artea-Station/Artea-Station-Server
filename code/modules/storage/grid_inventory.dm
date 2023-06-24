@@ -233,11 +233,11 @@
 												force = FALSE,
 												worn_check = FALSE,
 												params)
-	if((!force && !can_insert(storing, TRUE, user, worn_check, params = params)) || (storing == parent))
+	if((!force && !can_be_inserted(storing, TRUE, user, worn_check, params = params)) || (storing == parent))
 		return FALSE
 	return handle_item_insertion(storing, silent, user, params = params, storage_click = FALSE)
 
-/datum/storage/can_insert(obj/item/storing, stop_messages, mob/user, worn_check = FALSE, params, storage_click = FALSE)
+/datum/storage/can_be_inserted(obj/item/storing, stop_messages, mob/user, worn_check = FALSE, params, storage_click = FALSE)
 	if(!istype(storing) || (storing.item_flags & ABSTRACT))
 		return FALSE //Not an item
 	if(storing == parent)
@@ -348,7 +348,7 @@
 	. = TRUE //no afterattack
 	if(iscyborg(user))
 		return
-	if(!can_insert(attacking_item, FALSE, user, params = params, storage_click = storage_click))
+	if(!can_be_inserted(attacking_item, FALSE, user, params = params, storage_click = storage_click))
 		var/atom/real_location = real_location()
 		if(LAZYLEN(real_location.contents) >= max_slots) //don't use items on the backpack if they don't fit
 			return TRUE
@@ -840,6 +840,10 @@
 
 /atom/movable/screen/storage/MouseMove(location, control, params)
 	. = ..()
+
+	// Store mouse properties so we can force call updateGrid when we rotate objects, swap, etc.
+	lastMouseProps = list(location, control, params)
+
 	if(!usr.client)
 		return
 	usr.client.screen -= hovering
@@ -857,7 +861,10 @@
 	var/coordinates = storage_master.screen_loc_to_grid_coordinates(screen_loc)
 	if(!coordinates)
 		return
-	if(storage_master.can_insert(held_item, stop_messages = TRUE, user = usr, worn_check = TRUE, params = params, storage_click = TRUE))
+	// this looks shit and you can't create paradoxes
+	if(held_item == storage_master.parent)
+		return
+	if(storage_master.can_be_inserted(held_item, stop_messages = TRUE, user = usr, worn_check = TRUE, params = params, storage_click = TRUE))
 		hovering.color = COLOR_LIME
 	else
 		hovering.color = COLOR_RED_LIGHT

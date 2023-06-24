@@ -35,12 +35,13 @@
 	return parent
 
 /datum/storage/concrete/PreTransfer()
+	var/obj/item/resolve_parent = parent?.resolve()
 	if(is_using)
 		_user_limbo = is_using.Copy()
 		close_all()
 	if(transfer_contents_on_component_transfer)
 		_contents_limbo = list()
-		for(var/atom/movable/AM in parent)
+		for(var/atom/movable/AM in resolve_parent)
 			_contents_limbo += AM
 			AM.moveToNullspace()
 
