@@ -20,6 +20,9 @@
 	slot_flags = ITEM_SLOT_BACK //ERROOOOO
 	resistance_flags = NONE
 	max_integrity = 300
+	component_type = /datum/storage/concrete/ms13/grid
+	grid_height = 288 //NO BACKPACK STACKING
+	grid_width = 288 //NO BACKPACK STACKING
 
 /obj/item/storage/backpack/Initialize(mapload)
 	. = ..()
