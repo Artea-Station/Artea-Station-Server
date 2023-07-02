@@ -17,8 +17,7 @@ SUBSYSTEM_DEF(industrial_lift)
 	var/needs_init = TRUE
 
 /datum/controller/subsystem/industrial_lift/Initialize()
-	InitializeLiftObjects()
-	return ..()
+	return InitializeLiftObjects()
 
 /datum/controller/subsystem/industrial_lift/fire(resumed = FALSE)
 	if(needs_init)
@@ -37,6 +36,7 @@ SUBSYSTEM_DEF(industrial_lift)
 		waypoint.InitializeWaypoint()
 	lift_waypoints_to_init = null
 	needs_init = FALSE
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/industrial_lift/proc/AddControllerToInit(datum/lift_controller/passed_controller)
 	LAZYINITLIST(lift_controllers_to_init)

@@ -85,7 +85,7 @@
 /obj/machinery/button/elevator/speaker
 	device_type = /obj/item/assembly/control/elevator/speaker
 
-/obj/structure/lift_control_panel
+/obj/structure/elevator_control_panel
 	icon = 'icons/obj/structures/elevator_control.dmi'
 	icon_state = "elevator_control"
 	name = "control panel"
@@ -98,17 +98,17 @@
 	/// In any case of wanting an external controller (it being outside of the lift), you can input the ID
 	var/id
 
-/obj/structure/lift_control_panel/non_directional
+/obj/structure/elevator_control_panel/non_directional
 	icon_state = "elevator_control_nondir"
 
-/obj/structure/lift_control_panel/Initialize()
+/obj/structure/elevator_control_panel/Initialize()
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD
 
-/obj/structure/lift_control_panel/LateInitialize()
+/obj/structure/elevator_control_panel/LateInitialize()
 	TryLink()
 
-/obj/structure/lift_control_panel/proc/TryLink()
+/obj/structure/elevator_control_panel/proc/TryLink()
 	if(id)
 		linked_controller = SSindustrial_lift.lift_controllers[id]
 	else
@@ -120,33 +120,41 @@
 		name = "[linked_controller.name] control panel"
 		desc = "A panel which interfaces with \the [linked_controller.name] controls."
 
-/obj/structure/lift_control_panel/ui_interact(mob/user, datum/tgui/ui)
-	. = ..()
+/obj/structure/elevator_control_panel/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "ElevatorPanel")
+		ui.open()
+
+/obj/structure/elevator_control_panel/ui_data(mob/user)
+	var/data = ..()
+	var/floors = list()
+
 	if(!linked_controller)
 		TryLink()
+
 	var/list/stop_waypoints = linked_controller.route.stops
 	var/list/queued_stops = linked_controller.called_waypoints
-	var/list/dat = list()
-	dat += "<center>"
+
 	for(var/i in stop_waypoints)
 		var/datum/lift_waypoint/stop_wp = i
-		dat += "<a href='?src=[REF(src)];task=click_waypoint;wp_id=[stop_wp.waypoint_id]' [queued_stops[stop_wp] ? "class='linkOn'" : ""]>[stop_wp.name]</a><BR>"
-	dat += "<a href='?src=[REF(src)];task=click_stop' [linked_controller.intentionally_halted ? "class='linkOn'" : ""]>STOP</a>"
-	dat += "<BR><BR><a href='?src=[REF(src)];task=click_reverse' >EMERGENCY REVERSE</a>"
-	dat += "</center>"
-	var/datum/browser/popup = new(user, "lift_control_panel", "control panel", 180, 200)
-	popup.set_content(dat.Join())
-	popup.open()
+		floors += list(list("id" = stop_wp.waypoint_id, "is_active" = queued_stops[stop_wp] ? TRUE : FALSE, "name" = stop_wp.name))
 
-/obj/structure/lift_control_panel/Topic(href, href_list)
+	data += list("floors" = floors, "is_stopped" = linked_controller.halted)
+	return data
+
+/obj/structure/elevator_control_panel/ui_act(action, params)
+	. = ..()
 	var/mob/user = usr
+
 	if(!linked_controller || !isliving(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
-		return
-	if(!href_list["task"])
-		return
-	switch(href_list["task"])
+		return TRUE
+	if(!action == "task")
+		return TRUE
+
+	switch(params["task"])
 		if("click_waypoint")
-			var/datum/lift_waypoint/clicked_wp = SSindustrial_lift.lift_waypoints[href_list["wp_id"]]
+			var/datum/lift_waypoint/clicked_wp = SSindustrial_lift.lift_waypoints[params["id"]]
 			if(clicked_wp)
 				linked_controller.CallWaypoint(clicked_wp)
 				user.visible_message(span_notice("[user] presses on \the [src] button."), span_notice("You press on the [clicked_wp.name] button."))
@@ -156,5 +164,7 @@
 		if("click_reverse")
 			linked_controller.EmergencyRouteReversal()
 			user.visible_message(span_notice("[user] presses on \the [src] button."), span_warning("You press on EMERGENCY REVERSE button!"))
+
 	playsound(src, SFX_TERMINAL_TYPE, 50)
 	ui_interact(usr)
+	return TRUE
