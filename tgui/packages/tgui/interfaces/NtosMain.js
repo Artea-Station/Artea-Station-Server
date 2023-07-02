@@ -174,7 +174,7 @@ const ProgramsTable = (props, context) => {
       <Table>
         {filtered_programs.map((program) => (
           <Table.Row key={program.name}>
-            <Table.Cell>
+            <Table.Cell style={{ 'border-right': 0 }}>
               <Button
                 fluid
                 color={program.alert ? 'yellow' : 'transparent'}
@@ -185,11 +185,13 @@ const ProgramsTable = (props, context) => {
                     name: program.name,
                   })
                 }
+                style={{ 'border': 0 }}
               />
             </Table.Cell>
-            <Table.Cell collapsing width="18px">
+            <Table.Cell collapsing width="18px" style={{ 'border-left': 0 }}>
               {!!program.running && (
                 <Button
+                  style={{ 'border': 0 }}
                   color="transparent"
                   icon="times"
                   tooltip="Close program"

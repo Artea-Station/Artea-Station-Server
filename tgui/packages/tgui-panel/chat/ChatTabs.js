@@ -14,7 +14,6 @@ const UnreadCountWidget = ({ value }) => (
   <Box
     style={{
       'font-size': '0.7em',
-      'border-radius': '0.25em',
       'width': '1.7em',
       'line-height': '1.55em',
       'background-color': 'crimson',
