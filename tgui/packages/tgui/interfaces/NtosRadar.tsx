@@ -29,7 +29,7 @@ type Target = {
 
 export const NtosRadar = (props, context) => {
   return (
-    <NtosWindow width={800} height={600} theme="ntos">
+    <NtosWindow width={800} height={600} theme="crtntos">
       <NtosRadarContent />
     </NtosWindow>
   );

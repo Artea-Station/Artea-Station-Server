@@ -196,7 +196,7 @@ export const Experiment = (props, context) => {
             ? act('clear_experiment')
             : act('select_experiment', { 'ref': ref }))
         }
-        backgroundColor={selected ? 'good' : '#40628a'}
+        backgroundColor={selected ? 'good' : null}
         className="ExperimentConfigure__ExperimentName"
         disabled={controllable && !selectable}>
         <Flex align="center" justify="space-between">

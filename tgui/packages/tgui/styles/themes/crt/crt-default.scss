@@ -1,0 +1,43 @@
+@use 'sass:meta';
+
+$light: #b37b14;
+$dark: #252525;
+
+@use '../../base.scss' with (
+  $color-bg: $dark,
+  $color-fg: $light
+);
+
+@use '../crt.scss';
+
+.theme-crtdefault {
+  @extend %theme-crt;
+
+  @keyframes defaultConfirmFlicker {
+    0% {
+      background-color: $light;
+      color: $dark;
+    }
+    50% {
+      background-color: $dark;
+      color: $light;
+    }
+    100% {
+      background-color: $light;
+      color: $dark;
+    }
+  }
+
+  .Button.ConfirmButton {
+    animation: defaultConfirmFlicker 5s infinite;
+    &:hover {
+      animation: none;
+    }
+  }
+
+  .Layout__content {
+    background-image: url('../../../assets/bg-artea.svg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+}

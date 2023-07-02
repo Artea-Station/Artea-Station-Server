@@ -82,7 +82,6 @@
 				<style>
 					.select2-search { color: #40628a; background-color: #272727; }
 					.select2-results { color: #40628a; background-color: #272727; }
-					.select2-selection { border-radius: 0px !important; }
 
 					ul {
 					  list-style-type: none; /* Remove bullets */

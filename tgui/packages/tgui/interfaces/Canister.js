@@ -122,6 +122,7 @@ export const Canister = (props, context) => {
                           pressure: defaultReleasePressure,
                         })
                       }
+                      style={{ 'margin-top': '4px' }}
                     />
                   </Box>
                 </LabeledControls.Item>
