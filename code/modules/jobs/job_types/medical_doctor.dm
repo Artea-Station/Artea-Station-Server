@@ -72,3 +72,12 @@
 	mask = /obj/item/clothing/mask/breath/medical
 	r_pocket = /obj/item/flashlight/pen
 	internals_slot = ITEM_SLOT_SUITSTORE
+
+/datum/outfit/job/doctor/hardsuit
+	name = "Medical Docotor (Hardsuit)"
+
+	head = null
+	mask = /obj/item/clothing/mask/breath/medical
+	suit = /obj/item/clothing/suit/space/hardsuit/medical
+	suit_store = /obj/item/tank/internals/oxygen
+	internals_slot = ITEM_SLOT_SUITSTORE

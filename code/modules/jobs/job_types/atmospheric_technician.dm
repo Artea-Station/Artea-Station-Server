@@ -23,3 +23,13 @@
 	back = /obj/item/mod/control/pre_equipped/atmospheric
 	mask = /obj/item/clothing/mask/gas/atmos
 	internals_slot = ITEM_SLOT_SUITSTORE
+
+/datum/outfit/job/atmos/hardsuit
+	name = "Atmospheric Technician (Hardsuit)"
+
+	head = null
+	mask = /obj/item/clothing/mask/breath
+	suit = /obj/item/clothing/suit/space/hardsuit/engine/atmos
+	suit_store = /obj/item/tank/internals/oxygen
+	internals_slot = ITEM_SLOT_SUITSTORE
+

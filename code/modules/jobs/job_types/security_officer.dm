@@ -234,6 +234,15 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 	mask = /obj/item/clothing/mask/gas/sechailer
 	internals_slot = ITEM_SLOT_SUITSTORE
 
+/datum/outfit/job/security/hardsuit
+	name = "Security Officer (Hardsuit)"
+
+	head = null
+	mask = /obj/item/clothing/mask/gas/sechailer
+	suit = /obj/item/clothing/suit/space/hardsuit/security
+	suit_store = /obj/item/tank/internals/oxygen
+	internals_slot = ITEM_SLOT_SUITSTORE
+
 /obj/item/radio/headset/headset_sec/alt/department/Initialize(mapload)
 	. = ..()
 	wires = new/datum/wires/radio(src)
