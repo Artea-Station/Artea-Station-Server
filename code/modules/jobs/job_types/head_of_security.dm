@@ -90,7 +90,7 @@
 	name = "Head of Security (Hardsuit)"
 
 	head = null
-	mask = mask = /obj/item/clothing/mask/gas/sechailer
+	mask = /obj/item/clothing/mask/gas/sechailer
 	suit = /obj/item/clothing/suit/space/hardsuit/security/head_of_security
 	suit_store = /obj/item/tank/internals/oxygen
 	internals_slot = ITEM_SLOT_SUITSTORE
