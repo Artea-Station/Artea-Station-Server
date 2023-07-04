@@ -57,6 +57,15 @@
 	mask = /obj/item/clothing/mask/breath
 	internals_slot = ITEM_SLOT_SUITSTORE
 
+/datum/outfit/job/pathfinder/hardsuit
+	name = "Pathfinder (Hardsuit)"
+
+	head = null
+	mask = /obj/item/clothing/mask/breath
+	suit = /obj/item/clothing/suit/space/hardsuit/mining
+	suit_store = /obj/item/tank/internals/oxygen
+	internals_slot = ITEM_SLOT_SUITSTORE
+
 // These are mostly for admeme intervention efforts.
 /datum/outfit/job/pathfinder/medic
 	name = "Pathfinder Medic"
