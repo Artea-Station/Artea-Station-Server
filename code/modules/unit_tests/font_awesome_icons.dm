@@ -13,7 +13,7 @@
 
 	font_awesome_css = file2text(font_awesome_file)
 	if(isnull(font_awesome_css))
-		TEST_NOTICE(src, "Font Awesome CSS file could not be loaded.")
+		TEST_FAIL("Font Awesome CSS file could not be loaded.")
 		return
 
 	load_parse_verify()

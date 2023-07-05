@@ -285,10 +285,10 @@
 		ui.open()
 
 /obj/item/toy/crayon/spraycan/AltClick(mob/user)
-	if(!has_cap || !user.can_perform_action(src, NEED_DEXTERITY|NEED_HANDS))
+	if(!has_cap || !user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
 		return
 	is_capped = !is_capped
-		to_chat(user, span_notice("The cap on [src] is now [is_capped ? "on" : "off"]."))
+	to_chat(user, span_notice("The cap on [src] is now [is_capped ? "on" : "off"]."))
 	update_appearance()
 
 /obj/item/toy/crayon/proc/staticDrawables()
@@ -438,8 +438,6 @@
 		if(RANDOM_ANY)
 			drawing = pick(all_drawables)
 
-	var/istagger = HAS_TRAIT(user, TRAIT_TAGGER)
-	var/cost = all_drawables[drawing] || CRAYON_COST_DEFAULT
 	if(istype(target, /obj/item/canvas))
 		cost = 0
 	if (istagger)
@@ -549,20 +547,6 @@
 			reagents.expose(draw_turf, methods = TOUCH, volume_modifier = volume_multiplier)
 	check_empty(user)
 
-/obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity, params)
-	. = ..()
-
-	if(!proximity)
-		return
-
-	if (isitem(target))
-		. |= AFTERATTACK_PROCESSED_ITEM
-
-	if (!check_allowed_items(target))
-		return
-
-	use_on(target, user, params)
-
 /obj/item/toy/crayon/attack(mob/target, mob/user)
 	if(!edible || (target != user))
 		return ..()
@@ -574,7 +558,7 @@
 		else if(crayon_eater.is_mouth_covered(ITEM_SLOT_MASK))
 			covered = "mask"
 		if(covered)
-			to_chat(C, span_warning("You have to remove your [covered] first!"))
+			to_chat(crayon_eater, span_warning("You have to remove your [covered] first!"))
 			return
 	to_chat(user, span_notice("You take a bite of the [src.name]. Delicious!"))
 	var/eaten = use_charges(user, 5, FALSE)
@@ -829,8 +813,8 @@
 		to_chat(target, span_userdanger("[user] sprays [src] into your face!"))
 
 		if(carbon_target.client)
-			carbon_target.set_eye_blur_if_lower(6 SECONDS)
-			carbon_target.adjust_temp_blindness(2 SECONDS)
+			carbon_target.blur_eyes(3)
+			carbon_target.adjust_blindness(1)
 		if(carbon_target.get_eye_protection() <= 0) // no eye protection? ARGH IT BURNS. Warning: don't add a stun here. It's a roundstart item with some quirks.
 			carbon_target.apply_effects(eyeblur = 5, jitter = 10)
 			flash_color(carbon_target, flash_color=paint_color, flash_time=40)

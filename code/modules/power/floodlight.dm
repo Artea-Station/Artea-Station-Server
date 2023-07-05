@@ -89,12 +89,17 @@
 	UnregisterSignal(src, COMSIG_OBJ_PAINTED)
 	. = ..()
 
+// Nonesensical value for l_color default, so we can detect if it gets set to null.
+#define NONSENSICAL_VALUE -99999
+
 /// change light color during operation
 /obj/machinery/power/floodlight/proc/update_light_state()
-	var/light_color =  NONSENSICAL_VALUE
+	var/light_color = NONSENSICAL_VALUE
 	if(!isnull(color))
 		light_color = color
 	set_light(light_setting_list[setting], light_power, light_color)
+
+#undef NONSENSICAL_VALUE
 
 /obj/machinery/power/floodlight/add_context(
 	atom/source,
