@@ -137,7 +137,7 @@
 
 	quirk_holder.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.2 * delta_time)
 
-/datum/quirk/deafness
+/datum/quirk/item_quirk/deafness
 	name = "Deaf"
 	desc = "You are incurably deaf."
 	icon = "deaf"
