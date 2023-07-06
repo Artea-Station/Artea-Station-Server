@@ -53,7 +53,7 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 			continue
 
 		if(initial(quirk_type.name) == "Test Quirk")
-			#ifdef TESTING
+			#ifdef UNIT_TESTS
 			TEST_FAIL("[quirk_type] has the default name!")
 			#else
 			log_world("[quirk_type] has the default name! Skipping!")
