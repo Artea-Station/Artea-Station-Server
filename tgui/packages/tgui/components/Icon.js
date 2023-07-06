@@ -23,10 +23,6 @@ export const Icon = (props) => {
     ...rest
   } = props;
 
-  if (name === null) {
-    return anotherThing;
-  }
-
   if (size) {
     if (!rest.style) {
       rest.style = {};
