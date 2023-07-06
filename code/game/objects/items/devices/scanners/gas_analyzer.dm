@@ -43,18 +43,18 @@
 			to_chat(user, span_warning("[src]'s barometer function is preparing itself."))
 			return
 
-		var/turf/T = get_turf(user)
-		if(!T)
-			return
+	var/turf/T = get_turf(user)
+	if(!T)
+		return
 
 	var/datum/weather_controller/weather_controller = SSmapping.GetLevelWeatherController(T.z)
 	playsound(src, 'sound/effects/pop.ogg', 100)
 	var/area/user_area = T.loc
-	var/datum/weather/ongoing_weather = null
+	var/datum/weather/ongoing_weather
 
-		if(!user_area.outdoors)
-			to_chat(user, span_warning("[src]'s barometer function won't work indoors!"))
-			return
+	if(!user_area.outdoors)
+		to_chat(user, span_warning("[src]'s barometer function won't work indoors!"))
+		return
 
 	if(weather_controller.current_weathers)
 		for(var/V in weather_controller.current_weathers)

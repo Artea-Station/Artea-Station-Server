@@ -1186,9 +1186,8 @@
 
 /// Can this mob read
 /mob/proc/can_read(obj/O)
-	if((reading_check_flags & READING_CHECK_LIGHT) && !has_light_nearby() && !has_nightvision())
-		if(!silent)
-			to_chat(src, span_warning("It's too dark in here to read!"))
+	if(!has_light_nearby() && !has_nightvision())
+		to_chat(src, span_warning("It's too dark in here to read!"))
 		return FALSE
 
 	return TRUE

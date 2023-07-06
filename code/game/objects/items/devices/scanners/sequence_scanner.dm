@@ -96,8 +96,6 @@
 
 			to_chat(user, "[span_boldnotice("[display]")]<br>")
 
-		to_chat(user, "[span_boldnotice("[display]")]<br>")
-
 	ready = FALSE
 	icon_state = "[icon_state]_recharging"
 	addtimer(CALLBACK(src, PROC_REF(recharge)), cooldown, TIMER_UNIQUE)
