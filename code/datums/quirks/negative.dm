@@ -14,13 +14,9 @@
 	var/datum/weakref/backpack
 
 /datum/quirk/badback/add(client/client_source)
-	var/mob/living/carbon/human/human_holder = quirk_holder
-	var/obj/item/storage/backpack/equipped_backpack = human_holder.back
-	if(istype(equipped_backpack))
-		quirk_holder.add_mood_event("back_pain", /datum/mood_event/back_pain)
-		RegisterSignal(human_holder.back, COMSIG_ITEM_POST_UNEQUIP, PROC_REF(on_unequipped_backpack))
-	else
-		RegisterSignal(quirk_holder, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(on_equipped_item))
+	var/mob/living/carbon/human/human = quirk_holder
+	RegisterSignal(quirk_holder, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(on_equipped_item))
+	on_equipped_item(quirk_holder, human.back, ITEM_SLOT_BACK) // Call it here, cause the movespeed isn't updated properly otherwise.
 
 /datum/quirk/badback/remove()
 	UnregisterSignal(quirk_holder, COMSIG_MOB_EQUIPPED_ITEM)
@@ -28,7 +24,7 @@
 	var/obj/item/storage/equipped_backpack = backpack?.resolve()
 	if(equipped_backpack)
 		UnregisterSignal(equipped_backpack, COMSIG_ITEM_POST_UNEQUIP)
-		quirk_holder.clear_mood_event("back_pain")
+		quirk_holder.remove_movespeed_modifier(/datum/movespeed_modifier/bad_back)
 
 /// Signal handler for when the quirk_holder equips an item. If it's a backpack, adds the back_pain mood event.
 /datum/quirk/badback/proc/on_equipped_item(mob/living/source, obj/item/equipped_item, slot)
@@ -38,11 +34,11 @@
 		return
 
 	// Arbirary numbers, but these feel right.
-	// 10% from having a backpack at all.
-	// +0.7% for each storage point the thing can hold.
-	var/speed_mod = (equipped_item?.atom_storage?.max_total_storage / 0.007) + 0.1
+	// 0.4 from having a backpack on at all.
+	// +0.1 for each storage point the thing can hold.
+	var/speed_mod = (equipped_item?.atom_storage?.max_total_storage * 0.01) + 0.4
 
-	quirk_holder.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bad_back, multiplicative_slowdown=speed_mod)
+	quirk_holder.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bad_back, multiplicative_slowdown = speed_mod)
 
 	RegisterSignal(equipped_item, COMSIG_ITEM_POST_UNEQUIP, PROC_REF(on_unequipped_backpack))
 	UnregisterSignal(quirk_holder, COMSIG_MOB_EQUIPPED_ITEM)
