@@ -5,7 +5,7 @@
 	savefile_key = "bad_touch_message"
 	category = PREFERENCE_CATEGORY_MISC_LIST
 	savefile_identifier = PREFERENCE_CHARACTER
-	maximum_value_length = MESSENGER_RINGTONE_MAX_LENGTH
+	maximum_value_length = CHAT_MESSAGE_MAX_LENGTH
 
 /datum/preference/text/bad_touch_message/is_accessible(datum/preferences/preferences)
 	..()
