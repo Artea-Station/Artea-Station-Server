@@ -53,12 +53,7 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 			continue
 
 		if(initial(quirk_type.name) == "Test Quirk")
-			#ifdef UNIT_TESTS
-			TEST_FAIL("[quirk_type] has the default name!")
-			#else
-			log_world("[quirk_type] has the default name! Skipping!")
-			#endif
-			continue
+			CRASH("[quirk_type] has the default name!")
 
 		quirks[initial(quirk_type.name)] = quirk_type
 		quirk_points[initial(quirk_type.name)] = initial(quirk_type.value)
