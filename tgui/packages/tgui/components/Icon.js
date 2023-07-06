@@ -12,7 +12,20 @@ import { computeBoxClassName, computeBoxProps } from './Box';
 const FA_OUTLINE_REGEX = /-o$/;
 
 export const Icon = (props) => {
-  const { name, size, spin, className, rotation, inverse, ...rest } = props;
+  const {
+    name,
+    size,
+    spin,
+    className,
+    rotation,
+    inverse,
+    anotherThing,
+    ...rest
+  } = props;
+
+  if (name === null) {
+    return anotherThing;
+  }
 
   if (size) {
     if (!rest.style) {

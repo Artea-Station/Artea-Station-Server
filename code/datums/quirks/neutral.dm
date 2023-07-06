@@ -422,3 +422,34 @@
 	pin.icon_state = pride_reskin
 
 	give_item_to_holder(pin, list(LOCATION_BACKPACK = ITEM_SLOT_BACKPACK, LOCATION_HANDS = ITEM_SLOT_HANDS))
+
+/datum/quirk/bad_touch
+	name = "Bad Touch"
+	desc = "You don't like hugs. You'd really prefer if people just left you alone."
+	icon = "tg-bad-touch"
+	mob_trait = TRAIT_BADTOUCH
+	value = 0
+	gain_text = "<span class='danger'>You just want people to leave you alone.</span>"
+	lose_text = "<span class='notice'>You could use a big hug.</span>"
+	medical_record_text = "Patient has disdain for being touched. Potentially has undiagnosed haphephobia."
+	quirk_flags = QUIRK_HUMAN_ONLY
+	mail_goodies = list(/obj/item/reagent_containers/spray/pepper) // show me on the doll where the bad man touched you
+
+/datum/quirk/bad_touch/add()
+	RegisterSignal(quirk_holder, list(COMSIG_LIVING_GET_PULLED, COMSIG_CARBON_HELP_ACT), PROC_REF(uncomfortable_touch))
+
+/datum/quirk/bad_touch/remove()
+	UnregisterSignal(quirk_holder, list(COMSIG_LIVING_GET_PULLED, COMSIG_CARBON_HELP_ACT))
+
+/datum/quirk/bad_touch/proc/uncomfortable_touch(datum/source)
+	SIGNAL_HANDLER
+
+	if(quirk_holder.stat == DEAD)
+		return
+
+	new /obj/effect/temp_visual/annoyed(quirk_holder.loc)
+
+	if(!quirk_holder.client)
+		return
+
+	quirk_holder.visible_message(span_warning("[quirk_holder][quirk_holder.client.prefs.read_preference(/datum/preference/text/bad_touch_message)]"), span_warning("[source] tried to touch you!"))

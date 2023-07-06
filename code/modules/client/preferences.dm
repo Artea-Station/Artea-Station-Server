@@ -525,6 +525,10 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 			.++
 
 /datum/preferences/proc/validate_quirks()
+	for(var/quirk in all_quirks)
+		if(!quirk || !(quirk in SSquirks.quirks))
+			all_quirks.Remove(quirk)
+
 	if(GetQuirkBalance() < 0)
 		all_quirks = list()
 

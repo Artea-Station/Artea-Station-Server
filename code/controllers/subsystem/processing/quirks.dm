@@ -52,6 +52,14 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 		if(initial(quirk_type.abstract_parent_type) == type)
 			continue
 
+		if(initial(quirk_type.name) == "Test Quirk")
+			#ifdef TESTING
+			TEST_FAIL("[quirk_type] has the default name!")
+			#else
+			log_world("[quirk_type] has the default name! Skipping!")
+			#endif
+			continue
+
 		quirks[initial(quirk_type.name)] = quirk_type
 		quirk_points[initial(quirk_type.name)] = initial(quirk_type.value)
 
@@ -152,9 +160,6 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 	for (var/quirk_name in quirks)
 		var/datum/quirk/quirk = all_quirks[quirk_name]
 		if (isnull(quirk))
-			continue
-
-		if ((initial(quirk.quirk_flags) & QUIRK_MOODLET_BASED) && CONFIG_GET(flag/disable_human_mood))
 			continue
 
 		var/blacklisted = FALSE

@@ -46,7 +46,12 @@ const QuirkList = (props: {
                   'max-width': '15%',
                   'text-align': 'center',
                 }}>
-                <Icon color="#333" fontSize={3} name={quirk.icon} />
+                <Icon
+                  color="#333"
+                  fontSize={3}
+                  name={quirk.icon}
+                  anotherThing={quirk.name}
+                />
               </Stack.Item>
 
               <Stack.Item

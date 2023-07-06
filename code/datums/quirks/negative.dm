@@ -5,7 +5,7 @@
 	desc = "Thanks to your poor posture, backpacks and other bags never sit right on your back. More evenly weighted objects are fine, though."
 	icon = FA_ICON_HIKING
 	value = -8
-	quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_MOODLET_BASED
+	quirk_flags = QUIRK_HUMAN_ONLY
 	gain_text = "<span class='danger'>Your back REALLY hurts!</span>"
 	lose_text = "<span class='notice'>Your back feels better.</span>"
 	medical_record_text = "Patient scans indicate severe and chronic back pain."
@@ -37,9 +37,16 @@
 	if((slot != ITEM_SLOT_BACK) || !istype(equipped_item, /obj/item/storage/backpack))
 		return
 
-	quirk_holder.add_mood_event("back_pain", /datum/mood_event/back_pain)
+	// Arbirary numbers, but these feel right.
+	// 10% from having a backpack at all.
+	// +0.7% for each storage point the thing can hold.
+	var/speed_mod = (equipped_item?.atom_storage?.max_total_storage / 0.007) + 0.1
+
+	quirk_holder.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bad_back, multiplicative_slowdown=speed_mod)
+
 	RegisterSignal(equipped_item, COMSIG_ITEM_POST_UNEQUIP, PROC_REF(on_unequipped_backpack))
 	UnregisterSignal(quirk_holder, COMSIG_MOB_EQUIPPED_ITEM)
+
 	backpack = WEAKREF(equipped_item)
 
 /// Signal handler for when the quirk_holder unequips an equipped backpack. Removes the back_pain mood event.
@@ -47,8 +54,10 @@
 	SIGNAL_HANDLER
 
 	UnregisterSignal(source, COMSIG_ITEM_POST_UNEQUIP)
-	quirk_holder.clear_mood_event("back_pain")
+
+	quirk_holder.remove_movespeed_modifier(/datum/movespeed_modifier/bad_back)
 	backpack = null
+
 	RegisterSignal(quirk_holder, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(on_equipped_item))
 
 /datum/quirk/blooddeficiency
@@ -151,92 +160,6 @@
 
 /datum/quirk/item_quirk/deafness/add_unique(client/client_source)
 	give_item_to_holder(/obj/item/clothing/accessory/deaf_pin, list(LOCATION_BACKPACK = ITEM_SLOT_BACKPACK, LOCATION_HANDS = ITEM_SLOT_HANDS))
-
-/datum/quirk/depression
-	name = "Depression"
-	desc = "You sometimes just hate life."
-	icon = FA_ICON_FROWN
-	mob_trait = TRAIT_DEPRESSION
-	value = -3
-	gain_text = "<span class='danger'>You start feeling depressed.</span>"
-	lose_text = "<span class='notice'>You no longer feel depressed.</span>" //if only it were that easy!
-	medical_record_text = "Patient has a mild mood disorder causing them to experience acute episodes of depression."
-	quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_MOODLET_BASED
-	hardcore_value = 2
-	mail_goodies = list(/obj/item/storage/pill_bottle/happinesspsych)
-
-/datum/quirk/item_quirk/family_heirloom
-	name = "Family Heirloom"
-	desc = "You are the current owner of an heirloom, passed down for generations. You have to keep it safe!"
-	icon = FA_ICON_TOOLBOX
-	value = -2
-	medical_record_text = "Patient demonstrates an unnatural attachment to a family heirloom."
-	hardcore_value = 1
-	quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_PROCESSES|QUIRK_MOODLET_BASED
-	/// A weak reference to our heirloom.
-	var/datum/weakref/heirloom
-	mail_goodies = list(/obj/item/storage/secure/briefcase)
-
-/datum/quirk/item_quirk/family_heirloom/add_unique(client/client_source)
-	var/mob/living/carbon/human/human_holder = quirk_holder
-	var/obj/item/heirloom_type
-
-	// The quirk holder's species - we have a 50% chance, if we have a species with a set heirloom, to choose a species heirloom.
-	var/datum/species/holder_species = human_holder.dna?.species
-	if(holder_species && LAZYLEN(holder_species.family_heirlooms) && prob(50))
-		heirloom_type = pick(holder_species.family_heirlooms)
-	else
-		// Our quirk holder's job
-		var/datum/job/holder_job = human_holder.last_mind?.assigned_role
-		if(holder_job && LAZYLEN(holder_job.family_heirlooms))
-			heirloom_type = pick(holder_job.family_heirlooms)
-
-	// If we didn't find an heirloom somehow, throw them a generic one
-	if(!heirloom_type)
-		heirloom_type = pick(/obj/item/toy/cards/deck, /obj/item/lighter, /obj/item/dice/d20)
-
-	var/obj/new_heirloom = new heirloom_type(get_turf(human_holder))
-	heirloom = WEAKREF(new_heirloom)
-
-	give_item_to_holder(
-		new_heirloom,
-		list(
-			LOCATION_LPOCKET = ITEM_SLOT_LPOCKET,
-			LOCATION_RPOCKET = ITEM_SLOT_RPOCKET,
-			LOCATION_BACKPACK = ITEM_SLOT_BACKPACK,
-			LOCATION_HANDS = ITEM_SLOT_HANDS,
-		),
-		flavour_text = "This is a precious family heirloom, passed down from generation to generation. Keep it safe!",
-	)
-
-/datum/quirk/item_quirk/family_heirloom/post_add()
-	var/list/names = splittext(quirk_holder.real_name, " ")
-	var/family_name = names[names.len]
-
-	var/obj/family_heirloom = heirloom?.resolve()
-	if(!family_heirloom)
-		to_chat(quirk_holder, "<span class='boldnotice'>A wave of existential dread runs over you as you realize your precious family heirloom is missing. Perhaps the Gods will show mercy on your cursed soul?</span>")
-		return
-	family_heirloom.AddComponent(/datum/component/heirloom, quirk_holder.mind, family_name)
-
-	return ..()
-
-/datum/quirk/item_quirk/family_heirloom/process()
-	if(quirk_holder.stat == DEAD)
-		return
-
-	var/obj/family_heirloom = heirloom?.resolve()
-
-	if(family_heirloom && (family_heirloom in quirk_holder.get_all_contents()))
-		quirk_holder.clear_mood_event("family_heirloom_missing")
-		quirk_holder.add_mood_event("family_heirloom", /datum/mood_event/family_heirloom)
-	else
-		quirk_holder.clear_mood_event("family_heirloom")
-		quirk_holder.add_mood_event("family_heirloom_missing", /datum/mood_event/family_heirloom_missing)
-
-/datum/quirk/item_quirk/family_heirloom/remove()
-	quirk_holder.clear_mood_event("family_heirloom_missing")
-	quirk_holder.clear_mood_event("family_heirloom")
 
 /datum/quirk/glass_jaw
 	name = "Glass Jaw"
@@ -939,38 +862,6 @@
 			carbon_quirk_holder.vomit()
 			carbon_quirk_holder.adjustOrganLoss(pick(ORGAN_SLOT_BRAIN,ORGAN_SLOT_APPENDIX,ORGAN_SLOT_LUNGS,ORGAN_SLOT_HEART,ORGAN_SLOT_LIVER,ORGAN_SLOT_STOMACH),10)
 
-/datum/quirk/bad_touch
-	name = "Bad Touch"
-	desc = "You don't like hugs. You'd really prefer if people just left you alone."
-	icon = "tg-bad-touch"
-	mob_trait = TRAIT_BADTOUCH
-	value = -1
-	gain_text = "<span class='danger'>You just want people to leave you alone.</span>"
-	lose_text = "<span class='notice'>You could use a big hug.</span>"
-	medical_record_text = "Patient has disdain for being touched. Potentially has undiagnosed haphephobia."
-	quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_MOODLET_BASED
-	hardcore_value = 1
-	mail_goodies = list(/obj/item/reagent_containers/spray/pepper) // show me on the doll where the bad man touched you
-
-/datum/quirk/bad_touch/add()
-	RegisterSignal(quirk_holder, list(COMSIG_LIVING_GET_PULLED, COMSIG_CARBON_HELP_ACT), PROC_REF(uncomfortable_touch))
-
-/datum/quirk/bad_touch/remove()
-	UnregisterSignal(quirk_holder, list(COMSIG_LIVING_GET_PULLED, COMSIG_CARBON_HELP_ACT))
-
-/// Causes a negative moodlet to our quirk holder on signal
-/datum/quirk/bad_touch/proc/uncomfortable_touch(datum/source)
-	SIGNAL_HANDLER
-
-	if(quirk_holder.stat == DEAD)
-		return
-
-	new /obj/effect/temp_visual/annoyed(quirk_holder.loc)
-	if(quirk_holder.mob_mood.sanity <= SANITY_NEUTRAL)
-		quirk_holder.add_mood_event("bad_touch", /datum/mood_event/very_bad_touch)
-	else
-		quirk_holder.add_mood_event("bad_touch", /datum/mood_event/bad_touch)
-
 /datum/quirk/claustrophobia
 	name = "Claustrophobia"
 	desc = "You are terrified of small spaces and certain jolly figures. If you are placed inside any container, locker, or machinery, a panic attack sets in and you struggle to breathe."
@@ -1043,72 +934,3 @@
 	lose_text = span_notice("You feel a growing strength in your vocal chords.")
 	medical_record_text = "The patient is unable to use their voice in any capacity."
 	hardcore_value = 4
-
-/datum/quirk/body_purist
-	name = "Body Purist"
-	desc = "You believe your body is a temple and its natural form is an embodiment of perfection. Accordingly, you despise the idea of ever augmenting it with unnatural parts, cybernetic, prosthetic, or anything like it."
-	icon = FA_ICON_PERSON_RAYS
-	value = -2
-	quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_MOODLET_BASED
-	gain_text = "<span class='danger'>You now begin to hate the idea of having cybernetic implants.</span>"
-	lose_text = "<span class='notice'>Maybe cybernetics aren't so bad. You now feel okay with augmentations and prosthetics.</span>"
-	medical_record_text = "This patient has disclosed an extreme hatred for unnatural bodyparts and augmentations."
-	hardcore_value = 3
-	var/cybernetics_level = 0
-
-/datum/quirk/body_purist/add(client/client_source)
-	check_cybernetics()
-	RegisterSignal(quirk_holder, COMSIG_CARBON_GAIN_ORGAN, PROC_REF(on_organ_gain))
-	RegisterSignal(quirk_holder, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(on_organ_lose))
-	RegisterSignal(quirk_holder, COMSIG_CARBON_ATTACH_LIMB, PROC_REF(on_limb_gain))
-	RegisterSignal(quirk_holder, COMSIG_CARBON_REMOVE_LIMB, PROC_REF(on_limb_lose))
-
-/datum/quirk/body_purist/remove()
-	UnregisterSignal(quirk_holder, list(
-		COMSIG_CARBON_GAIN_ORGAN,
-		COMSIG_CARBON_LOSE_ORGAN,
-		COMSIG_CARBON_ATTACH_LIMB,
-		COMSIG_CARBON_REMOVE_LIMB,
-	))
-	quirk_holder.clear_mood_event("body_purist")
-
-/datum/quirk/body_purist/proc/check_cybernetics()
-	var/mob/living/carbon/owner = quirk_holder
-	if(!istype(owner))
-		return
-	for(var/obj/item/bodypart/limb as anything in owner.bodyparts)
-		if(!IS_ORGANIC_LIMB(limb))
-			cybernetics_level++
-	for(var/obj/item/organ/internal/organ as anything in owner.internal_organs)
-		if(organ.organ_flags & ORGAN_SYNTHETIC)
-			cybernetics_level++
-	update_mood()
-
-/datum/quirk/body_purist/proc/update_mood()
-	quirk_holder.clear_mood_event("body_purist")
-	if(cybernetics_level)
-		quirk_holder.add_mood_event("body_purist", /datum/mood_event/body_purist, -cybernetics_level * 10)
-
-/datum/quirk/body_purist/proc/on_organ_gain(datum/source, obj/item/organ/new_organ, special)
-	SIGNAL_HANDLER
-	if(new_organ.organ_flags & ORGAN_SYNTHETIC || new_organ.status == ORGAN_ROBOTIC) //why the fuck are there 2 of them
-		cybernetics_level++
-		update_mood()
-
-/datum/quirk/body_purist/proc/on_organ_lose(datum/source, obj/item/organ/old_organ, special)
-	SIGNAL_HANDLER
-	if(old_organ.organ_flags & ORGAN_SYNTHETIC || old_organ.status == ORGAN_ROBOTIC)
-		cybernetics_level--
-		update_mood()
-
-/datum/quirk/body_purist/proc/on_limb_gain(datum/source, obj/item/bodypart/new_limb, special)
-	SIGNAL_HANDLER
-	if(!IS_ORGANIC_LIMB(new_limb))
-		cybernetics_level++
-		update_mood()
-
-/datum/quirk/body_purist/proc/on_limb_lose(datum/source, obj/item/bodypart/old_limb, special)
-	SIGNAL_HANDLER
-	if(!IS_ORGANIC_LIMB(old_limb))
-		cybernetics_level--
-		update_mood()

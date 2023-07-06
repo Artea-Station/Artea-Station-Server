@@ -12,21 +12,6 @@
 	medical_record_text = "Patient demonstrates a high tolerance for alcohol."
 	mail_goodies = list(/obj/item/skillchip/wine_taster)
 
-/datum/quirk/apathetic
-	name = "Apathetic"
-	desc = "You just don't care as much as other people. That's nice to have in a place like this, I guess."
-	icon = FA_ICON_MEH
-	value = 4
-	quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_MOODLET_BASED
-	medical_record_text = "Patient was administered the Apathy Evaluation Scale but did not bother to complete it."
-	mail_goodies = list(/obj/item/hourglass)
-
-/datum/quirk/apathetic/add(client/client_source)
-	quirk_holder.mob_mood?.mood_modifier -= 0.2
-
-/datum/quirk/apathetic/remove()
-	quirk_holder.mob_mood?.mood_modifier += 0.2
-
 /datum/quirk/drunkhealing
 	name = "Drunken Resilience"
 	desc = "Nothing like a good drink to make you feel on top of the world. Whenever you're drunk, you slowly recover from injuries."
@@ -130,28 +115,6 @@
 	lose_text = "<span class='danger'>You feel clumsy again.</span>"
 	medical_record_text = "Patient scored highly on cardio tests."
 	mail_goodies = list(/obj/item/melee/skateboard, /obj/item/clothing/shoes/wheelys/rollerskates)
-
-/datum/quirk/friendly
-	name = "Friendly"
-	desc = "You give the best hugs, especially when you're in the right mood."
-	icon = FA_ICON_HANDS_HELPING
-	value = 2
-	mob_trait = TRAIT_FRIENDLY
-	gain_text = "<span class='notice'>You want to hug someone.</span>"
-	lose_text = "<span class='danger'>You no longer feel compelled to hug others.</span>"
-	quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_MOODLET_BASED
-	medical_record_text = "Patient demonstrates low-inhibitions for physical contact and well-developed arms. Requesting another doctor take over this case."
-	mail_goodies = list(/obj/item/storage/box/hug)
-
-/datum/quirk/jolly
-	name = "Jolly"
-	desc = "You sometimes just feel happy, for no reason at all."
-	icon = FA_ICON_GRIN
-	value = 4
-	mob_trait = TRAIT_JOLLY
-	quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_MOODLET_BASED
-	medical_record_text = "Patient demonstrates constant euthymia irregular for environment. It's a bit much, to be honest."
-	mail_goodies = list(/obj/item/clothing/mask/joy)
 
 /datum/quirk/light_step
 	name = "Light Step"
