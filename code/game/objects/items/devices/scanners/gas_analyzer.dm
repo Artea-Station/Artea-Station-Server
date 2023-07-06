@@ -38,25 +38,23 @@
 /obj/item/analyzer/AltClick(mob/user) //Barometer output for measuring when the next storm happens
 	..()
 
-	if(!user.canUseTopic(src, BE_CLOSE) || !user.can_read(src))
-		return
+	if(user.canUseTopic(src, BE_CLOSE))
+		if(cooldown)
+			to_chat(user, span_warning("[src]'s barometer function is preparing itself."))
+			return
 
-	if(cooldown)
-		to_chat(user, span_warning("[src]'s barometer function is preparing itself."))
-		return
-
-	var/turf/T = get_turf(user)
-	if(!T)
-		return
+		var/turf/T = get_turf(user)
+		if(!T)
+			return
 
 	var/datum/weather_controller/weather_controller = SSmapping.GetLevelWeatherController(T.z)
 	playsound(src, 'sound/effects/pop.ogg', 100)
 	var/area/user_area = T.loc
 	var/datum/weather/ongoing_weather = null
 
-	if(!user_area.outdoors)
-		to_chat(user, span_warning("[src]'s barometer function won't work indoors!"))
-		return
+		if(!user_area.outdoors)
+			to_chat(user, span_warning("[src]'s barometer function won't work indoors!"))
+			return
 
 	if(weather_controller.current_weathers)
 		for(var/V in weather_controller.current_weathers)
@@ -65,10 +63,10 @@
 				ongoing_weather = W
 				break
 
-	if(ongoing_weather)
-		if((ongoing_weather.stage == MAIN_STAGE) || (ongoing_weather.stage == WIND_DOWN_STAGE))
-			to_chat(user, span_warning("[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == MAIN_STAGE ? "already here!" : "winding down."]"))
-			return
+		if(ongoing_weather)
+			if((ongoing_weather.stage == MAIN_STAGE) || (ongoing_weather.stage == WIND_DOWN_STAGE))
+				to_chat(user, span_warning("[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == MAIN_STAGE ? "already here!" : "winding down."]"))
+				return
 
 		to_chat(user, span_notice("The next [ongoing_weather] will hit in [butchertime(ongoing_weather.next_hit_time - world.time)]."))
 		if(ongoing_weather.aesthetic)
@@ -116,13 +114,17 @@
 	return list("gasmixes" = last_gasmix_data)
 
 /obj/item/analyzer/attack_self(mob/user, modifiers)
-	if(user.stat != CONSCIOUS || !user.can_read(src) || user.is_blind())
+	// Check if it requires visibility and if the user is you know, blind.
+	if (user.stat != CONSCIOUS || user.is_blind())
+		to_chat(user, span_warning("You're unable to see [src]'s results!"))
 		return
 	atmos_scan(user=user, target=get_turf(src), silent=FALSE)
 	on_analyze(source=src, target=get_turf(src))
 
 /obj/item/analyzer/attack_self_secondary(mob/user, modifiers)
-	if(user.stat != CONSCIOUS || !user.can_read(src) || user.is_blind())
+	// Check if it requires visibility and if the user is you know, blind.
+	if (user.stat != CONSCIOUS || user.is_blind())
+		to_chat(user, span_warning("You're unable to see [src]'s results!"))
 		return
 
 	ui_interact(user)
