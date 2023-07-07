@@ -66,8 +66,6 @@
 	heatmod = 2 // TWO TIMES DAMAGE FROM BEING TOO HOT?! WHAT?! No wonder lava is literal instant death for us.
 	siemens_coeff = 1.4 // Not more because some shocks will outright crit you, which is very unfun
 
-	ignores_agecheck = TRUE // These are robits.
-
 /datum/species/synthetic/spec_life(mob/living/carbon/human/human)
 	if(human.stat == SOFT_CRIT || human.stat == HARD_CRIT)
 		human.adjustFireLoss(1) //Still deal some damage in case a cold environment would be preventing us from the sweet release to robot heaven
