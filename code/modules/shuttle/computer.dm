@@ -37,109 +37,29 @@
 	connect_to_shuttle(mapload, SSshuttle.get_containing_shuttle(src))
 
 /obj/machinery/computer/shuttle/ui_interact(mob/user, datum/tgui/ui)
-	..()
-	if(uses_overmap)
-		var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
-		if(!M)
-			return
-		var/list/dat = list("<center>")
-		var/status_info
-		if(admin_controlled)
-			status_info = "Unauthorized Access"
-		else if(locked)
-			status_info = "Locked"
-		else
-			switch(M.mode)
-				if(SHUTTLE_IGNITING)
-					status_info = "Igniting"
-				if(SHUTTLE_IDLE)
-					status_info = "Idle"
-				if(SHUTTLE_RECHARGING)
-					status_info = "Recharging"
-				else
-					status_info = "In Transit"
-		dat += "STATUS: <b>[status_info]</b>"
-		var/link
-		if(M.mode == SHUTTLE_IDLE)
-			link = "href='?src=[REF(src)];task=overmap_launch'"
-		else
-			link = "class='linkOff'"
-		dat += "<BR><BR><a [link]>Depart to Overmap</a><BR>"
-
-		dat += "<a href='?src=[REF(src)];task=engines_on']>Engines On</a> <a href='?src=[REF(src)];task=engines_off']>Engines Off</a>"
-
-		dat += "<BR><BR><a [M.my_overmap_object ? "href='?src=[REF(src)];task=overmap_view'" : "class='linkOff'"]>Overmap View</a>"
-		dat += "<BR><a [M.my_overmap_object ? "href='?src=[REF(src)];task=overmap_ship_controls'" : "class='linkOff'"]>Ship Controls</a></center>"
-		var/datum/browser/popup = new(user, "shuttle_computer", name, 300, 200)
-		popup.set_content(dat.Join())
-		popup.open()
-	else
-		ui = SStgui.try_update_ui(user, src, ui)
-		if(!ui)
-			ui = new(user, src, "ShuttleConsole", name)
-			ui.open()
-
-/obj/machinery/computer/shuttle/Topic(href, href_list)
-	var/mob/user = usr
-	if(!isliving(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
-		return
-	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
-	switch(href_list["task"])
-		if("engines_off")
-			M.TurnEnginesOff()
-			say("Engines offline.")
-		if("engines_on")
-			M.TurnEnginesOn()
-			say("Engines online.")
-		if("overmap_view")
-			if(M.my_overmap_object)
-				M.my_overmap_object.GrantOvermapView(usr, get_turf(src))
-				return
-		if("overmap_ship_controls")
-			if(M.my_overmap_object)
-				M.my_overmap_object.DisplayUI(usr, get_turf(src))
-				return
-		if("overmap_launch")
-			if(!uses_overmap)
-				return
-			if(!launch_check(usr))
-				return
-			if(M.launch_status == ENDGAME_LAUNCHED)
-				to_chat(usr, "<span class='warning'>You've already escaped. Never going back to that place again!</span>")
-				return
-			if(no_destination_swap)
-				if(M.mode == SHUTTLE_RECHARGING)
-					to_chat(usr, "<span class='warning'>Shuttle engines are not ready for use.</span>")
-					return
-				if(M.mode != SHUTTLE_IDLE)
-					to_chat(usr, "<span class='warning'>Shuttle already in transit.</span>")
-					return
-			if(uses_overmap)
-				if(M.DrawDockingThrust())
-					M.possible_destinations = possible_destinations
-					M.destination = "overmap"
-					M.mode = SHUTTLE_IGNITING
-					M.setTimer(5 SECONDS)
-					say("Shuttle departing. Please stand away from the doors.")
-					log_shuttle("[key_name(usr)] has sent shuttle \"[M]\" into the overmap.")
-					ui_interact(usr)
-					return
-				else
-					say("Engine power insufficient to take off.")
-	ui_interact(usr)
+	. = ..()
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, uses_overmap ? "ShuttleConsoleOvermap" : "ShuttleConsole", name)
+		ui.open()
 
 /obj/machinery/computer/shuttle/ui_data(mob/user)
 	var/list/data = list()
 	var/obj/docking_port/mobile/mobile_docking_port = SSshuttle.getShuttle(shuttleId)
-	data["docked_location"] = mobile_docking_port ? mobile_docking_port.get_status_text_tgui() : "Unknown"
-	data["locations"] = list()
+
+	if(!uses_overmap)
+		data["docked_location"] = mobile_docking_port ? mobile_docking_port.get_status_text_tgui() : "Unknown"
+		data["locations"] = list()
+		data["destination"] = destination
+
 	data["locked"] = locked
 	data["authorization_required"] = admin_controlled
 	data["timer_str"] = mobile_docking_port ? mobile_docking_port.getTimerStr() : "00:00"
-	data["destination"] = destination
+
 	if(!mobile_docking_port)
 		data["status"] = "Missing"
 		return data
+
 	if(admin_controlled)
 		data["status"] = "Unauthorized Access"
 	else if(locked)
@@ -154,14 +74,17 @@
 				data["status"] = "Recharging"
 			else
 				data["status"] = "In Transit"
-	data["locations"] = get_valid_destinations()
-	if(length(data["locations"]) == 1)
-		for(var/location in data["locations"])
-			destination = location["id"]
-			data["destination"] = destination
-	if(!length(data["locations"]))
-		data["locked"] = TRUE
-		data["status"] = "Locked"
+
+	if(!uses_overmap)
+		data["locations"] = get_valid_destinations()
+		if(length(data["locations"]) == 1)
+			for(var/location in data["locations"])
+				destination = location["id"]
+				data["destination"] = destination
+		if(!length(data["locations"]))
+			data["locked"] = TRUE
+			data["status"] = "Locked"
+
 	return data
 
 /**
@@ -234,13 +157,13 @@
 
 /obj/machinery/computer/shuttle/ui_act(action, params)
 	. = ..()
-	if(uses_overmap)
-		return
 	if(.)
 		return
 	if(!allowed(usr))
 		to_chat(usr, span_danger("Access denied."))
 		return
+
+	var/obj/docking_port/mobile/docking_port = SSshuttle.getShuttle(shuttleId)
 
 	switch(action)
 		if("move")
@@ -278,6 +201,43 @@
 			to_chat(usr, span_notice("Your request has been received by CentCom."))
 			to_chat(GLOB.admins, "<b>SHUTTLE: <font color='#3d5bc3'>[ADMIN_LOOKUPFLW(usr)] (<A HREF='?_src_=holder;[HrefToken()];move_shuttle=[shuttleId]'>Move Shuttle</a>)(<A HREF='?_src_=holder;[HrefToken()];unlock_shuttle=[REF(src)]'>Lock/Unlock Shuttle</a>)</b> is requesting to move or unlock the shuttle.</font>")
 			return TRUE
+		// OVERMAP SHUTTLE CODE!
+		if("engines_off")
+			docking_port.TurnEnginesOff()
+			say("Engines offline.")
+		if("engines_on")
+			docking_port.TurnEnginesOn()
+			say("Engines online.")
+		if("overmap_view")
+			if(docking_port.my_overmap_object)
+				docking_port.my_overmap_object.GrantOvermapView(usr, get_turf(src))
+		if("overmap_ship_controls")
+			if(docking_port.my_overmap_object)
+				docking_port.my_overmap_object.DisplayUI(usr, get_turf(src))
+		if("overmap_launch")
+			if(!launch_check(usr))
+				return
+			if(docking_port.launch_status == ENDGAME_LAUNCHED)
+				to_chat(usr, "<span class='warning'>You've already escaped. Never going back to that place again!</span>")
+				return
+			if(no_destination_swap)
+				if(docking_port.mode == SHUTTLE_RECHARGING)
+					to_chat(usr, "<span class='warning'>Shuttle engines are not ready for use.</span>")
+					return
+				if(docking_port.mode != SHUTTLE_IDLE)
+					to_chat(usr, "<span class='warning'>Shuttle already in transit.</span>")
+					return
+			if(uses_overmap)
+				if(docking_port.DrawDockingThrust())
+					docking_port.possible_destinations = possible_destinations
+					docking_port.destination = "overmap"
+					docking_port.mode = SHUTTLE_IGNITING
+					docking_port.setTimer(5 SECONDS)
+					say("Shuttle departing. Please stand away from the doors.")
+					log_shuttle("[key_name(usr)] has sent shuttle \"[docking_port]\" into the overmap.")
+					ui_interact(usr)
+				else
+					say("Engine power insufficient to take off.")
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(obj_flags & EMAGGED)
