@@ -347,6 +347,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/cryopod, 32)
 	// Delete them from datacore and ghost records.
 	var/announce_rank = null
 
+	if(ishuman(mob_occupant))
+		var/mob/living/carbon/human/human = mob_occupant
+		for(var/datum/record/locked/possible_target_record as anything in GLOB.manifest.locked)
+			if(possible_target_record.dna_ref == human.dna)
+				qdel(possible_target_record)
+				break
+
 	for(var/list/record in GLOB.ghost_records)
 		if(record["name"] == stored_name)
 			announce_rank = record["rank"]

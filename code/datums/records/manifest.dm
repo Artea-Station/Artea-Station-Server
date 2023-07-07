@@ -142,7 +142,6 @@ GLOBAL_DATUM_INIT(manifest, /datum/manifest, new)
 		trim = assignment,
 		trim_icon = trim_icon,
 		// Crew specific
-		lock_ref = REF(lockfile),
 		major_disabilities = person.get_quirk_string(FALSE, CAT_QUIRK_MAJOR_DISABILITY),
 		major_disabilities_desc = person.get_quirk_string(TRUE, CAT_QUIRK_MAJOR_DISABILITY),
 		minor_disabilities = person.get_quirk_string(FALSE, CAT_QUIRK_MINOR_DISABILITY),
