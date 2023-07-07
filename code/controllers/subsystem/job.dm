@@ -904,7 +904,6 @@ SUBSYSTEM_DEF(job)
 
 	// Check for character age
 	if(possible_job.required_character_age != null && possible_job.required_character_age > player.client.prefs.read_preference(/datum/preference/numeric/age))
-		var/datum/species/species = player.client.prefs.read_preference(/datum/preference/choiced/species)
 		JobDebug("[debug_prefix] Error: [get_job_unavailable_error_message(JOB_UNAVAILABLE_AGE, possible_job.title)], Player: [player][add_job_to_log ? ", Job: [possible_job]" : ""]")
 		return JOB_UNAVAILABLE_AGE
 
