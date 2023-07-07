@@ -110,7 +110,7 @@ GLOBAL_DATUM_INIT(manifest, /datum/manifest, new)
 	if(person.gender == "female")
 		person_gender = "Female"
 
-	var/datum/record/locked/lockfile = new(
+	new datum/record/locked/lockfile(
 		age = person.age,
 		blood_type = person.dna.blood_type,
 		character_appearance = character_appearance,
