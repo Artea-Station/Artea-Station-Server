@@ -31,7 +31,17 @@ $background-radial-opacity: 0.2 !default;
   @include meta.load-css(
     '../components/Input.scss',
     $with: (
-      'text-color': base.$color-fg,
+      'text-color': initial,
+      'background-color': base.$color-bg,
+      'border-color': base.$color-fg,
+      'font-family': $font-family
+    )
+  );
+
+  @include meta.load-css(
+    '../components/TextArea.scss',
+    $with: (
+      'text-color': initial,
       'background-color': base.$color-bg,
       'border-color': base.$color-fg,
       'font-family': $font-family
@@ -84,7 +94,7 @@ $background-radial-opacity: 0.2 !default;
     '../components/Button.scss',
     $with: (
       'color-default': base.$color-fg,
-      'color-disabled': darken(base.$color-fg, 30)
+      'color-disabled': darken(base.$color-fg, 20)
     )
   );
 
@@ -120,28 +130,6 @@ $background-radial-opacity: 0.2 !default;
     z-index: 2;
     pointer-events: none;
   }
-  .Layout__content::before {
-    content: ' ';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: linear-gradient(
-        rgba(18, 16, 16, 0) 50%,
-        rgba(0, 0, 0, 0.25) 50%
-      ),
-      linear-gradient(
-        90deg,
-        rgba(255, 0, 0, 0.06),
-        rgba(0, 255, 0, 0.02),
-        rgba(0, 0, 255, 0.06)
-      );
-    z-index: 2;
-    background-size: 100% 2px, 3px 100%;
-    pointer-events: none;
-  }
 
   .Layout__content--scrollable {
     scrollbar-track-color: base.$color-bg;
@@ -152,7 +140,6 @@ $background-radial-opacity: 0.2 !default;
   }
 
   span {
-    color: base.$color-fg;
     font-family: $font-family;
     font-weight: bold;
   }

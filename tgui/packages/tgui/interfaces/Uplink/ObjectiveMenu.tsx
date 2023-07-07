@@ -501,7 +501,6 @@ const ObjectiveElement = (props: ObjectiveElementProps, context) => {
                   inline
                   className={reputation.gradient}
                   style={{
-                    'border-radius': '0',
                     'border': '2px solid rgba(0, 0, 0, 0.5)',
                     'border-left': 'none',
                     'border-right': 'none',

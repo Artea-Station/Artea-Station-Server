@@ -639,3 +639,17 @@
 	key_third_person = "swears"
 	message = "says a swear word!"
 	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/carbon/snap
+	key = "snap"
+	key_third_person = "snaps"
+	message = "snaps their fingers."
+	message_param = "snaps their fingers at %t."
+	emote_type = EMOTE_AUDIBLE
+	hands_use_check = TRUE
+	muzzle_ignore = TRUE
+
+/datum/emote/living/carbon/snap/get_sound(mob/living/user)
+	if(ishuman(user))
+		return pick('sound/misc/fingersnap1.ogg', 'sound/misc/fingersnap2.ogg')
+	return null

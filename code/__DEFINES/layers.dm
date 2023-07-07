@@ -124,6 +124,8 @@
 #define O_LIGHTING_VISUAL_PLANE 110
 #define O_LIGHTING_VISUAL_RENDER_TARGET "O_LIGHT_VISUAL_PLANE"
 
+#define DAY_NIGHT_LIGHTING_LAYER 100
+
 ///Things that should render ignoring lighting
 #define ABOVE_LIGHTING_PLANE 120
 

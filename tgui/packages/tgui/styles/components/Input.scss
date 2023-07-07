@@ -9,7 +9,6 @@
 $text-color: base.$color-fg !default;
 $background-color: #0a0a0a !default;
 $border-color: #88bfff !default;
-$border-radius: base.$border-radius !default;
 $font-family: Verdana, sans-serif !default;
 
 .Input {
@@ -18,7 +17,6 @@ $font-family: Verdana, sans-serif !default;
   width: base.em(120px);
   border: base.em(1px) solid $border-color;
   border: base.em(1px) solid rgba($border-color, 0.75);
-  border-radius: $border-radius;
   color: $text-color;
   background-color: $background-color;
   padding: 0 base.em(4px);

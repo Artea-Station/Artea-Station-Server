@@ -85,3 +85,12 @@
 	head = null
 	mask = /obj/item/clothing/mask/gas/sechailer
 	internals_slot = ITEM_SLOT_SUITSTORE
+
+/datum/outfit/job/hos/hardsuit
+	name = "Head of Security (Hardsuit)"
+
+	head = null
+	mask = /obj/item/clothing/mask/gas/sechailer
+	suit = /obj/item/clothing/suit/space/hardsuit/security/head_of_security
+	suit_store = /obj/item/tank/internals/oxygen
+	internals_slot = ITEM_SLOT_SUITSTORE
