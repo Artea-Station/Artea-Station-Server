@@ -382,6 +382,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/cryopod, 32)
 				var/obj/item/modular_computer/computer = item_content
 				for(var/datum/computer_file/program/messenger/message_app in computer.stored_files)
 					message_app.invisible = TRUE
+			if(istype(item_content, /obj/item/implant)) // skip implants, the station isn't gonna keep these.
+				continue
 			mob_occupant.transferItemToLoc(item_content, control_computer, force = TRUE, silent = TRUE)
 			item_content.dropped(mob_occupant)
 			control_computer.frozen_item += item_content
