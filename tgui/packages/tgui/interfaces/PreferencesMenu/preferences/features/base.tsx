@@ -48,6 +48,7 @@ export type FeatureValueProps<
 export const FeatureColorInput = (props: FeatureValueProps<string>) => {
   return (
     <Button
+      style={{ 'background-color': '#b37b14' }}
       onClick={() => {
         props.act('set_color_preference', {
           preference: props.featureId,
@@ -389,6 +390,7 @@ export const FeatureTriColorInput = (props: FeatureValueProps<string>) => {
     return (
       <Stack.Item>
         <Button
+          style={{ 'background-color': '#b37b14' }}
           onClick={() => {
             props.act('set_tricolor_preference', {
               preference: props.featureId,

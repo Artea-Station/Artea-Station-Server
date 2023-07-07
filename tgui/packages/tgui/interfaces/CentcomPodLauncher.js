@@ -604,7 +604,6 @@ const PodStatusPage = (props, context) => {
                           'margin-left': j !== 0 ? '1px' : '0px',
                           'margin-right':
                             j !== list.list.length - 1 ? '1px' : '0px',
-                          'border-radius': '5px',
                         }}
                       />
                     )}
@@ -1022,7 +1021,6 @@ const StylePage = (props, context) => {
           style={{
             'vertical-align': 'middle',
             'margin-right': '5px',
-            'border-radius': '20px',
           }}
           selected={data.styleChoice - 1 === i}
           onClick={() => act('setStyle', { style: i })}>

@@ -7,7 +7,9 @@
 	icon_state = "processor1"
 	layer = BELOW_OBJ_LAYER
 	density = TRUE
+	pass_flags = PASSTABLE
 	circuit = /obj/item/circuitboard/machine/processor
+	anchored_tabletop_offset = 8
 	var/broken = FALSE
 	var/processing = FALSE
 	var/rating_speed = 1
