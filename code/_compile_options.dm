@@ -1,4 +1,4 @@
-#define TESTING //By using the testing("message") proc you can create debug-feedback for people with this
+//#define TESTING //By using the testing("message") proc you can create debug-feedback for people with this
 								//uncommented, but not visible in the release version)
 
 //#define DATUMVAR_DEBUGGING_MODE //Enables the ability to cache datum vars and retrieve later for debugging which vars changed.
@@ -20,7 +20,7 @@
 #define REFERENCE_TRACKING_DEBUG
 
 ///Run a lookup on things hard deleting by default.
-#define GC_FAILURE_HARD_LOOKUP
+//#define GC_FAILURE_HARD_LOOKUP
 #ifdef GC_FAILURE_HARD_LOOKUP
 ///Don't stop when searching, go till you're totally done
 #define FIND_REF_NO_CHECK_TICK
