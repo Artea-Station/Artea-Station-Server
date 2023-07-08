@@ -90,7 +90,6 @@ export const reputationLevelsTooltip = (
               color="white"
               className={value.gradient}
               style={{
-                'border-radius': '5px',
                 'display': 'inline-block',
               }}
               px={0.8}
@@ -136,7 +135,6 @@ export const calculateReputationLevel = (
       color="white"
       className={reputation.gradient}
       style={{
-        'border-radius': '5px',
         'display': 'inline-block',
       }}
       px={0.8}

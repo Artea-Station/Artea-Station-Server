@@ -10,7 +10,11 @@ const logScale = (value) => Math.log2(16 + Math.max(0, value)) - 4;
 
 export const SupermatterMonitor = () => {
   return (
-    <Window width={600} height={350} theme="ntos" title="Supermatter Monitor">
+    <Window
+      width={600}
+      height={350}
+      theme="crtntos"
+      title="Supermatter Monitor">
       <Window.Content scrollable>
         <SupermatterMonitorContent />
       </Window.Content>
