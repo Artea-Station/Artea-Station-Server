@@ -223,3 +223,6 @@
 	// Multiple imaginary friends!
 	/// Contains the owner and all imaginary friend mobs if they exist, otherwise null
 	var/list/imaginary_group = null
+
+	/// The timestamp of the last time a client logged out from this mob.
+	var/last_client_time = 0
