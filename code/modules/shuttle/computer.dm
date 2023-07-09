@@ -213,7 +213,7 @@
 				docking_port.my_overmap_object.GrantOvermapView(usr, get_turf(src))
 		if("overmap_ship_controls")
 			if(docking_port.my_overmap_object)
-				docking_port.my_overmap_object.DisplayUI(usr, get_turf(src))
+				docking_port.my_overmap_object.ui_interact(usr, null, src)
 		if("overmap_launch")
 			if(!launch_check(usr))
 				return

@@ -84,12 +84,20 @@
 			if(my_shuttle.shuttle_areas[mob_turf.loc])
 				. += iterated_mob
 
-/datum/overmap_object/shuttle/proc/GetSensorTargets()
+/datum/overmap_object/shuttle/proc/GetSensorTargets(target)
 	var/list/targets = list()
-	for(var/ov_obj in current_system.GetObjectsInRadius(x,y,SENSOR_RADIUS))
-		var/datum/overmap_object/overmap_object = ov_obj
+	for(var/datum/overmap_object/overmap_object as anything in current_system.GetObjectsInRadius(x,y,SENSOR_RADIUS))
 		if(overmap_object != src && overmap_object.overmap_flags & OV_SHOWS_ON_SENSORS)
-			targets += overmap_object
+			targets += list(list(
+				"id" = overmap_object.id,
+				"name" = overmap_object.name,
+				"x" = overmap_object.x,
+				"y" = overmap_object.y,
+				"distance" = FLOOR(TWO_POINT_DISTANCE(x, y, overmap_object.x, overmap_object.y), 1),
+				"is_target" = target == overmap_object,
+				"in_lock_range" = IN_LOCK_RANGE(src, overmap_object),
+				"is_destination" = destination_x == overmap_object.x && destination_y == overmap_object.y,
+			))
 	return targets
 
 /datum/overmap_object/shuttle/proc/GetCapSpeed()
@@ -110,193 +118,132 @@
 		draw_thrust += ext.DrawThrust(impulse_power)
 	return draw_thrust / speed_divisor_from_mass
 
-/datum/overmap_object/shuttle/proc/DisplayUI(mob/user, turf/usage_turf)
-	if(usage_turf)
-		control_turf = usage_turf
-	var/list/dat = list()
+/datum/overmap_object/shuttle/ui_state(mob/user)
+	return GLOB.physical_state
 
-	dat += "<center><a href='?src=[REF(src)];task=tab;tab=0' [shuttle_ui_tab == 0 ? "class='linkOn'" : ""]>General</a>"
-	if(shuttle_capability & SHUTTLE_CAN_USE_ENGINES)
-		dat += "<a href='?src=[REF(src)];task=tab;tab=1' [shuttle_ui_tab == 1 ? "class='linkOn'" : ""]>Engines</a>"
-		dat += "<a href='?src=[REF(src)];task=tab;tab=2' [shuttle_ui_tab == 2 ? "class='linkOn'" : ""]>Helm</a>"
-	if(shuttle_capability & SHUTTLE_CAN_USE_SENSORS)
-		dat += "<a href='?src=[REF(src)];task=tab;tab=3' [shuttle_ui_tab == 3 ? "class='linkOn'" : ""]>Sensors</a>"
-		if(shuttle_capability & SHUTTLE_CAN_USE_TARGET)
-			dat += "<a href='?src=[REF(src)];task=tab;tab=4' [shuttle_ui_tab == 4 ? "class='linkOn'" : ""]>Target</a>"
-	if(shuttle_capability & SHUTTLE_CAN_USE_DOCK)
-		dat += "<a href='?src=[REF(src)];task=tab;tab=5' [shuttle_ui_tab == 5 ? "class='linkOn'" : ""]>Dock</a>"
-	dat += " <a href='?src=[REF(src)];task=refresh'>Refresh</a></center><HR>"
+/datum/overmap_object/shuttle/ui_interact(mob/user, datum/tgui/ui, obj/src_object)
+	. = ..()
+	if(src_object)
+		control_turf = get_turf(src_object)
+	ui = SStgui.try_update_ui(user, src_object, ui)
+	if(!ui)
+		ui = new(user, src_object, "ShuttleOvermapControls", name)
+		ui.open()
 
-	switch(shuttle_ui_tab)
-		if(SHUTTLE_TAB_GENERAL)
-			var/shield_engaged = IsShieldOn()
-			dat += "Hull: 100% integrity"
-			if(length(shield_extensions))
-				dat += "<BR>Shields: [GetShieldPercent()*100]% <a href='?src=[REF(src)];task=general;general_control=shields' [shield_engaged ? "class='linkOn'" : ""]>[shield_engaged ? "Engaged" : "Disengaged"]</a>"
+/datum/overmap_object/shuttle/proc/ui_data(mob/user)
+	var/list/data = list(
+		"can_use_engines" = !!(shuttle_capability & SHUTTLE_CAN_USE_ENGINES),
+		"can_sense" = !!(shuttle_capability & SHUTTLE_CAN_USE_SENSORS),
+		"can_target" = !!(shuttle_capability & SHUTTLE_CAN_USE_TARGET),
+		"can_dock" = !!(shuttle_capability & SHUTTLE_CAN_USE_DOCK),
+		"shield_status" = !length(shield_extensions) ? "Not installed" : IsShieldOn() ? "[GetShieldPercent()*100]%" : "Offline",
+		"comms_status" = open_comms_channel,
+		"mic_status" = !microphone_muted,
+		"x" = x,
+		"y" = y,
+		"destination_x" = destination_x,
+		"destination_y" = destination_y,
+		"speed" = VECTOR_LENGTH(velocity_x, velocity_y),
+		"impulse_power" = impulse_power * 100,
+		"top_speed" = GetCapSpeed(),
+		"engines" = list(),
+		"targets" = GetSensorTargets(lock?.target),
+	)
+
+	switch(helm_command)
+		if(HELM_IDLE)
+			data["helm_command"] = "Idle";
+		if(HELM_FULL_STOP)
+			data["helm_command"] = "Full stop";
+		if(HELM_MOVE_TO_DESTINATION)
+			data["helm_command"] = "Move to destination";
+		if(HELM_TURN_TO_DESTINATION)
+			data["helm_command"] = "Turn to destination";
+		if(HELM_FOLLOW_SENSOR_LOCK)
+			data["helm_command"] = "Follow sensor lock";
+		if(HELM_TURN_TO_SENSOR_LOCK)
+			data["helm_command"] = "Turn to sensor lock";
+		else
+			data["helm_command"] = "Unknown";
+
+	if(engine_extensions.len == 0)
+		data["engine_amount"] = 0
+	else
+		var/iterator = 0
+		for(var/datum/shuttle_extension/engine/engine_ext as anything in engine_extensions)
+			iterator++
+			data += list(list(
+				"id" = iterator,
+				"name" = engine_ext.name,
+				"status" = !engine_ext.CanOperate() ? "Non-Functional" : engine_ext.turned_on ? "Online" : "Offline",
+				"fuel_percent" = (engine_ext.current_fuel / engine_ext.maximum_fuel) * 100,
+				"efficiency_percent" = engine_ext.current_efficiency * 100,
+			))
+		data["engine_amount"] = iterator
+
+	if(lock)
+		var/command
+		var/locked_status = "NOT ENGAGED"
+		var/locked_and_calibrated = FALSE
+		if(lock.is_calibrated)
+			locked_and_calibrated = TRUE
+			locked_status = "LOCKED"
+		else
+			locked_status = "CALIBRATING"
+
+		switch(target_command)
+			if(TARGET_IDLE)
+				command = "Idle."
+			if(TARGET_FIRE_ONCE)
+				command = "Fire Once!"
+			if(TARGET_KEEP_FIRING)
+				command = "Keep Firing!"
+			if(TARGET_SCAN)
+				command = "Scan."
+			if(TARGET_BEAM_ON_BOARD)
+				command = "Beam on board."
 			else
-				dat += "<BR>Shields: Not installed"
-			dat += "<BR>Position: X: [x] , Y: [y]"
-			dat += "<BR>Overmap View: <a href='?src=[REF(src)];task=general;general_control=overmap'>Open</a>"
-			dat += "<BR>Send a Hail: <a href='?src=[REF(src)];task=general;general_control=hail'>Send...</a>"
-			dat += "<BR>Communications Channel: <a href='?src=[REF(src)];task=general;general_control=comms' [open_comms_channel ? "class='linkOn'" : ""]>[open_comms_channel ? "Open" : "Closed"]</a> - Microphone: <a href='?src=[REF(src)];task=general;general_control=microphone_muted' [microphone_muted ? "" : "class='linkOn'"]>[microphone_muted ? "Muted" : "Open"]</a>"
+				command = "Unknown."
 
-		if(SHUTTLE_TAB_ENGINES)
-			if(engine_extensions.len == 0)
-				dat += "<B>No engines installed.</B>"
-			else
-				dat += "<a href='?src=[REF(src)];task=engines;engines_control=all_on'>All On</a><a href='?src=[REF(src)];task=engines;engines_control=all_off'>All Off</a><a href='?src=[REF(src)];task=engines;engines_control=all_efficiency'>Set All Efficiency</a><HR>"
-				var/iterator = 0
-				for(var/i in engine_extensions)
-					iterator++
-					var/datum/shuttle_extension/engine/engine_ext = i
-					var/can_operate = engine_ext.CanOperate()
-					var/fuel_percent = "[(engine_ext.current_fuel / engine_ext.maximum_fuel)*100]%"
-					var/efficiency_percent = "[engine_ext.current_efficiency*100]%"
-					dat += "<B>Engine [iterator]</B>: [engine_ext.name] - <a href='?src=[REF(src)];task=engines;engines_control=toggle_online;engine_index=[iterator]' [engine_ext.turned_on ? "class='linkOn'" : ""]>[engine_ext.turned_on ? "Online" : "Offline"]</a>"
-					dat += "<BR>Efficiency: <a href='?src=[REF(src)];task=engines;engines_control=set_efficiency;engine_index=[iterator]'>[efficiency_percent]</a>"
-					dat += "<BR>Fuel: [fuel_percent]"
-					dat += "<BR>Status: [can_operate ? "Nominal" : "Not Functioning"]"
-					dat += "<HR>"
+		data["lock"] = list(
+			"name" = lock ? lock.target.name : "NONE",
+			"status" = locked_status,
+			"calibrated" = locked_and_calibrated,
+			"command" = command,
+		)
 
+	if(!my_shuttle || is_seperate_z_level)
+		data["docking"] = "INVALID"
+		return data
 
-		if(SHUTTLE_TAB_HELM)
-			dat += "<B>Command: "
-			switch(helm_command)
-				if(HELM_IDLE)
-					dat += "Idle.</B>"
-				if(HELM_FULL_STOP)
-					dat += "Full stop.</B>"
-				if(HELM_MOVE_TO_DESTINATION)
-					dat += "Move to destination.</B>"
-				if(HELM_TURN_TO_DESTINATION)
-					dat += "Turn to destination.</B>"
-				if(HELM_FOLLOW_SENSOR_LOCK)
-					dat += "Follow sensor lock.</B>"
-				if(HELM_TURN_TO_SENSOR_LOCK)
-					dat += "Turn to sensor lock.</B>"
+	if(VECTOR_LENGTH(velocity_x, velocity_y) > SHUTTLE_MAXIMUM_DOCKING_SPEED)
+		return data
 
-			dat += "<BR>Position: X: [x] , Y: [y]"
-			dat += "<BR>Destination: "
-			dat += "X: <a href='?src=[REF(src)];task=helm;helm_control=change_x'>[destination_x]</a>"
-			dat += " , Y: <a href='?src=[REF(src)];task=helm;helm_control=change_y'>[destination_y]</a>"
-			var/cur_speed = VECTOR_LENGTH(velocity_x, velocity_y)
-			dat += "<BR>Current speed: [cur_speed]"
-			dat += "<BR> - Impulse Power: <a href='?src=[REF(src)];task=helm;helm_control=change_impulse_power'>[impulse_power*100]%</a>"
-			dat += "<BR> - Top speed: [GetCapSpeed()]"
-			if(engine_extensions.len == 0)
-				dat += "<BR><B>No engines installed.</B>"
-			else
-				dat += "<BR>Commands:"
-				dat += "<BR> - <a href='?src=[REF(src)];task=helm;helm_control=command_stop'>Full Stop</a>"
-				dat += "<BR> - <a href='?src=[REF(src)];task=helm;helm_control=command_move_dest'>Move to Destination</a>"
-				dat += "<BR> - <a href='?src=[REF(src)];task=helm;helm_control=command_turn_dest'>Turn to Destination</a>"
-				dat += "<BR> - <a href='?src=[REF(src)];task=helm;helm_control=command_follow_sensor'>Follow Sensor Lock</a>"
-				dat += "<BR> - <a href='?src=[REF(src)];task=helm;helm_control=command_turn_sensor'>Turn to Sensor Lock</a>"
-				dat += "<BR> - <a href='?src=[REF(src)];task=helm;helm_control=command_idle'>Idle</a>"
-				dat += "<BR>Pad Control: <a href='?src=[REF(src)];task=helm;helm_control=pad'>Open</a>"
+	var/list/z_levels = list()
+	var/list/nearby_objects = current_system.GetObjectsOnCoords(x,y)
+	var/list/freeform_z_levels = list()
+	for(var/datum/overmap_object/overmap_object as anything in nearby_objects)
+		for(var/level in overmap_object.related_levels)
+			var/datum/space_level/iterated_space_level = level
+			z_levels["[iterated_space_level.z_value]"] = TRUE
+			freeform_z_levels["[iterated_space_level.name]"] = iterated_space_level.z_value
 
-		if(SHUTTLE_TAB_SENSORS)
-			var/list/targets = GetSensorTargets()
-			dat += "<table align='center'; width='100%'; height='100%'; style='background-color:#13171C'>"
-			dat += "<tr style='vertical-align:top'>"
-			dat += "<td width=30%>Name:</td>"
-			dat += "<td width=10%>X:</td>"
-			dat += "<td width=10%>Y:</td>"
-			dat += "<td width=10%>Dist:</td>"
-			dat += "<td width=40%>Actions:</td>"
-			dat += "</tr>"
-			var/even = TRUE
-			for(var/ov_obj in targets)
-				even = !even
-				var/datum/overmap_object/overmap_obj = ov_obj
-				var/dist = FLOOR(TWO_POINT_DISTANCE(x,y,overmap_obj.x,overmap_obj.y),1)
-				var/is_destination = (destination_x == overmap_obj.x && destination_y == overmap_obj.y)
-				var/is_target = (lock && lock.target == overmap_obj)
-				dat += "<tr style='background-color: [even ? "#17191C" : "#23273C"];'>"
-				dat += "<td>[overmap_obj.name]</td>"
-				dat += "<td>[overmap_obj.x]</td>"
-				dat += "<td>[overmap_obj.y]</td>"
-				dat += "<td>[dist]</td>"
-				dat += "<td>"
-				var/in_lock_range = IN_LOCK_RANGE(src,overmap_obj)
-				if(shuttle_capability & SHUTTLE_CAN_USE_TARGET)
-					dat += "<a href='?src=[REF(src)];task=sensor;sensor_task=target;target_id=[overmap_obj.id]'[in_lock_range ? "" : "class='linkOff'"][is_target ? "class='linkOn'" : ""]>Target</a>"
-				if(shuttle_capability & SHUTTLE_CAN_USE_ENGINES)
-					dat += "<a href='?src=[REF(src)];task=sensor;sensor_task=destination;target_id=[overmap_obj.id]' [is_destination ? "class='linkOn'" : ""]>As Dest.</a>"
-				dat += "</td></tr>"
-			dat += "</table>"
+	var/list/obj/docking_port/stationary/docks = list()
+	var/list/options = params2list(my_shuttle.possible_destinations)
+	for(var/obj/docking_port/stationary/iterated_dock in SSshuttle.stationary_docking_ports)
+		if(!z_levels["[iterated_dock.z]"])
+			continue
+		if(!options.Find(iterated_dock.port_destinations))
+			continue
+		if(!my_shuttle.check_dock(iterated_dock, silent = TRUE))
+			continue
+		docks[iterated_dock.name] = iterated_dock.shuttle_id
 
-		if(SHUTTLE_TAB_TARGET)
-			var/locked_thing_name = lock ? lock.target.name : "NONE"
-			var/locked_status = "NOT ENGAGED"
-			var/locked_and_calibrated = FALSE
-			if(lock)
-				if(lock.is_calibrated)
-					locked_and_calibrated = TRUE
-					locked_status = "LOCKED"
-				else
-					locked_status = "CALIBRATING"
+	data["docking"] = list(
+		"docks" = docks,
+		"freeforms" = freeform_z_levels,
+	)
 
-			dat += "Target: [locked_thing_name]"
-			dat	+= "<BR>Lock status: [locked_status] [lock ? "<a href='?src=[REF(src)];task=target;target_control=disengage_lock'>Disengage</a>" : ""]"
-			dat	+= "<BR><B>Current Command:</B> "
-			switch(target_command)
-				if(TARGET_IDLE)
-					dat	+= "Idle."
-				if(TARGET_FIRE_ONCE)
-					dat	+= "Fire Once!"
-				if(TARGET_KEEP_FIRING)
-					dat	+= "Keep Firing!"
-				if(TARGET_SCAN)
-					dat	+= "Scan."
-				if(TARGET_BEAM_ON_BOARD)
-					dat	+= "Beam on board."
-			dat += "<BR>Commands:"
-			dat += "<BR> - <a href='?src=[REF(src)];task=target;target_control=command_idle' [locked_and_calibrated ? "" : "class='linkOff'"]>Idle</a>"
-			dat += "<BR> - <a href='?src=[REF(src)];task=target;target_control=command_fire_once' [locked_and_calibrated ? "" : "class='linkOff'"]>Fire Once!</a>"
-			dat += "<BR> - <a href='?src=[REF(src)];task=target;target_control=command_keep_firing' [locked_and_calibrated ? "" : "class='linkOff'"]>Keep Firing!</a>"
-			dat += "<BR> - <a href='?src=[REF(src)];task=target;target_control=command_scan' [locked_and_calibrated ? "" : "class='linkOff'"]>Scan</a>"
-			dat += "<BR> - <a href='?src=[REF(src)];task=target;target_control=command_beam_on_board' [locked_and_calibrated ? "" : "class='linkOff'"]>Beam on Board</a>"
-
-		if(SHUTTLE_TAB_DOCKING)
-			if(!my_shuttle || is_seperate_z_level)
-				return
-			if(VECTOR_LENGTH(velocity_x, velocity_y) > SHUTTLE_MAXIMUM_DOCKING_SPEED)
-				dat += "<B>Cannot safely dock in high velocities!</B>"
-			else
-				var/list/z_levels = list()
-				var/list/nearby_objects = current_system.GetObjectsOnCoords(x,y)
-				var/list/freeform_z_levels = list()
-				for(var/i in nearby_objects)
-					var/datum/overmap_object/IO = i
-					for(var/level in IO.related_levels)
-						var/datum/space_level/iterated_space_level = level
-						z_levels["[iterated_space_level.z_value]"] = TRUE
-						freeform_z_levels["[iterated_space_level.name] - Freeform"] = iterated_space_level.z_value
-
-				var/list/obj/docking_port/stationary/docks = list()
-				var/list/options = params2list(my_shuttle.possible_destinations)
-				for(var/i in SSshuttle.stationary_docking_ports)
-					var/obj/docking_port/stationary/iterated_dock = i
-					if(!z_levels["[iterated_dock.z]"])
-						continue
-					if(!options.Find(iterated_dock.port_destinations))
-						continue
-					if(!my_shuttle.check_dock(iterated_dock, silent = TRUE))
-						continue
-					docks[iterated_dock.name] = iterated_dock
-	
-				dat += "<B>Designated docks:</B>"
-				for(var/key in docks)
-					dat += "<BR> - [key] - <a href='?src=[REF(src)];task=dock;dock_control=normal_dock;dock_id=[docks[key].shuttle_id]'>Dock</a>"
-
-				dat += "<BR><BR><B>Freeform docking spaces:</B>"
-				for(var/key in freeform_z_levels)
-					dat += "<BR> - [key] - <a href='?src=[REF(src)];task=dock;dock_control=freeform_dock;z_value=[freeform_z_levels[key]]'>Designate Location</a>"
-
-	var/datum/browser/popup = new(user, "overmap_shuttle_control", "Shuttle Control", 400, 440)
-	popup.set_content(dat.Join())
-	popup.open()
 
 /datum/overmap_object/shuttle/proc/DisplayHelmPad(mob/user)
 	var/list/dat = list("<center>")
