@@ -61,7 +61,7 @@ const ActionButton = (
 export const ShuttleOvermapControls = (props, context) => {
   const [tab, setTab] = useSharedState(context, 'tab', 1);
   return (
-    <Window width={450} height={500}>
+    <Window width={450} height={550}>
       <Window.Content>
         <Tabs>
           <Tabs.Tab selected={tab === 1} onClick={() => setTab(1)}>
@@ -92,6 +92,7 @@ export const ShuttleOvermapControls = (props, context) => {
         {tab === 3 && <HelmTab />}
         {tab === 4 && <SensorsTab />}
         {tab === 5 && <TargetTab />}
+        {tab === 6 && <DockingTab />}
         {/* <Section>
           <Box bold fontSize="26px" textAlign="center" fontFamily="monospace">
             {timer_str || '00:00'}
@@ -155,7 +156,7 @@ const GeneralTab = (props, context) => {
       <Button
         fluid
         content="Toggle Alerts"
-        icon={comms_status === 1 ? 'volume' : 'volume-xmark'}
+        icon={comms_status === 1 ? 'volume-high' : 'volume-xmark'}
         color={comms_status === 1 ? null : 'red'}
         textAlign="center"
         onClick={() => act('comms')}
@@ -175,7 +176,7 @@ const GeneralTab = (props, context) => {
 type EngineData = {
   id: number;
   name: string;
-  efficiency: number;
+  efficiency_percent: number;
   fuel_percent: number;
   status: string;
 };
@@ -190,11 +191,11 @@ const EngineEntry = (props, context) => {
         Engine {engine.id}: {engine.name}
       </p>
       <p>
-        Efficiency:
+        Efficiency:{' '}
         <ActionButton
           action="set_efficiency"
           data={{ engine_index: engine.id }}>
-          {engine.efficiency}%
+          {engine.efficiency_percent}%
         </ActionButton>
       </p>
       <p>Fuel: {engine.fuel_percent}%</p>
@@ -332,7 +333,7 @@ const SensorsTab = (props, context) => {
                 <ActionButton
                   action="target"
                   data={{ target_id: entry.id }}
-                  disabled={!entry.is_target}>
+                  disabled={!!entry.is_target}>
                   Target
                 </ActionButton>
               )}
@@ -340,7 +341,7 @@ const SensorsTab = (props, context) => {
                 <ActionButton
                   action="destination"
                   data={{ target_id: entry.id }}
-                  disabled={!entry.is_destination}>
+                  disabled={!!entry.is_destination}>
                   Set Destination
                 </ActionButton>
               )}
@@ -406,8 +407,8 @@ const TargetTab = (props, context) => {
 };
 
 type DockingData = {
-  docks: string[];
-  freeforms: string[];
+  docks: Record<string, string>;
+  freeforms: Record<string, string>;
 };
 
 const DockingTab = (props, context) => {
@@ -443,20 +444,18 @@ const DockingTab = (props, context) => {
   return (
     <Section>
       <p>Designated Docks:</p>
-      {docking.docks.map((entry) => (
-        <p key={entry}>
-          - {entry} -{' '}
-          <ActionButton action="normal_dock" data={{ dock_id: entry }}>
-            Dock
+      {Object.entries(docking.docks).map((entry) => (
+        <p key={entry[1]}>
+          <ActionButton action="normal_dock" data={{ dock_id: entry[1] }}>
+            - {entry[0]}
           </ActionButton>
         </p>
       ))}
       <p>Freeform Landing:</p>
-      {docking.freeforms.map((entry) => (
-        <p key={entry}>
-          - {entry} -{' '}
-          <ActionButton action="freeform_dock" data={{ z_value: entry }}>
-            Land
+      {Object.entries(docking.freeforms).map((entry) => (
+        <p key={entry[1]}>
+          <ActionButton action="freeform_dock" data={{ z_value: entry[1] }}>
+            - {entry[0]}
           </ActionButton>
         </p>
       ))}
