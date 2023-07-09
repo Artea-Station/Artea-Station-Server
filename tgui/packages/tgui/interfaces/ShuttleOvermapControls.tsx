@@ -17,7 +17,7 @@ type Data = {
   helm_command: number;
   destination_x: number;
   destination_y: number;
-  current_speed: number;
+  speed: number;
   impulse_power: number;
   top_speed: number;
   targets: TargetData[];
@@ -254,7 +254,7 @@ const HelmTab = (props, context) => {
         <ActionButton action="change_x">{data.destination_x}</ActionButton>, Y:{' '}
         <ActionButton action="change_y">{data.destination_y}</ActionButton>
       </p>
-      <p>Current Speed: {data.current_speed}</p>
+      <p>Current Speed: {data.speed}</p>
       <p>
         - Impulse Power:{' '}
         <ActionButton action="change_impulse_power">

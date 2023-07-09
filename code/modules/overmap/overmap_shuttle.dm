@@ -155,7 +155,7 @@
 		"y" = y,
 		"destination_x" = destination_x,
 		"destination_y" = destination_y,
-		"speed" = VECTOR_LENGTH(velocity_x, velocity_y),
+		"speed" = round(VECTOR_LENGTH(velocity_x, velocity_y), 0.1),
 		"impulse_power" = impulse_power * 100,
 		"top_speed" = GetCapSpeed(),
 		"targets" = GetSensorTargets(lock?.target),
