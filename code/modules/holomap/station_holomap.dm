@@ -64,7 +64,7 @@
 
 	update_icon()
 
-/obj/machinery/station_map/attack_hand(var/mob/user)
+/obj/machinery/station_map/attack_hand(mob/user)
 	if(user == watching_mob)
 		close_map(user)
 		return
@@ -72,7 +72,7 @@
 	open_map(user)
 
 /// Tries to open the map for the given mob. Returns FALSE if it doesn't meet the criteria, TRUE if the map successfully opened with no runtimes.
-/obj/machinery/station_map/proc/open_map(var/mob/user)
+/obj/machinery/station_map/proc/open_map(mob/user)
 	if(!anchored || (machine_stat & (NOPOWER | BROKEN)) || !user?.client || panel_open || user.hud_used.holomap.used_station_map)
 		return FALSE
 
@@ -109,7 +109,7 @@
 
 	return TRUE
 
-/obj/machinery/station_map/attack_ai(var/mob/living/silicon/robot/user)
+/obj/machinery/station_map/attack_ai(mob/living/silicon/robot/user)
 	attack_hand(user)
 
 /obj/machinery/station_map/attack_robot(mob/user)

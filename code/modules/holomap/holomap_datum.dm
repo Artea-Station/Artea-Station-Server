@@ -15,7 +15,7 @@
 	. = ..()
 	cursor = image('icons/obj/machines/holomap/8x8.dmi', "you")
 
-/datum/station_holomap/proc/initialize_holomap(map_x, map_y, map_z, var/mob/user = null, var/reinit_base_map = FALSE, extra_overlays = list())
+/datum/station_holomap/proc/initialize_holomap(map_x, map_y, map_z, mob/user = null, reinit_base_map = FALSE, extra_overlays = list())
 	src.map_x = map_x
 	src.map_y = map_y
 	src.map_z = map_z
