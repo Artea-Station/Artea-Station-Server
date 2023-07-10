@@ -33,7 +33,7 @@
 
 /obj/machinery/station_map/Initialize()
 	. = ..()
-	current_z_level = loc.z
+	current_z_level = z
 	SSholomaps.station_holomaps += src
 
 /obj/machinery/station_map/LateInitialize()
