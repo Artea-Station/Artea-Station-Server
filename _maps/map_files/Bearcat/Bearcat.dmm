@@ -36,7 +36,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
 /obj/item/stack/tile/iron/dark_side,
 /turf/open/floor/plating,
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "ai" = (
 /obj/machinery/telecomms/bus/preset_four,
 /turf/open/floor/circuit,
@@ -178,7 +178,7 @@
 /turf/open/floor/iron/dark/side{
 	dir = 1
 	},
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "bk" = (
 /obj/structure/rack,
 /obj/item/tank/jetpack/carbondioxide,
@@ -210,7 +210,7 @@
 /turf/open/floor/iron/dark/corner{
 	dir = 1
 	},
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "bA" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/railing/corner{
@@ -257,10 +257,10 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
 "bV" = (
-/obj/machinery,
 /obj/structure/window/spawner/east,
+/obj/machinery/cryopod,
 /turf/open/floor/iron,
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "bW" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -530,12 +530,12 @@
 /turf/open/floor/iron/dark,
 /area/station/tcommsat/server)
 "dm" = (
-/obj/machinery{
+/obj/structure/window/spawner/west,
+/obj/machinery/cryopod{
 	dir = 1
 	},
-/obj/structure/window/spawner/west,
 /turf/open/floor/iron,
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "du" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible,
@@ -1799,7 +1799,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/item/stack/tile/iron/dark_side,
 /turf/open/floor/plating,
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "kG" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -2299,7 +2299,7 @@
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "nB" = (
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable,
@@ -2892,14 +2892,13 @@
 /turf/open/floor/iron/white,
 /area/station/medical/pharmacy)
 "qT" = (
-/obj/machinery/computer{
-	name = "Pretend I'm A Cryo Computer";
-	pixel_y = 24
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/broken/directional/north,
+/obj/machinery/computer/cryopod/directional/north{
+	pixel_y = 26
+	},
 /turf/open/floor/iron,
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "qU" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/door/firedoor/border_only{
@@ -3017,7 +3016,7 @@
 	pixel_y = 8
 	},
 /turf/closed/wall,
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "rJ" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/drinks,
@@ -3275,7 +3274,7 @@
 /area/station/ai_monitored/command/storage/eva)
 "tv" = (
 /turf/closed/wall/rust,
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "tw" = (
 /obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped,
 /turf/open/floor/iron/dark,
@@ -3777,13 +3776,15 @@
 /area/station/commons/vacant_room)
 "vY" = (
 /obj/machinery/firealarm/directional/south,
-/obj/machinery,
 /obj/structure/window/spawner/east,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/cryopod{
+	dir = 1
+	},
 /turf/open/floor/iron,
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "wa" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -4243,7 +4244,7 @@
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "zh" = (
 /obj/structure/lattice,
 /turf/open/space/openspace,
@@ -4845,7 +4846,7 @@
 /turf/open/floor/iron/dark/side{
 	dir = 1
 	},
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "CU" = (
 /obj/structure/ladder,
 /turf/open/floor/plating,
@@ -5029,6 +5030,11 @@
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood,
 /area/station/service/bar)
+"En" = (
+/obj/structure/window/spawner/west,
+/obj/machinery/cryopod,
+/turf/open/floor/iron,
+/area/station/commons/storage/cryo)
 "Eo" = (
 /obj/effect/turf_decal/siding/thinplating{
 	dir = 8
@@ -5126,7 +5132,7 @@
 /area/station/cargo/warehouse)
 "ER" = (
 /turf/closed/wall/r_wall,
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "EU" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/door/firedoor/border_only,
@@ -5514,15 +5520,15 @@
 /area/station/hallway/primary/central)
 "Hj" = (
 /obj/machinery/light/red/directional/south,
-/obj/machinery{
-	dir = 1
-	},
 /obj/structure/window/spawner/west,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/cryopod{
+	dir = 1
+	},
 /turf/open/floor/iron,
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "Hm" = (
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
@@ -5708,7 +5714,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "Ix" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -6563,7 +6569,7 @@
 "Ny" = (
 /obj/effect/landmark/latejoin,
 /turf/open/floor/iron/dark/side,
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "Nz" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -6682,7 +6688,7 @@
 /turf/open/floor/iron/dark/side{
 	dir = 9
 	},
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "NZ" = (
 /turf/open/floor/plating,
 /area/station/hallway/primary/central/aft)
@@ -7204,7 +7210,7 @@
 	},
 /obj/machinery/disposal/bin,
 /turf/open/floor/iron,
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "QZ" = (
 /turf/closed/wall/r_wall,
 /area/station/cargo/sorting)
@@ -7937,6 +7943,13 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/station/service/bar)
+"Va" = (
+/obj/structure/window/spawner/east,
+/obj/machinery/cryopod{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/station/commons/storage/cryo)
 "Vc" = (
 /obj/structure/cable,
 /turf/open/floor/engine/airless,
@@ -7951,7 +7964,7 @@
 /area/station/service/bar)
 "Ve" = (
 /turf/closed/wall/r_wall/rust,
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "Vf" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/iron/dark,
@@ -8459,7 +8472,7 @@
 /area/station/science/research/abandoned)
 "Ys" = (
 /turf/closed/wall,
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "Yt" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -8624,7 +8637,7 @@
 /turf/open/floor/iron/dark/side{
 	dir = 1
 	},
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "Zt" = (
 /obj/structure/cable,
 /obj/machinery/power/port_gen/pacman/super,
@@ -8687,7 +8700,7 @@
 "ZO" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark/side,
-/area/station/commons)
+/area/station/commons/storage/cryo)
 "ZP" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -108843,7 +108856,7 @@ NK
 NK
 NK
 ER
-dm
+En
 Ny
 Zs
 Hj
@@ -109360,7 +109373,7 @@ ER
 bV
 Ny
 CS
-bV
+Va
 FL
 uI
 uI
@@ -109614,7 +109627,7 @@ NK
 NK
 NK
 ER
-dm
+En
 Ny
 ba
 dm

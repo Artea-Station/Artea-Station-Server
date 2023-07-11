@@ -506,6 +506,19 @@
 	name = "\improper Entertainment Center"
 	icon_state = "entertainment"
 
+/area/station/commons/storage/cryo
+	name = "\improper Cryo Storage Room"
+	icon_state = "dorms"
+
+/area/station/commons/on_joining_game(mob/living/carbon/human/boarder)
+	. = ..()
+	if(!ishuman(boarder))
+		return
+
+	var/obj/machinery/computer/cryopod/console = pick(GLOB.station_cryopod_computers)
+	var/obj/item/card/id/id = boarder.get_idcard()
+	console.announce("CRYO_JOIN", id.registered_name, id.assignment)
+
 // Commons - Vacant Rooms
 /area/station/commons/vacant_room
 	name = "\improper Vacant Room"
