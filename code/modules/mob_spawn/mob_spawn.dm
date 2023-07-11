@@ -130,6 +130,8 @@
 	var/role_ban = ROLE_LAVALAND
 	/// Typepath indicating the kind of job datum this ghost role will have. PLEASE inherit this with a new job datum, it's not hard. jobs come with policy configs.
 	var/spawner_job_path = /datum/job/ghost_role
+	/// For figuring out where the local cryopod computer is. Must be set for cryo computer announcements.
+	var/area/computer_area
 
 /obj/effect/mob_spawn/ghost_role/Initialize(mapload)
 	. = ..()
@@ -176,6 +178,27 @@
 		uses += 1 // Oops! We messed up and somehow the mob didn't spawn, but that's alright we can refund the use.
 
 	check_uses() // Now we check if the spawner should delete itself or not
+
+// Wake-up notifications
+
+/obj/effect/mob_spawn/ghost_role/create(mob/mob_possessor, newname)
+	var/mob/living/spawned_mob = ..()
+	var/obj/machinery/computer/cryopod/control_computer = find_control_computer()
+
+	GLOB.ghost_records.Add(list(list("name" = spawned_mob.real_name, "rank" = prompt_name)))
+	if(control_computer)
+		control_computer.announce("CRYO_JOIN", spawned_mob.real_name, prompt_name)
+
+	return spawned_mob
+
+/obj/effect/mob_spawn/ghost_role/proc/find_control_computer()
+	if(!computer_area)
+		return
+	for(var/cryo_console as anything in GLOB.cryopod_computers)
+		var/obj/machinery/computer/cryopod/console = cryo_console
+		var/area/area = get_area(cryo_console) // Define moment
+		if(area.type == computer_area)
+			return console
 
 /obj/effect/mob_spawn/ghost_role/special(mob/living/spawned_mob, mob/mob_possessor)
 	. = ..()

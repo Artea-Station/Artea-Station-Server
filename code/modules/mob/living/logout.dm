@@ -1,4 +1,5 @@
 /mob/living/Logout()
+	last_client_time = world.time
 	update_z(null)
 	..()
 	if(!key && mind) //key and mind have become separated.
