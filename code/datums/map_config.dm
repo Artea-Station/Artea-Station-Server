@@ -142,6 +142,7 @@
 
 	var/type_to_load = text2path(json["map_type"])
 	if(!type_to_load)
+		warning("Invalid map datum in [filename]!")
 		return
 
 	var/datum/map_config/config = new type_to_load()
