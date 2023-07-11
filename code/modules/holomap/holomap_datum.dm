@@ -89,4 +89,4 @@
 	legend.pixel_x = 192
 	legend.pixel_y = 224
 
-	update_map(overlays_to_use = list(legend))
+	update_map(overlays_to_use = list("" = list("icon" = legend)))
