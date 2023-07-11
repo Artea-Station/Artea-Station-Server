@@ -1,4 +1,4 @@
-/// Generic away/pffstation trim.
+/// Generic away/offstation trim.
 /datum/id_trim/away
 	access = list(ACCESS_AWAY_GENERAL)
 
@@ -123,3 +123,22 @@
 /// Trim for the pirate captain.
 /datum/id_trim/pirate/captain/silverscale
 	assignment = "Silver Scale VIP"
+
+//Trims for waystation.dmm space ruin
+/datum/id_trim/away/waystation/cargo_technician
+	assignment = "Waystation Cargo Hauler"
+	trim_state = "trim_cargotechnician"
+	department_color = COLOR_CARGO_BROWN
+	access = list(ACCESS_AWAY_SUPPLY)
+
+/datum/id_trim/away/waystation/quartermaster
+	assignment = "Waystation Quartermaster"
+	trim_state = "trim_quartermaster"
+	department_color = COLOR_CARGO_BROWN
+	access = list(ACCESS_AWAY_SUPPLY, ACCESS_AWAY_COMMAND)
+
+/datum/id_trim/away/waystation/security
+	assignment = "Waystation Security Officer"
+	trim_state = "trim_securityofficer"
+	department_color = COLOR_CARGO_BROWN
+	access = list(ACCESS_AWAY_SUPPLY, ACCESS_AWAY_SEC)
