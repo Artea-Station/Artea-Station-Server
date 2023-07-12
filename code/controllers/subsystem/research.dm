@@ -33,6 +33,8 @@ SUBSYSTEM_DEF(research)
 	var/list/techweb_nodes_hidden = list()
 	///Node ids that are exclusive to the BEPIS.
 	var/list/techweb_nodes_experimental = list()
+	///Node ids that are valid for loot tables. Should be updated once polled.
+	var/list/techweb_nodes_lootable = list("minor" = list(), "middle" = list(), "major" = list())
 	///path = list(point type = value)
 	var/list/techweb_point_items = list(
 	/obj/item/assembly/signaler/anomaly = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
@@ -155,6 +157,12 @@ SUBSYSTEM_DEF(research)
 		returned[initial(TN.id)] = TN
 		if(TN.starting_node)
 			techweb_nodes_starting[TN.id] = TRUE
+		if(TN.research_costs[TECHWEB_POINT_TYPE_GENERIC] < 2000)
+			techweb_nodes_lootable["minor"] += TN
+		else if(TN.research_costs[TECHWEB_POINT_TYPE_GENERIC] < 5001)
+			techweb_nodes_lootable["middle"] += TN
+		else
+			techweb_nodes_lootable["major"] += TN
 	for(var/id in techweb_nodes)
 		var/datum/techweb_node/TN = techweb_nodes[id]
 		TN.Initialize()

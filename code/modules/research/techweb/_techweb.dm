@@ -86,12 +86,48 @@
 /datum/techweb/bepis/New(remove_tech = TRUE)
 	. = ..()
 	var/bepis_id = pick(SSresearch.techweb_nodes_experimental) //To add a new tech to the BEPIS, add the ID to this pick list.
-	var/datum/techweb_node/BN = (SSresearch.techweb_node_by_id(bepis_id))
-	hidden_nodes -= BN.id //Has to be removed from hidden nodes
-	research_node(BN, TRUE, FALSE, FALSE)
-	update_node_status(BN)
 	if(remove_tech)
 		SSresearch.techweb_nodes_experimental -= bepis_id
+
+	var/datum/techweb_node/bepis_node = SSresearch.techweb_node_by_id(bepis_id)
+	hidden_nodes -= bepis_node.id //Has to be removed from hidden nodes
+	research_node(bepis_node, TRUE, FALSE, FALSE)
+	update_node_status(bepis_node)
+
+/datum/techweb/bepis/no_remove/New()
+	return ..(FALSE)
+
+/datum/techweb/science/loot
+	id = "SCIENCE_LOOT"
+	/// "minor", "middle" or "major" research. <2000, <5001 and >5000 respectively.
+	var/loot_table
+
+/datum/techweb/science/loot/New(remove_tech = TRUE)
+	icon = "datadisk[rand(0, 9)]"
+	var/datum/techweb_node/science_node = SSresearch.techweb_nodes_lootable(science_id)
+	if(remove_tech)
+		SSresearch.techweb_nodes_lootable[loot_table] -= science_node
+	hidden_nodes -= science_node.id
+	research_node(science_node, TRUE, FALSE, FALSE)
+	update_node_status(science_node)
+
+/datum/techweb/science/loot/minor
+	loot_table = "minor"
+
+/datum/techweb/science/loot/minor/no_remove/New()
+	return ..(FALSE)
+
+/datum/techweb/science/loot/middle
+	loot_table = "middle"
+
+/datum/techweb/science/loot/middle/no_remove/New()
+	return ..(FALSE)
+
+/datum/techweb/science/loot/major
+	loot_table = "major"
+
+/datum/techweb/science/loot/major/no_remove/New()
+	return ..(FALSE)
 
 /datum/techweb/Destroy()
 	researched_nodes = null
