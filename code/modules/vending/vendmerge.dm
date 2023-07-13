@@ -368,9 +368,6 @@
 		/obj/item/reagent_containers/cup/bottle/ammonia = 10,
 		/obj/item/reagent_containers/cup/bottle/diethylamine = 5,
 	)
-	premium = list(
-		/obj/item/reagent_containers/spray/waterflower = 1,
-	)
 	refill_canister = /obj/item/vending_refill/hydroseeds/deluxe
 
 /obj/item/vending_refill/hydroseeds/deluxe
