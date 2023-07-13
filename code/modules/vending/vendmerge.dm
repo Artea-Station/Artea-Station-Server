@@ -2,8 +2,8 @@
 	name = "\improper Engi-Vend Deluxe"
 	product_categories = list(
 		list(
-			"name" = "Engi-vend",
-			"icon" = "car-battery",
+			"name" = "Engi-vend", //It doesn't list these categories in the same
+			"icon" = "car-battery", //order that I made them and I don't know why
 			"products" = list(
 				/obj/item/clothing/glasses/meson/engine = 2,
 				/obj/item/clothing/glasses/welding = 3,
@@ -68,15 +68,7 @@
 				/obj/item/clothing/head/hardhat/weldhat = 3,
 			),
 		),
-	)
-	contraband = list(
-		/obj/item/stock_parts/cell/potato = 3,
-	)
-	premium = list(
-		/obj/item/storage/belt/utility = 3,
-		/obj/item/construction/rcd/loaded = 2,
-		/obj/item/storage/box/smart_metal_foam = 1,
-	)
+	) //same contraband & premium as normal engi-vend, which we inherit from. Other vendors we took from have no contraband/premium products
 	refill_canister = /obj/item/vending_refill/engivend/deluxe
 
 /obj/item/vending_refill/engivend/deluxe
