@@ -63,8 +63,8 @@
 				/obj/item/clothing/mask/bandana/striped/engineering = 3,
 				/obj/item/clothing/head/hardhat = 3,
 				/obj/item/clothing/head/hardhat/weldhat = 3,
-			)
-		)
+			),
+		),
 	)
 	contraband = list(
 		/obj/item/stock_parts/cell/potato = 3,
