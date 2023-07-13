@@ -260,5 +260,5 @@
 	refill_canister = /obj/item/vending_refill/dinnerware/deluxe
 
 /obj/item/vending_refill/dinnerware/deluxe
-	machine_name = "Plasteel Chef's Dinnerware Vendor"
+	machine_name = "Plasteel Chef's Dinnerware Vendor Deluxe"
 	icon_state = "refill_smoke"
