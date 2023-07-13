@@ -96,19 +96,15 @@ again.
 /obj/effect/spawner/structure/window/reinforced
 	name = "reinforced window spawner"
 	icon_state = "rwindow_spawner"
-	spawn_list = list(/obj/structure/low_wall, /obj/structure/window/reinforced/fulltile)
-
-/obj/effect/spawner/structure/window/reinforced/grille
-	name = "reinforced window with grille spawner"
 	spawn_list = list(/obj/structure/grille, /obj/structure/low_wall, /obj/structure/window/reinforced/fulltile)
+
+/obj/effect/spawner/structure/window/reinforced/no_grille
+	spawn_list = list(/obj/structure/low_wall, /obj/structure/window/reinforced/fulltile)
 
 /obj/effect/spawner/structure/window/reinforced/wood
 	name = "reinforced window with wooden low wall spawner"
 	icon_state = "rwindow_spawner"
-	spawn_list = list(/obj/structure/low_wall/wood, /obj/structure/window/reinforced/fulltile)
-
-/obj/effect/spawner/structure/window/reinforced/no_firelock
-	spawn_list = list(/obj/structure/grille, /obj/structure/window/reinforced/fulltile)
+	spawn_list = list(/obj/structure/grille, /obj/structure/low_wall/wood, /obj/structure/window/reinforced/fulltile)
 
 /obj/effect/spawner/structure/window/hollow/reinforced
 	name = "hollow reinforced window spawner"
