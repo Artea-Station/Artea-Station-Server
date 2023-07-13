@@ -206,3 +206,59 @@
 
 /obj/item/vending_refill/medical/deluxe
 	machine_name = "NanoMed Deluxe"
+
+/obj/machinery/vending/dinnerware/deluxe
+	name = "\improper Plasteel Chef's Dinnerware Vendor Deluxe"
+	desc = "A Deluxe kitchen and restaurant equipment vendor."
+	product_categories = list(
+		list(
+			"name" = "Dinnerware",
+			"icon" = "utensils",
+			"products" = list(
+				/obj/item/storage/bag/tray = 8,
+				/obj/item/reagent_containers/cup/bowl = 20,
+				/obj/item/kitchen/fork = 6,
+				/obj/item/kitchen/spoon = 6,
+				/obj/item/reagent_containers/cup/glass/drinkingglass = 8,
+				/obj/item/reagent_containers/condiment/pack/ketchup = 5,
+				/obj/item/reagent_containers/condiment/pack/hotsauce = 5,
+				/obj/item/reagent_containers/condiment/pack/astrotame = 5,
+				/obj/item/reagent_containers/condiment/saltshaker = 5,
+				/obj/item/reagent_containers/condiment/peppermill = 5,
+				/obj/item/clothing/suit/apron/chef = 2,
+				/obj/item/kitchen/rollingpin = 2,
+				/obj/item/knife/kitchen = 2,
+				/obj/item/book/granter/crafting_recipe/cooking_sweets_101 = 2,
+				/obj/item/plate/small = 5,
+				/obj/item/plate = 10,
+				/obj/item/plate/large = 5,
+			),
+		),
+		list(
+			"name" = "ChefDrobe",
+			"icon" = "hat-cowboy",
+			"products" = list(
+				/obj/item/clothing/under/suit/waiter = 2,
+				/obj/item/radio/headset/headset_srv = 2,
+				/obj/item/clothing/accessory/waistcoat = 2,
+				/obj/item/clothing/suit/apron/chef = 3,
+				/obj/item/clothing/head/soft/mime = 2,
+				/obj/item/storage/box/mousetraps = 2,
+				/obj/item/circuitboard/machine/dish_drive = 1,
+				/obj/item/clothing/suit/toggle/chef = 1,
+				/obj/item/clothing/under/rank/civilian/chef = 1,
+				/obj/item/clothing/under/rank/civilian/chef/skirt = 2,
+				/obj/item/clothing/head/chefhat = 1,
+				/obj/item/clothing/under/rank/civilian/cookjorts = 2,
+				/obj/item/clothing/shoes/cookflops = 2,
+				/obj/item/reagent_containers/cup/rag = 1,
+				/obj/item/clothing/suit/hooded/wintercoat = 2,
+			),
+		),
+	)
+
+	refill_canister = /obj/item/vending_refill/dinnerware/deluxe
+
+/obj/item/vending_refill/dinnerware/deluxe
+	machine_name = "Plasteel Chef's Dinnerware Vendor"
+	icon_state = "refill_smoke"
