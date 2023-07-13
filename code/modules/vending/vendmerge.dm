@@ -1,8 +1,9 @@
 /obj/machinery/vending/engivend/deluxe
 	name = "\improper Engi-Vend Deluxe"
-	products = list(
+	product_categories = list(
 		list(
-			"name" = "Engi-vend"
+			"name" = "Engi-vend",
+			"icon" = "car-battery",
 			"products" = list(
 				/obj/item/clothing/glasses/meson/engine = 2,
 				/obj/item/clothing/glasses/welding = 3,
@@ -19,7 +20,8 @@
 		),
 
 		list(
-			"name" = "Robco"
+			"name" = "Robco",
+			"icon" = "screwdriver-wrench",
 			"products" = list(
 				/obj/item/clothing/under/rank/engineering/chief_engineer = 4,
 				/obj/item/clothing/under/rank/engineering/engineer = 4,
@@ -47,7 +49,8 @@
 		),
 
 		list(
-			"name" = "EngiDrobe"
+			"name" = "EngiDrobe",
+			"icon" = "vest",
 			"products" = list(
 				/obj/item/clothing/accessory/pocketprotector = 3,
 				/obj/item/storage/backpack/duffelbag/engineering = 3,
