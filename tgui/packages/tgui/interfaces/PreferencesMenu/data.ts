@@ -190,6 +190,10 @@ export type PreferencesMenuData = {
   food_enabled: BooleanLike;
   food_invalid: string;
 
+  max_likes: number;
+  min_dislikes: number;
+  min_toxics: number;
+
   food_types: Record<string, Record<string, number>>;
 };
 

@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { AnimatedNumber, Box, Dimmer, Divider, Icon, Section, Stack, StyleableSection, Tooltip } from '../../components';
+import { AnimatedNumber, Box, Dimmer, Divider, Icon, NoticeBox, Section, Stack, StyleableSection, Tooltip } from '../../components';
 import { Button } from '../../components/Button';
 import { PreferencesMenuData } from './data';
 
@@ -24,33 +24,14 @@ export const FoodPage = (props, context) => {
       }}
       title={
         <Box>
-          <Tooltip
-            position="bottom"
-            content={
-              data.food_invalid ? (
-                <>
-                  Your selected food preferences are invalid!
-                  <Divider />
-                  {data.food_invalid.charAt(0).toUpperCase() +
-                    data.food_invalid.slice(1)}
-                  !
-                </>
-              ) : (
-                'Your selected food preferences are valid!'
-              )
-            }>
-            <Box inline>
-              {data.food_invalid && (
-                <Button icon="circle-question" mr="0.5em" />
-              )}
-              <span
-                style={{
-                  'color': data.food_invalid ? '#bd2020' : 'inherit',
-                }}>
-                Points left: <AnimatedNumber value={data.food_points} />
-              </span>
-            </Box>
-          </Tooltip>
+          <Box inline>
+            <span
+              style={{
+                'color': data.food_invalid ? '#bd2020' : 'inherit',
+              }}>
+              Points left: <AnimatedNumber value={data.food_points} />
+            </span>
+          </Box>
 
           <Button
             style={{ 'position': 'absolute', 'right': '20em' }}
@@ -82,6 +63,21 @@ export const FoodPage = (props, context) => {
       {!data.food_enabled && (
         <ErrorOverlay>Your food preferences are disabled!</ErrorOverlay>
       )}
+      <Box>
+        <NoticeBox>
+          You can have up to {data.max_likes} likes, but you require{' '}
+          {data.min_dislikes} dislikes and {data.min_toxics} toxic option.
+          <br />
+          You must also stay within the point limit.
+        </NoticeBox>
+        {data.food_invalid && (
+          <NoticeBox color="red">
+            Your selected food preferences are invalid!
+            <Divider />
+            {data.food_invalid}
+          </NoticeBox>
+        )}
+      </Box>
       <Box style={{ 'columns': '30em' }}>
         {Object.entries(data.food_types).map((element) => {
           const { 0: foodName, 1: foodPointValues } = element;

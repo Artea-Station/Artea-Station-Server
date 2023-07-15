@@ -77,6 +77,9 @@
 /datum/preference_middleware/food/get_ui_static_data(mob/user)
 	return list(
 		"food_types" = GLOB.food_ic_flag_to_point_values,
+		"max_likes" = MAXIMUM_LIKES,
+		"min_dislikes" = MINIMUM_REQUIRED_DISLIKES,
+		"min_toxics" = MINIMUM_REQUIRED_TOXICS,
 	)
 
 /datum/preference_middleware/food/get_ui_data(mob/user)
