@@ -8,6 +8,8 @@
 #define JOB_UNAVAILABLE_ANTAG_INCOMPAT 6
 /// Job unavailable due to one or more content prefs being unset.
 #define JOB_UNAVAILABLE_CONTENT_PREFS_UNSET 7
+/// Checks for character age. 
+#define JOB_UNAVAILABLE_AGE 8
 
 /// Used when the `get_job_unavailable_error_message` proc can't make sense of a given code.
 #define GENERIC_JOB_UNAVAILABLE_ERROR "Error: Unknown job availability."
