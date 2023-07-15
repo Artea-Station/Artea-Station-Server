@@ -316,16 +316,16 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/station_map/engineering, 32)
 
 /obj/item/circuitboard/machine/station_map
 	name = "Station Map"
-	specific_parts = TRUE // Fuck you, triphasic scanner and an ultra laser to rebuild these.
+	specific_parts = TRUE
 	build_path = /obj/machinery/station_map/directional/north
-	req_components = list(/obj/item/stock_parts/scanning_module/phasic = 3, /obj/item/stock_parts/micro_laser/ultra = 4)
+	req_components = list(/obj/item/stock_parts/scanning_module/adv = 3, /obj/item/stock_parts/micro_laser/high = 4)
 
 /obj/item/circuitboard/machine/station_map/engineering
 	name = "Engineering Station Map"
 	desc = "A virtual map of the surrounding station. Also shows any active fire and atmos alarms."
-	specific_parts = TRUE // Fuck you, triphasic scanner and an ultra laser to rebuild these, oh, and cause they make engineering's life that much easier, enjoy making a subspace analyser too.
+	specific_parts = TRUE // Cause they make engineering's life that much easier, enjoy making a subspace analyser too.
 	build_path = /obj/machinery/station_map/engineering/directional/north
-	req_components = list(/obj/item/stock_parts/scanning_module/phasic = 3, /obj/item/stock_parts/micro_laser/ultra = 4, /obj/item/stock_parts/subspace/analyzer = 1)
+	req_components = list(/obj/item/stock_parts/scanning_module/adv = 3, /obj/item/stock_parts/micro_laser/high = 4, /obj/item/stock_parts/subspace/analyzer = 1)
 
 #undef HOLOMAP_LOW_LIGHT
 #undef HOLOMAP_HIGH_LIGHT
