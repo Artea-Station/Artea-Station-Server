@@ -1,4 +1,8 @@
-/obj/machinery/vending/engivend/deluxe //If, dear reader, you are porting this to another server, do it better.
+//If, dear reader, you are porting this to another server, do it better.
+
+//Note: The refills for these are intentionally not orderable.
+
+/obj/machinery/vending/engivend/deluxe
 	name = "\improper Engi-Vend Deluxe"
 	product_categories = list(
 		list(
