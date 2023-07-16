@@ -5428,6 +5428,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/machinery/station_map/directional/east,
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/robotics/lab)
 "bLo" = (
@@ -6463,6 +6464,7 @@
 	dir = 4
 	},
 /obj/structure/cable/layer3,
+/obj/machinery/station_map/engineering/directional/west,
 /turf/open/floor/engine,
 /area/station/ai_monitored/turret_protected/ai)
 "cdi" = (
@@ -7646,7 +7648,7 @@
 	dir = 1
 	},
 /obj/item/radio/intercom{
-	dir = 8;
+	dir = 1;
 	freerange = 1;
 	name = "Station Intercom (Command)";
 	pixel_x = 1
@@ -11092,6 +11094,7 @@
 	dir = 1
 	},
 /obj/machinery/light_switch/directional/north,
+/obj/machinery/station_map/directional/east,
 /turf/open/floor/iron/showroomfloor,
 /area/station/pathfinders/locker_room)
 "dtA" = (
@@ -11533,10 +11536,10 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/item/radio/intercom/directional/north,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/station_map/directional/north,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central/fore)
 "dBe" = (
@@ -16954,7 +16957,7 @@
 	dir = 8
 	},
 /obj/machinery/airalarm/directional/west,
-/obj/machinery/status_display/ai/directional/north,
+/obj/machinery/station_map/directional/north,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
 "fji" = (
@@ -19356,6 +19359,7 @@
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /obj/effect/turf_decal/tile/neutral,
+/obj/machinery/station_map/directional/south,
 /turf/open/floor/iron/showroomfloor,
 /area/station/security/office)
 "fPQ" = (
@@ -26797,6 +26801,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/station_map/engineering/directional/east,
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmos/storage/gas)
 "hXY" = (
@@ -27881,6 +27886,10 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/sign/directions/evac{
+	dir = 4;
+	pixel_y = 48
 	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/central/fore)
@@ -35552,6 +35561,7 @@
 	pixel_x = 6;
 	req_access = list("engine_equip")
 	},
+/obj/machinery/station_map/engineering/directional/west,
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/ce)
 "kDp" = (
@@ -41144,6 +41154,7 @@
 /obj/item/stack/medical/gauze,
 /obj/item/stack/medical/mesh,
 /obj/item/stack/medical/suture,
+/obj/machinery/station_map/directional/north,
 /turf/open/floor/iron/dark,
 /area/station/medical/medbay/lobby)
 "mlB" = (
@@ -50024,6 +50035,7 @@
 /obj/effect/turf_decal/loading_area{
 	dir = 1
 	},
+/obj/machinery/station_map/directional/north,
 /turf/open/floor/iron,
 /area/station/service/chapel/dock)
 "pcl" = (
@@ -50810,6 +50822,7 @@
 /obj/item/analyzer{
 	pixel_x = 2
 	},
+/obj/machinery/station_map/directional/west,
 /turf/open/floor/iron/dark,
 /area/station/commons/storage/primary)
 "pmy" = (
@@ -52172,6 +52185,7 @@
 	pixel_x = 6;
 	pixel_y = -6
 	},
+/obj/machinery/station_map/engineering/directional/south,
 /turf/open/floor/iron/dark,
 /area/station/engineering/main)
 "pGM" = (
@@ -59763,10 +59777,10 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/machinery/status_display/evac/directional/north,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/item/radio/intercom/directional/north,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central/fore)
 "rQs" = (
@@ -65336,14 +65350,11 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/structure/sign/directions/evac{
-	dir = 4;
-	pixel_y = 24
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/effect/landmark/start/hangover,
+/obj/machinery/station_map/directional/north,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central/fore)
 "twd" = (
@@ -66692,6 +66703,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /turf/open/floor/plating,
 /area/station/maintenance/central)
+"tRM" = (
+/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible,
+/obj/effect/turf_decal/box,
+/obj/machinery/station_map/directional/north,
+/turf/open/floor/iron/dark,
+/area/station/engineering/atmos)
 "tRO" = (
 /obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/blood/old,
@@ -69152,6 +69170,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/machinery/station_map/directional/north,
 /turf/open/floor/iron/showroomfloor,
 /area/station/medical/medbay/central)
 "uCd" = (
@@ -76482,6 +76501,19 @@
 	},
 /turf/open/floor/engine,
 /area/station/ai_monitored/command/nuke_storage)
+"wFV" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/machinery/station_map/directional/north,
+/turf/open/floor/iron,
+/area/station/hallway/secondary/exit/departure_lounge)
 "wGd" = (
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
 	dir = 4
@@ -77378,6 +77410,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
+/obj/machinery/station_map/engineering/directional/east,
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
 "wSq" = (
@@ -111571,7 +111604,7 @@ gIE
 kuf
 ebp
 wRU
-ylD
+tRM
 gYK
 rah
 cjv
@@ -118763,7 +118796,7 @@ dpR
 eto
 uMk
 pGE
-doU
+ekm
 kaM
 mPS
 bjb
@@ -122087,7 +122120,7 @@ nTd
 hDa
 tNa
 cQR
-rDh
+wFV
 lux
 hEQ
 beo

@@ -996,3 +996,23 @@
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_SERVICE
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SERVICE | DEPARTMENT_BITFLAG_ENGINEERING
+
+/datum/design/board/holomap
+	name = "Holomap Board"
+	desc = "The circuit board for a holomap."
+	id = "holomap"
+	build_path = /obj/item/circuitboard/machine/station_map
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ENGINEERING
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
+
+/datum/design/board/engineering_holomap
+	name = "Engineering Holomap Board"
+	desc = "The circuit board for an engineering holomap."
+	id = "engineering_holomap"
+	build_path = /obj/item/circuitboard/machine/station_map/engineering
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ENGINEERING
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
