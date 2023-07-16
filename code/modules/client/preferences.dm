@@ -283,9 +283,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				return FALSE
 
 			return TRUE
-		if ("open_food")
-			GLOB.food_prefs_menu.ui_interact(usr)
-			return TRUE
 
 		if ("set_tricolor_preference")
 			var/requested_preference_key = params["preference"]
