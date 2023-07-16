@@ -116,7 +116,7 @@
 	desc = "Contains a single, empty large chem cartridge."
 	cost = CARGO_CRATE_VALUE * 2
 	access_view = ACCESS_MEDICAL
-	contains = list(/obj/item/reagent_containers/chem_cartridge)
+	contains = list(/obj/item/reagent_containers/chem_cartridge/large)
 
 /datum/supply_pack/medical/chem_cartridge_medium
 	name = "Chem Cartridge (Medium)"
