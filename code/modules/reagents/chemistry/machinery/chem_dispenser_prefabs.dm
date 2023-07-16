@@ -102,18 +102,15 @@
 		CHEM_CARTRIDGE_S(consumable/ethanol/wine),
 	)
 
-/obj/machinery/chem_dispenser/mutagen
-	name = "mutagen dispenser"
-	desc = "Creates and dispenses mutagen."
+/obj/machinery/chem_dispenser/mini/mutagen
+	name = "mini mutagen dispenser"
+	desc = "Dispenses mutagen."
 	spawn_cartridges = list(CHEM_CARTRIDGE_M(toxin/mutagen))
 
 
-/obj/machinery/chem_dispenser/mutagensaltpeter
-	name = "botanical chemical dispenser"
-	desc = "Creates and dispenses chemicals useful for botany."
-	flags_1 = NODECONSTRUCT_1
-
-	circuit = /obj/item/circuitboard/machine/chem_dispenser/mutagensaltpeter
+/obj/machinery/chem_dispenser/mini/mutagensaltpeter
+	name = "botanical mini chemical dispenser"
+	desc = "Dispenses chemicals useful for botany."
 
 	spawn_cartridges = list(
 		CHEM_CARTRIDGE_M(toxin/mutagen),

@@ -200,9 +200,6 @@
 #define CARTRIDGE_VOLUME_MEDIUM 250
 #define CARTRIDGE_VOLUME_SMALL  100
 
-// Chemistry dispenser starts with 25.
-#define DISPENSER_MAX_CARTRIDGES 25
-
 // Convienience defines for chem catridges cause I'm lazy and these paths be long.
 #define CHEM_CARTRIDGE_L(X) /obj/item/reagent_containers/chem_cartridge/X
 #define CHEM_CARTRIDGE_M(X) /obj/item/reagent_containers/chem_cartridge/medium/X

@@ -1,13 +1,11 @@
-// Large cartridge. Holds 500u.
+// Base cartridge type. If you get this, someone fucked up somewhere.
 /obj/item/reagent_containers/chem_cartridge
-	name = "large chemical dispenser cartridge"
+	name = "this should only be seen in code chemical dispenser cartridge"
 	desc = "This goes in a chemical dispenser."
 	desc_controls = "Use a pen to set the label."
 	icon_state = "cartridge"
 
 	w_class = WEIGHT_CLASS_BULKY
-
-	volume = CARTRIDGE_VOLUME_LARGE
 
 	// Large, but inaccurate. Use a chem dispenser or beaker for accuracy.
 	possible_transfer_amounts = list("50", "100")
@@ -25,6 +23,11 @@
 	var/spawn_temperature = DEFAULT_REAGENT_TEMPERATURE
 	// Label to use. If empty or null, no label is set. Can be set/unset by players.
 	var/label
+
+// Large cartridge. Holds 500u.
+/obj/item/reagent_containers/chem_cartridge/large
+	name = "large chemical dispenser cartridge"
+	volume = CARTRIDGE_VOLUME_LARGE
 
 // Medium cartridge. Holds 250u.
 /obj/item/reagent_containers/chem_cartridge/medium

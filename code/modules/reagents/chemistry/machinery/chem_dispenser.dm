@@ -21,13 +21,14 @@
 	var/recharge_counter = 0
 	var/dispensed_temperature = DEFAULT_REAGENT_TEMPERATURE
 	var/heater_coefficient = CHEM_DISPENSER_HEATER_COEFFICIENT
-	///If the UI has the pH meter shown
 	var/mutable_appearance/beaker_overlay
 	var/working_state = "dispenser_working"
 	var/nopower_state = "dispenser_nopower"
 	var/ui_title = "Chem Dispenser"
 	var/has_panel_overlay = TRUE
 	var/obj/item/reagent_containers/beaker = null
+	/// The maximum amount of cartridges the dispenser can contain.
+	var/maximum_cartridges = 25
 
 	var/list/spawn_cartridges = list(
 		CHEM_CARTRIDGE_S(aluminium),
@@ -80,7 +81,11 @@
 	if(panel_open)
 		. += span_notice("[src]'s maintenance hatch is open!")
 	if(in_range(user, src) || isobserver(user))
-		. += "It has [length(cartridges)] cartridges installed, and has space for [DISPENSER_MAX_CARTRIDGES - length(cartridges)] more."
+		if(length(cartridges))
+			. += "It has [length(cartridges)] cartridges installed, and has space for [maximum_cartridges - length(cartridges)] more."
+			. += span_notice("It looks like you can <b>pry</b> out one of the cartridges.")
+		else
+			. += "It has space for [maximum_cartridges] cartridges."
 	. += span_notice("Use <b>RMB</b> to eject a stored beaker.")
 
 // Tries to keep the chem temperature at the dispense temperature
@@ -290,10 +295,10 @@
 		var/label = tgui_input_list(user, "Which cartridge would you like to remove?", "Chemical Dispenser", cartridges)
 		if(!label)
 			return
-		var/obj/item/reagent_containers/chem_cartridge/C = remove_cartridge(label)
-		if(C)
-			to_chat(user, span_notice("You remove \the [C] from \the [src]."))
-			C.forceMove(loc)
+		var/obj/item/reagent_containers/chem_cartridge/cartidge = remove_cartridge(label)
+		if(cartidge)
+			to_chat(user, span_notice("You remove \the [cartidge] from \the [src]."))
+			cartidge.forceMove(loc)
 			return
 	if(istype(I, /obj/item/reagent_containers/chem_cartridge))
 		add_cartridge(I, user)
@@ -340,16 +345,16 @@
 	recharge_amount = initial(recharge_amount)
 	var/newpowereff = 0.0666666
 	var/parts_rating = 0
-	for(var/obj/item/stock_parts/cell/P in component_parts)
-		cell = P
-	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-		newpowereff += 0.0166666666*M.rating
-		parts_rating += M.rating
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		recharge_amount *= C.rating
-		parts_rating += C.rating
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		parts_rating += M.rating
+	for(var/obj/item/stock_parts/cell/found_cell in component_parts)
+		cell = found_cell
+	for(var/obj/item/stock_parts/matter_bin/matter_bin in component_parts)
+		newpowereff += 0.0166666666*matter_bin.rating
+		parts_rating += matter_bin.rating
+	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
+		recharge_amount *= capacitor.rating
+		parts_rating += capacitor.rating
+	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
+		parts_rating += manipulator.rating
 	powerefficiency = round(newpowereff, 0.01)
 
 /obj/machinery/chem_dispenser/proc/replace_beaker(mob/living/user, obj/item/reagent_containers/new_beaker)
@@ -392,37 +397,51 @@
 /obj/machinery/chem_dispenser/AltClick(mob/user)
 	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
-/obj/machinery/chem_dispenser/proc/add_cartridge(obj/item/reagent_containers/chem_cartridge/C, mob/user)
-	if(!istype(C))
+/obj/machinery/chem_dispenser/proc/add_cartridge(obj/item/reagent_containers/chem_cartridge/cartidge, mob/user)
+	if(!istype(cartidge))
 		if(user)
-			to_chat(user, span_warning("\The [C] will not fit in \the [src]!"))
+			to_chat(user, span_warning("\The [cartidge] will not fit in \the [src]!"))
 		return
 
-	if(length(cartridges) >= DISPENSER_MAX_CARTRIDGES)
+	if(length(cartridges) >= maximum_cartridges)
 		if(user)
-			to_chat(user, span_warning("\The [src] does not have any slots open for \the [C] to fit into!"))
+			to_chat(user, span_warning("\The [src] does not have any free slots for \the [cartidge] to fit into!"))
 		return
 
-	if(!C.label)
+	if(!cartidge.label)
 		if(user)
-			to_chat(user, span_warning("\The [C] does not have a label!"))
+			to_chat(user, span_warning("\The [cartidge] does not have a label!"))
 		return
 
-	if(cartridges[C.label])
+	if(cartridges[cartidge.label])
 		if(user)
 			to_chat(user, span_warning("\The [src] already contains a cartridge with that label!"))
 		return
 
 	if(user)
-		if(user.temporarilyRemoveItemFromInventory(C))
-			to_chat(user, span_notice("You add \the [C] to \the [src]."))
+		if(user.temporarilyRemoveItemFromInventory(cartidge))
+			to_chat(user, span_notice("You add \the [cartidge] to \the [src]."))
 		else
 			return
 
-	C.forceMove(src)
-	cartridges[C.label] = C
+	cartidge.forceMove(src)
+	cartridges[cartidge.label] = cartidge
 	cartridges = sortTim(cartridges, GLOBAL_PROC_REF(cmp_text_asc))
 
 /obj/machinery/chem_dispenser/proc/remove_cartridge(label)
 	. = cartridges[label]
 	cartridges -= label
+
+/obj/machinery/chem_dispenser/mini
+	name = "mini chem dispenser"
+	icon_state = "minidispenser"
+	base_icon_state = "minidispenser"
+	maximum_cartridges = 15
+	circuit = /obj/item/circuitboard/machine/chem_dispenser/mini
+
+/obj/machinery/chem_dispenser/big
+	name = "big chem dispenser"
+	icon_state = "chungspenser"
+	base_icon_state = "chungspenser"
+	maximum_cartridges = 35
+	circuit = /obj/item/circuitboard/machine/chem_dispenser/big

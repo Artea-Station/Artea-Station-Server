@@ -193,8 +193,15 @@
 		/obj/item/reagent_containers/chem_cartridge/medium = 5,
 		/obj/item/reagent_containers/chem_cartridge/small = 10,
 	)
-	var/static/list/cached_whitelist = (subtypesof(/obj/item/reagent_containers/chem_cartridge) - (typesof(/obj/item/reagent_containers/chem_cartridge/small/consumable) + typesof(/obj/item/reagent_containers/chem_cartridge/medium/consumable) + /obj/item/reagent_containers/chem_cartridge/medium + /obj/item/reagent_containers/chem_cartridge/small)) + /obj/item/reagent_containers/chem_cartridge/small/consumable/ethanol
+	var/static/list/cached_whitelist
 	var/is_always_full = FALSE
+
+/obj/effect/spawner/random/medical/chem_cartridge/Initialize(mapload)
+	if(!cached_whitelist)
+		cached_whitelist = subtypesof(/obj/item/reagent_containers/chem_cartridge)
+		cached_whitelist = cached_whitelist - (typesof(/obj/item/reagent_containers/chem_cartridge/small/consumable) + typesof(/obj/item/reagent_containers/chem_cartridge/medium/consumable) + typesof(/obj/item/reagent_containers/chem_cartridge/medium/plantnutriment) + typesof(/obj/item/reagent_containers/chem_cartridge/medium/toxin) + /obj/item/reagent_containers/chem_cartridge/medium + /obj/item/reagent_containers/chem_cartridge/small)
+		cached_whitelist = cached_whitelist + /obj/item/reagent_containers/chem_cartridge/small/consumable/ethanol
+	return ..()
 
 /obj/effect/spawner/random/medical/chem_cartridge/make_item(spawn_loc, type_path_to_make)
 	var/obj/item/reagent_containers/chem_cartridge/cartridge = new type_path_to_make(spawn_loc)

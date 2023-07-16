@@ -14,7 +14,7 @@
 }
 
 #define NEW_CHEM_CARTRIDGE_L(X) \
-/obj/item/reagent_containers/chem_cartridge/X { \
+/obj/item/reagent_containers/chem_cartridge/large/X { \
 	spawn_reagent = /datum/reagent/X \
 }
 
