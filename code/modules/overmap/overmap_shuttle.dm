@@ -285,7 +285,7 @@
 					if(!my_shuttle.check_dock(iterated_dock, silent = TRUE))
 						continue
 					docks[iterated_dock.name] = iterated_dock
-	
+
 				dat += "<B>Designated docks:</B>"
 				for(var/key in docks)
 					dat += "<BR> - [key] - <a href='?src=[REF(src)];task=dock;dock_control=normal_dock;dock_id=[docks[key].shuttle_id]'>Dock</a>"
@@ -662,7 +662,7 @@
 	clears_hazards_on_spawn = TRUE
 
 /datum/overmap_object/shuttle/ship/bearcat
-	name = "FTV Bearcat"
+	name = "ALV Bearcat"
 	fixed_parallax_dir = NORTH
 
 /datum/overmap_object/shuttle/planet

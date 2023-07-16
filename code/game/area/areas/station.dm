@@ -296,9 +296,21 @@
 	name = "\improper Aft Central Primary Hallway"
 	icon_state = "hallCA"
 
+/area/station/hallway/primary/central/port
+	name = "\improper Port Central Primary Hallway"
+
+/area/station/hallway/primary/central/starboard
+	name = "\improper Starboard Central Primary Hallway"
+
 /area/station/hallway/primary/upper
 	name = "\improper Upper Central Primary Hallway"
 	icon_state = "centralhall"
+
+/area/station/hallway/primary/upper/port
+	name = "\improper Port Upper Central Primary Hallway"
+
+/area/station/hallway/primary/upper/starboard
+	name = "\improper Starboard Upper Central Primary Hallway"
 
 /area/station/hallway/primary/tram
 	name = "\improper Primary Tram"
@@ -505,6 +517,19 @@
 /area/station/commons/fitness/recreation/entertainment
 	name = "\improper Entertainment Center"
 	icon_state = "entertainment"
+
+/area/station/commons/storage/cryo
+	name = "\improper Cryo Storage Room"
+	icon_state = "dorms"
+
+/area/station/commons/on_joining_game(mob/living/carbon/human/boarder)
+	. = ..()
+	if(!ishuman(boarder))
+		return
+
+	var/obj/machinery/computer/cryopod/console = pick(GLOB.station_cryopod_computers)
+	var/obj/item/card/id/id = boarder.get_idcard()
+	console.announce("CRYO_JOIN", id.registered_name, id.assignment)
 
 // Commons - Vacant Rooms
 /area/station/commons/vacant_room

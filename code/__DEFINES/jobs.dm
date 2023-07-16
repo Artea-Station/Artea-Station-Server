@@ -105,7 +105,6 @@
 #define JOB_CENTCOM_SPECIAL_OFFICER "Special Ops Officer"
 #define JOB_CENTCOM_PRIVATE_SECURITY "Private Security Force"
 
-
 #define JOB_DISPLAY_ORDER_ASSISTANT 1
 #define JOB_DISPLAY_ORDER_CAPTAIN 2
 #define JOB_DISPLAY_ORDER_HEAD_OF_PERSONNEL 3
@@ -189,6 +188,7 @@
 
 #define FACTION_NONE "None"
 #define FACTION_STATION "Station"
+#define FACTION_BEARCAT "Bearcat"
 
 // Variable macros used to declare who is the supervisor for a given job, announced to the player when they join as any given job.
 #define SUPERVISOR_CAPTAIN "the Captain"
