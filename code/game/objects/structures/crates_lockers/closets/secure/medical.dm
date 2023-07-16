@@ -143,7 +143,6 @@
 	icon_door = "chemical"
 
 /obj/structure/closet/secure_closet/chemical/cartridge/PopulateContents()
-	..()
 	var/cartridges = list(
 		CHEM_CARTRIDGE_S(aluminium),
 		CHEM_CARTRIDGE_S(bromine),
