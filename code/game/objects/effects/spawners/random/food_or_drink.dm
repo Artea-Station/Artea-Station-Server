@@ -258,7 +258,7 @@
 /obj/effect/spawner/random/food_or_drink/chem_cartridge
 	name = "random soft drink cartridge"
 	loot = list(
-		/obj/item/reagent_containers/chem_cartridge = 1,
+		/obj/item/reagent_containers/chem_cartridge/big = 1,
 		/obj/item/reagent_containers/chem_cartridge/medium = 5,
 		/obj/item/reagent_containers/chem_cartridge/small = 10,
 	)

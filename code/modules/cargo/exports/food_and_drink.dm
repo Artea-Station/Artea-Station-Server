@@ -33,7 +33,7 @@
 	var/adjusted_cost = init_cost
 	if(istype(object, /obj/item/reagent_containers/chem_cartridge/small))
 		adjusted_cost /= 2
-	else if(!istype(object, /obj/item/reagent_containers/chem_cartridge/medium))
+	else if(istype(object, /obj/item/reagent_containers/chem_cartridge/large))
 		adjusted_cost *= 2
 	return round(adjusted_cost * get_amount(object))
 
