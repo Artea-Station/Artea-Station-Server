@@ -135,3 +135,42 @@
 	new /obj/item/storage/box/syringes/variety(src)
 	new /obj/item/storage/box/beakers/variety(src)
 	new /obj/item/clothing/glasses/science(src)
+
+/obj/structure/closet/secure_closet/chemical/cartridge
+	name = "cartridge closet"
+	desc = "Store dangerous chemical cartridges in here."
+	req_access = list(ACCESS_PHARMACY)
+	icon_door = "chemical"
+
+/obj/structure/closet/secure_closet/chemical/cartridge/PopulateContents()
+	..()
+	var/catridges = list(
+		CHEM_CARTRIDGE_S(aluminium),
+		CHEM_CARTRIDGE_S(bromine),
+		CHEM_CARTRIDGE_M(carbon),
+		CHEM_CARTRIDGE_M(chlorine),
+		CHEM_CARTRIDGE_S(copper),
+		CHEM_CARTRIDGE_S(consumable/ethanol),
+		CHEM_CARTRIDGE_S(fluorine),
+		CHEM_CARTRIDGE_M(hydrogen),
+		CHEM_CARTRIDGE_S(iodine),
+		CHEM_CARTRIDGE_S(iron),
+		CHEM_CARTRIDGE_S(lithium),
+		CHEM_CARTRIDGE_S(mercury),
+		CHEM_CARTRIDGE_M(nitrogen),
+		CHEM_CARTRIDGE_M(oxygen),
+		CHEM_CARTRIDGE_S(phosphorus),
+		CHEM_CARTRIDGE_S(potassium),
+		CHEM_CARTRIDGE_S(uranium/radium),
+		CHEM_CARTRIDGE_S(silicon),
+		CHEM_CARTRIDGE_S(sodium),
+		CHEM_CARTRIDGE_S(stable_plasma),
+		CHEM_CARTRIDGE_S(consumable/sugar),
+		CHEM_CARTRIDGE_S(sulfur),
+		CHEM_CARTRIDGE_S(toxin/acid),
+		CHEM_CARTRIDGE_M(water),
+		CHEM_CARTRIDGE_M(fuel),
+	)
+
+	for(var/cartridge in cartridges)
+		new cartridge(src)
