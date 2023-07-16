@@ -62,8 +62,6 @@
 	var/list/citations = list()
 	/// List of crimes
 	var/list/crimes = list()
-	/// Unique ID generated that is used to fetch lock record
-	var/lock_ref
 	/// Names of major disabilities
 	var/major_disabilities
 	/// Fancy description of major disabilities
@@ -95,7 +93,6 @@
 	trim = "Unassigned",
 	trim_icon = "question",
 	/// Crew specific
-	lock_ref,
 	major_disabilities = "None",
 	major_disabilities_desc = "No disabilities have been diagnosed at the moment.",
 	minor_disabilities = "None",
@@ -103,7 +100,6 @@
 	quirk_notes,
 )
 	. = ..()
-	src.lock_ref = lock_ref
 	src.major_disabilities = major_disabilities
 	src.major_disabilities_desc = major_disabilities_desc
 	src.minor_disabilities = minor_disabilities

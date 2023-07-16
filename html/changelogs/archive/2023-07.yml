@@ -1,0 +1,227 @@
+2023-07-07:
+  Azarak, RimiNosha (porter):
+  - rscadd: Planetary day/night cycles!
+  - bugfix: Fixed lighting on planets!
+  Crumpaloo, RimiNosha:
+  - balance: Buttons are now visually different on emag.
+  - qol: Extinguisher cabinets now show their contents when closed.
+  - imageadd: New sprites for extinguisher cabinets, fire alarms, lightswitches and
+      buttons!
+  GoonStation (original implementation), Kapu, RimiNosha (porter):
+  - qol: Lighting now respects walls!
+  GuiltyNeko:
+  - rscdel: Removed Kilo Virology
+  - rscadd: Added chem storage in the space virology took up.
+  - rscdel: Removed Kilo Chem Factory
+  - rscadd: Added a suspiciously chem factory shaped empty room where a chem factory
+      room used to be.
+  - rscadd: Empty room for cryo in dorms
+  QuacksQ:
+  - rscadd: adds Subtle and Subtler emoting.
+  - imageadd: Added new Modsuit button sprites!
+  - imageadd: Swapped the NT logo with the Artea logo in TGUI.
+  - rscadd: Adds Hardsuits back to the game!
+  - rscadd: Added round start Hardsuits to Kilostation.
+  - rscdel: Removed round start MODsuits from Kilostation.
+  - balance: CE Hardsuit now has less slowdown applied to it compared to normal hardsuits.
+  - balance: EMP's will no longer stun for 10-20 seconds, instead they will disable
+      robotic limbs for 4-8 seconds.
+  - code_imp: Runechat optimizations to make it less expensive server side.
+  - rscadd: Added CRT TGUI from CM
+  - qol: The autodrobe has its contents split into different categories and is organized
+      better.
+  - qol: FOV no longer exists and will be unable to hinder people in their gaming.
+  - rscadd: 'Animated the following emotes: *jump, *shiver, *sway, *tremble, *twitch
+      and *twitch_s.'
+  - rscadd: added a sound to *jump too.
+  - bugfix: Ghost role spawners will now no longer try and spawn people when they
+      /should/ have been out of uses but due to a bug were not
+  - bugfix: fixes floating point inaccuracies in numeric prefs
+  - code_imp: Pointing is now precise to the pixel and no longer works with objects,
+      pointing arrows are now also rotated depending on what you pointed at.
+  - rscadd: New decals ported from VG.
+  - rscadd: Added a generation history graph to the solar panel controller UI.
+  - rscadd: Added a finger snap emote! (*Snap to use it)
+  - bugfix: PDA's not having an Icon in SDMM.
+  - rscadd: Added a new space ambience track.
+  - bugfix: Fixed space ambience cutting itself off.
+  - rscdel: Removed double text about controls on supply pod beacons.
+  - rscadd: Adds the bunnysuit to the game and autodrobe!
+  - bugfix: Fixed some decals on Kilo looking really bad.
+  - code_imp: Updated the Telecomms monitor console and message log console UI to
+      TGUI
+  - rscadd: PDA themes and the ability to set a custom theme on your PDA.
+  - bugfix: Various and numerous fixes to PDA code and PDA's.
+  - rscdel: Tablets and tablet code, they have been replaced with PDA's
+  - rscdel: Computer hardware parts (Hard drives, card slots, etc)
+  - imageadd: Changed the SMES sprite to the Horizon SMES!
+  - qol: dead potted plant can be revived with seeds
+  - code_imp: Swapped the TG logo with our own.
+  - bugfix: Stops grilles from electrocuting or tesla-ing when there's a floor between
+      the grille and the cable.
+  - rscadd: Added Hardsuit outfits to jobs that have hardsuits.
+  - bugfix: Fixes a bunch of issues we were having with pathfinders on Kilo. (See
+      the PR for the list of fixes)
+  - qol: Window de-construction is less CBT now and features reduced timers.
+  - soundadd: Security Jackboot now make sound when you walk around with them!
+  - rscadd: Mapping helpers for Damaged windows and broken machines now exist for
+      mappers to use.
+  - bugfix: You will no longer get the "your previous action was ignored" message
+      when you join the server.
+  - rscdel: Removed science from Kilo station.
+  - rscadd: Added Pathfinders as a proper department on Kilo station.
+  - rscadd: Adds a ruin on the Kilo station Z of the old toxins bomb site.
+  - rscadd: added two new Pathfinder areas (Pathfinder locker room and Lead pathfinder
+      Office)
+  - rscadd: Adds a kick message when the game kicks people for sending too many inputs.
+  - qol: Removed Sec borgs.
+  - rscdel: Removed Peacekeeper borgs.
+  - rscdel: Removed Clown borgs.
+  - imageadd: Changed to Engi dufflebag to use a sprite from Bee because it fits better
+      with the other bags.
+  - code_imp: Moved Erp prefs to the bottom of the content prefs list.
+  - imageadd: Ported the Electric drill and Jaws of life sprite from Skyrat because
+      they look better.
+  - qol: Machines pixelshift onto tables now when they're wrenched.
+  - rscadd: Adds an Icon to IAA in the TGUI late join menu.
+  - bugfix: Fixed a mistake that caused the entire pathfinders department to get deleted.
+  - rscadd: Added a disposal bin to pathfinders dock and a power cable leading to
+      the shuttle docking port.
+  - rscdel: Removed a random vent on the pathfinders shuttle.
+  RimiNosha:
+  - qol: Added a couple of machine frame subtypes for being wired and optionally anchored.
+  - rscdel: Requests consoles are removed, arrivals shuttle has it's own special console
+      now.
+  - rscdel: Science comms.
+  - rscadd: Pathfinder comms.
+  - bugfix: Fixes an old bug where there is an extra space after channel names that
+      aren't common in telecomms.
+  - qol: The TGUI theme now looks far more distinct, and a little more unique to us!
+  - rscdel: Removed a ton of events and traitors that are too chaotic and unpredictable
+      for this server.
+  - balance: Adjusted wormholes from 3 to 1 max occurrences.
+  - balance: Removed spacevine blooming mutation, due to it spawning mantraps.
+  - balance: Sentient animals are no longer announced.
+  - balance: Adjusted greytide virus from 2 to 1 max occurrences.
+  - balance: Market crash now lasts 4x as long.
+  - balance: Severe space dust can now happen, and can start from 1 hour, with a weight
+      of 8 (same as medium space dust).
+  - qol: Random brain traumas can now always be treated by surgery.
+  - qol: Syndicate portal storm has a more lore-friendly announcement.
+  - qol: Meteor storms are less intense, the chances for normal, threatening, and
+      catastrophic now being 65, 30, and 5, from 50, 40, and 10.
+  - qol: Scrubber clogs can no longer happen near the supermatter.
+  - qol: Random syndicate name generation should be somewhat more lore-friendly.
+  - rscadd: A metric fuckton of new customization stuff has been added!
+  - qol: Humans and synths now have access to horns as customization options.
+  - qol: Sprite colouring in the prefs menu is now far more obvious. Hair gradients
+      are the most notable ones.
+  - bugfix: Fixed facial hair gradient colour not showing in prefs.
+  - bugfix: Fixed synth brain settings not showing.
+  - code_imp: Added a dynamically scaling (up to three choices) colour input!
+  - refactor: Overhauled how sprite accessories are rendered, they now support multiple
+      layers and colours!
+  - qol: Records consoles are now 1000% easier to use, and look way nicer!
+  - server: Server can no longer have literally all it's secrets spilled by client
+      VV.
+  - imageadd: Tools now look a little better thanks to some sprites stolen from Skyrat.
+  - rscdel: Removed progtots from rolling, admin only for now.
+  - rscdel: Tots with no progression will now no longer see a pointless rep points
+      display.
+  - rscdel: Plumbing.
+  - rscadd: Pathfinders!
+  - rscdel: Mining.
+  - balance: Cargo has lost many mining-related designs, which are now either gone,
+      or pathfinder exclusive.
+  - balance: Engineering no longer holds a monopoly on many tools.
+  - rscdel: Removed anomaly events. They still can occur from SM delams, though.
+  - qol: Events now run every 12 to 20 minutes to avoid overwhelming lowpop crews.
+  - rscadd: Synths, check them out!
+  - rscdel: Metastation.
+  - rscdel: Deleted some ill-fitting ERP preferences that are better explained in
+      OOC notes, or the character themselves.
+  - bugfix: Fixed OOC info not showing in the inspection panel.
+  - rscadd: Pathfinders Shuttle!
+  - imageadd: Iron wallsprites have been changed!
+  - imageadd: Suit storage units now exclusively look industrial!
+  - rscdel: Purity and pH!
+  - rscdel: Acidic Buffer and Basic Buffer.
+  - rscdel: Mass Spectrometer.
+  - rscdel: pH booklets and similar pH measuring tools.
+  - rscadd: Added Acidic Inversifier. A caltalyst used in reactions to make inverse
+      and impure chems.
+  - balance: Chemistry is now even more wildly overpowered than it already was. Will
+      be addressed in a later PR.
+  - rscadd: Matchmaking! Check it out!
+  - rscadd: OOC notes!
+  - rscadd: A sizeable amount of content preferences, some of which are backed by
+      mechanics.
+  - qol: Borging someone is now pref checked.
+  - qol: Antag kill/maroon objectives now check the target's preferences before being
+      able to be applied.
+  - qol: A new borging failure message is sent if the client is jobbanned or has borging
+      set to No.
+  - qol: Preference entries now finally use that unused description field, and show
+      it on hover.
+  - bugfix: Preference pages should now properly occupy their entire height!
+  - bugfix: Fixes ghost roles being unspawnable due to a jobban check fail on non-db
+      servers.
+  - soundadd: Added a bunch of new sounds for various machines and actions!
+  - balance: Foam now passes through open atmos tiles.
+  - bugfix: You can no longer knock on electrified doors.
+  - bugfix: Ghosts no longer go beep boop.
+  - bugfix: Pathfinders can now have their job preferences set!
+  - balance: Walls are no longer invincible to ballistic firearms. This is a space
+      station, so don't go firing that gun without reason!
+  - bugfix: Griddle steam no longer lingers after the griddle is turned off.
+  - bugfix: Pathfinder shuttle can once again dock at the station.
+  - bugfix: Floor tile stacks now display properly!
+  - balance: Lavaland mobs no longer have innate resistances to projectiles and thrown
+      weapons.
+  - qol: TGUI say has been greatly improved in responsiveness and space!
+  - bugfix: Pathfinder IDs now actually have the right accesses.
+  - qol: Fax machines actually sit on tables.
+  - bugfix: Preferences no longer show antags that don't exist.
+  - bugfix: The inspection panel now actually opens.
+  - bugfix: Fixed some walls having completely black light overlays. Woops.
+  - qol: Floor tiles should be somewhat easier on the eyes across the board.
+  - rscdel: Removed the last of the ghost role ruins.
+  - bugfix: Synth antennae now show properly.
+  - balance: QM is now 2nd in line for acting captaincy.
+  - bugfix: Pathfinder Lead is now considered for captainship.
+  - admin: Discord verification has been tweaked and enforced.
+  - qol: Artea now will make sure your shifts end in a timely fashion with a fancy
+      new transfer vote system! The shuttle will always come after the second vote,
+      though.
+  - qol: You can now see the amount of connected players in the status tab!
+  - rscdel: Removed a ton of poorly-fitting ruins.
+  - qol: Changed a bunch of mapped magic references to be less magical.
+  - qol: Changed a bunch of mapped slime cores to be cookies instead.
+  - qol: Changed a bunch of mapped bluespace references to be non-bluespace.
+  - qol: Ratvar ruin sprite has been replaced by two clockwork defenders.
+  - balance: Pride's mirror dumps you on a station Z instead of space.
+  - balance: Removed hilbert's hotel item from known maps, but in it's place are two
+      engine boards.
+  - balance: Severely toned down the cult sword.
+  - balance: Makes the funny trauma for the invisible demon deal stamina damage instead.
+  - balance: Slowed down the gloves of butchering by 10x.
+  RimiNosha (original), nevimer (porter):
+  - rscadd: TGUI Latejoin Menu
+2023-07-08:
+  QuacksQ:
+  - qol: You can now put pickaxes in your bag!
+2023-07-09:
+  RimiNosha:
+  - rscadd: Cryopods! Leave the round in style!
+2023-07-11:
+  RimiNosha:
+  - rscadd: Ported a few small space ruins from TG.
+2023-07-13:
+  QuacksQ:
+  - bugfix: Speaking in sign language no longer reveals your identity
+2023-07-15:
+  RimiNosha:
+  - bugfix: You can once again set your age. Woops.
+  - code_imp: Characters are required to be at least 21 for head/bartender jobs, and
+      25 for captaincy.
+  - rscadd: Some companies have taken to putting their mark on their hardware!

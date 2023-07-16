@@ -249,7 +249,7 @@ export const IndexPage = (context, parentContext) => {
                   <BigPageButton
                     page={Page.Quirks}
                     setPage={setCurrentPage}
-                    tooltip="Odd traits that can range from a minor boon, to a fundimental gameplay alteration in order to stay alive!"
+                    tooltip="Odd traits that can range from a minor boon, to a fundamental gameplay alteration in order to stay alive!"
                     tooltipPosition="bottom">
                     Quirks
                   </BigPageButton>

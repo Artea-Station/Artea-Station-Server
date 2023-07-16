@@ -431,6 +431,7 @@
 	. = ..()
 	if ((wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE)))
 		return
+
 	var/age_text
 	switch(age)
 		if(-INFINITY to 25)

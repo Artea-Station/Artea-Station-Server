@@ -20,7 +20,6 @@
 	name = "Asteroid 1"
 	description = "I-spy with my little eye, something beginning with R."
 
-
 /datum/map_template/ruin/space/asteroid2
 	id = "asteroid2"
 	suffix = "asteroid2.dmm"
@@ -252,3 +251,28 @@
 	suffix = "spinwardsmoothies.dmm"
 	name = "Spinward Smoothies"
 	description = "A branch of the beloved Spinward Smoothies chain of smoothie bars."
+
+/datum/map_template/ruin/space/botanical_haven
+	id = "botanical_haven"
+	suffix = "botanical_haven.dmm"
+	name = "Botanical Haven"
+	description = "A small sanctuary for plants and botanists, hidden away in a rusted structure."
+
+/datum/map_template/ruin/space/ghost_restaurant
+	id = "space_ghost_restaurant.dmm"
+	suffix = "space_ghost_restaurant.dmm"
+	name = "Space Ghost Restaurant"
+	description = "Ever wondered where the restaurant robots come from? On this ruined station, NTgrub interns dressed up robots in clothes, and sent them to stations to cook their meal orders for them."
+
+/datum/map_template/ruin/space/waystation
+	id = "waystation"
+	suffix = "waystation.dmm"
+	name = "Waystation"
+	description = "A waytation for a backwater subsector of Spinward gets attacked by the syndicate due to bad luck."
+
+/datum/map_template/ruin/space/pod_crash
+	id = "pod_crash"
+	suffix = "pod_crash.dmm"
+	name = "Pod Crash"
+	description = "A tragic display of what happens to drivers who pda and pod."
+

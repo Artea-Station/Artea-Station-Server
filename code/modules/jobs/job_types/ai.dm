@@ -22,7 +22,7 @@
 	random_spawns_possible = FALSE
 	job_flags = JOB_NEW_PLAYER_JOINABLE | JOB_EQUIP_RANK | JOB_BOLD_SELECT_TEXT
 	var/do_special_check = TRUE
-
+	required_character_age = null // This is a robot, ignore this.
 
 /datum/job/ai/after_spawn(mob/living/spawned, client/player_client)
 	. = ..()

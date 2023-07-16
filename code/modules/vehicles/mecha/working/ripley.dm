@@ -159,6 +159,7 @@ GLOBAL_DATUM(cargo_ripley, /obj/vehicle/sealed/mecha/working/ripley/cargo)
 	icon_state = "hauler"
 	base_icon_state = "hauler"
 	max_integrity = 100 //Has half the health of a normal RIPLEY mech, so it's harder to use as a weapon.
+	manufacturer = MANUFACTURER_ARTEA_LOGISTICS
 
 /obj/vehicle/sealed/mecha/working/ripley/cargo/Initialize(mapload)
 	. = ..()
