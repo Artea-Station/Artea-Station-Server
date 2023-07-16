@@ -284,6 +284,7 @@
 		"swab",
 		"syringe",
 		"xlarge_beaker",
+		"mini_chem_dispenser",
 	)
 
 /datum/techweb_node/basic_circuitry
@@ -410,6 +411,7 @@
 		"piercesyringe",
 		"plasmarefiller",
 		"smoke_machine",
+		"big_chem_dispenser",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	required_experiments = list(/datum/experiment/dissection/nonhuman)

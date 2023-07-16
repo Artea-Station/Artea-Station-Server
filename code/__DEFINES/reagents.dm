@@ -194,3 +194,13 @@
 #define GRENADE_WIRED 2
 /// Grenade is ready to be finished
 #define GRENADE_READY 3
+
+// Chem cartridge defines
+#define CARTRIDGE_VOLUME_LARGE  500
+#define CARTRIDGE_VOLUME_MEDIUM 250
+#define CARTRIDGE_VOLUME_SMALL  100
+
+// Convienience defines for chem catridges cause I'm lazy and these paths be long.
+#define CHEM_CARTRIDGE_L(X) /obj/item/reagent_containers/chem_cartridge/X
+#define CHEM_CARTRIDGE_M(X) /obj/item/reagent_containers/chem_cartridge/medium/X
+#define CHEM_CARTRIDGE_S(X) /obj/item/reagent_containers/chem_cartridge/small/X

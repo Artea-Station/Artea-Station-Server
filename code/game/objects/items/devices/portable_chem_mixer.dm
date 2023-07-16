@@ -15,9 +15,6 @@
 
 	var/list/dispensable_reagents = list() ///List in which all currently dispensable reagents go
 
-	///If the UI has the pH meter shown
-	var/show_ph = TRUE
-
 /obj/item/storage/portable_chem_mixer/Initialize(mapload)
 	. = ..()
 	atom_storage.max_total_storage = 200
