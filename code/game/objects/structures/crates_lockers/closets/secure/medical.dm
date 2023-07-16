@@ -144,7 +144,7 @@
 
 /obj/structure/closet/secure_closet/chemical/cartridge/PopulateContents()
 	..()
-	var/catridges = list(
+	var/cartridges = list(
 		CHEM_CARTRIDGE_S(aluminium),
 		CHEM_CARTRIDGE_S(bromine),
 		CHEM_CARTRIDGE_M(carbon),
