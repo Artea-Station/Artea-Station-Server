@@ -44,10 +44,6 @@
 	INVOKE_ASYNC(src, PROC_REF(use_keyboard), user)
 
 /obj/item/circuit_component/keyboard_shell/proc/use_keyboard(mob/user)
-	if(HAS_TRAIT(user, TRAIT_ILLITERATE))
-		to_chat(user, span_warning("You start mashing keys at random!"))
-		return
-
 	var/message = tgui_input_text(user, "Input your text", "Keyboard")
 	entity.set_output(user)
 	output.set_output(message)

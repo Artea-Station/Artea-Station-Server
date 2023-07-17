@@ -67,10 +67,6 @@
 			available_hardcore_quirks -= picked_quirk
 			continue
 
-		if(initial(picked_quirk.mood_quirk) && CONFIG_GET(flag/disable_human_mood)) //check for moodlet quirks
-			available_hardcore_quirks -= picked_quirk
-			continue
-
 		all_quirks += initial(picked_quirk.name)
 		quirk_budget -= available_hardcore_quirks[picked_quirk]
 		. += available_hardcore_quirks[picked_quirk]
@@ -104,5 +100,16 @@
 	if(preview_job)
 		mannequin.job = preview_job.title
 		mannequin.dress_up_as_job(preview_job, TRUE)
+
+	// Apply visual quirks
+	// Yes we do it every time because it needs to be done after job gear
+	if(SSquirks?.initialized)
+		// And yes we need to clean all the quirk datums every time
+		mannequin.cleanse_quirk_datums()
+		for(var/quirk_name as anything in all_quirks)
+			var/datum/quirk/quirk_type = SSquirks.quirks[quirk_name]
+			if(!(initial(quirk_type.quirk_flags) & QUIRK_CHANGES_APPEARANCE))
+				continue
+			mannequin.add_quirk(quirk_type, parent)
 
 	return mannequin.appearance

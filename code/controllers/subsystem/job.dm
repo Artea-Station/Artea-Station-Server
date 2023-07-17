@@ -882,7 +882,7 @@ SUBSYSTEM_DEF(job)
 
 	for(var/content_preference in subtypesof(/datum/preference/choiced/content))
 		if(player.client.prefs.read_preference(content_preference) == "Unset" && !is_admin(player.client))
-			JobDebug("[debug_prefix] Error: [get_job_unavailable_error_message(JOB_UNAVAILABLE_CONTENT_PREFS_UNSET)], Player: [player][add_job_to_log ? ", Job: [possible_job]" : ""]")
+			JobDebug("[debug_prefix] Error: [get_job_unavailable_error_message(JOB_UNAVAILABLE_CONTENT_PREFS_UNSET, possible_job.title)], Player: [player][add_job_to_log ? ", Job: [possible_job]" : ""]")
 			return JOB_UNAVAILABLE_CONTENT_PREFS_UNSET
 
 	if(possible_job.title in player.mind.restricted_roles)
@@ -902,6 +902,11 @@ SUBSYSTEM_DEF(job)
 	if(is_banned_from(player.ckey, possible_job.title))
 		JobDebug("[debug_prefix] Error: [get_job_unavailable_error_message(JOB_UNAVAILABLE_BANNED, possible_job.title)], Player: [player][add_job_to_log ? ", Job: [possible_job]" : ""]")
 		return JOB_UNAVAILABLE_BANNED
+
+	// Check for character age
+	if(possible_job.required_character_age != null && possible_job.required_character_age > player.client.prefs.read_preference(/datum/preference/numeric/age))
+		JobDebug("[debug_prefix] Error: [get_job_unavailable_error_message(JOB_UNAVAILABLE_AGE, possible_job.title)], Player: [player][add_job_to_log ? ", Job: [possible_job]" : ""]")
+		return JOB_UNAVAILABLE_AGE
 
 	// Need to recheck the player exists after is_banned_from since it can query the DB which may sleep.
 	if(QDELETED(player))

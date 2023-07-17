@@ -202,10 +202,6 @@
 		return
 
 	if(can_item_write)
-		if(!user.is_literate())
-			to_chat(user, span_notice("You scribble illegibly on [src]!"))
-			return
-
 		var/cardtext = stripped_input(user, "What do you wish to write on the card?", "Card Writing", "", 50)
 		if(!cardtext || !user.canUseTopic(src, BE_CLOSE))
 			return

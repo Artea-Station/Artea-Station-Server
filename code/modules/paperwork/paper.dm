@@ -344,10 +344,13 @@
 		return UI_INTERACTIVE
 	return ..()
 
+
+
 /obj/item/paper/can_interact(mob/user)
 	if(in_contents_of(/obj/machinery/door/airlock))
 		return TRUE
 	return ..()
+
 
 /obj/item/proc/burn_paper_product_attackby_check(obj/item/I, mob/living/user, bypass_clumsy)
 	var/ignition_message = I.ignition_effect(src, user)
@@ -478,6 +481,7 @@
 	static_data["signature_font"] = FOUNTAIN_PEN_FONT
 
 	return static_data;
+
 
 /obj/item/paper/ui_data(mob/user)
 	var/list/data = list()
