@@ -29,11 +29,14 @@
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/structure/ladder/add_context(atom/source, list/context, obj/item/held_item, mob/user)
-	if(up)
+	if(up && !down)
 		context[SCREENTIP_CONTEXT_LMB] = "Climb up"
-	if(down)
-		context[SCREENTIP_CONTEXT_RMB] = "Climb down"
-	return CONTEXTUAL_SCREENTIP_SET
+	else if(down && !up)
+		context[SCREENTIP_CONTEXT_LMB] = "Climb down"
+	else if(!down && !up)
+		context[SCREENTIP_CONTEXT_LMB] = "Show travel options"
+
+	return !!context[SCREENTIP_CONTEXT_LMB]
 
 /obj/structure/ladder/examine(mob/user)
 	. = ..()
@@ -84,24 +87,31 @@
 		visible_message(span_danger("[src] is torn to pieces by the gravitational pull!"))
 		qdel(src)
 
-/obj/structure/ladder/proc/use(mob/user, going_up = TRUE)
+/obj/structure/ladder/proc/use(mob/user)
 	if(!in_range(src, user) || DOING_INTERACTION(user, DOAFTER_SOURCE_CLIMBING_LADDER))
 		return
 
 	if(!up && !down)
 		balloon_alert(user, "doesn't lead anywhere!")
 		return
-	if(going_up ? !up : !down)
-		balloon_alert(user, "can't go any further [going_up ? "up" : "down"]")
-		return
-	if(travel_time)
-		INVOKE_ASYNC(src, PROC_REF(start_travelling), user, going_up)
-	else
-		travel(user, going_up)
+
+	if(!up) //only goes down
+		INVOKE_ASYNC(src, PROC_REF(start_travelling), user, FALSE)
+	else if(!down) //only goes up
+		INVOKE_ASYNC(src, PROC_REF(start_travelling), user, TRUE)
+	else //goes both ways
+		show_options(user)
+
 	add_fingerprint(user)
 
-/obj/structure/ladder/proc/start_travelling(mob/user, going_up)
-	show_initial_fluff_message(user, going_up)
+/obj/structure/ladder/proc/start_travelling(mob/user, going_up, is_ghost = FALSE)
+	if(!travel_time || is_ghost)
+		travel(user, going_up, is_ghost)
+		return
+
+	if(!is_ghost)
+		show_initial_fluff_message(user, going_up)
+
 	if(do_after(user, travel_time, target = src, interaction_key = DOAFTER_SOURCE_CLIMBING_LADDER))
 		travel(user, going_up)
 
@@ -112,6 +122,12 @@
 
 /obj/structure/ladder/proc/travel(mob/user, going_up = TRUE, is_ghost = FALSE)
 	var/obj/structure/ladder/ladder = going_up ? up : down
+	if(going_up == TRUE)
+		ladder = up
+	if(going_up == FALSE)
+		ladder = down
+	else
+		ladder = up || down
 	if(!ladder)
 		balloon_alert(user, "there's nothing that way!")
 		return
@@ -142,14 +158,14 @@
 
 /// Shows a radial menu that players can use to climb up and down a stair.
 /obj/structure/ladder/proc/show_options(mob/user, is_ghost = FALSE)
-	var/list/tool_list = list()
-	tool_list["Up"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = NORTH)
-	tool_list["Down"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = SOUTH)
+	var/list/option_list = list()
+	option_list["Up"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = NORTH)
+	option_list["Down"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = SOUTH)
 
 	var/datum/callback/check_menu
 	if(!is_ghost)
 		check_menu = CALLBACK(src, PROC_REF(check_menu), user)
-	var/result = show_radial_menu(user, src, tool_list, custom_check = check_menu, require_near = !is_ghost, tooltips = TRUE)
+	var/result = show_radial_menu(user, src, option_list, custom_check = check_menu, require_near = !is_ghost, tooltips = TRUE)
 
 	var/going_up
 	switch(result)
@@ -157,13 +173,10 @@
 			going_up = TRUE
 		if("Down")
 			going_up = FALSE
-		if("Cancel")
+		else
 			return
 
-	if(is_ghost || !travel_time)
-		travel(user, going_up, is_ghost)
-	else
-		INVOKE_ASYNC(src, PROC_REF(start_travelling), user, going_up)
+	INVOKE_ASYNC(src, PROC_REF(start_travelling), user, going_up, is_ghost)
 
 /obj/structure/ladder/proc/check_menu(mob/user, is_ghost)
 	if(user.incapacitated() || (!user.Adjacent(src)))
@@ -176,13 +189,6 @@
 		return
 	use(user)
 
-/obj/structure/ladder/attack_hand_secondary(mob/user, list/modifiers)
-	. = ..()
-	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
-		return
-	use(user, going_up = FALSE)
-	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-
 //Not be called when right clicking as a monkey. attack_hand_secondary() handles that.
 /obj/structure/ladder/attack_paw(mob/user, list/modifiers)
 	use(user)
@@ -192,68 +198,26 @@
 	use(user)
 	return TRUE
 
-/obj/structure/ladder/attack_alien_secondary(mob/user, list/modifiers)
-	. = ..()
-	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
-		return
-	use(user, going_up = FALSE)
-	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-
 /obj/structure/ladder/attack_larva(mob/user, list/modifiers)
 	use(user)
 	return TRUE
-
-/obj/structure/ladder/attack_larva_secondary(mob/user, list/modifiers)
-	. = ..()
-	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
-		return
-	use(user, going_up = FALSE)
-	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/structure/ladder/attack_animal(mob/user, list/modifiers)
 	use(user)
 	return TRUE
 
-/obj/structure/ladder/attack_animal_secondary(mob/user, list/modifiers)
-	. = ..()
-	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
-		return
-	use(user, going_up = FALSE)
-	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-
 /obj/structure/ladder/attack_slime(mob/user, list/modifiers)
 	use(user)
 	return TRUE
-
-/obj/structure/ladder/attack_slime_secondary(mob/user, list/modifiers)
-	. = ..()
-	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
-		return
-	use(user, going_up = FALSE)
-	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/structure/ladder/attackby(obj/item/item, mob/user, params)
 	use(user)
 	return TRUE
 
-/obj/structure/ladder/attackby_secondary(obj/item/item, mob/user, params)
-	. = ..()
-	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
-		return
-	use(user, going_up = FALSE)
-	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-
 /obj/structure/ladder/attack_robot(mob/living/silicon/robot/user)
 	if(user.Adjacent(src))
 		use(user)
 	return TRUE
-
-/obj/structure/ladder/attack_robot_secondary(mob/living/silicon/robot/user)
-	. = ..()
-	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN || !user.Adjacent(src))
-		return SECONDARY_ATTACK_CONTINUE_CHAIN
-	use(user, going_up = FALSE)
-	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /obj/structure/ladder/attack_ghost(mob/dead/observer/user)
