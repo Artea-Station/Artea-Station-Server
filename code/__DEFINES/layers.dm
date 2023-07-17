@@ -203,7 +203,9 @@
 #define RENDER_PLANE_MASTER 9999
 //----------------------------------------------------
 
-#define LOBBY_BACKGROUND_LAYER 3
+// Lobby screen layers
+#define LOBBY_FADE_LAYER 3
+#define LOBBY_BACKGROUND_LAYER 3.01
 #define LOBBY_BUTTON_LAYER 4
 
 ///cinematics are "below" the splash screen
