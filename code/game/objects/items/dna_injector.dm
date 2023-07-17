@@ -326,14 +326,6 @@
 	desc = "Will make you...less hairy."
 	remove_mutations = list(/datum/mutation/human/race)
 
-/obj/item/dnainjector/illiterate
-	name = "\improper DNA injector (Illiterate)"
-	add_mutations = list(/datum/mutation/human/illiterate)
-
-/obj/item/dnainjector/antiilliterate
-	name = "\improper DNA injector (Anti-Illiterate)"
-	remove_mutations = list(/datum/mutation/human/illiterate)
-
 /obj/item/dnainjector/insulated
 	name = "\improper DNA injector (Insulated)"
 	add_mutations = list(/datum/mutation/human/insulated)
