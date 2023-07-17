@@ -33,7 +33,7 @@
 		context[SCREENTIP_CONTEXT_LMB] = "Climb up"
 	else if(down && !up)
 		context[SCREENTIP_CONTEXT_LMB] = "Climb down"
-	else if(!down && !up)
+	else if(down && up)
 		context[SCREENTIP_CONTEXT_LMB] = "Show travel options"
 
 	return !!context[SCREENTIP_CONTEXT_LMB]
