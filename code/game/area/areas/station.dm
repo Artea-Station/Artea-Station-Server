@@ -528,8 +528,7 @@
 		return
 
 	var/obj/machinery/computer/cryopod/console = pick(GLOB.station_cryopod_computers)
-	var/obj/item/card/id/id = boarder.get_idcard()
-	console.announce("CRYO_JOIN", id.registered_name, id.assignment)
+	console.announce("CRYO_JOIN", boarder.mind.name, boarder.mind.assigned_role.title)
 
 // Commons - Vacant Rooms
 /area/station/commons/vacant_room
