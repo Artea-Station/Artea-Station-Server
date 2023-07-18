@@ -138,7 +138,7 @@
 
 	for(var/i in stop_waypoints)
 		var/datum/lift_waypoint/stop_wp = i
-		floors += list(list("id" = stop_wp.waypoint_id, "is_active" = queued_stops[stop_wp] ? TRUE : FALSE, "name" = stop_wp.name))
+		floors += list(list("id" = stop_wp.waypoint_id, "is_active" = !!queued_stops[stop_wp] || stop_wp.position.z == z, "name" = stop_wp.name))
 
 	data += list("floors" = floors, "is_stopped" = linked_controller.halted)
 	return data
