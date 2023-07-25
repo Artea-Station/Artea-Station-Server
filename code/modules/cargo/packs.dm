@@ -1809,6 +1809,31 @@
 		var/item = pick(contains)
 		new item(C)
 
+/datum/supply_pack/service/coffeekit
+	name = "Coffee Equipment Crate"
+	desc = "A complete kit to setup your own cozy coffee shop, the coffeemaker is for some reason not included."
+	cost = CARGO_CRATE_VALUE * 4
+	contains = list(
+		/obj/item/storage/box/coffeepack/robusta,
+		/obj/item/storage/box/coffeepack,
+		/obj/item/reagent_containers/cup/coffeepot,
+		/obj/item/storage/fancy/coffee_condi_display,
+		/obj/item/reagent_containers/cup/glass/bottle/juice/cream,
+		/obj/item/reagent_containers/condiment/milk,
+		/obj/item/reagent_containers/condiment/soymilk,
+		/obj/item/reagent_containers/condiment/sugar,
+		/obj/item/reagent_containers/cup/bottle/syrup_bottle/caramel, //one extra syrup as a treat
+	)
+	crate_name = "coffee equipment crate"
+
+/datum/supply_pack/service/coffeemaker
+	name = "Impressa Coffeemaker Crate"
+	desc = "An assembled Impressa model coffeemaker."
+	cost = CARGO_CRATE_VALUE * 4
+	contains = list(/obj/machinery/coffeemaker/impressa)
+	crate_name = "coffeemaker crate"
+	crate_type = /obj/structure/closet/crate/large
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Organic /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -2129,6 +2154,30 @@
 					/obj/item/storage/box/mothic_rations)
 	crate_name = "\improper Mothic Supply box"
 	crate_type = /obj/structure/closet/crate/cardboard/mothic
+
+/datum/supply_pack/organic/syrup
+	name = "Coffee Syrups Box"
+	desc = "A packaged box of various syrups, perfect for making your delicious coffee even more diabetic."
+	cost = CARGO_CRATE_VALUE * 4
+	contains = list(
+		/obj/item/reagent_containers/cup/bottle/syrup_bottle/caramel,
+		/obj/item/reagent_containers/cup/bottle/syrup_bottle/liqueur,
+		/obj/item/reagent_containers/cup/bottle/syrup_bottle/korta_nectar,
+	)
+	crate_name = "coffee syrups box"
+	crate_type = /obj/structure/closet/crate/cardboard
+
+/datum/supply_pack/organic/syrup_contraband
+	contraband = TRUE
+	name = "Contraband Syrups Box"
+	desc = "A packaged box containing illegal coffee syrups. Possession of these carries a penalty established in the galactic penal code."
+	cost = CARGO_CRATE_VALUE * 6
+	contains = list(
+		/obj/item/reagent_containers/cup/bottle/syrup_bottle/laughsyrup,
+		/obj/item/reagent_containers/cup/bottle/syrup_bottle/laughsyrup,
+	)
+	crate_name = "illegal syrups box"
+	crate_type = /obj/structure/closet/crate/cardboard
 
 //////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// Livestock /////////////////////////////////////
