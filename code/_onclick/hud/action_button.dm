@@ -55,6 +55,9 @@
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		trigger_flags |= TRIGGER_SECONDARY_ACTION
 	linked_action.Trigger(trigger_flags = trigger_flags)
+	transform = transform.Scale(0.8, 0.8)
+	alpha = 200
+	animate(src, transform = matrix(), time=4, alpha=255)
 	return TRUE
 
 // Entered and Exited won't fire while you're dragging something, because you're still "holding" it
