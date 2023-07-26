@@ -31,6 +31,6 @@
 			ov_obj.GrantOvermapView(usr, get_turf(src))
 			return
 		if("overmap_ship_controls")
-			ov_obj.DisplayUI(usr, get_turf(src))
+			ov_obj.ui_interact(usr, null, src)
 			return
 	ui_interact(usr)
