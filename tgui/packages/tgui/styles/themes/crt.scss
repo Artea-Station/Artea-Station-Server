@@ -180,7 +180,7 @@ $background-radial-opacity: 0.2 !default;
 
   .Tabs--horizontal {
     .Tab {
-      border: 2px solid base.$color-fg;
+      border-color: base.$color-fg;
       border-bottom: 6px solid base.$color-fg;
       text-align: center;
       background-color: rgba(0, 0, 0, 0);
@@ -188,8 +188,7 @@ $background-radial-opacity: 0.2 !default;
     }
 
     .Tab--selected {
-      border: 2px solid base.$color-fg;
-      border-bottom: none;
+      border-color: base.$color-fg;
       background-color: base.$color-fg;
       .Tab__left,
       .Tab__text {
@@ -202,11 +201,11 @@ $background-radial-opacity: 0.2 !default;
   }
 
   .Table {
-    border: 1px solid base.$color-fg;
+    border-color: base.$color-fg;
   }
 
   .Section {
-    border: 2px solid base.$color-fg;
+    border-color: base.$color-fg;
   }
 
   td {

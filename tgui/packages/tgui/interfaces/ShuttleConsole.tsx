@@ -1,9 +1,24 @@
+import { BooleanLike } from 'common/react';
 import { useBackend } from '../backend';
 import { Box, Button, Dropdown, Flex, Icon, LabeledList, Modal, Section } from '../components';
 import { Window } from '../layouts';
 
+type Location = {
+  name: string;
+};
+
+type Data = {
+  status: string;
+  locked: BooleanLike;
+  authorization_required: BooleanLike;
+  destination: string;
+  docked_location: string;
+  timer_str: string;
+  locations: Location[];
+};
+
 export const ShuttleConsole = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend<Data>(context);
   const { type = 'shuttle', blind_drop } = props;
   const { authorization_required } = data;
   return (
@@ -62,7 +77,7 @@ const STATUS_COLOR_KEYS = {
 };
 
 export const ShuttleConsoleContent = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend<Data>(context);
   const { type, blind_drop } = props;
   const {
     status,
@@ -87,8 +102,9 @@ export const ShuttleConsoleContent = (props, context) => {
         </Box>
       </Box>
       <Section
-        title={type === 'shuttle' ? 'Shuttle Controls' : 'Base Launch Controls'}
-        level={2}>
+        title={
+          type === 'shuttle' ? 'Shuttle Controls' : 'Base Launch Controls'
+        }>
         <LabeledList>
           <LabeledList.Item label="Location">
             {docked_location || 'Not Available'}
