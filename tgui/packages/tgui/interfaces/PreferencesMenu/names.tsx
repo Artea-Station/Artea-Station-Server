@@ -58,7 +58,7 @@ export const MultiNameInput = (
                     Close
                   </Button>
                 }
-                title="Alternate names">
+                title="Name preferences">
                 <LabeledList>
                   {sortNameWithKeyEntries(Object.entries(namesIntoGroups)).map(
                     ([_, names], index, collection) => (
@@ -160,13 +160,17 @@ export const NameInput = (
 
   return (
     <Button
-      captureKeys={!editing}
-      onClick={() => {
-        setLastNameBeforeEdit(props.name);
-      }}
       textAlign="center"
       width="100%"
-      height="28px">
+      height="28px"
+      onClick={(event) => {
+        props.openMultiNameInput();
+
+        // We're a button inside a button.
+        // Did you know that's against the W3C standard? :)
+        event.cancelBubble = true;
+        event.stopPropagation();
+      }}>
       <Stack align="center" fill>
         <Stack.Item>
           <Icon
@@ -206,45 +210,6 @@ export const NameInput = (
             }}
           />
         </Stack.Item>
-
-        {/* We only know other names when the server tells us */}
-        <ServerPreferencesFetcher
-          render={(data) =>
-            data ? (
-              <Stack.Item>
-                <Button
-                  as="span"
-                  tooltip="Alternate Names"
-                  tooltipPosition="bottom"
-                  style={{
-                    background: 'rgba(0, 0, 0, 0.7)',
-                    position: 'absolute',
-                    right: '2px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    width: '2%',
-                  }}
-                  onClick={(event) => {
-                    props.openMultiNameInput();
-
-                    // We're a button inside a button.
-                    // Did you know that's against the W3C standard? :)
-                    event.cancelBubble = true;
-                    event.stopPropagation();
-                  }}>
-                  <Icon
-                    name="ellipsis-v"
-                    style={{
-                      'position': 'relative',
-                      'left': '1px',
-                      'min-width': '0px',
-                    }}
-                  />
-                </Button>
-              </Stack.Item>
-            ) : null
-          }
-        />
       </Stack>
     </Button>
   );
