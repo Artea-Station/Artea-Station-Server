@@ -1352,7 +1352,6 @@
 
 /obj/item/circuitboard/machine/coffeemaker
 	name = "Coffeemaker (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/coffeemaker
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
@@ -1364,7 +1363,6 @@
 
 /obj/item/circuitboard/machine/coffeemaker/impressa
 	name = "Impressa Coffeemaker"
-	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/coffeemaker/impressa
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
