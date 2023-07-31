@@ -6,6 +6,7 @@ GLOBAL_LIST_INIT(valid_icon_sizes, list(32, 48, 64, 96, 128))
 /client/verb/SetWindowIconSize(val as num|text)
 	set hidden = 1
 	if(!istype(src, /client)) // This can be called on the client interface datum for whatever reason.
+		winset(src, "mapwindow.map", "icon-size=[val]")
 		return
 
 	if(prefs && val != prefs.read_preference(/datum/preference/numeric/icon_size))
