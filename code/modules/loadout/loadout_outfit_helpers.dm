@@ -25,7 +25,7 @@
 	else if(istype(outfit))
 		equipped_outfit = outfit
 	else
-		CRASH("Outfit passed to equip_outfit_and_loadout was neither a path nor an instantiated type!")
+		return FALSE
 
 	var/list/loadout_datums = loadout_list_to_datums(preference_source?.read_preference(/datum/preference/loadout))
 	for(var/datum/loadout_item/item as anything in loadout_datums)
