@@ -19,8 +19,13 @@
 ///Slightly slower, higher in memory. Just not optimal
 #define REFERENCE_TRACKING_DEBUG
 
-///Run a lookup on things hard deleting by default.
+///Run a lookup on things hard deleting by default when unit tests are running.
+#ifdef UNIT_TESTS
 #define GC_FAILURE_HARD_LOOKUP
+#endif //ifdef UNIT_TESTS
+
+//Uncomment to use this outside of unit tests.
+//#define GC_FAILURE_HARD_LOOKUP
 #ifdef GC_FAILURE_HARD_LOOKUP
 ///Don't stop when searching, go till you're totally done
 #define FIND_REF_NO_CHECK_TICK
