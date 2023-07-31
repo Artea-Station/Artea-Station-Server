@@ -125,7 +125,7 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 		to_chat(user, span_warning("You already have a greyscaling window open!"))
 		return
 
-	var/list/loadout = manager.loadout
+	var/list/loadout = manager.preferences.read_preference(/datum/preference/loadout)
 	var/list/allowed_configs = list()
 	if(initial(item_path.greyscale_config))
 		allowed_configs += "[initial(item_path.greyscale_config)]"
@@ -154,7 +154,7 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 	if(!istype(open_menu))
 		CRASH("set_slot_greyscale called without a greyscale menu!")
 
-	var/list/loadout = manager.loadout
+	var/list/loadout = manager.preferences.read_preference(/datum/preference/loadout)
 	if(!loadout?[item_path])
 		manager.select_item(src)
 
@@ -167,7 +167,7 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 	manager.preferences.character_preview_view.update_body()
 
 /datum/loadout_item/proc/set_name(datum/preference_middleware/loadout/manager, mob/user)
-	var/list/loadout = manager.loadout
+	var/list/loadout = manager.preferences.read_preference(/datum/preference/loadout)
 	var/input_name = tgui_input_text(
 		user = user,
 		message = "What name do you want to give [name]? Leave blank to clear.",
@@ -189,7 +189,7 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 	manager.preferences.update_preference(manager.preference, loadout)
 
 /datum/loadout_item/proc/set_skin(datum/preference_middleware/loadout/manager, mob/user)
-	var/list/loadout = manager.loadout
+	var/list/loadout = manager.preferences.read_preference(/datum/preference/loadout)
 	var/static/list/list/cached_reskins = list()
 	if(!islist(cached_reskins[item_path]))
 		var/obj/item/item_template = new item_path()
@@ -283,7 +283,7 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
  * preference_source - the datum/preferences our loadout item originated from - cannot be null
  * equipper - the mob we're equipping this item onto - cannot be null
  */
-/datum/loadout_item/proc/post_equip_item(datum/preferences/preference_source, mob/living/carbon/human/equipper)
+/datum/loadout_item/proc/post_equip_item(datum/preferences/preference_source, mob/living/carbon/human/equipper, is_visual = FALSE)
 	return FALSE
 
 /// Returns a formatted list of data for this loadout item, for use in UIs

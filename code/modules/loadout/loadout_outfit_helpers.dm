@@ -35,10 +35,12 @@
 		item.pre_equip(equipped_outfit, src, visuals_only)
 
 	equipOutfit(equipped_outfit, visuals_only)
-	//w_uniform?.swap_to_modular_dmi(src)
 
 	for(var/datum/loadout_item/item as anything in loadout_datums)
 		item.on_equip_item(preference_source, src, visuals_only, loadout_datums)
+
+	for(var/datum/loadout_item/item as anything in loadout_datums)
+		item.post_equip_item(preference_source, src, visuals_only)
 
 	regenerate_icons()
 	return TRUE

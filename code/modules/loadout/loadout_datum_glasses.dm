@@ -18,7 +18,10 @@
 		return
 	outfit.glasses = item_path
 
-/datum/loadout_item/glasses/post_equip_item(datum/preferences/preference_source, mob/living/carbon/human/equipper)
+/datum/loadout_item/glasses/post_equip_item(datum/preferences/preference_source, mob/living/carbon/human/equipper, visuals_only = FALSE)
+	if(visuals_only)
+		return
+
 	var/obj/item/clothing/glasses/equipped_glasses = locate(item_path) in equipper.get_equipped_items()
 	if(equipped_glasses.glass_colour_type)
 		equipper.update_glasses_color(equipped_glasses, TRUE)

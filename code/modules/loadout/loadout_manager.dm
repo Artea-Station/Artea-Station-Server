@@ -17,13 +17,9 @@
 	/// Ref to koadout preference singleton for easy access
 	VAR_FINAL/datum/preference/loadout/preference
 
-	/// The current selected loadout list.
-	var/list/loadout
-
 /datum/preference_middleware/loadout/New(datum/preferences)
 	. = ..()
 
-	loadout = src.preferences.read_preference(/datum/preference/loadout)
 	preference = GLOB.preference_entries[/datum/preference/loadout]
 
 	if(isnull(loadout_categories))
@@ -35,9 +31,6 @@
 	QDEL_NULL(greyscaling_menu)
 	preference = null
 	return ..()
-
-/datum/preference_middleware/loadout/on_new_character(mob/user)
-	loadout = preferences.read_preference(/datum/preference/loadout)
 
 /datum/preference_middleware/loadout/proc/action_select_item(list/params, mob/user)
 	var/path_to_use = text2path(params["path"])
@@ -80,6 +73,7 @@
 /datum/preference_middleware/loadout/proc/select_item(datum/loadout_item/selected_item)
 	var/num_misc_items = 0
 	var/datum/loadout_item/first_misc_found
+	var/list/loadout = preferences.read_preference(/datum/preference/loadout)
 	for(var/datum/loadout_item/item as anything in loadout_list_to_datums(loadout))
 		if(item.category == selected_item.category)
 			if(item.category == LOADOUT_ITEM_MISC && ++num_misc_items < MAX_ALLOWED_MISC_ITEMS)
@@ -94,6 +88,7 @@
 
 /// Deselect [deselected_item].
 /datum/preference_middleware/loadout/proc/deselect_item(datum/loadout_item/deselected_item)
+	var/list/loadout = preferences.read_preference(/datum/preference/loadout)
 	LAZYREMOVE(loadout, deselected_item.item_path)
 	preferences.update_preference(preference, loadout)
 

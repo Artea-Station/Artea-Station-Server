@@ -7,17 +7,6 @@
 /datum/preference/loadout/apply_to_human(mob/living/carbon/human/target, value)
 	return
 
-// But after everything is applied, we need to call [post_equip_item] on all of our loadout items.
-/datum/preference/loadout/after_apply_to_human(mob/living/carbon/human/target, value, datum/preferences/prefs)
-	if(!prefs)
-		CRASH("loadout preference after_apply_to_human called without a preference datum.")
-
-	if(!istype(target))
-		return // Not a crash, 'cause this proc could be passed non-humans (AIs, etc) and that's fine
-
-	for(var/datum/loadout_item/item as anything in loadout_list_to_datums(value))
-		item.post_equip_item(prefs, target)
-
 /datum/preference/loadout/serialize(input, datum/preferences/preferences)
 	// Sanitize on save even though it's highly unlikely this will need it
 	return sanitize_loadout_list(input)

@@ -43,7 +43,7 @@
 	return ..()
 
 /datum/loadout_item/accessory/proc/set_accessory_layer(datum/preference_middleware/loadout/manager, mob/user)
-	var/list/loadout = manager.loadout
+	var/list/loadout = manager.preferences.read_preference(/datum/preference/loadout)
 	if(!loadout?[item_path])
 		manager.select_item(src)
 
@@ -84,6 +84,7 @@
 	item_path = /obj/item/clothing/accessory/pocketprotector
 
 /datum/loadout_item/accessory/full_pocket_protector
+	name = "Filled Pocket Protector"
 	item_path = /obj/item/clothing/accessory/pocketprotector/full
 	additional_tooltip_contents = list("CONTAINS PENS - This item contains multiple pens on spawn.")
 
