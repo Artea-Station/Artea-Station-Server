@@ -5,7 +5,7 @@ GLOBAL_LIST_INIT(valid_icon_sizes, list(32, 48, 64, 96, 128))
 /// General handler for viewport updates. Takes an argument for an icon size, if not aligning with your preference, updates your preference.
 /client/verb/SetWindowIconSize(val as num|text)
 	set hidden = 1
-	if(!istype(src, /client)) // This can be called on the client interface datum for whatever reason.
+	if(istype(src, /client)) // This can be called on the client interface datum for whatever reason.
 		winset(src, "mapwindow.map", "icon-size=[val]")
 		return
 
