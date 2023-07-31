@@ -408,6 +408,9 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 	/// The client that is watching this view
 	var/client/client
 
+	/// Whether we see our favorite job's clothes on the dummy
+	var/view_job_clothes = TRUE
+
 /atom/movable/screen/character_preview_view/Initialize(mapload, datum/preferences/preferences, client/client, assigned_map = "character_preview_[REF(src)]")
 	. = ..()
 
@@ -439,7 +442,8 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 		create_body()
 	else
 		body.wipe_state()
-	appearance = preferences.render_new_preview_appearance(body)
+
+	appearance = preferences.render_new_preview_appearance(body, view_job_clothes)
 
 /atom/movable/screen/character_preview_view/proc/create_body()
 	QDEL_NULL(body)
@@ -546,6 +550,12 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 
 	for (var/datum/preference_middleware/preference_middleware as anything in middleware)
 		preference_middleware.apply_to_human(character, src)
+
+	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
+		if (preference.savefile_identifier != PREFERENCE_CHARACTER)
+			continue
+
+		preference.after_apply_to_human(character, read_preference(preference.type), src)
 
 	character.dna.real_name = character.real_name
 

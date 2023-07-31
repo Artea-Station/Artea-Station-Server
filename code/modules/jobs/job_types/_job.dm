@@ -188,21 +188,20 @@
 /mob/living/proc/on_job_equipping(datum/job/equipping)
 	return
 
-/mob/living/carbon/human/on_job_equipping(datum/job/equipping)
+/mob/living/carbon/human/on_job_equipping(datum/job/equipping, datum/preferences/preferences)
 	var/datum/bank_account/bank_account = new(real_name, equipping)
 	bank_account.payday(STARTING_PAYCHECKS, TRUE)
 	account_id = bank_account.account_id
 	bank_account.replaceable = FALSE
-	dress_up_as_job(equipping)
+	dress_up_as_job(equipping, FALSE, preferences)
 
 
-/mob/living/proc/dress_up_as_job(datum/job/equipping, visual_only = FALSE)
+/mob/living/proc/dress_up_as_job(datum/job/equipping, visual_only = FALSE, datum/preferences/preferences)
 	return
 
-/mob/living/carbon/human/dress_up_as_job(datum/job/equipping, visual_only = FALSE)
+/mob/living/carbon/human/dress_up_as_job(datum/job/equipping, visual_only = FALSE, datum/preferences/preferences)
 	dna.species.pre_equip_species_outfit(equipping, src, visual_only)
-	equipOutfit(equipping.outfit, visual_only)
-
+	equip_outfit_and_loadout(equipping.outfit, preferences, visual_only)
 
 /datum/job/proc/announce_head(mob/living/carbon/human/H, channels) //tells the given channel that the given mob is the new department head. See communications.dm for valid channels.
 	if(H && GLOB.announcement_systems.len)

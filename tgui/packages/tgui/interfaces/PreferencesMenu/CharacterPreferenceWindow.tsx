@@ -16,6 +16,7 @@ import { InspectionPage } from './InspectionPage';
 import { OOCPage } from './OOCPage';
 import { ContentPage } from './ContentPage';
 import { FoodPage } from './FoodPage';
+import { LoadoutPage } from './LoadoutPage';
 
 export enum Page {
   Index,
@@ -30,6 +31,7 @@ export enum Page {
   OOC,
   Content,
   Food,
+  Loadout,
 }
 
 const CharacterProfiles = (props: {
@@ -122,6 +124,10 @@ export const CharacterPreferenceWindow = (props, context) => {
 
     case Page.Food:
       pageContents = <FoodPage />;
+      break;
+
+    case Page.Loadout:
+      pageContents = <LoadoutPage />;
       break;
 
     default:

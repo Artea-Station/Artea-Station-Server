@@ -213,6 +213,15 @@ export const IndexPage = (context, parentContext) => {
                     Inspection Text
                   </BigPageButton>
                 </Stack.Item>
+
+                <Stack.Item>
+                  <BigPageButton
+                    page={Page.Loadout}
+                    setPage={setCurrentPage}
+                    tooltip="The items and clothes you start with!">
+                    Loadout
+                  </BigPageButton>
+                </Stack.Item>
               </Stack>
             </Stack.Item>
 
