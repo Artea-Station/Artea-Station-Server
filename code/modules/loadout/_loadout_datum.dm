@@ -16,12 +16,8 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 		CRASH("generate_loadout_items(): called with an invalid or null path as an argument!")
 
 	for(var/datum/loadout_item/found_type as anything in subtypesof(type_to_generate))
-		/// Any item without a name is "abstract"
-		if(isnull(initial(found_type.name)))
-			continue
-
+		/// Any item without a path is "abstract"
 		if(!ispath(initial(found_type.item_path)))
-			stack_trace("generate_loadout_items(): Attempted to instantiate a loadout item ([initial(found_type.name)]) with an invalid or null typepath! (got path: [initial(found_type.item_path)])")
 			continue
 
 		var/datum/loadout_item/spawned_type = new found_type()
@@ -52,6 +48,10 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 	var/list/additional_tooltip_contents
 
 /datum/loadout_item/New()
+	if(!name)
+		// Saves a ton of manual data entry. Still leaving the field cause of things like "random x item".
+		name = initial(item_path.name)
+
 	if(can_be_greyscale == DONT_GREYSCALE)
 		// Explicitly be false if we don't want this to greyscale
 		can_be_greyscale = FALSE
@@ -231,6 +231,16 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 /datum/loadout_item/proc/insert_path_into_outfit(datum/outfit/outfit, mob/living/carbon/human/equipper, visuals_only = FALSE)
 	if(!visuals_only)
 		LAZYADD(outfit.backpack_contents, item_path)
+
+/**
+ * Called before the outfit is applied. Good for stuff like belts that need to do final checks to prevent errors.
+ *
+ * outfit - The outfit we're equipping our items into.
+ * equipper - If we're equipping out outfit onto a mob at the time, this is the mob it is equipped on. Can be null.
+ * visual - If TRUE, then our outfit is only for visual use (for example, a preview).
+ */
+/datum/loadout_item/proc/pre_equip(datum/outfit/outfit, mob/living/carbon/human/equipper, visuals_only = FALSE)
+	return
 
 /**
  * Called When the item is equipped on [equipper].

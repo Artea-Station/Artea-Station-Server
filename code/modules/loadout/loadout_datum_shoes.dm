@@ -41,37 +41,28 @@
 	outfit.shoes = item_path
 
 /datum/loadout_item/shoes/winter_boots
-	name = "Winter Boots"
 	item_path = /obj/item/clothing/shoes/winterboots
 
 /datum/loadout_item/shoes/work_boots
-	name = "Work Boots"
 	item_path = /obj/item/clothing/shoes/workboots
 
 /datum/loadout_item/shoes/mining_boots
-	name = "Mining Boots"
 	item_path = /obj/item/clothing/shoes/workboots/mining
 
 /datum/loadout_item/shoes/laceup
-	name = "Laceup Shoes"
 	item_path = /obj/item/clothing/shoes/laceup
 
 /datum/loadout_item/shoes/russian_boots
-	name = "Russian Boots"
 	item_path = /obj/item/clothing/shoes/russian
 
 /datum/loadout_item/shoes/black_cowboy_boots
-	name = "Black Cowboy Boots"
 	item_path = /obj/item/clothing/shoes/cowboy/black
 
 /datum/loadout_item/shoes/brown_cowboy_boots
-	name = "Brown Cowboy Boots"
 	item_path = /obj/item/clothing/shoes/cowboy
 
 /datum/loadout_item/shoes/white_cowboy_boots
-	name = "White Cowboy Boots"
 	item_path = /obj/item/clothing/shoes/cowboy/white
 
 /datum/loadout_item/shoes/sandals
-	name = "Sandals"
 	item_path = /obj/item/clothing/shoes/sandal

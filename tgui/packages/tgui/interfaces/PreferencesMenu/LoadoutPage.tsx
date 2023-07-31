@@ -144,7 +144,7 @@ const ItemDisplay = (
   const { item, active } = props;
   return (
     <Stack>
-      <Stack.Item grow align="left">
+      <Stack.Item grow align="left" style={{ 'text-transform': 'capitalize' }}>
         {item.name}
       </Stack.Item>
       {item.buttons.map((button) => (

@@ -21,49 +21,37 @@
 		outfit.mask = item_path
 
 /datum/loadout_item/mask/balaclava
-	name = "Balaclava"
 	item_path = /obj/item/clothing/mask/balaclava
 
 /datum/loadout_item/mask/gas_mask
-	name = "Gas Mask"
 	item_path = /obj/item/clothing/mask/gas
 
 /datum/loadout_item/mask/bandana_greyscale
-	name = "Bandana"
 	item_path = /obj/item/clothing/mask/bandana
 
 /datum/loadout_item/mask/bandana_striped_greyscale
-	name = "Striped Bandana"
 	item_path = /obj/item/clothing/mask/bandana/striped
 
 /datum/loadout_item/mask/skull_bandana
-	name = "Skull Bandana"
 	item_path = /obj/item/clothing/mask/bandana/skull
 
 /datum/loadout_item/mask/surgical_mask
-	name = "Face Mask"
 	item_path = /obj/item/clothing/mask/surgical
 
 /datum/loadout_item/mask/fake_mustache
-	name = "Fake Moustache"
 	item_path = /obj/item/clothing/mask/fakemoustache
 
 /datum/loadout_item/mask/pipe
-	name = "Pipe"
 	item_path = /obj/item/clothing/mask/cigarette/pipe
 
 /datum/loadout_item/mask/corn_pipe
-	name = "Corn Cob Pipe"
 	item_path = /obj/item/clothing/mask/cigarette/pipe/cobpipe
 
 /datum/loadout_item/mask/plague_doctor
-	name = "Plague Doctor Mask"
 	item_path = /obj/item/clothing/mask/gas/plaguedoctor
 
 /datum/loadout_item/mask/joy
-	name = "Joy Mask"
 	item_path = /obj/item/clothing/mask/joy
 
 /datum/loadout_item/mask/lollipop
-	name = "Lollipop"
 	item_path = /obj/item/food/lollipop

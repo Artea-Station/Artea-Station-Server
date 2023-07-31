@@ -18,9 +18,7 @@
 	outfit.ears = item_path
 
 /datum/loadout_item/ears/headphones
-	name = "Headphones"
 	item_path = /obj/item/instrument/piano_synth/headphones
 
 /datum/loadout_item/ears/earmuffs
-	name = "Earmuffs"
 	item_path = /obj/item/clothing/ears/earmuffs
