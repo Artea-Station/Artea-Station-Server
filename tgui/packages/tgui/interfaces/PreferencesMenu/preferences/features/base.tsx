@@ -377,6 +377,7 @@ export const FeatureTextInput = (
 
   return (
     <TextArea
+      scrollbar
       height="100px"
       value={props.value}
       maxLength={props.serverData.maximum_length}

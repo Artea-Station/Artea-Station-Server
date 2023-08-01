@@ -1,8 +1,6 @@
-import { BooleanLike } from 'common/react';
 import { useBackend, useLocalState } from '../../backend';
 import { Box, Button, Dimmer, Input, NoticeBox, Section, Stack, Tabs } from '../../components';
 import { Window } from '../../layouts';
-import { CharacterPreview } from '../common/CharacterPreview';
 
 type typePath = string;
 
@@ -27,8 +25,6 @@ type LoadoutCategory = {
 type Data = {
   selected_loadout: typePath[];
   mob_name: string;
-  job_clothes: BooleanLike;
-  character_preview_view: string;
   loadout_tabs: LoadoutCategory[];
   tutorial_text: string;
 };
@@ -57,9 +53,7 @@ export const LoadoutPage = (props, context) => {
       <Stack.Item>
         {!!tutorialStatus && <LoadoutTutorialDimmer />}
         <Section
-          title="Loadout Categories"
-          align="center"
-          buttons={
+          title={
             <>
               <Button
                 icon="info"
@@ -67,15 +61,22 @@ export const LoadoutPage = (props, context) => {
                 content="Tutorial"
                 onClick={() => setTutorialStatus(true)}
               />
-              <Input
+              <span style={{ "margin-left": '22%' }}>
+                Loadout Categories
+              </span>
+            </>
+          }
+          buttons={
+            <Input
                 width="200px"
                 onInput={(event) => setSearchLoadout(event.target.value)}
                 placeholder="Search for item"
                 value={searchLoadout}
               />
-            </>
           }>
-          <Tabs fluid align="center">
+          <Tabs fluid align="center" style={{
+            "flex-wrap": "wrap",
+          }}>
             {loadout_tabs.map((curTab) => (
               <Tabs.Tab
                 key={curTab.name}
@@ -265,96 +266,35 @@ const LoadoutTabs = (props, context) => {
   const searching = searchLoadout.length > 1;
 
   return (
-    <Stack fill>
-      <Stack.Item grow>
-        {searching || (activeCategory && activeCategory.contents) ? (
-          <Section
-            title={
-              searching ? 'Searching...' : activeCategory?.title || 'Error'
-            }
-            fill
-            scrollable
-            buttons={
-              <Button.Confirm
-                icon="times"
-                color="red"
-                align="center"
-                content="Clear All Items"
-                tooltip="Clears ALL selected items from all categories."
-                onClick={() => act('clear_all_items')}
-              />
-            }>
-            <Stack vertical>
-              {searching ? (
-                <SearchDisplay />
-              ) : (
-                <LoadoutTabDisplay category={activeCategory} />
-              )}
-            </Stack>
-          </Section>
-        ) : (
-          <Section fill>
-            <Box>No contents for selected tab.</Box>
-          </Section>
-        )}
-      </Stack.Item>
-      <Stack.Item grow fill align="center">
-        <LoadoutPreviewSection />
-      </Stack.Item>
-    </Stack>
-  );
-};
-
-const LoadoutPreviewSection = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
-  const { mob_name, job_clothes, character_preview_view } = data;
-  const [tutorialStatus] = useLocalState(context, 'tutorialStatus', false);
-  return (
-    <Section
-      title={`Preview: ${mob_name}`}
-      grow
-      height="100%"
-      buttons={
-        <Button.Checkbox
-          align="center"
-          content="Toggle Job Clothes"
-          checked={job_clothes}
-          onClick={() => act('toggle_job_clothes')}
-        />
-      }>
-      {/* The heights on these sections are fucked, whatever fix it later */}
-      <Stack vertical height="515px">
-        <Stack.Item grow align="center">
-          {!tutorialStatus && (
-            <CharacterPreview height="100%" id={character_preview_view} />
+    searching || (activeCategory && activeCategory.contents) ? (
+      <Section
+        title={
+          searching ? 'Searching...' : activeCategory?.title || 'Error'
+        }
+        fill
+        scrollable
+        buttons={
+          <Button.Confirm
+            icon="times"
+            color="red"
+            align="center"
+            content="Clear All Items"
+            tooltip="Clears ALL selected items from all categories."
+            onClick={() => act('clear_all_items')}
+          />
+        }>
+        <Stack vertical>
+          {searching ? (
+            <SearchDisplay />
+          ) : (
+            <LoadoutTabDisplay category={activeCategory} />
           )}
-        </Stack.Item>
-        <Stack.Divider />
-        <Stack.Item align="center">
-          <Stack>
-            <Stack.Item>
-              <Button
-                icon="chevron-left"
-                onClick={() =>
-                  act('rotate_dummy', {
-                    dir: 'left',
-                  })
-                }
-              />
-            </Stack.Item>
-            <Stack.Item>
-              <Button
-                icon="chevron-right"
-                onClick={() =>
-                  act('rotate_dummy', {
-                    dir: 'right',
-                  })
-                }
-              />
-            </Stack.Item>
-          </Stack>
-        </Stack.Item>
-      </Stack>
-    </Section>
+        </Stack>
+      </Section>
+    ) : (
+      <Section fill>
+        <Box>No contents for selected tab.</Box>
+      </Section>
+    )
   );
 };

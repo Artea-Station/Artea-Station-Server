@@ -78,7 +78,7 @@ export const FoodPage = (props, context) => {
           </NoticeBox>
         )}
       </Box>
-      <Box style={{ 'columns': '30em' }}>
+      <Box style={{ 'columns': '18em' }}>
         {Object.entries(data.food_types).map((element) => {
           const { 0: foodName, 1: foodPointValues } = element;
           return (

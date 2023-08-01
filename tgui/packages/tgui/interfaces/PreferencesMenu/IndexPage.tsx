@@ -1,17 +1,12 @@
-import { Button, Divider, Popper, Stack } from '../../components';
+import { Box, Button, Divider, Stack } from '../../components';
 import { Page } from './CharacterPreferenceWindow';
 import { useBackend, useLocalState } from '../../backend';
-import { createSetPreference, PreferencesMenuData } from './data';
+import { PreferencesMenuData } from './data';
 import { BigPageButton } from './PageButton';
-import { MultiNameInput, NameInput } from './names';
-import { Gender, GENDERS } from './preferences/gender';
-import { CharacterPreview } from '../common/CharacterPreview';
+import { MultiNameInput } from './names';
 
-const CharacterControls = (props: {
+export const CharacterControls = (props: {
   handleRotate: (String) => void;
-  gender: Gender;
-  setGender: (gender: Gender) => void;
-  showGender: boolean;
 }) => {
   return (
     <Stack>
@@ -33,72 +28,7 @@ const CharacterControls = (props: {
           tooltipPosition="top"
         />
       </Stack.Item>
-
-      {props.showGender && (
-        <Stack.Item>
-          <GenderButton
-            gender={props.gender}
-            handleSetGender={props.setGender}
-          />
-        </Stack.Item>
-      )}
     </Stack>
-  );
-};
-
-const GenderButton = (
-  props: {
-    handleSetGender: (gender: Gender) => void;
-    gender: Gender;
-  },
-  context
-) => {
-  const [genderMenuOpen, setGenderMenuOpen] = useLocalState(
-    context,
-    'genderMenuOpen',
-    false
-  );
-
-  return (
-    <Popper
-      options={{
-        placement: 'right-end',
-      }}
-      popperContent={
-        genderMenuOpen && (
-          <Stack backgroundColor="white" ml={0.5} p={0.3}>
-            {[Gender.Male, Gender.Female, Gender.Other, Gender.Other2].map(
-              (gender) => {
-                return (
-                  <Stack.Item key={gender}>
-                    <Button
-                      selected={gender === props.gender}
-                      onClick={() => {
-                        props.handleSetGender(gender);
-                        setGenderMenuOpen(false);
-                      }}
-                      fontSize="22px"
-                      icon={GENDERS[gender].icon}
-                      tooltip={GENDERS[gender].text}
-                      tooltipPosition="top"
-                    />
-                  </Stack.Item>
-                );
-              }
-            )}
-          </Stack>
-        )
-      }>
-      <Button
-        onClick={() => {
-          setGenderMenuOpen(!genderMenuOpen);
-        }}
-        fontSize="22px"
-        icon={GENDERS[props.gender].icon}
-        tooltip="Gender"
-        tooltipPosition="top"
-      />
-    </Popper>
   );
 };
 
@@ -116,7 +46,7 @@ export const IndexPage = (context, parentContext) => {
   );
 
   return (
-    <>
+    <Box>
       {multiNameInputOpen && (
         <MultiNameInput
           handleClose={() => setMultiNameInputOpen(false)}
@@ -135,172 +65,134 @@ export const IndexPage = (context, parentContext) => {
         />
       )}
 
-      <Stack fill>
-        <Stack.Item>
+      <h2>Categories</h2>
+
+      <Divider />
+
+      <Stack width="100%">
+        <Stack.Item width="33%">
           <Stack vertical>
-            <Stack.Item height="300px">
-              <CharacterPreview
-                height="300px"
-                id={data.character_preview_view}
-              />
-            </Stack.Item>
             <Stack.Item>
-              <NameInput
-                name={data.character_preferences.names[data.name_to_use]}
-                handleUpdateName={createSetPreference(act, data.name_to_use)}
-                openMultiNameInput={() => {
-                  setMultiNameInputOpen(true);
-                }}
-              />
+              <BigPageButton
+                page={Page.Species}
+                setPage={setCurrentPage}
+                tooltip="Your character's species!">
+                Species
+              </BigPageButton>
             </Stack.Item>
+
             <Stack.Item>
-              <CharacterControls
-                gender={data.character_preferences.misc.gender}
-                handleRotate={(dir) => {
-                  act('rotate', { 'dir': dir });
-                }}
-                setGender={createSetPreference(act, 'gender')}
-                showGender={
-                  data.character_preferences.misc.species
-                    ? !!data.character_preferences.misc.gender
-                    : true
-                }
-              />
+              <BigPageButton
+                page={Page.Appearance}
+                setPage={setCurrentPage}
+                tooltip="Your character's basic appearance!">
+                Appearance
+              </BigPageButton>
+            </Stack.Item>
+
+            <Stack.Item>
+              <BigPageButton
+                page={Page.Antags}
+                setPage={setCurrentPage}
+                tooltip="Which evil guys you wanna be randomly rolled as!">
+                Antagonists
+              </BigPageButton>
+            </Stack.Item>
+
+            <Stack.Item>
+              <BigPageButton
+                page={Page.Inspection}
+                setPage={setCurrentPage}
+                tooltip="The flavour text that's shown for your character!">
+                Inspection Text
+              </BigPageButton>
+            </Stack.Item>
+
+            <Stack.Item>
+              <BigPageButton
+                page={Page.Loadout}
+                setPage={setCurrentPage}
+                tooltip="The items and clothes you start with!">
+                Loadout
+              </BigPageButton>
             </Stack.Item>
           </Stack>
         </Stack.Item>
 
-        <Stack.Item width="100%">
-          <h2>Categories</h2>
-
-          <Divider />
-
-          <Stack width="100%">
-            <Stack.Item width="33%">
-              <Stack vertical>
-                <Stack.Item>
-                  <BigPageButton
-                    page={Page.Species}
-                    setPage={setCurrentPage}
-                    tooltip="Your character's species!">
-                    Species
-                  </BigPageButton>
-                </Stack.Item>
-
-                <Stack.Item>
-                  <BigPageButton
-                    page={Page.Appearance}
-                    setPage={setCurrentPage}
-                    tooltip="Your character's basic appearance!">
-                    Appearance
-                  </BigPageButton>
-                </Stack.Item>
-
-                <Stack.Item>
-                  <BigPageButton
-                    page={Page.Antags}
-                    setPage={setCurrentPage}
-                    tooltip="Which evil guys you wanna be randomly rolled as!">
-                    Antagonists
-                  </BigPageButton>
-                </Stack.Item>
-
-                <Stack.Item>
-                  <BigPageButton
-                    page={Page.Inspection}
-                    setPage={setCurrentPage}
-                    tooltip="The flavour text that's shown for your character!">
-                    Inspection Text
-                  </BigPageButton>
-                </Stack.Item>
-
-                <Stack.Item>
-                  <BigPageButton
-                    page={Page.Loadout}
-                    setPage={setCurrentPage}
-                    tooltip="The items and clothes you start with!">
-                    Loadout
-                  </BigPageButton>
-                </Stack.Item>
-              </Stack>
+        <Stack.Item fill width="33%">
+          <Stack vertical>
+            <Stack.Item>
+              <BigPageButton
+                page={Page.Food}
+                setPage={setCurrentPage}
+                tooltip="The food your character enjoys and dislikes!">
+                Food Preferences
+              </BigPageButton>
             </Stack.Item>
 
-            <Stack.Item fill width="33%">
-              <Stack vertical>
-                <Stack.Item>
-                  <BigPageButton
-                    page={Page.Food}
-                    setPage={setCurrentPage}
-                    tooltip="The food your character enjoys and dislikes!">
-                    Food Preferences
-                  </BigPageButton>
-                </Stack.Item>
-
-                <Stack.Item>
-                  <BigPageButton
-                    page={Page.Clothing}
-                    setPage={setCurrentPage}
-                    tooltip="Your character's clothes that they start with!"
-                    tooltipPosition="bottom">
-                    Clothing
-                  </BigPageButton>
-                </Stack.Item>
-
-                <Stack.Item>
-                  <BigPageButton
-                    page={Page.Quirks}
-                    setPage={setCurrentPage}
-                    tooltip="Odd traits that can range from a minor boon, to a fundamental gameplay alteration in order to stay alive!"
-                    tooltipPosition="bottom">
-                    Quirks
-                  </BigPageButton>
-                </Stack.Item>
-
-                <Stack.Item>
-                  <BigPageButton
-                    page={Page.Content}
-                    setPage={setCurrentPage}
-                    tooltip="What kind of content you want to be subjected to in-game!"
-                    tooltipPosition="bottom">
-                    Content
-                  </BigPageButton>
-                </Stack.Item>
-              </Stack>
+            <Stack.Item>
+              <BigPageButton
+                page={Page.Clothing}
+                setPage={setCurrentPage}
+                tooltip="Your character's clothes that they start with!"
+                tooltipPosition="bottom">
+                Clothing
+              </BigPageButton>
             </Stack.Item>
 
-            <Stack.Item fill width="33%">
-              <Stack vertical>
-                <Stack.Item>
-                  <BigPageButton
-                    page={Page.Jobs}
-                    setPage={setCurrentPage}
-                    tooltip="What jobs your character plays!">
-                    Occupations
-                  </BigPageButton>
-                </Stack.Item>
+            <Stack.Item>
+              <BigPageButton
+                page={Page.Quirks}
+                setPage={setCurrentPage}
+                tooltip="Odd traits that can range from a minor boon, to a fundamental gameplay alteration in order to stay alive!"
+                tooltipPosition="bottom">
+                Quirks
+              </BigPageButton>
+            </Stack.Item>
 
-                <Stack.Item>
-                  <BigPageButton
-                    page={Page.Misc}
-                    setPage={setCurrentPage}
-                    tooltip="Various settings!">
-                    Misc
-                  </BigPageButton>
-                </Stack.Item>
+            <Stack.Item>
+              <BigPageButton
+                page={Page.Content}
+                setPage={setCurrentPage}
+                tooltip="What kind of content you want to be subjected to in-game!"
+                tooltipPosition="bottom">
+                Content
+              </BigPageButton>
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
 
-                <Stack.Item>
-                  <BigPageButton
-                    page={Page.OOC}
-                    setPage={setCurrentPage}
-                    tooltip="Information related to you, the player!">
-                    OOC
-                  </BigPageButton>
-                </Stack.Item>
-              </Stack>
+        <Stack.Item fill width="33%">
+          <Stack vertical>
+            <Stack.Item>
+              <BigPageButton
+                page={Page.Jobs}
+                setPage={setCurrentPage}
+                tooltip="What jobs your character plays!">
+                Occupations
+              </BigPageButton>
+            </Stack.Item>
+
+            <Stack.Item>
+              <BigPageButton
+                page={Page.Misc}
+                setPage={setCurrentPage}
+                tooltip="Various settings!">
+                Misc
+              </BigPageButton>
+            </Stack.Item>
+
+            <Stack.Item>
+              <BigPageButton
+                page={Page.OOC}
+                setPage={setCurrentPage}
+                tooltip="Information related to you, the player!">
+                OOC
+              </BigPageButton>
             </Stack.Item>
           </Stack>
         </Stack.Item>
       </Stack>
-    </>
+    </Box>
   );
 };
