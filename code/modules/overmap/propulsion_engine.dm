@@ -25,6 +25,7 @@
 
 	var/extension_type = /datum/shuttle_extension/engine/propulsion
 	var/datum/shuttle_extension/engine/propulsion/extension
+	manufacturer = MANUFACTURER_AQUILA_FABRICATIONS
 
 /obj/machinery/atmospherics/components/unary/engine/set_init_directions()
 	initialize_directions = REVERSE_DIR(dir)

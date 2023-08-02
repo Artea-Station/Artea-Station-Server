@@ -283,9 +283,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				return FALSE
 
 			return TRUE
-		if ("open_food")
-			GLOB.food_prefs_menu.ui_interact(usr)
-			return TRUE
 
 		if ("set_tricolor_preference")
 			var/requested_preference_key = params["preference"]
@@ -411,10 +408,10 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 	/// The client that is watching this view
 	var/client/client
 
-/atom/movable/screen/character_preview_view/Initialize(mapload, datum/preferences/preferences, client/client)
+/atom/movable/screen/character_preview_view/Initialize(mapload, datum/preferences/preferences, client/client, assigned_map = "character_preview_[REF(src)]")
 	. = ..()
 
-	assigned_map = "character_preview_[REF(src)]"
+	src.assigned_map = assigned_map
 	set_position(1, 1)
 
 	src.preferences = preferences
@@ -525,6 +522,10 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 			.++
 
 /datum/preferences/proc/validate_quirks()
+	for(var/quirk in all_quirks)
+		if(!quirk || !(quirk in SSquirks.quirks))
+			all_quirks.Remove(quirk)
+
 	if(GetQuirkBalance() < 0)
 		all_quirks = list()
 

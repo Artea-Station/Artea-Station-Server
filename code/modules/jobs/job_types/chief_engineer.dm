@@ -47,6 +47,7 @@
 
 	voice_of_god_power = 1.4 //Command staff has authority
 
+	required_character_age = 21 // This is a head, let's not let them be *really* young.
 
 /datum/job/chief_engineer/get_captaincy_announcement(mob/living/captain)
 	return "Due to staffing shortages, newly promoted Acting Captain [captain.real_name] on deck!"
@@ -87,5 +88,17 @@
 	gloves = /obj/item/clothing/gloves/color/yellow
 	head = null
 	mask = /obj/item/clothing/mask/breath
+	shoes = /obj/item/clothing/shoes/magboots/advance
+	internals_slot = ITEM_SLOT_SUITSTORE
+
+/datum/outfit/job/ce/hardsuit
+	name = "Chief Engineer (Hardsuit)"
+
+	head = null
+	mask = /obj/item/clothing/mask/breath
+	suit = /obj/item/clothing/suit/space/hardsuit/engine/elite
+	suit_store = /obj/item/tank/internals/oxygen
+	gloves = /obj/item/clothing/gloves/color/yellow
+	glasses = /obj/item/clothing/glasses/meson/engine
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	internals_slot = ITEM_SLOT_SUITSTORE

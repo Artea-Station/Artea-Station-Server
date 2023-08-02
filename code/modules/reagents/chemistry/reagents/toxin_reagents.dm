@@ -24,7 +24,7 @@
 
 /datum/reagent/toxin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	if(toxpwr && affected_mob.health > health_required)
-		affected_mob.adjustToxLoss(toxpwr * REM * normalise_creation_purity() * delta_time, FALSE, required_biotype = affected_biotype)
+		affected_mob.adjustToxLoss(toxpwr * REM * delta_time, FALSE, required_biotype = affected_biotype)
 		. = TRUE
 	..()
 
@@ -34,19 +34,15 @@
 	color = "#792300" // rgb: 121, 35, 0
 	toxpwr = 2.5
 	taste_description = "mushroom"
-	ph = 13
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/toxin/mutagen
 	name = "Unstable Mutagen"
 	description = "Might cause unpredictable mutations. Keep away from children."
 	color = "#00FF00"
-	creation_purity = REAGENT_STANDARD_PURITY
-	purity = REAGENT_STANDARD_PURITY
 	toxpwr = 0
 	taste_description = "slime"
 	taste_mult = 0.9
-	ph = 2.3
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/toxin/mutagen/expose_mob(mob/living/carbon/exposed_mob, methods=TOUCH, reac_volume)
@@ -85,7 +81,6 @@
 	toxpwr = 3
 	material = /datum/material/plasma
 	penetrates_skin = NONE
-	ph = 4
 	burning_temperature = 4500//plasma is hot!!
 	burning_volume = 0.3//But burns fast
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
@@ -170,11 +165,8 @@
 	name = "Lexorin"
 	description = "A powerful poison used to stop respiration."
 	color = "#7DC3A0"
-	creation_purity = REAGENT_STANDARD_PURITY
-	purity = REAGENT_STANDARD_PURITY
 	toxpwr = 0
 	taste_description = "acid"
-	ph = 1.2
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/toxin/lexorin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -184,8 +176,8 @@
 		. = FALSE
 
 	if(.)
-		affected_mob.adjustOxyLoss(5 * REM * normalise_creation_purity() * delta_time, FALSE, required_biotype = affected_biotype)
-		affected_mob.losebreath += 2 * REM * normalise_creation_purity() * delta_time
+		affected_mob.adjustOxyLoss(5 * REM * delta_time, FALSE, required_biotype = affected_biotype)
+		affected_mob.losebreath += 2 * REM * delta_time
 		if(DT_PROB(10, delta_time))
 			affected_mob.emote("gasp")
 	..()
@@ -207,7 +199,6 @@
 	toxpwr = 0
 	taste_description = "slime"
 	taste_mult = 1.3
-	ph = 10
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/toxin/slimejelly/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -226,7 +217,6 @@
 	color = "#CF3600" // rgb: 207, 54, 0
 	toxpwr = 0
 	taste_description = "mint"
-	ph = 8
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/toxin/minttoxin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -242,7 +232,6 @@
 	color = "#003333" // rgb: 0, 51, 51
 	toxpwr = 1
 	taste_description = "fish"
-	ph = 12
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/toxin/zombiepowder
@@ -250,13 +239,10 @@
 	description = "A strong neurotoxin that puts the subject into a death-like state."
 	silent_toxin = TRUE
 	reagent_state = SOLID
-	creation_purity = REAGENT_STANDARD_PURITY
-	purity = REAGENT_STANDARD_PURITY
 	color = "#669900" // rgb: 102, 153, 0
 	toxpwr = 0.5
 	taste_description = "death"
 	penetrates_skin = NONE
-	ph = 13
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/toxin/zombiepowder/on_mob_metabolize(mob/living/holder_mob)
@@ -298,11 +284,8 @@
 	description = "A strong neurotoxin that slows metabolism to a death-like state, while keeping the patient fully active. Causes toxin buildup if used too long."
 	reagent_state = SOLID
 	color = "#664700" // rgb: 102, 71, 0
-	creation_purity = REAGENT_STANDARD_PURITY
-	purity = REAGENT_STANDARD_PURITY
 	toxpwr = 0.8
 	taste_description = "death"
-	ph = 14.5
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/toxin/ghoulpowder/on_mob_metabolize(mob/living/affected_mob)
@@ -324,9 +307,6 @@
 	color = "#B31008" // rgb: 139, 166, 233
 	toxpwr = 0
 	taste_description = "sourness"
-	creation_purity = REAGENT_STANDARD_PURITY
-	purity = REAGENT_STANDARD_PURITY
-	ph = 11
 	inverse_chem = /datum/reagent/impurity/rosenol
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	addiction_types = list(/datum/addiction/hallucinogens = 18)  //7.2 per 2 seconds
@@ -358,7 +338,6 @@
 	toxpwr = 1
 	taste_mult = 1
 	penetrates_skin = NONE
-	ph = 2.7
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 	// Plant-B-Gone is just as bad
@@ -395,7 +374,6 @@
 	name = "Weed Killer"
 	description = "A harmful toxic mixture to kill weeds. Do not ingest!"
 	color = "#4B004B" // rgb: 75, 0, 75
-	ph = 3
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 	//Weed Spray
@@ -411,7 +389,6 @@
 	description = "A harmful toxic mixture to kill pests. Do not ingest!"
 	color = "#4B004B" // rgb: 75, 0, 75
 	toxpwr = 1
-	ph = 3.2
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 //Pest Spray
@@ -448,7 +425,6 @@
 	description = "A natural toxin produced by blob spores that inhibits vision when ingested."
 	color = "#9ACD32"
 	toxpwr = 1
-	ph = 11
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED|REAGENT_NO_RANDOM_RECIPE
 
 /datum/reagent/toxin/spore/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -463,7 +439,6 @@
 	color = "#9ACD32"
 	toxpwr = 0.5
 	taste_description = "burning"
-	ph = 13
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED|REAGENT_NO_RANDOM_RECIPE
 
 /datum/reagent/toxin/spore_burning/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -476,26 +451,23 @@
 	description = "A powerful sedative that induces confusion and drowsiness before putting its target to sleep."
 	silent_toxin = TRUE
 	reagent_state = SOLID
-	creation_purity = REAGENT_STANDARD_PURITY
-	purity = REAGENT_STANDARD_PURITY
 	color = "#000067" // rgb: 0, 0, 103
 	toxpwr = 0
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
-	ph = 11
 	inverse_chem = /datum/reagent/impurity/chloralax
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/toxin/chloralhydrate/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	switch(current_cycle)
 		if(1 to 10)
-			affected_mob.adjust_confusion(2 SECONDS * REM * normalise_creation_purity() * delta_time)
-			affected_mob.adjust_drowsyness(2 * REM * normalise_creation_purity() * delta_time)
+			affected_mob.adjust_confusion(2 SECONDS * REM * delta_time)
+			affected_mob.adjust_drowsyness(2 * REM * delta_time)
 		if(10 to 50)
-			affected_mob.Sleeping(40 * REM * normalise_creation_purity() * delta_time)
+			affected_mob.Sleeping(40 * REM * delta_time)
 			. = TRUE
 		if(51 to INFINITY)
-			affected_mob.Sleeping(40 * REM * normalise_creation_purity() * delta_time)
-			affected_mob.adjustToxLoss(1 * (current_cycle - 50) * REM * normalise_creation_purity() * delta_time, FALSE, required_biotype = affected_biotype)
+			affected_mob.Sleeping(40 * REM * delta_time)
+			affected_mob.adjustToxLoss(1 * (current_cycle - 50) * REM * delta_time, FALSE, required_biotype = affected_biotype)
 			. = TRUE
 	..()
 
@@ -508,7 +480,6 @@
 	glass_icon_state = "beerglass"
 	glass_name = "glass of beer"
 	glass_desc = "A freezing pint of beer."
-	ph = 2
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED|REAGENT_NO_RANDOM_RECIPE
 
 /datum/reagent/toxin/fakebeer/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -526,7 +497,6 @@
 	reagent_state = SOLID
 	color = "#5B2E0D" // rgb: 91, 46, 13
 	toxpwr = 0.5
-	ph = 4.2
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/toxin/teapowder
@@ -536,7 +506,6 @@
 	color = "#7F8400" // rgb: 127, 132, 0
 	toxpwr = 0.1
 	taste_description = "green tea"
-	ph = 4.9
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/toxin/mushroom_powder
@@ -546,24 +515,20 @@
 	color = "#67423A" // rgb: 127, 132, 0
 	toxpwr = 0.1
 	taste_description = "mushrooms"
-	ph = 8.0
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/toxin/mutetoxin //the new zombie powder.
 	name = "Mute Toxin"
 	description = "A nonlethal poison that inhibits speech in its victim."
 	silent_toxin = TRUE
-	creation_purity = REAGENT_STANDARD_PURITY
-	purity = REAGENT_STANDARD_PURITY
 	color = "#F0F8FF" // rgb: 240, 248, 255
 	toxpwr = 0
 	taste_description = "silence"
-	ph = 12.2
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/toxin/mutetoxin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	// Gain approximately 12 seconds * creation purity seconds of silence every metabolism tick.
-	affected_mob.set_silence_if_lower(6 SECONDS * REM * normalise_creation_purity() * delta_time)
+	affected_mob.set_silence_if_lower(6 SECONDS * REM * delta_time)
 	..()
 
 /datum/reagent/toxin/staminatoxin
@@ -640,10 +605,7 @@
 	reagent_state = LIQUID
 	color = "#B4004B"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	creation_purity = REAGENT_STANDARD_PURITY
-	purity = REAGENT_STANDARD_PURITY
 	toxpwr = 1
-	ph = 2.0
 	inverse_chem = /datum/reagent/impurity/methanol
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
@@ -692,21 +654,18 @@
 	reagent_state = LIQUID
 	color = "#64916E"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	creation_purity = REAGENT_STANDARD_PURITY
-	purity = REAGENT_STANDARD_PURITY
 	toxpwr = 0
-	ph = 9
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	addiction_types = list(/datum/addiction/opioids = 25)
 
 /datum/reagent/toxin/fentanyl/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * normalise_creation_purity() * delta_time, 150)
+	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
 	if(affected_mob.toxloss <= 60)
-		affected_mob.adjustToxLoss(1 * REM * normalise_creation_purity() * delta_time, FALSE, required_biotype = affected_biotype)
+		affected_mob.adjustToxLoss(1 * REM * delta_time, FALSE, required_biotype = affected_biotype)
 	if(current_cycle >= 4)
 		affected_mob.add_mood_event("smacked out", /datum/mood_event/narcotic_heavy, name)
 	if(current_cycle >= 18)
-		affected_mob.Sleeping(40 * REM * normalise_creation_purity() * delta_time)
+		affected_mob.Sleeping(40 * REM * delta_time)
 	..()
 	return TRUE
 
@@ -715,11 +674,8 @@
 	description = "An infamous poison known for its use in assassination. Causes small amounts of toxin damage with a small chance of oxygen damage or a stun."
 	reagent_state = LIQUID
 	color = "#00B4FF"
-	creation_purity = REAGENT_STANDARD_PURITY
-	purity = REAGENT_STANDARD_PURITY
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	toxpwr = 1.25
-	ph = 9.3
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/toxin/cyanide/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -728,7 +684,7 @@
 	if(DT_PROB(4, delta_time))
 		to_chat(affected_mob, span_danger("You feel horrendously weak!"))
 		affected_mob.Stun(40)
-		affected_mob.adjustToxLoss(2*REM * normalise_creation_purity(), FALSE, required_biotype = affected_biotype)
+		affected_mob.adjustToxLoss(2*REM, FALSE, required_biotype = affected_biotype)
 	return ..()
 
 /datum/reagent/toxin/bad_food
@@ -746,12 +702,9 @@
 	description = "A powder that induces itching upon contact with the skin. Causes the victim to scratch at their itches and has a very low chance to decay into Histamine."
 	silent_toxin = TRUE
 	reagent_state = LIQUID
-	creation_purity = REAGENT_STANDARD_PURITY
-	purity = REAGENT_STANDARD_PURITY
 	color = "#C8C8C8"
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
 	toxpwr = 0
-	ph = 7
 	penetrates_skin = TOUCH|VAPOR
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
@@ -855,17 +808,14 @@
 	description = "A stealthy poison that deals minor toxin damage and eventually puts the target to sleep."
 	silent_toxin = TRUE
 	reagent_state = LIQUID
-	creation_purity = REAGENT_STANDARD_PURITY
-	purity = REAGENT_STANDARD_PURITY
 	color = "#7DC3A0"
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	toxpwr = 0.5
-	ph = 6
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/toxin/sulfonal/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	if(current_cycle >= 22)
-		affected_mob.Sleeping(40 * REM * normalise_creation_purity() * delta_time)
+		affected_mob.Sleeping(40 * REM * delta_time)
 	return ..()
 
 /datum/reagent/toxin/amanitin
@@ -894,19 +844,16 @@
 	silent_toxin = TRUE
 	taste_description = "mothballs"
 	reagent_state = LIQUID
-	creation_purity = REAGENT_STANDARD_PURITY
-	purity = REAGENT_STANDARD_PURITY
 	color = "#F0FFF0"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	toxpwr = 0
-	ph = 6
 	inverse_chem = /datum/reagent/impurity/ipecacide
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/toxin/lipolicide/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	if(affected_mob.nutrition <= NUTRITION_LEVEL_STARVING)
 		affected_mob.adjustToxLoss(1 * REM * delta_time, FALSE, required_biotype = affected_biotype)
-	affected_mob.adjust_nutrition(-3 * REM * normalise_creation_purity() * delta_time) // making the chef more valuable, one meme trap at a time
+	affected_mob.adjust_nutrition(-3 * REM * delta_time) // making the chef more valuable, one meme trap at a time
 	affected_mob.overeatduration = 0
 	return ..()
 
@@ -971,12 +918,9 @@
 	description = "A powerful anticoagulant. All open cut wounds on the victim will open up and bleed much faster"
 	silent_toxin = TRUE
 	reagent_state = LIQUID
-	creation_purity = REAGENT_STANDARD_PURITY
-	purity = REAGENT_STANDARD_PURITY
 	color = "#C8C8C8" //RGB: 200, 200, 200
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 	toxpwr = 0
-	ph = 11.6
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/toxin/heparin/on_mob_metabolize(mob/living/affected_mob)
@@ -992,12 +936,9 @@
 	description = "A constantly swirling, oddly colourful fluid. Causes the consumer's sense of direction and hand-eye coordination to become wild."
 	silent_toxin = TRUE
 	reagent_state = LIQUID
-	creation_purity = REAGENT_STANDARD_PURITY
-	purity = REAGENT_STANDARD_PURITY
 	color = "#AC88CA" //RGB: 172, 136, 202
 	metabolization_rate = 0.6 * REAGENTS_METABOLISM
 	toxpwr = 0.5
-	ph = 6.2
 	taste_description = "spinning"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
@@ -1025,10 +966,7 @@
 	reagent_state = LIQUID
 	color = "#3C5133"
 	metabolization_rate = 0.08 * REAGENTS_METABOLISM
-	creation_purity = REAGENT_STANDARD_PURITY
-	purity = REAGENT_STANDARD_PURITY
 	toxpwr = 0.15
-	ph = 8
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/toxin/anacea/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -1036,7 +974,7 @@
 	if(holder.has_reagent(/datum/reagent/medicine/calomel) || holder.has_reagent(/datum/reagent/medicine/pen_acid))
 		remove_amt = 0.5
 	for(var/datum/reagent/medicine/R in affected_mob.reagents.reagent_list)
-		affected_mob.reagents.remove_reagent(R.type, remove_amt * REM * normalise_creation_purity() * delta_time)
+		affected_mob.reagents.remove_reagent(R.type, remove_amt * REM * delta_time)
 	return ..()
 
 //ACID
@@ -1050,7 +988,6 @@
 	var/acidpwr = 10 //the amount of protection removed from the armour
 	taste_description = "acid"
 	self_consuming = TRUE
-	ph = 2.75
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 // ...Why? I mean, clearly someone had to have done this and thought, well, acid doesn't hurt plants, but what brought us here, to this point?
@@ -1092,11 +1029,8 @@
 	name = "Fluorosulfuric Acid"
 	description = "Fluorosulfuric acid is an extremely corrosive chemical substance."
 	color = "#5050FF"
-	creation_purity = REAGENT_STANDARD_PURITY
-	purity = REAGENT_STANDARD_PURITY
 	toxpwr = 2
 	acidpwr = 42.0
-	ph = 0.0
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 // SERIOUSLY
@@ -1108,7 +1042,7 @@
 		mytray.adjust_weedlevel(-rand(1,4))
 
 /datum/reagent/toxin/acid/fluacid/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	affected_mob.adjustFireLoss((current_cycle/15) * REM * normalise_creation_purity() * delta_time, FALSE, required_bodytype = affected_bodytype)
+	affected_mob.adjustFireLoss((current_cycle/15) * REM * delta_time, FALSE, required_bodytype = affected_bodytype)
 	. = TRUE
 	..()
 
@@ -1116,15 +1050,12 @@
 	name = "Nitric Acid"
 	description = "Nitric acid is an extremely corrosive chemical substance that violently reacts with living organic tissue."
 	color = "#5050FF"
-	creation_purity = REAGENT_STANDARD_PURITY
-	purity = REAGENT_STANDARD_PURITY
 	toxpwr = 3
 	acidpwr = 5.0
-	ph = 1.3
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/toxin/acid/nitracid/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	affected_mob.adjustFireLoss((volume/10) * REM * normalise_creation_purity() * delta_time, FALSE, required_bodytype = affected_bodytype) //here you go nervar
+	affected_mob.adjustFireLoss((volume/10) * REM * delta_time, FALSE, required_bodytype = affected_bodytype) //here you go nervar
 	. = TRUE
 	..()
 
@@ -1153,10 +1084,7 @@
 	description = "A nonlethal neurotoxin that interferes with the victim's ability to gesture."
 	silent_toxin = TRUE
 	color = "#F0F8FF" // rgb: 240, 248, 255
-	creation_purity = REAGENT_STANDARD_PURITY
-	purity = REAGENT_STANDARD_PURITY
 	toxpwr = 0
-	ph = 1.7
 	taste_description = "stillness"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
@@ -1171,10 +1099,7 @@
 	description = "A strange substance that looks a lot like water. Drinking it is oddly tempting. Oof ouch."
 	silent_toxin = TRUE //no point spamming them even more.
 	color = "#AAAAAA77" //RGBA: 170, 170, 170, 77
-	creation_purity = REAGENT_STANDARD_PURITY
-	purity = REAGENT_STANDARD_PURITY
 	toxpwr = 0
-	ph = 3.1
 	taste_description = "bone hurting"
 	overdose_threshold = 50
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED

@@ -124,14 +124,7 @@ export const Log = (props, context) => {
           {message}
         </Box>
         {repeats && (
-          <Box
-            inline
-            px="0.25rem"
-            mt="0.25rem"
-            style={{
-              'border-radius': '0.5em',
-            }}
-            backgroundColor={messageColor}>
+          <Box inline px="0.25rem" mt="0.25rem" backgroundColor={messageColor}>
             x{repeats + 1}
           </Box>
         )}

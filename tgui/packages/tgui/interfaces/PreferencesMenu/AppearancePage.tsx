@@ -1,10 +1,10 @@
 import { useBackend, useLocalState } from '../../backend';
 import { Button, Stack } from '../../components';
 import { createSetPreference, PreferencesMenuData } from './data';
-import { CharacterPreview } from './CharacterPreview';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 import { FeatureChoicedServerData } from './preferences/features/base';
 import { MainFeature, PreferenceList } from './Base';
+import { CharacterPreview } from '../common/CharacterPreview';
 
 export const AppearancePage = (context, parentContext) => {
   const { act, data } = useBackend<PreferencesMenuData>(parentContext);

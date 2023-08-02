@@ -207,16 +207,6 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_MEDICAL
 
-/datum/design/board/chem_mass_spec
-	name = "High-Performance Liquid Chromatography Board"
-	desc = "The circuit board for a High-Performance Liquid Chromatography (Machine Board"
-	id = "chem_mass_spec"
-	build_path = /obj/item/circuitboard/machine/chem_mass_spec
-	category = list(
-		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CHEMISTRY
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_MEDICAL
-
 /datum/design/board/smoke_machine
 	name = "Smoke Machine Board"
 	desc = "The circuit board for a smoke machine."

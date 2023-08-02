@@ -454,7 +454,7 @@
 			else if(initial(analyzed_reagent.reagent_state) == GAS)
 				state = "Gas"
 			var/metabolization_rate = initial(analyzed_reagent.metabolization_rate) * (60 / SSMOBS_DT)
-			analyze_vars = list("name" = initial(analyzed_reagent.name), "state" = state, "color" = initial(analyzed_reagent.color), "description" = initial(analyzed_reagent.description), "metaRate" = metabolization_rate, "overD" = initial(analyzed_reagent.overdose_threshold), "pH" = initial(analyzed_reagent.ph))
+			analyze_vars = list("name" = initial(analyzed_reagent.name), "state" = state, "color" = initial(analyzed_reagent.color), "description" = initial(analyzed_reagent.description), "metaRate" = metabolization_rate, "overD" = initial(analyzed_reagent.overdose_threshold))
 			screen = "analyze"
 			return TRUE
 

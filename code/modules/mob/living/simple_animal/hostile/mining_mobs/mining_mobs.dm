@@ -45,17 +45,10 @@
 /mob/living/simple_animal/hostile/asteroid/bullet_act(obj/projectile/shot)//Reduces damage from most projectiles to curb off-screen kills
 	if(!stat)
 		Aggro()
-	if(shot.damage < 30 && shot.damage_type != BRUTE)
-		shot.damage = (shot.damage / 3)
-		visible_message(span_danger("[shot] has a reduced effect on [src]!"))
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum) //No floor tiling them to death, wiseguy
 	if(isitem(AM))
-		var/obj/item/T = AM
 		if(!stat)
 			Aggro()
-		if(T.throwforce <= 20)
-			visible_message(span_notice("The [T.name] [throw_message] [src.name]!"))
-			return
 	..()

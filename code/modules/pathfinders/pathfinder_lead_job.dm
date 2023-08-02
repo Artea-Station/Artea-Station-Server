@@ -44,6 +44,8 @@
 
 	voice_of_god_power = 1.4 //Command staff has authority
 
+	required_character_age = 21 // This is a head, let's not let them be *really* young.
+
 /datum/outfit/job/lead_pathfinder
 	name = "Lead Pathfinder"
 	jobtype = /datum/job/lead_pathfinder
@@ -66,6 +68,15 @@
 	suit_store = /obj/item/tank/internals/oxygen
 	back = /obj/item/mod/control/pre_equipped/pathfinders
 	mask = /obj/item/clothing/mask/breath
+	internals_slot = ITEM_SLOT_SUITSTORE
+
+/datum/outfit/job/lead_pathfinder/hardsuit
+	name = "Lead Pathfinder (Hardsuit)"
+
+	head = null
+	mask = /obj/item/clothing/mask/breath
+	suit = /obj/item/clothing/suit/space/hardsuit/mining
+	suit_store = /obj/item/tank/internals/oxygen
 	internals_slot = ITEM_SLOT_SUITSTORE
 
 /datum/id_trim/job/lead_pathfinder

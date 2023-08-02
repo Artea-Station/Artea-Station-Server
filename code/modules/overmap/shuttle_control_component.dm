@@ -123,4 +123,4 @@
 
 /datum/action/innate/open_shuttle_control/Trigger(trigger_flags)
 	var/datum/overmap_shuttle_controller/OSC = target
-	OSC.overmap_obj.DisplayUI(OSC.mob_controller, OSC.control_turf)
+	OSC.overmap_obj.ui_interact(OSC.mob_controller, null, OSC.control_turf)

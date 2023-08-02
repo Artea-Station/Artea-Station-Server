@@ -168,6 +168,7 @@ All ShuttleMove procs go here
 // Called on areas after everything has been moved
 /area/proc/afterShuttleMove(new_parallax_dir)
 	parallax_movedir = new_parallax_dir
+	UpdateDayNightTurfs(find_controller = TRUE)
 	return TRUE
 
 /area/proc/lateShuttleMove()

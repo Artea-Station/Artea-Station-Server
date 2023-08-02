@@ -27,6 +27,8 @@
 
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE | JOB_REOPEN_ON_ROUNDSTART_LOSS | JOB_ASSIGN_QUIRKS | JOB_CAN_BE_INTERN
 
+	required_character_age = 21 // This is a head, let's not let them be *really* young.
+
 /datum/outfit/job/internal_affairs_agent
 	name = "Internal Affairs Agent"
 	jobtype = /datum/job/internal_affairs_agent

@@ -42,7 +42,7 @@ export const JobEntry: SFC<{
   const jobName = data.jobName;
   const job = data.job;
   const department = data.department;
-  const jobIcon = job.icon || JobToIcon[jobName] || null;
+  const jobIcon = job.icon || JobToIcon[jobName];
   return (
     <Button
       fluid

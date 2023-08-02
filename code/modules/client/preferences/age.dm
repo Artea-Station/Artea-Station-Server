@@ -1,5 +1,6 @@
 /datum/preference/numeric/age
 	savefile_key = "age"
+	category = PREFERENCE_CATEGORY_APPEARANCE_LIST
 	savefile_identifier = PREFERENCE_CHARACTER
 
 	minimum = AGE_MIN

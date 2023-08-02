@@ -8,6 +8,9 @@
 	///the turf that our light is applied to
 	var/turf/affected_turf
 
+	/// Area which gets linked to a lighting object to make it consider the luminosity from the day/night blending from the area. Yes this isn't ideal, but applying luminosity up to 2 (from both sources) on the turf is not ideal either
+	var/area/daynight_area
+
 // Global list of lighting underlays, indexed by z level
 GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 
@@ -19,7 +22,7 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 
 	. = ..()
 
-	current_underlay = new(GLOB.default_lighting_underlays_by_z[source.z])
+	current_underlay = mutable_appearance(LIGHTING_ICON, (source.lighting_uses_jen ? "wall-jen-[source.smoothing_junction]" : "light"), source.z, LIGHTING_PLANE, 255, RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM)
 
 	affected_turf = source
 	if (affected_turf.lighting_object)
@@ -83,6 +86,10 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 	var/set_luminosity = max > 1e-6
 	#endif
 
+	// Respect daynight blending from an area for luminosity here.
+	if(daynight_area && daynight_area.last_day_night_luminosity)
+		set_luminosity = 1
+
 	var/mutable_appearance/current_underlay = src.current_underlay
 	affected_turf.underlays -= current_underlay
 	if(red_corner.cache_r & green_corner.cache_r & blue_corner.cache_r & alpha_corner.cache_r && \
@@ -95,7 +102,7 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 		current_underlay.icon_state = "lighting_dark"
 		current_underlay.color = null
 	else
-		current_underlay.icon_state = null
+		current_underlay.icon_state = affected_turf.lighting_uses_jen ? "wall-jen-[affected_turf.smoothing_junction]" : "light"
 		current_underlay.color = list(
 			red_corner.cache_r, red_corner.cache_g, red_corner.cache_b, 00,
 			green_corner.cache_r, green_corner.cache_g, green_corner.cache_b, 00,

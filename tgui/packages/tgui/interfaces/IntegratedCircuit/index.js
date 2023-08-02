@@ -565,7 +565,6 @@ export class IntegratedCircuit extends Component {
               minWidth="600px"
               width="50%"
               style={{
-                'border-radius': '0px 32px 0px 0px',
                 'background-color': 'rgba(0, 0, 0, 0.3)',
                 '-ms-user-select': 'none',
               }}
@@ -588,9 +587,7 @@ export class IntegratedCircuit extends Component {
                 }
                 handleMouseDownSetter={this.onVarClickedSetter}
                 handleMouseDownGetter={this.onVarClickedGetter}
-                style={{
-                  'border-radius': '0px 32px 0px 0px',
-                }}
+                style={{}}
               />
             </Box>
           )}

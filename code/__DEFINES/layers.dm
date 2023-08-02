@@ -124,6 +124,8 @@
 #define O_LIGHTING_VISUAL_PLANE 110
 #define O_LIGHTING_VISUAL_RENDER_TARGET "O_LIGHT_VISUAL_PLANE"
 
+#define DAY_NIGHT_LIGHTING_LAYER 100
+
 ///Things that should render ignoring lighting
 #define ABOVE_LIGHTING_PLANE 120
 
@@ -201,7 +203,9 @@
 #define RENDER_PLANE_MASTER 9999
 //----------------------------------------------------
 
-#define LOBBY_BACKGROUND_LAYER 3
+// Lobby screen layers
+#define LOBBY_FADE_LAYER 3
+#define LOBBY_BACKGROUND_LAYER 3.01
 #define LOBBY_BUTTON_LAYER 4
 
 ///cinematics are "below" the splash screen

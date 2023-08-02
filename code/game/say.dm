@@ -81,7 +81,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 			continue
 		hearing_movable.Hear(rendered, src, message_language, message, , spans, message_mods)
 
-/atom/movable/proc/compose_message(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), face_name = FALSE)
+/atom/movable/proc/compose_message(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), face_name = FALSE, visible_name = FALSE)
 	//This proc uses text() because it is faster than appending strings. Thanks BYOND.
 	//Basic span
 	var/spanpart1 = "<span class='[radio_freq ? get_radio_span(radio_freq) : "game say"]'>"
@@ -94,6 +94,9 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	if(face_name && ishuman(speaker))
 		var/mob/living/carbon/human/H = speaker
 		namepart = "[H.get_face_name()]" //So "fake" speaking like in hallucinations does not give the speaker away if disguised
+	else if(visible_name && ishuman(speaker))
+		var/mob/living/carbon/human/human_speaker = speaker
+		namepart = "[human_speaker.get_visible_name()]" //For if the message can be seen but not heard, shows "speaker"'s visible identity (like when using sign language)
 	//End name span.
 	var/endspanpart = "</span>"
 
@@ -244,9 +247,9 @@ INITIALIZE_IMMEDIATE(/atom/movable/virtualspeaker)
 	if(ishuman(M))
 		// Humans use their job as seen on the crew manifest. This is so the AI
 		// can know their job even if they don't carry an ID.
-		var/datum/data/record/findjob = find_record("name", name, GLOB.data_core.general)
-		if(findjob)
-			job = findjob.fields["rank"]
+		var/datum/record/crew/found_record = find_record(name)
+		if(found_record)
+			job = found_record.rank
 		else
 			job = "Unknown"
 	else if(iscarbon(M))  // Carbon nonhuman

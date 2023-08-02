@@ -26,6 +26,9 @@
 	src.positive_result = positive_result
 	src.use_large_steam_sprite = use_large_steam_sprite
 
+	RegisterSignal(parent, COMSIG_ITEM_GRILL_PLACED, PROC_REF(on_grill_placed))
+	RegisterSignal(parent, COMSIG_ITEM_GRILL_TURNED_ON, PROC_REF(on_grill_turned_on))
+	RegisterSignal(parent, COMSIG_ITEM_GRILL_TURNED_OFF, PROC_REF(on_grill_turned_off))
 	RegisterSignal(parent, COMSIG_ITEM_GRILLED, PROC_REF(OnGrill))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(OnExamine))
 
@@ -41,6 +44,26 @@
 		src.positive_result = positive_result
 	if(use_large_steam_sprite)
 		src.use_large_steam_sprite = use_large_steam_sprite
+
+/// Signal proc for [COMSIG_ITEM_GRILL_PLACED], item is placed on the grill.
+/datum/component/grillable/proc/on_grill_placed(datum/source, mob/griller)
+	SIGNAL_HANDLER
+
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
+
+/// Signal proc for [COMSIG_ITEM_GRILL_TURNED_ON], starts the grilling process.
+/datum/component/grillable/proc/on_grill_turned_on(datum/source)
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(add_grilled_item_overlay))
+
+	var/atom/atom_parent = parent
+	atom_parent.update_appearance()
+
+/// Signal proc for [COMSIG_ITEM_GRILL_TURNED_OFF], stops the grilling process.
+/datum/component/grillable/proc/on_grill_turned_off(datum/source)
+	UnregisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS)
+
+	var/atom/atom_parent = parent
+	atom_parent.update_appearance()
 
 ///Ran every time an item is grilled by something
 /datum/component/grillable/proc/OnGrill(datum/source, atom/used_grill, delta_time = 1)
@@ -58,8 +81,8 @@
 ///Ran when an object starts grilling on something
 /datum/component/grillable/proc/StartGrilling(atom/grill_source)
 	currently_grilling = TRUE
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(OnMoved))
-	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(AddGrilledItemOverlay))
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(add_grilled_item_overlay))
 
 	var/atom/A = parent
 	A.update_appearance()
@@ -112,14 +135,14 @@
 		examine_list += span_danger("[parent] should probably not be cooked for much longer!")
 
 ///Ran when an object moves from the grill
-/datum/component/grillable/proc/OnMoved(atom/A, atom/OldLoc, Dir, Forced)
+/datum/component/grillable/proc/on_moved(atom/A, atom/OldLoc, Dir, Forced)
 	SIGNAL_HANDLER
 	currently_grilling = FALSE
 	UnregisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS)
 	UnregisterSignal(parent, COMSIG_MOVABLE_MOVED)
 	A.update_appearance()
 
-/datum/component/grillable/proc/AddGrilledItemOverlay(datum/source, list/overlays)
+/datum/component/grillable/proc/add_grilled_item_overlay(datum/source, list/overlays)
 	SIGNAL_HANDLER
 
 	overlays += mutable_appearance('icons/effects/steam.dmi', "[use_large_steam_sprite ? "steam_triple" : "steam_single"]", ABOVE_OBJ_LAYER)

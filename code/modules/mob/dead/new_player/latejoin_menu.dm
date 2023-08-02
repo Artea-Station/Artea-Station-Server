@@ -103,7 +103,6 @@ GLOBAL_DATUM_INIT(latejoin_menu, /datum/latejoin_menu, new)
 		for(var/datum/job/job_datum as anything in department.department_jobs)
 			var/datum/outfit/outfit = job_datum.outfit
 			var/datum/id_trim/trim = initial(outfit.id_trim)
-
 			var/list/job_data = list(
 				"command" = !!(job_datum.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND),
 				"description" = job_datum.description,

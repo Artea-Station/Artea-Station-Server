@@ -84,19 +84,6 @@
 	if(HAS_TRAIT(src, TRAIT_PDA_MESSAGE_MENU_RIGGED))
 		explode(usr, from_message_menu = TRUE)
 
-/obj/item/modular_computer/pda/attack_self(mob/user)
-	// bypass literacy checks to access syndicate uplink
-	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
-	if(hidden_uplink?.owner && HAS_TRAIT(user, TRAIT_ILLITERATE))
-		if(hidden_uplink.owner != user.key)
-			return ..()
-
-		hidden_uplink.locked = FALSE
-		hidden_uplink.interact(null, user)
-		return COMPONENT_CANCEL_ATTACK_CHAIN
-
-	return ..()
-
 /obj/item/modular_computer/pda/pre_attack(atom/target, mob/living/user, params)
 	if(!inserted_disk || !ismachinery(target))
 		return ..()

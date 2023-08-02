@@ -1018,7 +1018,7 @@
 /**
  * Fully update the name of a mob
  *
- * This will update a mob's name, real_name, mind.name, GLOB.data_core records, pda, id and traitor text
+ * This will update a mob's name, real_name, mind.name, GLOB.manifest records, pda, id and traitor text
  *
  * Calling this proc without an oldname will only update the mob and skip updating the pda, id and records ~Carn
  */
@@ -1061,7 +1061,7 @@
 
 	return TRUE
 
-///Updates GLOB.data_core records with new name , see mob/living/carbon/human
+///Updates GLOB.manifest records with new name , see mob/living/carbon/human
 /mob/proc/replace_records_name(oldname,newname)
 	return
 
@@ -1143,10 +1143,6 @@
 /mob/proc/is_nearsighted()
 	return HAS_TRAIT(src, TRAIT_NEARSIGHT)
 
-/// This mob is abile to read books
-/mob/proc/is_literate()
-	return HAS_TRAIT(src, TRAIT_LITERATE) && !HAS_TRAIT(src, TRAIT_ILLITERATE)
-
 /**
  * Proc that returns TRUE if the mob can write using the writing_instrument, FALSE otherwise.
  *
@@ -1155,10 +1151,6 @@
 /mob/proc/can_write(obj/item/writing_instrument)
 	if(!istype(writing_instrument))
 		to_chat(src, span_warning("You can't write with the [writing_instrument]!"))
-		return FALSE
-
-	if(!is_literate())
-		to_chat(src, span_warning("You try to write, but don't know how to spell anything!"))
 		return FALSE
 
 	if(!has_light_nearby() && !has_nightvision())
@@ -1193,15 +1185,9 @@
 
 
 /// Can this mob read
-/mob/proc/can_read(atom/viewed_atom, reading_check_flags = (READING_CHECK_LITERACY|READING_CHECK_LIGHT), silent = FALSE)
-	if((reading_check_flags & READING_CHECK_LITERACY) && !is_literate())
-		if(!silent)
-			to_chat(src, span_warning("You try to read [viewed_atom], but can't comprehend any of it."))
-		return FALSE
-
-	if((reading_check_flags & READING_CHECK_LIGHT) && !has_light_nearby() && !has_nightvision())
-		if(!silent)
-			to_chat(src, span_warning("It's too dark in here to read!"))
+/mob/proc/can_read(obj/O)
+	if(!has_light_nearby() && !has_nightvision())
+		to_chat(src, span_warning("It's too dark in here to read!"))
 		return FALSE
 
 	return TRUE

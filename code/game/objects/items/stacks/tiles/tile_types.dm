@@ -67,6 +67,7 @@ GLOBAL_LIST_EMPTY(tile_stack_icon_cache)
 	icon_to_use.DrawBox("#00000000", 17, 1, 17, 1)
 	icon_to_use.DrawBox("#00000000", 1, 17, 1, 17)
 	icon_to_use.DrawBox("#00000000", 17, 17, 21, 17)
+	// Make a blank icon to drop all this stuff onto
 	var/icon/final_icon = icon('icons/obj/tiles.dmi', "blank")
 	final_icon.Blend(icon_to_use, ICON_OVERLAY, 9, 9) // Drop our resized and trimmed tile in
 	final_icon.Blend(icon('icons/obj/tiles.dmi', "blank_border"), ICON_OVERLAY) // Drop a neat border around it to make it easier to spot on the floor

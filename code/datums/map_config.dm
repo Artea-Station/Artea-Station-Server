@@ -50,6 +50,8 @@
 	var/overmap_object_type = /datum/overmap_object/shuttle/station
 	/// The weather controller the station levels will have
 	var/weather_controller_type = /datum/weather_controller
+	/// Type of our day and night controller, can be left blank for none
+	var/day_night_controller_type
 	/// Type of the atmosphere that will be loaded on station
 	var/atmosphere_type
 	/// Possible rock colors of the loaded map
@@ -113,7 +115,6 @@
 
 	return config
 
-#define CHECK_EXISTS(X) if(!istext(json[X])) { log_world("[##X] missing from json!"); return; }
 /proc/LoadConfig(filename, error_if_missing)
 	if(!fexists(filename))
 		if(error_if_missing)
@@ -139,13 +140,15 @@
 		log_world("map_config doesn't have a map_type to point to its config datum!")
 		return
 
-	CHECK_EXISTS("map_type")
 	var/type_to_load = text2path(json["map_type"])
+	if(!type_to_load)
+		warning("Invalid map datum in [filename]!")
+		return
+
 	var/datum/map_config/config = new type_to_load()
 	config.defaulted = FALSE
 	config.config_filename = filename
 	return config
-#undef CHECK_EXISTS
 
 /datum/map_config/proc/GetFullMapPaths()
 	if (istext(map_file))
