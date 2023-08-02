@@ -42,6 +42,13 @@
 
 	return ..()
 
+/datum/loadout_item/accessory/insert_path_into_outfit(datum/outfit/outfit, mob/living/carbon/human/equipper, visuals_only)
+	if(!outfit.uniform) // let's not try to put belts on underless outfits.
+		outfit.backpack_contents += list(item_path = 1)
+		return
+
+	return ..()
+
 /datum/loadout_item/accessory/proc/set_accessory_layer(datum/preference_middleware/loadout/manager, mob/user)
 	var/list/loadout = manager.preferences.read_preference(/datum/preference/loadout)
 	if(!loadout?[item_path])

@@ -84,7 +84,7 @@
 
 	return preview_job
 
-/datum/preferences/proc/render_new_preview_appearance(mob/living/carbon/human/dummy/mannequin, show_job = FALSE)
+/datum/preferences/proc/render_new_preview_appearance(mob/living/carbon/human/dummy/mannequin, show_job = FALSE, show_loadout = FALSE)
 	var/datum/job/preview_job = get_highest_priority_job()
 
 	if(preview_job)
@@ -99,8 +99,8 @@
 
 	if(preview_job && show_job)
 		mannequin.job = preview_job.title
-		mannequin.dress_up_as_job(preview_job, TRUE, src)
-	else
+		mannequin.dress_up_as_job(preview_job, TRUE, src, show_loadout)
+	else if(show_loadout)
 		mannequin.equip_outfit_and_loadout(/datum/outfit/player_loadout, src, TRUE)
 
 	// Apply visual quirks

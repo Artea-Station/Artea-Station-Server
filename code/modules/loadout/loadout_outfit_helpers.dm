@@ -17,7 +17,7 @@
  * visuals_only - whether we call special equipped procs, or if we just look like we equipped it
  * preference_source - the preferences of the thing we're equipping
  */
-/mob/living/carbon/human/proc/equip_outfit_and_loadout(datum/outfit/outfit, datum/preferences/preference_source, visuals_only = FALSE)
+/mob/living/carbon/human/proc/equip_outfit_and_loadout(datum/outfit/outfit, datum/preferences/preference_source, visuals_only = FALSE, loadout = TRUE)
 	var/datum/outfit/equipped_outfit
 
 	if(ispath(outfit))
@@ -27,20 +27,24 @@
 	else
 		return FALSE
 
-	var/list/loadout_datums = loadout_list_to_datums(preference_source?.read_preference(/datum/preference/loadout))
-	for(var/datum/loadout_item/item as anything in loadout_datums)
-		item.insert_path_into_outfit(equipped_outfit, src, visuals_only)
+	if (loadout)
+		var/list/loadout_datums = loadout_list_to_datums(preference_source?.read_preference(/datum/preference/loadout))
+		for(var/datum/loadout_item/item as anything in loadout_datums)
+			item.insert_path_into_outfit(equipped_outfit, src, visuals_only)
 
-	for(var/datum/loadout_item/item as anything in loadout_datums)
-		item.pre_equip(equipped_outfit, src, visuals_only)
+		for(var/datum/loadout_item/item as anything in loadout_datums)
+			item.pre_equip(equipped_outfit, src, visuals_only)
 
-	equipOutfit(equipped_outfit, visuals_only)
+		equipOutfit(equipped_outfit, visuals_only)
 
-	for(var/datum/loadout_item/item as anything in loadout_datums)
-		item.on_equip_item(preference_source, src, visuals_only, loadout_datums)
+		for(var/datum/loadout_item/item as anything in loadout_datums)
+			item.on_equip_item(preference_source, src, visuals_only, loadout_datums)
 
-	for(var/datum/loadout_item/item as anything in loadout_datums)
-		item.post_equip_item(preference_source, src, visuals_only)
+		for(var/datum/loadout_item/item as anything in loadout_datums)
+			item.post_equip_item(preference_source, src, visuals_only)
+
+	else
+		equipOutfit(equipped_outfit, visuals_only)
 
 	regenerate_icons()
 	return TRUE

@@ -196,12 +196,12 @@
 	dress_up_as_job(equipping, FALSE, preferences)
 
 
-/mob/living/proc/dress_up_as_job(datum/job/equipping, visual_only = FALSE, datum/preferences/preferences)
+/mob/living/proc/dress_up_as_job(datum/job/equipping, visual_only = FALSE, datum/preferences/preferences, loadout = TRUE)
 	return
 
-/mob/living/carbon/human/dress_up_as_job(datum/job/equipping, visual_only = FALSE, datum/preferences/preferences)
+/mob/living/carbon/human/dress_up_as_job(datum/job/equipping, visual_only = FALSE, datum/preferences/preferences, loadout = TRUE)
 	dna.species.pre_equip_species_outfit(equipping, src, visual_only)
-	equip_outfit_and_loadout(equipping.outfit, preferences, visual_only)
+	equip_outfit_and_loadout(equipping.outfit, preferences, visual_only, loadout)
 
 /datum/job/proc/announce_head(mob/living/carbon/human/H, channels) //tells the given channel that the given mob is the new department head. See communications.dm for valid channels.
 	if(H && GLOB.announcement_systems.len)

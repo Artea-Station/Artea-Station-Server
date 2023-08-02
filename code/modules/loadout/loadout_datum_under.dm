@@ -21,12 +21,17 @@
 	category = LOADOUT_ITEM_UNIFORM
 
 /datum/loadout_item/under/insert_path_into_outfit(datum/outfit/outfit, mob/living/carbon/human/equipper, visuals_only = FALSE)
-	if(isplasmaman(equipper))
-		if(!visuals_only)
-			to_chat(equipper, "Your loadout uniform was not equipped directly due to your envirosuit.")
-			LAZYADD(outfit.backpack_contents, item_path)
-	else
-		outfit.uniform = item_path
+	if(isplasmaman(equipper) && !visuals_only)
+		to_chat(equipper, "Your loadout uniform was not equipped directly due to your envirosuit.")
+		LAZYADD(outfit.backpack_contents, item_path)
+
+/datum/loadout_item/under/on_equip_item(datum/preferences/preference_source, mob/living/carbon/human/equipper, visuals_only, list/preference_list)
+	// Workaround for assistants.
+	if(!isplasmaman(equipper))
+		qdel(equipper.w_uniform)
+		equipper.w_uniform = new item_path(equipper)
+
+	. = ..()
 
 // jumpsuit undersuits
 /datum/loadout_item/under/jumpsuit

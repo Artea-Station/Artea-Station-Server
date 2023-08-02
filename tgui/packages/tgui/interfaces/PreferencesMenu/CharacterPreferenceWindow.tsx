@@ -84,7 +84,8 @@ export const CharacterPreferenceWindow = (props, context) => {
         <NameInput
           name={data.character_preferences.names[data.name_to_use]}
           handleUpdateName={createSetPreference(act, data.name_to_use)}
-        />);
+        />
+      );
       break;
 
     case Page.Antags:
@@ -180,8 +181,10 @@ export const CharacterPreferenceWindow = (props, context) => {
 
           <Stack.Item height="100%">
             <Stack fill>
-              <Stack.Item style={{ "width": "280px" }}>
-                <LoadoutPreviewSection extra_character_controls={extraCharacterControls} />
+              <Stack.Item style={{ 'width': '280px' }}>
+                <LoadoutPreviewSection
+                  extra_character_controls={extraCharacterControls}
+                />
               </Stack.Item>
               <Stack.Divider />
               <Stack.Item width="100%" height="100%">
@@ -195,15 +198,16 @@ export const CharacterPreferenceWindow = (props, context) => {
   );
 };
 
-
-
 type PreviewData = PreferencesMenuData & {
-  job_clothes: BooleanLike
+  job_clothes: BooleanLike;
   loadout_clothes: BooleanLike;
   character_preview_view: string;
-}
+};
 
-export const LoadoutPreviewSection = (props: { extra_character_controls? }, context) => {
+export const LoadoutPreviewSection = (
+  props: { extra_character_controls? },
+  context
+) => {
   const { act, data } = useBackend<PreviewData>(context);
   const { loadout_clothes, job_clothes, character_preview_view } = data;
   const [tutorialStatus] = useLocalState(context, 'tutorialStatus', false);
@@ -212,19 +216,19 @@ export const LoadoutPreviewSection = (props: { extra_character_controls? }, cont
       grow
       height="100%"
       title={
-        <Box style={{ "font-size": "0.85em", "text-align": "center" }}>
-        <Button.Checkbox
-          align="center"
-          content="Toggle Job Clothes"
-          checked={job_clothes}
-          onClick={() => act('toggle_job_clothes')}
-        />
-        <Button.Checkbox
-          align="center"
-          content="Toggle Loadout Clothes"
-          checked={loadout_clothes}
-          onClick={() => act('toggle_loadout_clothes')}
-        />
+        <Box style={{ 'font-size': '0.85em', 'text-align': 'center' }}>
+          <Button.Checkbox
+            align="center"
+            content="Toggle Job Clothes"
+            checked={job_clothes}
+            onClick={() => act('toggle_job_clothes')}
+          />
+          <Button.Checkbox
+            align="center"
+            content="Toggle Loadout Clothes"
+            checked={loadout_clothes}
+            onClick={() => act('toggle_loadout_clothes')}
+          />
         </Box>
       }>
       <Stack vertical>
@@ -234,15 +238,13 @@ export const LoadoutPreviewSection = (props: { extra_character_controls? }, cont
           )}
         </Stack.Item>
         <Stack.Divider />
-        <Stack.Item>
-          {props.extra_character_controls}
-        </Stack.Item>
+        <Stack.Item>{props.extra_character_controls}</Stack.Item>
         <Stack.Item align="center">
           <CharacterControls
-                handleRotate={(dir) => {
-                  act('rotate', { 'dir': dir });
-                }}
-              />
+            handleRotate={(dir) => {
+              act('rotate', { 'dir': dir });
+            }}
+          />
         </Stack.Item>
       </Stack>
     </Section>
@@ -277,7 +279,7 @@ const GenderButton = (
                     <Button
                       selected={gender === props.gender}
                       onClick={() => {
-                        createSetPreference(act, "gender")(gender);
+                        createSetPreference(act, 'gender')(gender);
                         setGenderMenuOpen(false);
                       }}
                       fontSize="22px"

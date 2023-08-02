@@ -411,6 +411,9 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 	/// Whether we see our favorite job's clothes on the dummy
 	var/view_job_clothes = TRUE
 
+	/// Whether we see our loadout's clothes on the dummy
+	var/view_loadout_clothes = TRUE
+
 /atom/movable/screen/character_preview_view/Initialize(mapload, datum/preferences/preferences, client/client, assigned_map = "character_preview_[REF(src)]")
 	. = ..()
 
@@ -438,12 +441,14 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 
 /// Updates the currently displayed body
 /atom/movable/screen/character_preview_view/proc/update_body()
+	if(!src)
+		return // Don't fucking ask me why, it just is. Blame TG's race to 20 second init times and refusing to preload prefs stuff on dev.
 	if (isnull(body))
 		create_body()
 	else
 		body.wipe_state()
 
-	appearance = preferences.render_new_preview_appearance(body, view_job_clothes)
+	appearance = preferences.render_new_preview_appearance(body, view_job_clothes, view_loadout_clothes)
 
 /atom/movable/screen/character_preview_view/proc/create_body()
 	QDEL_NULL(body)

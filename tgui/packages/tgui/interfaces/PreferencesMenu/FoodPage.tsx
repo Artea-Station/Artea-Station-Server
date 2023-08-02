@@ -18,6 +18,7 @@ export const FoodPage = (props, context) => {
         'margin-bottom': '1em',
         'break-inside': 'avoid-column',
         'height': '100%',
+        'overflow-y': 'scroll',
       }}
       titleStyle={{
         'justify-content': 'center',

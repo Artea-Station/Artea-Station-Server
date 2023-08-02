@@ -7,6 +7,7 @@
 		"select_item" = PROC_REF(action_select_item),
 		"clear_all_items" = PROC_REF(action_clear_all),
 		"toggle_job_clothes" = PROC_REF(action_toggle_job_outfit),
+		"toggle_loadout_clothes" = PROC_REF(action_toggle_loadout_outfit),
 		"pass_to_loadout_item" = PROC_REF(action_pass_to_loadout_item),
 	)
 
@@ -53,6 +54,11 @@
 
 /datum/preference_middleware/loadout/proc/action_toggle_job_outfit(list/params, mob/user)
 	preferences.character_preview_view.view_job_clothes = !preferences.character_preview_view.view_job_clothes
+	preferences.character_preview_view.update_body()
+	return TRUE
+
+/datum/preference_middleware/loadout/proc/action_toggle_loadout_outfit(list/params, mob/user)
+	preferences.character_preview_view.view_loadout_clothes = !preferences.character_preview_view.view_loadout_clothes
 	preferences.character_preview_view.update_body()
 	return TRUE
 
@@ -110,6 +116,7 @@
 	data["selected_loadout"] = all_selected_paths
 	data["mob_name"] = preferences.read_preference(/datum/preference/name/real_name)
 	data["job_clothes"] = preferences.character_preview_view.view_job_clothes
+	data["loadout_clothes"] = preferences.character_preview_view.view_loadout_clothes
 
 	return data
 

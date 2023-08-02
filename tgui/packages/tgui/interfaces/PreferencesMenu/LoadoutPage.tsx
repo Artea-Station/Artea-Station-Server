@@ -61,22 +61,23 @@ export const LoadoutPage = (props, context) => {
                 content="Tutorial"
                 onClick={() => setTutorialStatus(true)}
               />
-              <span style={{ "margin-left": '22%' }}>
-                Loadout Categories
-              </span>
+              <span style={{ 'margin-left': '22%' }}>Loadout Categories</span>
             </>
           }
           buttons={
             <Input
-                width="200px"
-                onInput={(event) => setSearchLoadout(event.target.value)}
-                placeholder="Search for item"
-                value={searchLoadout}
-              />
+              width="200px"
+              onInput={(event) => setSearchLoadout(event.target.value)}
+              placeholder="Search for item"
+              value={searchLoadout}
+            />
           }>
-          <Tabs fluid align="center" style={{
-            "flex-wrap": "wrap",
-          }}>
+          <Tabs
+            fluid
+            align="center"
+            style={{
+              'flex-wrap': 'wrap',
+            }}>
             {loadout_tabs.map((curTab) => (
               <Tabs.Tab
                 key={curTab.name}
@@ -265,36 +266,32 @@ const LoadoutTabs = (props, context) => {
 
   const searching = searchLoadout.length > 1;
 
-  return (
-    searching || (activeCategory && activeCategory.contents) ? (
-      <Section
-        title={
-          searching ? 'Searching...' : activeCategory?.title || 'Error'
-        }
-        fill
-        scrollable
-        buttons={
-          <Button.Confirm
-            icon="times"
-            color="red"
-            align="center"
-            content="Clear All Items"
-            tooltip="Clears ALL selected items from all categories."
-            onClick={() => act('clear_all_items')}
-          />
-        }>
-        <Stack vertical>
-          {searching ? (
-            <SearchDisplay />
-          ) : (
-            <LoadoutTabDisplay category={activeCategory} />
-          )}
-        </Stack>
-      </Section>
-    ) : (
-      <Section fill>
-        <Box>No contents for selected tab.</Box>
-      </Section>
-    )
+  return searching || (activeCategory && activeCategory.contents) ? (
+    <Section
+      title={searching ? 'Searching...' : activeCategory?.title || 'Error'}
+      fill
+      height="45em"
+      buttons={
+        <Button.Confirm
+          icon="times"
+          color="red"
+          align="center"
+          content="Clear All Items"
+          tooltip="Clears ALL selected items from all categories."
+          onClick={() => act('clear_all_items')}
+        />
+      }>
+      <Stack vertical overflowY="scroll" height="41.3em">
+        {searching ? (
+          <SearchDisplay />
+        ) : (
+          <LoadoutTabDisplay category={activeCategory} />
+        )}
+      </Stack>
+    </Section>
+  ) : (
+    <Section fill>
+      <Box>No contents for selected tab.</Box>
+    </Section>
   );
 };
