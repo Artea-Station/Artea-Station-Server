@@ -46,6 +46,10 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 	var/obj/item/item_path
 	/// Lazylist of additional text for the tooltip displayed on this item.
 	var/list/additional_tooltip_contents
+	/// Should this item be always shown? Used for sanity checks.
+	var/always_shown = TRUE
+	/// Priority of the item. Lower is sorted first.
+	var/priority = 0
 
 /datum/loadout_item/New()
 	if(!name)
@@ -233,16 +237,6 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 		LAZYADD(outfit.backpack_contents, item_path)
 
 /**
- * Called before the outfit is applied. Good for stuff like belts that need to do final checks to prevent errors.
- *
- * outfit - The outfit we're equipping our items into.
- * equipper - If we're equipping out outfit onto a mob at the time, this is the mob it is equipped on. Can be null.
- * visual - If TRUE, then our outfit is only for visual use (for example, a preview).
- */
-/datum/loadout_item/proc/pre_equip(datum/outfit/outfit, mob/living/carbon/human/equipper, visuals_only = FALSE)
-	return
-
-/**
  * Called When the item is equipped on [equipper].
  *
  * preference_source - the datum/preferences our loadout item originated from - cannot be null
@@ -251,7 +245,7 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
  */
 /datum/loadout_item/proc/on_equip_item(datum/preferences/preference_source, mob/living/carbon/human/equipper, visuals_only = FALSE, list/preference_list)
 	var/obj/item/equipped_item = locate(item_path) in equipper.get_all_contents()
-	if(!equipped_item)
+	if(!equipped_item && always_shown)
 		CRASH("[type] on_equip_item(): Could not locate clothing item (path: [item_path]) in [equipper]'s [visuals_only ? "visible":"all"] contents!")
 
 	var/list/item_details = preference_list[item_path]

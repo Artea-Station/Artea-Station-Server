@@ -13,6 +13,8 @@
 
 /datum/loadout_item/accessory
 	category = LOADOUT_ITEM_ACCESSORY
+	always_shown = FALSE
+	priority = 2
 	// Can we adjust this accessory to be above or below suits?
 	var/can_be_layer_adjusted = FALSE
 
@@ -42,13 +44,6 @@
 
 	return ..()
 
-/datum/loadout_item/accessory/insert_path_into_outfit(datum/outfit/outfit, mob/living/carbon/human/equipper, visuals_only)
-	if(!outfit.uniform) // let's not try to put belts on underless outfits.
-		outfit.backpack_contents += list(item_path = 1)
-		return
-
-	return ..()
-
 /datum/loadout_item/accessory/proc/set_accessory_layer(datum/preference_middleware/loadout/manager, mob/user)
 	var/list/loadout = manager.preferences.read_preference(/datum/preference/loadout)
 	if(!loadout?[item_path])
@@ -61,9 +56,14 @@
 	to_chat(user, span_boldnotice("[name] will now appear [loadout[item_path][INFO_LAYER] ? "above" : "below"] suits."))
 	manager.preferences.update_preference(manager.preference, loadout)
 
-/datum/loadout_item/accessory/insert_path_into_outfit(datum/outfit/outfit, mob/living/carbon/human/equipper, visuals_only = FALSE)
-	if(outfit.accessory)
+/datum/loadout_item/accessory/insert_path_into_outfit(datum/outfit/outfit, mob/living/carbon/human/equipper, visuals_only)
+	if(!outfit.uniform) // let's not try to put accessories on underless outfits.
+		outfit.backpack_contents += list(item_path = 1)
+		return
+
+	if(outfit.accessory || visuals_only)
 		LAZYADD(outfit.backpack_contents, outfit.accessory)
+
 	outfit.accessory = item_path
 
 /datum/loadout_item/accessory/on_equip_item(datum/preferences/preference_source, mob/living/carbon/human/equipper, visuals_only = FALSE, list/preference_list)

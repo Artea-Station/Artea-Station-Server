@@ -32,9 +32,6 @@
 		for(var/datum/loadout_item/item as anything in loadout_datums)
 			item.insert_path_into_outfit(equipped_outfit, src, visuals_only)
 
-		for(var/datum/loadout_item/item as anything in loadout_datums)
-			item.pre_equip(equipped_outfit, src, visuals_only)
-
 		equipOutfit(equipped_outfit, visuals_only)
 
 		for(var/datum/loadout_item/item as anything in loadout_datums)
@@ -60,7 +57,7 @@
 /proc/loadout_list_to_datums(list/loadout_list)
 	RETURN_TYPE(/list)
 
-	. = list()
+	var/list/loadout = list()
 
 	if(!GLOB.all_loadout_datums.len)
 		CRASH("No loadout datums in the global loadout list!")
@@ -70,8 +67,12 @@
 			stack_trace("Could not find ([path]) loadout item in the global list of loadout datums!")
 			continue
 
-		. |= GLOB.all_loadout_datums[path]
+		loadout |= GLOB.all_loadout_datums[path]
 
+	return sortTim(loadout, GLOBAL_PROC_REF(cmp_loadout_always_shown_false_first))
+
+/proc/cmp_loadout_always_shown_false_first(datum/loadout_item/a, datum/loadout_item/b)
+	return a.priority - b.priority
 
 /*
  * Removes all invalid paths from loadout lists.

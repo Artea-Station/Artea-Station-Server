@@ -24,14 +24,8 @@
 	if(isplasmaman(equipper) && !visuals_only)
 		to_chat(equipper, "Your loadout uniform was not equipped directly due to your envirosuit.")
 		LAZYADD(outfit.backpack_contents, item_path)
-
-/datum/loadout_item/under/on_equip_item(datum/preferences/preference_source, mob/living/carbon/human/equipper, visuals_only, list/preference_list)
-	// Workaround for assistants.
-	if(!isplasmaman(equipper))
-		qdel(equipper.w_uniform)
-		equipper.w_uniform = new item_path(equipper)
-
-	. = ..()
+	else
+		outfit.uniform = item_path
 
 // jumpsuit undersuits
 /datum/loadout_item/under/jumpsuit

@@ -11,11 +11,10 @@
 
 /datum/loadout_item/belts
 	category = LOADOUT_ITEM_BELT
+	always_shown = FALSE
+	priority = 2
 
 /datum/loadout_item/belts/insert_path_into_outfit(datum/outfit/outfit, mob/living/carbon/human/equipper, visuals_only = FALSE)
-	return
-
-/datum/loadout_item/pre_equip(datum/outfit/outfit, mob/living/carbon/human/equipper, visuals_only = FALSE)
 	if(!outfit.uniform) // let's not try to put belts on underless outfits.
 		outfit.backpack_contents += list(item_path = 1)
 		return
