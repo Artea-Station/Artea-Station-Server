@@ -47,10 +47,7 @@ export const ClothingPage = (context, parentContext) => {
                             handleOpen={() => {
                               setCurrentClothingMenu(clothingKey);
                             }}
-                            handleSelect={createSetPreference(
-                              act,
-                              clothingKey
-                            )}
+                            handleSelect={createSetPreference(act, clothingKey)}
                           />
                         </Stack.Item>
                       )
