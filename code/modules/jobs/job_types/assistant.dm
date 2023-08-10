@@ -40,11 +40,11 @@ Assistant
 	jobtype = /datum/job/assistant
 	id_trim = /datum/id_trim/job/assistant
 	belt = /obj/item/modular_computer/pda/assistant
-	uniform = /obj/item/clothing/under/color/random
+	uniform = null
 
 /datum/outfit/job/assistant/pre_equip(mob/living/carbon/human/target)
 	..()
-	if(uniform == initial(uniform))
+	if(!uniform)
 		give_jumpsuit(target)
 
 /datum/outfit/job/assistant/proc/give_jumpsuit(mob/living/carbon/human/target)
