@@ -176,3 +176,12 @@ GLOBAL_LIST_INIT(announcer_keys, list(
 #define SFX_SWITCH "switch"
 #define SFX_KEYBOARD "keyboard"
 #define SFX_PDA "pda"
+
+#define VOICE_HUMAN_M "Human Male"
+#define VOICE_HUMAN_F "Human Female"
+#define VOICE_LIZARD_M "Lizard Male"
+#define VOICE_LIZARD_F "Lizard Female"
+#define VOICE_MOTH_M "Moth Male"
+#define VOICE_MOTH_F "Moth Female"
+#define VOICE_ETHEREAL_M "Ethereal Male"
+#define VOICE_ETHEREAL_F "Ethereal Female"
