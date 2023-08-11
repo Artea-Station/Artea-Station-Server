@@ -39,7 +39,6 @@
 	var/output_used = 0 // amount of power actually outputted. may be less than output_level if the powernet returns excess power
 
 	var/obj/machinery/power/terminal/terminal = null
-
 	/// The cable layer the terminal should use on construction.
 	var/terminal_cable_layer = CABLE_LAYER_2
 
@@ -47,6 +46,8 @@
 	. = ..()
 	if(!terminal)
 		. += span_warning("This SMES has no power terminal!")
+		if(panel_open)
+			. += "Right-click with some cable coils to set the terminal layer."
 
 /obj/machinery/power/smes/Initialize(mapload)
 	. = ..()
