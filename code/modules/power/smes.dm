@@ -40,6 +40,9 @@
 
 	var/obj/machinery/power/terminal/terminal = null
 
+	/// The cable layer the terminal should use on construction.
+	var/terminal_cable_layer = CABLE_LAYER_2
+
 /obj/machinery/power/smes/examine(user)
 	. = ..()
 	if(!terminal)
@@ -134,12 +137,16 @@
 			to_chat(user, span_warning("You need more wires!"))
 			return
 
-		var/terminal_cable_layer = CABLE_LAYER_1
 		if(LAZYACCESS(params2list(params), RIGHT_CLICK))
-			var/choice = tgui_input_list(user, "Select Power Input Cable Layer", "Select Cable Layer", GLOB.cable_name_to_layer)
-			if(isnull(choice))
-				return
-			terminal_cable_layer = GLOB.cable_name_to_layer[choice]
+			switch(terminal_cable_layer)
+				if(CABLE_LAYER_1)
+					terminal_cable_layer = CABLE_LAYER_2
+				if(CABLE_LAYER_2)
+					terminal_cable_layer = CABLE_LAYER_3
+				if(CABLE_LAYER_3)
+					terminal_cable_layer = CABLE_LAYER_1
+			balloon_alert(user, "using [lowertext(GLOB.cable_layer_to_name[terminal_cable_layer])] layer")
+			return
 
 		to_chat(user, span_notice("You start building the power terminal..."))
 		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, TRUE)
