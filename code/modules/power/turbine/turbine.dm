@@ -242,6 +242,7 @@
 	desc = "The middle part of a turbine generator, contains the rotor and the main computer."
 	icon = 'icons/obj/turbine/turbine.dmi'
 	icon_state = "core_rotor"
+	can_change_cable_layer = TRUE
 
 	circuit = /obj/item/circuitboard/machine/turbine_rotor
 
@@ -333,12 +334,32 @@
 		was_complete = TRUE
 	deactivate_parts()
 
+/obj/machinery/power/turbine/core_rotor/examine(mob/user)
+	. = ..()
+	if(!panel_open)
+		. += span_notice("[EXAMINE_HINT("screw")] open its panel to change cable layer.")
+
+/obj/machinery/power/turbine/core_rotor/cable_layer_change_checks(mob/living/user, obj/item/tool)
+	if(!panel_open)
+		balloon_alert(user, "open panel first!")
+		return FALSE
+	return TRUE
+
 /obj/machinery/power/turbine/core_rotor/multitool_act(mob/living/user, obj/item/tool)
+	//allow cable layer changing
+	if(panel_open)
+		return ..()
+
 	if(!all_parts_connected && activate_parts(user))
 		balloon_alert(user, "all parts are linked")
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/power/turbine/core_rotor/multitool_act_secondary(mob/living/user, obj/item/tool)
+	//allow cable layer changing
+	if(panel_open)
+		return ..()
+
+	//works same as regular left click
 	if(!all_parts_connected)
 		return TOOL_ACT_TOOLTYPE_SUCCESS
 	var/obj/item/multitool/multitool = tool
