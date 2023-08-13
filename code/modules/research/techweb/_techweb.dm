@@ -54,11 +54,15 @@
 	*/
 	var/list/published_papers
 
+	/// Should this techweb be seeded with the starter nodes?
+	var/has_starter_research = TRUE
+
 /datum/techweb/New()
 	SSresearch.techwebs += src
-	for(var/i in SSresearch.techweb_nodes_starting)
-		var/datum/techweb_node/DN = SSresearch.techweb_node_by_id(i)
-		research_node(DN, TRUE, FALSE, FALSE)
+	if(has_starter_research)
+		for(var/i in SSresearch.techweb_nodes_starting)
+			var/datum/techweb_node/DN = SSresearch.techweb_node_by_id(i)
+			research_node(DN, TRUE, FALSE, FALSE)
 	hidden_nodes = SSresearch.techweb_nodes_hidden.Copy()
 	initialize_published_papers()
 	return ..()
@@ -82,13 +86,10 @@
 /datum/techweb/bepis //Should contain only 1 BEPIS tech selected at random.
 	id = "EXPERIMENTAL"
 	organization = "Nanotrasen R&D"
+	has_starter_research = FALSE
 
 /datum/techweb/bepis/New(remove_tech = TRUE)
 	. = ..()
-	for(var/i in SSresearch.techweb_nodes_starting)
-		var/datum/techweb_node/node = SSresearch.techweb_node_by_id(i)
-		researched_nodes -= node.id
-	recalculate_nodes(TRUE) //Fully rebuild the tree. Required after removing tech.
 	var/bepis_id = pick(SSresearch.techweb_nodes_experimental) //To add a new tech to the BEPIS, add the ID to this pick list.
 	if(remove_tech)
 		SSresearch.techweb_nodes_experimental -= bepis_id
@@ -103,15 +104,12 @@
 
 /datum/techweb/science/loot
 	id = "SCIENCE_LOOT"
+	has_starter_research = FALSE
 	/// RND_LOOT_MINOR, RND_LOOT_MIDDLE or RND_LOOT_MAJOR research. <2000, 2000-5000 and >5000 respectively.
 	var/loot_table_name
 
 /datum/techweb/science/loot/New(remove_tech = TRUE)
 	. = ..()
-	for(var/i in SSresearch.techweb_nodes_starting)
-		var/datum/techweb_node/node = SSresearch.techweb_node_by_id(i)
-		researched_nodes -= node.id
-	recalculate_nodes(TRUE) //Fully rebuild the tree. Required after removing tech.
 	var/datum/techweb_node/science_node = pick(SSresearch.techweb_nodes_lootable[loot_table_name])
 	if(remove_tech)
 		SSresearch.techweb_nodes_lootable[loot_table_name] -= science_node

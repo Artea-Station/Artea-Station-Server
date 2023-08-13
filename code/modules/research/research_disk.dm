@@ -42,6 +42,11 @@
 	custom_materials = list(/datum/material/iron=300, /datum/material/glass=100)
 	stored_research = /datum/techweb/science/loot/middle
 
+/obj/item/disk/tech_disk/research/Initialize(mapload)
+	name = "written technology disk"
+	icon_state = "datadisk[rand(0, 9)]"
+	. = ..()
+
 /obj/item/disk/tech_disk/research/minor
 	name = "minor written technology disk"
 	icon_state = "datadisk1"
@@ -51,8 +56,3 @@
 	name = "major written technology disk"
 	icon_state = "datadisk8"
 	stored_research = /datum/techweb/science/loot/major
-
-/obj/item/disk/tech_disk/research/Initialize(mapload)
-	name = "written technology disk"
-	icon_state = "datadisk[rand(0, 9)]"
-	. = ..()
