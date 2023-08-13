@@ -475,12 +475,14 @@
 "cp" = (
 /obj/machinery/light/directional/south,
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
+/obj/machinery/rnd/server,
 /turf/open/floor/iron{
 	dir = 10
 	},
 /area/station/command/bridge)
 "cr" = (
 /obj/machinery/light/directional/south,
+/obj/machinery/ore_silo/pre_filled,
 /turf/open/floor/iron{
 	dir = 6
 	},
@@ -1103,6 +1105,10 @@
 	},
 /turf/open/floor/plating/elevatorshaft,
 /area/station/commons/storage/primary)
+"mT" = (
+/obj/machinery/rnd/production/techfab,
+/turf/open/floor/iron,
+/area/station/command/bridge)
 "mZ" = (
 /turf/open/floor/iron{
 	dir = 4
@@ -1369,8 +1375,8 @@
 /area/station/engineering/main)
 "yR" = (
 /obj/machinery/elevator_control_panel/directional/east{
-	preset_destination_names = list("2"="Bottom Floor","3"="Middle Floor","4"="Top Floor");
-	linked_elevator_id = "test_vator"
+	linked_elevator_id = "test_vator";
+	preset_destination_names = list("2"="Bottom  Floor","3"="Middle  Floor","4"="Top  Floor")
 	},
 /obj/structure/industrial_lift/public,
 /obj/effect/turf_decal/siding/white{
@@ -1520,6 +1526,12 @@
 "Gb" = (
 /turf/open/floor/plating,
 /area/station/hallway/secondary/service)
+"Gp" = (
+/obj/machinery/computer/rdconsole{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/station/command/bridge)
 "GG" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/railing,
@@ -3053,7 +3065,7 @@ iy
 bv
 bI
 cf
-eb
+Gp
 bv
 uv
 bN
@@ -3269,7 +3281,7 @@ Cc
 bv
 bI
 eb
-eb
+mT
 bv
 cD
 Au

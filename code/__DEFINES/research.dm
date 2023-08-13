@@ -69,3 +69,7 @@
 #define SCIENTIFIC_COOPERATION_PURCHASE_MULTIPLIER 0.01
 /// How much money is one point of gain worth.
 #define SCIPAPER_GAIN_TO_MONEY 125
+
+#define RND_LOOT_MINOR "minor"
+#define RND_LOOT_MIDDLE "middle"
+#define RND_LOOT_MAJOR "major"

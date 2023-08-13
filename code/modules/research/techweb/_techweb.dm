@@ -85,6 +85,10 @@
 
 /datum/techweb/bepis/New(remove_tech = TRUE)
 	. = ..()
+	for(var/i in SSresearch.techweb_nodes_starting)
+		var/datum/techweb_node/node = SSresearch.techweb_node_by_id(i)
+		researched_nodes -= node.id
+	recalculate_nodes(TRUE) //Fully rebuild the tree. Required after removing tech.
 	var/bepis_id = pick(SSresearch.techweb_nodes_experimental) //To add a new tech to the BEPIS, add the ID to this pick list.
 	if(remove_tech)
 		SSresearch.techweb_nodes_experimental -= bepis_id
@@ -99,32 +103,36 @@
 
 /datum/techweb/science/loot
 	id = "SCIENCE_LOOT"
-	/// "minor", "middle" or "major" research. <2000, <5001 and >5000 respectively.
-	var/loot_table
+	/// RND_LOOT_MINOR, RND_LOOT_MIDDLE or RND_LOOT_MAJOR research. <2000, 2000-5000 and >5000 respectively.
+	var/loot_table_name
 
 /datum/techweb/science/loot/New(remove_tech = TRUE)
-	icon = "datadisk[rand(0, 9)]"
-	var/datum/techweb_node/science_node = SSresearch.techweb_nodes_lootable(science_id)
+	. = ..()
+	for(var/i in SSresearch.techweb_nodes_starting)
+		var/datum/techweb_node/node = SSresearch.techweb_node_by_id(i)
+		researched_nodes -= node.id
+	recalculate_nodes(TRUE) //Fully rebuild the tree. Required after removing tech.
+	var/datum/techweb_node/science_node = pick(SSresearch.techweb_nodes_lootable[loot_table_name])
 	if(remove_tech)
-		SSresearch.techweb_nodes_lootable[loot_table] -= science_node
+		SSresearch.techweb_nodes_lootable[loot_table_name] -= science_node
 	hidden_nodes -= science_node.id
 	research_node(science_node, TRUE, FALSE, FALSE)
 	update_node_status(science_node)
 
 /datum/techweb/science/loot/minor
-	loot_table = "minor"
+	loot_table_name = RND_LOOT_MINOR
 
 /datum/techweb/science/loot/minor/no_remove/New()
 	return ..(FALSE)
 
 /datum/techweb/science/loot/middle
-	loot_table = "middle"
+	loot_table_name = RND_LOOT_MIDDLE
 
 /datum/techweb/science/loot/middle/no_remove/New()
 	return ..(FALSE)
 
 /datum/techweb/science/loot/major
-	loot_table = "major"
+	loot_table_name = RND_LOOT_MAJOR
 
 /datum/techweb/science/loot/major/no_remove/New()
 	return ..(FALSE)

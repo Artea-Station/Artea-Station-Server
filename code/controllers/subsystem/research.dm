@@ -158,11 +158,11 @@ SUBSYSTEM_DEF(research)
 		if(TN.starting_node)
 			techweb_nodes_starting[TN.id] = TRUE
 		if(TN.research_costs[TECHWEB_POINT_TYPE_GENERIC] < 2000)
-			techweb_nodes_lootable["minor"] += TN
+			techweb_nodes_lootable[RND_LOOT_MINOR] += TN
 		else if(TN.research_costs[TECHWEB_POINT_TYPE_GENERIC] < 5001)
-			techweb_nodes_lootable["middle"] += TN
+			techweb_nodes_lootable[RND_LOOT_MIDDLE] += TN
 		else
-			techweb_nodes_lootable["major"] += TN
+			techweb_nodes_lootable[RND_LOOT_MAJOR] += TN
 	for(var/id in techweb_nodes)
 		var/datum/techweb_node/TN = techweb_nodes[id]
 		TN.Initialize()
