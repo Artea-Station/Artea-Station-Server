@@ -36,7 +36,7 @@
 		weld_down(mapload)
 		//This needs to be connected a moment after a lot of other initialization stuff happens
 		//Late initialize will fail to apply this correctly as atmos wont yet fully initialize (despite the lies they want you to believe in)
-		addtimer(CALLBACK(src, PROC_REF(ApplyExtension)))
+		addtimer(CALLBACK(src, PROC_REF(ApplyExtension)), 1 SECONDS)
 	AddComponent(/datum/component/simple_rotation)
 	. = ..()
 
