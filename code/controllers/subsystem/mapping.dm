@@ -426,7 +426,7 @@ Used by the AI doomsday and the self-destruct nuke.
 			var/picked_planet_type = pick_weight(planet_list)
 			planet_list -= picked_planet_type
 			var/datum/planet_template/picked_template = planet_templates[picked_planet_type]
-			picked_template.LoadTemplate(SSovermap.main_system, rand(5,25), rand(5,25))
+			picked_template.LoadTemplate(SSovermap.main_system, RANDOM_OVERMAP_X, RANDOM_OVERMAP_Y)
 #endif
 
 	if(LAZYLEN(FailedZs)) //but seriously, unless the server's filesystem is messed up this will never happen

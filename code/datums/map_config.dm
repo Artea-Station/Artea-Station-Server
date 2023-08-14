@@ -42,9 +42,11 @@
 	var/library_areas = list()
 
 	/// Type of the global trading hub that will be created
-	var/global_trading_hub_type = /datum/trade_hub/worldwide
-	/// A lazylist of types of trading hubs to be spawned
-	var/localized_trading_hub_types = list(/datum/trade_hub/randomname, /datum/trade_hub/randomname)
+	var/global_trading_hub_type
+	/// A lazylist of types of trading hubs to be spawned randomly in space. Spawns one of each entry.
+	var/localized_trading_hub_types = list(/datum/trade_hub/randomname/artea_scrapper)
+	/// A whitelist of types of trading hubs to be spawned on a planet overmap tile, unlike localized, these are *not* guaranteed, and can repeat spawn.
+	var/planetary_trading_hub_types = list(/datum/trade_hub/randomname)
 
 	/// The type of the overmap object the station will act as on the overmap
 	var/overmap_object_type = /datum/overmap_object/shuttle/station
@@ -63,7 +65,12 @@
 	/// Possible water colors of the loaded map
 	var/list/water_color
 
+	/// The amount of planets to spawn.
 	var/amount_of_planets_spawned = 4
+	/// Minimum amount of traders to spawn on planets.
+	var/min_planetary_traders_spawned = 2
+	/// Chance for a planet to have a trader. Used by prob.
+	var/planetary_trader_chance = 75
 
 	var/ore_node_seeder_type
 

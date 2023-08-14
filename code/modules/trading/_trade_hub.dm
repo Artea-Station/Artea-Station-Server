@@ -4,13 +4,13 @@
 	/// Lazy list of possible names to randomize from
 	var/possible_names
 	/// Maximum number of traders it can house
-	var/max_traders = 4
+	var/max_traders = 2
 	/// A list of all the current traders inside
 	var/list/traders = list()
-	/// A list of all possible types of traders that can spawn in here
+	/// A list of all possible types of traders that can spawn in here. If left null, it'll allow all traders.
 	var/list/possible_trader_types
 	/// A list of all the trader types that we guarantee that will spawn, if able
-	var/list/guaranteed_trader_types = list(/datum/trader/scrapper)
+	var/list/guaranteed_trader_types
 	/// A list of connected trade consoles, in case the hub is destroyed we want to disconnect the consoles
 	var/list/connected_consoles = list()
 	var/id
@@ -75,3 +75,9 @@
 
 /datum/trade_hub/randomname
 	possible_names = list("SCG Emporium", "Spacedust Cleaners Co.", "Northwind Traders", "Space Coast Trading", "Plasma Enterprises", "Off-branch Trasen Co.")
+
+// A just-in-case trader, in case crew get unlucky with planetary spawns.
+/datum/trade_hub/randomname/artea_scrapper
+	name = "Artean Scrapheap"
+	possible_names = list("ALS Keelhaul", "ALS Brighter Days", "ALS Scorchmark")
+	guaranteed_trader_types = list(/datum/trader/scrapper)

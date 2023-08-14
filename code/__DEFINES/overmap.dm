@@ -127,3 +127,6 @@
 // Convienience defines for overmap hight and width.
 #define DEFAULT_OVERMAP_H 30
 #define DEFAULT_OVERMAP_W 30
+
+#define RANDOM_OVERMAP_X rand(5, DEFAULT_OVERMAP_W - 5)
+#define RANDOM_OVERMAP_Y rand(5, DEFAULT_OVERMAP_H - 5)
