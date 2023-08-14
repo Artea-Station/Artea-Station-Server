@@ -285,7 +285,7 @@
 					if(!my_shuttle.check_dock(iterated_dock, silent = TRUE))
 						continue
 					docks[iterated_dock.name] = iterated_dock
-	
+
 				dat += "<B>Designated docks:</B>"
 				for(var/key in docks)
 					dat += "<BR> - [key] - <a href='?src=[REF(src)];task=dock;dock_control=normal_dock;dock_id=[docks[key].shuttle_id]'>Dock</a>"
@@ -439,6 +439,8 @@
 						if(0)
 							shuttle_controller.busy = TRUE
 							shuttle_controller.RemoveCurrentControl()
+							for(var/mob in shuttle_controller.mob_viewers)
+								shuttle_controller.RemoveViewer(mob)
 				if("freeform_dock")
 					if(shuttle_controller.busy)
 						return
@@ -625,8 +627,13 @@
 
 /datum/overmap_object/shuttle/proc/GrantOvermapView(mob/user, turf/passed_turf)
 	//Camera control
-	if(!shuttle_controller)
+	if(!shuttle_controller || !user.client || shuttle_controller.busy)
 		return
+
+	if(shuttle_controller.mob_controller)
+		shuttle_controller.AddViewer(user)
+		return TRUE
+
 	if(user.client && !shuttle_controller.busy)
 		shuttle_controller.SetController(user)
 		if(passed_turf)
@@ -678,6 +685,10 @@
 /datum/overmap_object/shuttle/planet/New()
 	. = ..()
 	my_visual.color = planet_color
+	if(SSmapping.config.min_planetary_traders_spawned || prob(SSmapping.config.planetary_trader_chance))
+		if(SSmapping.config.min_planetary_traders_spawned)
+			SSmapping.config.min_planetary_traders_spawned -= 1
+		new /datum/overmap_object/trade_hub(SSovermap.main_system, x, y, pick(SSmapping.config.planetary_trading_hub_types), 10, 10)
 
 /datum/overmap_object/shuttle/planet/lavaland
 	name = "Lavaland"
