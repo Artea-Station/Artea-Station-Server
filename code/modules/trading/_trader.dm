@@ -210,7 +210,7 @@
 	//We established there's stock and we have enough money for it, and the trader deals in cash
 	console.credits_held -= proposed_cost
 	current_credits += proposed_cost
-	if(goodie.current_stock == -1)
+	if(goodie.current_stock != -1)
 		goodie.current_stock--
 	var/destination_turf = get_turf(console.linked_pad)
 	goodie.spawn_item(destination_turf)
