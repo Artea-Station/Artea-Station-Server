@@ -123,3 +123,7 @@
 #define TRANSIT_VELOCITY_LOW 1
 #define TRANSIT_VELOCITY_MEDIUM 2
 #define TRANSIT_VELOCITY_HIGH 3
+
+// Convienience defines for overmap hight and width.
+#define DEFAULT_OVERMAP_H 30
+#define DEFAULT_OVERMAP_W 30
