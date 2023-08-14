@@ -10,7 +10,7 @@
 	/// A list of all possible types of traders that can spawn in here
 	var/list/possible_trader_types
 	/// A list of all the trader types that we guarantee that will spawn, if able
-	var/list/guaranteed_trader_types
+	var/list/guaranteed_trader_types = list(/datum/trader/scrapper)
 	/// A list of connected trade consoles, in case the hub is destroyed we want to disconnect the consoles
 	var/list/connected_consoles = list()
 	var/id
@@ -71,7 +71,7 @@
 /datum/trade_hub/worldwide/bearcat
 	name = "FTU Tradehouse Network"
 	max_traders = 6
-	guaranteed_trader_types = list(/datum/trader/mining, /datum/trader/medical, /datum/trader/archeology)
+	guaranteed_trader_types = list(/datum/trader/mining, /datum/trader/medical, /datum/trader/scrapper)
 
 /datum/trade_hub/randomname
 	possible_names = list("SCG Emporium", "Spacedust Cleaners Co.", "Northwind Traders", "Space Coast Trading", "Plasma Enterprises", "Off-branch Trasen Co.")

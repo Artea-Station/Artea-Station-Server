@@ -9,7 +9,7 @@
 	var/container_path
 	/// Cost of the sold goodie, modified by margin and variance of the trader
 	var/cost = 100
-	/// Stock amount of this sold goodie
+	/// Stock amount of this sold goodie. Use -1 for infinite. Use sparingly.
 	var/stock = 3
 	/// Current stock, initial stock will be modified by the vendors quantity
 	var/current_stock

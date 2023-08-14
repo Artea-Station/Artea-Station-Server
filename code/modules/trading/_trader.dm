@@ -137,7 +137,8 @@
 			. = get_response("hard_bargain", "You drive a hard bargain, but I'll accept", user)
 		else
 			. = get_response("trade_complete", "Thanks for your business!", user)
-		goodie.current_stock--
+		if(goodie.current_stock != -1)
+			goodie.current_stock--
 		var/destination_turf = get_turf(console.linked_pad)
 		goodie.spawn_item(destination_turf)
 		disposition += disposition_per_trade
@@ -209,7 +210,8 @@
 	//We established there's stock and we have enough money for it, and the trader deals in cash
 	console.credits_held -= proposed_cost
 	current_credits += proposed_cost
-	goodie.current_stock--
+	if(goodie.current_stock == -1)
+		goodie.current_stock--
 	var/destination_turf = get_turf(console.linked_pad)
 	goodie.spawn_item(destination_turf)
 	console.linked_pad.do_teleport_effect()
@@ -446,6 +448,8 @@
 	// Restock some sold goodies
 	if(sold_goods)
 		for(var/datum/sold_goods/goodie as anything in sold_goods)
+			if(goodie.current_stock == -1)
+				continue
 			var/percentage_remaining = goodie.current_stock / goodie.stock
 			if(percentage_remaining <= TRADER_RESTOCK_THRESHOLD)
 				goodie.current_stock = goodie.stock

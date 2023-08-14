@@ -255,7 +255,7 @@
 						goodie_index++
 						dat += "<tr style='background-color: [even ? "#17191C" : "#23273C"];'>"
 						dat += "<td>[goodie.name]</td>"
-						dat += "<td>[goodie.current_stock ? goodie.current_stock : "OUT!"]</td>"
+						dat += "<td>[goodie.current_stock == -1 ? "LOTS" : goodie.current_stock ? goodie.current_stock : "OUT!"]</td>"
 						dat += "<td>[goodie.cost]</td>"
 						dat += "<td><a href='?src=[REF(src)];task=trader_task;pref=interact_with_sold;sold_type=buy;index=[goodie_index]'>Buy</a><a href='?src=[REF(src)];task=trader_task;pref=interact_with_sold;sold_type=haggle;index=[goodie_index]'>Haggle</a><a href='?src=[REF(src)];task=trader_task;pref=interact_with_sold;sold_type=barter;index=[goodie_index]'>Barter</a></td>"
 						dat += "</tr>"

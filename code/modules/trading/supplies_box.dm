@@ -135,6 +135,13 @@
 	sticker_overlay = "mil"
 	supply_box_loot_sheet = /datum/supplies_box_loot/military
 
+/obj/structure/supplies_box/tech
+	name = "military supplies box"
+	desc = "A supplies box containing tech related stuff. A small sticker states \"Not for trading.\""
+	supply_box_type = SUPPLY_BOX_METAL
+	sticker_overlay = "tech"
+	supply_box_loot_sheet = /datum/supplies_box_loot/tech
+
 #undef SUPPLY_BOX_WOOD
 #undef SUPPLY_BOX_METAL
 #undef SUPPLY_BOX_MILITARY
@@ -169,7 +176,7 @@
 		/obj/item/reagent_containers/condiment/enzyme,
 		/obj/item/reagent_containers/condiment/sugar,
 		/obj/item/food/meat/slab/monkey,
-		/obj/item/storage/fancy/egg_box
+		/obj/item/storage/fancy/egg_box,
 		)
 	weighted_spawns = list(
 		/obj/item/storage/box/ingredients/fiesta = 100,
@@ -181,14 +188,14 @@
 		/obj/item/storage/box/ingredients/delights = 100,
 		/obj/item/storage/box/ingredients/grains = 100,
 		/obj/item/storage/box/ingredients/carnivore = 100,
-		/obj/item/storage/box/ingredients/exotic = 100
+		/obj/item/storage/box/ingredients/exotic = 100,
 		)
 	weighted_spawns_amount = 2
 
 /datum/supplies_box_loot/materials
 	guaranteed_spawns = list(
 		/obj/item/stack/sheet/iron{amount = 50},
-		/obj/item/stack/sheet/glass{amount = 40}
+		/obj/item/stack/sheet/glass{amount = 40},
 		)
 	weighted_spawns = list(
 		/obj/item/stack/sheet/mineral/silver{amount = 10} = 15,
@@ -197,7 +204,7 @@
 		/obj/item/stack/sheet/mineral/plasma{amount = 5} = 5,
 		/obj/item/stack/sheet/mineral/titanium{amount = 5} = 10,
 		/obj/item/stack/sheet/mineral/gold{amount = 5} = 10,
-		/obj/item/stack/ore/bluespace_crystal{amount = 2} = 2
+		/obj/item/stack/ore/bluespace_crystal{amount = 2} = 2,
 	)
 	weighted_spawns_amount = 1
 
@@ -220,7 +227,7 @@
 		/obj/item/assembly/flash/handheld = 20,
 		/obj/item/clothing/gloves/color/yellow = 20,
 		/obj/item/clothing/gloves/color/fyellow = 20,
-		/obj/item/stock_parts/cell/upgraded = 20
+		/obj/item/stock_parts/cell/upgraded = 20,
 		)
 	weighted_spawns_amount = 4
 
@@ -241,20 +248,20 @@
 		/obj/item/storage/pill_bottle/potassiodide = 1,
 		/obj/item/storage/pill_bottle/mutadone = 1,
 		/obj/item/storage/pill_bottle/epinephrine = 5,
-		/obj/item/storage/pill_bottle/multiver = 5
+		/obj/item/storage/pill_bottle/multiver = 5,
 	)
 	weighted_spawns_amount = 3
 
 /datum/supplies_box_loot/security
 	guaranteed_spawns = list(
 		/obj/item/melee/baton/security/loaded,
-		/obj/item/restraints/handcuffs/cable/zipties
+		/obj/item/restraints/handcuffs/cable/zipties,
 		)
 	weighted_spawns = list(
 		/obj/item/assembly/flash/handheld = 10,
 		/obj/item/reagent_containers/spray/pepper = 10,
 		/obj/item/grenade/flashbang = 10,
-		/obj/item/storage/fancy/donut_box = 10
+		/obj/item/storage/fancy/donut_box = 10,
 		)
 	weighted_spawns_amount = 2
 
@@ -262,14 +269,25 @@
 	guaranteed_spawns = list(
 		/obj/item/gun/ballistic/automatic/pistol,
 		/obj/item/switchblade,
-		/obj/item/storage/medkit/regular
 		)
 	weighted_spawns = list(
 		/obj/item/ammo_box/magazine/m9mm = 10,
 		/obj/effect/spawner/random/weapon/grenade = 10,
-		// /obj/effect/spawner/random/weapon/armor = 10
+		/obj/item/gun/ballistic/shotgun/lethal = 2,
+		/obj/item/storage/box/lethalshot = 10,
 		)
 	weighted_spawns_amount = 1
+
+/datum/supplies_box_loot/tech
+	guaranteed_spawns = list(
+		/obj/item/disk/tech_disk/research/minor,
+		)
+	weighted_spawns = list(
+		/obj/item/disk/tech_disk/research/minor = 50,
+		/obj/item/disk/tech_disk/research/middle = 30,
+		/obj/item/disk/tech_disk/research/major = 20,
+		)
+	weighted_spawns_amount = 2
 
 /obj/effect/spawner/supplies_box
 	icon = 'icons/obj/structures/supplies_box.dmi'
@@ -281,7 +299,8 @@
 		/obj/structure/supplies_box/engineering,
 		/obj/structure/supplies_box/medical,
 		/obj/structure/supplies_box/security,
-		/obj/structure/supplies_box/military
+		/obj/structure/supplies_box/military,
+		/obj/structure/supplies_box/tech,
 		)
 
 /obj/effect/spawner/supplies_box/Initialize(mapload)
@@ -299,5 +318,6 @@
 		/obj/structure/supplies_box/food,
 		/obj/structure/supplies_box/materials,
 		/obj/structure/supplies_box/engineering,
-		/obj/structure/supplies_box/medical
+		/obj/structure/supplies_box/medical,
+		/obj/structure/supplies_box/tech,
 		)

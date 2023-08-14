@@ -38,9 +38,8 @@
 /obj/item/disk/tech_disk/research
 	name = "middle written technology disk"
 	desc = "A disk containing some technology. You hope it still works after all this time. Upload the disk to an R&D Console to redeem the tech."
-	icon_state = "datadisk2"
+	icon_state = "rndmajordisk"
 	custom_materials = list(/datum/material/iron=300, /datum/material/glass=100)
-	stored_research = /datum/techweb/science/loot/middle
 
 /obj/item/disk/tech_disk/research/Initialize(mapload)
 	name = "written technology disk"
@@ -51,6 +50,11 @@
 	name = "minor written technology disk"
 	icon_state = "datadisk1"
 	stored_research = /datum/techweb/science/loot/minor
+
+/obj/item/disk/tech_disk/research/middle
+	name = "middle written technology disk"
+	icon_state = "datadisk2"
+	stored_research = /datum/techweb/science/loot/middle
 
 /obj/item/disk/tech_disk/research/major
 	name = "major written technology disk"
