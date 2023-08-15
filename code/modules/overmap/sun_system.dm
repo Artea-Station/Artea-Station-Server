@@ -63,9 +63,9 @@
 /datum/overmap_sun_system/proc/GetObjectsInRadius(_x,_y,rad)
 	. = list()
 	for(var/i in overmap_objects)
-		var/datum/overmap_object/OO = i
-		if(OO.x <= _x + rad && OO.x >= _x - rad && OO.y <= _y + rad && OO.y >= _y - rad)
-			. += OO
+		var/datum/overmap_object/overmap_object = i
+		if(istype(overmap_object, /datum/overmap_object/trade_hub) || (overmap_object.x <= _x + rad && overmap_object.x >= _x - rad && overmap_object.y <= _y + rad && overmap_object.y >= _y - rad))
+			. += overmap_object
 
 /datum/overmap_sun_system/proc/ObjectsAdjacent(datum/overmap_object/object_one, datum/overmap_object/object_two)
 	if(object_one.x <= object_two.x + 1 && object_one.x >= object_two.x - 1 && object_one.y <= object_two.y + 1 && object_one.y >= object_two.y - 1)

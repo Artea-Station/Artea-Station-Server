@@ -98,7 +98,11 @@
 				"in_lock_range" = IN_LOCK_RANGE(src, overmap_object),
 				"is_destination" = destination_x == overmap_object.x && destination_y == overmap_object.y,
 			))
+	targets = sortTim(targets, GLOBAL_PROC_REF(cmp_overmap_target_distance))
 	return targets
+
+/proc/cmp_overmap_target_distance(a, b)
+	return a["distance"] - b["distance"]
 
 /datum/overmap_object/shuttle/proc/GetCapSpeed()
 	var/cap_speed = 0
