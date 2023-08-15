@@ -23,20 +23,17 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(/obj/structure/gri
 	var/linked_dirs = 0 //bitflag
 	var/node = FALSE //used for sprites display
 	var/cable_layer = CABLE_LAYER_2 //bitflag
-	var/machinery_layer = MACHINERY_LAYER_1 //bitflag
 	var/datum/powernet/powernet
 
 /obj/structure/cable/layer1
 	color = "red"
 	cable_layer = CABLE_LAYER_1
-	machinery_layer = null
 	layer = WIRE_LAYER - 0.01
 	icon_state = "l1-1-2-4-8-node"
 
 /obj/structure/cable/layer3
 	color = "blue"
 	cable_layer = CABLE_LAYER_3
-	machinery_layer = null
 	layer = WIRE_LAYER + 0.01
 	icon_state = "l4-1-2-4-8-node"
 
@@ -51,6 +48,11 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(/obj/structure/gri
 		var/turf/turf_loc = loc
 		turf_loc.add_blueprints_preround(src)
 
+
+/obj/structure/cable/examine(mob/user)
+	. = ..()
+	if(isobserver(user))
+		. += get_power_info()
 
 /obj/structure/cable/proc/on_rat_eat(datum/source, mob/living/simple_animal/hostile/regalrat/king)
 	SIGNAL_HANDLER
@@ -155,13 +157,6 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(/obj/structure/gri
 	dir_string = "l[cable_layer]-[dir_string]"
 	icon_state = dir_string
 	return ..()
-
-
-/obj/structure/cable/examine(mob/user)
-	. = ..()
-	if(isobserver(user))
-		. += get_power_info()
-
 
 /obj/structure/cable/proc/handlecable(obj/item/W, mob/user, params)
 	var/turf/T = get_turf(src)
@@ -634,7 +629,6 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(/obj/structure/gri
 	icon = 'icons/obj/power.dmi'
 	icon_state = "cable_bridge"
 	cable_layer = CABLE_LAYER_2
-	machinery_layer = MACHINERY_LAYER_1
 	layer = WIRE_LAYER - 0.02 //Below all cables Disabled layers can lay over hub
 	color = "white"
 	var/obj/effect/node/machinery_node
@@ -668,7 +662,7 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(/obj/structure/gri
 	return
 
 /obj/structure/cable/multilayer/update_icon()
-	machinery_node?.alpha = machinery_layer & MACHINERY_LAYER_1 ? 255 : 0
+	machinery_node?.alpha = cable_layer & CABLE_LAYER_1 ? 255 : 0
 	cable_node_1?.alpha = cable_layer & CABLE_LAYER_1 ? 255 : 0
 	cable_node_2?.alpha = cable_layer & CABLE_LAYER_2 ? 255 : 0
 	cable_node_3?.alpha = cable_layer & CABLE_LAYER_3 ? 255 : 0
@@ -706,7 +700,6 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(/obj/structure/gri
 	. += span_notice("L1:[cable_layer & CABLE_LAYER_1 ? "Connect" : "Disconnect"].")
 	. += span_notice("L2:[cable_layer & CABLE_LAYER_2 ? "Connect" : "Disconnect"].")
 	. += span_notice("L3:[cable_layer & CABLE_LAYER_3 ? "Connect" : "Disconnect"].")
-	. += span_notice("M:[machinery_layer & MACHINERY_LAYER_1 ? "Connect" : "Disconnect"].")
 
 GLOBAL_LIST(hub_radial_layer_list)
 
@@ -720,8 +713,7 @@ GLOBAL_LIST(hub_radial_layer_list)
 		GLOB.hub_radial_layer_list = list(
 			"Layer 1" = image(icon = 'icons/hud/radial.dmi', icon_state = "coil-red"),
 			"Layer 2" = image(icon = 'icons/hud/radial.dmi', icon_state = "coil-yellow"),
-			"Layer 3" = image(icon = 'icons/hud/radial.dmi', icon_state = "coil-blue"),
-			"Machinery" = image(icon = 'icons/obj/power.dmi', icon_state = "smes")
+			"Layer 3" = image(icon = 'icons/hud/radial.dmi', icon_state = "coil-blue")
 			)
 
 	var/layer_result = show_radial_menu(user, src, GLOB.hub_radial_layer_list, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
@@ -738,9 +730,6 @@ GLOBAL_LIST(hub_radial_layer_list)
 		if("Layer 3")
 			CL = CABLE_LAYER_3
 			to_chat(user, span_warning("You toggle L3 connection."))
-		if("Machinery")
-			machinery_layer ^= MACHINERY_LAYER_1
-			to_chat(user, span_warning("You toggle machinery connection."))
 
 	cut_cable_from_powernet(FALSE)
 

@@ -109,6 +109,7 @@
 		"spoon",
 		"status_display_frame",
 		"sticky_tape",
+		"syrup_bottle",
 		"tape",
 		"tech_disk",
 		"timer",

@@ -15,6 +15,7 @@
 		return
 	owner.cure_nearsighted(GENETIC_MUTATION)
 
+
 ///Blind makes you blind. Who knew?
 /datum/mutation/human/blind
 	name = "Blindness"
@@ -178,20 +179,3 @@
 	name = "beam"
 	icon = 'icons/effects/genetics.dmi'
 	icon_state = "eyelasers"
-
-/datum/mutation/human/illiterate
-	name = "Illiterate"
-	desc = "Causes a severe case of Aphasia that prevents reading or writing."
-	quality = NEGATIVE
-	text_gain_indication = "<span class='danger'>You feel unable to read or write.</span>"
-	text_lose_indication = "<span class='danger'>You feel able to read and write again.</span>"
-
-/datum/mutation/human/illiterate/on_acquiring(mob/living/carbon/human/owner)
-	if(..())
-		return
-	ADD_TRAIT(owner, TRAIT_ILLITERATE, GENETIC_MUTATION)
-
-/datum/mutation/human/illiterate/on_losing(mob/living/carbon/human/owner)
-	if(..())
-		return
-	REMOVE_TRAIT(owner, TRAIT_ILLITERATE, GENETIC_MUTATION)

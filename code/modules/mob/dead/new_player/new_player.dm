@@ -115,6 +115,9 @@
 			return "[jobtitle] is not compatible with some antagonist role assigned to you."
 		if(JOB_UNAVAILABLE_CONTENT_PREFS_UNSET)
 			return "You haven't set your content preferences for your character."
+		if(JOB_UNAVAILABLE_AGE)
+			var/datum/job/job = SSjob.name_occupations[jobtitle]
+			return "You are too young, you need to be at least [job.required_character_age] to enter this ride!"
 
 	return GENERIC_JOB_UNAVAILABLE_ERROR
 
