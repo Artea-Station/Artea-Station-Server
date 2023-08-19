@@ -1,7 +1,7 @@
 ## Artea Station (TG Fork)
 ###### <sup>With many opinions</sup>
 
-**This repository and it's server is wholly unsuitable for under 18s. You have been warned.**
+**This repository and it's server are wholly unsuitable for under 18s. You have been warned.**
 
 [![Build Status](https://github.com/Artea-Station/Artea-Station-Server/workflows/CI%20Suite/badge.svg)](https://github.com/Artea-Station/Artea-Station-Server/actions?query=workflow%3A%22CI+Suite%22)
 [![Percentage of issues still open](https://isitmaintained.com/badge/open/Artea-Station/Artea-Station-Server.svg)](https://isitmaintained.com/project/Artea-Station/Artea-Station-Server "Percentage of issues still open")
