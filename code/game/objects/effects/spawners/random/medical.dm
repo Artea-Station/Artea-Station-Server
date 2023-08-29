@@ -198,17 +198,14 @@
 
 /obj/effect/spawner/random/medical/chem_cartridge/Initialize(mapload)
 	if(!cached_whitelist)
-		cached_whitelist = subtypesof(/obj/item/reagent_containers/chem_cartridge)
-		cached_whitelist -= (typesof(/obj/item/reagent_containers/chem_cartridge/small/consumable) + typesof(/obj/item/reagent_containers/chem_cartridge/medium/consumable) + typesof(/obj/item/reagent_containers/chem_cartridge/medium/plantnutriment) + typesof(/obj/item/reagent_containers/chem_cartridge/medium/toxin) + /obj/item/reagent_containers/chem_cartridge/medium + /obj/item/reagent_containers/chem_cartridge/small)
-		cached_whitelist += /obj/item/reagent_containers/chem_cartridge/small/consumable/ethanol
-	return ..()
+		cached_whitelist = list()
+		for(var/datum/reagent/reagent as anything in CARTRIDGE_LIST_CHEM_DISPENSER)
+			cached_whitelist += reagent
+	. = ..()
 
 /obj/effect/spawner/random/medical/chem_cartridge/make_item(spawn_loc, type_path_to_make)
 	var/obj/item/reagent_containers/chem_cartridge/cartridge = new type_path_to_make(spawn_loc)
-	var/obj/item/reagent_containers/chem_cartridge/cartridge_to_ref
-	while(!cartridge_to_ref || !initial(cartridge_to_ref.spawn_reagent))
-		cartridge_to_ref = pick(cached_whitelist)
-	cartridge.reagents.add_reagent(initial(cartridge_to_ref.spawn_reagent), is_always_full ? cartridge.volume : rand(0, cartridge.volume))
+	cartridge.reagents.add_reagent(pick(cached_whitelist), is_always_full ? cartridge.volume : rand(0, cartridge.volume))
 	return cartridge
 
 /obj/effect/spawner/random/medical/chem_cartridge/three

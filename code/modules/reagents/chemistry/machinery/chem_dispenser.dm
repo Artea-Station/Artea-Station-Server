@@ -30,33 +30,7 @@
 	/// The maximum amount of cartridges the dispenser can contain.
 	var/maximum_cartridges = 25
 
-	var/list/spawn_cartridges = list(
-		CHEM_CARTRIDGE_S(aluminium),
-		CHEM_CARTRIDGE_S(bromine),
-		CHEM_CARTRIDGE_M(carbon),
-		CHEM_CARTRIDGE_M(chlorine),
-		CHEM_CARTRIDGE_S(copper),
-		CHEM_CARTRIDGE_S(consumable/ethanol),
-		CHEM_CARTRIDGE_S(fluorine),
-		CHEM_CARTRIDGE_M(hydrogen),
-		CHEM_CARTRIDGE_S(iodine),
-		CHEM_CARTRIDGE_S(iron),
-		CHEM_CARTRIDGE_S(lithium),
-		CHEM_CARTRIDGE_S(mercury),
-		CHEM_CARTRIDGE_M(nitrogen),
-		CHEM_CARTRIDGE_M(oxygen),
-		CHEM_CARTRIDGE_S(phosphorus),
-		CHEM_CARTRIDGE_S(potassium),
-		CHEM_CARTRIDGE_S(uranium/radium),
-		CHEM_CARTRIDGE_S(silicon),
-		CHEM_CARTRIDGE_S(sodium),
-		CHEM_CARTRIDGE_S(stable_plasma),
-		CHEM_CARTRIDGE_S(consumable/sugar),
-		CHEM_CARTRIDGE_S(sulfur),
-		CHEM_CARTRIDGE_S(toxin/acid),
-		CHEM_CARTRIDGE_M(water),
-		CHEM_CARTRIDGE_M(fuel),
-	)
+	var/list/spawn_cartridges = CARTRIDGE_LIST_CHEM_DISPENSER
 
 	/// Associative, label -> cartridge
 	var/list/cartridges = list()
@@ -67,9 +41,16 @@
 		begin_processing()
 	update_appearance()
 
-	if(spawn_cartridges)
-		for(var/type in spawn_cartridges)
-			add_cartridge(new type(src))
+	if(spawn_cartridges && mapload)
+		spawn_cartridges()
+
+/// Spawns the cartridges the chem dispenser should have on mapload. Kept as a seperate proc for admin convienience.
+/obj/machinery/chem_dispenser/proc/spawn_cartridges()
+	for(var/chem_type in spawn_cartridges)
+		var/obj/item/reagent_containers/chem_cartridge/chem_cartridge = spawn_cartridges[chem_type]
+		chem_cartridge = new chem_cartridge(src)
+		chem_cartridge.reagents.add_reagent(chem_type, chem_cartridge.volume, reagtemp = dispensed_temperature)
+		add_cartridge(chem_cartridge)
 
 /obj/machinery/chem_dispenser/Destroy()
 	QDEL_NULL(beaker)

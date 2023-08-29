@@ -15,31 +15,7 @@
 	working_state = null
 	nopower_state = null
 	pass_flags = PASSTABLE
-	spawn_cartridges = list(
-		CHEM_CARTRIDGE_M(consumable/coffee),
-		CHEM_CARTRIDGE_M(consumable/space_cola),
-		CHEM_CARTRIDGE_M(consumable/cream),
-		CHEM_CARTRIDGE_M(consumable/dr_gibb),
-		CHEM_CARTRIDGE_M(consumable/grenadine),
-		CHEM_CARTRIDGE_M(consumable/ice),
-		CHEM_CARTRIDGE_M(consumable/icetea),
-		CHEM_CARTRIDGE_M(consumable/lemonjuice),
-		CHEM_CARTRIDGE_M(consumable/lemon_lime),
-		CHEM_CARTRIDGE_M(consumable/limejuice),
-		CHEM_CARTRIDGE_M(consumable/menthol),
-		CHEM_CARTRIDGE_M(consumable/orangejuice),
-		CHEM_CARTRIDGE_M(consumable/pineapplejuice),
-		CHEM_CARTRIDGE_M(consumable/pwr_game),
-		CHEM_CARTRIDGE_M(consumable/shamblers),
-		CHEM_CARTRIDGE_M(consumable/spacemountainwind),
-		CHEM_CARTRIDGE_M(consumable/sodawater),
-		CHEM_CARTRIDGE_M(consumable/space_up),
-		CHEM_CARTRIDGE_M(consumable/sugar),
-		CHEM_CARTRIDGE_M(consumable/tea),
-		CHEM_CARTRIDGE_M(consumable/tomatojuice),
-		CHEM_CARTRIDGE_M(consumable/tonic),
-		CHEM_CARTRIDGE_M(water),
-	)
+	spawn_cartridges = CARTRIDGE_LIST_DRINKS
 
 /obj/machinery/chem_dispenser/drinks/Initialize(mapload)
 	. = ..()
@@ -77,56 +53,19 @@
 	dispensed_temperature = WATER_MATTERSTATE_CHANGE_TEMP
 	heater_coefficient = SOFT_DISPENSER_HEATER_COEFFICIENT
 	circuit = /obj/item/circuitboard/machine/chem_dispenser/drinks/beer
-	spawn_cartridges = list(
-		CHEM_CARTRIDGE_S(consumable/ethanol/absinthe),
-		CHEM_CARTRIDGE_S(consumable/ethanol/ale),
-		CHEM_CARTRIDGE_S(consumable/ethanol/applejack),
-		CHEM_CARTRIDGE_S(consumable/ethanol/beer),
-		CHEM_CARTRIDGE_S(consumable/ethanol/cognac),
-		CHEM_CARTRIDGE_S(consumable/ethanol/creme_de_cacao),
-		CHEM_CARTRIDGE_S(consumable/ethanol/creme_de_coconut),
-		CHEM_CARTRIDGE_S(consumable/ethanol/creme_de_menthe),
-		CHEM_CARTRIDGE_S(consumable/ethanol/curacao),
-		CHEM_CARTRIDGE_S(consumable/ethanol/gin),
-		CHEM_CARTRIDGE_S(consumable/ethanol/hcider),
-		CHEM_CARTRIDGE_S(consumable/ethanol/kahlua),
-		CHEM_CARTRIDGE_S(consumable/ethanol/beer/maltliquor),
-		CHEM_CARTRIDGE_S(consumable/ethanol/navy_rum),
-		CHEM_CARTRIDGE_S(consumable/ethanol/rum),
-		CHEM_CARTRIDGE_S(consumable/ethanol/sake),
-		CHEM_CARTRIDGE_S(consumable/ethanol/tequila),
-		CHEM_CARTRIDGE_S(consumable/ethanol/triple_sec),
-		CHEM_CARTRIDGE_S(consumable/ethanol/vermouth),
-		CHEM_CARTRIDGE_S(consumable/ethanol/vodka),
-		CHEM_CARTRIDGE_S(consumable/ethanol/whiskey),
-		CHEM_CARTRIDGE_S(consumable/ethanol/wine),
-	)
+	spawn_cartridges = CARTRIDGE_LIST_BOOZE
 
 /obj/machinery/chem_dispenser/mini/mutagen
 	name = "mini mutagen dispenser"
 	desc = "Dispenses mutagen."
-	spawn_cartridges = list(CHEM_CARTRIDGE_M(toxin/mutagen))
+	spawn_cartridges = list(/datum/reagent/toxin/mutagen = /obj/item/reagent_containers/chem_cartridge/medium)
 
 
 /obj/machinery/chem_dispenser/mini/mutagensaltpeter
 	name = "botanical mini chemical dispenser"
 	desc = "Dispenses chemicals useful for botany."
 
-	spawn_cartridges = list(
-		CHEM_CARTRIDGE_M(toxin/mutagen),
-		CHEM_CARTRIDGE_M(saltpetre),
-		CHEM_CARTRIDGE_M(plantnutriment/eznutriment),
-		CHEM_CARTRIDGE_M(plantnutriment/left4zednutriment),
-		CHEM_CARTRIDGE_M(plantnutriment/robustharvestnutriment),
-		CHEM_CARTRIDGE_M(water),
-		CHEM_CARTRIDGE_M(toxin/plantbgone),
-		CHEM_CARTRIDGE_M(toxin/plantbgone/weedkiller),
-		CHEM_CARTRIDGE_M(toxin/pestkiller),
-		CHEM_CARTRIDGE_M(medicine/cryoxadone),
-		CHEM_CARTRIDGE_M(ammonia),
-		CHEM_CARTRIDGE_M(ash),
-		CHEM_CARTRIDGE_M(diethylamine),
-	)
+	spawn_cartridges = CARTRIDGE_LIST_BOTANY
 
 // This is unused. Gonna be left in code for now, though it's likely to be removed if aliens get fully removed.
 /obj/machinery/chem_dispenser/abductor

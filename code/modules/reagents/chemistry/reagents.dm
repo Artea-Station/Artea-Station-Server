@@ -102,9 +102,6 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	/// See "Organ defines for carbon mobs" in /code/_DEFINES/mobs.dm
 	var/affected_organtype = ORGAN_ORGANIC
 
-	// If TRUE, this chem will be able to be found in random loot. Should only be TRUE for chems players can legitimately get their hands on via reactions.
-	var/obtainable = FALSE
-
 /datum/reagent/New()
 	SHOULD_CALL_PARENT(TRUE)
 	. = ..()

@@ -47,6 +47,7 @@
 
 /obj/item/reagent_containers/chem_cartridge/New()
 	. = ..()
+	// Normally this doesn't do anything, but if someone wants to create mapped-in types, this will save them many headaches.
 	if(spawn_reagent)
 		reagents.add_reagent(spawn_reagent, volume, reagtemp = spawn_temperature)
 		var/datum/reagent/R = spawn_reagent
