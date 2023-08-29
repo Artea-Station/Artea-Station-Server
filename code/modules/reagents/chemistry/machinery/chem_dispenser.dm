@@ -69,17 +69,13 @@
 			. += "It has space for [maximum_cartridges] cartridges."
 	. += span_notice("Use <b>RMB</b> to eject a stored beaker.")
 
-// Tries to keep the chem temperature at the dispense temperature
-/obj/machinery/chem_dispenser/process(delta_time)
-	..()
-
 /obj/machinery/chem_dispenser/on_set_is_operational(old_value)
 	if(old_value) //Turned off
 		end_processing()
 	else //Turned on
 		begin_processing()
 
-
+// Tries to keep the chem temperature at the dispense temperature
 /obj/machinery/chem_dispenser/process(delta_time)
 	if(machine_stat & NOPOWER)
 		return
