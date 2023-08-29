@@ -3,7 +3,9 @@
 	name = "this should only be seen in code chemical dispenser cartridge"
 	desc = "This goes in a chemical dispenser."
 	desc_controls = "Use a pen to set the label."
-	icon_state = "cartridge"
+	icon_state = "cartridge_large"
+	fill_icon_state = "cartridge"
+	fill_icon_thresholds = list(20, 40, 60, 80)
 
 	w_class = WEIGHT_CLASS_BULKY
 
@@ -32,12 +34,14 @@
 // Medium cartridge. Holds 250u.
 /obj/item/reagent_containers/chem_cartridge/medium
 	name = "medium chemical dispenser cartridge"
+	icon_state = "cartridge_medium"
 	volume = CARTRIDGE_VOLUME_MEDIUM
 	w_class = WEIGHT_CLASS_NORMAL
 
 // Small cartridge. Holds 100u.
 /obj/item/reagent_containers/chem_cartridge/small
 	name = "small chemical dispenser cartridge"
+	icon_state = "cartridge_small"
 	volume = CARTRIDGE_VOLUME_SMALL
 	w_class = WEIGHT_CLASS_SMALL
 
