@@ -184,6 +184,17 @@ export type PreferencesMenuData = {
   name_to_use: string;
 
   window: Window;
+
+  food_selection: Record<string, number>;
+  food_points: number;
+  food_enabled: BooleanLike;
+  food_invalid: string;
+
+  max_likes: number;
+  min_dislikes: number;
+  min_toxics: number;
+
+  food_types: Record<string, Record<string, number>>;
 };
 
 export type ServerData = {

@@ -61,9 +61,20 @@
 			balloon_alert(user, "need ten lengths of cable!")
 			return
 
+		if(LAZYACCESS(params2list(params), RIGHT_CLICK))
+			switch(terminal_cable_layer)
+				if(CABLE_LAYER_1)
+					terminal_cable_layer = CABLE_LAYER_2
+				if(CABLE_LAYER_2)
+					terminal_cable_layer = CABLE_LAYER_3
+				if(CABLE_LAYER_3)
+					terminal_cable_layer = CABLE_LAYER_1
+			balloon_alert(user, "using [lowertext(GLOB.cable_layer_to_name[terminal_cable_layer])] layer")
+
 		user.visible_message(span_notice("[user.name] adds cables to the APC frame."))
 		balloon_alert(user, "adding cables to the frame...")
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
+
 		if(!do_after(user, 20, target = src))
 			return
 		if(installing_cable.get_amount() < 10 || !installing_cable)
@@ -77,7 +88,7 @@
 			return
 		installing_cable.use(10)
 		balloon_alert(user, "cables added to the frame")
-		make_terminal()
+		make_terminal(terminal_cable_layer)
 		terminal.connect_to_network()
 		return
 
