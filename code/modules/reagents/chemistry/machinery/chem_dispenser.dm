@@ -46,10 +46,11 @@
 
 /// Spawns the cartridges the chem dispenser should have on mapload. Kept as a seperate proc for admin convienience.
 /obj/machinery/chem_dispenser/proc/spawn_cartridges()
-	for(var/chem_type in spawn_cartridges)
+	for(var/datum/reagent/chem_type as anything in spawn_cartridges)
 		var/obj/item/reagent_containers/chem_cartridge/chem_cartridge = spawn_cartridges[chem_type]
 		chem_cartridge = new chem_cartridge(src)
 		chem_cartridge.reagents.add_reagent(chem_type, chem_cartridge.volume, reagtemp = dispensed_temperature)
+		chem_cartridge.setLabel(initial(chem_type.name))
 		add_cartridge(chem_cartridge)
 
 /obj/machinery/chem_dispenser/Destroy()
