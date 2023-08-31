@@ -77,7 +77,7 @@
 		label = ""
 		name = initial(name)
 
-/obj/item/reagent_containers/chem_cartridge/attacked_by(obj/item/attacking_item, mob/living/user)
+/obj/item/reagent_containers/chem_cartridge/attackby(obj/item/attacking_item, mob/user, params)
 	if(istype(attacking_item, /obj/item/pen))
 		setLabel(tgui_input_text(user, "Input (leave blank to clear):", "Set Label Name"))
 		return TRUE
