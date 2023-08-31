@@ -145,8 +145,8 @@
 		console.linked_pad.do_teleport_effect()
 		AfterTrade(user,console)
 		randomize_haggle()
-		console.write_manifest(bartered_items, "[bartered_item_count] total", total_value, TRUE, user.name)
-		console.write_manifest(goodie.name, 1, total_value, FALSE, user.name)
+		console.write_manifest(src, bartered_items, "[bartered_item_count] total", total_value, TRUE, user.name)
+		console.write_manifest(src, goodie.name, 1, total_value, FALSE, user.name)
 
 /datum/trader/proc/requested_sell(mob/user, obj/machinery/computer/trade_console/console, datum/bought_goods/goodie, haggled_price)
 	if(!(trade_flags & TRADER_MONEY))
@@ -182,7 +182,7 @@
 	console.credits_held += proposed_cost
 	current_credits -= proposed_cost
 	randomize_haggle()
-	console.write_manifest(goodie.name, goodie.GetAmount(chosen_item), proposed_cost, TRUE, user.name)
+	console.write_manifest(src, goodie.name, goodie.GetAmount(chosen_item), proposed_cost, TRUE, user.name)
 	if(hard_bargain)
 		return get_response("hard_bargain", "You drive a hard bargain, but I'll accept", user)
 	else
@@ -217,7 +217,7 @@
 	console.linked_pad.do_teleport_effect()
 	AfterTrade(user,console)
 	randomize_haggle()
-	console.write_manifest(goodie.name, 1, proposed_cost, FALSE, user.name)
+	console.write_manifest(src, goodie.name, 1, proposed_cost, FALSE, user.name)
 	if(hard_bargain)
 		return get_response("hard_bargain", "You drive a hard bargain, but I'll accept", user)
 	else
@@ -286,7 +286,7 @@
 	console.linked_pad.do_teleport_effect()
 	AfterTrade(user,console)
 	randomize_haggle()
-	console.write_manifest(conjoined_string, "[conjoined_amount] total", total_value, TRUE, user.name)
+	console.write_manifest(src, conjoined_string, "[conjoined_amount] total", total_value, TRUE, user.name)
 	return get_response("trade_complete", "Thanks for your business!", user)
 
 /datum/trader/proc/requested_bounty_claim(mob/user, obj/machinery/computer/trade_console/console, datum/trader_bounty/bounty)
@@ -311,12 +311,12 @@
 		qdel(AM)
 	console.credits_held += bounty.reward_cash
 	if(bounty.reward_item_path)
-		console.write_manifest(bounty.reward_item_name, 1, 0, FALSE, user.name)
+		console.write_manifest(src, bounty.reward_item_name, 1, 0, FALSE, user.name)
 		new bounty.reward_item_path(get_turf(console.linked_pad))
 	console.linked_pad.do_teleport_effect()
 	AfterTrade(user,console)
 	randomize_haggle()
-	console.write_manifest(bounty.name, counted_amount, bounty.reward_cash, TRUE, user.name)
+	console.write_manifest(src, bounty.name, counted_amount, bounty.reward_cash, TRUE, user.name)
 	. = bounty.bounty_complete_text
 	bounties -= bounty
 	if(bounty.supplies_bounty)
