@@ -645,8 +645,7 @@
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/capacitor = 1,
 		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/stack/sheet/glass = 2,
-		/obj/item/stock_parts/cell = 1)
+		/obj/item/stack/sheet/glass = 2)
 	def_components = list(/obj/item/stock_parts/cell = /obj/item/stock_parts/cell/high)
 	needs_anchored = FALSE
 
@@ -657,8 +656,7 @@
 		/obj/item/stock_parts/matter_bin = 1,
 		/obj/item/stock_parts/capacitor = 1,
 		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/stack/sheet/glass = 1,
-		/obj/item/stock_parts/cell = 1)
+		/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/machine/chem_dispenser/big
 	name = "Big Chem Dispenser"
@@ -667,8 +665,7 @@
 		/obj/item/stock_parts/matter_bin = 3,
 		/obj/item/stock_parts/capacitor = 1,
 		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/stack/sheet/glass = 3,
-		/obj/item/stock_parts/cell = 1)
+		/obj/item/stack/sheet/glass = 3)
 
 /obj/item/circuitboard/machine/chem_dispenser/abductor
 	name = "Reagent Synthesizer"
@@ -680,7 +677,6 @@
 		/obj/item/stock_parts/capacitor/super = 2,
 		/obj/item/stock_parts/manipulator/pico = 2,
 		/obj/item/stack/sheet/glass = 1,
-		/obj/item/stock_parts/cell/hyper = 1,
 	)
 	needs_anchored = FALSE
 

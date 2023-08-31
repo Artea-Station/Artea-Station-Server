@@ -1,6 +1,6 @@
-#define CHEM_DISPENSER_HEATER_COEFFICIENT 1
+#define CHEM_DISPENSER_HEATER_COEFFICIENT 0.05
 // Soft drinks dispenser is much better at cooling cause of the specific temperature it wants water and ice at.
-#define SOFT_DISPENSER_HEATER_COEFFICIENT 3
+#define SOFT_DISPENSER_HEATER_COEFFICIENT 0.5
 
 /obj/machinery/chem_dispenser
 	name = "chem dispenser"
@@ -13,11 +13,11 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_dispenser
 	processing_flags = NONE
+	// This munches power due to it being the chemist's main machine, and chemfactories don't exist.
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 2
 
-	var/obj/item/stock_parts/cell/cell
 	var/powerefficiency = 0.1
 	var/amount = 30
-	var/recharge_amount = 10
 	var/recharge_counter = 0
 	var/dispensed_temperature = DEFAULT_REAGENT_TEMPERATURE
 	var/heater_coefficient = CHEM_DISPENSER_HEATER_COEFFICIENT
@@ -55,7 +55,6 @@
 
 /obj/machinery/chem_dispenser/Destroy()
 	QDEL_NULL(beaker)
-	QDEL_NULL(cell)
 	return ..()
 
 /obj/machinery/chem_dispenser/examine(mob/user)
@@ -83,23 +82,18 @@
 
 	var/power_to_use = active_power_usage
 
-	if (recharge_counter >= 8)
-		var/usedpower = cell.give(recharge_amount)
-		if(usedpower)
-			power_to_use += recharge_amount + ((active_power_usage / 4) * 3)
-		recharge_counter = 0
-	else
-		recharge_counter += delta_time
-
 	for(var/obj/item/reagent_containers/chem_cartridge/cartridge as anything in cartridges)
 		cartridge = cartridges[cartridge]
 		if(cartridge.reagents.total_volume)
 			if(cartridge.reagents.is_reacting)//on_reaction_step() handles this
 				continue
-			cartridge.reagents.adjust_thermal_energy((dispensed_temperature - cartridge.reagents.chem_temp) * (heater_coefficient * powerefficiency) * delta_time * SPECIFIC_HEAT_DEFAULT * cartridge.reagents.total_volume)
+			var/thermal_energy_to_provide = (dispensed_temperature - cartridge.reagents.chem_temp) * (heater_coefficient * powerefficiency) * delta_time * SPECIFIC_HEAT_DEFAULT * cartridge.reagents.total_volume
+			// Okay, hear me out, one cartridge, when heated from default (room) temp to the magic water/ice temperature, provides about 255000 thermal energy (drinks dispenser, divide that by 10 for chem) a tick. Let's take that number, kneecap it down by a sizeable chunk, and use it as power consumption, yea?
+			power_to_use += abs(thermal_energy_to_provide) / 1000
+			cartridge.reagents.adjust_thermal_energy(thermal_energy_to_provide)
 			cartridge.reagents.handle_reactions()
 
-	use_power((active_power_usage / 4) + power_to_use) // Use power for cell
+	use_power(active_power_usage)
 
 /obj/machinery/chem_dispenser/proc/display_beaker()
 	var/mutable_appearance/b_o = beaker_overlay || mutable_appearance(icon, "disp_beaker")
@@ -170,8 +164,8 @@
 /obj/machinery/chem_dispenser/ui_data(mob/user)
 	var/data = list()
 	data["amount"] = amount
-	data["energy"] = cell.charge ? cell.charge * powerefficiency : "0" //To prevent NaN in the UI.
-	data["maxEnergy"] = cell.maxcharge * powerefficiency
+	data["cartAmount"] = length(cartridges)
+	data["maxCarts"] = maximum_cartridges
 	data["isBeakerLoaded"] = beaker ? 1 : 0
 
 	var/beakerContents[0]
@@ -228,16 +222,13 @@
 				work_animation()
 				. = TRUE
 		if("dispense")
-			if(!is_operational || QDELETED(cell))
+			if(!is_operational)
 				return
 			var/reagent_name = params["reagent"]
 			var/obj/item/reagent_containers/cartridge = cartridges[reagent_name]
 			if(beaker && cartridge)
 				var/datum/reagents/holder = beaker.reagents
 				var/to_dispense = max(0, min(amount, holder.maximum_volume - holder.total_volume))
-				if(!cell?.use(to_dispense / powerefficiency))
-					say("Not enough energy to complete operation!")
-					return
 				cartridge.reagents.trans_to(holder, to_dispense)
 
 				work_animation()
@@ -294,15 +285,12 @@
 	else
 		return ..()
 
-/obj/machinery/chem_dispenser/get_cell()
-	return cell
-
 /obj/machinery/chem_dispenser/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
 	var/list/datum/reagents/R = list()
-	var/total = min(rand(7,15), FLOOR(cell.charge*powerefficiency, 1))
+	var/total = min(rand(7,15), powerefficiency)
 	var/datum/reagents/Q = new(total*10)
 	if(beaker?.reagents)
 		R += beaker.reagents
@@ -313,23 +301,19 @@
 	chem_splash(get_turf(src), null, 3, R)
 	if(beaker?.reagents)
 		beaker.reagents.remove_all()
-	cell.use(total/powerefficiency)
-	cell.emp_act(severity)
 	work_animation()
 	visible_message(span_danger("[src] malfunctions, spraying chemicals everywhere!"))
 
 /obj/machinery/chem_dispenser/RefreshParts()
 	. = ..()
-	recharge_amount = initial(recharge_amount)
+	heater_coefficient = initial(heater_coefficient)
 	var/newpowereff = 0.0666666
 	var/parts_rating = 0
-	for(var/obj/item/stock_parts/cell/found_cell in component_parts)
-		cell = found_cell
 	for(var/obj/item/stock_parts/matter_bin/matter_bin in component_parts)
-		newpowereff += 0.0166666666*matter_bin.rating
+		heater_coefficient += initial(heater_coefficient)*matter_bin.rating // Bigger dispensers are better at cooling/heating.
 		parts_rating += matter_bin.rating
 	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
-		recharge_amount *= capacitor.rating
+		newpowereff += 0.0166666666*capacitor.rating
 		parts_rating += capacitor.rating
 	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
 		parts_rating += manipulator.rating
@@ -347,7 +331,6 @@
 	return TRUE
 
 /obj/machinery/chem_dispenser/on_deconstruction()
-	cell = null
 	if(beaker)
 		beaker.forceMove(drop_location())
 		beaker = null

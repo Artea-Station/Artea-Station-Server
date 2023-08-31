@@ -1,4 +1,3 @@
-import { toFixed } from 'common/math';
 import { useBackend } from '../backend';
 import { AnimatedNumber, Box, Button, LabeledList, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
@@ -28,9 +27,9 @@ export const ChemDispenser = (props, context) => {
             />
           }>
           <LabeledList>
-            <LabeledList.Item label="Energy">
-              <ProgressBar value={data.energy / data.maxEnergy}>
-                {toFixed(data.energy) + ' units'}
+            <LabeledList.Item label="Cartridges">
+              <ProgressBar value={data.cartAmount} maxValue={data.maxCarts}>
+                {data.cartAmount} cartridges
               </ProgressBar>
             </LabeledList.Item>
           </LabeledList>

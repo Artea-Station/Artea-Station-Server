@@ -79,7 +79,9 @@
 
 /obj/item/reagent_containers/chem_cartridge/attackby(obj/item/attacking_item, mob/user, params)
 	if(istype(attacking_item, /obj/item/pen))
-		setLabel(tgui_input_text(user, "Input (leave blank to clear):", "Set Label Name"))
+		var/input = tgui_input_text(user, "Input (leave blank to clear):", "Set Label Name")
+		if(input != null) // Empty string is a false value.
+			setLabel()
 		return TRUE
 
 	return ..()
