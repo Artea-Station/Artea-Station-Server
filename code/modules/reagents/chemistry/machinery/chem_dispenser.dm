@@ -312,7 +312,7 @@
 	var/bin_ratings = 0
 	var/bin_count = 0
 	for(var/obj/item/stock_parts/matter_bin/matter_bin in component_parts)
-		bin_ratings += matter_bin.rating // Bigger dispensers are better at cooling/heating.
+		bin_ratings += matter_bin.rating
 		bin_count += 1
 		parts_rating += matter_bin.rating
 	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
