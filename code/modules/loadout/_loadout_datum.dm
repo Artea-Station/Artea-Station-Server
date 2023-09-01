@@ -4,28 +4,10 @@
 GLOBAL_LIST_EMPTY(all_loadout_datums)
 
 /**
- * Generate a list of singleton loadout_item datums from all subtypes of [type_to_generate]
+ * # Loadout item datum
  *
- * returns a list of singleton datums.
+ * Singleton that holds all the information about each loadout items, and how to equip them.
  */
-/proc/generate_loadout_items(type_to_generate)
-	RETURN_TYPE(/list)
-
-	. = list()
-	if(!ispath(type_to_generate))
-		CRASH("generate_loadout_items(): called with an invalid or null path as an argument!")
-
-	for(var/datum/loadout_item/found_type as anything in subtypesof(type_to_generate))
-		/// Any item without a path is "abstract"
-		if(!ispath(initial(found_type.item_path)))
-			continue
-
-		var/datum/loadout_item/spawned_type = new found_type()
-		. += spawned_type
-
-/// Loadout item datum.
-/// Holds all the information about each loadout items.
-/// A list of singleton loadout items are generated on initialize.
 /datum/loadout_item
 	/// Displayed name of the loadout item.
 	var/name
@@ -40,8 +22,10 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 	/// Whether this item can be reskinned.
 	/// Only works if the item has a "unique reskin" list set.
 	var/can_be_reskinned = FALSE
-	/// The category of the loadout item.
-	var/category
+	/// The category of the loadout item. Set automatically in New
+	VAR_FINAL/datum/loadout_category/category
+	/// The abstract parent of this loadout item, to determine which items to not instantiate
+	var/abstract_type = /datum/loadout_item
 	/// The actual item path of the loadout item.
 	var/obj/item/item_path
 	/// Lazylist of additional text for the tooltip displayed on this item.
@@ -51,10 +35,12 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 	/// Priority of the item. Lower is sorted first.
 	var/priority = 0
 
-/datum/loadout_item/New()
+/datum/loadout_item/New(category)
+	src.category = category
+
 	if(!name)
 		// Saves a ton of manual data entry. Still leaving the field cause of things like "random x item".
-		name = initial(item_path.name)
+		name = capitalize(initial(item_path.name))
 
 	if(can_be_greyscale == DONT_GREYSCALE)
 		// Explicitly be false if we don't want this to greyscale
@@ -82,9 +68,11 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 		stack_trace("Loadout datum collision detected! [item_path] is shared between multiple loadout datums.")
 	GLOB.all_loadout_datums[item_path] = src
 
-/datum/loadout_item/Destroy()
+/datum/loadout_item/Destroy(force, ...)
+	if(force)
+		stack_trace("Who's destroying loadout item datums?! This shouldn't really ever be done! (Use FORCE if necessary)")
+		return
 	GLOB.all_loadout_datums -= item_path
-	stack_trace("Who's destroying loadout item datums?! This shouldn't really ever be done!")
 	return ..()
 
 /// Helper to add a tooltip to our tooltip list.
@@ -167,7 +155,7 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 		return
 
 	loadout[item_path][INFO_GREYSCALE] = colors.Join("")
-	manager.preferences.update_preference(manager.preference, loadout)
+	manager.preferences.update_preference(GLOB.preference_entries[/datum/preference/loadout], loadout)
 	manager.preferences.character_preview_view.update_body()
 
 /datum/loadout_item/proc/set_name(datum/preference_middleware/loadout/manager, mob/user)
@@ -190,7 +178,7 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 	else
 		loadout[item_path] -= INFO_NAMED
 
-	manager.preferences.update_preference(manager.preference, loadout)
+	manager.preferences.update_preference(GLOB.preference_entries[/datum/preference/loadout], loadout)
 
 /datum/loadout_item/proc/set_skin(datum/preference_middleware/loadout/manager, mob/user)
 	var/list/loadout = manager.preferences.read_preference(/datum/preference/loadout)
@@ -221,7 +209,7 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 	else
 		loadout[item_path][INFO_RESKIN] = input_skin
 
-	manager.preferences.update_preference(manager.preference, loadout)
+	manager.preferences.update_preference(GLOB.preference_entries[/datum/preference/loadout], loadout)
 
 /**
  * Place our [var/item_path] into [outfit].
@@ -263,7 +251,7 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 		if(skin_chosen in equipped_item.unique_reskin)
 			equipped_item.current_skin = skin_chosen
 			equipped_item.icon_state = equipped_item.unique_reskin[skin_chosen]
-			equipper.update_worn_oversuit()
+			equipper.update_clothing(equipped_item.slot_flags)
 		else
 			// Not valid
 			item_details -= INFO_RESKIN

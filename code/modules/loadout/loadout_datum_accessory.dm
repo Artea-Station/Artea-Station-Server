@@ -6,13 +6,10 @@
 /datum/loadout_category/accessories
 	category_name = "Accessory"
 	ui_title = "Uniform Accessory Items"
-
-/datum/loadout_category/accessories/get_items()
-	var/static/list/loadout_accessory = generate_loadout_items(/datum/loadout_item/accessory)
-	return loadout_accessory
+	type_to_generate = /datum/loadout_item/accessory
 
 /datum/loadout_item/accessory
-	category = LOADOUT_ITEM_ACCESSORY
+	abstract_type = /datum/loadout_item/accessory
 	always_shown = FALSE
 	priority = 2
 	// Can we adjust this accessory to be above or below suits?
@@ -54,7 +51,7 @@
 
 	loadout[item_path][INFO_LAYER] = !loadout[item_path][INFO_LAYER]
 	to_chat(user, span_boldnotice("[name] will now appear [loadout[item_path][INFO_LAYER] ? "above" : "below"] suits."))
-	manager.preferences.update_preference(manager.preference, loadout)
+	manager.preferences.update_preference(GLOB.preference_entries[/datum/preference/loadout], loadout)
 
 /datum/loadout_item/accessory/insert_path_into_outfit(datum/outfit/outfit, mob/living/carbon/human/equipper, visuals_only)
 	if(!outfit.uniform) // let's not try to put accessories on underless outfits.
