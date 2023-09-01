@@ -309,14 +309,18 @@
 	heater_coefficient = initial(heater_coefficient)
 	var/newpowereff = 0.0666666
 	var/parts_rating = 0
+	var/bin_ratings = 0
+	var/bin_count = 0
 	for(var/obj/item/stock_parts/matter_bin/matter_bin in component_parts)
-		heater_coefficient += initial(heater_coefficient)*matter_bin.rating // Bigger dispensers are better at cooling/heating.
+		bin_ratings += matter_bin.rating // Bigger dispensers are better at cooling/heating.
+		bin_count += 1
 		parts_rating += matter_bin.rating
 	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
 		newpowereff += 0.0166666666*capacitor.rating
 		parts_rating += capacitor.rating
 	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
 		parts_rating += manipulator.rating
+	heater_coefficient = initial(heater_coefficient) * (bin_ratings / bin_count)
 	powerefficiency = round(newpowereff, 0.01)
 
 /obj/machinery/chem_dispenser/proc/replace_beaker(mob/living/user, obj/item/reagent_containers/new_beaker)
