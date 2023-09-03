@@ -14,7 +14,7 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 	/// Whether this item has greyscale support.
 	/// Only works if the item is compatible with the GAGS system of coloring.
 	/// Set automatically to TRUE for all items that have the flag [IS_PLAYER_COLORABLE_1].
-	/// If you really want it to not be colorable set this to [DONT_GREYSCALE]
+	/// If you really want it to not be colorable set this to [LOADOUT_DONT_GREYSCALE]
 	var/can_be_greyscale = FALSE
 	/// Whether this item can be renamed.
 	/// I recommend you apply this sparingly becuase it certainly can go wrong (or get reset / overridden easily)
@@ -42,7 +42,7 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 		// Saves a ton of manual data entry. Still leaving the field cause of things like "random x item".
 		name = capitalize(initial(item_path.name))
 
-	if(can_be_greyscale == DONT_GREYSCALE)
+	if(can_be_greyscale == LOADOUT_DONT_GREYSCALE)
 		// Explicitly be false if we don't want this to greyscale
 		can_be_greyscale = FALSE
 	else if(initial(item_path.flags_1) & IS_PLAYER_COLORABLE_1)
@@ -135,7 +135,7 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 		CALLBACK(src, PROC_REF(set_slot_greyscale), manager),
 		starting_icon_state = initial(item_path.icon_state),
 		starting_config = initial(item_path.greyscale_config),
-		starting_colors = loadout?[item_path]?[INFO_GREYSCALE] || initial(item_path.greyscale_colors),
+		starting_colors = loadout?[item_path]?[LOADOUT_DATA_GREYSCALE] || initial(item_path.greyscale_colors),
 	)
 
 	manager.register_greyscale_menu(menu)
@@ -154,7 +154,7 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 	if(!colors)
 		return
 
-	loadout[item_path][INFO_GREYSCALE] = colors.Join("")
+	loadout[item_path][LOADOUT_DATA_GREYSCALE] = colors.Join("")
 	manager.preferences.update_preference(GLOB.preference_entries[/datum/preference/loadout], loadout)
 	manager.preferences.character_preview_view.update_body()
 
@@ -164,7 +164,7 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 		user = user,
 		message = "What name do you want to give [name]? Leave blank to clear.",
 		title = "[name] name",
-		default = loadout?[item_path]?[INFO_NAMED], // plop in existing name (if any)
+		default = loadout?[item_path]?[LOADOUT_DATA_NAMED], // plop in existing name (if any)
 		max_length = MAX_NAME_LEN,
 	)
 	if(QDELETED(src) || QDELETED(user) || QDELETED(manager) || QDELETED(manager.preferences))
@@ -174,9 +174,9 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 		manager.select_item(src)
 
 	if(input_name)
-		loadout[item_path][INFO_NAMED] = input_name
+		loadout[item_path][LOADOUT_DATA_NAMED] = input_name
 	else
-		loadout[item_path] -= INFO_NAMED
+		loadout[item_path] -= LOADOUT_DATA_NAMED
 
 	manager.preferences.update_preference(GLOB.preference_entries[/datum/preference/loadout], loadout)
 
@@ -196,7 +196,7 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 		message = "What skin do you want this to be?",
 		title = "Reskin [name]",
 		items = choices,
-		default = loadout?[item_path]?[INFO_RESKIN],
+		default = loadout?[item_path]?[LOADOUT_DATA_RESKIN],
 	)
 	if(QDELETED(src) || QDELETED(user) || QDELETED(manager) || QDELETED(manager.preferences))
 		return
@@ -205,9 +205,9 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 		manager.select_item(src)
 
 	if(!input_skin || input_skin == "Default")
-		loadout[item_path] -= INFO_RESKIN
+		loadout[item_path] -= LOADOUT_DATA_RESKIN
 	else
-		loadout[item_path][INFO_RESKIN] = input_skin
+		loadout[item_path][LOADOUT_DATA_RESKIN] = input_skin
 
 	manager.preferences.update_preference(GLOB.preference_entries[/datum/preference/loadout], loadout)
 
@@ -238,23 +238,23 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 
 	var/list/item_details = preference_list[item_path]
 
-	if(can_be_greyscale && item_details?[INFO_GREYSCALE])
-		equipped_item.set_greyscale(item_details[INFO_GREYSCALE])
+	if(can_be_greyscale && item_details?[LOADOUT_DATA_GREYSCALE])
+		equipped_item.set_greyscale(item_details[LOADOUT_DATA_GREYSCALE])
 		equipper.update_clothing(equipped_item.slot_flags)
 
-	if(can_be_named && item_details?[INFO_NAMED] && !visuals_only)
-		equipped_item.name = item_details[INFO_NAMED]
+	if(can_be_named && item_details?[LOADOUT_DATA_NAMED] && !visuals_only)
+		equipped_item.name = item_details[LOADOUT_DATA_NAMED]
 		equipped_item.renamedByPlayer = TRUE
 
-	if(can_be_reskinned && item_details?[INFO_RESKIN])
-		var/skin_chosen = item_details[INFO_RESKIN]
+	if(can_be_reskinned && item_details?[LOADOUT_DATA_RESKIN])
+		var/skin_chosen = item_details[LOADOUT_DATA_RESKIN]
 		if(skin_chosen in equipped_item.unique_reskin)
 			equipped_item.current_skin = skin_chosen
 			equipped_item.icon_state = equipped_item.unique_reskin[skin_chosen]
 			equipper.update_clothing(equipped_item.slot_flags)
 		else
 			// Not valid
-			item_details -= INFO_RESKIN
+			item_details -= LOADOUT_DATA_RESKIN
 			preference_source.write_preference(GLOB.preference_entries[/datum/preference/loadout], preference_list)
 
 	return equipped_item

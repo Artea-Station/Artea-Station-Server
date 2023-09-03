@@ -46,11 +46,11 @@
 	if(!loadout?[item_path])
 		manager.select_item(src)
 
-	if(isnull(loadout[item_path][INFO_LAYER]))
-		loadout[item_path][INFO_LAYER] = FALSE
+	if(isnull(loadout[item_path][LOADOUT_DATA_LAYER]))
+		loadout[item_path][LOADOUT_DATA_LAYER] = FALSE
 
-	loadout[item_path][INFO_LAYER] = !loadout[item_path][INFO_LAYER]
-	to_chat(user, span_boldnotice("[name] will now appear [loadout[item_path][INFO_LAYER] ? "above" : "below"] suits."))
+	loadout[item_path][LOADOUT_DATA_LAYER] = !loadout[item_path][LOADOUT_DATA_LAYER]
+	to_chat(user, span_boldnotice("[name] will now appear [loadout[item_path][LOADOUT_DATA_LAYER] ? "above" : "below"] suits."))
 	manager.preferences.update_preference(GLOB.preference_entries[/datum/preference/loadout], loadout)
 
 /datum/loadout_item/accessory/insert_path_into_outfit(datum/outfit/outfit, mob/living/carbon/human/equipper, visuals_only)
@@ -70,7 +70,7 @@
 	if(!istype(equipped_item))
 		return
 
-	equipped_item.above_suit = !!preference_list[item_path]?[INFO_LAYER]
+	equipped_item.above_suit = !!preference_list[item_path]?[LOADOUT_DATA_LAYER]
 	if(!istype(suit))
 		return
 

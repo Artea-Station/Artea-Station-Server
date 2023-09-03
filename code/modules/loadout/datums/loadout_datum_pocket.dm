@@ -118,7 +118,7 @@
 
 /datum/loadout_item/pocket_items/plush/lizard_random
 	name = "random lizard plush"
-	can_be_greyscale = DONT_GREYSCALE
+	can_be_greyscale = LOADOUT_DONT_GREYSCALE
 	item_path = /obj/item/toy/plush/lizard_plushie
 	additional_tooltip_contents = list(TOOLTIP_RANDOM_COLOR)
 

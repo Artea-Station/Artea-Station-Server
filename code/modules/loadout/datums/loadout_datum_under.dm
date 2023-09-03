@@ -27,7 +27,7 @@
 
 /datum/loadout_item/under/jumpsuit/random
 	name = "random jumpsuit"
-	can_be_greyscale = DONT_GREYSCALE
+	can_be_greyscale = LOADOUT_DONT_GREYSCALE
 	item_path = /obj/item/clothing/under/color/random
 	additional_tooltip_contents = list(TOOLTIP_RANDOM_COLOR)
 

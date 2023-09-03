@@ -188,16 +188,13 @@
 #define LOADOUT_ITEM_INHAND "inhand_items"
 #define LOADOUT_ITEM_MISC "pocket_items"
 
-#define INFO_GREYSCALE "greyscale"
-#define INFO_NAMED "name"
-#define INFO_RESKIN "reskin"
-#define INFO_LAYER "layer"
-
-/// Max amonut of misc / backpack items that are allowed.
-#define MAX_ALLOWED_MISC_ITEMS 3
+#define LOADOUT_DATA_GREYSCALE "greyscale"
+#define LOADOUT_DATA_NAMED "name"
+#define LOADOUT_DATA_RESKIN "reskin"
+#define LOADOUT_DATA_LAYER "layer"
 
 /// Used to make something not recolorable even if it's capable
-#define DONT_GREYSCALE -1
+#define LOADOUT_DONT_GREYSCALE -1
 
 /// Defines for extra info blurbs, for loadout items.
 #define TOOLTIP_NO_ARMOR "ARMORLESS - This item has no armor and is entirely cosmetic."
