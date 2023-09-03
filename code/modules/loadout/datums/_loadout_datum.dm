@@ -1,8 +1,5 @@
 // -- The loadout item datum and related procs. --
 
-/// Global list of ALL loadout datums instantiated.
-GLOBAL_LIST_EMPTY(all_loadout_datums)
-
 /**
  * # Loadout item datum
  *
@@ -69,7 +66,7 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 	GLOB.all_loadout_datums[item_path] = src
 
 /datum/loadout_item/Destroy(force, ...)
-	if(force)
+	if(!force)
 		stack_trace("Who's destroying loadout item datums?! This shouldn't really ever be done! (Use FORCE if necessary)")
 		return
 	GLOB.all_loadout_datums -= item_path
