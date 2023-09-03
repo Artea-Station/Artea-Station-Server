@@ -1,11 +1,5 @@
 /// -- The loadout manager and UI --
 
-/// Global list of all loadout categories singletons
-/// This is global (rather than just static on the loadout middleware datum)
-/// just so we can ensure it is loaded regardless of whether someone opens the loadout UI
-/// (because it also inits our loadout datums)
-GLOBAL_LIST_INIT(loadout_categories, init_loadout_categories())
-
 /// Inits the loadout categories list
 /proc/init_loadout_categories()
 	. = list()

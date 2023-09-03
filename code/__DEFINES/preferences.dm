@@ -203,3 +203,12 @@
 #define TOOLTIP_GREYSCALE "GREYSCALED - This item can be customized via the greyscale modification UI."
 #define TOOLTIP_RENAMABLE "RENAMABLE - This item can be given a custom name."
 #define TOOLTIP_RESKINNABLE "RESKINNABLE - This item can be reskinned."
+
+/// Global list of ALL loadout datums instantiated.
+GLOBAL_LIST_EMPTY(all_loadout_datums)
+
+/// Global list of all loadout categories singletons
+/// This is global (rather than just static on the loadout middleware datum)
+/// just so we can ensure it is loaded regardless of whether someone opens the loadout UI
+/// (because it also inits our loadout datums)
+GLOBAL_LIST_INIT(loadout_categories, init_loadout_categories())
