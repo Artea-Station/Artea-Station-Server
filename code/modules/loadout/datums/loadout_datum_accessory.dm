@@ -76,7 +76,6 @@
 
 	// Hacky, but accessory will ONLY update when attached or detached.
 	equipped_item.detach(suit)
-	equipped_item.current_skin = preference_list[item_path]?[LOADOUT_DATA_RESKIN]
 	suit.attach_accessory(equipped_item)
 
 /datum/loadout_item/accessory/maid_apron

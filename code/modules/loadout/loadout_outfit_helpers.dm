@@ -28,14 +28,15 @@
 		return FALSE
 
 	if (loadout)
-		var/list/loadout_datums = loadout_list_to_datums(preference_source?.read_preference(/datum/preference/loadout))
+		var/list/loadout_list = preference_source?.read_preference(/datum/preference/loadout)
+		var/list/loadout_datums = loadout_list_to_datums(loadout_list)
 		for(var/datum/loadout_item/item as anything in loadout_datums)
 			item.insert_path_into_outfit(equipped_outfit, src, visuals_only)
 
 		equipOutfit(equipped_outfit, visuals_only)
 
 		for(var/datum/loadout_item/item as anything in loadout_datums)
-			item.on_equip_item(preference_source, src, visuals_only, loadout_datums)
+			item.on_equip_item(preference_source, src, visuals_only, loadout_list)
 
 		for(var/datum/loadout_item/item as anything in loadout_datums)
 			item.post_equip_item(preference_source, src, visuals_only)
