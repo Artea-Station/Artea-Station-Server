@@ -55,7 +55,7 @@
 
 /datum/loadout_item/accessory/insert_path_into_outfit(datum/outfit/outfit, mob/living/carbon/human/equipper, visuals_only)
 	if(!outfit.uniform) // let's not try to put accessories on underless outfits.
-		outfit.backpack_contents += list(item_path = 1)
+		LAZYADD(outfit.backpack_contents, item_path)
 		return
 
 	if(outfit.accessory || visuals_only)
@@ -71,12 +71,12 @@
 		return
 
 	equipped_item.above_suit = !!preference_list[item_path]?[LOADOUT_DATA_LAYER]
+
 	if(!istype(suit))
 		return
 
-	// Hacky, but accessory will ONLY update when attached or detached.
-	equipped_item.detach(suit)
-	suit.attach_accessory(equipped_item)
+	suit.cut_overlay(equipped_item)
+	suit.add_overlay(equipped_item)
 
 /datum/loadout_item/accessory/maid_apron
 	item_path = /obj/item/clothing/accessory/maidapron
