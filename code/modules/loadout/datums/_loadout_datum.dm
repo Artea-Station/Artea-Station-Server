@@ -198,8 +198,11 @@
 	if(QDELETED(src) || QDELETED(user) || QDELETED(manager) || QDELETED(manager.preferences))
 		return
 
-	if(!islist(loadout?[type]))
+	if(!islist(loadout?[item_path]))
 		manager.select_item(src)
+		if(!islist(loadout?[item_path]))
+			user.show_message(span_warning("Unable to apply [name] as chosen loadout item for [category.category_name], aborting!"))
+			return
 
 	if(!input_skin || input_skin == "Default")
 		loadout[item_path] -= LOADOUT_DATA_RESKIN
@@ -207,6 +210,7 @@
 		loadout[item_path][LOADOUT_DATA_RESKIN] = input_skin
 
 	manager.preferences.update_preference(GLOB.preference_entries[/datum/preference/loadout], loadout)
+	manager.preferences.character_preview_view.update_body()
 
 /**
  * Place our [var/item_path] into [outfit].
