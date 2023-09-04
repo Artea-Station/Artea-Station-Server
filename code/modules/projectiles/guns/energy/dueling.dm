@@ -18,6 +18,17 @@
 	var/list/fired = list()
 	var/countdown_length = 10
 	var/countdown_step = 0
+	var/pairing_code = ""
+
+/datum/duel/New(new_gun_A, new_gun_B)
+	pairing_code = assign_random_name()
+
+	gun_A = new_gun_A
+	gun_B = new_gun_B
+	gun_A.duel = src
+	gun_B.duel = src
+
+	. = ..()
 
 /datum/duel/proc/try_begin()
 	//Check if both guns are held and if so begin.
