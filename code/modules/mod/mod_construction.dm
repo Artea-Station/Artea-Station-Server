@@ -109,7 +109,7 @@
 	theme = /datum/mod_theme/mining
 
 /obj/item/clothing/suit/space/hardsuit/syndi
-	theme = /datum/mod_theme/syndicate
+	theme = /datum/mod_theme/crimson
 
 #define START_STEP "start"
 #define CORE_STEP "core"

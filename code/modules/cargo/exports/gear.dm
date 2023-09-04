@@ -43,12 +43,12 @@
 
 /datum/export/gear/space/syndiehelmet
 	cost = CARGO_CRATE_VALUE * 0.3
-	unit_name = "Syndicate space helmet"
+	unit_name = "crimson space helmet"
 	export_types = list(/obj/item/clothing/head/helmet/space/syndicate)
 
 /datum/export/gear/space/syndiesuit
 	cost = CARGO_CRATE_VALUE * 0.6
-	unit_name = "Syndicate space suit"
+	unit_name = "crimson space suit"
 	export_types = list(/obj/item/clothing/suit/space/syndicate)
 
 
