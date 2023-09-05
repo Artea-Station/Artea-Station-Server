@@ -146,7 +146,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/traitor
-	theme = /datum/mod_theme/crimson
+	theme = /datum/mod_theme/syndicate
 	applied_cell = /obj/item/stock_parts/cell/super
 	initial_modules = list(
 		/obj/item/mod/module/storage/syndicate,
@@ -171,7 +171,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/nuclear
-	theme = /datum/mod_theme/crimson
+	theme = /datum/mod_theme/syndicate
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	req_access = list(ACCESS_SYNDICATE)
 	initial_modules = list(
@@ -381,7 +381,7 @@
 /obj/item/mod/control/pre_equipped/empty
 
 /obj/item/mod/control/pre_equipped/empty/syndicate
-	theme = /datum/mod_theme/crimson
+	theme = /datum/mod_theme/syndicate
 
 /obj/item/mod/control/pre_equipped/empty/syndicate/honkerative
 	applied_skin = "honkerative"

@@ -191,4 +191,4 @@
 
 /obj/item/mod/skin_applier/honkerative
 	skin = "honkerative"
-	compatible_theme = /datum/mod_theme/crimson
+	compatible_theme = /datum/mod_theme/syndicate
