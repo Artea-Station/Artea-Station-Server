@@ -14,7 +14,7 @@
 	if(file_storing in stored_files)
 		return FALSE
 
-	SEND_SIGNAL(file_storing, COMSIG_MODULAR_COMPUTER_FILE_ADDING)
+	SEND_SIGNAL(file_storing, COMSIG_MODULAR_COMPUTER_FILE_STORE)
 	file_storing.computer = src
 	stored_files.Add(file_storing)
 	used_capacity += file_storing.size
@@ -41,7 +41,7 @@
 		if(program_file.program_state == PROGRAM_STATE_ACTIVE)
 			active_program = null
 
-	SEND_SIGNAL(file_removing, COMSIG_MODULAR_COMPUTER_FILE_DELETING)
+	SEND_SIGNAL(file_removing, COMSIG_MODULAR_COMPUTER_FILE_DELETE)
 	stored_files.Remove(file_removing)
 	used_capacity -= file_removing.size
 	SEND_SIGNAL(src, COMSIG_MODULAR_COMPUTER_FILE_DELETE, file_removing)

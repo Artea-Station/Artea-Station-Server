@@ -127,10 +127,6 @@
 		var/datum/signal/subspace/messaging/tablet_message/PDAsignal = signal
 		var/datum/data_tablet_msg/log_message = new(PDAsignal.format_target(), PDAsignal.format_sender(), PDAsignal.format_message(), PDAsignal.format_photo_path())
 		pda_msgs += log_message
-	else if(istype(signal, /datum/signal/subspace/messaging/rc))
-		var/datum/data_rc_msg/msg = new(signal.data["rec_dpt"], signal.data["send_dpt"], signal.data["message"], signal.data["stamped"], signal.data["verified"], signal.data["priority"])
-		if(signal.data["send_dpt"]) // don't log messages not from a department but allow them to work
-			rc_msgs += msg
 	signal.data["reject"] = FALSE
 
 	// pass it along to either the hub or the broadcaster
@@ -186,13 +182,6 @@
 		if(!QDELETED(app))
 			app.receive_message(src)
 	data["targets"] = null
-
-// Request Console signal datum
-/datum/signal/subspace/messaging/rc/broadcast()
-	var/recipient_department = ckey(data["recipient_department"])
-	for (var/obj/machinery/requests_console/console in GLOB.req_console_all)
-		if(ckey(console.department) == recipient_department || (data["ore_update"] && console.receive_ore_updates))
-			console.create_message(data)
 
 // Log datums stored by the message server.
 /datum/data_tablet_msg

@@ -341,8 +341,6 @@
 	. = ..()
 	for(var/datum/computer_file/program/messenger/msg in stored_files)
 		msg.mime_mode = TRUE
-		msg.allow_emojis = TRUE
-		msg.ringer_status = FALSE
 
 /obj/item/modular_computer/pda/curator
 	name = "curator PDA"
