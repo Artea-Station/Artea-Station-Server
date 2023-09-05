@@ -54,15 +54,9 @@ Lets go over the reaction vars below. These can be edited and set on a per chemi
     var/required_temp			= 100
     var/optimal_temp			= 500			// Upper end for above
 	var/overheat_temp 			= 900 			// Temperature at which reaction explodes - If any reaction is this hot, it procs overheated()
-	var/optimal_ph_min 			= 5         	// Lowest value of pH determining pH a 1 value for pH based rate reactions (Plateu phase)
-	var/optimal_ph_max 			= 9	        	// Higest value for above
-	var/determin_ph_range 		= 4         	// How far out pH wil react, giving impurity place (Exponential phase)
 	var/temp_exponent_factor 	= 2         	// How sharp the temperature exponential curve is (to the power of value)
-	var/ph_exponent_factor 		= 1         	// How sharp the pH exponential curve is (to the power of value)
 	var/thermic_constant		= 1         	// Temperature change per 1u produced
-	var/H_ion_release 			= 0.01       	// pH change per 1u reaction
 	var/rate_up_lim 			= 20			// Optimal/max rate possible if all conditions are perfect
-	var/purity_min 				= 0.15 			// If purity is below 0.15, it calls OverlyImpure() too. Set to 0 to disable this.
 	var/reaction_flags							// bitflags for clear conversions; REACTION_CLEAR_IMPURE, REACTION_CLEAR_INVERSE, REACTION_CLEAR_RETAIN, REACTION_INSTANT
 ```
 
@@ -83,31 +77,6 @@ The amount added is based off the recipies’ required_temp, optimal_temp, overh
 ![image](https://user-images.githubusercontent.com/33956696/104081088-5e571e00-5224-11eb-8834-87aa36b3e45f.png)
 
 the y axis is the normalised value of growth, which is then muliplied by the rate_up_lim. You can see that temperatures below the required_temp produce no result (the reaction doesn't start, or if it is reacting, the reaction will stop). Between the required and optimal is a region that is defined by the temp_exponent_factor, so in this case the value is ^2, so we see exponential growth. Between the optimal_temp and the overheat_temp is the optimal phase - where the rate factor is 1. After that it continues to react, but will call overheated() per timestep. Presently the default for overheated() is to reduce the yield of the product (i.e. it's faster but you get less). The rate_up_lim is the maximum rate the reaction can go at optimal temperatures, so in this case a rate factor of 1 i.e. a temperature between 500+ will produce 10u, or a temperature of 400 will roughly produce 4u per step (independant of product ratio produced, if you put 10, it will only create 10 maximum regardless of how much product is defined in the results list). 
-
-### How pH ranges are set and what pH mechanics do
-
-Optimal pH ranges are set on a per recipe basis - though at the moment all recipes use a default recipe, so they all have the same window (except for the buffers). Hopefully either as a community effort/or in future PRs we can create unique profiles for the present reactions in the game. 
-
-As for how you define the reaction variables for a reaction, there are a few new variables for the chemical_recipe datum. I'll go over specifically how pH works for the default reaction.
-```dm
-/datum/chemical_reaction
-	...
-	var/optimal_ph_min 			= 5         	// Lowest value of pH determining pH a 1 value for pH based rate reactions (Plateu phase)
-	var/optimal_ph_max 			= 9	        	// Higest value for above
-	var/determin_ph_range 		= 4         	// How far out pH wil react, giving impurity place (Exponential phase)
-	var/ph_exponent_factor 		= 1         	// How sharp the pH exponential curve is (to the power of value)
-	var/purity_min 				= 0.15 			// If purity is below 0.15, it calls overly_impure(). In addition, if the product's purity is below this value at the end, the product will be 100% converted into the reagent's failed_chem. Set to 0 to disable this.
-```
-
-For this default reaction, the curve looks like this:
-![image](https://user-images.githubusercontent.com/33956696/104081030-0fa98400-5224-11eb-822e-ffc614799ddc.png)
-
-The y axis is the purity of the product made for that time step. This is recalculated based off the beaker's sum pH for every tick in the reaction. The rate in which your product is made based off the temperature (If you want me to describe that too I can.) So say our reaction has 10u of a purity 1 of product in there, and for our step we're making another 10u with our pH at (roughly) 3, from the curve our purity is (roughly) 0.5. So we will be adding 10u of 0.5 purity to 10u of 1 purity, resulting in 20u of 0.75 purity product. (Though - to note the reactant's purities also modify the purity of volume created on top of this).
-
-If you're designing a reaction you can define an optimal range between the OptimalpHMin to OptimalpHMax (5 - 7 in this case) and a deterministic region set by the ReactpHLim (5 - 4, 9 + 4 aka between 1 to 5 and 9 to 13). This deterministic region is exponential, so if you set it to 2 then it’ll exponentially grow, but since our CurveSharpph = 1, it’s linear (basically normalise the range in the determinsitic region, then put that to the power of CurveSharppH). Finally values outside of these ranges will prevent reactions from starting, but if a reaction drifts out during a reaction, the purity of volume created for each step will be 0 (It does not stop ongoing reactions). It’s entirely possible to design a reaction without a deterministic or optimal phase if you wanted.
-
-Though to note; if your purity dips below the PurityMin of a reaction it’ll call the overly_impure() function – which by default reduces the purity of all reagents in the beaker. Additionally, if the purity at the end of a reaction is below the PurityMin, it’ll convert into the failed chem defined by the product’s failed_chem defined in it's reagent datum. For default the PurityMin is 0.15, and is pretty difficult to fail. This is all customisable however, if you wanted to use these hooks to design a even more unique reaction, just don’t call the parent proc when using methods.
-
 
 ### Conditional changes in reagents datum per timestep
 
@@ -166,11 +135,7 @@ The new vars that are introduced are below:
     var/chemical_flags 
 ```
 
-- `pH` is the innate pH of the reagent and is used to calculate the pH of a reagents datum on addition/removal. This does not change and is a reference value. The reagents datum pH changes.
-- `purity` is the INTERNAL value for splitting. This is set to 1 after splitting so that it doesn't infinite split
-- `creation_purity` is the purity of the reagent on creation. This won't change. If you want to write code that checks the purity in any of the methods, use this.
 - `impure_chem` is the datum type that is created provided that it's `creation_purity` is above the `inverse_chem_val`. When the reagent is consumed it will split into this OR if the associated `datum/chemical_recipe` has a REACTION_CLEAR_IMPURE flag it will split at the end of the reaction in the `datum/reagents` holder
-- `inverse_chem_val` if a reagent's purity is below this value it will 100% convert into `inverse_chem`. If above it will split into `impure_chem`. See the note on purity effects above
 - `inverse_chem` is the datum type that is created provided that it's `creation_purity` is below the `inverse_chem_val`. When the reagent is consumed it will 100% convert into this OR if the associated  `datum/chemical_recipe` has a REACTION_CLEAR_INVERSE flag it will 100% convert at the end of the reaction in the `datum/reagents` holder
 - `failed_chem` is the chem that the product is 100% converted into if the purity is below the associated `datum/chemical_recipies`' `PurityMin` AT THE END OF A REACTION. 
 

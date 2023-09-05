@@ -116,7 +116,7 @@ SUBSYSTEM_DEF(id_access)
 	accesses_by_region[REGION_GENERAL] = REGION_ACCESS_GENERAL
 	accesses_by_region[REGION_SECURITY] = REGION_ACCESS_SECURITY
 	accesses_by_region[REGION_MEDBAY] = REGION_ACCESS_MEDBAY
-	accesses_by_region[REGION_RESEARCH] = REGION_ACCESS_RESEARCH
+	accesses_by_region[REGION_PATHFINDERS] = REGION_ACCESS_PATHFINDERS
 	accesses_by_region[REGION_ENGINEERING] = REGION_ACCESS_ENGINEERING
 	accesses_by_region[REGION_SUPPLY] = REGION_ACCESS_SUPPLY
 	accesses_by_region[REGION_COMMAND] = REGION_ACCESS_COMMAND
@@ -188,6 +188,12 @@ SUBSYSTEM_DEF(id_access)
 			"templates" = list(),
 			"pdas" = list(),
 		),
+		"[ACCESS_PATHFINDERS_LEAD]" = list(
+			"regions" = list(REGION_PATHFINDERS),
+			"head" = JOB_PATHFINDER_LEAD,
+			"templates" = list(),
+			"pdas" = list(),
+		),
 	)
 
 	var/list/station_job_trims = subtypesof(/datum/id_trim/job)
@@ -255,7 +261,6 @@ SUBSYSTEM_DEF(id_access)
 	desc_by_access["[ACCESS_SCIENCE]"] = "R&D Lab"
 	desc_by_access["[ACCESS_ORDNANCE]"] = "Ordnance Lab"
 	desc_by_access["[ACCESS_ORDNANCE_STORAGE]"] = "Ordnance Storage"
-	desc_by_access["[ACCESS_PLUMBING]"] = "Chemistry Lab"
 	desc_by_access["[ACCESS_BAR]"] = "Bar"
 	desc_by_access["[ACCESS_JANITOR]"] = "Custodial Closet"
 	desc_by_access["[ACCESS_ENGINEERING]"] = "Engineering"
@@ -284,6 +289,11 @@ SUBSYSTEM_DEF(id_access)
 	desc_by_access["[ACCESS_PSYCHOLOGY]"] = "Psychology"
 	desc_by_access["[ACCESS_CMO]"] = "CMO Office"
 	desc_by_access["[ACCESS_QM]"] = "Quartermaster"
+	desc_by_access["[ACCESS_PATHFINDERS]"] = "Pathfinders"
+	desc_by_access["[ACCESS_PATHFINDERS_DOCK]"] = "Pathfinders Dock"
+	desc_by_access["[ACCESS_PATHFINDERS_STORAGE]"] = "Pathfinders Storage"
+	desc_by_access["[ACCESS_PATHFINDERS_LEAD]"] = "Pathfinders Lead"
+	desc_by_access["[ACCESS_PATHFINDERS_SERVER_ROOM]"] = "Pathfinders Server room"
 	desc_by_access["[ACCESS_SURGERY]"] = "Surgery"
 	desc_by_access["[ACCESS_THEATRE]"] = "Theatre"
 	desc_by_access["[ACCESS_RESEARCH]"] = "Science"
@@ -310,6 +320,7 @@ SUBSYSTEM_DEF(id_access)
 	desc_by_access["[ACCESS_MECH_SECURITY]"] = "Security Mech Access"
 	desc_by_access["[ACCESS_MECH_SCIENCE]"] = "Science Mech Access"
 	desc_by_access["[ACCESS_MECH_ENGINE]"] = "Engineering Mech Access"
+	desc_by_access["[ACCESS_MECH_PATHFINDERS]"] = "Pathfinders Mech Access"
 	desc_by_access["[ACCESS_AUX_BASE]"] = "Auxiliary Base"
 	desc_by_access["[ACCESS_SERVICE]"] = "Service Hallway"
 	desc_by_access["[ACCESS_CENT_GENERAL]"] = "Code Grey"

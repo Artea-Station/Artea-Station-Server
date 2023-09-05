@@ -3,7 +3,6 @@
 	icon = 'goon/icons/mob/interact.dmi'
 	icon_state = "interact"
 	alpha = 180
-	plane = GAME_PLANE_UPPER_FOV_HIDDEN
 	layer = ABOVE_ALL_MOB_LAYER
 
 /mob/proc/animate_interact(atom/target, state)

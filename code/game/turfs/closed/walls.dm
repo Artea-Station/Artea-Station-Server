@@ -18,6 +18,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_LOW_WALL, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTERS_BLASTDOORS)
+	lighting_uses_jen = TRUE
 
 	rcd_memory = RCD_MEMORY_WALL
 
@@ -50,6 +51,32 @@
 
 	/// Typecache of all objects that we seek out to apply a neighbor stripe overlay
 	var/static/list/neighbor_typecache
+
+	// Vars for bullet hitting wall interactions
+	max_integrity = 100 // Most common ballistics deal 20-30 damage a shot.
+	damage_deflection = 5
+
+/turf/closed/wall/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
+	if(damage_type != BRUTE)
+		return 0 // We don't take any damage from non-brute sources.
+
+	if(damage_amount <= damage_deflection)
+		return 0 // Don't take damage from sources too weak to hurt.
+
+	//Note: Walls are weaker the higher the hardness. Don't ask me why.
+
+	if(hardness > 70) // Some mineral walls are weaker than this.
+		damage_amount *= 3
+	else if(hardness > 10) // 10 is the hardness of r-walls.
+		damage_amount *= 2
+
+	. = damage_amount
+
+	atom_integrity = max(0, get_integrity() - damage_amount)
+
+	if(get_integrity() <= 0)
+		dismantle_wall()
+		return damage_amount
 
 /turf/closed/wall/update_greyscale()
 	greyscale_colors = get_wall_color()
@@ -88,6 +115,9 @@
 	set_materials(plating_material, reinf_material)
 	if(is_station_level(z))
 		GLOB.station_turfs += src
+
+	// Yes, this is required, because we don't actually follow the normal integrity implementation in walls.
+	atom_integrity = max_integrity
 
 /turf/closed/wall/Destroy()
 	if(is_station_level(z))
@@ -366,6 +396,7 @@
 		if(W.use_tool(src, user, 0, volume=100))
 			if(iswallturf(src) && LAZYLEN(dent_decals))
 				to_chat(user, span_notice("You fix some dents on the wall."))
+				update_integrity(max_integrity)
 				cut_overlay(dent_decals)
 				dent_decals.Cut()
 			return TRUE

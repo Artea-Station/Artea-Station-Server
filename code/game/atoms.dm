@@ -165,6 +165,9 @@
 	/// the datum handler for our contents - see create_storage() for creation method
 	var/datum/storage/atom_storage
 
+	/// The manufacturer text to be shown on examine. Won't be updated post init, so you'll have to handle adding/removing the element post init.
+	var/manufacturer
+
 /**
  * Called when an atom is created in byond (built in engine proc)
  *
@@ -280,6 +283,9 @@
 
 	if(ispath(ai_controller))
 		ai_controller = new ai_controller(src)
+
+	if(istext(manufacturer))
+		AddElement(/datum/element/manufacturer_examine)
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -710,7 +716,7 @@
 						. += "&bull; [round(current_reagent.volume, 0.01)] units of [current_reagent.name]"
 					if(reagents.is_reacting)
 						. += span_warning("It is currently reacting!")
-					. += span_notice("The solution's pH is [round(reagents.ph, 0.01)] and has a temperature of [reagents.chem_temp]K.")
+					. += span_notice("The solution's temperature is [reagents.chem_temp]K.")
 				else //Otherwise, just show the total volume
 					var/total_volume = 0
 					for(var/datum/reagent/current_reagent as anything in reagents.reagent_list)

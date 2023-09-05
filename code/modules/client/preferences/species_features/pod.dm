@@ -1,11 +1,12 @@
-/datum/preference/choiced/pod_hair
+/datum/preference/choiced/mutant/pod_hair
 	savefile_key = "feature_pod_hair"
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_APPEARANCE
 	main_feature_name = "Hairstyle"
 	should_generate_icons = TRUE
+	color_feature_id = "pod_hair_color"
 
-/datum/preference/choiced/pod_hair/init_possible_values()
+/datum/preference/choiced/mutant/pod_hair/init_possible_values()
 	var/list/values = list()
 
 	var/icon/pod_head = icon('icons/mob/species/human/bodyparts_greyscale.dmi', "pod_head_m")
@@ -26,8 +27,10 @@
 
 	return values
 
-/datum/preference/choiced/pod_hair/create_default_value()
+/datum/preference/choiced/mutant/pod_hair/create_default_value()
 	return pick(GLOB.pod_hair_list)
 
-/datum/preference/choiced/pod_hair/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
-	target.dna.features["pod_hair"] = value
+/datum/preference/color/mutant/pod_hair
+	savefile_key = "pod_hair_color"
+	relevant_mutant_bodypart = MUTANT_POD_HAIR
+	choiced_preference_datum = /datum/preference/choiced/mutant/pod_hair

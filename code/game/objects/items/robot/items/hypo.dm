@@ -114,7 +114,7 @@
 	/// The reagent we've selected to dispense
 	var/datum/reagent/selected_reagent
 	/// The theme for our UI (hacked hypos get syndicate UI)
-	var/tgui_theme = "ntos"
+	var/tgui_theme = "crtntos"
 
 /obj/item/reagent_containers/borghypo/Initialize(mapload)
 	. = ..()

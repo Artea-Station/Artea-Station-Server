@@ -53,7 +53,8 @@
 	if (!lighting_object)
 		return FALSE
 
-	return !(luminosity || dynamic_lumcount)
+	var/area/area = get_area(src)
+	return !(luminosity || dynamic_lumcount) && !area.luminosity
 
 
 ///Proc to add movable sources of opacity on the turf and let it handle lighting code.

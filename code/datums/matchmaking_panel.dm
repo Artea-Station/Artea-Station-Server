@@ -55,7 +55,7 @@ GLOBAL_DATUM_INIT(matchmaking_panel, /datum/matchmaking_panel, new)
 
 		if(ishuman(client.mob))
 			var/mob/living/carbon/human/human = client.mob
-			if(!find_record("name", human.real_name, GLOB.data_core.general))
+			if(!find_record("name", human.real_name, GLOB.manifest.general))
 				continue
 			name = human.real_name
 			species = human.dna.species.name
@@ -85,9 +85,6 @@ GLOBAL_DATUM_INIT(matchmaking_panel, /datum/matchmaking_panel, new)
 			"ooc_notes" = client.prefs.read_preference(/datum/preference/text/inspection/ooc_notes),
 			"is_victim" = client.prefs.read_preference(/datum/preference/toggle/be_victim) ? "Yes" : "No",
 			"erp_status" = client.prefs.read_preference(/datum/preference/choiced/content/erp_status),
-			"erp_orientation" = client.prefs.read_preference(/datum/preference/choiced/content/erp_orientation),
-			"erp_position" = client.prefs.read_preference(/datum/preference/choiced/content/erp_position),
-			"erp_non_con" = client.prefs.read_preference(/datum/preference/choiced/content/erp_non_con),
 			"brainwashing" = client.prefs.read_preference(/datum/preference/choiced/content/brainwashing),
 			"borging" = client.prefs.read_preference(/datum/preference/choiced/content/borging),
 			"kidnapping" = client.prefs.read_preference(/datum/preference/choiced/content/kidnapping),

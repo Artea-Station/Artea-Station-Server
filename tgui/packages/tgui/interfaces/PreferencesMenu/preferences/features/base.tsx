@@ -48,6 +48,7 @@ export type FeatureValueProps<
 export const FeatureColorInput = (props: FeatureValueProps<string>) => {
   return (
     <Button
+      style={{ 'background-color': '#b37b14' }}
       onClick={() => {
         props.act('set_color_preference', {
           preference: props.featureId,
@@ -381,5 +382,52 @@ export const FeatureTextInput = (
       maxLength={props.serverData.maximum_length}
       onChange={(_, value) => props.handleSetValue(value)}
     />
+  );
+};
+export const FeatureTriColorInput = (props: FeatureValueProps<string>) => {
+  const value = props.value.split(';');
+  const buttonFromValue = (index) => {
+    return (
+      <Stack.Item>
+        <Button
+          style={{ 'background-color': '#b37b14' }}
+          onClick={() => {
+            props.act('set_tricolor_preference', {
+              preference: props.featureId,
+              value: index + 1,
+            });
+          }}>
+          <Stack align="center" fill>
+            <Stack.Item>
+              <Box
+                style={{
+                  background: value[index].startsWith('#')
+                    ? value[index]
+                    : `#${value[index]}`,
+                  border: '2px solid white',
+                  'box-sizing': 'content-box',
+                  height: '11px',
+                  width: '11px',
+                  ...(props.shrink
+                    ? {
+                      'margin': '1px',
+                    }
+                    : {}),
+                }}
+              />
+            </Stack.Item>
+
+            {!props.shrink && <Stack.Item>Change</Stack.Item>}
+          </Stack>
+        </Button>
+      </Stack.Item>
+    );
+  };
+  return (
+    <Stack align="center" fill>
+      {value.length > 0 && buttonFromValue(0)}
+      {value.length > 1 && buttonFromValue(1)}
+      {value.length > 2 && buttonFromValue(2)}
+    </Stack>
   );
 };

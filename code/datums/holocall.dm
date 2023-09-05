@@ -325,6 +325,9 @@
 		. = image(mannequin)
 		unset_busy_human_dummy("HOLODISK_PRESET")
 
+/datum/preset_holoimage/assistant
+	outfit_type = /datum/outfit/job/assistant
+
 /obj/item/disk/holodisk/example
 	preset_image_type = /datum/preset_holoimage/clown
 	preset_record_text = {"

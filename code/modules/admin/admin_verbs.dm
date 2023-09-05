@@ -201,7 +201,6 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/toggle_cdn,
 	/client/proc/adventure_manager,
 	/client/proc/load_circuit,
-	/client/proc/cmd_admin_toggle_fov,
 	/client/proc/cmd_admin_debug_traitor_objectives,
 	/client/proc/spawn_debug_full_crew,
 	/client/proc/validate_puzzgrids,
@@ -877,7 +876,7 @@ GLOBAL_PROTECT(admin_verbs_poll)
 		// Finally, ensure the minds are tracked and in the manifest.
 		SSticker.minds += character.mind
 		if(ishuman(character))
-			GLOB.data_core.manifest_inject(character)
+			GLOB.manifest.inject(character)
 
 		number_made++
 		CHECK_TICK

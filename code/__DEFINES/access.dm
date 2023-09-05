@@ -79,12 +79,12 @@
 #define ACCESS_PHARMACY "pharmacy"
 /// Access to the surgery rooms.
 #define ACCESS_SURGERY "surgery"
-/// Allows access to the larger room for Chemistry plumbing machinery setups.
-#define ACCESS_PLUMBING "plumbing"
 /// Access to the Virology portion of the medical department, as well as the virology crate.
 #define ACCESS_VIROLOGY "virology"
 /// Access to the Psychologist's office.
 #define ACCESS_PSYCHOLOGY "psychology"
+/// Access to the medical shuttle.
+#define ACCESS_MEDICAL_SHUTTLE "medical_shuttle"
 /// Access for the Chief Medical Officer's personal quarters in mapping, as well as some other CMO-related things.
 #define ACCESS_CMO "cmo"
 
@@ -139,6 +139,12 @@
 /// Access to the Lawyer's office.
 #define ACCESS_LAWYER "lawyer"
 
+#define ACCESS_PATHFINDERS "pathfinders"
+#define ACCESS_PATHFINDERS_DOCK "pathfinders_dock"
+#define ACCESS_PATHFINDERS_STORAGE "pathfinders_storage"
+#define ACCESS_PATHFINDERS_LEAD "PATHFINDERS_LEAD"
+#define ACCESS_PATHFINDERS_SERVER_ROOM "pathfinders_server_room"
+
 /// - - - AWAY MISSIONS - - -
 /*For generic away-mission/ruin access. Why would normal crew have access to a long-abandoned derelict
 	or a 2000 year-old temple? */
@@ -162,6 +168,7 @@
 #define ACCESS_MECH_SECURITY "mech_security"
 #define ACCESS_MECH_SCIENCE "mech_science"
 #define ACCESS_MECH_ENGINE "mech_engine"
+#define ACCESS_MECH_PATHFINDERS "mech_pathfinders"
 
 /// - - - ADMIN - - -
 	// Used for admin events and things of the like. Lots of extra space for more admin tools in the future
@@ -307,8 +314,8 @@
 	ACCESS_ORDNANCE, \
 	ACCESS_ORDNANCE_STORAGE, \
 	ACCESS_PHARMACY, \
-	ACCESS_PLUMBING, \
 	ACCESS_PSYCHOLOGY, \
+	ACCESS_MEDICAL_SHUTTLE, \
 	ACCESS_QM, \
 	ACCESS_RESEARCH, \
 	ACCESS_ROBOTICS, \
@@ -321,6 +328,10 @@
 	ACCESS_VIROLOGY, \
 	ACCESS_WEAPONS, \
 	ACCESS_XENOBIOLOGY, \
+	ACCESS_PATHFINDERS, \
+	ACCESS_PATHFINDERS_DOCK, \
+	ACCESS_PATHFINDERS_STORAGE, \
+	ACCESS_MECH_PATHFINDERS, \
 )
 
 /// Command staff/secure accesses, think bridge/armoury, ai_upload, notably access to modify ID cards themselves. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_COMMAND)
@@ -348,6 +359,7 @@
 	ACCESS_HOS, \
 	ACCESS_HOP, \
 	ACCESS_QM, \
+	ACCESS_PATHFINDERS_LEAD, \
 )
 
 /// Captains private rooms. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_CAPTAIN)
@@ -438,25 +450,23 @@
 	ACCESS_MEDICAL, \
 	ACCESS_MORGUE, \
 	ACCESS_PHARMACY, \
-	ACCESS_PLUMBING, \
 	ACCESS_PSYCHOLOGY, \
 	ACCESS_SURGERY, \
 	ACCESS_VIROLOGY, \
+	ACCESS_MEDICAL_SHUTTLE, \
 )
 /// Name for the Research region.
-#define REGION_RESEARCH "Research"
+#define REGION_PATHFINDERS "Pathfinders"
 /// Used to seed the accesses_by_region list in SSid_access. A list of all research regional accesses that are overseen by the RD.
-#define REGION_ACCESS_RESEARCH list( \
-	ACCESS_GENETICS, \
-	ACCESS_MECH_SCIENCE, \
-	ACCESS_MINISAT, \
-	ACCESS_NETWORK, \
-	ACCESS_ORDNANCE, \
-	ACCESS_ORDNANCE_STORAGE, \
-	ACCESS_RESEARCH, \
-	ACCESS_ROBOTICS, \
-	ACCESS_SCIENCE, \
-	ACCESS_XENOBIOLOGY, \
+#define REGION_ACCESS_PATHFINDERS list( \
+	ACCESS_MECH_PATHFINDERS, \
+	ACCESS_PATHFINDERS, \
+	ACCESS_PATHFINDERS_DOCK, \
+	ACCESS_PATHFINDERS_STORAGE, \
+	ACCESS_PATHFINDERS_SERVER_ROOM, \
+	ACCESS_MINING, \
+	ACCESS_MINING_STATION, \
+	ACCESS_EXTERNAL_AIRLOCKS, \
 )
 /// Name for the Engineering region.
 #define REGION_ENGINEERING "Engineering"
@@ -465,6 +475,7 @@
 	ACCESS_ATMOSPHERICS, \
 	ACCESS_AUX_BASE, \
 	ACCESS_CE, \
+	ACCESS_ROBOTICS, \
 	ACCESS_CONSTRUCTION, \
 	ACCESS_ENGINEERING, \
 	ACCESS_ENGINE_EQUIP, \
@@ -527,26 +538,25 @@
 	/obj/item/modular_computer/pda/detective = list(REGION_SECURITY), \
 	/obj/item/modular_computer/pda/warden = list(REGION_SECURITY), \
 	/obj/item/modular_computer/pda/janitor = list(REGION_GENERAL), \
-	/obj/item/modular_computer/pda/science = list(REGION_RESEARCH), \
+	/obj/item/modular_computer/pda/pathfinder = list(REGION_PATHFINDERS), \
 	/obj/item/modular_computer/pda/heads/quartermaster = list(REGION_COMMAND), \
 	/obj/item/modular_computer/pda/heads/hop = list(REGION_COMMAND), \
 	/obj/item/modular_computer/pda/heads/hos = list(REGION_COMMAND), \
 	/obj/item/modular_computer/pda/heads/cmo = list(REGION_COMMAND), \
 	/obj/item/modular_computer/pda/heads/ce = list(REGION_COMMAND), \
-	/obj/item/modular_computer/pda/heads/rd = list(REGION_COMMAND), \
+	/obj/item/modular_computer/pda/heads/pl = list(REGION_COMMAND), \
 	/obj/item/modular_computer/pda/heads/captain = list(REGION_COMMAND), \
 	/obj/item/modular_computer/pda/cargo = list(REGION_SUPPLY), \
 	/obj/item/modular_computer/pda/shaftminer = list(REGION_SUPPLY), \
 	/obj/item/modular_computer/pda/chaplain = list(REGION_GENERAL), \
 	/obj/item/modular_computer/pda/lawyer = list(REGION_GENERAL, REGION_SECURITY), \
 	/obj/item/modular_computer/pda/botanist = list(REGION_GENERAL), \
-	/obj/item/modular_computer/pda/roboticist = list(REGION_RESEARCH), \
+	/obj/item/modular_computer/pda/roboticist = list(REGION_ENGINEERING), \
 	/obj/item/modular_computer/pda/curator = list(REGION_GENERAL), \
 	/obj/item/modular_computer/pda/cook = list(REGION_GENERAL), \
 	/obj/item/modular_computer/pda/bar = list(REGION_GENERAL), \
 	/obj/item/modular_computer/pda/atmos = list(REGION_ENGINEERING), \
 	/obj/item/modular_computer/pda/chemist = list(REGION_MEDBAY), \
-	/obj/item/modular_computer/pda/geneticist = list(REGION_RESEARCH), \
 )
 
 /// All regions that make up the station area. Helper define to quickly designate a region as part of the station or not. Access via SSid_access.station_regions.
@@ -555,7 +565,7 @@
 	REGION_ENGINEERING, \
 	REGION_GENERAL, \
 	REGION_MEDBAY, \
-	REGION_RESEARCH, \
+	REGION_PATHFINDERS, \
 	REGION_SECURITY, \
 	REGION_SUPPLY, \
 )

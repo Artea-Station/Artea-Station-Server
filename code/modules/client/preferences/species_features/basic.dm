@@ -106,14 +106,14 @@
 		var/datum/sprite_accessory/gradient/gradient = GLOB.facial_hair_gradients_list[gradient_key]
 		var/icon/temp = icon(gradient.icon, gradient.icon_state)
 		temp.Blend(hair_icon, ICON_ADD)
-		temp.ColorTone("#ff0000")
+		temp.Blend("#ff0000", ICON_MULTIPLY)
 		var/icon/temp_hair = icon(hair_icon)
 		temp_hair.Blend(temp, ICON_OVERLAY)
 		hair_gradients[gradient_key] = temp_hair
 
 	return hair_gradients
 
-/datum/preference/choiced/hair_gradient/compile_constant_data()
+/datum/preference/choiced/facial_hair_gradient/compile_constant_data()
 	. = ..()
 	.[SUPPLEMENTAL_FEATURE_KEY] = "facial_hair_gradient_color"
 
@@ -192,7 +192,7 @@
 		var/datum/sprite_accessory/gradient/gradient = GLOB.hair_gradients_list[gradient_key]
 		var/icon/temp = icon(gradient.icon, gradient.icon_state)
 		temp.Blend(hair_icon, ICON_ADD)
-		temp.ColorTone("#ff0000")
+		temp.Blend("#ff0000", ICON_MULTIPLY)
 		var/icon/temp_hair = icon(hair_icon)
 		temp_hair.Blend(temp, ICON_OVERLAY)
 		hair_gradients[gradient_key] = temp_hair
@@ -210,10 +210,6 @@
 
 /datum/preference/choiced/hair_gradient/create_default_value()
 	return "None"
-
-/datum/preference/choiced/hair_gradient/ui_static_data(mob/user)
-	. = ..()
-	.[SUPPLEMENTAL_FEATURE_KEY] = "hair_gradient_color"
 
 /datum/preference/color/hair_gradient
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES

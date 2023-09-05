@@ -58,9 +58,9 @@ SUBSYSTEM_DEF(lobby_eye)
 	if(!CONFIG_GET(flag/lobby_camera))
 		return
 
-	//fade out the logo and unlock eyes when 10 seconds until round start
+	//fade out the logo and unlock eyes when 20 seconds until round start
 	var/time_remaining = SSticker.GetTimeLeft()
-	if(time_remaining <= 20 SECONDS && SSticker.current_state == GAME_STATE_PREGAME)
+	if(time_remaining <= 20 SECONDS && time_remaining >= 0 && SSticker.current_state == GAME_STATE_PREGAME)
 		unlock_eyes()
 		return
 

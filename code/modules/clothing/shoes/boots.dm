@@ -32,7 +32,7 @@
 
 /obj/item/clothing/shoes/jackboots
 	name = "jackboots"
-	desc = "Nanotrasen-issue Security combat boots for combat scenarios or combat situations. All combat, all the time."
+	desc = "Artea-issue rugged boots for combat scenarios or otherwise treacherous situations."
 	icon_state = "jackboots"
 	inhand_icon_state = "jackboots"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
@@ -40,7 +40,7 @@
 	strip_delay = 30
 	equip_delay_other = 50
 	resistance_flags = NONE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 90, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 90, FIRE = 0, ACID = 0)
 	can_be_tied = FALSE
 
 /obj/item/clothing/shoes/jackboots/Initialize(mapload)
@@ -53,6 +53,12 @@
 
 /obj/item/clothing/shoes/jackboots/sec
 	icon_state = "jackboots_sec"
+	var/list/squeak_sound = list('sound/effects/suitstep1.ogg'=1,'sound/effects/suitstep2.ogg'=1)
+
+/obj/item/clothing/shoes/jackboots/sec/Initialize(mapload)
+	. = ..()
+
+	LoadComponent(/datum/component/squeak, squeak_sound, 50, falloff_exponent = 20)
 
 /obj/item/clothing/shoes/winterboots
 	name = "winter boots"

@@ -843,11 +843,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, need_hands = FALSE, floor_okay=FALSE)
 	return isAdminGhostAI(usr)
 
-/mob/dead/observer/is_literate()
+/mob/dead/observer/can_read(obj/O)
 	return TRUE
-
-/mob/dead/observer/can_read(atom/viewed_atom, reading_check_flags, silent)
-	return TRUE // we want to bypass all the checks
 
 /mob/dead/observer/vv_edit_var(var_name, var_value)
 	. = ..()

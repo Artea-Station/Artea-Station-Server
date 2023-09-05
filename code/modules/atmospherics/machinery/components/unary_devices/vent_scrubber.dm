@@ -41,9 +41,13 @@
 	//Enables the use of plunger_act for ending the vent clog random event
 	var/clogged = FALSE
 
+	/// The passive sounds this scrubber emits.
+	var/datum/looping_sound/sound_loop
+
 	COOLDOWN_DECLARE(check_turfs_cooldown)
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/New()
+	sound_loop = new /datum/looping_sound/air_pump(src)
 	if(!id_tag)
 		id_tag = SSnetworks.assign_random_name()
 	. = ..()
@@ -150,13 +154,16 @@
 		PIPING_LAYER_SHIFT(src, PIPING_LAYER_DEFAULT)
 
 	if(welded)
+		sound_loop.stop()
 		icon_state = "scrub_welded"
 		return
 
 	if(!nodes[1] || !on || !is_operational)
+		sound_loop.stop()
 		icon_state = "scrub_off"
 		return
 
+	sound_loop.start()
 	if(scrubbing & SCRUBBING)
 		if(widenet)
 			icon_state = "scrub_wide"

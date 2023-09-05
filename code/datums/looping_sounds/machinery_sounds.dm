@@ -157,7 +157,7 @@
 	volume = 20
 	falloff_distance = 2
 	falloff_exponent = 5
-	
+
 /datum/looping_sound/drill
 	start_sound = 'sound/machines/drill/drill_start.ogg'
 	start_length = 1 SECONDS
@@ -174,3 +174,19 @@
 	end_sound = 'sound/machines/engine/engineend.ogg'
 	volume = 10
 	falloff_distance = 5
+
+/datum/looping_sound/air_pump
+	start_sound = 'sound/machines/airpumpstart.ogg'
+	start_length = 1 SECONDS
+	mid_sounds = list(
+		'sound/machines/airpumpidle1.ogg' = 1,
+		'sound/machines/airpumpidle2.ogg' = 1,
+		'sound/machines/airpumpidle3.ogg' = 1,
+		'sound/machines/airpumpidle4.ogg' = 1,
+		'sound/machines/airpumpidle5.ogg' = 1,
+	)
+	mid_length = 0.99 SECONDS // I hate it, but it gets rid of most micro-stutters.
+	end_sound = 'sound/machines/airpumpshutdown.ogg'
+	volume = 5
+	falloff_distance = 2
+	ignore_walls = FALSE

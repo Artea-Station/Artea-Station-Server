@@ -56,6 +56,8 @@
 	var/aidisabled = FALSE
 	///Reference to our cable terminal
 	var/obj/machinery/power/terminal/terminal = null
+	/// The cable layer the terminal should use on construction.
+	var/terminal_cable_layer = CABLE_LAYER_2
 	///Amount of power used by the lighting channel
 	var/lastused_light = 0
 	///Amount of power used by the equipment channel
@@ -221,6 +223,8 @@
 	. = ..()
 	if(machine_stat & BROKEN)
 		return
+	if(!terminal && opened)
+		. += "Right-click with some cable coils to set the terminal layer."
 	if(opened)
 		if(has_electronics && terminal)
 			. += "The cover is [opened==APC_COVER_REMOVED?"removed":"open"] and the power cell is [ cell ? "installed" : "missing"]."

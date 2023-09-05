@@ -101,10 +101,14 @@ SUBSYSTEM_DEF(statpanels)
 	if(!global_data)//statbrowser hasnt fired yet and we were called from immediate_send_stat_data()
 		return
 
+	var/list/other_str = target.mob?.get_status_tab_items()
+	other_str += ""
+	other_str += "Players Connected: [GLOB.clients.len]"
+
 	target.stat_panel.send_message("update_stat", list(
 		global_data = global_data,
 		ping_str = "Ping: [round(target.lastping, 1)]ms (Average: [round(target.avgping, 1)]ms)",
-		other_str = target.mob?.get_status_tab_items(),
+		other_str = other_str,
 	))
 
 /datum/controller/subsystem/statpanels/proc/set_MC_tab(client/target)

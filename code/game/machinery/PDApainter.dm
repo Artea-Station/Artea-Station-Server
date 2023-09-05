@@ -203,6 +203,7 @@
 
 		stored_pda = null
 		update_icon()
+		playsound(src, 'sound/machines/id_eject.ogg', 75, TRUE)
 
 /**
  * Insert an ID card into the machine.
@@ -228,6 +229,7 @@
 	stored_id_card = new_id_card
 	new_id_card.add_fingerprint(user)
 	update_icon()
+	playsound(src, 'sound/machines/id_insert.ogg', 75, TRUE)
 	return TRUE
 
 /**
@@ -238,6 +240,7 @@
  */
 /obj/machinery/pdapainter/proc/eject_id_card(mob/living/user)
 	if(stored_id_card)
+		GLOB.manifest.modify(stored_id_card.registered_name, stored_id_card.assignment, stored_id_card.get_trim_assignment())
 		if(user && !issilicon(user) && in_range(src, user))
 			user.put_in_hands(stored_id_card)
 		else
@@ -245,6 +248,7 @@
 
 		stored_id_card = null
 		update_appearance(UPDATE_ICON)
+		playsound(src, 'sound/machines/id_eject.ogg', 75, TRUE)
 
 /obj/machinery/pdapainter/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -333,6 +337,7 @@
 				stored_pda.icon = initial(pda_path.icon)
 			stored_pda.icon_state = initial(pda_path.icon_state)
 			stored_pda.desc = initial(pda_path.desc)
+			playsound(src, 'sound/machines/printer.ogg', 75, TRUE)
 
 			return TRUE
 		if("trim_card")
@@ -345,6 +350,7 @@
 					continue
 
 				if(SSid_access.apply_trim_to_card(stored_id_card, path, copy_access = FALSE))
+					playsound(src, 'sound/machines/printer.ogg', 75, TRUE)
 					return TRUE
 
 				to_chat(usr, span_warning("The trim you selected could not be added to \the [stored_id_card]. You will need a rarer ID card to imprint that trim data."))
@@ -355,6 +361,7 @@
 				return TRUE
 
 			stored_id_card.clear_account()
+			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 75, TRUE)
 
 			return TRUE
 
@@ -368,10 +375,15 @@
 	name = "\improper Medbay PDA & ID Painter"
 	target_dept = REGION_MEDBAY
 
-/// Science departmental variant. Limited to PDAs defined in the SSid_access.sub_department_managers_tgui data structure.
+/// Science departmental variant. Limited to PDAs defined in the SSid_access.sub_department_managers_tgui data structure. Defunct, do not use, purely here to keep me from having to update TG maps (which are going to be gone soon)
 /obj/machinery/pdapainter/research
 	name = "\improper Research PDA & ID Painter"
-	target_dept = REGION_RESEARCH
+	target_dept = REGION_PATHFINDERS
+
+/// Pathfinders departmental variant. Limited to PDAs defined in the SSid_access.sub_department_managers_tgui data structure.
+/obj/machinery/pdapainter/pathfinders
+	name = "\improper Pathfinders PDA & ID Painter"
+	target_dept = REGION_PATHFINDERS
 
 /// Engineering departmental variant. Limited to PDAs defined in the SSid_access.sub_department_managers_tgui data structure.
 /obj/machinery/pdapainter/engineering

@@ -18,6 +18,8 @@
 	var/atmosphere_type
 	/// The type of the weather controller that will be created for the planet
 	var/weather_controller_type = /datum/weather_controller
+	/// The type of the day and night controller, can be left blank
+	var/day_night_controller_type = /datum/day_night_controller
 	/// Possible rock colors of the loaded planet
 	var/list/rock_color
 	/// Possible plant colors of the loaded planet
@@ -60,6 +62,7 @@
 							ov_obj = linked_overmap_object,
 							weather_controller_type = weather_controller_type,
 							atmosphere_type = atmosphere_type,
+							day_night_controller_type = day_night_controller_type,
 							rock_color = picked_rock_color,
 							plant_color = picked_plant_color,
 							grass_color = picked_grass_color,
@@ -88,6 +91,9 @@
 			var/datum/ore_node_seeder/seeder = new ore_node_seeder_type
 			seeder.SeedToLevel(new_level.z_value)
 			qdel(seeder)
+		if(day_night_controller_type)
+			var/datum/day_night_controller/day_night = new day_night_controller_type(list(new_level))
+			day_night.LinkOvermapObject(linked_overmap_object)
 		var/area/new_area = new area_type()
 		var/list/turfs = block(locate(1,1,new_level.z_value),locate(world.maxx,world.maxy,new_level.z_value))
 		new_area.contents.Add(turfs)
@@ -127,6 +133,7 @@
 	overmap_type = /datum/overmap_object/shuttle/planet/lavaland
 	weather_controller_type = /datum/weather_controller/lavaland
 	atmosphere_type = /datum/atmosphere/lavaland
+	day_night_controller_type = null //Ash blocks off the sky
 
 	plant_color = list("#a23c05","#662929","#ba6222","#7a5b3a")
 	plant_color_as_grass = TRUE

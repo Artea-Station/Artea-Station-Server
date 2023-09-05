@@ -17,7 +17,13 @@
 #define COMSIG_FOOD_SILVER_SPAWNED "food_silver_spawned"
 
 #define COMSIG_ITEM_FRIED "item_fried"
-	#define COMSIG_FRYING_HANDLED (1<<0)
+#define COMSIG_FRYING_HANDLED (1<<0)
+
+#define COMSIG_ITEM_GRILL_PLACED "item_placed_on_griddle"
+///Called when a griddle is turned on
+#define COMSIG_ITEM_GRILL_TURNED_ON "item_grill_turned_on"
+///Called when a griddle is turned off
+#define COMSIG_ITEM_GRILL_TURNED_OFF "item_grill_turned_off"
 
 //Drink
 

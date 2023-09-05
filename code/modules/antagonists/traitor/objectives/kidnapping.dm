@@ -53,11 +53,9 @@
 		/datum/job/curator,
 		// Cargo
 		/datum/job/cargo_technician,
-		// Science
-		/datum/job/roboticist,
 		// Engineering
 		/datum/job/station_engineer,
-		/datum/job/atmospheric_technician,
+		/datum/job/roboticist,
 	)
 
 /datum/traitor_objective/kidnapping/less_common
@@ -69,8 +67,6 @@
 /datum/traitor_objective/kidnapping/uncommon //Hard to fish out victims
 	progression_maximum = 45 MINUTES
 	target_jobs = list(
-		// Cargo
-		/datum/job/shaft_miner,
 		// Service
 		/datum/job/cook,
 	)

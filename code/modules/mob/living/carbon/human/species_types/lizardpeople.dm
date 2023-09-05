@@ -13,11 +13,14 @@
 		TRAIT_TACKLING_TAILED_DEFENDER,
 	)
 	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID|MOB_REPTILE
-	mutant_bodyparts = list("body_markings" = "None", "legs" = "Normal Legs")
+	mutant_bodyparts = list(
+		"body_markings" = "None",
+		"legs" = "Normal Legs",
+		MUTANT_HORNS = "None",
+		MUTANT_FRILLS = "None",
+		MUTANT_SNOUT = "Round",
+		)
 	external_organs = list(
-		/obj/item/organ/external/horns = "None",
-		/obj/item/organ/external/frills = "None",
-		/obj/item/organ/external/snout = "Round",
 		/obj/item/organ/external/spines = "None",
 		/obj/item/organ/external/tail/lizard = "Smooth",
 	)
@@ -71,13 +74,6 @@
 /datum/species/lizard/randomize_features(mob/living/carbon/human/human_mob)
 	human_mob.dna.features["body_markings"] = pick(GLOB.body_markings_list)
 	randomize_external_organs(human_mob)
-
-/datum/species/lizard/get_scream_sound(mob/living/carbon/human/lizard)
-	return pick(
-		'sound/voice/lizard/lizard_scream_1.ogg',
-		'sound/voice/lizard/lizard_scream_2.ogg',
-		'sound/voice/lizard/lizard_scream_3.ogg',
-	)
 
 /datum/species/lizard/get_species_description()
 	return "The militaristic Lizardpeople hail originally from Tizira, but have grown \

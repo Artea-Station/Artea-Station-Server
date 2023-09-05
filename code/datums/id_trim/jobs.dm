@@ -103,36 +103,6 @@
 		access |= list(
 			ACCESS_MAINT_TUNNELS)
 
-/datum/id_trim/job/atmospheric_technician
-	assignment = "Atmospheric Technician"
-	trim_state = "trim_atmospherictechnician"
-	orbit_icon = "fan"
-	department_color = COLOR_ENGINEERING_ORANGE
-	subdepartment_color = COLOR_ENGINEERING_ORANGE
-	sechud_icon_state = SECHUD_ATMOSPHERIC_TECHNICIAN
-	minimal_access = list(
-		ACCESS_ATMOSPHERICS,
-		ACCESS_AUX_BASE,
-		ACCESS_CONSTRUCTION,
-		ACCESS_ENGINEERING,
-		ACCESS_EXTERNAL_AIRLOCKS,
-		ACCESS_MAINT_TUNNELS,
-		ACCESS_MECH_ENGINE,
-		ACCESS_MINERAL_STOREROOM,
-		)
-	extra_access = list(
-		ACCESS_ENGINE_EQUIP,
-		ACCESS_MINISAT,
-		ACCESS_TCOMMS,
-		ACCESS_TECH_STORAGE,
-		)
-	template_access = list(
-		ACCESS_CAPTAIN,
-		ACCESS_CHANGE_IDS,
-		ACCESS_CE,
-		)
-	job = /datum/job/atmospheric_technician
-
 /datum/id_trim/job/bartender
 	assignment = "Bartender"
 	trim_state = "trim_bartender"
@@ -265,7 +235,6 @@
 		ACCESS_MEDICAL,
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_PHARMACY,
-		ACCESS_PLUMBING,
 		)
 	extra_access = list(
 		ACCESS_MORGUE,
@@ -337,7 +306,6 @@
 		ACCESS_BRIG_ENTRANCE,
 		ACCESS_COMMAND,
 		ACCESS_KEYCARD_AUTH,
-		ACCESS_PLUMBING,
 		ACCESS_EVA,
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MECH_MEDICAL,
@@ -349,6 +317,7 @@
 		ACCESS_RC_ANNOUNCE,
 		ACCESS_SURGERY,
 		ACCESS_VIROLOGY,
+		ACCESS_MEDICAL_SHUTTLE,
 		)
 	minimal_wildcard_access = list(
 		ACCESS_CMO,
@@ -647,7 +616,6 @@
 	subdepartment_color = COLOR_MEDICAL_BLUE
 	sechud_icon_state = SECHUD_MEDICAL_DOCTOR
 	extra_access = list(
-		ACCESS_PLUMBING,
 		ACCESS_VIROLOGY,
 		)
 	minimal_access = list(
@@ -657,6 +625,7 @@
 		ACCESS_MORGUE,
 		ACCESS_PHARMACY,
 		ACCESS_SURGERY,
+		ACCESS_MEDICAL_SHUTTLE,
 		)
 	template_access = list(
 		ACCESS_CAPTAIN,
@@ -703,6 +672,7 @@
 		ACCESS_MORGUE,
 		ACCESS_SCIENCE,
 		ACCESS_SERVICE,
+		ACCESS_MEDICAL_SHUTTLE,
 		)
 	extra_access = list(
 		ACCESS_SURGERY,
@@ -817,22 +787,19 @@
 	assignment = "Roboticist"
 	trim_state = "trim_roboticist"
 	orbit_icon = "battery-half"
-	department_color = COLOR_SCIENCE_PINK
-	subdepartment_color = COLOR_SCIENCE_PINK
+	department_color = COLOR_ENGINEERING_ORANGE
+	subdepartment_color = COLOR_ENGINEERING_ORANGE
 	sechud_icon_state = SECHUD_ROBOTICIST
 	minimal_access = list(
 		ACCESS_AUX_BASE,
 		ACCESS_MECH_SCIENCE,
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_MORGUE,
-		ACCESS_RESEARCH,
 		ACCESS_ROBOTICS,
-		ACCESS_SCIENCE,
 		ACCESS_TECH_STORAGE,
-		)
-	extra_access = list(
-		ACCESS_GENETICS,
-		ACCESS_XENOBIOLOGY,
+		ACCESS_CONSTRUCTION,
+		ACCESS_ENGINEERING,
+		ACCESS_ENGINE_EQUIP,
 		)
 	template_access = list(
 		ACCESS_CAPTAIN,
@@ -942,7 +909,6 @@
 	)
 	elevated_access = list(
 		ACCESS_PHARMACY,
-		ACCESS_PLUMBING,
 		ACCESS_SURGERY,
 		ACCESS_VIROLOGY,
 	)
@@ -963,43 +929,6 @@
 		ACCESS_XENOBIOLOGY,
 	)
 
-/datum/id_trim/job/shaft_miner
-	assignment = "Shaft Miner"
-	trim_state = "trim_shaftminer"
-	orbit_icon = "digging"
-	department_color = COLOR_CARGO_BROWN
-	subdepartment_color = COLOR_SCIENCE_PINK
-	sechud_icon_state = SECHUD_SHAFT_MINER
-	minimal_access = list(
-		ACCESS_AUX_BASE,
-		ACCESS_CARGO,
-		ACCESS_MECH_MINING,
-		ACCESS_MINERAL_STOREROOM,
-		ACCESS_MINING,
-		ACCESS_MINING_STATION,
-		)
-	extra_access = list(
-		ACCESS_MAINT_TUNNELS,
-		)
-	template_access = list(
-		ACCESS_CAPTAIN,
-		ACCESS_CHANGE_IDS,
-		ACCESS_QM,
-		)
-	job = /datum/job/shaft_miner
-
-/// ID card obtained from the mining Disney dollar points vending machine.
-/datum/id_trim/job/shaft_miner/spare
-	minimal_access = list(
-		ACCESS_CARGO,
-		ACCESS_MECH_MINING,
-		ACCESS_MINERAL_STOREROOM,
-		ACCESS_MINING,
-		ACCESS_MINING_STATION,
-		)
-	extra_access = list()
-	template_access = null
-
 /datum/id_trim/job/station_engineer
 	assignment = "Station Engineer"
 	trim_state = "trim_stationengineer"
@@ -1008,6 +937,7 @@
 	subdepartment_color = COLOR_ENGINEERING_ORANGE
 	sechud_icon_state = SECHUD_STATION_ENGINEER
 	minimal_access = list(
+		ACCESS_ATMOSPHERICS,
 		ACCESS_AUX_BASE,
 		ACCESS_CONSTRUCTION,
 		ACCESS_ENGINEERING,
@@ -1019,9 +949,6 @@
 		ACCESS_MINISAT,
 		ACCESS_TCOMMS,
 		ACCESS_TECH_STORAGE,
-		)
-	extra_access = list(
-		ACCESS_ATMOSPHERICS,
 		)
 	template_access = list(
 		ACCESS_CAPTAIN,

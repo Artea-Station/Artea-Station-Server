@@ -208,12 +208,6 @@
 	///The x amount a mob's sprite should be offset due to the current position they're in
 	var/body_position_pixel_y_offset = 0
 
-	/// FOV view that is applied from either nativeness or traits
-	var/fov_view
-	/// Native FOV that will be applied if a config is enabled
-	var/native_fov = FOV_90_DEGREES
-	/// Lazy list of FOV traits that will apply a FOV view when handled.
-	var/list/fov_traits
 	///what multiplicative slowdown we get from turfs currently.
 	var/current_turf_slowdown = 0
 
@@ -229,3 +223,6 @@
 	// Multiple imaginary friends!
 	/// Contains the owner and all imaginary friend mobs if they exist, otherwise null
 	var/list/imaginary_group = null
+
+	/// The timestamp of the last time a client logged out from this mob.
+	var/last_client_time = 0

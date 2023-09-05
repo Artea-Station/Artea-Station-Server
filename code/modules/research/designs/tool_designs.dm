@@ -156,7 +156,7 @@
 	category = list(
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_JANITORIAL
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_CARGO | DEPARTMENT_BITFLAG_SERVICE
+	departmental_flags = ALL
 
 /datum/design/geneshears
 	name = "Botanogenetic Plant Shears"
@@ -167,28 +167,6 @@
 	materials = list(/datum/material/iron=4000, /datum/material/uranium=1500, /datum/material/silver=500)
 	category = list(
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_BOTANY_ADVANCED
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_SERVICE
-
-/datum/design/plumbing_rcd_sci
-	name = "Research Plumbing Constructor"
-	id = "plumbing_rcd_sci"
-	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/iron = 75000, /datum/material/glass = 37500, /datum/material/plastic = 1000)
-	build_path = /obj/item/construction/plumbing/research
-	category = list(
-		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_PLUMBING
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
-
-/datum/design/plumbing_rcd_service
-	name = "Service Plumbing Constructor"
-	id = "plumbing_rcd_service"
-	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/iron = 75000, /datum/material/glass = 37500, /datum/material/plastic = 1000)
-	build_path = /obj/item/construction/plumbing/service
-	category = list(
-		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_PLUMBING
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SERVICE
 

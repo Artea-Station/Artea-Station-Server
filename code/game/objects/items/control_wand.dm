@@ -83,7 +83,12 @@
 /obj/item/door_remote/research_director
 	name = "research door remote"
 	icon_state = "gangtool-purple"
-	region_access = REGION_RESEARCH
+	region_access = REGION_PATHFINDERS
+
+/obj/item/door_remote/pathfinders
+	name = "pathfinders door remote"
+	icon_state = "gangtool-purple"
+	region_access = REGION_PATHFINDERS
 
 /obj/item/door_remote/head_of_security
 	name = "security door remote"

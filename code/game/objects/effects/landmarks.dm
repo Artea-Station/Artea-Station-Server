@@ -62,10 +62,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	jobspawn_override = TRUE
 	delete_after_roundstart = FALSE
 
-/obj/effect/landmark/start/prisoner
-	name = "Prisoner"
-	icon_state = "Prisoner"
-
 /obj/effect/landmark/start/janitor
 	name = "Janitor"
 	icon_state = "Janitor"
@@ -89,10 +85,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/quartermaster
 	name = "Quartermaster"
 	icon_state = "Quartermaster"
-
-/obj/effect/landmark/start/atmospheric_technician
-	name = "Atmospheric Technician"
-	icon_state = "Atmospheric Technician"
 
 /obj/effect/landmark/start/cook
 	name = "Cook"
@@ -182,6 +174,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Cyborg"
 	icon_state = "Cyborg"
 
+/obj/effect/landmark/start/lead_pathfinder
+	name = "Lead Pathfinder"
+	icon_state = "Lead Pathfinder"
+
+/obj/effect/landmark/start/pathfinder
+	name = "Pathfinder"
+	icon_state = "Pathfinder"
 
 /obj/effect/landmark/start/ai
 	name = "AI"

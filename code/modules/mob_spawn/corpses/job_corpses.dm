@@ -31,14 +31,14 @@
 
 /obj/effect/mob_spawn/corpse/human/miner
 	name = "Shaft Miner"
-	outfit = /datum/outfit/job/miner
+	outfit = /datum/outfit/job/pathfinder
 	icon_state = "corpseminer"
 
 /obj/effect/mob_spawn/corpse/human/miner/mod
-	outfit = /datum/outfit/job/miner/equipped/mod
+	outfit = /datum/outfit/job/pathfinder/mod
 
 /obj/effect/mob_spawn/corpse/human/miner/explorer
-	outfit = /datum/outfit/job/miner/equipped
+	outfit = /datum/outfit/job/pathfinder/medic
 
 /obj/effect/mob_spawn/corpse/human/plasmaman
 	mob_species = /datum/species/plasmaman

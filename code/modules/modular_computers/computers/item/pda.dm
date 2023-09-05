@@ -35,6 +35,7 @@
 	var/static/list/datum/computer_file/pda_programs = list(
 		/datum/computer_file/program/messenger,
 		/datum/computer_file/program/notepad,
+		/datum/computer_file/program/crew_manifest,
 	)
 	///List of items that can be stored in a PDA
 	var/static/list/contained_item = list(
@@ -82,19 +83,6 @@
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_PDA_MESSAGE_MENU_RIGGED))
 		explode(usr, from_message_menu = TRUE)
-
-/obj/item/modular_computer/pda/attack_self(mob/user)
-	// bypass literacy checks to access syndicate uplink
-	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
-	if(hidden_uplink?.owner && HAS_TRAIT(user, TRAIT_ILLITERATE))
-		if(hidden_uplink.owner != user.key)
-			return ..()
-
-		hidden_uplink.locked = FALSE
-		hidden_uplink.interact(null, user)
-		return COMPONENT_CANCEL_ATTACK_CHAIN
-
-	return ..()
 
 /obj/item/modular_computer/pda/pre_attack(atom/target, mob/living/user, params)
 	if(!inserted_disk || !ismachinery(target))
@@ -151,7 +139,7 @@
 		return
 	balloon_alert(user, "inserted [attacking_item]")
 	inserted_item = attacking_item
-	playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
+	playsound(src, 'sound/machines/id_insert.ogg', 50, TRUE)
 
 /obj/item/modular_computer/pda/AltClick(mob/user)
 	. = ..()
@@ -186,7 +174,7 @@
 		user.put_in_hands(inserted_item)
 		inserted_item = null
 		update_appearance()
-		playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
+		playsound(src, 'sound/machines/pen_remove.ogg', 50, TRUE)
 
 /obj/item/modular_computer/pda/proc/explode(mob/target, mob/bomber, from_message_menu = FALSE)
 	var/turf/current_turf = get_turf(src)

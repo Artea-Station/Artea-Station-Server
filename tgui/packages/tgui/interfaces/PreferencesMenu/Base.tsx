@@ -45,15 +45,31 @@ export const ChoicedSelection = (
       <Stack vertical fill>
         <Stack.Item>
           <Stack fill>
-            {supplementalFeature && (
+            {supplementalFeature !== undefined && (
               <Stack.Item>
-                <FeatureValueInput
-                  act={act}
-                  feature={features[supplementalFeature]}
-                  featureId={supplementalFeature}
-                  shrink
-                  value={supplementalValue}
-                />
+                {features[supplementalFeature].description ? (
+                  <Tooltip
+                    position="right"
+                    content={
+                      <Box>{features[supplementalFeature].description}</Box>
+                    }>
+                    <FeatureValueInput
+                      act={act}
+                      feature={features[supplementalFeature]}
+                      featureId={supplementalFeature}
+                      shrink
+                      value={supplementalValue}
+                    />
+                  </Tooltip>
+                ) : (
+                  <FeatureValueInput
+                    act={act}
+                    feature={features[supplementalFeature]}
+                    featureId={supplementalFeature}
+                    shrink
+                    value={supplementalValue}
+                  />
+                )}
               </Stack.Item>
             )}
 
@@ -95,10 +111,18 @@ export const ChoicedSelection = (
                       selected={name === props.selected}
                       tooltip={name}
                       tooltipPosition="right"
-                      style={{
-                        height: `${CLOTHING_SELECTION_CELL_SIZE}px`,
-                        width: `${CLOTHING_SELECTION_CELL_SIZE}px`,
-                      }}>
+                      style={
+                        name === props.selected
+                          ? {
+                            height: `${CLOTHING_SELECTION_CELL_SIZE}px`,
+                            width: `${CLOTHING_SELECTION_CELL_SIZE}px`,
+                          }
+                          : {
+                            height: `${CLOTHING_SELECTION_CELL_SIZE}px`,
+                            width: `${CLOTHING_SELECTION_CELL_SIZE}px`,
+                            'background-color': '#b37b14',
+                          }
+                      }>
                       <Box
                         className={classes([
                           'preferences32x32',

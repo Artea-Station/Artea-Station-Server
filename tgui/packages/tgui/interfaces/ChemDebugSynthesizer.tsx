@@ -56,11 +56,6 @@ export const ChemDebugSynthesizer = (props, context) => {
                   maxValue={120}
                   step={1}
                   stepPixelSize={2}
-                  onChange={(e, value) =>
-                    act('purity', {
-                      amount: value,
-                    })
-                  }
                 />
                 <Button
                   icon="plus"

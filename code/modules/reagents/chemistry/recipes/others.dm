@@ -145,8 +145,6 @@
 	required_temp = 525
 	optimal_temp = 550
 	overheat_temp = 575
-	temp_exponent_factor = 0.2
-	purity_min = 0.3
 	thermic_constant = 35 //gives a bonus 15C wiggle room
 	rate_up_lim = 25 //Give a chance to pull back
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL
@@ -375,9 +373,6 @@
 /datum/chemical_reaction/ammonia
 	results = list(/datum/reagent/ammonia = 3)
 	required_reagents = list(/datum/reagent/hydrogen = 3, /datum/reagent/nitrogen = 1)
-	optimal_ph_min = 1  // Lets increase our range for this basic chem
-	optimal_ph_max = 12
-	H_ion_release = -0.02 //handmade is more neutral
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL | REACTION_TAG_PLANT
 
 /datum/chemical_reaction/diethylamine
@@ -399,7 +394,6 @@
 /datum/chemical_reaction/weedkiller
 	results = list(/datum/reagent/toxin/plantbgone/weedkiller = 5)
 	required_reagents = list(/datum/reagent/toxin = 1, /datum/reagent/ammonia = 4)
-	H_ion_release = -0.05		// Push towards acidic
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_PLANT
 
 /datum/chemical_reaction/pestkiller
@@ -790,12 +784,8 @@
 	required_temp = WATER_MATTERSTATE_CHANGE_TEMP-0.5 //274 So we can be sure that basic ghetto rigged stuff can freeze
 	optimal_temp = 200
 	overheat_temp = 0
-	optimal_ph_min = 0
-	optimal_ph_max = 14
 	thermic_constant = 0
-	H_ion_release = 0
 	rate_up_lim = 50
-	purity_min = 0
 	mix_message = "The solution freezes up into ice!"
 	reaction_flags = REACTION_COMPETITIVE
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL | REACTION_TAG_DRINK
@@ -806,31 +796,12 @@
 	required_temp = WATER_MATTERSTATE_CHANGE_TEMP+0.5
 	optimal_temp = 350
 	overheat_temp = NO_OVERHEAT
-	optimal_ph_min = 0
-	optimal_ph_max = 14
 	thermic_constant = 0
-	H_ion_release = 0
 	rate_up_lim = 50
-	purity_min = 0
 	mix_message = "The ice melts back into water!"
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL | REACTION_TAG_DRINK
 
 ////////////////////////////////////
-
-/datum/chemical_reaction/universal_indicator
-	results = list(/datum/reagent/universal_indicator = 3)//rough density excahnge
-	required_reagents = list(/datum/reagent/ash = 1, /datum/reagent/consumable/ethanol = 1, /datum/reagent/iodine = 1)
-	required_temp = 274
-	optimal_temp = 350
-	overheat_temp = NO_OVERHEAT
-	optimal_ph_min = 0
-	optimal_ph_max = 14
-	thermic_constant = 0
-	H_ion_release = 0
-	rate_up_lim = 50
-	purity_min = 0
-	mix_message = "The mixture's colors swirl together."
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL
 
 /datum/chemical_reaction/eigenstate
 	results = list(/datum/reagent/eigenstate = 1)
@@ -841,24 +812,14 @@
 	required_temp = 350
 	optimal_temp = 600
 	overheat_temp = 650
-	optimal_ph_min = 9
-	optimal_ph_max = 12
-	determin_ph_range = 5
-	temp_exponent_factor = 1.5
-	ph_exponent_factor = 3
 	thermic_constant = 12
-	H_ion_release = -0.05
 	rate_up_lim = 10
-	purity_min = 0.4
 	reaction_flags = REACTION_HEAT_ARBITARY
 	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_UNIQUE | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/eigenstate/reaction_finish(datum/reagents/holder, datum/equilibrium/reaction, react_vol)
 	. = ..()
 	var/turf/open/location = get_turf(holder.my_atom)
-	if(reaction.data["ducts_teleported"] == TRUE) //If we teleported an duct, then we reconnect it at the end
-		for(var/obj/item/stack/ducts/duct in range(location, 3))
-			duct.check_attach_turf(duct.loc)
 
 	var/datum/reagent/eigenstate/eigen = holder.has_reagent(/datum/reagent/eigenstate)
 	if(!eigen)
@@ -892,9 +853,6 @@
 	do_sparks(3,FALSE,location)
 	holder.chem_temp += 10
 	playsound(location, 'sound/effects/phasein.ogg', 80, TRUE)
-	for(var/obj/machinery/duct/duct in range(location, 3))
-		do_teleport(duct, location, 3, no_effects=TRUE)
-		equilibrium.data["ducts_teleported"] = TRUE //If we teleported a duct - call the process in
 	var/lets_not_go_crazy = 15 //Teleport 15 items at max
 	var/list/items = list()
 	for(var/obj/item/item in range(location, 3))
@@ -914,8 +872,6 @@
 	results = list(/datum/reagent/ants = 3)
 	required_reagents = list(/datum/reagent/ants = 2, /datum/reagent/consumable/sugar = 8)
 	//FermiChem vars:
-	optimal_ph_min = 3
-	optimal_ph_max = 12
 	required_temp = 50
 	reaction_flags = REACTION_INSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE

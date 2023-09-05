@@ -8,7 +8,7 @@ export const Safe = (properties, context) => {
   const { act, data } = useBackend(context);
   const { dial, open } = data;
   return (
-    <Window width={625} height={800} theme="ntos">
+    <Window width={625} height={800} theme="crtntos">
       <Window.Content>
         <Box className="Safe__engraving">
           <Dialer />

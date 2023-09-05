@@ -11,6 +11,7 @@
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "floodlight_c1"
 	density = TRUE
+
 	var/state = FLOODLIGHT_NEEDS_WIRES
 
 /obj/structure/floodlight_frame/attackby(obj/item/O, mob/user, params)
@@ -65,12 +66,79 @@
 	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION
 	anchored = FALSE
 	light_power = 1.75
+	can_change_cable_layer = TRUE
+
 	/// List of power usage multipliers
 	var/list/light_setting_list = list(0, 5, 10, 15)
 	/// Constant coeff. for power usage
 	var/light_power_coefficient = 200
 	/// Intensity of the floodlight.
 	var/setting = FLOODLIGHT_OFF
+
+/obj/machinery/power/floodlight/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_OBJ_PAINTED, TYPE_PROC_REF(/obj/machinery/power/floodlight, on_color_change))  //update light color when color changes
+	register_context()
+
+/obj/machinery/power/floodlight/proc/on_color_change(obj/machinery/power/flood_light, mob/user, obj/item/toy/crayon/spraycan/spraycan, is_dark_color)
+	SIGNAL_HANDLER
+	if(!spraycan.actually_paints)
+		return
+
+	if(setting > FLOODLIGHT_OFF)
+		update_light_state()
+
+/obj/machinery/power/floodlight/Destroy()
+	UnregisterSignal(src, COMSIG_OBJ_PAINTED)
+	. = ..()
+
+// Nonesensical value for l_color default, so we can detect if it gets set to null.
+#define NONSENSICAL_VALUE -99999
+
+/// change light color during operation
+/obj/machinery/power/floodlight/proc/update_light_state()
+	var/light_color = NONSENSICAL_VALUE
+	if(!isnull(color))
+		light_color = color
+	set_light(light_setting_list[setting], light_power, light_color)
+
+#undef NONSENSICAL_VALUE
+
+/obj/machinery/power/floodlight/add_context(
+	atom/source,
+	list/context,
+	obj/item/held_item,
+	mob/living/user,
+)
+
+	if(isnull(held_item))
+		if(panel_open)
+			context[SCREENTIP_CONTEXT_LMB] = "Remove Light"
+			return CONTEXTUAL_SCREENTIP_SET
+		return NONE
+
+	var/message = null
+	if(held_item.tool_behaviour == TOOL_SCREWDRIVER)
+		message = "Open Panel"
+	else if(held_item.tool_behaviour == TOOL_WRENCH)
+		message = anchored ? "Unsecure light" : "Secure light"
+
+	if(isnull(message))
+		return NONE
+	context[SCREENTIP_CONTEXT_LMB] = message
+	return CONTEXTUAL_SCREENTIP_SET
+
+/obj/machinery/power/floodlight/examine(mob/user)
+	. = ..()
+	if(!anchored)
+		. += span_notice("It needs to be wrenched on top of a wire.")
+	else
+		. += span_notice("Its at power level [setting].")
+	if(panel_open)
+		. += span_notice("Its maintainence hatch is open but can be [EXAMINE_HINT("screwed")] close.")
+		. += span_notice("You can remove the light tube by [EXAMINE_HINT("hand")].")
+	else
+		. += span_notice("Its maintainence hatch can be [EXAMINE_HINT("screwed")] open.")
 
 /obj/machinery/power/floodlight/process()
 	var/turf/T = get_turf(src)
@@ -109,6 +177,12 @@
 			setting_text = "high power"
 	if(user)
 		to_chat(user, span_notice("You set [src] to [setting_text]."))
+
+/obj/machinery/power/floodlight/cable_layer_change_checks(mob/living/user, obj/item/tool)
+	if(anchored)
+		balloon_alert(user, "unanchor first!")
+		return FALSE
+	return TRUE
 
 /obj/machinery/power/floodlight/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()

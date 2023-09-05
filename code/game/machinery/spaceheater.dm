@@ -267,6 +267,7 @@
 	mode = HEATER_MODE_STANDBY
 	usr.visible_message(span_notice("[usr] switches [on ? "on" : "off"] \the [src]."), span_notice("You switch [on ? "on" : "off"] \the [src]."))
 	update_appearance()
+	playsound(src, SFX_SWITCH, 75, TRUE)
 	if (on)
 		SSair.start_processing_machine(src)
 
@@ -367,7 +368,7 @@
 		return
 	//Dropper tools
 	if(beaker)
-		if(is_type_in_list(item, list(/obj/item/reagent_containers/dropper, /obj/item/ph_meter, /obj/item/ph_paper, /obj/item/reagent_containers/syringe)))
+		if(is_type_in_list(item, list(/obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe)))
 			item.afterattack(beaker, user, 1)
 		return
 

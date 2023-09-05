@@ -121,6 +121,15 @@
 	/// Whether the area is underground, checked for the purposes of above/underground weathers
 	var/underground = FALSE
 
+	/// Lazy list of all turfs adjacent to a day/night cycle. Associative from turf to bitfield (8 bit smoothing bitmap)
+	var/list/day_night_adjacent_turfs
+	/// Lazy list of all turfs affected by day/night blending associative to their applied appearance.
+	var/list/day_night_turf_appearance_translation
+	var/last_day_night_color
+	var/last_day_night_alpha
+	var/last_day_night_luminosity
+	var/datum/day_night_controller/subbed_day_night_controller
+
 /**
  * A list of teleport locations
  *
@@ -263,6 +272,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(!areas_in_z["[z]"])
 		areas_in_z["[z]"] = list()
 	areas_in_z["[z]"] += src
+	UpdateDayNightTurfs(find_controller = TRUE)
 
 /**
  * Destroy an area and clean it up

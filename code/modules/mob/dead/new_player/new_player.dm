@@ -115,6 +115,9 @@
 			return "[jobtitle] is not compatible with some antagonist role assigned to you."
 		if(JOB_UNAVAILABLE_CONTENT_PREFS_UNSET)
 			return "You haven't set your content preferences for your character."
+		if(JOB_UNAVAILABLE_AGE)
+			var/datum/job/job = SSjob.name_occupations[jobtitle]
+			return "You are too young, you need to be at least [job.required_character_age] to enter this ride!"
 
 	return GENERIC_JOB_UNAVAILABLE_ERROR
 
@@ -200,7 +203,7 @@
 		humanc = character //Let's retypecast the var to be human,
 
 	if(humanc) //These procs all expect humans
-		GLOB.data_core.manifest_inject(humanc)
+		GLOB.manifest.inject(humanc)
 		if(SSshuttle.arrivals)
 			SSshuttle.arrivals.QueueAnnounce(humanc, rank)
 		else

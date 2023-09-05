@@ -91,7 +91,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	target.dna.features["moth_wings"] = "Plain"
 	target.dna.features["snout"] = "Round"
 	target.dna.features["spines"] = "None"
-	target.dna.features["tail"] = "None"
+	target.dna.features[MUTANT_TAIL] = "None"
 	target.dna.features["tail_lizard"] = "Smooth"
 	target.dna.features["pod_hair"] = "Ivy"
 	target.dna.features[MUTANT_SYNTH_SCREEN] = "Pink"

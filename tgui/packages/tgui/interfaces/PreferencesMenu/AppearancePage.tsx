@@ -1,10 +1,10 @@
 import { useBackend, useLocalState } from '../../backend';
 import { Button, Stack } from '../../components';
 import { createSetPreference, PreferencesMenuData } from './data';
-import { CharacterPreview } from './CharacterPreview';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 import { FeatureChoicedServerData } from './preferences/features/base';
 import { MainFeature, PreferenceList } from './Base';
+import { CharacterPreview } from '../common/CharacterPreview';
 
 export const AppearancePage = (context, parentContext) => {
   const { act, data } = useBackend<PreferencesMenuData>(parentContext);
@@ -72,7 +72,7 @@ export const AppearancePage = (context, parentContext) => {
                 }}
                 overflowX="hidden"
                 overflowY="scroll">
-                <Stack height="100%" wrap>
+                <Stack wrap>
                   {mainFeatures.map(([clothingKey, clothing]) => {
                     const catalog =
                       serverData &&
@@ -82,7 +82,12 @@ export const AppearancePage = (context, parentContext) => {
 
                     return (
                       catalog && (
-                        <Stack.Item key={clothingKey} mt={0.5} px={0.5}>
+                        <Stack.Item
+                          key={clothingKey}
+                          mt={0.5}
+                          pr={2}
+                          pb={1}
+                          ml={0}>
                           <MainFeature
                             catalog={catalog}
                             currentValue={clothing}

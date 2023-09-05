@@ -1,6 +1,6 @@
 import { round } from 'common/math';
 import { useBackend } from '../backend';
-import { AnimatedNumber, Box, Button, Flex, LabeledList, NumberInput, ProgressBar, RoundGauge, Section, Table } from '../components';
+import { Box, Button, LabeledList, NumberInput, ProgressBar, Section, Table } from '../components';
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
 
@@ -11,11 +11,8 @@ export const ChemRecipeDebug = (props, context) => {
     isActive,
     isFlashing,
     currentTemp,
-    currentpH,
-    forcepH,
     forceTemp,
     targetVol,
-    targatpH,
     processing,
     processAll,
     index,
@@ -107,28 +104,6 @@ export const ChemRecipeDebug = (props, context) => {
                 }
               />
             </LabeledList.Item>
-            <LabeledList.Item label="pH">
-              {currentpH}
-              <NumberInput
-                width="65px"
-                step={0.1}
-                stepPixelSize={3}
-                value={targatpH}
-                minValue={0}
-                maxValue={14}
-                onDrag={(e, value) =>
-                  act('pH', {
-                    target: value,
-                  })
-                }
-              />
-              <Button
-                icon={forcepH ? 'power-off' : 'times'}
-                selected={forcepH}
-                content={'Force'}
-                onClick={() => act('forcepH')}
-              />
-            </LabeledList.Item>
             <LabeledList.Item label="Index">
               {index} of {endIndex}
             </LabeledList.Item>
@@ -204,41 +179,7 @@ export const ChemRecipeDebug = (props, context) => {
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        <Section
-          title="Reactions"
-          buttons={
-            <Flex>
-              <Flex.Item color="label">
-                <AnimatedNumber
-                  value={currentpH}
-                  format={(value) => 'pH: ' + round(value, 3)}
-                />
-              </Flex.Item>
-              <Flex.Item>
-                <RoundGauge
-                  size={1.6}
-                  value={currentpH}
-                  minValue={0}
-                  maxValue={14}
-                  alertAfter={isFlashing}
-                  content={'test'}
-                  format={() => ''}
-                  ranges={{
-                    'red': [-0.22, 1.5],
-                    'orange': [1.5, 3],
-                    'yellow': [3, 4.5],
-                    'olive': [4.5, 5],
-                    'good': [5, 6],
-                    'green': [6, 8.5],
-                    'teal': [8.5, 9.5],
-                    'blue': [9.5, 11],
-                    'purple': [11, 12.5],
-                    'violet': [12.5, 14],
-                  }}
-                />
-              </Flex.Item>
-            </Flex>
-          }>
+        <Section title="Reactions">
           {(activeReactions.length === 0 && (
             <Box color="label">No active reactions.</Box>
           )) || (
@@ -246,9 +187,6 @@ export const ChemRecipeDebug = (props, context) => {
               <Table.Row>
                 <Table.Cell bold color="label">
                   Reaction
-                </Table.Cell>
-                <Table.Cell bold color="label">
-                  {'Reaction quality'}
                 </Table.Cell>
                 <Table.Cell bold color="label">
                   Target
@@ -259,24 +197,6 @@ export const ChemRecipeDebug = (props, context) => {
                   <Table.Row key="reactions">
                     <Table.Cell width={'60px'} color={reaction.danger && 'red'}>
                       {reaction.name}
-                    </Table.Cell>
-                    <Table.Cell width={'100px'} pr={'10px'}>
-                      <RoundGauge
-                        size={1.3}
-                        value={reaction.quality}
-                        minValue={0}
-                        maxValue={1}
-                        alertAfter={reaction.purityAlert}
-                        content={'test'}
-                        format={() => ''}
-                        ml={5}
-                        ranges={{
-                          'red': [0, reaction.minPure],
-                          'orange': [reaction.minPure, reaction.inverse],
-                          'yellow': [reaction.inverse, 0.8],
-                          'green': [0.8, 1],
-                        }}
-                      />
                     </Table.Cell>
                     <Table.Cell width={'70px'}>
                       <ProgressBar

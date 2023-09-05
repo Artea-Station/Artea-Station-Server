@@ -151,6 +151,9 @@ SUBSYSTEM_DEF(shuttle)
 	/// List of all transit instances
 	var/list/transit_instances = list()
 
+	/// If the shuttle was forcecalled by crew transfer, or the vote passed.
+	var/endvote_passed = FALSE
+
 /datum/controller/subsystem/shuttle/Initialize(timeofday)
 	order_number = rand(1, 9000)
 
@@ -1121,3 +1124,13 @@ SUBSYSTEM_DEF(shuttle)
 		var/datum/transit_instance/iterated_transit = i
 		if(iterated_transit.reservation.IsInBounds(movable_atom))
 			return iterated_transit
+
+/datum/controller/subsystem/shuttle/proc/autoEnd()
+	if(EMERGENCY_IDLE_OR_RECALLED)
+		SSshuttle.emergency.request(silent = TRUE)
+		priority_announce("The shift has come to an end. The tranfer shuttle is en route. [SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_RED ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [emergency.timeLeft(600)] minutes.", null, 'sound/misc/announce_dig.ogg', "Priority")
+		log_game("Round end vote passed. Shuttle has been auto-called.")
+		message_admins("Round end vote passed. Shuttle has been auto-called.")
+	emergency_no_recall = TRUE
+	endvote_passed = TRUE
+	SSevents.can_fire = FALSE // we're going home

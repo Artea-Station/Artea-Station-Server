@@ -67,9 +67,6 @@
 	human_mob.dna.features["moth_markings"] = pick(GLOB.moth_markings_list)
 	randomize_external_organs(human_mob)
 
-/datum/species/moth/get_scream_sound(mob/living/carbon/human/human)
-	return 'sound/voice/moth/scream_moth.ogg'
-
 /datum/species/moth/get_species_description()
 	return "Hailing from a planet that was lost long ago, the moths travel \
 		the galaxy as a nomadic people aboard a colossal fleet of ships, seeking a new homeland."

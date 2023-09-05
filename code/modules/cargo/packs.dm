@@ -668,6 +668,14 @@
 					/obj/item/storage/belt/holster/thermal)
 	crate_name = "thermal pistol crate"
 
+/datum/supply_pack/security/armory/hardsuit_security
+	name = "Security Hardsuit Crate"
+	desc = "Contains a single security hardsuit used for space travel!"
+	cost = CARGO_CRATE_VALUE * 5
+	access = ACCESS_SECURITY
+	contains = list(/obj/item/clothing/suit/space/hardsuit/security)
+	crate_name = "security hardsuit crate"
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Engineering /////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -898,6 +906,23 @@
 	contains = list(/obj/item/circuitboard/computer/sat_control)
 	crate_name= "shield control board crate"
 
+/datum/supply_pack/engineering/hardsuit_engineer
+	name = "Engineering Hardsuit Crate"
+	desc = "Contains a single engineering hardsuit used for space travel!"
+	cost = CARGO_CRATE_VALUE * 5
+	access = ACCESS_ENGINEERING
+	contains = list(/obj/item/clothing/suit/space/hardsuit/engine)
+	crate_type = /obj/structure/closet/crate/secure/engineering
+	crate_name = "engineering hardsuit crate"
+
+/datum/supply_pack/engineering/hardsuit_atmos
+	name = "Atmospherics Hardsuit Crate"
+	desc = "Contains a single atmospherics hardsuit used for space travel! This one is also fire resistant!"
+	cost = CARGO_CRATE_VALUE * 8
+	access = ACCESS_ATMOSPHERICS
+	contains = list(/obj/item/clothing/suit/space/hardsuit/engine/atmos)
+	crate_type = /obj/structure/closet/crate/secure/engineering
+	crate_name = "atmospherics hardsuit crate"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////// Engine Construction /////////////////////////////////
@@ -1319,6 +1344,15 @@
 	access = ACCESS_CMO
 	contains = list(/obj/item/clothing/under/rank/medical/chief_medical_officer/turtleneck,
 					/obj/item/clothing/under/rank/medical/chief_medical_officer/turtleneck/skirt)
+	crate_name = "chief medical officer turtlenecks"
+
+/datum/supply_pack/medical/hardsuit_medical
+	name = "Medical Hardsuit Crate"
+	desc = "Contains a single medical hardsuit used for space travel and rescuing dying pathfinders."
+	cost = CARGO_CRATE_VALUE * 5
+	access = ACCESS_MEDICAL
+	contains = list(/obj/item/clothing/suit/space/hardsuit/medical)
+	crate_name = "medical hardsuit crate"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Science /////////////////////////////////////////
@@ -1489,12 +1523,13 @@
 	desc = "Did out of control specimens pulverize xenobiology? Here is some more supplies for further testing."
 	cost = CARGO_CRATE_VALUE * 3
 	access_view = ACCESS_XENOBIOLOGY
-	contains = list(/obj/structure/microscope,
-					/obj/item/biopsy_tool,
-					/obj/item/storage/box/petridish,
-					/obj/item/storage/box/petridish,
-					/obj/item/storage/box/swab,
-					/obj/item/construction/plumbing/research)
+	contains = list(
+		/obj/structure/microscope,
+		/obj/item/biopsy_tool,
+		/obj/item/storage/box/petridish,
+		/obj/item/storage/box/petridish,
+		/obj/item/storage/box/swab,
+	)
 	crate_name = "cytology supplies crate"
 
 /datum/supply_pack/science/mod_core
@@ -1689,6 +1724,15 @@
 	crate_name = "shaft miner starter kit"
 	crate_type = /obj/structure/closet/crate/secure
 
+/datum/supply_pack/service/hardsuit_mining
+	name = "Mining Hardsuit Crate"
+	desc = "Contains a single mining hardsuit used for space travel!"
+	cost = CARGO_CRATE_VALUE * 5
+	access = ACCESS_MINING_STATION
+	contains = list(/obj/item/clothing/suit/space/hardsuit/mining)
+	crate_name = "mining hardsuit crate"
+	crate_type = /obj/structure/closet/crate/secure
+
 /datum/supply_pack/service/survivalknives
 	name = "Survival Knives Crate"
 	desc = "Contains three sharpened survival knives. Each knife guaranteed to fit snugly inside any Nanotrasen-standard boot."
@@ -1764,6 +1808,31 @@
 	for(var/i in 1 to 3)
 		var/item = pick(contains)
 		new item(C)
+
+/datum/supply_pack/service/coffeekit
+	name = "Coffee Equipment Crate"
+	desc = "A complete kit to setup your own cozy coffee shop, the coffeemaker is for some reason not included."
+	cost = CARGO_CRATE_VALUE * 4
+	contains = list(
+		/obj/item/storage/box/coffeepack/robusta,
+		/obj/item/storage/box/coffeepack,
+		/obj/item/reagent_containers/cup/coffeepot,
+		/obj/item/storage/fancy/coffee_condi_display,
+		/obj/item/reagent_containers/cup/glass/bottle/juice/cream,
+		/obj/item/reagent_containers/condiment/milk,
+		/obj/item/reagent_containers/condiment/soymilk,
+		/obj/item/reagent_containers/condiment/sugar,
+		/obj/item/reagent_containers/cup/bottle/syrup_bottle/caramel, //one extra syrup as a treat
+	)
+	crate_name = "coffee equipment crate"
+
+/datum/supply_pack/service/coffeemaker
+	name = "Impressa Coffeemaker Crate"
+	desc = "An assembled Impressa model coffeemaker."
+	cost = CARGO_CRATE_VALUE * 4
+	contains = list(/obj/machinery/coffeemaker/impressa)
+	crate_name = "coffeemaker crate"
+	crate_type = /obj/structure/closet/crate/large
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Organic /////////////////////////////////////////
@@ -2085,6 +2154,30 @@
 					/obj/item/storage/box/mothic_rations)
 	crate_name = "\improper Mothic Supply box"
 	crate_type = /obj/structure/closet/crate/cardboard/mothic
+
+/datum/supply_pack/organic/syrup
+	name = "Coffee Syrups Box"
+	desc = "A packaged box of various syrups, perfect for making your delicious coffee even more diabetic."
+	cost = CARGO_CRATE_VALUE * 4
+	contains = list(
+		/obj/item/reagent_containers/cup/bottle/syrup_bottle/caramel,
+		/obj/item/reagent_containers/cup/bottle/syrup_bottle/liqueur,
+		/obj/item/reagent_containers/cup/bottle/syrup_bottle/korta_nectar,
+	)
+	crate_name = "coffee syrups box"
+	crate_type = /obj/structure/closet/crate/cardboard
+
+/datum/supply_pack/organic/syrup_contraband
+	contraband = TRUE
+	name = "Contraband Syrups Box"
+	desc = "A packaged box containing illegal coffee syrups. Possession of these carries a penalty established in the galactic penal code."
+	cost = CARGO_CRATE_VALUE * 6
+	contains = list(
+		/obj/item/reagent_containers/cup/bottle/syrup_bottle/laughsyrup,
+		/obj/item/reagent_containers/cup/bottle/syrup_bottle/laughsyrup,
+	)
+	crate_name = "illegal syrups box"
+	crate_type = /obj/structure/closet/crate/cardboard
 
 //////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// Livestock /////////////////////////////////////

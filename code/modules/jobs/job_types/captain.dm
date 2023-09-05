@@ -45,6 +45,7 @@
 
 	voice_of_god_power = 1.4 //Command staff has authority
 
+	required_character_age = 25 // This is the supreme leader. They are **absolutely not** going to be under 25.
 
 /datum/job/captain/get_captaincy_announcement(mob/living/captain)
 	return "Captain [captain.real_name] on deck!"

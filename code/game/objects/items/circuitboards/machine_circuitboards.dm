@@ -54,6 +54,7 @@
 		/obj/item/stock_parts/matter_bin = 3,
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stack/sheet/glass = 1)
+	manufacturer = MANUFACTURER_NOSHA_INDUSTRIES
 
 /obj/item/circuitboard/machine/grounding_rod
 	name = "Grounding Rod"
@@ -62,6 +63,8 @@
 	req_components = list(/obj/item/stock_parts/capacitor = 1)
 	needs_anchored = FALSE
 
+/obj/item/circuitboard/machine/telecomms
+	manufacturer = MANUFACTURER_NOSHA_INDUSTRIES
 
 /obj/item/circuitboard/machine/telecomms/broadcaster
 	name = "Subspace Broadcaster"
@@ -374,6 +377,7 @@
 		/obj/item/stock_parts/matter_bin = 1,
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/reagent_containers/cup/beaker = 2)
+	manufacturer = MANUFACTURER_NOSHA_INDUSTRIES
 
 /obj/item/circuitboard/machine/circuit_imprinter/offstation
 	name = "Ancient Circuit Imprinter"
@@ -425,6 +429,7 @@
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/manipulator = 2,
 		/obj/item/reagent_containers/cup/beaker = 2)
+	manufacturer = MANUFACTURER_NOSHA_INDUSTRIES
 
 /obj/item/circuitboard/machine/protolathe/offstation
 	name = "Ancient Protolathe"
@@ -550,6 +555,7 @@
 		/obj/machinery/vending/wardrobe/chem_wardrobe = "ChemDrobe",
 		/obj/machinery/vending/wardrobe/gene_wardrobe = "GeneDrobe",
 		/obj/machinery/vending/wardrobe/viro_wardrobe = "ViroDrobe",
+		/obj/machinery/vending/wardrobe/pathfinder_wardrobe = "PathDrobe",
 		/obj/machinery/vending/clothing = "ClothesMate",
 		/obj/machinery/vending/medical = "NanoMed Plus",
 		/obj/machinery/vending/drugs = "NanoDrug Plus",
@@ -685,14 +691,6 @@
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stack/sheet/glass = 1)
-
-/obj/item/circuitboard/machine/chem_mass_spec
-	name = "High-Performance Liquid Chromatography"
-	greyscale_colors = CIRCUIT_COLOR_MEDICAL
-	build_path = /obj/machinery/chem_mass_spec
-	req_components = list(
-	/obj/item/stock_parts/micro_laser = 1,
-	/obj/item/stack/cable_coil = 5)
 
 /obj/item/circuitboard/machine/chem_master
 	name = "ChemMaster 3000"
@@ -1284,17 +1282,6 @@
 		/obj/item/stock_parts/scanning_module = 2
 	)
 
-/obj/item/circuitboard/machine/plumbing_receiver
-	name = "Chemical Recipient"
-	greyscale_colors = CIRCUIT_COLOR_MEDICAL
-	build_path = /obj/machinery/plumbing/receiver
-	req_components = list(
-		/obj/item/stack/ore/bluespace_crystal = 1,
-		/obj/item/stock_parts/capacitor = 2,
-		/obj/item/stack/sheet/glass = 1)
-	def_components = list(/obj/item/stack/ore/bluespace_crystal = /obj/item/stack/ore/bluespace_crystal/artificial)
-	needs_anchored = FALSE
-
 /obj/item/circuitboard/machine/skill_station
 	name = "Skill Station"
 	build_path = /obj/machinery/skill_station
@@ -1365,7 +1352,6 @@
 
 /obj/item/circuitboard/machine/coffeemaker
 	name = "Coffeemaker (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/coffeemaker
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
@@ -1373,4 +1359,15 @@
 		/obj/item/stock_parts/water_recycler = 1,
 		/obj/item/stock_parts/capacitor = 1,
 		/obj/item/stock_parts/micro_laser = 1,
+	)
+
+/obj/item/circuitboard/machine/coffeemaker/impressa
+	name = "Impressa Coffeemaker"
+	build_path = /obj/machinery/coffeemaker/impressa
+	req_components = list(
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/reagent_containers/cup/beaker = 2,
+		/obj/item/stock_parts/water_recycler = 1,
+		/obj/item/stock_parts/capacitor/adv = 1,
+		/obj/item/stock_parts/micro_laser/high = 2,
 	)

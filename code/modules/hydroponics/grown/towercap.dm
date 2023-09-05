@@ -81,6 +81,7 @@
 /obj/item/grown/log/attackby(obj/item/W, mob/user, params)
 	if(W.get_sharpness())
 		user.show_message(span_notice("You make [plank_name] out of \the [src]!"), MSG_VISUAL)
+		playsound(user, 'sound/effects/woodcutting.ogg', 100, TRUE)
 		var/seed_modifier = 0
 		if(seed)
 			seed_modifier = round(seed.potency / 25)
@@ -143,7 +144,7 @@
 /obj/structure/punji_sticks/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/caltrop, min_damage = 20, max_damage = 30, flags = CALTROP_BYPASS_SHOES)
-	stab_overlay = mutable_appearance(icon, "[icon_state]_stab", layer = ABOVE_MOB_LAYER, plane = GAME_PLANE_FOV_HIDDEN)
+	stab_overlay = mutable_appearance(icon, "[icon_state]_stab", layer = ABOVE_MOB_LAYER, plane = GAME_PLANE)
 
 /obj/structure/punji_sticks/intercept_zImpact(list/falling_movables, levels)
 	. = ..()

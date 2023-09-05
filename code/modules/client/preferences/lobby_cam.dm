@@ -4,7 +4,7 @@
 	icon_state = "1"
 	screen_loc = "SOUTHWEST to NORTHEAST"
 	plane = SPLASHSCREEN_PLANE
-	layer = LOBBY_BACKGROUND_LAYER
+	layer = LOBBY_FADE_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/new_player_cam

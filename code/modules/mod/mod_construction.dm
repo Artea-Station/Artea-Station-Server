@@ -79,6 +79,38 @@
 /obj/item/mod/construction/plating/cosmohonk
 	theme = /datum/mod_theme/cosmohonk
 
+// Hardsuits as MOD plating
+
+/obj/item/clothing/suit/space/hardsuit
+	theme = /datum/mod_theme
+
+/obj/item/clothing/suit/space/hardsuit/engine
+	theme = /datum/mod_theme/engineering
+
+/obj/item/clothing/suit/space/hardsuit/engine/atmos
+	theme = /datum/mod_theme/atmospheric
+
+/obj/item/clothing/suit/space/hardsuit/medical
+	theme = /datum/mod_theme/medical
+
+/obj/item/clothing/suit/space/hardsuit/medical/cmo
+	theme = /datum/mod_theme/rescue
+
+/obj/item/clothing/suit/space/hardsuit/security
+	theme = /datum/mod_theme/security
+
+/obj/item/clothing/suit/space/hardsuit/security/head_of_security
+	theme = /datum/mod_theme/safeguard
+
+/obj/item/clothing/suit/space/hardsuit/engine/elite
+	theme = /datum/mod_theme/advanced
+
+/obj/item/clothing/suit/space/hardsuit/mining
+	theme = /datum/mod_theme/mining
+
+/obj/item/clothing/suit/space/hardsuit/syndi
+	theme = /datum/mod_theme/syndicate
+
 #define START_STEP "start"
 #define CORE_STEP "core"
 #define SCREWED_CORE_STEP "screwed_core"
@@ -226,7 +258,7 @@
 					balloon_alert(user, "assembly unsecured")
 					step = BOOTS_STEP
 		if(SCREWED_ASSEMBLY_STEP)
-			if(istype(part, /obj/item/mod/construction/plating)) //Construct
+			if(istype(part, /obj/item/mod/construction/plating) || istype(part, /obj/item/clothing/suit/space/hardsuit)) //Construct
 				var/obj/item/mod/construction/plating/external_plating = part
 				if(!user.transferItemToLoc(part, src))
 					return

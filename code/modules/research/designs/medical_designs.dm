@@ -47,17 +47,6 @@
 	build_path = /obj/item/reagent_containers/cup/beaker/meta
 	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_ENGINEERING
 
-/datum/design/ph_meter
-	name = "Chemical Analyzer"
-	id = "ph_meter"
-	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/glass = 2500, /datum/material/gold = 1000, /datum/material/titanium = 1000)
-	build_path = /obj/item/ph_meter
-	category = list(
-		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_CHEMISTRY
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_ENGINEERING
-
 /datum/design/dna_disk
 	name = "Genetic Data Disk"
 	desc = "Produce additional disks for storing genetic data."
@@ -116,7 +105,7 @@
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_MEDICAL
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL
+	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_PATHFINDERS
 
 /datum/design/defibrillator
 	name = "Defibrillator"

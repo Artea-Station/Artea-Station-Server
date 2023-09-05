@@ -131,6 +131,18 @@
 	glass_type = /obj/machinery/door/airlock/virology/glass
 	airlock_type = /obj/machinery/door/airlock/virology
 
+/obj/structure/door_assembly/door_assembly_pathfinders
+	name = "pathfinders airlock assembly"
+	base_name = "pathfinders airlock"
+	glass_type = /obj/machinery/door/airlock/pathfinders/glass
+	airlock_type = /obj/machinery/door/airlock/pathfinders
+
+/obj/structure/door_assembly/door_assembly_medical_shuttle
+	name = "medical shuttle airlock assembly"
+	base_name = "medical shuttle airlock"
+	glass_type = /obj/machinery/door/airlock/medical/shuttle/glass
+	airlock_type = /obj/machinery/door/airlock/medical/shuttle
+
 /obj/structure/door_assembly/door_assembly_centcom
 	airlock_type = /obj/machinery/door/airlock/centcom
 	noglass = TRUE

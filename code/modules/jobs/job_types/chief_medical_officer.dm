@@ -44,6 +44,7 @@
 
 	voice_of_god_power = 1.4 //Command staff has authority
 
+	required_character_age = 21 // This is a head, let's not let them be *really* young.
 
 /datum/job/chief_medical_officer/get_captaincy_announcement(mob/living/captain)
 	return "Due to staffing shortages, newly promoted Acting Captain [captain.real_name] on deck!"
@@ -89,4 +90,15 @@
 	uniform = /obj/item/clothing/under/rank/medical/chief_medical_officer
 	mask = /obj/item/clothing/mask/breath/medical
 	r_pocket = /obj/item/flashlight/pen/paramedic
+	internals_slot = ITEM_SLOT_SUITSTORE
+
+/datum/outfit/job/cmo/hardsuit
+	name = "Chief Medical Officer (Hardsuit)"
+
+	head = null
+	mask = /obj/item/clothing/mask/breath/medical
+	uniform = /obj/item/clothing/under/rank/medical/chief_medical_officer
+	suit = /obj/item/clothing/suit/space/hardsuit/medical/cmo
+	r_pocket = /obj/item/flashlight/pen/paramedic
+	suit_store = /obj/item/tank/internals/oxygen
 	internals_slot = ITEM_SLOT_SUITSTORE

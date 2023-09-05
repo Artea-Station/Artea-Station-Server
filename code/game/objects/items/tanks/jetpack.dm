@@ -187,8 +187,6 @@
 	icon_state = "jetpack-sec"
 	inhand_icon_state = "jetpack-sec"
 
-
-
 /obj/item/tank/jetpack/carbondioxide
 	name = "jetpack (carbon dioxide)"
 	desc = "A tank of compressed carbon dioxide for use as propulsion in zero-gravity areas. Painted black to indicate that it should not be used as a source for internals."

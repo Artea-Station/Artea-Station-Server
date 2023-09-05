@@ -159,10 +159,10 @@
 		if(bodypart_overlay.layers & external_layer)
 			. += bodypart_overlay.get_overlay(external_layer, limb = null)
 
-///The horns of a lizard!
+///The horns of uhh... someone!
 /obj/item/organ/external/horns
 	name = "horns"
-	desc = "Why do lizards even have horns? Well, this one obviously doesn't."
+	desc = "Horns. Seems like someone got horny... or unhorny- I don't know."
 	icon_state = "horns"
 
 	zone = BODY_ZONE_HEAD
@@ -175,8 +175,8 @@
 	bodypart_overlay = /datum/bodypart_overlay/mutant/horns
 
 /datum/bodypart_overlay/mutant/horns
-	layers = EXTERNAL_ADJACENT
-	feature_key = "horns"
+	layers = EXTERNAL_ADJACENT | EXTERNAL_FRONT
+	feature_key = MUTANT_HORNS
 
 /datum/bodypart_overlay/mutant/horns/can_draw_on_bodypart(mob/living/carbon/human/human)
 	if(!(human.head?.flags_inv & HIDEHAIR) || (human.wear_mask?.flags_inv & HIDEHAIR))
@@ -203,7 +203,7 @@
 
 /datum/bodypart_overlay/mutant/frills
 	layers = EXTERNAL_ADJACENT
-	feature_key = "frills"
+	feature_key = MUTANT_FRILLS
 
 /datum/bodypart_overlay/mutant/frills/can_draw_on_bodypart(mob/living/carbon/human/human)
 	if(!(human.head?.flags_inv & HIDEEARS))
@@ -232,7 +232,7 @@
 
 /datum/bodypart_overlay/mutant/snout
 	layers = EXTERNAL_ADJACENT
-	feature_key = "snout"
+	feature_key = MUTANT_SNOUT
 
 /datum/bodypart_overlay/mutant/snout/can_draw_on_bodypart(mob/living/carbon/human/human)
 	if(!(human.wear_mask?.flags_inv & HIDESNOUT) && !(human.head?.flags_inv & HIDESNOUT))
@@ -304,7 +304,7 @@
 ///Moth antennae datum, with full burning functionality
 /datum/bodypart_overlay/mutant/antennae
 	layers = EXTERNAL_FRONT | EXTERNAL_BEHIND
-	feature_key = "moth_antennae"
+	feature_key = MUTANT_MOTH_ANTENNAE
 	///Accessory datum of the burn sprite
 	var/datum/sprite_accessory/burn_datum = /datum/sprite_accessory/moth_antennae/burnt_off
 	///Are we burned? If so we draw differently
@@ -340,7 +340,7 @@
 ///Podperson bodypart overlay, with special coloring functionality to render the flowers in the inverse color
 /datum/bodypart_overlay/mutant/pod_hair
 	layers = EXTERNAL_FRONT|EXTERNAL_ADJACENT
-	feature_key = "pod_hair"
+	feature_key = MUTANT_POD_HAIR
 
 	///This layer will be colored differently than the rest of the organ. So we can get differently colored flowers or something
 	var/color_swapped_layer = EXTERNAL_FRONT
@@ -350,12 +350,14 @@
 /datum/bodypart_overlay/mutant/pod_hair/get_global_feature_list()
 	return GLOB.pod_hair_list
 
-/datum/bodypart_overlay/mutant/pod_hair/color_image(image/overlay, draw_layer)
+/datum/bodypart_overlay/mutant/pod_hair/color_images(list/image/overlays, draw_layer)
+
 	if(draw_layer != bitflag_to_layer(color_swapped_layer))
 		return ..()
 
-	var/list/rgb_list = rgb2num(draw_color)
-	overlay.color = rgb(color_inverse_base - rgb_list[1], color_inverse_base - rgb_list[2], color_inverse_base - rgb_list[3]) //inversa da color
+	for (var/image/overlay in overlays)
+		var/list/rgb_list = rgb2num(draw_color ? draw_color : COLOR_VIBRANT_LIME)
+		overlay.color = rgb(color_inverse_base - rgb_list[1], color_inverse_base - rgb_list[2], color_inverse_base - rgb_list[3]) //inversa da color
 
 /datum/bodypart_overlay/mutant/pod_hair/can_draw_on_bodypart(mob/living/carbon/human/human)
 	if(!(human.head?.flags_inv & HIDEHAIR) || (human.wear_mask?.flags_inv & HIDEHAIR))

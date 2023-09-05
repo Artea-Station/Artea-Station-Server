@@ -97,6 +97,7 @@
 #include "dynamic_ruleset_sanity.dm"
 #include "egg_glands.dm"
 #include "emoting.dm"
+#include "font_awesome_icons.dm"
 #include "food_edibility_check.dm"
 #include "full_heal.dm"
 #include "gas_transfer.dm"

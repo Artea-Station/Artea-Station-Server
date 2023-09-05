@@ -35,24 +35,12 @@
 	var/optimal_temp = 500
 	/// Temperature at which reaction explodes - If any reaction is this hot, it explodes!
 	var/overheat_temp = 900
-	/// Lowest value of pH determining pH a 1 value for pH based rate reactions (Plateu phase)
-	var/optimal_ph_min = 5
-	/// Higest value for above
-	var/optimal_ph_max = 9
-	/// How far out pH wil react, giving impurity place (Exponential phase)
-	var/determin_ph_range = 4
 	/// How sharp the temperature exponential curve is (to the power of value)
 	var/temp_exponent_factor = 2
-	/// How sharp the pH exponential curve is (to the power of value)
-	var/ph_exponent_factor = 2
 	/// How much the temperature will change (with no intervention) (i.e. for 30u made the temperature will increase by 100, same with 300u. The final temp will always be start + this value, with the exception con beakers with different specific heats)
 	var/thermic_constant = 50
-	/// pH change per 1u reaction
-	var/H_ion_release = 0.01
 	/// Optimal/max rate possible if all conditions are perfect
 	var/rate_up_lim = 30
-	/// If purity is below 0.15, it calls OverlyImpure() too. Set to 0 to disable this.
-	var/purity_min = 0.15
 	/// bitflags for clear conversions; REACTION_CLEAR_IMPURE, REACTION_CLEAR_INVERSE, REACTION_CLEAR_RETAIN, REACTION_INSTANT
 	var/reaction_flags = NONE
 	///Tagging vars
@@ -102,13 +90,20 @@
  * * reaction - the equilibrium reaction holder that is reaction is processed within - use this to edit delta_t and delta
  * * holder - the datum that holds this reagent, be it a beaker or anything else
  * * created_volume - volume created per step
- * * added_purity - how pure the created volume is per step
  *
  * Outputs:
  * * returning END_REACTION will end the associated reaction - flagging it for deletion and preventing any reaction in that timestep from happening. Make sure to set the vars in the holder to one that can't start it from starting up again.
  */
-/datum/chemical_reaction/proc/reaction_step(datum/reagents/holder, datum/equilibrium/reaction, delta_t, delta_ph, step_reaction_vol)
-	return
+/datum/chemical_reaction/proc/reaction_step(datum/reagents/holder, datum/equilibrium/reaction, delta_t, step_reaction_vol)
+	SHOULD_CALL_PARENT(TRUE)
+	for(var/id in results)
+		var/datum/reagent/reagent = holder.has_reagent(id)
+		if(!reagent)
+			continue
+		if(reagent.inverse_chem && holder.has_reagent(/datum/reagent/acidic_inversifier) && !(reaction_flags & REACTION_CLEAR_INVERSE))
+			var/cached_volume = reagent.volume
+			holder.remove_reagent(reagent.type, cached_volume, FALSE)
+			holder.add_reagent(reagent.inverse_chem, cached_volume, FALSE)
 
 /**
  * Stuff that occurs at the end of a reaction. This will proc if the beaker is forced to stop and start again (say for sudden temperature changes).
@@ -145,17 +140,10 @@
 /datum/chemical_reaction/proc/reaction_clear_check(datum/reagent/reagent, datum/reagents/holder)
 	if(!reagent)//Failures can delete R
 		return
-	if(reaction_flags & (REACTION_CLEAR_IMPURE | REACTION_CLEAR_INVERSE))
-		if(reagent.purity == 1)
-			return
-
+	if(reagent.inverse_chem && holder.has_reagent(/datum/reagent/acidic_inversifier) && (reaction_flags & REACTION_CLEAR_INVERSE))
 		var/cached_volume = reagent.volume
-		var/cached_purity = reagent.purity
-		if((reaction_flags & REACTION_CLEAR_INVERSE) && reagent.inverse_chem)
-			if(reagent.inverse_chem_val > reagent.purity)
-				holder.remove_reagent(reagent.type, cached_volume, FALSE)
-				holder.add_reagent(reagent.inverse_chem, cached_volume, FALSE, added_purity = 1-cached_purity)
-				return
+		holder.remove_reagent(reagent.type, cached_volume, FALSE)
+		holder.add_reagent(reagent.inverse_chem, cached_volume, FALSE)
 
 /**
  * Occurs when a reation is overheated (i.e. past it's overheatTemp)
@@ -189,12 +177,7 @@
  * * step_volume_added - how much product (across all products) was added for this single step
  */
 /datum/chemical_reaction/proc/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
-	var/affected_list = results + required_reagents
-	for(var/_reagent in affected_list)
-		var/datum/reagent/reagent = holder.get_reagent(_reagent)
-		if(!reagent)
-			continue
-		reagent.purity = clamp((reagent.purity-0.01), 0, 1) //slowly reduce purity of reagents
+	return
 
 /**
  * Magical mob spawning when chemicals react
@@ -300,8 +283,7 @@
 		if(lastkey)
 			var/mob/toucher = get_mob_by_key(lastkey)
 			touch_msg = "[ADMIN_LOOKUPFLW(toucher)]"
-		if(!istype(holder.my_atom, /obj/machinery/plumbing)) //excludes standard plumbing equipment from spamming admins with this shit
-			message_admins("Reagent explosion reaction occurred at [ADMIN_VERBOSEJMP(T)][inside_msg]. Last Fingerprint: [touch_msg].")
+		message_admins("Reagent explosion reaction occurred at [ADMIN_VERBOSEJMP(T)][inside_msg]. Last Fingerprint: [touch_msg].")
 		log_game("Reagent explosion reaction occurred at [AREACOORD(T)]. Last Fingerprint: [lastkey ? lastkey : "N/A"]." )
 		var/datum/effect_system/reagents_explosion/e = new()
 		e.set_up(power , T, 0, 0)
@@ -348,7 +330,7 @@
 			invert_reagents.add_reagent(reagent.inverse_chem, reagent.volume, no_react = TRUE)
 			holder.remove_reagent(reagent.type, reagent.volume)
 			continue
-		invert_reagents.add_reagent(reagent.type, reagent.volume, added_purity = reagent.purity, no_react = TRUE)
+		invert_reagents.add_reagent(reagent.type, reagent.volume, no_react = TRUE)
 		sum_volume += reagent.volume
 		holder.remove_reagent(reagent.type, reagent.volume)
 	if(!force_range)
@@ -370,7 +352,7 @@
 	var/sum_volume = 0
 	for (var/datum/reagent/reagent as anything in holder.reagent_list)
 		if((reagent.type in required_reagents) || (reagent.type in results))
-			reagents.add_reagent(reagent.type, reagent.volume, added_purity = reagent.purity, no_react = TRUE)
+			reagents.add_reagent(reagent.type, reagent.volume, no_react = TRUE)
 			holder.remove_reagent(reagent.type, reagent.volume)
 	if(!force_range)
 		force_range = (sum_volume/6) + 3

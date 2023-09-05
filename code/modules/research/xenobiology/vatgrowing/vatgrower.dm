@@ -1,32 +1,33 @@
 ///Used to make mobs from microbiological samples. Grow grow grow.
-/obj/machinery/plumbing/growing_vat
+/obj/machinery/growing_vat
 	name = "growing vat"
 	desc = "Tastes just like the chef's soup."
 	icon_state = "growing_vat"
-	buffer = 300
 	///List of all microbiological samples in this soup.
 	var/datum/biological_sample/biological_sample
 	///If the vat will restart the sample upon completion
 	var/resampler_active = FALSE
 
-///Add that sexy demnand component
-/obj/machinery/plumbing/growing_vat/Initialize(mapload, bolt)
+/obj/machinery/growing_vat/Initialize(mapload, bolt = TRUE)
 	. = ..()
-	AddComponent(/datum/component/plumbing/simple_demand, bolt)
+	set_anchored(bolt)
+	create_reagents(300, TRANSPARENT)
+	AddComponent(/datum/component/simple_rotation)
+	interaction_flags_machine |= INTERACT_MACHINE_OFFLINE
 
-/obj/machinery/plumbing/growing_vat/create_reagents(max_vol, flags)
+/obj/machinery/growing_vat/create_reagents(max_vol, flags)
 	. = ..()
 	RegisterSignal(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_REM_REAGENT), PROC_REF(on_reagent_change))
 	RegisterSignal(reagents, COMSIG_PARENT_QDELETING, PROC_REF(on_reagents_del))
 
 /// Handles properly detaching signal hooks.
-/obj/machinery/plumbing/growing_vat/proc/on_reagents_del(datum/reagents/reagents)
+/obj/machinery/growing_vat/proc/on_reagents_del(datum/reagents/reagents)
 	SIGNAL_HANDLER
 	UnregisterSignal(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_REM_REAGENT, COMSIG_PARENT_QDELETING))
 	return NONE
 
 ///When we process, we make use of our reagents to try and feed the samples we have.
-/obj/machinery/plumbing/growing_vat/process()
+/obj/machinery/growing_vat/process()
 	if(!is_operational)
 		return
 	if(!biological_sample)
@@ -38,7 +39,7 @@
 		audible_message(pick(list(span_notice("[src] grumbles!"), span_notice("[src] makes a splashing noise!"), span_notice("[src] sloshes!"))))
 
 ///Handles the petri dish depositing into the vat.
-/obj/machinery/plumbing/growing_vat/attacked_by(obj/item/I, mob/living/user)
+/obj/machinery/growing_vat/attacked_by(obj/item/I, mob/living/user)
 	if(!istype(I, /obj/item/petri_dish))
 		return ..()
 
@@ -53,7 +54,7 @@
 	deposit_sample(user, petri)
 
 ///Creates a clone of the supplied sample and puts it in the vat
-/obj/machinery/plumbing/growing_vat/proc/deposit_sample(mob/user, obj/item/petri_dish/petri)
+/obj/machinery/growing_vat/proc/deposit_sample(mob/user, obj/item/petri_dish/petri)
 	biological_sample = new
 	for(var/datum/micro_organism/m in petri.sample.micro_organisms)
 		biological_sample.micro_organisms += new m.type()
@@ -65,7 +66,7 @@
 	RegisterSignal(biological_sample, COMSIG_SAMPLE_GROWTH_COMPLETED, PROC_REF(on_sample_growth_completed))
 
 ///Adds text for when there is a sample in the vat
-/obj/machinery/plumbing/growing_vat/examine_more(mob/user)
+/obj/machinery/growing_vat/examine_more(mob/user)
 	. = ..()
 	if(!biological_sample)
 		return
@@ -74,18 +75,18 @@
 		var/datum/micro_organism/MO = i
 		. += MO.get_details(HAS_TRAIT(user, TRAIT_RESEARCH_SCANNER))
 
-/obj/machinery/plumbing/growing_vat/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)
+/obj/machinery/growing_vat/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)
 	. = ..()
 	QDEL_NULL(biological_sample)
 
 /// Call update icon when reagents change to update the reagent content icons. Eats signal args.
-/obj/machinery/plumbing/growing_vat/proc/on_reagent_change(datum/reagents/holder, ...)
+/obj/machinery/growing_vat/proc/on_reagent_change(datum/reagents/holder, ...)
 	SIGNAL_HANDLER
 	update_appearance()
 	return NONE
 
 ///Adds overlays to show the reagent contents
-/obj/machinery/plumbing/growing_vat/update_overlays()
+/obj/machinery/growing_vat/update_overlays()
 	. = ..()
 	var/static/image/on_overlay
 	var/static/image/off_overlay
@@ -111,7 +112,7 @@
 		var/mutable_appearance/bubbles_overlay = mutable_appearance(icon, "vat_bubbles")
 		. += bubbles_overlay
 
-/obj/machinery/plumbing/growing_vat/attack_hand(mob/living/user, list/modifiers)
+/obj/machinery/growing_vat/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
 	playsound(src, 'sound/machines/click.ogg', 30, TRUE)
 	if(obj_flags & EMAGGED)
@@ -120,7 +121,7 @@
 	balloon_alert_to_viewers("resampler [resampler_active ? "activated" : "deactivated"]")
 	update_appearance()
 
-/obj/machinery/plumbing/growing_vat/emag_act(mob/user)
+/obj/machinery/growing_vat/emag_act(mob/user)
 	if(obj_flags & EMAGGED)
 		return
 	obj_flags |= EMAGGED
@@ -128,7 +129,7 @@
 	to_chat(user, span_warning("You overload [src]'s resampling circuit."))
 	flick("growing_vat_emagged", src)
 
-/obj/machinery/plumbing/growing_vat/proc/on_sample_growth_completed()
+/obj/machinery/growing_vat/proc/on_sample_growth_completed()
 	SIGNAL_HANDLER
 	if(resampler_active)
 		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), get_turf(src), 'sound/effects/servostep.ogg', 100, 1), 1.5 SECONDS)

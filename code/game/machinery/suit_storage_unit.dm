@@ -1,10 +1,10 @@
 // SUIT STORAGE UNIT /////////////////
 /obj/machinery/suit_storage_unit
-	name = "suit storage unit"
+	name = "industrial suit storage unit"
 	desc = "An industrial unit made to hold and decontaminate irradiated equipment. It comes with a built-in UV cauterization mechanism. A small warning label advises that organic matter should not be placed into the unit."
 	icon = 'icons/obj/machines/suit_storage.dmi'
-	icon_state = "classic"
-	base_icon_state = "classic"
+	icon_state = "industrial"
+	base_icon_state = "industrial"
 	power_channel = AREA_USAGE_EQUIP
 	density = TRUE
 	obj_flags = NO_BUILD // Becomes undense when the unit is open
@@ -125,6 +125,50 @@
 	suit_type = /obj/item/clothing/suit/utility/radiation
 	helmet_type = /obj/item/clothing/head/radiation
 	storage_type = /obj/item/geiger_counter
+
+/// Hardsuit suit storage units
+
+/obj/machinery/suit_storage_unit/hardsuit/engineering
+	suit_type = /obj/item/clothing/suit/space/hardsuit/engine
+	mask_type = /obj/item/clothing/mask/breath
+
+/obj/machinery/suit_storage_unit/hardsuit/atmospherics
+	suit_type = /obj/item/clothing/suit/space/hardsuit/engine/atmos
+	mask_type = /obj/item/clothing/mask/gas/atmos
+	storage_type = /obj/item/watertank/atmos
+
+/obj/machinery/suit_storage_unit/hardsuit/ce
+	suit_type = /obj/item/clothing/suit/space/hardsuit/engine/elite
+	mask_type = /obj/item/clothing/mask/breath
+	storage_type = /obj/item/clothing/shoes/magboots/advance
+
+/obj/machinery/suit_storage_unit/hardsuit/mining
+	suit_type = /obj/item/clothing/suit/space/hardsuit/mining
+	mask_type = /obj/item/clothing/mask/gas/explorer
+
+/obj/machinery/suit_storage_unit/hardsuit/syndicate
+	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi
+	mask_type = /obj/item/clothing/mask/gas/syndicate
+	storage_type = /obj/item/tank/jetpack/oxygen/harness
+
+/obj/machinery/suit_storage_unit/hardsuit/medical
+	suit_type = /obj/item/clothing/suit/space/hardsuit/medical
+	mask_type = /obj/item/clothing/mask/breath/medical
+	storage_type = /obj/item/tank/internals/oxygen
+
+/obj/machinery/suit_storage_unit/hardsuit/cmo
+	suit_type =	/obj/item/clothing/suit/space/hardsuit/medical/cmo
+	mask_type = /obj/item/clothing/mask/breath/medical
+	storage_type = /obj/item/tank/internals/oxygen
+
+/obj/machinery/suit_storage_unit/hardsuit/security
+	suit_type = /obj/item/clothing/suit/space/hardsuit/security
+	mask_type = /obj/item/clothing/mask/gas/sechailer
+
+/obj/machinery/suit_storage_unit/hardsuit/hos
+	suit_type = /obj/item/clothing/suit/space/hardsuit/security/head_of_security
+	mask_type = /obj/item/clothing/mask/gas/sechailer
+	storage_type = /obj/item/tank/internals/oxygen
 
 /obj/machinery/suit_storage_unit/open
 	state_open = TRUE

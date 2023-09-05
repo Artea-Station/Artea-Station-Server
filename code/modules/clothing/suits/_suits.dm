@@ -14,6 +14,7 @@
 	pickup_sound = 'sound/items/handling/cloth_pickup.ogg'
 	slot_flags = ITEM_SLOT_OCLOTHING
 	var/blood_overlay_type = "suit"
+	var/suittoggled = FALSE
 	limb_integrity = 0 // disabled for most exo-suits
 
 /obj/item/clothing/suit/Initialize(mapload)

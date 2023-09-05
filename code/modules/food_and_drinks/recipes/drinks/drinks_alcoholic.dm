@@ -1,13 +1,8 @@
 /// Drink recipe base
 /datum/chemical_reaction/drink
 	optimal_temp = 250
-	temp_exponent_factor = 1
-	optimal_ph_min = 2
-	optimal_ph_max = 10
 	thermic_constant = 0
-	H_ion_release = 0
 	rate_up_lim = 60
-	purity_min = 0
 	reaction_tags = REACTION_TAG_DRINK | REACTION_TAG_EASY
 
 // Cocktails
@@ -261,7 +256,6 @@
 /datum/chemical_reaction/drink/acidspit
 	results = list(/datum/reagent/consumable/ethanol/acid_spit = 6)
 	required_reagents = list(/datum/reagent/toxin/acid = 1, /datum/reagent/consumable/ethanol/wine = 5)
-	optimal_ph_min = 0 //Our reaction is very acidic, so lets shift our range
 
 /datum/chemical_reaction/drink/amasec
 	results = list(/datum/reagent/consumable/ethanol/amasec = 10)
