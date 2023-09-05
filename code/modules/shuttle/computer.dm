@@ -45,7 +45,7 @@
 
 /obj/machinery/computer/shuttle/ui_data(mob/user)
 	var/list/data = list()
-	var/obj/docking_port/mobile/mobile_docking_port = SSshuttle.getShuttle(shuttleId)
+	var/obj/docking_port/mobile/mobile_docking_port = shuttleId ? SSshuttle.getShuttle(shuttleId) : null
 
 	if(!uses_overmap)
 		data["docked_location"] = mobile_docking_port ? mobile_docking_port.get_status_text_tgui() : "Unknown"
