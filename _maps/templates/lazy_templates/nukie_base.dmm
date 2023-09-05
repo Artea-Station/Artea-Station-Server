@@ -78,7 +78,7 @@
 /area/centcom/syndicate_mothership/control)
 "aR" = (
 /obj/machinery/computer/atmos_control/noreconnect{
-	atmos_chambers = list("nukiebase"="Burn Chamber");
+	atmos_chambers = list("nukiebase"="Burn  Chamber");
 	desc = "Used to monitor the Syndicate Ordnance Laboratory's burn chamber.";
 	dir = 1;
 	name = "Ordnance Chamber Monitor"
@@ -577,7 +577,6 @@
 "gJ" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/ducts/fifty,
 /obj/item/wrench{
 	desc = "A little smidgeon of Freon...";
 	name = "Freon"
@@ -665,7 +664,9 @@
 /turf/open/floor/plating/icemoon,
 /area/centcom/syndicate_mothership/control)
 "hN" = (
-/obj/machinery/chem_mass_spec,
+/obj/structure/closet/secure_closet/chemical/heisenberg{
+	req_access = null
+	},
 /turf/open/floor/mineral/titanium/tiled/yellow,
 /area/centcom/syndicate_mothership/expansion_chemicalwarfare)
 "hW" = (
@@ -2029,7 +2030,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/centcom/syndicate_mothership/expansion_bioterrorism)
 "vV" = (
-/obj/machinery/chem_heater/withbuffer,
+/obj/machinery/chem_heater,
 /turf/open/floor/mineral/titanium/tiled/yellow,
 /area/centcom/syndicate_mothership/expansion_chemicalwarfare)
 "vX" = (
@@ -3884,7 +3885,6 @@
 	pixel_x = -9;
 	pixel_y = 15
 	},
-/obj/item/construction/plumbing,
 /obj/item/reagent_containers/dropper{
 	pixel_x = 5;
 	pixel_y = 14
