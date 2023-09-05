@@ -554,7 +554,7 @@
 	return send_message_signal(sender, message, targets, fake_photo, FALSE, TRUE, fake_name, fake_job)
 
 /datum/computer_file/program/messenger/proc/send_message_signal(mob/sender, message, list/datum/computer_file/program/messenger/targets, photo_path = null, everyone = FALSE, rigged = FALSE, fake_name = null, fake_job = null)
-	if(!sender.can_perform_action(computer))
+	if(!sender.canUseTopic(computer))
 		return FALSE
 
 	if(!COOLDOWN_FINISHED(src, last_text))
@@ -663,7 +663,7 @@
 
 	var/should_ring = !alert_silenced || is_rigged
 
-	if(should_ring && istype(receiver_mob) && receiver_mob.is_literate() && (receiver_mob.stat == CONSCIOUS || receiver_mob.stat == SOFT_CRIT))
+	if(should_ring && istype(receiver_mob) && (receiver_mob.stat == CONSCIOUS || receiver_mob.stat == SOFT_CRIT))
 		var/reply_href = signal.data["rigged"] ? "explode" : "message"
 		var/photo_href = signal.data["rigged"] ? "explode" : "open"
 		var/reply
@@ -699,7 +699,7 @@
 
 	if(QDELETED(src))
 		return
-	if(!usr.can_perform_action(computer, FORBID_TELEKINESIS_REACH))
+	if(!usr.canUseTopic(computer, no_tk = TRUE))
 		return
 
 	// send an activation message and open the messenger

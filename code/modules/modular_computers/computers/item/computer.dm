@@ -582,7 +582,7 @@
 		INVOKE_ASYNC(src, /datum/proc/ui_interact, user) // Re-open the UI on this computer. It should show the main screen now.
 	update_appearance()
 
-/obj/item/modular_computer/proc/open_program(mob/user, datum/computer_file/program/program)
+/obj/item/modular_computer/proc/open_program(mob/user, datum/computer_file/program/program, open_ui = TRUE)
 	if(program.computer != src)
 		CRASH("tried to open program that does not belong to this computer")
 
@@ -596,6 +596,8 @@
 		active_program = program
 		program.alert_pending = FALSE
 		idle_threads.Remove(program)
+		if(open_ui)
+			update_tablet_open_uis(user)
 		update_appearance()
 		return TRUE
 

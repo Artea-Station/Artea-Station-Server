@@ -89,7 +89,7 @@
 		job_name = "pAI Messenger"
 
 	modularInterface.layer = ABOVE_HUD_PLANE
-	modularInterface.saved_identification = real_name || name
+	modularInterface.imprint_id(real_name || name, job_name)
 
 /mob/living/silicon/robot/create_modularInterface()
 	if(!modularInterface)

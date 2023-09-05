@@ -32,9 +32,9 @@
 			SSmodular_computers.purge_logs()
 			return TRUE
 		if("toggle_mass_pda")
-			if(!(params["ref"] in GLOB.TabletMessengers))
+			if(!(params["ref"] in GLOB.pda_messengers))
 				return
-			var/datum/computer_file/program/messenger/target_messenger = GLOB.TabletMessengers[params["ref"]]
+			var/datum/computer_file/program/messenger/target_messenger = GLOB.pda_messengers[params["ref"]]
 			target_messenger.spam_mode = !target_messenger.spam_mode
 			return TRUE
 

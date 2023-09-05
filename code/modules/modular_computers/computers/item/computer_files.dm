@@ -46,7 +46,6 @@
 	used_capacity -= file_removing.size
 	SEND_SIGNAL(src, COMSIG_MODULAR_COMPUTER_FILE_DELETE, file_removing)
 	SEND_SIGNAL(file_removing, COMSIG_COMPUTER_FILE_DELETE)
-	qdel(file_removing)
 	return TRUE
 
 /**
