@@ -14,4 +14,5 @@
 		set_basalt_light(src)
 
 /turf/open/misc/basalt/safe
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	planetary_atmos = FALSE
