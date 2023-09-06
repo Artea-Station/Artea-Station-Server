@@ -125,7 +125,8 @@ export const IndexPage = (context, parentContext) => {
               <BigPageButton
                 page={Page.Food}
                 setPage={setCurrentPage}
-                tooltip="The food your character enjoys and dislikes!">
+                tooltip="The food your character enjoys and dislikes!"
+                tooltipPosition="bottom">
                 Food Preferences
               </BigPageButton>
             </Stack.Item>
