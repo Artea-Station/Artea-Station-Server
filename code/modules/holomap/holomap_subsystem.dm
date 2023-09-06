@@ -144,7 +144,7 @@ SUBSYSTEM_DEF(holomaps)
 
 			z_transition_positions["Ladders"]["markers"] += image_to_use
 
-		// Check sleeping after each row to avoid *completely* destroying the server
+		// Check sleeping after each row to avoid *completely* destroying the server. Technically unnecessary, due to each map taking ~0.2s to render, but best be safe.
 		CHECK_TICK
 
 	valid_map_indexes += z_level
@@ -168,6 +168,7 @@ SUBSYSTEM_DEF(holomaps)
 	big_map.Blend(canvas, ICON_OVERLAY)
 	extra_holomaps["[HOLOMAP_EXTRA_STATIONMAP]_[z_level]"] = big_map
 
+	// ARTEA TODO: Likely remove these when we add proper wallsprites for the holomap.
 	// Generate the "small" map (I presume for putting on wall map things?)
 	var/icon/small_map = icon(HOLOMAP_ICON, "blank")
 	small_map.Blend(map_base, ICON_OVERLAY)
