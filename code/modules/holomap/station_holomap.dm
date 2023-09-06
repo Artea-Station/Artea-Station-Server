@@ -51,9 +51,11 @@
 	. = ..()
 
 /obj/machinery/holomap/proc/setup_holomap()
+	var/turf/current_turf = get_turf(src)
 	holomap_datum = new
 	bogus = FALSE
-	var/turf/current_turf = get_turf(src)
+	floor_markings = image('icons/obj/machines/holomap/stationmap.dmi', "decal_station_map")
+
 	if(!("[HOLOMAP_EXTRA_STATIONMAP]_[current_z_level]" in SSholomaps.extra_holomaps))
 		bogus = TRUE
 		holomap_datum.initialize_holomap_bogus()
@@ -61,9 +63,6 @@
 		return
 
 	holomap_datum.initialize_holomap(current_turf.x, current_turf.y, current_z_level, reinit_base_map = TRUE, extra_overlays = handle_overlays())
-
-	floor_markings = image('icons/obj/machines/holomap/stationmap.dmi', "decal_station_map")
-	floor_markings.dir = src.dir
 
 	update_icon()
 
@@ -184,10 +183,10 @@
 
 	// Put the little "map" overlay down where it looks nice
 	if(floor_markings)
+		add_overlay(floor_markings)
 		floor_markings.dir = src.dir
 		floor_markings.pixel_x = -src.pixel_x
 		floor_markings.pixel_y = -src.pixel_y
-		add_overlay(floor_markings)
 
 /obj/machinery/holomap/screwdriver_act(mob/living/user, obj/item/tool)
 	if(!default_deconstruction_screwdriver(user, "[initial(icon_state)]_opened", "[initial(icon_state)]_off", tool))
@@ -225,6 +224,7 @@
 	if(!.)
 		return
 
+	tool.play_tool_sound(src, 50)
 	new wall_frame_type(loc)
 	qdel(src)
 
