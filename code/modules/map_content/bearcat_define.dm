@@ -22,7 +22,8 @@
 			"Baseturf" = "/turf/open/openspace",
 		),
 	)
-	space_ruin_levels = 3
 	global_trading_hub_type = /datum/trade_hub/randomname/large
 	overmap_object_type = /datum/overmap_object/shuttle/ship/bearcat
 	job_faction = FACTION_BEARCAT
+	job_changes = list()
+	overflow_job = /datum/job/assistant/bearcat

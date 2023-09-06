@@ -72,3 +72,6 @@
 	faction = FACTION_BEARCAT
 	total_positions = 1
 	spawn_positions = 1
+
+/datum/job/assistant/bearcat
+	faction = FACTION_BEARCAT

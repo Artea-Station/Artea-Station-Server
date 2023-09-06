@@ -522,7 +522,7 @@
 	name = "\improper Cryo Storage Room"
 	icon_state = "dorms"
 
-/area/station/commons/on_joining_game(mob/living/carbon/human/boarder)
+/area/station/commons/storage/cryo/on_joining_game(mob/living/carbon/human/boarder)
 	. = ..()
 	if(!ishuman(boarder))
 		return
