@@ -76,7 +76,6 @@
 		return
 
 	// Required to be done because otherwise the item can be scaled wrong, or have the wrong icon state.
-	suit.attach_accessory()
 	suit.cut_overlay(equipped_item)
 	suit.add_overlay(equipped_item)
 	suit.accessory_overlay = mutable_appearance(equipped_item.worn_icon, equipped_item.icon_state)
