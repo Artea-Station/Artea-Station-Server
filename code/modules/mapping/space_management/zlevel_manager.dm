@@ -15,10 +15,13 @@
 		var/list/features = default_map_traits[I]
 		var/datum/space_level/S = new(I, features[DL_NAME], features[DL_TRAITS])
 		z_list += S
+		build_area_turfs(S.z_value, TRUE)
+
+	generate_z_level_linkages() // Default Zs don't use add_new_zlevel() so they don't automatically generate z-linkages.
 
 /// Generates a real, honest to god new z level. Will create the actual space, and also generate a datum that holds info about the new plot of land
 /// Accepts the name, traits list, datum type, and if we should manage the turfs we create
-/datum/controller/subsystem/mapping/proc/add_new_zlevel(name, traits = list(), z_type = /datum/space_level, datum/overmap_object/overmap_obj = null)
+/datum/controller/subsystem/mapping/proc/add_new_zlevel(name, traits = list(), z_type = /datum/space_level, datum/overmap_object/overmap_obj = null, contain_turfs = TRUE)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_Z, args)
 	UNTIL(!adding_new_zlevel)
 	adding_new_zlevel = TRUE
@@ -34,6 +37,8 @@
 		if(istype(overmap_obj, /datum/overmap_object/shuttle)) //TODO: better method
 			S.is_overmap_controllable = TRUE
 	z_list += S
+	if(contain_turfs)
+		build_area_turfs(S.z_value)
 	generate_linkages_for_z_level(new_z)
 	calculate_z_level_gravity(new_z)
 	adding_new_zlevel = FALSE
