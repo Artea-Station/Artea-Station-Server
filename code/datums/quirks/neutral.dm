@@ -294,17 +294,6 @@
 		)
 	)
 
-/datum/quirk/item_quirk/colorist
-	name = "Colorist"
-	desc = "You like carrying around a hair dye spray to quickly apply color patterns to your hair."
-	icon = FA_ICON_FILL_DRIP
-	value = 0
-	medical_record_text = "Patient enjoys dyeing their hair with pretty colors."
-	mail_goodies = list(/obj/item/dyespray)
-
-/datum/quirk/item_quirk/colorist/add_unique(client/client_source)
-	give_item_to_holder(/obj/item/dyespray, list(LOCATION_BACKPACK = ITEM_SLOT_BACKPACK, LOCATION_HANDS = ITEM_SLOT_HANDS))
-
 #define GAMING_WITHDRAWAL_TIME (15 MINUTES)
 /datum/quirk/gamer
 	name = "Gamer"
@@ -401,27 +390,6 @@
 	human_holder.add_mood_event("gamer_withdrawal", /datum/mood_event/gamer_withdrawal)
 
 #undef GAMING_WITHDRAWAL_TIME
-
-
-/datum/quirk/item_quirk/pride_pin
-	name = "Pride Pin"
-	desc = "Show off your pride with this changing pride pin!"
-	icon = FA_ICON_RAINBOW
-	value = 0
-	gain_text = "<span class='notice'>You feel fruity.</span>"
-	lose_text = "<span class='danger'>You feel only slightly less fruity than before.</span>"
-	medical_record_text = "Patient appears to be fruity."
-
-/datum/quirk/item_quirk/pride_pin/add_unique(client/client_source)
-	var/obj/item/clothing/accessory/pride/pin = new(get_turf(quirk_holder))
-
-	var/pride_choice = client_source?.prefs?.read_preference(/datum/preference/choiced/pride_pin) || assoc_to_keys(GLOB.pride_pin_reskins)[1]
-	var/pride_reskin = GLOB.pride_pin_reskins[pride_choice]
-
-	pin.current_skin = pride_choice
-	pin.icon_state = pride_reskin
-
-	give_item_to_holder(pin, list(LOCATION_BACKPACK = ITEM_SLOT_BACKPACK, LOCATION_HANDS = ITEM_SLOT_HANDS))
 
 /datum/quirk/bad_touch
 	name = "Bad Touch"
