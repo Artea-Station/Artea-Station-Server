@@ -15,6 +15,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_INDUSTRIAL_LIFT)
 	canSmoothWith = list(SMOOTH_GROUP_INDUSTRIAL_LIFT)
 	obj_flags = CAN_BE_HIT | BLOCK_Z_OUT_DOWN
+	interaction_flags_atom = NONE
 	/// ID of the lift controller this will create
 	var/id
 	/// Type of the lift controller this will create
