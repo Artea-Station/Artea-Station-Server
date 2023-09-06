@@ -15,7 +15,7 @@
 #define HOLOMAP_SOFT_OBSTACLE "#ffffff54"	// Color of weak, climbable, or see-through barriers that aren't fulltile windows.
 #define HOLOMAP_PATH "#66666699"	// Color of floors
 #define HOLOMAP_ROCK "#66666644"	// Color of mineral walls
-#define HOLOMAP_HOLOFIER "#0096bb"	// Whole map is multiplied by this to give it a green holoish look
+#define HOLOMAP_HOLOFIER "#0096bb"	// Whole map is multiplied by this to give it a blue holoish look
 
 #define HOLOMAP_AREACOLOR_COMMAND "#3434d499"
 #define HOLOMAP_AREACOLOR_SECURITY "#AE121299"

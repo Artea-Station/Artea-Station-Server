@@ -5,16 +5,15 @@
 // Wall mounted holomap of the station
 // Credit to polaris for the code which this current map was originally based off of, and credit to VG for making it in the first place.
 
-/obj/machinery/station_map
+/obj/machinery/holomap
 	name = "\improper station holomap"
 	desc = "A virtual map of the surrounding station."
 	icon = 'icons/obj/machines/holomap/stationmap.dmi'
-	icon_state = "station_map"
+	icon_state = "holomap"
 	layer = ABOVE_WINDOW_LAYER
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 100
-	circuit = /obj/item/circuitboard/machine/station_map
 	light_color = HOLOMAP_HOLOFIER
 
 	/// The mob beholding this marvel.
@@ -26,29 +25,33 @@
 
 	// zLevel which the map is a map for.
 	var/current_z_level
-	/// This set to FALSE when the station map is initialized on a zLevel that has its own icon formatted for use by station holomaps.
+	/// This set to FALSE when the holomap is initialized on a zLevel that has its own icon formatted for use by station holomaps.
 	var/bogus = TRUE
 	/// The various images and icons for the map are stored in here, as well as the actual big map itself.
 	var/datum/station_holomap/holomap_datum
 
-/obj/machinery/station_map/Initialize()
+	var/wall_frame_type = /obj/item/wallframe/holomap
+
+/obj/machinery/holomap/open
+	panel_open = TRUE
+
+/obj/machinery/holomap/Initialize(mapload)
 	. = ..()
 	current_z_level = z
 	SSholomaps.station_holomaps += src
 
-/obj/machinery/station_map/LateInitialize()
+/obj/machinery/holomap/LateInitialize()
 	. = ..()
-	if(SSholomaps.initialized)
-		setup_holomap()
+	setup_holomap()
 
-/obj/machinery/station_map/Destroy()
+/obj/machinery/holomap/Destroy()
 	SSholomaps.station_holomaps -= src
 	close_map()
 	QDEL_NULL(holomap_datum)
 	. = ..()
 
-/obj/machinery/station_map/proc/setup_holomap()
-	holomap_datum = new()
+/obj/machinery/holomap/proc/setup_holomap()
+	holomap_datum = new
 	bogus = FALSE
 	var/turf/current_turf = get_turf(src)
 	if(!("[HOLOMAP_EXTRA_STATIONMAP]_[current_z_level]" in SSholomaps.extra_holomaps))
@@ -64,7 +67,7 @@
 
 	update_icon()
 
-/obj/machinery/station_map/attack_hand(mob/user)
+/obj/machinery/holomap/attack_hand(mob/user)
 	if(user == watching_mob)
 		close_map(user)
 		return
@@ -72,8 +75,8 @@
 	open_map(user)
 
 /// Tries to open the map for the given mob. Returns FALSE if it doesn't meet the criteria, TRUE if the map successfully opened with no runtimes.
-/obj/machinery/station_map/proc/open_map(mob/user)
-	if(!anchored || (machine_stat & (NOPOWER | BROKEN)) || !user?.client || panel_open || user.hud_used.holomap.used_station_map)
+/obj/machinery/holomap/proc/open_map(mob/user)
+	if((machine_stat & (NOPOWER | BROKEN)) || !user?.client || panel_open || user.hud_used.holomap.used_station_map)
 		return FALSE
 
 	if(!holomap_datum)
@@ -109,17 +112,17 @@
 
 	return TRUE
 
-/obj/machinery/station_map/attack_ai(mob/living/silicon/robot/user)
+/obj/machinery/holomap/attack_ai(mob/living/silicon/robot/user)
 	attack_hand(user)
 
-/obj/machinery/station_map/attack_robot(mob/user)
+/obj/machinery/holomap/attack_robot(mob/user)
 	attack_hand(user)
 
-/obj/machinery/station_map/process()
+/obj/machinery/holomap/process()
 	if((machine_stat & (NOPOWER | BROKEN)) || !anchored)
 		close_map()
 
-/obj/machinery/station_map/proc/check_position()
+/obj/machinery/holomap/proc/check_position()
 	SIGNAL_HANDLER
 	if(!watching_mob)
 		return
@@ -127,7 +130,7 @@
 	if(!Adjacent(watching_mob))
 		close_map(watching_mob)
 
-/obj/machinery/station_map/proc/close_map()
+/obj/machinery/holomap/proc/close_map()
 	if(!watching_mob)
 		return
 
@@ -145,7 +148,7 @@
 
 	update_use_power(IDLE_POWER_USE)
 
-/obj/machinery/station_map/power_change()
+/obj/machinery/holomap/power_change()
 	. = ..()
 	update_icon()
 
@@ -154,11 +157,11 @@
 	else
 		set_light(HOLOMAP_LOW_LIGHT)
 
-/obj/machinery/station_map/proc/set_broken()
+/obj/machinery/holomap/proc/set_broken()
 	machine_stat |= BROKEN
 	update_icon()
 
-/obj/machinery/station_map/update_icon()
+/obj/machinery/holomap/update_icon()
 	. = ..()
 	if(!holomap_datum)
 		return //Not yet.
@@ -168,7 +171,7 @@
 		icon_state = "station_map_broken"
 	else if(panel_open)
 		icon_state = "station_map_opened"
-	else if((machine_stat & NOPOWER) || !anchored)
+	else if((machine_stat & NOPOWER))
 		icon_state = "station_map_off"
 	else
 		icon_state = initial(icon_state)
@@ -186,7 +189,7 @@
 		floor_markings.pixel_y = -src.pixel_y
 		add_overlay(floor_markings)
 
-/obj/machinery/station_map/screwdriver_act(mob/living/user, obj/item/tool)
+/obj/machinery/holomap/screwdriver_act(mob/living/user, obj/item/tool)
 	if(!default_deconstruction_screwdriver(user, "station_map_opened", "station_map_off", tool))
 		return FALSE
 
@@ -198,7 +201,7 @@
 
 	return TRUE
 
-/obj/machinery/station_map/multitool_act(mob/living/user, obj/item/tool)
+/obj/machinery/holomap/multitool_act(mob/living/user, obj/item/tool)
 	if(!panel_open)
 		to_chat(user, span_warning("You need to open the panel to change the [src]'[p_s()] settings!"))
 		return FALSE
@@ -216,50 +219,23 @@
 	to_chat(user, span_info("You set the [src]'[p_s()] database index to [current_z_level]."))
 	return TRUE
 
-/obj/machinery/station_map/crowbar_act(mob/living/user, obj/item/tool)
-	return default_deconstruction_crowbar(tool)
+/obj/machinery/holomap/crowbar_act(mob/living/user, obj/item/tool)
+	. = default_deconstruction_crowbar(tool, custom_deconstruct = TRUE)
 
-/obj/machinery/station_map/wrench_act(mob/living/user, obj/item/tool)
-	if(!panel_open)
-		return FALSE
-	rotate_map(-90)
-	tool.play_tool_sound(user, 50)
-	return TRUE
+	if(!.)
+		return
 
-/obj/machinery/station_map/wrench_act_secondary(mob/living/user, obj/item/tool)
-	if(!panel_open)
-		return FALSE
-	rotate_map(90)
-	tool.play_tool_sound(user, 50)
-	return TRUE
+	new wall_frame_type(loc)
+	qdel(src)
 
-/// Rotates the map machine by the given amount of degrees. See byond's builtin `turn` for more info.
-/obj/machinery/station_map/proc/rotate_map(direction)
-	dir = turn(dir, direction)
-	switch(dir)
-		if(NORTH)
-			pixel_x = 0
-			pixel_y = 32
-		if(SOUTH)
-			pixel_x = 0
-			pixel_y = -32
-		if(EAST)
-			pixel_x = 32
-			pixel_y = 0
-		if(WEST)
-			pixel_x = -32
-			pixel_y = 0
-
-	update_icon() // Required to refresh the small map icon.
-
-/obj/machinery/station_map/emp_act(severity)
+/obj/machinery/holomap/emp_act(severity)
 	if(severity == EMP_LIGHT && !prob(50))
 		return
 
 	do_sparks(8, TRUE, src)
 	set_broken()
 
-/obj/machinery/station_map/proc/handle_overlays()
+/obj/machinery/holomap/proc/handle_overlays()
 	// Each entry in this list contains the text for the legend, and the icon and icon_state use. Null or non-existent icon_state ignore hiding logic.
 	// If an entry contains an icon,
 	var/list/legend = list() + GLOB.holomap_default_legend
@@ -270,20 +246,23 @@
 
 	return legend
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/station_map, 32)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/holomap, 32)
 
-/obj/machinery/station_map/engineering
-	name = "\improper engineering station map"
+/obj/machinery/holomap/engineering
+	name = "\improper engineering holomap"
 	icon_state = "station_map_engi"
-	circuit = /obj/item/circuitboard/machine/station_map/engineering
+	wall_frame_type = /obj/item/wallframe/holomap/engineering
 
-/obj/machinery/station_map/engineering/attack_hand(mob/user)
+/obj/machinery/holomap/engineering/open
+	panel_open = TRUE
+
+/obj/machinery/holomap/engineering/attack_hand(mob/user)
 	. = ..()
 
 	if(.)
 		holomap_datum.update_map(handle_overlays())
 
-/obj/machinery/station_map/engineering/handle_overlays()
+/obj/machinery/holomap/engineering/handle_overlays()
 	var/list/extra_overlays = ..()
 	if(bogus)
 		return extra_overlays
@@ -312,20 +291,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/station_map, 32)
 
 	return extra_overlays
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/station_map/engineering, 32)
-
-/obj/item/circuitboard/machine/station_map
-	name = "Station Map"
-	specific_parts = TRUE
-	build_path = /obj/machinery/station_map/directional/north
-	req_components = list(/obj/item/stock_parts/scanning_module/adv = 3, /obj/item/stock_parts/micro_laser/high = 4)
-
-/obj/item/circuitboard/machine/station_map/engineering
-	name = "Engineering Station Map"
-	desc = "A virtual map of the surrounding station. Also shows any active fire and atmos alarms."
-	specific_parts = TRUE // Cause they make engineering's life that much easier, enjoy making a subspace analyser too.
-	build_path = /obj/machinery/station_map/engineering/directional/north
-	req_components = list(/obj/item/stock_parts/scanning_module/adv = 3, /obj/item/stock_parts/micro_laser/high = 4, /obj/item/stock_parts/subspace/analyzer = 1)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/holomap/engineering, 32)
 
 #undef HOLOMAP_LOW_LIGHT
 #undef HOLOMAP_HIGH_LIGHT
