@@ -196,3 +196,6 @@
 
 /datum/loadout_item/pocket_items/d00
 	item_path = /obj/item/dice/d00
+
+/datum/loadout_item/bocket_items/dyespray
+	item_path = /obj/item/dyespray
