@@ -9,7 +9,7 @@
 	name = "\improper station holomap"
 	desc = "A virtual map of the surrounding station."
 	icon = 'icons/obj/machines/holomap/stationmap.dmi'
-	icon_state = "holomap"
+	icon_state = "station_map"
 	layer = ABOVE_WINDOW_LAYER
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
@@ -247,6 +247,7 @@
 	return legend
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/holomap, 32)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/holomap/open, 32)
 
 /obj/machinery/holomap/engineering
 	name = "\improper engineering holomap"
@@ -292,6 +293,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/holomap, 32)
 	return extra_overlays
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/holomap/engineering, 32)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/holomap/engineering/open, 32)
 
 #undef HOLOMAP_LOW_LIGHT
 #undef HOLOMAP_HIGH_LIGHT
