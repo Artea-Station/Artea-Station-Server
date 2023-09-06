@@ -264,6 +264,10 @@
 	icon_base = "queen"
 	isqueen = TRUE
 
+/mob/living/simple_animal/hostile/bee/queen/Destroy()
+	lose_hearing_sensitivity() // TODO: Oh god oh fuck why do I need to call this to stop harddels?
+	. = ..()
+
 //the Queen doesn't leave the box on her own, and she CERTAINLY doesn't pollinate by herself
 /mob/living/simple_animal/hostile/bee/queen/Found(atom/A)
 	return FALSE

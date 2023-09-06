@@ -21,6 +21,7 @@
 	density = TRUE
 	use_power = NO_POWER_USE
 	circuit = /obj/item/circuitboard/machine/smes
+	can_change_cable_layer = TRUE
 
 	var/capacity = 5e6 // maximum charge
 	var/charge = 0 // actual charge
@@ -38,11 +39,15 @@
 	var/output_used = 0 // amount of power actually outputted. may be less than output_level if the powernet returns excess power
 
 	var/obj/machinery/power/terminal/terminal = null
+	/// The cable layer the terminal should use on construction.
+	var/terminal_cable_layer = CABLE_LAYER_2
 
 /obj/machinery/power/smes/examine(user)
 	. = ..()
 	if(!terminal)
 		. += span_warning("This SMES has no power terminal!")
+		if(panel_open)
+			. += "Right-click with some cable coils to set the terminal layer."
 
 /obj/machinery/power/smes/Initialize(mapload)
 	. = ..()
@@ -77,6 +82,12 @@
 		charge = C / 15000 * 1e6
 
 /obj/machinery/power/smes/should_have_node()
+	return TRUE
+
+/obj/machinery/power/smes/cable_layer_change_checks(mob/living/user, obj/item/tool)
+	if(!QDELETED(terminal))
+		balloon_alert(user, "cut the terminal first!")
+		return FALSE
 	return TRUE
 
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
@@ -127,6 +138,17 @@
 			to_chat(user, span_warning("You need more wires!"))
 			return
 
+		if(LAZYACCESS(params2list(params), RIGHT_CLICK))
+			switch(terminal_cable_layer)
+				if(CABLE_LAYER_1)
+					terminal_cable_layer = CABLE_LAYER_2
+				if(CABLE_LAYER_2)
+					terminal_cable_layer = CABLE_LAYER_3
+				if(CABLE_LAYER_3)
+					terminal_cable_layer = CABLE_LAYER_1
+			balloon_alert(user, "using [lowertext(GLOB.cable_layer_to_name[terminal_cable_layer])] layer")
+			return
+
 		to_chat(user, span_notice("You start building the power terminal..."))
 		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 
@@ -143,7 +165,7 @@
 					span_notice("You build the power terminal."))
 
 				//build the terminal and link it to the network
-				make_terminal(T)
+				make_terminal(T, terminal_cable_layer)
 				terminal.connect_to_network()
 				connect_to_network()
 		return
@@ -191,8 +213,9 @@
 
 // create a terminal object pointing towards the SMES
 // wires will attach to this
-/obj/machinery/power/smes/proc/make_terminal(turf/T)
+/obj/machinery/power/smes/proc/make_terminal(turf/T, terminal_cable_layer)
 	terminal = new/obj/machinery/power/terminal(T)
+	terminal.cable_layer = terminal_cable_layer
 	terminal.setDir(get_dir(T,src))
 	terminal.master = src
 	set_machine_stat(machine_stat & ~BROKEN)
