@@ -94,7 +94,7 @@
 
 	playsound(src, 'sound/machines/holomap/holomap_open.ogg', 125)
 	animate(holomap_datum.base_map, alpha = 255, time = 5, easing = LINEAR_EASING)
-	icon_state = "station_map_active"
+	icon_state = "[initial(icon_state)]_active"
 	set_light(HOLOMAP_HIGH_LIGHT)
 
 	user.hud_used.holomap.used_station_map = src
@@ -168,11 +168,11 @@
 
 	cut_overlays()
 	if(machine_stat & BROKEN)
-		icon_state = "station_map_broken"
+		icon_state = "[initial(icon_state)]_broken"
 	else if(panel_open)
-		icon_state = "station_map_opened"
+		icon_state = "[initial(icon_state)]_opened"
 	else if((machine_stat & NOPOWER))
-		icon_state = "station_map_off"
+		icon_state = "[initial(icon_state)]_map_off"
 	else
 		icon_state = initial(icon_state)
 
@@ -190,7 +190,7 @@
 		add_overlay(floor_markings)
 
 /obj/machinery/holomap/screwdriver_act(mob/living/user, obj/item/tool)
-	if(!default_deconstruction_screwdriver(user, "station_map_opened", "station_map_off", tool))
+	if(!default_deconstruction_screwdriver(user, "[initial(icon_state)]_opened", "[initial(icon_state)]_off", tool))
 		return FALSE
 
 	close_map()
