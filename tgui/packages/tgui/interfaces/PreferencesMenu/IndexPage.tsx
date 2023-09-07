@@ -9,8 +9,6 @@ import { CharacterPreview } from '../common/CharacterPreview';
 
 const CharacterControls = (props: {
   handleRotate: (String) => void;
-  handleFood: () => void;
-  handleOpenSpecies: () => void;
   gender: Gender;
   setGender: (gender: Gender) => void;
   showGender: boolean;
@@ -32,26 +30,6 @@ const CharacterControls = (props: {
           fontSize="22px"
           icon="redo"
           tooltip="Rotate Right"
-          tooltipPosition="top"
-        />
-      </Stack.Item>
-
-      <Stack.Item>
-        <Button
-          onClick={props.handleFood}
-          fontSize="22px"
-          icon="drumstick-bite"
-          tooltip="Edit Food Preferences"
-          tooltipPosition="top"
-        />
-      </Stack.Item>
-
-      <Stack.Item>
-        <Button
-          onClick={props.handleOpenSpecies}
-          fontSize="22px"
-          icon="paw"
-          tooltip="Species"
           tooltipPosition="top"
         />
       </Stack.Item>
@@ -178,12 +156,8 @@ export const IndexPage = (context, parentContext) => {
             <Stack.Item>
               <CharacterControls
                 gender={data.character_preferences.misc.gender}
-                handleOpenSpecies={() => setCurrentPage(Page.Species)}
                 handleRotate={(dir) => {
                   act('rotate', { 'dir': dir });
-                }}
-                handleFood={() => {
-                  act('open_food');
                 }}
                 setGender={createSetPreference(act, 'gender')}
                 showGender={
@@ -204,6 +178,15 @@ export const IndexPage = (context, parentContext) => {
           <Stack width="100%">
             <Stack.Item width="33%">
               <Stack vertical>
+                <Stack.Item>
+                  <BigPageButton
+                    page={Page.Species}
+                    setPage={setCurrentPage}
+                    tooltip="Your character's species!">
+                    Species
+                  </BigPageButton>
+                </Stack.Item>
+
                 <Stack.Item>
                   <BigPageButton
                     page={Page.Appearance}
@@ -237,6 +220,15 @@ export const IndexPage = (context, parentContext) => {
               <Stack vertical>
                 <Stack.Item>
                   <BigPageButton
+                    page={Page.Food}
+                    setPage={setCurrentPage}
+                    tooltip="The food your character enjoys and dislikes!">
+                    Food Preferences
+                  </BigPageButton>
+                </Stack.Item>
+
+                <Stack.Item>
+                  <BigPageButton
                     page={Page.Clothing}
                     setPage={setCurrentPage}
                     tooltip="Your character's clothes that they start with!"
@@ -249,7 +241,7 @@ export const IndexPage = (context, parentContext) => {
                   <BigPageButton
                     page={Page.Quirks}
                     setPage={setCurrentPage}
-                    tooltip="Odd traits that can range from a minor boon, to a fundimental gameplay alteration in order to stay alive!"
+                    tooltip="Odd traits that can range from a minor boon, to a fundamental gameplay alteration in order to stay alive!"
                     tooltipPosition="bottom">
                     Quirks
                   </BigPageButton>

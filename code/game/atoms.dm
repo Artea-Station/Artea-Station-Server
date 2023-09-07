@@ -165,6 +165,9 @@
 	/// the datum handler for our contents - see create_storage() for creation method
 	var/datum/storage/atom_storage
 
+	/// The manufacturer text to be shown on examine. Won't be updated post init, so you'll have to handle adding/removing the element post init.
+	var/manufacturer
+
 /**
  * Called when an atom is created in byond (built in engine proc)
  *
@@ -280,6 +283,9 @@
 
 	if(ispath(ai_controller))
 		ai_controller = new ai_controller(src)
+
+	if(istext(manufacturer))
+		AddElement(/datum/element/manufacturer_examine)
 
 	return INITIALIZE_HINT_NORMAL
 

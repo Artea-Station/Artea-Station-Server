@@ -1947,9 +1947,63 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/prepare_human_for_preview(mob/living/carbon/human/human)
 	return
 
-/// Returns the species's scream sound.
+/// Returns the species's scream sound, or if there's a DNA override, use that instead.
 /datum/species/proc/get_scream_sound(mob/living/carbon/human/human)
-	return
+	var/scream_type = human.dna.voice_type
+	if(!scream_type)
+		switch(human.dna.species.id)
+			if(SPECIES_HUMAN)
+				if(human.gender == MALE)
+					scream_type = VOICE_HUMAN_M
+				else
+					scream_type = VOICE_HUMAN_F
+			if(SPECIES_LIZARD)
+				scream_type = human.gender == MALE ? VOICE_LIZARD_M : VOICE_LIZARD_F
+			if(SPECIES_MOTH)
+				scream_type = human.gender == MALE ? VOICE_MOTH_M : VOICE_MOTH_F
+			if(SPECIES_SYNTH)
+				scream_type = human.gender == MALE ? VOICE_ETHEREAL_M : VOICE_ETHEREAL_F
+
+	switch(scream_type)
+		if(VOICE_HUMAN_M)
+			if(prob(1))
+				return 'sound/voice/human/wilhelm_scream.ogg'
+			return pick(
+				'sound/voice/human/malescream_1.ogg',
+				'sound/voice/human/malescream_2.ogg',
+				'sound/voice/human/malescream_3.ogg',
+				'sound/voice/human/malescream_4.ogg',
+				'sound/voice/human/malescream_5.ogg',
+				'sound/voice/human/malescream_6.ogg',
+			)
+
+		if(VOICE_HUMAN_F)
+			return pick(
+				'sound/voice/human/femalescream_1.ogg',
+				'sound/voice/human/femalescream_2.ogg',
+				'sound/voice/human/femalescream_3.ogg',
+				'sound/voice/human/femalescream_4.ogg',
+				'sound/voice/human/femalescream_5.ogg',
+			)
+
+		if(VOICE_LIZARD_M, VOICE_LIZARD_F)
+			return pick(
+				'sound/voice/lizard/lizard_scream_1.ogg',
+				'sound/voice/lizard/lizard_scream_2.ogg',
+				'sound/voice/lizard/lizard_scream_3.ogg',
+			)
+
+		if(VOICE_MOTH_M, VOICE_MOTH_F)
+			return 'sound/voice/moth/scream_moth.ogg'
+
+		if(VOICE_ETHEREAL_M, VOICE_ETHEREAL_F)
+			return pick(
+				'sound/voice/ethereal/ethereal_scream_1.ogg',
+				'sound/voice/ethereal/ethereal_scream_2.ogg',
+				'sound/voice/ethereal/ethereal_scream_3.ogg',
+			)
+
+	return // Uhhh, just be silent?? I dunno!
 
 /datum/species/proc/get_types_to_preload()
 	var/list/to_store = list()
