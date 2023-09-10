@@ -5,6 +5,7 @@
 	sexes = 0
 	meat = /obj/item/food/meat/slab/human/mutant/skeleton
 	species_traits = list(
+		NOBLOOD,
 		NOTRANSSTING,
 		NOEYESPRITES,
 		NO_DNA_COPY,

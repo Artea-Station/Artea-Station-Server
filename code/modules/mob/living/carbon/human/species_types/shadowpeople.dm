@@ -6,6 +6,7 @@
 	sexes = 0
 	meat = /obj/item/food/meat/slab/human/mutant/shadow
 	species_traits = list(
+		NOBLOOD,
 		NOEYESPRITES,
 	)
 	inherent_traits = list(

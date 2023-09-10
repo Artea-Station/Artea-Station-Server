@@ -2,6 +2,7 @@
 	name = "Android"
 	id = SPECIES_ANDROID
 	species_traits = list(
+		NOBLOOD,
 		NO_DNA_COPY,
 		NOTRANSSTING,
 		NOSTOMACH,

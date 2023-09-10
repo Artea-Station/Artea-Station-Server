@@ -5,6 +5,7 @@
 	sexes = 0
 	meat = /obj/item/stack/sheet/mineral/plasma
 	species_traits = list(
+		NOBLOOD,
 		NOTRANSSTING,
 		NOAPPENDIX,
 	)

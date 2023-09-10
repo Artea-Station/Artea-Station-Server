@@ -3,6 +3,7 @@
 	name = "Golem"
 	id = SPECIES_GOLEM
 	species_traits = list(
+		NOBLOOD,
 		NOTRANSSTING,
 		MUTCOLORS,
 		NO_UNDERWEAR,
@@ -1180,6 +1181,11 @@
 	mutantstomach = /obj/item/organ/internal/stomach/bone
 	sexes = FALSE
 	fixed_mut_color = null
+	species_traits = list(
+		NOBLOOD,
+		NO_UNDERWEAR,
+		NOEYESPRITES,
+	)
 	inherent_traits = list(
 		TRAIT_ADVANCEDTOOLUSER,
 		TRAIT_CAN_STRIP,
