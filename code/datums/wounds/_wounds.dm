@@ -96,8 +96,8 @@
 	var/scar_keyword = "generic"
 	/// If we've already tried scarring while removing (remove_wound can be called twice in a del chain, let's be nice to our code yeah?) TODO: make this cleaner
 	var/already_scarred = FALSE
-	/// If we forced this wound through badmin smite, we won't count it towards the round totals
-	var/from_smite
+	/// The source of how we got the wound, typically a weapon.
+	var/wound_source
 
 	/// What flags apply to this wound
 	var/wound_flags = (ACCEPTS_GAUZE)
@@ -119,11 +119,18 @@
  * * old_wound: If our new wound is a replacement for one of the same time (promotion or demotion), we can reference the old one just before it's removed to copy over necessary vars
  * * smited- If this is a smite, we don't care about this wound for stat tracking purposes (not yet implemented)
  * * attack_direction: For bloodsplatters, if relevant
+ * * wound_source: The source of the wound, such as a weapon.
  */
 /datum/wound/proc/apply_wound(obj/item/bodypart/L, silent = FALSE, datum/wound/old_wound = null, smited = FALSE, attack_direction = null, wound_source = "Unknown")
 	if (!can_be_applied_to(L, old_wound))
 		qdel(src)
 		return FALSE
+
+	if(isitem(wound_source))
+		var/obj/item/wound_item = wound_source
+		src.wound_source = wound_item.name
+	else
+		src.wound_source = wound_source
 
 	if(isitem(wound_source))
 		var/obj/item/wound_item = wound_source
