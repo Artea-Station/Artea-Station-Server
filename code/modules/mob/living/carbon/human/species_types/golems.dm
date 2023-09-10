@@ -20,6 +20,7 @@
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_NOBLOOD,
+		TRAIT_NEVER_WOUNDED,
 	)
 	mutantheart = null
 	mutantlungs = null
