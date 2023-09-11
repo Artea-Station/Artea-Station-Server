@@ -3,7 +3,6 @@
 	name = "Golem"
 	id = SPECIES_GOLEM
 	species_traits = list(
-		NOBLOOD,
 		NOTRANSSTING,
 		MUTCOLORS,
 		NO_UNDERWEAR,
@@ -1182,7 +1181,6 @@
 	sexes = FALSE
 	fixed_mut_color = null
 	species_traits = list(
-		NOBLOOD,
 		NO_UNDERWEAR,
 		NOEYESPRITES,
 	)

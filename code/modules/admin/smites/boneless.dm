@@ -11,7 +11,7 @@
 
 	var/mob/living/carbon/carbon_target = target
 	for(var/obj/item/bodypart/limb as anything in carbon_target.bodyparts)
-		var/type_wound = pick_weighted(list(
+		var/type_wound = pick_weight(list(
 			/datum/wound/blunt/bone/critical = 2,
 			/datum/wound/blunt/bone/severe = 2,
 			/datum/wound/blunt/bone/moderate = 1,

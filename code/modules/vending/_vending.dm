@@ -712,7 +712,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 						for(var/i in C.bodyparts)
 							var/obj/item/bodypart/squish_part = i
 							if(IS_ORGANIC_LIMB(squish_part))
-								var/type_wound = pick(list(/datum/wound/blunt/critical, /datum/wound/blunt/severe, /datum/wound/blunt/moderate))
+								var/type_wound = pick(list(/datum/wound/blunt/bone/critical, /datum/wound/blunt/bone/severe, /datum/wound/blunt/bone/moderate))
 								squish_part.force_wound_upwards(type_wound, wound_source = "crushing by vending machine")
 							else
 								squish_part.receive_damage(brute=30)

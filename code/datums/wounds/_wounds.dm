@@ -268,7 +268,8 @@
 		LAZYREMOVE(limb.wounds, src)
 		limb.update_wounds(replaced)
 		if (disabling)
-			limb.remove_traits(list(TRAIT_PARALYSIS, TRAIT_DISABLED_BY_WOUND), REF(src))
+			REMOVE_TRAIT(limb, TRAIT_PARALYSIS, REF(src))
+			REMOVE_TRAIT(limb, TRAIT_DISABLED_BY_WOUND, REF(src))
 
 	limb = new_value
 
@@ -451,9 +452,9 @@
 
 	if ((wound_flags & ACCEPTS_GAUZE) && limb.current_gauze)
 		var/sling_condition = get_gauze_condition()
-		desc = "[victim.p_Their()] [limb.plaintext_zone] is [sling_condition] fastened in a sling of [limb.current_gauze.name]"
+		desc = "[victim.p_their()] [limb.plaintext_zone] is [sling_condition] fastened in a sling of [limb.current_gauze.name]"
 	else
-		desc = "[victim.p_Their()] [limb.plaintext_zone] [examine_desc]"
+		desc = "[victim.p_their()] [limb.plaintext_zone] [examine_desc]"
 
 	desc = modify_desc_before_span(desc, user)
 

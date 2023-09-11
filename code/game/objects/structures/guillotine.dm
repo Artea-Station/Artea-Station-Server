@@ -161,9 +161,9 @@
 					addtimer(CALLBACK(C, TYPE_PROC_REF(/mob/, emote), "clap"), delay_offset * 0.3)
 					delay_offset++
 		else
-			victim.apply_damage(15 * blade_sharpness, BRUTE, head, attacking_item = src)
-			log_combat(user, victim, "dropped the blade on", src, " non-fatally")
-			victim.emote("scream")
+			H.apply_damage(15 * blade_sharpness, BRUTE, head, attacking_item = src)
+			log_combat(user, H, "dropped the blade on", src, " non-fatally")
+			H.emote("scream")
 
 		if (blade_sharpness > 1)
 			blade_sharpness -= 1
