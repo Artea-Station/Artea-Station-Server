@@ -47,7 +47,7 @@
 	. = ..()
 	if(!.)
 		return
-	break_clock(break_sound = 'sound/effects/footstep/glass_step.ogg')
+	break_clock(break_sound = 'sound/effects/glass_step.ogg')
 
 /obj/item/table_clock/interact(mob/user)
 	. = ..()
