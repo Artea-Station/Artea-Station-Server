@@ -55,7 +55,7 @@
 	if(!owner)
 		return FALSE
 	var/mob/living/carbon/chest_owner = owner
-	if(!dismemberable)
+	if(bodypart_flags & BODYPART_UNREMOVABLE)
 		return FALSE
 	if(HAS_TRAIT(chest_owner, TRAIT_NODISMEMBER))
 		return FALSE
@@ -90,7 +90,9 @@
 
 	SEND_SIGNAL(owner, COMSIG_CARBON_REMOVE_LIMB, src, dismembered)
 	SEND_SIGNAL(src, COMSIG_BODYPART_REMOVED, owner, dismembered)
-	update_limb(1)
+	update_limb(TRUE)
+	//limb is out and about, it can't really be considered an implant
+	bodypart_flags &= ~BODYPART_IMPLANTED
 	owner.remove_bodypart(src)
 
 	if(held_index)
@@ -150,7 +152,7 @@
 		qdel(src)
 		return
 
-	if(is_pseudopart)
+	if(bodypart_flags & BODYPART_PSEUDOPART)
 		drop_organs(phantom_owner) //Psuedoparts shouldn't have organs, but just in case
 		qdel(src)
 		return
@@ -331,6 +333,15 @@
 	. = try_attach_limb(limb_owner, special)
 	if(!.) //If it failed to replace, re-attach their old limb as if nothing happened.
 		old_limb.try_attach_limb(limb_owner, TRUE)
+
+///Checks if a limb qualifies as a BODYPART_IMPLANTED
+/obj/item/bodypart/proc/check_for_frankenstein(mob/living/carbon/human/monster)
+	if(!istype(monster))
+		return FALSE
+	var/obj/item/bodypart/original_type = monster.dna.species.bodypart_overrides[body_zone]
+	if(!original_type || (limb_id != initial(original_type.limb_id)))
+		return TRUE
+	return FALSE
 
 ///Checks if you can attach a limb, returns TRUE if you can.
 /obj/item/bodypart/proc/can_attach_limb(mob/living/carbon/new_limb_owner, special)
