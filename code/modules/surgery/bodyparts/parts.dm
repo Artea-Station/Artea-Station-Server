@@ -31,7 +31,7 @@
 	if(cavity_item)
 		cavity_item.forceMove(drop_location())
 		cavity_item = null
-	..()
+	return ..()
 
 /obj/item/bodypart/chest/monkey
 	icon = 'icons/mob/species/monkey/bodyparts.dmi'
@@ -87,7 +87,7 @@
 	unarmed_damage_high = 10
 	unarmed_stun_threshold = 10
 	body_zone = BODY_ZONE_L_ARM
-	biological_state = (BIO_STANDARD|BIO_JOINTED)
+	biological_state = BIO_STANDARD_JOINTED
 
 /obj/item/bodypart/arm/left
 	name = "left arm"
@@ -311,7 +311,7 @@
 	unarmed_damage_low = 2
 	unarmed_damage_high = 15
 	unarmed_stun_threshold = 10
-	biological_state = (BIO_STANDARD|BIO_JOINTED)
+	biological_state = BIO_STANDARD_JOINTED
 	/// The type of the digitigrade limb that should replace this one.
 	var/digitigrade_type
 
