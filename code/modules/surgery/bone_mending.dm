@@ -17,16 +17,12 @@
 	steps = list(
 		/datum/surgery_step/incise,
 		/datum/surgery_step/repair_bone_hairline,
-		/datum/surgery_step/close)
-	target_mobtypes = list(/mob/living/carbon/human)
-	possible_locs = list(BODY_ZONE_R_ARM,BODY_ZONE_L_ARM,BODY_ZONE_R_LEG,BODY_ZONE_L_LEG,BODY_ZONE_CHEST,BODY_ZONE_HEAD)
-	requires_real_bodypart = TRUE
-	targetable_wound = /datum/wound/blunt/severe
+		/datum/surgery_step/close,
+	)
 
 /datum/surgery/repair_bone_hairline/can_start(mob/living/user, mob/living/carbon/target)
-	if(!istype(target))
-		return FALSE
-	if(..())
+	. = ..()
+	if(.)
 		var/obj/item/bodypart/targeted_bodypart = target.get_bodypart(user.zone_selected)
 		return(targeted_bodypart.get_wound_type(targetable_wound))
 
@@ -50,16 +46,12 @@
 		/datum/surgery_step/clamp_bleeders,
 		/datum/surgery_step/reset_compound_fracture,
 		/datum/surgery_step/repair_bone_compound,
-		/datum/surgery_step/close)
-	target_mobtypes = list(/mob/living/carbon/human)
-	possible_locs = list(BODY_ZONE_R_ARM,BODY_ZONE_L_ARM,BODY_ZONE_R_LEG,BODY_ZONE_L_LEG,BODY_ZONE_CHEST,BODY_ZONE_HEAD)
-	requires_real_bodypart = TRUE
-	targetable_wound = /datum/wound/blunt/critical
+		/datum/surgery_step/close,
+	)
 
 /datum/surgery/repair_bone_compound/can_start(mob/living/user, mob/living/carbon/target)
-	if(!istype(target))
-		return FALSE
-	if(..())
+	. = ..()
+	if(.)
 		var/obj/item/bodypart/targeted_bodypart = target.get_bodypart(user.zone_selected)
 		return(targeted_bodypart.get_wound_type(targetable_wound))
 
@@ -78,9 +70,13 @@
 
 /datum/surgery_step/repair_bone_hairline/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(surgery.operated_wound)
-		display_results(user, target, span_notice("You begin to repair the fracture in [target]'s [parse_zone(user.zone_selected)]..."),
+		display_results(
+			user,
+			target,
+			span_notice("You begin to repair the fracture in [target]'s [parse_zone(user.zone_selected)]..."),
 			span_notice("[user] begins to repair the fracture in [target]'s [parse_zone(user.zone_selected)] with [tool]."),
-			span_notice("[user] begins to repair the fracture in [target]'s [parse_zone(user.zone_selected)]."))
+			span_notice("[user] begins to repair the fracture in [target]'s [parse_zone(user.zone_selected)]."),
+		)
 		display_pain(target, "Your [parse_zone(user.zone_selected)] aches with pain!")
 	else
 		user.visible_message(span_notice("[user] looks for [target]'s [parse_zone(user.zone_selected)]."), span_notice("You look for [target]'s [parse_zone(user.zone_selected)]..."))
@@ -90,9 +86,13 @@
 		if(isstack(tool))
 			var/obj/item/stack/used_stack = tool
 			used_stack.use(1)
-		display_results(user, target, span_notice("You successfully repair the fracture in [target]'s [parse_zone(target_zone)]."),
+		display_results(
+			user,
+			target,
+			span_notice("You successfully repair the fracture in [target]'s [parse_zone(target_zone)]."),
 			span_notice("[user] successfully repairs the fracture in [target]'s [parse_zone(target_zone)] with [tool]!"),
-			span_notice("[user] successfully repairs the fracture in [target]'s [parse_zone(target_zone)]!"))
+			span_notice("[user] successfully repairs the fracture in [target]'s [parse_zone(target_zone)]!"),
+		)
 		log_combat(user, target, "repaired a hairline fracture in", addition="COMBAT_MODE: [uppertext(user.combat_mode)]")
 		qdel(surgery.operated_wound)
 	else
@@ -119,9 +119,13 @@
 
 /datum/surgery_step/reset_compound_fracture/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(surgery.operated_wound)
-		display_results(user, target, span_notice("You begin to reset the bone in [target]'s [parse_zone(user.zone_selected)]..."),
+		display_results(
+			user,
+			target,
+			span_notice("You begin to reset the bone in [target]'s [parse_zone(user.zone_selected)]..."),
 			span_notice("[user] begins to reset the bone in [target]'s [parse_zone(user.zone_selected)] with [tool]."),
-			span_notice("[user] begins to reset the bone in [target]'s [parse_zone(user.zone_selected)]."))
+			span_notice("[user] begins to reset the bone in [target]'s [parse_zone(user.zone_selected)]."),
+		)
 		display_pain(target, "The aching pain in your [parse_zone(user.zone_selected)] is overwhelming!")
 	else
 		user.visible_message(span_notice("[user] looks for [target]'s [parse_zone(user.zone_selected)]."), span_notice("You look for [target]'s [parse_zone(user.zone_selected)]..."))
@@ -131,9 +135,13 @@
 		if(isstack(tool))
 			var/obj/item/stack/used_stack = tool
 			used_stack.use(1)
-		display_results(user, target, span_notice("You successfully reset the bone in [target]'s [parse_zone(target_zone)]."),
+		display_results(
+			user,
+			target,
+			span_notice("You successfully reset the bone in [target]'s [parse_zone(target_zone)]."),
 			span_notice("[user] successfully resets the bone in [target]'s [parse_zone(target_zone)] with [tool]!"),
-			span_notice("[user] successfully resets the bone in [target]'s [parse_zone(target_zone)]!"))
+			span_notice("[user] successfully resets the bone in [target]'s [parse_zone(target_zone)]!"),
+		)
 		log_combat(user, target, "reset a compound fracture in", addition="COMBAT MODE: [uppertext(user.combat_mode)]")
 	else
 		to_chat(user, span_warning("[target] has no compound fracture there!"))
@@ -158,9 +166,13 @@
 
 /datum/surgery_step/repair_bone_compound/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(surgery.operated_wound)
-		display_results(user, target, span_notice("You begin to repair the fracture in [target]'s [parse_zone(user.zone_selected)]..."),
+		display_results(
+			user,
+			target,
+			span_notice("You begin to repair the fracture in [target]'s [parse_zone(user.zone_selected)]..."),
 			span_notice("[user] begins to repair the fracture in [target]'s [parse_zone(user.zone_selected)] with [tool]."),
-			span_notice("[user] begins to repair the fracture in [target]'s [parse_zone(user.zone_selected)]."))
+			span_notice("[user] begins to repair the fracture in [target]'s [parse_zone(user.zone_selected)]."),
+		)
 		display_pain(target, "The aching pain in your [parse_zone(user.zone_selected)] is overwhelming!")
 	else
 		user.visible_message(span_notice("[user] looks for [target]'s [parse_zone(user.zone_selected)]."), span_notice("You look for [target]'s [parse_zone(user.zone_selected)]..."))
@@ -170,9 +182,13 @@
 		if(isstack(tool))
 			var/obj/item/stack/used_stack = tool
 			used_stack.use(1)
-		display_results(user, target, span_notice("You successfully repair the fracture in [target]'s [parse_zone(target_zone)]."),
+		display_results(
+			user,
+			target,
+			span_notice("You successfully repair the fracture in [target]'s [parse_zone(target_zone)]."),
 			span_notice("[user] successfully repairs the fracture in [target]'s [parse_zone(target_zone)] with [tool]!"),
-			span_notice("[user] successfully repairs the fracture in [target]'s [parse_zone(target_zone)]!"))
+			span_notice("[user] successfully repairs the fracture in [target]'s [parse_zone(target_zone)]!"),
+		)
 		log_combat(user, target, "repaired a compound fracture in", addition="COMBAT MODE: [uppertext(user.combat_mode)]")
 		qdel(surgery.operated_wound)
 	else
