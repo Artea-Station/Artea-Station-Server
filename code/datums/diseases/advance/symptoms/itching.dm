@@ -37,7 +37,7 @@
 	. = ..()
 	if(!.)
 		return
-	var/mob/living/carbon/affected_mob = active_disease.affected_mob
+	var/mob/living/carbon/affected_mob = A.affected_mob
 	var/obj/item/bodypart/bodypart = affected_mob.get_bodypart(affected_mob.get_random_valid_zone(even_weights = TRUE))
 	if(bodypart && IS_ORGANIC_LIMB(bodypart) && !(bodypart.bodypart_flags & BODYPART_PSEUDOPART))  //robotic limbs will mean less scratching overall (why are golems able to damage themselves with self-scratching, but not androids? the world may never know)
 		var/can_scratch = scratch && !affected_mob.incapacitated()
