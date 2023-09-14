@@ -50,6 +50,12 @@
 		if (isnull(door))
 			return
 
+	// Don't allow this to work where it shouldn't!
+	var/area/area = get_area(target)
+	if(!area.allow_door_remotes)
+		balloon_alert(user, "no connection!")
+		return
+
 	if (!door.check_access_list(access_list) || !door.requiresID())
 		target.balloon_alert(user, "can't access!")
 		return
