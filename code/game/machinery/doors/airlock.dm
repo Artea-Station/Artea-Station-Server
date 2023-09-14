@@ -192,8 +192,6 @@
 	)
 	AddElement(/datum/element/connect_loc, connections)
 
-	return INITIALIZE_HINT_LATELOAD
-
 /obj/machinery/door/airlock/connect_to_shuttle(mapload, obj/docking_port/mobile/port, obj/docking_port/stationary/dock)
 	if(id_tag)
 		id_tag = "[port.shuttle_id]_[id_tag]"
