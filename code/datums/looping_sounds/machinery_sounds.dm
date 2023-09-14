@@ -188,5 +188,5 @@
 	mid_length = 0.99 SECONDS // I hate it, but it gets rid of most micro-stutters.
 	end_sound = 'sound/machines/airpumpshutdown.ogg'
 	volume = 5
-	falloff_distance = 2
+	falloff_distance = 0
 	ignore_walls = FALSE
