@@ -4,6 +4,7 @@
 	name = "Station Areas"
 	icon = 'icons/area/areas_station.dmi'
 	icon_state = "station"
+	allow_door_remotes = TRUE
 
 //Maintenance
 

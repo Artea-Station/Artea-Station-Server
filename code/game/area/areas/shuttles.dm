@@ -32,6 +32,7 @@
 	name = "Syndicate Infiltrator"
 	ambience_index = AMBIENCE_DANGER
 	area_limited_icon_smoothing = /area/shuttle/syndicate
+	allow_door_remotes = TRUE // Syndies have their own access and remotes, so this is safe.
 
 /area/shuttle/syndicate/bridge
 	name = "Syndicate Infiltrator Control"
@@ -128,34 +129,42 @@
 /area/shuttle/pod_1
 	name = "Escape Pod One"
 	area_flags = NONE
+	allow_door_remotes = TRUE
 
 /area/shuttle/pod_2
 	name = "Escape Pod Two"
 	area_flags = NONE
+	allow_door_remotes = TRUE
 
 /area/shuttle/pod_3
 	name = "Escape Pod Three"
 	area_flags = NONE
+	allow_door_remotes = TRUE
 
 /area/shuttle/pod_4
 	name = "Escape Pod Four"
 	area_flags = NONE
+	allow_door_remotes = TRUE
 
 /area/shuttle/mining
 	name = "Mining Shuttle"
 	area_flags = NONE //Set this so it doesn't inherit NO_ALERTS
+	allow_door_remotes = TRUE
 
 /area/shuttle/mining/large
 	name = "Mining Shuttle"
 	requires_power = TRUE
+	allow_door_remotes = TRUE
 
 /area/shuttle/labor
 	name = "Labor Camp Shuttle"
 	area_flags = NONE //Set this so it doesn't inherit NO_ALERTS
+	allow_door_remotes = TRUE
 
 /area/shuttle/supply
 	name = "Supply Shuttle"
 	area_flags = NOTELEPORT
+	allow_door_remotes = TRUE
 
 /area/shuttle/escape
 	name = "Emergency Shuttle"
@@ -163,6 +172,7 @@
 	area_limited_icon_smoothing = /area/shuttle/escape
 	flags_1 = CAN_BE_DIRTY_1
 	area_flags = NO_ALERTS | CULT_PERMITTED
+	allow_door_remotes = TRUE
 
 /area/shuttle/escape/backup
 	name = "Backup Emergency Shuttle"
@@ -192,27 +202,35 @@
 
 /area/shuttle/transport
 	name = "Transport Shuttle"
+	allow_door_remotes = TRUE
 
 /area/shuttle/assault_pod
 	name = "Steel Rain"
+	allow_door_remotes = TRUE // Safe because syndie access.
 
 /area/shuttle/sbc_starfury
 	name = "SBC Starfury"
+	allow_door_remotes = TRUE
 
 /area/shuttle/sbc_fighter1
 	name = "SBC Fighter 1"
+	allow_door_remotes = TRUE
 
 /area/shuttle/sbc_fighter2
 	name = "SBC Fighter 2"
+	allow_door_remotes = TRUE
 
 /area/shuttle/sbc_fighter3
 	name = "SBC Fighter 3"
+	allow_door_remotes = TRUE
 
 /area/shuttle/sbc_corvette
 	name = "SBC corvette"
+	allow_door_remotes = TRUE
 
 /area/shuttle/syndicate_scout
 	name = "Syndicate Scout"
+	allow_door_remotes = TRUE
 
 /area/shuttle/caravan
 	requires_power = TRUE

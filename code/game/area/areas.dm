@@ -116,6 +116,9 @@
 	var/last_day_night_luminosity
 	var/datum/day_night_controller/subbed_day_night_controller
 
+	/// Should this area allow door remotes to be used? Should be enabled for stations and station-owned shuttles only!
+	var/allow_door_remotes = FALSE
+
 /**
  * A list of teleport locations
  *
