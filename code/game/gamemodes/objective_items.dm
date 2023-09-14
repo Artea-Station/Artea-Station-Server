@@ -10,7 +10,7 @@
 	var/list/altitems = list() //Items which can serve as an alternative to the objective (darn you blueprints)
 	var/list/special_equipment = list()
 	var/objective_type = OBJECTIVE_ITEM_TYPE_NORMAL
-	/// Whether this item exists on the holomap at the start of a round.
+	/// Whether this item exists on the station map at the start of a round.
 	var/exists_on_map = FALSE
 
 /datum/objective_item/proc/check_special_completion() //for objectives with special checks (is that slime extract unused? does that intellicard have an ai in it? etcetc)
