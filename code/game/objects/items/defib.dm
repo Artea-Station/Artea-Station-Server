@@ -683,8 +683,8 @@
 	. = ..()
 
 /obj/item/shockpaddles/syndicate
-	name = "syndicate defibrillator paddles"
-	desc = "A pair of paddles used to revive deceased operatives. They possess both the ability to penetrate armor and to deliver powerful or disabling shocks offensively."
+	name = "combat defibrillator paddles"
+	desc = "A pair of paddles used to revive deceased individuals. This particular type can penetrate armor and deliver powerful or disabling shocks offensively."
 	combat = TRUE
 	icon = 'icons/obj/medical/defib.dmi'
 	icon_state = "syndiepaddles0"
@@ -692,13 +692,12 @@
 	base_icon_state = "syndiepaddles"
 
 /obj/item/shockpaddles/syndicate/nanotrasen
-	name = "elite nanotrasen defibrillator paddles"
-	desc = "A pair of paddles used to revive deceased ERT members. They possess both the ability to penetrate armor and to deliver powerful or disabling shocks offensively."
 	icon_state = "ntpaddles0"
 	inhand_icon_state = "ntpaddles0"
 	base_icon_state = "ntpaddles"
 
 /obj/item/shockpaddles/syndicate/cyborg
+	name = "cyborg combat defibrillator paddles"
 	req_defib = FALSE
 
 #undef HALFWAYCRITDEATH
