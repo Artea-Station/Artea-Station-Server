@@ -4,7 +4,7 @@
 @use '../functions';
 @use '../colors';
 
-$msgcolor-outgoing: hsl(213, 50%, 35%);
+$msgcolor-outgoing: rgba(179, 123, 20, 0.8);
 $msgcolor-incoming: hsl(213, 0%, 20%);
 
 $msgpadding: 0.7rem;
@@ -48,6 +48,7 @@ $msgpadding: 0.7rem;
     background-color: $msgcolor-outgoing;
     text-align: right;
     float: right;
+    color: white;
   }
 
   &__timestamp {
