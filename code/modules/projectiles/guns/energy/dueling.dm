@@ -348,4 +348,4 @@
 	. = ..()
 	var/obj/item/gun/energy/dueling/gun_A = new(src)
 	var/obj/item/gun/energy/dueling/gun_B = new(src)
-	var/datum/duel/D = new /datum/duel(gun_A, gun_B)
+	new /datum/duel(gun_A, gun_B)
