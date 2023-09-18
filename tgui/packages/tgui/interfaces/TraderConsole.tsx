@@ -1,5 +1,5 @@
 import { useBackend, useSharedState } from '../backend';
-import { AnimatedNumber, Box, Button, LabeledList, Section, Stack, Tabs } from '../components';
+import { AnimatedNumber, Box, Button, LabeledList, NoticeBox, Section, Stack, Tabs, Tooltip } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 import { BooleanLike } from 'common/react';
@@ -39,37 +39,44 @@ type Data = {
   trade_log?: string[];
   pad_linked: BooleanLike;
   connected_hub: ConnectedTradeHub;
+  connected_trader: Trader;
 };
 
 type TradeHub = {
   id: string;
   name: string;
-  traders: Trader[];
+  traders: TraderStub[];
 };
 
 type ConnectedTradeHub = TradeHub & {
   last_transmission: string;
 };
 
-type Trader = {
+type TraderStub = {
   id: string;
   name: string;
+};
+
+type Trader = TraderStub & {
   trades: Trade[];
+  buying: Trade[];
+  bounties: Bounty[];
+  deliveries: Bounty[];
 };
 
 type Trade = {
-  index: string;
+  index: number;
   name: string;
   desc: string;
-  small_item: string;
-  access: string;
-  object: string;
-  reason: string;
-  orderer: string;
   cost: number;
-  paid: BooleanLike;
-  dep_order: BooleanLike;
-  unorderable?: string;
+  amount: number;
+};
+
+type Bounty = {
+  name: string;
+  desc: string;
+  index: number;
+  reward: number;
 };
 
 const TraderContent = (props, context) => {
@@ -78,8 +85,11 @@ const TraderContent = (props, context) => {
   return (
     <Box>
       <CargoStatus />
+      {!!data.connected_hub?.last_transmission && (
+        <NoticeBox>{data.connected_hub?.last_transmission}</NoticeBox>
+      )}
       <Section fitted>
-        <Tabs>
+        <Tabs fill fluid style={{ 'font-size': '1.2rem' }}>
           <Tabs.Tab
             icon="list"
             selected={tab === 'comms'}
@@ -87,13 +97,21 @@ const TraderContent = (props, context) => {
             Comms
           </Tabs.Tab>
           <Tabs.Tab
-            icon="cart-shopping"
+            disabled={!data.connected_hub}
+            icon="list"
             selected={tab === 'traders'}
             onClick={() => setTab('traders')}>
-            Trade
+            Traders
           </Tabs.Tab>
           <Tabs.Tab
-            icon="list"
+            disabled={!data.connected_trader}
+            icon="cart-shopping"
+            selected={tab === 'trade'}
+            onClick={() => setTab('trade')}>
+            Trader
+          </Tabs.Tab>
+          <Tabs.Tab
+            icon="book-open"
             selected={tab === 'logs'}
             onClick={() => setTab('logs')}>
             Logs
@@ -101,7 +119,8 @@ const TraderContent = (props, context) => {
         </Tabs>
       </Section>
       {tab === 'comms' && <CommsTab />}
-      {tab === 'traders' && <TradersTab />}
+      {tab === 'traders' && !!data.connected_hub && <TradersTab />}
+      {tab === 'trade' && !!data.connected_trader && <TradeTab />}
       {tab === 'logs' && <LogsTab />}
     </Box>
   );
@@ -112,7 +131,7 @@ const CargoStatus = (props, context) => {
   const { department, docked, location, credits, can_send, wallet_name } = data;
   return (
     <Section
-      title={department}
+      title={window.name}
       buttons={
         <Box inline bold>
           <AnimatedNumber
@@ -149,19 +168,20 @@ const CommsTab = (props, context) => {
         {data.trade_hubs.map((hub) => {
           return (
             <Stack.Item key={hub.id}>
-              <Section title={hub.name}>
-                <Stack>
-                  <Stack.Item>
-                    <Button
-                      onClick={() => {
-                        act('choose_hub', { id: hub.id });
-                        setTab('traders');
-                      }}>
-                      Pick Hub
-                    </Button>
-                  </Stack.Item>
-                </Stack>
-              </Section>
+              <Section
+                title={hub.name}
+                buttons={
+                  <Button
+                    width="20rem"
+                    textAlign="center"
+                    onClick={() => {
+                      act('choose_hub', { id: hub.id });
+                      setTab('traders');
+                    }}>
+                    Connect
+                  </Button>
+                }
+              />
             </Stack.Item>
           );
         })}
@@ -198,28 +218,77 @@ const TradersTab = (props, context) => {
         <Stack.Divider hidden height="1rem" />
         {data.connected_hub.traders.map((trader) => {
           return (
-            <Section title={trader.name} key={trader.id}>
-              <Stack vertical>
-                {trader.trades.map((trade) => {
-                  return (
-                    <Stack.Item key={trade.index}>
-                      <Button
-                        autocapitalize="words"
-                        disabled={!!trade.unorderable}
-                        icon="cart-shopping"
-                        onClick={() => {
-                          act('buy', { 'index': trade.index });
-                        }}>
-                        Buy ({trade.cost}cr)
-                      </Button>{' '}
-                      {trade.name}
-                    </Stack.Item>
-                  );
-                })}
-              </Stack>
-            </Section>
+            <Section
+              title={trader.name}
+              key={trader.id}
+              buttons={
+                <Button
+                  width="20rem"
+                  textAlign="center"
+                  onClick={() => {
+                    act('choose_trader', { 'id': trader.id });
+                    setTab('trade');
+                  }}>
+                  Connect
+                </Button>
+              }
+            />
           );
         })}
+      </Stack>
+    </Section>
+  );
+};
+
+const TradeTab = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
+
+  return (
+    <Section
+      title={data.connected_trader.name}
+      buttons={
+        <>
+          <ButtonCheckbox
+            checked={data.makes_manifests}
+            onClick={() => {
+              act('toggle_manifest');
+            }}>
+            Print Manifests
+          </ButtonCheckbox>
+          <ButtonCheckbox
+            checked={data.makes_log}
+            onClick={() => {
+              act('toggle_log');
+            }}>
+            Log Transactions
+          </ButtonCheckbox>
+        </>
+      }>
+      <Stack vertical>
+        <LabeledList>
+          {data.connected_trader.trades.map((trade) => {
+            return (
+              <Tooltip content={trade.desc} key={trade.index}>
+                <LabeledList.Item
+                  label={
+                    <Button
+                      width="100%"
+                      disabled={!trade.amount}
+                      icon="cart-shopping"
+                      onClick={() => {
+                        act('buy', { 'index': trade.index });
+                      }}>
+                      Buy ({trade.cost}cr)
+                    </Button>
+                  }>
+                  <Box inline style={{ 'text-transform': 'capitalize' }}>
+                    {trade.name}
+                  </Box>
+                </LabeledList.Item>
+              </Tooltip>
+            );
+          })}
+        </LabeledList>
       </Stack>
     </Section>
   );

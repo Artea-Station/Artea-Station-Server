@@ -141,7 +141,7 @@
 	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "TraderConsole")
+		ui = new(user, src, "TraderConsole", "Trade Console")
 		ui.open()
 
 /obj/machinery/computer/trade_console/ui_data()
@@ -167,21 +167,62 @@
 
 	if(connected_hub)
 		for(var/datum/trader/trader as anything in connected_hub.traders)
-			var/list/trades = list()
-			// Index is used cause it requires the least amount of refactoring, and I've refactored enough as it is, dammit.
-			var/index = 1
-			for(var/datum/sold_goods/sold_goods as anything in trader.sold_goods)
-				trades += list(list(
-					"name" = sold_goods.name,
-					"index" = index,
-					"cost" = sold_goods.cost,
-					"amount" = sold_goods.stock,
-				))
-				index += 1
 			traders += list(list(
 				"name" = trader.name,
-				"trades" = trades,
+				"id" = trader.id,
 			))
+
+	if(connected_trader)
+		var/list/trades = list()
+		var/list/bounties = list()
+		var/list/buying = list()
+		var/list/deliveries = list()
+		// Index is used cause it requires the least amount of refactoring, and I've refactored enough as it is, dammit.
+		var/index = 1
+		for(var/datum/sold_goods/sold_goods as anything in connected_trader.sold_goods)
+			trades += list(list(
+				"name" = sold_goods.name,
+				"desc" = sold_goods.description,
+				"index" = index,
+				"cost" = sold_goods.cost,
+				"amount" = sold_goods.stock,
+			))
+			index += 1
+		index = 1
+		for(var/datum/trader_bounty/bounty as anything in connected_trader.bounties)
+			bounties += list(list(
+				"name" = bounty.bounty_name,
+				"desc" = bounty.bounty_text,
+				"index" = index,
+				"reward" = bounty.reward_cash,
+			))
+			index += 1
+		index = 1
+		for(var/datum/delivery_run/delivery_run as anything in connected_trader.deliveries)
+			deliveries += list(list(
+				"name" = delivery_run.name,
+				"desc" = delivery_run.desc,
+				"index" = index,
+				"reward" = delivery_run.reward_cash,
+			))
+			index += 1
+		index = 1
+		for(var/datum/bought_goods/bought_goods as anything in connected_trader.bought_goods)
+			buying += list(list(
+				"name" = bought_goods.name,
+				"index" = index,
+				"cost" = bought_goods.cost,
+				"amount" = bought_goods.stock,
+			))
+			index += 1
+		data["connected_trader"] = list(
+			"name" = connected_trader.name,
+			"id" = connected_trader.id,
+			"trades" = trades,
+			"buying" = buying,
+			"bounties" = bounties,
+			"deliveries" = deliveries,
+		)
 
 	for(var/datum/trade_hub/trade_hub as anything in SStrading.get_available_trade_hubs(get_turf(src)))
 		trade_hubs += list(list(
@@ -352,7 +393,13 @@
 			var/datum/trade_hub/trade_hub = SStrading.get_trade_hub_by_id(text2num(params["id"]))
 			if(trade_hub)
 				connect_hub(trade_hub)
-				write_log("Connected to [trade_hub.name]")
+				write_log("Connected to hub [trade_hub.name]")
+				return
+		if("choose_trader")
+			var/datum/trader/trader = SStrading.get_trader_by_id(text2num(params["id"]))
+			if(trader)
+				connect_trader(trader)
+				write_log("Connected to trader [trader.name]")
 				return
 		if("buy") // This code fucking hurts me. Don't look in requested_buy, don't look.
 			var/index = text2num(params["index"])
