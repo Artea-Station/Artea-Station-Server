@@ -85,6 +85,11 @@ const TraderContent = (props, context) => {
   return (
     <Box>
       <CargoStatus />
+      {!data.pad_linked && (
+        <NoticeBox color="bad">
+          No pad linked! Make sure it&apos;s next to the console!
+        </NoticeBox>
+      )}
       {!!data.connected_hub?.last_transmission && (
         <NoticeBox>{data.connected_hub?.last_transmission}</NoticeBox>
       )}
@@ -265,30 +270,143 @@ const TradeTab = (props, context) => {
         </>
       }>
       <Stack vertical>
-        <LabeledList>
-          {data.connected_trader.trades.map((trade) => {
-            return (
-              <Tooltip content={trade.desc} key={trade.index}>
-                <LabeledList.Item
-                  label={
-                    <Button
+        <Stack.Divider hidden height="1rem" />
+        <Stack.Item>
+          <Section title="Selling">
+            <LabeledList>
+              {data.connected_trader.trades.map((trade) => {
+                return (
+                  <Tooltip content={trade.desc} key={trade.index}>
+                    <LabeledList.Item
+                      alternating
+                      label={
+                        <Button
+                          width="100%"
+                          disabled={!trade.amount}
+                          icon="cart-shopping"
+                          onClick={() => {
+                            act('buy', { 'index': trade.index });
+                          }}>
+                          Buy ({trade.cost}cr)
+                        </Button>
+                      }>
+                      <Box
+                        inline
+                        width="100%"
+                        style={{ 'text-transform': 'capitalize' }}>
+                        {trade.name}
+                        <Box style={{ float: 'right' }}>
+                          {trade.amount >= 0 && (
+                            <Box
+                              inline
+                              color={trade.amount > 0 ? 'good' : 'bad'}>
+                              ({trade.amount} left)
+                            </Box>
+                          )}
+                        </Box>
+                      </Box>
+                    </LabeledList.Item>
+                  </Tooltip>
+                );
+              })}
+            </LabeledList>
+          </Section>
+        </Stack.Item>
+        <Stack.Divider hidden height="1rem" />
+        <Stack.Item>
+          <Section title="Buying">
+            <LabeledList>
+              {data.connected_trader.buying.map((trade) => {
+                return (
+                  <LabeledList.Item
+                    alternating
+                    key={trade.index}
+                    label={
+                      <Button
+                        width="100%"
+                        disabled={trade.amount !== null && !trade.amount}
+                        icon="cart-shopping"
+                        onClick={() => {
+                          act('buy', { 'index': trade.index });
+                        }}>
+                        Sell ({trade.cost}cr)
+                      </Button>
+                    }>
+                    <Box
+                      inline
                       width="100%"
-                      disabled={!trade.amount}
-                      icon="cart-shopping"
-                      onClick={() => {
-                        act('buy', { 'index': trade.index });
-                      }}>
-                      Buy ({trade.cost}cr)
-                    </Button>
-                  }>
-                  <Box inline style={{ 'text-transform': 'capitalize' }}>
-                    {trade.name}
-                  </Box>
-                </LabeledList.Item>
-              </Tooltip>
-            );
-          })}
-        </LabeledList>
+                      style={{ 'text-transform': 'capitalize' }}>
+                      {trade.name}
+                      <Box style={{ float: 'right' }}>
+                        {trade.amount !== null &&
+                          !!trade.amount &&
+                          '(' + trade.amount + ' left)'}
+                      </Box>
+                    </Box>
+                  </LabeledList.Item>
+                );
+              })}
+            </LabeledList>
+          </Section>
+        </Stack.Item>
+        <Stack.Divider hidden height="1rem" />
+        <Stack.Item>
+          <Section title="Bounties">
+            <LabeledList>
+              {data.connected_trader.bounties.map((bounty) => {
+                return (
+                  <Tooltip content={bounty.desc} key={bounty.index}>
+                    <LabeledList.Item
+                      alternating
+                      label={
+                        <Button
+                          width="100%"
+                          icon="check"
+                          onClick={() => {
+                            act('buy', { 'index': bounty.index });
+                          }}>
+                          Accept
+                        </Button>
+                      }>
+                      <Box inline style={{ 'text-transform': 'capitalize' }}>
+                        {bounty.name} ({bounty.reward}cr reward)
+                      </Box>
+                    </LabeledList.Item>
+                  </Tooltip>
+                );
+              })}
+            </LabeledList>
+          </Section>
+        </Stack.Item>
+        <Stack.Divider hidden height="1rem" />
+        <Stack.Item>
+          <Section title="Deliveries">
+            <LabeledList>
+              {data.connected_trader.deliveries.map((delivery) => {
+                return (
+                  <Tooltip content={delivery.desc} key={delivery.index}>
+                    <LabeledList.Item
+                      alternating
+                      label={
+                        <Button
+                          width="100%"
+                          icon="check"
+                          onClick={() => {
+                            act('buy', { 'index': delivery.index });
+                          }}>
+                          Accept
+                        </Button>
+                      }>
+                      <Box inline style={{ 'text-transform': 'capitalize' }}>
+                        {delivery.name} ({delivery.reward}cr reward)
+                      </Box>
+                    </LabeledList.Item>
+                  </Tooltip>
+                );
+              })}
+            </LabeledList>
+          </Section>
+        </Stack.Item>
       </Stack>
     </Section>
   );
@@ -303,7 +421,16 @@ const LogsTab = (props, context) => {
         <Stack vertical>
           <Stack.Divider hidden height="1rem" />
           {data.trade_log?.reverse().map((entry) => {
-            return <Stack.Item key={entry}>{entry}</Stack.Item>;
+            return (
+              <Stack.Item
+                alternating
+                verticalAlign="center"
+                key={entry}
+                p="0.3rem"
+                m="0">
+                {entry}
+              </Stack.Item>
+            );
           })}
         </Stack>
       </Section>

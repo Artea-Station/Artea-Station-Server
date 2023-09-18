@@ -399,6 +399,7 @@
 
 /datum/sold_goods/toy_crate
 	name = "toys crate"
+	description = "Contains 5 of a huge catalogue of toys."
 	cost = 1000
 	num_contained = 5
 	path = list(

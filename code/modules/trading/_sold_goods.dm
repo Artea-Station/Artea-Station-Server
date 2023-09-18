@@ -55,21 +55,20 @@
 /datum/sold_goods/proc/generate_description()
 	var/data = ""
 	if(container_path)
-		data += "[initial(container_path.name)] containing "
-	if(num_contained)
-		data += "[num_contained] of the follwoing: "
-	var/list/items = null
-	if(!islist(path))
-		items = list(path)
+		data += "\A [initial(container_path.name)] containing "
 	else
-		items = path
+		data += "Contains "
+	if(num_contained)
+		data += "[num_contained] of the following: "
+	var/list/items = list() + path
 	var/list/list_data = list()
-	for(var/obj/sold_good in items)
-		var/item_data = ""
+	for(var/obj/sold_good as anything in items)
 		if(ispath(sold_good, /obj/item/stack))
 			var/obj/item/stack/stack = sold_good
-			item_data += "[initial(stack.amount)]x "
-		item_data += "[initial(sold_good.name)]"
-		list_data += item_data
+			list_data += "[initial(stack.amount)]x [initial(sold_good.name)]"
+		else
+			list_data += "\a [initial(sold_good.name)]"
 	data += jointext(list_data, ", ")
+	data += "."
+
 	return data

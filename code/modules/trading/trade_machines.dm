@@ -185,7 +185,7 @@
 				"desc" = sold_goods.description,
 				"index" = index,
 				"cost" = sold_goods.cost,
-				"amount" = sold_goods.stock,
+				"amount" = sold_goods.current_stock,
 			))
 			index += 1
 		index = 1
@@ -402,8 +402,10 @@
 				write_log("Connected to trader [trader.name]")
 				return
 		if("buy") // This code fucking hurts me. Don't look in requested_buy, don't look.
+			if(!linked_pad)
+				say("Please connect a trade tele-pad before conducting in trade.")
+				return
 			var/index = text2num(params["index"])
-			var/datum/trader/connected_trader = connected_hub.traders[index]
 			if(connected_trader.sold_goods.len < index)
 				return
 			var/datum/sold_goods/goodie = connected_trader.sold_goods[index]
