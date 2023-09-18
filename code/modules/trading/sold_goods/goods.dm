@@ -319,40 +319,33 @@
 
 /datum/sold_goods/stack/iron_ten
 	stock = 3
-	amount = 10
 	cost = 100
-	path = /obj/item/stack/sheet/iron
+	path = /obj/item/stack/sheet/iron/ten
 
 /datum/sold_goods/stack/glass_ten
 	stock = 3
-	amount = 10
 	cost = 100
-	path = /obj/item/stack/sheet/glass
+	path = /obj/item/stack/sheet/glass/ten
 
 /datum/sold_goods/stack/silver_ten
-	amount = 10
 	cost = 300
-	path = /obj/item/stack/sheet/mineral/silver
+	path = /obj/item/stack/sheet/mineral/silver/ten
 
 /datum/sold_goods/stack/gold_ten
-	amount = 10
 	cost = 600
-	path = /obj/item/stack/sheet/mineral/gold
+	path = /obj/item/stack/sheet/mineral/gold/ten
 
 /datum/sold_goods/stack/uranium_ten
-	amount = 10
 	cost = 1000
-	path = /obj/item/stack/sheet/mineral/uranium
+	path = /obj/item/stack/sheet/mineral/uranium/ten
 
 /datum/sold_goods/stack/plasma_ten
-	amount = 10
 	cost = 1000
-	path = /obj/item/stack/sheet/mineral/plasma
+	path = /obj/item/stack/sheet/mineral/plasma/ten
 
 /datum/sold_goods/stack/diamond_five
-	amount = 5
 	cost = 1000
-	path = /obj/item/stack/sheet/mineral/diamond
+	path = /obj/item/stack/sheet/mineral/diamond/ten
 
 /////////Toy Shop Employee/////////
 

@@ -2,17 +2,19 @@
 	/// Name of the item, if not set it'll draw a name from the path
 	var/name
 	/// Path of the sold goodie. Supports lists with multiple paths.
-	var/path
+	var/obj/path
 	/// If path is a list, and this is defined, then only a number of the paths will be chosen from the list.
 	var/num_contained
-	/// If defined, the goodie will be inside a labeled container of this type.
-	var/container_path
+	/// If defined, the goodie will be inside a labeled container of this type. Should be lower than the length of the path list.
+	var/obj/container_path
 	/// Cost of the sold goodie, modified by margin and variance of the trader
 	var/cost = 100
 	/// Stock amount of this sold goodie. Use -1 for infinite. Use sparingly.
 	var/stock = 3
 	/// Current stock, initial stock will be modified by the vendors quantity
 	var/current_stock
+	/// This can be set manually, or be left to autogenerate.
+	var/description
 
 /datum/sold_goods/New(trader_cost_multiplier)
 	current_stock = stock
@@ -24,7 +26,9 @@
 			thing = path[1]
 		else
 			thing = path
-		name = initial(thing.name)
+		name = "[ispath(thing, /obj/item/stack) ? "[initial(thing:amount)]x " : ""][initial(thing.name)]"
+	if(!description)
+		description = generate_description()
 
 /datum/sold_goods/proc/spawn_item(turf/destination)
 	var/atom/absolute_destination
@@ -48,13 +52,24 @@
 	else
 		new path(absolute_destination)
 
-/datum/sold_goods/stack
-	var/amount = 1
-
-/datum/sold_goods/stack/New()
-	. = ..()
-	name = "[amount]x [name]"
-
-/datum/sold_goods/stack/spawn_item(turf/destination)
-	var/obj/item/stack/new_stack_path = path
-	new new_stack_path(destination, amount)
+/datum/sold_goods/proc/generate_description()
+	var/data = ""
+	if(container_path)
+		data += "[initial(container_path.name)] containing "
+	if(num_contained)
+		data += "[num_contained] of the follwoing: "
+	var/list/items = null
+	if(!islist(path))
+		items = list(path)
+	else
+		items = path
+	var/list/list_data = list()
+	for(var/obj/sold_good in items)
+		var/item_data = ""
+		if(ispath(sold_good, /obj/item/stack))
+			var/obj/item/stack/stack = sold_good
+			item_data += "[initial(stack.amount)]x "
+		item_data += "[initial(sold_good.name)]"
+		list_data += item_data
+	data += jointext(list_data, ", ")
+	return data

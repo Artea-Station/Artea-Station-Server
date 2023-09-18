@@ -4,7 +4,7 @@
 	/// Description of the delivery mission
 	var/desc = "We need some stuff delivered."
 	/// Type of the cargo to spawn, neeed to be types of /obj/item/delivery_cargo
-	var/cargo_type = /obj/item/delivery_cargo
+	var/obj/cargo_type = /obj/item/delivery_cargo
 	/// Possible flavor namings for the cargo we'll be carrying
 	var/list/possible_cargo_names = list("valuable cargo")
 	/// Possible flavor namings for our recipients we'll be delivering to
@@ -12,7 +12,7 @@
 	/// Cash reward we'll get, can be null
 	var/reward_cash = 2000
 	/// Path to the rewarded item, can be null
-	var/reward_item_path
+	var/obj/reward_item_path
 	/// Name of the rewarded item, automatically filled if above is present
 	var/reward_item_name
 
