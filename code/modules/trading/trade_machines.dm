@@ -61,16 +61,16 @@
 	var/obj/item/paper/P = new /obj/item/paper(my_turf)
 	manifest_counter++
 	P.name = "trade manifest #[manifest_counter]"
-	P.default_raw_text = "<CENTER><B>TRADE MANIFEST #[manifest_counter] - [last_trade_time]</B></CENTER><BR>Transaction between [last_user_name] and [connected_trader.name] at [connected_trader.origin]"
+	P.add_raw_text("<CENTER><B>TRADE MANIFEST #[manifest_counter] - [last_trade_time]</B></CENTER><BR>Transaction between [last_user_name] and [connected_trader.name] at [connected_trader.origin]")
 	if(manifest_purchased)
-		P.default_raw_text += "<HR><b>BOUGHT ITEMS:</b><BR>"
+		P.add_raw_text("<HR><b>BOUGHT ITEMS:</b><BR>")
 		for(var/line in manifest_purchased)
-			P.default_raw_text += "[line]<BR>"
+			P.add_raw_text("[line]<BR>")
 	if(manifest_sold)
-		P.default_raw_text += "<HR><b>SOLD ITEMS:</b><BR>"
+		P.add_raw_text("<HR><b>SOLD ITEMS:</b><BR>")
 		for(var/line in manifest_sold)
-			P.default_raw_text += "[line]<BR>"
-	P.default_raw_text += "<HR>Total gain: [manifest_profit]<BR>Total loss: [manifest_loss]<BR><b>TOTAL PROFIT: [manifest_profit - manifest_loss]</b>"
+			P.add_raw_text("[line]<BR>")
+	P.add_raw_text("<HR>Total gain: [manifest_profit]<BR>Total loss: [manifest_loss]<BR><b>TOTAL PROFIT: [manifest_profit - manifest_loss]</b>")
 	P.update_icon()
 	manifest_purchased = null
 	manifest_sold = null
@@ -231,159 +231,6 @@
 		))
 
 	. = data
-		//Trader menu
-
-		//Name, orgin, disconnect button and transmission text
-		//dat += "<a href='?src=[REF(src)];task=hub_task;pref=disconnect_trader'>Return to hub</a> - [makes_manifests ? "<a href='?src=[REF(src)];task=trader_task;pref=early_manifest_print'>Print Manifest</a>" : ""]<BR><center><b>[connected_trader.name]</b><BR>Origin: [connected_trader.origin]<BR><table align='center'; width='100%'; height='60px'; style='background-color:#13171C'><tr width='100%'><td width='100%'><center>[last_transmission]</center></td></tr></table></center><HR>"
-
-		//Buttons
-		// dat += "<center><a href='?src=[REF(src)];task=trader_task;pref=button_show_goods'>Show me your goods</a>"
-		// dat += "<BR><a href='?src=[REF(src)];task=trader_task;pref=button_show_purchasables'>Any goods you're interested in?</a>"
-		// dat += "<BR><a href='?src=[REF(src)];task=trader_task;pref=button_appraise'>Appraise item(s) on the pad</a>"
-		// dat += "<BR><a href='?src=[REF(src)];task=trader_task;pref=button_sell_item'>Sell all items on the pad</a>"
-		// if(connected_trader.bounties || connected_trader.deliveries)
-		// 	dat += "<BR>"
-		// if(connected_trader.bounties)
-		// 	dat += "<a href='?src=[REF(src)];task=trader_task;pref=button_show_bounties'>Bounties</a>"
-		// if(connected_trader.deliveries)
-		// 	dat += "<a href='?src=[REF(src)];task=trader_task;pref=button_show_deliveries'>Delivery Runs</a>"
-		// dat += "<BR><a href='?src=[REF(src)];task=trader_task;pref=button_compliment'>Compliment</a>"
-		// dat += " <a href='?src=[REF(src)];task=trader_task;pref=button_insult'>Insult</a></center>"
-		//Item menus, if applicable
-	// 	if(trader_screen_state)
-	// 		dat += "<HR>"
-	// 		switch(trader_screen_state)
-	// 			if(TRADER_SCREEN_DELIVERIES)
-	// 				dat += "<table align='center'; width='100%'; height='100%'; style='background-color:#13171C'>"
-	// 				dat += "<tr style='vertical-align:top'>"
-	// 				dat += "<td width=10%>Name:</td>"
-	// 				dat += "<td width=30%>Desc.:</td>"
-	// 				dat += "<td width=15%>Cargo:</td>"
-	// 				dat += "<td width=10%>Loc.:</td>"
-	// 				dat += "<td width=15%>Rewards:</td>"
-	// 				dat += "<td width=10%>Actions:</td>"
-	// 				dat += "</tr>"
-	// 				var/even = TRUE
-	// 				var/delivery_index = 0
-	// 				for(var/i in connected_trader.deliveries)
-	// 					even = !even
-	// 					delivery_index++
-	// 					var/datum/delivery_run/delivery = i
-	// 					var/delivery_reward_string
-	// 					if(delivery.reward_cash)
-	// 						delivery_reward_string = "[delivery.reward_cash] cr."
-	// 					if(delivery.reward_item_path)
-	// 						if(delivery_reward_string)
-	// 							delivery_reward_string += "<BR>&<BR>[delivery.reward_item_name]"
-	// 						else
-	// 							delivery_reward_string = delivery.reward_item_name
-	// 					dat += "<tr style='background-color: [even ? "#17191C" : "#23273C"];'>"
-	// 					dat += "<td>[delivery.name]</td>"
-	// 					dat += "<td>[delivery.desc]</td>"
-	// 					dat += "<td>[delivery.cargo_name] for [delivery.recipient_name]</td>"
-	// 					dat += "<td>Star System: [delivery.system_to_deliver.name]<BR>X:[delivery.overmap_x], Y:[delivery.overmap_y]</td>"
-	// 					dat += "<td>[delivery_reward_string]</td>"
-	// 					dat += "<td><a href='?src=[REF(src)];task=trader_task;pref=interact_with_delivery;delivery_type=take;index=[delivery_index]'>Take</a>"
-	// 					dat += "</tr>"
-	// 				dat += "</table>"
-	// 			if(TRADER_SCREEN_BOUNTIES)
-	// 				dat += "<table align='center'; width='100%'; height='100%'; style='background-color:#13171C'>"
-	// 				dat += "<tr style='vertical-align:top'>"
-	// 				dat += "<td width=15%>Name:</td>"
-	// 				dat += "<td width=30%>Desc.:</td>"
-	// 				dat += "<td width=15%>Item:</td>"
-	// 				dat += "<td width=15%>Rewards:</td>"
-	// 				dat += "<td width=15%>Actions:</td>"
-	// 				dat += "</tr>"
-	// 				var/even = TRUE
-	// 				var/bounty_index = 0
-	// 				for(var/i in connected_trader.bounties)
-	// 					even = !even
-	// 					bounty_index++
-	// 					var/datum/trader_bounty/bounty = i
-	// 					var/bounty_reward_string
-	// 					if(bounty.reward_cash)
-	// 						bounty_reward_string = "[bounty.reward_cash] cr."
-	// 					if(bounty.reward_item_path)
-	// 						if(bounty_reward_string)
-	// 							bounty_reward_string += "<BR>&<BR>[bounty.reward_item_name]"
-	// 						else
-	// 							bounty_reward_string = bounty.reward_item_name
-	// 					dat += "<tr style='background-color: [even ? "#17191C" : "#23273C"];'>"
-	// 					dat += "<td>[bounty.bounty_name]</td>"
-	// 					dat += "<td>[bounty.bounty_text]</td>"
-	// 					dat += "<td>[bounty.name] x[bounty.amount]</td>"
-	// 					dat += "<td>[bounty_reward_string]</td>"
-	// 					dat += "<td><a href='?src=[REF(src)];task=trader_task;pref=interact_with_bounty;bounty_type=claim;index=[bounty_index]'>Claim</a> <a href='?src=[REF(src)];task=trader_task;pref=interact_with_bounty;bounty_type=print;index=[bounty_index]'>Print</a>"
-	// 					dat += "</tr>"
-	// 				dat += "</table>"
-	// 			if(TRADER_SCREEN_SOLD_GOODS)
-	// 				dat += "<table align='center'; width='100%'; height='100%'; style='background-color:#13171C'>"
-	// 				dat += "<tr style='vertical-align:top'>"
-	// 				dat += "<td width=45%>Name:</td>"
-	// 				dat += "<td width=10%>Stock:</td>"
-	// 				dat += "<td width=10%>Price:</td>"
-	// 				dat += "<td width=35%>Actions:</td>"
-	// 				dat += "</tr>"
-	// 				var/even = TRUE
-	// 				var/goodie_index = 0
-	// 				for(var/datum/sold_goods/goodie as anything in connected_trader.sold_goods)
-	// 					even = !even
-	// 					goodie_index++
-	// 					dat += "<tr style='background-color: [even ? "#17191C" : "#23273C"];'>"
-	// 					dat += "<td>[goodie.name]</td>"
-	// 					dat += "<td>[goodie.current_stock == -1 ? "LOTS" : goodie.current_stock ? goodie.current_stock : "OUT!"]</td>"
-	// 					dat += "<td>[goodie.cost]</td>"
-	// 					dat += "<td><a href='?src=[REF(src)];task=trader_task;pref=interact_with_sold;sold_type=buy;index=[goodie_index]'>Buy</a><a href='?src=[REF(src)];task=trader_task;pref=interact_with_sold;sold_type=haggle;index=[goodie_index]'>Haggle</a><a href='?src=[REF(src)];task=trader_task;pref=interact_with_sold;sold_type=barter;index=[goodie_index]'>Barter</a></td>"
-	// 					dat += "</tr>"
-	// 				dat += "</table>"
-	// 			if(TRADER_SCREEN_BOUGHT_GOODS)
-	// 				dat += "<table align='center'; width='100%'; height='100%'; style='background-color:#13171C'>"
-	// 				dat += "<tr style='vertical-align:top'>"
-	// 				dat += "<td width=35%>Name:</td>"
-	// 				dat += "<td width=20%>Price:</td>"
-	// 				dat += "<td width=10%>Amount:</td>"
-	// 				dat += "<td width=35%>Actions:</td>"
-	// 				dat += "</tr>"
-	// 				var/even = TRUE
-	// 				var/goodie_index = 0
-	// 				for(var/datum/bought_goods/goodie as anything in connected_trader.bought_goods)
-	// 					even = !even
-	// 					goodie_index++
-	// 					dat += "<tr style='background-color: [even ? "#17191C" : "#23273C"];'>"
-	// 					dat += "<td>[goodie.name]</td>"
-	// 					dat += "<td>[goodie.cost_label]</td>"
-	// 					dat += "<td>[isnull(goodie.amount) ? "-" : "[goodie.amount]"]</td>"
-	// 					dat += "<td><a href='?src=[REF(src)];task=trader_task;pref=interact_with_bought;bought_type=sell;index=[goodie_index]'>Sell</a><a href='?src=[REF(src)];task=trader_task;pref=interact_with_bought;bought_type=haggle;index=[goodie_index]'>Haggle</a></td>"
-	// 					dat += "</tr>"
-	// 				dat += "</table>"
-
-	// else if (connected_hub)
-	// 	dat += "<b>Welcome to [connected_hub.name]!</b><HR>"
-	// 	//If we were denied access, let the user know
-	// 	if(denied_hail_transmission)
-	// 		dat += "<b>HAIL DENIED:</b> [denied_hail_transmission]<HR>"
-	// 	//Hub menu
-	// 	//List all merchants in the hub
-	// 	for(var/i in connected_hub.traders)
-	// 		var/datum/trader/trader = i
-	// 		dat += "<b>[trader.name]</b> - <a href='?src=[REF(src)];task=hub_task;pref=hail_merchant;id=[trader.id]'>Hail</a>[trader.bounties? " <b>(B)</b>" : ""][trader.deliveries? " <b>(D)</b>" : ""]<BR>Origin: [trader.origin]<HR>"
-	// else
-	// 	//Main menu
-	// 	//List available trade hubs
-	// 	dat += "<b>Trade networks available:</b>"
-	// 	var/list/trade_hubs = SStrading.get_available_trade_hubs(get_turf(src))
-	// 	for(var/i in trade_hubs)
-	// 		var/datum/trade_hub/trade_hub = i
-	// 		dat += "<BR><a href='?src=[REF(src)];task=main_task;pref=choose_hub;id=[trade_hub.id]'>[trade_hub.name]</a>"
-	// 	dat += "<HR><a href='?src=[REF(src)];task=main_task;pref=withdraw_money'>Withdraw credits</a>"
-	// 	dat += "<HR><a href='?src=[REF(src)];task=main_task;pref=view_log'>View Log</a>"
-	// 	dat += "<HR><a href='?src=[REF(src)];task=main_task;pref=toggle_manifest' [makes_manifests ? "class='linkOn'" : ""]>Print Manifests</a>"
-	// 	dat += "<BR><a href='?src=[REF(src)];task=main_task;pref=toggle_logging' [makes_log ? "class='linkOn'" : ""]>Allow Logging</a>"
-
-	// var/datum/browser/popup = new(user, "trade_console", "Trade Console", 450, 600)
-	// popup.set_content(dat.Join())
-	// popup.open()
 
 /obj/machinery/computer/trade_console/ui_act(action, list/params, datum/tgui/ui)
 	..()
@@ -410,6 +257,33 @@
 				return
 			var/datum/sold_goods/goodie = connected_trader.sold_goods[index]
 			last_transmission = connected_trader.requested_buy(ui.user, src, goodie)
+		if("sell")
+			if(!linked_pad)
+				say("Please connect a trade tele-pad before conducting in trade.")
+				return
+			var/index = text2num(params["index"])
+			if(connected_trader.bought_goods.len < index)
+				return
+			var/datum/bought_goods/goodie = connected_trader.bought_goods[index]
+			last_transmission = connected_trader.requested_sell(ui.user, src, goodie)
+		if("bounty")
+			if(!linked_pad)
+				say("Please connect a trade tele-pad before conducting in trade.")
+				return
+			var/index = text2num(params["index"])
+			if(connected_trader.bounties.len < index)
+				return
+			var/datum/trader_bounty/goodie = connected_trader.bounties[index]
+			last_transmission = connected_trader.requested_bounty_claim(ui.user, src, goodie)
+		if("delivery")
+			if(!linked_pad)
+				say("Please connect a trade tele-pad before conducting in trade.")
+				return
+			var/index = text2num(params["index"])
+			if(connected_trader.deliveries.len < index)
+				return
+			var/datum/delivery_run/goodie = connected_trader.deliveries[index]
+			last_transmission = connected_trader.requested_delivery_take(ui.user, src, goodie)
 		if("toggle_log")
 			makes_log = !makes_log
 			return
@@ -459,8 +333,8 @@
 							var/obj/item/paper/P = new /obj/item/paper(my_turf)
 							P.name = "Bounty: [bounty.bounty_name]"
 							P.default_raw_text = "<CENTER><B>[connected_trader.origin] - BOUNTY: [bounty.bounty_name]</B></CENTER><HR>"
-							P.default_raw_text += "[bounty.bounty_text]"
-							P.default_raw_text += "<BR>Requested items: [bounty.name] x[bounty.amount]"
+							P.add_raw_text("[bounty.bounty_text]")
+							P.add_raw_text("<BR>Requested items: [bounty.name] x[bounty.amount]")
 							var/reward_line
 							if(bounty.reward_cash)
 								reward_line = "[bounty.reward_cash] cr."
@@ -469,7 +343,7 @@
 									reward_line += " & [bounty.reward_item_name]"
 								else
 									reward_line = bounty.reward_item_name
-							P.default_raw_text += "<BR>Rewards: [reward_line]"
+							P.add_raw_text("<BR>Rewards: [reward_line]")
 							P.update_icon()
 						if("claim")
 							last_transmission = connected_trader.requested_bounty_claim(living_user, src, bounty)

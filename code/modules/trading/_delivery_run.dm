@@ -72,10 +72,10 @@
 
 	var/obj/item/paper/manifest = new /obj/item/paper()
 	manifest.name = "Delivery: [source_datum.name]"
-	manifest.default_raw_text = "<CENTER><B>[console.connected_trader.origin] - DELIVERY: [source_datum.name]</B></CENTER><HR>"
-	manifest.default_raw_text += "[source_datum.desc]"
-	manifest.default_raw_text += "<BR>A delivery of [source_datum.cargo_name] for [source_datum.recipient_name]"
-	manifest.default_raw_text += "<BR>Star System: [source_datum.system_to_deliver.name]<BR>X:[source_datum.overmap_x], Y:[source_datum.overmap_y]"
+	manifest.add_raw_text("<CENTER><B>[console.connected_trader.origin] - DELIVERY: [source_datum.name]</B></CENTER><HR>")
+	manifest.add_raw_text("[source_datum.desc]")
+	manifest.add_raw_text("<BR>A delivery of [source_datum.cargo_name] for [source_datum.recipient_name]")
+	manifest.add_raw_text("<BR>Star System: [source_datum.system_to_deliver.name]<BR>X:[source_datum.overmap_x], Y:[source_datum.overmap_y]")
 	manifest.update_appearance()
 
 	delivery_object = new source_datum.cargo_type(get_turf(console.linked_pad), src, manifest)
