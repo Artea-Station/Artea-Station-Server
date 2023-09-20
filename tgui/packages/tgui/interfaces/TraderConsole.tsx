@@ -327,7 +327,7 @@ const TradeTab = (props, context) => {
                         disabled={trade.amount !== null && !trade.amount}
                         icon="cart-shopping"
                         onClick={() => {
-                          act('buy', { 'index': trade.index });
+                          act('sell', { 'index': trade.index });
                         }}>
                         Sell ({trade.cost}cr)
                       </Button>
@@ -363,7 +363,7 @@ const TradeTab = (props, context) => {
                           width="100%"
                           icon="check"
                           onClick={() => {
-                            act('buy', { 'index': bounty.index });
+                            act('bounty', { 'index': bounty.index });
                           }}>
                           Accept
                         </Button>
@@ -392,7 +392,7 @@ const TradeTab = (props, context) => {
                           width="100%"
                           icon="check"
                           onClick={() => {
-                            act('buy', { 'index': delivery.index });
+                            act('delivery', { 'index': delivery.index });
                           }}>
                           Accept
                         </Button>
