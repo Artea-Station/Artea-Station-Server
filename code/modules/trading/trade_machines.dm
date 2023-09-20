@@ -5,7 +5,6 @@
 	circuit = /obj/item/circuitboard/computer/trade_console
 	light_color = COLOR_BRIGHT_ORANGE
 	var/obj/machinery/trade_pad/linked_pad
-	var/credits_held = 0
 
 	var/last_transmission = ""
 	var/denied_hail_transmission
@@ -30,13 +29,15 @@
 
 	var/next_bounty_print = 0
 
+	var/obj/item/card/id/inserted_id
+
 /obj/machinery/computer/trade_console/proc/write_manifest(datum/trader/trader, item_name, amount, price, user_selling, user_name)
 	var/trade_string
 	last_user_name = user_name
 	last_trade_time = station_time_timestamp()
 	if(user_selling)
 		trade_string = "[amount] of [item_name] for [price] cr."
-		write_log("[last_trade_time]: [user_name] sold [trade_string] to [trader.name] (new balance: [credits_held] cr.)")
+		write_log("[last_trade_time]: [user_name] sold [trade_string] to [trader.name] (new balance on [inserted_id.registered_account.account_holder]: [inserted_id.registered_account.account_balance] cr.)")
 		if(!makes_manifests)
 			return
 		LAZYINITLIST(manifest_sold)
@@ -44,7 +45,7 @@
 		manifest_profit += price
 	else
 		trade_string = "[amount] of [item_name] for [price] cr."
-		write_log("[last_trade_time]: [user_name] bought [trade_string] from [trader.name] (new balance: [credits_held] cr.)")
+		write_log("[last_trade_time]: [user_name] bought [trade_string] from [trader.name] (new balance on [inserted_id.registered_account.account_holder]: [inserted_id.registered_account.account_balance] cr.)")
 		if(!makes_manifests)
 			return
 		LAZYINITLIST(manifest_purchased)
@@ -89,11 +90,12 @@
 	connected_hub = passed_hub
 	connected_hub.connected_consoles += src
 
-/obj/machinery/computer/trade_console/proc/connect_trader(datum/trader/passed_trader)
+/obj/machinery/computer/trade_console/proc/connect_trader(datum/trader/passed_trader, mob/user)
 	if(connected_trader)
 		disconnect_trader()
 	connected_trader = passed_trader
 	connected_trader.connected_consoles += src
+	last_transmission = passed_trader.get_response("hail", "Welcome to ORIGIN!", user)
 	denied_hail_transmission = null
 
 /obj/machinery/computer/trade_console/proc/disconnect_hub()
@@ -113,29 +115,45 @@
 	connected_trader = null
 	trader_screen_state = TRADER_SCREEN_NOTHING
 
-/obj/machinery/computer/trade_console/proc/withdraw_credits(amount, mob/user)
-	if(!amount || !credits_held)
+/obj/machinery/computer/trade_console/proc/insert_id(obj/item/card/id/id, mob/user)
+	if(!istype(id))
 		return
-	if(amount > credits_held)
-		amount = credits_held
-	credits_held -= amount
-	var/obj/item/holochip/holochip = new(loc, amount)
-	if(user)
-		to_chat(user, "<span class='notice'>You withdraw [amount] credits.</span>")
-		user.put_in_hands(holochip)
-		write_log("[station_time_timestamp()]: [user.name] withdrew [amount] cr. (new balance: [credits_held] cr.)")
+	if(inserted_id)
+		if(user)
+			balloon_alert(user, "ID already inside!")
+		return
 
-/obj/machinery/computer/trade_console/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/holochip) || istype(I, /obj/item/stack/spacecash) || istype(I, /obj/item/coin))
-		var/worth = I.get_item_credit_value()
-		if(!worth)
-			to_chat(user, "<span class='warning'>[I] doesn't seem to be worth anything!</span>")
-		credits_held += worth
-		to_chat(user, "<span class='notice'>You slot [I] into [src] and it reports a total of [credits_held] credits inserted.</span>")
-		qdel(I)
-		write_log("[station_time_timestamp()]: [user.name] deposited [worth] cr. (new balance: [credits_held] cr.)")
+	id.forceMove(src)
+	inserted_id = id
+	playsound(src, 'sound/machines/id_insert.ogg', 50, FALSE)
+
+/obj/machinery/computer/trade_console/proc/remove_id(mob/user)
+	if(!inserted_id)
+		if(user)
+			balloon_alert(user, "no ID!")
 		return
+
+	if(user)
+		visible_message(span_info("[user] takes [inserted_id] from \the [src]."))
+		try_put_in_hand(inserted_id, user)
+		inserted_id = null
+		playsound(src, 'sound/machines/id_eject.ogg', 50, FALSE)
+		return
+
+	inserted_id.forceMove(get_turf(src))
+	inserted_id = null
+	playsound(src, 'sound/machines/id_eject.ogg', 50, FALSE)
+
+/obj/machinery/computer/trade_console/attackby(obj/item/item, mob/user, params)
+	if(isidcard(item))
+		insert_id(item)
+		return TRUE
 	. = ..()
+
+/obj/machinery/computer/trade_console/CtrlClick(mob/user)
+	. = ..()
+	remove_id(user)
+	return TRUE
 
 /obj/machinery/computer/trade_console/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
@@ -163,6 +181,9 @@
 		"trade_hubs" = trade_hubs,
 		"makes_manifests" = makes_manifests,
 		"makes_log" = makes_log,
+		"rank" = istype(inserted_id?.registered_account, /datum/bank_account/department) ? "Department Account" : inserted_id?.registered_account?.account_job?.title,
+		"wallet_name" = inserted_id?.registered_account?.account_holder,
+		"credits" = inserted_id?.registered_account?.account_balance,
 	)
 
 	if(connected_hub)
@@ -235,20 +256,29 @@
 /obj/machinery/computer/trade_console/ui_act(action, list/params, datum/tgui/ui)
 	..()
 	. = TRUE // Just.. always update.
+	if(!ui.user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK, TRUE))
+		return FALSE
 	switch(action)
+		if("eject_id")
+			if(inserted_id)
+				remove_id(ui.user)
+				return
+			var/item = ui.user.get_active_held_item()
+			insert_id(isidcard(item) ? item : null, ui.user)
 		if("choose_hub")
 			var/datum/trade_hub/trade_hub = SStrading.get_trade_hub_by_id(text2num(params["id"]))
 			if(trade_hub)
 				connect_hub(trade_hub)
 				write_log("Connected to hub [trade_hub.name]")
-				return
 		if("choose_trader")
 			var/datum/trader/trader = SStrading.get_trader_by_id(text2num(params["id"]))
 			if(trader)
-				connect_trader(trader)
+				connect_trader(trader, ui.user)
 				write_log("Connected to trader [trader.name]")
-				return
 		if("buy") // This code fucking hurts me. Don't look in requested_buy, don't look.
+			if(!inserted_id)
+				say("No ID detected.")
+				return
 			if(!linked_pad)
 				say("Please connect a trade tele-pad before conducting in trade.")
 				return
@@ -257,7 +287,22 @@
 				return
 			var/datum/sold_goods/goodie = connected_trader.sold_goods[index]
 			last_transmission = connected_trader.requested_buy(ui.user, src, goodie)
+		if("barter") // This code fucking hurts me. Don't look in requested_buy, don't look.
+			if(!inserted_id)
+				say("No ID detected.")
+				return
+			if(!linked_pad)
+				say("Please connect a trade tele-pad before conducting in trade.")
+				return
+			var/index = text2num(params["index"])
+			if(connected_trader.sold_goods.len < index)
+				return
+			var/datum/sold_goods/goodie = connected_trader.sold_goods[index]
+			last_transmission = connected_trader.requested_barter(ui.user, src, goodie)
 		if("sell")
+			if(!inserted_id)
+				say("No ID detected.")
+				return
 			if(!linked_pad)
 				say("Please connect a trade tele-pad before conducting in trade.")
 				return
@@ -266,7 +311,26 @@
 				return
 			var/datum/bought_goods/goodie = connected_trader.bought_goods[index]
 			last_transmission = connected_trader.requested_sell(ui.user, src, goodie)
+		if("sell_pad")
+			if(!inserted_id)
+				say("No ID detected.")
+				return
+			if(!linked_pad)
+				say("Please connect a trade tele-pad before conducting in trade.")
+				return
+			last_transmission = connected_trader.sell_all_on_pad(ui.user, src)
+		if("appraise")
+			if(!linked_pad)
+				say("Please connect a trade tele-pad before conducting in trade.")
+				return
+			if(connected_trader.trade_flags & TRADER_BUYS_GOODS)
+				last_transmission = connected_trader.get_appraisal(ui.user, src)
+			else
+				last_transmission = connected_trader.get_response("trade_no_goods", "I don't deal in goods!", ui.user)
 		if("bounty")
+			if(!inserted_id)
+				say("No ID detected.")
+				return
 			if(!linked_pad)
 				say("Please connect a trade tele-pad before conducting in trade.")
 				return
@@ -284,185 +348,20 @@
 				return
 			var/datum/delivery_run/goodie = connected_trader.deliveries[index]
 			last_transmission = connected_trader.requested_delivery_take(ui.user, src, goodie)
-		if("toggle_log")
-			makes_log = !makes_log
-			return
+		if("print_manifest")
+			print_manifest()
 		if("toggle_manifest")
 			makes_manifests = !makes_manifests
-			return
 
-/obj/machinery/computer/trade_console/Topic(href, href_list)
+/obj/machinery/computer/trade_console/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-	var/mob/living/living_user = usr
-	if(!istype(living_user) || !living_user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(obj_flags & EMAGGED)
 		return
-	switch(href_list["task"])
-		if("trader_task")
-			if(!connected_trader)
-				return
-			if(!linked_pad)
-				say("Please connect a trade tele-pad before conducting in trade.")
-				return
-			switch(href_list["pref"])
-				if("early_manifest_print")
-					print_manifest()
-				if("interact_with_delivery")
-					if(!connected_trader.deliveries)
-						return
-					var/index = text2num(href_list["index"])
-					if(connected_trader.deliveries.len < index)
-						return
-					var/datum/delivery_run/delivery = connected_trader.deliveries[index]
-					switch(href_list["delivery_type"])
-						if("take")
-							last_transmission = connected_trader.requested_delivery_take(living_user, src, delivery)
-				if("interact_with_bounty")
-					if(!connected_trader.bounties)
-						return
-					var/index = text2num(href_list["index"])
-					if(connected_trader.bounties.len < index)
-						return
-					var/datum/trader_bounty/bounty = connected_trader.bounties[index]
-					switch(href_list["bounty_type"])
-						if("print")
-							if(world.time < next_bounty_print)
-								return
-							next_bounty_print = world.time + 5 SECONDS
-							var/turf/my_turf = get_turf(src)
-							playsound(my_turf, 'sound/items/poster_being_created.ogg', 20, 1)
-							var/obj/item/paper/P = new /obj/item/paper(my_turf)
-							P.name = "Bounty: [bounty.bounty_name]"
-							P.default_raw_text = "<CENTER><B>[connected_trader.origin] - BOUNTY: [bounty.bounty_name]</B></CENTER><HR>"
-							P.add_raw_text("[bounty.bounty_text]")
-							P.add_raw_text("<BR>Requested items: [bounty.name] x[bounty.amount]")
-							var/reward_line
-							if(bounty.reward_cash)
-								reward_line = "[bounty.reward_cash] cr."
-							if(bounty.reward_item_path)
-								if(reward_line)
-									reward_line += " & [bounty.reward_item_name]"
-								else
-									reward_line = bounty.reward_item_name
-							P.add_raw_text("<BR>Rewards: [reward_line]")
-							P.update_icon()
-						if("claim")
-							last_transmission = connected_trader.requested_bounty_claim(living_user, src, bounty)
-				if("interact_with_sold")
-					var/index = text2num(href_list["index"])
-					if(connected_trader.sold_goods.len < index)
-						return
-					var/datum/sold_goods/goodie = connected_trader.sold_goods[index]
-					switch(href_list["sold_type"])
-						if("buy")
-							last_transmission = connected_trader.requested_buy(living_user, src, goodie)
-						if("barter")
-							last_transmission = connected_trader.requested_barter(living_user, src, goodie)
-						if("haggle")
-							var/proposed_value = input(living_user, "How much credits do you offer?", "Trade Console") as num|null
-							if(!proposed_value || QDELETED(connected_trader) || QDELETED(goodie))
-								return
-							last_transmission = connected_trader.requested_buy(living_user, src, goodie, proposed_value)
-				if("interact_with_bought")
-					var/index = text2num(href_list["index"])
-					if(connected_trader.bought_goods.len < index)
-						return
-					var/datum/bought_goods/goodie = connected_trader.bought_goods[index]
-					switch(href_list["bought_type"])
-						if("sell")
-							last_transmission = connected_trader.requested_sell(living_user, src, goodie)
-						if("haggle")
-							var/proposed_value = input(living_user, "How much credits do you demand?", "Trade Console") as num|null
-							if(!proposed_value || QDELETED(connected_trader) || QDELETED(goodie))
-								return
-							last_transmission = connected_trader.requested_sell(living_user, src, goodie, proposed_value)
-				if("button_show_goods")
-					if(connected_trader.trade_flags & TRADER_SELLS_GOODS)
-						trader_screen_state = TRADER_SCREEN_SOLD_GOODS
-						last_transmission = connected_trader.get_response("trade_show_goods", "This is what I've got to offer!", living_user)
-					else
-						last_transmission = connected_trader.get_response("trade_no_sell_goods", "I don't sell any goods.", living_user)
 
-				if("button_show_purchasables")
-					if(connected_trader.trade_flags & TRADER_BUYS_GOODS)
-						trader_screen_state = TRADER_SCREEN_BOUGHT_GOODS
-						last_transmission = connected_trader.get_response("what_want", "Hm, I want.. those..", living_user)
-					else
-						last_transmission = connected_trader.get_response("trade_no_goods", "I don't deal in goods!", living_user)
-
-				if("button_show_bounties")
-					trader_screen_state = TRADER_SCREEN_BOUNTIES
-
-				if("button_show_deliveries")
-					trader_screen_state = TRADER_SCREEN_DELIVERIES
-
-				if("button_compliment")
-					if(prob(50))
-						last_transmission = connected_trader.get_response("compliment_deny", "Ehhh.. thanks?", living_user)
-					else
-						last_transmission = connected_trader.get_response("compliment_accept", "Thank you!", living_user)
-
-				if("button_insult")
-					if(prob(50))
-						last_transmission = connected_trader.get_response("insult_bad", "What? I thought we were cool!", living_user)
-					else
-						last_transmission = connected_trader.get_response("insult_good", "Right back at you asshole!", living_user)
-				if("button_appraise")
-					if(connected_trader.trade_flags & TRADER_BUYS_GOODS)
-						last_transmission = connected_trader.get_appraisal(living_user, src)
-					else
-						last_transmission = connected_trader.get_response("trade_no_goods", "I don't deal in goods!", living_user)
-
-				if("button_sell_item")
-					if(!(connected_trader.trade_flags & TRADER_BUYS_GOODS))
-						last_transmission = connected_trader.get_response("trade_no_goods", "I don't deal in goods!", living_user)
-					else if (!(connected_trader.trade_flags & TRADER_MONEY))
-						last_transmission = connected_trader.get_response("doesnt_use_cash", "I don't deal in cash!", living_user)
-					else
-						last_transmission = connected_trader.sell_all_on_pad(living_user, src)
-			if(!connected_trader.get_hailed(living_user, src))
-				denied_hail_transmission = last_transmission
-				disconnect_trader()
-		if("hub_task")
-			if(!connected_hub)
-				return
-			switch(href_list["pref"])
-				if("disconnect_trader")
-					disconnect_trader()
-				if("hail_merchant")
-					var/id = text2num(href_list["id"])
-					var/datum/trader/trader = SStrading.get_trader_by_id(id)
-					if(!trader)
-						return
-					var/is_hail_success = trader.get_hailed(living_user, src)
-					var/hail_msg = trader.hail_msg(is_hail_success, living_user)
-					if(is_hail_success)
-						connect_trader(trader)
-						last_transmission = hail_msg
-					else
-						denied_hail_transmission = hail_msg
-
-		if("main_task")
-			switch(href_list["pref"])
-				if("toggle_logging")
-					makes_log = !makes_log
-				if("toggle_manifest")
-					makes_manifests = !makes_manifests
-				if("view_log")
-					viewed_log = !viewed_log
-				if("purge_log")
-					trade_log = null
-				if("choose_hub")
-					var/id = text2num(href_list["id"])
-					var/trade_hub = SStrading.get_trade_hub_by_id(id)
-					if(trade_hub)
-						connect_hub(trade_hub)
-				if("withdraw_money")
-					var/amount = input(living_user, "How much credits would you like to withdraw?", "Trade Console") as num|null
-					if(amount && amount > 0)
-						withdraw_credits(amount, living_user)
-				if("disconnect_hub")
-					disconnect_hub()
-	ui_interact(living_user)
+	obj_flags |= EMAGGED
+	do_sparks(1, FALSE, src)
+	makes_log = FALSE
+	balloon_alert(user, "disabled logging")
 
 /obj/machinery/computer/trade_console/proc/try_link_pad()
 	if(linked_pad)
@@ -481,10 +380,10 @@
 /obj/machinery/computer/trade_console/Destroy()
 	if(linked_pad)
 		unlink_pad()
-	if(!credits_held)
+	if(!inserted_id)
 		return ..()
-	new /obj/item/holochip(loc, credits_held)
-	credits_held = 0
+	inserted_id.forceMove(get_turf(src))
+	inserted_id = null
 	return ..()
 
 /obj/item/circuitboard/computer/trade_console

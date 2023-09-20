@@ -1,11 +1,9 @@
 //Does the trader accept money for goods
 #define TRADER_MONEY (1<<1)
-//Does the trader accept goods for goods (barter)
-#define TRADER_BARTER (1<<2)
 
-#define TRADER_SELLS_GOODS (1<<3)
+#define TRADER_SELLS_GOODS (1<<2)
 
-#define TRADER_BUYS_GOODS (1<<4)
+#define TRADER_BUYS_GOODS (1<<3)
 
 //Cash amounts the traders get
 #define DEFAULT_TRADER_CREDIT_AMOUNT 7000
@@ -67,7 +65,7 @@ compliment_accept //When accepts a compliment
 insult_bad //When he's pissed off at an inuslt
 insult_good //When he doesnt mind the insult much
 
-pad_empty //When you try and conduct barter/selling but your pad is empty
+pad_empty //When you try and conduct selling but your pad is empty
 
 how_much //When he appraises the value of item. ITEM = item name, VALUE = amount of cash worth
 appraise_multiple //When he appraises the value of multiple items.  VALUE = amount of cash worth
@@ -77,9 +75,7 @@ out_of_money //When the trader's out of money to pay us for stuff
 doesnt_use_cash //When he disclaims that he doesnt use cash
 
 trade_complete //Sentence after a successful trade
-hard_bargain //Sentence after the user bargained very closely to the trader's limit
-trade_not_enough //Sentence when the trader rejects a haggle or barter offer
-too_much_value //When the user tries to sell something for too high of a price
+trade_not_enough //Sentence when the trader rejects a barter offer
 out_of_stock //The trader is out of stock on an item the user wants to buy
 user_no_money //When the user doesnt have enough money to perform a trade
 only_deal_in_goods //When the user tries to sell items for money, but the trader doesnt deal in money

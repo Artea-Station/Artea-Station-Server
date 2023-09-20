@@ -9,8 +9,8 @@
 	var/list/possible_names
 	/// Current disposition. The merchant may close communications if it's too low
 	var/disposition = 0
-	/// All the flags of the merchant, currently whether they trade money or barter or both
-	var/trade_flags = TRADER_MONEY|TRADER_BARTER|TRADER_SELLS_GOODS|TRADER_BUYS_GOODS
+	/// All the flags of the merchant, currently only if they buy or sell goods, and if they can trade at all.
+	var/trade_flags = TRADER_MONEY|TRADER_SELLS_GOODS|TRADER_BUYS_GOODS
 	/// The hub they belong to
 	var/datum/trade_hub/hub
 	/// List of sold good datums. Defined by types, on initialization they'll turn into refs to their objects.
@@ -19,16 +19,12 @@
 	var/list/bought_goods = list()
 	/// Cash they hold, they won't be able to pay out if it gets too low
 	var/current_credits = DEFAULT_TRADER_CREDIT_AMOUNT
-	/// The present percentage the merchant will allow to haggle the people, it's randomized between 0 and haggle_percent each trade
-	var/current_haggle = 0
 	/// A list of connected trade consoles, in case the trader is destroyed we want to disconnect the consoles
 	var/list/connected_consoles = list()
 
 	/// Whether he refuses comms or not
 	var/refuses_comms = FALSE
 
-	/// Maximum percent that the merchant will be able to drop the price. Randomized between 0 and this
-	var/haggle_percent = 15
 	/// A percentage of the price variance on all sold and bought goods
 	var/price_variance = 20
 	/// How much more items are valuable to the merchant for purchasing (in %)
@@ -77,9 +73,6 @@
 /datum/trader/proc/AfterTrade(mob/user, obj/machinery/computer/trade_console/console)
 	return
 
-/datum/trader/proc/randomize_haggle()
-	current_haggle = rand(0, haggle_percent)
-
 // TRUE to accept hail, FALSE to reject it. Speciest traders could reject hails from some species, or from cyborgs
 // This will also be called every interaction, and may shut down the comms, last response will be the close reason
 /datum/trader/proc/get_hailed(mob/user, obj/machinery/computer/trade_console/console)
@@ -95,9 +88,7 @@
 /datum/trader/proc/requested_barter(mob/user, obj/machinery/computer/trade_console/console, datum/sold_goods/goodie)
 	if(!goodie.current_stock)
 		return get_response("out_of_stock", "I'm afraid I don't have any more of these!", user)
-	if(!(trade_flags & TRADER_BARTER))
-		return get_response("trade_no_buy", "I don't deal in goods!", user)
-	//Now we need to figure out how much does the haggled items have in value
+	//Now we need to figure out how much the items have in value
 	var/list/items_on_pad = console.linked_pad.get_valid_items()
 	if(!length(items_on_pad))
 		return get_response("pad_empty", "There's nothing on the pad...", user)
@@ -120,9 +111,7 @@
 			bartered_item_count += bought_goodie.GetAmount(AM)
 
 	total_value *= TRADE_BARTER_EXTRA_MARGIN
-	//Always treat barter as if it's haggling
-	var/haggle_percent = (100-current_haggle)/100
-	if(total_value < goodie.cost*haggle_percent)
+	if(total_value < goodie.cost)
 		//Not enough value
 		disposition -= disposition_per_reject
 		. = get_response("trade_not_enough", "It's definetly worth more than that", user)
@@ -132,11 +121,8 @@
 			var/atom/movable/AM = i
 			qdel(AM)
 
-		//Hard bargain
-		if(total_value < goodie.cost*(haggle_percent+TRADE_HARD_BARGAIN_MARGIN))
-			. = get_response("hard_bargain", "You drive a hard bargain, but I'll accept", user)
-		else
-			. = get_response("trade_complete", "Thanks for your business!", user)
+		. = get_response("trade_complete", "Thanks for your business!", user)
+
 		if(goodie.current_stock != -1)
 			goodie.current_stock--
 		var/destination_turf = get_turf(console.linked_pad)
@@ -144,11 +130,10 @@
 		disposition += disposition_per_trade
 		console.linked_pad.do_teleport_effect()
 		AfterTrade(user,console)
-		randomize_haggle()
 		console.write_manifest(src, bartered_items, "[bartered_item_count] total", total_value, TRUE, user.name)
 		console.write_manifest(src, goodie.name, 1, total_value, FALSE, user.name)
 
-/datum/trader/proc/requested_sell(mob/user, obj/machinery/computer/trade_console/console, datum/bought_goods/goodie, haggled_price)
+/datum/trader/proc/requested_sell(mob/user, obj/machinery/computer/trade_console/console, datum/bought_goods/goodie)
 	if(!(trade_flags & TRADER_MONEY))
 		return get_response("only_deal_in_goods", "I only deal in goods, come and barter!", user)
 	var/list/items_on_pad = console.linked_pad.get_valid_items()
@@ -163,52 +148,30 @@
 	items_on_pad = null
 	if(!chosen_item)
 		return get_response("trade_found_unwanted", "I'm not interested in these kinds of items!", user)
-	var/proposed_cost = haggled_price ? haggled_price : item_value
+	var/proposed_cost = item_value
 	if(current_credits < proposed_cost)
 		return get_response("out_of_money", "Sorry, I've ran out of credits.", user)
-	var/hard_bargain
-	if(haggled_price)
-		var/haggle_percent = (100+current_haggle)/100
-		if(haggled_price > item_value*haggle_percent)
-			//Too much, reject
-			disposition -= disposition_per_reject
-			return get_response("too_much_value", "No way I'm paying that much for this", user)
-		else if (haggled_price > item_value*(haggle_percent-TRADE_HARD_BARGAIN_MARGIN))
-			hard_bargain = TRUE
 	goodie.SubtractAmount(chosen_item)
 	qdel(chosen_item)
 	console.linked_pad.do_teleport_effect()
 	AfterTrade(user,console)
-	console.credits_held += proposed_cost
+	console.inserted_id.registered_account.adjust_money(proposed_cost)
 	current_credits -= proposed_cost
-	randomize_haggle()
 	console.write_manifest(src, goodie.name, goodie.GetAmount(chosen_item), proposed_cost, TRUE, user.name)
-	if(hard_bargain)
-		return get_response("hard_bargain", "You drive a hard bargain, but I'll accept", user)
-	else
-		disposition += disposition_per_trade
-		return get_response("trade_complete", "Thanks for your business!", user)
+	disposition += disposition_per_trade
+	return get_response("trade_complete", "Thanks for your business!", user)
 
 /datum/trader/proc/requested_buy(mob/user, obj/machinery/computer/trade_console/console, datum/sold_goods/goodie, haggled_price)
-	var/proposed_cost = haggled_price ? haggled_price : goodie.cost
+	var/proposed_cost = goodie.cost
 	if(!goodie.current_stock)
 		return get_response("out_of_stock", "I'm afraid I don't have any more of these!", user)
 	if(!(trade_flags & TRADER_MONEY))
 		return get_response("doesnt_use_cash", "I have no need for cash. Offer me some goods!", user)
-	if(console.credits_held < proposed_cost)
+	if(!console.inserted_id.registered_account.adjust_money(-proposed_cost))
 		return get_response("user_no_money", "You can't afford this", user)
-	var/hard_bargain = FALSE
-	if(haggled_price)
-		var/haggle_percent = (100-current_haggle)/100
-		if(haggled_price < goodie.cost*haggle_percent)
-			//Too low of a haggle, reject
-			disposition -= disposition_per_reject
-			return get_response("trade_not_enough", "It's definetly worth more than that", user)
-		else if(haggled_price < goodie.cost*(haggle_percent+TRADE_HARD_BARGAIN_MARGIN))
-			hard_bargain = TRUE
 
 	//We established there's stock and we have enough money for it, and the trader deals in cash
-	console.credits_held -= proposed_cost
+	console.inserted_id.registered_account.adjust_money(-proposed_cost)
 	current_credits += proposed_cost
 	if(goodie.current_stock != -1)
 		goodie.current_stock--
@@ -216,13 +179,9 @@
 	goodie.spawn_item(destination_turf)
 	console.linked_pad.do_teleport_effect()
 	AfterTrade(user,console)
-	randomize_haggle()
 	console.write_manifest(src, goodie.name, 1, proposed_cost, FALSE, user.name)
-	if(hard_bargain)
-		return get_response("hard_bargain", "You drive a hard bargain, but I'll accept", user)
-	else
-		disposition += disposition_per_trade
-		return get_response("trade_complete", "Thanks for your business!", user)
+	disposition += disposition_per_trade
+	return get_response("trade_complete", "Thanks for your business!", user)
 
 /datum/trader/proc/get_appraisal(mob/user, obj/machinery/computer/trade_console/console)
 	var/list/items_on_pad = console.linked_pad.get_valid_items()
@@ -281,11 +240,10 @@
 		qdel(AM)
 	valid_items = null
 	current_credits -= total_value
-	console.credits_held += total_value
+	console.inserted_id.registered_account.adjust_money(total_value)
 	disposition += disposition_per_trade*item_count
 	console.linked_pad.do_teleport_effect()
 	AfterTrade(user,console)
-	randomize_haggle()
 	console.write_manifest(src, conjoined_string, "[conjoined_amount] total", total_value, TRUE, user.name)
 	return get_response("trade_complete", "Thanks for your business!", user)
 
@@ -309,13 +267,12 @@
 	for(var/i in valid_items)
 		var/atom/movable/AM = i
 		qdel(AM)
-	console.credits_held += bounty.reward_cash
+	console.inserted_id.registered_account.adjust_money(bounty.reward_cash)
 	if(bounty.reward_item_path)
 		console.write_manifest(src, bounty.reward_item_name, 1, 0, FALSE, user.name)
 		new bounty.reward_item_path(get_turf(console.linked_pad))
 	console.linked_pad.do_teleport_effect()
 	AfterTrade(user,console)
-	randomize_haggle()
 	console.write_manifest(src, bounty.name, counted_amount, bounty.reward_cash, TRUE, user.name)
 	. = bounty.bounty_complete_text
 	bounties -= bounty
@@ -372,7 +329,6 @@
 
 /datum/trader/New(datum/trade_hub/our_hub)
 	. = ..()
-	randomize_haggle()
 	id = SStrading.get_next_trader_id()
 	hub = our_hub
 	hub.traders += src

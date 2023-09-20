@@ -17,21 +17,8 @@ export const TraderConsole = (props, context) => {
 
 type Data = {
   requestonly: BooleanLike;
-  cart: Trade[];
-  requests: Trade[];
-  department: string;
-  grocery: BooleanLike;
-  away: BooleanLike;
-  docked: BooleanLike;
-  loan: BooleanLike;
-  loan_dispatched: BooleanLike;
-  location: string;
-  message: string;
   credits: number;
-  can_send: BooleanLike;
-  self_paid: BooleanLike;
-  app_cost: number;
-  can_approve_requests: BooleanLike;
+  rank: string;
   wallet_name: string;
   trade_hubs: TradeHub[];
   makes_manifests: BooleanLike;
@@ -90,39 +77,6 @@ const TraderContent = (props, context) => {
           No pad linked! Make sure it&apos;s next to the console!
         </NoticeBox>
       )}
-      {!!data.connected_hub?.last_transmission && (
-        <NoticeBox>{data.connected_hub?.last_transmission}</NoticeBox>
-      )}
-      <Section fitted>
-        <Tabs fill fluid style={{ 'font-size': '1.2rem' }}>
-          <Tabs.Tab
-            icon="list"
-            selected={tab === 'comms'}
-            onClick={() => setTab('comms')}>
-            Comms
-          </Tabs.Tab>
-          <Tabs.Tab
-            disabled={!data.connected_hub}
-            icon="list"
-            selected={tab === 'traders'}
-            onClick={() => setTab('traders')}>
-            Traders
-          </Tabs.Tab>
-          <Tabs.Tab
-            disabled={!data.connected_trader}
-            icon="cart-shopping"
-            selected={tab === 'trade'}
-            onClick={() => setTab('trade')}>
-            Trader
-          </Tabs.Tab>
-          <Tabs.Tab
-            icon="book-open"
-            selected={tab === 'logs'}
-            onClick={() => setTab('logs')}>
-            Logs
-          </Tabs.Tab>
-        </Tabs>
-      </Section>
       {tab === 'comms' && <CommsTab />}
       {tab === 'traders' && !!data.connected_hub && <TradersTab />}
       {tab === 'trade' && !!data.connected_trader && <TradeTab />}
@@ -133,32 +87,54 @@ const TraderContent = (props, context) => {
 
 const CargoStatus = (props, context) => {
   const { act, data } = useBackend<Data>(context);
-  const { department, docked, location, credits, can_send, wallet_name } = data;
+  const { credits, rank, wallet_name } = data;
+  const [tab, setTab] = useSharedState(context, 'tab', 'comms');
   return (
     <Section
-      title={window.name}
+      title={
+        (wallet_name ? wallet_name : 'Unknown') +
+        ' (' +
+        (rank ? rank : 'Unknown') +
+        ')'
+      }
       buttons={
         <Box inline bold>
           <AnimatedNumber
-            value={credits}
+            value={credits ? credits : 0}
             format={(value) => formatMoney(value)}
           />
-          {' credits (' + wallet_name + ')'}
+          {' credits '}
+          <Button onClick={() => act('eject_id')} icon="eject" />
         </Box>
       }>
-      <LabeledList>
-        <LabeledList.Item label="Shuttle">
-          {(docked && can_send && (
-            <Button
-              color="green"
-              content={location}
-              tooltipPosition="right"
-              onClick={() => act('send')}
-            />
-          )) ||
-            location}
-        </LabeledList.Item>
-      </LabeledList>
+      <Tabs fill fluid style={{ 'font-size': '1.2rem' }}>
+        <Tabs.Tab
+          icon="list"
+          selected={tab === 'comms'}
+          onClick={() => setTab('comms')}>
+          Comms
+        </Tabs.Tab>
+        <Tabs.Tab
+          disabled={!data.connected_hub}
+          icon="list"
+          selected={tab === 'traders'}
+          onClick={() => setTab('traders')}>
+          Traders
+        </Tabs.Tab>
+        <Tabs.Tab
+          disabled={!data.connected_trader}
+          icon="cart-shopping"
+          selected={tab === 'trade'}
+          onClick={() => setTab('trade')}>
+          Trader
+        </Tabs.Tab>
+        <Tabs.Tab
+          icon="book-open"
+          selected={tab === 'logs'}
+          onClick={() => setTab('logs')}>
+          Logs
+        </Tabs.Tab>
+      </Tabs>
     </Section>
   );
 };
@@ -253,22 +229,25 @@ const TradeTab = (props, context) => {
       title={data.connected_trader.name}
       buttons={
         <>
+          <Button
+            icon="print"
+            onClick={() => {
+              act('print_manifest');
+            }}>
+            Print Manifest
+          </Button>
           <ButtonCheckbox
             checked={data.makes_manifests}
             onClick={() => {
               act('toggle_manifest');
             }}>
-            Print Manifests
-          </ButtonCheckbox>
-          <ButtonCheckbox
-            checked={data.makes_log}
-            onClick={() => {
-              act('toggle_log');
-            }}>
-            Log Transactions
+            Log to Manifest
           </ButtonCheckbox>
         </>
       }>
+      {!!data.connected_hub?.last_transmission && (
+        <NoticeBox>{data.connected_hub?.last_transmission}</NoticeBox>
+      )}
       <Stack vertical>
         <Stack.Divider hidden height="1rem" />
         <Stack.Item>
@@ -280,15 +259,26 @@ const TradeTab = (props, context) => {
                     <LabeledList.Item
                       alternating
                       label={
-                        <Button
-                          width="100%"
-                          disabled={!trade.amount}
-                          icon="cart-shopping"
-                          onClick={() => {
-                            act('buy', { 'index': trade.index });
-                          }}>
-                          Buy ({trade.cost}cr)
-                        </Button>
+                        <Box width="100%">
+                          <Tooltip content="Try and barter for items adding up to an equivalent value. Trader will only accept items they will buy below.">
+                            <Button
+                              disabled={!trade.amount}
+                              icon="arrow-right-arrow-left"
+                              onClick={() => {
+                                act('barter', { 'index': trade.index });
+                              }}
+                            />
+                          </Tooltip>
+                          <Button
+                            width="82%"
+                            disabled={!trade.amount}
+                            icon="cart-shopping"
+                            onClick={() => {
+                              act('buy', { 'index': trade.index });
+                            }}>
+                            Buy ({trade.cost}cr)
+                          </Button>
+                        </Box>
                       }>
                       <Box
                         inline
@@ -314,7 +304,18 @@ const TradeTab = (props, context) => {
         </Stack.Item>
         <Stack.Divider hidden height="1rem" />
         <Stack.Item>
-          <Section title="Buying">
+          <Section
+            title="Buying"
+            buttons={
+              <>
+                <Button icon="question" onClick={() => act('appraise')}>
+                  Get Apprisal
+                </Button>
+                <Button icon="cart-shopping" onClick={() => act('sell_pad')}>
+                  Sell All on Pad
+                </Button>
+              </>
+            }>
             <LabeledList>
               {data.connected_trader.buying.map((trade) => {
                 return (
@@ -338,9 +339,11 @@ const TradeTab = (props, context) => {
                       style={{ 'text-transform': 'capitalize' }}>
                       {trade.name}
                       <Box style={{ float: 'right' }}>
-                        {trade.amount !== null &&
-                          !!trade.amount &&
-                          '(' + trade.amount + ' left)'}
+                        {trade.amount !== null && (
+                          <Box inline color={trade.amount > 0 ? 'good' : 'bad'}>
+                            ({trade.amount} left)
+                          </Box>
+                        )}
                       </Box>
                     </Box>
                   </LabeledList.Item>
@@ -365,11 +368,11 @@ const TradeTab = (props, context) => {
                           onClick={() => {
                             act('bounty', { 'index': bounty.index });
                           }}>
-                          Accept
+                          Deliver ({bounty.reward}cr)
                         </Button>
                       }>
                       <Box inline style={{ 'text-transform': 'capitalize' }}>
-                        {bounty.name} ({bounty.reward}cr reward)
+                        {bounty.name}
                       </Box>
                     </LabeledList.Item>
                   </Tooltip>
