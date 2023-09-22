@@ -82,7 +82,7 @@
 /datum/id_trim/job/lead_pathfinder
 	assignment = "Lead Pathfinder"
 	intern_alt_name = "Honorary Lead Pathfinder"
-	trim_state = "trim_virologist"
+	trim_state = "dept-pathfinders"
 	orbit_icon = "anchor"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_PATHFINDERS_DARK_PURPLE

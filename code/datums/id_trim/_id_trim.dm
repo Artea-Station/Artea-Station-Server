@@ -1,13 +1,14 @@
 /// Simple datum that holds the basic information associated with an ID card trim.
 /datum/id_trim
 	/// Icon file for this trim.
-	var/trim_icon = 'icons/obj/card.dmi'
+	var/trim_icon = 'icons/obj/card_cit.dmi'
 	/// Icon state for this trim. Overlayed on advanced ID cards.
 	var/trim_state
 	/// Department color for this trim. Displayed in the box under the trim_state.
 	var/department_color = COLOR_ASSISTANT_GRAY
 	/// Department icon state, for differentiating between heads and normal crew and other use cases.
 	var/department_state = "department"
+	var/letter_state = "letter-artea"
 	/// Subdepartment color for this trim. Displayed as a bar under the trim_state and department_color.
 	var/subdepartment_color = COLOR_ASSISTANT_OLIVE
 	/// Job/assignment associated with this trim. Can be transferred to ID cards holding this trim.

@@ -37,7 +37,7 @@
 /// Trim for the cat surgeon ruin.
 /datum/id_trim/away/cat_surgeon
 	assignment = "Cat Surgeon"
-	trim_state = "trim_medicaldoctor"
+	trim_state = "dept-medical"
 	department_color = COLOR_MEDICAL_BLUE
 	subdepartment_color = COLOR_SERVICE_LIME
 	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_MAINTENANCE)
@@ -47,7 +47,7 @@
 	assignment = "Head Researcher"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_SCIENCE_PINK
-	trim_state = "trim_scientist"
+	trim_state = "dept-science"
 	department_state = "departmenthead"
 	access = list(ACCESS_AWAY_GENERIC3, ACCESS_RESEARCH)
 
@@ -58,7 +58,7 @@
 /// Trim for beach bum bartenders.
 /datum/id_trim/space_bartender
 	assignment = "Space Bartender"
-	trim_state = "trim_bartender"
+	trim_state = "dept-service"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SERVICE_LIME
 	access = list(ACCESS_BAR, ACCESS_KITCHEN)
@@ -93,7 +93,7 @@
 /// Trim for various various ruins.
 /datum/id_trim/engioutpost
 	assignment = "Senior Station Engineer"
-	trim_state = "trim_stationengineer"
+	trim_state = "dept-engineering"
 	department_color = COLOR_ENGINEERING_ORANGE
 	subdepartment_color = COLOR_ENGINEERING_ORANGE
 	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_ENGINEERING, ACCESS_ENGINEERING, ACCESS_ENGINE_EQUIP, ACCESS_MAINT_TUNNELS)
@@ -106,7 +106,7 @@
 /// Trim for pirates.
 /datum/id_trim/pirate
 	assignment = "Pirate"
-	trim_state = "trim_unknown"
+	trim_state = "dept-deathsquad"
 	department_color = COLOR_MOSTLY_PURE_RED
 	subdepartment_color = COLOR_MOSTLY_PURE_RED
 	access = list(ACCESS_SYNDICATE)
@@ -118,7 +118,7 @@
 /// Trim for the pirate captain.
 /datum/id_trim/pirate/captain
 	assignment = "Pirate Captain"
-	trim_state = "trim_captain"
+	trim_state = "dept-deathsquad-gold"
 
 /// Trim for the pirate captain.
 /datum/id_trim/pirate/captain/silverscale
@@ -127,18 +127,18 @@
 //Trims for waystation.dmm space ruin
 /datum/id_trim/away/waystation/cargo_technician
 	assignment = "Waystation Cargo Hauler"
-	trim_state = "trim_cargotechnician"
+	trim_state = "dept-cargo"
 	department_color = COLOR_CARGO_BROWN
 	access = list(ACCESS_AWAY_SUPPLY)
 
 /datum/id_trim/away/waystation/quartermaster
 	assignment = "Waystation Quartermaster"
-	trim_state = "trim_quartermaster"
+	trim_state = "dept-cargo"
 	department_color = COLOR_CARGO_BROWN
 	access = list(ACCESS_AWAY_SUPPLY, ACCESS_AWAY_COMMAND)
 
 /datum/id_trim/away/waystation/security
 	assignment = "Waystation Security Officer"
-	trim_state = "trim_securityofficer"
+	trim_state = "dept-security"
 	department_color = COLOR_CARGO_BROWN
 	access = list(ACCESS_AWAY_SUPPLY, ACCESS_AWAY_SEC)

@@ -27,7 +27,7 @@
 /obj/item/card
 	name = "card"
 	desc = "Does card things."
-	icon = 'icons/obj/card.dmi'
+	icon = 'icons/obj/card_cit.dmi'
 	w_class = WEIGHT_CLASS_TINY
 
 	var/list/files = list()
@@ -44,7 +44,7 @@
 /obj/item/card/id
 	name = "retro identification card"
 	desc = "A card used to provide ID and determine access across the station."
-	icon_state = "card_grey"
+	icon_state = "chit"
 	worn_icon_state = "card_retro"
 	inhand_icon_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
@@ -891,6 +891,7 @@
 	var/trim_assignment_override
 	/// If this is set, will manually override the trim shown for SecHUDs. Intended for admins to VV edit and chameleon ID cards.
 	var/sechud_icon_state_override = null
+	var/trim_letter_state_override
 
 /obj/item/card/id/advanced/Initialize(mapload)
 	. = ..()
@@ -990,24 +991,40 @@
 
 	var/trim_icon_file = trim_icon_override ? trim_icon_override : trim?.trim_icon
 	var/trim_icon_state = trim_state_override ? trim_state_override : trim?.trim_state
+	var/trim_letter_icon_state = trim_letter_state_override ? trim_letter_state_override : trim?.letter_state
 	var/trim_department_color = department_color_override ? department_color_override : trim?.department_color
 	var/trim_department_state = department_state_override ? department_state_override : trim?.department_state
 	var/trim_subdepartment_color = subdepartment_color_override ? subdepartment_color_override : trim?.subdepartment_color
 
+	var/mutable_appearance/top = mutable_appearance(trim_icon_file, "top")
+	if(trim_department_color)
+		top.color = trim_department_color
+	. += top
+
 	if(!trim_icon_file || !trim_icon_state || !trim_department_color || !trim_subdepartment_color || !trim_department_state)
 		return
+
+	var/mutable_appearance/letter = mutable_appearance(trim_icon_file, trim_letter_icon_state)
+	if(trim_letter_icon_state == "letter-artea" || trim_letter_icon_state == "letter-nanotrasen" || trim_letter_icon_state == "letter-unknown")
+		letter.color = trim_department_color
+	. += letter
 
 	/// We handle department and subdepartment overlays first, so the job icon is always on top.
 	var/mutable_appearance/department_overlay = mutable_appearance(trim_icon_file, trim_department_state)
 	department_overlay.color = trim_department_color
 	. += department_overlay
 
-	var/mutable_appearance/subdepartment_overlay = mutable_appearance(trim_icon_file, "subdepartment")
+	var/mutable_appearance/subdepartment_overlay = mutable_appearance(trim_icon_file, "top-subdept")
 	subdepartment_overlay.color = trim_subdepartment_color
 	. += subdepartment_overlay
 
 	/// Then we handle the job's icon here.
-	. += mutable_appearance(trim_icon_file, trim_icon_state)
+	var/mutable_appearance/dep_text = mutable_appearance(trim_icon_file, trim_icon_state)
+	// Don't apply colours to gold text.
+	var/list/trim_split = splittext(trim_icon_state, "-")
+	if(!trim_split[trim_split.len] == "gold")
+		dep_text.color = trim_department_color
+	. += dep_text
 
 /obj/item/card/id/advanced/get_trim_assignment()
 	if(trim_assignment_override)
@@ -1035,12 +1052,12 @@
 	icon_state = "card_silver"
 	worn_icon_state = "card_silver"
 	inhand_icon_state = "silver_id"
-	assigned_icon_state = "assigned_silver"
+	assigned_icon_state = "assigned"
 	wildcard_slots = WILDCARD_LIMIT_SILVER
 
 /datum/id_trim/maint_reaper
 	access = list(ACCESS_MAINT_TUNNELS)
-	trim_state = "trim_janitor"
+	trim_state = "dept-service"
 	assignment = "Reaper"
 
 /obj/item/card/id/advanced/silver/reaper

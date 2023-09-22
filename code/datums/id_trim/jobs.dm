@@ -5,7 +5,7 @@
 
 /// ID Trims for station jobs.
 /datum/id_trim/job
-	trim_state = "trim_assistant"
+	trim_state = "dept-civilian"
 
 	/// The extra access the card should have when CONFIG_GET(flag/jobs_have_minimal_access) is FALSE.
 	var/list/extra_access = list()
@@ -78,7 +78,6 @@
 
 /datum/id_trim/job/assistant
 	assignment = "Assistant"
-	trim_state = "trim_assistant"
 	orbit_icon = "toolbox"
 	sechud_icon_state = SECHUD_ASSISTANT
 	minimal_access = list()
@@ -105,7 +104,7 @@
 
 /datum/id_trim/job/bartender
 	assignment = "Bartender"
-	trim_state = "trim_bartender"
+	trim_state = "dept-service"
 	orbit_icon = "cocktail"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SERVICE_LIME
@@ -130,7 +129,7 @@
 
 /datum/id_trim/job/botanist
 	assignment = "Botanist"
-	trim_state = "trim_botanist"
+	trim_state = "dept-service"
 	orbit_icon = "seedling"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SERVICE_LIME
@@ -155,7 +154,7 @@
 /datum/id_trim/job/captain
 	assignment = "Captain"
 	intern_alt_name = "Captain-in-Training"
-	trim_state = "trim_captain"
+	trim_state = "dept-captain-gold"
 	orbit_icon = "crown"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_COMMAND_BLUE
@@ -178,7 +177,7 @@
 
 /datum/id_trim/job/cargo_technician
 	assignment = "Cargo Technician"
-	trim_state = "trim_cargotechnician"
+	trim_state = "dept-cargo"
 	orbit_icon = "box"
 	department_color = COLOR_CARGO_BROWN
 	subdepartment_color = COLOR_CARGO_BROWN
@@ -203,7 +202,7 @@
 
 /datum/id_trim/job/chaplain
 	assignment = "Chaplain"
-	trim_state = "trim_chaplain"
+	trim_state = "dept-service"
 	orbit_icon = "cross"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SERVICE_LIME
@@ -225,7 +224,7 @@
 
 /datum/id_trim/job/chemist
 	assignment = "Chemist"
-	trim_state = "trim_chemist"
+	trim_state = "dept-medical"
 	orbit_icon = "prescription-bottle"
 	department_color = COLOR_MEDICAL_BLUE
 	subdepartment_color = COLOR_MEDICAL_BLUE
@@ -251,7 +250,7 @@
 /datum/id_trim/job/chief_engineer
 	assignment = "Chief Engineer"
 	intern_alt_name = "Chief Engineer-in-Training"
-	trim_state = "trim_stationengineer"
+	trim_state = "dept-engineering"
 	orbit_icon = "user-astronaut"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_ENGINEERING_ORANGE
@@ -295,7 +294,7 @@
 /datum/id_trim/job/chief_medical_officer
 	assignment = "Chief Medical Officer"
 	intern_alt_name = "Chief Medical Officer-in-Training"
-	trim_state = "trim_medicaldoctor"
+	trim_state = "dept-medical"
 	orbit_icon = "user-md"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_MEDICAL_BLUE
@@ -333,9 +332,9 @@
 
 /datum/id_trim/job/clown
 	assignment = "Clown"
-	trim_state = "trim_clown"
+	trim_state = "dept-clown"
 	orbit_icon = "face-grin-tears"
-	department_color = COLOR_MAGENTA
+	department_color = COLOR_MOSTLY_PURE_PINK
 	subdepartment_color = COLOR_MAGENTA
 	sechud_icon_state = SECHUD_CLOWN
 	minimal_access = list(
@@ -352,7 +351,7 @@
 
 /datum/id_trim/job/cook
 	assignment = "Cook"
-	trim_state = "trim_cook"
+	trim_state = "dept-service"
 	orbit_icon = "utensils"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SERVICE_LIME
@@ -380,7 +379,7 @@
 
 /datum/id_trim/job/curator
 	assignment = "Curator"
-	trim_state = "trim_curator"
+	trim_state = "dept-service"
 	orbit_icon = "book"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SERVICE_LIME
@@ -401,7 +400,7 @@
 
 /datum/id_trim/job/detective
 	assignment = "Detective"
-	trim_state = "trim_detective"
+	trim_state = "dept-security"
 	orbit_icon = "user-secret"
 	department_color = COLOR_SECURITY_RED
 	subdepartment_color = COLOR_SECURITY_RED
@@ -440,7 +439,7 @@
 /datum/id_trim/job/head_of_personnel
 	assignment = "Head of Personnel"
 	intern_alt_name = "Head of Personnel-in-Training"
-	trim_state = "trim_headofpersonnel"
+	trim_state = "dept-hop"
 	orbit_icon = "dog"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_SERVICE_LIME
@@ -491,7 +490,7 @@
 /datum/id_trim/job/head_of_security
 	assignment = "Head of Security"
 	intern_alt_name = "Head of Security-in-Training"
-	trim_state = "trim_securityofficer"
+	trim_state = "dept-security"
 	orbit_icon = "user-shield"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_SECURITY_RED
@@ -548,7 +547,7 @@
 
 /datum/id_trim/job/internal_affairs_agent
 	assignment = "Internal Affairs Agent"
-	trim_state = "trim_lawyer"
+	trim_state = "dept-internal-affairs"
 	orbit_icon = "print"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_SECURITY_RED
@@ -568,7 +567,7 @@
 
 /datum/id_trim/job/janitor
 	assignment = "Janitor"
-	trim_state = "trim_janitor"
+	trim_state = "dept-service"
 	orbit_icon = "broom"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SERVICE_LIME
@@ -589,7 +588,7 @@
 
 /datum/id_trim/job/lawyer
 	assignment = "Lawyer"
-	trim_state = "trim_lawyer"
+	trim_state = "dept-service"
 	orbit_icon = "gavel"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_SECURITY_RED
@@ -610,7 +609,7 @@
 
 /datum/id_trim/job/medical_doctor
 	assignment = "Medical Doctor"
-	trim_state = "trim_medicaldoctor"
+	trim_state = "dept-medical"
 	orbit_icon = "staff-snake"
 	department_color = COLOR_MEDICAL_BLUE
 	subdepartment_color = COLOR_MEDICAL_BLUE
@@ -636,7 +635,7 @@
 
 /datum/id_trim/job/mime
 	assignment = "Mime"
-	trim_state = "trim_mime"
+	trim_state = "dept-service"
 	orbit_icon = "comment-slash"
 	department_color = COLOR_SILVER
 	subdepartment_color = COLOR_WHITE
@@ -655,7 +654,7 @@
 
 /datum/id_trim/job/paramedic
 	assignment = "Paramedic"
-	trim_state = "trim_paramedic"
+	trim_state = "dept-medical"
 	orbit_icon = "truck-medical"
 	department_color = COLOR_MEDICAL_BLUE
 	subdepartment_color = COLOR_MEDICAL_BLUE
@@ -686,7 +685,7 @@
 
 /datum/id_trim/job/prisoner
 	assignment = "Prisoner"
-	trim_state = "trim_warden"
+	trim_state = "dept-prisoner"
 	orbit_icon = "lock"
 	department_color = COLOR_PRISONER_BLACK
 	subdepartment_color = COLOR_PRISONER_ORANGE
@@ -700,36 +699,29 @@
 	job = /datum/job/prisoner
 
 /datum/id_trim/job/prisoner/one
-	trim_state = "trim_prisoner_1"
 	template_access = null
 
 /datum/id_trim/job/prisoner/two
-	trim_state = "trim_prisoner_2"
 	template_access = null
 
 /datum/id_trim/job/prisoner/three
-	trim_state = "trim_prisoner_3"
 	template_access = null
 
 /datum/id_trim/job/prisoner/four
-	trim_state = "trim_prisoner_4"
 	template_access = null
 
 /datum/id_trim/job/prisoner/five
-	trim_state = "trim_prisoner_5"
 	template_access = null
 
 /datum/id_trim/job/prisoner/six
-	trim_state = "trim_prisoner_6"
 	template_access = null
 
 /datum/id_trim/job/prisoner/seven
-	trim_state = "trim_prisoner_7"
 	template_access = null
 
 /datum/id_trim/job/psychologist
 	assignment = "Psychologist"
-	trim_state = "trim_psychologist"
+	trim_state = "dept-service"
 	orbit_icon = "brain"
 	department_color = COLOR_SERVICE_LIME
 	subdepartment_color = COLOR_MEDICAL_BLUE
@@ -750,7 +742,7 @@
 
 /datum/id_trim/job/quartermaster
 	assignment = "Quartermaster"
-	trim_state = "trim_quartermaster"
+	trim_state = "dept-cargo"
 	orbit_icon = "sack-dollar"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_CARGO_BROWN
@@ -785,7 +777,7 @@
 
 /datum/id_trim/job/roboticist
 	assignment = "Roboticist"
-	trim_state = "trim_roboticist"
+	trim_state = "dept-engineering"
 	orbit_icon = "battery-half"
 	department_color = COLOR_ENGINEERING_ORANGE
 	subdepartment_color = COLOR_ENGINEERING_ORANGE
@@ -811,7 +803,7 @@
 /// Sec officers have departmental variants. They each have their own trims with bonus departmental accesses.
 /datum/id_trim/job/security_officer
 	assignment = "Security Officer"
-	trim_state = "trim_securityofficer"
+	trim_state = "dept-security"
 	orbit_icon = "shield-halved"
 	department_color = COLOR_SECURITY_RED
 	subdepartment_color = COLOR_SECURITY_RED
@@ -931,7 +923,7 @@
 
 /datum/id_trim/job/station_engineer
 	assignment = "Station Engineer"
-	trim_state = "trim_stationengineer"
+	trim_state = "dept-engineering"
 	orbit_icon = "gears"
 	department_color = COLOR_ENGINEERING_ORANGE
 	subdepartment_color = COLOR_ENGINEERING_ORANGE
@@ -959,7 +951,7 @@
 
 /datum/id_trim/job/warden
 	assignment = "Warden"
-	trim_state = "trim_warden"
+	trim_state = "dept-security"
 	orbit_icon = "handcuffs"
 	department_color = COLOR_SECURITY_RED
 	subdepartment_color = COLOR_SECURITY_RED
