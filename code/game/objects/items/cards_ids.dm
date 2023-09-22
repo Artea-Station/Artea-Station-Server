@@ -1567,9 +1567,9 @@
 				if(new_age)
 					registered_age = new_age
 
-				var/new_letter = tgui_input_list(user, "What letter should be shown on the left of the ID?", "Agent card letter", list("Artea" = "letter-artea", "Darkof" = "letter-darkof", "Nanotrasen" = "letter-nanotrasen", "Syndicate" = "letter-syndicate"))
+				var/new_letter = tgui_input_list(user, "What letter should be shown on the left of the ID?", "Agent card letter", list("Artea", "Darkof", "Nanotrasen", "Syndicate", "None"))
 				if(new_letter)
-					trim_letter_state_override = new_letter
+					trim_letter_state_override = new_letter == "None" ? null : "letter-[lowertext(new_letter)]"
 
 				if(tgui_alert(user, "Activate wallet ID spoofing, allowing this card to force itself to occupy the visible ID slot in wallets?", "Wallet ID Spoofing", list("Yes", "No")) == "Yes")
 					ADD_TRAIT(src, TRAIT_MAGNETIC_ID_CARD, CHAMELEON_ITEM_TRAIT)
