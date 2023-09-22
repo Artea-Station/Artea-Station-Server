@@ -32,6 +32,7 @@
 /// Trim for Chameleon ID cards. Many outfits, nuke ops and some corpses hold Chameleon ID cards.
 /datum/id_trim/chameleon
 	assignment = "Unknown"
+	letter_state = "letter-darkof"
 	access = list(ACCESS_SYNDICATE, ACCESS_MAINT_TUNNELS)
 
 /// Trim for Chameleon ID cards. Many outfits, nuke ops and some corpses hold Chameleon ID cards.

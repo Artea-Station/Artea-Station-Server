@@ -638,7 +638,7 @@
 	trim_state = "dept-service"
 	orbit_icon = "comment-slash"
 	department_color = COLOR_SILVER
-	subdepartment_color = COLOR_WHITE
+	subdepartment_color = COLOR_PRISONER_BLACK
 	sechud_icon_state = SECHUD_MIME
 	minimal_access = list(
 		ACCESS_SERVICE,
