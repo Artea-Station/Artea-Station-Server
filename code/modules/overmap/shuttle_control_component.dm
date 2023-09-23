@@ -94,11 +94,12 @@
 	our_guy.client.show_popup_menus = TRUE
 	our_guy.client.pixel_x = 0
 	our_guy.client.pixel_y = 0
-	quit_viewing_button.Remove(our_guy)
+	var/datum/action/innate/quit_viewing/quit_viewing_button = locate(/datum/action/innate/quit_viewing) in our_guy.actions
+	quit_viewing_button?.Remove(our_guy)
+	qdel(quit_viewing_button)
 	playsound(our_guy, 'sound/machines/terminal_off.ogg', 25, FALSE)
 	our_guy.remote_control = null
 	our_guy.update_parallax_contents()
-	our_guy = null
 	LAZYREMOVE(mob_viewers, our_guy)
 
 /datum/overmap_shuttle_controller/proc/AbortFreeform()
