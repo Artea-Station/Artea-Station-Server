@@ -102,6 +102,7 @@
 		update_appearance(UPDATE_ICON)
 
 /obj/item/kirbyplants/random/dead
+	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "plant-25"
 	dead = TRUE
 

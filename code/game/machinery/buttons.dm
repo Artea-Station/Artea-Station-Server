@@ -115,7 +115,6 @@
 		return ..()
 
 /obj/machinery/button/emag_act(mob/user)
-	. = ..()
 	if(obj_flags & EMAGGED)
 		return
 	req_access = list()
@@ -124,12 +123,6 @@
 	playsound(src, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	obj_flags |= EMAGGED
 	update_appearance()
-
-	// The device inside can be emagged by swiping the button
-	// returning TRUE will prevent feedback (so we can do our own)
-	if(device?.emag_act(user))
-		return
-	balloon_alert(user, "access overridden")
 
 /obj/machinery/button/attack_ai(mob/user)
 	if(!silicon_access_disabled && !panel_open)
@@ -194,7 +187,7 @@
 	icon_state = "[skin]1"
 
 	if(device)
-		device.pulsed(pulser = user)
+		device.pulsed()
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_BUTTON_PRESSED,src)
 
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom/, update_appearance)), 15)
@@ -327,23 +320,3 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/door, 24)
 	icon_state = "button-open"
 	result_path = /obj/machinery/button
 	custom_materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
-	pixel_shift = 24
-
-/obj/machinery/button/tram
-	name = "tram caller"
-	desc = "A button for calling the tram. It has a speakerbox in it with some internals."
-	icon_state = "launcher"
-	skin = "launcher"
-	device_type = /obj/item/assembly/control/tram
-	req_access = list()
-	id = 1
-
-/obj/machinery/button/tram/setup_device()
-	var/obj/item/assembly/control/tram/tram_device = device
-	tram_device.initial_id = id
-	. = ..()
-
-/obj/machinery/button/tram/examine(mob/user)
-	. = ..()
-	. += span_notice("There's a small inscription on the button...")
-	. += span_notice("THIS CALLS THE TRAM! IT DOES NOT OPERATE IT! The console on the tram tells it where to go!")
