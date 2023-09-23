@@ -620,7 +620,7 @@
 	if(!shuttle_controller || !user.client || shuttle_controller.busy)
 		return
 
-	if(shuttle_controller.mob_controller)
+	if(shuttle_controller.mob_controller && !user == shuttle_controller && !(user in shuttle_controller.mob_viewers))
 		shuttle_controller.AddViewer(user)
 		return TRUE
 

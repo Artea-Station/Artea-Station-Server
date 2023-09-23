@@ -22,8 +22,6 @@ type Data = {
   wallet_name: string;
   trade_hubs: TradeHub[];
   makes_manifests: BooleanLike;
-  makes_log: BooleanLike;
-  trade_log?: string[];
   pad_linked: BooleanLike;
   connected_hub: ConnectedTradeHub;
   connected_trader: Trader;
@@ -80,7 +78,6 @@ const TraderContent = (props, context) => {
       {tab === 'comms' && <CommsTab />}
       {tab === 'traders' && !!data.connected_hub && <TradersTab />}
       {tab === 'trade' && !!data.connected_trader && <TradeTab />}
-      {tab === 'logs' && <LogsTab />}
     </Box>
   );
 };
@@ -128,12 +125,6 @@ const CargoStatus = (props, context) => {
           onClick={() => setTab('trade')}>
           Trader
         </Tabs.Tab>
-        <Tabs.Tab
-          icon="book-open"
-          selected={tab === 'logs'}
-          onClick={() => setTab('logs')}>
-          Logs
-        </Tabs.Tab>
       </Tabs>
     </Section>
   );
@@ -178,22 +169,13 @@ const TradersTab = (props, context) => {
     <Section
       title="Available Traders"
       buttons={
-        <>
-          <ButtonCheckbox
-            checked={data.makes_manifests}
-            onClick={() => {
-              act('toggle_manifest');
-            }}>
-            Print Manifests
-          </ButtonCheckbox>
-          <ButtonCheckbox
-            checked={data.makes_log}
-            onClick={() => {
-              act('toggle_log');
-            }}>
-            Log Transactions
-          </ButtonCheckbox>
-        </>
+        <ButtonCheckbox
+          checked={data.makes_manifests}
+          onClick={() => {
+            act('toggle_manifest');
+          }}>
+          Print Manifests
+        </ButtonCheckbox>
       }>
       <Stack vertical>
         <Stack.Divider hidden height="1rem" />
@@ -412,31 +394,5 @@ const TradeTab = (props, context) => {
         </Stack.Item>
       </Stack>
     </Section>
-  );
-};
-
-const LogsTab = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
-  const [tab, setTab] = useSharedState(context, 'tab', 'comms');
-  return (
-    <Box height="50rem">
-      <Section id="trade_log_scrollable" title="Logs" scrollable fitted fill>
-        <Stack vertical>
-          <Stack.Divider hidden height="1rem" />
-          {data.trade_log?.reverse().map((entry) => {
-            return (
-              <Stack.Item
-                alternating
-                verticalAlign="center"
-                key={entry}
-                p="0.3rem"
-                m="0">
-                {entry}
-              </Stack.Item>
-            );
-          })}
-        </Stack>
-      </Section>
-    </Box>
   );
 };

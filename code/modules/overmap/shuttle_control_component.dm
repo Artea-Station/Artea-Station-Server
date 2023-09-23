@@ -6,7 +6,6 @@
 	var/datum/overmap_object/shuttle/overmap_obj
 
 	var/datum/action/innate/quit_control/quit_control_button
-	var/datum/action/innate/quit_viewing/quit_viewing_button
 	var/datum/action/innate/stop_shuttle/stop_shuttle_button
 	var/datum/action/innate/open_shuttle_control/shuttle_control_button
 	var/busy = FALSE
@@ -23,8 +22,6 @@
 	overmap_obj = passed_ov_obj
 	quit_control_button = new
 	quit_control_button.target = src
-	quit_viewing_button = new
-	quit_viewing_button.target = src
 	stop_shuttle_button = new
 	stop_shuttle_button.target = src
 	shuttle_control_button = new
@@ -68,6 +65,8 @@
 		our_guy.client.pixel_y = new_offsets[2]
 	our_guy.remote_control = overmap_obj.my_visual
 	our_guy.update_parallax_contents()
+	var/datum/action/innate/quit_viewing/quit_viewing_button = new
+	quit_viewing_button.target = src
 	quit_viewing_button.Grant(our_guy)
 
 /datum/overmap_shuttle_controller/proc/RemoveCurrentControl()

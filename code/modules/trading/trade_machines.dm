@@ -17,6 +17,7 @@
 	var/makes_log = TRUE
 	var/makes_manifests = TRUE
 
+	// Mostly for admins.
 	var/list/trade_log
 
 	var/list/manifest_purchased
@@ -34,10 +35,9 @@
 /obj/machinery/computer/trade_console/proc/write_manifest(datum/trader/trader, item_name, amount, price, user_selling, user_name)
 	var/trade_string
 	last_user_name = user_name
-	last_trade_time = station_time_timestamp()
 	if(user_selling)
 		trade_string = "[amount] of [item_name] for [price] cr."
-		write_log("[last_trade_time]: [user_name] sold [trade_string] to [trader.name] (new balance on [inserted_id.registered_account.account_holder]: [inserted_id.registered_account.account_balance] cr.)")
+		write_log("[user_name] sold [trade_string] to [trader.name] (new balance on [inserted_id.registered_account.account_holder]: [inserted_id.registered_account.account_balance] cr.)")
 		if(!makes_manifests)
 			return
 		LAZYINITLIST(manifest_sold)
@@ -45,7 +45,7 @@
 		manifest_profit += price
 	else
 		trade_string = "[amount] of [item_name] for [price] cr."
-		write_log("[last_trade_time]: [user_name] bought [trade_string] from [trader.name] (new balance on [inserted_id.registered_account.account_holder]: [inserted_id.registered_account.account_balance] cr.)")
+		write_log("[user_name] bought [trade_string] from [trader.name] (new balance on [inserted_id.registered_account.account_holder]: [inserted_id.registered_account.account_balance] cr.)")
 		if(!makes_manifests)
 			return
 		LAZYINITLIST(manifest_purchased)
@@ -54,6 +54,8 @@
 
 /obj/machinery/computer/trade_console/proc/print_manifest()
 	if(!makes_manifests)
+		QDEL_NULL(manifest_sold)
+		QDEL_NULL(manifest_purchased)
 		return
 	if(!manifest_sold && !manifest_purchased)
 		return
@@ -79,10 +81,14 @@
 	manifest_profit = 0
 
 /obj/machinery/computer/trade_console/proc/write_log(log_entry)
+	LAZYADD(trade_log, log_entry)
 	if(!makes_log)
 		return
-	LAZYINITLIST(trade_log)
-	trade_log += log_entry
+	var/datum/signal/subspace/messaging/trade_msg/message = new(src, list(
+		"timestamp" = station_time_timestamp(),
+		"message" = log_entry,
+	))
+	message.send_to_receivers()
 
 /obj/machinery/computer/trade_console/proc/connect_hub(datum/trade_hub/passed_hub)
 	if(connected_hub)
@@ -170,7 +176,6 @@
 	var/list/traders = list()
 	var/list/data = list(
 		"pad_linked" = !!linked_pad,
-		"trade_log" = trade_log,
 		"connected_hub" = connected_hub ? list(
 			"name" = connected_hub.name,
 			"id" = connected_hub.id,
@@ -180,7 +185,6 @@
 		"last_transmission" = last_transmission,
 		"trade_hubs" = trade_hubs,
 		"makes_manifests" = makes_manifests,
-		"makes_log" = makes_log,
 		"rank" = istype(inserted_id?.registered_account, /datum/bank_account/department) ? "Department Account" : inserted_id?.registered_account?.account_job?.title,
 		"wallet_name" = inserted_id?.registered_account?.account_holder,
 		"credits" = inserted_id?.registered_account?.account_balance,
