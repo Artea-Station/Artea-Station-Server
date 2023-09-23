@@ -146,7 +146,8 @@
 	..()
 	var/cartridges = CARTRIDGE_LIST_CHEM_DISPENSER
 
-	for(var/chem_path in cartridges)
+	for(var/datum/reagent/chem_path as anything in cartridges)
 		var/cart_path = cartridges[chem_path]
 		var/obj/item/reagent_containers/chem_cartridge/cart = new cart_path(src, chem_path)
 		cart.reagents.add_reagent(chem_path, cart.volume)
+		cart.setLabel(initial(chem_path.name))

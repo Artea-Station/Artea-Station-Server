@@ -75,7 +75,7 @@
 
 /// Tries to open the map for the given mob. Returns FALSE if it doesn't meet the criteria, TRUE if the map successfully opened with no runtimes.
 /obj/machinery/holomap/proc/open_map(mob/user)
-	if((machine_stat & (NOPOWER | BROKEN)) || !user?.client || panel_open || user.hud_used.holomap.used_station_map)
+	if((machine_stat & (NOPOWER | BROKEN)) || !user?.client || panel_open || watching_mob || user.hud_used.holomap.used_station_map)
 		return FALSE
 
 	if(!holomap_datum)

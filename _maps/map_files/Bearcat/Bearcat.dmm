@@ -248,6 +248,13 @@
 	},
 /turf/open/floor/iron/smooth,
 /area/station/command/meeting_room)
+"bE" = (
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/light_switch/directional/west,
+/turf/open/floor/iron,
+/area/station/hallway/primary/fore)
 "bH" = (
 /obj/machinery/rnd/server,
 /obj/structure/window/reinforced/spawner/east,
@@ -1398,6 +1405,7 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "is" = (
@@ -1616,6 +1624,7 @@
 "jB" = (
 /obj/machinery/power/smes/engineering,
 /obj/structure/cable,
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/aft)
 "jC" = (
@@ -2166,11 +2175,11 @@
 /turf/open/floor/engine/airless,
 /area/space/nearstation)
 "mE" = (
-/obj/machinery/light/broken/directional/east,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/wood,
 /area/station/service/bar)
 "mG" = (
@@ -2612,6 +2621,7 @@
 /area/station/engineering/supermatter/room)
 "oP" = (
 /obj/structure/ladder,
+/obj/machinery/light_switch/directional/north,
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "oQ" = (
@@ -4067,9 +4077,6 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
 "xd" = (
-/obj/machinery/computer/shuttle_purchase{
-	dir = 4
-	},
 /turf/open/floor/plating,
 /area/station/hallway/primary/central/fore)
 "xm" = (
@@ -4756,6 +4763,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/dark/visible,
 /turf/open/floor/engine,
 /area/station/engineering/supermatter/room)
+"Bq" = (
+/obj/machinery/light/small/directional/north,
+/turf/open/floor/engine,
+/area/station/engineering/gravity_generator)
 "Bt" = (
 /obj/machinery/modular_computer/console/preset/command{
 	dir = 4
@@ -5040,6 +5051,10 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/station/hallway/primary/upper/starboard)
+"CZ" = (
+/obj/machinery/light/small/directional/east,
+/turf/open/floor/plating,
+/area/station/maintenance/solars/port/aft)
 "Db" = (
 /obj/machinery/telecomms/broadcaster/preset_left,
 /turf/open/floor/circuit,
@@ -6182,6 +6197,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron,
 /area/station/service/bar)
 "JC" = (
@@ -6733,6 +6749,7 @@
 	dir = 8
 	},
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/light_switch/directional/south,
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "MB" = (
@@ -8023,6 +8040,10 @@
 /obj/structure/bed/roller,
 /turf/open/floor/iron/white,
 /area/station/medical/medbay)
+"Tq" = (
+/obj/machinery/light/small/directional/north,
+/turf/open/floor/iron,
+/area/station/hallway/primary/central/fore)
 "Tt" = (
 /obj/vehicle/sealed/mecha/working/ripley/cargo,
 /obj/structure/spider/stickyweb,
@@ -8274,7 +8295,6 @@
 /area/station/command/meeting_room)
 "UC" = (
 /obj/structure/cable,
-/obj/machinery/light/directional/west,
 /obj/effect/spawner/structure/window/wood,
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
@@ -8617,8 +8637,8 @@
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
 "WO" = (
-/obj/machinery/light/dim/directional/south,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/wood,
 /area/station/hallway/secondary/service)
 "WP" = (
@@ -8940,6 +8960,11 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen/diner)
+"YJ" = (
+/obj/structure/cable,
+/obj/machinery/light/small/directional/west,
+/turf/open/floor/plating,
+/area/station/maintenance/solars/port/aft)
 "YM" = (
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
@@ -171476,7 +171501,7 @@ AV
 Xv
 nD
 bJ
-EJ
+Tq
 Io
 gy
 xd
@@ -172499,7 +172524,7 @@ Uz
 no
 ln
 nm
-ng
+bE
 YM
 ng
 zX
@@ -238313,7 +238338,7 @@ Vc
 Vc
 Oi
 pJ
-pJ
+YJ
 cY
 pJ
 Pv
@@ -238570,7 +238595,7 @@ Vc
 zR
 Nk
 Pn
-Pn
+CZ
 ui
 Pn
 Fk
@@ -239611,7 +239636,7 @@ zR
 zR
 zR
 Fz
-dw
+Bq
 dw
 Cg
 Fz
