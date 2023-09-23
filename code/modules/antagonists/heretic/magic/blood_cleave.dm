@@ -16,6 +16,8 @@
 	cast_range = 9
 	/// The radius of the cleave effect
 	var/cleave_radius = 1
+	/// What type of wound we apply
+	var/wound_type = /datum/wound/slash/flesh/critical/cleave
 
 /datum/action/cooldown/spell/pointed/cleave/is_valid_target(atom/cast_on)
 	return ..() && ishuman(cast_on)
@@ -45,7 +47,7 @@
 		)
 
 		var/obj/item/bodypart/bodypart = pick(victim.bodyparts)
-		var/datum/wound/slash/critical/crit_wound = new()
+		var/datum/wound/slash/flesh/crit_wound = new wound_type()
 		crit_wound.apply_wound(bodypart)
 		victim.apply_damage(20, BURN, wound_bonus = CANT_WOUND)
 
@@ -55,7 +57,8 @@
 
 /datum/action/cooldown/spell/pointed/cleave/long
 	name = "Lesser Cleave"
-	cooldown_time = 65 SECONDS
+	cooldown_time = 60 SECONDS
+	wound_type = /datum/wound/slash/flesh/severe
 
 /obj/effect/temp_visual/cleave
 	icon = 'icons/effects/eldritch.dmi'

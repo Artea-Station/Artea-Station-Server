@@ -441,10 +441,10 @@
 		for(var/X in C.bodyparts)
 			var/obj/item/bodypart/BP = X
 			if(BP.body_part != HEAD && BP.body_part != CHEST)
-				if(BP.dismemberable)
-					parts += BP
-				else
+				if(BP.bodypart_flags & BODYPART_UNREMOVABLE)
 					undismembermerable_limbs++
+				else
+					parts += BP
 		if(!LAZYLEN(parts))
 			if(undismembermerable_limbs) //they have limbs we can't remove, and no parts we can, attack!
 				return ..()

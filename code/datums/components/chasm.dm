@@ -195,7 +195,7 @@ GLOBAL_LIST_INIT(chasm_storage, list())
 	if (istype(carbon_mob))
 		var/obj/item/bodypart/wound_part = pick(carbon_mob.bodyparts)
 		if (IS_ORGANIC_LIMB(wound_part))
-			wound_part.force_wound_upwards(/datum/wound/blunt/critical)
+			wound_part.force_wound_upwards(/datum/wound/blunt/bone/critical)
 	try_climb_out(fallen_mob)
 
 /datum/component/chasm/proc/try_climb_out(mob/living/fallen_mob)
@@ -208,7 +208,7 @@ GLOBAL_LIST_INIT(chasm_storage, list())
 		return
 	on_revive(fallen_mob) // This seems silly but it does what we want it to do
 
-// ORBSTATION: returns false if you died
+// returns false if you died
 /datum/component/chasm/proc/is_alive(mob/living/fallen_mob)
 	return fallen_mob.stat != DEAD
 

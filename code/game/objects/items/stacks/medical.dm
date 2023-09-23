@@ -393,10 +393,10 @@
 	C.emote("scream")
 	for(var/i in C.bodyparts)
 		var/obj/item/bodypart/bone = i
-		var/datum/wound/blunt/severe/oof_ouch = new
-		oof_ouch.apply_wound(bone)
-		var/datum/wound/blunt/critical/oof_OUCH = new
-		oof_OUCH.apply_wound(bone)
+		var/datum/wound/blunt/bone/severe/oof_ouch = new
+		oof_ouch.apply_wound(bone, wound_source = "bone gel")
+		var/datum/wound/blunt/bone/critical/oof_OUCH = new
+		oof_OUCH.apply_wound(bone, wound_source = "bone gel")
 
 	for(var/i in C.bodyparts)
 		var/obj/item/bodypart/bone = i
