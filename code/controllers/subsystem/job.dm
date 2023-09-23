@@ -531,7 +531,7 @@ SUBSYSTEM_DEF(job)
 	if(player_client)
 		to_chat(player_client, "<span class='infoplain'><b>You are the [job.title].</b></span>")
 
-	equipping.on_job_equipping(job)
+	equipping.on_job_equipping(job, player_client?.prefs)
 
 	job.announce_job(equipping)
 
