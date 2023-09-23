@@ -111,7 +111,7 @@
 	traded_path = null
 	requires_translator = FALSE
 	amount = 1
-	var/static/list/possible_card_states = list("card_flames","card_carp","card_rainbow")
+	var/static/list/possible_card_states = list("card_black","card_silver","card_gold") // Sorry, I don't have the spriting patience for fancy animations - Rimi
 
 /datum/exploration_event/simple/trader/flame_card/get_discovery_message(obj/item/exodrone/drone)
 	return "Encountered [name] willing to customize any id card you bring them."

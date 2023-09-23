@@ -86,7 +86,7 @@
 
 /datum/id_trim/job/pathfinder
 	assignment = "Pathfinder"
-	trim_state = "trim_virologist"
+	trim_state = "dept-pathfinders"
 	orbit_icon = "ship"
 	department_color = COLOR_PATHFINDERS_PURPLE
 	subdepartment_color = COLOR_PATHFINDERS_DARK_PURPLE

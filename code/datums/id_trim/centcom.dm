@@ -2,7 +2,7 @@
 /datum/id_trim/centcom
 	access = list(ACCESS_CENT_GENERAL)
 	assignment = JOB_CENTCOM
-	trim_state = "trim_centcom"
+	trim_state = "dept-corporate-gold"
 	sechud_icon_state = SECHUD_CENTCOM
 	department_color = COLOR_CENTCOM_BLUE
 	subdepartment_color = COLOR_CENTCOM_BLUE
@@ -11,12 +11,13 @@
 /datum/id_trim/centcom/vip
 	access = list(ACCESS_CENT_GENERAL)
 	assignment = JOB_CENTCOM_VIP
+	trim_state = "dept-vip-gold"
 
 /// Trim for Centcom Custodians.
 /datum/id_trim/centcom/custodian
 	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
 	assignment = JOB_CENTCOM_CUSTODIAN
-	trim_state = "trim_janitor"
+	trim_state = "dept-civilian"
 	department_color = COLOR_CENTCOM_BLUE
 	subdepartment_color = COLOR_SERVICE_LIME
 
@@ -34,6 +35,7 @@
 /datum/id_trim/centcom/intern
 	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_WEAPONS)
 	assignment = "CentCom Intern"
+	trim_state = "dept-corporate"
 
 /// Trim for Centcom Head Interns. Different assignment, common station access added on.
 /datum/id_trim/centcom/intern/head
@@ -48,21 +50,25 @@
 /datum/id_trim/centcom/bounty_hunter
 	access = list(ACCESS_CENT_GENERAL)
 	assignment = "Bounty Hunter"
+	trim_state = "dept-corporate"
 
 /// Trim for Centcom Bartenders.
 /datum/id_trim/centcom/bartender
 	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_BAR)
 	assignment = JOB_CENTCOM_BARTENDER
+	trim_state = "dept-corporate"
 
 /// Trim for Centcom Medical Officers.
 /datum/id_trim/centcom/medical_officer
 	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL)
 	assignment = JOB_CENTCOM_MEDICAL_DOCTOR
+	trim_state = "dept-corporate"
 
 /// Trim for Centcom Research Officers.
 /datum/id_trim/centcom/research_officer
 	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_TELEPORTER, ACCESS_CENT_STORAGE)
 	assignment = JOB_CENTCOM_RESEARCH_OFFICER
+	trim_state = "dept-corporate"
 
 /// Trim for Centcom Specops Officers. All Centcom and Station Access.
 /datum/id_trim/centcom/specops_officer
@@ -94,7 +100,7 @@
 /// Trim for Deathsquad officers. All Centcom and Station Access.
 /datum/id_trim/centcom/deathsquad
 	assignment = JOB_ERT_DEATHSQUAD
-	trim_state = "trim_deathcommando"
+	trim_state = "dept-deathsquad"
 	sechud_icon_state = SECHUD_DEATH_COMMANDO
 
 /datum/id_trim/centcom/deathsquad/New()
@@ -105,6 +111,7 @@
 /// Trim for generic ERT interns. No universal ID card changing access.
 /datum/id_trim/centcom/ert
 	assignment = "Emergency Response Team Intern"
+	trim_state = "dept-corporate"
 
 /datum/id_trim/centcom/ert/New()
 	. = ..()
@@ -114,7 +121,7 @@
 /// Trim for ERT Commanders. All station and centcom access.
 /datum/id_trim/centcom/ert/commander
 	assignment = JOB_ERT_COMMANDER
-	trim_state = "trim_ert_commander"
+	trim_state = "dept-corporate-gold"
 	sechud_icon_state = SECHUD_EMERGENCY_RESPONSE_TEAM_COMMANDER
 
 /datum/id_trim/centcom/ert/commander/New()
@@ -125,7 +132,6 @@
 /// Trim for generic ERT seccies. No universal ID card changing access.
 /datum/id_trim/centcom/ert/security
 	assignment = JOB_ERT_OFFICER
-	trim_state = "trim_securityofficer"
 	subdepartment_color = COLOR_SECURITY_RED
 	sechud_icon_state = SECHUD_SECURITY_RESPONSE_OFFICER
 
@@ -137,7 +143,6 @@
 /// Trim for generic ERT engineers. No universal ID card changing access.
 /datum/id_trim/centcom/ert/engineer
 	assignment = JOB_ERT_ENGINEER
-	trim_state = "trim_stationengineer"
 	subdepartment_color = COLOR_ENGINEERING_ORANGE
 	sechud_icon_state = SECHUD_ENGINEERING_RESPONSE_OFFICER
 
@@ -149,7 +154,6 @@
 /// Trim for generic ERT medics. No universal ID card changing access.
 /datum/id_trim/centcom/ert/medical
 	assignment = JOB_ERT_MEDICAL_DOCTOR
-	trim_state = "trim_medicaldoctor"
 	subdepartment_color = COLOR_MEDICAL_BLUE
 	sechud_icon_state = SECHUD_MEDICAL_RESPONSE_OFFICER
 
@@ -161,7 +165,6 @@
 /// Trim for generic ERT chaplains. No universal ID card changing access.
 /datum/id_trim/centcom/ert/chaplain
 	assignment = JOB_ERT_CHAPLAIN
-	trim_state = "trim_chaplain"
 	subdepartment_color = "#58C800"
 	sechud_icon_state = SECHUD_RELIGIOUS_RESPONSE_OFFICER
 
@@ -173,7 +176,6 @@
 /// Trim for generic ERT janitors. No universal ID card changing access.
 /datum/id_trim/centcom/ert/janitor
 	assignment = JOB_ERT_JANITOR
-	trim_state = "trim_ert_janitor"
 	subdepartment_color = COLOR_SERVICE_LIME
 	sechud_icon_state = SECHUD_JANITORIAL_RESPONSE_OFFICER
 
@@ -185,7 +187,6 @@
 /// Trim for generic ERT clowns. No universal ID card changing access.
 /datum/id_trim/centcom/ert/clown
 	assignment = JOB_ERT_CLOWN
-	trim_state = "trim_clown"
 	subdepartment_color = COLOR_MAGENTA
 	sechud_icon_state = SECHUD_ENTERTAINMENT_RESPONSE_OFFICER
 
