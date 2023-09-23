@@ -129,14 +129,14 @@
 	var/normalspeed = TRUE
 	var/cutAiWire = FALSE
 	var/autoname = FALSE
-	var/doorOpen = 'sound/machines/airlock_open.ogg'
-	var/doorClose = 'sound/machines/airlock_close.ogg'
-	var/doorDeni = 'sound/machines/deniedbeep.ogg' // i'm thinkin' Deni's
-	var/boltUp = 'sound/machines/boltsup.ogg'
-	var/boltDown = 'sound/machines/boltsdown.ogg'
-	var/noPower = 'sound/machines/doorclick.ogg'
-	var/forcedOpen = 'sound/machines/airlock_open_force.ogg'
-	var/forcedClosed = 'sound/machines/airlock_close_force.ogg'
+	var/doorOpen = 'sound/machines/door/airlock_open.ogg'
+	var/doorClose = 'sound/machines/door/airlock_close.ogg'
+	var/doorDeni = 'sound/machines/door/deniedbeep.ogg' // i'm thinkin' Deni's
+	var/boltUp = 'sound/machines/door/boltsup.ogg'
+	var/boltDown = 'sound/machines/door/boltsdown.ogg'
+	var/noPower = 'sound/machines/door/doorclick.ogg'
+	var/forcedOpen = 'sound/machines/door/airlock_open_force.ogg'
+	var/forcedClosed = 'sound/machines/door/airlock_close_force.ogg'
 	var/previous_airlock = /obj/structure/door_assembly //what airlock assembly mineral plating was applied to
 
 	var/stripe_overlays = 'icons/obj/doors/airlocks/station/airlock_stripe.dmi'
@@ -958,7 +958,7 @@
 		if(!user.transferItemToLoc(airlockseal, src))
 			to_chat(user, span_warning("For some reason, you can't attach [airlockseal]!"))
 			return
-		playsound(src, 'sound/machines/airlock_close_force.ogg', 60, TRUE)
+		playsound(src, forcedClosed, 60, TRUE)
 		user.visible_message(span_notice("[user] finishes sealing [src]."), span_notice("You finish sealing [src]."))
 		seal = airlockseal
 		modify_max_integrity(max_integrity * AIRLOCK_SEAL_MULTIPLIER)
@@ -1033,7 +1033,7 @@
 		to_chat(user, span_warning("You don't have the dexterity to remove the seal!"))
 		return TRUE
 	user.visible_message(span_notice("[user] begins removing the seal from [src]."), span_notice("You begin removing [src]'s pneumatic seal."))
-	playsound(src, 'sound/machines/airlock_close_force.ogg', 60, TRUE)
+	playsound(src, forcedClosed, 60, TRUE)
 	if(!do_after(user, airlockseal.unseal_time, target = src))
 		return TRUE
 	if(!seal)
@@ -1098,7 +1098,7 @@
 
 			if(!prying_so_hard)
 				var/time_to_open = 50
-				playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE) //is it aliens or just the CE being a dick?
+				playsound(src, 'sound/machines/door/airlock_alien_prying.ogg', 100, TRUE) //is it aliens or just the CE being a dick?
 				prying_so_hard = TRUE
 				if(do_after(user, time_to_open, src))
 					if(check_electrified && shock(user,100))
@@ -1129,9 +1129,9 @@
 		if(obj_flags & EMAGGED)
 			return FALSE
 		use_power(50)
-		playsound(src, 'sound/machines/airlock_open.ogg', 60, TRUE)
+		playsound(src, doorOpen, 60, TRUE)
 	else
-		playsound(src, 'sound/machines/airlock_open_force.ogg', 60, TRUE)
+		playsound(src, forcedOpen, 60, TRUE)
 
 	if(autoclose)
 		autoclose_in(normalspeed ? 8 SECONDS : 1.5 SECONDS)
@@ -1163,11 +1163,11 @@
 	sleep(1)
 	set_opacity(0)
 	update_freelook_sight()
-	sleep(4)
+	sleep(6)
 	set_density(FALSE)
 	flags_1 &= ~PREVENT_CLICK_UNDER_1
 	air_update_turf(TRUE, FALSE)
-	sleep(1)
+	sleep(8)
 	layer = OPEN_DOOR_LAYER
 	update_icon(ALL, AIRLOCK_OPEN, TRUE)
 	operating = FALSE
@@ -1196,10 +1196,10 @@
 		if(obj_flags & EMAGGED)
 			return
 		use_power(50)
-		playsound(src, 'sound/machines/airlock_close.ogg', 60, TRUE)
+		playsound(src, doorClose, 60, TRUE)
 
 	else
-		playsound(src, 'sound/machines/airlock_close_force.ogg', 60, TRUE)
+		playsound(src, forcedClosed, 60, TRUE)
 
 	var/obj/structure/window/killthis = (locate(/obj/structure/window) in get_turf(src))
 	if(killthis)
@@ -1212,12 +1212,12 @@
 		set_density(TRUE)
 		flags_1 |= PREVENT_CLICK_UNDER_1
 		air_update_turf(TRUE, TRUE)
-	sleep(1)
+	sleep(6)
 	if(!air_tight)
 		set_density(TRUE)
 		flags_1 |= PREVENT_CLICK_UNDER_1
 		air_update_turf(TRUE, TRUE)
-	sleep(4)
+	sleep(8)
 	if(dangerous_close)
 		crush()
 	if(visible && !glass)
@@ -1310,7 +1310,7 @@
 	var/time_to_open = 5 //half a second
 	if(hasPower())
 		time_to_open = 5 SECONDS //Powered airlocks take longer to open, and are loud.
-		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
+		playsound(src, 'sound/machines/door/airlock_alien_prying.ogg', 100, TRUE)
 
 
 	if(do_after(user, time_to_open, src))
