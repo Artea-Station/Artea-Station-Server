@@ -124,7 +124,6 @@
 #include "modsuit.dm"
 #include "modular_map_loader.dm"
 #include "novaflower_burn.dm"
-#include "ntnetwork_tests.dm"
 #include "nuke_cinematic.dm"
 #include "objectives.dm"
 #include "operating_table.dm"

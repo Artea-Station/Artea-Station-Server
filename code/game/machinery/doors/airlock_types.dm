@@ -368,7 +368,9 @@
 	if(!mapload || req_access_txt || req_one_access_txt)
 		req_access = null
 
-	return ..()
+	..()
+
+	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/door/airlock/external/LateInitialize()
 	. = ..()
