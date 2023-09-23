@@ -22,6 +22,10 @@
   display: table-row;
 }
 
+.LabeledList__row__alternating:nth-child(even) {
+  background-color: base.$color-bg-section;
+}
+
 .LabeledList__row:last-child .LabeledList__cell {
   padding-bottom: 0;
 }

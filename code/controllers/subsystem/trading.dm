@@ -1,9 +1,8 @@
 SUBSYSTEM_DEF(trading)
 	name = "Trading"
-	init_order = INIT_ORDER_MAPPING - 1 //Always after mapping 
+	init_order = INIT_ORDER_MAPPING - 1 //Always after mapping
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	wait = 5 MINUTES
-	flags = SS_NO_INIT
 	///List of all trade hubs
 	var/list/trade_hubs = list()
 	///List of all traders
@@ -57,7 +56,6 @@ SUBSYSTEM_DEF(trading)
 	if(config.localized_trading_hub_types)
 		for(var/hub_type in config.localized_trading_hub_types)
 			new /datum/overmap_object/trade_hub(SSovermap.main_system, rand(5,20), rand(5,20), hub_type)
-	return ..()
 
 /datum/controller/subsystem/trading/fire(resumed = FALSE)
 	for(var/i in trade_hubs)

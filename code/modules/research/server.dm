@@ -17,7 +17,7 @@
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "RD-server-on"
 	base_icon_state = "RD-server"
-	req_access = list(ACCESS_CE)
+	req_one_access = list(ACCESS_CE, ACCESS_PATHFINDERS_LEAD)
 
 	/// if TRUE, we are currently operational and giving out research points.
 	var/working = TRUE
@@ -102,8 +102,7 @@
 	var/obj/machinery/rnd/server/temp_server
 	var/list/servers = list()
 	var/list/consoles = list()
-	req_access = list(ACCESS_CE)
-	var/badmin = 0
+	req_one_access = list(ACCESS_CE, ACCESS_PATHFINDERS_LEAD)
 	circuit = /obj/item/circuitboard/computer/rdservercontrol
 
 /obj/machinery/computer/rdservercontrol/Topic(href, href_list)

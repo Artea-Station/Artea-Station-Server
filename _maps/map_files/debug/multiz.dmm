@@ -463,12 +463,14 @@
 "cp" = (
 /obj/machinery/light/directional/south,
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
+/obj/machinery/rnd/server,
 /turf/open/floor/iron{
 	dir = 10
 	},
 /area/station/command/bridge)
 "cr" = (
 /obj/machinery/light/directional/south,
+/obj/machinery/ore_silo/pre_filled,
 /turf/open/floor/iron{
 	dir = 6
 	},
@@ -509,6 +511,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
 	dir = 4
 	},
+/obj/machinery/computer/trade_console,
 /turf/open/floor/iron{
 	dir = 4
 	},
@@ -516,6 +519,7 @@
 "cC" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
 /obj/structure/cable,
+/obj/machinery/trade_pad,
 /turf/open/floor/iron{
 	dir = 1
 	},
@@ -941,6 +945,10 @@
 	dir = 8
 	},
 /area/station/hallway/secondary/service)
+"iL" = (
+/obj/machinery/rnd/production/techfab,
+/turf/open/floor/iron,
+/area/station/command/bridge)
 "jb" = (
 /obj/machinery/atmospherics/pipe/multiz,
 /turf/open/floor/plating,
@@ -1387,6 +1395,12 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/commons/storage/primary)
+"Hr" = (
+/obj/machinery/computer/rdconsole{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/station/command/bridge)
 "Hu" = (
 /obj/structure/railing/corner,
 /turf/open/floor/plating,
@@ -2847,7 +2861,7 @@ iy
 bv
 bI
 cf
-eb
+Hr
 bv
 uv
 bN
@@ -3063,7 +3077,7 @@ Cc
 bv
 bI
 eb
-eb
+iL
 bv
 cD
 Au
