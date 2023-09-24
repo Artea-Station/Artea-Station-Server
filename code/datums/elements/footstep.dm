@@ -64,7 +64,7 @@
 	if(!istype(turf))
 		return
 
-	if(!turf.footstep || source.buckled || source.throwing || source.movement_type & (VENTCRAWLING | FLYING) || HAS_TRAIT(source, TRAIT_IMMOBILIZED))
+	if(source.buckled || source.throwing || source.movement_type & (VENTCRAWLING | FLYING) || HAS_TRAIT(source, TRAIT_IMMOBILIZED))
 		return
 
 	if(source.body_position == LYING_DOWN) //play crawling sound if we're lying
@@ -100,6 +100,10 @@
 	var/turf/open/source_loc = prepare_step(source)
 	if(!source_loc)
 		return
+	if(SEND_SIGNAL(source_loc, COMSIG_MOB_PLAYS_FOOTSTEP, footstep_type, volume, e_range, sound_vary) & COMPONENT_CANCEL_PLAY_FOOTSTEP)
+		return
+	if(!source_loc.footstep)
+		return
 	if(isfile(footstep_sounds) || istext(footstep_sounds))
 		playsound(source_loc, footstep_sounds, volume, falloff_distance = 1, vary = sound_vary)
 		return
@@ -134,6 +138,8 @@
 	if(!source_loc)
 		return
 
+	// The sound type to use
+	var/established_type
 	//cache for sanic speed (lists are references anyways)
 	var/static/list/footstep_sounds = GLOB.footstep
 	///list returned by playsound() filled by client mobs who heard the footstep. given to play_fov_effect()
@@ -141,7 +147,14 @@
 
 	if ((source.wear_suit?.body_parts_covered | source.w_uniform?.body_parts_covered | source.shoes?.body_parts_covered) & FEET)
 		// we are wearing shoes
-
+		established_type = FOOTSTEP_MOB_SHOE
+	else
+		established_type = FOOTSTEP_MOB_BAREFOOT
+	if(SEND_SIGNAL(source_loc, COMSIG_MOB_PLAYS_FOOTSTEP, established_type, volume, e_range, sound_vary) & COMPONENT_CANCEL_PLAY_FOOTSTEP)
+		return
+	if(!source_loc.footstep)
+		return
+	if(established_type == FOOTSTEP_MOB_SHOE)
 		heard_clients = playsound(source_loc, pick(footstep_sounds[source_loc.footstep][1]),
 			footstep_sounds[source_loc.footstep][2] * volume * volume_multiplier,
 			TRUE,
@@ -169,6 +182,8 @@
 
 	var/turf/open/source_loc = get_turf(source)
 	if(!istype(source_loc))
+		return
+	if(!source_loc.footstep)
 		return
 	playsound(source_loc, footstep_sounds, 50, falloff_distance = 1, vary = sound_vary)
 

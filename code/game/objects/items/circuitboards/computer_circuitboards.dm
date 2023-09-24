@@ -331,10 +331,6 @@
 	name = "Bounty Pad"
 	build_path = /obj/machinery/computer/piratepad_control/civilian
 
-/obj/item/circuitboard/computer/tram_controls
-	name = "Tram Controls"
-	build_path = /obj/machinery/computer/tram_controls
-
 /obj/item/circuitboard/computer/terminal
 	name = "Terminal"
 	build_path = /obj/machinery/computer/terminal

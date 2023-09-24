@@ -669,6 +669,11 @@
 	flags_1 = ON_BORDER_1
 	can_atmos_pass = ATMOS_PASS_PROC
 	auto_dir_align = FALSE
+	opacity = FALSE
+
+/obj/machinery/door/firedoor/border_only/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_EXIT, PROC_REF(on_exit))
 
 /obj/machinery/door/firedoor/border_only/closed
 	icon_state = "door_closed"
