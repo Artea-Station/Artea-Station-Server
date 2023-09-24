@@ -18,3 +18,13 @@
 	mid_sounds = list('sound/items/taperecorder/taperecorder_hiss_mid.ogg' = 1)
 	start_sound = list('sound/items/taperecorder/taperecorder_hiss_start.ogg' = 1)
 	volume = 10
+
+/datum/looping_sound/chainsaw
+	start_sound = list('sound/weapons/chainsaw_start.ogg' = 1)
+	start_length = 0.85 SECONDS
+	mid_sounds = list('sound/weapons/chainsaw_loop.ogg' = 1)
+	mid_length = 0.85 SECONDS
+	end_sound = list('sound/weapons/chainsaw_stop.ogg' = 1)
+	end_volume = 35
+	volume = 40
+	ignore_walls = FALSE
