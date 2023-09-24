@@ -114,7 +114,7 @@
 	accept_hand = TRUE
 	time = 10
 	preop_sound = 'sound/items/ratchet.ogg'
-	preop_sound = 'sound/machines/doorclick.ogg'
+	preop_sound = 'sound/machines/door/doorclick.ogg'
 
 /datum/surgery_step/open_hatch/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You begin to open the hatch holders in [target]'s [parse_zone(target_zone)]..."),

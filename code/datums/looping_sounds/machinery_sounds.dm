@@ -188,5 +188,14 @@
 	mid_length = 0.99 SECONDS // I hate it, but it gets rid of most micro-stutters.
 	end_sound = 'sound/machines/airpumpshutdown.ogg'
 	volume = 5
-	falloff_distance = 2
+	falloff_distance = 0
 	ignore_walls = FALSE
+
+/datum/looping_sound/industrial_lift
+	start_sound = 'sound/lifts/lift_loop/lift_start.ogg'
+	start_length = 0.5 SECONDS
+	mid_sounds = list('sound/lifts/lift_loop/lift_loop.ogg'=1)
+	mid_length = 2 SECONDS
+	end_sound = 'sound/lifts/lift_loop/lift_end.ogg'
+	volume = 40
+	falloff_distance = 4

@@ -48,7 +48,7 @@
 	name = "Clown"
 	jobtype = /datum/job/clown
 
-	id = /obj/item/card/id/advanced/rainbow
+	id = /obj/item/card/id/advanced
 	id_trim = /datum/id_trim/job/clown
 	uniform = /obj/item/clothing/under/rank/civilian/clown
 	backpack_contents = list(

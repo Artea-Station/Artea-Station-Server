@@ -224,13 +224,12 @@
 	var/list/stored_decals = list()
 
 
-/obj/item/assembly/trapdoor/pulsed(radio, mob/pulser)
+/obj/item/assembly/trapdoor/pulsed(radio)
 	. = ..()
 	if(linked)
 		return
 	if(!COOLDOWN_FINISHED(src, search_cooldown))
-		if(loc && pulser)
-			loc.balloon_alert(pulser, "linking on cooldown!")
+		visible_message(span_warning("[src] cannot attempt another trapdoor linkup so soon!"))
 		return
 	attempt_link_up()
 	COOLDOWN_START(src, search_cooldown, search_cooldown_time)
@@ -300,33 +299,23 @@
 /obj/item/trapdoor_remote/attack_self(mob/user, modifiers)
 	. = ..()
 	if(.)
-		return TRUE
-
+		return
 	if(!internals)
-		user.balloon_alert(user, "no device!")
-		return TRUE
-
+		to_chat(user, span_warning("[src] has no internals!"))
+		return
 	if(!internals.linked)
-		internals.pulsed(pulser = user)
-		// The pulse linked successfully
-		if(internals.linked)
-			user.balloon_alert(user, "linked")
-		// The pulse failed to link
-		else
-			user.balloon_alert(user, "link failed!")
-		return TRUE
-
+		to_chat(user, span_notice("You activate [src]."))
+		internals.pulsed()
+		return
 	if(!COOLDOWN_FINISHED(src, trapdoor_cooldown))
-		user.balloon_alert(user, "on cooldown!")
-		return TRUE
-
-	user.balloon_alert(user, "trapdoor triggered")
+		to_chat(user, span_warning("[src] is on a short cooldown."))
+		return
+	to_chat(user, span_notice("You activate [src]."))
 	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 	icon_state = "trapdoor_pressed"
 	addtimer(VARSET_CALLBACK(src, icon_state, initial(icon_state)), trapdoor_cooldown_time)
 	COOLDOWN_START(src, trapdoor_cooldown, trapdoor_cooldown_time)
-	internals.pulsed(pulser = user)
-	return TRUE
+	internals.pulsed()
 
 #undef TRAPDOOR_LINKING_SEARCH_RANGE
 

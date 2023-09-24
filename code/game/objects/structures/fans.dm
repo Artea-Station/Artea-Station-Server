@@ -9,6 +9,7 @@
 	var/buildstacktype = /obj/item/stack/sheet/iron
 	var/buildstackamount = 5
 	can_atmos_pass = ATMOS_PASS_NO
+	interaction_flags_atom = NONE
 
 /obj/structure/fans/deconstruct()
 	if(!(flags_1 & NODECONSTRUCT_1))

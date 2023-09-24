@@ -144,7 +144,6 @@ export const NameInput = (
   props: {
     handleUpdateName: (name: string) => void;
     name: string;
-    openMultiNameInput: () => void;
   },
   context
 ) => {
@@ -158,13 +157,19 @@ export const NameInput = (
     props.handleUpdateName(value);
   };
 
+  const [multiNameInputOpen, setMultiNameInputOpen] = useLocalState(
+    context,
+    'multiNameInputOpen',
+    false
+  );
+
   return (
     <Button
       textAlign="center"
       width="100%"
       height="28px"
       onClick={(event) => {
-        props.openMultiNameInput();
+        setMultiNameInputOpen(true);
 
         // We're a button inside a button.
         // Did you know that's against the W3C standard? :)

@@ -34,15 +34,15 @@
 
 /datum/hallucination/fake_sound/normal/airlock
 	volume = 30
-	sound_type = 'sound/machines/airlock.ogg'
+	sound_type = 'sound/machines/door/airlock_open.ogg'
 
 /datum/hallucination/fake_sound/normal/airlock_pry
 	volume = 100
-	sound_type = 'sound/machines/airlock_alien_prying.ogg'
+	sound_type = 'sound/machines/door/airlock_alien_prying.ogg'
 
 /datum/hallucination/fake_sound/normal/airlock_pry/play_fake_sound(turf/source, sound_to_play)
 	. = ..()
-	queue_fake_sound(source, 'sound/machines/airlockforced.ogg', 50, TRUE, delay = 5 SECONDS)
+	queue_fake_sound(source, 'sound/machines/door/airlockforced.ogg', 50, TRUE, delay = 5 SECONDS)
 
 /datum/hallucination/fake_sound/normal/console
 	volume = 25
@@ -136,7 +136,7 @@
 		queue_fake_sound(source, 'sound/weapons/empty.ogg', delay = 5 SECONDS)
 
 	// Crowbarring it open.
-	queue_fake_sound(source, 'sound/machines/airlockforced.ogg', delay = hacking_time)
+	queue_fake_sound(source, 'sound/machines/door/airlockforced.ogg', delay = hacking_time)
 
 /datum/hallucination/fake_sound/normal/steam
 	volume = 75

@@ -10,6 +10,7 @@
 	anchored = FALSE
 	density = TRUE
 	max_integrity = 100
+	interaction_flags_atom = NONE
 	/// Type of the material the supply box will drop
 	var/material_drop
 	/// Amount of the material the supply box will drop

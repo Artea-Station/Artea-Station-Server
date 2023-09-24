@@ -123,9 +123,6 @@
 	list_reagents = list(/datum/reagent/consumable/frostoil = 30)
 
 /obj/item/reagent_containers/cup/bottle/traitor
-	name = "syndicate bottle"
-	desc = "A small bottle. Contains a random nasty chemical."
-	icon = 'icons/obj/medical/chemical.dmi'
 	var/extra_reagent = null
 
 /obj/item/reagent_containers/cup/bottle/traitor/Initialize(mapload)
