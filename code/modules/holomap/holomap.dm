@@ -6,8 +6,8 @@
 // Credit to polaris for the code which this current map was originally based off of, and credit to VG for making it in the first place.
 
 /obj/machinery/holomap
-	name = "\improper station holomap"
-	desc = "A virtual map of the surrounding station."
+	name = "\improper holomap"
+	desc = "A virtual map of the surrounding area."
 	icon = 'icons/obj/machines/holomap/stationmap.dmi'
 	icon_state = "station_map"
 	layer = ABOVE_WINDOW_LAYER
@@ -75,7 +75,7 @@
 
 /// Tries to open the map for the given mob. Returns FALSE if it doesn't meet the criteria, TRUE if the map successfully opened with no runtimes.
 /obj/machinery/holomap/proc/open_map(mob/user)
-	if((machine_stat & (NOPOWER | BROKEN)) || !user?.client || panel_open || user.hud_used.holomap.used_station_map)
+	if((machine_stat & (NOPOWER | BROKEN)) || !user?.client || panel_open || watching_mob || user.hud_used.holomap.used_station_map)
 		return FALSE
 
 	if(!holomap_datum)
@@ -152,6 +152,7 @@
 	update_icon()
 
 	if(machine_stat & NOPOWER)
+		close_map()
 		set_light(HOLOMAP_LIGHT_OFF)
 	else
 		set_light(HOLOMAP_LOW_LIGHT)
@@ -171,7 +172,7 @@
 	else if(panel_open)
 		icon_state = "[initial(icon_state)]_opened"
 	else if((machine_stat & NOPOWER))
-		icon_state = "[initial(icon_state)]_map_off"
+		icon_state = "[initial(icon_state)]_map"
 	else
 		icon_state = initial(icon_state)
 
@@ -189,7 +190,7 @@
 		floor_markings.pixel_y = -src.pixel_y
 
 /obj/machinery/holomap/screwdriver_act(mob/living/user, obj/item/tool)
-	if(!default_deconstruction_screwdriver(user, "[initial(icon_state)]_opened", "[initial(icon_state)]_off", tool))
+	if(!default_deconstruction_screwdriver(user, "[initial(icon_state)]_opened", "[initial(icon_state)]", tool))
 		return FALSE
 
 	close_map()
