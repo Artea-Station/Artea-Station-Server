@@ -48,7 +48,13 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/New()
 	sound_loop = new /datum/looping_sound/air_pump(src)
 	if(!id_tag)
-		id_tag = SSnetworks.assign_random_name()
+		id_tag = assign_random_name()
+		var/static/list/tool_screentips = list(
+			TOOL_MULTITOOL = list(
+				SCREENTIP_CONTEXT_LMB = "Log to link later with air sensor",
+			)
+		)
+		AddElement(/datum/element/contextual_screentip_tools, tool_screentips)
 	. = ..()
 
 /obj/machinery/atmospherics/components/unary/vent_pump/Destroy()

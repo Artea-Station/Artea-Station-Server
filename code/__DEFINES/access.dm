@@ -332,6 +332,7 @@
 	ACCESS_PATHFINDERS_DOCK, \
 	ACCESS_PATHFINDERS_STORAGE, \
 	ACCESS_MECH_PATHFINDERS, \
+	ACCESS_PATHFINDERS_SERVER_ROOM, \
 )
 
 /// Command staff/secure accesses, think bridge/armoury, ai_upload, notably access to modify ID cards themselves. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_COMMAND)
@@ -461,6 +462,7 @@
 #define REGION_ACCESS_PATHFINDERS list( \
 	ACCESS_MECH_PATHFINDERS, \
 	ACCESS_PATHFINDERS, \
+	ACCESS_PATHFINDERS_LEAD, \
 	ACCESS_PATHFINDERS_DOCK, \
 	ACCESS_PATHFINDERS_STORAGE, \
 	ACCESS_PATHFINDERS_SERVER_ROOM, \

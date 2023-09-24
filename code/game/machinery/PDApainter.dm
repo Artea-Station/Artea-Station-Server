@@ -340,6 +340,12 @@
 			playsound(src, 'sound/machines/printer.ogg', 75, TRUE)
 
 			return TRUE
+		if("reset_pda")
+			if((machine_stat & BROKEN) || !stored_pda)
+				return TRUE
+
+			stored_pda.reset_imprint()
+			return TRUE
 		if("trim_card")
 			if((machine_stat & BROKEN) || !stored_id_card)
 				return TRUE
