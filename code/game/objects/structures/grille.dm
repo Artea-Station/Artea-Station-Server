@@ -18,7 +18,7 @@
 	integrity_failure = 0.4
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_GRILLE)
-	canSmoothWith = list(SMOOTH_GROUP_GRILLE, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_GRILLE)
 	var/rods_type = /obj/item/stack/rods
 	var/rods_amount = 2
 	var/rods_broken = TRUE
