@@ -59,7 +59,7 @@
 	if(combat_mode) // Stop trying to clean shit you're trying to kill
 		return
 
-	if(istype(attacked, /obj/item/reagent_containers) || istype(attacked, /obj/structure/janitorialcart))
+	if(istype(attacked, /obj/item/reagent_containers/cup/bucket) || istype(attacked, /obj/structure/janitorialcart))
 		return
 
 	if(reagents.total_volume < 0.1)
