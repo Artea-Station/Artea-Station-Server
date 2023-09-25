@@ -45,23 +45,33 @@
 		val2remove = round(cleaner.mind.get_skill_modifier(/datum/skill/cleaning, SKILL_SPEED_MODIFIER),0.1)
 	reagents.remove_any(val2remove) //reaction() doesn't use up the reagents
 
-/obj/item/mop/afterattack(atom/A, mob/user, proximity)
+/obj/item/mop/pre_attack(atom/attacked, mob/living/user, params)
 	. = ..()
-	if(!proximity)
+	attacked.Adjacent(user)
+	if(get_dist(attacked, user) > 1)
+		return
+
+	var/combat_mode = FALSE
+	if(isliving(user))
+		var/mob/living/living_user = user
+		combat_mode = living_user.combat_mode
+
+	if(combat_mode) // Stop trying to clean shit you're trying to kill
+		return
+
+	if(istype(attacked, /obj/item/reagent_containers) || istype(attacked, /obj/structure/janitorialcart))
 		return
 
 	if(reagents.total_volume < 0.1)
 		to_chat(user, span_warning("Your mop is dry!"))
-		return
+		return TRUE
 
-	var/turf/T = get_turf(A)
+	var/turf/target_turf = get_turf(attacked)
 
-	if(istype(A, /obj/item/reagent_containers/cup/bucket) || istype(A, /obj/structure/janitorialcart))
-		return
-
-	if(T)
+	if(target_turf)
 		var/should_clean = reagents.has_chemical_flag(REAGENT_CLEANS, 1)
-		start_cleaning(src, T, user, clean_target = should_clean)
+		start_cleaning(src, target_turf, user, clean_target = should_clean)
+		return TRUE
 
 /obj/item/mop/cyborg/Initialize(mapload)
 	. = ..()
