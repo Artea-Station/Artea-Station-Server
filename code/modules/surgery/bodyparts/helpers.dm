@@ -22,7 +22,7 @@
 			return dna.inspection_text[BODY_ZONE_BROAD]
 
 		if(BODY_ZONE_PRECISE_EYES)
-			if(getorganslot(ORGAN_SLOT_EYES) && !is_face_visible())
+			if(is_face_visible())
 				return dna.inspection_text[BODY_ZONE_PRECISE_EYES]
 			return
 

@@ -23,10 +23,10 @@
 	for(var/zone in list(BODY_ZONE_BROAD, BODY_ZONE_PRECISE_EYES, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_ARMS, BODY_ZONE_LEGS))
 		inspection_data[zone] = human.bodypart_inspection_text(zone, is_observer)
 
-	var/obscured = holder.is_face_visible() && !is_observer
+	var/obscured = !holder.is_face_visible() && !is_observer
 
 	return list(
-		"name" = obscured ? holder.name : holder.real_name,
+		"name" = holder.name,
 		"species" = obscured ? "Unknown Species" : human.dna?.species || "Unknown Species",
 		"species_lore" = obscured ? list() : human.dna?.species?.get_species_lore() || list(),
 		"inspection_data" = inspection_data,
