@@ -22,7 +22,7 @@
 			return dna.inspection_text[BODY_ZONE_BROAD]
 
 		if(BODY_ZONE_PRECISE_EYES)
-			if(getorganslot(ORGAN_SLOT_EYES) && !is_eyes_covered())
+			if(getorganslot(ORGAN_SLOT_EYES) && !is_face_visible())
 				return dna.inspection_text[BODY_ZONE_PRECISE_EYES]
 			return
 
@@ -31,7 +31,7 @@
 		if(BODY_ZONE_LEGS)
 			zone_for_sanity_check = get_bodypart(BODY_ZONE_L_LEG)?.body_zone || get_bodypart(BODY_ZONE_R_LEG)?.body_zone
 
-	if(!get_bodypart(zone_for_sanity_check))
+	if(!zone_for_sanity_check || !get_bodypart(zone_for_sanity_check))
 		return
 
 	if(!ignore_visibility && (zone_for_sanity_check in get_covered_body_zones()))
