@@ -105,14 +105,12 @@
 /datum/techweb/science/loot
 	id = "SCIENCE_LOOT"
 	has_starter_research = FALSE
-	/// RND_LOOT_MINOR, RND_LOOT_MIDDLE or RND_LOOT_MAJOR research. <2000, 2000-5000 and >5000 respectively.
+	/// RND_LOOT_MINOR, RND_LOOT_MIDDLE or RND_LOOT_MAJOR research. <2000, 2000-3000 and >3000 respectively.
 	var/loot_table_name
 
-/datum/techweb/science/loot/New(remove_tech = TRUE)
+/datum/techweb/science/loot/New()
 	. = ..()
-	var/datum/techweb_node/science_node = pick(SSresearch.techweb_nodes_lootable[loot_table_name])
-	if(remove_tech)
-		SSresearch.techweb_nodes_lootable[loot_table_name] -= science_node
+	var/datum/techweb_node/science_node = SSresearch.get_science_loot(loot_table_name)
 	hidden_nodes -= science_node.id
 	research_node(science_node, TRUE, FALSE, FALSE)
 	update_node_status(science_node)
@@ -120,20 +118,11 @@
 /datum/techweb/science/loot/minor
 	loot_table_name = RND_LOOT_MINOR
 
-/datum/techweb/science/loot/minor/no_remove/New()
-	return ..(FALSE)
-
 /datum/techweb/science/loot/middle
 	loot_table_name = RND_LOOT_MIDDLE
 
-/datum/techweb/science/loot/middle/no_remove/New()
-	return ..(FALSE)
-
 /datum/techweb/science/loot/major
 	loot_table_name = RND_LOOT_MAJOR
-
-/datum/techweb/science/loot/major/no_remove/New()
-	return ..(FALSE)
 
 /datum/techweb/Destroy()
 	researched_nodes = null
