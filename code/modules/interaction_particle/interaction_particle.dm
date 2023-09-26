@@ -4,6 +4,7 @@
 	icon_state = "interact"
 	alpha = 180
 	layer = ABOVE_ALL_MOB_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /mob/proc/animate_interact(atom/target, state)
 	set waitfor = FALSE
