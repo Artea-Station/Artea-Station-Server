@@ -1,7 +1,7 @@
 /datum/overmap_shuttle_controller
 	var/mob/living/mob_controller
 
-	var/list/mob/living/mob_viewers
+	var/list/mob/living/mob_viewers = list()
 
 	var/datum/overmap_object/shuttle/overmap_obj
 
@@ -54,7 +54,7 @@
 	shuttle_control_button.Grant(mob_controller)
 
 /datum/overmap_shuttle_controller/proc/AddViewer(mob/living/our_guy)
-	LAZYADD(mob_viewers, our_guy)
+	mob_viewers += our_guy
 	RegisterSignal(our_guy, COMSIG_CLICKON, PROC_REF(ViewerClick))
 	our_guy.client.perspective = EYE_PERSPECTIVE
 	our_guy.client.eye = overmap_obj.my_visual
@@ -100,7 +100,7 @@
 	playsound(our_guy, 'sound/machines/terminal_off.ogg', 25, FALSE)
 	our_guy.remote_control = null
 	our_guy.update_parallax_contents()
-	LAZYREMOVE(mob_viewers, our_guy)
+	mob_viewers -= our_guy
 
 /datum/overmap_shuttle_controller/proc/AbortFreeform()
 	if(!freeform_docker)
@@ -157,7 +157,7 @@
 
 /datum/action/innate/quit_viewing/Trigger(trigger_flags)
 	var/datum/overmap_shuttle_controller/OSC = target
-	OSC.RemoveCurrentControl()
+	OSC.RemoveViewer(owner)
 
 /datum/action/innate/stop_shuttle
 	name = "Stop Shuttle"

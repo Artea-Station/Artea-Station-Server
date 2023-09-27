@@ -620,11 +620,11 @@
 	if(!shuttle_controller || !user.client || shuttle_controller.busy)
 		return
 
-	if(shuttle_controller.mob_controller && !user == shuttle_controller && !(user in shuttle_controller.mob_viewers))
+	if(shuttle_controller.mob_controller && !(user == shuttle_controller.mob_controller) && !shuttle_controller.mob_viewers.Find(user))
 		shuttle_controller.AddViewer(user)
 		return TRUE
 
-	if(user.client && !shuttle_controller.busy)
+	if(user.client && !shuttle_controller.busy && !shuttle_controller.mob_controller)
 		shuttle_controller.SetController(user)
 		if(passed_turf)
 			shuttle_controller.control_turf = passed_turf
