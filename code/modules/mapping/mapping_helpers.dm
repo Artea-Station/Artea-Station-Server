@@ -933,3 +933,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 		var/area/area = get_area(target)
 		log_mapping("[src] at [AREACOORD(src)] [(area.type)] tried to damage [target] but it's already damaged!")
 	target.take_damage(rand(target.max_integrity * integrity_min_factor, target.max_integrity * integrity_max_factor))
+
+/obj/effect/mapping_helpers/airlock/disable_remote
+	name = "disable door remote helper"
+	icon_state = "no_remote"
+
+/obj/effect/mapping_helpers/airlock/disable_remote/payload(obj/machinery/door/airlock/payload)
+	. = ..()
+	payload.opens_with_door_remote = FALSE

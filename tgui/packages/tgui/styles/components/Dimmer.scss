@@ -19,4 +19,10 @@ $background-dimness: 0.75 !default;
   // Dim everything around it
   background-color: rgba(0, 0, 0, $background-dimness);
   z-index: 1;
+
+  // Darken the inner section to be more readable on colourful backgrounds.
+  &__inner {
+    background-color: rgba(0, 0, 0, $background-dimness);
+    border: 2em solid rgba(0, 0, 0, 0);
+  }
 }

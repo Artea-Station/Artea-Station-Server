@@ -659,7 +659,7 @@
 	clears_hazards_on_spawn = TRUE
 
 /datum/overmap_object/shuttle/ship/bearcat
-	name = "FTV Bearcat"
+	name = "ALV Bearcat"
 	fixed_parallax_dir = NORTH
 
 /datum/overmap_object/shuttle/planet

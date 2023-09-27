@@ -77,9 +77,9 @@
 	locked = !locked
 	to_chat(user, span_notice("You flip the lock switch [locked ? "down" : "up"]."))
 	if(locked)
-		playsound(user, 'sound/machines/boltsdown.ogg', 30, TRUE)
+		playsound(user, 'sound/machines/door/boltsdown.ogg', 30, TRUE)
 	else
-		playsound(user, 'sound/machines/boltsup.ogg', 30, TRUE)
+		playsound(user, 'sound/machines/door/boltsup.ogg', 30, TRUE)
 	update_appearance()
 
 /obj/item/pet_carrier/attack(mob/living/target, mob/living/user)
@@ -129,7 +129,7 @@
 		loc.visible_message(span_warning("[user] flips the lock switch on [src] by reaching through!"), null, null, null, user)
 		to_chat(user, span_boldannounce("Bingo! The lock pops open!"))
 		locked = FALSE
-		playsound(src, 'sound/machines/boltsup.ogg', 30, TRUE)
+		playsound(src, 'sound/machines/door/boltsup.ogg', 30, TRUE)
 		update_appearance()
 	else
 		loc.visible_message(span_warning("[src] starts rattling as something pushes against the door!"), null, null, null, user)

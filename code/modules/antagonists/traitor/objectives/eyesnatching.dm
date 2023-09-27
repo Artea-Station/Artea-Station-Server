@@ -171,9 +171,10 @@
 	if(!do_after(user, 5 SECONDS, target = victim, extra_checks = CALLBACK(src, PROC_REF(eyeballs_exist), eyeballies, head, victim)))
 		return
 
-	var/datum/wound/blunt/severe/severe_wound_type = /datum/wound/blunt/severe
-	var/datum/wound/blunt/critical/critical_wound_type = /datum/wound/blunt/critical
-	victim.apply_damage(20, BRUTE, BODY_ZONE_HEAD, wound_bonus = rand(initial(severe_wound_type.threshold_minimum), initial(critical_wound_type.threshold_minimum) + 10))
+	var/min_wound = head.get_wound_threshold_of_wound_type(WOUND_BLUNT, WOUND_SEVERITY_SEVERE, return_value_if_no_wound = 30, wound_source = src)
+	var/max_wound = head.get_wound_threshold_of_wound_type(WOUND_BLUNT, WOUND_SEVERITY_CRITICAL, return_value_if_no_wound = 50, wound_source = src)
+
+	victim.apply_damage(20, BRUTE, BODY_ZONE_HEAD, wound_bonus = rand(min_wound, max_wound + 10), attacking_item = src)
 	victim.visible_message(
 		span_danger("[src] pierces through [victim]'s skull, horribly mutilating their eyes!"),
 		span_userdanger("Something penetrates your skull, horribly mutilating your eyes! Holy fuck!"),

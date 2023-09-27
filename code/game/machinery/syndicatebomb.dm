@@ -3,9 +3,9 @@
 
 /obj/machinery/syndicatebomb
 	icon = 'icons/obj/assemblies/assemblies.dmi'
-	name = "syndicate bomb"
+	name = "reinforced bomb"
 	icon_state = "syndicate-bomb"
-	desc = "A large and menacing device. Can be bolted down with a wrench."
+	desc = "A large and menacing device. Can be bolted down with a wrench. Looks very tough."
 
 	anchored = FALSE
 	density = FALSE

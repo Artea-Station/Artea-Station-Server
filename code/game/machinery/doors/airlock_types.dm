@@ -38,11 +38,15 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_mai
 	normal_integrity = 250
 	stripe_paint = "#B69F3C"
+	doorOpen = 'sound/machines/door/airlock_open_maint.ogg'
+	doorClose = 'sound/machines/door/airlock_close_maint.ogg'
 
 /obj/machinery/door/airlock/maintenance/external
 	name = "external airlock access"
 	assemblytype = /obj/structure/door_assembly/door_assembly_extmai
 	stripe_paint = "#9F2828"
+	doorOpen = 'sound/machines/door/airlock_open_space.ogg'
+	doorClose = 'sound/machines/door/airlock_close_space.ogg'
 
 /obj/machinery/door/airlock/mining
 	name = "mining airlock"
@@ -359,6 +363,8 @@
 	overlays_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
 	airlock_paint = "#9F2828"
 	assemblytype = /obj/structure/door_assembly/door_assembly_ext
+	doorOpen = 'sound/machines/door/airlock_open_space.ogg'
+	doorClose = 'sound/machines/door/airlock_close_space.ogg'
 
 	/// Whether or not the airlock can be opened without access from a certain direction while powered, or with bare hands from any direction while unpowered OR pressurized.
 	var/space_dir = null
@@ -368,7 +374,9 @@
 	if(!mapload || req_access_txt || req_one_access_txt)
 		req_access = null
 
-	return ..()
+	..()
+
+	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/door/airlock/external/LateInitialize()
 	. = ..()
@@ -453,6 +461,8 @@
 	icon = 'icons/obj/doors/airlocks/hatch/airlock.dmi'
 	stripe_overlays = 'icons/obj/doors/airlocks/hatch/airlock_stripe.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_hatch
+	doorOpen = 'sound/machines/door/airlock_open_maint.ogg'
+	doorClose = 'sound/machines/door/airlock_close_maint.ogg'
 
 /obj/machinery/door/airlock/maintenance_hatch
 	name = "maintenance hatch"
@@ -461,6 +471,8 @@
 	overlays_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_mhatch
 	stripe_paint = "#B69F3C"
+	doorOpen = 'sound/machines/door/airlock_open_maint.ogg'
+	doorClose = 'sound/machines/door/airlock_close_maint.ogg'
 
 //////////////////////////////////
 /*

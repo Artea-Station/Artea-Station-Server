@@ -20,6 +20,7 @@
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_NOBLOOD,
+		TRAIT_NEVER_WOUNDED,
 	)
 	mutantheart = null
 	mutantlungs = null
@@ -1179,6 +1180,10 @@
 	mutantstomach = /obj/item/organ/internal/stomach/bone
 	sexes = FALSE
 	fixed_mut_color = null
+	species_traits = list(
+		NO_UNDERWEAR,
+		NOEYESPRITES,
+	)
 	inherent_traits = list(
 		TRAIT_ADVANCEDTOOLUSER,
 		TRAIT_CAN_STRIP,

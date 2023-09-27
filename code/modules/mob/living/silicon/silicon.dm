@@ -76,24 +76,26 @@
 	QDEL_NULL(builtInCamera)
 	laws?.owner = null //Laws will refuse to die otherwise.
 	QDEL_NULL(laws)
+	QDEL_NULL(modularInterface)
 	GLOB.silicon_mobs -= src
 	return ..()
 
 /mob/living/silicon/proc/create_modularInterface()
 	if(!modularInterface)
 		modularInterface = new /obj/item/modular_computer/pda/silicon(src)
+	var/job_name = ""
 	if(isAI(src))
-		modularInterface.saved_job = "AI"
+		job_name = "AI"
 	if(ispAI(src))
-		modularInterface.saved_job = "pAI Messenger"
+		job_name = "pAI Messenger"
 
 	modularInterface.layer = ABOVE_HUD_PLANE
-	modularInterface.saved_identification = real_name || name
+	modularInterface.imprint_id(real_name || name, job_name)
 
 /mob/living/silicon/robot/create_modularInterface()
 	if(!modularInterface)
 		modularInterface = new /obj/item/modular_computer/pda/silicon/cyborg(src)
-		modularInterface.saved_job = "Cyborg"
+		modularInterface.imprint_id(job_name = "Cyborg")
 	return ..()
 
 /mob/living/silicon/robot/model/syndicate/create_modularInterface()
@@ -462,4 +464,4 @@
 	if(!modularInterface)
 		stack_trace("Silicon [src] ( [type] ) was somehow missing their integrated tablet. Please make a bug report.")
 		create_modularInterface()
-	modularInterface.saved_identification = newname
+	modularInterface.imprint_id(name = newname)

@@ -81,3 +81,7 @@
 	name = "Artean Scrapheap"
 	possible_names = list("ALS Keelhaul", "ALS Brighter Days", "ALS Scorchmark")
 	guaranteed_trader_types = list(/datum/trader/scrapper)
+
+/datum/trade_hub/randomname/large
+	max_traders = 8
+	guaranteed_trader_types = list(/datum/trader/mining, /datum/trader/medical, /datum/trader/archeology)

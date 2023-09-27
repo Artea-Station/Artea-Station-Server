@@ -59,8 +59,10 @@
 ///from base of mob/create_mob_hud(): ()
 #define COMSIG_MOB_HUD_CREATED "mob_hud_created"
 
-///from base of /mob/living/proc/apply_damage(): (damage, damagetype, def_zone)
+///from base of /mob/living/proc/apply_damage(): (damage, damagetype, def_zone, blocked, wound_bonus, bare_wound_bonus, sharpness, attack_direction, attacking_item)
 #define COMSIG_MOB_APPLY_DAMAGE "mob_apply_damage"
+///from /mob/living/proc/apply_damage(), works like above but after the damage is actually inflicted: (damage, damagetype, def_zone, blocked, wound_bonus, bare_wound_bonus, sharpness, attack_direction, attacking_item)
+#define COMSIG_MOB_AFTER_APPLY_DAMAGE "mob_after_apply_damage"
 ///from base of /mob/living/attack_alien(): (user)
 #define COMSIG_MOB_ATTACK_ALIEN "mob_attack_alien"
 ///from base of /mob/throw_item(): (atom/target)
@@ -146,3 +148,8 @@
 
 ///from living/flash_act(), when a mob is successfully flashed.
 #define COMSIG_MOB_FLASHED "mob_flashed"
+
+/// When a mob attempts to play the footstep sound. Called in the foostep component
+#define COMSIG_MOB_PLAYS_FOOTSTEP "mob_plays_footstep"
+	/// Will cancel the attempted footstep playing (most likely after overriding and playing another one)
+	#define COMPONENT_CANCEL_PLAY_FOOTSTEP (1<<0)

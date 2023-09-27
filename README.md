@@ -1,12 +1,13 @@
 ## Artea Station (TG Fork)
 ###### <sup>With many opinions</sup>
 
-**This repository and it's server is wholly unsuitable for under 18s. You have been warned.**
+**This repository and it's server are wholly unsuitable for under 18s. You have been warned.**
 
-[![CI Suite](https://github.com/Nosha-Industries/Nosha-Industries-Server/actions/workflows/ci_suite.yml/badge.svg)](https://github.com/Nosha-Industries/Nosha-Industries-Server/actions/workflows/ci_suite.yml)
-![Coverage](https://img.shields.io/codecov/c/github/Nosha-Industries/Nosha-Industries-Server)
+[![Build Status](https://github.com/Artea-Station/Artea-Station-Server/workflows/CI%20Suite/badge.svg)](https://github.com/Artea-Station/Artea-Station-Server/actions?query=workflow%3A%22CI+Suite%22)
+[![Percentage of issues still open](https://isitmaintained.com/badge/open/Artea-Station/Artea-Station-Server.svg)](https://isitmaintained.com/project/Artea-Station/Artea-Station-Server "Percentage of issues still open")
+[![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/Artea-Station/Artea-Station-Server.svg)](https://isitmaintained.com/project/Artea-Station/Artea-Station-Server "Average time to resolve an issue")
 
-[![resentment](https://forthebadge.com/images/badges/built-with-resentment.svg)](https://www.monkeyuser.com/assets/images/2019/131-bug-free.png) [![resentment](https://forthebadge.com/images/badges/contains-technical-debt.svg)](https://user-images.githubusercontent.com/8171642/50290880-ffef5500-043a-11e9-8270-a2e5b697c86c.png) [![forinfinityandbyond](https://user-images.githubusercontent.com/5211576/29499758-4efff304-85e6-11e7-8267-62919c3688a9.gif)](https://www.reddit.com/r/SS13/comments/5oplxp/what_is_the_main_problem_with_byond_as_an_engine/dclbu1a)
+[![resentment](.github/images/badges/built-with-resentment.svg)](.github/images/comics/131-bug-free.png) [![technical debt](.github/images/badges/contains-technical-debt.svg)](.github/images/comics/106-tech-debt-modified.png) [![forinfinityandbyond](.github/images/badges/made-in-byond.gif)](https://www.reddit.com/r/SS13/comments/5oplxp/what_is_the_main_problem_with_byond_as_an_engine/dclbu1a)
 
 * **Git / GitHub cheatsheet:** https://www.notion.so/Git-GitHub-61bc81766b2e4c7d9a346db3078ce833
 * **Website:** https://artea-station.net

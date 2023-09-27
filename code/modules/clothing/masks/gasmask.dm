@@ -149,8 +149,8 @@
 	flags_cover = MASKCOVERSEYES
 
 /obj/item/clothing/mask/gas/syndicate
-	name = "syndicate mask"
-	desc = "A close-fitting tactical mask that can be connected to an air supply."
+	name = "compact mask"
+	desc = "A close-fitting tactical mask that can be connected to an air supply. Folds to be smaller than a normal gas mask."
 	icon_state = "syndicate"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	strip_delay = 60

@@ -261,6 +261,7 @@
 		front.icon_state = "armsy_end"
 		front.icon_living = "armsy_end"
 		front.back = null
+		front = null
 	if(back)
 		QDEL_NULL(back) // chain destruction baby
 	return ..()
@@ -322,7 +323,7 @@
 		var/list/parts_to_remove = list()
 		for(var/obj/item/bodypart/bodypart in carbon_target.bodyparts)
 			if(bodypart.body_part != HEAD && bodypart.body_part != CHEST && bodypart.body_part != LEG_LEFT && bodypart.body_part != LEG_RIGHT)
-				if(bodypart.dismemberable)
+				if(!(bodypart.bodypart_flags & BODYPART_UNREMOVABLE))
 					parts_to_remove += bodypart
 
 		if(parts_to_remove.len && prob(10))

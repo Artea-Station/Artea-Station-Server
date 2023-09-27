@@ -67,12 +67,16 @@
 		mode() // Activate held item
 
 /mob/living/carbon/attackby(obj/item/I, mob/living/user, params)
-	for(var/datum/surgery/S in surgeries)
-		if(body_position == LYING_DOWN || !S.lying_required)
-			var/list/modifiers = params2list(params)
-			if((S.self_operable || user != src) && !user.combat_mode)
-				if(S.next_step(user, modifiers))
-					return 1
+	for(var/datum/surgery/operations as anything in surgeries)
+		if(user.combat_mode)
+			break
+		if(body_position != LYING_DOWN && (operations.surgery_flags & SURGERY_REQUIRE_RESTING))
+			continue
+		if(!(operations.surgery_flags & SURGERY_SELF_OPERABLE) && (user == src))
+			continue
+		var/list/modifiers = params2list(params)
+		if(operations.next_step(user, modifiers))
+			return TRUE
 
 	if(!all_wounds || !(!user.combat_mode || user == src))
 		return ..()
@@ -1248,12 +1252,17 @@
 			else
 				wound_type = forced_type
 		else
-			wound_type = pick(GLOB.global_all_wound_types)
+			for (var/datum/wound/path as anything in shuffle(GLOB.all_wound_pregen_data))
+				var/datum/wound_pregen_data/pregen_data = GLOB.all_wound_pregen_data[path]
+				if (pregen_data.can_be_applied_to(scar_part, random_roll = TRUE))
+					wound_type = path
+					break
 
-		var/datum/wound/phantom_wound = new wound_type
-		scaries.generate(scar_part, phantom_wound)
-		scaries.fake = TRUE
-		QDEL_NULL(phantom_wound)
+		if (wound_type) // can feasibly happen, if its an inorganic limb/cant be wounded/scarred
+			var/datum/wound/phantom_wound = new wound_type
+			scaries.generate(scar_part, phantom_wound)
+			scaries.fake = TRUE
+			QDEL_NULL(phantom_wound)
 
 /mob/living/carbon/is_face_visible()
 	return !(wear_mask?.flags_inv & HIDEFACE) && !(head?.flags_inv & HIDEFACE)
