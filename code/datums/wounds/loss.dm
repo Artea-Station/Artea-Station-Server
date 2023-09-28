@@ -67,7 +67,7 @@
 			if(WOUND_PIERCE)
 				occur_text = "is outright blasted apart, severing it completely!"
 			if(WOUND_BURN)
-				occur_text = "is outright incinerated, falling to dust!"
+				occur_text = "is outright melted, severing it completely!"
 	else
 		var/bone_text = get_internal_description()
 		var/tissue_text = get_external_description()
@@ -80,6 +80,6 @@
 			if(WOUND_PIERCE)
 				occur_text = "is pierced through the last [tissue_text] holding it together, severing it completely!"
 			if(WOUND_BURN)
-				occur_text = "is completely incinerated, falling to dust!"
+				occur_text = "is melted though the last [tissue_text] holding it together, severing it completely!"
 
 	return occur_text
