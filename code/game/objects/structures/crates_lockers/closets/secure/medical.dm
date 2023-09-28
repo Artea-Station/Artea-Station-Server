@@ -143,7 +143,6 @@
 	icon_door = "chemical"
 
 /obj/structure/closet/secure_closet/chemical/cartridge/PopulateContents()
-	..()
 	var/cartridges = CARTRIDGE_LIST_CHEM_DISPENSER
 
 	for(var/chem_path in cartridges)
