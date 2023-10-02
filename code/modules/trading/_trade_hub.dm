@@ -39,7 +39,7 @@
 			break
 		for(var/b in 1 to TRADE_HUB_SPAWN_TRIES)
 			var/picked_type = pick_n_take(possible_trader_types)
-			if(!already_picked_list[picked_type])
+			if(picked_type && !already_picked_list[picked_type])
 				SpawnTraderType(picked_type)
 				break
 	possible_trader_types = null
