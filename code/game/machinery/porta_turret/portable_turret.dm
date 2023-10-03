@@ -32,7 +32,7 @@ DEFINE_BITFIELD(turret_flags, list(
 	invisibility = INVISIBILITY_OBSERVER //the turret is invisible if it's inside its cover
 	density = TRUE
 	desc = "A covered turret that shoots at its enemies."
-	req_access = list(ACCESS_SECURITY) /// Only people with Security access
+	req_access = list(ACCESS_SECURITY_LOWSEC) /// Only people with Security access
 	power_channel = AREA_USAGE_EQUIP //drains power from the EQUIPMENT channel
 	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.15
 	max_integrity = 160 //the turret's health
@@ -712,7 +712,7 @@ DEFINE_BITFIELD(turret_flags, list(
 	use_power = NO_POWER_USE
 	has_cover = FALSE
 	scan_range = 9
-	req_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE_LOWSEC)
 	uses_stored = FALSE
 	mode = TURRET_LETHAL
 	stun_projectile = /obj/projectile/bullet
@@ -857,7 +857,7 @@ DEFINE_BITFIELD(turret_flags, list(
 	icon_state = "control_standby"
 	base_icon_state = "control"
 	density = FALSE
-	req_access = list(ACCESS_AI_UPLOAD)
+	req_access = list(ACCESS_COMMAND_HIGHSEC)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	/// Variable dictating if linked turrets are active and will shoot targets
 	var/enabled = TRUE
@@ -1089,7 +1089,7 @@ DEFINE_BITFIELD(turret_flags, list(
 	. = ..()
 
 /obj/machinery/porta_turret/lasertag
-	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE)
+	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SERVICE_LOWSEC)
 	turret_flags = TURRET_FLAG_AUTH_WEAPONS
 	var/team_color
 

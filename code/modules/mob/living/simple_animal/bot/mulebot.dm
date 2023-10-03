@@ -25,7 +25,7 @@
 	mob_size = MOB_SIZE_LARGE
 	buckle_prevents_pull = TRUE // No pulling loaded shit
 
-	maints_access_required = list(ACCESS_ROBOTICS, ACCESS_CARGO)
+	maints_access_required = list(ACCESS_ENGINEERING_HIGHSEC, ACCESS_CARGO_LOWSEC)
 	radio_key = /obj/item/encryptionkey/headset_cargo
 	radio_channel = RADIO_CHANNEL_SUPPLY
 	bot_type = MULE_BOT

@@ -110,7 +110,7 @@
 			var/mob/living/carbon/human/human_user = user
 			if(human_user.wear_id)
 				var/list/access = human_user.wear_id.GetAccess()
-				if(ACCESS_ROBOTICS in access)
+				if(ACCESS_ENGINEERING_HIGHSEC in access)
 					consent_override = TRUE
 		if(mind)
 			consent = tgui_alert(src, "[user] is attempting to open your access panel, unlock the cover?", "AI Access Panel", list("Yes", "No"))

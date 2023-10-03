@@ -12,7 +12,7 @@
 	health = 100
 	maxHealth = 100
 
-	maints_access_required = list(ACCESS_ROBOTICS, ACCESS_JANITOR)
+	maints_access_required = list(ACCESS_ENGINEERING_HIGHSEC, ACCESS_SERVICE_LOWSEC)
 	radio_key = /obj/item/encryptionkey/headset_service
 	radio_channel = RADIO_CHANNEL_SERVICE //Service
 	bot_mode_flags = ~BOT_MODE_PAI_CONTROLLABLE

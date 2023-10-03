@@ -173,7 +173,7 @@
 /obj/item/mod/control/pre_equipped/nuclear
 	theme = /datum/mod_theme/syndicate
 	applied_cell = /obj/item/stock_parts/cell/hyper
-	req_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE_LOWSEC)
 	initial_modules = list(
 		/obj/item/mod/module/storage/syndicate,
 		/obj/item/mod/module/emp_shield,
@@ -185,7 +185,7 @@
 /obj/item/mod/control/pre_equipped/elite
 	theme = /datum/mod_theme/elite
 	applied_cell = /obj/item/stock_parts/cell/hyper
-	req_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE_LOWSEC)
 	initial_modules = list(
 		/obj/item/mod/module/storage/syndicate,
 		/obj/item/mod/module/emp_shield,
@@ -241,7 +241,7 @@
 /obj/item/mod/control/pre_equipped/responsory
 	theme = /datum/mod_theme/responsory
 	applied_cell = /obj/item/stock_parts/cell/hyper
-	req_access = list(ACCESS_CENT_GENERAL)
+	req_access = list(ACCESS_CENTCOM_LOWSEC)
 	initial_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/welding,

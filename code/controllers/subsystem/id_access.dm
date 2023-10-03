@@ -24,11 +24,11 @@ SUBSYSTEM_DEF(id_access)
 	var/list/desc_by_access = list()
 	/// List of accesses for the Heads of each sub-department alongside the regions they control and their job name.
 	var/list/sub_department_managers_tgui = list()
-	/// Helper list containing all trim paths that can be used as job templates. Intended to be used alongside logic for ACCESS_CHANGE_IDS. Grab templates from sub_department_managers_tgui for Head of Staff restrictions.
+	/// Helper list containing all trim paths that can be used as job templates. Intended to be used alongside logic for ACCESS_COMMAND_LOWSEC. Grab templates from sub_department_managers_tgui for Head of Staff restrictions.
 	var/list/station_job_templates = list()
 	/// Helper list containing all trim paths that can be used as Centcom templates.
 	var/list/centcom_job_templates = list()
-	/// Helper list containing all PDA paths that can be painted by station machines. Intended to be used alongside logic for ACCESS_CHANGE_IDS. Grab templates from sub_department_managers_tgui for Head of Staff restrictions.
+	/// Helper list containing all PDA paths that can be painted by station machines. Intended to be used alongside logic for ACCESS_COMMAND_LOWSEC. Grab templates from sub_department_managers_tgui for Head of Staff restrictions.
 	var/list/station_pda_templates = list()
 	/// Helper list containing all station regions.
 	var/list/station_regions = list()

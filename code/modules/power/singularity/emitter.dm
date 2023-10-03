@@ -7,7 +7,7 @@
 
 	anchored = FALSE
 	density = TRUE
-	req_access = list(ACCESS_ENGINE_EQUIP)
+	req_access = list(ACCESS_ENGINEERING_LOWSEC)
 	circuit = /obj/item/circuitboard/machine/emitter
 
 	use_power = NO_POWER_USE

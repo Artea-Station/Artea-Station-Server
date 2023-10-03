@@ -171,7 +171,7 @@
 	name = "Firefighting Tank Backpack"
 	desc = "Mow down fires with this high-capacity fire fighting tank backpack. Requires Atmospherics access to open."
 	cost = CARGO_CRATE_VALUE * 1.8
-	access = ACCESS_ATMOSPHERICS
+	access = ACCESS_ENGINEERING_HIGHSEC
 	contains = list(/obj/item/watertank/atmos)
 	crate_name = "firefighting backpack crate"
 	crate_type = /obj/structure/closet/crate/secure
@@ -274,7 +274,7 @@
 	name = "Weed Control Crate"
 	desc = "Keep those invasive species OUT. Contains a scythe, gasmask, and two anti-weed chemical grenades. Warranty void if used on ambrosia. Requires Hydroponics access to open."
 	cost = CARGO_CRATE_VALUE * 2.5
-	access = ACCESS_HYDROPONICS
+	access = ACCESS_SERVICE_LOWSEC
 	contains = list(/obj/item/scythe,
 					/obj/item/clothing/mask/gas,
 					/obj/item/grenade/chem_grenade/antiweed,
@@ -298,14 +298,14 @@
 
 /datum/supply_pack/security
 	group = "Security"
-	access = ACCESS_SECURITY
+	access = ACCESS_SECURITY_LOWSEC
 	crate_type = /obj/structure/closet/crate/secure/gear
 
 /datum/supply_pack/security/ammo
 	name = "Ammo Crate"
 	desc = "Contains three boxes of beanbag shotgun shells, three boxes of rubbershot shotgun shells and one of each special .38 speedloarders. Requires Security access to open."
 	cost = CARGO_CRATE_VALUE * 8
-	access_view = ACCESS_ARMORY
+	access_view = ACCESS_SECURITY_HIGHSEC
 	contains = list(/obj/item/storage/box/beanbag,
 					/obj/item/storage/box/beanbag,
 					/obj/item/storage/box/beanbag,
@@ -321,7 +321,7 @@
 	name = "Armor Crate"
 	desc = "Three vests of well-rounded, decently-protective armor. Requires Security access to open."
 	cost = CARGO_CRATE_VALUE * 2
-	access_view = ACCESS_SECURITY
+	access_view = ACCESS_SECURITY_LOWSEC
 	contains = list(/obj/item/clothing/suit/armor/vest,
 					/obj/item/clothing/suit/armor/vest,
 					/obj/item/clothing/suit/armor/vest)
@@ -331,7 +331,7 @@
 	name = "Disabler Crate"
 	desc = "Three stamina-draining disabler weapons. Requires Security access to open."
 	cost = CARGO_CRATE_VALUE * 3
-	access_view = ACCESS_SECURITY
+	access_view = ACCESS_SECURITY_LOWSEC
 	contains = list(/obj/item/gun/energy/disabler,
 					/obj/item/gun/energy/disabler,
 					/obj/item/gun/energy/disabler)
@@ -341,7 +341,7 @@
 	name = "Forensics Crate"
 	desc = "Stay hot on the criminal's heels with Nanotrasen's Detective Essentials(tm). Contains a forensics scanner, six evidence bags, camera, tape recorder, white crayon, and of course, a fedora. Requires Security access to open."
 	cost = CARGO_CRATE_VALUE * 2.5
-	access_view = ACCESS_MORGUE
+	access_view = ACCESS_MEDICAL_LOWSEC
 	contains = list(/obj/item/detective_scanner,
 					/obj/item/storage/box/evidence,
 					/obj/item/camera,
@@ -363,7 +363,7 @@
 	name = "Lasers Crate"
 	desc = "Contains three lethal, high-energy laser guns. Requires Security access to open."
 	cost = CARGO_CRATE_VALUE * 4
-	access_view = ACCESS_ARMORY
+	access_view = ACCESS_SECURITY_HIGHSEC
 	contains = list(/obj/item/gun/energy/laser,
 					/obj/item/gun/energy/laser,
 					/obj/item/gun/energy/laser)
@@ -372,7 +372,7 @@
 /datum/supply_pack/security/securitybarriers
 	name = "Security Barrier Grenades"
 	desc = "Stem the tide with four Security Barrier grenades. Requires Security access to open."
-	access_view = ACCESS_BRIG
+	access_view = ACCESS_SECURITY_HIGHSEC
 	contains = list(/obj/item/grenade/barrier,
 					/obj/item/grenade/barrier,
 					/obj/item/grenade/barrier,
@@ -384,7 +384,7 @@
 	name = "Security Clothing Crate"
 	desc = "Contains appropriate outfits for the station's private security force. Contains outfits for the Warden, Head of Security, and two Security Officers. Each outfit comes with a rank-appropriate jumpsuit, suit, and beret. Requires Security access to open."
 	cost = CARGO_CRATE_VALUE * 3
-	access_view = ACCESS_SECURITY
+	access_view = ACCESS_SECURITY_LOWSEC
 	contains = list(/obj/item/clothing/under/rank/security/officer/formal,
 					/obj/item/clothing/under/rank/security/officer/formal,
 					/obj/item/clothing/suit/jacket/officer/blue,
@@ -403,7 +403,7 @@
 	name = "Stingbang Grenade Pack"
 	desc = "Contains five \"stingbang\" grenades, perfect for stopping riots and playing morally unthinkable pranks. Requires Security access to open."
 	cost = CARGO_CRATE_VALUE * 5
-	access_view = ACCESS_ARMORY
+	access_view = ACCESS_SECURITY_HIGHSEC
 	contains = list(/obj/item/storage/box/stingbangs)
 	crate_name = "stingbang grenade pack crate"
 
@@ -411,7 +411,7 @@
 	name = "Security Supplies Crate"
 	desc = "Contains seven flashbangs, seven teargas grenades, six flashes, and seven handcuffs. Requires Security access to open."
 	cost = CARGO_CRATE_VALUE * 3.5
-	access_view = ACCESS_ARMORY
+	access_view = ACCESS_SECURITY_HIGHSEC
 	contains = list(/obj/item/storage/box/flashbangs,
 					/obj/item/storage/box/teargas,
 					/obj/item/storage/box/flashes,
@@ -422,7 +422,7 @@
 	name = "Standard Firing Pins Crate"
 	desc = "Upgrade your arsenal with 10 standard firing pins. Requires Security access to open."
 	cost = CARGO_CRATE_VALUE * 4
-	access_view = ACCESS_ARMORY
+	access_view = ACCESS_SECURITY_HIGHSEC
 	contains = list(/obj/item/storage/box/firingpins,
 					/obj/item/storage/box/firingpins)
 	crate_name = "firing pins crate"
@@ -431,7 +431,7 @@
 	name = "Paywall Firing Pins Crate"
 	desc = "Specialized firing pins with a built-in configurable paywall. Requires Security access to open."
 	cost = CARGO_CRATE_VALUE * 2
-	access_view = ACCESS_ARMORY
+	access_view = ACCESS_SECURITY_HIGHSEC
 	contains = list(/obj/item/storage/box/firingpins/paywall,
 					/obj/item/storage/box/firingpins/paywall)
 	crate_name = "paywall firing pins crate"
@@ -449,7 +449,7 @@
 	name = "Stun Batons Crate"
 	desc = "Arm the Civil Protection Forces with three stun batons. Batteries included. Requires Security access to open."
 	cost = CARGO_CRATE_VALUE * 2
-	access_view = ACCESS_SECURITY
+	access_view = ACCESS_SECURITY_LOWSEC
 	contains = list(/obj/item/melee/baton/security/loaded,
 					/obj/item/melee/baton/security/loaded,
 					/obj/item/melee/baton/security/loaded)
@@ -482,8 +482,8 @@
 
 /datum/supply_pack/security/armory
 	group = "Armory"
-	access = ACCESS_ARMORY
-	access_view = ACCESS_ARMORY
+	access = ACCESS_SECURITY_HIGHSEC
+	access_view = ACCESS_SECURITY_HIGHSEC
 	crate_type = /obj/structure/closet/crate/secure/weapon
 
 /datum/supply_pack/security/armory/bulletarmor
@@ -552,7 +552,7 @@
 	name = "Incendiary Weapons Crate"
 	desc = "Burn, baby burn. Contains three incendiary grenades, three plasma canisters, and a flamethrower. Requires Armory access to open."
 	cost = CARGO_CRATE_VALUE * 7
-	access = ACCESS_COMMAND
+	access = ACCESS_COMMAND_LOWSEC
 	contains = list(/obj/item/flamethrower/full,
 					/obj/item/tank/internals/plasma,
 					/obj/item/tank/internals/plasma,
@@ -672,7 +672,7 @@
 	name = "Security Hardsuit Crate"
 	desc = "Contains a single security hardsuit used for space travel!"
 	cost = CARGO_CRATE_VALUE * 5
-	access = ACCESS_SECURITY
+	access = ACCESS_SECURITY_LOWSEC
 	contains = list(/obj/item/clothing/suit/space/hardsuit/security)
 	crate_name = "security hardsuit crate"
 
@@ -688,7 +688,7 @@
 	name = "Anti-breach Shield Projector Crate"
 	desc = "Hull breaches again? Say no more with the Nanotrasen Anti-Breach Shield Projector! Uses forcefield technology to keep the air in, and the space out. Contains two shield projectors."
 	cost = CARGO_CRATE_VALUE * 3
-	access_view = ACCESS_ENGINE_EQUIP
+	access_view = ACCESS_ENGINEERING_LOWSEC
 	contains = list(/obj/machinery/shieldgen,
 					/obj/machinery/shieldgen)
 	crate_name = "anti-breach shield projector crate"
@@ -697,7 +697,7 @@
 	name = "APLU MK-I Crate"
 	desc = "A do-it-yourself kit for building an ALPU MK-I \"Ripley\", designed for lifting and carrying heavy equipment, and other station tasks. Batteries not included."
 	cost = CARGO_CRATE_VALUE * 10
-	access_view = ACCESS_ROBOTICS
+	access_view = ACCESS_ENGINEERING_HIGHSEC
 	contains = list(/obj/item/mecha_parts/chassis/ripley,
 					/obj/item/mecha_parts/part/ripley_torso,
 					/obj/item/mecha_parts/part/ripley_right_arm,
@@ -725,7 +725,7 @@
 	name = "Engineering Gear Crate"
 	desc = "Gear up with three toolbelts, high-visibility vests, welding helmets, hardhats, and two pairs of meson goggles!"
 	cost = CARGO_CRATE_VALUE * 4
-	access_view = ACCESS_ENGINEERING
+	access_view = ACCESS_ENGINEERING_LOWSEC
 	contains = list(/obj/item/storage/belt/utility,
 					/obj/item/storage/belt/utility,
 					/obj/item/storage/belt/utility,
@@ -746,7 +746,7 @@
 	name = "Insulated Gloves Crate"
 	desc = "The backbone of modern society. Barely ever ordered for actual engineering. Contains three insulated gloves."
 	cost = CARGO_CRATE_VALUE * 8 //Made of pure-grade bullshittinium
-	access_view = ACCESS_ENGINE_EQUIP
+	access_view = ACCESS_ENGINEERING_LOWSEC
 	contains = list(/obj/item/clothing/gloves/color/yellow,
 					/obj/item/clothing/gloves/color/yellow,
 					/obj/item/clothing/gloves/color/yellow)
@@ -765,7 +765,7 @@
 	name = "P.A.C.M.A.N Generator Crate"
 	desc = "Engineers can't set up the engine? Not an issue for you, once you get your hands on this P.A.C.M.A.N. Generator! Takes in plasma and spits out sweet sweet energy."
 	cost = CARGO_CRATE_VALUE * 5
-	access_view = ACCESS_ENGINEERING
+	access_view = ACCESS_ENGINEERING_LOWSEC
 	contains = list(/obj/machinery/power/port_gen/pacman)
 	crate_name = "\improper PACMAN generator crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
@@ -794,7 +794,7 @@
 /datum/supply_pack/engineering/tools
 	name = "Toolbox Crate"
 	desc = "Any robust spaceman is never far from their trusty toolbox. Contains three electrical toolboxes and three mechanical toolboxes."
-	access_view = ACCESS_ENGINE_EQUIP
+	access_view = ACCESS_ENGINEERING_LOWSEC
 	contains = list(/obj/item/storage/toolbox/electrical,
 					/obj/item/storage/toolbox/electrical,
 					/obj/item/storage/toolbox/electrical,
@@ -808,7 +808,7 @@
 	name = "Portable Air Pump Crate"
 	desc = "Did someone let the air out of the shuttle again? We've got you covered. Contains two portable air pumps."
 	cost = CARGO_CRATE_VALUE * 4.5
-	access_view = ACCESS_ATMOSPHERICS
+	access_view = ACCESS_ENGINEERING_HIGHSEC
 	contains = list(/obj/machinery/portable_atmospherics/pump,
 					/obj/machinery/portable_atmospherics/pump)
 	crate_name = "portable air pump crate"
@@ -817,7 +817,7 @@
 	name = "Portable Scrubber Crate"
 	desc = "Clean up that pesky plasma leak with your very own set of two portable scrubbers."
 	cost = CARGO_CRATE_VALUE * 4.5
-	access_view = ACCESS_ATMOSPHERICS
+	access_view = ACCESS_ENGINEERING_HIGHSEC
 	contains = list(/obj/machinery/portable_atmospherics/scrubber,
 					/obj/machinery/portable_atmospherics/scrubber)
 	crate_name = "portable scrubber crate"
@@ -826,7 +826,7 @@
 	name = "Huge Portable Scrubber Crate"
 	desc = "A huge portable scrubber for huge atmospherics mistakes."
 	cost = CARGO_CRATE_VALUE * 7.5
-	access_view = ACCESS_ATMOSPHERICS
+	access_view = ACCESS_ENGINEERING_HIGHSEC
 	contains = list(/obj/machinery/portable_atmospherics/scrubber/huge/movable/cargo)
 	crate_name = "huge portable scrubber crate"
 	crate_type = /obj/structure/closet/crate/large
@@ -844,7 +844,7 @@
 	desc = "The pride of Nanotrasen Naval Command. The legendary Bluespace Artillery Cannon is a devastating feat of human engineering and testament to wartime determination. Highly advanced research is required for proper construction. "
 	cost = CARGO_CRATE_VALUE * 30
 	special = TRUE
-	access_view = ACCESS_COMMAND
+	access_view = ACCESS_COMMAND_LOWSEC
 	contains = list(/obj/item/circuitboard/machine/bsa/front,
 					/obj/item/circuitboard/machine/bsa/middle,
 					/obj/item/circuitboard/machine/bsa/back,
@@ -857,7 +857,7 @@
 	desc = "Secure the longevity of the current state of humanity within this massive library of scientific knowledge, capable of granting superhuman powers and abilities. Highly advanced research is required for proper construction. Also contains five DNA probes."
 	cost = CARGO_CRATE_VALUE * 24
 	special = TRUE
-	access_view = ACCESS_COMMAND
+	access_view = ACCESS_COMMAND_LOWSEC
 	contains = list(
 					/obj/item/circuitboard/machine/dna_vault,
 					/obj/item/dna_probe,
@@ -873,7 +873,7 @@
 	desc = "Contains five DNA probes for use in the DNA vault."
 	cost = CARGO_CRATE_VALUE * 6
 	special = TRUE
-	access_view = ACCESS_COMMAND
+	access_view = ACCESS_COMMAND_LOWSEC
 	contains = list(/obj/item/dna_probe,
 					/obj/item/dna_probe,
 					/obj/item/dna_probe,
@@ -888,7 +888,7 @@
 	desc = "Protect the very existence of this station with these Anti-Meteor defenses. Contains three Shield Generator Satellites."
 	cost = CARGO_CRATE_VALUE * 6
 	special = TRUE
-	access_view = ACCESS_COMMAND
+	access_view = ACCESS_COMMAND_LOWSEC
 	contains = list(
 					/obj/machinery/satellite/meteor_shield,
 					/obj/machinery/satellite/meteor_shield,
@@ -902,7 +902,7 @@
 	desc = "A control system for the Shield Generator Satellite system."
 	cost = CARGO_CRATE_VALUE * 10
 	special = TRUE
-	access_view = ACCESS_COMMAND
+	access_view = ACCESS_COMMAND_LOWSEC
 	contains = list(/obj/item/circuitboard/computer/sat_control)
 	crate_name= "shield control board crate"
 
@@ -910,7 +910,7 @@
 	name = "Engineering Hardsuit Crate"
 	desc = "Contains a single engineering hardsuit used for space travel!"
 	cost = CARGO_CRATE_VALUE * 5
-	access = ACCESS_ENGINEERING
+	access = ACCESS_ENGINEERING_LOWSEC
 	contains = list(/obj/item/clothing/suit/space/hardsuit/engine)
 	crate_type = /obj/structure/closet/crate/secure/engineering
 	crate_name = "engineering hardsuit crate"
@@ -919,7 +919,7 @@
 	name = "Atmospherics Hardsuit Crate"
 	desc = "Contains a single atmospherics hardsuit used for space travel! This one is also fire resistant!"
 	cost = CARGO_CRATE_VALUE * 8
-	access = ACCESS_ATMOSPHERICS
+	access = ACCESS_ENGINEERING_HIGHSEC
 	contains = list(/obj/item/clothing/suit/space/hardsuit/engine/atmos)
 	crate_type = /obj/structure/closet/crate/secure/engineering
 	crate_name = "atmospherics hardsuit crate"
@@ -930,7 +930,7 @@
 
 /datum/supply_pack/engine
 	group = "Engine Construction"
-	access_view = ACCESS_ENGINEERING
+	access_view = ACCESS_ENGINEERING_LOWSEC
 	crate_type = /obj/structure/closet/crate/engineering
 
 /datum/supply_pack/engine/emitter
@@ -1051,7 +1051,7 @@
 	name = "50 Empty License Plates"
 	desc = "Create a bunch of boxes."
 	cost = CARGO_CRATE_VALUE * 2  // 50 * 25 + 700 - 1000 = 950 credits profit
-	access_view = ACCESS_BRIG_ENTRANCE
+	access_view = ACCESS_SECURITY_LOWSEC
 	contains = list(/obj/item/stack/license_plates/empty/fifty)
 	crate_name = "empty license plate crate"
 
@@ -1132,7 +1132,7 @@
 	name = "Large Fuel Tank Crate"
 	desc = "Contains a high-capacity fuel tank. Keep contents away from open flame."
 	cost = CARGO_CRATE_VALUE * 4
-	access_view = ACCESS_ENGINEERING
+	access_view = ACCESS_ENGINEERING_LOWSEC
 	contains = list(/obj/structure/reagent_dispensers/fueltank/large)
 	crate_name = "high-capacity fuel tank crate"
 	crate_type = /obj/structure/closet/crate/large
@@ -1167,8 +1167,8 @@
 		pack.desc = "Contains a canister of [name]."
 		if(initial(gas.dangerous))
 			pack.desc = "[pack.desc] Requires Atmospherics access to open."
-			pack.access = ACCESS_ATMOSPHERICS
-			pack.access_view = ACCESS_ATMOSPHERICS
+			pack.access = ACCESS_ENGINEERING_HIGHSEC
+			pack.access_view = ACCESS_ENGINEERING_HIGHSEC
 		pack.crate_name = "[name] canister crate"
 		pack.id = "[type]([name])"
 
@@ -1189,7 +1189,7 @@
 
 /datum/supply_pack/medical
 	group = "Medical"
-	access_view = ACCESS_MEDICAL
+	access_view = ACCESS_MEDICAL_LOWSEC
 	crate_type = /obj/structure/closet/crate/medical
 
 /datum/supply_pack/medical/bloodpacks
@@ -1309,7 +1309,7 @@
 	name = "Heavy-Duty Saline Canister"
 	desc = "Contains a bulk supply of saline-glucose condensed into a single canister that should last several days, with a large pump to fill containers with. Direct injection of saline should be left to medical professionals as the pump is capable of overdosing patients. Requires medbay access to open."
 	cost = CARGO_CRATE_VALUE * 6
-	access = ACCESS_MEDICAL
+	access = ACCESS_MEDICAL_LOWSEC
 	contains = list(/obj/machinery/iv_drip/saline)
 
 /datum/supply_pack/medical/virus
@@ -1317,7 +1317,7 @@
 	desc = "Contains twelve different bottles, containing several viral samples for virology research. Also includes seven beakers and syringes. Balled-up jeans not included. Requires CMO access to open."
 	cost = CARGO_CRATE_VALUE * 5
 	access = ACCESS_CMO
-	access_view = ACCESS_VIROLOGY
+	access_view = ACCESS_MEDICAL_HIGHSEC
 	contains = list(/obj/item/reagent_containers/cup/bottle/flu_virion,
 					/obj/item/reagent_containers/cup/bottle/cold,
 					/obj/item/reagent_containers/cup/bottle/random_virus,
@@ -1350,7 +1350,7 @@
 	name = "Medical Hardsuit Crate"
 	desc = "Contains a single medical hardsuit used for space travel and rescuing dying pathfinders."
 	cost = CARGO_CRATE_VALUE * 5
-	access = ACCESS_MEDICAL
+	access = ACCESS_MEDICAL_LOWSEC
 	contains = list(/obj/item/clothing/suit/space/hardsuit/medical)
 	crate_name = "medical hardsuit crate"
 
@@ -1459,8 +1459,8 @@
 	name = "Robotics Assembly Crate"
 	desc = "The tools you need to replace those finicky humans with a loyal robot army! Contains four proximity sensors, two empty first aid kits, two health analyzers, two red hardhats, two mechanical toolboxes, and two cleanbot assemblies! Requires Robotics access to open."
 	cost = CARGO_CRATE_VALUE * 3
-	access = ACCESS_ROBOTICS
-	access_view = ACCESS_ROBOTICS
+	access = ACCESS_ENGINEERING_HIGHSEC
+	access_view = ACCESS_ENGINEERING_HIGHSEC
 	contains = list(/obj/item/assembly/prox_sensor,
 					/obj/item/assembly/prox_sensor,
 					/obj/item/assembly/prox_sensor,
@@ -1490,8 +1490,8 @@
 	name = "Shield Generator Crate"
 	desc = "These high powered Shield Wall Generators are guaranteed to keep any unwanted lifeforms on the outside, where they belong! Contains four shield wall generators. Requires Teleporter access to open."
 	cost = CARGO_CRATE_VALUE * 4
-	access = ACCESS_TELEPORTER
-	access_view = ACCESS_TELEPORTER
+	access = ACCESS_COMMAND_HIGHSEC
+	access_view = ACCESS_COMMAND_HIGHSEC
 	contains = list(/obj/machinery/power/shieldwallgen,
 					/obj/machinery/power/shieldwallgen,
 					/obj/machinery/power/shieldwallgen,
@@ -1536,8 +1536,8 @@
 	name = "MOD core Crate"
 	desc = "Three cores, perfect for any MODsuit construction! Naturally harvested™, of course."
 	cost = CARGO_CRATE_VALUE * 3
-	access = ACCESS_ROBOTICS
-	access_view = ACCESS_ROBOTICS
+	access = ACCESS_ENGINEERING_HIGHSEC
+	access_view = ACCESS_ENGINEERING_HIGHSEC
 	contains = list(/obj/item/mod/core/standard,
 		/obj/item/mod/core/standard,
 		/obj/item/mod/core/standard)
@@ -1567,7 +1567,7 @@
 	name = "High-traction Floor Tiles"
 	desc = "Make slipping a thing of the past with thirty industrial-grade anti-slip floor tiles!"
 	cost = CARGO_CRATE_VALUE * 4
-	access_view = ACCESS_JANITOR
+	access_view = ACCESS_SERVICE_LOWSEC
 	contains = list(/obj/item/stack/tile/noslip/thirty)
 	crate_name = "high-traction floor tiles crate"
 
@@ -1575,7 +1575,7 @@
 	name = "Janitorial Supplies Crate"
 	desc = "Fight back against dirt and grime with Nanotrasen's Janitorial Essentials(tm)! Contains three buckets, caution signs, and cleaner grenades. Also has a single mop, broom, spray cleaner, rag, and trash bag."
 	cost = CARGO_CRATE_VALUE * 2
-	access_view = ACCESS_JANITOR
+	access_view = ACCESS_SERVICE_LOWSEC
 	contains = list(/obj/item/reagent_containers/cup/bucket,
 					/obj/item/reagent_containers/cup/bucket,
 					/obj/item/reagent_containers/cup/bucket,
@@ -1605,7 +1605,7 @@
 	name = "Janitor Backpack Crate"
 	desc = "Call forth divine judgement upon dirt and grime with this high capacity janitor backpack. Contains 500 units of station-cleansing cleaner. Requires janitor access to open."
 	cost = CARGO_CRATE_VALUE * 2
-	access = ACCESS_JANITOR
+	access = ACCESS_SERVICE_LOWSEC
 	contains = list(/obj/item/watertank/janitor)
 	crate_name = "janitor backpack crate"
 	crate_type = /obj/structure/closet/crate/secure
@@ -1719,7 +1719,7 @@
 	desc = "All the miners died too fast? Assistant wants to get a taste of life off-station? Either way, this kit is the best way to turn a regular crewman into an ore-producing, monster-slaying machine. Contains meson goggles, a pickaxe, advanced mining scanner, cargo headset, ore bag, gasmask, an explorer suit and a miner ID upgrade. Requires QM access to open."
 	cost = CARGO_CRATE_VALUE * 4
 	access = ACCESS_QM
-	access_view = ACCESS_MINING_STATION
+	access_view = ACCESS_PATHFINDERS_LOWSEC
 	contains = list(/obj/item/storage/backpack/duffelbag/mining_conscript)
 	crate_name = "shaft miner starter kit"
 	crate_type = /obj/structure/closet/crate/secure
@@ -1728,7 +1728,7 @@
 	name = "Mining Hardsuit Crate"
 	desc = "Contains a single mining hardsuit used for space travel!"
 	cost = CARGO_CRATE_VALUE * 5
-	access = ACCESS_MINING_STATION
+	access = ACCESS_PATHFINDERS_LOWSEC
 	contains = list(/obj/item/clothing/suit/space/hardsuit/mining)
 	crate_name = "mining hardsuit crate"
 	crate_type = /obj/structure/closet/crate/secure
@@ -1843,7 +1843,7 @@
 	crate_type = /obj/structure/closet/crate/freezer
 
 /datum/supply_pack/organic/hydroponics
-	access_view = ACCESS_HYDROPONICS
+	access_view = ACCESS_SERVICE_LOWSEC
 
 /datum/supply_pack/organic/hydroponics/beekeeping_suits
 	name = "Beekeeper Suit Crate"
@@ -1896,7 +1896,7 @@
 	name = "Exotic Seeds Crate"
 	desc = "Any entrepreneuring botanist's dream. Contains fourteen different seeds, including one replica-pod seed and two mystery seeds!"
 	cost = CARGO_CRATE_VALUE * 3
-	access_view = ACCESS_HYDROPONICS
+	access_view = ACCESS_SERVICE_LOWSEC
 	contains = list(/obj/item/seeds/nettle,
 					/obj/item/seeds/replicapod,
 					/obj/item/seeds/plump,
@@ -1950,8 +1950,8 @@
 	contains = list(/obj/item/storage/backpack/duffelbag/clown/cream_pie)
 	crate_name = "party equipment crate"
 	contraband = TRUE
-	access = ACCESS_THEATRE
-	access_view = ACCESS_THEATRE
+	access = ACCESS_SERVICE_LOWSEC
+	access_view = ACCESS_SERVICE_LOWSEC
 	crate_type = /obj/structure/closet/crate/secure
 
 /datum/supply_pack/organic/hydroponics
@@ -1974,7 +1974,7 @@
 	name = "Hydroponics Backpack Crate"
 	desc = "Bring on the flood with this high-capacity backpack crate. Contains 500 units of life-giving H2O. Requires hydroponics access to open."
 	cost = CARGO_CRATE_VALUE * 2
-	access = ACCESS_HYDROPONICS
+	access = ACCESS_SERVICE_LOWSEC
 	contains = list(/obj/item/watertank)
 	crate_name = "hydroponics backpack crate"
 	crate_type = /obj/structure/closet/crate/secure
@@ -2205,7 +2205,7 @@
 	desc = "Not a very dangerous insect, but they do give off a better image than, say, flies or cockroaches."//is that a motherfucking worm reference
 	contraband = TRUE
 	cost = CARGO_CRATE_VALUE * 5
-	access_view = ACCESS_THEATRE
+	access_view = ACCESS_SERVICE_LOWSEC
 	contains = list(/mob/living/simple_animal/butterfly)
 	crate_name = "entomology samples crate"
 
@@ -2218,7 +2218,7 @@
 	name = "Cat Crate"
 	desc = "The cat goes meow! Comes with a collar and a nice cat toy! Cheeseburger not included."//i can't believe im making this reference
 	cost = CARGO_CRATE_VALUE * 10 //Cats are worth as much as corgis.
-	access_view = ACCESS_MEDICAL
+	access_view = ACCESS_MEDICAL_LOWSEC
 	contains = list(/mob/living/simple_animal/pet/cat,
 					/obj/item/clothing/neck/petcollar,
 					/obj/item/toy/cattoy)
@@ -2235,7 +2235,7 @@
 	name = "Chicken Crate"
 	desc = "The chicken goes bwaak!"
 	cost = CARGO_CRATE_VALUE * 4
-	access_view = ACCESS_KITCHEN
+	access_view = ACCESS_SERVICE_LOWSEC
 	contains = list( /mob/living/simple_animal/chick)
 	crate_name = "chicken crate"
 
@@ -2243,7 +2243,7 @@
 	name = "Corgi Crate"
 	desc = "Considered the optimal dog breed by thousands of research scientists, this Corgi is but one dog from the millions of Ian's noble bloodline. Comes with a cute collar!"
 	cost = CARGO_CRATE_VALUE * 10
-	access_view = ACCESS_HOP
+	access_view = ACCESS_COMMAND_LOWSEC
 	contains = list(/mob/living/simple_animal/pet/dog/corgi,
 					/obj/item/clothing/neck/petcollar)
 	crate_name = "corgi crate"
@@ -2260,7 +2260,7 @@
 	name = "Cow Crate"
 	desc = "The cow goes moo!"
 	cost = CARGO_CRATE_VALUE * 6
-	access_view = ACCESS_HYDROPONICS
+	access_view = ACCESS_SERVICE_LOWSEC
 	contains = list(/mob/living/basic/cow)
 	crate_name = "cow crate"
 
@@ -2268,7 +2268,7 @@
 	name = "Sheep Crate"
 	desc = "The sheep goes BAAAA!"
 	cost = CARGO_CRATE_VALUE * 6
-	access_view = ACCESS_HYDROPONICS
+	access_view = ACCESS_SERVICE_LOWSEC
 	contains = list(/mob/living/basic/sheep)
 	crate_name = "sheep crate"
 
@@ -2276,7 +2276,7 @@
 	name = "Pig Crate"
 	desc = "The pig goes oink!"
 	cost = CARGO_CRATE_VALUE * 6
-	access_view = ACCESS_KITCHEN
+	access_view = ACCESS_SERVICE_LOWSEC
 	contains = list(/mob/living/basic/pig)
 	crate_name = "pig crate"
 
@@ -2315,7 +2315,7 @@
 	name = "Goat Crate"
 	desc = "The goat goes baa! Warranty void if used as a replacement for Pete."
 	cost = CARGO_CRATE_VALUE * 5
-	access_view = ACCESS_KITCHEN
+	access_view = ACCESS_SERVICE_LOWSEC
 	contains = list(/mob/living/simple_animal/hostile/retaliate/goat)
 	crate_name = "goat crate"
 
@@ -2354,7 +2354,7 @@
 	name = "Snake Crate"
 	desc = "Tired of these MOTHER FUCKING snakes on this MOTHER FUCKING space station? Then this isn't the crate for you. Contains three poisonous snakes."
 	cost = CARGO_CRATE_VALUE * 6
-	access_view = ACCESS_SECURITY
+	access_view = ACCESS_SECURITY_LOWSEC
 	contains = list(/mob/living/simple_animal/hostile/retaliate/snake,
 					/mob/living/simple_animal/hostile/retaliate/snake,
 					/mob/living/simple_animal/hostile/retaliate/snake)
@@ -2364,7 +2364,7 @@
 	name = "Lizard Crate"
 	desc = "Hisss! Containssss a friendly lizard. Not to be confusssed with a lizardperssson."
 	cost = CARGO_CRATE_VALUE * 4
-	access_view = ACCESS_JANITOR
+	access_view = ACCESS_SERVICE_LOWSEC
 	contains = list(/mob/living/simple_animal/hostile/lizard)
 	crate_name = "lizard crate"
 
@@ -2565,7 +2565,7 @@
 	name = "Standard Costume Crate"
 	desc = "Supply the station's entertainers with the equipment of their trade with these Nanotrasen-approved costumes! Contains a full clown and mime outfit, along with a bike horn and a bottle of nothing."
 	cost = CARGO_CRATE_VALUE * 2
-	access = ACCESS_THEATRE
+	access = ACCESS_SERVICE_LOWSEC
 	contains = list(/obj/item/storage/backpack/clown,
 					/obj/item/clothing/shoes/clown_shoes,
 					/obj/item/clothing/mask/gas/clown_hat,
@@ -2778,7 +2778,7 @@
 	name = "Book Crate"
 	desc = "Surplus from the Nanotrasen Archives, these seven books are sure to be good reads."
 	cost = CARGO_CRATE_VALUE * 3
-	access_view = ACCESS_LIBRARY
+	access_view = ACCESS_SERVICE_LOWSEC
 	contains = list(/obj/item/book/codex_gigas,
 					/obj/item/book/manual/random/,
 					/obj/item/book/manual/random/,
@@ -2791,8 +2791,8 @@
 /datum/supply_pack/misc/commandkeys
 	name = "Command Encryption Key Crate"
 	desc = "A pack of encryption keys that give access to the command radio network. Nanotrasen reminds unauthorized employees not to eavesdrop in on secure communications channels, or at least to keep heckling of the command staff to a minimum."
-	access_view = ACCESS_COMMAND
-	access = ACCESS_COMMAND
+	access_view = ACCESS_COMMAND_LOWSEC
+	access = ACCESS_COMMAND_LOWSEC
 	cost = CARGO_CRATE_VALUE * 4
 	contains = list(/obj/item/encryptionkey/headset_com,
 					/obj/item/encryptionkey/headset_com,
@@ -2862,7 +2862,7 @@
 	name = "Funeral Supply crate"
 	desc = "At the end of the day, someone's gonna want someone dead. Give them a proper send-off with these funeral supplies! Contains a coffin with burial garmets and flowers."
 	cost = CARGO_CRATE_VALUE * 1.6
-	access_view = ACCESS_CHAPEL_OFFICE
+	access_view = ACCESS_SERVICE_HIGHSEC
 	contains = list(/obj/item/clothing/under/misc/burial,
 					/obj/item/food/grown/harebell,
 					/obj/item/food/grown/poppy/geranium)
@@ -2885,7 +2885,7 @@
 	name = "Religious Supplies Crate"
 	desc = "Keep your local chaplain happy and well-supplied, lest they call down judgement upon your cargo bay. Contains two bottles of holywater, bibles, chaplain robes, and burial garmets."
 	cost = CARGO_CRATE_VALUE * 6 // it costs so much because the Space Church needs funding to build a cathedral
-	access_view = ACCESS_CHAPEL_OFFICE
+	access_view = ACCESS_SERVICE_HIGHSEC
 	contains = list(/obj/item/reagent_containers/cup/glass/bottle/holywater,
 					/obj/item/reagent_containers/cup/glass/bottle/holywater,
 					/obj/item/storage/book/bible/booze,
@@ -3070,7 +3070,7 @@
 	name = "SecTech Supply Crate"
 	desc = "Officer Paul bought all the donuts? Then refill the security vendor with ths crate."
 	cost = CARGO_CRATE_VALUE * 3
-	access = ACCESS_SECURITY
+	access = ACCESS_SECURITY_LOWSEC
 	contains = list(/obj/item/vending_refill/security)
 	crate_name = "\improper SecTech supply crate"
 	crate_type = /obj/structure/closet/crate/secure/gear

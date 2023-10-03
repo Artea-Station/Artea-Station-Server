@@ -9,8 +9,8 @@
 	armor = list(MELEE = 25, BULLET = 20, LASER = 30, ENERGY = 15, BOMB = 0, BIO = 0, FIRE = 100, ACID = 100)
 	max_temperature = 15000
 	wreckage = /obj/structure/mecha_wreckage/reticence
-	operation_req_access = list(ACCESS_THEATRE)
-	internals_req_access = list(ACCESS_MECH_SCIENCE, ACCESS_THEATRE)
+	operation_req_access = list(ACCESS_SERVICE_LOWSEC)
+	internals_req_access = list(ACCESS_ENGINEERING_VEHICLES, ACCESS_SERVICE_LOWSEC)
 	mecha_flags = CANSTRAFE | IS_ENCLOSED | HAS_LIGHTS | QUIET_STEPS | QUIET_TURNS | MMI_COMPATIBLE
 	mech_type = EXOSUIT_MODULE_COMBAT
 	max_equip_by_category = list(

@@ -4,7 +4,7 @@
 	name = "exosuit fabricator"
 	desc = "Nothing is being built."
 	density = TRUE
-	req_access = list(ACCESS_ROBOTICS)
+	req_access = list(ACCESS_ENGINEERING_HIGHSEC)
 	circuit = /obj/item/circuitboard/machine/mechfab
 	processing_flags = START_PROCESSING_MANUALLY
 

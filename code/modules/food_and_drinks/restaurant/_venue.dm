@@ -24,7 +24,7 @@
 	///Max time between new visits
 	var/max_time_between_visitor = 90 SECONDS
 	///Required access to mess with the venue
-	var/req_access = ACCESS_KITCHEN
+	var/req_access = ACCESS_SERVICE_LOWSEC
 	///how many robots got their wanted thing
 	var/customers_served = 0
 	///Total income of those venue

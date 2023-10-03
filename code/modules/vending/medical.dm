@@ -5,7 +5,7 @@
 	icon_deny = "med-deny"
 	panel_type = "panel11"
 	product_ads = "Go save some lives!;The best stuff for your medbay.;Only the finest tools.;Natural chemicals!;This stuff saves lives.;Don't you want some?;Ping!"
-	req_access = list(ACCESS_MEDICAL)
+	req_access = list(ACCESS_MEDICAL_LOWSEC)
 	products = list(
 		/obj/item/stack/medical/gauze = 8,
 		/obj/item/reagent_containers/syringe = 12,
@@ -44,7 +44,7 @@
 
 /obj/machinery/vending/medical/syndicate_access
 	name = "\improper SyndiMed Plus"
-	req_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE_LOWSEC)
 
 //Created out of a necessity to get these dumb chems out of the medical tools vendor.
 /obj/machinery/vending/drugs
@@ -54,7 +54,7 @@
 	icon_deny = "drug-deny"
 	panel_type = "panel11"
 	product_ads = "Go save some lives!;The best stuff for your medbay.;Only the finest tools.;Natural chemicals!;This stuff saves lives.;Don't you want some?;Ping!"
-	req_access = list(ACCESS_MEDICAL)
+	req_access = list(ACCESS_MEDICAL_LOWSEC)
 	products = list(
 		/obj/item/reagent_containers/pill/patch/libital = 5,
 		/obj/item/reagent_containers/pill/patch/aiuri = 5,

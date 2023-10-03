@@ -1,6 +1,6 @@
 /// Trim for basic Centcom cards.
 /datum/id_trim/centcom
-	access = list(ACCESS_CENT_GENERAL)
+	access = list(ACCESS_CENTCOM_LOWSEC)
 	assignment = JOB_CENTCOM
 	department_state = "dept-corporate-gold"
 	sechud_icon_state = SECHUD_CENTCOM
@@ -9,13 +9,13 @@
 
 /// Trim for Centcom VIPs
 /datum/id_trim/centcom/vip
-	access = list(ACCESS_CENT_GENERAL)
+	access = list(ACCESS_CENTCOM_LOWSEC)
 	assignment = JOB_CENTCOM_VIP
 	department_state = "dept-vip-gold"
 
 /// Trim for Centcom Custodians.
 /datum/id_trim/centcom/custodian
-	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
+	access = list(ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_HIGHSEC)
 	assignment = JOB_CENTCOM_CUSTODIAN
 	department_state = "dept-civilian"
 	department_color = COLOR_CENTCOM_BLUE
@@ -23,17 +23,17 @@
 
 /// Trim for Centcom Thunderdome Overseers.
 /datum/id_trim/centcom/thunderdome_overseer
-	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER)
+	access = list(ACCESS_CENTCOM_LOWSEC, ACCESS_SPECIAL_THUNDERDOME)
 	assignment = JOB_CENTCOM_THUNDERDOME_OVERSEER
 
 /// Trim for Centcom Officials.
 /datum/id_trim/centcom/official
-	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_WEAPONS)
+	access = list(ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_LOWSEC, ACCESS_WEAPONS)
 	assignment = JOB_CENTCOM_OFFICIAL
 
 /// Trim for Centcom Interns.
 /datum/id_trim/centcom/intern
-	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_WEAPONS)
+	access = list(ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_LOWSEC, ACCESS_WEAPONS)
 	assignment = "CentCom Intern"
 	department_state = "dept-corporate"
 
@@ -48,25 +48,25 @@
 
 /// Trim for Bounty Hunters hired by centcom.
 /datum/id_trim/centcom/bounty_hunter
-	access = list(ACCESS_CENT_GENERAL)
+	access = list(ACCESS_CENTCOM_LOWSEC)
 	assignment = "Bounty Hunter"
 	department_state = "dept-corporate"
 
 /// Trim for Centcom Bartenders.
 /datum/id_trim/centcom/bartender
-	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_BAR)
+	access = list(ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_LOWSEC)
 	assignment = JOB_CENTCOM_BARTENDER
 	department_state = "dept-corporate"
 
 /// Trim for Centcom Medical Officers.
 /datum/id_trim/centcom/medical_officer
-	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL)
+	access = list(ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_LOWSEC)
 	assignment = JOB_CENTCOM_MEDICAL_DOCTOR
 	department_state = "dept-corporate"
 
 /// Trim for Centcom Research Officers.
 /datum/id_trim/centcom/research_officer
-	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_TELEPORTER, ACCESS_CENT_STORAGE)
+	access = list(ACCESS_CENTCOM_LOWSEC, ACCESS_CENT_SPECOPS, ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_HIGHSEC, ACCESS_CENTCOM_HIGHSEC)
 	assignment = JOB_CENTCOM_RESEARCH_OFFICER
 	department_state = "dept-corporate"
 
@@ -116,7 +116,7 @@
 /datum/id_trim/centcom/ert/New()
 	. = ..()
 
-	access = list(ACCESS_CENT_GENERAL) | (SSid_access.get_region_access_list(list(REGION_ALL_STATION)) - ACCESS_CHANGE_IDS)
+	access = list(ACCESS_CENTCOM_LOWSEC) | (SSid_access.get_region_access_list(list(REGION_ALL_STATION)) - ACCESS_COMMAND_LOWSEC)
 
 /// Trim for ERT Commanders. All station and centcom access.
 /datum/id_trim/centcom/ert/commander
@@ -138,7 +138,7 @@
 /datum/id_trim/centcom/ert/security/New()
 	. = ..()
 
-	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING) | (SSid_access.get_region_access_list(list(REGION_ALL_STATION)) - ACCESS_CHANGE_IDS)
+	access = list(ACCESS_CENTCOM_LOWSEC, ACCESS_CENT_SPECOPS, ACCESS_CENTCOM_LOWSEC) | (SSid_access.get_region_access_list(list(REGION_ALL_STATION)) - ACCESS_COMMAND_LOWSEC)
 
 /// Trim for generic ERT engineers. No universal ID card changing access.
 /datum/id_trim/centcom/ert/engineer
@@ -149,7 +149,7 @@
 /datum/id_trim/centcom/ert/engineer/New()
 	. = ..()
 
-	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE) | (SSid_access.get_region_access_list(list(REGION_ALL_STATION)) - ACCESS_CHANGE_IDS)
+	access = list(ACCESS_CENTCOM_LOWSEC, ACCESS_CENT_SPECOPS, ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_HIGHSEC) | (SSid_access.get_region_access_list(list(REGION_ALL_STATION)) - ACCESS_COMMAND_LOWSEC)
 
 /// Trim for generic ERT medics. No universal ID card changing access.
 /datum/id_trim/centcom/ert/medical
@@ -160,7 +160,7 @@
 /datum/id_trim/centcom/ert/medical/New()
 	. = ..()
 
-	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_LIVING) | (SSid_access.get_region_access_list(list(REGION_ALL_STATION)) - ACCESS_CHANGE_IDS)
+	access = list(ACCESS_CENTCOM_LOWSEC, ACCESS_CENT_SPECOPS, ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_LOWSEC) | (SSid_access.get_region_access_list(list(REGION_ALL_STATION)) - ACCESS_COMMAND_LOWSEC)
 
 /// Trim for generic ERT chaplains. No universal ID card changing access.
 /datum/id_trim/centcom/ert/chaplain
@@ -171,7 +171,7 @@
 /datum/id_trim/centcom/ert/chaplain/New()
 	. = ..()
 
-	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING) | (SSid_access.get_region_access_list(list(REGION_ALL_STATION)) - ACCESS_CHANGE_IDS)
+	access = list(ACCESS_CENTCOM_LOWSEC, ACCESS_CENT_SPECOPS, ACCESS_CENTCOM_LOWSEC) | (SSid_access.get_region_access_list(list(REGION_ALL_STATION)) - ACCESS_COMMAND_LOWSEC)
 
 /// Trim for generic ERT janitors. No universal ID card changing access.
 /datum/id_trim/centcom/ert/janitor
@@ -182,7 +182,7 @@
 /datum/id_trim/centcom/ert/janitor/New()
 	. = ..()
 
-	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING) | (SSid_access.get_region_access_list(list(REGION_ALL_STATION)) - ACCESS_CHANGE_IDS)
+	access = list(ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_LOWSEC) | (SSid_access.get_region_access_list(list(REGION_ALL_STATION)) - ACCESS_COMMAND_LOWSEC)
 
 /// Trim for generic ERT clowns. No universal ID card changing access.
 /datum/id_trim/centcom/ert/clown
@@ -193,4 +193,4 @@
 /datum/id_trim/centcom/ert/clown/New()
 	. = ..()
 
-	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING) | (SSid_access.get_region_access_list(list(REGION_ALL_STATION)) - ACCESS_CHANGE_IDS)
+	access = list(ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_LOWSEC) | (SSid_access.get_region_access_list(list(REGION_ALL_STATION)) - ACCESS_COMMAND_LOWSEC)

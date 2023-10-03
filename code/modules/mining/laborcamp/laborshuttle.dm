@@ -4,7 +4,7 @@
 	circuit = /obj/item/circuitboard/computer/labor_shuttle
 	shuttleId = "laborcamp"
 	possible_destinations = "laborcamp_home;laborcamp_away;mediumdock;largedock;hugedock"
-	req_access = list(ACCESS_BRIG)
+	req_access = list(ACCESS_SECURITY_HIGHSEC)
 
 /obj/machinery/computer/shuttle/labor/one_way
 	name = "prisoner shuttle console"

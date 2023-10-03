@@ -97,7 +97,7 @@
 	///Random serial number generated for each cyborg upon its initialization
 	var/ident = 0
 	var/locked = TRUE
-	var/list/req_access = list(ACCESS_ROBOTICS)
+	var/list/req_access = list(ACCESS_ENGINEERING_HIGHSEC)
 
 	///Whether the robot has no charge left.
 	var/low_power_mode = FALSE
@@ -173,7 +173,7 @@
 	icon_state = "synd_sec"
 	faction = list(ROLE_SYNDICATE)
 	bubble_icon = "syndibot"
-	req_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE_LOWSEC)
 	lawupdate = FALSE
 	scrambledcodes = TRUE // These are rogue borgs.
 	ionpulse = TRUE

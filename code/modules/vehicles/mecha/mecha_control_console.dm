@@ -3,7 +3,7 @@
 	desc = "Used to remotely locate or lockdown exosuits."
 	icon_screen = "mecha"
 	icon_keyboard = "tech_key"
-	req_access = list(ACCESS_ROBOTICS)
+	req_access = list(ACCESS_ENGINEERING_HIGHSEC)
 	circuit = /obj/item/circuitboard/computer/mecha_control
 
 /obj/machinery/computer/mecha/ui_interact(mob/user, datum/tgui/ui)

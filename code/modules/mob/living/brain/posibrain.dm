@@ -7,7 +7,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	icon_state = "posibrain"
 	base_icon_state = "posibrain"
 	w_class = WEIGHT_CLASS_NORMAL
-	req_access = list(ACCESS_ROBOTICS)
+	req_access = list(ACCESS_ENGINEERING_HIGHSEC)
 	braintype = "Android"
 
 	///Message sent to the user when polling ghosts

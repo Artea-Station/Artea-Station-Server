@@ -101,8 +101,8 @@
 	name = "\improper Mauler"
 	icon_state = "mauler"
 	base_icon_state = "mauler"
-	operation_req_access = list(ACCESS_SYNDICATE)
-	internals_req_access = list(ACCESS_SYNDICATE)
+	operation_req_access = list(ACCESS_SYNDICATE_LOWSEC)
+	internals_req_access = list(ACCESS_SYNDICATE_LOWSEC)
 	wreckage = /obj/structure/mecha_wreckage/mauler
 	max_equip_by_category = list(
 		MECHA_UTILITY = 3,

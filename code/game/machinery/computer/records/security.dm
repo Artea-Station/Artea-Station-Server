@@ -10,7 +10,7 @@
 	desc = "Used to view and edit personnel's security records."
 	icon_screen = "security"
 	icon_keyboard = "security_key"
-	req_one_access = list(ACCESS_SECURITY, ACCESS_HOP)
+	req_one_access = list(ACCESS_SECURITY_LOWSEC, ACCESS_COMMAND_LOWSEC)
 	circuit = /obj/item/circuitboard/computer/secure_data
 	light_color = COLOR_SOFT_RED
 	/// The current state of the printer
@@ -18,7 +18,7 @@
 
 /obj/machinery/computer/records/security/syndie
 	icon_keyboard = "syndie_key"
-	req_one_access = list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE_LOWSEC)
 
 /obj/machinery/computer/records/security/laptop
 	name = "security laptop"
@@ -30,7 +30,7 @@
 
 /obj/machinery/computer/records/security/laptop/syndie
 	desc = "A cheap, jailbroken security laptop. It functions as a security records console. It's bolted to the table."
-	req_one_access = list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE_LOWSEC)
 
 /obj/machinery/computer/records/security/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
@@ -265,7 +265,7 @@
 	if(!auth)
 		return FALSE
 
-	if(!(ACCESS_ARMORY in auth.GetAccess()))
+	if(!(ACCESS_SECURITY_HIGHSEC in auth.GetAccess()))
 		return FALSE
 
 	return TRUE

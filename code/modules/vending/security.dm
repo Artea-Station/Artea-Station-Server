@@ -6,7 +6,7 @@
 	icon_deny = "sec-deny"
 	panel_type = "panel6"
 	light_mask = "sec-light-mask"
-	req_access = list(ACCESS_SECURITY)
+	req_access = list(ACCESS_SECURITY_LOWSEC)
 	products = list(
 		/obj/item/restraints/handcuffs = 8,
 		/obj/item/restraints/handcuffs/cable/zipties = 10,

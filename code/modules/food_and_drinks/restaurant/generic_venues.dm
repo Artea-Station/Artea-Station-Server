@@ -2,7 +2,7 @@
 /////RESTAURANT/////
 /datum/venue/restaurant
 	name = "restaurant"
-	req_access = ACCESS_KITCHEN
+	req_access = ACCESS_SERVICE_LOWSEC
 	venue_type = VENUE_RESTAURANT
 	min_time_between_visitor = 80 SECONDS
 	max_time_between_visitor = 100 SECONDS
@@ -66,7 +66,7 @@
 /////BAR/////
 /datum/venue/bar
 	name = "bar"
-	req_access = ACCESS_BAR
+	req_access = ACCESS_SERVICE_HIGHSEC
 	venue_type = VENUE_BAR
 	min_time_between_visitor = 40 SECONDS
 	max_time_between_visitor = 60 SECONDS

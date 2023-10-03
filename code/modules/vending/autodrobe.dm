@@ -4,7 +4,7 @@
 	icon_state = "theater"
 	icon_deny = "theater-deny"
 	panel_type = "panel16"
-	req_access = list(ACCESS_THEATRE)
+	req_access = list(ACCESS_SERVICE_LOWSEC)
 	product_slogans = "Dress for success!;Suited and booted!;It's show time!;Why leave style up to fate? Use AutoDrobe!"
 	vend_reply = "Thank you for using AutoDrobe!"
 	product_categories = list(

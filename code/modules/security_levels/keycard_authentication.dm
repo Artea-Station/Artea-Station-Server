@@ -10,7 +10,7 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "auth_off"
 	power_channel = AREA_USAGE_ENVIRON
-	req_access = list(ACCESS_KEYCARD_AUTH)
+	req_access = list(ACCESS_COMMAND_HIGHSEC)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 	var/datum/callback/ev

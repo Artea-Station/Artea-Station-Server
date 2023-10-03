@@ -395,11 +395,11 @@
 /obj/machinery/door/window/brigdoor/security/cell
 	name = "cell door"
 	desc = "For keeping in criminal scum."
-	req_access = list(ACCESS_BRIG)
+	req_access = list(ACCESS_SECURITY_HIGHSEC)
 
 /obj/machinery/door/window/brigdoor/security/holding
 	name = "holding cell door"
-	req_one_access = list(ACCESS_SECURITY)
+	req_one_access = list(ACCESS_SECURITY_LOWSEC)
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/door/window/left, 0)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/door/window/right, 0)

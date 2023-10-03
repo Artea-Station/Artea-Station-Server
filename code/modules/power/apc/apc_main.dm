@@ -114,7 +114,7 @@
 
 /obj/machinery/power/apc/New(turf/loc, ndir, building=0)
 	if(!req_access)
-		req_access = list(ACCESS_ENGINE_EQUIP)
+		req_access = list(ACCESS_ENGINEERING_LOWSEC)
 	if(!armor)
 		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, BIO = 0, FIRE = 90, ACID = 50)
 	..()

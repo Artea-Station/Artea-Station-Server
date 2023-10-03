@@ -28,17 +28,17 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/command/general/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_COMMAND
+	access_list += ACCESS_COMMAND_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/command/ai_upload/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_AI_UPLOAD
+	access_list += ACCESS_COMMAND_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/command/teleporter/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_TELEPORTER
+	access_list += ACCESS_COMMAND_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/command/eva/get_access()
@@ -48,18 +48,18 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/command/minisat/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_MINISAT
+	access_list += ACCESS_COMMAND_LOWSEC
 	return access_list
 
 
 /obj/effect/mapping_helpers/airlock/access/any/command/gateway/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_GATEWAY
+	access_list += ACCESS_COMMAND_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/command/hop/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_HOP
+	access_list += ACCESS_COMMAND_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/command/captain/get_access()
@@ -69,7 +69,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/command/maintenance/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_COMMAND, ACCESS_MAINT_TUNNELS)
+	access_list += list(ACCESS_COMMAND_LOWSEC, ACCESS_MAINT_TUNNELS)
 	return access_list
 
 // -------------------- Engineering access helpers
@@ -78,17 +78,17 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_ENGINEERING
+	access_list += ACCESS_ENGINEERING_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/engine_equipment/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_ENGINE_EQUIP
+	access_list += ACCESS_ENGINEERING_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/construction/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CONSTRUCTION
+	access_list += ACCESS_ENGINEERING_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/aux_base/get_access()
@@ -103,7 +103,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance/departmental/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_ENGINEERING, ACCESS_MAINT_TUNNELS)
+	access_list += list(ACCESS_ENGINEERING_LOWSEC, ACCESS_MAINT_TUNNELS)
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/external/get_access()
@@ -113,17 +113,17 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/tech_storage/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_TECH_STORAGE
+	access_list += ACCESS_ENGINEERING_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/atmos/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_ATMOSPHERICS
+	access_list += ACCESS_ENGINEERING_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/tcoms/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_TCOMMS
+	access_list += ACCESS_ENGINEERING_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/ce/get_access()
@@ -137,27 +137,27 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/medical/general/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_MEDICAL
+	access_list += ACCESS_MEDICAL_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/medical/morgue/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_MORGUE
+	access_list += ACCESS_MEDICAL_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/medical/chemistry/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_PHARMACY
+	access_list += ACCESS_MEDICAL_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/medical/virology/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_VIROLOGY
+	access_list += ACCESS_MEDICAL_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/medical/surgery/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_SURGERY
+	access_list += ACCESS_MEDICAL_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/medical/cmo/get_access()
@@ -167,22 +167,22 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/medical/pharmacy/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_PHARMACY
+	access_list += ACCESS_MEDICAL_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/medical/psychology/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_PSYCHOLOGY
+	access_list += ACCESS_MEDICAL_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/medical/maintenance/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS)
+	access_list += list(ACCESS_MEDICAL_LOWSEC, ACCESS_MAINT_TUNNELS)
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/medical/shuttle/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_MEDICAL_SHUTTLE
+	access_list += ACCESS_MEDICAL_VEHICLES
 	return access_list
 
 // -------------------- Science access helpers
@@ -216,7 +216,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/science/robotics/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_ROBOTICS
+	access_list += ACCESS_ENGINEERING_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/science/xenobio/get_access()
@@ -226,7 +226,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/science/minisat/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_MINISAT
+	access_list += ACCESS_COMMAND_LOWSEC
 	return access_list
 
 /// ARTEA TODO: Doesn't actually set RD. This should be removed when we stop using TG maps!!
@@ -246,32 +246,32 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/security/general/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_SECURITY
+	access_list += ACCESS_SECURITY_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/security/entrance/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_BRIG_ENTRANCE
+	access_list += ACCESS_SECURITY_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/security/brig/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_BRIG
+	access_list += ACCESS_SECURITY_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/security/armory/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_ARMORY
+	access_list += ACCESS_SECURITY_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/security/detective/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_DETECTIVE
+	access_list += ACCESS_SECURITY_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/security/court/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_COURT
+	access_list += ACCESS_SECURITY_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/security/hos/get_access()
@@ -281,7 +281,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/security/maintenance/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_SECURITY, ACCESS_MAINT_TUNNELS)
+	access_list += list(ACCESS_SECURITY_LOWSEC, ACCESS_MAINT_TUNNELS)
 	return access_list
 
 // -------------------- Service access helpers
@@ -290,57 +290,57 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/service/general/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_SERVICE
+	access_list += ACCESS_SERVICE_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/service/kitchen/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_KITCHEN
+	access_list += ACCESS_SERVICE_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/service/bar/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_BAR
+	access_list += ACCESS_SERVICE_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/service/hydroponics/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_HYDROPONICS
+	access_list += ACCESS_SERVICE_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/service/janitor/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_JANITOR
+	access_list += ACCESS_SERVICE_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/service/chapel_office/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CHAPEL_OFFICE
+	access_list += ACCESS_SERVICE_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/service/crematorium/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CREMATORIUM
+	access_list += ACCESS_SERVICE_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/service/library/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_LIBRARY
+	access_list += ACCESS_SERVICE_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/service/theatre/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_THEATRE
+	access_list += ACCESS_SERVICE_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/service/lawyer/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_LAWYER
+	access_list += ACCESS_SERVICE_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/service/maintenance/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_SERVICE, ACCESS_MAINT_TUNNELS)
+	access_list += list(ACCESS_SERVICE_LOWSEC, ACCESS_MAINT_TUNNELS)
 	return access_list
 
 // -------------------- Supply access helpers
@@ -349,27 +349,27 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/supply/general/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CARGO
+	access_list += ACCESS_CARGO_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/supply/shipping/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_SHIPPING
+	access_list += ACCESS_CARGO_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_MINING
+	access_list += ACCESS_PATHFINDERS_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining_station/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_MINING_STATION
+	access_list += ACCESS_PATHFINDERS_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/supply/mineral_storage/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_MINERAL_STOREROOM
+	access_list += ACCESS_CARGO_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/supply/qm/get_access()
@@ -384,7 +384,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/supply/maintenance/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_CARGO, ACCESS_MAINT_TUNNELS)
+	access_list += list(ACCESS_CARGO_LOWSEC, ACCESS_MAINT_TUNNELS)
 	return access_list
 
 // -------------------- Syndicate access helpers
@@ -393,12 +393,12 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/syndicate/general/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_SYNDICATE)
+	access_list += list(ACCESS_SYNDICATE_LOWSEC)
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/syndicate/leader/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_SYNDICATE_LEADER)
+	access_list += list(ACCESS_SYNDICATE_HIGHSEC)
 	return access_list
 
 // -------------------- Away access helpers
@@ -471,42 +471,42 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/admin/general/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_CENT_GENERAL)
+	access_list += list(ACCESS_CENTCOM_LOWSEC)
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/admin/thunderdome/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_CENT_THUNDER)
+	access_list += list(ACCESS_SPECIAL_THUNDERDOME)
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/admin/medical/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_CENT_MEDICAL)
+	access_list += list(ACCESS_CENTCOM_LOWSEC)
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/admin/living/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_CENT_LIVING)
+	access_list += list(ACCESS_CENTCOM_LOWSEC)
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/admin/storage/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_CENT_STORAGE)
+	access_list += list(ACCESS_CENTCOM_HIGHSEC)
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/admin/teleporter/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_CENT_TELEPORTER)
+	access_list += list(ACCESS_CENTCOM_HIGHSEC)
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/admin/captain/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_CENT_CAPTAIN)
+	access_list += list(ACCESS_CENTCOM_HIGHSEC)
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/admin/bar/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_CENT_CAPTAIN)
+	access_list += list(ACCESS_CENTCOM_HIGHSEC)
 	return access_list
 
 // -------------------- Req All (Requires ALL of the given accesses to open)
@@ -516,17 +516,17 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/command/general/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_COMMAND
+	access_list += ACCESS_COMMAND_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/command/ai_upload/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_AI_UPLOAD
+	access_list += ACCESS_COMMAND_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/command/teleporter/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_TELEPORTER
+	access_list += ACCESS_COMMAND_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/command/eva/get_access()
@@ -536,17 +536,17 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/command/minisat/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_MINISAT
+	access_list += ACCESS_COMMAND_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/command/gateway/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_GATEWAY
+	access_list += ACCESS_COMMAND_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/command/hop/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_HOP
+	access_list += ACCESS_COMMAND_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/command/captain/get_access()
@@ -560,17 +560,17 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_ENGINEERING
+	access_list += ACCESS_ENGINEERING_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/engine_equipment/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_ENGINE_EQUIP
+	access_list += ACCESS_ENGINEERING_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/construction/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CONSTRUCTION
+	access_list += ACCESS_ENGINEERING_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/aux_base/get_access()
@@ -590,17 +590,17 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/tech_storage/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_TECH_STORAGE
+	access_list += ACCESS_ENGINEERING_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_ATMOSPHERICS
+	access_list += ACCESS_ENGINEERING_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_TCOMMS
+	access_list += ACCESS_ENGINEERING_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/ce/get_access()
@@ -614,27 +614,27 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/medical/general/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_MEDICAL
+	access_list += ACCESS_MEDICAL_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/medical/morgue/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_MORGUE
+	access_list += ACCESS_MEDICAL_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/medical/chemistry/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_PHARMACY
+	access_list += ACCESS_MEDICAL_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/medical/virology/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_VIROLOGY
+	access_list += ACCESS_MEDICAL_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/medical/surgery/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_SURGERY
+	access_list += ACCESS_MEDICAL_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/medical/cmo/get_access()
@@ -644,17 +644,17 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/medical/pharmacy/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_PHARMACY
+	access_list += ACCESS_MEDICAL_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/medical/psychology/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_PSYCHOLOGY
+	access_list += ACCESS_MEDICAL_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/medical/shuttle/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_MEDICAL_SHUTTLE
+	access_list += ACCESS_MEDICAL_VEHICLES
 	return access_list
 
 // -------------------- Science access helpers
@@ -688,7 +688,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/science/robotics/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_ROBOTICS
+	access_list += ACCESS_ENGINEERING_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/science/xenobio/get_access()
@@ -698,7 +698,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/science/minisat/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_MINISAT
+	access_list += ACCESS_COMMAND_LOWSEC
 	return access_list
 
 /// ARTEA TODO: Doesn't actually set RD. This should be removed when we stop using TG maps!!
@@ -713,32 +713,32 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/security/general/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_SECURITY
+	access_list += ACCESS_SECURITY_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/security/entrance/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_BRIG_ENTRANCE
+	access_list += ACCESS_SECURITY_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/security/brig/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_BRIG
+	access_list += ACCESS_SECURITY_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/security/armory/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_ARMORY
+	access_list += ACCESS_SECURITY_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/security/detective/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_DETECTIVE
+	access_list += ACCESS_SECURITY_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/security/court/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_COURT
+	access_list += ACCESS_SECURITY_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/security/hos/get_access()
@@ -752,52 +752,52 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/service/general/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_SERVICE
+	access_list += ACCESS_SERVICE_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_KITCHEN
+	access_list += ACCESS_SERVICE_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/service/bar/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_BAR
+	access_list += ACCESS_SERVICE_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/service/hydroponics/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_HYDROPONICS
+	access_list += ACCESS_SERVICE_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/service/janitor/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_JANITOR
+	access_list += ACCESS_SERVICE_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/service/chapel_office/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CHAPEL_OFFICE
+	access_list += ACCESS_SERVICE_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/service/crematorium/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CREMATORIUM
+	access_list += ACCESS_SERVICE_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/service/library/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_LIBRARY
+	access_list += ACCESS_SERVICE_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/service/theatre/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_THEATRE
+	access_list += ACCESS_SERVICE_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/service/lawyer/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_LAWYER
+	access_list += ACCESS_SERVICE_HIGHSEC
 	return access_list
 
 // -------------------- Supply access helpers
@@ -806,27 +806,27 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/supply/general/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CARGO
+	access_list += ACCESS_CARGO_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/supply/shipping/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_SHIPPING
+	access_list += ACCESS_CARGO_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_MINING
+	access_list += ACCESS_PATHFINDERS_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_MINING_STATION
+	access_list += ACCESS_PATHFINDERS_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/supply/mineral_storage/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_MINERAL_STOREROOM
+	access_list += ACCESS_CARGO_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/supply/qm/get_access()
@@ -845,12 +845,12 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/general/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_SYNDICATE
+	access_list += ACCESS_SYNDICATE_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/leader/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_SYNDICATE_LEADER
+	access_list += ACCESS_SYNDICATE_HIGHSEC
 	return access_list
 
 // -------------------- Away access helpers
@@ -923,40 +923,40 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/admin/general/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CENT_GENERAL
+	access_list += ACCESS_CENTCOM_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/admin/thunderdome/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CENT_THUNDER
+	access_list += ACCESS_SPECIAL_THUNDERDOME
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/admin/medical/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CENT_MEDICAL
+	access_list += ACCESS_CENTCOM_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/admin/living/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CENT_LIVING
+	access_list += ACCESS_CENTCOM_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/admin/storage/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CENT_STORAGE
+	access_list += ACCESS_CENTCOM_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/admin/teleporter/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CENT_TELEPORTER
+	access_list += ACCESS_CENTCOM_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/admin/captain/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CENT_CAPTAIN
+	access_list += ACCESS_CENTCOM_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/admin/bar/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CENT_BAR
+	access_list += ACCESS_CENTCOM_LOWSEC
 	return access_list

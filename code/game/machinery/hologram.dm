@@ -41,7 +41,7 @@ Possible to do for anyone motivated enough:
 	layer = LOW_OBJ_LAYER
 	/// The plane is set such that it shows up without being covered by pipes/wires in a map editor, we change this on initialize.
 	plane = GAME_PLANE
-	req_access = list(ACCESS_KEYCARD_AUTH) //Used to allow for forced connecting to other (not secure) holopads. Anyone can make a call, though.
+	req_access = list(ACCESS_COMMAND_HIGHSEC) //Used to allow for forced connecting to other (not secure) holopads. Anyone can make a call, though.
 	max_integrity = 300
 	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, BIO = 0, FIRE = 50, ACID = 0)
 	circuit = /obj/item/circuitboard/machine/holopad

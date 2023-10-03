@@ -35,7 +35,7 @@
 		/obj/item/food/pistachios = 3,
 	)
 	refill_canister = /obj/item/vending_refill/snack
-	canload_access_list = list(ACCESS_KITCHEN)
+	canload_access_list = list(ACCESS_SERVICE_LOWSEC)
 	default_price = PAYCHECK_CREW * 0.6
 	extra_price = PAYCHECK_CREW
 	payment_department = ACCOUNT_SRV

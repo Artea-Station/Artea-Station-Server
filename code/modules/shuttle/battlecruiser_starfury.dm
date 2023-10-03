@@ -79,19 +79,19 @@
 	shuttleId = "SBC_fighter1"
 	shuttlePortId = "SBC_fighter1_custom"
 	jump_to_ports = list("syndicate_ne" = 1, "syndicate_nw" = 1, "syndicate_n" = 1, "syndicate_se" = 1, "syndicate_sw" = 1, "syndicate_s" = 1, "SBC_fighter1_bay" = 1)
-	req_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE_LOWSEC)
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/fighter/fighter_two
 	shuttleId = "SBC_fighter2"
 	shuttlePortId = "SBC_fighter2_custom"
 	jump_to_ports = list("syndicate_ne" = 1, "syndicate_nw" = 1, "syndicate_n" = 1, "syndicate_se" = 1, "syndicate_sw" = 1, "syndicate_s" = 1, "SBC_fighter2_bay" = 1)
-	req_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE_LOWSEC)
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/fighter/fighter_three
 	shuttleId = "SBC_fighter3"
 	shuttlePortId = "SBC_fighter3_custom"
 	jump_to_ports = list("syndicate_ne" = 1, "syndicate_nw" = 1, "syndicate_n" = 1, "syndicate_se" = 1, "syndicate_sw" = 1, "syndicate_s" = 1, "SBC_fighter3_bay" = 1)
-	req_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE_LOWSEC)
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/corvette
 	name = "syndicate corvette navigation computer"
@@ -105,29 +105,29 @@
 /obj/machinery/computer/shuttle/starfury/fighter
 	name = "syndicate fighter control console"
 	desc = "A control computer which controls a shuttle which operates from the SBC Starfury.."
-	req_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE_LOWSEC)
 
 /obj/machinery/computer/shuttle/starfury/fighter/fighter_one
 	shuttleId = "SBC_fighter1"
 	possible_destinations = "SBC_fighter1_custom;SBC_fighter1_bay;SBC_fighter2_bay;SBC_fighter3_bay;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s"
-	req_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE_LOWSEC)
 
 /obj/machinery/computer/shuttle/starfury/fighter/fighter_two
 	shuttleId = "SBC_fighter2"
 	possible_destinations = "SBC_fighter2_custom;SBC_fighter1_bay;SBC_fighter2_bay;SBC_fighter3_bay;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s"
-	req_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE_LOWSEC)
 
 /obj/machinery/computer/shuttle/starfury/fighter/fighter_three
 	shuttleId = "SBC_fighter3"
 	possible_destinations = "SBC_fighter3_custom;SBC_fighter1_bay;SBC_fighter2_bay;SBC_fighter3_bay;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s"
-	req_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE_LOWSEC)
 
 /obj/machinery/computer/shuttle/starfury/corvette
 	name = "syndicate corvette control console"
 	desc = "A control computer which controls a shuttle which operates from the SBC Starfury.."
 	shuttleId = "SBC_corvette"
 	possible_destinations = "SBC_corvette_custom;SBC_corvette_bay;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s"
-	req_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE_LOWSEC)
 
 /*
  * Summons the SBC Starfury, a large syndicate battlecruiser, in Deep Space.

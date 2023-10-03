@@ -114,7 +114,7 @@
 	opacity = FALSE
 	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
-	req_access = list(ACCESS_ENGINEERING)
+	req_access = list(ACCESS_ENGINEERING_LOWSEC)
 	max_integrity = 100
 	var/active = FALSE
 	var/list/deployed_shields
@@ -261,7 +261,7 @@
 	icon_state = "shield_wall_gen"
 	anchored = FALSE
 	density = TRUE
-	req_access = list(ACCESS_TELEPORTER)
+	req_access = list(ACCESS_COMMAND_HIGHSEC)
 	flags_1 = CONDUCT_1
 	use_power = NO_POWER_USE
 	max_integrity = 300

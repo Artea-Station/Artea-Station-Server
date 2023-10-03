@@ -57,8 +57,8 @@
 	max_temperature = 35000
 	leg_overload_coeff = 70
 	force = 30
-	operation_req_access = list(ACCESS_SYNDICATE)
-	internals_req_access = list(ACCESS_SYNDICATE)
+	operation_req_access = list(ACCESS_SYNDICATE_LOWSEC)
+	internals_req_access = list(ACCESS_SYNDICATE_LOWSEC)
 	wreckage = /obj/structure/mecha_wreckage/gygax/dark
 	max_equip_by_category = list(
 		MECHA_UTILITY = 2,

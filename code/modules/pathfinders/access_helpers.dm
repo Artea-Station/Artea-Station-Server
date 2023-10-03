@@ -3,17 +3,17 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/pathfinders/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_PATHFINDERS
+	access_list += ACCESS_PATHFINDERS_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/pathfinders/dock/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_PATHFINDERS_DOCK
+	access_list += ACCESS_PATHFINDERS_VEHICLES
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/pathfinders/storage/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_PATHFINDERS_STORAGE
+	access_list += ACCESS_PATHFINDERS_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/pathfinders/leader/get_access()
@@ -23,7 +23,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/pathfinders/pathfinders_server_room/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_PATHFINDERS_SERVER_ROOM
+	access_list += ACCESS_PATHFINDERS_HIGHSEC
 	return access_list
 
 // Any
@@ -32,17 +32,17 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/pathfinders/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_PATHFINDERS
+	access_list += ACCESS_PATHFINDERS_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/pathfinders/dock/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_PATHFINDERS_DOCK
+	access_list += ACCESS_PATHFINDERS_VEHICLES
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/pathfinders/storage/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_PATHFINDERS_STORAGE
+	access_list += ACCESS_PATHFINDERS_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/pathfinders/leader/get_access()
@@ -52,5 +52,5 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/pathfinders/pathfinders_server_room/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_PATHFINDERS_SERVER_ROOM
+	access_list += ACCESS_PATHFINDERS_HIGHSEC
 	return access_list

@@ -3,13 +3,13 @@
 	desc = "This can be used to check medical records."
 	icon_screen = "medcomp"
 	icon_keyboard = "med_key"
-	req_one_access = list(ACCESS_MEDICAL, ACCESS_DETECTIVE, ACCESS_GENETICS)
+	req_one_access = list(ACCESS_MEDICAL_LOWSEC, ACCESS_SECURITY_LOWSEC, ACCESS_GENETICS)
 	circuit = /obj/item/circuitboard/computer/med_data
 	light_color = LIGHT_COLOR_BLUE
 
 /obj/machinery/computer/records/medical/syndie
 	icon_keyboard = "syndie_key"
-	req_one_access = list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE_LOWSEC)
 
 /obj/machinery/computer/records/medical/laptop
 	name = "medical laptop"

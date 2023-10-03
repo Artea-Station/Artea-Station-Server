@@ -7,7 +7,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	category = PROGRAM_CATEGORY_CREW
 	program_icon_state = "id"
 	extended_desc = "Program for viewing and changing job slot availability."
-	transfer_access = list(ACCESS_COMMAND)
+	transfer_access = list(ACCESS_COMMAND_LOWSEC)
 	requires_ntnet = TRUE
 	size = 4
 	tgui_id = "NtosJobManager"
@@ -70,10 +70,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	if(.)
 		return
 	var/obj/item/card/id/user_id = computer.computer_id_slot
-	if(!user_id || !(ACCESS_CHANGE_IDS in user_id.access))
+	if(!user_id || !(ACCESS_COMMAND_LOWSEC in user_id.access))
 		return TRUE
 
-	if(!user_id || !(ACCESS_CHANGE_IDS in user_id.access))
+	if(!user_id || !(ACCESS_COMMAND_LOWSEC in user_id.access))
 		return TRUE
 
 	switch(action)
@@ -125,7 +125,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	var/authed = FALSE
 	var/obj/item/card/id/user_id = computer.computer_id_slot
-	if(user_id && (ACCESS_CHANGE_IDS in user_id.access))
+	if(user_id && (ACCESS_COMMAND_LOWSEC in user_id.access))
 		authed = TRUE
 
 	data["authed"] = authed

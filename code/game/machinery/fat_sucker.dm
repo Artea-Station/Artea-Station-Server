@@ -6,7 +6,7 @@
 	circuit = /obj/item/circuitboard/machine/fat_sucker
 	state_open = FALSE
 	density = TRUE
-	req_access = list(ACCESS_KITCHEN)
+	req_access = list(ACCESS_SERVICE_LOWSEC)
 	var/processing = FALSE
 	var/start_at = NUTRITION_LEVEL_WELL_FED
 	var/stop_at = NUTRITION_LEVEL_STARVING

@@ -2,7 +2,7 @@
 	name = "medicine closet"
 	desc = "Filled to the brim with medical junk."
 	icon_state = "med"
-	req_access = list(ACCESS_MEDICAL)
+	req_access = list(ACCESS_MEDICAL_LOWSEC)
 
 /obj/structure/closet/secure_closet/medical1/PopulateContents()
 	..()
@@ -21,7 +21,7 @@
 /obj/structure/closet/secure_closet/medical2
 	name = "anesthetic closet"
 	desc = "Used to knock people out."
-	req_access = list(ACCESS_SURGERY)
+	req_access = list(ACCESS_MEDICAL_HIGHSEC)
 
 /obj/structure/closet/secure_closet/medical2/PopulateContents()
 	..()
@@ -32,7 +32,7 @@
 
 /obj/structure/closet/secure_closet/medical3
 	name = "medical doctor's locker"
-	req_access = list(ACCESS_SURGERY)
+	req_access = list(ACCESS_MEDICAL_HIGHSEC)
 	icon_state = "med_secure"
 
 /obj/structure/closet/secure_closet/medical3/PopulateContents()
@@ -46,7 +46,7 @@
 
 /obj/structure/closet/secure_closet/psychology
 	name = "psychology locker"
-	req_access = list(ACCESS_PSYCHOLOGY)
+	req_access = list(ACCESS_MEDICAL_LOWSEC)
 	icon_state = "cabinet"
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
@@ -101,7 +101,7 @@
 
 /obj/structure/closet/secure_closet/animal
 	name = "animal control"
-	req_access = list(ACCESS_SURGERY)
+	req_access = list(ACCESS_MEDICAL_HIGHSEC)
 
 /obj/structure/closet/secure_closet/animal/PopulateContents()
 	..()
@@ -112,7 +112,7 @@
 /obj/structure/closet/secure_closet/chemical
 	name = "chemical closet"
 	desc = "Store dangerous chemicals in here."
-	req_access = list(ACCESS_PHARMACY)
+	req_access = list(ACCESS_MEDICAL_HIGHSEC)
 	icon_door = "chemical"
 
 /obj/structure/closet/secure_closet/chemical/PopulateContents()
@@ -126,7 +126,7 @@
 
 /obj/structure/closet/secure_closet/chemical/heisenberg //contains one of each beaker, syringe etc.
 	name = "advanced chemical closet"
-	req_access = list(ACCESS_PHARMACY)
+	req_access = list(ACCESS_MEDICAL_HIGHSEC)
 
 /obj/structure/closet/secure_closet/chemical/heisenberg/PopulateContents()
 	..()

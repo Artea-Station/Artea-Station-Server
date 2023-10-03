@@ -1,7 +1,7 @@
 /obj/structure/closet/secure_closet/pathfinders_tools
 	name = "Pathfinders Tool Locker"
 	desc = "Filled with tools that'd prove helpful for shuttle repairs and retrofitting."
-	req_access = list(ACCESS_PATHFINDERS_STORAGE)
+	req_access = list(ACCESS_PATHFINDERS_HIGHSEC)
 	icon_state = "science"
 	icon_door = "science"
 
@@ -20,7 +20,7 @@
 /obj/structure/closet/secure_closet/pathfinders_materials
 	name = "Pathfinders Emergency Materials Locker"
 	desc = "You feel like you really should take some of what's inside with you onto the shuttle."
-	req_access = list(ACCESS_PATHFINDERS_STORAGE)
+	req_access = list(ACCESS_PATHFINDERS_HIGHSEC)
 	icon_state = "science"
 	icon_door = "science"
 
@@ -87,7 +87,7 @@
 
 /obj/structure/closet/secure_closet/pathfinder_weapons
 	name = "\proper pathfinder's weapons locker"
-	req_access = list(ACCESS_PATHFINDERS_STORAGE)
+	req_access = list(ACCESS_PATHFINDERS_HIGHSEC)
 	icon_state = "armory"
 
 /obj/structure/closet/secure_closet/pathfinder_weapons/PopulateContents()

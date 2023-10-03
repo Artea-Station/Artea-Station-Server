@@ -81,7 +81,7 @@
 /obj/machinery/vending/medical/deluxe
 	name = "\improper NanoMed Deluxe"
 	desc = "All-in-one medical dispenser."
-	req_access = list(ACCESS_MEDICAL)
+	req_access = list(ACCESS_MEDICAL_LOWSEC)
 	product_categories = list(
 		list(
 			"name" = "NanoMed",

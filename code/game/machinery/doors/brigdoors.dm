@@ -13,7 +13,7 @@
 	name = "door timer"
 	desc = "A remote control for a door."
 	current_mode = SD_MESSAGE
-	req_access = list(ACCESS_SECURITY)
+	req_access = list(ACCESS_SECURITY_LOWSEC)
 	text_color = "#F44"
 	header_text_color = "#F88"
 

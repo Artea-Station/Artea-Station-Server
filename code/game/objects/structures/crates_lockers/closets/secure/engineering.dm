@@ -27,7 +27,7 @@
 
 /obj/structure/closet/secure_closet/engineering_electrical
 	name = "electrical supplies locker"
-	req_access = list(ACCESS_ENGINE_EQUIP)
+	req_access = list(ACCESS_ENGINEERING_LOWSEC)
 	icon_state = "eng"
 	icon_door = "eng_elec"
 
@@ -43,7 +43,7 @@
 
 /obj/structure/closet/secure_closet/engineering_welding
 	name = "welding supplies locker"
-	req_access = list(ACCESS_ENGINE_EQUIP)
+	req_access = list(ACCESS_ENGINEERING_LOWSEC)
 	icon_state = "eng"
 	icon_door = "eng_weld"
 
@@ -56,7 +56,7 @@
 
 /obj/structure/closet/secure_closet/engineering_personal
 	name = "engineer's locker"
-	req_access = list(ACCESS_ENGINE_EQUIP)
+	req_access = list(ACCESS_ENGINEERING_LOWSEC)
 	icon_state = "eng_secure"
 
 /obj/structure/closet/secure_closet/engineering_personal/PopulateContents()
@@ -73,7 +73,7 @@
 
 /obj/structure/closet/secure_closet/atmospherics
 	name = "\proper atmospheric technician's locker"
-	req_access = list(ACCESS_ATMOSPHERICS)
+	req_access = list(ACCESS_ENGINEERING_HIGHSEC)
 	icon_state = "atmos"
 
 /obj/structure/closet/secure_closet/atmospherics/PopulateContents()

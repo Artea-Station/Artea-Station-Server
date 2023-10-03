@@ -71,7 +71,7 @@
 	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
 	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.02
 	power_channel = AREA_USAGE_ENVIRON
-	req_access = list(ACCESS_ATMOSPHERICS)
+	req_access = list(ACCESS_ENGINEERING_HIGHSEC)
 	max_integrity = 250
 	integrity_failure = 0.33
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 0, FIRE = 90, ACID = 30)
@@ -895,13 +895,13 @@
 	name = "engine air alarm"
 	locked = FALSE
 	req_access = null
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINEERING)
+	req_one_access = list(ACCESS_ENGINEERING_HIGHSEC, ACCESS_ENGINEERING_LOWSEC)
 
 /obj/machinery/airalarm/mixingchamber
 	name = "chamber air alarm"
 	locked = FALSE
 	req_access = null
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ORDNANCE)
+	req_one_access = list(ACCESS_ENGINEERING_HIGHSEC, ACCESS_ORDNANCE)
 
 /obj/machinery/airalarm/all_access
 	name = "all-access air alarm"
@@ -911,7 +911,7 @@
 	req_one_access = null
 
 /obj/machinery/airalarm/syndicate //general syndicate access
-	req_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE_LOWSEC)
 
 /obj/machinery/airalarm/away //general away mission access
 	req_access = list(ACCESS_AWAY_GENERAL)

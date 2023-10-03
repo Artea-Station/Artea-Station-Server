@@ -6,9 +6,9 @@
 *	If you're varediting on the map, it uses the string. If you're editing the object directly, use the define name
 */
 
-#define ACCESS_COMMAND_LOWSEC "command_lowsec"
-#define ACCESS_COMMAND_HIGHSEC "command_highsec"
-#define ACCESS_COMMAND_VEHICLES "command_vehicles"
+#define ACCESS_COMMAND_LOWSEC_LOWSEC "command_lowsec"
+#define ACCESS_COMMAND_LOWSEC_HIGHSEC "command_highsec"
+#define ACCESS_COMMAND_LOWSEC_VEHICLES "command_vehicles"
 
 #define ACCESS_ENGINEERING_LOWSEC "engineering_lowsec"
 #define ACCESS_ENGINEERING_HIGHSEC "engineering_highsec"
@@ -58,63 +58,63 @@
 #define ACCESS_ANY_ROBOTICS "engineering_highsec", "medical_highsec"
 
 // /// Command General Access, typically used for accessing the doors to the bridge, as well as being the general access that Tablet/Computer Programs check for "heads".
-// #define ACCESS_COMMAND "command"
+// #define ACCESS_COMMAND_LOWSEC "command"
 // /// Access to the AI Upload Room Doors as well as the AI satellite. Also used for controlling the machinery in the AI Upload (turrets, foam dispensers)
-// #define ACCESS_AI_UPLOAD "ai_upload"
+// #define ACCESS_COMMAND_HIGHSEC "ai_upload"
 // /// Access to the Teleporter Room, and some cargo crates.
-// #define ACCESS_TELEPORTER "teleporter"
+// #define ACCESS_COMMAND_HIGHSEC "teleporter"
 // /// Access to the EVA Storage Room, and some cargo crates.
 // #define ACCESS_EVA "eva"
 // /// Access to make an announcement through the Requests Console found in an office.
-// #define ACCESS_RC_ANNOUNCE "rc_announce"
+// #define ACCESS_COMMAND_LOWSEC "rc_announce"
 // /// Access used for events (Red Alert, BSA, Emergency Maintenance) which require at least two people to swipe at the same time to authorize it
-// #define ACCESS_KEYCARD_AUTH "keycard_auth"
+// #define ACCESS_COMMAND_HIGHSEC "keycard_auth"
 // /// Access for the "minisat", but is actually used for the small maintenance cubicle some AI satellites may have.
-// #define ACCESS_MINISAT "minisat"
+// #define ACCESS_COMMAND_LOWSEC "minisat"
 // /// Access used to run the NTNet Tablet Application WireCarp, which allows you to diagnose and view NTNet logging.
-// #define ACCESS_NETWORK "network"
+// #define ACCESS_COMMAND_LOWSEC "network"
 // /// Access used to access the Gateway Room, which will further lead you to get to Away Missions.
-// #define ACCESS_GATEWAY "gateway"
+// #define ACCESS_COMMAND_LOWSEC "gateway"
 // /// Access used to override "personal control" on a personal locker, meaning you are able to open any of those lockers/wardrobes.
-// #define ACCESS_ALL_PERSONAL_LOCKERS "all_personal_lockers"
+// #define ACCESS_COMMAND_HIGHSEC "all_personal_lockers"
 // /// Access used for Access-Changing Programs, this one will unlock all options that can be ever given via that program.
-// #define ACCESS_CHANGE_IDS "change_ids"
+// #define ACCESS_COMMAND_LOWSEC "change_ids"
 // /// Access used for the Captain's personal quarters in mapping, as well as what allows one to order emergency shuttles.
 // #define ACCESS_CAPTAIN "captain"
 // /// Access used for the Head of Personnel's personal quarters in mapping, as well as the security console and other HoP-related things.
-// #define ACCESS_HOP "hop"
+// #define ACCESS_COMMAND_LOWSEC "hop"
 
 // /// Security's General Access. In mapping, grants access to spaces such as to the "meeting room" or firing range, as well as being the general access that Tablet/Computer Programs check for "heads". Also unlocks other types of security equipment.
-// #define ACCESS_SECURITY "security"
+// #define ACCESS_SECURITY_LOWSEC "security"
 // /// Access that ONLY grants access to the front doors of the Brig. Never use this more for anything than that, please.
-// #define ACCESS_BRIG_ENTRANCE "brig_entrance"
+// #define ACCESS_SECURITY_LOWSEC "brig_entrance"
 // /// Access to brig cells, brig timers, permabrig, gulag, gulag teleporter, gulag shuttle, prisoner management console, and some security cargo crates.
-// #define ACCESS_BRIG "brig"
+// #define ACCESS_SECURITY_HIGHSEC "brig"
 // /// Access to the armory, security incinerator (when present), and the execution/re-education chamber.
-// #define ACCESS_ARMORY "armory"
+// #define ACCESS_SECURITY_HIGHSEC "armory"
 // /// Access to the "secure" portion of the courtroom, like where the judge and everyone sits..
-// #define ACCESS_COURT "court"
+// #define ACCESS_SECURITY_LOWSEC "court"
 // /// The "Weapons Permit" Access, or the one that lets you walk past secbots without them charging at you as you hold your weaponry.
 // #define ACCESS_WEAPONS "weapons"
 // /// Access used for the Head of Security's personal quarters in mapping, as well as other HoS-related things.
 // #define ACCESS_HOS "hos"
 // /// Access for the detective to get into their office, the medical data console, and some other detective-related stuff.
-// #define ACCESS_DETECTIVE "detective"
+// #define ACCESS_SECURITY_LOWSEC "detective"
 
 // /// Engineering General Access, grants access to the standard parts of engineering (as well as the Supermatter and related equipment).
-// #define ACCESS_ENGINEERING "engineering"
+// #define ACCESS_ENGINEERING_LOWSEC "engineering"
 // /// Access to Atmospherics Sections of the Engineering Department, as well as air alarms.
-// #define ACCESS_ATMOSPHERICS "atmospherics"
+// #define ACCESS_ENGINEERING_HIGHSEC "atmospherics"
 // /// Access to all maintenance tunnels on the station. This overrides any "departmental maintenance" access, this has free roaming range everywhere.
 // #define ACCESS_MAINT_TUNNELS "maint_tunnels"
 // /// Access to get into APCs, engineering equipment lockers, typically mapped in for key power rooms across the station, engineering vending machines, emitters, and some other stuff.
-// #define ACCESS_ENGINE_EQUIP "engine_equip"
+// #define ACCESS_ENGINEERING_LOWSEC "engine_equip"
 // /// Access to "construction" areas of the station. However, in mapping, it's used to get access to the front door and lathe room of the engineering department.
-// #define ACCESS_CONSTRUCTION "construction"
+// #define ACCESS_ENGINEERING_LOWSEC "construction"
 // /// Access to the technical storage room (contains all the boards and other miscellaneous engineering gear).
-// #define ACCESS_TECH_STORAGE "tech_storage"
+// #define ACCESS_ENGINEERING_HIGHSEC "tech_storage"
 // /// Access to the telecomms satellite, machinery, and tablets.
-// #define ACCESS_TCOMMS "tcomms"
+// #define ACCESS_ENGINEERING_HIGHSEC "tcomms"
 // /// Access to the Auxiliary Base Room, as well as the ability over launching it.
 // #define ACCESS_AUX_BASE "aux_base"
 // /// Access to all external "space facing" airlocks on the station. Used such that people don't easily "jump ship", or restict free ingress/egress to only a few points on the station.
@@ -123,32 +123,32 @@
 // #define ACCESS_CE "ce"
 
 // /// General access to Medbay, like the front doors, the treatment center, the medical records console, defibrillator mounts, and more.
-// #define ACCESS_MEDICAL "medical"
+// #define ACCESS_MEDICAL_LOWSEC "medical"
 // /// Access to the Morgue.
-// #define ACCESS_MORGUE "morgue"
+// #define ACCESS_MEDICAL_LOWSEC "morgue"
 // /// Access to the Pharmacy, or the smaller room in medical with the multiple chem dispensers and pill pressers. The Chemist's main position.
-// #define ACCESS_PHARMACY "pharmacy"
+// #define ACCESS_MEDICAL_HIGHSEC "pharmacy"
 // /// Access to the surgery rooms.
-// #define ACCESS_SURGERY "surgery"
+// #define ACCESS_MEDICAL_HIGHSEC "surgery"
 // /// Access to the Virology portion of the medical department, as well as the virology crate.
-// #define ACCESS_VIROLOGY "virology"
+// #define ACCESS_MEDICAL_HIGHSEC "virology"
 // /// Access to the Psychologist's office.
-// #define ACCESS_PSYCHOLOGY "psychology"
+// #define ACCESS_MEDICAL_LOWSEC "psychology"
 // /// Access to the medical shuttle.
-// #define ACCESS_MEDICAL_SHUTTLE "medical_shuttle"
+// #define ACCESS_MEDICAL_VEHICLES "medical_shuttle"
 // /// Access for the Chief Medical Officer's personal quarters in mapping, as well as some other CMO-related things.
 // #define ACCESS_CMO "cmo"
 
 // /// General access for Cargo, allows for entry to Cargo Bay and Cargo's Office.
-// #define ACCESS_CARGO "cargo"
+// #define ACCESS_CARGO_LOWSEC "cargo"
 // /// Access to the Shipping and Mailing Rooms on several maps.
-// #define ACCESS_SHIPPING "shipping"
+// #define ACCESS_CARGO_LOWSEC "shipping"
 // /// Access for a room where the ORM may be kept, or to release materials from the ORM.
-// #define ACCESS_MINERAL_STOREROOM "mineral_storeroom"
+// #define ACCESS_CARGO_HIGHSEC "mineral_storeroom"
 // /// Access to the "on-station" Mining Portion of the Cargo Department.
-// #define ACCESS_MINING "mining"
+// #define ACCESS_PATHFINDERS_LOWSEC "mining"
 // /// Access to the "off-station" Mining Station, which contains gear dedicated for miners to do their job best, as well as seek shelter from the inhospitable elements.
-// #define ACCESS_MINING_STATION "mining_station"
+// #define ACCESS_PATHFINDERS_LOWSEC "mining_station"
 // /// Access to the vault on the station, for accessing the station's budget, the nuke core, or the Ore Silo.
 // #define ACCESS_VAULT "vault"
 // /// Access for the Quartermaster's personal quarters in mapping, as well as some other QM-related things.
@@ -165,36 +165,36 @@
 // /// Access to the Genetics division of Science.
 // #define ACCESS_GENETICS "genetics"
 // /// Access to the Robotics division of Science, as well as opening up silicon cyborgs and other simple robots.
-// #define ACCESS_ROBOTICS "robotics"
+// #define ACCESS_ENGINEERING_HIGHSEC "robotics"
 // /// Access to the Xenobiology division of Science.
 // #define ACCESS_XENOBIOLOGY "xenobiology"
 
 // /// General access for Service, allows for entry to the Service Hallway.
-// #define ACCESS_SERVICE "service"
+// #define ACCESS_SERVICE_LOWSEC "service"
 // /// Access to the Theatre, as well as other vending machines related to the theatre. Sometimes also used as the "clown's" access in code.
-// #define ACCESS_THEATRE "theatre"
+// #define ACCESS_SERVICE_LOWSEC "theatre"
 // /// Access to the Chaplain's office.
-// #define ACCESS_CHAPEL_OFFICE "chapel_office"
+// #define ACCESS_SERVICE_HIGHSEC "chapel_office"
 // /// Access to the chapel's crematorium.
-// #define ACCESS_CREMATORIUM "crematorium"
+// #define ACCESS_SERVICE_HIGHSEC "crematorium"
 // /// Access to the curator's private rooms in the Library, as well as access both into and out of the Library via Maintenance.
-// #define ACCESS_LIBRARY "library"
+// #define ACCESS_SERVICE_LOWSEC "library"
 // /// Access to the Bar, the Bar's Backroom, the bar sign, the bar robot portal, and the bar's vending machines. Some other bar-things too.
-// #define ACCESS_BAR "bar"
+// #define ACCESS_SERVICE_HIGHSEC "bar"
 // /// Access to the Kitchen, the Kitchen's Coldroom, the kitchen's vending machines, and the food robot portal. Some other chef-things too.
-// #define ACCESS_KITCHEN "kitchen"
+// #define ACCESS_SERVICE_LOWSEC "kitchen"
 // /// Access to the Botany Division of the station and some other Botanist things.
-// #define ACCESS_HYDROPONICS "hydroponics"
+// #define ACCESS_SERVICE_LOWSEC "hydroponics"
 // /// Access to the Janitor's room, and some tablet apps for control of the station's janitorial equipment.
-// #define ACCESS_JANITOR "janitor"
+// #define ACCESS_SERVICE_LOWSEC "janitor"
 // /// Access to the Lawyer's office.
-// #define ACCESS_LAWYER "lawyer"
+// #define ACCESS_SERVICE_HIGHSEC "lawyer"
 
-// #define ACCESS_PATHFINDERS "pathfinders"
-// #define ACCESS_PATHFINDERS_DOCK "pathfinders_dock"
-// #define ACCESS_PATHFINDERS_STORAGE "pathfinders_storage"
+// #define ACCESS_PATHFINDERS_LOWSEC "pathfinders"
+// #define ACCESS_PATHFINDERS_VEHICLES "pathfinders_dock"
+// #define ACCESS_PATHFINDERS_HIGHSEC "pathfinders_storage"
 // #define ACCESS_PATHFINDERS_LEAD "PATHFINDERS_LEAD"
-// #define ACCESS_PATHFINDERS_SERVER_ROOM "pathfinders_server_room"
+// #define ACCESS_PATHFINDERS_HIGHSEC "pathfinders_server_room"
 
 /// - - - AWAY MISSIONS - - -
 /*For generic away-mission/ruin access. Why would normal crew have access to a long-abandoned derelict
@@ -214,39 +214,39 @@
 
 // /// - - - MECH - - -
 // 	// Mech Access, allows maintanenace of internal components and altering keycard requirements.
-// #define ACCESS_MECH_MINING "mech_mining"
-// #define ACCESS_MECH_MEDICAL "mech_medical"
-// #define ACCESS_MECH_SECURITY "mech_security"
-// #define ACCESS_MECH_SCIENCE "mech_science"
-// #define ACCESS_MECH_ENGINE "mech_engine"
-// #define ACCESS_MECH_PATHFINDERS "mech_pathfinders"
+// #define ACCESS_CARGO_VEHICLES "mech_mining"
+// #define ACCESS_MEDICAL_VEHICLES "mech_medical"
+// #define ACCESS_SECURITY_VEHICLES "mech_security"
+// #define ACCESS_ENGINEERING_VEHICLES "mech_science"
+// #define ACCESS_ENGINEERING_VEHICLES "mech_engine"
+// #define ACCESS_PATHFINDERS_VEHICLES "mech_pathfinders"
 
 // /// - - - ADMIN - - -
 // 	// Used for admin events and things of the like. Lots of extra space for more admin tools in the future
 // /// General facilities. Centcom ferry.
-// #define ACCESS_CENT_GENERAL "cent_general"
-// #define ACCESS_CENT_THUNDER "cent_thunder"
-// #define ACCESS_CENT_MEDICAL "cent_medical"
-// #define ACCESS_CENT_LIVING "cent_living"
-// #define ACCESS_CENT_STORAGE "cent_storage"
-// #define ACCESS_CENT_TELEPORTER "cent_teleporter"
-// #define ACCESS_CENT_CAPTAIN "cent_captain"
-// #define ACCESS_CENT_BAR "cent_bar"
+// #define ACCESS_CENTCOM_LOWSEC "cent_general"
+// #define ACCESS_SPECIAL_THUNDERDOME "cent_thunder"
+// #define ACCESS_CENTCOM_LOWSEC "cent_medical"
+// #define ACCESS_CENTCOM_LOWSEC "cent_living"
+// #define ACCESS_CENTCOM_HIGHSEC "cent_storage"
+// #define ACCESS_CENTCOM_HIGHSEC "cent_teleporter"
+// #define ACCESS_CENTCOM_HIGHSEC "cent_captain"
+// #define ACCESS_CENTCOM_LOWSEC "cent_bar"
 // /// Special Ops. Captain's display case, Marauder and Seraph mechs.
 // #define ACCESS_CENT_SPECOPS 188 ///Remind me to separate to captain, centcom, and syndicate mech access later -SonofSpace
 
 // /// - - - ANTAGONIST - - -
 // /// SYNDICATE
-// #define ACCESS_SYNDICATE "syndicate"
-// #define ACCESS_SYNDICATE_LEADER "syndicate_leader"
+// #define ACCESS_SYNDICATE_LOWSEC "syndicate"
+// #define ACCESS_SYNDICATE_HIGHSEC "syndicate_leader"
 // /// BLOODCULT
 // 	//Special, for anything that's basically internal
-// #define ACCESS_BLOODCULT "bloodcult"
+// #define ACCESS_SPECIAL_BLOODCULT "bloodcult"
 
 /// - - - END ACCESS IDS - - -
 
 /// A list of access levels that, when added to an ID card, will warn admins.
-#define ACCESS_ALERT_ADMINS list(ACCESS_CHANGE_IDS)
+#define ACCESS_ALERT_ADMINS list(ACCESS_COMMAND_LOWSEC)
 
 /// Logging define for ID card access changes
 #define LOG_ID_ACCESS_CHANGE(user, id_card, change_description) \
@@ -330,7 +330,7 @@
 
 /// Departmental/general/common area accesses. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_COMMON)
 #define COMMON_ACCESS list( \
-	ACCESS_COMMAND_LOWSEC, \
+	ACCESS_COMMAND_LOWSEC_LOWSEC, \
 	ACCESS_ENGINEERING_LOWSEC, \
 	ACCESS_MEDICAL_LOWSEC, \
 	ACCESS_PATHFINDERS_LOWSEC, \
@@ -354,8 +354,8 @@
 
 /// Command staff/secure accesses, think bridge/armoury, ai_upload, notably access to modify ID cards themselves. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_COMMAND)
 #define COMMAND_ACCESS list( \
-	ACCESS_COMMAND_HIGHSEC, \
-	ACCESS_COMMAND_VEHICLES, \
+	ACCESS_COMMAND_LOWSEC_HIGHSEC, \
+	ACCESS_COMMAND_LOWSEC_VEHICLES, \
 )
 
 /// Captains private rooms. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_CAPTAIN)
@@ -456,10 +456,10 @@
 /// Name for the Command region.
 #define REGION_COMMAND "Command"
 /// Used to seed the accesses_by_region list in SSid_access. A list of all command regional accesses that are overseen by the Captain.
-#define REGION_ACCESS_COMMAND list( \
-	ACCESS_COMMAND_LOWSEC, \
-	ACCESS_COMMAND_HIGHSEC, \
-	ACCESS_COMMAND_VEHICLES, \
+#define REGION_ACCESS_COMMAND_LOWSEC list( \
+	ACCESS_COMMAND_LOWSEC_LOWSEC, \
+	ACCESS_COMMAND_LOWSEC_HIGHSEC, \
+	ACCESS_COMMAND_LOWSEC_VEHICLES, \
 	ACCESS_SPECIAL_CAPTAIN, \
 )
 /// Name for the Centcom region.
@@ -470,7 +470,7 @@
 /**
  * A list of PDA paths that can be painted as well as the regional heads which should be able to paint them.
  * If a PDA is not in this list, it cannot be painted using the PDA & ID Painter.
- * If a PDA is in this list, it can always be painted with ACCESS_CHANGE_IDS.
+ * If a PDA is in this list, it can always be painted with ACCESS_COMMAND_LOWSEC.
  * Used to see pda_region in [/datum/controller/subsystem/id_access/proc/setup_tgui_lists]
  */
 #define PDA_PAINTING_REGIONS list( \

@@ -4,7 +4,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "borgcharger0"
 	density = FALSE
-	req_access = list(ACCESS_ROBOTICS)
+	req_access = list(ACCESS_ENGINEERING_HIGHSEC)
 	state_open = TRUE
 	circuit = /obj/item/circuitboard/machine/cyborgrecharger
 	occupant_typecache = list(/mob/living/silicon/robot, /mob/living/carbon/human)

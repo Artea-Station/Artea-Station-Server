@@ -9,7 +9,7 @@
 	density = FALSE
 	use_power = NO_POWER_USE
 	power_channel = AREA_USAGE_EQUIP
-	req_one_access = list(ACCESS_MEDICAL, ACCESS_COMMAND, ACCESS_SECURITY) //used to control clamps
+	req_one_access = list(ACCESS_MEDICAL_LOWSEC, ACCESS_COMMAND_LOWSEC, ACCESS_SECURITY_LOWSEC) //used to control clamps
 	processing_flags = NONE
 /// The mount's defib
 	var/obj/item/defibrillator/defib

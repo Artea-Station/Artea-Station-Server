@@ -688,7 +688,7 @@
 	. = ..()
 	if(registered_account)
 		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of [registered_account.account_balance] cr."
-		if((ACCESS_COMMAND in access) || (ACCESS_QM in access))
+		if((ACCESS_COMMAND_LOWSEC in access) || (ACCESS_QM in access))
 			var/datum/bank_account/linked_dept = SSeconomy.get_dep_account(registered_account.account_job.paycheck_department)
 			. += "The [linked_dept.account_holder] linked to the ID reports a balance of [linked_dept.account_balance] cr."
 
@@ -1233,7 +1233,7 @@
 /obj/item/card/id/advanced/prisoner/attackby(obj/item/card/id/C, mob/user)
 	..()
 	var/list/id_access = C.GetAccess()
-	if(!(ACCESS_BRIG in id_access))
+	if(!(ACCESS_SECURITY_HIGHSEC in id_access))
 		return FALSE
 	if(loc != user)
 		to_chat(user, span_warning("You must be holding the ID to continue!"))

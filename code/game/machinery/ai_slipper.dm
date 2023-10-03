@@ -12,7 +12,7 @@
 	var/uses = 20
 	var/cooldown = 0
 	var/cooldown_time = 100
-	req_access = list(ACCESS_AI_UPLOAD)
+	req_access = list(ACCESS_COMMAND_HIGHSEC)
 
 /obj/machinery/ai_slipper/examine(mob/user)
 	. = ..()

@@ -99,7 +99,7 @@
 				channel?.add_client(src)
 				return UI_UPDATE
 			var/mob/living/user = usr
-			if(can_run(user, TRUE, ACCESS_NETWORK))
+			if(can_run(user, TRUE, ACCESS_COMMAND_LOWSEC))
 				for(var/datum/ntnet_conversation/channels as anything in SSmodular_computers.chat_channels)
 					channels.remove_client(src)
 				netadmin_mode = TRUE
@@ -202,7 +202,7 @@
 
 /datum/computer_file/program/chatclient/ui_static_data(mob/user)
 	var/list/data = list()
-	data["can_admin"] = can_run(user, FALSE, ACCESS_NETWORK)
+	data["can_admin"] = can_run(user, FALSE, ACCESS_COMMAND_LOWSEC)
 	data["selfref"] = REF(src) //used to verify who is you, as usernames can be copied.
 	data["username"] = username
 	data["adminmode"] = netadmin_mode

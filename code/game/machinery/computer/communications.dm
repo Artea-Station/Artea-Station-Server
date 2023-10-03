@@ -13,7 +13,7 @@
 	desc = "A console used for high-priority announcements and emergencies."
 	icon_screen = "comm"
 	icon_keyboard = "tech_key"
-	req_access = list(ACCESS_COMMAND)
+	req_access = list(ACCESS_COMMAND_LOWSEC)
 	circuit = /obj/item/circuitboard/computer/communications
 	light_color = LIGHT_COLOR_BLUE
 
@@ -62,7 +62,7 @@
 /obj/machinery/computer/communications/syndicate
 	icon_screen = "commsyndie"
 	circuit = /obj/item/circuitboard/computer/communications/syndicate
-	req_access = list(ACCESS_SYNDICATE_LEADER)
+	req_access = list(ACCESS_SYNDICATE_HIGHSEC)
 	light_color = LIGHT_COLOR_BLOOD_MAGIC
 
 	syndicate = TRUE

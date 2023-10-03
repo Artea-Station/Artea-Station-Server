@@ -153,7 +153,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30)
 		data["user"]["job"] = "N/A"
 		data["user"]["department"] = "N/A"
 
-	data["security_mode"] = (ACCESS_ARMORY in card?.GetAccess())
+	data["security_mode"] = (ACCESS_SECURITY_HIGHSEC in card?.GetAccess())
 	data["photo_data"] = !isnull(current_image)
 	data["creating_channel"] = creating_channel
 	data["creating_comment"] = creating_comment
@@ -324,7 +324,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30)
 			if(isliving(usr))
 				var/mob/living/living_user = usr
 				id_card = living_user.get_idcard(hand_first = TRUE)
-			if(!(ACCESS_ARMORY in id_card?.GetAccess()))
+			if(!(ACCESS_SECURITY_HIGHSEC in id_card?.GetAccess()))
 				say("Clearance not found.")
 				return TRUE
 			var/questionable_message = params["messageID"]
@@ -338,7 +338,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30)
 			if(isliving(usr))
 				var/mob/living/living_user = usr
 				id_card = living_user.get_idcard(hand_first = TRUE)
-			if(!(ACCESS_ARMORY in id_card?.GetAccess()))
+			if(!(ACCESS_SECURITY_HIGHSEC in id_card?.GetAccess()))
 				say("Clearance not found.")
 				return TRUE
 			var/questionable_message = params["messageID"]
@@ -352,7 +352,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30)
 			if(isliving(usr))
 				var/mob/living/living_user = usr
 				id_card = living_user.get_idcard(hand_first = TRUE)
-			if(!(ACCESS_ARMORY in id_card?.GetAccess()))
+			if(!(ACCESS_SECURITY_HIGHSEC in id_card?.GetAccess()))
 				say("Clearance not found.")
 				return TRUE
 			var/prototype_channel = (params["channel"])
@@ -730,7 +730,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30)
 	if(isliving(usr))
 		var/mob/living/living_user = usr
 		id_card = living_user.get_idcard(hand_first = TRUE)
-	if(!(ACCESS_ARMORY in id_card?.GetAccess()))
+	if(!(ACCESS_SECURITY_HIGHSEC in id_card?.GetAccess()))
 		say("Clearance not found.")
 		return TRUE
 	GLOB.news_network.wanted_issue.active = FALSE

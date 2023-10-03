@@ -6,7 +6,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/briefcase_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/briefcase_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-	req_access = list(ACCESS_ARMORY)
+	req_access = list(ACCESS_SECURITY_HIGHSEC)
 	var/broken = FALSE
 	var/open = FALSE
 	var/icon_locked = "lockbox+l"
@@ -68,7 +68,7 @@
 
 /obj/item/storage/lockbox/loyalty
 	name = "lockbox of mindshield implants"
-	req_access = list(ACCESS_SECURITY)
+	req_access = list(ACCESS_SECURITY_LOWSEC)
 
 /obj/item/storage/lockbox/loyalty/PopulateContents()
 	for(var/i in 1 to 3)
@@ -78,7 +78,7 @@
 /obj/item/storage/lockbox/clusterbang
 	name = "lockbox of clusterbangs"
 	desc = "You have a bad feeling about opening this."
-	req_access = list(ACCESS_SECURITY)
+	req_access = list(ACCESS_SECURITY_LOWSEC)
 
 /obj/item/storage/lockbox/clusterbang/PopulateContents()
 	new /obj/item/grenade/clusterbuster(src)
@@ -158,7 +158,7 @@
 /obj/item/storage/lockbox/medal/hop
 	name = "Head of Personnel medal box"
 	desc = "A locked box used to store medals to be given to those exhibiting excellence in management."
-	req_access = list(ACCESS_HOP)
+	req_access = list(ACCESS_COMMAND_LOWSEC)
 
 /obj/item/storage/lockbox/medal/hop/PopulateContents()
 	for(var/i in 1 to 3)
@@ -194,7 +194,7 @@
 /obj/item/storage/lockbox/medal/service
 	name = "service award box"
 	desc = "A locked box used to store awards to be given to members of the service department."
-	req_access = list(ACCESS_HOP)
+	req_access = list(ACCESS_COMMAND_LOWSEC)
 
 /obj/item/storage/lockbox/medal/service/PopulateContents()
 		new /obj/item/clothing/accessory/medal/silver/excellence(src)

@@ -10,7 +10,7 @@
 	health = 25
 	maxHealth = 25
 
-	maints_access_required = list(ACCESS_ROBOTICS, ACCESS_JANITOR)
+	maints_access_required = list(ACCESS_ENGINEERING_HIGHSEC, ACCESS_SERVICE_LOWSEC)
 	radio_key = /obj/item/encryptionkey/headset_service
 	radio_channel = RADIO_CHANNEL_SERVICE //Service
 	bot_type = CLEAN_BOT
@@ -87,7 +87,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/medbay
 	name = "Scrubs, MD"
-	maints_access_required = list(ACCESS_ROBOTICS, ACCESS_JANITOR, ACCESS_MEDICAL)
+	maints_access_required = list(ACCESS_ENGINEERING_HIGHSEC, ACCESS_SERVICE_LOWSEC, ACCESS_MEDICAL_LOWSEC)
 	bot_mode_flags = ~(BOT_MODE_ON | BOT_MODE_REMOTE_ENABLED)
 
 /mob/living/simple_animal/bot/cleanbot/proc/deputize(obj/item/W, mob/user)

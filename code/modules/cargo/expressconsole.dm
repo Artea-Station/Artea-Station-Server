@@ -14,7 +14,7 @@
 	icon_screen = "supply_express"
 	circuit = /obj/item/circuitboard/computer/cargo/express
 	blockade_warning = "Bluespace instability detected. Delivery impossible."
-	req_access = list(ACCESS_CARGO)
+	req_access = list(ACCESS_CARGO_LOWSEC)
 	is_express = TRUE
 	interface_type = "CargoExpress"
 

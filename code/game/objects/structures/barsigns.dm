@@ -3,7 +3,7 @@
 	desc = "A bar sign which has not been initialized, somehow. Complain at a coder!"
 	icon = 'icons/obj/barsigns.dmi'
 	icon_state = "empty"
-	req_access = list(ACCESS_BAR)
+	req_access = list(ACCESS_SERVICE_HIGHSEC)
 	max_integrity = 500
 	integrity_failure = 0.5
 	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 100, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
