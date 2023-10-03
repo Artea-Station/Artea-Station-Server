@@ -340,8 +340,8 @@
 
 			var/datum/id_trim/trim = SSid_access.trim_singletons_by_path[trim_path]
 
-			if(trim && trim.trim_state && trim.assignment)
-				var/chameleon_item_name = "[trim.assignment] ([trim.trim_state])"
+			if(trim && trim.department_state && trim.assignment)
+				var/chameleon_item_name = "[trim.assignment] ([trim.department_state])"
 				chameleon_list[chameleon_item_name] = trim_path
 
 /datum/action/item_action/chameleon/change/id_trim/update_item(picked_trim_path)

@@ -102,6 +102,9 @@
 	/// Boolean value. If TRUE, the [Intern] tag gets prepended to this ID card when the label is updated.
 	var/is_intern = FALSE
 
+	/// If TRUE, hides the extra access stripes shown on a card. Only really used for special AA IDs.
+	var/disable_pips = FALSE
+
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
 
@@ -879,8 +882,6 @@
 
 	/// If this is set, will manually override the icon file for the trim. Intended for admins to VV edit and chameleon ID cards.
 	var/trim_icon_override
-	/// If this is set, will manually override the icon state for the trim. Intended for admins to VV edit and chameleon ID cards.
-	var/trim_state_override
 	/// If this is set, will manually override the department color for this trim. Intended for admins to VV edit and chameleon ID cards.
 	var/department_color_override
 	/// If this is set, will manually override the department icon state for the trim. Intended for admins to VV edit and chameleon ID cards.
@@ -988,7 +989,6 @@
 	. = ..()
 
 	var/trim_icon_file = trim_icon_override ? trim_icon_override : trim?.trim_icon
-	var/trim_icon_state = trim_state_override ? trim_state_override : trim?.trim_state
 	var/trim_letter_icon_state = trim_letter_state_override ? trim_letter_state_override : trim?.letter_state
 	var/trim_department_color = department_color_override ? department_color_override : trim?.department_color
 	var/trim_department_state = department_state_override ? department_state_override : trim?.department_state
@@ -1006,7 +1006,7 @@
 	if(!trim_letter_icon_state)
 		icon_state = "[initial(icon_state)]_full"
 
-	if(!trim_icon_file || !trim_icon_state || !trim_department_color || !trim_subdepartment_color || !trim_department_state)
+	if(!trim_icon_file || !trim_department_color || !trim_subdepartment_color || !trim_department_state)
 		return
 
 	if(trim_letter_icon_state)
@@ -1024,8 +1024,11 @@
 	subdepartment_overlay.color = "#[darken_color(copytext(trim_subdepartment_color, 2, 8))]" // Makes the lighter department colours more bearable on the light font while keeping darker colours less dark
 	. += subdepartment_overlay
 
-	/// Then we handle the job's icon here.
-	. += mutable_appearance(trim_icon_file, trim_icon_state)
+	if(disable_pips)
+		return
+
+	/// Then we handle the job's accesses here.
+	// TODO: DO THE THING HERE
 
 /obj/item/card/id/advanced/get_trim_assignment()
 	if(trim_assignment_override)
@@ -1041,12 +1044,6 @@
 /obj/item/card/id/advanced/get_trim_sechud_icon_state()
 	return sechud_icon_state_override || ..()
 
-/obj/item/card/id/advanced/rainbow
-	name = "rainbow identification card"
-	desc = "A rainbow card, promoting fun in a 'business proper' sense!"
-	icon_state = "card_rainbow"
-	worn_icon_state = "card_rainbow"
-
 /obj/item/card/id/advanced/silver
 	name = "silver identification card"
 	desc = "A silver card which shows honour and dedication."
@@ -1058,7 +1055,7 @@
 
 /datum/id_trim/maint_reaper
 	access = list(ACCESS_MAINT_TUNNELS)
-	trim_state = "dept-service"
+	department_state = "dept-service"
 	assignment = "Reaper"
 
 /obj/item/card/id/advanced/silver/reaper
@@ -1074,6 +1071,7 @@
 	inhand_icon_state = "gold_id"
 	assigned_icon_state = "assigned_gold"
 	wildcard_slots = WILDCARD_LIMIT_GOLD
+	disable_pips = TRUE
 
 /obj/item/card/id/advanced/gold/Initialize(mapload)
 	. = ..()
@@ -1103,6 +1101,7 @@
 	registered_age = null
 	trim = /datum/id_trim/centcom
 	wildcard_slots = WILDCARD_LIMIT_CENTCOM
+	disable_pips = TRUE
 
 /obj/item/card/id/advanced/centcom/ert
 	name = "\improper CentCom ID"
@@ -1146,6 +1145,7 @@
 	worn_icon_state = "card_black"
 	assigned_icon_state = "assigned_syndicate"
 	wildcard_slots = WILDCARD_LIMIT_GOLD
+	disable_pips = TRUE
 
 /obj/item/card/id/advanced/black/deathsquad
 	name = "\improper Death Squad ID"
@@ -1153,6 +1153,7 @@
 	registered_name = JOB_ERT_DEATHSQUAD
 	trim = /datum/id_trim/centcom/deathsquad
 	wildcard_slots = WILDCARD_LIMIT_DEATHSQUAD
+	disable_pips = TRUE
 
 /obj/item/card/id/advanced/black/syndicate_command
 	name = "syndicate ID card"
@@ -1161,6 +1162,7 @@
 	registered_age = null
 	trim = /datum/id_trim/syndicom
 	wildcard_slots = WILDCARD_LIMIT_SYNDICATE
+	disable_pips = TRUE
 
 /obj/item/card/id/advanced/black/syndicate_command/crew_id
 	name = "syndicate ID card"
@@ -1197,6 +1199,7 @@
 	assigned_icon_state = "assigned_gold"
 	trim = /datum/id_trim/admin
 	wildcard_slots = WILDCARD_LIMIT_ADMIN
+	disable_pips = TRUE
 
 /obj/item/card/id/advanced/debug/Initialize(mapload)
 	. = ..()
@@ -1316,6 +1319,7 @@
 	assigned_icon_state = "assigned_syndicate"
 	trim = /datum/id_trim/highlander
 	wildcard_slots = WILDCARD_LIMIT_ADMIN
+	disable_pips = TRUE
 
 /obj/item/card/id/advanced/chameleon
 	name = "agent card"
@@ -1549,8 +1553,8 @@
 
 						var/datum/id_trim/trim = SSid_access.trim_singletons_by_path[trim_path]
 
-						if(trim && trim.trim_state && trim.assignment)
-							var/fake_trim_name = "[trim.assignment] ([trim.trim_state])"
+						if(trim && trim.department_state && trim.assignment)
+							var/fake_trim_name = "[trim.assignment] ([trim.department_state])"
 							trim_list[fake_trim_name] = trim_path
 
 					var/selected_trim_path = tgui_input_list(user, "Select trim to apply to your card.\nNote: This will not grant any trim accesses.", "Forge Trim", sort_list(trim_list, GLOBAL_PROC_REF(cmp_typepaths_asc)))

@@ -1,45 +1,52 @@
 
 //returns TRUE if this mob has sufficient access to use this object
 /obj/proc/allowed(mob/accessor)
+	// ARTEA TODO: Yeet this signal garbage. A whole ass signal at the very start of a proc for a singular usecase that should've just been a proc override.
 	var/result_bitflags = SEND_SIGNAL(src, COMSIG_OBJ_ALLOWED, accessor)
 	if(result_bitflags & COMPONENT_OBJ_ALLOW)
 		return TRUE
 	if(result_bitflags & COMPONENT_OBJ_DISALLOW) // override all other checks
 		return FALSE
-	//check if it doesn't require any access at all
-	if(check_access(null))
-		return TRUE
-	if(!istype(accessor)) //likely a TK user.
-		return FALSE
-	if(issilicon(accessor))
-		if(ispAI(accessor))
-			return FALSE
-		return TRUE //AI can do whatever it wants
-	if(isAdminGhostAI(accessor))
-		//Access can't stop the abuse
-		return TRUE
+	// ARTEA TODO: Yeet this signal garbage too. This should be tied to an ID, what the fuck?!
 	//If the mob has the simple_access component with the requried access, we let them in.
 	else if(SEND_SIGNAL(accessor, COMSIG_MOB_TRIED_ACCESS, src) & ACCESS_ALLOWED)
 		return TRUE
-	//If the mob is holding a valid ID, we let them in. get_active_held_item() is on the mob level, so no need to copypasta everywhere.
-	else if(check_access(accessor.get_active_held_item()))
+
+	if(!required_access)
 		return TRUE
-	//if they are wearing a card that has access, that works
-	else if(ishuman(accessor))
-		var/mob/living/carbon/human/human_accessor = accessor
-		if(check_access(human_accessor.wear_id))
-			return TRUE
-	//if they have a hacky abstract animal ID with the required access, let them in i guess...
-	else if(isanimal(accessor))
-		var/mob/living/simple_animal/animal = accessor
-		if(check_access(animal.access_card))
-			return TRUE
-	else if(isbrain(accessor) && istype(accessor.loc, /obj/item/mmi))
-		var/obj/item/mmi/brain_mmi = accessor.loc
-		if(ismecha(brain_mmi.loc))
-			var/obj/vehicle/sealed/mecha/big_stompy_robot = brain_mmi.loc
-			return check_access_list(big_stompy_robot.operation_req_access)
-	return FALSE
+
+	if(accessor.has_unlimited_silicon_privilege)
+		return TRUE
+
+	var/obj/item/card/id/id_card = get_id(accessor)
+	var/list/card_accesses
+
+	if(isbrain(accessor)) // Fucking snowflake mecha code.
+		var/mob/living/brain/brain = accessor
+		if(istype(brain.loc, /obj/item/mmi))
+			var/obj/item/mmi/brain_mmi = brain.loc
+			if(ismecha(brain_mmi.loc))
+				var/obj/vehicle/sealed/mecha/big_stompy_robot = brain_mmi.loc
+				card_accesses = big_stompy_robot.operation_req_access
+
+	if(!istype(id_card) && !card_accesses)
+		return FALSE
+	else if(id_card)
+		LAZYADD(card_accesses, id_card.GetAccess())
+
+	if(istext(required_access))
+		return required_access in card_accesses
+
+	if(!require_all_accesses)
+		for(var/access in required_access)
+			if(access in card_accesses || ("[copytext(access, 0, -6)]_highsec" in card_accesses)) // Ehh, I might figure out a better way later.
+				return TRUE
+		return FALSE
+
+	for(var/access in required_access)
+		if(!(access in card_accesses))
+			return FALSE
+	return TRUE
 
 /obj/item/proc/GetAccess()
 	return list()
@@ -53,55 +60,6 @@
 /obj/item/proc/InsertID()
 	return FALSE
 
-/obj/proc/text2access(access_text)
-	. = list()
-	if(!access_text)
-		return
-	var/list/split = splittext(access_text,";")
-	for(var/x in split)
-		var/n = text2num(x)
-		if(n)
-			. += n
-
-//Call this before using req_access or req_one_access directly
-/obj/proc/gen_access()
-	//These generations have been moved out of /obj/New() because they were slowing down the creation of objects that never even used the access system.
-	if(!req_access)
-		req_access = list()
-		for(var/a in text2access(req_access_txt))
-			req_access += a
-	if(!req_one_access)
-		req_one_access = list()
-		for(var/b in text2access(req_one_access_txt))
-			req_one_access += b
-
-// Check if an item has access to this object
-/obj/proc/check_access(obj/item/I)
-	return check_access_list(I ? I.GetAccess() : null)
-
-/obj/proc/check_access_list(list/access_list)
-	gen_access()
-
-	if(!islist(req_access)) //something's very wrong
-		return TRUE
-
-	if(!req_access.len && !length(req_one_access))
-		return TRUE
-
-	if(!length(access_list) || !islist(access_list))
-		return FALSE
-
-	for(var/req in req_access)
-		if(!(req in access_list)) //doesn't have this access
-			return FALSE
-
-	if(length(req_one_access))
-		for(var/req in req_one_access)
-			if(req in access_list) //has an access from the single access list
-				return TRUE
-		return FALSE
-	return TRUE
-
 /*
  * Checks if this packet can access this device
  *
@@ -112,7 +70,9 @@
  * * passkey - passkey from the datum/netdata packet
  */
 /obj/proc/check_access_ntnet(list/passkey)
-	return check_access_list(passkey)
+
+	var/datum/access/access = GLOB.access_datums[required_access]
+	return access.can_access(passkey)
 
 /// Returns the SecHUD job icon state for whatever this object's ID card is, if it has one.
 /obj/item/proc/get_sechud_job_icon_state()

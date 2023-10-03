@@ -82,11 +82,10 @@
 /datum/id_trim/job/lead_pathfinder
 	assignment = "Lead Pathfinder"
 	intern_alt_name = "Honorary Lead Pathfinder"
-	trim_state = "dept-pathfinders"
+	department_state = "dept-pathfinders"
 	orbit_icon = "anchor"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_PATHFINDERS_DARK_PURPLE
-	department_state = "departmenthead"
 	sechud_icon_state = SECHUD_PATHFINDER_LEAD
 	extra_wildcard_access = list()
 	minimal_access = list(

@@ -1,7 +1,7 @@
 /// Trim for admins and debug cards. Has every single access in the game.
 /datum/id_trim/admin
 	assignment = "Jannie"
-	trim_state = "dept-adm-gold"
+	department_state = "dept-adm-gold"
 	department_color = COLOR_CENTCOM_BLUE
 	subdepartment_color = COLOR_SERVICE_LIME
 
@@ -13,7 +13,7 @@
 /// Trim for highlander cards, used during the highlander adminbus event.
 /datum/id_trim/highlander
 	assignment = "Highlander"
-	trim_state = "dept-deathsquad"
+	department_state = "dept-deathsquad"
 	department_color = COLOR_CENTCOM_BLUE
 	subdepartment_color = COLOR_SERVICE_LIME
 

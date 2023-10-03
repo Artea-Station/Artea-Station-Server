@@ -30,11 +30,10 @@
 	///If set to true, we can reskin this item as much as we want.
 	var/infinite_reskin = FALSE
 
-	// Access levels, used in modules\jobs\access.dm
-	var/list/req_access
-	var/req_access_txt = "0"
-	var/list/req_one_access
-	var/req_one_access_txt = "0"
+	/// Access list, used in modules\jobs\access.dm, see /code/__DEFINES/access.dm for valid entries.
+	var/list/required_access
+	/// If TRUE, all entries in required_access are required for access.
+	var/require_all_accesses = FALSE
 	/// Custom fire overlay icon
 	var/custom_fire_overlay
 
