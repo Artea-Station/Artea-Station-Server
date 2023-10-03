@@ -5,7 +5,7 @@
 	return TRUE
 
 ///Remove target limb from it's owner, with side effects.
-/obj/item/bodypart/proc/dismember(dam_type = BRUTE, silent=TRUE, wounding_type)
+/obj/item/bodypart/proc/dismember(dam_type = BRUTE, silent=FALSE, wounding_type)
 	if(!owner || (bodypart_flags & BODYPART_UNREMOVABLE))
 		return FALSE
 	var/mob/living/carbon/limb_owner = owner
@@ -17,9 +17,13 @@
 	var/obj/item/bodypart/affecting = limb_owner.get_bodypart(BODY_ZONE_CHEST)
 	affecting.receive_damage(clamp(brute_dam/2 * affecting.body_damage_coeff, 15, 50), clamp(burn_dam/2 * affecting.body_damage_coeff, 0, 50), wound_bonus=CANT_WOUND) //Damage the chest based on limb's existing damage
 	if(!silent)
-		limb_owner.visible_message(span_danger("<B>[limb_owner]'s [name] is violently dismembered!</B>"))
+		if(dam_type == BURN)
+			limb_owner.visible_message(span_danger("<B>[limb_owner]'s [name] melts off of [limb_owner.p_their()] body!</B>"))
+			playsound(get_turf(limb_owner), 'sound/effects/wounds/sizzle2.ogg', 80, TRUE)
+		else
+			limb_owner.visible_message(span_danger("<B>[limb_owner]'s [name] is violently dismembered!</B>"))
+			playsound(get_turf(limb_owner), 'sound/effects/dismember.ogg', 80, TRUE)
 	INVOKE_ASYNC(limb_owner, TYPE_PROC_REF(/mob, emote), "scream")
-	playsound(get_turf(limb_owner), 'sound/effects/dismember.ogg', 80, TRUE)
 	limb_owner.add_mood_event("dismembered", /datum/mood_event/dismembered)
 	limb_owner.mind?.add_memory(MEMORY_DISMEMBERED, list(DETAIL_LOST_LIMB = src, DETAIL_PROTAGONIST = limb_owner), story_value = STORY_VALUE_AMAZING)
 
@@ -35,8 +39,7 @@
 
 	if(QDELETED(src)) //Could have dropped into lava/explosion/chasm/whatever
 		return TRUE
-	if(dam_type == BURN)
-		burn()
+	if(dam_type == BURN) // This wasn't violent. Probably. Let's not throw the limb.
 		return TRUE
 	if (can_bleed())
 		add_mob_blood(limb_owner)
