@@ -46,7 +46,7 @@
 			accesses += extra_accesses
 
 		for(var/access in accesses)
-			if(access in card_accesses || ("[copytext(access, 0, -6)]_highsec" in card_accesses)) // Ehh, I might figure out a better way later.
+			if(access in card_accesses)
 				return TRUE
 		return FALSE
 
