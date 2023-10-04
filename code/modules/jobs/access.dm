@@ -1,6 +1,7 @@
 
-//returns TRUE if this mob has sufficient access to use this object
-/obj/proc/allowed(mob/accessor)
+/// Returns TRUE if this mob has sufficient access to use this object.
+/// Can be provided an optional list of extra required accesses. Mostly for conditional accesses.
+/obj/proc/allowed(mob/accessor, list/extra_accesses)
 	// ARTEA TODO: Yeet this signal garbage. A whole ass signal at the very start of a proc for a singular usecase that should've just been a proc override.
 	var/result_bitflags = SEND_SIGNAL(src, COMSIG_OBJ_ALLOWED, accessor)
 	if(result_bitflags & COMPONENT_OBJ_ALLOW)
@@ -37,15 +38,22 @@
 	if(istext(required_access))
 		return required_access in card_accesses
 
-	if(!require_all_accesses)
-		for(var/access in required_access)
+	if(req_access || extra_accesses)
+		var/accesses = list()
+		if(req_access)
+			accesses += req_access
+		if(extra_accesses)
+			accesses += extra_accesses
+
+		for(var/access in accesses)
 			if(access in card_accesses || ("[copytext(access, 0, -6)]_highsec" in card_accesses)) // Ehh, I might figure out a better way later.
 				return TRUE
 		return FALSE
 
-	for(var/access in required_access)
-		if(!(access in card_accesses))
-			return FALSE
+	if(req_one_access)
+		for(var/access in req_one_access)
+			if(!(access in card_accesses))
+				return FALSE
 	return TRUE
 
 /obj/item/proc/GetAccess()

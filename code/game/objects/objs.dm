@@ -31,10 +31,10 @@
 	var/infinite_reskin = FALSE
 
 	// Access levels, used in modules\jobs\access.dm
+	/// A list of required accesses. All accesses inside this list are required. If non-null, this is used before req_one_access.
 	var/list/req_access
-	var/req_access_txt = "0"
+	/// A list of required accesses. Only one access inside this list is required. Can contain lists for multi-accesses.
 	var/list/req_one_access
-	var/req_one_access_txt = "0"
 	/// Custom fire overlay icon
 	var/custom_fire_overlay
 
