@@ -13,7 +13,7 @@
 	else if(SEND_SIGNAL(accessor, COMSIG_MOB_TRIED_ACCESS, src) & ACCESS_ALLOWED)
 		return TRUE
 
-	if(!required_access)
+	if(!req_access && !req_one_access)
 		return TRUE
 
 	if(accessor.has_unlimited_silicon_privilege)
@@ -62,9 +62,6 @@
 		accesses = item.GetAccess()
 	else if(islist(target))
 		accesses = target
-
-	if((!accesses || !length(accesses)) && (accesses = ))
-		return FALSE
 
 	if(req_access || extra_accesses)
 		var/accesses = list()
