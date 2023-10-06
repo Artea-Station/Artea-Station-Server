@@ -33,7 +33,7 @@
 /datum/id_trim/chameleon
 	assignment = "Unknown"
 	letter_state = "letter-darkof"
-	access = list(ACCESS_SYNDICATE_LOWSEC, ACCESS_MAINT_TUNNELS)
+	access = list(ACCESS_SYNDICATE_LOWSEC, ACCESS_ARTEA_COMMON)
 
 /// Trim for Chameleon ID cards. Many outfits, nuke ops and some corpses hold Chameleon ID cards.
 /datum/id_trim/chameleon/operative
@@ -47,7 +47,7 @@
 /datum/id_trim/chameleon/operative/nuke_leader
 	assignment = "Syndicate Operative Leader"
 	department_state = "dept-security"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE_LOWSEC, ACCESS_SYNDICATE_HIGHSEC)
+	access = list(ACCESS_ARTEA_COMMON, ACCESS_SYNDICATE_LOWSEC, ACCESS_SYNDICATE_HIGHSEC)
 
 /// Trim for Chameleon ID cards. Many outfits, nuke ops and some corpses hold Chameleon ID cards.
 /datum/id_trim/chameleon/operative/clown
@@ -57,4 +57,4 @@
 /// Trim for Chameleon ID cards. Many outfits, nuke ops and some corpses hold Chameleon ID cards.
 /datum/id_trim/chameleon/operative/clown_leader
 	assignment = "Syndicate Entertainment Operative Leader"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE_LOWSEC, ACCESS_SYNDICATE_HIGHSEC)
+	access = list(ACCESS_ARTEA_COMMON, ACCESS_SYNDICATE_LOWSEC, ACCESS_SYNDICATE_HIGHSEC)

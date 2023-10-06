@@ -141,7 +141,7 @@ SUBSYSTEM_DEF(id_access)
  */
 /datum/controller/subsystem/id_access/proc/remove_trim_from_chameleon_card(obj/item/card/id/advanced/chameleon/id_card)
 	id_card.trim_icon_override = null
-	id_card.trim_state_override = null
+	id_card.trim_letter_state_override = null
 	id_card.trim_assignment_override = null
 	id_card.sechud_icon_state_override = null
 	id_card.department_color_override = null

@@ -27,7 +27,7 @@
 /obj/structure/closet/secure_closet/ert_sec
 	name = "emergency response team security locker"
 	desc = "A storage unit containing equipment for an Emergency Response Team Security Officer."
-	req_access = list(ACCESS_CENT_SPECOPS)
+	req_access = list(ACCESS_CENTCOM_HIGHSEC)
 	icon_state = "hos"
 
 /obj/structure/closet/secure_closet/ert_sec/PopulateContents()

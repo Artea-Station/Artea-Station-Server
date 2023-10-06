@@ -53,7 +53,7 @@
 /obj/item/storage/lockbox/medal/pl
 	name = "Lead Pathfinder medal box"
 	desc = "A locked box used to store medals to be given to those exhibiting excellence in pathfinding."
-	req_access = list(ACCESS_PATHFINDERS_LEAD)
+	req_access = list(ACCESS_PATHFINDERS_HEAD)
 
 /obj/item/storage/lockbox/medal/pl/PopulateContents()
 	for(var/i in 1 to 2)
@@ -65,7 +65,7 @@
 
 /obj/structure/closet/secure_closet/lead_pathfinder
 	name = "\proper lead pathfinder's locker"
-	req_access = list(ACCESS_PATHFINDERS_LEAD)
+	req_access = list(ACCESS_PATHFINDERS_HEAD)
 	icon_state = "rd"
 
 /obj/structure/closet/secure_closet/lead_pathfinder/PopulateContents()
@@ -99,7 +99,7 @@
 
 /obj/structure/closet/secure_closet/pathfinders_ballistic
 	name = "\proper pathfinder's ballistics locker"
-	req_access = list(ACCESS_PATHFINDERS_LEAD)
+	req_access = list(ACCESS_PATHFINDERS_HEAD)
 	icon_state = "tac"
 
 /obj/structure/closet/secure_closet/pathfinders_ballistic/PopulateContents()

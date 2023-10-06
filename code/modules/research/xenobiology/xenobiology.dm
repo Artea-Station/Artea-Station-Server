@@ -738,7 +738,7 @@
 /obj/item/slimepotion/slime/sentience/nuclear/after_success(mob/living/user, mob/living/smart_mob)
 	var/obj/item/implant/radio/syndicate/imp = new(src)
 	imp.implant(smart_mob, user)
-	smart_mob.AddComponent(/datum/component/simple_access, list(ACCESS_SYNDICATE_LOWSEC, ACCESS_MAINT_TUNNELS))
+	smart_mob.AddComponent(/datum/component/simple_access, list(ACCESS_SYNDICATE_LOWSEC, ACCESS_ARTEA_COMMON))
 
 /obj/item/slimepotion/transference
 	name = "consciousness transference potion"

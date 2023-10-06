@@ -1,6 +1,6 @@
 /obj/structure/closet/secure_closet/captains
 	name = "\proper captain's locker"
-	req_access = list(ACCESS_CAPTAIN)
+	req_access = list(ACCESS_SPECIAL_CAPTAIN)
 	icon_state = "cap"
 
 /obj/structure/closet/secure_closet/captains/PopulateContents()
@@ -46,7 +46,7 @@
 
 /obj/structure/closet/secure_closet/hos
 	name = "\proper head of security's locker"
-	req_access = list(ACCESS_HOS)
+	req_access = list(ACCESS_SECURITY_HEAD)
 	icon_state = "hos"
 
 /obj/structure/closet/secure_closet/hos/PopulateContents()
@@ -171,7 +171,7 @@
 
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections"
-	req_access = list(ACCESS_HOS)
+	req_access = list(ACCESS_SECURITY_HEAD)
 
 /obj/structure/closet/secure_closet/injection/PopulateContents()
 	..()

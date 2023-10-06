@@ -7,7 +7,7 @@
 	/// Department color for this trim. Displayed in the box under the department_state.
 	var/department_color = COLOR_ASSISTANT_GRAY
 	/// The company letter/logo displayed on the ID.
-	var/letter_state = "letter-artea"
+	var/letter_state = "letter-unknown"
 	/// Subdepartment color for this trim. Displayed as a bar under the department_state and department_color.
 	var/subdepartment_color = COLOR_ASSISTANT_OLIVE
 	/// Job/assignment associated with this trim. Can be transferred to ID cards holding this trim.

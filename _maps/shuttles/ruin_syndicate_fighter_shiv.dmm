@@ -11,7 +11,7 @@
 	name = "Shuttle turret control";
 	pixel_x = 32;
 	pixel_y = -28;
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/structure/cable,
 /mob/living/simple_animal/hostile/syndicate/ranged/smg/pilot{
@@ -41,7 +41,7 @@
 "uM" = (
 /obj/machinery/power/apc/highcap/ten_k/directional/west{
 	name = "Syndicate Fighter Power Controller";
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/machinery/computer/security{
 	dir = 1;
@@ -57,7 +57,7 @@
 	id = "caravansyndicate1_bolt";
 	name = "External Bolt Control";
 	normaldoorcontrol = 1;
-	req_access = list("syndicate");
+	req_access = list("syndicate_lowsec""syndicate_lowsec");
 	specialfunctions = 4
 	},
 /turf/open/floor/mineral/plastitanium/red,

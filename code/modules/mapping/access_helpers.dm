@@ -43,7 +43,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/command/eva/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_EVA
+	access_list += ACCESS_ARTEA_COMMON
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/command/minisat/get_access()
@@ -64,12 +64,12 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/command/captain/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CAPTAIN
+	access_list += ACCESS_SPECIAL_CAPTAIN
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/command/maintenance/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_COMMAND_LOWSEC, ACCESS_MAINT_TUNNELS)
+	access_list += list(ACCESS_COMMAND_LOWSEC, ACCESS_ARTEA_COMMON)
 	return access_list
 
 // -------------------- Engineering access helpers
@@ -93,22 +93,22 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/aux_base/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_AUX_BASE
+	access_list += ACCESS_ARTEA_COMMON
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_MAINT_TUNNELS
+	access_list += ACCESS_ARTEA_COMMON
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance/departmental/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_ENGINEERING_LOWSEC, ACCESS_MAINT_TUNNELS)
+	access_list += list(ACCESS_ENGINEERING_LOWSEC, ACCESS_ARTEA_COMMON)
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/external/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_EXTERNAL_AIRLOCKS
+	access_list += ACCESS_ARTEA_COMMON
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/tech_storage/get_access()
@@ -128,7 +128,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/ce/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CE
+	access_list += ACCESS_ENGINEERING_HEAD
 	return access_list
 
 // -------------------- Medical access helpers
@@ -162,7 +162,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/medical/cmo/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CMO
+	access_list += ACCESS_MEDICAL_HEAD
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/medical/pharmacy/get_access()
@@ -177,7 +177,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/medical/maintenance/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_MEDICAL_LOWSEC, ACCESS_MAINT_TUNNELS)
+	access_list += list(ACCESS_MEDICAL_LOWSEC, ACCESS_ARTEA_COMMON)
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/medical/shuttle/get_access()
@@ -191,27 +191,27 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/science/general/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_SCIENCE
+	access_list += ACCESS_PATHFINDERS_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/science/research/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_RESEARCH
+	access_list += ACCESS_PATHFINDERS_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/science/ordnance/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_ORDNANCE
+	access_list += ACCESS_ENGINEERING_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/science/ordnance_storage/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_ORDNANCE_STORAGE
+	access_list += ACCESS_ENGINEERING_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/science/genetics/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_GENETICS
+	access_list += ACCESS_PATHFINDERS_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/science/robotics/get_access()
@@ -221,7 +221,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/science/xenobio/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_XENOBIOLOGY
+	access_list += ACCESS_ENGINEERING_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/science/minisat/get_access()
@@ -232,12 +232,12 @@
 /// ARTEA TODO: Doesn't actually set RD. This should be removed when we stop using TG maps!!
 /obj/effect/mapping_helpers/airlock/access/any/science/rd/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CE
+	access_list += ACCESS_ENGINEERING_HEAD
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/science/maintenance/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_SCIENCE, ACCESS_MAINT_TUNNELS)
+	access_list += list(ACCESS_PATHFINDERS_LOWSEC, ACCESS_ARTEA_COMMON)
 	return access_list
 
 // -------------------- Security access helpers
@@ -276,12 +276,12 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/security/hos/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_HOS
+	access_list += ACCESS_SECURITY_HEAD
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/security/maintenance/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_SECURITY_LOWSEC, ACCESS_MAINT_TUNNELS)
+	access_list += list(ACCESS_SECURITY_LOWSEC, ACCESS_ARTEA_COMMON)
 	return access_list
 
 // -------------------- Service access helpers
@@ -340,7 +340,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/service/maintenance/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_SERVICE_LOWSEC, ACCESS_MAINT_TUNNELS)
+	access_list += list(ACCESS_SERVICE_LOWSEC, ACCESS_ARTEA_COMMON)
 	return access_list
 
 // -------------------- Supply access helpers
@@ -374,7 +374,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/supply/qm/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_QM
+	access_list += ACCESS_CARGO_HEAD
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/supply/vault/get_access()
@@ -384,7 +384,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/supply/maintenance/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_CARGO_LOWSEC, ACCESS_MAINT_TUNNELS)
+	access_list += list(ACCESS_CARGO_LOWSEC, ACCESS_ARTEA_COMMON)
 	return access_list
 
 // -------------------- Syndicate access helpers
@@ -531,7 +531,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/command/eva/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_EVA
+	access_list += ACCESS_ARTEA_COMMON
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/command/minisat/get_access()
@@ -551,7 +551,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/command/captain/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CAPTAIN
+	access_list += ACCESS_SPECIAL_CAPTAIN
 	return access_list
 
 // -------------------- Engineering access helpers
@@ -575,17 +575,17 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/aux_base/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_AUX_BASE
+	access_list += ACCESS_ARTEA_COMMON
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_MAINT_TUNNELS
+	access_list += ACCESS_ARTEA_COMMON
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_EXTERNAL_AIRLOCKS
+	access_list += ACCESS_ARTEA_COMMON
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/tech_storage/get_access()
@@ -605,7 +605,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/ce/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CE
+	access_list += ACCESS_ENGINEERING_HEAD
 	return access_list
 
 // -------------------- Medical access helpers
@@ -639,7 +639,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/medical/cmo/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CMO
+	access_list += ACCESS_MEDICAL_HEAD
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/medical/pharmacy/get_access()
@@ -663,27 +663,27 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/science/general/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_SCIENCE
+	access_list += ACCESS_PATHFINDERS_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/science/research/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_RESEARCH
+	access_list += ACCESS_PATHFINDERS_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/science/ordnance/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_ORDNANCE
+	access_list += ACCESS_ENGINEERING_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/science/ordnance_storage/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_ORDNANCE_STORAGE
+	access_list += ACCESS_ENGINEERING_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/science/genetics/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_GENETICS
+	access_list += ACCESS_PATHFINDERS_LOWSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/science/robotics/get_access()
@@ -693,7 +693,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/science/xenobio/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_XENOBIOLOGY
+	access_list += ACCESS_ENGINEERING_HIGHSEC
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/science/minisat/get_access()
@@ -704,7 +704,7 @@
 /// ARTEA TODO: Doesn't actually set RD. This should be removed when we stop using TG maps!!
 /obj/effect/mapping_helpers/airlock/access/all/science/rd/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_CE
+	access_list += ACCESS_ENGINEERING_HEAD
 	return access_list
 
 // -------------------- Security access helpers
@@ -743,7 +743,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/security/hos/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_HOS
+	access_list += ACCESS_SECURITY_HEAD
 	return access_list
 
 // -------------------- Service access helpers
@@ -831,7 +831,7 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/supply/qm/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_QM
+	access_list += ACCESS_CARGO_HEAD
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/supply/vault/get_access()

@@ -901,7 +901,7 @@
 	name = "chamber air alarm"
 	locked = FALSE
 	req_access = null
-	req_one_access = list(ACCESS_ENGINEERING_HIGHSEC, ACCESS_ORDNANCE)
+	req_one_access = list(ACCESS_ENGINEERING_HIGHSEC, ACCESS_ENGINEERING_HIGHSEC)
 
 /obj/machinery/airalarm/all_access
 	name = "all-access air alarm"

@@ -413,7 +413,7 @@
 "fL" = (
 /obj/machinery/door/window/left/directional/west{
 	name = "Cell 2";
-	req_access = list("security")
+	req_access = list("security""security_lowsec")
 	},
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating/airless,
@@ -607,7 +607,7 @@
 	id = "derelict_gun"
 	},
 /obj/machinery/door/window/left/directional/east{
-	req_access = list("chapel_office");
+	req_access = list("chapel_office""service_highsec");
 	name = "Coffin-Driver"
 	},
 /obj/structure/closet/crate/coffin,
@@ -713,7 +713,7 @@
 	name = "Pharmacy Desk"
 	},
 /obj/machinery/door/window/left/directional/north{
-	req_access = list("pharmacy");
+	req_access = list("pharmacy""medical_highsec");
 	name = "Pharmacy Desk"
 	},
 /turf/open/floor/iron/white/airless,
@@ -3032,7 +3032,7 @@
 /obj/structure/closet/crate/coffin,
 /obj/machinery/door/window/left/directional/east{
 	name = "Coffin Storage";
-	req_access = list("chapel_office")
+	req_access = list("chapel_office""service_highsec")
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
@@ -3982,7 +3982,7 @@
 	},
 /obj/machinery/door/window/left/directional/east{
 	name = "Sci Desk";
-	req_access = list("research")
+	req_access = list("research""engineering_lowsec")
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/ks13/science/rnd)
@@ -4092,7 +4092,7 @@
 "Fd" = (
 /obj/machinery/door/window/left/directional/east{
 	name = "Bridge";
-	req_access = list("command")
+	req_access = list(ACCESS_COMMAND_LOWSEC"command_lowsec")
 	},
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
@@ -7060,7 +7060,7 @@
 /obj/structure/cable,
 /obj/machinery/door/window/left/directional/south{
 	name = "Solars Control Access";
-	req_access = list("engineering")
+	req_access = list("engineering""engineering_lowsec")
 	},
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating,
@@ -8122,7 +8122,7 @@
 "ZH" = (
 /obj/machinery/door/window/left/directional/west{
 	name = "Cell 1";
-	req_access = list("security")
+	req_access = list("security""security_lowsec")
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/ks13/security/cell)

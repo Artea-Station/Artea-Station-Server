@@ -34,7 +34,7 @@
 
 /datum/id_trim/vr/operative/New()
 	. = ..()
-	access |= list(ACCESS_SYNDICATE_LOWSEC, ACCESS_MAINT_TUNNELS)
+	access |= list(ACCESS_SYNDICATE_LOWSEC, ACCESS_ARTEA_COMMON)
 
 /// Trim for the Tunnel Clown! outfit. Has all access.
 /datum/id_trim/tunnel_clown

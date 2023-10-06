@@ -69,7 +69,7 @@
 
 /obj/structure/closet/secure_closet/chief_medical
 	name = "\proper chief medical officer's locker"
-	req_access = list(ACCESS_CMO)
+	req_access = list(ACCESS_MEDICAL_HEAD)
 	icon_state = "cmo"
 
 /obj/structure/closet/secure_closet/chief_medical/PopulateContents()

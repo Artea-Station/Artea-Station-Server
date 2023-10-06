@@ -19,7 +19,7 @@
 	/// How much does this shuttle cost the cargo budget to purchase? Put in terms of CARGO_CRATE_VALUE to properly scale the cost with the current balance of cargo's income.
 	var/credit_cost = INFINITY
 	/// What job accesses can buy this shuttle? If null, this shuttle cannot be bought.
-	var/list/who_can_purchase = list(ACCESS_CAPTAIN)
+	var/list/who_can_purchase = list(ACCESS_SPECIAL_CAPTAIN)
 	/// Whether or not this shuttle is locked to emags only.
 	var/emag_only = FALSE
 	/// If set, overrides default movement_force on shuttle
@@ -186,7 +186,7 @@
 	description = "For the enterprising shuttle engineer! The chassis will dock upon purchase, but launch will have to be authorized as usual via shuttle call. Comes stocked with construction materials. Unlocks the ability to buy shuttle engine crates from cargo, which allow you to speed up shuttle transit time."
 	admin_notes = "No brig, no medical facilities."
 	credit_cost = CARGO_CRATE_VALUE * 5
-	who_can_purchase = list(ACCESS_CAPTAIN, ACCESS_CE)
+	who_can_purchase = list(ACCESS_SPECIAL_CAPTAIN, ACCESS_ENGINEERING_HEAD)
 
 /datum/map_template/shuttle/emergency/construction/post_load()
 	. = ..()

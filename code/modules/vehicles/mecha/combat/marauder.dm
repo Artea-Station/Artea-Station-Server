@@ -8,8 +8,8 @@
 	armor = list(MELEE = 50, BULLET = 55, LASER = 40, ENERGY = 30, BOMB = 30, BIO = 0, FIRE = 100, ACID = 100)
 	max_temperature = 60000
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	operation_req_access = list(ACCESS_CENT_SPECOPS)
-	internals_req_access = list(ACCESS_CENT_SPECOPS)
+	operation_req_access = list(ACCESS_CENTCOM_HIGHSEC)
+	internals_req_access = list(ACCESS_CENTCOM_HIGHSEC)
 	wreckage = /obj/structure/mecha_wreckage/marauder
 	mecha_flags = CANSTRAFE | IS_ENCLOSED | HAS_LIGHTS | MMI_COMPATIBLE
 	mech_type = EXOSUIT_MODULE_COMBAT
@@ -77,8 +77,8 @@
 	name = "\improper Seraph"
 	icon_state = "seraph"
 	base_icon_state = "seraph"
-	operation_req_access = list(ACCESS_CENT_SPECOPS)
-	internals_req_access = list(ACCESS_CENT_SPECOPS)
+	operation_req_access = list(ACCESS_CENTCOM_HIGHSEC)
+	internals_req_access = list(ACCESS_CENTCOM_HIGHSEC)
 	movedelay = 3
 	max_integrity = 550
 	wreckage = /obj/structure/mecha_wreckage/seraph

@@ -434,7 +434,7 @@
 	active = 1;
 	anchored = 1;
 	locked = 1;
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 10
@@ -559,7 +559,7 @@
 	active = 1;
 	anchored = 1;
 	locked = 1;
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 4
@@ -648,7 +648,7 @@
 	active = 1;
 	anchored = 1;
 	locked = 1;
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 6
@@ -684,7 +684,7 @@
 	icon_state = "control_stun";
 	name = "Ship Turret Control";
 	pixel_y = 2;
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/sbc_starfury)
@@ -827,14 +827,14 @@
 	id = "syndie_battlecruiser_bridge_bolt";
 	name = "Bridge Lockdown";
 	normaldoorcontrol = 1;
-	req_access = list("syndicate_leader");
+	req_access = list("syndicate_highsec""syndicate_highsec");
 	specialfunctions = 4;
 	pixel_y = 4
 	},
 /obj/machinery/button/door{
 	id = "syndie_battlecruier_bridge_blast";
 	name = "Bridge Blast Doors";
-	req_access = list("syndicate_leader");
+	req_access = list("syndicate_highsec""syndicate_highsec");
 	pixel_y = -4
 	},
 /obj/structure/window/reinforced/survival_pod{
@@ -907,7 +907,7 @@
 	active = 1;
 	anchored = 1;
 	locked = 1;
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /turf/open/floor/plating,
 /area/shuttle/sbc_starfury)
@@ -934,7 +934,7 @@
 /obj/item/clothing/mask/surgical,
 /obj/item/clothing/suit/apron/surgical,
 /obj/machinery/airalarm/directional/north{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/machinery/light/directional/north,
 /obj/effect/turf_decal/siding/dark_green,
@@ -949,7 +949,7 @@
 "dx" = (
 /obj/structure/cable,
 /obj/machinery/airalarm/directional/south{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /turf/open/floor/plating,
 /area/shuttle/sbc_starfury)
@@ -961,7 +961,7 @@
 	active = 1;
 	anchored = 1;
 	locked = 1;
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /turf/open/floor/plating,
 /area/shuttle/sbc_starfury)
@@ -1187,7 +1187,7 @@
 /area/shuttle/sbc_starfury)
 "er" = (
 /obj/machinery/airalarm/directional/north{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/machinery/light/directional/north,
 /turf/open/floor/pod/dark,
@@ -1215,14 +1215,14 @@
 /area/shuttle/sbc_starfury)
 "ev" = (
 /obj/machinery/airalarm/directional/west{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/machinery/light/directional/west,
 /obj/machinery/shieldgen{
 	active = 1;
 	anchored = 1;
 	locked = 1;
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark/end{
 	dir = 4
@@ -1363,7 +1363,7 @@
 	active = 1;
 	anchored = 1;
 	locked = 1;
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark/end{
 	dir = 8
@@ -1439,7 +1439,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
 /obj/machinery/airalarm/directional/south{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/machinery/light/directional/south,
 /turf/open/floor/pod/dark,
@@ -1696,7 +1696,7 @@
 "fy" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
 /obj/machinery/airalarm/directional/north{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/machinery/light/small/directional/north,
 /turf/open/floor/carpet/orange,
@@ -2019,7 +2019,7 @@
 	anchored = 1;
 	icon_state = "tac";
 	name = "Explosives Locker";
-	req_access = list("syndicate_leader")
+	req_access = list("syndicate_highsec""syndicate_highsec")
 	},
 /obj/item/storage/belt/grenade/full,
 /obj/item/grenade/syndieminibomb{
@@ -2148,7 +2148,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/airalarm/directional/north{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /turf/open/floor/iron/dark/side{
 	dir = 9
@@ -2220,7 +2220,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/airalarm/directional/north{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/structure/cable,
 /turf/open/floor/iron/dark,
@@ -2268,7 +2268,7 @@
 /obj/machinery/button/door/directional/north{
 	id = "syndie_battlecruiser_mech";
 	name = "Mech Storage Shutters";
-	req_access = list("syndicate_leader")
+	req_access = list("syndicate_highsec""syndicate_highsec")
 	},
 /obj/machinery/light/directional/north,
 /turf/open/floor/pod/dark,
@@ -2284,7 +2284,7 @@
 	anchored = 1;
 	icon_state = "tac";
 	name = "Ammunitions Locker";
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/item/ammo_box/a40mm{
 	icon_state = "40mm-4"
@@ -2454,7 +2454,7 @@
 	anchored = 1;
 	icon_state = "tac";
 	name = "Ammunitions Locker";
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/item/ammo_box/c10mm{
 	pixel_y = 4
@@ -2621,7 +2621,7 @@
 	id = "syndie_battlecruiser_armory";
 	name = "Armory Bolt Control";
 	normaldoorcontrol = 1;
-	req_access = list("syndicate_leader");
+	req_access = list("syndicate_highsec""syndicate_highsec");
 	specialfunctions = 4
 	},
 /turf/open/floor/iron/dark,
@@ -2647,7 +2647,7 @@
 	layer = 2.9
 	},
 /obj/machinery/airalarm/directional/east{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/machinery/light/directional/east,
 /obj/item/storage/belt/military,
@@ -2681,10 +2681,10 @@
 	anchored = 1;
 	icon_state = "hos";
 	name = "Captain's Locker";
-	req_access = list("syndicate_leader")
+	req_access = list("syndicate_highsec""syndicate_highsec")
 	},
 /obj/item/storage/lockbox/medal{
-	req_access = list("syndicate_leader")
+	req_access = list("syndicate_highsec""syndicate_highsec")
 	},
 /obj/item/ammo_box/a357{
 	icon_state = "357-7";
@@ -2723,7 +2723,7 @@
 /area/shuttle/sbc_starfury)
 "iw" = (
 /obj/machinery/airalarm/directional/north{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 8
@@ -2781,7 +2781,7 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/directional/south{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/machinery/light/small/directional/south,
 /turf/open/floor/carpet,
@@ -2826,7 +2826,7 @@
 	pixel_x = -5
 	},
 /obj/machinery/airalarm/directional/east{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /turf/open/floor/carpet/red,
 /area/shuttle/sbc_starfury)
@@ -2857,7 +2857,7 @@
 	active = 1;
 	anchored = 1;
 	locked = 1;
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /turf/open/floor/plating,
 /area/shuttle/sbc_starfury)
@@ -2959,18 +2959,18 @@
 /area/shuttle/sbc_starfury)
 "iT" = (
 /obj/structure/closet/secure_closet/engineering_electrical{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/effect/turf_decal/bot/right,
 /turf/open/floor/iron/smooth,
 /area/shuttle/sbc_starfury)
 "iU" = (
 /obj/structure/closet/secure_closet/engineering_welding{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/effect/turf_decal/bot/right,
 /obj/machinery/airalarm/directional/north{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /turf/open/floor/iron/smooth,
 /area/shuttle/sbc_starfury)
@@ -3164,7 +3164,7 @@
 	active = 1;
 	anchored = 1;
 	locked = 1;
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /turf/open/floor/plating,
 /area/shuttle/sbc_starfury)
@@ -3192,7 +3192,7 @@
 /obj/machinery/button/door/directional/north{
 	id = "syndie_battlecruiser_sm";
 	name = "engine shutters";
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/sbc_starfury)
@@ -3351,7 +3351,7 @@
 	dir = 4
 	},
 /obj/machinery/airalarm/directional/west{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /turf/open/floor/iron,
 /area/shuttle/sbc_starfury)
@@ -3400,7 +3400,7 @@
 	},
 /obj/structure/closet/toolcloset,
 /obj/machinery/airalarm/directional/east{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/structure/railing,
 /turf/open/floor/iron/dark,
@@ -4043,7 +4043,7 @@
 	active = 1;
 	anchored = 1;
 	locked = 1;
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 8
@@ -4222,7 +4222,7 @@
 	id = "syndie_battlecruiser_armory";
 	name = "Armory Bolt Control";
 	normaldoorcontrol = 1;
-	req_access = list("syndicate_leader");
+	req_access = list("syndicate_highsec""syndicate_highsec");
 	specialfunctions = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -4271,7 +4271,7 @@
 /obj/item/defibrillator/compact/combat/loaded,
 /obj/item/gun/syringe/rapidsyringe,
 /obj/machinery/airalarm/directional/east{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /turf/open/floor/iron,
 /area/shuttle/sbc_starfury)
@@ -4400,7 +4400,7 @@
 /obj/machinery/button/door/directional/north{
 	id = "syndie_battlecruiser_sm";
 	name = "engine shutters";
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/sbc_starfury)
@@ -4482,7 +4482,7 @@
 	active = 1;
 	anchored = 1;
 	locked = 1;
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 8
@@ -4532,7 +4532,7 @@
 /area/shuttle/sbc_starfury)
 "zz" = (
 /obj/machinery/airalarm/directional/east{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/item/kirbyplants/fern,
@@ -4579,7 +4579,7 @@
 /area/shuttle/sbc_starfury)
 "AF" = (
 /obj/machinery/airalarm/directional/west{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -4733,7 +4733,7 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/cable,
 /obj/machinery/airalarm/directional/north{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /turf/open/floor/engine,
 /area/shuttle/sbc_starfury)
@@ -4757,7 +4757,7 @@
 /obj/machinery/button/door/directional/west{
 	id = "starfury_surgery_shutters";
 	name = "Privacy Shutters";
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/effect/turf_decal/siding/dark_green,
 /turf/open/floor/iron,
@@ -4819,7 +4819,7 @@
 	active = 1;
 	anchored = 1;
 	locked = 1;
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/structure/cable,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -4872,7 +4872,7 @@
 "FO" = (
 /obj/machinery/door/window/survival_pod{
 	dir = 1;
-	req_access = list("syndicate_leader");
+	req_access = list("syndicate_highsec""syndicate_highsec");
 	name = "Command Desk"
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -4902,7 +4902,7 @@
 /area/shuttle/sbc_starfury)
 "Gv" = (
 /obj/machinery/airalarm/directional/north{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/effect/turf_decal/tile/dark_red{
 	dir = 1
@@ -5786,13 +5786,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/structure/cable,
 /obj/machinery/airalarm/directional/north{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "XU" = (
 /obj/machinery/airalarm/directional/north{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/machinery/light/small/directional/north,
 /obj/effect/turf_decal/tile/bar/diagonal_centre,
@@ -5827,7 +5827,7 @@
 /area/shuttle/sbc_starfury)
 "Yq" = (
 /obj/structure/closet/secure_closet/medical2{
-	req_access = list("syndicate")
+	req_access = list("syndicate_lowsec""syndicate_lowsec")
 	},
 /obj/item/assembly/flash/handheld,
 /obj/effect/turf_decal/siding/dark_green,

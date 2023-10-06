@@ -273,7 +273,7 @@
 /obj/machinery/power/shieldwallgen/xenobiologyaccess //use in xenobiology containment
 	name = "xenobiology shield wall generator"
 	desc = "A shield generator meant for use in xenobiology."
-	req_access = list(ACCESS_XENOBIOLOGY)
+	req_access = list(ACCESS_ENGINEERING_HIGHSEC)
 
 /obj/machinery/power/shieldwallgen/anchored
 	anchored = TRUE

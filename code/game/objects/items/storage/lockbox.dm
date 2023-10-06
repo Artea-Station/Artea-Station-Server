@@ -91,7 +91,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
-	req_access = list(ACCESS_CAPTAIN)
+	req_access = list(ACCESS_SPECIAL_CAPTAIN)
 	icon_locked = "medalbox+l"
 	icon_closed = "medalbox"
 	icon_broken = "medalbox+b"
@@ -168,12 +168,12 @@
 /obj/item/storage/lockbox/medal/sec
 	name = "security medal box"
 	desc = "A locked box used to store medals to be given to members of the security department."
-	req_access = list(ACCESS_HOS)
+	req_access = list(ACCESS_SECURITY_HEAD)
 
 /obj/item/storage/lockbox/medal/med
 	name = "medical medal box"
 	desc = "A locked box used to store medals to be given to members of the medical department."
-	req_access = list(ACCESS_CMO)
+	req_access = list(ACCESS_MEDICAL_HEAD)
 
 /obj/item/storage/lockbox/medal/med/PopulateContents()
 	new /obj/item/clothing/accessory/medal/med_medal(src)
@@ -186,7 +186,7 @@
 /obj/item/storage/lockbox/medal/cargo
 	name = "cargo award box"
 	desc = "A locked box used to store awards to be given to members of the cargo department."
-	req_access = list(ACCESS_QM)
+	req_access = list(ACCESS_CARGO_HEAD)
 
 /obj/item/storage/lockbox/medal/cargo/PopulateContents()
 		new /obj/item/clothing/accessory/medal/ribbon/cargo(src)
@@ -202,7 +202,7 @@
 /obj/item/storage/lockbox/medal/sci
 	name = "science medal box"
 	desc = "A locked box used to store medals to be given to members of the science department."
-	req_access = list(ACCESS_CAPTAIN)
+	req_access = list(ACCESS_SPECIAL_CAPTAIN)
 
 /obj/item/storage/lockbox/medal/sci/PopulateContents()
 	for(var/i in 1 to 3)

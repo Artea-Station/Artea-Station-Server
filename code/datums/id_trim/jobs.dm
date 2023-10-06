@@ -6,6 +6,7 @@
 /// ID Trims for station jobs.
 /datum/id_trim/job
 	department_state = "dept-civilian"
+	letter_state = "letter-artea"
 
 	/// The extra access the card should have when CONFIG_GET(flag/jobs_have_minimal_access) is FALSE.
 	var/list/extra_access = list()
@@ -72,7 +73,7 @@
 
 	// If the config has global maint access set, we always want to add maint access.
 	if(CONFIG_GET(flag/everyone_has_maint_access))
-		access |= list(ACCESS_MAINT_TUNNELS)
+		access |= list(ACCESS_ARTEA_COMMON)
 
 	return TRUE
 
@@ -82,10 +83,10 @@
 	sechud_icon_state = SECHUD_ASSISTANT
 	minimal_access = list()
 	extra_access = list(
-		ACCESS_MAINT_TUNNELS,
+		ACCESS_ARTEA_COMMON,
 		)
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
 		ACCESS_COMMAND_LOWSEC,
 		)
@@ -100,7 +101,7 @@
 	// Config has assistant maint access set.
 	if(CONFIG_GET(flag/assistants_have_maint_access))
 		access |= list(
-			ACCESS_MAINT_TUNNELS)
+			ACCESS_ARTEA_COMMON)
 
 /datum/id_trim/job/bartender
 	assignment = "Bartender"
@@ -114,14 +115,14 @@
 		ACCESS_CARGO_HIGHSEC,
 		ACCESS_SERVICE_LOWSEC,
 		ACCESS_SERVICE_LOWSEC,
-		ACCESS_WEAPONS,
+		ACCESS_SPECIAL_WEAPONS,
 		)
 	extra_access = list(
 		ACCESS_SERVICE_LOWSEC,
 		ACCESS_SERVICE_LOWSEC,
 		)
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
 		ACCESS_COMMAND_LOWSEC,
 		)
@@ -145,7 +146,7 @@
 		ACCESS_MEDICAL_LOWSEC,
 		)
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
 		ACCESS_COMMAND_LOWSEC,
 		)
@@ -160,7 +161,7 @@
 	subdepartment_color = COLOR_COMMAND_BLUE
 	sechud_icon_state = SECHUD_CAPTAIN
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
 		)
 	job = /datum/job/captain
@@ -183,7 +184,7 @@
 	sechud_icon_state = SECHUD_CARGO_TECHNICIAN
 	minimal_access = list(
 		ACCESS_CARGO_LOWSEC,
-		ACCESS_MAINT_TUNNELS,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_CARGO_VEHICLES,
 		ACCESS_CARGO_HIGHSEC,
 		ACCESS_CARGO_LOWSEC,
@@ -193,9 +194,9 @@
 		ACCESS_PATHFINDERS_LOWSEC,
 		)
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
-		ACCESS_QM,
+		ACCESS_CARGO_HEAD,
 		)
 	job = /datum/job/cargo_technician
 
@@ -215,7 +216,7 @@
 		)
 	extra_access = list()
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
 		ACCESS_COMMAND_LOWSEC,
 		)
@@ -240,9 +241,9 @@
 		ACCESS_MEDICAL_HIGHSEC,
 		)
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
-		ACCESS_CMO,
+		ACCESS_MEDICAL_HEAD,
 		)
 	job = /datum/job/chemist
 
@@ -257,17 +258,17 @@
 	extra_wildcard_access = list()
 	minimal_access = list(
 		ACCESS_ENGINEERING_HIGHSEC,
-		ACCESS_AUX_BASE,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_SECURITY_LOWSEC,
-		ACCESS_CE,
+		ACCESS_ENGINEERING_HEAD,
 		ACCESS_COMMAND_LOWSEC,
 		ACCESS_ENGINEERING_LOWSEC,
 		ACCESS_ENGINEERING_LOWSEC,
 		ACCESS_ENGINEERING_LOWSEC,
-		ACCESS_EVA,
-		ACCESS_EXTERNAL_AIRLOCKS,
+		ACCESS_ARTEA_COMMON,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_COMMAND_HIGHSEC,
-		ACCESS_MAINT_TUNNELS,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_ENGINEERING_VEHICLES,
 		ACCESS_CARGO_HIGHSEC,
 		ACCESS_COMMAND_LOWSEC,
@@ -275,16 +276,16 @@
 		ACCESS_ENGINEERING_HIGHSEC,
 		ACCESS_ENGINEERING_HIGHSEC,
 		ACCESS_ENGINEERING_HIGHSEC,
-		ACCESS_SCIENCE,
+		ACCESS_PATHFINDERS_LOWSEC,
 		)
 	minimal_wildcard_access = list(
-		ACCESS_CE,
+		ACCESS_ENGINEERING_HEAD,
 		)
 	extra_access = list(
 		ACCESS_COMMAND_HIGHSEC,
 		)
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
 		)
 	job = /datum/job/chief_engineer
@@ -302,8 +303,8 @@
 		ACCESS_SECURITY_LOWSEC,
 		ACCESS_COMMAND_LOWSEC,
 		ACCESS_COMMAND_HIGHSEC,
-		ACCESS_EVA,
-		ACCESS_MAINT_TUNNELS,
+		ACCESS_ARTEA_COMMON,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_MEDICAL_VEHICLES,
 		ACCESS_MEDICAL_LOWSEC,
 		ACCESS_CARGO_HIGHSEC,
@@ -316,13 +317,13 @@
 		ACCESS_MEDICAL_VEHICLES,
 		)
 	minimal_wildcard_access = list(
-		ACCESS_CMO,
+		ACCESS_MEDICAL_HEAD,
 		)
 	extra_access = list(
 		ACCESS_COMMAND_HIGHSEC,
 		)
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
 		)
 	job = /datum/job/chief_medical_officer
@@ -340,7 +341,7 @@
 		)
 	extra_access = list()
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
 		ACCESS_COMMAND_LOWSEC,
 		)
@@ -364,7 +365,7 @@
 		ACCESS_SERVICE_LOWSEC,
 		)
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
 		ACCESS_COMMAND_LOWSEC,
 		)
@@ -382,14 +383,14 @@
 	subdepartment_color = COLOR_SERVICE_LIME
 	sechud_icon_state = SECHUD_CURATOR
 	minimal_access = list(
-		ACCESS_AUX_BASE,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_SERVICE_LOWSEC,
 		ACCESS_PATHFINDERS_LOWSEC,
 		ACCESS_SERVICE_LOWSEC,
 		)
 	extra_access = list()
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
 		ACCESS_COMMAND_LOWSEC,
 		)
@@ -406,20 +407,20 @@
 		ACCESS_SECURITY_LOWSEC,
 		ACCESS_SECURITY_LOWSEC,
 		ACCESS_SECURITY_LOWSEC,
-		ACCESS_MAINT_TUNNELS,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_SECURITY_VEHICLES,
 		ACCESS_CARGO_HIGHSEC,
 		ACCESS_MEDICAL_LOWSEC,
 		ACCESS_SECURITY_LOWSEC,
-		ACCESS_WEAPONS,
+		ACCESS_SPECIAL_WEAPONS,
 		)
 	extra_access = list(
 		ACCESS_SECURITY_HIGHSEC,
 		)
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
-		ACCESS_HOS,
+		ACCESS_SECURITY_HEAD,
 		)
 	job = /datum/job/detective
 
@@ -431,7 +432,7 @@
 
 	// Config check for if sec has maint access.
 	if(CONFIG_GET(flag/security_has_maint_access))
-		access |= list(ACCESS_MAINT_TUNNELS)
+		access |= list(ACCESS_ARTEA_COMMON)
 
 /datum/id_trim/job/head_of_personnel
 	assignment = "Head of Personnel"
@@ -444,7 +445,7 @@
 	minimal_access = list(
 		ACCESS_COMMAND_HIGHSEC,
 		ACCESS_COMMAND_HIGHSEC,
-		ACCESS_AUX_BASE,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_SERVICE_HIGHSEC,
 		ACCESS_SECURITY_LOWSEC,
 		ACCESS_SERVICE_HIGHSEC,
@@ -453,7 +454,7 @@
 		ACCESS_COMMAND_LOWSEC,
 		ACCESS_SECURITY_LOWSEC,
 		ACCESS_ENGINEERING_LOWSEC,
-		ACCESS_EVA,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_COMMAND_LOWSEC,
 		ACCESS_SERVICE_LOWSEC,
 		ACCESS_SERVICE_LOWSEC,
@@ -461,16 +462,16 @@
 		ACCESS_SERVICE_LOWSEC,
 		ACCESS_SERVICE_HIGHSEC,
 		ACCESS_SERVICE_LOWSEC,
-		ACCESS_MAINT_TUNNELS,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_MEDICAL_LOWSEC,
 		ACCESS_CARGO_HIGHSEC,
 		ACCESS_MEDICAL_LOWSEC,
 		ACCESS_COMMAND_LOWSEC,
-		ACCESS_SCIENCE,
+		ACCESS_PATHFINDERS_LOWSEC,
 		ACCESS_SERVICE_LOWSEC,
 		ACCESS_COMMAND_HIGHSEC,
 		ACCESS_SERVICE_LOWSEC,
-		ACCESS_WEAPONS,
+		ACCESS_SPECIAL_WEAPONS,
 		)
 	minimal_wildcard_access = list(
 		ACCESS_COMMAND_LOWSEC,
@@ -478,7 +479,7 @@
 	extra_access = list()
 	extra_wildcard_access = list()
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
 	)
 	job = /datum/job/head_of_personnel
@@ -496,7 +497,7 @@
 	minimal_access = list(
 		ACCESS_COMMAND_HIGHSEC,
 		ACCESS_SECURITY_HIGHSEC,
-		ACCESS_AUX_BASE,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_SECURITY_HIGHSEC,
 		ACCESS_SECURITY_LOWSEC,
 		ACCESS_CARGO_LOWSEC,
@@ -505,27 +506,27 @@
 		ACCESS_SECURITY_LOWSEC,
 		ACCESS_SECURITY_LOWSEC,
 		ACCESS_ENGINEERING_LOWSEC,
-		ACCESS_EVA,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_COMMAND_LOWSEC,
 		ACCESS_COMMAND_HIGHSEC,
-		ACCESS_MAINT_TUNNELS,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_SECURITY_VEHICLES,
 		ACCESS_MEDICAL_LOWSEC,
 		ACCESS_CARGO_HIGHSEC,
 		ACCESS_PATHFINDERS_LOWSEC,
 		ACCESS_MEDICAL_LOWSEC,
 		ACCESS_COMMAND_LOWSEC,
-		ACCESS_SCIENCE,
+		ACCESS_PATHFINDERS_LOWSEC,
 		ACCESS_SECURITY_LOWSEC,
 		ACCESS_SERVICE_LOWSEC,
 		ACCESS_CARGO_LOWSEC,
-		ACCESS_WEAPONS,
+		ACCESS_SPECIAL_WEAPONS,
 		)
 	minimal_wildcard_access = list(
-		ACCESS_HOS,
+		ACCESS_SECURITY_HEAD,
 		)
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
 		)
 	job = /datum/job/head_of_security
@@ -538,7 +539,7 @@
 
 	// Config check for if sec has maint access.
 	if(CONFIG_GET(flag/security_has_maint_access))
-		access |= list(ACCESS_MAINT_TUNNELS)
+		access |= list(ACCESS_ARTEA_COMMON)
 
 /datum/id_trim/job/internal_affairs_agent
 	assignment = "Internal Affairs Agent"
@@ -554,7 +555,7 @@
 		)
 	extra_access = list()
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
 		ACCESS_COMMAND_LOWSEC,
 		)
@@ -569,13 +570,13 @@
 	sechud_icon_state = SECHUD_JANITOR
 	minimal_access = list(
 		ACCESS_SERVICE_LOWSEC,
-		ACCESS_MAINT_TUNNELS,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_CARGO_HIGHSEC,
 		ACCESS_SERVICE_LOWSEC,
 		)
 	extra_access = list()
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
 		ACCESS_COMMAND_LOWSEC,
 		)
@@ -596,7 +597,7 @@
 		)
 	extra_access = list()
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
 		ACCESS_COMMAND_LOWSEC,
 		)
@@ -622,9 +623,9 @@
 		ACCESS_MEDICAL_VEHICLES,
 		)
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
-		ACCESS_CMO,
+		ACCESS_MEDICAL_HEAD,
 		)
 	job = /datum/job/doctor
 
@@ -641,7 +642,7 @@
 		)
 	extra_access = list()
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
 		ACCESS_COMMAND_LOWSEC,
 		)
@@ -658,13 +659,13 @@
 		ACCESS_CARGO_LOWSEC,
 		ACCESS_ENGINEERING_LOWSEC,
 		ACCESS_SERVICE_LOWSEC,
-		ACCESS_MAINT_TUNNELS,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_MEDICAL_VEHICLES,
 		ACCESS_MEDICAL_LOWSEC,
 		ACCESS_CARGO_HIGHSEC,
 		ACCESS_PATHFINDERS_LOWSEC,
 		ACCESS_MEDICAL_LOWSEC,
-		ACCESS_SCIENCE,
+		ACCESS_PATHFINDERS_LOWSEC,
 		ACCESS_SERVICE_LOWSEC,
 		ACCESS_MEDICAL_VEHICLES,
 		)
@@ -672,9 +673,9 @@
 		ACCESS_MEDICAL_HIGHSEC,
 		)
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
-		ACCESS_CMO,
+		ACCESS_MEDICAL_HEAD,
 		)
 	job = /datum/job/paramedic
 
@@ -686,10 +687,10 @@
 	subdepartment_color = COLOR_PRISONER_ORANGE
 	sechud_icon_state = SECHUD_PRISONER
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
 		ACCESS_COMMAND_LOWSEC,
-		ACCESS_HOS,
+		ACCESS_SECURITY_HEAD,
 		)
 	job = /datum/job/prisoner
 
@@ -728,9 +729,9 @@
 		)
 	extra_access = list()
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
-		ACCESS_CMO,
+		ACCESS_MEDICAL_HEAD,
 		ACCESS_COMMAND_LOWSEC,
 		)
 	job = /datum/job/psychologist
@@ -743,28 +744,28 @@
 	subdepartment_color = COLOR_CARGO_BROWN
 	sechud_icon_state = SECHUD_QUARTERMASTER
 	minimal_access = list(
-		ACCESS_AUX_BASE,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_CARGO_LOWSEC,
-		ACCESS_MAINT_TUNNELS,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_CARGO_VEHICLES,
 		ACCESS_PATHFINDERS_LOWSEC,
 		ACCESS_CARGO_HIGHSEC,
 		ACCESS_PATHFINDERS_LOWSEC,
-		ACCESS_QM,
+		ACCESS_CARGO_HEAD,
 		ACCESS_COMMAND_LOWSEC,
 		ACCESS_CARGO_LOWSEC,
 		ACCESS_VAULT,
 		ACCESS_COMMAND_HIGHSEC,
 		ACCESS_COMMAND_LOWSEC,
-		ACCESS_EVA,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_SECURITY_LOWSEC,
 		)
 	extra_access = list()
 	minimal_wildcard_access = list(
-		ACCESS_QM,
+		ACCESS_CARGO_HEAD,
 	)
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
 	)
 	job = /datum/job/quartermaster
@@ -777,7 +778,7 @@
 	subdepartment_color = COLOR_ENGINEERING_ORANGE
 	sechud_icon_state = SECHUD_ROBOTICIST
 	minimal_access = list(
-		ACCESS_AUX_BASE,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_ENGINEERING_VEHICLES,
 		ACCESS_CARGO_HIGHSEC,
 		ACCESS_MEDICAL_LOWSEC,
@@ -788,9 +789,9 @@
 		ACCESS_ENGINEERING_LOWSEC,
 		)
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
-		ACCESS_CE,
+		ACCESS_ENGINEERING_HEAD,
 		)
 	job = /datum/job/roboticist
 
@@ -809,17 +810,17 @@
 		ACCESS_SECURITY_VEHICLES,
 		ACCESS_CARGO_HIGHSEC,
 		ACCESS_SECURITY_LOWSEC,
-		ACCESS_WEAPONS,
+		ACCESS_SPECIAL_WEAPONS,
 		)
 	extra_access = list(
 		ACCESS_SECURITY_LOWSEC,
-		ACCESS_MAINT_TUNNELS,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_MEDICAL_LOWSEC,
 		)
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
-		ACCESS_HOS,
+		ACCESS_SECURITY_HEAD,
 		)
 	job = /datum/job/security_officer
 	/// List of bonus departmental accesses that departmental sec officers get by default.
@@ -837,7 +838,7 @@
 
 	// Config check for if sec has maint access.
 	if(CONFIG_GET(flag/security_has_maint_access))
-		access |= list(ACCESS_MAINT_TUNNELS)
+		access |= list(ACCESS_ARTEA_COMMON)
 
 	// Scaling access (POPULATION_SCALED_ACCESS) is a system directly tied into calculations derived via a config entered variable, as well as the amount of players in the shift.
 	// Thus, it makes it possible to judge if departmental security officers should have more access to their department on a lower population shift.
@@ -868,7 +869,7 @@
 		ACCESS_CARGO_LOWSEC,
 	)
 	elevated_access = list(
-		ACCESS_AUX_BASE,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_PATHFINDERS_LOWSEC,
 	)
 
@@ -880,7 +881,7 @@
 		ACCESS_ENGINEERING_LOWSEC,
 	)
 	elevated_access = list(
-		ACCESS_AUX_BASE,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_ENGINEERING_LOWSEC,
 		ACCESS_ENGINEERING_LOWSEC,
 		ACCESS_ENGINEERING_HIGHSEC,
@@ -903,16 +904,16 @@
 	assignment = "Security Officer (Science)"
 	subdepartment_color = COLOR_SCIENCE_PINK
 	department_access = list(
-		ACCESS_RESEARCH,
-		ACCESS_SCIENCE,
+		ACCESS_PATHFINDERS_LOWSEC,
+		ACCESS_PATHFINDERS_LOWSEC,
 	)
 	elevated_access = list(
-		ACCESS_AUX_BASE,
-		ACCESS_GENETICS,
-		ACCESS_ORDNANCE_STORAGE,
-		ACCESS_ORDNANCE,
+		ACCESS_ARTEA_COMMON,
+		ACCESS_PATHFINDERS_LOWSEC,
+		ACCESS_ENGINEERING_LOWSEC,
 		ACCESS_ENGINEERING_HIGHSEC,
-		ACCESS_XENOBIOLOGY,
+		ACCESS_ENGINEERING_HIGHSEC,
+		ACCESS_ENGINEERING_HIGHSEC,
 	)
 
 /datum/id_trim/job/station_engineer
@@ -924,12 +925,12 @@
 	sechud_icon_state = SECHUD_STATION_ENGINEER
 	minimal_access = list(
 		ACCESS_ENGINEERING_HIGHSEC,
-		ACCESS_AUX_BASE,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_ENGINEERING_LOWSEC,
 		ACCESS_ENGINEERING_LOWSEC,
 		ACCESS_ENGINEERING_LOWSEC,
-		ACCESS_EXTERNAL_AIRLOCKS,
-		ACCESS_MAINT_TUNNELS,
+		ACCESS_ARTEA_COMMON,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_ENGINEERING_VEHICLES,
 		ACCESS_CARGO_HIGHSEC,
 		ACCESS_COMMAND_LOWSEC,
@@ -937,9 +938,9 @@
 		ACCESS_ENGINEERING_HIGHSEC,
 		)
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
-		ACCESS_CE,
+		ACCESS_ENGINEERING_HEAD,
 		)
 	job = /datum/job/station_engineer
 
@@ -958,17 +959,17 @@
 		ACCESS_SECURITY_VEHICLES,
 		ACCESS_CARGO_HIGHSEC,
 		ACCESS_SECURITY_LOWSEC,
-		ACCESS_WEAPONS,
+		ACCESS_SPECIAL_WEAPONS,
 		) // See /datum/job/warden/get_access()
 	extra_access = list(
 		ACCESS_SECURITY_LOWSEC,
-		ACCESS_MAINT_TUNNELS,
+		ACCESS_ARTEA_COMMON,
 		ACCESS_MEDICAL_LOWSEC,
 		)
 	template_access = list(
-		ACCESS_CAPTAIN,
+		ACCESS_SPECIAL_CAPTAIN,
 		ACCESS_COMMAND_LOWSEC,
-		ACCESS_HOS,
+		ACCESS_SECURITY_HEAD,
 		)
 	job = /datum/job/warden
 
@@ -980,7 +981,7 @@
 
 	// Config check for if sec has maint access.
 	if(CONFIG_GET(flag/security_has_maint_access))
-		access |= list(ACCESS_MAINT_TUNNELS)
+		access |= list(ACCESS_ARTEA_COMMON)
 
 #undef POPULATION_SCALED_ACCESS
 #undef ALWAYS_GETS_ACCESS

@@ -1089,7 +1089,7 @@ DEFINE_BITFIELD(turret_flags, list(
 	. = ..()
 
 /obj/machinery/porta_turret/lasertag
-	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SERVICE_LOWSEC)
+	req_access = list(ACCESS_ARTEA_COMMON, ACCESS_SERVICE_LOWSEC)
 	turret_flags = TURRET_FLAG_AUTH_WEAPONS
 	var/team_color
 

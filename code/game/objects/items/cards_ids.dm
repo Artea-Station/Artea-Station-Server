@@ -688,7 +688,7 @@
 	. = ..()
 	if(registered_account)
 		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of [registered_account.account_balance] cr."
-		if((ACCESS_COMMAND_LOWSEC in access) || (ACCESS_QM in access))
+		if((ACCESS_COMMAND_LOWSEC in access) || (ACCESS_CARGO_HEAD in access))
 			var/datum/bank_account/linked_dept = SSeconomy.get_dep_account(registered_account.account_job.paycheck_department)
 			. += "The [linked_dept.account_holder] linked to the ID reports a balance of [linked_dept.account_balance] cr."
 
@@ -1054,7 +1054,7 @@
 	wildcard_slots = WILDCARD_LIMIT_SILVER
 
 /datum/id_trim/maint_reaper
-	access = list(ACCESS_MAINT_TUNNELS)
+	access = list(ACCESS_ARTEA_COMMON)
 	department_state = "dept-service"
 	assignment = "Reaper"
 

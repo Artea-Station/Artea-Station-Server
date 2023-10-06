@@ -32,7 +32,7 @@
 
 /// Trim for the oldstation ruin/Charlie station to access robots, and downloading of paper publishing software for experiments
 /datum/id_trim/away/old/robo
-	access = list(ACCESS_AWAY_GENERAL, ACCESS_ENGINEERING_HIGHSEC, ACCESS_ORDNANCE)
+	access = list(ACCESS_AWAY_GENERAL, ACCESS_ENGINEERING_HIGHSEC, ACCESS_ENGINEERING_HIGHSEC)
 
 /// Trim for the cat surgeon ruin.
 /datum/id_trim/away/cat_surgeon
@@ -48,7 +48,7 @@
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_SCIENCE_PINK
 	department_state = "dept-science"
-	access = list(ACCESS_AWAY_GENERIC3, ACCESS_RESEARCH)
+	access = list(ACCESS_AWAY_GENERIC3, ACCESS_PATHFINDERS_LOWSEC)
 
 /// Trim for beach bum lifeguards.
 /datum/id_trim/lifeguard
@@ -70,14 +70,14 @@
 /// Trim for various Centcom corpses.
 /datum/id_trim/centcom/corpse/commander
 	assignment = "Commander"
-	access = list(ACCESS_CENTCOM_HIGHSEC, ACCESS_CENTCOM_LOWSEC, ACCESS_CENT_SPECOPS, ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_HIGHSEC)
+	access = list(ACCESS_CENTCOM_HIGHSEC, ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_HIGHSEC, ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_HIGHSEC)
 
 /// Trim for various Centcom corpses.
 /datum/id_trim/centcom/corpse/private_security
 	assignment = JOB_CENTCOM_PRIVATE_SECURITY
 	department_color = COLOR_CENTCOM_BLUE
 	subdepartment_color = COLOR_CENTCOM_BLUE
-	access = list(ACCESS_CENTCOM_HIGHSEC, ACCESS_CENTCOM_LOWSEC, ACCESS_CENT_SPECOPS, ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_HIGHSEC, ACCESS_SECURITY_LOWSEC, ACCESS_SECURITY_VEHICLES)
+	access = list(ACCESS_CENTCOM_HIGHSEC, ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_HIGHSEC, ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_HIGHSEC, ACCESS_SECURITY_LOWSEC, ACCESS_SECURITY_VEHICLES)
 
 /// Trim for various Centcom corpses.
 /datum/id_trim/centcom/corpse/private_security/tradepost_officer
@@ -87,7 +87,7 @@
 /// Trim for various Centcom corpses.
 /datum/id_trim/centcom/corpse/assault
 	assignment = "Nanotrasen Assault Force"
-	access = list(ACCESS_CENTCOM_HIGHSEC, ACCESS_CENTCOM_LOWSEC, ACCESS_CENT_SPECOPS, ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_HIGHSEC, ACCESS_SECURITY_LOWSEC, ACCESS_SECURITY_VEHICLES)
+	access = list(ACCESS_CENTCOM_HIGHSEC, ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_HIGHSEC, ACCESS_CENTCOM_LOWSEC, ACCESS_CENTCOM_HIGHSEC, ACCESS_SECURITY_LOWSEC, ACCESS_SECURITY_VEHICLES)
 
 /// Trim for various various ruins.
 /datum/id_trim/engioutpost
@@ -95,7 +95,7 @@
 	department_state = "dept-engineering"
 	department_color = COLOR_ENGINEERING_ORANGE
 	subdepartment_color = COLOR_ENGINEERING_ORANGE
-	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_ENGINEERING, ACCESS_ENGINEERING_LOWSEC, ACCESS_ENGINEERING_LOWSEC, ACCESS_MAINT_TUNNELS)
+	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_ENGINEERING, ACCESS_ENGINEERING_LOWSEC, ACCESS_ENGINEERING_LOWSEC, ACCESS_ARTEA_COMMON)
 
 /// Trim for various various ruins.
 /datum/id_trim/job/station_engineer/gunner

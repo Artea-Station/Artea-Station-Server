@@ -219,17 +219,17 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/door, 24)
 /obj/machinery/button/door/incinerator_vent_ordmix
 	name = "combustion chamber vent control"
 	id = INCINERATOR_ORDMIX_VENT
-	req_access = list(ACCESS_ORDNANCE)
+	req_access = list(ACCESS_ENGINEERING_HIGHSEC)
 
 /obj/machinery/button/door/incinerator_vent_atmos_main
 	name = "turbine vent control"
 	id = INCINERATOR_ATMOS_MAINVENT
-	req_one_access = list(ACCESS_ENGINEERING_HIGHSEC, ACCESS_MAINT_TUNNELS)
+	req_one_access = list(ACCESS_ENGINEERING_HIGHSEC, ACCESS_ARTEA_COMMON)
 
 /obj/machinery/button/door/incinerator_vent_atmos_aux
 	name = "combustion chamber vent control"
 	id = INCINERATOR_ATMOS_AUXVENT
-	req_one_access = list(ACCESS_ENGINEERING_HIGHSEC, ACCESS_MAINT_TUNNELS)
+	req_one_access = list(ACCESS_ENGINEERING_HIGHSEC, ACCESS_ARTEA_COMMON)
 
 /obj/machinery/button/door/atmos_test_room_mainvent_1
 	name = "test chamber 1 vent control"

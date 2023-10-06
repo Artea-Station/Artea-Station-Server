@@ -359,7 +359,7 @@
 "ck" = (
 /obj/machinery/airalarm/directional/east,
 /obj/structure/closet/secure_closet/hop{
-	req_access = list("command")
+	req_access = list(ACCESS_COMMAND_LOWSEC"command_lowsec")
 	},
 /obj/machinery/light/directional/north,
 /turf/open/floor/wood,
@@ -1568,7 +1568,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/left/directional/west{
 	name = "Hydroponics Desk";
-	req_one_access_txt = "hydroponics"
+	req_one_access_txt = "hydroponics""service_lowsec"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
@@ -1952,7 +1952,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/right/directional/west{
 	name = "Hydroponics Desk";
-	req_one_access_txt = "hydroponics"
+	req_one_access_txt = "hydroponics""service_lowsec"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
@@ -3832,7 +3832,7 @@
 	dir = 1;
 	icon_state = "rightsecure";
 	name = "Head of Personnel's Desk";
-	req_access = list("hop")
+	req_access = list("hop""command_lowsec")
 	},
 /obj/machinery/door/window/right/directional/south{
 	name = "Reception Desk"
@@ -6635,7 +6635,7 @@
 /obj/machinery/door/window/right/directional/south{
 	dir = 8;
 	name = "Pathfinders Desk";
-	req_one_access = list("pathfinders")
+	req_one_access = list("pathfinders""pathfinders_lowsec")
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "rnd";
@@ -7704,7 +7704,7 @@
 	},
 /obj/machinery/door/window/right/directional/west{
 	name = "Cargo Desk";
-	req_access = list("shipping")
+	req_access = list("shipping""cargo_lowsec")
 	},
 /obj/item/flashlight,
 /obj/machinery/door/window/right/directional/west{
@@ -7939,7 +7939,7 @@
 /obj/machinery/light_switch/directional/west,
 /obj/structure/closet/secure_closet{
 	name = "I'm meant to hold your roundstart cartridges!";
-	req_access = list("pharmacy")
+	req_access = list("pharmacy""medical_highsec")
 	},
 /turf/open/floor/iron/white,
 /area/station/medical/pharmacy)
@@ -8698,7 +8698,7 @@
 /obj/machinery/door/window/right/directional/south{
 	dir = 4;
 	name = "Bar Access";
-	req_access = list("service")
+	req_access = list("service""service_lowsec")
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,

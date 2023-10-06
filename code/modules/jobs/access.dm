@@ -19,7 +19,22 @@
 	if(accessor.has_unlimited_silicon_privilege)
 		return TRUE
 
-	var/obj/item/card/id/id_card = get_id(accessor)
+	var/obj/item/card/id/id_card
+
+	//If the mob is holding a valid ID, we let them in. get_active_held_item() is on the mob level, so no need to copypasta everywhere.
+	if(check_access(accessor.get_active_held_item(), extra_accesses))
+		return TRUE
+	//if they are wearing a card that has access, that works
+	else if(ishuman(accessor))
+		var/mob/living/carbon/human/human_accessor = accessor
+		if(check_access(human_accessor.wear_id, extra_accesses))
+			return TRUE
+	//if they have a hacky abstract animal ID with the required access, let them in i guess...
+	else if(isanimal(accessor))
+		var/mob/living/simple_animal/animal = accessor
+		if(check_access(animal.access_card, extra_accesses))
+			return TRUE
+
 	var/list/card_accesses
 
 	if(isbrain(accessor)) // Fucking snowflake mecha code.
@@ -28,15 +43,28 @@
 			var/obj/item/mmi/brain_mmi = brain.loc
 			if(ismecha(brain_mmi.loc))
 				var/obj/vehicle/sealed/mecha/big_stompy_robot = brain_mmi.loc
-				card_accesses = big_stompy_robot.operation_req_access
+				return check_access(big_stompy_robot.operation_req_access, extra_accesses)
 
 	if(!istype(id_card) && !card_accesses)
 		return FALSE
 	else if(id_card)
 		LAZYADD(card_accesses, id_card.GetAccess())
 
-	if(istext(required_access))
-		return required_access in card_accesses
+	return check_access(card_accesses, extra_accesses)
+
+/obj/proc/check_access(target, list/extra_accesses)
+	if(!target && req_access)
+		return FALSE
+
+	var/list/accesses
+	if(isitem(target))
+		var/obj/item/item = target
+		accesses = item.GetAccess()
+	else if(islist(target))
+		accesses = target
+
+	if((!accesses || !length(accesses)) && (accesses = ))
+		return FALSE
 
 	if(req_access || extra_accesses)
 		var/accesses = list()
@@ -78,9 +106,7 @@
  * * passkey - passkey from the datum/netdata packet
  */
 /obj/proc/check_access_ntnet(list/passkey)
-
-	var/datum/access/access = GLOB.access_datums[required_access]
-	return access.can_access(passkey)
+	return check_access(passkey)
 
 /// Returns the SecHUD job icon state for whatever this object's ID card is, if it has one.
 /obj/item/proc/get_sechud_job_icon_state()

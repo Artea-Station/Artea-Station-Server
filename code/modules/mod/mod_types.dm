@@ -317,7 +317,7 @@
 /obj/item/mod/control/pre_equipped/apocryphal
 	theme = /datum/mod_theme/apocryphal
 	applied_cell = /obj/item/stock_parts/cell/hyper
-	req_access = list(ACCESS_CENT_SPECOPS)
+	req_access = list(ACCESS_CENTCOM_HIGHSEC)
 	initial_modules = list(
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/welding,
@@ -329,7 +329,7 @@
 /obj/item/mod/control/pre_equipped/corporate
 	theme = /datum/mod_theme/corporate
 	applied_core = /obj/item/mod/core/infinite
-	req_access = list(ACCESS_CENT_SPECOPS)
+	req_access = list(ACCESS_CENTCOM_HIGHSEC)
 	initial_modules = list(
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/hat_stabilizer,
