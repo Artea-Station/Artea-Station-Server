@@ -70,14 +70,14 @@
 		if(extra_accesses)
 			accesses += extra_accesses
 
-		for(var/access in accesses)
-			if(access in card_accesses)
+		for(var/access in req_access)
+			if(access in accesses)
 				return TRUE
 		return FALSE
 
 	if(req_one_access)
 		for(var/access in req_one_access)
-			if(!(access in card_accesses))
+			if(!(access in accesses))
 				return FALSE
 	return TRUE
 
