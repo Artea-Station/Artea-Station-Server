@@ -19,7 +19,6 @@
 	/// Icons to be displayed in the orbit ui. Source: FontAwesome v5. Use the FA_ICON defines.
 	var/orbit_icon
 
-	/// Accesses that this trim unlocks on a card it is imprinted on. These accesses never take wildcard slots and can be added and removed at will.
-	var/list/access = list()
-	/// Accesses that this trim unlocks on a card that require wildcard slots to apply. If a card cannot accept all a trim's wildcard accesses, the card is incompatible with the trim.
-	var/list/wildcard_access = list()
+	/// A list of regions that will be visible to the ID modification console for this specific trim.
+	/// Accepts both ACCESS_REGION_ and ACCESS_REGIONS_ defines.
+	var/special_regions = list(ACCESS_REGIONS_STATION)

@@ -21,7 +21,7 @@ SUBSYSTEM_DEF(id_access)
 	/// Specially formatted list for sending access levels to tgui interfaces.
 	var/list/all_region_access_tgui = list()
 	/// Dictionary of access names. Keys are access levels. Values are their associated names.
-	var/list/desc_by_access = list()
+	var/list/desc_by_access = ALL_ACCESS_NAMES
 	/// List of accesses for the Heads of each sub-department alongside the regions they control and their job name.
 	var/list/sub_department_managers_tgui = list()
 	/// Helper list containing all trim paths that can be used as job templates. Intended to be used alongside logic for ACCESS_COMMAND_LOWSEC. Grab templates from sub_department_managers_tgui for Head of Staff restrictions.
@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(id_access)
 	/// Helper list containing all PDA paths that can be painted by station machines. Intended to be used alongside logic for ACCESS_COMMAND_LOWSEC. Grab templates from sub_department_managers_tgui for Head of Staff restrictions.
 	var/list/station_pda_templates = list()
 	/// Helper list containing all station regions.
-	var/list/station_regions = list()
+	var/list/station_regions = ACCESS_REGIONS_STATION
 
 	/// The roundstart generated code for the spare ID safe. This is given to the Captain on shift start. If there's no Captain, it's given to the HoP. If there's no HoP
 	var/spare_id_safe_code = ""

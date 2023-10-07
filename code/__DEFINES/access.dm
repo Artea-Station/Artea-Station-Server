@@ -76,7 +76,7 @@
 /// - - - END ACCESS IDS - - -
 
 /// A list of access levels that, when added to an ID card, will warn admins.
-#define ACCESS_ALERT_ADMINS list(ACCESS_COMMAND_LOWSEC)
+#define ACCESS_ALERT_ADMINS list(ACCESS_COMMAND_LOWSEC, ACCESS_COMMAND_HIGHSEC)
 
 /// Logging define for ID card access changes
 #define LOG_ID_ACCESS_CHANGE(user, id_card, change_description) \
@@ -92,3 +92,116 @@
 #define FORCE_ADD_ALL 2
 /// Used in ID card access adding procs. Will stack trace on fail.
 #define ERROR_ON_FAIL 3
+
+/// All accesses to their names. Keep up to date.
+#define ALL_ACCESS_NAMES list( \
+	ACCESS_ARTEA_COMMON = "Artea Common", \
+	ACCESS_COMMAND_LOWSEC = "Low Security Command", \
+	ACCESS_COMMAND_HIGHSEC = "High Security Command", \
+	ACCESS_COMMAND_VEHICLES = "Command Vehicles", \
+	ACCESS_ENGINEERING_LOWSEC = "Low Security Engineering", \
+	ACCESS_ENGINEERING_HIGHSEC = "High Security Engineering", \
+	ACCESS_ENGINEERING_VEHICLES = "Engineering Vehicles", \
+	ACCESS_ENGINEERING_HEAD = "Chief Engineer", \
+	ACCESS_MEDICAL_LOWSEC = "Low Security Medical", \
+	ACCESS_MEDICAL_HIGHSEC = "High Security Medical", \
+	ACCESS_MEDICAL_VEHICLES = "Medical Vehicles", \
+	ACCESS_MEDICAL_HEAD = "Chief Medical Officer", \
+	ACCESS_PATHFINDERS_LOWSEC = "Low Security Pathfinders", \
+	ACCESS_PATHFINDERS_HIGHSEC = "High Security Pathfinders", \
+	ACCESS_PATHFINDERS_VEHICLES = "Pathfinders Vehicles", \
+	ACCESS_PATHFINDERS_HEAD = "Lead Pathfinder", \
+	ACCESS_SECURITY_LOWSEC = "Low Security Security", \
+	ACCESS_SECURITY_HIGHSEC = "High Security Security", \
+	ACCESS_SECURITY_VEHICLES = "Security Vehicles", \
+	ACCESS_SECURITY_HEAD = "Head of Security", \
+	ACCESS_SERVICE_LOWSEC = "Low Security Service", \
+	ACCESS_SERVICE_HIGHSEC = "High Security Service", \
+	ACCESS_SERVICE_VEHICLES = "Service Vehicles", \
+	ACCESS_CARGO_LOWSEC = "Low Security Cargo", \
+	ACCESS_CARGO_HIGHSEC = "High Security Cargo", \
+	ACCESS_CARGO_VEHICLES = "Cargo Vehicles", \
+	ACCESS_CARGO_HEAD = "Quartermaster", \
+	ACCESS_SYNDICATE_LOWSEC = "Low Security Syndicate", \
+	ACCESS_SYNDICATE_HIGHSEC = "High Security Syndicate", \
+	ACCESS_SYNDICATE_VEHICLES = "Syndicate Vehicles", \
+	ACCESS_CENTCOM_LOWSEC = "Low Security Central Command", \
+	ACCESS_CENTCOM_HIGHSEC = "High Security Central Command", \
+	ACCESS_CENTCOM_VEHICLES = "Central Command Vehicles", \
+	ACCESS_SPECIAL_CAPTAIN = "Captain", \
+	ACCESS_SPECIAL_WEAPONS = "Weapons Permit", \
+	ACCESS_SPECIAL_THUNDERDOME = "Thunderdome", \
+	ACCESS_SPECIAL_BLOODCULT = "Blood Cult", \
+)
+
+#define ACCESS_REGIONS_STATION list( \
+	ACCESS_REGION_STATION_HEADS, \
+	ACCESS_REGION_COMMAND, \
+	ACCESS_REGION_ENGINEERING, \
+	ACCESS_REGION_MEDICAL, \
+	ACCESS_REGION_PATHFINDERS, \
+	ACCESS_REGION_SECURITY, \
+	ACCESS_REGION_SERVICE, \
+	ACCESS_REGION_CARGO, \
+)
+
+#define ACCESS_REGION_STATION_HEADS list( \
+	ACCESS_ENGINEERING_HEAD, \
+	ACCESS_MEDICAL_HEAD, \
+	ACCESS_PATHFINDERS_HEAD, \
+	ACCESS_SECURITY_HEAD, \
+	ACCESS_CARGO_HEAD, \
+)
+
+#define ACCESS_REGION_COMMAND list( \
+	ACCESS_COMMAND_LOWSEC, \
+	ACCESS_COMMAND_HIGHSEC, \
+	ACCESS_COMMAND_VEHICLES, \
+)
+
+#define ACCESS_REGION_ENGINEERING list( \
+	ACCESS_ENGINEERING_LOWSEC, \
+	ACCESS_ENGINEERING_HIGHSEC, \
+	ACCESS_ENGINEERING_VEHICLES, \
+)
+
+#define ACCESS_REGION_MEDICAL list( \
+	ACCESS_MEDICAL_LOWSEC, \
+	ACCESS_MEDICAL_HIGHSEC, \
+	ACCESS_MEDICAL_VEHICLES, \
+)
+
+#define ACCESS_REGION_PATHFINDERS list( \
+	ACCESS_PATHFINDERS_LOWSEC, \
+	ACCESS_PATHFINDERS_HIGHSEC, \
+	ACCESS_PATHFINDERS_VEHICLES, \
+)
+
+#define ACCESS_REGION_SECURITY list( \
+	ACCESS_SECURITY_LOWSEC, \
+	ACCESS_SECURITY_HIGHSEC, \
+	ACCESS_SECURITY_VEHICLES, \
+)
+
+#define ACCESS_REGION_SERVICE list( \
+	ACCESS_SERVICE_LOWSEC, \
+	ACCESS_SERVICE_HIGHSEC, \
+	ACCESS_SERVICE_VEHICLES, \
+)
+
+#define ACCESS_REGION_CARGO list( \
+	ACCESS_CARGO_LOWSEC, \
+	ACCESS_CARGO_HIGHSEC, \
+	ACCESS_CARGO_VEHICLES, \
+)
+
+#define ALL_REGION_NAMES list( \
+	ACCESS_REGION_STATION_HEADS = "Heads", \
+	ACCESS_REGION_COMMAND = "Command", \
+	ACCESS_REGION_ENGINEERING = "Engineering", \
+	ACCESS_REGION_MEDICAL = "Medical", \
+	ACCESS_REGION_PATHFINDERS = "Pathfinders", \
+	ACCESS_REGION_SECURITY = "Security", \
+	ACCESS_REGION_SERVICE = "Service", \
+	ACCESS_REGION_CARGO = "Cargo", \
+)
