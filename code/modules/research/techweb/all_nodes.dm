@@ -149,8 +149,6 @@
 		"borg_l_leg",
 		"borg_r_arm",
 		"borg_r_leg",
-		"borg_upgrade_rename",
-		"borg_upgrade_restart",
 		"cyborgrecharger",
 		"sflash",
 	)
