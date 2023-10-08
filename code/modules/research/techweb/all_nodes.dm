@@ -149,12 +149,9 @@
 		"borg_l_leg",
 		"borg_r_arm",
 		"borg_r_leg",
-		"borg_suit",
 		"borg_upgrade_rename",
 		"borg_upgrade_restart",
-		"borgupload",
 		"cyborgrecharger",
-		"robocontrol",
 		"sflash",
 	)
 
@@ -1933,8 +1930,6 @@
 	prereq_ids = list("adv_engi", "adv_weaponry", "explosive_weapons")
 	design_ids = list(
 		"advanced_camera",
-		"ai_cam_upgrade",
-		"borg_syndicate_module",
 		"decloner",
 		"donksoft_refill",
 		"donksofttoyvendor",
