@@ -305,7 +305,7 @@ GLOBAL_VAR(restart_counter)
 
 /world/proc/update_status()
 
-	var/list/features = list("whitelisted", "18+", "HRP", "respawn", "no silicons")
+	var/list/features = list("whitelisted", "18+", "HRP", "respawn", "no silicons", "overmap")
 
 	if(LAZYACCESS(SSlag_switch.measures, DISABLE_NON_OBSJOBS))
 		features += "closed"
