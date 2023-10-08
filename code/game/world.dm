@@ -314,7 +314,7 @@ GLOBAL_VAR(restart_counter)
 	if(config)
 		var/server_name = CONFIG_GET(string/servername)
 		if (server_name)
-			new_status += "<b>[server_name] (<a href=\"[CONFIG_GET(string/discord_link)]\">Discord!</a>, <a href=\"https://artea-station.net\">Website!</a>")</b> "
+			new_status += "<b>[server_name] (<a href=\"[CONFIG_GET(string/discord_link)]\">Discord!</a>, <a href=\"https://artea-station.net\">Website!</a>)</b> "
 
 	if (CONFIG_GET(flag/station_name_in_hub_entry))
 		new_status += " &#8212; <b>[station_name()]</b>"
