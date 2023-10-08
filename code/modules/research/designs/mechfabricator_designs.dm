@@ -8,7 +8,7 @@
 	materials = list(/datum/material/iron=40000)
 	construction_time = 350
 	category = list(
-		RND_CATEGORY_MECHFAB_CYBORG + RND_SUBCATEGORY_MECHFAB_CYBORG_CHASSIS
+		RND_CATEGORY_MECHFAB_BODYPARTS + RND_SUBCATEGORY_MECHFAB_BODYPARTS_LIMBS
 	)
 
 /datum/design/borg_head
@@ -19,7 +19,7 @@
 	materials = list(/datum/material/iron=5000)
 	construction_time = 350
 	category = list(
-		RND_CATEGORY_MECHFAB_CYBORG + RND_SUBCATEGORY_MECHFAB_CYBORG_CHASSIS
+		RND_CATEGORY_MECHFAB_BODYPARTS + RND_SUBCATEGORY_MECHFAB_BODYPARTS_LIMBS
 	)
 
 /datum/design/borg_l_arm
@@ -30,7 +30,7 @@
 	materials = list(/datum/material/iron=10000)
 	construction_time = 200
 	category = list(
-		RND_CATEGORY_MECHFAB_CYBORG + RND_SUBCATEGORY_MECHFAB_CYBORG_CHASSIS
+		RND_CATEGORY_MECHFAB_BODYPARTS + RND_SUBCATEGORY_MECHFAB_BODYPARTS_LIMBS
 	)
 
 /datum/design/borg_r_arm
@@ -41,7 +41,7 @@
 	materials = list(/datum/material/iron=10000)
 	construction_time = 200
 	category = list(
-		RND_CATEGORY_MECHFAB_CYBORG + RND_SUBCATEGORY_MECHFAB_CYBORG_CHASSIS
+		RND_CATEGORY_MECHFAB_BODYPARTS + RND_SUBCATEGORY_MECHFAB_BODYPARTS_LIMBS
 	)
 
 /datum/design/borg_l_leg
@@ -52,7 +52,7 @@
 	materials = list(/datum/material/iron=10000)
 	construction_time = 200
 	category = list(
-		RND_CATEGORY_MECHFAB_CYBORG + RND_SUBCATEGORY_MECHFAB_CYBORG_CHASSIS
+		RND_CATEGORY_MECHFAB_BODYPARTS + RND_SUBCATEGORY_MECHFAB_BODYPARTS_LIMBS
 	)
 
 /datum/design/borg_r_leg
@@ -63,7 +63,7 @@
 	materials = list(/datum/material/iron=10000)
 	construction_time = 200
 	category = list(
-		RND_CATEGORY_MECHFAB_CYBORG + RND_SUBCATEGORY_MECHFAB_CYBORG_CHASSIS
+		RND_CATEGORY_MECHFAB_BODYPARTS + RND_SUBCATEGORY_MECHFAB_BODYPARTS_LIMBS
 	)
 
 //Ripley
@@ -1024,10 +1024,10 @@
 	construction_time = 100
 	build_path = /obj/item/assembly/flash/handheld
 	category = list(
-		RND_CATEGORY_MECHFAB_CYBORG
+		RND_CATEGORY_MECHFAB_BODYPARTS
 	)
 	category = list(
-		RND_CATEGORY_MECHFAB_CYBORG + RND_SUBCATEGORY_MECHFAB_CYBORG_COMPONENTS
+		RND_CATEGORY_MECHFAB_BODYPARTS + RND_SUBCATEGORY_MECHFAB_BODYPARTS_COMPONENTS
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 

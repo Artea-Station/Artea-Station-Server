@@ -122,14 +122,6 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_CARGO | DEPARTMENT_BITFLAG_PATHFINDERS
 
-/datum/design/damage_mod/borg
-	id = "damagemod_b"
-	build_type = MECHFAB
-	category = list(
-		RND_CATEGORY_MECHFAB_CYBORG_MODULES + RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_MINING
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
-
 /datum/design/cooldown_mod
 	name = "Kinetic Accelerator Cooldown Mod"
 	desc = "A device which decreases the cooldown of a Kinetic Accelerator."
@@ -141,14 +133,6 @@
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_PKA_MODS
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_CARGO | DEPARTMENT_BITFLAG_PATHFINDERS
-
-/datum/design/cooldown_mod/borg
-	id = "cooldownmod_b"
-	build_type = MECHFAB
-	category = list(
-		RND_CATEGORY_MECHFAB_CYBORG_MODULES + RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_MINING
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/range_mod
 	name = "Kinetic Accelerator Range Mod"
@@ -162,14 +146,6 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_CARGO | DEPARTMENT_BITFLAG_PATHFINDERS
 
-/datum/design/range_mod/borg
-	id = "rangemod_b"
-	build_type = MECHFAB
-	category = list(
-		RND_CATEGORY_MECHFAB_CYBORG_MODULES + RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_MINING
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
-
 /datum/design/hyperaccelerator
 	name = "Kinetic Accelerator Mining AoE Mod"
 	desc = "A modification kit for Kinetic Accelerators which causes it to fire AoE blasts that destroy rock."
@@ -181,14 +157,6 @@
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_PKA_MODS
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_CARGO | DEPARTMENT_BITFLAG_PATHFINDERS
-
-/datum/design/hyperaccelerator/borg
-	id = "hypermod_b"
-	build_type = MECHFAB
-	category = list(
-		RND_CATEGORY_MECHFAB_CYBORG_MODULES + RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_MINING
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/mining_drill
 	name = "Machine Design (Mining Drill)"
