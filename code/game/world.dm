@@ -305,18 +305,16 @@ GLOBAL_VAR(restart_counter)
 
 /world/proc/update_status()
 
-	var/list/features = list()
+	var/list/features = list("whitelisted", "18+", "HRP", "respawn", "no silicons")
 
 	if(LAZYACCESS(SSlag_switch.measures, DISABLE_NON_OBSJOBS))
 		features += "closed"
 
 	var/new_status = ""
-	var/hostedby
 	if(config)
 		var/server_name = CONFIG_GET(string/servername)
 		if (server_name)
-			new_status += "<b>[server_name] (<a href=\"[CONFIG_GET(string/discord_link)]\">Discord!</a>)</b> "
-		hostedby = CONFIG_GET(string/hostedby)
+			new_status += "<b>[server_name] (<a href=\"[CONFIG_GET(string/discord_link)]\">Discord!</a>, <a href=\"https://artea-station.net\">Website!</a>")</b> "
 
 	if (CONFIG_GET(flag/station_name_in_hub_entry))
 		new_status += " &#8212; <b>[station_name()]</b>"
@@ -325,11 +323,7 @@ GLOBAL_VAR(restart_counter)
 
 	game_state = (CONFIG_GET(number/extreme_popcap) && players >= CONFIG_GET(number/extreme_popcap)) //tells the hub if we are full
 
-	if (!host && hostedby)
-		features += "hosted by <b>[hostedby]</b>"
-
-	if(length(features))
-		new_status += ": [jointext(features, ", ")]"
+	new_status += "<br>[jointext(features, ", ")]"
 
 	new_status += "<br>Time: <b>[gameTimestamp("hh:mm")]</b>"
 	if(SSmapping.config)
