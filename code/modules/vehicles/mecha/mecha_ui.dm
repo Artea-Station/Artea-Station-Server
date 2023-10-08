@@ -92,7 +92,7 @@
 		data["operation_req_access"] = list()
 		data["idcard_access"] = list()
 		for(var/code in operation_req_access)
-			data["operation_req_access"] += list(list("name" = SSid_access.get_access_desc(code), "number" = code))
+			data["operation_req_access"] += list(list("name" = SSid_access.get_access_name(code), "number" = code))
 		if(!isliving(user))
 			return data
 		var/mob/living/living_user = user
@@ -102,7 +102,7 @@
 		for(var/idcode in card.access)
 			if(idcode in operation_req_access)
 				continue
-			var/accessname = SSid_access.get_access_desc(idcode)
+			var/accessname = SSid_access.get_access_name(idcode)
 			if(!accessname)
 				continue //there's some strange access without a name
 			data["idcard_access"] += list(list("name" = accessname, "number" = idcode))

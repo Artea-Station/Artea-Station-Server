@@ -93,17 +93,26 @@
 	/// Trim datum associated with the card. Controls which job icon is displayed on the card and which accesses do not require wildcards.
 	var/datum/id_trim/trim
 
-	/// Access levels held by this card.
+	/// Access levels held by this card. Don't manually edit, I swear to god.
 	var/list/access = list()
-
-	/// List of wildcard slot names as keys with lists of wildcard data as values.
-	var/list/wildcard_slots = list()
 
 	/// Boolean value. If TRUE, the [Intern] tag gets prepended to this ID card when the label is updated.
 	var/is_intern = FALSE
 
-	/// If TRUE, hides the extra access stripes shown on a card. Only really used for special AA IDs.
-	var/disable_pips = FALSE
+	/// If TRUE, hides the extra access stripes shown on a card. Only really used for special AA IDs, and anything non-ID shaped.
+	var/disable_pips = TRUE
+
+	/// The company letter/logo displayed on the ID, also controls what accesses can be given. Fun times.
+	var/id_manufacturer = ID_MANUFACTURER_UNKNOWN
+
+	/// The department assigned to the ID.
+	var/datum/id_department/department
+	/// The subdepartment assigned to the ID.
+	var/datum/id_department/subdepartment
+	/// The icon_state associated with this trim, as it will show on the security HUD.
+	var/sechud_icon_state = SECHUD_UNKNOWN
+	/// Icons to be displayed in the orbit ui. Source: FontAwesome v5. Use the FA_ICON defines.
+	var/orbit_icon
 
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
@@ -133,6 +142,21 @@
 		QDEL_NULL(my_store)
 	return ..()
 
+/// Removes accesses that were given by the provided old departments, then adds the correct accesses provided by departments
+/obj/item/card/id/proc/update_accesses_from_trims(datum/id_department/old_department, datum/id_department/old_subdepartment)
+	var/list/regions_to_yeet
+
+	if(department)
+		LAZYADD(regions_to_yeet, old_department.region)
+
+	if(subdepartment)
+		LAZYADD(regions_to_yeet, old_subdepartment.region)
+
+
+
+/obj/item/card/id/proc/get_editable_regions()
+	return SSid_access.manufacturer_to_region_names[id_manufacturer]
+
 /obj/item/card/id/get_id_examine_strings(mob/user)
 	. = ..()
 	. += list("[icon2html(get_cached_flat_icon(), user, extra_classes = "bigicon")]")
@@ -153,262 +177,97 @@
 	return "[icon2html(get_cached_flat_icon(), user)] [thats? "That's ":""][get_examine_name(user)]"
 
 /**
- * Helper proc, checks whether the ID card can hold any given set of wildcards.
+ * Helper proc, checks whether the ID card can hold any given set of regions.
+ *
+ * NOTE: Accesses can still be given regardless of region restrictions, so check this first if you want to follow what accesses said card can have normally.
  *
  * Returns TRUE if the card can hold the wildcards, FALSE otherwise.
  * Arguments:
- * * wildcard_list - List of accesses to check.
- * * try_wildcard - If not null, will attempt to add wildcards for this wildcard specifically and will return FALSE if the card cannot hold all wildcards in this slot.
+ * * region_list - List of regions to check.
  */
-/obj/item/card/id/proc/can_add_wildcards(list/wildcard_list, try_wildcard = null)
-	if(!length(wildcard_list))
-		return TRUE
-
-	var/list/new_wildcard_limits = list()
-
-	for(var/flag_name in wildcard_slots)
-		if(try_wildcard && !(flag_name == try_wildcard))
-			continue
-		var/list/wildcard_info = wildcard_slots[flag_name]
-		new_wildcard_limits[flag_name] = wildcard_info["limit"] - length(wildcard_info["usage"])
-
-	if(!length(new_wildcard_limits))
+/obj/item/card/id/proc/can_edit_region(list/region_list)
+	if(istype(src, /obj/item/card/id/advanced/gold) || istype(src, /obj/item/card/id/advanced/debug))
 		return FALSE
 
-	var/wildcard_allocated
-	for(var/wildcard in wildcard_list)
-		var/wildcard_flag = SSid_access.get_access_flag(wildcard)
-		wildcard_allocated = FALSE
-		for(var/flag_name in new_wildcard_limits)
-			var/limit_flags = SSid_access.wildcard_flags_by_wildcard[flag_name]
-			if(!(wildcard_flag & limit_flags))
-				continue
-			// Negative limits mean infinite slots. Positive limits mean limited slots still available. 0 slots means no slots.
-			if(new_wildcard_limits[flag_name] == 0)
-				continue
-			new_wildcard_limits[flag_name]--
-			wildcard_allocated = TRUE
-			break
-		if(!wildcard_allocated)
+	if(!length(region_list))
+		return TRUE
+
+	var/manufacturer_whitelist = SSid_access.manufacturer_to_region_names[id_manufacturer]
+	if(!manufacturer_whitelist || !length(manufacturer_whitelist))
+		return FALSE
+
+	for(var/region in region_list)
+		if(!(region in manufacturer_whitelist) || (region in SSid_access.silver_accesses))
 			return FALSE
 
 	return TRUE
 
 /**
- * Attempts to add the given wildcards to the ID card.
+ * Adds the given regions to the ID card.
+ *
+ * NOTE: DOES NOT PERFORM SANITY CHECKS!
  *
  * Arguments:
- * * wildcard_list - List of accesses to add.
- * * try_wildcard - If not null, will attempt to add all wildcards to this wildcard slot only.
- * * mode - The method to use when adding wildcards. See define for ERROR_ON_FAIL
+ * * region_list - List of accesses to add.
+ * * try_wildcard - If not null, will attempt to add all wildcards to this region slot only.
  */
-/obj/item/card/id/proc/add_wildcards(list/wildcard_list, try_wildcard = null, mode = ERROR_ON_FAIL)
-	var/wildcard_allocated
-	// Iterate through each wildcard in our list. Get its access flag. Then iterate over wildcard slots and try to fit it in.
-	for(var/wildcard in wildcard_list)
-		var/wildcard_flag = SSid_access.get_access_flag(wildcard)
-		wildcard_allocated = FALSE
-		for(var/flag_name in wildcard_slots)
-			if(flag_name == WILDCARD_NAME_FORCED)
-				continue
+/obj/item/card/id/proc/add_regions(list/region_list)
+	// Iterate through each region in our list. Get its accesses, then try to add each access.
+	for(var/region in region_list)
+		access |= SSid_access.region_name_to_accesses(region)
 
-			if(try_wildcard && !(flag_name == try_wildcard))
-				continue
-
-			var/limit_flags = SSid_access.wildcard_flags_by_wildcard[flag_name]
-
-			if(!(wildcard_flag & limit_flags))
-				continue
-
-			var/list/wildcard_info = wildcard_slots[flag_name]
-			var/wildcard_limit = wildcard_info["limit"]
-			var/list/wildcard_usage = wildcard_info["usage"]
-
-			var/wildcard_count = wildcard_limit - length(wildcard_usage)
-
-			// Negative limits mean infinite slots. Positive limits mean limited slots still available. 0 slots means no slots.
-			if(wildcard_count == 0)
-				continue
-
-			wildcard_usage |= wildcard
-			access |= wildcard
-			wildcard_allocated = TRUE
-			break
-		// Fallback for if we couldn't allocate the wildcard for some reason.
-		if(!wildcard_allocated)
-			if(mode == ERROR_ON_FAIL)
-				CRASH("Wildcard ([wildcard]) could not be added to [src].")
-
-			if(mode == TRY_ADD_ALL)
-				continue
-
-			// If the card has no info for historic forced wildcards, create the list.
-			if(!wildcard_slots[WILDCARD_NAME_FORCED])
-				wildcard_slots[WILDCARD_NAME_FORCED] = list(limit = 0, usage = list())
-
-			var/list/wildcard_info = wildcard_slots[WILDCARD_NAME_FORCED]
-			var/list/wildcard_usage = wildcard_info["usage"]
-			wildcard_usage |= wildcard
-			access |= wildcard
-			wildcard_info["limit"] = length(wildcard_usage)
+	return TRUE
 
 /**
- * Removes wildcards from the ID card.
+ * Removes regions from the ID card.
  *
  * Arguments:
- * * wildcard_list - List of accesses to remove.
+ * * region_list - List of accesses to remove.
  */
-/obj/item/card/id/proc/remove_wildcards(list/wildcard_list)
-	var/wildcard_removed
-	// Iterate through each wildcard in our list. Get its access flag. Then iterate over wildcard slots and try to remove it.
-	for(var/wildcard in wildcard_list)
-		wildcard_removed = FALSE
-		for(var/flag_name in wildcard_slots)
-			if(flag_name == WILDCARD_NAME_FORCED)
-				continue
-
-			var/list/wildcard_info = wildcard_slots[flag_name]
-			var/wildcard_usage = wildcard_info["usage"]
-
-			if(!(wildcard in wildcard_usage))
-				continue
-
-			wildcard_usage -= wildcard
-			access -= wildcard
-			wildcard_removed = TRUE
-			break
-		// Fallback to see if this was a force-added wildcard.
-		if(!wildcard_removed)
-			// If the card has no info for historic forced wildcards, that's an error state.
-			if(!wildcard_slots[WILDCARD_NAME_FORCED])
-				stack_trace("Wildcard ([wildcard]) could not be removed from [src]. This card has no forced wildcard data and the wildcard is not in this card's wildcard lists.")
-
-			var/list/wildcard_info = wildcard_slots[WILDCARD_NAME_FORCED]
-			var/wildcard_usage = wildcard_info["usage"]
-
-			if(!(wildcard in wildcard_usage))
-				stack_trace("Wildcard ([wildcard]) could not be removed from [src]. This access is not a wildcard on this card.")
-
-			wildcard_usage -= wildcard
-			access -= wildcard
-			wildcard_info["limit"] = length(wildcard_usage)
-
-			if(!wildcard_info["limit"])
-				wildcard_slots -= WILDCARD_NAME_FORCED
+/obj/item/card/id/proc/remove_regions(list/region_list)
+	// Iterate through each region in our list. Get its accesses, then try to add each access.
+	for(var/region in region_list)
+		access -= SSid_access.region_name_to_accesses(region)
 
 /**
- * Attempts to add the given accesses to the ID card as non-wildcards.
+ * Adds the given accesses to the ID card.
  *
- * Depending on the mode, may add accesses as wildcards or error if it can't add them as non-wildcards.
+ * NOTE: DOES NOT PERFORM SANITY CHECKS!
+ *
  * Arguments:
- * * add_accesses - List of accesses to check.
- * * try_wildcard - If not null, will attempt to add all accesses that require wildcard slots to this wildcard slot only.
- * * mode - The method to use when adding accesses. See define for ERROR_ON_FAIL
+ * * add_accesses - List of accesses to add.
  */
-/obj/item/card/id/proc/add_access(list/add_accesses, try_wildcard = null, mode = ERROR_ON_FAIL)
-	var/list/wildcard_access = list()
-	var/list/normal_access = list()
-
-	build_access_lists(add_accesses, normal_access, wildcard_access)
-
-	// Check if we can add the wildcards.
-	if(mode == ERROR_ON_FAIL)
-		if(!can_add_wildcards(wildcard_access, try_wildcard))
-			CRASH("Cannot add wildcards from \[[add_accesses.Join(",")]\] to [src]")
-
-	// All clear to add the accesses.
-	access |= normal_access
-	if(mode != TRY_ADD_ALL_NO_WILDCARD)
-		add_wildcards(wildcard_access, try_wildcard, mode = mode)
-
+/obj/item/card/id/proc/add_access(list/add_accesses)
+	access |= add_accesses
 	return TRUE
 
 /**
  * Removes the given accesses from the ID Card.
  *
- * Will remove the wildcards if the accesses given are on the card as wildcard accesses.
+ * Will remove the wildcards if the accesses given are on the card as region accesses.
  * Arguments:
  * * rem_accesses - List of accesses to remove.
  */
 /obj/item/card/id/proc/remove_access(list/rem_accesses)
-	var/list/wildcard_access = list()
-	var/list/normal_access = list()
-
-	build_access_lists(rem_accesses, normal_access, wildcard_access)
-
-	access -= normal_access
-	remove_wildcards(wildcard_access)
+	access -= rem_accesses
 
 /**
  * Attempts to set the card's accesses to the given accesses, clearing all accesses not in the given list.
  *
- * Depending on the mode, may add accesses as wildcards or error if it can't add them as non-wildcards.
  * Arguments:
  * * new_access_list - List of all accesses that this card should hold exclusively.
- * * mode - The method to use when setting accesses. See define for ERROR_ON_FAIL
  */
-/obj/item/card/id/proc/set_access(list/new_access_list, mode = ERROR_ON_FAIL)
-	var/list/wildcard_access = list()
-	var/list/normal_access = list()
-
-	build_access_lists(new_access_list, normal_access, wildcard_access)
-
-	// Check if we can add the wildcards.
-	if(mode == ERROR_ON_FAIL)
-		if(!can_add_wildcards(wildcard_access))
-			CRASH("Cannot add wildcards from \[[new_access_list.Join(",")]\] to [src]")
-
-	clear_access()
-
-	access = normal_access.Copy()
-
-	if(mode != TRY_ADD_ALL_NO_WILDCARD)
-		add_wildcards(wildcard_access, mode = mode)
-
+/obj/item/card/id/proc/set_access(list/new_access_list)
+	accesses = new_access_list.Copy() // Nope, we ain't risking you guys reusing lists.
 	return TRUE
 
-/// Clears all accesses from the ID card - both wildcard and normal.
+/// Clears all accesses from the ID card - both region and normal.
 /obj/item/card/id/proc/clear_access()
-	// Go through the wildcards and reset them.
-	for(var/flag_name in wildcard_slots)
-		var/list/wildcard_info = wildcard_slots[flag_name]
-		var/list/wildcard_usage = wildcard_info["usage"]
-		wildcard_usage.Cut()
-
-	// Hard reset access
 	access.Cut()
 
 /// Clears the economy account from the ID card.
 /obj/item/card/id/proc/clear_account()
 	registered_account = null
-
-
-/**
- * Helper proc. Creates access lists for the access procs.
- *
- * Takes the accesses list and compares it with the trim. Any basic accesses that match the trim are
- * added to basic_access_list and the rest are added to wildcard_access_list.
-
- * This proc directly modifies the lists passed in as args. It expects these lists to be instantiated.
- * There is no return value.
- * Arguments:
- * * accesses - List of accesses you want to stort into basic_access_list and wildcard_access_list. Should not be null.
- * * basic_access_list - Mandatory argument. The proc modifies the list passed in this argument and adds accesses the trim supports to it.
- * * wildcard_access_list - Mandatory argument. The proc modifies the list passed in this argument and adds accesses the trim does not support to it.
- */
-/obj/item/card/id/proc/build_access_lists(list/accesses, list/basic_access_list, list/wildcard_access_list)
-	if(!length(accesses) || isnull(basic_access_list) || isnull(wildcard_access_list))
-		CRASH("Invalid parameters passed to build_access_lists")
-
-	var/list/trim_accesses = trim?.access
-
-	// Populate the lists.
-	for(var/new_access in accesses)
-		if(new_access in trim_accesses)
-			basic_access_list |= new_access
-			continue
-
-		wildcard_access_list |= new_access
 
 /obj/item/card/id/attack_self(mob/user)
 	if(Adjacent(user))
@@ -989,7 +848,7 @@
 	. = ..()
 
 	var/trim_icon_file = trim_icon_override ? trim_icon_override : trim?.trim_icon
-	var/trim_letter_icon_state = trim_letter_state_override ? trim_letter_state_override : trim?.letter_state
+	var/trim_letter_icon_state = trim_letter_state_override ? trim_letter_state_override : trim?.manufacturer
 	var/trim_department_color = department_color_override ? department_color_override : trim?.department_color
 	var/trim_department_state = department_state_override ? department_state_override : trim?.department_state
 	var/trim_subdepartment_color = subdepartment_color_override ? subdepartment_color_override : trim?.subdepartment_color
@@ -1495,27 +1354,27 @@
 			var/try_wildcard = params["access_wildcard"]
 			if(access_type in access)
 				remove_access(list(access_type))
-				LOG_ID_ACCESS_CHANGE(usr, src, "removed [SSid_access.get_access_desc(access_type)]")
+				LOG_ID_ACCESS_CHANGE(usr, src, "removed [SSid_access.get_access_name(access_type)]")
 				return TRUE
 
 			if(!(access_type in target_card.access))
 				to_chat(usr, span_notice("ID error: ID card rejected your attempted access modification."))
-				LOG_ID_ACCESS_CHANGE(usr, src, "failed to add [SSid_access.get_access_desc(access_type)][try_wildcard ? " with wildcard [try_wildcard]" : ""]")
+				LOG_ID_ACCESS_CHANGE(usr, src, "failed to add [SSid_access.get_access_name(access_type)][try_wildcard ? " with region [try_wildcard]" : ""]")
 				return TRUE
 
-			if(!can_add_wildcards(list(access_type), try_wildcard))
+			if(!can_edit_region(list(access_type), try_wildcard))
 				to_chat(usr, span_notice("ID error: ID card rejected your attempted access modification."))
-				LOG_ID_ACCESS_CHANGE(usr, src, "failed to add [SSid_access.get_access_desc(access_type)][try_wildcard ? " with wildcard [try_wildcard]" : ""]")
+				LOG_ID_ACCESS_CHANGE(usr, src, "failed to add [SSid_access.get_access_name(access_type)][try_wildcard ? " with region [try_wildcard]" : ""]")
 				return TRUE
 
 			if(!add_access(list(access_type), try_wildcard))
 				to_chat(usr, span_notice("ID error: ID card rejected your attempted access modification."))
-				LOG_ID_ACCESS_CHANGE(usr, src, "failed to add [SSid_access.get_access_desc(access_type)][try_wildcard ? " with wildcard [try_wildcard]" : ""]")
+				LOG_ID_ACCESS_CHANGE(usr, src, "failed to add [SSid_access.get_access_name(access_type)][try_wildcard ? " with region [try_wildcard]" : ""]")
 				return TRUE
 
 			if(access_type in ACCESS_ALERT_ADMINS)
-				message_admins("[ADMIN_LOOKUPFLW(usr)] just added [SSid_access.get_access_desc(access_type)] to an ID card [ADMIN_VV(src)] [(registered_name) ? "belonging to [registered_name]." : "with no registered name."]")
-			LOG_ID_ACCESS_CHANGE(usr, src, "added [SSid_access.get_access_desc(access_type)]")
+				message_admins("[ADMIN_LOOKUPFLW(usr)] just added [SSid_access.get_access_name(access_type)] to an ID card [ADMIN_VV(src)] [(registered_name) ? "belonging to [registered_name]." : "with no registered name."]")
+			LOG_ID_ACCESS_CHANGE(usr, src, "added [SSid_access.get_access_name(access_type)]")
 			return TRUE
 
 /obj/item/card/id/advanced/chameleon/attack_self(mob/user)

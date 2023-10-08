@@ -63,7 +63,7 @@
 			one_access = 0
 			. = TRUE
 		if("grant_all")
-			accesses = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
+			accesses = SSid_access.get_region_access_list(list(ACCESS_REGION_GROUP_STATION))
 			. = TRUE
 		if("one_access")
 			one_access = !one_access

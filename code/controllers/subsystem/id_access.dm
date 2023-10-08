@@ -6,22 +6,10 @@ SUBSYSTEM_DEF(id_access)
 	init_order = INIT_ORDER_IDACCESS
 	flags = SS_NO_FIRE
 
-	/// Dictionary of access flags. Keys are accesses. Values are their associated bitflags.
-	var/list/flags_by_access = list()
-	/// Dictionary of access lists. Keys are access flag names. Values are lists of all accesses as part of that access.
-	var/list/accesses_by_flag = list()
-	/// Dictionary of access flag string representations. Keys are bitflags. Values are their associated names.
-	var/list/access_flag_string_by_flag = list()
 	/// Dictionary of trim singletons. Keys are paths. Values are their associated singletons.
 	var/list/trim_singletons_by_path = list()
-	/// Dictionary of wildcard compatibility flags. Keys are strings for the wildcards. Values are their associated flags.
-	var/list/wildcard_flags_by_wildcard = list()
-	/// Dictionary of accesses based on station region. Keys are region strings. Values are lists of accesses.
-	var/list/accesses_by_region = list()
-	/// Specially formatted list for sending access levels to tgui interfaces.
-	var/list/all_region_access_tgui = list()
 	/// Dictionary of access names. Keys are access levels. Values are their associated names.
-	var/list/desc_by_access = ALL_ACCESS_NAMES
+	var/list/access_to_name = ALL_ACCESS_NAMES
 	/// List of accesses for the Heads of each sub-department alongside the regions they control and their job name.
 	var/list/sub_department_managers_tgui = list()
 	/// Helper list containing all trim paths that can be used as job templates. Intended to be used alongside logic for ACCESS_COMMAND_LOWSEC. Grab templates from sub_department_managers_tgui for Head of Staff restrictions.
@@ -30,8 +18,60 @@ SUBSYSTEM_DEF(id_access)
 	var/list/centcom_job_templates = list()
 	/// Helper list containing all PDA paths that can be painted by station machines. Intended to be used alongside logic for ACCESS_COMMAND_LOWSEC. Grab templates from sub_department_managers_tgui for Head of Staff restrictions.
 	var/list/station_pda_templates = list()
-	/// Helper list containing all station regions.
-	var/list/station_regions = ACCESS_REGIONS_STATION
+
+	var/list/region_name_to_accesses = list(
+		ACCESS_REGION_STATION_HEADS_NAME = ACCESS_REGION_STATION_HEADS,
+		ACCESS_REGION_COMMAND_NAME = ACCESS_REGION_COMMAND,
+		ACCESS_REGION_ENGINEERING_NAME = ACCESS_REGION_ENGINEERING,
+		ACCESS_REGION_MEDICAL_NAME = ACCESS_REGION_MEDICAL,
+		ACCESS_REGION_PATHFINDERS_NAME = ACCESS_REGION_PATHFINDERS,
+		ACCESS_REGION_SECURITY_NAME = ACCESS_REGION_SECURITY,
+		ACCESS_REGION_SERVICE_NAME = ACCESS_REGION_SERVICE,
+		ACCESS_REGION_CARGO_NAME = ACCESS_REGION_CARGO,
+		ACCESS_REGION_CENTCOM_NAME = ACCESS_REGION_CENTCOM,
+		ACCESS_REGION_SYNDICATE_NAME = ACCESS_REGION_SYNDICATE,
+	)
+
+	var/list/manufacturer_to_region_names = list(
+		ID_MANUFACTURER_UNKNOWN = list(), // These can't be edited. Oh no!
+		ID_MANUFACTURER_ARTEA = list(
+			ACCESS_REGION_STATION_HEADS_NAME,
+			ACCESS_REGION_COMMAND_NAME,
+			ACCESS_REGION_ENGINEERING_NAME,
+			ACCESS_REGION_MEDICAL_NAME,
+			ACCESS_REGION_PATHFINDERS_NAME,
+			ACCESS_REGION_SECURITY_NAME,
+			ACCESS_REGION_SERVICE_NAME,
+			ACCESS_REGION_CARGO_NAME,
+			ACCESS_REGION_CENTCOM_NAME,
+		),
+		ID_MANUFACTURER_SYNDICATE = list( // Syndie and darkof IDs can be given normal station (but not centcom) accesses freely.
+			ACCESS_REGION_STATION_HEADS_NAME,
+			ACCESS_REGION_COMMAND_NAME,
+			ACCESS_REGION_ENGINEERING_NAME,
+			ACCESS_REGION_MEDICAL_NAME,
+			ACCESS_REGION_PATHFINDERS_NAME,
+			ACCESS_REGION_SECURITY_NAME,
+			ACCESS_REGION_SERVICE_NAME,
+			ACCESS_REGION_CARGO_NAME,
+			ACCESS_REGION_SYNDICATE_NAME,
+		),
+		ID_MANUFACTURER_DARKOF = list(
+			ACCESS_REGION_STATION_HEADS_NAME,
+			ACCESS_REGION_COMMAND_NAME,
+			ACCESS_REGION_ENGINEERING_NAME,
+			ACCESS_REGION_MEDICAL_NAME,
+			ACCESS_REGION_PATHFINDERS_NAME,
+			ACCESS_REGION_SECURITY_NAME,
+			ACCESS_REGION_SERVICE_NAME,
+			ACCESS_REGION_CARGO_NAME,
+			ACCESS_REGION_SYNDICATE_NAME,
+		),
+	)
+	var/silver_accesses = list(
+		ACCESS_REGION_STATION_HEADS_NAME,
+		ACCESS_REGION_COMMAND_NAME,
+	)
 
 	/// The roundstart generated code for the spare ID safe. This is given to the Captain on shift start. If there's no Captain, it's given to the HoP. If there's no HoP
 	var/spare_id_safe_code = ""
@@ -39,6 +79,11 @@ SUBSYSTEM_DEF(id_access)
 /datum/controller/subsystem/id_access/Initialize()
 	// We use this because creating the trim singletons requires the config to be loaded.
 	setup_trim_singletons()
+
+	var/silver_access_regions = silver_accesses
+	silver_accesses = list()
+	for(var/region in silver_access_regions)
+		silver_accesses |= region_name_to_accesses[region]
 
 	spare_id_safe_code = "[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]"
 
@@ -66,6 +111,24 @@ SUBSYSTEM_DEF(id_access)
 	for(var/trim in typesof(/datum/id_trim))
 		trim_singletons_by_path[trim] = new trim()
 
+/datum/controller/subsystem/id_access/proc/get_access_name(access)
+	return access_to_name["[access]"]
+
+/datum/controller/subsystem/id_access/proc/get_region_access_list(list/regions)
+	var/list/accesses = list()
+
+	for(var/region in regions)
+		if(islist(region)) // Allow for being lazy with the defines to save lots of effort. Cursed? Maybe. Do I care much at this point? Nope. - Rimi
+			for(var/access in get_region_access_list(region))
+				accesses |= access
+
+		var/list/temp_accesses = region_name_to_accesses[region]
+		if(temp_accesses)
+			for(var/access in temp_accesses)
+				accesses |= access
+
+	return accesses
+
 /**
  * Applies a trim singleton to a card.
  *
@@ -80,7 +143,7 @@ SUBSYSTEM_DEF(id_access)
 /datum/controller/subsystem/id_access/proc/apply_trim_to_card(obj/item/card/id/id_card, trim_path, copy_access = TRUE)
 	var/datum/id_trim/trim = trim_singletons_by_path[trim_path]
 
-	if(!id_card.can_add_wildcards(trim.wildcard_access))
+	if(!id_card.can_edit_region(trim.wildcard_access))
 		return FALSE
 
 	id_card.clear_access()
@@ -88,7 +151,7 @@ SUBSYSTEM_DEF(id_access)
 
 	if(copy_access)
 		id_card.access = trim.access.Copy()
-		id_card.add_wildcards(trim.wildcard_access)
+		id_card.add_regions(trim.wildcard_access)
 
 
 	if(trim.assignment)
@@ -164,7 +227,7 @@ SUBSYSTEM_DEF(id_access)
 	id_card.clear_access()
 
 	id_card.add_access(trim.access, mode = TRY_ADD_ALL_NO_WILDCARD)
-	id_card.add_wildcards(trim.wildcard_access, mode = TRY_ADD_ALL)
+	id_card.add_regions(trim.wildcard_access, mode = TRY_ADD_ALL)
 	if(istype(trim, /datum/id_trim/job))
 		var/datum/id_trim/job/job_trim = trim // Here is where we update a player's paycheck department for the purposes of discounts/paychecks.
 		id_card.registered_account.account_job.paycheck_department = job_trim.job.paycheck_department

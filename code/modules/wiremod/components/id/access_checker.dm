@@ -80,7 +80,7 @@
 	for(var/region in SSid_access.station_regions)
 		regions += tgui_region_data[region]
 	if(parent?.admin_only)
-		regions += tgui_region_data[REGION_CENTCOM]
+		regions += tgui_region_data[ACCESS_REGION_CENTCOM_NAME]
 		regions += tgui_region_data[REGION_ALL_GLOBAL]
 	data["regions"] = regions
 	return data
@@ -102,7 +102,7 @@
 			check_any.set_value(0)
 			. = TRUE
 		if("grant_all")
-			required_accesses.set_value(SSid_access.get_region_access_list(list(REGION_ALL_STATION)))
+			required_accesses.set_value(SSid_access.get_region_access_list(list(ACCESS_REGION_GROUP_STATION)))
 			. = TRUE
 		if("one_access")
 			check_any.set_value(!check_any.value)

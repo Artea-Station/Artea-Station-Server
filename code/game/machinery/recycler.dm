@@ -43,7 +43,7 @@
 /obj/machinery/recycler/LateInitialize()
 	. = ..()
 	update_appearance(UPDATE_ICON)
-	req_one_access = SSid_access.get_region_access_list(list(REGION_ALL_STATION, REGION_CENTCOM))
+	req_one_access = SSid_access.get_region_access_list(list(ACCESS_REGION_GROUP_STATION, ACCESS_REGION_CENTCOM_NAME))
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)

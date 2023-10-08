@@ -51,7 +51,7 @@
 		authenticated_card = "[auth_card.name]"
 		authenticated_user = auth_card.registered_name ? auth_card.registered_name : "Unknown"
 		job_templates = is_centcom ? SSid_access.centcom_job_templates.Copy() : SSid_access.station_job_templates.Copy()
-		valid_access = is_centcom ? SSid_access.get_region_access_list(list(REGION_CENTCOM)) : SSid_access.get_region_access_list(list(REGION_ALL_STATION))
+		valid_access = is_centcom ? SSid_access.get_region_access_list(list(ACCESS_REGION_CENTCOM_NAME)) : SSid_access.get_region_access_list(list(ACCESS_REGION_GROUP_STATION))
 		update_static_data(user)
 		return TRUE
 
@@ -124,10 +124,10 @@
 						<u>Access:</u><br>
 						"}
 
-			var/list/known_access_rights = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
+			var/list/known_access_rights = SSid_access.get_region_access_list(list(ACCESS_REGION_GROUP_STATION))
 			for(var/A in inserted_auth_card.access)
 				if(A in known_access_rights)
-					contents += " [SSid_access.get_access_desc(A)]"
+					contents += " [SSid_access.get_access_name(A)]"
 
 			if(!computer.print_text(contents, "access report - [inserted_auth_card.registered_name ? inserted_auth_card.registered_name : "Unregistered"]"))
 				to_chat(usr, span_notice("Printer is out of paper."))
@@ -228,17 +228,17 @@
 
 			if(access_type in inserted_auth_card.access)
 				inserted_auth_card.remove_access(list(access_type))
-				LOG_ID_ACCESS_CHANGE(user, inserted_auth_card, "removed [SSid_access.get_access_desc(access_type)]")
+				LOG_ID_ACCESS_CHANGE(user, inserted_auth_card, "removed [SSid_access.get_access_name(access_type)]")
 				return TRUE
 
 			if(!inserted_auth_card.add_access(list(access_type), try_wildcard))
 				to_chat(usr, span_notice("ID error: ID card rejected your attempted access modification."))
-				LOG_ID_ACCESS_CHANGE(user, inserted_auth_card, "failed to add [SSid_access.get_access_desc(access_type)][try_wildcard ? " with wildcard [try_wildcard]" : ""]")
+				LOG_ID_ACCESS_CHANGE(user, inserted_auth_card, "failed to add [SSid_access.get_access_name(access_type)][try_wildcard ? " with wildcard [try_wildcard]" : ""]")
 				return TRUE
 
 			if(access_type in ACCESS_ALERT_ADMINS)
-				message_admins("[ADMIN_LOOKUPFLW(user)] just added [SSid_access.get_access_desc(access_type)] to an ID card [ADMIN_VV(inserted_auth_card)] [(inserted_auth_card.registered_name) ? "belonging to [inserted_auth_card.registered_name]." : "with no registered name."]")
-			LOG_ID_ACCESS_CHANGE(user, inserted_auth_card, "added [SSid_access.get_access_desc(access_type)]")
+				message_admins("[ADMIN_LOOKUPFLW(user)] just added [SSid_access.get_access_name(access_type)] to an ID card [ADMIN_VV(inserted_auth_card)] [(inserted_auth_card.registered_name) ? "belonging to [inserted_auth_card.registered_name]." : "with no registered name."]")
+			LOG_ID_ACCESS_CHANGE(user, inserted_auth_card, "added [SSid_access.get_access_name(access_type)]")
 			return TRUE
 		// Apply template to ID card.
 		if("PRG_template")
@@ -272,7 +272,7 @@
 	var/list/regions = list()
 	var/list/tgui_region_data = SSid_access.all_region_access_tgui
 	if(is_centcom)
-		regions += tgui_region_data[REGION_CENTCOM]
+		regions += tgui_region_data[ACCESS_REGION_CENTCOM_NAME]
 	else
 		for(var/region in SSid_access.station_regions)
 			if((minor || target_dept) && !(region in region_access))

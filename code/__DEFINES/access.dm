@@ -6,6 +6,12 @@
 *	If you're varediting on the map, it uses the string. If you're editing the object directly, use the define name
 */
 
+#define ID_MANUFACTURER_ARTEA "artea"
+#define ID_MANUFACTURER_UNKNOWN "unknown"
+#define ID_MANUFACTURER_SYNDICATE "syndicate"
+#define ID_MANUFACTURER_DARKOF "darkof"
+#define ID_MANUFACTURER_FUNNY_DEFUNCT_SCIENCE_CORP "nanotrasen"
+
 #define ACCESS_COMMAND_LOWSEC "command_lowsec"
 #define ACCESS_COMMAND_HIGHSEC "command_highsec"
 #define ACCESS_COMMAND_VEHICLES "command_vehicles"
@@ -82,16 +88,68 @@
 #define LOG_ID_ACCESS_CHANGE(user, id_card, change_description) \
 	log_game("[key_name(user)] [change_description] to an ID card [(id_card.registered_name) ? "belonging to [id_card.registered_name]." : "with no registered name."]"); \
 	user.investigate_log("([key_name(user)]) [change_description] to an ID card [(id_card.registered_name) ? "belonging to [id_card.registered_name]." : "with no registered name."]", INVESTIGATE_ACCESSCHANGES); \
-	user.log_message("[change_description] to an ID card [(id_card.registered_name) ? "belonging to [id_card.registered_name]." : "with no registered name."]", LOG_GAME); \
+	user.log_message("[change_description] to an ID card [(id_card.registered_name) ? "belonging to [id_card.registered_name]." : "with no registered name."]", LOG_GAME);
 
 /// Used in ID card access adding procs. Will try to add all accesses and utilises free wildcards, skipping over any accesses it can't add.
 #define TRY_ADD_ALL 0
-/// Used in ID card access adding procs. Will try to add all accesses and does not utilise wildcards, skipping anything requiring a wildcard.
-#define TRY_ADD_ALL_NO_WILDCARD 1
 /// Used in ID card access adding procs. Will forcefully add all accesses.
-#define FORCE_ADD_ALL 2
+#define FORCE_ADD_ALL 1
 /// Used in ID card access adding procs. Will stack trace on fail.
-#define ERROR_ON_FAIL 3
+#define ERROR_ON_FAIL 2
+
+#define ALL_ACCESSES list( \
+	ACCESS_COMMAND_LOWSEC, \
+	ACCESS_COMMAND_HIGHSEC, \
+	ACCESS_COMMAND_VEHICLES, \
+	ACCESS_ENGINEERING_LOWSEC, \
+	ACCESS_ENGINEERING_HIGHSEC, \
+	ACCESS_ENGINEERING_VEHICLES, \
+	ACCESS_ENGINEERING_HEAD, \
+	ACCESS_MEDICAL_LOWSEC, \
+	ACCESS_MEDICAL_HIGHSEC, \
+	ACCESS_MEDICAL_VEHICLES, \
+	ACCESS_MEDICAL_HEAD, \
+	ACCESS_PATHFINDERS_LOWSEC, \
+	ACCESS_PATHFINDERS_HIGHSEC, \
+	ACCESS_PATHFINDERS_VEHICLES, \
+	ACCESS_PATHFINDERS_HEAD, \
+	ACCESS_SECURITY_LOWSEC, \
+	ACCESS_SECURITY_HIGHSEC, \
+	ACCESS_SECURITY_VEHICLES, \
+	ACCESS_SECURITY_HEAD, \
+	ACCESS_SERVICE_LOWSEC, \
+	ACCESS_SERVICE_HIGHSEC, \
+	ACCESS_SERVICE_VEHICLES, \
+	ACCESS_CARGO_LOWSEC, \
+	ACCESS_CARGO_HIGHSEC, \
+	ACCESS_CARGO_VEHICLES, \
+	ACCESS_CARGO_HEAD, \
+	ACCESS_SYNDICATE_LOWSEC, \
+	ACCESS_SYNDICATE_HIGHSEC, \
+	ACCESS_SYNDICATE_VEHICLES, \
+	ACCESS_CENTCOM_LOWSEC, \
+	ACCESS_CENTCOM_HIGHSEC, \
+	ACCESS_CENTCOM_VEHICLES, \
+	ACCESS_SPECIAL_CAPTAIN, \
+	ACCESS_SPECIAL_WEAPONS, \
+	ACCESS_SPECIAL_THUNDERDOME, \
+	ACCESS_SPECIAL_BLOODCULT, \
+	ACCESS_ANY_VAULT, \
+	ACCESS_ANY_ROBOTICS, \
+	ACCESS_ARTEA_COMMON, \
+	ACCESS_AWAY_GENERAL, \
+	ACCESS_AWAY_COMMAND, \
+	ACCESS_AWAY_SEC, \
+	ACCESS_AWAY_ENGINEERING, \
+	ACCESS_AWAY_MEDICAL, \
+	ACCESS_AWAY_SUPPLY, \
+	ACCESS_AWAY_SCIENCE, \
+	ACCESS_AWAY_MAINTENANCE, \
+	ACCESS_AWAY_GENERIC1, \
+	ACCESS_AWAY_GENERIC2, \
+	ACCESS_AWAY_GENERIC3, \
+	ACCESS_AWAY_GENERIC4, \
+)
 
 /// All accesses to their names. Keep up to date.
 #define ALL_ACCESS_NAMES list( \
@@ -134,17 +192,7 @@
 	ACCESS_SPECIAL_BLOODCULT = "Blood Cult", \
 )
 
-#define ACCESS_REGIONS_STATION list( \
-	ACCESS_REGION_STATION_HEADS, \
-	ACCESS_REGION_COMMAND, \
-	ACCESS_REGION_ENGINEERING, \
-	ACCESS_REGION_MEDICAL, \
-	ACCESS_REGION_PATHFINDERS, \
-	ACCESS_REGION_SECURITY, \
-	ACCESS_REGION_SERVICE, \
-	ACCESS_REGION_CARGO, \
-)
-
+#define ACCESS_REGION_STATION_HEADS_NAME "Heads"
 #define ACCESS_REGION_STATION_HEADS list( \
 	ACCESS_ENGINEERING_HEAD, \
 	ACCESS_MEDICAL_HEAD, \
@@ -153,55 +201,77 @@
 	ACCESS_CARGO_HEAD, \
 )
 
+#define ACCESS_REGION_COMMAND_NAME "Command"
 #define ACCESS_REGION_COMMAND list( \
 	ACCESS_COMMAND_LOWSEC, \
 	ACCESS_COMMAND_HIGHSEC, \
 	ACCESS_COMMAND_VEHICLES, \
 )
 
+#define ACCESS_REGION_ENGINEERING_NAME "Engineering"
 #define ACCESS_REGION_ENGINEERING list( \
 	ACCESS_ENGINEERING_LOWSEC, \
 	ACCESS_ENGINEERING_HIGHSEC, \
 	ACCESS_ENGINEERING_VEHICLES, \
 )
 
+#define ACCESS_REGION_MEDICAL_NAME "Medical"
 #define ACCESS_REGION_MEDICAL list( \
 	ACCESS_MEDICAL_LOWSEC, \
 	ACCESS_MEDICAL_HIGHSEC, \
 	ACCESS_MEDICAL_VEHICLES, \
 )
 
+#define ACCESS_REGION_PATHFINDERS_NAME "Pathfinders"
 #define ACCESS_REGION_PATHFINDERS list( \
 	ACCESS_PATHFINDERS_LOWSEC, \
 	ACCESS_PATHFINDERS_HIGHSEC, \
 	ACCESS_PATHFINDERS_VEHICLES, \
 )
 
+#define ACCESS_REGION_SECURITY_NAME "Security"
 #define ACCESS_REGION_SECURITY list( \
 	ACCESS_SECURITY_LOWSEC, \
 	ACCESS_SECURITY_HIGHSEC, \
 	ACCESS_SECURITY_VEHICLES, \
+	ACCESS_SPECIAL_WEAPONS, \
 )
 
+#define ACCESS_REGION_SERVICE_NAME "Service"
 #define ACCESS_REGION_SERVICE list( \
 	ACCESS_SERVICE_LOWSEC, \
 	ACCESS_SERVICE_HIGHSEC, \
 	ACCESS_SERVICE_VEHICLES, \
 )
 
+#define ACCESS_REGION_CARGO_NAME "Cargo"
 #define ACCESS_REGION_CARGO list( \
 	ACCESS_CARGO_LOWSEC, \
 	ACCESS_CARGO_HIGHSEC, \
 	ACCESS_CARGO_VEHICLES, \
 )
 
-#define ALL_REGION_NAMES list( \
-	ACCESS_REGION_STATION_HEADS = "Heads", \
-	ACCESS_REGION_COMMAND = "Command", \
-	ACCESS_REGION_ENGINEERING = "Engineering", \
-	ACCESS_REGION_MEDICAL = "Medical", \
-	ACCESS_REGION_PATHFINDERS = "Pathfinders", \
-	ACCESS_REGION_SECURITY = "Security", \
-	ACCESS_REGION_SERVICE = "Service", \
-	ACCESS_REGION_CARGO = "Cargo", \
+#define ACCESS_REGION_GROUP_STATION list( \
+	ACCESS_REGION_STATION_HEADS_NAME, \
+	ACCESS_REGION_COMMAND_NAME, \
+	ACCESS_REGION_ENGINEERING_NAME, \
+	ACCESS_REGION_MEDICAL_NAME, \
+	ACCESS_REGION_PATHFINDERS_NAME, \
+	ACCESS_REGION_SECURITY_NAME, \
+	ACCESS_REGION_SERVICE_NAME, \
+	ACCESS_REGION_CARGO_NAME, \
+)
+
+#define ACCESS_REGION_CENTCOM_NAME "Central Command"
+#define ACCESS_REGION_CENTCOM list( \
+	ACCESS_CENTCOM_LOWSEC, \
+	ACCESS_CENTCOM_HIGHSEC, \
+	ACCESS_CENTCOM_VEHICLES, \
+)
+
+#define ACCESS_REGION_SYNDICATE_NAME "Syndicate"
+#define ACCESS_REGION_SYNDICATE list( \
+	ACCESS_SYNDICATE_LOWSEC, \
+	ACCESS_SYNDICATE_HIGHSEC, \
+	ACCESS_SYNDICATE_VEHICLES, \
 )

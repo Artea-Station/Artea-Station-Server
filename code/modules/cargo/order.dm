@@ -68,7 +68,7 @@
 	requisition_text += "Order #[id]<br/>"
 	requisition_text+= "Time of Order: [station_time_timestamp()]<br/>"
 	requisition_text += "Item: [pack.name]<br/>"
-	requisition_text += "Access Restrictions: [SSid_access.get_access_desc(pack.access)]<br/>"
+	requisition_text += "Access Restrictions: [SSid_access.get_access_name(pack.access)]<br/>"
 	requisition_text += "Requested by: [orderer]<br/>"
 	if(paying_account)
 		requisition_text += "Paid by: [paying_account.account_holder]<br/>"

@@ -839,7 +839,7 @@ SUBSYSTEM_DEF(job)
 	if(id_slot)
 		var/obj/item/card/id/id_card = id_slot.GetID()
 		if(!(ACCESS_COMMAND_LOWSEC in id_card.access))
-			id_card.add_wildcards(list(ACCESS_COMMAND_LOWSEC), mode=FORCE_ADD_ALL)
+			id_card.add_regions(list(ACCESS_COMMAND_LOWSEC))
 
 	assigned_captain = TRUE
 
