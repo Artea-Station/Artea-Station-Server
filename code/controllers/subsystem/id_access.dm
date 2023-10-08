@@ -19,6 +19,7 @@ SUBSYSTEM_DEF(id_access)
 	/// Helper list containing all PDA paths that can be painted by station machines. Intended to be used alongside logic for ACCESS_COMMAND_LOWSEC. Grab templates from sub_department_managers_tgui for Head of Staff restrictions.
 	var/list/station_pda_templates = list()
 
+	/// Region to access. Shrimple. Any access not on this list cannot be accessed without VV!
 	var/list/region_name_to_accesses = list(
 		ACCESS_REGION_STATION_HEADS_NAME = ACCESS_REGION_STATION_HEADS,
 		ACCESS_REGION_COMMAND_NAME = ACCESS_REGION_COMMAND,
@@ -32,6 +33,7 @@ SUBSYSTEM_DEF(id_access)
 		ACCESS_REGION_SYNDICATE_NAME = ACCESS_REGION_SYNDICATE,
 	)
 
+	/// A list of ID manufacturers to regions that they natively can access. These DO NOT prevent IDs from gaining accesses not inside these via non-ID-console means!
 	var/list/manufacturer_to_region_names = list(
 		ID_MANUFACTURER_UNKNOWN = list(), // These can't be edited. Oh no!
 		ID_MANUFACTURER_ARTEA = list(
@@ -68,6 +70,9 @@ SUBSYSTEM_DEF(id_access)
 			ACCESS_REGION_SYNDICATE_NAME,
 		),
 	)
+
+	/// A list of accesses that are silver ID only.
+	/// !!NOTE!!: Before the subsystem initializes, this is a mixed list of regions and accesses, which are then converted.
 	var/silver_accesses = list(
 		ACCESS_REGION_STATION_HEADS_NAME,
 		ACCESS_REGION_COMMAND_NAME,
@@ -77,42 +82,17 @@ SUBSYSTEM_DEF(id_access)
 	var/spare_id_safe_code = ""
 
 /datum/controller/subsystem/id_access/Initialize()
-	// We use this because creating the trim singletons requires the config to be loaded.
-	setup_trim_singletons()
-
+	// Look man, I don't want to hardcode every single access if I don't have to.
 	var/silver_access_regions = silver_accesses
 	silver_accesses = list()
 	for(var/region in silver_access_regions)
-		silver_accesses |= region_name_to_accesses[region]
+		// If it's a valid region, slap the accesses inside.
+		// If it's not, then uh- I hope it's an access!
+		silver_accesses |= region_name_to_accesses[region] || region
 
 	spare_id_safe_code = "[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]"
 
 	return SS_INIT_SUCCESS
-
-/**
- * Called by [/datum/controller/subsystem/ticker/proc/setup]
- *
- * This runs through every /datum/id_trim/job singleton and ensures that its access is setup according to
- * appropriate config entries.
- */
-/datum/controller/subsystem/id_access/proc/refresh_job_trim_singletons()
-	for(var/trim in typesof(/datum/id_trim/job))
-		var/datum/id_trim/job/job_trim = trim_singletons_by_path[trim]
-
-		if(QDELETED(job_trim))
-			stack_trace("Trim \[[trim]\] missing from trim singleton list. Reinitialising this trim.")
-			trim_singletons_by_path[trim] = new trim()
-			continue
-
-		job_trim.refresh_trim_access()
-
-/// Instantiate trim singletons and add them to a list.
-/datum/controller/subsystem/id_access/proc/setup_trim_singletons()
-	for(var/trim in typesof(/datum/id_trim))
-		trim_singletons_by_path[trim] = new trim()
-
-/datum/controller/subsystem/id_access/proc/get_access_name(access)
-	return access_to_name["[access]"]
 
 /datum/controller/subsystem/id_access/proc/get_region_access_list(list/regions)
 	var/list/accesses = list()
@@ -231,21 +211,3 @@ SUBSYSTEM_DEF(id_access)
 	if(istype(trim, /datum/id_trim/job))
 		var/datum/id_trim/job/job_trim = trim // Here is where we update a player's paycheck department for the purposes of discounts/paychecks.
 		id_card.registered_account.account_job.paycheck_department = job_trim.job.paycheck_department
-
-/**
- * Tallies up all accesses the card has that have flags greater than or equal to the access_flag supplied.
- *
- * Returns the number of accesses that have flags matching access_flag or a higher tier access.
- * Arguments:
- * * id_card - The ID card to tally up access for.
- * * access_flag - The minimum access flag required for an access to be tallied up.
- */
-/datum/controller/subsystem/id_access/proc/tally_access(obj/item/card/id/id_card, access_flag = NONE)
-	var/tally = 0
-
-	var/list/id_card_access = id_card.access
-	for(var/access in id_card_access)
-		if(flags_by_access["[access]"] >= access_flag)
-			tally++
-
-	return tally

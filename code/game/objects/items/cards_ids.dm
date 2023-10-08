@@ -144,15 +144,27 @@
 
 /// Removes accesses that were given by the provided old departments, then adds the correct accesses provided by departments
 /obj/item/card/id/proc/update_accesses_from_trims(datum/id_department/old_department, datum/id_department/old_subdepartment)
-	var/list/regions_to_yeet
+	var/list/regions_to_modify
+
+	if(old_department)
+		LAZYADD(regions_to_modify, old_department.region)
+
+	if(old_subdepartment)
+		LAZYADD(regions_to_modify, old_subdepartment.region)
+
+	if(regions_to_modify)
+		access -= SSid_access.get_region_access_list(regions_to_modify)
+
+	regions_to_modify = null
 
 	if(department)
-		LAZYADD(regions_to_yeet, old_department.region)
+		LAZYADD(regions_to_modify, old_department.region)
 
 	if(subdepartment)
-		LAZYADD(regions_to_yeet, old_subdepartment.region)
+		LAZYADD(regions_to_modify, old_subdepartment.region)
 
-
+	if(regions_to_modify)
+		access |= SSid_access.get_region_access_list(regions_to_modify)
 
 /obj/item/card/id/proc/get_editable_regions()
 	return SSid_access.manufacturer_to_region_names[id_manufacturer]
