@@ -4,6 +4,8 @@
 <!-- You can view Contributing.MD for a detailed description of the pull request process. -->
 <!-- Describe The Pull Request. Please be sure every change is documented or this can delay review and even discourage maintainers from merging your PR! -->
 
+<!-- SEE THE CONTRIBUTING GUIDELINES AND ESPECIALLY THE FOLLOWING BEFORE MAKING A PR: https://github.com/Artea-Station/Artea-Station-Server/blob/master/.github/guides/RESTRICTED_PR_TOPICS.md -->
+
 ## How Does This Help ***Gameplay***?
 
 <!-- Optional, remove the above header if unused. Describe why you made these changes from a mechanical perspective. Failure to include important reasoning, no matter how petty, may end in your PR being held under tighter scrutiny. -->
