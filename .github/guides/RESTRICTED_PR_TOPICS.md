@@ -20,7 +20,7 @@ Restricted topics typically require a design doc (basically just notes on what y
 - ERP mechanics. **H**
 	- This includes vore.
 	- ERP is allowed, but not encouraged/supported directly via mechanics.
-- TTS features. We do not have  **H**
+- TTS features. We do not have the hardware, nor manpower to support such a system. **H**
 - Clothing type removals from any job. **H**
 	- We're not some up-our-own-ass realism-must-always-be-had server. Let folk be fasionable in skirts/pants/whatever.
 - Far right rhetorics or references, including, but not limited to references to the National Socialist Party that Germany once had. **A**
