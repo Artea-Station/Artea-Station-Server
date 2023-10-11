@@ -38139,10 +38139,6 @@
 	},
 /obj/item/multitool,
 /obj/item/storage/toolbox/electrical,
-/obj/item/multitool{
-	pixel_x = 4
-	},
-/obj/item/reagent_containers/cup/beaker/large,
 /turf/open/floor/iron/dark,
 /area/station/science/robotics/lab)
 "lpZ" = (
@@ -42388,7 +42384,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/item/aicard,
 /obj/item/ai_module/reset,
 /obj/item/assembly/flash/handheld,
 /obj/item/assembly/flash/handheld,
@@ -44122,7 +44117,6 @@
 /area/station/maintenance/starboard/fore)
 "nfN" = (
 /obj/structure/rack,
-/obj/effect/spawner/random/techstorage/rnd_secure_all,
 /obj/machinery/light/small/directional/south,
 /obj/machinery/status_display/shuttle{
 	pixel_y = -32
@@ -44241,15 +44235,18 @@
 "nij" = (
 /obj/structure/table,
 /obj/effect/turf_decal/tile/neutral,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/clothing/suit/apron/surgical,
-/obj/item/clothing/mask/surgical,
-/obj/item/mmi,
-/obj/item/mmi,
-/obj/item/mmi,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/item/hemostat{
+	pixel_x = 2;
+	pixel_y = 7
+	},
+/obj/item/retractor{
+	pixel_y = 3;
+	pixel_x = -8
+	},
+/obj/item/circular_saw,
 /turf/open/floor/iron/dark,
 /area/station/science/robotics/lab)
 "nim" = (
@@ -45055,8 +45052,8 @@
 /area/station/hallway/primary/starboard)
 "nwh" = (
 /obj/structure/rack,
-/obj/effect/spawner/random/techstorage/ai_all,
 /obj/machinery/firealarm/directional/south,
+/obj/effect/spawner/random/techstorage/rnd_secure_all,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -48132,9 +48129,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/item/surgical_drapes,
-/obj/item/retractor,
-/obj/item/cautery,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -48142,6 +48136,17 @@
 	dir = 1;
 	pixel_y = 1
 	},
+/obj/item/storage/toolbox/mechanical{
+	name = "surgical toolbox";
+	pixel_y = 4
+	},
+/obj/item/scalpel{
+	pixel_y = -5
+	},
+/obj/item/multitool{
+	pixel_x = -8
+	},
+/obj/item/surgical_drapes,
 /turf/open/floor/iron/dark,
 /area/station/science/robotics/lab)
 "ozk" = (
@@ -74323,9 +74328,6 @@
 	pixel_x = -6;
 	pixel_y = 2
 	},
-/obj/item/aicard{
-	pixel_x = 4
-	},
 /obj/item/assembly/flash/handheld,
 /obj/item/assembly/flash/handheld,
 /obj/machinery/light/directional/north,
@@ -79185,15 +79187,14 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/item/circular_saw,
-/obj/item/scalpel{
-	pixel_y = 16
-	},
-/obj/item/hemostat,
 /obj/structure/window/reinforced{
 	dir = 1;
 	pixel_y = 1
 	},
+/obj/item/clothing/gloves/color/latex{
+	pixel_y = 4
+	},
+/obj/item/clothing/suit/apron/surgical,
 /turf/open/floor/iron/dark,
 /area/station/science/robotics/lab)
 "xvj" = (
