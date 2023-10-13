@@ -24,6 +24,8 @@ Restricted topics typically require a design doc (basically just notes on what y
 - Clothing type removals from any job. **H**
 	- We're not some up-our-own-ass realism-must-always-be-had server. Let folk be fasionable in skirts/pants/whatever.
 - Far right rhetorics or references, including, but not limited to references to the National Socialist Party that Germany once had. **A**
+- IC references to modern-world countries.
+- Planecube, sideplane, and the wallening from TG. We are absolutely not porting these cataclysmicly bad for performance/maintenance features.
 
 ### Restricted Topics
 - New races. **ML**
@@ -36,3 +38,5 @@ Restricted topics typically require a design doc (basically just notes on what y
 - New chems. **M**
 - Lewd items/clothes. **HA**
 	- The server's main purpose is player freedom, and I don't want us to turn into a primarily ERP server.
+- New jobs. **M**
+- Stuff that touches cargo or the overmap.
