@@ -2,38 +2,43 @@ import { useBackend } from '../backend';
 import { AccessList } from './common/AccessList';
 import { Window } from '../layouts';
 
+type Data = {
+  accesses: String[];
+  selectedList: String[];
+  regionAccess: String[];
+  regions: String[];
+  showBasic;
+  ourAccess: String[];
+  theftAccess;
+};
+
 export const ChameleonCard = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend<Data>(context);
 
   const {
     accesses,
     selectedList,
-    wildcardFlags,
-    wildcardSlots,
-    trimAccess,
-    accessFlags,
-    accessFlagNames,
+    regionAccess,
     showBasic,
     ourAccess,
     theftAccess,
-    ourTrimAccess,
   } = data;
 
   const parsedAccess = accesses.flatMap((region) => {
-    const regionName = region.name;
-    const regionAccess = region.accesses;
+    const regionName = region;
+    const regionAccess = region;
     const parsedRegion = {
       name: regionName,
       accesses: [],
     };
     parsedRegion.accesses = regionAccess.filter((access) => {
-      // Snip everything that's part of our trim.
-      if (ourTrimAccess.includes(access.ref)) {
+      // Snip everything that's part of our regions.
+      if (regionAccess.includes(access)) {
         return false;
       }
-      // Add anything not part of our trim that's an access (assumed wildcard)
+      // Add anything not part of our regions that's an access
       // Also add any access on the ID card we're stealing from.
-      if (ourAccess.includes(access.ref) || theftAccess.includes(access.ref)) {
+      if (ourAccess.includes(access) || theftAccess.includes(access)) {
         return true;
       }
       return false;
@@ -50,16 +55,14 @@ export const ChameleonCard = (props, context) => {
         <AccessList
           accesses={parsedAccess}
           selectedList={selectedList}
-          wildcardFlags={wildcardFlags}
-          wildcardSlots={wildcardSlots}
-          trimAccess={trimAccess}
+          regionAccess={regionAccess}
           accessFlags={accessFlags}
           accessFlagNames={accessFlagNames}
           showBasic={!!showBasic}
-          accessMod={(ref, wildcard) =>
+          accessMod={(ref, access) =>
             act('mod_access', {
               access_target: ref,
-              access_wildcard: wildcard,
+              access: access,
             })
           }
         />

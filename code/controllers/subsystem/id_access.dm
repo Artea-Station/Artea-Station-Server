@@ -33,6 +33,18 @@ SUBSYSTEM_DEF(id_access)
 		ACCESS_REGION_SYNDICATE_NAME = ACCESS_REGION_SYNDICATE,
 	)
 
+	var/list/region_name_to_color = list(
+		ACCESS_REGION_COMMAND_NAME = COLOR_COMMAND_BLUE,
+		ACCESS_REGION_ENGINEERING_NAME = COLOR_ENGINEERING_ORANGE,
+		ACCESS_REGION_MEDICAL_NAME = COLOR_MEDICAL_BLUE,
+		ACCESS_REGION_PATHFINDERS_NAME = COLOR_PATHFINDERS_PURPLE,
+		ACCESS_REGION_SECURITY_NAME = COLOR_SECURITY_RED,
+		ACCESS_REGION_SERVICE_NAME = COLOR_SERVICE_LIME,
+		ACCESS_REGION_CARGO_NAME = COLOR_CARGO_BROWN,
+		ACCESS_REGION_CENTCOM_NAME = COLOR_CENTCOM_BLUE,
+		ACCESS_REGION_SYNDICATE_NAME = COLOR_SYNDIE_RED,
+	)
+
 	/// A list of ID manufacturers to regions that they natively can access. These DO NOT prevent IDs from gaining accesses not inside these via non-ID-console means!
 	var/list/manufacturer_to_region_names = list(
 		ID_MANUFACTURER_UNKNOWN = list(), // These can't be edited. Oh no!
@@ -72,7 +84,7 @@ SUBSYSTEM_DEF(id_access)
 	)
 
 	/// A list of accesses that are silver ID only.
-	/// !!NOTE!!: Before the subsystem initializes, this is a mixed list of regions and accesses, which are then converted.
+	/// **NOTE**: Before the subsystem initializes, this is a mixed list of regions and accesses, which are then converted.
 	var/silver_accesses = list(
 		ACCESS_REGION_STATION_HEADS_NAME,
 		ACCESS_REGION_COMMAND_NAME,
@@ -110,62 +122,15 @@ SUBSYSTEM_DEF(id_access)
 	return accesses
 
 /**
- * Applies a trim singleton to a card.
- *
- * Returns FALSE if the trim could not be applied due to being incompatible with the card.
- * Incompatibility is defined as a card not being able to hold all the trim's required wildcards.
- * Returns TRUE otherwise.
- * Arguments:
- * * id_card - ID card to apply the trim_path to.
- * * trim_path - A trim path to apply to the card. Grabs the trim's associated singleton and applies it.
- * * copy_access - Boolean value. If true, the trim's access is also copied to the card.
- */
-/datum/controller/subsystem/id_access/proc/apply_trim_to_card(obj/item/card/id/id_card, trim_path, copy_access = TRUE)
-	var/datum/id_trim/trim = trim_singletons_by_path[trim_path]
-
-	if(!id_card.can_edit_region(trim.wildcard_access))
-		return FALSE
-
-	id_card.clear_access()
-	id_card.trim = trim
-
-	if(copy_access)
-		id_card.access = trim.access.Copy()
-		id_card.add_regions(trim.wildcard_access)
-
-
-	if(trim.assignment)
-		id_card.assignment = trim.assignment
-
-	id_card.update_label()
-	id_card.update_icon()
-
-	return TRUE
-
-/**
- * Removes a trim from an ID card. Also removes all accesses from it too.
- *
- * Arguments:
- * * id_card - The ID card to remove the trim from.
- */
-/datum/controller/subsystem/id_access/proc/remove_trim_from_card(obj/item/card/id/id_card)
-	id_card.trim = null
-	id_card.clear_access()
-	id_card.update_label()
-	id_card.update_icon()
-
-/**
  * Applies a trim to a chameleon card. This is purely visual, utilising the card's override vars.
  *
  * Arguments:
  * * id_card - The chameleon card to apply the trim visuals to.
-* * trim_path - A trim path to apply to the card. Grabs the trim's associated singleton and applies it.
+ * * trim_path - A trim path to apply to the card. Grabs the trim's associated singleton and applies it.
  * * check_forged - Boolean value. If TRUE, will not overwrite the card's assignment if the card has been forged.
  */
 /datum/controller/subsystem/id_access/proc/apply_trim_to_chameleon_card(obj/item/card/id/advanced/chameleon/id_card, trim_path, check_forged = TRUE)
 	var/datum/id_trim/trim = trim_singletons_by_path[trim_path]
-	id_card.trim_icon_override = trim.trim_icon
-	id_card.trim_assignment_override = trim.assignment
 	id_card.sechud_icon_state_override = trim.sechud_icon_state
 	id_card.department_color_override = trim.department_color
 	id_card.department_state_override = trim.department_state
@@ -190,24 +155,3 @@ SUBSYSTEM_DEF(id_access)
 	id_card.department_color_override = null
 	id_card.department_state_override = null
 	id_card.subdepartment_color_override = null
-
-/**
- * Adds the accesses associated with a trim to an ID card.
- *
- * Clears the card's existing access levels first.
- * Primarily intended for applying trim templates to cards. Will attempt to add as many ordinary access
- * levels as it can, without consuming any wildcards. Will then attempt to apply the trim-specific wildcards after.
- *
- * Arguments:
- * * id_card - The ID card to remove the trim from.
- */
-/datum/controller/subsystem/id_access/proc/add_trim_access_to_card(obj/item/card/id/id_card, trim_path)
-	var/datum/id_trim/trim = trim_singletons_by_path[trim_path]
-
-	id_card.clear_access()
-
-	id_card.add_access(trim.access, mode = TRY_ADD_ALL_NO_WILDCARD)
-	id_card.add_regions(trim.wildcard_access, mode = TRY_ADD_ALL)
-	if(istype(trim, /datum/id_trim/job))
-		var/datum/id_trim/job/job_trim = trim // Here is where we update a player's paycheck department for the purposes of discounts/paychecks.
-		id_card.registered_account.account_job.paycheck_department = job_trim.job.paycheck_department

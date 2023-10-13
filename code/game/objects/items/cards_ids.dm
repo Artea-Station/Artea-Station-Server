@@ -106,13 +106,15 @@
 	var/id_manufacturer = ID_MANUFACTURER_UNKNOWN
 
 	/// The department assigned to the ID.
-	var/datum/id_department/department
+	var/department
 	/// The subdepartment assigned to the ID.
-	var/datum/id_department/subdepartment
+	var/subdepartment
 	/// The icon_state associated with this trim, as it will show on the security HUD.
 	var/sechud_icon_state = SECHUD_UNKNOWN
 	/// Icons to be displayed in the orbit ui. Source: FontAwesome v5. Use the FA_ICON defines.
 	var/orbit_icon
+	// If TRUE, take all subregion accesses, and
+	var/is_silver = FALSE
 
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
@@ -124,7 +126,7 @@
 
 	// Applying the trim updates the label and icon, so don't do this twice.
 	if(ispath(trim))
-		SSid_access.apply_trim_to_card(src, trim)
+		apply_regions(src, department, subdepartment)
 	else
 		update_label()
 		update_icon()
@@ -143,28 +145,34 @@
 	return ..()
 
 /// Removes accesses that were given by the provided old departments, then adds the correct accesses provided by departments
-/obj/item/card/id/proc/update_accesses_from_trims(datum/id_department/old_department, datum/id_department/old_subdepartment)
+/obj/item/card/id/proc/apply_regions(new_department, new_subdepartment)
 	var/list/regions_to_modify
 
-	if(old_department)
-		LAZYADD(regions_to_modify, old_department.region)
+	if(department)
+		LAZYADD(regions_to_modify, department)
 
-	if(old_subdepartment)
-		LAZYADD(regions_to_modify, old_subdepartment.region)
+	if(subdepartment)
+		LAZYADD(regions_to_modify, subdepartment)
 
 	if(regions_to_modify)
 		access -= SSid_access.get_region_access_list(regions_to_modify)
 
 	regions_to_modify = null
 
-	if(department)
-		LAZYADD(regions_to_modify, old_department.region)
+	if(new_department)
+		LAZYADD(regions_to_modify, new_department)
 
-	if(subdepartment)
-		LAZYADD(regions_to_modify, old_subdepartment.region)
+	if(new_subdepartment)
+		LAZYADD(regions_to_modify, new_subdepartment)
 
 	if(regions_to_modify)
 		access |= SSid_access.get_region_access_list(regions_to_modify)
+
+	department = new_department
+	subdepartment = new_subdepartment
+
+	update_appearance()
+	update_label()
 
 /obj/item/card/id/proc/get_editable_regions()
 	return SSid_access.manufacturer_to_region_names[id_manufacturer]
@@ -226,7 +234,7 @@
 /obj/item/card/id/proc/add_regions(list/region_list)
 	// Iterate through each region in our list. Get its accesses, then try to add each access.
 	for(var/region in region_list)
-		access |= SSid_access.region_name_to_accesses(region)
+		access |= SSid_access.region_name_to_accesses[region]
 
 	return TRUE
 
@@ -239,7 +247,7 @@
 /obj/item/card/id/proc/remove_regions(list/region_list)
 	// Iterate through each region in our list. Get its accesses, then try to add each access.
 	for(var/region in region_list)
-		access -= SSid_access.region_name_to_accesses(region)
+		access -= SSid_access.region_name_to_accesses[region]
 
 /**
  * Adds the given accesses to the ID card.
@@ -270,10 +278,10 @@
  * * new_access_list - List of all accesses that this card should hold exclusively.
  */
 /obj/item/card/id/proc/set_access(list/new_access_list)
-	accesses = new_access_list.Copy() // Nope, we ain't risking you guys reusing lists.
+	access = new_access_list.Copy() // Nope, we ain't risking you guys reusing lists.
 	return TRUE
 
-/// Clears all accesses from the ID card - both region and normal.
+/// Clears all accesses from the ID card - both region and normal. Note that this will be undone should update_accesses_from_trims be called.
 /obj/item/card/id/proc/clear_access()
 	access.Cut()
 
@@ -413,9 +421,8 @@
 			if(NAMEOF(src, assignment), NAMEOF(src, registered_name), NAMEOF(src, registered_age))
 				update_label()
 				update_icon()
-			if(NAMEOF(src, trim))
-				if(ispath(trim))
-					SSid_access.apply_trim_to_card(src, trim)
+			if(NAMEOF(src, department) || NAMEOF(src, subdepartment))
+				apply_departments(department, subdepartment)
 
 /obj/item/card/id/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rupee))
@@ -641,7 +648,7 @@
 
 	if(is_intern)
 		if(assignment)
-			assignment_string = trim?.intern_alt_name || "Intern [assignment]"
+			assignment_string = "[assignment] (Intern)"
 		else
 			assignment_string = "Intern"
 	else
@@ -651,11 +658,11 @@
 
 /// Returns the trim assignment name.
 /obj/item/card/id/proc/get_trim_assignment()
-	return trim?.assignment || assignment
+	return assignment
 
 /// Returns the trim sechud icon state.
 /obj/item/card/id/proc/get_trim_sechud_icon_state()
-	return trim?.sechud_icon_state || SECHUD_UNKNOWN
+	return sechud_icon_state || SECHUD_UNKNOWN
 
 /obj/item/card/id/away
 	name = "\proper a perfectly generic identification card"
@@ -745,7 +752,6 @@
 	icon_state = "card_grey"
 	worn_icon_state = "card_grey"
 
-	wildcard_slots = WILDCARD_LIMIT_GREY
 	flags_1 = UNPAINTABLE_1
 
 	/// An overlay icon state for when the card is assigned to a name. Usually manifests itself as a little scribble to the right of the job icon.
@@ -859,25 +865,29 @@
 /obj/item/card/id/advanced/update_overlays()
 	. = ..()
 
-	var/trim_icon_file = trim_icon_override ? trim_icon_override : trim?.trim_icon
-	var/trim_letter_icon_state = trim_letter_state_override ? trim_letter_state_override : trim?.manufacturer
-	var/trim_department_color = department_color_override ? department_color_override : trim?.department_color
-	var/trim_department_state = department_state_override ? department_state_override : trim?.department_state
-	var/trim_subdepartment_color = subdepartment_color_override ? subdepartment_color_override : trim?.subdepartment_color
+	var/trim_icon_file = 'icons/obj/card.dmi'
+	var/trim_letter_icon_state = trim_letter_state_override ? trim_letter_state_override : manufacturer
+	var/trim_department_color = department_color_override ? department_color_override : SSid_access.region_name_to_color[department]
+	var/trim_department_state = department_state_override ? department_state_override : lowertext(department)
+	var/trim_subdepartment_color = subdepartment_color_override ? subdepartment_color_override : SSid_access.region_name_to_color[subdepartment]
 
 	var/mutable_appearance/top = mutable_appearance(trim_icon_file, "top")
 	if(trim_department_color)
 		top.color = trim_department_color
+	else
+		top.color = COLOR_SILVER
 	. += top
 
+	// If not the default name on a captain ID, slap on some scribbles.
 	if(registered_name && registered_name != "Captain")
 		. += mutable_appearance(icon, trim_letter_icon_state ? assigned_icon_state : "[assigned_icon_state]_full")
 
 	// Shhh, I know this is update_overlays
+	// If no icon, use full sized ID.
 	if(!trim_letter_icon_state)
 		icon_state = "[initial(icon_state)]_full"
 
-	if(!trim_icon_file || !trim_department_color || !trim_subdepartment_color || !trim_department_state)
+	if(!trim_department_color || !trim_subdepartment_color || !trim_department_state)
 		return
 
 	if(trim_letter_icon_state)
@@ -905,10 +915,6 @@
 	if(trim_assignment_override)
 		return trim_assignment_override
 
-	if(ispath(trim))
-		var/datum/id_trim/trim_singleton = SSid_access.trim_singletons_by_path[trim]
-		return trim_singleton.assignment
-
 	return ..()
 
 /// Returns the trim sechud icon state.
@@ -922,17 +928,14 @@
 	worn_icon_state = "card_silver"
 	inhand_icon_state = "silver_id"
 	assigned_icon_state = "assigned"
-	wildcard_slots = WILDCARD_LIMIT_SILVER
-
-/datum/id_trim/maint_reaper
-	access = list(ACCESS_ARTEA_COMMON)
-	department_state = "dept-service"
-	assignment = "Reaper"
+	is_silver = TRUE
 
 /obj/item/card/id/advanced/silver/reaper
 	name = "Thirteen's ID Card (Reaper)"
-	trim = /datum/id_trim/maint_reaper
 	registered_name = "Thirteen"
+	access = list(ACCESS_ARTEA_COMMON)
+	department = ACCESS_REGION_SERVICE_NAME
+	assignment = "Reaper"
 
 /obj/item/card/id/advanced/gold
 	name = "gold identification card"
@@ -943,6 +946,7 @@
 	assigned_icon_state = "assigned_gold"
 	wildcard_slots = WILDCARD_LIMIT_GOLD
 	disable_pips = TRUE
+	is_silver = TRUE
 
 /obj/item/card/id/advanced/gold/Initialize(mapload)
 	. = ..()
@@ -1189,14 +1193,14 @@
 	worn_icon_state = "card_black"
 	assigned_icon_state = "assigned_syndicate"
 	trim = /datum/id_trim/highlander
-	wildcard_slots = WILDCARD_LIMIT_ADMIN
 	disable_pips = TRUE
+	is_silver = TRUE
 
 /obj/item/card/id/advanced/chameleon
 	name = "agent card"
 	desc = "A highly advanced chameleon ID card. Touch this card on another ID card or player to choose which accesses to copy. Has special magnetic properties which force it to the front of wallets."
 	trim = /datum/id_trim/chameleon
-	wildcard_slots = WILDCARD_LIMIT_CHAMELEON
+	is_silver = TRUE
 
 	/// Have we set a custom name and job assignment, or will we use what we're given when we chameleon change?
 	var/forged = FALSE
@@ -1284,13 +1288,6 @@
 		ui = new(user, src, "ChameleonCard", name)
 		ui.open()
 
-/obj/item/card/id/advanced/chameleon/ui_static_data(mob/user)
-	var/list/data = list()
-	data["wildcardFlags"] = SSid_access.wildcard_flags_by_wildcard
-	data["accessFlagNames"] = SSid_access.access_flag_string_by_flag
-	data["accessFlags"] = SSid_access.flags_by_access
-	return data
-
 /obj/item/card/id/advanced/chameleon/ui_host(mob/user)
 	// Hook our UI to the theft target ID card for UI state checks.
 	return theft_target?.resolve()
@@ -1323,21 +1320,26 @@
 
 	data["showBasic"] = FALSE
 
+	var/obj/item/card/id/target_card = theft_target.resolve()
+	var/list/region_access = list()
 	var/list/regions = list()
 
-	var/obj/item/card/id/target_card = theft_target.resolve()
-	if(target_card)
-		var/list/tgui_region_data = SSid_access.all_region_access_tgui
-		for(var/region in SSid_access.station_regions)
-			regions += tgui_region_data[region]
+	var/list/department_access = SSid_access.region_name_to_accesses[department]
+	if(department_access)
+		region_access += department_access
+		regions += department
 
-	data["accesses"] = regions
+	department_access = SSid_access.region_name_to_accesses[subdepartment]
+	if(department_access)
+		region_access += department_access
+		regions += subdepartment
+
+	data["accesses"] = target_card ? SSid_access.manufacturer_to_region_names[id_manufacturer] : list() // Yes, only get accesses we can apply to ourselves normally.
 	data["ourAccess"] = access
-	data["ourTrimAccess"] = trim ? trim.access : list()
+	data["regionAccess"] = region_access
 	data["theftAccess"] = target_card.access.Copy()
-	data["wildcardSlots"] = wildcard_slots
 	data["selectedList"] = access
-	data["trimAccess"] = list()
+	data["regions"] = regions
 
 	return data
 
