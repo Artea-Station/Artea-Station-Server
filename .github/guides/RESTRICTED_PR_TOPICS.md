@@ -25,7 +25,7 @@ Restricted topics typically require a design doc (basically just notes on what y
 	- We're not some up-our-own-ass realism-must-always-be-had server. Let folk be fasionable in skirts/pants/whatever.
 - Far right rhetorics or references, including, but not limited to references to the National Socialist Party that Germany once had. **A**
 - IC references to modern-world countries.
-- Planecube, sideplane, and the wallening from TG. We are absolutely not porting these cataclysmicly bad for performance/maintenance features.
+- Planecube, sideplane, and the wallening from TG. We are absolutely not porting these cataclysmically bad for performance/maintenance features.
 
 ### Restricted Topics
 - New races. **ML**
