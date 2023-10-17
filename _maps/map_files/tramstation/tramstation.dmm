@@ -877,8 +877,8 @@
 	pixel_x = -8
 	},
 /obj/item/reagent_containers/cup/glass/coffee{
-	pixel_y = 7;
-	pixel_x = 5
+	pixel_x = 5;
+	pixel_y = 7
 	},
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
@@ -1670,8 +1670,8 @@
 /turf/open/floor/iron/grimy,
 /area/station/hallway/secondary/entry)
 "aMD" = (
-/obj/machinery/button/tram{
-	id = "left_part"
+/obj/machinery/button/elevator/speaker{
+	id = "tram"
 	},
 /turf/closed/wall,
 /area/station/hallway/primary/tram/left)
@@ -4726,8 +4726,8 @@
 "bQr" = (
 /obj/docking_port/stationary/random{
 	dir = 8;
-	shuttle_id = "pod_lavaland";
-	name = "lavaland"
+	name = "lavaland";
+	shuttle_id = "pod_lavaland"
 	},
 /turf/open/space/openspace,
 /area/space)
@@ -8228,9 +8228,9 @@
 	dir = 2;
 	dwidth = 4;
 	height = 9;
-	shuttle_id = "aux_base_zone";
 	name = "Aux Base Zone";
 	roundstart_template = /datum/map_template/shuttle/aux_base/default;
+	shuttle_id = "aux_base_zone";
 	width = 9
 	},
 /turf/open/floor/plating,
@@ -13908,9 +13908,9 @@
 	dir = 8;
 	dwidth = 3;
 	height = 15;
-	shuttle_id = "arrival_stationary";
 	name = "arrivals";
 	roundstart_template = /datum/map_template/shuttle/arrival/box;
+	shuttle_id = "arrival_stationary";
 	width = 7
 	},
 /turf/open/space/openspace,
@@ -15782,12 +15782,12 @@
 	},
 /obj/structure/table,
 /obj/item/storage/fancy/coffee_cart_rack{
-	pixel_y = 2;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 2
 	},
 /obj/item/food/donut/plain{
-	pixel_y = 6;
-	pixel_x = -4
+	pixel_x = -4;
+	pixel_y = 6
 	},
 /turf/open/floor/iron,
 /area/station/security/brig)
@@ -16445,7 +16445,6 @@
 	},
 /obj/effect/turf_decal/caution,
 /obj/structure/cable,
-/obj/machinery/crossing_signal/northwest,
 /turf/open/floor/iron,
 /area/station/hallway/primary/tram/left)
 "fXq" = (
@@ -21956,7 +21955,6 @@
 /obj/effect/turf_decal/caution{
 	dir = 1
 	},
-/obj/machinery/crossing_signal/southeast,
 /turf/open/floor/iron,
 /area/station/hallway/primary/tram/right)
 "hYJ" = (
@@ -22525,9 +22523,9 @@
 /obj/docking_port/stationary{
 	dwidth = 2;
 	height = 5;
-	shuttle_id = "laborcamp_home";
 	name = "fore bay 1";
 	roundstart_template = /datum/map_template/shuttle/labour/generic;
+	shuttle_id = "laborcamp_home";
 	width = 9
 	},
 /turf/open/misc/asteroid/airless,
@@ -22974,8 +22972,8 @@
 	},
 /obj/structure/table/glass,
 /obj/item/storage/fancy/coffee_cart_rack{
-	pixel_y = 6;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 6
 	},
 /obj/item/reagent_containers/cup/glass/coffee{
 	pixel_x = -4;
@@ -26477,8 +26475,8 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
 "jEO" = (
-/obj/machinery/button/tram{
-	id = "middle_part"
+/obj/machinery/button/elevator/speaker{
+	id = "tram"
 	},
 /turf/closed/wall,
 /area/station/hallway/primary/tram/center)
@@ -26914,12 +26912,12 @@
 	dir = 8
 	},
 /obj/item/storage/fancy/coffee_cart_rack{
-	pixel_y = 6;
-	pixel_x = -8
+	pixel_x = -8;
+	pixel_y = 6
 	},
 /obj/effect/spawner/random/food_or_drink/donkpockets{
-	pixel_y = 6;
-	pixel_x = 4
+	pixel_x = 4;
+	pixel_y = 6
 	},
 /turf/open/floor/iron/dark,
 /area/station/medical/break_room)
@@ -27412,10 +27410,10 @@
 /obj/effect/turf_decal/stripes{
 	dir = 1
 	},
-/obj/effect/landmark/tram/middle_part,
-/obj/machinery/computer/tram_controls,
+/obj/structure/elevator_control_panel/non_directional,
 /obj/structure/industrial_lift/tram{
-	icon_state = "titanium"
+	icon_state = "titanium";
+	id = "tram"
 	},
 /turf/open/floor/vault,
 /area/station/hallway/primary/tram/center)
@@ -28224,16 +28222,13 @@
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/security/armory)
 "kld" = (
-/obj/effect/turf_decal/stripes,
-/obj/effect/turf_decal/stripes{
-	dir = 1
+/obj/effect/mapping_helpers/lift_waypoint{
+	id = "tram";
+	name = "West Wing";
+	waypoint_id = "tram_left"
 	},
-/obj/structure/industrial_lift/tram{
-	icon_state = "titanium"
-	},
-/obj/effect/landmark/lift_id,
-/turf/open/floor/vault,
-/area/station/hallway/primary/tram/center)
+/turf/open/openspace,
+/area/station/hallway/primary/tram/left)
 "kli" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -29036,8 +29031,8 @@
 	dir = 4;
 	dwidth = 12;
 	height = 18;
-	shuttle_id = "emergency_home";
 	name = "Tramstation emergency evac bay";
+	shuttle_id = "emergency_home";
 	width = 32
 	},
 /turf/open/space/openspace,
@@ -32216,8 +32211,8 @@
 	pixel_x = -7
 	},
 /obj/item/reagent_containers/cup/glass/coffee{
-	pixel_y = 4;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 4
 	},
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
@@ -32718,6 +32713,14 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
 /area/station/hallway/primary/tram/center)
+"lOe" = (
+/obj/effect/mapping_helpers/lift_waypoint{
+	id = "tram";
+	name = "East Wing";
+	waypoint_id = "tram_right"
+	},
+/turf/open/openspace,
+/area/station/hallway/primary/tram/right)
 "lOt" = (
 /obj/structure/cable,
 /obj/effect/turf_decal/trimline/red/filled/corner{
@@ -34230,7 +34233,6 @@
 	dir = 1
 	},
 /obj/structure/cable,
-/obj/machinery/crossing_signal/southwest,
 /turf/open/floor/iron,
 /area/station/hallway/primary/tram/left)
 "mpA" = (
@@ -35148,8 +35150,8 @@
 /obj/machinery/button/door/directional/north{
 	id = "robotics2";
 	name = "Robotics Privacy Shuttles Control";
-	req_access = list("robotics");
-	pixel_x = 8
+	pixel_x = 8;
+	req_access = list("robotics")
 	},
 /turf/open/floor/iron/dark,
 /area/station/science/robotics/lab)
@@ -37539,8 +37541,8 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)
 "nwQ" = (
-/obj/machinery/button/tram{
-	id = "right_part"
+/obj/machinery/button/elevator/speaker{
+	id = "tram"
 	},
 /turf/closed/wall,
 /area/station/hallway/primary/tram/right)
@@ -40194,8 +40196,8 @@
 /obj/docking_port/stationary{
 	dwidth = 5;
 	height = 7;
-	shuttle_id = "cargo_home";
 	name = "Cargo Bay";
+	shuttle_id = "cargo_home";
 	width = 12
 	},
 /turf/open/misc/asteroid/airless,
@@ -41663,13 +41665,22 @@
 /turf/closed/wall/r_wall,
 /area/station/maintenance/tram/mid)
 "pcv" = (
-/obj/effect/turf_decal/stripes{
-	dir = 1
+/obj/structure/industrial_lift/tram{
+	icon_state = "plating"
 	},
-/obj/effect/turf_decal/stripes,
-/obj/effect/landmark/tram/left_part,
-/turf/open/floor/vault,
-/area/station/hallway/primary/tram/left)
+/obj/structure/tramwall/titanium,
+/obj/structure/shuttle/engine/propulsion/in_wall/tram{
+	dir = 8;
+	pixel_x = -32
+	},
+/obj/effect/mapping_helpers/lift_waypoint{
+	connects_to = list("tram_right"=1,"tram_left"=1);
+	id = "tram";
+	name = "Central Wing";
+	waypoint_id = "tram_middle"
+	},
+/turf/open/openspace,
+/area/station/hallway/primary/tram/center)
 "pcC" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /turf/open/floor/iron,
@@ -42335,7 +42346,6 @@
 	},
 /obj/effect/turf_decal/trimline/neutral/filled/corner,
 /obj/effect/turf_decal/caution,
-/obj/machinery/crossing_signal/northeast,
 /turf/open/floor/iron,
 /area/station/hallway/primary/tram/center)
 "ppr" = (
@@ -42598,7 +42608,6 @@
 	},
 /obj/effect/turf_decal/trimline/neutral/filled/corner,
 /obj/effect/turf_decal/caution,
-/obj/machinery/crossing_signal/northeast,
 /turf/open/floor/iron,
 /area/station/hallway/primary/tram/right)
 "ptE" = (
@@ -43314,8 +43323,8 @@
 	dir = 2;
 	dwidth = 11;
 	height = 22;
-	shuttle_id = "whiteship_home";
 	name = "SS13: Auxiliary Dock, Station-Port";
+	shuttle_id = "whiteship_home";
 	width = 35
 	},
 /turf/open/space/openspace,
@@ -48186,7 +48195,6 @@
 /obj/effect/turf_decal/caution{
 	dir = 1
 	},
-/obj/machinery/crossing_signal/southeast,
 /turf/open/floor/iron,
 /area/station/hallway/primary/tram/center)
 "rqN" = (
@@ -50052,7 +50060,6 @@
 /obj/effect/turf_decal/caution{
 	dir = 1
 	},
-/obj/machinery/crossing_signal/southwest,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -51987,8 +51994,8 @@
 "sIm" = (
 /obj/docking_port/stationary/random{
 	dir = 4;
-	shuttle_id = "pod_lavaland";
-	name = "lavaland"
+	name = "lavaland";
+	shuttle_id = "pod_lavaland"
 	},
 /turf/open/misc/asteroid/airless,
 /area/mine/explored)
@@ -56740,8 +56747,8 @@
 	dir = 1
 	},
 /mob/living/simple_animal/bot/medbot/autopatrol{
-	name = "T.R.A.M Unit";
-	desc = "A Trauma Response Activation Medibot. It seems overwhelmed."
+	desc = "A Trauma Response Activation Medibot. It seems overwhelmed.";
+	name = "T.R.A.M Unit"
 	},
 /turf/open/floor/iron,
 /area/station/maintenance/tram/left)
@@ -58071,8 +58078,8 @@
 /obj/structure/rack,
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/mask/gas{
-	pixel_y = 3;
-	pixel_x = 5
+	pixel_x = 5;
+	pixel_y = 3
 	},
 /obj/structure/sign/warning/vacuum/external/directional/west,
 /turf/open/floor/iron/smooth,
@@ -58263,8 +58270,8 @@
 	dir = 8;
 	dwidth = 2;
 	height = 13;
-	shuttle_id = "ferry_home";
 	name = "port bay 2";
+	shuttle_id = "ferry_home";
 	width = 5
 	},
 /turf/open/space/openspace,
@@ -60342,7 +60349,6 @@
 /area/station/security/execution/transfer)
 "vIg" = (
 /obj/structure/rack,
-/obj/effect/spawner/random/techstorage/ai_all,
 /obj/effect/turf_decal/trimline/white/filled/line,
 /obj/machinery/light/small/directional/west,
 /turf/open/floor/iron/dark,
@@ -62905,13 +62911,13 @@
 /turf/open/floor/catwalk_floor,
 /area/station/maintenance/port/central)
 "wGd" = (
-/obj/effect/turf_decal/stripes{
-	dir = 1
+/obj/structure/industrial_lift/tram{
+	icon_state = "titanium_white";
+	id = null
 	},
-/obj/effect/turf_decal/stripes,
-/obj/effect/landmark/tram/right_part,
-/turf/open/floor/vault,
-/area/station/hallway/primary/tram/right)
+/obj/machinery/door/window/right/tram,
+/turf/open/openspace,
+/area/station/hallway/primary/tram/center)
 "wGf" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -66674,7 +66680,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/caution,
-/obj/machinery/crossing_signal/northwest,
 /turf/open/floor/iron,
 /area/station/hallway/primary/tram/center)
 "xXi" = (
@@ -67346,9 +67351,6 @@
 /obj/machinery/smartfridge,
 /obj/effect/turf_decal/tile/green/fourcorners,
 /obj/structure/industrial_lift,
-/obj/effect/landmark/lift_id{
-	specific_lift_id = "ilovefortnite"
-	},
 /obj/effect/turf_decal/delivery/red,
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
@@ -67385,8 +67387,8 @@
 "yky" = (
 /obj/structure/table/glass,
 /obj/item/paper_bin{
-	pixel_y = 3;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 3
 	},
 /obj/item/pen{
 	pixel_x = 6;
@@ -67394,8 +67396,8 @@
 	},
 /obj/structure/sign/clock/directional/east,
 /obj/item/storage/fancy/coffee_cart_rack{
-	pixel_y = 1;
-	pixel_x = -7
+	pixel_x = -7;
+	pixel_y = 1
 	},
 /turf/open/floor/iron/cafeteria{
 	dir = 5
@@ -151661,7 +151663,7 @@ cFs
 lNP
 gnj
 vVY
-cFs
+kld
 knt
 iuD
 gJq
@@ -152944,7 +152946,7 @@ oMZ
 aMD
 cFs
 lNP
-pcv
+gnj
 vVY
 cFs
 aMD
@@ -163740,7 +163742,7 @@ oVt
 xXi
 rgS
 spf
-oVt
+pcv
 gCX
 eOi
 agt
@@ -164766,7 +164768,7 @@ dhw
 vSM
 wbt
 rPU
-kld
+sOY
 biX
 dFz
 vIq
@@ -165539,7 +165541,7 @@ wbt
 rPU
 sOY
 biX
-dFz
+wGd
 mnV
 dvI
 vJF
@@ -175819,7 +175821,7 @@ brm
 iOd
 jgH
 vPi
-brm
+lOe
 fXa
 fzC
 pgU
@@ -177102,7 +177104,7 @@ lUW
 nwQ
 brm
 iOd
-wGd
+jgH
 vPi
 brm
 nwQ

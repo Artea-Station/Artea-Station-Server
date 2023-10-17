@@ -10,8 +10,8 @@
 	spawn_type = /mob/living/silicon/robot
 	minimal_player_age = 21
 	exp_requirements = 120
-	exp_required_type = EXP_TYPE_CREW
-	exp_granted_type = EXP_TYPE_CREW
+	exp_required_type = "silicons b gone"
+	exp_granted_type = "silicons b gone"
 
 	display_order = JOB_DISPLAY_ORDER_CYBORG
 

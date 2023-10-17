@@ -23,6 +23,7 @@
 
 // PLANE_SPACE layer(s)
 #define SPACE_LAYER 1.8
+#define ROOF_LAYER 1.9 // Used by lifts and shuttles to show a roof, but under turf so it's easy to hide when it isn't needed ;)
 
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define. Most floors (FLOOR_PLANE) and walls (GAME_PLANE) use this.
 

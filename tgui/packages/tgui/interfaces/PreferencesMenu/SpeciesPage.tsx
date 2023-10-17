@@ -1,7 +1,6 @@
 import { classes } from 'common/react';
 import { useBackend, useLocalState } from '../../backend';
 import { BlockQuote, Box, Button, Divider, Icon, Section, Stack, Tooltip } from '../../components';
-import { CharacterPreview } from '../common/CharacterPreview';
 import { createSetPreference, Food, Perk, PreferencesMenuData, ServerData, Species } from './data';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
@@ -290,7 +289,7 @@ const SpeciesPageInner = (
             <Box fill>
               <Box>
                 <Stack fill>
-                  <Stack.Item width="70%">
+                  <Stack.Item>
                     <Section
                       title={currentSpecies.name}
                       buttons={
@@ -308,13 +307,6 @@ const SpeciesPageInner = (
                         <SpeciesPerks perks={currentSpecies.perks} />
                       </Section>
                     </Section>
-                  </Stack.Item>
-
-                  <Stack.Item width="30%">
-                    <CharacterPreview
-                      id={data.character_preview_view}
-                      height="100%"
-                    />
                   </Stack.Item>
                 </Stack>
               </Box>

@@ -207,6 +207,9 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	SHOULD_CALL_PARENT(FALSE)
 	CRASH("`apply_to_human()` was not implemented for [type]!")
 
+/datum/preference/proc/after_apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+	SHOULD_NOT_SLEEP(TRUE)
+
 /// Returns which savefile to use for a given savefile identifier
 /datum/preferences/proc/get_save_data_for_savefile_identifier(savefile_identifier)
 	RETURN_TYPE(/list)

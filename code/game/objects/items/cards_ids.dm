@@ -44,7 +44,7 @@
 /obj/item/card/id
 	name = "retro identification card"
 	desc = "A card used to provide ID and determine access across the station."
-	icon_state = "card_grey"
+	icon_state = "chit"
 	worn_icon_state = "card_retro"
 	inhand_icon_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
@@ -889,6 +889,8 @@
 	var/subdepartment_color_override
 	/// If this is set, will manually override the trim's assignmment as it appears in the crew monitor and elsewhere. Intended for admins to VV edit and chameleon ID cards.
 	var/trim_assignment_override
+	/// If this is set, will manually override the icon state for the letter overlay in the bottom left. Intended for admins to VV edit and chameleon ID cards
+	var/trim_letter_state_override
 	/// If this is set, will manually override the trim shown for SecHUDs. Intended for admins to VV edit and chameleon ID cards.
 	var/sechud_icon_state_override = null
 
@@ -985,25 +987,41 @@
 /obj/item/card/id/advanced/update_overlays()
 	. = ..()
 
-	if(registered_name && registered_name != "Captain")
-		. += mutable_appearance(icon, assigned_icon_state)
-
 	var/trim_icon_file = trim_icon_override ? trim_icon_override : trim?.trim_icon
 	var/trim_icon_state = trim_state_override ? trim_state_override : trim?.trim_state
+	var/trim_letter_icon_state = trim_letter_state_override ? trim_letter_state_override : trim?.letter_state
 	var/trim_department_color = department_color_override ? department_color_override : trim?.department_color
 	var/trim_department_state = department_state_override ? department_state_override : trim?.department_state
 	var/trim_subdepartment_color = subdepartment_color_override ? subdepartment_color_override : trim?.subdepartment_color
 
+	var/mutable_appearance/top = mutable_appearance(trim_icon_file, "top")
+	if(trim_department_color)
+		top.color = trim_department_color
+	. += top
+
+	if(registered_name && registered_name != "Captain")
+		. += mutable_appearance(icon, trim_letter_icon_state ? assigned_icon_state : "[assigned_icon_state]_full")
+
+	// Shhh, I know this is update_overlays
+	if(!trim_letter_icon_state)
+		icon_state = "[initial(icon_state)]_full"
+
 	if(!trim_icon_file || !trim_icon_state || !trim_department_color || !trim_subdepartment_color || !trim_department_state)
 		return
+
+	if(trim_letter_icon_state)
+		var/mutable_appearance/letter = mutable_appearance(trim_icon_file, trim_letter_icon_state)
+		if(trim_letter_icon_state == "letter-artea" || trim_letter_icon_state == "letter-nanotrasen" || trim_letter_icon_state == "letter-unknown")
+			letter.color = trim_department_color == COLOR_COMMAND_BLUE ? COLOR_COMMAND_BLUE : COLOR_ALMOST_BLACK
+		. += letter
 
 	/// We handle department and subdepartment overlays first, so the job icon is always on top.
 	var/mutable_appearance/department_overlay = mutable_appearance(trim_icon_file, trim_department_state)
 	department_overlay.color = trim_department_color
 	. += department_overlay
 
-	var/mutable_appearance/subdepartment_overlay = mutable_appearance(trim_icon_file, "subdepartment")
-	subdepartment_overlay.color = trim_subdepartment_color
+	var/mutable_appearance/subdepartment_overlay = mutable_appearance(trim_icon_file, "top-subdept")
+	subdepartment_overlay.color = "#[darken_color(copytext(trim_subdepartment_color, 2, 8))]" // Makes the lighter department colours more bearable on the light font while keeping darker colours less dark
 	. += subdepartment_overlay
 
 	/// Then we handle the job's icon here.
@@ -1035,12 +1053,12 @@
 	icon_state = "card_silver"
 	worn_icon_state = "card_silver"
 	inhand_icon_state = "silver_id"
-	assigned_icon_state = "assigned_silver"
+	assigned_icon_state = "assigned"
 	wildcard_slots = WILDCARD_LIMIT_SILVER
 
 /datum/id_trim/maint_reaper
 	access = list(ACCESS_MAINT_TUNNELS)
-	trim_state = "trim_janitor"
+	trim_state = "dept-service"
 	assignment = "Reaper"
 
 /obj/item/card/id/advanced/silver/reaper
@@ -1080,7 +1098,7 @@
 	desc = "An ID straight from Central Command."
 	icon_state = "card_centcom"
 	worn_icon_state = "card_centcom"
-	assigned_icon_state = "assigned_centcom"
+	assigned_icon_state = "assigned_gold"
 	registered_name = JOB_CENTCOM
 	registered_age = null
 	trim = /datum/id_trim/centcom
@@ -1176,7 +1194,7 @@
 	desc = "A debug ID card. Has ALL the all access, you really shouldn't have this."
 	icon_state = "card_centcom"
 	worn_icon_state = "card_centcom"
-	assigned_icon_state = "assigned_centcom"
+	assigned_icon_state = "assigned_gold"
 	trim = /datum/id_trim/admin
 	wildcard_slots = WILDCARD_LIMIT_ADMIN
 
@@ -1548,6 +1566,10 @@
 					return
 				if(new_age)
 					registered_age = new_age
+
+				var/new_letter = tgui_input_list(user, "What letter should be shown on the left of the ID?", "Agent card letter", list("Artea", "Darkof", "Nanotrasen", "Syndicate", "None"))
+				if(new_letter)
+					trim_letter_state_override = new_letter == "None" ? null : "letter-[lowertext(new_letter)]"
 
 				if(tgui_alert(user, "Activate wallet ID spoofing, allowing this card to force itself to occupy the visible ID slot in wallets?", "Wallet ID Spoofing", list("Yes", "No")) == "Yes")
 					ADD_TRAIT(src, TRAIT_MAGNETIC_ID_CARD, CHAMELEON_ITEM_TRAIT)

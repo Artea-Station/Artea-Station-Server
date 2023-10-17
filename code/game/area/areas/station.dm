@@ -4,6 +4,7 @@
 	name = "Station Areas"
 	icon = 'icons/area/areas_station.dmi'
 	icon_state = "station"
+	allow_door_remotes = TRUE
 
 //Maintenance
 
@@ -296,9 +297,21 @@
 	name = "\improper Aft Central Primary Hallway"
 	icon_state = "hallCA"
 
+/area/station/hallway/primary/central/port
+	name = "\improper Port Central Primary Hallway"
+
+/area/station/hallway/primary/central/starboard
+	name = "\improper Starboard Central Primary Hallway"
+
 /area/station/hallway/primary/upper
 	name = "\improper Upper Central Primary Hallway"
 	icon_state = "centralhall"
+
+/area/station/hallway/primary/upper/port
+	name = "\improper Port Upper Central Primary Hallway"
+
+/area/station/hallway/primary/upper/starboard
+	name = "\improper Starboard Upper Central Primary Hallway"
 
 /area/station/hallway/primary/tram
 	name = "\improper Primary Tram"
@@ -505,6 +518,18 @@
 /area/station/commons/fitness/recreation/entertainment
 	name = "\improper Entertainment Center"
 	icon_state = "entertainment"
+
+/area/station/commons/storage/cryo
+	name = "\improper Cryo Storage Room"
+	icon_state = "dorms"
+
+/area/station/commons/storage/cryo/on_joining_game(mob/living/carbon/human/boarder)
+	. = ..()
+	if(!ishuman(boarder))
+		return
+
+	var/obj/machinery/computer/cryopod/console = pick(GLOB.station_cryopod_computers)
+	console.announce("CRYO_JOIN", boarder.mind.name, boarder.mind.assigned_role.title)
 
 // Commons - Vacant Rooms
 /area/station/commons/vacant_room
@@ -1439,7 +1464,6 @@
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg', 'sound/ambience/ambitech.ogg',\
 											'sound/ambience/ambitech2.ogg', 'sound/ambience/ambitech3.ogg', 'sound/ambience/ambimystery.ogg')
 	airlock_wires = /datum/wires/airlock/engineering
-	network_root_id = STATION_NETWORK_ROOT // They should of unpluged the router before they left
 
 /area/station/tcommsat/computer
 	name = "\improper Telecomms Control Room"

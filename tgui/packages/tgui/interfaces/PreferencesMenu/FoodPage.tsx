@@ -18,6 +18,7 @@ export const FoodPage = (props, context) => {
         'margin-bottom': '1em',
         'break-inside': 'avoid-column',
         'height': '100%',
+        'overflow-y': 'scroll',
       }}
       titleStyle={{
         'justify-content': 'center',
@@ -78,7 +79,7 @@ export const FoodPage = (props, context) => {
           </NoticeBox>
         )}
       </Box>
-      <Box style={{ 'columns': '30em' }}>
+      <Box style={{ 'columns': '18em' }}>
         {Object.entries(data.food_types).map((element) => {
           const { 0: foodName, 1: foodPointValues } = element;
           return (

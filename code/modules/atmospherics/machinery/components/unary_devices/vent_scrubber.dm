@@ -49,7 +49,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/New()
 	sound_loop = new /datum/looping_sound/air_pump(src)
 	if(!id_tag)
-		id_tag = SSnetworks.assign_random_name()
+		id_tag = assign_random_name()
 	. = ..()
 	for(var/to_filter in filter_types)
 		if(istext(to_filter))

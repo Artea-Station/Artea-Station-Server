@@ -63,6 +63,14 @@ MUTANT_CHOICED_NEW(lizard_frills, GLOB.frills_list)
 	category = PREFERENCE_CATEGORY_APPEARANCE_LIST
 	relevant_mutant_bodypart = "legs"
 
+/datum/preference/choiced/lizard_legs/is_accessible(datum/preferences/preferences)
+	if(ispath(preferences?.read_preference(/datum/preference/choiced/species), /datum/species/synthetic))
+		var/datum/sprite_accessory/synth_chassis/chassis = GLOB.synth_chassi[preferences.read_preference(/datum/preference/choiced/mutant/synth_chassis)]
+		if(chassis)
+			return initial(chassis.is_digi_compatible)
+
+	return ..()
+
 /datum/preference/choiced/lizard_legs/init_possible_values()
 	return assoc_to_keys(GLOB.legs_list)
 

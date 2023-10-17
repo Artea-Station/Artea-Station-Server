@@ -375,22 +375,6 @@
 	},
 /turf/open/floor/mineral/titanium/tiled/yellow,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
-"iS" = (
-/obj/effect/landmark/tram/middle_part/hilbert,
-/obj/machinery/light/floor{
-	brightness = 2;
-	bulb_colour = "#deefff";
-	bulb_power = 0.6
-	},
-/obj/machinery/computer/tram_controls{
-	dir = 8;
-	specific_lift_id = "tram_hilbert"
-	},
-/obj/structure/industrial_lift/tram{
-	icon_state = "titanium_white"
-	},
-/turf/open/floor/engine,
-/area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "iY" = (
 /obj/machinery/mineral/processing_unit{
 	dir = 1
@@ -476,6 +460,17 @@
 /obj/effect/turf_decal/siding/thinplating_new/light,
 /turf/open/floor/mineral/titanium/tiled/white,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
+"kP" = (
+/obj/machinery/button/elevator/speaker{
+	id = "hilbert";
+	pixel_y = 4
+	},
+/obj/structure/table/reinforced/rglass,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/tiled/white,
+/area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "le" = (
 /obj/effect/turf_decal/siding/thinplating_new/light/corner{
 	dir = 8
@@ -556,6 +551,17 @@
 	},
 /turf/closed/mineral/asteroid,
 /area/ruin/unpowered/no_grav)
+"ng" = (
+/obj/structure/fluff/tram_rail/end{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/lift_waypoint{
+	id = "hilbert";
+	name = "West Wing";
+	waypoint_id = "tram_left"
+	},
+/turf/open/floor/engine,
+/area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "nh" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/light/red/directional/west,
@@ -760,6 +766,27 @@
 /obj/structure/sign/warning/directional/east,
 /turf/open/floor/mineral/titanium/tiled/purple,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
+"sh" = (
+/obj/structure/fluff/tram_rail,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8
+	},
+/obj/structure/window/reinforced/survival_pod,
+/obj/structure/shuttle/engine/propulsion/in_wall/tram{
+	dir = 8;
+	pixel_x = -32
+	},
+/obj/structure/industrial_lift/tram{
+	icon_state = "titanium_purple"
+	},
+/obj/effect/mapping_helpers/lift_waypoint{
+	connects_to = list("tram_right"=1,"tram_left"=1);
+	id = "hilbert";
+	name = "Central Wing";
+	waypoint_id = "tram_middle"
+	},
+/turf/open/floor/engine,
+/area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "sj" = (
 /turf/open/floor/circuit/green/anim,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility/secretroom)
@@ -892,12 +919,6 @@
 	},
 /obj/machinery/door/window/survival_pod,
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/powered/hilbertresearchfacility)
-"vG" = (
-/obj/structure/fluff/tram_rail/end{
-	dir = 8
-	},
-/turf/open/floor/engine,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "vK" = (
 /obj/structure/frame/computer{
@@ -1061,6 +1082,19 @@
 /obj/structure/door_assembly/door_assembly_shuttle,
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
+"yP" = (
+/obj/machinery/light/floor{
+	brightness = 2;
+	bulb_colour = "#deefff";
+	bulb_power = 0.6
+	},
+/obj/structure/elevator_control_panel/non_directional,
+/obj/structure/industrial_lift/tram{
+	icon_state = "titanium_white";
+	id = "hilbert"
+	},
+/turf/open/floor/engine,
+/area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "yQ" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood{
@@ -1106,21 +1140,6 @@
 	pixel_y = 32
 	},
 /turf/open/floor/glass,
-/area/ruin/space/has_grav/powered/hilbertresearchfacility)
-"zu" = (
-/obj/effect/turf_decal/trimline/brown/arrow_cw{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/brown/mid_joiner{
-	dir = 1
-	},
-/obj/structure/sign/departments/cargo/directional/north,
-/obj/machinery/button/tram{
-	id = "middle_part_hilbert";
-	pixel_y = 4
-	},
-/obj/structure/table/reinforced/plastitaniumglass,
-/turf/open/floor/mineral/plastitanium,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "zw" = (
 /obj/effect/turf_decal/stripes/red/line{
@@ -1416,17 +1435,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
-"Fo" = (
-/obj/machinery/button/tram{
-	id = "left_part_hilbert";
-	pixel_y = 4
-	},
-/obj/structure/table/reinforced/rglass,
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium/tiled/white,
-/area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Fv" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -1448,10 +1456,6 @@
 /obj/machinery/light/warm/directional/west,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
-"Gf" = (
-/obj/effect/landmark/tram/right_part/hilbert,
-/turf/open/floor/engine,
-/area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Gi" = (
 /obj/structure/toilet{
 	dir = 8
@@ -1462,17 +1466,6 @@
 "Gl" = (
 /obj/structure/table/reinforced,
 /turf/open/floor/wood,
-/area/ruin/space/has_grav/powered/hilbertresearchfacility)
-"Gs" = (
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 8
-	},
-/obj/structure/table/reinforced/rglass,
-/obj/machinery/button/tram{
-	id = "right_part_hilbert";
-	pixel_y = 4
-	},
-/turf/open/floor/mineral/titanium/tiled/white,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Gy" = (
 /obj/effect/turf_decal/stripes/red/corner{
@@ -1534,16 +1527,6 @@
 	},
 /turf/open/floor/engine,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
-"HN" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 4
-	},
-/obj/structure/industrial_lift/tram{
-	icon_state = "titanium_white"
-	},
-/obj/effect/landmark/lift_id/hilbert,
-/turf/open/floor/engine,
-/area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Ic" = (
 /turf/open/floor/iron/stairs{
 	dir = 4
@@ -1560,8 +1543,13 @@
 /obj/structure/railing/corner,
 /turf/open/floor/grass/fairy,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
-"It" = (
-/obj/effect/landmark/tram/left_part/hilbert,
+"Io" = (
+/obj/structure/fluff/tram_rail,
+/obj/effect/mapping_helpers/lift_waypoint{
+	id = "tram";
+	name = "East Wing";
+	waypoint_id = "tram_right"
+	},
 /turf/open/floor/engine,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Iv" = (
@@ -1623,21 +1611,6 @@
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/tiled/white,
-/area/ruin/space/has_grav/powered/hilbertresearchfacility)
-"Jd" = (
-/obj/structure/fluff/tram_rail,
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8
-	},
-/obj/structure/window/reinforced/survival_pod,
-/obj/structure/shuttle/engine/propulsion/in_wall/tram{
-	dir = 8;
-	pixel_x = -32
-	},
-/obj/structure/industrial_lift/tram{
-	icon_state = "titanium_purple"
-	},
-/turf/open/floor/engine,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Jh" = (
 /obj/structure/fluff/tram_rail/anchor,
@@ -1736,6 +1709,15 @@
 	},
 /turf/open/floor/mineral/titanium/tiled/white,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
+"LS" = (
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
+/obj/structure/industrial_lift/tram{
+	icon_state = "titanium_white"
+	},
+/turf/open/floor/engine,
+/area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Mf" = (
 /obj/structure/girder/reinforced,
 /obj/effect/decal/cleanable/blood/tracks,
@@ -1752,9 +1734,6 @@
 	pixel_y = 1
 	},
 /turf/open/floor/wood,
-/area/ruin/space/has_grav/powered/hilbertresearchfacility)
-"Mv" = (
-/turf/open/floor/mineral/titanium/tiled/blue,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "MD" = (
 /obj/effect/turf_decal/stripes/red/line{
@@ -2152,9 +2131,35 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/grimy,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
+"Uo" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/obj/structure/table/reinforced/rglass,
+/obj/machinery/button/elevator/speaker{
+	id = "right_part_hilbert";
+	pixel_y = 4
+	},
+/turf/open/floor/mineral/titanium/tiled/white,
+/area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Ut" = (
 /turf/template_noop,
 /area/template_noop)
+"Uu" = (
+/obj/effect/turf_decal/trimline/brown/arrow_cw{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/brown/mid_joiner{
+	dir = 1
+	},
+/obj/structure/sign/departments/cargo/directional/north,
+/obj/machinery/button/elevator/speaker{
+	id = "hilbert";
+	pixel_y = 4
+	},
+/obj/structure/table/reinforced/plastitaniumglass,
+/turf/open/floor/mineral/plastitanium,
+/area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Uy" = (
 /obj/machinery/mineral/unloading_machine{
 	dir = 1;
@@ -3060,7 +3065,7 @@ Bo
 Bo
 CV
 Ru
-Fo
+kP
 Ru
 LD
 Bo
@@ -3091,7 +3096,7 @@ qU
 Vk
 Uz
 mo
-Mv
+mC
 uV
 Rw
 wJ
@@ -3100,7 +3105,7 @@ nB
 Xi
 Do
 KC
-vG
+ng
 YG
 Rk
 Bo
@@ -3129,16 +3134,16 @@ Bo
 dB
 Vk
 kO
-Mv
-Mv
-Mv
-Mv
-Mv
+mC
+mC
+mC
+mC
+mC
 Ei
 zc
 Xi
 hk
-It
+KC
 Xw
 YG
 PG
@@ -3169,7 +3174,7 @@ zO
 Np
 le
 mo
-Mv
+mC
 hL
 Jc
 xU
@@ -3798,11 +3803,11 @@ La
 La
 wo
 Bo
-zu
+Uu
 Xi
 Yt
 QS
-Jd
+sh
 YG
 Sa
 Bo
@@ -3840,7 +3845,7 @@ Fg
 zC
 Xi
 Pw
-iS
+yP
 gv
 YG
 WY
@@ -3879,7 +3884,7 @@ Bo
 Ax
 Xi
 gm
-HN
+LS
 xI
 YG
 Sp
@@ -4504,7 +4509,7 @@ AI
 Xi
 hk
 KC
-Xw
+Io
 YG
 uf
 Bo
@@ -4542,7 +4547,7 @@ cg
 AX
 Xi
 hk
-Gf
+KC
 Xw
 YG
 uf
@@ -4620,7 +4625,7 @@ Bo
 Bo
 Gy
 zw
-Gs
+Uo
 zw
 NQ
 Bo

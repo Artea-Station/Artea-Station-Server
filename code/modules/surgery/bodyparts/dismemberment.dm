@@ -1,11 +1,12 @@
 
 /obj/item/bodypart/proc/can_dismember(obj/item/item)
-	if(dismemberable)
-		return TRUE
+	if(bodypart_flags & BODYPART_UNREMOVABLE || (owner && HAS_TRAIT(owner, TRAIT_NODISMEMBER)))
+		return FALSE
+	return TRUE
 
 ///Remove target limb from it's owner, with side effects.
-/obj/item/bodypart/proc/dismember(dam_type = BRUTE, silent=TRUE)
-	if(!owner || !dismemberable)
+/obj/item/bodypart/proc/dismember(dam_type = BRUTE, silent=FALSE, wounding_type)
+	if(!owner || (bodypart_flags & BODYPART_UNREMOVABLE))
 		return FALSE
 	var/mob/living/carbon/limb_owner = owner
 	if(limb_owner.status_flags & GODMODE)
@@ -16,25 +17,33 @@
 	var/obj/item/bodypart/affecting = limb_owner.get_bodypart(BODY_ZONE_CHEST)
 	affecting.receive_damage(clamp(brute_dam/2 * affecting.body_damage_coeff, 15, 50), clamp(burn_dam/2 * affecting.body_damage_coeff, 0, 50), wound_bonus=CANT_WOUND) //Damage the chest based on limb's existing damage
 	if(!silent)
-		limb_owner.visible_message(span_danger("<B>[limb_owner]'s [name] is violently dismembered!</B>"))
+		if(dam_type == BURN)
+			limb_owner.visible_message(span_danger("<B>[limb_owner]'s [name] melts off of [limb_owner.p_their()] body!</B>"))
+			playsound(get_turf(limb_owner), 'sound/effects/wounds/sizzle2.ogg', 80, TRUE)
+		else
+			limb_owner.visible_message(span_danger("<B>[limb_owner]'s [name] is violently dismembered!</B>"))
+			playsound(get_turf(limb_owner), 'sound/effects/dismember.ogg', 80, TRUE)
 	INVOKE_ASYNC(limb_owner, TYPE_PROC_REF(/mob, emote), "scream")
-	playsound(get_turf(limb_owner), 'sound/effects/dismember.ogg', 80, TRUE)
 	limb_owner.add_mood_event("dismembered", /datum/mood_event/dismembered)
 	limb_owner.mind?.add_memory(MEMORY_DISMEMBERED, list(DETAIL_LOST_LIMB = src, DETAIL_PROTAGONIST = limb_owner), story_value = STORY_VALUE_AMAZING)
+
+	if (wounding_type)
+		LAZYSET(limb_owner.body_zone_dismembered_by, body_zone, wounding_type)
+
 	drop_limb()
 
 	limb_owner.update_equipment_speed_mods() // Update in case speed affecting item unequipped by dismemberment
 	var/turf/owner_location = limb_owner.loc
-	if(istype(owner_location))
+	if(wounding_type != WOUND_BURN && istype(owner_location) && can_bleed())
 		limb_owner.add_splatter_floor(owner_location)
 
 	if(QDELETED(src)) //Could have dropped into lava/explosion/chasm/whatever
 		return TRUE
-	if(dam_type == BURN)
-		burn()
+	if(dam_type == BURN) // This wasn't violent. Probably. Let's not throw the limb.
 		return TRUE
-	add_mob_blood(limb_owner)
-	limb_owner.bleed(rand(20, 40))
+	if (can_bleed())
+		add_mob_blood(limb_owner)
+		limb_owner.bleed(rand(20, 40))
 	var/direction = pick(GLOB.cardinals)
 	var/t_range = rand(2,max(throw_range/2, 2))
 	var/turf/target_turf = get_turf(src)
@@ -46,19 +55,19 @@
 		if(new_turf.density)
 			break
 	throw_at(target_turf, throw_range, throw_speed)
+
 	return TRUE
 
-
-/obj/item/bodypart/chest/dismember()
+/obj/item/bodypart/chest/dismember(dam_type = BRUTE, silent=TRUE, wounding_type)
 	if(!owner)
 		return FALSE
 	var/mob/living/carbon/chest_owner = owner
-	if(!dismemberable)
+	if(bodypart_flags & BODYPART_UNREMOVABLE)
 		return FALSE
 	if(HAS_TRAIT(chest_owner, TRAIT_NODISMEMBER))
 		return FALSE
 	. = list()
-	if(isturf(chest_owner.loc))
+	if(wounding_type != WOUND_BURN && isturf(chest_owner.loc) && can_bleed())
 		chest_owner.add_splatter_floor(chest_owner.loc)
 	playsound(get_turf(chest_owner), 'sound/misc/splort.ogg', 80, TRUE)
 	for(var/obj/item/organ/organ as anything in chest_owner.internal_organs)
@@ -80,8 +89,6 @@
 		. += cavity_item
 		cavity_item = null
 
-
-
 ///limb removal. The "special" argument is used for swapping a limb with a new one without the effects of losing a limb kicking in.
 /obj/item/bodypart/proc/drop_limb(special, dismembered)
 	if(!owner)
@@ -90,7 +97,9 @@
 
 	SEND_SIGNAL(owner, COMSIG_CARBON_REMOVE_LIMB, src, dismembered)
 	SEND_SIGNAL(src, COMSIG_BODYPART_REMOVED, owner, dismembered)
-	update_limb(1)
+	update_limb(TRUE)
+	//limb is out and about, it can't really be considered an implant
+	bodypart_flags &= ~BODYPART_IMPLANTED
 	owner.remove_bodypart(src)
 
 	if(held_index)
@@ -150,12 +159,13 @@
 		qdel(src)
 		return
 
-	if(is_pseudopart)
+	if(bodypart_flags & BODYPART_PSEUDOPART)
 		drop_organs(phantom_owner) //Psuedoparts shouldn't have organs, but just in case
 		qdel(src)
 		return
 
 	forceMove(drop_loc)
+	SEND_SIGNAL(phantom_owner, COMSIG_CARBON_POST_REMOVE_LIMB, src, dismembered)
 
 /**
  * get_mangled_state() is relevant for flesh and bone bodyparts, and returns whether this bodypart has mangled skin, mangled bone, or both (or neither i guess)
@@ -163,16 +173,16 @@
  * Dismemberment for flesh and bone requires the victim to have the skin on their bodypart destroyed (either a critical cut or piercing wound), and at least a hairline fracture
  * (severe bone), at which point we can start rolling for dismembering. The attack must also deal at least 10 damage, and must be a brute attack of some kind (sorry for now, cakehat, maybe later)
  *
- * Returns: BODYPART_MANGLED_NONE if we're fine, BODYPART_MANGLED_FLESH if our skin is broken, BODYPART_MANGLED_BONE if our bone is broken, or BODYPART_MANGLED_BOTH if both are broken and we're up for dismembering
+ * Returns: BODYPART_MANGLED_NONE if we're fine, BODYPART_MANGLED_EXTERIOR if our skin is broken, BODYPART_MANGLED_INTERIOR if our bone is broken, or BODYPART_MANGLED_BOTH if both are broken and we're up for dismembering
  */
 /obj/item/bodypart/proc/get_mangled_state()
 	. = BODYPART_MANGLED_NONE
 
 	for(var/datum/wound/iter_wound as anything in wounds)
-		if((iter_wound.wound_flags & MANGLES_BONE))
-			. |= BODYPART_MANGLED_BONE
-		if((iter_wound.wound_flags & MANGLES_FLESH))
-			. |= BODYPART_MANGLED_FLESH
+		if((iter_wound.wound_flags & MANGLES_INTERIOR))
+			. |= BODYPART_MANGLED_INTERIOR
+		if((iter_wound.wound_flags & MANGLES_EXTERIOR))
+			. |= BODYPART_MANGLED_EXTERIOR
 
 /**
  * try_dismember() is used, once we've confirmed that a flesh and bone bodypart has both the skin and bone mangled, to actually roll for it
@@ -188,14 +198,17 @@
  * * bare_wound_bonus: ditto above
  */
 /obj/item/bodypart/proc/try_dismember(wounding_type, wounding_dmg, wound_bonus, bare_wound_bonus)
+	if (!can_dismember())
+		return
+
 	if(wounding_dmg < DISMEMBER_MINIMUM_DAMAGE)
 		return
 
 	var/base_chance = wounding_dmg
 	base_chance += (get_damage() / max_damage * 50) // how much damage we dealt with this blow, + 50% of the damage percentage we already had on this bodypart
 
-	if(locate(/datum/wound/blunt/critical) in wounds) // we only require a severe bone break, but if there's a critical bone break, we'll add 15% more
-		base_chance += 15
+	for (var/datum/wound/iterated_wound as anything in wounds)
+		base_chance += iterated_wound.get_dismember_chance_bonus(base_chance)
 
 	if(prob(base_chance))
 		var/datum/wound/loss/dismembering = new
@@ -329,6 +342,15 @@
 	if(!.) //If it failed to replace, re-attach their old limb as if nothing happened.
 		old_limb.try_attach_limb(limb_owner, TRUE)
 
+///Checks if a limb qualifies as a BODYPART_IMPLANTED
+/obj/item/bodypart/proc/check_for_frankenstein(mob/living/carbon/human/monster)
+	if(!istype(monster))
+		return FALSE
+	var/obj/item/bodypart/original_type = monster.dna.species.bodypart_overrides[body_zone]
+	if(!original_type || (limb_id != initial(original_type.limb_id)))
+		return TRUE
+	return FALSE
+
 ///Checks if you can attach a limb, returns TRUE if you can.
 /obj/item/bodypart/proc/can_attach_limb(mob/living/carbon/new_limb_owner, special)
 	if(SEND_SIGNAL(new_limb_owner, COMSIG_ATTEMPT_CARBON_ATTACH_LIMB, src, special) & COMPONENT_NO_ATTACH)
@@ -352,13 +374,15 @@
 		if(held_index > new_limb_owner.hand_bodyparts.len)
 			new_limb_owner.hand_bodyparts.len = held_index
 		new_limb_owner.hand_bodyparts[held_index] = src
-		if(new_limb_owner.dna.species.mutanthands && !is_pseudopart)
+		if(new_limb_owner.dna.species.mutanthands && !(bodypart_flags & BODYPART_PSEUDOPART))
 			new_limb_owner.put_in_hand(new new_limb_owner.dna.species.mutanthands(), held_index)
 		if(new_limb_owner.hud_used)
 			var/atom/movable/screen/inventory/hand/hand = new_limb_owner.hud_used.hand_slots["[held_index]"]
 			if(hand)
 				hand.update_appearance()
 		new_limb_owner.update_worn_gloves()
+
+	LAZYREMOVE(new_limb_owner.body_zone_dismembered_by, body_zone)
 
 	if(special) //non conventional limb attachment
 		for(var/datum/surgery/attach_surgery as anything in new_limb_owner.surgeries) //if we had an ongoing surgery to attach a new limb, we stop it.
@@ -375,7 +399,7 @@
 		// we have to remove the wound from the limb wound list first, so that we can reapply it fresh with the new person
 		// otherwise the wound thinks it's trying to replace an existing wound of the same type (itself) and fails/deletes itself
 		LAZYREMOVE(wounds, wound)
-		wound.apply_wound(src, TRUE)
+		wound.apply_wound(src, TRUE, wound_source = wound.wound_source)
 
 	for(var/datum/scar/scar as anything in scars)
 		if(scar in new_limb_owner.all_scars) // prevent double scars from happening for whatever reason
@@ -397,6 +421,7 @@
 	new_limb_owner.updatehealth()
 	new_limb_owner.update_body()
 	new_limb_owner.update_damage_overlays()
+	SEND_SIGNAL(new_limb_owner, COMSIG_CARBON_POST_ATTACH_LIMB, src, special)
 	return TRUE
 
 /obj/item/bodypart/head/try_attach_limb(mob/living/carbon/new_head_owner, special = FALSE, abort = FALSE)
@@ -468,12 +493,15 @@
 /mob/living/carbon/proc/regenerate_limbs(list/excluded_zones = list())
 	SEND_SIGNAL(src, COMSIG_CARBON_REGENERATE_LIMBS, excluded_zones)
 	var/list/zone_list = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
+
+	var/list/dismembered_by_copy = body_zone_dismembered_by?.Copy()
+
 	if(length(excluded_zones))
 		zone_list -= excluded_zones
 	for(var/limb_zone in zone_list)
-		regenerate_limb(limb_zone)
+		regenerate_limb(limb_zone, dismembered_by_copy)
 
-/mob/living/carbon/proc/regenerate_limb(limb_zone)
+/mob/living/carbon/proc/regenerate_limb(limb_zone, list/dismembered_by_copy = body_zone_dismembered_by?.Copy())
 	var/obj/item/bodypart/limb
 	if(get_bodypart(limb_zone))
 		return FALSE
@@ -483,9 +511,16 @@
 			qdel(limb)
 			return FALSE
 		limb.update_limb(is_creating = TRUE)
-		var/datum/scar/scaries = new
-		var/datum/wound/loss/phantom_loss = new // stolen valor, really
-		scaries.generate(limb, phantom_loss)
+		if (LAZYLEN(dismembered_by_copy))
+			var/datum/scar/scaries = new
+			var/datum/wound/loss/phantom_loss = new // stolen valor, really
+			phantom_loss.loss_wounding_type = dismembered_by_copy?[limb_zone]
+			if (phantom_loss.loss_wounding_type)
+				scaries.generate(limb, phantom_loss)
+				LAZYREMOVE(dismembered_by_copy, limb_zone) // in case we're using a passed list
+			else
+				qdel(scaries)
+				qdel(phantom_loss)
 
 		//Copied from /datum/species/proc/on_species_gain()
 		for(var/obj/item/organ/external/organ_path as anything in dna.species.external_organs)

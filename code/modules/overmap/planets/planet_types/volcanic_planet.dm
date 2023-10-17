@@ -3,7 +3,7 @@
 	area_type = /area/planet/volcanic
 	generator_type = /datum/map_generator/planet_gen/volcanic
 
-	default_traits_input = list(ZTRAIT_MINING = TRUE, ZTRAIT_BASETURF = /turf/open/lava/smooth/lava_land_surface)
+	default_traits_input = list(ZTRAIT_MINING = TRUE, ZTRAIT_BASETURF = /turf/open/misc/asteroid/basalt)
 	overmap_type = /datum/overmap_object/shuttle/planet/volcanic
 	atmosphere_type = /datum/atmosphere/volcanic
 	weather_controller_type = /datum/weather_controller/lavaland

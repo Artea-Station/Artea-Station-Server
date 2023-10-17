@@ -8,6 +8,7 @@
 	var/department_color = COLOR_ASSISTANT_GRAY
 	/// Department icon state, for differentiating between heads and normal crew and other use cases.
 	var/department_state = "department"
+	var/letter_state = "letter-artea"
 	/// Subdepartment color for this trim. Displayed as a bar under the trim_state and department_color.
 	var/subdepartment_color = COLOR_ASSISTANT_OLIVE
 	/// Job/assignment associated with this trim. Can be transferred to ID cards holding this trim.

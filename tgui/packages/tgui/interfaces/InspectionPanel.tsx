@@ -1,6 +1,6 @@
 import { BooleanLike } from 'common/react';
 import { useBackend } from '../backend';
-import { Stack, Section, Button } from '../components';
+import { Stack, Section } from '../components';
 import { Window } from '../layouts';
 
 type InspectionData = {
@@ -14,8 +14,7 @@ type InspectionData = {
 
 export const InspectionPanel = (props, context) => {
   const { act, data } = useBackend<InspectionData>(context);
-  const { name, species, species_lore, inspection_data, ooc_notes, show_ooc } =
-    data;
+  const { name, species, species_lore, inspection_data, ooc_notes } = data;
   return (
     <Window title="Examine Panel" width={900} height={670}>
       <Window.Content>
@@ -49,44 +48,32 @@ export const InspectionPanel = (props, context) => {
                   })}
                 </Section>
               </Stack.Item>
-              <Button
-                width="100%"
-                style={{ 'text-align': 'center' }}
-                onClick={() => act('toggle_ooc_info')}>
-                {show_ooc ? 'Hide' : 'Show'} Extra Info
-              </Button>
-              {show_ooc === 1 && (
-                <Stack.Item grow>
-                  <Stack fill>
-                    <Stack.Item grow basis={0}>
-                      <Section
-                        scrollable
-                        fill
-                        title="OOC Notes"
-                        preserveWhitespace>
-                        {ooc_notes}
-                      </Section>
-                    </Stack.Item>
-                    <Stack.Item grow basis={0}>
-                      <Section
-                        scrollable
-                        fill
-                        title={species}
-                        preserveWhitespace>
-                        {Object.entries(species_lore).map((entry) => {
-                          return (
-                            <>
-                              {entry[1]}
-                              <br />
-                              <br />
-                            </>
-                          );
-                        })}
-                      </Section>
-                    </Stack.Item>
-                  </Stack>
-                </Stack.Item>
-              )}
+              <Stack.Item grow>
+                <Stack fill>
+                  <Stack.Item grow basis={0}>
+                    <Section
+                      scrollable
+                      fill
+                      title="OOC Notes"
+                      preserveWhitespace>
+                      {ooc_notes}
+                    </Section>
+                  </Stack.Item>
+                  <Stack.Item grow basis={0}>
+                    <Section scrollable fill title={species} preserveWhitespace>
+                      {Object.entries(species_lore).map((entry) => {
+                        return (
+                          <>
+                            {entry[1]}
+                            <br />
+                            <br />
+                          </>
+                        );
+                      })}
+                    </Section>
+                  </Stack.Item>
+                </Stack>
+              </Stack.Item>
             </Stack>
           </Stack.Item>
         </Stack>

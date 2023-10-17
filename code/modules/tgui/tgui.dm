@@ -241,6 +241,10 @@
  */
 /datum/tgui/proc/get_payload(custom_data, with_data, with_static_data)
 	var/list/json_data = list()
+	if(!user.client) // User disconnected while opening UI? Also happens when opening prefs menu for the first time in local, due to it hanging and breaking crap.
+		log_world("WARNING: If you're seeing this message outside of opening prefs for the first time on local, then you have BIG problems. (tgui/proc/get_payload)")
+		return list()
+
 	json_data["config"] = list(
 		"title" = title,
 		"status" = status,

@@ -2,6 +2,7 @@
 
 /area/shuttle/overmap
 	requires_power = TRUE
+	allow_door_remotes = TRUE
 
 // Shuttles that are logistical in nature. Public shuttles typically fall into this category, despite being barely functional at all.
 /area/shuttle/overmap/alv_s

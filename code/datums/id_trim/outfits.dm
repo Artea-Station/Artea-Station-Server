@@ -5,7 +5,7 @@
 /// Trim for the assassin outfit.
 /datum/id_trim/reaper_assassin
 	assignment = "Reaper"
-	trim_state = "trim_ert_deathcommando"
+	trim_state = "dept-deathsquad"
 	department_color = COLOR_DARK
 	subdepartment_color = COLOR_RED // I AM THE VIOLENCE
 
@@ -16,7 +16,7 @@
 /// Trim for the mobster outfit.
 /datum/id_trim/mobster
 	assignment = "Mobster"
-	trim_state = "trim_assistant"
+	trim_state = "dept-civilian"
 
 /// Trim for VR outfits.
 /datum/id_trim/vr
@@ -39,7 +39,7 @@
 /// Trim for the Tunnel Clown! outfit. Has all access.
 /datum/id_trim/tunnel_clown
 	assignment = "Tunnel Clown!"
-	trim_state = "trim_clown"
+	trim_state = "dept-clown"
 	department_color = COLOR_MAGENTA
 	subdepartment_color = COLOR_MAGENTA
 

@@ -142,7 +142,7 @@ SUBSYSTEM_DEF(job)
 
 		name_occupations[job.title] = job
 		type_occupations[job_type] = job
-		if(job.job_flags & JOB_NEW_PLAYER_JOINABLE)
+		if(job.job_flags & JOB_NEW_PLAYER_JOINABLE && job.faction == faction)
 			new_joinable_occupations += job
 			if(!LAZYLEN(job.departments_list))
 				var/datum/job_department/department = new_joinable_departments_by_type[/datum/job_department/undefined]
@@ -531,7 +531,7 @@ SUBSYSTEM_DEF(job)
 	if(player_client)
 		to_chat(player_client, "<span class='infoplain'><b>You are the [job.title].</b></span>")
 
-	equipping.on_job_equipping(job)
+	equipping.on_job_equipping(job, player_client?.prefs)
 
 	job.announce_job(equipping)
 
