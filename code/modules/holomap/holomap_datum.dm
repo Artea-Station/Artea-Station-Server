@@ -11,6 +11,10 @@
 	var/map_y
 	var/map_z
 
+	var/mob/watching_mob
+	/// This set to FALSE when the holomap is initialized on a zLevel that has its own icon formatted for use by station holomaps.
+	var/bogus = TRUE
+
 /datum/station_holomap/New()
 	. = ..()
 	cursor = image('icons/obj/machines/holomap/8x8.dmi', "you")
@@ -90,3 +94,44 @@
 	legend.pixel_y = 224
 
 	update_map(overlays_to_use = list("" = list("icon" = legend)))
+
+/datum/station_holomap/proc/open_holomap(mob/user)
+	if(!user)
+		return FALSE
+
+	var/datum/hud/human/user_hud = user.hud_used
+	base_map.loc = user_hud.holomap  // Put the image on the holomap hud
+	base_map.alpha = 0 // Set to transparent so we can fade in
+
+	playsound(src, 'sound/machines/holomap/holomap_open.ogg', 125)
+	animate(base_map, alpha = 255, time = 5, easing = LINEAR_EASING)
+
+	user.hud_used.holomap.used_station_map = src
+	user.hud_used.holomap.mouse_opacity = MOUSE_OPACITY_ICON
+	user.client.screen |= user.hud_used.holomap
+	user.client.images |= base_map
+
+	watching_mob = user
+
+	if(bogus)
+		to_chat(user, span_warning("The holomap failed to initialize. This area of space cannot be mapped."))
+	else
+		to_chat(user, span_notice("A hologram of the station appears before your eyes."))
+
+	return TRUE
+
+/datum/station_holomap/proc/close_holomap()
+	if(!watching_mob)
+		return
+
+	UnregisterSignal(watching_mob, COMSIG_MOVABLE_MOVED)
+	playsound(src, 'sound/machines/holomap/holomap_close.ogg', 125)
+	if(watching_mob?.client)
+		animate(base_map, alpha = 0, time = 5, easing = LINEAR_EASING)
+		spawn(5) //we give it time to fade out
+			watching_mob.client?.screen -= watching_mob.hud_used.holomap
+			watching_mob.client?.images -= base_map
+			watching_mob.hud_used.holomap.used_station_map = null
+			watching_mob = null
+
+	return TRUE

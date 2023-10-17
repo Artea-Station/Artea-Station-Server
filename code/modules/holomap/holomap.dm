@@ -25,8 +25,6 @@
 
 	// zLevel which the map is a map for.
 	var/current_z_level
-	/// This set to FALSE when the holomap is initialized on a zLevel that has its own icon formatted for use by station holomaps.
-	var/bogus = TRUE
 	/// The various images and icons for the map are stored in here, as well as the actual big map itself.
 	var/datum/station_holomap/holomap_datum
 
@@ -53,29 +51,28 @@
 /obj/machinery/holomap/proc/setup_holomap()
 	var/turf/current_turf = get_turf(src)
 	holomap_datum = new
-	bogus = FALSE
 	floor_markings = image('icons/obj/machines/holomap/stationmap.dmi', "decal_station_map")
 
 	if(!("[HOLOMAP_EXTRA_STATIONMAP]_[current_z_level]" in SSholomaps.extra_holomaps))
-		bogus = TRUE
 		holomap_datum.initialize_holomap_bogus()
 		update_icon()
 		return
 
+	holomap_datum.bogus = FALSE
 	holomap_datum.initialize_holomap(current_turf.x, current_turf.y, current_z_level, reinit_base_map = TRUE, extra_overlays = handle_overlays())
 
 	update_icon()
 
 /obj/machinery/holomap/attack_hand(mob/user)
-	if(user == watching_mob)
-		close_map(user)
+	if(user && user == holomap_datum?.watching_mob)
+		holomap_datum.close_holomap(user)
 		return
 
-	open_map(user)
+	holomap_datum.open_holomap(user)
 
 /// Tries to open the map for the given mob. Returns FALSE if it doesn't meet the criteria, TRUE if the map successfully opened with no runtimes.
 /obj/machinery/holomap/proc/open_map(mob/user)
-	if((machine_stat & (NOPOWER | BROKEN)) || !user?.client || panel_open || watching_mob || user.hud_used.holomap.used_station_map)
+	if((machine_stat & (NOPOWER | BROKEN)) || !user?.client || panel_open || user.hud_used.holomap.used_station_map)
 		return FALSE
 
 	if(!holomap_datum)
@@ -85,31 +82,11 @@
 
 	holomap_datum.update_map(handle_overlays())
 
-	var/datum/hud/human/user_hud = user.hud_used
-	holomap_datum.base_map.loc = user_hud.holomap  // Put the image on the holomap hud
-	holomap_datum.base_map.alpha = 0 // Set to transparent so we can fade in
-
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_position))
-
-	playsound(src, 'sound/machines/holomap/holomap_open.ogg', 125)
-	animate(holomap_datum.base_map, alpha = 255, time = 5, easing = LINEAR_EASING)
-	icon_state = "[initial(icon_state)]_active"
-	set_light(HOLOMAP_HIGH_LIGHT)
-
-	user.hud_used.holomap.used_station_map = src
-	user.hud_used.holomap.mouse_opacity = MOUSE_OPACITY_ICON
-	user.client.screen |= user.hud_used.holomap
-	user.client.images |= holomap_datum.base_map
-
-	watching_mob = user
-	update_use_power(ACTIVE_POWER_USE)
-
-	if(bogus)
-		to_chat(user, span_warning("The holomap failed to initialize. This area of space cannot be mapped."))
-	else
-		to_chat(user, span_notice("A hologram of the station appears before your eyes."))
-
-	return TRUE
+	if(holomap_datum.open_holomap(user))
+		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_position))
+		icon_state = "[initial(icon_state)]_active"
+		set_light(HOLOMAP_HIGH_LIGHT)
+		update_use_power(ACTIVE_POWER_USE)
 
 /obj/machinery/holomap/attack_ai(mob/living/silicon/robot/user)
 	attack_hand(user)
@@ -130,20 +107,9 @@
 		close_map(watching_mob)
 
 /obj/machinery/holomap/proc/close_map()
-	if(!watching_mob)
-		return
-
-	UnregisterSignal(watching_mob, COMSIG_MOVABLE_MOVED)
-	playsound(src, 'sound/machines/holomap/holomap_close.ogg', 125)
-	icon_state = initial(icon_state)
-	if(watching_mob?.client)
-		animate(holomap_datum.base_map, alpha = 0, time = 5, easing = LINEAR_EASING)
-		spawn(5) //we give it time to fade out
-			watching_mob.client?.screen -= watching_mob.hud_used.holomap
-			watching_mob.client?.images -= holomap_datum.base_map
-			watching_mob.hud_used.holomap.used_station_map = null
-			watching_mob = null
-			set_light(HOLOMAP_LOW_LIGHT)
+	if(holomap_datum.close_holomap())
+		icon_state = initial(icon_state)
+		set_light(HOLOMAP_LOW_LIGHT)
 
 	update_use_power(IDLE_POWER_USE)
 
@@ -176,7 +142,7 @@
 	else
 		icon_state = initial(icon_state)
 
-		if(bogus)
+		if(holomap_datum.bogus)
 			holomap_datum.initialize_holomap_bogus()
 		else
 			small_station_map = image(SSholomaps.extra_holomaps["[HOLOMAP_EXTRA_STATIONMAPSMALL]_[current_z_level]"], dir = src.dir)
@@ -266,7 +232,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/holomap/open, 32)
 
 /obj/machinery/holomap/engineering/handle_overlays()
 	var/list/extra_overlays = ..()
-	if(bogus)
+	if(holomap_datum.bogus)
 		return extra_overlays
 
 	var/list/fire_alarms = list()

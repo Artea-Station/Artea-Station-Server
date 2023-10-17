@@ -11,8 +11,6 @@
 		/datum/material/plasma = 6000,
 	)
 
-/obj/item/wallframe/holomap
-
 /obj/item/wallframe/holomap/engineering
 	name = "engineering holomap frame"
 	desc = "Used for building engineering holomaps."
