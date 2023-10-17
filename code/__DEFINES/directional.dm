@@ -34,8 +34,29 @@
 	pixel_x = -offset; \
 }
 
-/// When you need to prescribe very specific offsets, use this over MAPPING_DIRECTIONAL_HELPERS
-#define MAPPING_DIRECTIONAL_HELPERS_ROBUST(path, n_offset, s_offset, e_offset, w_offset) ##path/directional/north {\
+/// When you need to prescribe very specific offsets, use this over MAPPING_DIRECTIONAL_HELPERS. Also handles shuttle rotations. God, I fucking hate this code.
+#define MAPPING_DIRECTIONAL_HELPERS_ROBUST(path, n_offset, s_offset, e_offset, w_offset) \
+##path/directional/shuttleRotate(rotation, params) { \
+	..(); \
+	var/atom/path_to_use; \
+	switch(dir) { \
+		if(NORTH) { \
+			path_to_use = ##path/directional/north; \
+		} \
+		if(WEST) { \
+			path_to_use = ##path/directional/west; \
+		} \
+		if(SOUTH) { \
+			path_to_use = ##path/directional/south; \
+		} \
+		if(EAST) { \
+			path_to_use = ##path/directional/east; \
+		} \
+	} \
+	pixel_x = initial(path_to_use.pixel_x); \
+	pixel_y = initial(path_to_use.pixel_y); \
+} \
+##path/directional/north {\
 	dir = NORTH; \
 	pixel_y = n_offset; \
 } \
