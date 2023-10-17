@@ -39,4 +39,4 @@ Restricted topics typically require a design doc (basically just notes on what y
 - Lewd items/clothes. **HA**
 	- The server's main purpose is player freedom, and I don't want us to turn into a primarily ERP server.
 - New jobs. **M**
-- Stuff that touches cargo or the overmap.
+- Stuff that touches cargo or the overmap. **HM**
