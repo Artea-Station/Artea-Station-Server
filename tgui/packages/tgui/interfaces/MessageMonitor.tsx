@@ -8,6 +8,7 @@ enum Screen {
   MessageLogs,
   RequestLogs,
   Hacked,
+  TradeLogs,
 }
 
 type Data = {
@@ -22,6 +23,7 @@ type Data = {
   notice_message: string;
   requests: Request[];
   messages: Message[];
+  trades: Trade[];
 };
 
 type Request = {
@@ -37,6 +39,12 @@ type Message = {
   message: string;
   sender: string;
   recipient: string;
+};
+
+type Trade = {
+  ref: string;
+  message: string;
+  timestamp: string;
 };
 
 const RequestLogsScreen = (props, context) => {
@@ -131,6 +139,49 @@ const MessageLogsScreen = (props, context) => {
   );
 };
 
+const TradeLogsScreen = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
+  const { trades = [] } = data;
+  return (
+    <Stack fill vertical>
+      <Stack.Item grow>
+        <Section
+          fill
+          scrollable
+          title="Trades"
+          buttons={
+            <Button
+              content="Main Menu"
+              icon="home"
+              onClick={() => act('return_home')}
+            />
+          }>
+          <Table>
+            <Table.Row header>
+              <Table.Cell>Delete</Table.Cell>
+              <Table.Cell>Timestamp</Table.Cell>
+              <Table.Cell>Message</Table.Cell>
+            </Table.Row>
+            {trades?.map((trade) => (
+              <Table.Row key={trade.ref} className="candystripe">
+                <Table.Cell>
+                  <Button
+                    icon="trash"
+                    color="red"
+                    onClick={() => act('delete_trade', { ref: trade.ref })}
+                  />
+                </Table.Cell>
+                <Table.Cell>{trade.timestamp}</Table.Cell>
+                <Table.Cell>{trade.message}</Table.Cell>
+              </Table.Row>
+            ))}
+          </Table>
+        </Section>
+      </Stack.Item>
+    </Stack>
+  );
+};
+
 const HackedScreen = (props, context) => {
   return (
     <Stack.Item grow>
@@ -215,6 +266,17 @@ const MainScreenAuth = (props, context) => {
         <Table.Row>
           <Table.Cell>
             <Button
+              content={'View Trade Logs'}
+              onClick={() => act('view_trade_logs')}
+            />
+          </Table.Cell>
+          <Table.Cell>
+            Shows all orders that were made via trade console
+          </Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell>
+            <Button
               content={'Clear Message Logs'}
               onClick={() => act('clear_message_logs')}
             />
@@ -229,6 +291,15 @@ const MainScreenAuth = (props, context) => {
             />
           </Table.Cell>
           <Table.Cell>Clears request console logs</Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell>
+            <Button
+              content={'Clear Trade Logs'}
+              onClick={() => act('clear_trade_logs')}
+            />
+          </Table.Cell>
+          <Table.Cell>Clears trade logs</Table.Cell>
         </Table.Row>
         <Table.Row>
           <Table.Cell>
@@ -346,6 +417,7 @@ export const MessageMonitor = (props, context) => {
                 {(screen === Screen.Main && <MainScreen />) ||
                   (screen === Screen.MessageLogs && <MessageLogsScreen />) ||
                   (screen === Screen.RequestLogs && <RequestLogsScreen />) ||
+                  (screen === Screen.TradeLogs && <TradeLogsScreen />) ||
                   (screen === Screen.Hacked && <HackedScreen />)}
               </Stack.Item>
               <Stack.Item>

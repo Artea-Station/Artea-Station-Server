@@ -54,11 +54,15 @@
 	*/
 	var/list/published_papers
 
+	/// Should this techweb be seeded with the starter nodes?
+	var/has_starter_research = TRUE
+
 /datum/techweb/New()
 	SSresearch.techwebs += src
-	for(var/i in SSresearch.techweb_nodes_starting)
-		var/datum/techweb_node/DN = SSresearch.techweb_node_by_id(i)
-		research_node(DN, TRUE, FALSE, FALSE)
+	if(has_starter_research)
+		for(var/i in SSresearch.techweb_nodes_starting)
+			var/datum/techweb_node/DN = SSresearch.techweb_node_by_id(i)
+			research_node(DN, TRUE, FALSE, FALSE)
 	hidden_nodes = SSresearch.techweb_nodes_hidden.Copy()
 	initialize_published_papers()
 	return ..()
@@ -82,16 +86,43 @@
 /datum/techweb/bepis //Should contain only 1 BEPIS tech selected at random.
 	id = "EXPERIMENTAL"
 	organization = "Nanotrasen R&D"
+	has_starter_research = FALSE
 
 /datum/techweb/bepis/New(remove_tech = TRUE)
 	. = ..()
 	var/bepis_id = pick(SSresearch.techweb_nodes_experimental) //To add a new tech to the BEPIS, add the ID to this pick list.
-	var/datum/techweb_node/BN = (SSresearch.techweb_node_by_id(bepis_id))
-	hidden_nodes -= BN.id //Has to be removed from hidden nodes
-	research_node(BN, TRUE, FALSE, FALSE)
-	update_node_status(BN)
 	if(remove_tech)
 		SSresearch.techweb_nodes_experimental -= bepis_id
+
+	var/datum/techweb_node/bepis_node = SSresearch.techweb_node_by_id(bepis_id)
+	hidden_nodes -= bepis_node.id //Has to be removed from hidden nodes
+	research_node(bepis_node, TRUE, FALSE, FALSE)
+	update_node_status(bepis_node)
+
+/datum/techweb/bepis/no_remove/New()
+	return ..(FALSE)
+
+/datum/techweb/science/loot
+	id = "SCIENCE_LOOT"
+	has_starter_research = FALSE
+	/// RND_LOOT_MINOR, RND_LOOT_MIDDLE or RND_LOOT_MAJOR research. <2000, 2000-3000 and >3000 respectively.
+	var/loot_table_name
+
+/datum/techweb/science/loot/New()
+	. = ..()
+	var/datum/techweb_node/science_node = SSresearch.get_science_loot(loot_table_name)
+	hidden_nodes -= science_node.id
+	research_node(science_node, TRUE, FALSE, FALSE)
+	update_node_status(science_node)
+
+/datum/techweb/science/loot/minor
+	loot_table_name = RND_LOOT_MINOR
+
+/datum/techweb/science/loot/middle
+	loot_table_name = RND_LOOT_MIDDLE
+
+/datum/techweb/science/loot/major
+	loot_table_name = RND_LOOT_MAJOR
 
 /datum/techweb/Destroy()
 	researched_nodes = null

@@ -56,22 +56,3 @@
 		/datum/trader_bounty/anomalous_energy_sources = 100,
 		/datum/trader_bounty/unlimited_power = 100
 		)
-
-/* TODO
-/datum/trader/dogan
-	name = "Dogan"
-	origin = "Dogan's Gun Beacon"
-	trade_flags = TRADER_MONEY|TRADER_SELLS_GOODS
-	speech = list("hail"    = "Hello! This is an automatic recording of me, Mr. Dogan! I hope you like the... GUNS... I've got in store for you today.",
-				"hail_deny"         = "I formally welcome you to... NOT... visit our store!",
-
-				"trade_complete"    = "Thank you for... PURCHASING... that quality... ITEM... from me!",
-				"trade_no_goods"    = "Thank you for... that quality... OFFER THAT ISN'T MONEY THAT I WILL REFUSE... from me!",
-				"trade_not_enough"  = "Thank you for... that quality... OFFER THAT IS NOT ENOUGH... from me!",
-				"how_much"          = "Thank you for... ASKING ME ABOUT MY PRICES... that quality... ITEM is worth VALUE... from me!",
-
-				"compliment_deny"   = "Thank you for... that quality... COMPLIMENT... from me!",
-				"compliment_accept" = "Thank you for... that quality... COMPLIMENT... from me!",
-				"insult_good"       = "Thank you for... that quality... INSULT... from me!",
-				"insult_bad"        = "Thank you for... that quality... INSULT... from me!")
-*/

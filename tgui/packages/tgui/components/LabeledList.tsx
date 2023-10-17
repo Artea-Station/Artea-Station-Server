@@ -32,6 +32,7 @@ type LabeledListItemProps = {
   content?: any;
   children?: InfernoNode;
   verticalAlign?: string;
+  alternating?: BooleanLike;
 };
 
 const LabeledListItem = (props: LabeledListItemProps) => {
@@ -46,9 +47,14 @@ const LabeledListItem = (props: LabeledListItemProps) => {
     content,
     children,
     verticalAlign = 'baseline',
+    alternating,
   } = props;
+  let classesTouse = ['LabeledList__row', className];
+  if (alternating) {
+    classesTouse.push('LabeledList__row__alternating');
+  }
   return (
-    <tr className={classes(['LabeledList__row', className])}>
+    <tr className={classes(classesTouse)}>
       <Box
         as="td"
         color={labelColor}

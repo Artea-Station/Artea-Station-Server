@@ -71,11 +71,11 @@
 	var/obj/item/paper/P = new /obj/item/paper(my_turf)
 	P.name = "metal density readout"
 	P.default_raw_text = "<CENTER><B>METAL DENSITY READOUT</B></CENTER><BR>"
-	P.default_raw_text += "<B>GPS coordinates: x:[my_turf.x], y:[my_turf.y], z:[my_turf.z]</B><BR>"
+	P.add_raw_text("<B>GPS coordinates: x:[my_turf.x], y:[my_turf.y], z:[my_turf.z]</B><BR>")
 	if(ON)
-		P.default_raw_text += ON.GetScannerReadout(my_turf)
+		P.add_raw_text(ON.GetScannerReadout(my_turf))
 	else
-		P.default_raw_text += "No ores detected at the coordinates"
+		P.add_raw_text("No ores detected at the coordinates")
 	P.update_icon()
 	//We're inside a storage? Put the printout in the storage
 	if(item_flags & IN_STORAGE)

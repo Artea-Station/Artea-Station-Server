@@ -244,7 +244,7 @@
 		return
 	req_access = list()
 	obj_flags |= EMAGGED
-	to_chat(user, span_notice("You fried the consoles ID checking system."))
+	to_chat(user, span_notice("You fried the console's ID checking system."))
 
 /obj/machinery/computer/shuttle/connect_to_shuttle(mapload, obj/docking_port/mobile/port, obj/docking_port/stationary/dock)
 	if(!mapload)

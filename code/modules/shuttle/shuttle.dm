@@ -991,7 +991,7 @@
 		else
 			dst = destination
 		if(dst)
-			. = "(transit to) [dst.name || dst.shuttle_id]"
+			. = "(transit to) [istext(dst) ? dst : dst.name || dst.shuttle_id]"
 		else
 			. = "(transit to) nowhere"
 	else if(dockedAt)
