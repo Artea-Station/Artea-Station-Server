@@ -129,6 +129,7 @@ export const NtosHolomap = (props, context) => {
                 ([pos, name], _) => {
                   return (
                     <div
+                      key={name + pos}
                       style={{
                         'position': 'absolute',
                         'left': Number(pos.split(',')[0]) * 0.2075 + '%',
@@ -159,6 +160,7 @@ export const NtosHolomap = (props, context) => {
                 return data['markers'].map((pos) => {
                   return (
                     <div
+                      key={name + pos}
                       className="NtosHolomapBlinkingMarker"
                       style={{
                         'position': 'absolute',
