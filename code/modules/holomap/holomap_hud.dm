@@ -67,6 +67,6 @@
 		return
 
 	var/datum/hud/active_hud = usr.hud_used
-	var/text_for_screentip = position_to_name["[icon_x]:[icon_y]"]
+	var/text_for_screentip = position_to_name["[icon_x],[icon_y]"]
 
 	active_hud.screentip_text.maptext = "<span class='maptext' style='text-align: center; font-size: 32px; color: [active_hud.screentip_color]'>[text_for_screentip]</span>"

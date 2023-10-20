@@ -86,7 +86,7 @@ SUBSYSTEM_DEF(holomaps)
 
 			if(tile_area.holomap_color)
 				area_canvas.DrawBox(tile_area.holomap_color, offset_x, offset_y)
-				position_to_name["[offset_x]:[offset_y]"] = tile_area.holomap_color == HOLOMAP_AREACOLOR_MAINTENANCE ? "Maintenance" : tile_area.name
+				position_to_name["[offset_x],[offset_y]"] = tile_area.holomap_color == HOLOMAP_AREACOLOR_MAINTENANCE ? "Maintenance" : tile_area.name
 
 			if(IS_ROCK(tile))
 				canvas.DrawBox(HOLOMAP_ROCK, offset_x, offset_y)
@@ -108,7 +108,7 @@ SUBSYSTEM_DEF(holomaps)
 
 			if(istype(z_transition_obj, /obj/structure/stairs))
 				if(!z_transition_positions["Stairs Up"])
-					z_transition_positions["Stairs Up"] = list("icon" = image('icons/obj/machines/holomap/8x8.dmi', "stairs"), "markers" = list())
+					z_transition_positions["Stairs Up"] = list("icon" = image('icons/obj/machines/holomap/8x8.dmi', "stairs"), "color" = "#00FF00", "markers" = list())
 
 				image_to_use = image('icons/obj/machines/holomap/8x8.dmi', "stairs")
 				image_to_use.pixel_x = offset_x
@@ -130,13 +130,13 @@ SUBSYSTEM_DEF(holomaps)
 				image_to_use.pixel_y = checking.y + HOLOMAP_CENTER_Y
 
 				if(!transitions["Stairs Down"])
-					transitions["Stairs Down"] = list("icon" = image('icons/obj/machines/holomap/8x8.dmi', "stairs_down"), "markers" = list())
+					transitions["Stairs Down"] = list("icon" = image('icons/obj/machines/holomap/8x8.dmi', "stairs_down"), "color" = "#009933", "markers" = list())
 
 				transitions["Stairs Down"]["markers"] += image_to_use
 				continue
 
 			if(!z_transition_positions["Ladders"])
-				z_transition_positions["Ladders"] = list("icon" = image('icons/obj/machines/holomap/8x8.dmi', "ladder"), "markers" = list())
+				z_transition_positions["Ladders"] = list("icon" = image('icons/obj/machines/holomap/8x8.dmi', "ladder"), "color" = "#0099CC", "markers" = list())
 
 			image_to_use = image('icons/obj/machines/holomap/8x8.dmi', "ladder")
 			image_to_use.pixel_x = offset_x
