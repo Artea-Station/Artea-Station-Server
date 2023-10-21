@@ -20,13 +20,13 @@
 	var/shuttle_id
 	/// Possible destinations
 	var/port_destinations
-	///size of covered area, perpendicular to dir. You shouldn't modify this for mobile dockingports, set automatically.
+	///size of covered area, perpendicular to dir. You shouldn't modify this for mobile dockingports, set automatically. Use docking area markers when possible for stationary ports.
 	var/width = 0
-	///size of covered area, parallel to dir. You shouldn't modify this for mobile dockingports, set automatically.
+	///size of covered area, parallel to dir. You shouldn't modify this for mobile dockingports, set automatically. Use docking area markers when possible for stationary ports.
 	var/height = 0
-	///position relative to covered area, perpendicular to dir. You shouldn't modify this for mobile dockingports, set automatically.
+	///position relative to covered area, perpendicular to dir. You shouldn't modify this for mobile dockingports, set automatically. Use docking area markers when possible for stationary ports.
 	var/dwidth = 0
-	///position relative to covered area, parallel to dir. You shouldn't modify this for mobile dockingports, set automatically.
+	///position relative to covered area, parallel to dir. You shouldn't modify this for mobile dockingports, set automatically. Use docking area markers when possible for stationary ports.
 	var/dheight = 0
 
 	var/area_type
@@ -228,8 +228,60 @@
 
 	SSshuttle.stationary_docking_ports += src
 
+// Holy shitcode, batman!
+/obj/docking_port/stationary/proc/scan_markers()
+	var/found_marker_count = 0
+	var/dir_to_scan = turn(dir, -90) // Why does 90 turn left? What the fuck?!
+	var/turf/step_ref = src
+	var/obj/found_marker
+
+	height = 1
+	width = 1
+
+	while(!found_marker && !(step_ref.x + 1 > world.maxx) && !(step_ref.y + 1 > world.maxy))
+		dwidth++
+		step_ref = get_step(step_ref, dir_to_scan)
+		found_marker = locate(/obj/docking_area_marker) in step_ref
+		if(found_marker)
+			found_marker_count++
+			found_marker = null
+			dir_to_scan = turn(dir_to_scan, 90)
+			while(!found_marker && !(step_ref.x + 1 > world.maxx) && !(step_ref.y + 1 > world.maxy))
+				height++
+				step_ref = get_step(step_ref, dir_to_scan)
+				found_marker = locate(/obj/docking_area_marker) in step_ref
+				if(found_marker)
+					found_marker_count++
+					found_marker = null
+					dir_to_scan = turn(dir_to_scan, 90)
+					while(!found_marker && !(step_ref.x + 1 > world.maxx) && !(step_ref.y + 1 > world.maxy))
+						width++
+						step_ref = get_step(step_ref, dir_to_scan)
+						found_marker = locate(/obj/docking_area_marker) in step_ref
+						if(found_marker)
+							return
+
+						#ifdef TESTING
+						new /obj/docking_area_marker/debug(step_ref)
+						#endif
+				#ifdef TESTING
+				new /obj/docking_area_marker/debug(step_ref)
+				#endif
+		#ifdef TESTING
+		new /obj/docking_area_marker/debug(step_ref)
+		#endif
+
+	if(found_marker_count)
+		CRASH("Found [found_marker_count] of 3 required markers when scanning! Make sure they align properly!")
+	CRASH("Stationary docking port at [x], [y], [z] (\ref[src]) has no markers, nor has a set width + height! !!THIS IS NOT A MAPPER-IGNORABLE ERROR!!")
+
 /obj/docking_port/stationary/Initialize(mapload)
 	. = ..()
+
+	// Scan to the right for a docking area marker if width and height are 0.
+	if(!width && !height)
+		scan_markers()
+
 	register()
 	if(!area_type)
 		var/area/place = get_area(src)
