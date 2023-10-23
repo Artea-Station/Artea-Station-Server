@@ -198,8 +198,8 @@
 		var/obj/item/card/id/id_card = H.wear_id
 		id_card.registered_age = H.age
 		if(id_trim)
-			if(!SSid_access.apply_trim_to_card(id_card, id_trim))
-				WARNING("Unable to apply trim [id_trim] to [id_card] in outfit [name].")
+			if(!SSid_access.apply_trim_to_card(id_card, id_department, id_subdepartment))
+				WARNING("Unable to apply department [id_department] and subdepartment [id_subdepartment] to [id_card] in outfit [name].")
 			H.sec_hud_set_ID()
 
 	if(suit_store)

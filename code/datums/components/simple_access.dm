@@ -23,7 +23,7 @@
 	if(!isobj(locked_thing))
 		return LOCKED_ATOM_INCOMPATIBLE
 	var/obj/locked_object = locked_thing
-	if(locked_object.check_access_list(access))
+	if(locked_object.check_access(access))
 		return ACCESS_ALLOWED
 	else
 		return ACCESS_DISALLOWED

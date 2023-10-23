@@ -235,17 +235,9 @@ SUBSYSTEM_DEF(ticker)
 
 	CHECK_TICK
 
-	// There may be various config settings that have been set or modified by this point.
-	// This is the point of no return before spawning in new players, let's run over the
-	// job trim singletons and update them based on any config settings.
-	SSid_access.refresh_job_trim_singletons()
-
-	CHECK_TICK
-
 	if(!CONFIG_GET(flag/ooc_during_round))
 		toggle_ooc(FALSE) // Turn it off
 
-	CHECK_TICK
 	GLOB.start_landmarks_list = shuffle(GLOB.start_landmarks_list) //Shuffle the order of spawn points so they dont always predictably spawn bottom-up and right-to-left
 	create_characters() //Create player characters
 	collect_minds()
