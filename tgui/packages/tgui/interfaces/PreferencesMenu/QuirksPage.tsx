@@ -14,16 +14,6 @@ const getValueClass = (value: number): string => {
   }
 };
 
-const getValueColor = (value: number): string => {
-  if (value > 0) {
-    return 'eee';
-  } else if (value < 0) {
-    return 'fff';
-  } else {
-    return 'aaa';
-  }
-};
-
 const QuirkList = (props: {
   quirks: [
     string,

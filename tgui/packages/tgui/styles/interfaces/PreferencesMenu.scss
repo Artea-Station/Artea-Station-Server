@@ -204,7 +204,7 @@ $department_map: (
         $quality_map: (
           'positive': rgba(colors.$green, 0.7),
           'neutral': rgba(colors.$white, 0.7),
-          'negative': rgba(colors.$red, 0.7),
+          'negative': rgba(#e05353, 0.7),
         );
 
         @each $quality, $color-value in $quality_map {
