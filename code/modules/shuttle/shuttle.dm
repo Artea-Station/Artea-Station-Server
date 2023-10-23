@@ -229,20 +229,24 @@
 	SSshuttle.stationary_docking_ports += src
 
 // Holy shitcode, batman!
+/// Scans to the port's right for a marker, before scanning forwards, before scanning to the left, and applies the size found.
 /obj/docking_port/stationary/proc/scan_markers()
 	var/found_marker_count = 0
 	var/dir_to_scan = turn(dir, -90) // Why does 90 turn left? What the fuck?!
 	var/turf/step_ref = src
 	var/obj/found_marker
 
+	// Minimum 3x3 size.
 	height = 1
 	width = 1
 
+	// Scan to the right for a docking area marker so we know our offset.
 	while(!found_marker && !(step_ref.x + 1 > world.maxx) && !(step_ref.y + 1 > world.maxy))
 		dwidth++
 		step_ref = get_step(step_ref, dir_to_scan)
 		found_marker = locate(/obj/docking_area_marker) in step_ref
 		if(found_marker)
+			// We found it, let's turn left, and scan for the corner, so we know our height.
 			found_marker_count++
 			found_marker = null
 			dir_to_scan = turn(dir_to_scan, 90)
@@ -251,6 +255,7 @@
 				step_ref = get_step(step_ref, dir_to_scan)
 				found_marker = locate(/obj/docking_area_marker) in step_ref
 				if(found_marker)
+					// Okay, we found the corner, let's get the last marker so we know the width.
 					found_marker_count++
 					found_marker = null
 					dir_to_scan = turn(dir_to_scan, 90)
@@ -261,6 +266,7 @@
 						if(found_marker)
 							return
 
+						// These testing blocks visualise what the scanner saw. Placed here so the corners aren't placed, as that's where the markers are.
 						#ifdef TESTING
 						new /obj/docking_area_marker/debug(step_ref)
 						#endif
@@ -278,8 +284,7 @@
 /obj/docking_port/stationary/Initialize(mapload)
 	. = ..()
 
-	// Scan to the right for a docking area marker if width and height are 0.
-	if(!width && !height)
+	if(mapload && !width && !height)
 		scan_markers()
 
 	register()
