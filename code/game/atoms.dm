@@ -1654,7 +1654,7 @@
 
 /// Sets the custom materials for an item.
 /atom/proc/set_custom_materials(list/materials, multiplier = 1)
-	if(custom_materials && material_flags & MATERIAL_EFFECTS) //Only runs if custom materials existed at first and affected src.
+	if(custom_materials && (material_flags & MATERIAL_EFFECTS)) //Only runs if custom materials existed at first and affected src.
 		for(var/current_material in custom_materials)
 			var/datum/material/custom_material = GET_MATERIAL_REF(current_material)
 			custom_material.on_removed(src, custom_materials[current_material] * material_modifier, material_flags) //Remove the current materials
