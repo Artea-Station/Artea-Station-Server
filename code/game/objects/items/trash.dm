@@ -108,7 +108,7 @@
 	resistance_flags = NONE
 	grind_results = list(/datum/reagent/aluminium = 10)
 	pickup_sound = 'sound/items/handling/papercup_pickup.ogg'
-	drop_sound = 'sound/items/handling/metal_drop.ogg'
+	drop_sound = 'sound/items/handling/can_drop.ogg'
 
 /obj/item/trash/can/food/peaches
 	name = "canned peaches"
