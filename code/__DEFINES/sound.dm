@@ -176,6 +176,7 @@ GLOBAL_LIST_INIT(announcer_keys, list(
 #define SFX_SWITCH "switch"
 #define SFX_KEYBOARD "keyboard"
 #define SFX_PDA "pda"
+#define SFX_SMALL_BUTTON "small_button"
 
 #define VOICE_HUMAN_M "Human Male"
 #define VOICE_HUMAN_F "Human Female"

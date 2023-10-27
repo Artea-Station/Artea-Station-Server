@@ -380,6 +380,9 @@
 	. = ..()
 	if(.)
 		return
+
+	playsound(src, SFX_SMALL_BUTTON, 10)
+
 	switch(action)
 		if("frequency")
 			if(freqlock)

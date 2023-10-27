@@ -496,6 +496,13 @@
 				)
 			if(SFX_PDA)
 				soundin = 'sound/machines/pda_click.ogg'
+			if(SFX_SMALL_BUTTON)
+				soundin = pick(
+					'sound/machines/button1.ogg',
+					'sound/machines/button2.ogg',
+					'sound/machines/button3.ogg',
+					'sound/machines/button4.ogg',
+				)
 	return soundin
 
 #undef LOBBYMUSIC_VOLUME
