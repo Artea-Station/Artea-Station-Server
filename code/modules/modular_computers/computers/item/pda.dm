@@ -26,6 +26,9 @@
 	comp_light_luminosity = 2.3 //this is what old PDAs were set to
 	looping_sound = FALSE
 
+	pickup_sound = 'sound/items/handling/device_pickup.ogg'
+	drop_sound = 'sound/items/handling/device_drop.ogg'
+
 	///The item currently inserted into the PDA, starts with a pen.
 	var/obj/item/inserted_item = /obj/item/pen
 

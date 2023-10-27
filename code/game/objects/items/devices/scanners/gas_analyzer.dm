@@ -17,6 +17,8 @@
 	tool_behaviour = TOOL_ANALYZER
 	custom_materials = list(/datum/material/iron=30, /datum/material/glass=20)
 	grind_results = list(/datum/reagent/mercury = 5, /datum/reagent/iron = 5, /datum/reagent/silicon = 5)
+	pickup_sound = 'sound/items/handling/device_pickup.ogg'
+	drop_sound = 'sound/items/handling/device_drop.ogg'
 	var/cooldown = FALSE
 	var/cooldown_time = 250
 	var/barometer_accuracy // 0 is the best accuracy.

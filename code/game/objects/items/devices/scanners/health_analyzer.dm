@@ -22,6 +22,8 @@
 	throw_speed = 3
 	throw_range = 7
 	custom_materials = list(/datum/material/iron=200)
+	pickup_sound = 'sound/items/handling/device_pickup.ogg'
+	drop_sound = 'sound/items/handling/device_drop.ogg'
 	var/mode = SCANNER_VERBOSE
 	var/scanmode = SCANMODE_HEALTH
 	var/advanced = FALSE

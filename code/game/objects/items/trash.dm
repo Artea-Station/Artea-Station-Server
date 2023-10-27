@@ -92,8 +92,8 @@
 	name = "tray"
 	icon_state = "tray"
 	resistance_flags = NONE
-	pickup_sound = 'sound/items/papercup_pickup.ogg'
-	drop_sound = 'sound/items/metal_drop.ogg'
+	pickup_sound = 'sound/items/handling/papercup_pickup.ogg'
+	drop_sound = 'sound/items/handling/metal_drop.ogg'
 
 /obj/item/trash/candle
 	name = "candle"
@@ -107,8 +107,8 @@
 	icon_state = "cola"
 	resistance_flags = NONE
 	grind_results = list(/datum/reagent/aluminium = 10)
-	pickup_sound = 'sound/items/papercup_pickup.ogg'
-	drop_sound = 'sound/items/metal_drop.ogg'
+	pickup_sound = 'sound/items/handling/papercup_pickup.ogg'
+	drop_sound = 'sound/items/handling/metal_drop.ogg'
 
 /obj/item/trash/can/food/peaches
 	name = "canned peaches"

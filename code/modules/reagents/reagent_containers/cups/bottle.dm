@@ -10,8 +10,8 @@
 	possible_transfer_amounts = list(5, 10, 15, 25, 30)
 	volume = 30
 	fill_icon_thresholds = list(0, 1, 20, 40, 60, 80, 100)
-	pickup_sound = 'sound/items/bottle_pickup.ogg'
-	drop_sound = 'sound/items/bottle_drop.ogg'
+	pickup_sound = 'sound/items/handling/bottle_pickup.ogg'
+	drop_sound = 'sound/items/handling/bottle_drop.ogg'
 
 /obj/item/reagent_containers/cup/bottle/Initialize(mapload)
 	. = ..()
