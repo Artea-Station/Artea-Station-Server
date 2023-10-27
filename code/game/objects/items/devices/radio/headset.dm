@@ -113,6 +113,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	desc = "A syndicate headset that can be used to hear all radio frequencies. Protects ears from flashbangs."
 	icon_state = "syndie_headset"
 	inhand_icon_state = "syndie_headset"
+	radio_sound = 'sound/items/radio/syndie.ogg'
 
 /obj/item/radio/headset/syndicate/alt/Initialize(mapload)
 	. = ..()
@@ -135,6 +136,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	desc = "This is used by your elite security force."
 	icon_state = "sec_headset"
 	keyslot = new /obj/item/encryptionkey/headset_sec
+	radio_sound = 'sound/items/radio/security.ogg'
 
 /obj/item/radio/headset/headset_sec/alt
 	name = "security bowman headset"

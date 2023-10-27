@@ -73,6 +73,7 @@
 	var/list/channels
 	/// associative list of the encrypted radio channels this radio can listen/broadcast to, of the form: list(channel name = channel frequency)
 	var/list/secure_radio_connections
+	var/radio_sound = 'sound/items/radio/common.ogg'
 
 /obj/item/radio/Initialize(mapload)
 	wires = new /datum/wires/radio(src)
@@ -282,10 +283,12 @@
 		signal.transmission_method = TRANSMISSION_SUPERSPACE
 		signal.levels = list(0)
 		signal.broadcast()
+		playsound(src, radio_sound, 25, ignore_walls = FALSE)
 		return
 
 	// All radios make an attempt to use the subspace system first
 	signal.send_to_receivers()
+	playsound(src, radio_sound, 25, ignore_walls = FALSE)
 
 	// If the radio is subspace-only, that's all it can do
 	if (subspace_transmission)
