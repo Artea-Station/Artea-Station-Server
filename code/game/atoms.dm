@@ -362,7 +362,7 @@
 	if(atom_storage)
 		QDEL_NULL(atom_storage)
 
-	atom_storage = new type(src, max_slots, max_specific_storage, max_total_storage, numerical_stacking, allow_quick_gather, collection_mode, attack_hand_interact, rustle_sound)
+	atom_storage = new type(src, max_slots, max_specific_storage, max_total_storage, numerical_stacking, allow_quick_gather, allow_quick_empty, collection_mode, attack_hand_interact, rustle_sound)
 
 	if(canhold || canthold)
 		atom_storage.set_holdable(canhold, canthold)
