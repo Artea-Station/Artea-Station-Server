@@ -13,6 +13,8 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 50, FIRE = 0, ACID = 0)
 	slowdown = SHOES_SLOWDOWN
 	strip_delay = 1 SECONDS
+	drop_sound = 'sound/items/handling/shoes_drop.ogg'
+	pickup_sound = 'sound/items/handling/shoes_pickup.ogg'
 	var/offset = 0
 	var/equipped_before_drop = FALSE
 	///Whether these shoes have laces that can be tied/untied

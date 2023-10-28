@@ -5,6 +5,8 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
 	integrity_failure = 0.4
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound = 'sound/items/handling/cloth_pickup.ogg'
 	var/damaged_clothes = CLOTHING_PRISTINE //similar to machine's BROKEN stat and structure's broken var
 
 	///What level of bright light protection item has.
