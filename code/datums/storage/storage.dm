@@ -55,8 +55,8 @@
 
 	/// don't show any chat messages regarding inserting items
 	var/silent = FALSE
-	/// play a rustling sound when interacting with the bag
-	var/rustle_sound = TRUE
+	/// set to a sound to play a sound on open, if falsey, don't play anything at all
+	var/rustle_sound
 
 	/// alt click takes an item out instead of opening up storage
 	var/quickdraw = FALSE
@@ -81,7 +81,7 @@
 
 	var/datum/weakref/modeswitch_action_ref
 
-/datum/storage/New(atom/parent, max_slots, max_specific_storage, max_total_storage, numerical_stacking, allow_quick_gather, allow_quick_empty, collection_mode, attack_hand_interact)
+/datum/storage/New(atom/parent, max_slots, max_specific_storage, max_total_storage, numerical_stacking, allow_quick_gather, allow_quick_empty, collection_mode, attack_hand_interact, rustle_sound)
 	boxes = new(null, src)
 	closer = new(null, src)
 
@@ -95,6 +95,7 @@
 	src.allow_quick_empty = allow_quick_empty || src.allow_quick_empty
 	src.collection_mode = collection_mode || src.collection_mode
 	src.attack_hand_interact = attack_hand_interact || src.attack_hand_interact
+	src.rustle_sound = rustle_sound || src.rustle_sound
 
 	var/atom/resolve_parent = src.parent?.resolve()
 	var/atom/resolve_location = src.real_location?.resolve()
@@ -452,7 +453,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return
 
 	if(rustle_sound)
-		playsound(resolve_parent, SFX_RUSTLE, 50, TRUE, -5)
+		playsound(resolve_parent, rustle_sound, 50, TRUE, -5)
 
 	to_chat(user, span_notice("You put [thing] [insert_preposition]to [resolve_parent]."))
 
@@ -486,7 +487,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		thing.forceMove(newLoc)
 
 		if(rustle_sound && !silent)
-			playsound(resolve_parent, SFX_RUSTLE, 50, TRUE, -5)
+			playsound(resolve_parent, rustle_sound, 50, TRUE, -5)
 	else
 		thing.moveToNullspace()
 
@@ -721,7 +722,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		to_chat(user, span_notice("You dump the contents of [resolve_parent] into [dest_object]."))
 
 		if(rustle_sound)
-			playsound(resolve_parent, SFX_RUSTLE, 50, TRUE, -5)
+			playsound(resolve_parent, rustle_sound, 50, TRUE, -5)
 
 		for(var/obj/item/to_dump in resolve_location)
 			if(to_dump.loc != resolve_location)
@@ -944,7 +945,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 			animate_parent()
 
 		if(rustle_sound)
-			playsound(resolve_parent, SFX_RUSTLE, 50, TRUE, -5)
+			playsound(resolve_parent, rustle_sound, 50, TRUE, -5)
 
 		return TRUE
 
