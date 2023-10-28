@@ -7,6 +7,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/briefcase_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	req_access = list(ACCESS_ARMORY)
+	rustle_sound = 'sound/items/storage/metal_box.ogg'
 	var/broken = FALSE
 	var/open = FALSE
 	var/icon_locked = "lockbox+l"

@@ -7,12 +7,11 @@
 	/// BE CAREFUL, THERE'S SOME REALLY NASTY SHIT IN THIS TYPEPATH
 	/// SANTA IS EVIL
 	var/preload = FALSE
-	var/rustle_sound = SFX_RUSTLE
 
 /obj/item/storage/Initialize(mapload)
 	. = ..()
 
-	create_storage(rustle_sound = src.rustle_sound)
+	create_storage()
 
 	PopulateContents()
 
