@@ -503,6 +503,17 @@
 					'sound/machines/button3.ogg',
 					'sound/machines/button4.ogg',
 				)
+			if(SFX_GENERIC_PICKUP)
+				soundin = pick(
+					'sound/items/handling/generic_pickup1.ogg',
+					'sound/items/handling/generic_pickup2.ogg',
+					'sound/items/handling/generic_pickup3.ogg',
+				)
+			if(SFX_GENERIC_DROP)
+				soundin = pick(
+					'sound/items/handling/generic_drop1.ogg',
+					'sound/items/handling/generic_drop2.ogg',
+				)
 	return soundin
 
 #undef LOBBYMUSIC_VOLUME

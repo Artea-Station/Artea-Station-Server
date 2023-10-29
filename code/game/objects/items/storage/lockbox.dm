@@ -96,6 +96,8 @@
 	icon_locked = "medalbox+l"
 	icon_closed = "medalbox"
 	icon_broken = "medalbox+b"
+	drop_sound = 'sound/items/handling/metal_drop.ogg'
+	pickup_sound = 'sound/items/handling/metal_pickup.ogg'
 
 /obj/item/storage/lockbox/medal/Initialize(mapload)
 	. = ..()

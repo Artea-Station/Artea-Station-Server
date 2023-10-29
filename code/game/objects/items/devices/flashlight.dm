@@ -17,6 +17,8 @@
 	light_range = 4
 	light_power = 1
 	light_on = FALSE
+	pickup_sound = 'sound/items/handling/device_pickup.ogg'
+	drop_sound = 'sound/items/handling/device_drop.ogg'
 	var/on = FALSE
 
 
