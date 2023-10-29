@@ -343,16 +343,6 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
 
-/datum/design/board/bountypad_control
-	name = "Civilian Bounty Pad Control Board"
-	desc = "Allows for the construction of circuit boards used to build a new civilian bounty pad console."
-	id = "bounty_pad_control"
-	build_path = /obj/item/circuitboard/computer/bountypad
-	category = list(
-		RND_CATEGORY_COMPUTER + RND_SUBCATEGORY_COMPUTER_CARGO
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
-
 /datum/design/board/exoscanner_console
 	name = "Scanner Array Control Console Board"
 	desc = "Allows for the construction of circuit boards used to build a new scanner array control console."

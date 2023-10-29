@@ -327,13 +327,19 @@
 	name = "Salvage Pod Recall"
 	build_path = /obj/machinery/computer/shuttle/white_ship/pod/recall
 
-/obj/item/circuitboard/computer/bountypad
-	name = "Bounty Pad"
-	build_path = /obj/machinery/computer/piratepad_control/civilian
-
 /obj/item/circuitboard/computer/terminal
 	name = "Terminal"
 	build_path = /obj/machinery/computer/terminal
+
+/datum/design/board/trade_console
+	name = "Trade Console Board"
+	desc = "The circuit board for a Trade Console."
+	id = "trade_console"
+	build_path = /obj/item/circuitboard/computer/trade_console
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CARGO
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_CARGO
 
 //Medical
 
