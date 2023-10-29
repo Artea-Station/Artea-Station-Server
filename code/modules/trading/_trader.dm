@@ -7,8 +7,6 @@
 	var/list/possible_origins
 	/// A list of possible names he'll have
 	var/list/possible_names
-	/// Current disposition. The merchant may close communications if it's too low
-	var/disposition = 0
 	/// All the flags of the merchant, currently only if they buy or sell goods, and if they can trade at all.
 	var/trade_flags = TRADER_MONEY|TRADER_SELLS_GOODS|TRADER_BUYS_GOODS
 	/// The hub they belong to
@@ -27,14 +25,8 @@
 
 	/// A percentage of the price variance on all sold and bought goods
 	var/price_variance = 20
-	/// How much more items are valuable to the merchant for purchasing (in %)
-	var/buy_margin = 1
-	/// How much more items are expensive for the users to purchase (in %)
+	/// How much more items are expensive for the users to purchase (in %) Note: Traders should be cheaper than galactic imports.
 	var/sell_margin = 1.10
-	/// Amount of disposition gained per each trade
-	var/disposition_per_trade = 3
-	/// Amount of disposition lost per each rejection
-	var/disposition_per_reject = 3
 
 	/// Whether the trader rotates stock or not
 	var/rotates_stock = TRUE
@@ -76,8 +68,6 @@
 // TRUE to accept hail, FALSE to reject it. Speciest traders could reject hails from some species, or from cyborgs
 // This will also be called every interaction, and may shut down the comms, last response will be the close reason
 /datum/trader/proc/get_hailed(mob/user, obj/machinery/computer/trade_console/console)
-	if(disposition <= TRADER_DISPOSITION_REJECT_HAILS)
-		return FALSE
 	return TRUE
 
 /datum/trader/proc/get_matching_bought_datum(atom/movable/AM)
@@ -113,7 +103,6 @@
 	total_value *= TRADE_BARTER_EXTRA_MARGIN
 	if(total_value < goodie.cost)
 		//Not enough value
-		disposition -= disposition_per_reject
 		. = get_response("trade_not_enough", "It's definetly worth more than that", user)
 	else
 		//Successfully bartered
@@ -127,7 +116,6 @@
 			goodie.current_stock--
 		var/destination_turf = get_turf(console.linked_pad)
 		goodie.spawn_item(destination_turf)
-		disposition += disposition_per_trade
 		console.linked_pad.do_teleport_effect()
 		AfterTrade(user,console)
 		console.write_manifest(src, bartered_items, "[bartered_item_count] total", total_value, TRUE, user.name)
@@ -158,7 +146,6 @@
 	console.inserted_id.registered_account.adjust_money(proposed_cost)
 	current_credits -= proposed_cost
 	console.write_manifest(src, goodie.name, goodie.GetAmount(chosen_item), proposed_cost, TRUE, user.name)
-	disposition += disposition_per_trade
 	return get_response("trade_complete", "Thanks for your business!", user)
 
 /datum/trader/proc/requested_buy(mob/user, obj/machinery/computer/trade_console/console, datum/sold_goods/goodie, haggled_price)
@@ -180,7 +167,6 @@
 	console.linked_pad.do_teleport_effect()
 	AfterTrade(user,console)
 	console.write_manifest(src, goodie.name, 1, proposed_cost, FALSE, user.name)
-	disposition += disposition_per_trade
 	return get_response("trade_complete", "Thanks for your business!", user)
 
 /datum/trader/proc/get_appraisal(mob/user, obj/machinery/computer/trade_console/console)
@@ -241,7 +227,6 @@
 	valid_items = null
 	current_credits -= total_value
 	console.inserted_id.registered_account.adjust_money(total_value)
-	disposition += disposition_per_trade*item_count
 	console.linked_pad.do_teleport_effect()
 	AfterTrade(user,console)
 	console.write_manifest(src, conjoined_string, "[conjoined_amount] total", total_value, TRUE, user.name)
