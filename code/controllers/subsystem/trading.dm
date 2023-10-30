@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(trading)
 	name = "Trading"
-	init_order = INIT_ORDER_MAPPING - 1 //Always after mapping
+	init_order = INIT_ORDER_TRADING
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	wait = 5 MINUTES
 	///List of all trade hubs

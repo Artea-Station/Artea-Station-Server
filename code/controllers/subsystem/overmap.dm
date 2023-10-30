@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(overmap)
 	name = "Overmap"
-	init_order = INIT_ORDER_MAPPING + 1 //Always before mapping
+	init_order = INIT_ORDER_OVERMAP
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	wait = 0.5 SECONDS
 	flags = SS_NO_INIT
