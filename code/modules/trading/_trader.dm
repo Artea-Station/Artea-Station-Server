@@ -7,8 +7,6 @@
 	var/list/possible_origins
 	/// A list of possible names he'll have
 	var/list/possible_names
-	/// All the flags of the merchant, currently only if they buy or sell goods, and if they can trade at all.
-	var/trade_flags = TRADER_MONEY|TRADER_SELLS_GOODS|TRADER_BUYS_GOODS
 	/// The hub they belong to
 	var/datum/trade_hub/hub
 	/// List of sold good datums. Defined by types, on initialization they'll turn into refs to their objects.
@@ -18,10 +16,7 @@
 	/// A list of connected trade consoles, in case the trader is destroyed we want to disconnect the consoles
 	var/list/connected_consoles = list()
 
-	/// Whether he refuses comms or not
-	var/refuses_comms = FALSE
-
-	/// A percentage of the price variance on all sold and bought goods
+	/// A percentage of the price variance on all sold goods
 	var/price_variance = 20
 	/// How much more items are expensive for the users to purchase (in %) Note: Traders should be cheaper than galactic imports.
 	var/sell_margin = 1.10
@@ -57,6 +52,8 @@
 
 	/// An associative list of unique responses
 	var/list/speech
+
+	/// A runtime assigned ID.
 	var/id
 
 // For the traders to override and do some special interactions after trading
@@ -72,8 +69,6 @@
 	var/proposed_cost = goodie.cost
 	if(!goodie.current_stock)
 		return get_response("out_of_stock", "I'm afraid I don't have any more of these!", user)
-	if(!(trade_flags & TRADER_MONEY))
-		return get_response("doesnt_use_cash", "I have no need for cash. Offer me some goods!", user)
 	if(!console.inserted_id.registered_account.adjust_money(-proposed_cost))
 		return get_response("user_no_money", "You can't afford this", user)
 

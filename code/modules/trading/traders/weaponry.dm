@@ -1,6 +1,5 @@
 /datum/trader/gunshop
 	name = "Gun Shop Employee"
-	trade_flags = TRADER_MONEY|TRADER_SELLS_GOODS
 	possible_origins = list("Rooty Tootie's Point-n-Shooties", "Bang-Bang Shop", "Wild Wild West Shop", "Keleshnikov", "Hunting Depot", "Big Game Hunters")
 	speech = list("hail"    = "Hello, hello! I hope you have your permit. Oh, who are we kidding, you're welcome anyway!",
 				"hail_deny"         = "Store policy dictates that you can fuck off.",
@@ -31,7 +30,6 @@
 
 /datum/trader/egunshop
 	name = "Energy Gun Shop Employee"
-	trade_flags = TRADER_MONEY|TRADER_SELLS_GOODS
 	possible_origins = list("The Emperor's Lasgun Shop", "Future Guns", "Solar Army", "Kiefer's Dependable Electric Arms", "Olympus Kingsport")
 	speech = list("hail"    = "Welcome to the future of warfare! ORIGIN, your one-stop shop for energy weaponry!",
 				"hail_deny"         = "I'm sorry, your communication channel has been blacklisted.",

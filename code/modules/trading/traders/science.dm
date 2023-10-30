@@ -1,6 +1,5 @@
 /datum/trader/scrapper
 	name = "Scrappers"
-	trade_flags = TRADER_MONEY|TRADER_SELLS_GOODS
 	possible_origins = list("Scrappers-R-Us", "Scrap-Mart", "Scrap-U")
 	speech = list(
 		"hail" = "Welcome to ORIGIN! Let me walk you through our fine scrap selection! Pah, we got this junk from somewhere out in space.",

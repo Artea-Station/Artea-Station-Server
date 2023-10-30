@@ -24,7 +24,6 @@
 
 /datum/trader/electronics
 	name = "Electronic Shop Employee"
-	trade_flags = TRADER_MONEY|TRADER_SELLS_GOODS
 	possible_origins = list("Best Sale", "Overstore", "Oldegg", "Circuit Citadel", "Silicon Village", "Positronic Solutions LLC", "Sunvolt Inc.")
 	speech = list("hail"    = "Hello, sir! Welcome to ORIGIN, I hope you find what you are looking for.",
 				"hail_deny"         = "Your call has been disconnected.",
@@ -56,8 +55,7 @@
 		)
 
 /datum/trader/devices
-	name = "Convinince Store Employee"
-	trade_flags = TRADER_MONEY|TRADER_SELLS_GOODS
+	name = "Convenience Store Employee"
 	possible_origins = list("Buy 'n Save", "3 Bucks A Tool", "C&B", "Fentles", "Dr. Goods", "Beevees", "McGillicuddy's")
 	speech = list("hail"    = "Hello, hello! Bits and bobs and everything in between, I hope you find what you're looking for!",
 				"hail_silicon"      = "Ah! Hello, robot. We only sell things that, ah.... people can hold in their hands, unfortunately. You are still allowed to buy, though!",
@@ -103,7 +101,6 @@
 
 /datum/trader/robots
 	name = "Robot Seller"
-	trade_flags = TRADER_MONEY|TRADER_SELLS_GOODS
 	possible_origins = list("AI for the Straight Guy", "Mechanical Buddies", "Bot Chop Shop", "Omni Consumer Projects")
 	speech = list("hail" = "Welcome to ORIGIN! Let me walk you through our fine robotic selection!",
 				"hail_silicon"   = "Welcome to ORIGIN! Let- oh, you're a cyborg! Well, your money is good anyway. Welcome, welcome!",
@@ -279,7 +276,6 @@
 
 /datum/trader/atmospherics
 	name = "Atmospheric Shop Employee"
-	trade_flags = TRADER_MONEY|TRADER_SELLS_GOODS
 	possible_origins = list("Fill Up Tanker", "Gasser'up", "Tank Topper", "Uncle Joe's Jenkem Emporium")
 	sold_goods = list(
 		/datum/sold_goods/belt/plasma,

@@ -1,7 +1,6 @@
 /datum/trader/pizzaria
 	name = "Pizza Shop Employee"
 	possible_origins = list("Papa Joe's", "Pizza Ship", "Dominator Pizza", "Little Kaezars", "Pizza Planet", "Cheese Louise", "Pizza Police")
-	trade_flags = TRADER_MONEY|TRADER_SELLS_GOODS|TRADER_BUYS_GOODS
 	speech = list("hail"    = "Hello! Welcome to ORIGIN, may I take your order?",
 				"hail_deny"         = "Beeeep... I'm sorry, your connection has been severed.",
 
@@ -38,7 +37,6 @@
 /datum/trader/chinese
 	name = "Chinese Restaurant"
 	possible_origins = list("Captain Panda Bistro", "888 Shanghai Kitchen", "Mr. Lee's Greater Hong Kong", "The House of the Venerable and Inscrutable Colonel", "Lucky Dragon")
-	trade_flags = TRADER_MONEY|TRADER_SELLS_GOODS|TRADER_BUYS_GOODS
 	speech = list("hail"     = "There are two things constant in life, death and Chinese food. How may I help you?",
 				"hail_deny"          = "We do not take orders from rude customers.",
 
@@ -93,7 +91,6 @@
 /datum/trader/farmer
 	name = "Farming Apprentice"
 	possible_origins = list("Uncle Ben's", "Manure Mounds", "Farmzilla", "Pepperidge Farms", "Johnson's Grand Animal Emporium", "Feral Farms")
-	trade_flags = TRADER_MONEY|TRADER_SELLS_GOODS|TRADER_BUYS_GOODS
 	speech = list(
 		"hail" = "Hello! Welcome to ORIGIN, may I take your order?",
 		"hail_deny" = "Beeeep... I'm sorry, your connection has been severed.",
