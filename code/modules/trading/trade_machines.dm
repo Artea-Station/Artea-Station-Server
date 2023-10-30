@@ -269,9 +269,12 @@
 			if(trader)
 				connect_trader(trader, ui.user)
 				write_log("Connected to trader [trader.name]")
-		if("buy") // This code fucking hurts me. Don't look in requested_buy, don't look.
+		if("buy")
 			if(!inserted_id)
 				say("No ID detected.")
+				return
+			if(!inserted_id.registered_account)
+				say("No bank account detected.")
 				return
 			if(!linked_pad)
 				say("Please connect a trade tele-pad before conducting in trade.")

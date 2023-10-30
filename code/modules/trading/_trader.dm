@@ -68,7 +68,7 @@
 /datum/trader/proc/get_hailed(mob/user, obj/machinery/computer/trade_console/console)
 	return TRUE
 
-/datum/trader/proc/requested_buy(mob/user, obj/machinery/computer/trade_console/console, datum/sold_goods/goodie, haggled_price)
+/datum/trader/proc/requested_buy(mob/user, obj/machinery/computer/trade_console/console, datum/sold_goods/goodie)
 	var/proposed_cost = goodie.cost
 	if(!goodie.current_stock)
 		return get_response("out_of_stock", "I'm afraid I don't have any more of these!", user)
