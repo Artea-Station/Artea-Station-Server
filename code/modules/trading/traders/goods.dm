@@ -21,10 +21,6 @@
 		/datum/sold_goods/foamforce_pistols,
 		/datum/sold_goods/toy_crate
 		)
-	bought_goods = list(
-		/datum/bought_goods/toys,
-		/datum/bought_goods/toy_figures
-		)
 
 /datum/trader/electronics
 	name = "Electronic Shop Employee"
@@ -161,10 +157,6 @@
 		/datum/sold_goods/space_carp,
 		/datum/sold_goods/goliath
 		)
-	bought_goods = list(
-		/datum/bought_goods/space_carp,
-		/datum/bought_goods/goliath
-		)
 	possible_supplies_bounties = list(
 		/datum/trader_bounty/food_supplies = 100,
 		/datum/trader_bounty/medical_supplies = 100
@@ -208,12 +200,6 @@
 		/datum/sold_goods/mesh,
 		/datum/sold_goods/medical_supplies
 		)
-	bought_goods = list(
-		/datum/bought_goods/liver,
-		/datum/bought_goods/lungs,
-		/datum/bought_goods/heart,
-		/datum/bought_goods/reagent/meth
-		)
 	possible_deliveries = list(
 		/datum/delivery_run/medical_supplies_delivery = 100,
 		/datum/delivery_run/delicate_biological_matter = 50
@@ -242,15 +228,6 @@
 				"compliment_accept" = "Thank you.",
 				"insult_good"       = "Alright, we will reconsider the terms.",
 				"insult_bad"        = "This is not acceptable, please cease.")
-
-	bought_goods = list(
-		/datum/bought_goods/stack/iron,
-		/datum/bought_goods/stack/silver,
-		/datum/bought_goods/stack/gold,
-		/datum/bought_goods/stack/uranium,
-		/datum/bought_goods/stack/plasma,
-		/datum/bought_goods/stack/diamond
-		)
 	sold_goods = list(
 		/datum/sold_goods/stack/iron_ten,
 		/datum/sold_goods/stack/glass_ten,
@@ -274,7 +251,6 @@
 /datum/trader/petshop
 	name = "Pet Shop Employee"
 	possible_origins = list("Fuzzy Wuzzy's", "Alley Cats", "Happy Paws", "All 4 Pets", "Fins & Gills", "Pick Me!", "Stylish Whiskers")
-	bought_goods = list(/datum/bought_goods/pets)
 	sold_goods = list(
 		/datum/sold_goods/corgi,
 		/datum/sold_goods/fox,
@@ -287,12 +263,6 @@
 /datum/trader/archeology
 	name = "Artifact Shop Employee"
 	possible_origins = list("Jungle Relics", "Atlantis", "Fossilized Monsters", "Secrets of the Earth")
-	bought_goods = list(
-		/datum/bought_goods/fossil,
-		/datum/bought_goods/excavation_junk,
-		/datum/bought_goods/excavation_artifact,
-		/datum/bought_goods/anomalous_crystal
-		)
 	sold_goods = list(
 		/datum/sold_goods/excavation_pick_set,
 		/datum/sold_goods/excavation_measuring_tape,

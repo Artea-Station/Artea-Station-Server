@@ -13,8 +13,6 @@
 	var/datum/trade_hub/hub
 	/// List of sold good datums. Defined by types, on initialization they'll turn into refs to their objects.
 	var/list/sold_goods = list()
-	/// List of bought goods datums. Defined by types, on initialization they'll turn into refs to their objects.
-	var/list/bought_goods = list()
 	/// Cash they hold, they won't be able to pay out if it gets too low
 	var/current_credits = DEFAULT_TRADER_CREDIT_AMOUNT
 	/// A list of connected trade consoles, in case the trader is destroyed we want to disconnect the consoles
@@ -70,84 +68,6 @@
 /datum/trader/proc/get_hailed(mob/user, obj/machinery/computer/trade_console/console)
 	return TRUE
 
-/datum/trader/proc/get_matching_bought_datum(atom/movable/AM)
-	for(var/datum/bought_goods/goodie as anything in bought_goods)
-		if(goodie.Validate(AM) && goodie.CheckAmount(AM))
-			return goodie
-
-/datum/trader/proc/requested_barter(mob/user, obj/machinery/computer/trade_console/console, datum/sold_goods/goodie)
-	if(!goodie.current_stock)
-		return get_response("out_of_stock", "I'm afraid I don't have any more of these!", user)
-	//Now we need to figure out how much the items have in value
-	var/list/items_on_pad = console.linked_pad.get_valid_items()
-	if(!length(items_on_pad))
-		return get_response("pad_empty", "There's nothing on the pad...", user)
-	var/total_value = 0
-	var/list/valid_items = list()
-
-	var/bartered_items
-	var/bartered_item_count = 0
-
-	for(var/i in items_on_pad)
-		var/atom/movable/AM = i
-		var/datum/bought_goods/bought_goodie = get_matching_bought_datum(AM)
-		if(bought_goodie)
-			total_value += bought_goodie.GetCost(AM)
-			valid_items += AM
-			if(!bartered_items)
-				bartered_items = "[bought_goodie.name]"
-			else
-				bartered_items += ", [bought_goodie.name]"
-			bartered_item_count += bought_goodie.GetAmount(AM)
-
-	total_value *= TRADE_BARTER_EXTRA_MARGIN
-	if(total_value < goodie.cost)
-		//Not enough value
-		. = get_response("trade_not_enough", "It's definetly worth more than that", user)
-	else
-		//Successfully bartered
-		for(var/i in valid_items)
-			var/atom/movable/AM = i
-			qdel(AM)
-
-		. = get_response("trade_complete", "Thanks for your business!", user)
-
-		if(goodie.current_stock != -1)
-			goodie.current_stock--
-		var/destination_turf = get_turf(console.linked_pad)
-		goodie.spawn_item(destination_turf)
-		console.linked_pad.do_teleport_effect()
-		AfterTrade(user,console)
-		console.write_manifest(src, bartered_items, "[bartered_item_count] total", total_value, TRUE, user.name)
-		console.write_manifest(src, goodie.name, 1, total_value, FALSE, user.name)
-
-/datum/trader/proc/requested_sell(mob/user, obj/machinery/computer/trade_console/console, datum/bought_goods/goodie)
-	if(!(trade_flags & TRADER_MONEY))
-		return get_response("only_deal_in_goods", "I only deal in goods, come and barter!", user)
-	var/list/items_on_pad = console.linked_pad.get_valid_items()
-	var/atom/movable/chosen_item
-	var/item_value
-	for(var/i in items_on_pad)
-		var/atom/movable/AM = i
-		if(goodie.Validate(AM) && goodie.CheckAmount(AM))
-			chosen_item = AM
-			item_value = goodie.GetCost(AM)
-			break
-	items_on_pad = null
-	if(!chosen_item)
-		return get_response("trade_found_unwanted", "I'm not interested in these kinds of items!", user)
-	var/proposed_cost = item_value
-	if(current_credits < proposed_cost)
-		return get_response("out_of_money", "Sorry, I've ran out of credits.", user)
-	goodie.SubtractAmount(chosen_item)
-	qdel(chosen_item)
-	console.linked_pad.do_teleport_effect()
-	AfterTrade(user,console)
-	console.inserted_id.registered_account.adjust_money(proposed_cost)
-	current_credits -= proposed_cost
-	console.write_manifest(src, goodie.name, goodie.GetAmount(chosen_item), proposed_cost, TRUE, user.name)
-	return get_response("trade_complete", "Thanks for your business!", user)
-
 /datum/trader/proc/requested_buy(mob/user, obj/machinery/computer/trade_console/console, datum/sold_goods/goodie, haggled_price)
 	var/proposed_cost = goodie.cost
 	if(!goodie.current_stock)
@@ -167,69 +87,6 @@
 	console.linked_pad.do_teleport_effect()
 	AfterTrade(user,console)
 	console.write_manifest(src, goodie.name, 1, proposed_cost, FALSE, user.name)
-	return get_response("trade_complete", "Thanks for your business!", user)
-
-/datum/trader/proc/get_appraisal(mob/user, obj/machinery/computer/trade_console/console)
-	var/list/items_on_pad = console.linked_pad.get_valid_items()
-	if(!length(items_on_pad))
-		return get_response("pad_empty", "There's nothing on the pad...", user)
-	var/last_item_name
-	var/item_count = 0
-	var/total_value = 0
-
-	for(var/i in items_on_pad)
-		var/atom/movable/AM = i
-		var/datum/bought_goods/goodie = get_matching_bought_datum(AM)
-		if(goodie)
-			item_count++
-			total_value += goodie.GetCost(AM)
-			last_item_name = AM.name
-
-	if(!item_count)
-		return get_response("trade_found_unwanted", "I'm not interested in these kinds of items!", user)
-	if(item_count == 1)
-		. = get_response("how_much", "For this ITEM I'm willing to pay VALUE credits.", user)
-		. = replacetext(., "ITEM", last_item_name)
-	else
-		. = get_response("how_much", "For those items I'm willing to pay VALUE credits.", user)
-	. = replacetext(., "VALUE", "[total_value]")
-
-/datum/trader/proc/sell_all_on_pad(mob/user, obj/machinery/computer/trade_console/console)
-	var/list/items_on_pad = console.linked_pad.get_valid_items()
-	if(!length(items_on_pad))
-		return get_response("pad_empty", "There's nothing on the pad...", user)
-	var/item_count = 0
-	var/total_value = 0
-	var/conjoined_amount = 0
-	var/conjoined_string
-	var/list/valid_items = list()
-	for(var/i in items_on_pad)
-		var/atom/movable/AM = i
-		var/datum/bought_goods/goodie = get_matching_bought_datum(AM)
-		if(goodie)
-			item_count++
-			total_value += goodie.GetCost(AM)
-			goodie.SubtractAmount(AM)
-			valid_items += AM
-			if(!conjoined_string)
-				conjoined_string = "[goodie.name]"
-			else
-				conjoined_string += ", [goodie.name]"
-			conjoined_amount += goodie.GetAmount(AM)
-
-	if(!item_count)
-		return get_response("trade_found_unwanted", "I'm not interested in these kinds of items!", user)
-	if(current_credits < total_value)
-		return get_response("out_of_money", "I'm afraid I don't have enough cash!", user)
-	for(var/i in valid_items)
-		var/atom/movable/AM = i
-		qdel(AM)
-	valid_items = null
-	current_credits -= total_value
-	console.inserted_id.registered_account.adjust_money(total_value)
-	console.linked_pad.do_teleport_effect()
-	AfterTrade(user,console)
-	console.write_manifest(src, conjoined_string, "[conjoined_amount] total", total_value, TRUE, user.name)
 	return get_response("trade_complete", "Thanks for your business!", user)
 
 /datum/trader/proc/requested_bounty_claim(mob/user, obj/machinery/computer/trade_console/console, datum/trader_bounty/bounty)
@@ -345,11 +202,6 @@
 		for(var/type_to_init in sold_goods)
 			sold_good_init += new type_to_init(TRADER_COST_MACRO(sell_margin,price_variance))
 		sold_goods = sold_good_init
-	if(bought_goods)
-		var/list/bought_goods_init = list()
-		for(var/type_to_init in bought_goods)
-			bought_goods_init += new type_to_init(TRADER_COST_MACRO(sell_margin,price_variance))
-		bought_goods = bought_goods_init
 
 /datum/trader/proc/GainNormalBounty()
 	if(!possible_bounties || current_bounty)
@@ -396,29 +248,16 @@
 				goodie.current_stock = goodie.stock
 				if(prob(TRADER_RESTOCK_ESCAPE_CHANCE)) //Chance that it's the end of restocking for this tick
 					break
-	// Restock some bought goodies
-	if(bought_goods)
-		for(var/datum/bought_goods/goodie as anything in bought_goods)
-			if(isnull(goodie.stock))
-				continue
-			var/percentage_remaining = goodie.amount / goodie.stock
-			if(percentage_remaining <= TRADER_RESTOCK_THRESHOLD)
-				goodie.amount = goodie.stock
-				if(prob(TRADER_RESTOCK_ESCAPE_CHANCE)) //Chance that it's the end of restocking for this tick
-					break
 
 #undef TRADER_RESTOCK_ESCAPE_CHANCE
 
 /datum/trader/proc/RemoveAllStock()
 	for(var/goodie in sold_goods)
 		qdel(goodie)
-	for(var/goodie in bought_goods)
-		qdel(goodie)
 
 /datum/trader/Destroy()
 	RemoveAllStock()
 	sold_goods = null
-	bought_goods = null
 
 	for(var/i in connected_consoles)
 		var/obj/machinery/computer/trade_console/console = i

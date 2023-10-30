@@ -23,13 +23,6 @@
 		/datum/sold_goods/pizzabox/meat,
 		/datum/sold_goods/pizzabox/pineapple
 		)
-	bought_goods = list(
-		/datum/bought_goods/dough,
-		/datum/bought_goods/tomato,
-		/datum/bought_goods/cheesewheels,
-		/datum/bought_goods/chanterelle,
-		/datum/bought_goods/pineapple
-		)
 	delivery_gain_chance = 35
 	possible_deliveries = list(
 		/datum/delivery_run/food_delivery/pizza = 100
@@ -65,11 +58,6 @@
 		/datum/sold_goods/monkeysoup,
 		/datum/sold_goods/ricepudding,
 		/datum/sold_goods/cupramen
-		)
-	bought_goods = list(
-		/datum/bought_goods/carpmeat,
-		/datum/bought_goods/cabbage,
-		/datum/bought_goods/batter
 		)
 	delivery_gain_chance = 35
 	possible_deliveries = list(
@@ -130,11 +118,6 @@
 		/datum/sold_goods/corn,
 		/datum/sold_goods/pumpkin,
 		/datum/sold_goods/food_supplies
-		)
-	bought_goods = list(
-		/datum/bought_goods/eggs,
-		/datum/bought_goods/produce,
-		/datum/bought_goods/logs
 		)
 	possible_bounties = list(
 		/datum/trader_bounty/reagent/fertilizer_shortage = 100

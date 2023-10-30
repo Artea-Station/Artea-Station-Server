@@ -231,20 +231,10 @@
 				"reward" = delivery_run.reward_cash,
 			))
 			index += 1
-		index = 1
-		for(var/datum/bought_goods/bought_goods as anything in connected_trader.bought_goods)
-			buying += list(list(
-				"name" = bought_goods.name,
-				"index" = index,
-				"cost" = bought_goods.cost,
-				"amount" = bought_goods.stock,
-			))
-			index += 1
 		data["connected_trader"] = list(
 			"name" = connected_trader.name,
 			"id" = connected_trader.id,
 			"trades" = trades,
-			"buying" = buying,
 			"bounties" = bounties,
 			"deliveries" = deliveries,
 		)
@@ -291,46 +281,6 @@
 				return
 			var/datum/sold_goods/goodie = connected_trader.sold_goods[index]
 			last_transmission = connected_trader.requested_buy(ui.user, src, goodie)
-		if("barter") // This code fucking hurts me. Don't look in requested_buy, don't look.
-			if(!inserted_id)
-				say("No ID detected.")
-				return
-			if(!linked_pad)
-				say("Please connect a trade tele-pad before conducting in trade.")
-				return
-			var/index = text2num(params["index"])
-			if(connected_trader.sold_goods.len < index)
-				return
-			var/datum/sold_goods/goodie = connected_trader.sold_goods[index]
-			last_transmission = connected_trader.requested_barter(ui.user, src, goodie)
-		if("sell")
-			if(!inserted_id)
-				say("No ID detected.")
-				return
-			if(!linked_pad)
-				say("Please connect a trade tele-pad before conducting in trade.")
-				return
-			var/index = text2num(params["index"])
-			if(connected_trader.bought_goods.len < index)
-				return
-			var/datum/bought_goods/goodie = connected_trader.bought_goods[index]
-			last_transmission = connected_trader.requested_sell(ui.user, src, goodie)
-		if("sell_pad")
-			if(!inserted_id)
-				say("No ID detected.")
-				return
-			if(!linked_pad)
-				say("Please connect a trade tele-pad before conducting in trade.")
-				return
-			last_transmission = connected_trader.sell_all_on_pad(ui.user, src)
-		if("appraise")
-			if(!linked_pad)
-				say("Please connect a trade tele-pad before conducting in trade.")
-				return
-			if(connected_trader.trade_flags & TRADER_BUYS_GOODS)
-				last_transmission = connected_trader.get_appraisal(ui.user, src)
-			else
-				last_transmission = connected_trader.get_response("trade_no_goods", "I don't deal in goods!", ui.user)
 		if("bounty")
 			if(!inserted_id)
 				say("No ID detected.")
