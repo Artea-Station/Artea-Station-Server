@@ -103,7 +103,7 @@
 	var/datum/bank_account/D = SSeconomy.get_dep_account(cargo_account)
 	if(D)
 		data["points"] = D.account_balance
-	data["grocery"] = SSshuttle.chef_groceries.len
+	data["grocery"] = SStrading.chef_groceries.len
 	data["away"] = SSshuttle.supply.getDockedId() == docking_away
 	data["self_paid"] = self_paid
 	data["docked"] = SSshuttle.supply.mode == SHUTTLE_IDLE
@@ -112,13 +112,13 @@
 	data["can_send"] = can_send
 	data["can_approve_requests"] = can_approve_requests
 	var/message = "Remember to stamp and send back the supply manifests."
-	if(SSshuttle.centcom_message)
-		message = SSshuttle.centcom_message
+	if(SStrading.centcom_message)
+		message = SStrading.centcom_message
 	if(SSshuttle.supply_blocked)
 		message = blockade_warning
 	data["message"] = message
 	data["cart"] = list()
-	for(var/datum/supply_order/SO in SSshuttle.shopping_list)
+	for(var/datum/supply_order/SO in SStrading.shopping_list)
 		data["cart"] += list(list(
 			"object" = SO.pack.name,
 			"cost" = SO.pack.get_cost(),
@@ -128,23 +128,13 @@
 			"dep_order" = SO.department_destination ? TRUE : FALSE
 		))
 
-	data["requests"] = list()
-	for(var/datum/supply_order/SO in SSshuttle.request_list)
-		data["requests"] += list(list(
-			"object" = SO.pack.name,
-			"cost" = SO.pack.get_cost(),
-			"orderer" = SO.orderer,
-			"reason" = SO.reason,
-			"id" = SO.id
-		))
-
 	return data
 
 /obj/machinery/computer/cargo/ui_static_data(mob/user)
 	var/list/data = list()
 	data["supplies"] = list()
-	for(var/pack in SSshuttle.supply_packs)
-		var/datum/supply_pack/P = SSshuttle.supply_packs[pack]
+	for(var/pack in SStrading.supply_packs)
+		var/datum/supply_pack/P = SStrading.supply_packs[pack]
 		if(!data["supplies"][P.group])
 			data["supplies"][P.group] = list(
 				"name" = P.group,
@@ -207,7 +197,7 @@
 				return
 			var/id = params["id"]
 			id = text2path(id) || id
-			var/datum/supply_pack/pack = SSshuttle.supply_packs[id]
+			var/datum/supply_pack/pack = SStrading.supply_packs[id]
 			if(!istype(pack))
 				CRASH("Unknown supply pack id given by order console ui. ID: [params["id"]]")
 			if((pack.hidden && !(obj_flags & EMAGGED)) || (pack.contraband && !contraband) || pack.drop_pod_only || (pack.special && !pack.special_enabled))
@@ -262,19 +252,13 @@
 			var/turf/T = get_turf(src)
 			var/datum/supply_order/SO = new(pack, name, rank, ckey, reason, account, null, applied_coupon)
 			SO.generateRequisition(T)
-			if(requestonly && !self_paid)
-				SSshuttle.request_list += SO
-			else
-				SSshuttle.shopping_list += SO
-				if(self_paid)
-					say("Order processed. The price will be charged to [account.account_holder]'s bank account on delivery.")
-			if(requestonly && message_cooldown < world.time)
-				radio.talk_into(src, "A new order has been requested.", RADIO_CHANNEL_SUPPLY)
-				message_cooldown = world.time + 30 SECONDS
+			SStrading.shopping_list += SO
+			if(self_paid)
+				say("Order processed. The price will be charged to [account.account_holder]'s bank account on delivery.")
 			. = TRUE
 		if("remove")
 			var/id = text2num(params["id"])
-			for(var/datum/supply_order/SO in SSshuttle.shopping_list)
+			for(var/datum/supply_order/SO in SStrading.shopping_list)
 				if(SO.id != id)
 					continue
 				if(SO.department_destination)
@@ -283,32 +267,14 @@
 				if(SO.applied_coupon)
 					say("Coupon refunded.")
 					SO.applied_coupon.forceMove(get_turf(src))
-				SSshuttle.shopping_list -= SO
+				SStrading.shopping_list -= SO
 				. = TRUE
 				break
 		if("clear")
-			for(var/datum/supply_order/cancelled_order in SSshuttle.shopping_list)
+			for(var/datum/supply_order/cancelled_order in SStrading.shopping_list)
 				if(cancelled_order.department_destination)
 					continue //don't cancel other department's orders
-				SSshuttle.shopping_list -= cancelled_order
-			. = TRUE
-		if("approve")
-			var/id = text2num(params["id"])
-			for(var/datum/supply_order/SO in SSshuttle.request_list)
-				if(SO.id == id)
-					SSshuttle.request_list -= SO
-					SSshuttle.shopping_list += SO
-					. = TRUE
-					break
-		if("deny")
-			var/id = text2num(params["id"])
-			for(var/datum/supply_order/SO in SSshuttle.request_list)
-				if(SO.id == id)
-					SSshuttle.request_list -= SO
-					. = TRUE
-					break
-		if("denyall")
-			SSshuttle.request_list.Cut()
+				SStrading.shopping_list -= cancelled_order
 			. = TRUE
 		if("toggleprivate")
 			self_paid = !self_paid

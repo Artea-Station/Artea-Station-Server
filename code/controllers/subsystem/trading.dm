@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(trading)
 	///List of all traders
 	var/list/all_traders = list()
 	///A dedicated global trade hub
-	var/datum/trade_hub/global_trade_hub
+	var/datum/trade_hub/central_trade_hub
 
 	var/list/trader_types_spawned = list()
 
@@ -17,6 +17,32 @@ SUBSYSTEM_DEF(trading)
 	var/next_trader_id = 0
 
 	var/list/delivery_runs = list()
+
+	/**
+	 * Supply shuttle stuff
+	 * Moved to SSTrading cause this subsystem handles almost everything related to buying and selling things now. Let's debloat SSShuttle a little.
+	 */
+
+	/// Order number given to next order.
+	var/order_number = 1
+	/// Number of trade-points we have (basically money).
+	var/points = 5000
+	/// Remarks from CentCom on how well you checked the last order.
+	var/centcom_message = ""
+	/// Typepaths for unusual plants we've already sent CentCom, associated with their potencies.
+	var/list/discovered_plants = list()
+
+	/// All of the possible supply packs that can be purchased by cargo.
+	var/list/supply_packs = list()
+
+	/// Stuff the chef ordered. Will be added onto the shuttle, and cargo gets no say.
+	var/list/chef_groceries = list()
+
+	/// History of successful orders in chronological order. Admin-view only at the moment, though the telecomms message server has a much more simple version of this.
+	var/list/order_history = list()
+
+	/// Queued supply packs to be purchased.
+	var/list/shopping_list = list()
 
 /datum/controller/subsystem/trading/proc/get_trade_hub_by_id(id)
 	return trade_hubs["[id]"]
@@ -35,8 +61,8 @@ SUBSYSTEM_DEF(trading)
 //Gets all available trade hubs from a turf position
 /datum/controller/subsystem/trading/proc/get_available_trade_hubs(turf/position)
 	var/list/passed_trade_hubs = list()
-	if(global_trade_hub)
-		passed_trade_hubs += global_trade_hub
+	if(central_trade_hub)
+		passed_trade_hubs += central_trade_hub
 	var/datum/overmap_object/overmap_object = GetHousingOvermapObject(position)
 	if(overmap_object)
 		var/list/overmap_objects = overmap_object.current_system.GetObjectsInRadius(overmap_object.x,overmap_object.y,0)
@@ -48,10 +74,29 @@ SUBSYSTEM_DEF(trading)
 	return passed_trade_hubs
 
 /datum/controller/subsystem/trading/Initialize(timeofday)
+	order_number = rand(1, 9000)
+
+	var/list/pack_processing = subtypesof(/datum/supply_pack)
+	while(length(pack_processing))
+		var/datum/supply_pack/pack = pack_processing[length(pack_processing)]
+		pack_processing.len--
+		if(ispath(pack, /datum/supply_pack))
+			pack = new pack
+
+		var/list/generated_packs = pack.generate_supply_packs()
+		if(generated_packs)
+			pack_processing += generated_packs
+			continue
+
+		if(!pack.contains)
+			continue
+
+		supply_packs[pack.id] = pack
+
 	var/datum/map_config/config = SSmapping.config
-	// Create global trade hub
-	if(config.global_trading_hub_type)
-		global_trade_hub = new config.global_trading_hub_type()
+	// Create central trade hub
+	if(config.central_trading_hub_type)
+		central_trade_hub = new config.central_trading_hub_type()
 	// Create the localized trade hubs
 	if(config.localized_trading_hub_types)
 		for(var/hub_type in config.localized_trading_hub_types)

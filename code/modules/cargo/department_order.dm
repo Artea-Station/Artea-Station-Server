@@ -52,8 +52,8 @@ GLOBAL_LIST_INIT(department_order_cooldowns, list(
 /obj/machinery/computer/department_orders/ui_static_data(mob/user)
 	var/list/data = list()
 	var/list/supply_data = list() //each item in this needs to be a Category
-	for(var/pack_key in SSshuttle.supply_packs)
-		var/datum/supply_pack/pack = SSshuttle.supply_packs[pack_key]
+	for(var/pack_key in SStrading.supply_packs)
+		var/datum/supply_pack/pack = SStrading.supply_packs[pack_key]
 		//skip groups we do not offer
 		if(!(pack.group in dep_groups))
 			continue
@@ -98,9 +98,9 @@ GLOBAL_LIST_INIT(department_order_cooldowns, list(
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 			return
 
-		if(department_order && (department_order in SSshuttle.shopping_list))
+		if(department_order && (department_order in SStrading.shopping_list))
 			GLOB.department_order_cooldowns[type] = 0
-			SSshuttle.shopping_list -= department_order
+			SStrading.shopping_list -= department_order
 			department_order = null
 			UnregisterSignal(SSshuttle, COMSIG_SUPPLY_SHUTTLE_BUY)
 		return TRUE
@@ -116,7 +116,7 @@ GLOBAL_LIST_INIT(department_order_cooldowns, list(
 	. = TRUE
 	var/id = params["id"]
 	id = text2path(id) || id
-	var/datum/supply_pack/pack = SSshuttle.supply_packs[id]
+	var/datum/supply_pack/pack = SStrading.supply_packs[id]
 	if(!pack)
 		say("Something went wrong!")
 		CRASH("requested supply pack id \"[id]\" not found!")
@@ -140,7 +140,7 @@ GLOBAL_LIST_INIT(department_order_cooldowns, list(
 			chosen_delivery_area = delivery_area_type
 			break
 	department_order = new(pack, name, rank, ckey, "", null, chosen_delivery_area, null)
-	SSshuttle.shopping_list += department_order
+	SStrading.shopping_list += department_order
 	if(!already_signalled)
 		RegisterSignal(SSshuttle, COMSIG_SUPPLY_SHUTTLE_BUY, PROC_REF(finalize_department_order))
 	say("Order processed. Cargo will deliver the crate when it comes in on their shuttle. NOTICE: Heads of staff may override the order.")
@@ -149,7 +149,7 @@ GLOBAL_LIST_INIT(department_order_cooldowns, list(
 ///signal when the supply shuttle begins to spawn orders. we forget the current order preventing it from being overridden (since it's already past the point of no return on undoing the order)
 /obj/machinery/computer/department_orders/proc/finalize_department_order(datum/subsystem)
 	SIGNAL_HANDLER
-	if(department_order && (department_order in SSshuttle.shopping_list))
+	if(department_order && (department_order in SStrading.shopping_list))
 		department_order = null
 	UnregisterSignal(subsystem, COMSIG_SUPPLY_SHUTTLE_BUY)
 

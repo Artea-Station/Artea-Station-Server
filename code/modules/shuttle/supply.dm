@@ -103,23 +103,23 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	//quickly and greedily handle chef's grocery runs first, there are a few reasons why this isn't attached to the rest of cargo...
 	//but the biggest reason is that the chef requires produce to cook and do their job, and if they are using this system they
 	//already got let down by the botanists. So to open a new chance for cargo to also screw them over any more than is necessary is bad.
-	if(SSshuttle.chef_groceries.len)
+	if(SStrading.chef_groceries.len)
 		var/obj/structure/closet/crate/freezer/grocery_crate = new(pick_n_take(empty_turfs))
 		grocery_crate.name = "kitchen produce freezer"
-		investigate_log("Chef's [SSshuttle.chef_groceries.len] sized produce order arrived. Cost was deducted from orderer, not cargo.", INVESTIGATE_CARGO)
-		for(var/datum/orderable_item/item as anything in SSshuttle.chef_groceries)//every order
-			for(var/amt in 1 to SSshuttle.chef_groceries[item])//every order amount
+		investigate_log("Chef's [SStrading.chef_groceries.len] sized produce order arrived. Cost was deducted from orderer, not cargo.", INVESTIGATE_CARGO)
+		for(var/datum/orderable_item/item as anything in SStrading.chef_groceries)//every order
+			for(var/amt in 1 to SStrading.chef_groceries[item])//every order amount
 				new item.item_instance.type(grocery_crate)
-		SSshuttle.chef_groceries.Cut() //This lets the console know it can order another round.
+		SStrading.chef_groceries.Cut() //This lets the console know it can order another round.
 
-	if(!SSshuttle.shopping_list.len)
+	if(!SStrading.shopping_list.len)
 		return
 
 	var/value = 0
 	var/purchases = 0
 	var/list/goodies_by_buyer = list() // if someone orders more than GOODY_FREE_SHIPPING_MAX goodies, we upcharge to a normal crate so they can't carry around 20 combat shotties
 
-	for(var/datum/supply_order/spawning_order in SSshuttle.shopping_list)
+	for(var/datum/supply_order/spawning_order in SStrading.shopping_list)
 		if(!empty_turfs.len)
 			break
 		var/price = spawning_order.pack.get_cost()
@@ -156,8 +156,8 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 			var/datum/bank_account/department/cargo = SSeconomy.get_dep_account(ACCOUNT_CAR)
 			cargo.adjust_money(price - spawning_order.pack.get_cost()) //Cargo gets the handling fee
 		value += spawning_order.pack.get_cost()
-		SSshuttle.shopping_list -= spawning_order
-		SSshuttle.order_history += spawning_order
+		SStrading.shopping_list -= spawning_order
+		SStrading.order_history += spawning_order
 		QDEL_NULL(spawning_order.applied_coupon)
 
 		if(!spawning_order.pack.goody) //we handle goody crates below
@@ -239,8 +239,8 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		D.adjust_money(ex.total_value[E])
 
 	SSeconomy.export_total += (D.account_balance - presale_points)
-	SSshuttle.centcom_message = msg
-	investigate_log("Shuttle contents sold for [D.account_balance - presale_points] credits. Contents: [ex.exported_atoms ? ex.exported_atoms.Join(",") + "." : "none."] Message: [SSshuttle.centcom_message || "none."]", INVESTIGATE_CARGO)
+	SStrading.centcom_message = msg
+	investigate_log("Shuttle contents sold for [D.account_balance - presale_points] credits. Contents: [ex.exported_atoms ? ex.exported_atoms.Join(",") + "." : "none."] Message: [SStrading.centcom_message || "none."]", INVESTIGATE_CARGO)
 
 /*
 	Generates a box of mail depending on our exports and imports.

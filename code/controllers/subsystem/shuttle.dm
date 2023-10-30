@@ -60,40 +60,13 @@ SUBSYSTEM_DEF(shuttle)
 	/// Things blocking escape shuttle from leaving.
 	var/list/hostile_environments = list()
 
-	/**
-	 * Supply shuttle stuff
-	 */
-
 	/// The current cargo shuttle's mobile docking port.
 	var/obj/docking_port/mobile/supply/supply
-	/// Order number given to next order.
-	var/order_number = 1
-	/// Number of trade-points we have (basically money).
-	var/points = 5000
-	/// Remarks from CentCom on how well you checked the last order.
-	var/centcom_message = ""
-	/// Typepaths for unusual plants we've already sent CentCom, associated with their potencies.
-	var/list/discovered_plants = list()
 
 	/// Things blocking the cargo shuttle from leaving.
 	var/list/trade_blockade = list()
 	/// Is the cargo shuttle currently blocked from leaving?
 	var/supply_blocked = FALSE
-
-	/// All of the possible supply packs that can be purchased by cargo.
-	var/list/supply_packs = list()
-
-	/// Queued supplies to be purchased for the chef.
-	var/list/chef_groceries = list()
-
-	/// Queued supply packs to be purchased.
-	var/list/shopping_list = list()
-
-	/// Wishlist items made by crew for cargo to purchase at their leisure.
-	var/list/request_list = list()
-
-	/// A listing of previously delivered supply packs.
-	var/list/order_history = list()
 
 	/// A list of job accesses that are able to purchase any shuttles.
 	var/list/has_purchase_shuttle_access
@@ -147,25 +120,6 @@ SUBSYSTEM_DEF(shuttle)
 	var/endvote_passed = FALSE
 
 /datum/controller/subsystem/shuttle/Initialize(timeofday)
-	order_number = rand(1, 9000)
-
-	var/list/pack_processing = subtypesof(/datum/supply_pack)
-	while(length(pack_processing))
-		var/datum/supply_pack/pack = pack_processing[length(pack_processing)]
-		pack_processing.len--
-		if(ispath(pack, /datum/supply_pack))
-			pack = new pack
-
-		var/list/generated_packs = pack.generate_supply_packs()
-		if(generated_packs)
-			pack_processing += generated_packs
-			continue
-
-		if(!pack.contains)
-			continue
-
-		supply_packs[pack.id] = pack
-
 	setup_shuttles(stationary_docking_ports)
 	has_purchase_shuttle_access = init_has_purchase_shuttle_access()
 
@@ -681,26 +635,12 @@ SUBSYSTEM_DEF(shuttle)
 	if (istype(SSshuttle.supply))
 		supply = SSshuttle.supply
 
-	if (istype(SSshuttle.discovered_plants))
-		discovered_plants = SSshuttle.discovered_plants
-
-	if (istype(SSshuttle.shopping_list))
-		shopping_list = SSshuttle.shopping_list
-	if (istype(SSshuttle.request_list))
-		request_list = SSshuttle.request_list
-	if (istype(SSshuttle.order_history))
-		order_history = SSshuttle.order_history
-
 	if (istype(SSshuttle.shuttle_loan))
 		shuttle_loan = SSshuttle.shuttle_loan
 
 	if (istype(SSshuttle.shuttle_purchase_requirements_met))
 		shuttle_purchase_requirements_met = SSshuttle.shuttle_purchase_requirements_met
 
-	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
-	centcom_message = SSshuttle.centcom_message
-	order_number = SSshuttle.order_number
-	points = D.account_balance
 	emergency_no_escape = SSshuttle.emergency_no_escape
 	emergencyCallAmount = SSshuttle.emergencyCallAmount
 	shuttle_purchased = SSshuttle.shuttle_purchased

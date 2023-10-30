@@ -44,7 +44,7 @@ GLOBAL_LIST_INIT(adventure_loot_generator_index,generate_generator_index())
 /datum/adventure_loot_generator/cargo/generate()
 	var/list/still_locked_packs = list()
 	for(var/pack_type in unlockable_packs)
-		var/datum/supply_pack/pack_singleton = SSshuttle.supply_packs[pack_type]
+		var/datum/supply_pack/pack_singleton = SStrading.supply_packs[pack_type]
 		if(!pack_singleton.special_enabled)
 			still_locked_packs += pack_type
 	if(!length(still_locked_packs)) // Just give out some cash instead.
@@ -127,7 +127,7 @@ GLOBAL_LIST_INIT(adventure_loot_generator_index,generate_generator_index())
 		name += "- [initial(typed_pack_type.name)]"
 
 /obj/item/trade_chip/proc/try_to_unlock_contract(mob/user)
-	var/datum/supply_pack/pack_singleton = SSshuttle.supply_packs[unlocked_pack_type]
+	var/datum/supply_pack/pack_singleton = SStrading.supply_packs[unlocked_pack_type]
 	if(!unlocked_pack_type || !pack_singleton || !pack_singleton.special)
 		to_chat(user,span_danger("This chip is invalid!"))
 		return
