@@ -43,6 +43,9 @@
 	var/possible_destinations
 	var/obj/docking_port/stationary/freeform_port
 
+	/// If TRUE, this port will scan for markers if width and height are 0.
+	var/can_use_markers = TRUE
+
 ///register to SSshuttles
 /obj/docking_port/proc/register()
 	if(registered)
@@ -284,7 +287,7 @@
 /obj/docking_port/stationary/Initialize(mapload)
 	. = ..()
 
-	if(mapload && !width && !height)
+	if(mapload && can_use_markers && !width && !height)
 		scan_markers()
 
 	register()
