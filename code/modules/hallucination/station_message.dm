@@ -68,10 +68,13 @@
 	var/area/fake_summon_area_type = pick(GLOB.the_station_areas - hallucinator_area.type)
 	var/area/fake_summon_area = GLOB.areas_by_type[fake_summon_area_type]
 
-	priority_announce("Figments from an eldritch god are being summoned by [totally_real_cult_leader.real_name] \
-		into [fake_summon_area] from an unknown dimension. Disrupt the ritual at all costs!", \
-		"Central Command Higher Dimensional Affairs", \
-		sound = 'sound/ambience/antag/bloodcult/bloodcult_scribe.ogg', has_important_message = TRUE, players = list(hallucinator))
+	priority_announce(
+		"Figments from an eldritch god are being summoned by [totally_real_cult_leader.real_name] into [fake_summon_area] from an unknown dimension. Disrupt the ritual at all costs!",
+		"Central Command Higher Dimensional Affairs",
+		ANNOUNCER_SPANOMALIES,
+		has_important_message = TRUE,
+		players = list(hallucinator)
+	)
 	return ..()
 
 /datum/hallucination/station_message/meteors
