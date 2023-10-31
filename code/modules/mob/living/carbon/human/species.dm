@@ -1957,23 +1957,23 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /// Returns the species's scream sound, or if there's a DNA override, use that instead.
 /datum/species/proc/get_scream_sound(mob/living/carbon/human/human)
-	var/scream_type = human.dna.voice_type
+	var/scream_type = human.dna.emote_voice_type
 	if(!scream_type)
 		switch(human.dna.species.id)
 			if(SPECIES_HUMAN)
 				if(human.gender == MALE)
-					scream_type = VOICE_HUMAN_M
+					scream_type = EMOTE_VOICE_HUMAN_M
 				else
-					scream_type = VOICE_HUMAN_F
+					scream_type = EMOTE_VOICE_HUMAN_F
 			if(SPECIES_LIZARD)
-				scream_type = human.gender == MALE ? VOICE_LIZARD_M : VOICE_LIZARD_F
+				scream_type = human.gender == MALE ? EMOTE_VOICE_LIZARD_M : EMOTE_VOICE_LIZARD_F
 			if(SPECIES_MOTH)
-				scream_type = human.gender == MALE ? VOICE_MOTH_M : VOICE_MOTH_F
+				scream_type = human.gender == MALE ? EMOTE_VOICE_MOTH_M : EMOTE_VOICE_MOTH_F
 			if(SPECIES_SYNTH)
-				scream_type = human.gender == MALE ? VOICE_ETHEREAL_M : VOICE_ETHEREAL_F
+				scream_type = human.gender == MALE ? EMOTE_VOICE_ETHEREAL_M : EMOTE_VOICE_ETHEREAL_F
 
 	switch(scream_type)
-		if(VOICE_HUMAN_M)
+		if(EMOTE_VOICE_HUMAN_M)
 			if(prob(1))
 				return 'sound/voice/human/wilhelm_scream.ogg'
 			return pick(
@@ -1985,7 +1985,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				'sound/voice/human/malescream_6.ogg',
 			)
 
-		if(VOICE_HUMAN_F)
+		if(EMOTE_VOICE_HUMAN_F)
 			return pick(
 				'sound/voice/human/femalescream_1.ogg',
 				'sound/voice/human/femalescream_2.ogg',
@@ -1994,17 +1994,17 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				'sound/voice/human/femalescream_5.ogg',
 			)
 
-		if(VOICE_LIZARD_M, VOICE_LIZARD_F)
+		if(EMOTE_VOICE_LIZARD_M, EMOTE_VOICE_LIZARD_F)
 			return pick(
 				'sound/voice/lizard/lizard_scream_1.ogg',
 				'sound/voice/lizard/lizard_scream_2.ogg',
 				'sound/voice/lizard/lizard_scream_3.ogg',
 			)
 
-		if(VOICE_MOTH_M, VOICE_MOTH_F)
+		if(EMOTE_VOICE_MOTH_M, EMOTE_VOICE_MOTH_F)
 			return 'sound/voice/moth/scream_moth.ogg'
 
-		if(VOICE_ETHEREAL_M, VOICE_ETHEREAL_F)
+		if(EMOTE_VOICE_ETHEREAL_M, EMOTE_VOICE_ETHEREAL_F)
 			return pick(
 				'sound/voice/ethereal/ethereal_scream_1.ogg',
 				'sound/voice/ethereal/ethereal_scream_2.ogg',

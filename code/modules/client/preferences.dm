@@ -319,6 +319,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				return FALSE
 
 			return TRUE
+		if ("play_say")
+			ui.user.playsound_local(null, GLOB.say_voices[params["sound"]], 75)
+		if ("play_me")
+			ui.user.playsound_local(null, GLOB.me_sounds[params["sound"]], 75)
 
 	for (var/datum/preference_middleware/preference_middleware as anything in middleware)
 		var/delegation = preference_middleware.action_delegations[action]

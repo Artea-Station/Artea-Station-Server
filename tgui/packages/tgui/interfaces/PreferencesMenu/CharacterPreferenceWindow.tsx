@@ -81,10 +81,12 @@ export const CharacterPreferenceWindow = (props, context) => {
     case Page.Index:
       pageContents = <IndexPage parentContext={context} data={data} />;
       extraCharacterControls = (
-        <NameInput
-          name={data.character_preferences.names[data.name_to_use]}
-          handleUpdateName={createSetPreference(act, data.name_to_use)}
-        />
+        <Stack.Item>
+          <NameInput
+            name={data.character_preferences.names[data.name_to_use]}
+            handleUpdateName={createSetPreference(act, data.name_to_use)}
+          />
+        </Stack.Item>
       );
       break;
 
@@ -102,6 +104,11 @@ export const CharacterPreferenceWindow = (props, context) => {
           openSpecies={() => setCurrentPage(Page.Species)}
           parentContext={context}
         />
+      );
+      extraCharacterControls = (
+        <Stack.Item align="center">
+          <GenderButton gender={data.character_preferences.misc.gender} />
+        </Stack.Item>
       );
       break;
 
@@ -238,7 +245,7 @@ export const LoadoutPreviewSection = (
           )}
         </Stack.Item>
         <Stack.Divider />
-        <Stack.Item>{props.extra_character_controls}</Stack.Item>
+        {props.extra_character_controls}
         <Stack.Item align="center">
           <CharacterControls
             handleRotate={(dir) => {
@@ -267,7 +274,7 @@ const GenderButton = (
   return (
     <Popper
       options={{
-        placement: 'right-end',
+        placement: 'bottom',
       }}
       popperContent={
         genderMenuOpen && (
@@ -298,10 +305,11 @@ const GenderButton = (
         onClick={() => {
           setGenderMenuOpen(!genderMenuOpen);
         }}
-        fontSize="22px"
+        fontSize="18px"
         icon={GENDERS[props.gender].icon}
         tooltip="Gender"
-        tooltipPosition="top"
+        tooltipPosition="bottom"
+        content={GENDERS[props.gender].text}
       />
     </Popper>
   );
