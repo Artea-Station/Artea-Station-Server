@@ -134,7 +134,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 				paying_for_this = spawning_order.paying_account
 				var/list/current_buyer_orders = goodies_by_buyer[spawning_order.paying_account] // so we can access the length a few lines down
 				if(!spawning_order.pack.goody)
-					price *= 1.1 //TODO make this customizable by the quartermaster
+					price *= 1.1
 
 				// note this is before we increment, so this is the GOODY_FREE_SHIPPING_MAX + 1th goody to ship. also note we only increment off this step if they successfully pay the fee, so there's no way around it
 				else if(LAZYLEN(current_buyer_orders) == GOODY_FREE_SHIPPING_MAX)
