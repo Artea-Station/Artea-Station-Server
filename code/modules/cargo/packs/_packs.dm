@@ -1,8 +1,8 @@
 /datum/supply_pack
 	/// The name of the supply pack, as listed on th cargo purchasing UI.
-	var/name = "Crate"
+	var/name
 	/// The group that the supply pack is sorted into within the cargo purchasing UI.
-	var/group = ""
+	var/group
 	/// Is this cargo supply pack visible to the cargo purchasing UI.
 	var/hidden = FALSE
 	/// Is this supply pack purchasable outside of the standard purchasing band? Contraband is available by multitooling the cargo purchasing board.
@@ -10,19 +10,19 @@
 	/// Cost of the crate. DO NOT GO ANY LOWER THAN X1.4 the "CARGO_CRATE_VALUE" value if using regular crates, or infinite profit will be possible! // You make me want to kneecap the crate refund. 100cr is fucking nuts. - Rimi
 	var/cost = CARGO_CRATE_VALUE * 1.4
 	/// What access is required to open the crate when spawned?
-	var/access = FALSE
+	var/access
 	/// Who can view this supply_pack and with what access.
-	var/access_view = FALSE
+	var/access_view
 	/// If someone with any of the following accesses in a list can open this cargo pack crate.
-	var/access_any = FALSE
+	var/access_any
 	/// A list of items that are spawned in the crate of the supply pack.
-	var/list/contains = null
+	var/list/contains
 	/// What is the name of the crate that is spawned with the crate's contents??
 	var/crate_name = "crate"
 	/// When spawning a gas canistor, what kind of gas type are we spawning?
 	var/id
 	/// The description shown on the cargo purchasing UI. No desc by default.
-	var/desc = ""
+	var/desc
 	/// What typepath of crate do you spawn?
 	var/crate_type = /obj/structure/closet/crate
 	/// Should we message admins?
@@ -42,6 +42,12 @@
 
 /datum/supply_pack/New()
 	id = type
+	if(!name && islist(contains))
+		var/obj/ordered_item = contains[1]
+		if(ordered_item)
+			name = initial(ordered_item.name) // The UI capitalizes everything using transorm-text, as doing it DM-side properly would be a ball-ache.
+		else
+			CRASH("No name given for supply pack \"[type]\"!")
 
 /datum/supply_pack/proc/generate(atom/A, datum/bank_account/paying_account)
 	var/obj/structure/closet/crate/C
