@@ -1,10 +1,3 @@
-//Does the trader accept money for goods
-#define TRADER_MONEY (1<<1)
-
-#define TRADER_SELLS_GOODS (1<<2)
-
-#define TRADER_BUYS_GOODS (1<<3)
-
 //Cash amounts the traders get
 #define DEFAULT_TRADER_CREDIT_AMOUNT 7000
 #define RICH_TRADER_CREDIT_AMOUNT 15000
@@ -16,15 +9,6 @@
 #define TRADER_PAYCHECK_LOW 500
 #define TRADER_PAYCHECK_HIGH 1500
 
-// Extra value margin for the user to make barter trades a bit easier
-#define TRADE_BARTER_EXTRA_MARGIN 1.1
-
-#define TRADER_SCREEN_NOTHING 0
-#define TRADER_SCREEN_SOLD_GOODS 1
-#define TRADER_SCREEN_BOUGHT_GOODS 2
-#define TRADER_SCREEN_BOUNTIES 3
-#define TRADER_SCREEN_DELIVERIES 4
-
 #define TRADER_THIS_TYPE 1
 #define TRADER_TYPES 2
 #define TRADER_SUBTYPES 3
@@ -32,24 +16,33 @@
 #define TRADER_BLACKLIST_SUBTYPES 5
 #define TRADER_BLACKLIST_TYPES 6
 
-#define TRADER_DISPOSITION_REJECT_HAILS -50
-
-/// What value the traders will round their costs to
-#define TRADER_PRICE_ROUNDING 10
-
 /// Percentage threshold of remaining stock at which they should restock that item
-#define TRADER_RESTOCK_THRESHOLD 0.35
+#define TRADER_RESTOCK_THRESHOLD 0.5
 
-#define TRADE_HARD_BARGAIN_MARGIN 0.03
+#define TRADER_GROUP_ARMORY "Armory"
+#define TRADER_GROUP_COSTUMES_AND_TOYS "Costumes & Toys"
+#define TRADER_GROUP_EMERGENCY "Emergency"
+#define TRADER_GROUP_ENGINE_CONSTRUCTION "Engine Construction"
+#define TRADER_GROUP_ENGINEERING "Engineering"
+#define TRADER_GROUP_GALACTIC_IMPORTS "Galactic Imports"
+#define TRADER_GROUP_GOODIES "Goodies"
+#define TRADER_GROUP_LIVESTOCK "Livestock"
+#define TRADER_GROUP_MEDICAL "Medical"
+#define TRADER_GROUP_MISC "Misc"
+#define TRADER_GROUP_FOOD_AND_HYDROPONICS "Food & Hydroponics"
+#define TRADER_GROUP_SCIENCE "Science"
+#define TRADER_GORUP_SECURITY "Security"
+#define TRADER_GORUP_SERVICE "Service"
+#define TRADER_GORUP_VENDING_RESTOCKS "Vending Restocks"
 
 #define TRADE_USER_SUFFIX_AI "ai"
 #define TRADE_USER_SUFFIX_CYBORG "silicon"
 #define TRADE_USER_SUFFIX_GOLEM "golem"
 #define TRADE_USER_SUFFIX_ROBOT_PERSON "robotperson"
 
-#define TRADER_COST_MACRO(margin,variance) (1 * margin * ((100 + (rand(-variance,variance)))/100))
-
 /*
+All of these can have a suffix of _<suffix>. These can be species IDs, or the above TRADE_USER_SUFFIX defines.
+
 hail_generic //When the trader hails the person
 hail_deny //When the trader denies the hail
 

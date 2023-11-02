@@ -31,8 +31,8 @@
 					/obj/item/clothing/head/collectable/slime,
 					/obj/item/clothing/head/collectable/xenom,
 					/obj/item/clothing/head/collectable/petehat)
-	crate_name = "collectable hats crate"
-	crate_type = /obj/structure/closet/crate/wooden
+	container_name = "collectable hats crate"
+	container_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/costumes_toys/randomised/contraband
 	name = "Contraband Crate"
@@ -59,7 +59,7 @@
 					/obj/item/clothing/mask/gas/syndicate,
 					/obj/item/clothing/neck/necklace/dope,
 					/obj/item/vending_refill/donksoft)
-	crate_name = "crate"
+	container_name = "crate"
 
 /datum/supply_pack/costumes_toys/foamforce
 	name = "Foam Force Crate"
@@ -73,7 +73,7 @@
 					/obj/item/gun/ballistic/shotgun/toy,
 					/obj/item/gun/ballistic/shotgun/toy,
 					/obj/item/gun/ballistic/shotgun/toy)
-	crate_name = "foam force crate"
+	container_name = "foam force crate"
 
 /datum/supply_pack/costumes_toys/foamforce/bonus
 	name = "Foam Force Pistols Crate"
@@ -84,7 +84,7 @@
 					/obj/item/gun/ballistic/automatic/pistol/toy,
 					/obj/item/ammo_box/magazine/toy/pistol,
 					/obj/item/ammo_box/magazine/toy/pistol)
-	crate_name = "foam force crate"
+	container_name = "foam force crate"
 
 /datum/supply_pack/costumes_toys/formalwear
 	name = "Formalwear Crate"
@@ -116,8 +116,8 @@
 					/obj/item/clothing/under/suit/checkered,
 					/obj/item/clothing/under/suit/tan,
 					/obj/item/lipstick/random)
-	crate_name = "formalwear crate"
-	crate_type = /obj/structure/closet/crate/wooden
+	container_name = "formalwear crate"
+	container_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/costumes_toys/clownpin
 	name = "Hilarious Firing Pin Crate"
@@ -125,8 +125,8 @@
 	cost = CARGO_CRATE_VALUE * 10
 	contraband = TRUE
 	contains = list(/obj/item/firing_pin/clown)
-	crate_name = "toy crate" // It's /technically/ a toy. For the clown, at least.
-	crate_type = /obj/structure/closet/crate/wooden
+	container_name = "toy crate" // It's /technically/ a toy. For the clown, at least.
+	container_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/costumes_toys/lasertag
 	name = "Laser Tag Crate"
@@ -150,7 +150,7 @@
 					/obj/item/clothing/head/helmet/bluetaghelm,
 					/obj/item/clothing/head/helmet/bluetaghelm,
 					/obj/item/clothing/head/helmet/bluetaghelm)
-	crate_name = "laser tag crate"
+	container_name = "laser tag crate"
 
 /datum/supply_pack/costumes_toys/lasertag/pins
 	name = "Laser Tag Firing Pins Crate"
@@ -158,7 +158,7 @@
 	cost = CARGO_CRATE_VALUE * 3.5
 	contraband = TRUE
 	contains = list(/obj/item/storage/box/lasertagpins)
-	crate_name = "laser tag crate"
+	container_name = "laser tag crate"
 
 /datum/supply_pack/costumes_toys/mech_suits
 	name = "Mech Pilot's Suit Crate"
@@ -168,8 +168,8 @@
 					/obj/item/clothing/under/costume/mech_suit,
 					/obj/item/clothing/under/costume/mech_suit,
 					/obj/item/clothing/under/costume/mech_suit)
-	crate_name = "mech pilot's suit crate"
-	crate_type = /obj/structure/closet/crate/wooden
+	container_name = "mech pilot's suit crate"
+	container_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/costumes_toys/costume_original
 	name = "Original Costume Crate"
@@ -188,8 +188,8 @@
 					/obj/item/clothing/suit/hooded/ian_costume,
 					/obj/item/clothing/suit/hooded/carp_costume,
 					/obj/item/clothing/suit/hooded/bee_costume)
-	crate_name = "original costume crate"
-	crate_type = /obj/structure/closet/crate/wooden
+	container_name = "original costume crate"
+	container_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/costumes_toys/costume
 	name = "Standard Costume Crate"
@@ -209,8 +209,8 @@
 					/obj/item/clothing/suit/toggle/suspenders,
 					/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing,
 					/obj/item/storage/backpack/mime)
-	crate_name = "standard costume crate"
-	crate_type = /obj/structure/closet/crate/wooden
+	container_name = "standard costume crate"
+	container_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/costumes_toys/randomised/toys
 	name = "Toy Crate"
@@ -218,10 +218,10 @@
 	cost = CARGO_CRATE_VALUE * 8 // or play the arcade machines ya lazy bum
 	num_contained = 5
 	contains = list()
-	crate_name = "toy crate"
-	crate_type = /obj/structure/closet/crate/wooden
+	container_name = "toy crate"
+	container_type = /obj/structure/closet/crate/wooden
 
-/datum/supply_pack/costumes_toys/randomised/toys/fill(obj/structure/closet/crate/C)
+/datum/supply_pack/costumes_toys/randomised/toys/fill(obj/C)
 	var/the_toy
 	for(var/i in 1 to num_contained)
 		if(prob(50))
@@ -238,10 +238,10 @@
 					/obj/item/clothing/suit/wizrobe/fake,
 					/obj/item/clothing/shoes/sandal,
 					/obj/item/clothing/head/wizard/fake)
-	crate_name = "wizard costume crate"
-	crate_type = /obj/structure/closet/crate/wooden
+	container_name = "wizard costume crate"
+	container_type = /obj/structure/closet/crate/wooden
 
-/datum/supply_pack/costumes_toys/randomised/fill(obj/structure/closet/crate/C)
+/datum/supply_pack/costumes_toys/randomised/fill(obj/C)
 	var/list/L = contains.Copy()
 	for(var/i in 1 to num_contained)
 		var/item = pick_n_take(L)
@@ -265,7 +265,7 @@
 		/obj/item/clothing/under/trek/medsci/voy,
 		/obj/item/clothing/under/trek/medsci/ent,
 	)
-	crate_type = /obj/structure/closet/crate/wooden
+	container_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/costumes_toys/mafia
 	name = "Cosa Nostra Starter Pack"
@@ -274,7 +274,7 @@
 	contains = list()
 	contraband = TRUE
 
-/datum/supply_pack/costumes_toys/mafia/fill(obj/structure/closet/crate/C)
+/datum/supply_pack/costumes_toys/mafia/fill(obj/C)
 	for(var/i in 1 to 4)
 		new /obj/effect/spawner/random/clothing/mafia_outfit(C)
 		new /obj/item/virgin_mary(C)
@@ -288,9 +288,9 @@
 	desc = "A bumper load of NT TCG Booster Packs of varying series. Collect them all!"
 	cost = 1000
 	contains = list()
-	crate_name = "booster pack pack"
+	container_name = "booster pack pack"
 
-/datum/supply_pack/costumes_toys/randomised/tcg/fill(obj/structure/closet/crate/C)
+/datum/supply_pack/costumes_toys/randomised/tcg/fill(obj/C)
 	var/cardpacktype
 	for(var/i in 1 to 10)
 		cardpacktype = pick(subtypesof(/obj/item/cardpack))

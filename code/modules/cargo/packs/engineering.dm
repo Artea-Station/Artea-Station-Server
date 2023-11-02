@@ -4,7 +4,7 @@
 
 /datum/supply_pack/engineering
 	group = "Engineering"
-	crate_type = /obj/structure/closet/crate/engineering
+	container_type = /obj/structure/closet/crate/engineering
 
 /datum/supply_pack/engineering/shieldgen
 	name = "Anti-breach Shield Projector Crate"
@@ -13,7 +13,7 @@
 	access_view = ACCESS_ENGINE_EQUIP
 	contains = list(/obj/machinery/shieldgen,
 					/obj/machinery/shieldgen)
-	crate_name = "anti-breach shield projector crate"
+	container_name = "anti-breach shield projector crate"
 
 /datum/supply_pack/engineering/ripley
 	name = "APLU MK-I Crate"
@@ -32,7 +32,7 @@
 					/obj/item/circuitboard/mecha/ripley/peripherals,
 					/obj/item/mecha_parts/mecha_equipment/drill,
 					/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp)
-	crate_name= "\improper APLU MK-I kit"
+	container_name= "\improper APLU MK-I kit"
 
 /datum/supply_pack/engineering/conveyor
 	name = "Conveyor Assembly Crate"
@@ -41,7 +41,7 @@
 	contains = list(/obj/item/stack/conveyor/thirty,
 					/obj/item/conveyor_switch_construct,
 					/obj/item/paper/guides/conveyor)
-	crate_name = "conveyor assembly crate"
+	container_name = "conveyor assembly crate"
 
 /datum/supply_pack/engineering/engiequipment
 	name = "Engineering Gear Crate"
@@ -62,7 +62,7 @@
 					/obj/item/clothing/head/hardhat,
 					/obj/item/clothing/glasses/meson/engine,
 					/obj/item/clothing/glasses/meson/engine)
-	crate_name = "engineering gear crate"
+	container_name = "engineering gear crate"
 
 /datum/supply_pack/engineering/powergamermitts
 	name = "Insulated Gloves Crate"
@@ -72,16 +72,16 @@
 	contains = list(/obj/item/clothing/gloves/color/yellow,
 					/obj/item/clothing/gloves/color/yellow,
 					/obj/item/clothing/gloves/color/yellow)
-	crate_name = "insulated gloves crate"
-	crate_type = /obj/structure/closet/crate/engineering/electrical
+	container_name = "insulated gloves crate"
+	container_type = /obj/structure/closet/crate/engineering/electrical
 
 /datum/supply_pack/engineering/inducers
 	name = "NT-75 Electromagnetic Power Inducers Crate"
 	desc = "No rechargers? No problem, with the NT-75 EPI, you can recharge any standard cell-based equipment anytime, anywhere. Contains two Inducers."
 	cost = CARGO_CRATE_VALUE * 4
 	contains = list(/obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}, /obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}) //FALSE doesn't work in modified type paths apparently.
-	crate_name = "inducer crate"
-	crate_type = /obj/structure/closet/crate/engineering/electrical
+	container_name = "inducer crate"
+	container_type = /obj/structure/closet/crate/engineering/electrical
 
 /datum/supply_pack/engineering/pacman
 	name = "P.A.C.M.A.N Generator Crate"
@@ -89,8 +89,8 @@
 	cost = CARGO_CRATE_VALUE * 5
 	access_view = ACCESS_ENGINEERING
 	contains = list(/obj/machinery/power/port_gen/pacman)
-	crate_name = "\improper PACMAN generator crate"
-	crate_type = /obj/structure/closet/crate/engineering/electrical
+	container_name = "\improper PACMAN generator crate"
+	container_type = /obj/structure/closet/crate/engineering/electrical
 
 /datum/supply_pack/engineering/power
 	name = "Power Cell Crate"
@@ -99,8 +99,8 @@
 	contains = list(/obj/item/stock_parts/cell/high,
 					/obj/item/stock_parts/cell/high,
 					/obj/item/stock_parts/cell/high)
-	crate_name = "power cell crate"
-	crate_type = /obj/structure/closet/crate/engineering/electrical
+	container_name = "power cell crate"
+	container_type = /obj/structure/closet/crate/engineering/electrical
 
 /datum/supply_pack/engineering/shuttle_engine
 	name = "Shuttle Engine Crate"
@@ -109,8 +109,8 @@
 	access = ACCESS_CE
 	access_view = ACCESS_CE
 	contains = list(/obj/structure/shuttle/engine/propulsion/burst/cargo)
-	crate_name = "shuttle engine crate"
-	crate_type = /obj/structure/closet/crate/secure/engineering
+	container_name = "shuttle engine crate"
+	container_type = /obj/structure/closet/crate/secure/engineering
 	special = TRUE
 
 /datum/supply_pack/engineering/tools
@@ -124,7 +124,7 @@
 					/obj/item/storage/toolbox/mechanical,
 					/obj/item/storage/toolbox/mechanical)
 	cost = CARGO_CRATE_VALUE * 5
-	crate_name = "toolbox crate"
+	container_name = "toolbox crate"
 
 /datum/supply_pack/engineering/portapump
 	name = "Portable Air Pump Crate"
@@ -133,7 +133,7 @@
 	access_view = ACCESS_ATMOSPHERICS
 	contains = list(/obj/machinery/portable_atmospherics/pump,
 					/obj/machinery/portable_atmospherics/pump)
-	crate_name = "portable air pump crate"
+	container_name = "portable air pump crate"
 
 /datum/supply_pack/engineering/portascrubber
 	name = "Portable Scrubber Crate"
@@ -142,7 +142,7 @@
 	access_view = ACCESS_ATMOSPHERICS
 	contains = list(/obj/machinery/portable_atmospherics/scrubber,
 					/obj/machinery/portable_atmospherics/scrubber)
-	crate_name = "portable scrubber crate"
+	container_name = "portable scrubber crate"
 
 /datum/supply_pack/engineering/hugescrubber
 	name = "Huge Portable Scrubber Crate"
@@ -150,16 +150,16 @@
 	cost = CARGO_CRATE_VALUE * 7.5
 	access_view = ACCESS_ATMOSPHERICS
 	contains = list(/obj/machinery/portable_atmospherics/scrubber/huge/movable/cargo)
-	crate_name = "huge portable scrubber crate"
-	crate_type = /obj/structure/closet/crate/large
+	container_name = "huge portable scrubber crate"
+	container_type = /obj/structure/closet/crate/large
 
 /datum/supply_pack/engineering/space_heater
 	name = "Space Heater Crate"
 	desc = "A dual purpose heater/cooler for when things are too chilly/toasty."
 	cost = CARGO_CRATE_VALUE * 2
 	contains = list(/obj/machinery/space_heater)
-	crate_name = "space heater crate"
-	crate_type = /obj/structure/closet/crate/large
+	container_name = "space heater crate"
+	container_type = /obj/structure/closet/crate/large
 
 /datum/supply_pack/engineering/bsa
 	name = "Bluespace Artillery Parts"
@@ -172,7 +172,7 @@
 					/obj/item/circuitboard/machine/bsa/back,
 					/obj/item/circuitboard/computer/bsa_control
 					)
-	crate_name= "bluespace artillery parts crate"
+	container_name= "bluespace artillery parts crate"
 
 /datum/supply_pack/engineering/dna_vault
 	name = "DNA Vault Parts"
@@ -188,7 +188,7 @@
 					/obj/item/dna_probe,
 					/obj/item/dna_probe
 					)
-	crate_name= "dna vault parts crate"
+	container_name= "dna vault parts crate"
 
 /datum/supply_pack/engineering/dna_probes
 	name = "DNA Vault Samplers"
@@ -202,7 +202,7 @@
 					/obj/item/dna_probe,
 					/obj/item/dna_probe
 					)
-	crate_name= "dna samplers crate"
+	container_name= "dna samplers crate"
 
 
 /datum/supply_pack/engineering/shield_sat
@@ -216,7 +216,7 @@
 					/obj/machinery/satellite/meteor_shield,
 					/obj/machinery/satellite/meteor_shield
 					)
-	crate_name= "shield sat crate"
+	container_name= "shield sat crate"
 
 
 /datum/supply_pack/engineering/shield_sat_control
@@ -226,7 +226,7 @@
 	special = TRUE
 	access_view = ACCESS_COMMAND
 	contains = list(/obj/item/circuitboard/computer/sat_control)
-	crate_name= "shield control board crate"
+	container_name= "shield control board crate"
 
 /datum/supply_pack/engineering/hardsuit_engineer
 	name = "Engineering Hardsuit Crate"
@@ -234,8 +234,8 @@
 	cost = CARGO_CRATE_VALUE * 5
 	access = ACCESS_ENGINEERING
 	contains = list(/obj/item/clothing/suit/space/hardsuit/engine)
-	crate_type = /obj/structure/closet/crate/secure/engineering
-	crate_name = "engineering hardsuit crate"
+	container_type = /obj/structure/closet/crate/secure/engineering
+	container_name = "engineering hardsuit crate"
 
 /datum/supply_pack/engineering/hardsuit_atmos
 	name = "Atmospherics Hardsuit Crate"
@@ -243,5 +243,5 @@
 	cost = CARGO_CRATE_VALUE * 8
 	access = ACCESS_ATMOSPHERICS
 	contains = list(/obj/item/clothing/suit/space/hardsuit/engine/atmos)
-	crate_type = /obj/structure/closet/crate/secure/engineering
-	crate_name = "atmospherics hardsuit crate"
+	container_type = /obj/structure/closet/crate/secure/engineering
+	container_name = "atmospherics hardsuit crate"

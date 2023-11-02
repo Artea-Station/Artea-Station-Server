@@ -11,7 +11,7 @@
 	contains = list(/obj/item/relic,
 					/obj/item/broken_bottle,
 					/obj/item/pickaxe/rusted)
-	crate_name = "scrapyard crate"
+	container_name = "scrapyard crate"
 
 /datum/supply_pack/exploration/catering
 	name = "Catering Crate"
@@ -22,9 +22,9 @@
 					/obj/item/food/sandwich,
 					/obj/item/food/sandwich,
 					/obj/item/food/sandwich)
-	crate_name = "outsourced food crate"
+	container_name = "outsourced food crate"
 
-/datum/supply_pack/exploration/catering/fill(obj/structure/closet/crate/C)
+/datum/supply_pack/exploration/catering/fill(obj/C)
 	. = ..()
 	if(prob(30))
 		for(var/obj/item/food/F in C)
@@ -36,9 +36,9 @@
 	name = "Shrubbery Crate"
 	desc = "Crate full of hedge shrubs."
 	cost = CARGO_CRATE_VALUE * 5
-	crate_name = "shrubbery crate"
+	container_name = "shrubbery crate"
 	var/shrub_amount = 8
 
-/datum/supply_pack/exploration/shrubbery/fill(obj/structure/closet/crate/C)
+/datum/supply_pack/exploration/shrubbery/fill(obj/C)
 	for(var/i in 1 to shrub_amount)
 		new /obj/item/grown/shrub(C)

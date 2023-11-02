@@ -78,8 +78,7 @@
 	manifest.add_raw_text("<BR>Star System: [source_datum.system_to_deliver.name]<BR>X:[source_datum.overmap_x], Y:[source_datum.overmap_y]")
 	manifest.update_appearance()
 
-	delivery_object = new source_datum.cargo_type(get_turf(console.linked_pad), src, manifest)
-	console.linked_pad.do_teleport_effect()
+	SStrading.shopping_list += new /datum/supply_pack/delivery_run(source_datum.cargo_name, source_datum.cargo_type, src, manifest)
 	return ..()
 
 /datum/delivery_run_instance/Destroy()
@@ -196,3 +195,19 @@
 	icon_state = "interestobject"
 	layer = OVERMAP_LAYER_SHUTTLE
 	color = LIGHT_COLOR_CYAN
+
+// Compat code to make delivery runs work with the cargo system. Probably never gonna be touched again, knowing me. - Rimi
+/datum/supply_pack/delivery_run
+	var/cargo_type
+	var/delivery_instance
+	var/manifest
+
+/datum/supply_pack/delivery_run/New(name, cargo_type, /datum/delivery_run_instance/delivery_instance, manifest)
+	src.name = name
+	src.cargo_type = cargo_type
+	src.delivery_instance = delivery_instance
+	src.manifest = manifest
+	return ..()
+
+/datum/supply_pack/delivery_run/generate(atom/A, datum/bank_account/paying_account)
+	return new cargo_type(A, delivery_instance, manifest)

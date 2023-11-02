@@ -4,7 +4,7 @@
 
 /datum/supply_pack/critter
 	group = "Livestock"
-	crate_type = /obj/structure/closet/crate/critter
+	container_type = /obj/structure/closet/crate/critter
 
 /datum/supply_pack/critter/parrot
 	name = "Bird Crate"
@@ -12,7 +12,7 @@
 	cost = CARGO_CRATE_VALUE * 8
 	access_view = ACCESS_CE
 	contains = list(/mob/living/simple_animal/parrot)
-	crate_name = "parrot crate"
+	container_name = "parrot crate"
 
 /datum/supply_pack/critter/parrot/generate()
 	. = ..()
@@ -26,7 +26,7 @@
 	cost = CARGO_CRATE_VALUE * 5
 	access_view = ACCESS_THEATRE
 	contains = list(/mob/living/simple_animal/butterfly)
-	crate_name = "entomology samples crate"
+	container_name = "entomology samples crate"
 
 /datum/supply_pack/critter/butterfly/generate()
 	. = ..()
@@ -41,7 +41,7 @@
 	contains = list(/mob/living/simple_animal/pet/cat,
 					/obj/item/clothing/neck/petcollar,
 					/obj/item/toy/cattoy)
-	crate_name = "cat crate"
+	container_name = "cat crate"
 
 /datum/supply_pack/critter/cat/generate()
 	. = ..()
@@ -56,7 +56,7 @@
 	cost = CARGO_CRATE_VALUE * 4
 	access_view = ACCESS_KITCHEN
 	contains = list( /mob/living/simple_animal/chick)
-	crate_name = "chicken crate"
+	container_name = "chicken crate"
 
 /datum/supply_pack/critter/corgi
 	name = "Corgi Crate"
@@ -65,7 +65,7 @@
 	access_view = ACCESS_HOP
 	contains = list(/mob/living/simple_animal/pet/dog/corgi,
 					/obj/item/clothing/neck/petcollar)
-	crate_name = "corgi crate"
+	container_name = "corgi crate"
 
 /datum/supply_pack/critter/corgi/generate()
 	. = ..()
@@ -81,7 +81,7 @@
 	cost = CARGO_CRATE_VALUE * 6
 	access_view = ACCESS_HYDROPONICS
 	contains = list(/mob/living/basic/cow)
-	crate_name = "cow crate"
+	container_name = "cow crate"
 
 /datum/supply_pack/critter/sheep
 	name = "Sheep Crate"
@@ -89,7 +89,7 @@
 	cost = CARGO_CRATE_VALUE * 6
 	access_view = ACCESS_HYDROPONICS
 	contains = list(/mob/living/basic/sheep)
-	crate_name = "sheep crate"
+	container_name = "sheep crate"
 
 /datum/supply_pack/critter/pig
 	name = "Pig Crate"
@@ -97,7 +97,7 @@
 	cost = CARGO_CRATE_VALUE * 6
 	access_view = ACCESS_KITCHEN
 	contains = list(/mob/living/basic/pig)
-	crate_name = "pig crate"
+	container_name = "pig crate"
 
 /datum/supply_pack/critter/crab
 	name = "Crab Rocket"
@@ -105,7 +105,7 @@
 	cost = CARGO_CRATE_VALUE * 8
 	access_view = ACCESS_HOS
 	contains = list(/mob/living/simple_animal/crab)
-	crate_name = "look sir free crabs"
+	container_name = "look sir free crabs"
 	drop_pod_only = TRUE
 
 /datum/supply_pack/critter/crab/generate()
@@ -119,7 +119,7 @@
 	cost = CARGO_CRATE_VALUE * 11
 	contains = list(/mob/living/simple_animal/pet/dog/corgi/exoticcorgi,
 					/obj/item/clothing/neck/petcollar)
-	crate_name = "exotic corgi crate"
+	container_name = "exotic corgi crate"
 
 /datum/supply_pack/critter/fox
 	name = "Fox Crate"
@@ -128,7 +128,7 @@
 	access_view = ACCESS_CAPTAIN
 	contains = list(/mob/living/simple_animal/pet/fox,
 					/obj/item/clothing/neck/petcollar)
-	crate_name = "fox crate"
+	container_name = "fox crate"
 
 /datum/supply_pack/critter/goat
 	name = "Goat Crate"
@@ -136,22 +136,22 @@
 	cost = CARGO_CRATE_VALUE * 5
 	access_view = ACCESS_KITCHEN
 	contains = list(/mob/living/simple_animal/hostile/retaliate/goat)
-	crate_name = "goat crate"
+	container_name = "goat crate"
 
 /datum/supply_pack/critter/mothroach
 	name = "Mothroach Crate"
 	desc = "Put the mothroach on your head and find out what true cuteness looks like."
 	cost = CARGO_CRATE_VALUE * 4
 	contains = list(/mob/living/basic/mothroach)
-	crate_name = "mothroach crate"
+	container_name = "mothroach crate"
 
 /datum/supply_pack/critter/monkey
 	name = "Monkey Cube Crate"
 	desc = "Stop monkeying around! Contains seven monkey cubes. Just add water!"
 	cost = CARGO_CRATE_VALUE * 4
 	contains = list (/obj/item/storage/box/monkeycubes)
-	crate_type = /obj/structure/closet/crate
-	crate_name = "monkey cube crate"
+	container_type = /obj/structure/closet/crate
+	container_name = "monkey cube crate"
 
 /datum/supply_pack/critter/pug
 	name = "Pug Crate"
@@ -159,7 +159,7 @@
 	cost = CARGO_CRATE_VALUE * 10
 	contains = list(/mob/living/simple_animal/pet/dog/pug,
 					/obj/item/clothing/neck/petcollar)
-	crate_name = "pug crate"
+	container_name = "pug crate"
 
 /datum/supply_pack/critter/bullterrier
 	name = "Bull Terrier Crate"
@@ -167,7 +167,7 @@
 	cost = CARGO_CRATE_VALUE * 10
 	contains = list(/mob/living/simple_animal/pet/dog/bullterrier,
 					/obj/item/clothing/neck/petcollar)
-	crate_name = "bull terrier crate"
+	container_name = "bull terrier crate"
 
 /datum/supply_pack/critter/snake
 	name = "Snake Crate"
@@ -177,7 +177,7 @@
 	contains = list(/mob/living/simple_animal/hostile/retaliate/snake,
 					/mob/living/simple_animal/hostile/retaliate/snake,
 					/mob/living/simple_animal/hostile/retaliate/snake)
-	crate_name = "snake crate"
+	container_name = "snake crate"
 
 /datum/supply_pack/critter/lizard
 	name = "Lizard Crate"
@@ -185,4 +185,4 @@
 	cost = CARGO_CRATE_VALUE * 4
 	access_view = ACCESS_JANITOR
 	contains = list(/mob/living/simple_animal/hostile/lizard)
-	crate_name = "lizard crate"
+	container_name = "lizard crate"

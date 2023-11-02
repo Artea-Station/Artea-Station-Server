@@ -4,7 +4,7 @@
 
 /datum/supply_pack/organic
 	group = "Food & Hydroponics"
-	crate_type = /obj/structure/closet/crate/freezer
+	container_type = /obj/structure/closet/crate/freezer
 
 /datum/supply_pack/organic/hydroponics
 	access_view = ACCESS_HYDROPONICS
@@ -17,8 +17,8 @@
 					/obj/item/clothing/suit/utility/beekeeper_suit,
 					/obj/item/clothing/head/beekeeper_head,
 					/obj/item/clothing/suit/utility/beekeeper_suit)
-	crate_name = "beekeeper suits"
-	crate_type = /obj/structure/closet/crate/hydroponics
+	container_name = "beekeeper suits"
+	container_type = /obj/structure/closet/crate/hydroponics
 
 /datum/supply_pack/organic/hydroponics/beekeeping_fullkit
 	name = "Beekeeping Starter Crate"
@@ -32,8 +32,8 @@
 					/obj/item/clothing/head/beekeeper_head,
 					/obj/item/clothing/suit/utility/beekeeper_suit,
 					/obj/item/melee/flyswatter)
-	crate_name = "beekeeping starter crate"
-	crate_type = /obj/structure/closet/crate/hydroponics
+	container_name = "beekeeping starter crate"
+	container_type = /obj/structure/closet/crate/hydroponics
 
 /datum/supply_pack/organic/randomized/chef
 	name = "Excellent Meat Crate"
@@ -49,9 +49,9 @@
 					/obj/item/food/spiderleg,
 					/obj/item/food/fishmeat/carp,
 					/obj/item/food/meat/slab/human)
-	crate_name = "food crate"
+	container_name = "food crate"
 
-/datum/supply_pack/organic/randomized/chef/fill(obj/structure/closet/crate/C)
+/datum/supply_pack/organic/randomized/chef/fill(obj/C)
 	for(var/i in 1 to 15)
 		var/item = pick(contains)
 		new item(C)
@@ -73,8 +73,8 @@
 					/obj/item/seeds/shrub,
 					/obj/item/seeds/random,
 					/obj/item/seeds/random)
-	crate_name = "exotic seeds crate"
-	crate_type = /obj/structure/closet/crate/hydroponics
+	container_name = "exotic seeds crate"
+	container_type = /obj/structure/closet/crate/hydroponics
 
 /datum/supply_pack/organic/food
 	name = "Food Crate"
@@ -93,7 +93,7 @@
 					/obj/item/food/grown/banana,
 					/obj/item/food/grown/banana,
 					/obj/item/food/grown/banana)
-	crate_name = "food crate"
+	container_name = "food crate"
 
 /datum/supply_pack/organic/randomized/chef/fruits
 	name = "Fruit Crate"
@@ -105,18 +105,18 @@
 					/obj/item/food/grown/apple,
 					/obj/item/food/grown/berries,
 					/obj/item/food/grown/citrus/lemon)
-	crate_name = "food crate"
+	container_name = "food crate"
 
 /datum/supply_pack/organic/cream_piee
 	name = "High-yield Clown-grade Cream Pie Crate"
 	desc = "Designed by Aussec's Advanced Warfare Research Division, these high-yield, Clown-grade cream pies are powered by a synergy of performance and efficiency. Guaranteed to provide maximum results."
 	cost = CARGO_CRATE_VALUE * 12
 	contains = list(/obj/item/storage/backpack/duffelbag/clown/cream_pie)
-	crate_name = "party equipment crate"
+	container_name = "party equipment crate"
 	contraband = TRUE
 	access = ACCESS_THEATRE
 	access_view = ACCESS_THEATRE
-	crate_type = /obj/structure/closet/crate/secure
+	container_type = /obj/structure/closet/crate/secure
 
 /datum/supply_pack/organic/hydroponics
 	name = "Hydroponics Crate"
@@ -131,8 +131,8 @@
 					/obj/item/plant_analyzer,
 					/obj/item/clothing/gloves/botanic_leather,
 					/obj/item/clothing/suit/apron)
-	crate_name = "hydroponics crate"
-	crate_type = /obj/structure/closet/crate/hydroponics
+	container_name = "hydroponics crate"
+	container_type = /obj/structure/closet/crate/hydroponics
 
 /datum/supply_pack/organic/hydroponics/hydrotank
 	name = "Hydroponics Backpack Crate"
@@ -140,8 +140,8 @@
 	cost = CARGO_CRATE_VALUE * 2
 	access = ACCESS_HYDROPONICS
 	contains = list(/obj/item/watertank)
-	crate_name = "hydroponics backpack crate"
-	crate_type = /obj/structure/closet/crate/secure
+	container_name = "hydroponics backpack crate"
+	container_type = /obj/structure/closet/crate/secure
 
 /datum/supply_pack/organic/pizza
 	name = "Pizza Crate"
@@ -153,7 +153,7 @@
 					/obj/item/pizzabox/meat,
 					/obj/item/pizzabox/vegetable,
 					/obj/item/pizzabox/pineapple)
-	crate_name = "pizza crate"
+	container_name = "pizza crate"
 	///Whether we've provided an infinite pizza box already this shift or not.
 	var/static/anomalous_box_provided = FALSE
 	///The percentage chance (per pizza) of this supply pack to spawn an anomalous pizza box.
@@ -163,7 +163,7 @@
 	///Whether we've provided a bomb pizza box already this shift or not.
 	var/boombox_provided = FALSE
 
-/datum/supply_pack/organic/pizza/fill(obj/structure/closet/crate/C)
+/datum/supply_pack/organic/pizza/fill(obj/C)
 	. = ..()
 
 	var/list/pizza_types = list(
@@ -237,8 +237,8 @@
 					/obj/item/kirbyplants/random,
 					/obj/item/kirbyplants/random,
 					/obj/item/kirbyplants/random)
-	crate_name = "potted plants crate"
-	crate_type = /obj/structure/closet/crate/wooden
+	container_name = "potted plants crate"
+	container_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/organic/seeds
 	name = "Seeds Crate"
@@ -260,8 +260,8 @@
 					/obj/item/seeds/potato,
 					/obj/item/seeds/sugarcane,
 					/obj/item/seeds/cucumber)
-	crate_name = "seeds crate"
-	crate_type = /obj/structure/closet/crate/hydroponics
+	container_name = "seeds crate"
+	container_type = /obj/structure/closet/crate/hydroponics
 
 /datum/supply_pack/organic/randomized/chef/vegetables
 	name = "Vegetables Crate"
@@ -276,28 +276,28 @@
 					/obj/item/food/grown/onion,
 					/obj/item/food/grown/pumpkin,
 					/obj/item/food/grown/cucumber)
-	crate_name = "food crate"
+	container_name = "food crate"
 
 /datum/supply_pack/organic/grill
 	name = "Grilling Starter Kit"
 	desc = "Hey dad I'm Hungry. Hi Hungry I'm THE NEW GRILLING STARTER KIT ONLY 5000 BUX GET NOW! Contains a grill and fuel."
 	cost = CARGO_CRATE_VALUE * 8
-	crate_type = /obj/structure/closet/crate
+	container_type = /obj/structure/closet/crate
 	contains = list(/obj/item/stack/sheet/mineral/coal/five,
 					/obj/machinery/grill/unwrenched,
 					/obj/item/reagent_containers/cup/soda_cans/monkey_energy
 					)
-	crate_name = "grilling starter kit crate"
+	container_name = "grilling starter kit crate"
 
 /datum/supply_pack/organic/grillfuel
 	name = "Grilling Fuel Kit"
 	desc = "Contains propane and propane accessories. (Note: doesn't contain any actual propane.)"
 	cost = CARGO_CRATE_VALUE * 4
-	crate_type = /obj/structure/closet/crate
+	container_type = /obj/structure/closet/crate
 	contains = list(/obj/item/stack/sheet/mineral/coal/ten,
 					/obj/item/reagent_containers/cup/soda_cans/monkey_energy
 					)
-	crate_name = "grilling fuel kit crate"
+	container_name = "grilling fuel kit crate"
 
 /datum/supply_pack/organic/tiziran_supply
 	name = "Tiziran Supply Box"
@@ -306,8 +306,8 @@
 	contains = list(/obj/item/storage/box/tiziran_goods,
 					/obj/item/storage/box/tiziran_cans,
 					/obj/item/storage/box/tiziran_meats)
-	crate_name = "\improper Tiziran Supply box"
-	crate_type = /obj/structure/closet/crate/cardboard/tiziran
+	container_name = "\improper Tiziran Supply box"
+	container_type = /obj/structure/closet/crate/cardboard/tiziran
 
 /datum/supply_pack/organic/mothic_supply
 	name = "Mothic Supply Box"
@@ -316,8 +316,8 @@
 	contains = list(/obj/item/storage/box/mothic_goods,
 					/obj/item/storage/box/mothic_cans_sauces,
 					/obj/item/storage/box/mothic_rations)
-	crate_name = "\improper Mothic Supply box"
-	crate_type = /obj/structure/closet/crate/cardboard/mothic
+	container_name = "\improper Mothic Supply box"
+	container_type = /obj/structure/closet/crate/cardboard/mothic
 
 /datum/supply_pack/organic/syrup
 	name = "Coffee Syrups Box"
@@ -328,8 +328,8 @@
 		/obj/item/reagent_containers/cup/bottle/syrup_bottle/liqueur,
 		/obj/item/reagent_containers/cup/bottle/syrup_bottle/korta_nectar,
 	)
-	crate_name = "coffee syrups box"
-	crate_type = /obj/structure/closet/crate/cardboard
+	container_name = "coffee syrups box"
+	container_type = /obj/structure/closet/crate/cardboard
 
 /datum/supply_pack/organic/syrup_contraband
 	contraband = TRUE
@@ -340,5 +340,5 @@
 		/obj/item/reagent_containers/cup/bottle/syrup_bottle/laughsyrup,
 		/obj/item/reagent_containers/cup/bottle/syrup_bottle/laughsyrup,
 	)
-	crate_name = "illegal syrups box"
-	crate_type = /obj/structure/closet/crate/cardboard
+	container_name = "illegal syrups box"
+	container_type = /obj/structure/closet/crate/cardboard

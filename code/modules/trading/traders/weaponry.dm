@@ -1,5 +1,6 @@
 /datum/trader/gunshop
 	name = "Gun Shop Employee"
+	pack_groups = list(TRADER_GROUP_ARMORY)
 	possible_origins = list("Rooty Tootie's Point-n-Shooties", "Bang-Bang Shop", "Wild Wild West Shop", "Keleshnikov", "Hunting Depot", "Big Game Hunters")
 	speech = list("hail"    = "Hello, hello! I hope you have your permit. Oh, who are we kidding, you're welcome anyway!",
 				"hail_deny"         = "Store policy dictates that you can fuck off.",
@@ -13,15 +14,6 @@
 				"compliment_accept" = "Ha! Good one!",
 				"insult_good"       = "I expected better from you. I suppose in that, I was wrong.",
 				"insult_bad"        = "If I had my gun I'd shoot you!")
-	sold_goods = list(
-		/datum/sold_goods/makarov,
-		/datum/sold_goods/m1911,
-		/datum/sold_goods/shotgun,
-		/datum/sold_goods/ammo_9mm,
-		/datum/sold_goods/ammo_45,
-		/datum/sold_goods/ammo_shotgun_buckshot,
-		/datum/sold_goods/ammo_shotgun_slug
-		)
 	possible_bounties = list(
 		/datum/trader_bounty/gun_celebration_day = 150,
 		/datum/trader_bounty/reagent/ammo_requisition = 200,
@@ -30,6 +22,7 @@
 
 /datum/trader/egunshop
 	name = "Energy Gun Shop Employee"
+	pack_groups = list(TRADER_GROUP_ARMORY)
 	possible_origins = list("The Emperor's Lasgun Shop", "Future Guns", "Solar Army", "Kiefer's Dependable Electric Arms", "Olympus Kingsport")
 	speech = list("hail"    = "Welcome to the future of warfare! ORIGIN, your one-stop shop for energy weaponry!",
 				"hail_deny"         = "I'm sorry, your communication channel has been blacklisted.",
@@ -43,13 +36,6 @@
 				"compliment_accept" = "Yes, I am very smart.",
 				"insult_good"       = "Energy weapons are TWICE the gun kinetic guns are!",
 				"insult_bad"        = "That's... very mean. I won't think twice about blacklisting your channel, so stop.")
-	sold_goods = list(
-		/datum/sold_goods/egun,
-		/datum/sold_goods/mini_egun,
-		/datum/sold_goods/lasgun,
-		/datum/sold_goods/hellgun,
-		/datum/sold_goods/aegun
-		)
 	possible_bounties = list(
 		/datum/trader_bounty/anomalous_energy_sources = 100,
 		/datum/trader_bounty/unlimited_power = 100

@@ -4,96 +4,47 @@
 #define CART_COST_MULTIPLIER "cost_multiplier"
 
 // Oh shit, I somehow lost all my chems, and need get back in business!
-/datum/supply_pack/medical/chem_cartridge_get_out_of_jail_card
+/datum/supply_pack/galactic_imports/cart_pack
+	group = TRADER_GROUP_GALACTIC_IMPORTS
+	category = "Cartridge Packs"
+
+/datum/supply_pack/galactic_imports/cart_pack/fill(obj/crate)
+	for(var/datum/reagent/chem as anything in contains)
+		var/obj/item/reagent_containers/chem_cartridge/cartridge = contains[chem]
+		cartridge = new cartridge(crate)
+		if(admin_spawned)
+			cartridge.flags_1 |= ADMIN_SPAWNED_1
+		cartridge.setLabel(initial(chem.name))
+		cartridge.reagents.add_reagent(chem, cartridge.volume)
+
+/datum/supply_pack/galactic_imports/cart_pack/chem_cartridge_get_out_of_jail_card
 	name = "Chem Cartridge Luxury Pack (Full Dispenser)"
 	desc = "Contains a full set of chem cartridges of the same size inside a chemist's dispenser at shift start."
-	cost = CARGO_CRATE_VALUE * 35
+	cost = CARGO_CRATE_VALUE * 30
 	contains = CARTRIDGE_LIST_CHEM_DISPENSER
+	container_type = /obj/structure/closet/crate/medical
 
-/datum/supply_pack/medical/chem_cartridge_get_out_of_jail_card/fill(obj/structure/closet/crate/crate)
-	for(var/datum/reagent/chem as anything in contains)
-		var/obj/item/reagent_containers/chem_cartridge/cartridge = contains[chem]
-		cartridge = new cartridge(crate)
-		if(admin_spawned)
-			cartridge.flags_1 |= ADMIN_SPAWNED_1
-		cartridge.setLabel(initial(chem.name))
-		cartridge.reagents.add_reagent(chem, cartridge.volume)
-
-/datum/supply_pack/service/soft_drinks_chem_cartridge_get_out_of_jail_card
+/datum/supply_pack/galactic_imports/cart_pack/soft_drinks_chem_cartridge_get_out_of_jail_card
 	name = "Soft Drinks Cartridge Luxury Pack (Full Dispenser)"
 	desc = "Contains a full set of chem cartridges of the same size inside a soft drinks dispenser at shift start."
-	cost = CARGO_CRATE_VALUE * 25
+	cost = CARGO_CRATE_VALUE * 20
 	contains = CARTRIDGE_LIST_DRINKS
+	category = "Cartridge Packs"
+	container_type = /obj/structure/closet/crate
 
-/datum/supply_pack/service/soft_drinks_chem_cartridge_get_out_of_jail_card/fill(obj/structure/closet/crate/crate)
-	for(var/datum/reagent/chem as anything in contains)
-		var/obj/item/reagent_containers/chem_cartridge/cartridge = contains[chem]
-		cartridge = new cartridge(crate)
-		if(admin_spawned)
-			cartridge.flags_1 |= ADMIN_SPAWNED_1
-		cartridge.setLabel(initial(chem.name))
-		cartridge.reagents.add_reagent(chem, cartridge.volume)
-
-/datum/supply_pack/service/booze_chem_cartridge_get_out_of_jail_card
+/datum/supply_pack/galactic_imports/cart_pack/booze_chem_cartridge_get_out_of_jail_card
+	group = TRADER_GROUP_GALACTIC_IMPORTS
 	name = "Booze Cartridge Luxury Pack (Full Dispenser)"
 	desc = "Contains a full set of chem cartridges of the same size inside a booze dispenser at shift start."
-	cost = CARGO_CRATE_VALUE * 30
+	cost = CARGO_CRATE_VALUE * 25
 	contains = CARTRIDGE_LIST_BOOZE
-
-/datum/supply_pack/service/booze_chem_cartridge_get_out_of_jail_card/fill(obj/structure/closet/crate/crate)
-	for(var/datum/reagent/chem as anything in contains)
-		var/obj/item/reagent_containers/chem_cartridge/cartridge = contains[chem]
-		cartridge = new cartridge(crate)
-		if(admin_spawned)
-			cartridge.flags_1 |= ADMIN_SPAWNED_1
-		cartridge.setLabel(initial(chem.name))
-		cartridge.reagents.add_reagent(chem, cartridge.volume)
-
-/datum/supply_pack/service/chem_cartridge_large
-	name = "Chem Cartridge (Large)"
-	desc = "Contains a single, empty large chem cartridge."
-	cost = CARGO_CRATE_VALUE * 2
-	access_view = ACCESS_SERVICE
-	contains = list(/obj/item/reagent_containers/chem_cartridge/large)
-
-/datum/supply_pack/service/chem_cartridge_medium
-	name = "Chem Cartridge (Medium)"
-	desc = "Contains a single, empty medium chem cartridge."
-	cost = CARGO_CRATE_VALUE * 1.4
-	access_view = ACCESS_SERVICE
-	contains = list(/obj/item/reagent_containers/chem_cartridge/medium)
-
-/datum/supply_pack/service/chem_cartridge_small
-	name = "Chem Cartridge (Small 2x)"
-	desc = "Contains two, empty small chem cartridge."
-	cost = CARGO_CRATE_VALUE * 1.4
-	access_view = ACCESS_SERVICE
-	contains = list(/obj/item/reagent_containers/chem_cartridge/small, /obj/item/reagent_containers/chem_cartridge/small)
-
-/datum/supply_pack/medical/chem_cartridge_large
-	name = "Chem Cartridge (Large)"
-	desc = "Contains a single, empty large chem cartridge."
-	cost = CARGO_CRATE_VALUE * 2
-	access_view = ACCESS_MEDICAL
-	contains = list(/obj/item/reagent_containers/chem_cartridge/large)
-
-/datum/supply_pack/medical/chem_cartridge_medium
-	name = "Chem Cartridge (Medium)"
-	desc = "Contains a single, empty medium chem cartridge."
-	cost = CARGO_CRATE_VALUE * 1.4
-	access_view = ACCESS_MEDICAL
-	contains = list(/obj/item/reagent_containers/chem_cartridge/medium)
-
-/datum/supply_pack/medical/chem_cartridge_small
-	name = "Chem Cartridge (Small 2x)"
-	desc = "Contains two, empty small chem cartridge."
-	cost = CARGO_CRATE_VALUE * 1.4
-	access_view = ACCESS_MEDICAL
-	contains = list(/obj/item/reagent_containers/chem_cartridge/small, /obj/item/reagent_containers/chem_cartridge/small)
+	category = "Cartridge Packs"
+	container_type = /obj/structure/closet/crate
 
 // The amount of shit going into this *will* warrant it's own category.
-/datum/supply_pack/cartridges
-	crate_type = /obj/structure/closet/crate/medical
+/datum/supply_pack/galactic_imports/cartridges
+	container_type = /obj/structure/closet/crate/medical
+	group = TRADER_GROUP_GALACTIC_IMPORTS
 
 	var/static/list/cartridge_params = list(
 		"Small" = CARGO_CRATE_VALUE * 0.6,
@@ -131,7 +82,7 @@
 
 	var/datum/reagent/chem
 
-/datum/supply_pack/cartridges/generate_supply_packs()
+/datum/supply_pack/galactic_imports/cartridges/generate_supply_packs()
 	var/list/packs_to_return = list()
 
 	for(var/list/chem_list as anything in chem_lists)
@@ -152,9 +103,9 @@
 					if("Large")
 						cartridge = /obj/item/reagent_containers/chem_cartridge/large
 
-				var/datum/supply_pack/cartridges/generated/pack = new
+				var/datum/supply_pack/galactic_imports/cartridges/generated/pack = new
 				pack.name = "[initial(chem.name)] [pack_name] ([size])"
-				pack.group = pack_group
+				pack.category = pack_group
 				pack.id = "[chem]|[initial(chem.name)]|[size]"
 				pack.desc = "Contains a single [lowertext(size)] cartridge of [initial(chem.name)]. [initial(chem.description)]"
 				pack.access_view = pack_access
@@ -169,7 +120,7 @@
 	return packs_to_return
 
 // Spawn the ordered cartridge and properly set it up with the desired chem.
-/datum/supply_pack/cartridges/fill(obj/structure/closet/crate/crate)
+/datum/supply_pack/galactic_imports/cartridges/fill(obj/crate)
 	for(var/item in contains)
 		var/obj/item/reagent_containers/chem_cartridge/cartridge = new item(crate)
 		if(admin_spawned)
@@ -178,12 +129,5 @@
 		cartridge.reagents.add_reagent(chem, cartridge.volume)
 
 // Don't endlessly make packs. Thanks.
-/datum/supply_pack/cartridges/generated/generate_supply_packs()
+/datum/supply_pack/galactic_imports/cartridges/generated/generate_supply_packs()
 	return
-
-/datum/supply_pack/medical/large_dispenser
-	name = "Large Chem Dispenser Board"
-	desc = "Contains a single chem dispenser board."
-	cost = CARGO_CRATE_VALUE * 4
-	access_view = ACCESS_MEDICAL
-	contains = list(/obj/item/circuitboard/machine/chem_dispenser/big)

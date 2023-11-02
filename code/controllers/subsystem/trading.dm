@@ -28,12 +28,15 @@ SUBSYSTEM_DEF(trading)
 	/// Number of trade-points we have (basically money).
 	var/points = 5000
 	/// Remarks from CentCom on how well you checked the last order.
-	var/centcom_message = ""
+	var/trade_message = ""
 	/// Typepaths for unusual plants we've already sent CentCom, associated with their potencies.
 	var/list/discovered_plants = list()
 
 	/// All of the possible supply packs that can be purchased by cargo.
 	var/list/supply_packs = list()
+
+	/// Assoc list of supply pack group to their packs.
+	var/list/group_to_supplies = list()
 
 	/// Stuff the chef ordered. Will be added onto the shuttle, and cargo gets no say.
 	var/list/chef_groceries = list()
@@ -43,6 +46,12 @@ SUBSYSTEM_DEF(trading)
 
 	/// Queued supply packs to be purchased.
 	var/list/shopping_list = list()
+
+	/// An assoc list of traders to the amount of orders that are on the shopping list from them.
+	/// This is *not* precise. Don't use it for anything critical to economy.
+	/// This is a bit fucked, but it simplifies code and removes the need to scan lists.
+	/// Managed by trade consoles.
+	var/list/traders_to_visit = list()
 
 /datum/controller/subsystem/trading/proc/get_trade_hub_by_id(id)
 	return trade_hubs["[id]"]
@@ -86,12 +95,18 @@ SUBSYSTEM_DEF(trading)
 		var/list/generated_packs = pack.generate_supply_packs()
 		if(generated_packs)
 			pack_processing += generated_packs
-			continue
 
 		if(!pack.contains)
 			continue
 
 		supply_packs[pack.id] = pack
+		if(!pack.group) // Don't throw any warnings or errors. Probably an admin-only or template pack.
+			continue
+		if(islist(pack.group))
+			for(var/group in pack.group)
+				LAZYADD(group_to_supplies[group], pack)
+			return
+		LAZYADD(group_to_supplies[pack.group], pack)
 
 	var/datum/map_config/config = SSmapping.config
 	// Create central trade hub

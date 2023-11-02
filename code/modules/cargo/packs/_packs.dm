@@ -1,13 +1,13 @@
 /datum/supply_pack
-	/// The name of the supply pack, as listed on th cargo purchasing UI.
+	/// The name of the supply pack, as listed on the trader UI.
 	var/name
-	/// The group that the supply pack is sorted into within the cargo purchasing UI.
+	/// The group that the supply pack is sorted into within the trader UI. Use the TRADER_GROUP defines. Can be a list.
 	var/group
-	/// Is this cargo supply pack visible to the cargo purchasing UI.
+	/// Is this cargo supply pack visible to traders.
 	var/hidden = FALSE
-	/// Is this supply pack purchasable outside of the standard purchasing band? Contraband is available by multitooling the cargo purchasing board.
+	/// Is this supply pack purchasable outside of the standard purchasing band? Contraband is available by multitooling the trade console board.
 	var/contraband = FALSE
-	/// Cost of the crate. DO NOT GO ANY LOWER THAN X1.4 the "CARGO_CRATE_VALUE" value if using regular crates, or infinite profit will be possible! // You make me want to kneecap the crate refund. 100cr is fucking nuts. - Rimi
+	/// Cost of the pack. Cargo crate value should be used as a base, despite crates not actually being used.
 	var/cost = CARGO_CRATE_VALUE * 1.4
 	/// What access is required to open the crate when spawned?
 	var/access
@@ -17,14 +17,14 @@
 	var/access_any
 	/// A list of items that are spawned in the crate of the supply pack.
 	var/list/contains
-	/// What is the name of the crate that is spawned with the crate's contents??
-	var/crate_name = "crate"
-	/// When spawning a gas canistor, what kind of gas type are we spawning?
+	/// The ID that's used to find this order in SStrading.supply_packs. Used instead of `type` for allowing dynamically generating packs.
 	var/id
-	/// The description shown on the cargo purchasing UI. No desc by default.
+	/// The description shown on the trader UI. No desc by default.
 	var/desc
-	/// What typepath of crate do you spawn?
-	var/crate_type = /obj/structure/closet/crate
+	/// What is the name of the crate that is spawned with the crate's contents?
+	var/container_name = "crate"
+	/// What typepath of container do you spawn? Can be a crate OR /obj/item/delivery.
+	var/container_type = /obj/item/delivery
 	/// Should we message admins?
 	var/dangerous = FALSE
 	/// Event/Station Goals/Admin enabled packs
@@ -39,9 +39,15 @@
 	var/admin_spawned = FALSE
 	/// Goodies can only be purchased by private accounts and can have coupons apply to them. They also come in a lockbox instead of a full crate, so the 700 min doesn't apply
 	var/goody = FALSE
+	/// Traders will have this amount this pack initially.
+	var/default_stock = 5
+	/// An assoc list of trader IDs to the amount of this item they currently have.
+	var/list/stock = list()
+	/// Set to TRUE to make it show in the galactic imports menu. Will inherit the FIRST group of the pack as the category.
+	var/galactic_import = FALSE
 
 /datum/supply_pack/New()
-	id = type
+	id = "[type]"
 	if(!name && islist(contains))
 		var/obj/ordered_item = contains[1]
 		if(ordered_item)
@@ -50,36 +56,53 @@
 			CRASH("No name given for supply pack \"[type]\"!")
 
 /datum/supply_pack/proc/generate(atom/A, datum/bank_account/paying_account)
-	var/obj/structure/closet/crate/C
-	if(paying_account)
-		C = new /obj/structure/closet/crate/secure/owned(A, paying_account)
-		C.name = "[crate_name] - Purchased by [paying_account.account_holder]"
-	else if(!crate_type)
+	if(!container_type)
 		CRASH("tried to generate a supply pack without a valid crate type")
-	else
-		C = new crate_type(A)
-		C.name = crate_name
-	if(access)
-		C.req_access = list(access)
-	if(access_any)
-		C.req_one_access = access_any
 
-	fill(C)
-	return C
+	var/obj/container
+
+	// Briefcase and crate both have req_access vars, so this is fine.
+	if(ispath(container_type, /obj/structure/closet/crate) || ispath(container_type, /obj/item/storage/secure/briefcase))
+		var/obj/structure/closet/crate/crate
+		if(paying_account)
+			crate = new /obj/structure/closet/crate/secure/owned(A, paying_account)
+			crate.name = "[container_name] - Purchased by [paying_account.account_holder]"
+		else
+			crate = new container_type(A)
+			crate.name = container_name
+		if(access)
+			crate.req_access = list(access)
+		if(access_any)
+			crate.req_one_access = access_any
+
+		container = crate
+
+	else if(ispath(container_type, /obj/item/delivery))
+		var/obj/item/delivery/package = new container_type(A)
+		package.name = container_name
+		container = package
+
+	else
+		CRASH("Invalid container_type given for [type]!")
+
+	fill(container)
+	return container
 
 /datum/supply_pack/proc/get_cost()
 	. = cost
 	. *= SSeconomy.pack_price_modifier
 
-/datum/supply_pack/proc/fill(obj/structure/closet/crate/C)
+/datum/supply_pack/proc/fill(obj/container)
 	if (admin_spawned)
 		for(var/item in contains)
-			var/atom/A = new item(C)
+			var/atom/A = new item(container)
 			A.flags_1 |= ADMIN_SPAWNED_1
 	else
 		for(var/item in contains)
-			new item(C)
+			new item(container)
 
-/// For generating supply packs at runtime. Returns a list of supply packs to use instead of this one.
+/// For generating supply packs at runtime. Returns a list of supply packs to use ALONGSIDE this one.
+/// Make sure the contents are nulled if you don't want the pack generating these to do anything else.
 /datum/supply_pack/proc/generate_supply_packs()
-	return
+	if(galactic_import)
+		return list(new /datum/supply_pack/galactic_imports/generated("[/datum/supply_pack/galactic_imports/generated]|[type]", src))

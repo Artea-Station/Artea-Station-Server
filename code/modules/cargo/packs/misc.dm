@@ -17,8 +17,8 @@
 					/obj/item/storage/crayons,
 					/obj/item/toy/crayon/white,
 					/obj/item/toy/crayon/rainbow)
-	crate_name = "art supply crate"
-	crate_type = /obj/structure/closet/crate/wooden
+	container_name = "art supply crate"
+	container_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/misc
 	group = "Miscellaneous Supplies"
@@ -32,8 +32,8 @@
 		/obj/item/toner,
 		/obj/item/toner,
 	)
-	crate_name = "tattoo crate"
-	crate_type = /obj/structure/closet/crate/wooden
+	container_name = "tattoo crate"
+	container_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/misc/aquarium_kit
 	name = "Aquarium Kit"
@@ -46,8 +46,8 @@
 					/obj/item/fish_feed,
 					/obj/item/storage/box/aquarium_props,
 					/obj/item/aquarium_kit)
-	crate_name = "aquarium kit crate"
-	crate_type = /obj/structure/closet/crate/wooden
+	container_name = "aquarium kit crate"
+	container_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/misc/aquarium_fish
 	name = "Aquarium Fish Case"
@@ -56,7 +56,7 @@
 	contains = list(/obj/item/storage/fish_case/random,
 					/obj/item/storage/fish_case/random,
 					/obj/item/storage/fish_case/random)
-	crate_name = "aquarium fish crate"
+	container_name = "aquarium fish crate"
 
 /datum/supply_pack/misc/freshwater_fish
 	name = "Freshwater Fish Case"
@@ -64,7 +64,7 @@
 	cost = CARGO_CRATE_VALUE * 2
 	contains = list(/obj/item/storage/fish_case/random/freshwater,
 					/obj/item/storage/fish_case/random/freshwater)
-	crate_name = "freshwater fish crate"
+	container_name = "freshwater fish crate"
 
 /datum/supply_pack/misc/saltwater_fish
 	name = "Saltwater Fish Case"
@@ -72,7 +72,7 @@
 	cost = CARGO_CRATE_VALUE * 2
 	contains = list(/obj/item/storage/fish_case/random/saltwater,
 					/obj/item/storage/fish_case/random/saltwater)
-	crate_name = "saltwater fish crate"
+	container_name = "saltwater fish crate"
 
 /datum/supply_pack/misc/tiziran_fish
 	name = "Tirizan Fish Case"
@@ -80,21 +80,21 @@
 	cost = CARGO_CRATE_VALUE * 2
 	contains = list(/obj/item/storage/fish_case/tiziran,
 					/obj/item/storage/fish_case/tiziran)
-	crate_name = "tiziran fish crate"
+	container_name = "tiziran fish crate"
 
 /datum/supply_pack/misc/bicycle
 	name = "Bicycle"
 	desc = "Nanotrasen reminds all employees to never toy with powers outside their control."
 	cost = 1000000 //Special case, we don't want to make this in terms of crates because having bikes be a million credits is the whole meme.
 	contains = list(/obj/vehicle/ridden/bicycle)
-	crate_name = "bicycle crate"
-	crate_type = /obj/structure/closet/crate/large
+	container_name = "bicycle crate"
+	container_type = /obj/structure/closet/crate/large
 
 /datum/supply_pack/misc/bigband
 	name = "Big Band Instrument Collection"
 	desc = "Get your sad station movin' and groovin' with this fine collection! Contains nine different instruments!"
 	cost = CARGO_CRATE_VALUE * 10
-	crate_name = "Big band musical instruments collection"
+	container_name = "Big band musical instruments collection"
 	contains = list(/obj/item/instrument/violin,
 					/obj/item/instrument/guitar,
 					/obj/item/instrument/glockenspiel,
@@ -104,7 +104,7 @@
 					/obj/item/instrument/recorder,
 					/obj/item/instrument/harmonica,
 					/obj/structure/musician/piano/unanchored)
-	crate_type = /obj/structure/closet/crate/wooden
+	container_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/misc/book_crate
 	name = "Book Crate"
@@ -118,7 +118,7 @@
 					/obj/item/book/random,
 					/obj/item/book/random,
 					/obj/item/book/random)
-	crate_type = /obj/structure/closet/crate/wooden
+	container_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/misc/commandkeys
 	name = "Command Encryption Key Crate"
@@ -129,22 +129,22 @@
 	contains = list(/obj/item/encryptionkey/headset_com,
 					/obj/item/encryptionkey/headset_com,
 					/obj/item/encryptionkey/headset_com)
-	crate_type = /obj/structure/closet/crate/secure
-	crate_name = "command encryption key crate"
+	container_type = /obj/structure/closet/crate/secure
+	container_name = "command encryption key crate"
 
 /datum/supply_pack/misc/exploration_drone
 	name = "Exploration Drone"
 	desc = "A replacement long-range exploration drone."
 	cost = CARGO_CRATE_VALUE * 5
 	contains = list(/obj/item/exodrone)
-	crate_name = "exodrone crate"
+	container_name = "exodrone crate"
 
 /datum/supply_pack/misc/exploration_fuel
 	name = "Drone Fuel Pellet"
 	desc = "A fresh tank of exploration drone fuel."
 	cost = CARGO_CRATE_VALUE * 3
 	contains = list(/obj/item/fuel_pellet)
-	crate_name = "exodrone fuel crate"
+	container_name = "exodrone fuel crate"
 
 /datum/supply_pack/misc/paper
 	name = "Bureaucracy Crate"
@@ -171,23 +171,23 @@
 					/obj/item/stamp,
 					/obj/item/stamp/denied,
 					/obj/item/laser_pointer/purple)
-	crate_name = "bureaucracy crate"
+	container_name = "bureaucracy crate"
 
 /datum/supply_pack/misc/fountainpens
 	name = "Calligraphy Crate"
 	desc = "Sign death warrants in style with these seven executive fountain pens."
 	cost = CARGO_CRATE_VALUE * 1.45
 	contains = list(/obj/item/storage/box/fountainpens)
-	crate_type = /obj/structure/closet/crate/wooden
-	crate_name = "calligraphy crate"
+	container_type = /obj/structure/closet/crate/wooden
+	container_name = "calligraphy crate"
 
 /datum/supply_pack/misc/wrapping_paper
 	name = "Festive Wrapping Paper Crate"
 	desc = "Want to mail your loved ones gift-wrapped chocolates, stuffed animals, the Clown's severed head? You can do all that, with this crate full of wrapping paper."
 	cost = CARGO_CRATE_VALUE * 1.8
 	contains = list(/obj/item/stack/wrapping_paper)
-	crate_type = /obj/structure/closet/crate/wooden
-	crate_name = "festive wrapping paper crate"
+	container_type = /obj/structure/closet/crate/wooden
+	container_name = "festive wrapping paper crate"
 
 
 /datum/supply_pack/misc/funeral
@@ -198,8 +198,8 @@
 	contains = list(/obj/item/clothing/under/misc/burial,
 					/obj/item/food/grown/harebell,
 					/obj/item/food/grown/poppy/geranium)
-	crate_name = "coffin"
-	crate_type = /obj/structure/closet/crate/coffin
+	container_name = "coffin"
+	container_type = /obj/structure/closet/crate/coffin
 
 /datum/supply_pack/misc/empty
 	name = "Empty Supplypod"
@@ -207,7 +207,7 @@
 	cost = CARGO_CRATE_VALUE * 0.6 //Empty pod, so no crate refund
 	contains = list()
 	drop_pod_only = TRUE
-	crate_type = null
+	container_type = null
 	special_pod = /obj/structure/closet/supplypod/bluespacepod
 
 /datum/supply_pack/misc/empty/generate(atom/A, datum/bank_account/paying_account)
@@ -227,7 +227,7 @@
 					/obj/item/clothing/under/misc/burial,
 					/obj/item/clothing/under/misc/burial,
 				)
-	crate_name = "religious supplies crate"
+	container_name = "religious supplies crate"
 
 /datum/supply_pack/misc/toner
 	name = "Toner Crate"
@@ -239,7 +239,7 @@
 					/obj/item/toner,
 					/obj/item/toner,
 					/obj/item/toner)
-	crate_name = "toner crate"
+	container_name = "toner crate"
 
 /datum/supply_pack/misc/toner_large
 	name = "Toner Crate (Large)"
@@ -251,7 +251,7 @@
 					/obj/item/toner/large,
 					/obj/item/toner/large,
 					/obj/item/toner/large)
-	crate_name = "large toner crate"
+	container_name = "large toner crate"
 
 /datum/supply_pack/misc/training_toolbox
 	name = "Training Toolbox Crate"
@@ -260,7 +260,7 @@
 	contains = list(/obj/item/training_toolbox,
 					/obj/item/training_toolbox
 					)
-	crate_name = "training toolbox crate"
+	container_name = "training toolbox crate"
 
 /datum/supply_pack/misc/blackmarket_telepad
 	name = "Black Market LTSRBT"
@@ -273,7 +273,7 @@
 		/obj/item/stack/ore/bluespace_crystal/artificial,
 		/obj/item/stock_parts/subspace/ansible
 	)
-	crate_name = "crate"
+	container_name = "crate"
 
 ///Special supply crate that generates random syndicate gear up to a determined TC value
 /datum/supply_pack/misc/syndicate
@@ -281,13 +281,13 @@
 	desc = "Contains a random assortment of syndicate gear."
 	special = TRUE ///Cannot be ordered via cargo
 	contains = list()
-	crate_name = "syndicate gear crate"
-	crate_type = /obj/structure/closet/crate
+	container_name = "syndicate gear crate"
+	container_type = /obj/structure/closet/crate
 	var/crate_value = 30 ///Total TC worth of contained uplink items
 	var/uplink_flag = UPLINK_TRAITORS
 
 ///Generate assorted uplink items, taking into account the same surplus modifiers used for surplus crates
-/datum/supply_pack/misc/syndicate/fill(obj/structure/closet/crate/C)
+/datum/supply_pack/misc/syndicate/fill(obj/C)
 	var/list/uplink_items = list()
 	for(var/datum/uplink_item/item_path as anything in SStraitor.uplink_items_by_type)
 		var/datum/uplink_item/item = SStraitor.uplink_items_by_type[item_path]
@@ -309,4 +309,4 @@
 	desc = "Not enough fish near your location? Fishing portal has your back."
 	cost = CARGO_CRATE_VALUE * 4
 	contains = list(/obj/machinery/fishing_portal_generator)
-	crate_name = "fishing portal crate"
+	container_name = "fishing portal crate"

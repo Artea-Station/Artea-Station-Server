@@ -6,7 +6,7 @@
 	group = "Armory"
 	access = ACCESS_ARMORY
 	access_view = ACCESS_ARMORY
-	crate_type = /obj/structure/closet/crate/secure/weapon
+	container_type = /obj/structure/closet/crate/secure/weapon
 
 /datum/supply_pack/security/armory/bulletarmor
 	name = "Bulletproof Armor Crate"
@@ -15,7 +15,7 @@
 	contains = list(/obj/item/clothing/suit/armor/bulletproof,
 					/obj/item/clothing/suit/armor/bulletproof,
 					/obj/item/clothing/suit/armor/bulletproof)
-	crate_name = "bulletproof armor crate"
+	container_name = "bulletproof armor crate"
 
 /datum/supply_pack/security/armory/bullethelmets
 	name = "Bulletproof Helmets Crate"
@@ -24,14 +24,14 @@
 	contains = list(/obj/item/clothing/head/helmet/alt,
 					/obj/item/clothing/head/helmet/alt,
 					/obj/item/clothing/head/helmet/alt)
-	crate_name = "bulletproof helmets crate"
+	container_name = "bulletproof helmets crate"
 
 /datum/supply_pack/security/armory/chemimp
 	name = "Chemical Implants Crate"
 	desc = "Contains five Remote Chemical implants. Requires Armory access to open."
 	cost = CARGO_CRATE_VALUE * 3.5
 	contains = list(/obj/item/storage/box/chemimp)
-	crate_name = "chemical implant crate"
+	container_name = "chemical implant crate"
 
 /datum/supply_pack/security/armory/ballistic
 	name = "Combat Shotguns Crate"
@@ -43,7 +43,7 @@
 					/obj/item/storage/belt/bandolier,
 					/obj/item/storage/belt/bandolier,
 					/obj/item/storage/belt/bandolier)
-	crate_name = "combat shotguns crate"
+	container_name = "combat shotguns crate"
 
 /datum/supply_pack/security/armory/dragnet
 	name = "DRAGnet Crate"
@@ -52,7 +52,7 @@
 	contains = list(/obj/item/gun/energy/e_gun/dragnet,
 					/obj/item/gun/energy/e_gun/dragnet,
 					/obj/item/gun/energy/e_gun/dragnet)
-	crate_name = "\improper DRAGnet crate"
+	container_name = "\improper DRAGnet crate"
 
 /datum/supply_pack/security/armory/energy
 	name = "Energy Guns Crate"
@@ -60,15 +60,15 @@
 	cost = CARGO_CRATE_VALUE * 18
 	contains = list(/obj/item/gun/energy/e_gun,
 					/obj/item/gun/energy/e_gun)
-	crate_name = "energy gun crate"
-	crate_type = /obj/structure/closet/crate/secure/plasma
+	container_name = "energy gun crate"
+	container_type = /obj/structure/closet/crate/secure/plasma
 
 /datum/supply_pack/security/armory/exileimp
 	name = "Exile Implants Crate"
 	desc = "Contains five Exile implants. Requires Armory access to open."
 	cost = CARGO_CRATE_VALUE * 3.5
 	contains = list(/obj/item/storage/box/exileimp)
-	crate_name = "exile implant crate"
+	container_name = "exile implant crate"
 
 /datum/supply_pack/security/armory/fire
 	name = "Incendiary Weapons Crate"
@@ -82,8 +82,8 @@
 					/obj/item/grenade/chem_grenade/incendiary,
 					/obj/item/grenade/chem_grenade/incendiary,
 					/obj/item/grenade/chem_grenade/incendiary)
-	crate_name = "incendiary weapons crate"
-	crate_type = /obj/structure/closet/crate/secure/plasma
+	container_name = "incendiary weapons crate"
+	container_type = /obj/structure/closet/crate/secure/plasma
 	dangerous = TRUE
 
 /datum/supply_pack/security/armory/mindshield
@@ -91,7 +91,7 @@
 	desc = "Prevent against radical thoughts with three Mindshield implants. Requires Armory access to open."
 	cost = CARGO_CRATE_VALUE * 6
 	contains = list(/obj/item/storage/lockbox/loyalty)
-	crate_name = "mindshield implant crate"
+	container_name = "mindshield implant crate"
 
 /datum/supply_pack/security/armory/trackingimp
 	name = "Tracking Implants Crate"
@@ -101,7 +101,7 @@
 					/obj/item/ammo_box/c38/trac,
 					/obj/item/ammo_box/c38/trac,
 					/obj/item/ammo_box/c38/trac)
-	crate_name = "tracking implant crate"
+	container_name = "tracking implant crate"
 
 /datum/supply_pack/security/armory/laserarmor
 	name = "Reflector Vest Crate"
@@ -109,8 +109,8 @@
 	cost = CARGO_CRATE_VALUE * 5
 	contains = list(/obj/item/clothing/suit/armor/laserproof,
 					/obj/item/clothing/suit/armor/laserproof)
-	crate_name = "reflector vest crate"
-	crate_type = /obj/structure/closet/crate/secure/plasma
+	container_name = "reflector vest crate"
+	container_type = /obj/structure/closet/crate/secure/plasma
 
 /datum/supply_pack/security/armory/riotarmor
 	name = "Riot Armor Crate"
@@ -119,7 +119,7 @@
 	contains = list(/obj/item/clothing/suit/armor/riot,
 					/obj/item/clothing/suit/armor/riot,
 					/obj/item/clothing/suit/armor/riot)
-	crate_name = "riot armor crate"
+	container_name = "riot armor crate"
 
 /datum/supply_pack/security/armory/riothelmets
 	name = "Riot Helmets Crate"
@@ -128,7 +128,7 @@
 	contains = list(/obj/item/clothing/head/helmet/riot,
 					/obj/item/clothing/head/helmet/riot,
 					/obj/item/clothing/head/helmet/riot)
-	crate_name = "riot helmets crate"
+	container_name = "riot helmets crate"
 
 /datum/supply_pack/security/armory/riotshields
 	name = "Riot Shields Crate"
@@ -137,7 +137,7 @@
 	contains = list(/obj/item/shield/riot,
 					/obj/item/shield/riot,
 					/obj/item/shield/riot)
-	crate_name = "riot shields crate"
+	container_name = "riot shields crate"
 
 /datum/supply_pack/security/armory/russian
 	name = "Russian Surplus Crate"
@@ -159,9 +159,9 @@
 					/obj/item/clothing/suit/armor/vest/russian_coat,
 					/obj/item/gun/ballistic/rifle/boltaction,
 					/obj/item/gun/ballistic/rifle/boltaction)
-	crate_name = "surplus military crate"
+	container_name = "surplus military crate"
 
-/datum/supply_pack/security/armory/russian/fill(obj/structure/closet/crate/C)
+/datum/supply_pack/security/armory/russian/fill(obj/C)
 	for(var/i in 1 to 10)
 		var/item = pick(contains)
 		new item(C)
@@ -180,7 +180,7 @@
 					/obj/item/storage/belt/military/assault,
 					/obj/item/clothing/gloves/tackler/combat,
 					/obj/item/clothing/gloves/tackler/combat)
-	crate_name = "swat crate"
+	container_name = "swat crate"
 
 /datum/supply_pack/security/armory/thermal
 	name = "Thermal Pistol Crate"
@@ -188,7 +188,7 @@
 	cost = CARGO_CRATE_VALUE * 7
 	contains = list(/obj/item/storage/belt/holster/thermal,
 					/obj/item/storage/belt/holster/thermal)
-	crate_name = "thermal pistol crate"
+	container_name = "thermal pistol crate"
 
 /datum/supply_pack/security/armory/hardsuit_security
 	name = "Security Hardsuit Crate"
@@ -196,4 +196,4 @@
 	cost = CARGO_CRATE_VALUE * 5
 	access = ACCESS_SECURITY
 	contains = list(/obj/item/clothing/suit/space/hardsuit/security)
-	crate_name = "security hardsuit crate"
+	container_name = "security hardsuit crate"

@@ -5,7 +5,7 @@
 /datum/supply_pack/security
 	group = "Security"
 	access = ACCESS_SECURITY
-	crate_type = /obj/structure/closet/crate/secure/gear
+	container_type = /obj/structure/closet/crate/secure/gear
 
 /datum/supply_pack/security/ammo
 	name = "Ammo Crate"
@@ -21,7 +21,7 @@
 					/obj/item/ammo_box/c38/trac,
 					/obj/item/ammo_box/c38/hotshot,
 					/obj/item/ammo_box/c38/iceblox)
-	crate_name = "ammo crate"
+	container_name = "ammo crate"
 
 /datum/supply_pack/security/armor
 	name = "Armor Crate"
@@ -31,7 +31,7 @@
 	contains = list(/obj/item/clothing/suit/armor/vest,
 					/obj/item/clothing/suit/armor/vest,
 					/obj/item/clothing/suit/armor/vest)
-	crate_name = "armor crate"
+	container_name = "armor crate"
 
 /datum/supply_pack/security/disabler
 	name = "Disabler Crate"
@@ -41,7 +41,7 @@
 	contains = list(/obj/item/gun/energy/disabler,
 					/obj/item/gun/energy/disabler,
 					/obj/item/gun/energy/disabler)
-	crate_name = "disabler crate"
+	container_name = "disabler crate"
 
 /datum/supply_pack/security/forensics
 	name = "Forensics Crate"
@@ -54,7 +54,7 @@
 					/obj/item/taperecorder,
 					/obj/item/toy/crayon/white,
 					/obj/item/clothing/head/fedora/det_hat)
-	crate_name = "forensics crate"
+	container_name = "forensics crate"
 
 /datum/supply_pack/security/helmets
 	name = "Helmets Crate"
@@ -63,7 +63,7 @@
 	contains = list(/obj/item/clothing/head/helmet/sec,
 					/obj/item/clothing/head/helmet/sec,
 					/obj/item/clothing/head/helmet/sec)
-	crate_name = "helmet crate"
+	container_name = "helmet crate"
 
 /datum/supply_pack/security/laser
 	name = "Lasers Crate"
@@ -73,7 +73,7 @@
 	contains = list(/obj/item/gun/energy/laser,
 					/obj/item/gun/energy/laser,
 					/obj/item/gun/energy/laser)
-	crate_name = "laser crate"
+	container_name = "laser crate"
 
 /datum/supply_pack/security/securitybarriers
 	name = "Security Barrier Grenades"
@@ -84,7 +84,7 @@
 					/obj/item/grenade/barrier,
 					/obj/item/grenade/barrier)
 	cost = CARGO_CRATE_VALUE * 2
-	crate_name = "security barriers crate"
+	container_name = "security barriers crate"
 
 /datum/supply_pack/security/securityclothes
 	name = "Security Clothing Crate"
@@ -103,7 +103,7 @@
 					/obj/item/clothing/under/rank/security/head_of_security/formal,
 					/obj/item/clothing/suit/jacket/hos/blue,
 					/obj/item/clothing/head/hos/beret/navyhos)
-	crate_name = "security clothing crate"
+	container_name = "security clothing crate"
 
 /datum/supply_pack/security/stingpack
 	name = "Stingbang Grenade Pack"
@@ -111,7 +111,7 @@
 	cost = CARGO_CRATE_VALUE * 5
 	access_view = ACCESS_ARMORY
 	contains = list(/obj/item/storage/box/stingbangs)
-	crate_name = "stingbang grenade pack crate"
+	container_name = "stingbang grenade pack crate"
 
 /datum/supply_pack/security/supplies
 	name = "Security Supplies Crate"
@@ -122,7 +122,7 @@
 					/obj/item/storage/box/teargas,
 					/obj/item/storage/box/flashes,
 					/obj/item/storage/box/handcuffs)
-	crate_name = "security supply crate"
+	container_name = "security supply crate"
 
 /datum/supply_pack/security/firingpins
 	name = "Standard Firing Pins Crate"
@@ -131,7 +131,7 @@
 	access_view = ACCESS_ARMORY
 	contains = list(/obj/item/storage/box/firingpins,
 					/obj/item/storage/box/firingpins)
-	crate_name = "firing pins crate"
+	container_name = "firing pins crate"
 
 /datum/supply_pack/security/firingpins/paywall
 	name = "Paywall Firing Pins Crate"
@@ -140,7 +140,7 @@
 	access_view = ACCESS_ARMORY
 	contains = list(/obj/item/storage/box/firingpins/paywall,
 					/obj/item/storage/box/firingpins/paywall)
-	crate_name = "paywall firing pins crate"
+	container_name = "paywall firing pins crate"
 
 /datum/supply_pack/security/justiceinbound
 	name = "Standard Justice Enforcer Crate"
@@ -149,7 +149,7 @@
 	contraband = TRUE
 	contains = list(/obj/item/clothing/head/helmet/justice,
 					/obj/item/clothing/mask/gas/sechailer)
-	crate_name = "security clothing crate"
+	container_name = "security clothing crate"
 
 /datum/supply_pack/security/baton
 	name = "Stun Batons Crate"
@@ -159,7 +159,7 @@
 	contains = list(/obj/item/melee/baton/security/loaded,
 					/obj/item/melee/baton/security/loaded,
 					/obj/item/melee/baton/security/loaded)
-	crate_name = "stun baton crate"
+	container_name = "stun baton crate"
 
 /datum/supply_pack/security/wall_flash
 	name = "Wall-Mounted Flash Crate"
@@ -169,7 +169,7 @@
 					/obj/item/storage/box/wall_flash,
 					/obj/item/storage/box/wall_flash,
 					/obj/item/storage/box/wall_flash)
-	crate_name = "wall-mounted flash crate"
+	container_name = "wall-mounted flash crate"
 
 /datum/supply_pack/security/constable
 	name = "Traditional Equipment Crate"

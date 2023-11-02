@@ -15,7 +15,7 @@
 					/obj/item/dest_tagger,
 					/obj/item/hand_labeler,
 					/obj/item/stack/package_wrap)
-	crate_name = "cargo supplies crate"
+	container_name = "cargo supplies crate"
 
 /datum/supply_pack/service/noslipfloor
 	name = "High-traction Floor Tiles"
@@ -23,7 +23,7 @@
 	cost = CARGO_CRATE_VALUE * 4
 	access_view = ACCESS_JANITOR
 	contains = list(/obj/item/stack/tile/noslip/thirty)
-	crate_name = "high-traction floor tiles crate"
+	container_name = "high-traction floor tiles crate"
 
 /datum/supply_pack/service/janitor
 	name = "Janitorial Supplies Crate"
@@ -44,7 +44,7 @@
 					/obj/item/grenade/chem_grenade/cleaner,
 					/obj/item/grenade/chem_grenade/cleaner,
 					/obj/item/grenade/chem_grenade/cleaner)
-	crate_name = "janitorial supplies crate"
+	container_name = "janitorial supplies crate"
 
 /datum/supply_pack/service/janitor/janicart
 	name = "Janitorial Cart and Galoshes Crate"
@@ -52,8 +52,8 @@
 	cost = CARGO_CRATE_VALUE * 4
 	contains = list(/obj/structure/janitorialcart,
 					/obj/item/clothing/shoes/galoshes)
-	crate_name = "janitorial cart crate"
-	crate_type = /obj/structure/closet/crate/large
+	container_name = "janitorial cart crate"
+	container_type = /obj/structure/closet/crate/large
 
 /datum/supply_pack/service/janitor/janitank
 	name = "Janitor Backpack Crate"
@@ -61,16 +61,16 @@
 	cost = CARGO_CRATE_VALUE * 2
 	access = ACCESS_JANITOR
 	contains = list(/obj/item/watertank/janitor)
-	crate_name = "janitor backpack crate"
-	crate_type = /obj/structure/closet/crate/secure
+	container_name = "janitor backpack crate"
+	container_type = /obj/structure/closet/crate/secure
 
 /datum/supply_pack/service/mule
 	name = "MULEbot Crate"
 	desc = "Pink-haired Quartermaster not doing her job? Replace her with this tireless worker, today!"
 	cost = CARGO_CRATE_VALUE * 4
 	contains = list(/mob/living/simple_animal/bot/mulebot)
-	crate_name = "\improper MULEbot Crate"
-	crate_type = /obj/structure/closet/crate/large
+	container_name = "\improper MULEbot Crate"
+	container_type = /obj/structure/closet/crate/large
 
 /datum/supply_pack/service/party
 	name = "Party Equipment"
@@ -91,7 +91,7 @@
 					/obj/item/flashlight/glowstick/orange,
 					/obj/item/flashlight/glowstick/yellow,
 					/obj/item/flashlight/glowstick/pink)
-	crate_name = "party equipment crate"
+	container_name = "party equipment crate"
 
 /datum/supply_pack/service/carpet
 	name = "Premium Carpet Crate"
@@ -101,7 +101,7 @@
 					/obj/item/stack/tile/carpet/fifty,
 					/obj/item/stack/tile/carpet/black/fifty,
 					/obj/item/stack/tile/carpet/black/fifty)
-	crate_name = "premium carpet crate"
+	container_name = "premium carpet crate"
 
 /datum/supply_pack/service/carpet_exotic
 	name = "Exotic Carpet Crate"
@@ -123,7 +123,7 @@
 					/obj/item/stack/tile/carpet/royalblue/fifty,
 					/obj/item/stack/tile/carpet/royalblack/fifty,
 					/obj/item/stack/tile/carpet/royalblack/fifty)
-	crate_name = "exotic carpet crate"
+	container_name = "exotic carpet crate"
 
 /datum/supply_pack/service/carpet_neon
 	name = "Simple Neon Carpet Crate"
@@ -157,7 +157,7 @@
 		/obj/item/stack/tile/carpet/neon/simple/pink/sixty,
 		/obj/item/stack/tile/carpet/neon/simple/pink/sixty,
 	)
-	crate_name = "neon carpet crate"
+	container_name = "neon carpet crate"
 
 /datum/supply_pack/service/lightbulbs
 	name = "Replacement Lights"
@@ -166,7 +166,7 @@
 	contains = list(/obj/item/storage/box/lights/mixed,
 					/obj/item/storage/box/lights/mixed,
 					/obj/item/storage/box/lights/mixed)
-	crate_name = "replacement lights"
+	container_name = "replacement lights"
 
 /datum/supply_pack/service/minerkit
 	name = "Shaft Miner Starter Kit"
@@ -175,8 +175,8 @@
 	access = ACCESS_QM
 	access_view = ACCESS_MINING_STATION
 	contains = list(/obj/item/storage/backpack/duffelbag/mining_conscript)
-	crate_name = "shaft miner starter kit"
-	crate_type = /obj/structure/closet/crate/secure
+	container_name = "shaft miner starter kit"
+	container_type = /obj/structure/closet/crate/secure
 
 /datum/supply_pack/service/hardsuit_mining
 	name = "Mining Hardsuit Crate"
@@ -184,8 +184,8 @@
 	cost = CARGO_CRATE_VALUE * 5
 	access = ACCESS_MINING_STATION
 	contains = list(/obj/item/clothing/suit/space/hardsuit/mining)
-	crate_name = "mining hardsuit crate"
-	crate_type = /obj/structure/closet/crate/secure
+	container_name = "mining hardsuit crate"
+	container_type = /obj/structure/closet/crate/secure
 
 /datum/supply_pack/service/survivalknives
 	name = "Survival Knives Crate"
@@ -194,7 +194,7 @@
 	contains = list(/obj/item/knife/combat/survival,
 					/obj/item/knife/combat/survival,
 					/obj/item/knife/combat/survival)
-	crate_name = "survival knife crate"
+	container_name = "survival knife crate"
 
 /datum/supply_pack/service/wedding
 	name = "Wedding Crate"
@@ -208,7 +208,7 @@
 					/obj/item/bouquet/sunflower,
 					/obj/item/bouquet/poppy,
 					/obj/item/reagent_containers/cup/glass/bottle/champagne)
-	crate_name = "wedding crate"
+	container_name = "wedding crate"
 
 /// Box of 7 grey IDs.
 /datum/supply_pack/service/greyidbox
@@ -216,7 +216,7 @@
 	desc = "A convenient crate containing a box of cheap ID cards in a handy wallet-sized form factor. Cards come in every colour you can imagne, as long as it's grey."
 	cost = CARGO_CRATE_VALUE * 3
 	contains = list(/obj/item/storage/box/ids)
-	crate_name = "basic id card crate"
+	container_name = "basic id card crate"
 
 /// Single silver ID.
 /datum/supply_pack/service/silverid
@@ -224,14 +224,14 @@
 	desc = "Did we forget to hire any Heads of Staff? Recruit your own with this high value ID card capable of holding advanced levels of access in a handy wallet-sized form factor"
 	cost = CARGO_CRATE_VALUE * 7
 	contains = list(/obj/item/card/id/advanced/silver)
-	crate_name = "silver id card crate"
+	container_name = "silver id card crate"
 
 /datum/supply_pack/service/emptycrate
 	name = "Empty Crate"
 	desc = "It's an empty crate, for all your storage needs."
 	cost = CARGO_CRATE_VALUE * 1.4 //Net Zero Profit.
 	contains = list()
-	crate_name = "crate"
+	container_name = "crate"
 
 /datum/supply_pack/service/randomized/donkpockets
 	name = "Donk Pocket Variety Crate"
@@ -242,9 +242,9 @@
 	/obj/item/storage/box/donkpockets/donkpocketpizza,
 	/obj/item/storage/box/donkpockets/donkpocketberry,
 	/obj/item/storage/box/donkpockets/donkpockethonk)
-	crate_name = "donk pocket crate"
+	container_name = "donk pocket crate"
 
-/datum/supply_pack/service/randomized/donkpockets/fill(obj/structure/closet/crate/C)
+/datum/supply_pack/service/randomized/donkpockets/fill(obj/C)
 	for(var/i in 1 to 3)
 		var/item = pick(contains)
 		new item(C)
@@ -256,9 +256,9 @@
 	contains = list(/obj/item/food/ready_donk,
 	/obj/item/food/ready_donk/mac_n_cheese,
 	/obj/item/food/ready_donk/donkhiladas)
-	crate_name = "\improper Ready-Donk crate"
+	container_name = "\improper Ready-Donk crate"
 
-/datum/supply_pack/service/randomized/ready_donk/fill(obj/structure/closet/crate/C)
+/datum/supply_pack/service/randomized/ready_donk/fill(obj/C)
 	for(var/i in 1 to 3)
 		var/item = pick(contains)
 		new item(C)
@@ -278,12 +278,12 @@
 		/obj/item/reagent_containers/condiment/sugar,
 		/obj/item/reagent_containers/cup/bottle/syrup_bottle/caramel, //one extra syrup as a treat
 	)
-	crate_name = "coffee equipment crate"
+	container_name = "coffee equipment crate"
 
 /datum/supply_pack/service/coffeemaker
 	name = "Impressa Coffeemaker Crate"
 	desc = "An assembled Impressa model coffeemaker."
 	cost = CARGO_CRATE_VALUE * 4
 	contains = list(/obj/machinery/coffeemaker/impressa)
-	crate_name = "coffeemaker crate"
-	crate_type = /obj/structure/closet/crate/large
+	container_name = "coffeemaker crate"
+	container_type = /obj/structure/closet/crate/large

@@ -63,7 +63,7 @@
 /datum/trade_hub/proc/Tick()
 	for(var/i in traders)
 		var/datum/trader/trader = i
-		trader.Tick()
+		trader.tick()
 
 /datum/trade_hub/worldwide
 	name = "Global Trade Network"

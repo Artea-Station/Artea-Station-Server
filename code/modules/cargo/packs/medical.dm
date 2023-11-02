@@ -5,7 +5,7 @@
 /datum/supply_pack/medical
 	group = "Medical"
 	access_view = ACCESS_MEDICAL
-	crate_type = /obj/structure/closet/crate/medical
+	container_type = /obj/structure/closet/crate/medical
 
 /datum/supply_pack/medical/bloodpacks
 	name = "Blood Pack Variety Crate"
@@ -21,8 +21,8 @@
 					/obj/item/reagent_containers/blood/o_minus,
 					/obj/item/reagent_containers/blood/lizard,
 					/obj/item/reagent_containers/blood/ethereal)
-	crate_name = "blood freezer"
-	crate_type = /obj/structure/closet/crate/freezer
+	container_name = "blood freezer"
+	container_type = /obj/structure/closet/crate/freezer
 
 /datum/supply_pack/medical/medipen_variety
 	name = "Medipen Variety-Pak"
@@ -37,7 +37,7 @@
 					/obj/item/reagent_containers/hypospray/medipen/blood_loss,
 					/obj/item/reagent_containers/hypospray/medipen/blood_loss
 )
-	crate_name = "medipen crate"
+	container_name = "medipen crate"
 
 /datum/supply_pack/medical/chemical
 	name = "Chemical Starter Kit Crate"
@@ -59,7 +59,7 @@
 					/obj/item/clothing/glasses/science,
 					/obj/item/reagent_containers/dropper,
 					/obj/item/storage/box/beakers)
-	crate_name = "chemical crate"
+	container_name = "chemical crate"
 
 /datum/supply_pack/medical/defibs
 	name = "Defibrillator Crate"
@@ -67,14 +67,14 @@
 	cost = CARGO_CRATE_VALUE * 5
 	contains = list(/obj/item/defibrillator/loaded,
 					/obj/item/defibrillator/loaded)
-	crate_name = "defibrillator crate"
+	container_name = "defibrillator crate"
 
 /datum/supply_pack/medical/iv_drip
 	name = "IV Drip Crate"
 	desc = "Contains a single IV drip for administering blood to patients."
 	cost = CARGO_CRATE_VALUE * 2
 	contains = list(/obj/machinery/iv_drip)
-	crate_name = "iv drip crate"
+	container_name = "iv drip crate"
 
 /datum/supply_pack/medical/supplies
 	name = "Medical Supplies Crate"
@@ -104,9 +104,9 @@
 					/obj/item/stack/medical/bone_gel/four,
 					/obj/item/vending_refill/medical,
 					/obj/item/vending_refill/drugs)
-	crate_name = "medical supplies crate"
+	container_name = "medical supplies crate"
 
-/datum/supply_pack/medical/supplies/fill(obj/structure/closet/crate/C)
+/datum/supply_pack/medical/supplies/fill(obj/C)
 	for(var/i in 1 to 10)
 		var/item = pick(contains)
 		new item(C)
@@ -118,7 +118,7 @@
 	contains = list(/obj/item/storage/backpack/duffelbag/med/surgery,
 					/obj/item/reagent_containers/medigel/sterilizine,
 					/obj/item/roller)
-	crate_name = "surgical supplies crate"
+	container_name = "surgical supplies crate"
 
 /datum/supply_pack/medical/salglucanister
 	name = "Heavy-Duty Saline Canister"
@@ -148,8 +148,8 @@
 					/obj/item/storage/box/syringes,
 					/obj/item/storage/box/beakers,
 					/obj/item/reagent_containers/cup/bottle/mutagen)
-	crate_name = "virus crate"
-	crate_type = /obj/structure/closet/crate/secure/plasma
+	container_name = "virus crate"
+	container_type = /obj/structure/closet/crate/secure/plasma
 	dangerous = TRUE
 
 /datum/supply_pack/medical/cmoturtlenecks
@@ -159,7 +159,7 @@
 	access = ACCESS_CMO
 	contains = list(/obj/item/clothing/under/rank/medical/chief_medical_officer/turtleneck,
 					/obj/item/clothing/under/rank/medical/chief_medical_officer/turtleneck/skirt)
-	crate_name = "chief medical officer turtlenecks"
+	container_name = "chief medical officer turtlenecks"
 
 /datum/supply_pack/medical/hardsuit_medical
 	name = "Medical Hardsuit Crate"
@@ -167,4 +167,4 @@
 	cost = CARGO_CRATE_VALUE * 5
 	access = ACCESS_MEDICAL
 	contains = list(/obj/item/clothing/suit/space/hardsuit/medical)
-	crate_name = "medical hardsuit crate"
+	container_name = "medical hardsuit crate"

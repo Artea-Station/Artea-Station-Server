@@ -70,28 +70,28 @@
 
 	switch(dispatch_type)
 		if(HIJACK_SYNDIE)
-			SStrading.centcom_message += "Syndicate hijack team incoming."
+			SStrading.trade_message += "Syndicate hijack team incoming."
 			loan_type = "Syndicate boarding party"
 		if(RUSKY_PARTY)
-			SStrading.centcom_message += "Partying Russians incoming."
+			SStrading.trade_message += "Partying Russians incoming."
 			loan_type = "Russian party squad"
 		if(SPIDER_GIFT)
-			SStrading.centcom_message += "Spider Clan gift incoming."
+			SStrading.trade_message += "Spider Clan gift incoming."
 			loan_type = "Shuttle full of spiders"
 		if(DEPARTMENT_RESUPPLY)
-			SStrading.centcom_message += "Department resupply incoming."
+			SStrading.trade_message += "Department resupply incoming."
 			loan_type = "Resupply packages"
 		if(ANTIDOTE_NEEDED)
-			SStrading.centcom_message += "Virus samples incoming."
+			SStrading.trade_message += "Virus samples incoming."
 			loan_type = "Virus shuttle"
 		if(PIZZA_DELIVERY)
-			SStrading.centcom_message += "Pizza delivery for [station_name()]"
+			SStrading.trade_message += "Pizza delivery for [station_name()]"
 			loan_type = "Pizza delivery"
 		if(ITS_HIP_TO)
-			SStrading.centcom_message += "Biohazard cleanup incoming."
+			SStrading.trade_message += "Biohazard cleanup incoming."
 			loan_type = "Shuttle full of bees"
 		if(MY_GOD_JC)
-			SStrading.centcom_message += "Live explosive ordnance incoming. Exercise extreme caution."
+			SStrading.trade_message += "Live explosive ordnance incoming. Exercise extreme caution."
 			loan_type = "Shuttle with a ticking bomb"
 
 	log_game("Shuttle loan event firing with type '[loan_type]'.")

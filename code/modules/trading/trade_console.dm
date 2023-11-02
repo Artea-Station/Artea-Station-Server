@@ -1,3 +1,10 @@
+// This was meant to be simple, dammit.
+
+#define SHUTTLE_BLOCKADE_WARNING "Bluespace instability detected. Shuttle movement impossible."
+#define SHUTTLE_SAFETY_WARNING "For safety and ethical reasons, the automated supply shuttle cannot transport \
+		human remains, classified nuclear weaponry, mail, undelivered departmental order crates, enemy bombs, \
+		homing beacons, unstable eigenstates, fax machines, or machinery housing any form of artificial intelligence."
+
 /obj/machinery/computer/trade_console
 	name = "trade console"
 	icon_screen = "supply"
@@ -11,7 +18,6 @@
 
 	var/datum/trade_hub/connected_hub
 	var/datum/trader/connected_trader
-	var/trader_screen_state = TRADER_SCREEN_NOTHING
 
 	var/viewed_log = FALSE
 	var/makes_log = TRUE
@@ -31,6 +37,15 @@
 	var/next_bounty_print = 0
 
 	var/obj/item/card/id/inserted_id
+
+	///The name of the shuttle template being used as the cargo shuttle. 'cargo' is default and contains critical code. Don't change this unless you know what you're doing.
+	var/cargo_shuttle = "cargo"
+	///The docking port called when returning to the station.
+	var/docking_home = "cargo_home"
+	///The docking port called when leaving the station.
+	var/docking_away = "cargo_away"
+	///If this console can loan the cargo shuttle. Set to false to disable.
+	var/stationcargo = TRUE
 
 /obj/machinery/computer/trade_console/proc/write_manifest(datum/trader/trader, item_name, amount, price, user_selling, user_name)
 	var/trade_string
@@ -119,7 +134,6 @@
 		return
 	connected_trader.connected_consoles -= src
 	connected_trader = null
-	trader_screen_state = TRADER_SCREEN_NOTHING
 
 /obj/machinery/computer/trade_console/proc/insert_id(obj/item/card/id/id, mob/user)
 	if(!istype(id))
@@ -169,13 +183,9 @@
 		ui.open()
 
 /obj/machinery/computer/trade_console/ui_data()
-	if(!linked_pad)
-		try_link_pad()
-
 	var/list/trade_hubs = list()
 	var/list/traders = list()
 	var/list/data = list(
-		"pad_linked" = !!linked_pad,
 		"connected_hub" = connected_hub ? list(
 			"name" = connected_hub.name,
 			"id" = connected_hub.id,
@@ -188,7 +198,33 @@
 		"rank" = istype(inserted_id?.registered_account, /datum/bank_account/department) ? "Department Account" : inserted_id?.registered_account?.account_job?.title,
 		"wallet_name" = inserted_id?.registered_account?.account_holder,
 		"credits" = inserted_id?.registered_account?.account_balance,
+		"shuttle_location" = SSshuttle.supply.getStatusText(),
+		"shuttle_away" = SSshuttle.supply.getDockedId() == docking_away,
+		"shuttle_docked" = SSshuttle.supply.mode == SHUTTLE_IDLE,
+		"shuttle_loanable" = !!SSshuttle.shuttle_loan,
+		"shuttle_loan_dispatched" = SSshuttle.shuttle_loan && SSshuttle.shuttle_loan.dispatched,
+		"shuttle_blockaded" = !!SSshuttle.trade_blockade.len || !!SSshuttle.supply_blocked,
+		"shuttle_eta" = time2text(world.realtime + SSshuttle.supply.timeLeft(), "mm:ss"),
+		"grocery_amount" = SStrading.chef_groceries.len,
 	)
+
+	var/message = "Remember to stamp and send back the supply manifests."
+	if(SStrading.trade_message)
+		message = SStrading.trade_message
+	if(SSshuttle.supply_blocked)
+		message = SHUTTLE_BLOCKADE_WARNING
+	data["shuttle_message"] = message
+	var/list/cart = list()
+	data["cart"] = cart
+	for(var/datum/supply_order/order in SStrading.shopping_list)
+		cart += list(list(
+			"object" = order.pack.name,
+			"cost" = order.pack.get_cost(),
+			"id" = order.id,
+			"orderer" = order.orderer,
+			"paid" = !isnull(order.paying_account), //paid by requester
+			"dep_order" = !!order.department_destination
+		))
 
 	if(connected_hub)
 		for(var/datum/trader/trader as anything in connected_hub.traders)
@@ -200,17 +236,16 @@
 	if(connected_trader)
 		var/list/trades = list()
 		var/list/bounties = list()
-		var/list/buying = list()
 		var/list/deliveries = list()
 		// Index is used cause it requires the least amount of refactoring, and I've refactored enough as it is, dammit.
 		var/index = 1
-		for(var/datum/sold_goods/sold_goods as anything in connected_trader.sold_goods)
+		for(var/datum/supply_pack/sold_goods as anything in connected_trader.sold_packs)
 			trades += list(list(
 				"name" = sold_goods.name,
-				"desc" = sold_goods.description,
-				"index" = index,
-				"cost" = sold_goods.cost,
-				"amount" = sold_goods.current_stock,
+				"desc" = sold_goods.desc,
+				"id" = index,
+				"cost" = sold_goods.get_cost(),
+				"amount" = sold_goods.stock["[connected_trader.id]"],
 			))
 			index += 1
 		index = 1
@@ -247,6 +282,29 @@
 
 	. = data
 
+/obj/machinery/computer/trade_console/ui_static_data(mob/user)
+	var/list/data = list()
+	data["static_galactic_imports"] = list()
+	for(var/pack in SStrading.supply_packs)
+		var/datum/supply_pack/P = SStrading.supply_packs[pack]
+		if(!data["supplies"][P.group])
+			data["supplies"][P.group] = list(
+				"name" = P.group,
+				"packs" = list()
+			)
+		// I'll eventually make contraband work again.
+		if((P.hidden && !(obj_flags & EMAGGED)) || P.contraband || (P.special && !P.special_enabled) || P.drop_pod_only)
+			continue
+		data["supplies"][P.group]["packs"] += list(list(
+			"name" = P.name,
+			"cost" = P.get_cost(),
+			"id" = pack,
+			"desc" = P.desc || P.name, // If there is a description, use it. Otherwise use the pack's name.
+			"goody" = P.goody,
+			"access" = P.access
+		))
+	return data
+
 /obj/machinery/computer/trade_console/ui_act(action, list/params, datum/tgui/ui)
 	..()
 	. = TRUE // Just.. always update.
@@ -276,20 +334,14 @@
 			if(!inserted_id.registered_account)
 				say("No bank account detected.")
 				return
-			if(!linked_pad)
-				say("Please connect a trade tele-pad before conducting in trade.")
-				return
 			var/index = text2num(params["index"])
-			if(connected_trader.sold_goods.len < index)
+			if(connected_trader.sold_packs.len < index)
 				return
-			var/datum/sold_goods/goodie = connected_trader.sold_goods[index]
+			var/datum/supply_pack/goodie = connected_trader.sold_packs[index]
 			last_transmission = connected_trader.requested_buy(ui.user, src, goodie)
 		if("bounty")
 			if(!inserted_id)
 				say("No ID detected.")
-				return
-			if(!linked_pad)
-				say("Please connect a trade tele-pad before conducting in trade.")
 				return
 			var/index = text2num(params["index"])
 			if(connected_trader.bounties.len < index)
@@ -297,9 +349,6 @@
 			var/datum/trader_bounty/goodie = connected_trader.bounties[index]
 			last_transmission = connected_trader.requested_bounty_claim(ui.user, src, goodie)
 		if("delivery")
-			if(!linked_pad)
-				say("Please connect a trade tele-pad before conducting in trade.")
-				return
 			var/index = text2num(params["index"])
 			if(connected_trader.deliveries.len < index)
 				return
@@ -309,6 +358,8 @@
 			print_manifest()
 		if("toggle_manifest")
 			makes_manifests = !makes_manifests
+	if(.)
+		post_signal(cargo_shuttle)
 
 /obj/machinery/computer/trade_console/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
@@ -318,84 +369,29 @@
 	obj_flags |= EMAGGED
 	do_sparks(1, FALSE, src)
 	makes_log = FALSE
+	update_static_data_for_all_viewers()
 	balloon_alert(user, "disabled logging")
 
-/obj/machinery/computer/trade_console/proc/try_link_pad()
-	if(linked_pad)
-		return
-	for(var/direction in GLOB.cardinals)
-		linked_pad = locate(/obj/machinery/trade_pad, get_step(src, direction))
-		if(linked_pad && !linked_pad.linked_console)
-			linked_pad.linked_console = src
-			break
-	return linked_pad
-
-/obj/machinery/computer/trade_console/proc/unlink_pad()
-	linked_pad.linked_console = null
-	linked_pad = null
-
 /obj/machinery/computer/trade_console/Destroy()
-	if(linked_pad)
-		unlink_pad()
 	if(!inserted_id)
 		return ..()
 	inserted_id.forceMove(get_turf(src))
 	inserted_id = null
 	return ..()
 
+/obj/machinery/computer/trade_console/proc/post_signal(command)
+
+	var/datum/radio_frequency/frequency = SSradio.return_frequency(FREQ_STATUS_DISPLAYS)
+
+	if(!frequency)
+		return
+
+	var/datum/signal/status_signal = new(list("command" = command))
+	frequency.post_signal(src, status_signal)
+
 /obj/item/circuitboard/computer/trade_console
 	name = "Trade Console (Computer Board)"
 	greyscale_colors = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/computer/trade_console
-/obj/machinery/trade_pad
-	name = "trade tele-pad"
-	desc = "It's the hub of a teleporting machine."
-	icon = 'icons/obj/machines/teleporter.dmi'
-	icon_state = "tele0"
-	base_icon_state = "tele"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 2000
-	circuit = /obj/item/circuitboard/machine/trade_pad
-	density = FALSE
-	var/obj/machinery/computer/trade_console/linked_console
-	var/list/ignore_typecache = list(
-									/obj/machinery/trade_pad = TRUE,
-									/obj/machinery/navbeacon  = TRUE)
-	var/list/types_of_to_add_to_ignore = list(/obj/structure/cable, /obj/structure/disposalpipe, /obj/machinery/atmospherics/pipe, /obj/effect)
 
-/obj/machinery/trade_pad/proc/get_valid_items()
-	var/turf/my_turf = get_turf(src)
-	var/list/valid_items = my_turf.contents.Copy()
-	for(var/item in valid_items)
-		var/atom/movable/AM = item
-		if(ignore_typecache[AM.type])
-			valid_items -= item
-	return valid_items
-
-/obj/machinery/trade_pad/proc/do_teleport_effect()
-	do_sparks(3, TRUE, src)
-
-/obj/machinery/trade_pad/Initialize()
-	. = ..()
-	for(var/type in types_of_to_add_to_ignore)
-		for(var/typeof in typesof(type))
-			ignore_typecache[typeof] = TRUE
-	types_of_to_add_to_ignore = null
-
-/obj/machinery/trade_pad/Destroy()
-	if(linked_console)
-		linked_console.unlink_pad()
-	ignore_typecache = null
-	return ..()
-
-/obj/item/circuitboard/machine/trade_pad
-	name = "Trade Tele-Pad (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SUPPLY
-	build_path = /obj/machinery/trade_pad
-	req_components = list(
-		/obj/item/stack/ore/bluespace_crystal = 2,
-		/obj/item/stock_parts/subspace/ansible = 1,
-		/obj/item/stock_parts/micro_laser = 1,
-		/obj/item/stock_parts/scanning_module = 2)
-	def_components = list(/obj/item/stack/ore/bluespace_crystal = /obj/item/stack/ore/bluespace_crystal/artificial)
+#undef SHUTTLE_BLOCKADE_WARNING

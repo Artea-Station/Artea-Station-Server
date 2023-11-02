@@ -112,8 +112,8 @@
 	data["can_send"] = can_send
 	data["can_approve_requests"] = can_approve_requests
 	var/message = "Remember to stamp and send back the supply manifests."
-	if(SStrading.centcom_message)
-		message = SStrading.centcom_message
+	if(SStrading.trade_message)
+		message = SStrading.trade_message
 	if(SSshuttle.supply_blocked)
 		message = blockade_warning
 	data["message"] = message

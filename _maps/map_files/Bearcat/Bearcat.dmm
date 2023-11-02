@@ -2194,8 +2194,13 @@
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen)
 "mA" = (
-/obj/docking_port/stationary/huge{
-	name = "FTV Bearcat Cargo Dock"
+/obj/docking_port/stationary{
+	dwidth = 4;
+	height = 7;
+	name = "Cargo Bay";
+	shuttle_id = "cargo_home";
+	width = 12;
+	pixel_y = -1
 	},
 /turf/open/space/openspace,
 /area/space)
@@ -8100,7 +8105,6 @@
 /area/station/service/kitchen/coldroom)
 "Tk" = (
 /obj/machinery/light_switch/directional/east,
-/obj/machinery/trade_pad,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/station/cargo/sorting)
