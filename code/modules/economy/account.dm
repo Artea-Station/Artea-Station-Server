@@ -17,8 +17,6 @@
 	var/being_dumped = FALSE
 	///Can this account be replaced? Set to true for default IDs not recognized by the station.
 	var/replaceable = FALSE
-	///A special semi-tandom token for tranfering money from NT pay app
-	var/pay_token
 	///List with a transaction history for NT pay app
 	var/list/transaction_history = list()
 
@@ -27,7 +25,6 @@
 	account_job = job
 	add_to_accounts = player_account
 	setup_unique_account_id()
-	pay_token = uppertext("[copytext(newname, 1, 2)][copytext(newname, -1)]-[random_capital_letter()]-[rand(1111,9999)]")
 
 /datum/bank_account/Destroy()
 	if(add_to_accounts)

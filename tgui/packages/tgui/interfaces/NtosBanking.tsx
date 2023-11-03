@@ -1,6 +1,6 @@
 import { NtosWindow } from '../layouts';
 import { useBackend } from '../backend';
-import { Stack, Section, Box, Button, Input, Table, Tooltip, NoticeBox, Divider, RestrictedInput } from '../components';
+import { Stack, Section, Table, NoticeBox } from '../components';
 
 type Data = {
   name: string;
@@ -16,17 +16,17 @@ type Transactions = {
 };
 let name_to_token, money_to_send, token;
 
-export const NtosPay = (props, context) => {
+export const NtosBanking = (props, context) => {
   return (
     <NtosWindow width={495} height={655}>
       <NtosWindow.Content>
-        <NtosPayContent />
+        <NtosBankingContent />
       </NtosWindow.Content>
     </NtosWindow>
   );
 };
 
-export const NtosPayContent = (props, context) => {
+export const NtosBankingContent = (props, context) => {
   const { data } = useBackend<Data>(context);
   const { name } = data;
 
@@ -44,9 +44,6 @@ export const NtosPayContent = (props, context) => {
       <Stack.Item>
         <Introduction />
       </Stack.Item>
-      <Stack.Item>
-        <TransferSection />
-      </Stack.Item>
       <Stack.Item grow>
         <TransactionHistory />
       </Stack.Item>
@@ -62,79 +59,11 @@ const Introduction = (props, context) => {
     <Section textAlign="center">
       <Table>
         <Table.Row>Hi, {name}.</Table.Row>
-        <Table.Row>Your pay token is {owner_token}.</Table.Row>
         <Table.Row>
           Account balance: {money} credit{money === 1 ? '' : 's'}
         </Table.Row>
       </Table>
     </Section>
-  );
-};
-
-/** Displays the transfer section. */
-const TransferSection = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
-  const { money, wanted_token } = data;
-
-  return (
-    <Stack>
-      <Stack.Item>
-        <Section vertical title="Transfer Money">
-          <Box>
-            <Tooltip
-              content="Enter the pay token of the account you want to transfer credits to."
-              position="top">
-              <Input
-                placeholder="Pay Token"
-                width="190px"
-                onChange={(e, value) => (token = value)}
-              />
-            </Tooltip>
-          </Box>
-          <Tooltip
-            content="Enter amount of credits to transfer."
-            position="top">
-            <RestrictedInput
-              width="83px"
-              minValue={1}
-              maxValue={money}
-              onChange={(_, value) => (money_to_send = value)}
-              value={1}
-            />
-          </Tooltip>
-          <Button
-            content="Send credits"
-            onClick={() =>
-              act('Transaction', {
-                token: token,
-                amount: money_to_send,
-              })
-            }
-          />
-        </Section>
-      </Stack.Item>
-      <Stack.Item>
-        <Section title="Get Token" width="270px" height="98px">
-          <Box>
-            <Input
-              placeholder="Full name of account."
-              width="190px"
-              onChange={(e, value) => (name_to_token = value)}
-            />
-            <Button
-              content="Get it"
-              onClick={() =>
-                act('GetPayToken', {
-                  wanted_name: name_to_token,
-                })
-              }
-            />
-          </Box>
-          <Divider hidden />
-          <Box nowrap>{wanted_token}</Box>
-        </Section>
-      </Stack.Item>
-    </Stack>
   );
 };
 
