@@ -111,12 +111,24 @@
 	return TRUE
 
 /// Called when someone tries to buy a supply pack. THE PACK IS CLIENT-PROVIDED, CHECK YOUR SHIT.
-/datum/trader/proc/requested_buy(mob/user, obj/machinery/computer/trade_console/console, datum/supply_pack/goodie, obj/item/coupon/coupon)
+/datum/trader/proc/requested_buy(mob/user, obj/machinery/computer/trade_console/console, datum/supply_pack/goodie)
 	var/proposed_cost = goodie.get_cost()
+
+	var/obj/item/coupon/applied_coupon
+	for(var/i in console.loaded_coupons)
+		var/obj/item/coupon/coupon_check = i
+		if(pack.type == coupon_check.discounted_pack)
+			coupon_check.moveToNullspace()
+			applied_coupon = coupon_check
+			break
+
 	if(!goodie.stock["[id]"])
 		return get_response("out_of_stock", "I'm afraid I don't have any more of these!", user)
 	if(!console.inserted_id.registered_account.adjust_money(-proposed_cost))
 		return get_response("user_no_money", "You can't afford this", user)
+
+	if(applied_coupon)
+		console.say("Coupon found! [round(coupon_check.discount_pct_off * 100)]% off applied!")
 
 	//We established there's stock and we have enough money for it
 	console.inserted_id.registered_account.adjust_money(-proposed_cost)

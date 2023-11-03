@@ -14,11 +14,13 @@
 	/// A list of connected trade consoles, in case the hub is destroyed we want to disconnect the consoles
 	var/list/connected_consoles = list()
 	var/id
+	var/overmap_object
 
 #define TRADE_HUB_SPAWN_TRIES 10
 
-/datum/trade_hub/New()
+/datum/trade_hub/New(datum/overmap_object/overmap_object)
 	..()
+	src.overmap_object = overmap_object
 	if(possible_names)
 		name = pick(possible_names)
 		possible_names = null

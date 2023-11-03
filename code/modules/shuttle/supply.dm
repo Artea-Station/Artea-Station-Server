@@ -77,13 +77,37 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 
 /obj/docking_port/mobile/supply/initiate_docking()
 	if(getDockedId() == "cargo_away") // Buy when we leave home.
-		buy()
+		var/list/traders_bought_from = buy()
 		create_mail()
+		// Look man, this isn't ideal, probably, but I don't care at this point.
+		// This is called once every few minutes at most, and the crew will just have to cry about the sub-optimal pathing.
+		if(traders_bought_from)
+			var/datum/overmap_object/home = SSmapping.station_overmap_object
+			var/total_distance = 0
+			var/min_distance = INFINITY // This should be impossible to be larger than... right?
+			var/datum/trader/min_trader
+			while(traders_bought_from)
+				for(var/trader_id in traders_bought_from)
+					var/datum/trader/trader = SStrading.all_traders["[trader_id]"]
+					var/datum/overmap_object/obj = trader.hub.overmap_object
+					var/dist = GET_DIST_2D_NUMERICAL(obj.x, obj.y, home.x, home.y)
+					if(dist < min_distance)
+						min_distance = dist
+						min_trader = trader_id
+				total_distance += min_distance
+				LAZYREMOVE(traders_bought_from, min_trader)
+
+			// Shuttle travels at 1 tile every 5 seconds, if that makes this make *any* more sense.
+			callTime = total_distance * (5 SECONDS)
+
 	. = ..() // Fly/enter transit.
 	if(. != DOCKING_SUCCESS)
 		return
 	if(getDockedId() == "cargo_away") // Sell when we get home
-		sell()
+		// We're home, let's take 30 seconds to return.
+		callTime = 30 SECONDS
+		SSshuttle.moveShuttle("cargo", "cargo_home") // And immediately return to the station!
+		callTime += sell() * (30 SECONDS)
 
 /obj/docking_port/mobile/supply/proc/buy()
 	SEND_SIGNAL(SSshuttle, COMSIG_SUPPLY_SHUTTLE_BUY)
@@ -118,6 +142,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	var/value = 0
 	var/purchases = 0
 	var/list/goodies_by_buyer = list() // if someone orders more than GOODY_FREE_SHIPPING_MAX goodies, we upcharge to a normal crate so they can't carry around 20 combat shotties
+	var/list/traders_bought_from = list()
 
 	for(var/datum/supply_order/spawning_order in SStrading.shopping_list)
 		if(!empty_turfs.len)
@@ -171,6 +196,10 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		if(spawning_order.pack.dangerous)
 			message_admins("\A [spawning_order.pack.name] ordered by [ADMIN_LOOKUPFLW(spawning_order.orderer_ckey)], paid by [from_whom] has shipped.")
 		purchases++
+		if(spawning_order.trader_id)
+			traders_bought_from[trader_id] = TRUE // Shut. This is the fastest way to non-duplicate add to a list.
+
+	return traders_bought_from
 
 	// we handle packing all the goodies last, since the type of crate we use depends on how many goodies they ordered. If it's more than GOODY_FREE_SHIPPING_MAX
 	// then we send it in a crate (including the CRATE_TAX cost), otherwise send it in a free shipping case
@@ -211,6 +240,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 /obj/docking_port/mobile/supply/proc/sell()
 	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	var/presale_points = D.account_balance
+	var/sold_items_approx = 0
 
 	if(!GLOB.exports_list.len) // No exports list? Generate it!
 		setupExports()
@@ -225,7 +255,8 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 			if(iscameramob(AM))
 				continue
 			if(!AM.anchored)
-				export_item_and_contents(AM, export_categories , dry_run = FALSE, external_report = ex)
+				export_item_and_contents(AM, export_categories, dry_run = FALSE, external_report = ex)
+				sold_items_approx++
 
 	if(ex.exported_atoms)
 		ex.exported_atoms += "." //ugh
@@ -241,6 +272,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	SSeconomy.export_total += (D.account_balance - presale_points)
 	SStrading.trade_message = msg
 	investigate_log("Shuttle contents sold for [D.account_balance - presale_points] credits. Contents: [ex.exported_atoms ? ex.exported_atoms.Join(",") + "." : "none."] Message: [SStrading.trade_message || "none."]", INVESTIGATE_CARGO)
+	return sold_items_approx
 
 /*
 	Generates a box of mail depending on our exports and imports.

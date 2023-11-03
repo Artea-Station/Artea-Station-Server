@@ -47,8 +47,9 @@
 	var/datum/supply_pack/pack
 	var/datum/bank_account/paying_account
 	var/obj/item/coupon/applied_coupon
+	var/trader_id
 
-/datum/supply_order/New(datum/supply_pack/pack, orderer, orderer_rank, orderer_ckey, reason, paying_account, department_destination, coupon)
+/datum/supply_order/New(datum/supply_pack/pack, orderer, orderer_rank, orderer_ckey, reason, paying_account, department_destination, coupon, trader_id)
 	id = SStrading.order_number++
 	src.pack = pack
 	src.orderer = orderer
@@ -58,6 +59,7 @@
 	src.paying_account = paying_account
 	src.department_destination = department_destination
 	src.applied_coupon = coupon
+	src.trader_id = trader_id
 
 /datum/supply_order/proc/generateRequisition(turf/T)
 	var/obj/item/paper/requisition_paper = new(T)

@@ -339,16 +339,7 @@
 				return
 			var/datum/supply_pack/goodie = connected_trader.sold_packs[index]
 
-			var/obj/item/coupon/applied_coupon
-			for(var/i in loaded_coupons)
-				var/obj/item/coupon/coupon_check = i
-				if(pack.type == coupon_check.discounted_pack)
-					say("Coupon found! [round(coupon_check.discount_pct_off * 100)]% off applied!")
-					coupon_check.moveToNullspace()
-					applied_coupon = coupon_check
-					break
-
-			last_transmission = connected_trader.requested_buy(ui.user, src, goodie, applied_coupon)
+			last_transmission = connected_trader.requested_buy(ui.user, src, goodie)
 		if("bounty")
 			if(!inserted_id)
 				say("No ID detected.")
@@ -376,7 +367,7 @@
 				say(SHUTTLE_BLOCKADE_WARNING)
 				return
 			if(SSshuttle.supply.getDockedId() == docking_home)
-				SSshuttle.supply.export_categories = get_export_categories()
+				// SSshuttle.supply.export_categories = EXPORT_CARGO // ARTEA TODO: (maybe) readd emag/contraband-specific exports.
 				SSshuttle.moveShuttle(cargo_shuttle, docking_away, TRUE)
 				say("The supply shuttle is departing.")
 				investigate_log("[key_name(usr)] sent the supply shuttle away.", INVESTIGATE_CARGO)
@@ -389,7 +380,7 @@
 			if(!SSshuttle.shuttle_loan)
 				return
 			if(SSshuttle.supply_blocked)
-				say(blockade_warning)
+				say(SHUTTLE_BLOCKADE_WARNING)
 				return
 			else if(SSshuttle.supply.mode != SHUTTLE_IDLE)
 				return
