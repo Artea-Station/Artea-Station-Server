@@ -1393,7 +1393,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 		/// Make the transaction
 		payee.adjust_money(-dispensed_item.custom_price)
 		linked_account.adjust_money(dispensed_item.custom_price)
-		linked_account.bank_card_talk("[payee.account_holder] made a [dispensed_item.custom_price] \
+		linked_account.bank_talk("[payee.account_holder] made a [dispensed_item.custom_price] \
 		cr purchase at your custom vendor.")
 		/// Log the transaction
 		SSblackbox.record_feedback("amount", "vending_spent", dispensed_item.custom_price)

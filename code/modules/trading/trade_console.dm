@@ -1,6 +1,6 @@
 // This was meant to be simple, dammit.
 
-#define SHUTTLE_BLOCKADE_WARNING "Bluespace instability detected. Shuttle movement impossible."
+#define SHUTTLE_BLOCKADE_WARNING "Shuttle movement impossible. See console for details."
 #define SHUTTLE_SAFETY_WARNING "For safety and ethical reasons, the automated supply shuttle cannot transport \
 		human remains, classified nuclear weaponry, mail, undelivered departmental order crates, enemy bombs, \
 		homing beacons, unstable eigenstates, fax machines, or machinery housing any form of artificial intelligence."
@@ -338,7 +338,17 @@
 			if(connected_trader.sold_packs.len < index)
 				return
 			var/datum/supply_pack/goodie = connected_trader.sold_packs[index]
-			last_transmission = connected_trader.requested_buy(ui.user, src, goodie)
+
+			var/obj/item/coupon/applied_coupon
+			for(var/i in loaded_coupons)
+				var/obj/item/coupon/coupon_check = i
+				if(pack.type == coupon_check.discounted_pack)
+					say("Coupon found! [round(coupon_check.discount_pct_off * 100)]% off applied!")
+					coupon_check.moveToNullspace()
+					applied_coupon = coupon_check
+					break
+
+			last_transmission = connected_trader.requested_buy(ui.user, src, goodie, applied_coupon)
 		if("bounty")
 			if(!inserted_id)
 				say("No ID detected.")
@@ -358,6 +368,125 @@
 			print_manifest()
 		if("toggle_manifest")
 			makes_manifests = !makes_manifests
+		if("send_shuttle")
+			if(!SSshuttle.supply.canMove())
+				say(SHUTTLE_SAFETY_WARNING)
+				return
+			if(SSshuttle.supply_blocked)
+				say(SHUTTLE_BLOCKADE_WARNING)
+				return
+			if(SSshuttle.supply.getDockedId() == docking_home)
+				SSshuttle.supply.export_categories = get_export_categories()
+				SSshuttle.moveShuttle(cargo_shuttle, docking_away, TRUE)
+				say("The supply shuttle is departing.")
+				investigate_log("[key_name(usr)] sent the supply shuttle away.", INVESTIGATE_CARGO)
+			else
+				investigate_log("[key_name(usr)] called the supply shuttle.", INVESTIGATE_CARGO)
+				say("The supply shuttle has been called and will arrive in [SSshuttle.supply.timeLeft(600)] minutes.")
+				SSshuttle.moveShuttle(cargo_shuttle, docking_home, TRUE)
+			. = TRUE
+		if("loan_shuttle")
+			if(!SSshuttle.shuttle_loan)
+				return
+			if(SSshuttle.supply_blocked)
+				say(blockade_warning)
+				return
+			else if(SSshuttle.supply.mode != SHUTTLE_IDLE)
+				return
+			else if(SSshuttle.supply.getDockedId() != docking_away)
+				return
+			else if(stationcargo != TRUE)
+				return
+			else
+				SSshuttle.shuttle_loan.loan_shuttle()
+				say("The supply shuttle has been loaned to CentCom.")
+				investigate_log("[key_name(usr)] accepted a shuttle loan event.", INVESTIGATE_CARGO)
+				usr.log_message("accepted a shuttle loan event.", LOG_GAME)
+				. = TRUE
+		if("add")
+			if(is_express)
+				return
+			var/id = params["id"]
+			id = text2path(id) || id
+			var/datum/supply_pack/pack = SStrading.supply_packs[id]
+			if(!istype(pack))
+				CRASH("Unknown supply pack id given by order console ui. ID: [params["id"]]")
+			if((pack.hidden && !(obj_flags & EMAGGED)) || (pack.contraband && !contraband) || pack.drop_pod_only || (pack.special && !pack.special_enabled))
+				return
+
+			var/name = "*None Provided*"
+			var/rank = "*None Provided*"
+			var/ckey = usr.ckey
+			if(ishuman(usr))
+				var/mob/living/carbon/human/H = usr
+				name = H.get_authentification_name()
+				rank = H.get_assignment(hand_first = TRUE)
+			else if(issilicon(usr))
+				name = usr.real_name
+				rank = "Silicon"
+
+			var/datum/bank_account/account
+			if(self_paid && isliving(usr))
+				var/mob/living/L = usr
+				var/obj/item/card/id/id_card = L.get_idcard(TRUE)
+				if(!istype(id_card))
+					say("No ID card detected.")
+					return
+				if(istype(id_card, /obj/item/card/id/departmental_budget))
+					say("The [src] rejects [id_card].")
+					return
+				account = id_card.registered_account
+				if(!istype(account))
+					say("Invalid bank account.")
+					return
+
+			var/reason = ""
+			if(requestonly && !self_paid)
+				reason = tgui_input_text(usr, "Reason", name)
+				if(isnull(reason) || ..())
+					return
+
+			if(pack.goody && !self_paid)
+				playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
+				say("ERROR: Small crates may only be purchased by private accounts.")
+				return
+
+			var/obj/item/coupon/applied_coupon
+			for(var/i in loaded_coupons)
+				var/obj/item/coupon/coupon_check = i
+				if(pack.type == coupon_check.discounted_pack)
+					say("Coupon found! [round(coupon_check.discount_pct_off * 100)]% off applied!")
+					coupon_check.moveToNullspace()
+					applied_coupon = coupon_check
+					break
+
+			var/turf/T = get_turf(src)
+			var/datum/supply_order/SO = new(pack, name, rank, ckey, reason, account, null, applied_coupon)
+			SO.generateRequisition(T)
+			SStrading.shopping_list += SO
+			if(self_paid)
+				say("Order processed. The price will be charged to [account.account_holder]'s bank account on delivery.")
+			. = TRUE
+		if("remove")
+			var/id = text2num(params["id"])
+			for(var/datum/supply_order/SO in SStrading.shopping_list)
+				if(SO.id != id)
+					continue
+				if(SO.department_destination)
+					say("Only the department that ordered this item may cancel it.")
+					return
+				if(SO.applied_coupon)
+					say("Coupon refunded.")
+					SO.applied_coupon.forceMove(get_turf(src))
+				SStrading.shopping_list -= SO
+				. = TRUE
+				break
+		if("clear")
+			for(var/datum/supply_order/cancelled_order in SStrading.shopping_list)
+				if(cancelled_order.department_destination)
+					continue //don't cancel other department's orders
+				SStrading.shopping_list -= cancelled_order
+			. = TRUE
 	if(.)
 		post_signal(cargo_shuttle)
 

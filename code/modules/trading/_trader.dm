@@ -111,7 +111,7 @@
 	return TRUE
 
 /// Called when someone tries to buy a supply pack. THE PACK IS CLIENT-PROVIDED, CHECK YOUR SHIT.
-/datum/trader/proc/requested_buy(mob/user, obj/machinery/computer/trade_console/console, datum/supply_pack/goodie)
+/datum/trader/proc/requested_buy(mob/user, obj/machinery/computer/trade_console/console, datum/supply_pack/goodie, obj/item/coupon/coupon)
 	var/proposed_cost = goodie.get_cost()
 	if(!goodie.stock["[id]"])
 		return get_response("out_of_stock", "I'm afraid I don't have any more of these!", user)
@@ -123,7 +123,8 @@
 	current_credits += proposed_cost
 	if(goodie.stock["[id]"] != -1)
 		goodie.stock["[id]"]--
-	SStrading.shopping_list += new /datum/supply_order(goodie)
+	var/obj/item/card/id/inserted_id = console.inserted_id
+	SStrading.shopping_list += new /datum/supply_order(goodie, inserted_id.registered_name, inserted_id.assignment, user.ckey, null, inserted_id.registered_account, null, coupon)
 	after_trade(user, console, goodie)
 	console.write_manifest(src, goodie.name, 1, proposed_cost, FALSE, user.name)
 	return get_response("trade_complete", "Thanks for your business!", user)

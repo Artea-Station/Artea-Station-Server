@@ -125,22 +125,24 @@
 		var/datum/bank_account/D = SSeconomy.get_dep_account(account_job.paycheck_department)
 		if(D)
 			if(!transfer_money(D, money_to_transfer))
-				bank_card_talk("ERROR: Payday aborted, departmental funds insufficient.")
+				bank_talk("ERROR: Payday aborted, departmental funds insufficient.")
 				return FALSE
 			else
-				bank_card_talk("Payday processed, account now holds [account_balance] cr.")
+				bank_talk("Payday processed, account now holds [account_balance] cr.")
 				return TRUE
-	bank_card_talk("ERROR: Payday aborted, unable to contact departmental account.")
+	bank_talk("ERROR: Payday aborted, unable to contact departmental account.")
 	return FALSE
 
 /**
- * This sends a local chat message to the owner of a bank account, on all ID cards registered to the bank_account.
+ * This sends a local chat message to the owner of a bank account, on all ID cards registered to the bank_account, provided they're in a modular computer of some kind (PDAs included).
  * If not held, sends out a message to all nearby players.
  */
-/datum/bank_account/proc/bank_card_talk(message, force)
+/datum/bank_account/proc/bank_talk(message, force)
 	if(!message || !bank_cards.len)
 		return
 	for(var/obj/A in bank_cards)
+		if(!istype(A.loc, /obj/item/modular_computer))
+			return
 		var/icon_source = A
 		if(isidcard(A))
 			var/obj/item/card/id/id_card = A
@@ -153,8 +155,8 @@
 			if(card_holder.can_hear())
 				card_holder.playsound_local(get_turf(card_holder), 'sound/machines/twobeep_high.ogg', 50, TRUE)
 				to_chat(card_holder, "[icon2html(icon_source, card_holder)] [span_notice("[message]")]")
-		else if(isturf(A.loc)) //If on the ground
-			var/turf/T = A.loc
+		else if(isturf(A.loc.loc)) //If on the ground
+			var/turf/T = A.loc.loc
 			for(var/mob/M in hearers(1,T))
 				if(!M.client || (!(M.client.prefs.chat_toggles & CHAT_BANKCARD) && !force))
 					continue
@@ -163,7 +165,7 @@
 					to_chat(M, "[icon2html(icon_source, M)] [span_notice("[message]")]")
 		else
 			var/atom/sound_atom
-			for(var/mob/M in A.loc) //If inside a container with other mobs (e.g. locker)
+			for(var/mob/M in A.loc.loc) //If inside a container with other mobs (e.g. locker)
 				if(!M.client || (!(M.client.prefs.chat_toggles & CHAT_BANKCARD) && !force))
 					continue
 				if(!sound_atom)

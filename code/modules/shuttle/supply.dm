@@ -139,19 +139,19 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 				// note this is before we increment, so this is the GOODY_FREE_SHIPPING_MAX + 1th goody to ship. also note we only increment off this step if they successfully pay the fee, so there's no way around it
 				else if(LAZYLEN(current_buyer_orders) == GOODY_FREE_SHIPPING_MAX)
 					price += CRATE_TAX
-					paying_for_this.bank_card_talk("Goody order size exceeds free shipping limit: Assessing [CRATE_TAX] credit S&H fee.")
+					paying_for_this.bank_talk("Goody order size exceeds free shipping limit: Assessing [CRATE_TAX] credit S&H fee.")
 			else
 				paying_for_this = SSeconomy.get_dep_account(ACCOUNT_CAR)
 			if(paying_for_this)
 				if(!paying_for_this.adjust_money(-price))
 					if(spawning_order.paying_account)
-						paying_for_this.bank_card_talk("Cargo order #[spawning_order.id] rejected due to lack of funds. Credits required: [price]")
+						paying_for_this.bank_talk("Cargo order #[spawning_order.id] rejected due to lack of funds. Credits required: [price]")
 					continue
 
 		if(spawning_order.paying_account)
 			if(spawning_order.pack.goody)
 				LAZYADD(goodies_by_buyer[spawning_order.paying_account], spawning_order)
-			paying_for_this.bank_card_talk("Cargo order #[spawning_order.id] has shipped. [price] credits have been charged to your bank account.")
+			paying_for_this.bank_talk("Cargo order #[spawning_order.id] is now locked in and will be on cargo shuttle when it returns. [price] credits have been charged to your bank account.")
 			SSeconomy.track_purchase(paying_for_this, price, spawning_order.pack.name)
 			var/datum/bank_account/department/cargo = SSeconomy.get_dep_account(ACCOUNT_CAR)
 			cargo.adjust_money(price - spawning_order.pack.get_cost()) //Cargo gets the handling fee
