@@ -34,8 +34,9 @@
 	///Static list of default PDA apps to install on Initialize.
 	var/static/list/datum/computer_file/pda_programs = list(
 		/datum/computer_file/program/messenger,
-		/datum/computer_file/program/notepad,
+		/datum/computer_file/program/banking,
 		/datum/computer_file/program/crew_manifest,
+		/datum/computer_file/program/notepad,
 	)
 	///List of items that can be stored in a PDA
 	var/static/list/contained_item = list(

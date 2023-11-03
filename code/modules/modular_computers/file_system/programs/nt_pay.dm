@@ -11,7 +11,7 @@
 	///Reference to the currently logged in user.
 	var/datum/bank_account/current_user
 
-/datum/computer_file/program/nt_pay/ui_data(mob/user)
+/datum/computer_file/program/banking/ui_data(mob/user)
 	var/list/data = ..()
 	var/obj/item/card/id/id = computer.GetID()
 
