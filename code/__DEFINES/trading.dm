@@ -9,16 +9,10 @@
 #define TRADER_PAYCHECK_LOW 500
 #define TRADER_PAYCHECK_HIGH 1500
 
-#define TRADER_THIS_TYPE 1
-#define TRADER_TYPES 2
-#define TRADER_SUBTYPES 3
-#define TRADER_BLACKLIST 4
-#define TRADER_BLACKLIST_SUBTYPES 5
-#define TRADER_BLACKLIST_TYPES 6
-
 /// Percentage threshold of remaining stock at which they should restock that item
 #define TRADER_RESTOCK_THRESHOLD 0.5
 
+// The possible trades a trader can hold.
 #define TRADER_GROUP_ARMORY "Armory"
 #define TRADER_GROUP_COSTUMES_AND_TOYS "Costumes & Toys"
 #define TRADER_GROUP_EMERGENCY "Emergency"
@@ -34,6 +28,11 @@
 #define TRADER_GORUP_SECURITY "Security"
 #define TRADER_GORUP_SERVICE "Service"
 #define TRADER_GORUP_VENDING_RESTOCKS "Vending Restocks"
+
+// The kind of box a supply box is. Decides icons and the material dropped when deconstructed.
+#define SUPPLY_BOX_WOOD 1
+#define SUPPLY_BOX_METAL 2
+#define SUPPLY_BOX_MILITARY 3
 
 #define TRADE_USER_SUFFIX_AI "ai"
 #define TRADE_USER_SUFFIX_CYBORG "silicon"
