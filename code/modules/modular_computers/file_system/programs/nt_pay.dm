@@ -33,22 +33,22 @@
 				return to_chat(usr, span_notice("You need to specify how much you're sending."))
 			if(token == current_user.pay_token)
 				return to_chat(usr, span_notice("You can't send credits to yourself."))
-			
+
 			for(var/account as anything in SSeconomy.bank_accounts_by_id)
 				var/datum/bank_account/acc = SSeconomy.bank_accounts_by_id[account]
 				if(acc.pay_token == token)
 					recipient = acc
 					break
-			
+
 			if(!recipient)
 				return to_chat(usr, span_notice("The app can't find who you're trying to pay. Did you enter the pay token right?"))
 			if(!current_user.has_money(money_to_send))
-				return current_user.bank_card_talk("You cannot afford it.")
-			
-			recipient.bank_card_talk("You received [money_to_send] credit(s). Reason: transfer from [current_user.account_holder]")
+				return current_user.bank_talk("You cannot afford it.")
+
+			recipient.bank_talk("You received [money_to_send] credit(s). Reason: transfer from [current_user.account_holder]")
 			recipient.transfer_money(current_user, money_to_send)
-			current_user.bank_card_talk("You send [money_to_send] credit(s) to [recipient.account_holder]. Now you have [current_user.account_balance] credit(s)")
-		
+			current_user.bank_talk("You send [money_to_send] credit(s) to [recipient.account_holder]. Now you have [current_user.account_balance] credit(s)")
+
 		if("GetPayToken")
 			wanted_token = null
 			for(var/account in SSeconomy.bank_accounts_by_id)
@@ -69,7 +69,7 @@
 		current_user = card_slot.stored_card.registered_account
 	else
 		current_user = null
-	
+
 	if(!current_user)
 		data["name"] = null
 	else
