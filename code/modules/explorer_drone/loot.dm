@@ -42,16 +42,8 @@ GLOBAL_LIST_INIT(adventure_loot_generator_index,generate_generator_index())
 	var/static/list/unlockable_packs = list(/datum/supply_pack/exploration/scrapyard,/datum/supply_pack/exploration/catering,/datum/supply_pack/exploration/shrubbery)
 
 /datum/adventure_loot_generator/cargo/generate()
-	var/list/still_locked_packs = list()
-	for(var/pack_type in unlockable_packs)
-		var/datum/supply_pack/pack_singleton = SStrading.supply_packs[pack_type]
-		if(!pack_singleton.special_enabled)
-			still_locked_packs += pack_type
-	if(!length(still_locked_packs)) // Just give out some cash instead.
-		var/datum/adventure_loot_generator/simple/cash/replacement = new
-		return replacement.generate()
-	var/chosen_pack_type = pick(still_locked_packs)
-	return new /obj/item/trade_chip(null,chosen_pack_type)
+	var/chosen_pack_type = pick(subtypesof(/obj/structure/supplies_box))
+	return new chosen_pack_type
 
 /// Just picks and instatiates the path from the list
 /datum/adventure_loot_generator/simple
@@ -109,31 +101,6 @@ GLOBAL_LIST_INIT(adventure_loot_generator_index,generate_generator_index())
 	desc = "Valuable and completly incomprehensible."
 	icon = 'icons/obj/exploration.dmi'
 	icon_state = "antique"
-
-/// Supply pack unlocker chip
-/obj/item/trade_chip
-	name = "trade contract chip"
-	desc = "Uses the station's cargo network to contact a black market supplier, allowing the purchase of a new crate type at cargo console."
-	icon = 'icons/obj/exploration.dmi'
-	icon_state = "trade_chip"
-	/// Supply pack type enabled by this chip
-	var/unlocked_pack_type
-
-/obj/item/trade_chip/Initialize(mapload, pack_type)
-	. = ..()
-	if(pack_type)
-		unlocked_pack_type = pack_type
-		var/datum/supply_pack/typed_pack_type = pack_type
-		name += "- [initial(typed_pack_type.name)]"
-
-/obj/item/trade_chip/proc/try_to_unlock_contract(mob/user)
-	var/datum/supply_pack/pack_singleton = SStrading.supply_packs[unlocked_pack_type]
-	if(!unlocked_pack_type || !pack_singleton || !pack_singleton.special)
-		to_chat(user,span_danger("This chip is invalid!"))
-		return
-	pack_singleton.special_enabled = TRUE
-	to_chat(user,span_notice("Contract accepted into nanotrasen supply database."))
-	qdel(src)
 
 
 /// Two handed fire lance. Melts wall after short windup.

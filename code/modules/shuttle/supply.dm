@@ -107,7 +107,11 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		// We're home, let's take 30 seconds to return.
 		callTime = 30 SECONDS
 		SSshuttle.moveShuttle("cargo", "cargo_home") // And immediately return to the station!
-		callTime += sell() * (30 SECONDS)
+		var/list/exports = sell()
+		if(!exports || !exports.len)
+			callTime = 10 SECONDS
+		else
+			callTime += exports.len * (15 SECONDS) // Simulate haggling and trading items in a shitty way
 
 /obj/docking_port/mobile/supply/proc/buy()
 	SEND_SIGNAL(SSshuttle, COMSIG_SUPPLY_SHUTTLE_BUY)
@@ -179,7 +183,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 			paying_for_this.bank_talk("Cargo order #[spawning_order.id] is now locked in and will be on cargo shuttle when it returns. [price] credits have been charged to your bank account.")
 			SSeconomy.track_purchase(paying_for_this, price, spawning_order.pack.name)
 			var/datum/bank_account/department/cargo = SSeconomy.get_dep_account(ACCOUNT_CAR)
-			cargo.adjust_money(price - spawning_order.pack.get_cost()) //Cargo gets the handling fee
+			cargo.adjust_money(price - spawning_order.pack.get_cost(), "Cargo: Handling fee for [spawning_order.pack.name]") //Cargo gets the handling fee
 		value += spawning_order.pack.get_cost()
 		SStrading.shopping_list -= spawning_order
 		SStrading.order_history += spawning_order
@@ -197,9 +201,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 			message_admins("\A [spawning_order.pack.name] ordered by [ADMIN_LOOKUPFLW(spawning_order.orderer_ckey)], paid by [from_whom] has shipped.")
 		purchases++
 		if(spawning_order.trader_id)
-			traders_bought_from[trader_id] = TRUE // Shut. This is the fastest way to non-duplicate add to a list.
-
-	return traders_bought_from
+			traders_bought_from[spawning_order.trader_id] = TRUE // Shut. This is the fastest way to non-duplicate add to a list.
 
 	// we handle packing all the goodies last, since the type of crate we use depends on how many goodies they ordered. If it's more than GOODY_FREE_SHIPPING_MAX
 	// then we send it in a crate (including the CRATE_TAX cost), otherwise send it in a free shipping case
@@ -236,6 +238,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	SSeconomy.import_total += value
 	var/datum/bank_account/cargo_budget = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	investigate_log("[purchases] orders in this shipment, worth [value] credits. [cargo_budget.account_balance] credits left.", INVESTIGATE_CARGO)
+	return traders_bought_from
 
 /obj/docking_port/mobile/supply/proc/sell()
 	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
@@ -255,11 +258,9 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 			if(iscameramob(AM))
 				continue
 			if(!AM.anchored)
-				export_item_and_contents(AM, export_categories, dry_run = FALSE, external_report = ex)
+				var/datum/export_report/report = export_item_and_contents(AM, export_categories, dry_run = FALSE, external_report = ex)
 				sold_items_approx++
-
-	if(ex.exported_atoms)
-		ex.exported_atoms += "." //ugh
+				ex.unique_exports += report.unique_exports
 
 	for(var/datum/export/E in ex.total_amount)
 		var/export_text = E.total_printout(ex)
@@ -272,7 +273,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	SSeconomy.export_total += (D.account_balance - presale_points)
 	SStrading.trade_message = msg
 	investigate_log("Shuttle contents sold for [D.account_balance - presale_points] credits. Contents: [ex.exported_atoms ? ex.exported_atoms.Join(",") + "." : "none."] Message: [SStrading.trade_message || "none."]", INVESTIGATE_CARGO)
-	return sold_items_approx
+	return ex.unique_exports
 
 /*
 	Generates a box of mail depending on our exports and imports.

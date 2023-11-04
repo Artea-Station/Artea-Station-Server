@@ -23,7 +23,7 @@
 		/obj/structure/supplies_box/tech = 1,
 	)
 
-/obj/effect/spawner/random_supplies_box/rare
+/obj/effect/spawner/random/random_supplies_box/rare
 	name = "spawn random rare supplies box"
 	icon_state = "random_rare"
 	loot = list(

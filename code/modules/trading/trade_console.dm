@@ -47,6 +47,8 @@
 	///If this console can loan the cargo shuttle. Set to false to disable.
 	var/stationcargo = TRUE
 
+	var/list/loaded_coupons = list()
+
 /obj/machinery/computer/trade_console/proc/write_manifest(datum/trader/trader, item_name, amount, price, user_selling, user_name)
 	var/trade_string
 	last_user_name = user_name
@@ -239,11 +241,12 @@
 		var/list/deliveries = list()
 		// Index is used cause it requires the least amount of refactoring, and I've refactored enough as it is, dammit.
 		var/index = 1
-		for(var/datum/supply_pack/sold_goods as anything in connected_trader.sold_packs)
+		for(var/sold_good_id as anything in connected_trader.sold_packs)
+			var/datum/supply_pack/sold_goods = SStrading.supply_packs[sold_good_id]
 			trades += list(list(
 				"name" = sold_goods.name,
 				"desc" = sold_goods.desc,
-				"id" = index,
+				"id" = sold_goods.id,
 				"cost" = sold_goods.get_cost(),
 				"amount" = sold_goods.stock["[connected_trader.id]"],
 			))
@@ -334,10 +337,12 @@
 			if(!inserted_id.registered_account)
 				say("No bank account detected.")
 				return
-			var/index = text2num(params["index"])
-			if(connected_trader.sold_packs.len < index)
+			var/pack_id = text2path(params["id"]) || params["id"]
+			if(!(pack_id in connected_trader.sold_packs))
+				say("Unknown product code.")
 				return
-			var/datum/supply_pack/goodie = connected_trader.sold_packs[index]
+
+			var/datum/supply_pack/goodie = SStrading.supply_packs[pack_id]
 
 			last_transmission = connected_trader.requested_buy(ui.user, src, goodie)
 		if("bounty")
@@ -394,70 +399,6 @@
 				investigate_log("[key_name(usr)] accepted a shuttle loan event.", INVESTIGATE_CARGO)
 				usr.log_message("accepted a shuttle loan event.", LOG_GAME)
 				. = TRUE
-		if("add")
-			if(is_express)
-				return
-			var/id = params["id"]
-			id = text2path(id) || id
-			var/datum/supply_pack/pack = SStrading.supply_packs[id]
-			if(!istype(pack))
-				CRASH("Unknown supply pack id given by order console ui. ID: [params["id"]]")
-			if((pack.hidden && !(obj_flags & EMAGGED)) || (pack.contraband && !contraband) || pack.drop_pod_only || (pack.special && !pack.special_enabled))
-				return
-
-			var/name = "*None Provided*"
-			var/rank = "*None Provided*"
-			var/ckey = usr.ckey
-			if(ishuman(usr))
-				var/mob/living/carbon/human/H = usr
-				name = H.get_authentification_name()
-				rank = H.get_assignment(hand_first = TRUE)
-			else if(issilicon(usr))
-				name = usr.real_name
-				rank = "Silicon"
-
-			var/datum/bank_account/account
-			if(self_paid && isliving(usr))
-				var/mob/living/L = usr
-				var/obj/item/card/id/id_card = L.get_idcard(TRUE)
-				if(!istype(id_card))
-					say("No ID card detected.")
-					return
-				if(istype(id_card, /obj/item/card/id/departmental_budget))
-					say("The [src] rejects [id_card].")
-					return
-				account = id_card.registered_account
-				if(!istype(account))
-					say("Invalid bank account.")
-					return
-
-			var/reason = ""
-			if(requestonly && !self_paid)
-				reason = tgui_input_text(usr, "Reason", name)
-				if(isnull(reason) || ..())
-					return
-
-			if(pack.goody && !self_paid)
-				playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-				say("ERROR: Small crates may only be purchased by private accounts.")
-				return
-
-			var/obj/item/coupon/applied_coupon
-			for(var/i in loaded_coupons)
-				var/obj/item/coupon/coupon_check = i
-				if(pack.type == coupon_check.discounted_pack)
-					say("Coupon found! [round(coupon_check.discount_pct_off * 100)]% off applied!")
-					coupon_check.moveToNullspace()
-					applied_coupon = coupon_check
-					break
-
-			var/turf/T = get_turf(src)
-			var/datum/supply_order/SO = new(pack, name, rank, ckey, reason, account, null, applied_coupon)
-			SO.generateRequisition(T)
-			SStrading.shopping_list += SO
-			if(self_paid)
-				say("Order processed. The price will be charged to [account.account_holder]'s bank account on delivery.")
-			. = TRUE
 		if("remove")
 			var/id = text2num(params["id"])
 			for(var/datum/supply_order/SO in SStrading.shopping_list)
@@ -478,6 +419,9 @@
 					continue //don't cancel other department's orders
 				SStrading.shopping_list -= cancelled_order
 			. = TRUE
+		if("unload_coupons")
+			for(var/obj/coupon in loaded_coupons)
+				coupon.forceMove(get_turf(src))
 	if(.)
 		post_signal(cargo_shuttle)
 

@@ -19,7 +19,7 @@
 	/// What group of packs can this trader sell? Accepts any TRADER_CATEGORY define. Can be a list, or a singleton.
 	var/pack_groups
 	/// List of sold supply packs. Setting this to null effectively disables the trader's selling functionality.
-	var/list/datum/supply_pack/sold_packs = list()
+	var/list/sold_packs = list()
 
 	/// Cash they hold, they won't be able to pay out if it gets too low
 	var/current_credits = DEFAULT_TRADER_CREDIT_AMOUNT
@@ -91,7 +91,7 @@
 
 			var/datum/supply_pack/pack = pick(SStrading.group_to_supplies[group_to_use])
 			pack.stock["[id]"] = pack.default_stock
-			sold_goods_init += pack
+			sold_goods_init += pack.id
 
 		sold_packs = sold_goods_init
 
@@ -117,8 +117,7 @@
 	var/obj/item/coupon/applied_coupon
 	for(var/i in console.loaded_coupons)
 		var/obj/item/coupon/coupon_check = i
-		if(pack.type == coupon_check.discounted_pack)
-			coupon_check.moveToNullspace()
+		if(goodie.type == coupon_check.discounted_pack)
 			applied_coupon = coupon_check
 			break
 
@@ -128,7 +127,8 @@
 		return get_response("user_no_money", "You can't afford this", user)
 
 	if(applied_coupon)
-		console.say("Coupon found! [round(coupon_check.discount_pct_off * 100)]% off applied!")
+		applied_coupon.moveToNullspace()
+		console.say("Coupon found! [round(applied_coupon.discount_pct_off * 100)]% off applied!")
 
 	//We established there's stock and we have enough money for it
 	console.inserted_id.registered_account.adjust_money(-proposed_cost)
@@ -136,7 +136,7 @@
 	if(goodie.stock["[id]"] != -1)
 		goodie.stock["[id]"]--
 	var/obj/item/card/id/inserted_id = console.inserted_id
-	SStrading.shopping_list += new /datum/supply_order(goodie, inserted_id.registered_name, inserted_id.assignment, user.ckey, null, inserted_id.registered_account, null, coupon)
+	SStrading.shopping_list += new /datum/supply_order(goodie, inserted_id.registered_name, inserted_id.assignment, user.ckey, null, inserted_id.registered_account, null, applied_coupon)
 	after_trade(user, console, goodie)
 	console.write_manifest(src, goodie.name, 1, proposed_cost, FALSE, user.name)
 	return get_response("trade_complete", "Thanks for your business!", user)
@@ -280,7 +280,8 @@
 
 /// Removes the
 /datum/trader/proc/clear_stock()
-	for(var/datum/supply_pack/goodie as anything in sold_packs)
+	for(var/goodie_id as anything in sold_packs)
+		var/datum/supply_pack/goodie = SStrading.supply_packs[goodie_id]
 		LAZYREMOVE(goodie.stock, id)
 		sold_packs -= goodie
 
