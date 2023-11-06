@@ -15,4 +15,9 @@ https://github.com/Artea-Station/Artea-Station-Server/pull/349
 /obj/machinery/computer/cargo : /obj/machinery/computer/trade_console/cargo {dir=@OLD}
 /obj/machinery/computer/cargo/express : @DELETE
 /obj/machinery/computer/cargo/request : /obj/machinery/computer/trade_console {dir=@OLD}
+/obj/item/circuitboard/computer/cargo : /obj/item/circuitboard/computer/trade_console/cargo {pixel_x=@OLD; pixel_y=@OLD}
+/obj/item/circuitboard/computer/cargo/express : @DELETE
+/obj/item/circuitboard/computer/cargo/request : /obj/item/circuitboard/computer/trade_console {pixel_x=@OLD; pixel_y=@OLD}
 /obj/item/disk/cargo/bluespace_pod : @DELETE
+/obj/effect/spawner/supplies_box : /obj/effect/spawner/random/supplies_box
+/obj/effect/spawner/supplies_box/@SUBTYPES : /obj/effect/spawner/random/supplies_box/@SUBTYPES
