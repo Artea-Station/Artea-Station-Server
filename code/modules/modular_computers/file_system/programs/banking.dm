@@ -3,7 +3,7 @@
 	filedesc = "Banking"
 	category = PROGRAM_CATEGORY_MISC
 	program_icon_state = "generic"
-	extended_desc = "An application that locally (in your sector) helps to transfer money or track your expenses and profits."
+	extended_desc = "An application that helps track your expenses and profits."
 	size = 2
 	tgui_id = "NtosBanking"
 	program_icon = "money-bill-wave"
