@@ -55,6 +55,9 @@
 	/// An associative list of unique responses
 	var/list/speech
 
+	/// Does this trader hate robots/synths?
+	var/technophobic = FALSE
+
 /datum/trader/New(datum/trade_hub/our_hub)
 	. = ..()
 	id = SStrading.get_next_trader_id()
@@ -105,9 +108,13 @@
 /datum/trader/proc/after_trade(mob/user, obj/machinery/computer/trade_console/console, datum/supply_pack/pack)
 	return
 
-/// TRUE to accept hail, FALSE to reject it. Speciest traders could reject hails from some species, or from cyborgs
+/// TRUE to accept hail, FALSE to reject it. Speciest traders could reject hails from some species.
+/// Default behavior checks if the trader is technophobic, and if the user is a silicon or synth, before declining the hail if the conditions are met.
 /// This will also be called every interaction, and may shut down the comms, last response will be the close reason
 /datum/trader/proc/get_hailed(mob/user, obj/machinery/computer/trade_console/console)
+	if(technophobic && (issilicon(user) || issynthetic(user)))
+		return FALSE
+
 	return TRUE
 
 /// Called when someone tries to buy a supply pack. THE PACK IS CLIENT-PROVIDED, CHECK YOUR SHIT.
