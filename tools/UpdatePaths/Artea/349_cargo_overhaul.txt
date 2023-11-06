@@ -12,6 +12,6 @@ https://github.com/Artea-Station/Artea-Station-Server/pull/349
 /obj/item/circuitboard/computer/medical_orders : @DELETE
 /obj/machinery/trade_pad : @DELETE
 /obj/item/circuitboard/machine/trade_pad : @DELETE
-/obj/machinery/computer/cargo : /obj/machinery/computer/trade_console
+/obj/machinery/computer/cargo : /obj/machinery/computer/trade_console/cargo {dir=@OLD}
 /obj/machinery/computer/cargo/express : @DELETE
-/obj/machinery/computer/cargo/request : @DELETE
+/obj/machinery/computer/cargo/request : /obj/machinery/computer/trade_console {dir=@OLD}

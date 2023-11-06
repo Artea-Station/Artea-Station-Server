@@ -8,7 +8,7 @@
 /obj/machinery/computer/trade_console
 	name = "trade console"
 	icon_screen = "supply"
-	desc = "Used for communication between the trade networks and for conducting trades."
+	desc = "Used for communication between the trade networks and for conducting trades. This one can't send the shuttle."
 	circuit = /obj/item/circuitboard/computer/trade_console
 	light_color = COLOR_BRIGHT_ORANGE
 	var/obj/machinery/trade_pad/linked_pad
@@ -48,6 +48,13 @@
 	var/stationcargo = TRUE
 
 	var/list/loaded_coupons = list()
+
+	var/can_send_shuttle = FALSE
+
+/obj/machinery/computer/trade_console/cargo
+	name = "cargo trade console"
+	desc = "Used for communication between the trade networks and for conducting trades."
+	can_send_shuttle = TRUE
 
 /obj/machinery/computer/trade_console/proc/write_manifest(datum/trader/trader, item_name, amount, price, user_selling, user_name)
 	var/trade_string
@@ -200,6 +207,7 @@
 		"rank" = istype(inserted_id?.registered_account, /datum/bank_account/department) ? "Department Account" : inserted_id?.registered_account?.account_job?.title,
 		"wallet_name" = inserted_id?.registered_account?.account_holder,
 		"credits" = inserted_id?.registered_account?.account_balance,
+		"shuttle_sendable" = can_send_shuttle,
 		"shuttle_location" = SSshuttle.supply.getStatusText(),
 		"shuttle_away" = SSshuttle.supply.getDockedId() == docking_away,
 		"shuttle_docked" = SSshuttle.supply.mode == SHUTTLE_IDLE,
@@ -317,6 +325,7 @@
 		if("eject_id")
 			if(inserted_id)
 				remove_id(ui.user)
+				print_manifest()
 				return
 			var/item = ui.user.get_active_held_item()
 			insert_id(isidcard(item) ? item : null, ui.user)
@@ -361,9 +370,7 @@
 			var/datum/delivery_run/goodie = connected_trader.deliveries[index]
 			last_transmission = connected_trader.requested_delivery_take(ui.user, src, goodie)
 		if("print_manifest")
-			print_manifest()
-		if("toggle_manifest")
-			makes_manifests = !makes_manifests
+			print_manifest() // This auto-prints when you change trader.
 		if("send_shuttle")
 			if(!SSshuttle.supply.canMove())
 				say(SHUTTLE_SAFETY_WARNING)
@@ -376,10 +383,6 @@
 				SSshuttle.moveShuttle(cargo_shuttle, docking_away, TRUE)
 				say("The supply shuttle is departing.")
 				investigate_log("[key_name(usr)] sent the supply shuttle away.", INVESTIGATE_CARGO)
-			else
-				investigate_log("[key_name(usr)] called the supply shuttle.", INVESTIGATE_CARGO)
-				say("The supply shuttle has been called and will arrive in [SSshuttle.supply.timeLeft(600)] minutes.")
-				SSshuttle.moveShuttle(cargo_shuttle, docking_home, TRUE)
 			. = TRUE
 		if("loan_shuttle")
 			if(!SSshuttle.shuttle_loan)
@@ -400,12 +403,15 @@
 				usr.log_message("accepted a shuttle loan event.", LOG_GAME)
 				. = TRUE
 		if("remove")
+			if(!inserted_id)
+				say("No ID detected.")
+				return
 			var/id = text2num(params["id"])
 			for(var/datum/supply_order/SO in SStrading.shopping_list)
 				if(SO.id != id)
 					continue
-				if(SO.department_destination)
-					say("Only the department that ordered this item may cancel it.")
+				if(!can_send_shuttle && SO.paying_account.account_id != inserted_id.registered_account?.account_id)
+					say("Only the orderer may cancel their order.")
 					return
 				if(SO.applied_coupon)
 					say("Coupon refunded.")
@@ -457,5 +463,10 @@
 	name = "Trade Console (Computer Board)"
 	greyscale_colors = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/computer/trade_console
+
+/obj/item/circuitboard/computer/trade_console/cargo
+	name = "Cargo Trade Console (Computer Board)"
+	greyscale_colors = CIRCUIT_COLOR_SUPPLY
+	build_path = /obj/machinery/computer/trade_console/cargo
 
 #undef SHUTTLE_BLOCKADE_WARNING

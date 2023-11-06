@@ -113,6 +113,8 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		else
 			callTime += exports.len * (15 SECONDS) // Simulate haggling and trading items in a shitty way
 
+/obj/docking_port/mobile/supply/proc/get_buy_time()
+
 /obj/docking_port/mobile/supply/proc/buy()
 	SEND_SIGNAL(SSshuttle, COMSIG_SUPPLY_SHUTTLE_BUY)
 	var/list/obj/miscboxes = list() //miscboxes are combo boxes that contain all goody orders grouped
