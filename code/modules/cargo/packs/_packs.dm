@@ -47,7 +47,7 @@
 	var/galactic_import = FALSE
 
 /datum/supply_pack/New()
-	id = "[type]"
+	id = type
 	if(!name && islist(contains))
 		var/obj/ordered_item = contains[1]
 		if(ordered_item)
