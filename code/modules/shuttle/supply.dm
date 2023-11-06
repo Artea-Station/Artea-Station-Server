@@ -245,7 +245,6 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 /obj/docking_port/mobile/supply/proc/sell()
 	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	var/presale_points = D.account_balance
-	var/sold_items_approx = 0
 
 	if(!GLOB.exports_list.len) // No exports list? Generate it!
 		setupExports()
@@ -261,7 +260,6 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 				continue
 			if(!AM.anchored)
 				var/datum/export_report/report = export_item_and_contents(AM, export_categories, dry_run = FALSE, external_report = ex)
-				sold_items_approx++
 				ex.unique_exports += report.unique_exports
 
 	for(var/datum/export/E in ex.total_amount)

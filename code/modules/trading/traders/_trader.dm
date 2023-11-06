@@ -58,6 +58,9 @@
 	/// Does this trader hate robots/synths?
 	var/technophobic = FALSE
 
+	/// The speech color for this trader. If null, it will pick a (semi) random color on init.
+	var/speech_color
+
 /datum/trader/New(datum/trade_hub/our_hub)
 	. = ..()
 	id = SStrading.get_next_trader_id()
@@ -70,6 +73,12 @@
 	if(possible_names)
 		name = pick(possible_names)
 		possible_names = null
+
+	if(!speech_color)
+		speech_color = pick(
+			"#aaaaaa",
+			"#aaaaaa",
+		)
 
 	initialize_stock()
 
@@ -232,6 +241,7 @@
 	. = replacetext(., "MERCHANT", name)
 	. = replacetext(., "ORIGIN", origin)
 	. = replacetext(., "MOB", user.name)
+	. = span_color(., speech_color)
 
 /// Adds a new bounty. Remember to remove any old bounties yourself first, if you're replacing them.
 /datum/trader/proc/gain_bounty()

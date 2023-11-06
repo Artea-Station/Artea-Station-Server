@@ -669,7 +669,6 @@
 	description = "Application of Bluespace for static teleportation technology."
 	prereq_ids = list("practical_bluespace")
 	design_ids = list(
-		"bluespace_pod",
 		"launchpad",
 		"launchpad_console",
 		"tele_hub",
@@ -921,8 +920,8 @@
 	description = "Computers and how they work."
 	prereq_ids = list("datatheory")
 	design_ids = list(
-		"cargo",
-		"cargorequest",
+		"trade_console",
+		"cargo_trade_console",
 		"comconsole",
 		"crewconsole",
 		"idcard",

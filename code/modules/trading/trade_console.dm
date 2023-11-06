@@ -428,6 +428,11 @@
 		if("unload_coupons")
 			for(var/obj/coupon in loaded_coupons)
 				coupon.forceMove(get_turf(src))
+		if("get_estimate")
+			if(!can_send_shuttle)
+				say("This console has no shuttle access.")
+				return
+			SSshuttle.supply.sell()
 	if(.)
 		post_signal(cargo_shuttle)
 
