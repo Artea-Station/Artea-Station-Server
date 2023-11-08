@@ -241,7 +241,6 @@
 	. = replacetext(., "MERCHANT", name)
 	. = replacetext(., "ORIGIN", origin)
 	. = replacetext(., "MOB", user.name)
-	. = span_color(., speech_color)
 
 /// Adds a new bounty. Remember to remove any old bounties yourself first, if you're replacing them.
 /datum/trader/proc/gain_bounty()
