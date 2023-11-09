@@ -331,26 +331,6 @@
 	name = "Terminal"
 	build_path = /obj/machinery/computer/terminal
 
-/datum/design/board/trade_console
-	name = "Trade Console Board"
-	desc = "The circuit board for a Trade Console."
-	id = "trade_console"
-	build_path = /obj/item/circuitboard/computer/trade_console
-	category = list(
-		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CARGO
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
-
-/datum/design/board/trade_console
-	name = "Cargo Trade Console Board"
-	desc = "The circuit board for a Cargo Trade Console."
-	id = "cargo_trade_console"
-	build_path = /obj/item/circuitboard/computer/trade_console/cargo
-	category = list(
-		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CARGO
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
-
 //Medical
 
 /obj/item/circuitboard/computer/crew
