@@ -281,18 +281,19 @@
 	if(prob(delivery_gain_chance))
 		gain_delivery()
 	// Restock some sold goodies
-	if(sold_packs)
-		var/sold_goods_pick_n_take = sold_packs.Copy()
-		var/datum/supply_pack/goodie = SStrading.supply_packs[pick_n_take(sold_goods_pick_n_take)]
-		while(goodie)
-			if(goodie.stock["[id]"] == -1)
-				continue
-			var/percentage_remaining = goodie.stock["[id]"] / goodie.default_stock
-			if(percentage_remaining <= TRADER_RESTOCK_THRESHOLD)
-				goodie.stock["[id]"] = goodie.default_stock
-				if(prob(TRADER_RESTOCK_ESCAPE_CHANCE)) //Chance that it's the end of restocking for this tick
-					return
-			goodie = pick_n_take(sold_goods_pick_n_take)
+	// if(sold_packs)
+	// 	var/sold_goods_pick_n_take = sold_packs.Copy()
+	// 	var/sold_goods_pick_n_taked = pick_n_take(sold_goods_pick_n_take) // Don't ask fucking why, I can't use pick-n-take inside a fucking list index. What the fuck????
+	// 	var/datum/supply_pack/goodie = SStrading.supply_packs[sold_goods_pick_n_taked]
+	// 	while(goodie)
+	// 		if(goodie.stock["[id]"] == -1)
+	// 			continue
+	// 		var/percentage_remaining = goodie.stock["[id]"] / goodie.default_stock
+	// 		if(percentage_remaining <= TRADER_RESTOCK_THRESHOLD)
+	// 			goodie.stock["[id]"] = goodie.default_stock
+	// 			if(prob(TRADER_RESTOCK_ESCAPE_CHANCE)) //Chance that it's the end of restocking for this tick
+	// 				return
+	// 		goodie = pick_n_take(sold_goods_pick_n_take)
 
 #undef TRADER_RESTOCK_ESCAPE_CHANCE
 
