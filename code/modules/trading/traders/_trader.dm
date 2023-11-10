@@ -102,6 +102,9 @@
 				group_to_use = pick(group_to_use)
 
 			var/datum/supply_pack/pack = pick(SStrading.group_to_supplies[group_to_use])
+			if(!pack) // ARTEA TODO: Fix groups having the potential to be null. (What the fuck?)
+				i--
+				continue
 			pack.stock["[id]"] = pack.default_stock
 			sold_goods_init += pack.id
 
