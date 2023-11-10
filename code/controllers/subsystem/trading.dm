@@ -112,10 +112,7 @@ SUBSYSTEM_DEF(trading)
 	// Create central trade hub
 	if(config.central_trading_hub_type)
 		central_trade_hub = new config.central_trading_hub_type()
-	// Create the localized trade hubs
-	if(config.localized_trading_hub_types)
-		for(var/hub_type in config.localized_trading_hub_types)
-			new /datum/overmap_object/trade_hub(SSovermap.main_system, rand(5,20), rand(5,20), hub_type)
+	// Localised trade hubs are handled in overmap. Please don't try to make them here, they rely on overmap existing.
 
 /datum/controller/subsystem/trading/fire(resumed = FALSE)
 	for(var/i in trade_hubs)

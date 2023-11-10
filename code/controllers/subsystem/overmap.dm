@@ -53,13 +53,17 @@ SUBSYSTEM_DEF(overmap)
 	//Seed some random objects in the main system
 	//Seed some space trash here that will yield random loots
 	//Seed some asteroids that will be mine'able
+	// Create the localized trade hubs. Handled here cause SStrading has to init before mapping and SSovermap.
+	if(SSmapping.config.localized_trading_hub_types)
+		for(var/hub_type in SSmapping.config.localized_trading_hub_types)
+			new /datum/overmap_object/trade_hub(SSovermap.main_system, rand(5,20), rand(5,20), hub_type)
 
 /**
  * CreateNewSunSystem() is called to create and register a new sunsystem
 */
 /datum/controller/subsystem/overmap/proc/CreateNewSunSystem(datum/overmap_sun_system/new_sunsystem)
 	if(length(sun_systems) >= 1)
-		WARNING("Attempted to create more than 1 sun system. Currently not supported! Bother Azarak to implement that")
+		WARNING("Attempted to create more than 1 sun system. Currently not supported!")
 	sun_systems += new_sunsystem
 	return new_sunsystem
 
