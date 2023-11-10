@@ -49,10 +49,10 @@
 	var/obj/item/coupon/applied_coupon
 	var/trader_id
 
-/datum/supply_order/New(datum/supply_pack/pack, orderer, orderer_rank, orderer_ckey, reason, paying_account, department_destination, coupon, trader_id)
+/datum/supply_order/New(datum/supply_pack/pack, orderer, orderer_rank, orderer_ckey, reason, paying_account, department_destination, obj/item/coupon/coupon, trader_id)
 	id = SStrading.order_number++
 	cost = pack.get_cost()
-	cost -= cost * discounted_pct
+	cost -= cost * coupon.discount_pct_off
 	src.pack = pack
 	src.orderer = orderer
 	src.orderer_rank = orderer_rank

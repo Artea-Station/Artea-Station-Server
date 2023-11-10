@@ -27,9 +27,7 @@
 	var/list/trade_log
 
 	var/list/manifest_purchased
-	var/list/manifest_sold
 	var/manifest_loss = 0
-	var/manifest_profit = 0
 	var/last_user_name = "name"
 	var/last_trade_time = ""
 	var/manifest_counter = 0
@@ -56,32 +54,22 @@
 	desc = "Used for communication between the trade networks and for conducting trades."
 	can_send_shuttle = TRUE
 
-/obj/machinery/computer/trade_console/proc/write_manifest(datum/trader/trader, item_name, amount, price, user_selling, user_name)
+/obj/machinery/computer/trade_console/proc/write_manifest(datum/trader/trader, item_name, amount, price, user_name)
 	var/trade_string
 	last_user_name = user_name
-	if(user_selling)
-		trade_string = "[amount] of [item_name] for [price] cr."
-		write_log("[user_name] sold [trade_string] to [trader.name] (new balance on [inserted_id.registered_account.account_holder]: [inserted_id.registered_account.account_balance] cr.)")
-		if(!makes_manifests)
-			return
-		LAZYINITLIST(manifest_sold)
-		manifest_sold += trade_string
-		manifest_profit += price
-	else
-		trade_string = "[amount] of [item_name] for [price] cr."
-		write_log("[user_name] bought [trade_string] from [trader.name] (new balance on [inserted_id.registered_account.account_holder]: [inserted_id.registered_account.account_balance] cr.)")
-		if(!makes_manifests)
-			return
-		LAZYINITLIST(manifest_purchased)
-		manifest_purchased += trade_string
-		manifest_loss += price
+	trade_string = "[amount] of [item_name] for [price] cr."
+	write_log("[user_name] bought [trade_string] from [trader.name] (new balance on [inserted_id.registered_account.account_holder]: [inserted_id.registered_account.account_balance] cr.)")
+	if(!makes_manifests)
+		return
+	LAZYINITLIST(manifest_purchased)
+	manifest_purchased += trade_string
+	manifest_loss += price
 
 /obj/machinery/computer/trade_console/proc/print_manifest()
 	if(!makes_manifests)
-		QDEL_NULL(manifest_sold)
 		QDEL_NULL(manifest_purchased)
 		return
-	if(!manifest_sold && !manifest_purchased)
+	if(!manifest_purchased)
 		return
 	var/turf/my_turf = get_turf(src)
 	playsound(my_turf, 'sound/items/poster_being_created.ogg', 20, 1)
@@ -89,20 +77,13 @@
 	manifest_counter++
 	P.name = "trade manifest #[manifest_counter]"
 	P.add_raw_text("<CENTER><B>TRADE MANIFEST #[manifest_counter] - [last_trade_time]</B></CENTER><BR>Transaction between [last_user_name] and [connected_trader.name] at [connected_trader.origin]")
-	if(manifest_purchased)
-		P.add_raw_text("<HR><b>BOUGHT ITEMS:</b><BR>")
-		for(var/line in manifest_purchased)
-			P.add_raw_text("[line]<BR>")
-	if(manifest_sold)
-		P.add_raw_text("<HR><b>SOLD ITEMS:</b><BR>")
-		for(var/line in manifest_sold)
-			P.add_raw_text("[line]<BR>")
-	P.add_raw_text("<HR>Total gain: [manifest_profit]<BR>Total loss: [manifest_loss]<BR><b>TOTAL PROFIT: [manifest_profit - manifest_loss]</b>")
+	P.add_raw_text("<HR><b>BOUGHT ITEMS:</b><BR>")
+	for(var/line in manifest_purchased)
+		P.add_raw_text("[line]<BR>")
+	P.add_raw_text("<HR>Total cost: [manifest_loss]")
 	P.update_icon()
 	manifest_purchased = null
-	manifest_sold = null
 	manifest_loss = 0
-	manifest_profit = 0
 
 /obj/machinery/computer/trade_console/proc/write_log(log_entry)
 	LAZYADD(trade_log, log_entry)
@@ -358,7 +339,17 @@
 
 			var/datum/supply_pack/goodie = SStrading.supply_packs[pack_id]
 
-			last_transmission = connected_trader.requested_buy(ui.user, src, goodie)
+			if(goodie.group != TRADER_GROUP_GALACTIC_IMPORTS)
+				last_transmission = connected_trader.requested_buy(ui.user, src, goodie)
+				return
+
+			var/datum/supply_order/order = new /datum/supply_order(goodie, inserted_id.registered_account.account_holder, inserted_id.assignment, ui.user.ckey, null, inserted_id.registered_account)
+			if(inserted_id.registered_account.adjust_money(order.cost, "Galactic Import: Purchase of [goodie.name]"))
+				SStrading.shopping_list += order
+				say("Import requested.")
+			else
+				say("Not enough credits. Import rejected.")
+				qdel(order)
 		if("bounty")
 			if(!inserted_id)
 				say("No ID detected.")

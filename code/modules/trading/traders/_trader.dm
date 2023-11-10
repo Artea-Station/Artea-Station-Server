@@ -156,7 +156,7 @@
 		goodie.stock["[id]"]--
 	SStrading.shopping_list += order
 	after_trade(user, console, goodie)
-	console.write_manifest(src, goodie.name, 1, proposed_cost, FALSE, user.name)
+	console.write_manifest(src, goodie.name, 1, order.cost, user.name)
 	return get_response("trade_complete", "Thanks for your business!", user)
 
 // ARTEA TODO: Make the shuttle check the itself for bounty items when it departs, and flag completed bounties as done and remove the items before selling anything.
