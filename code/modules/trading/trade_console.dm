@@ -228,7 +228,8 @@
 	data["cart"] = cart
 	for(var/datum/supply_order/order in SStrading.shopping_list)
 		cart += list(list(
-			"object" = order.pack.name,
+			"name" = order.pack.name,
+			"desc" = order.pack.desc || order.pack.name,
 			"cost" = order.pack.get_cost(),
 			"id" = order.id,
 			"orderer" = order.orderer,
@@ -283,6 +284,7 @@
 			"trades" = trades,
 			"bounties" = bounties,
 			"deliveries" = deliveries,
+			"color" = connected_trader.speech_color,
 		)
 
 	for(var/datum/trade_hub/trade_hub as anything in SStrading.get_available_trade_hubs(get_turf(src)))
@@ -296,23 +298,22 @@
 /obj/machinery/computer/trade_console/ui_static_data(mob/user)
 	var/list/data = list()
 	data["static_galactic_imports"] = list()
-	for(var/pack in SStrading.supply_packs)
-		var/datum/supply_pack/P = SStrading.supply_packs[pack]
-		if(!data["supplies"][P.group])
-			data["supplies"][P.group] = list(
-				"name" = P.group,
-				"packs" = list()
-			)
+	for(var/datum/supply_pack/galactic_imports/pack as anything in SStrading.group_to_supplies[TRADER_GROUP_GALACTIC_IMPORTS])
 		// I'll eventually make contraband work again.
-		if((P.hidden && !(obj_flags & EMAGGED)) || P.contraband || (P.special && !P.special_enabled) || P.drop_pod_only)
+		if((pack.hidden && !(obj_flags & EMAGGED)) || pack.contraband || (pack.special && !pack.special_enabled) || pack.drop_pod_only)
 			continue
-		data["supplies"][P.group]["packs"] += list(list(
-			"name" = P.name,
-			"cost" = P.get_cost(),
-			"id" = pack,
-			"desc" = P.desc || P.name, // If there is a description, use it. Otherwise use the pack's name.
-			"goody" = P.goody,
-			"access" = P.access
+		if(!data["static_galactic_imports"][pack.category])
+			data["static_galactic_imports"][pack.category] = list(
+				"name" = pack.category,
+				"packs" = list(),
+			)
+		data["static_galactic_imports"][pack.category]["packs"] += list(list(
+			"name" = pack.name,
+			"cost" = pack.get_cost(),
+			"id" = pack.id,
+			"desc" = pack.desc || pack.name, // If there is a description, use it. Otherwise use the pack's name.
+			"goody" = pack.goody,
+			"access" = pack.access,
 		))
 	return data
 
@@ -320,7 +321,7 @@
 	..()
 	. = TRUE // Just.. always update.
 	if(!ui.user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK, TRUE))
-		return FALSE
+		return TRUE
 	switch(action)
 		if("eject_id")
 			if(inserted_id)
@@ -334,11 +335,15 @@
 			if(trade_hub)
 				connect_hub(trade_hub)
 				write_log("Connected to hub [trade_hub.name]")
+		if("disconnect_hub")
+			disconnect_hub()
 		if("choose_trader")
 			var/datum/trader/trader = SStrading.get_trader_by_id(text2num(params["id"]))
 			if(trader)
 				connect_trader(trader, ui.user)
 				write_log("Connected to trader [trader.name]")
+		if("disconnect_trader")
+			disconnect_trader()
 		if("buy")
 			if(!inserted_id)
 				say("No ID detected.")
@@ -347,7 +352,7 @@
 				say("No bank account detected.")
 				return
 			var/pack_id = text2path(params["id"]) || params["id"]
-			if(!(pack_id in connected_trader.sold_packs))
+			if(!(pack_id in connected_trader?.sold_packs))
 				say("Unknown product code.")
 				return
 
@@ -383,7 +388,6 @@
 				SSshuttle.moveShuttle(cargo_shuttle, docking_away, TRUE)
 				say("The supply shuttle is departing.")
 				investigate_log("[key_name(usr)] sent the supply shuttle away.", INVESTIGATE_CARGO)
-			. = TRUE
 		if("loan_shuttle")
 			if(!SSshuttle.shuttle_loan)
 				return
@@ -401,7 +405,6 @@
 				say("The supply shuttle has been loaned to CentCom.")
 				investigate_log("[key_name(usr)] accepted a shuttle loan event.", INVESTIGATE_CARGO)
 				usr.log_message("accepted a shuttle loan event.", LOG_GAME)
-				. = TRUE
 		if("remove")
 			if(!inserted_id)
 				say("No ID detected.")
@@ -417,14 +420,15 @@
 					say("Coupon refunded.")
 					SO.applied_coupon.forceMove(get_turf(src))
 				SStrading.shopping_list -= SO
-				. = TRUE
+				if(SO.paying_account)
+					SO.paying_account.adjust_money(SO.cost, "Cargo: Refund of [SO.pack.name]")
+				qdel(SO)
 				break
 		if("clear")
 			for(var/datum/supply_order/cancelled_order in SStrading.shopping_list)
 				if(cancelled_order.department_destination)
 					continue //don't cancel other department's orders
 				SStrading.shopping_list -= cancelled_order
-			. = TRUE
 		if("unload_coupons")
 			for(var/obj/coupon in loaded_coupons)
 				coupon.forceMove(get_turf(src))

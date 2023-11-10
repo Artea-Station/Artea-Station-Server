@@ -37,11 +37,11 @@
 
 /datum/supply_order
 	var/id
+	var/cost
 	var/orderer
 	var/orderer_rank
 	var/orderer_ckey
 	var/reason
-	var/discounted_pct
 	///area this order wants to reach, if not null then it will come with the deliver_first component set to this area
 	var/department_destination
 	var/datum/supply_pack/pack
@@ -51,6 +51,8 @@
 
 /datum/supply_order/New(datum/supply_pack/pack, orderer, orderer_rank, orderer_ckey, reason, paying_account, department_destination, coupon, trader_id)
 	id = SStrading.order_number++
+	cost = pack.get_cost()
+	cost -= cost * discounted_pct
 	src.pack = pack
 	src.orderer = orderer
 	src.orderer_rank = orderer_rank

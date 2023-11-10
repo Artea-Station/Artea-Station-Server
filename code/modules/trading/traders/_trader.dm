@@ -131,8 +131,6 @@
 
 /// Called when someone tries to buy a supply pack. THE PACK IS CLIENT-PROVIDED, CHECK YOUR SHIT.
 /datum/trader/proc/requested_buy(mob/user, obj/machinery/computer/trade_console/console, datum/supply_pack/goodie)
-	var/proposed_cost = goodie.get_cost()
-
 	var/obj/item/coupon/applied_coupon
 	for(var/i in console.loaded_coupons)
 		var/obj/item/coupon/coupon_check = i
@@ -142,20 +140,21 @@
 
 	if(!goodie.stock["[id]"])
 		return get_response("out_of_stock", "I'm afraid I don't have any more of these!", user)
-	if(!console.inserted_id.registered_account.adjust_money(-proposed_cost))
+	applied_coupon?.moveToNullspace()
+	var/obj/item/card/id/inserted_id = console.inserted_id
+	var/datum/supply_order/order = new /datum/supply_order(goodie, inserted_id.registered_name, inserted_id.assignment, user.ckey, null, inserted_id.registered_account, null, applied_coupon, src)
+	if(!console.inserted_id.registered_account.adjust_money(order.cost, "[name]: Purchase of [goodie.name]"))
+		qdel(order)
+		applied_coupon.forceMove(get_turf(console))
 		return get_response("user_no_money", "You can't afford this", user)
 
 	if(applied_coupon)
-		applied_coupon.moveToNullspace()
 		console.say("Coupon found! [round(applied_coupon.discount_pct_off * 100)]% off applied!")
 
-	//We established there's stock and we have enough money for it
-	console.inserted_id.registered_account.adjust_money(-proposed_cost)
-	current_credits += proposed_cost
+	current_credits += order.cost
 	if(goodie.stock["[id]"] != -1)
 		goodie.stock["[id]"]--
-	var/obj/item/card/id/inserted_id = console.inserted_id
-	SStrading.shopping_list += new /datum/supply_order(goodie, inserted_id.registered_name, inserted_id.assignment, user.ckey, null, inserted_id.registered_account, null, applied_coupon)
+	SStrading.shopping_list += order
 	after_trade(user, console, goodie)
 	console.write_manifest(src, goodie.name, 1, proposed_cost, FALSE, user.name)
 	return get_response("trade_complete", "Thanks for your business!", user)

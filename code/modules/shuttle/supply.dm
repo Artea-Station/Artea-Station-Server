@@ -173,11 +173,9 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 					paying_for_this.bank_talk("Goody order size exceeds free shipping limit: Assessing [CRATE_TAX] credit S&H fee.")
 			else
 				paying_for_this = SSeconomy.get_dep_account(ACCOUNT_CAR)
-			if(paying_for_this)
-				if(!paying_for_this.adjust_money(-price, "Cargo: [spawning_order.pack.name]"))
-					if(spawning_order.paying_account)
-						paying_for_this.bank_talk("Cargo order #[spawning_order.id] rejected due to lack of funds. Credits required: [price]")
-					continue
+			if(spawning_order.trader_id)
+				var/datum/trader/trader = SStrading.get_trader_by_id(spawning_order.trader_id)
+				trader.current_credits += spawning_order.cost
 
 		if(spawning_order.paying_account)
 			if(spawning_order.pack.goody)
