@@ -11,6 +11,7 @@
 	desc = "Used for communication between the trade networks and for conducting trades. This one can't send the shuttle."
 	circuit = /obj/item/circuitboard/computer/trade_console
 	light_color = COLOR_BRIGHT_ORANGE
+	manufacturer = MANUFACTURER_ARTEA_LOGISTICS
 	var/obj/machinery/trade_pad/linked_pad
 
 	var/last_transmission = ""
@@ -463,10 +464,10 @@
 	name = "Trade Console (Computer Board)"
 	greyscale_colors = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/computer/trade_console
+	manufacturer = MANUFACTURER_ARTEA_LOGISTICS
 
 /obj/item/circuitboard/computer/trade_console/cargo
 	name = "Cargo Trade Console (Computer Board)"
-	greyscale_colors = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/computer/trade_console/cargo
 
 #undef SHUTTLE_BLOCKADE_WARNING
