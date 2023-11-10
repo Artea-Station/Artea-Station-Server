@@ -128,7 +128,7 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_CARGO
 
-/datum/design/board/trade_console
+/datum/design/board/trade_console/cargo
 	name = "Cargo Trade Console Board"
 	desc = "The circuit board for a Cargo Trade Console."
 	id = "cargo_trade_console"

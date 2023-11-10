@@ -14,6 +14,8 @@
 	return
 
 /datum/supply_pack/galactic_imports/generated/New(id, datum/supply_pack/pack_to_rip)
+	if(!pack_to_rip) // for SOME FUCKING REASON, src can be null. I don't know, I don't care at this point.
+		return
 	id = pack_to_rip.id
 	name = pack_to_rip.name
 	category = islist(pack_to_rip.group) ? pack_to_rip.group[1] : pack_to_rip.group

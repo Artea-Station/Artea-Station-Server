@@ -522,6 +522,7 @@
 	prereq_ids = list("base")
 	design_ids = list(
 		"trade_console",
+		"cargo_trade_console",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
@@ -920,8 +921,6 @@
 	description = "Computers and how they work."
 	prereq_ids = list("datatheory")
 	design_ids = list(
-		"trade_console",
-		"cargo_trade_console",
 		"comconsole",
 		"crewconsole",
 		"idcard",
@@ -1148,7 +1147,6 @@
 	description = "Better than Efficiency V."
 	prereq_ids = list("engineering", "basic_plasma")
 	design_ids = list(
-		"cargoexpress",
 		"cooldownmod",
 		"damagemod",
 		"drill",

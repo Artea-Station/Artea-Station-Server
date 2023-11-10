@@ -29,11 +29,6 @@
 	var/recipient_name
 
 /datum/delivery_run/New(datum/trader/source_trader)
-	system_to_deliver = SSovermap.main_system
-	var/list/safe_coords = system_to_deliver.GetRandomSafeCoords()
-	overmap_x = safe_coords[1]
-	overmap_y = safe_coords[2]
-
 	if(reward_item_path && !reward_item_name)
 		var/atom/movable/cast = reward_item_path
 		reward_item_name = initial(cast.name)
@@ -44,6 +39,10 @@
 	return ..()
 
 /datum/delivery_run/proc/Accept(mob/user, obj/machinery/computer/trade_console/console)
+	system_to_deliver = SSovermap.main_system
+	var/list/safe_coords = system_to_deliver.GetRandomSafeCoords()
+	overmap_x = safe_coords[1]
+	overmap_y = safe_coords[2]
 	new /datum/delivery_run_instance(src, console)
 
 /datum/delivery_run_instance

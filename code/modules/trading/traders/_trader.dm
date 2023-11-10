@@ -281,7 +281,7 @@
 	// Restock some sold goodies
 	if(sold_packs)
 		var/sold_goods_pick_n_take = sold_packs.Copy()
-		var/datum/supply_pack/goodie = pick_n_take(sold_goods_pick_n_take)
+		var/datum/supply_pack/goodie = SStrading.supply_packs[pick_n_take(sold_goods_pick_n_take)]
 		while(goodie)
 			if(goodie.stock["[id]"] == -1)
 				continue
