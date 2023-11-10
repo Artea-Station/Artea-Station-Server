@@ -94,8 +94,15 @@
 		gain_delivery()
 	if(!pack_groups)
 		CRASH("Trader [type] ([id]) has no pack groups set! Set them!")
+
+	var/list/sold_goods_init = list()
+
+	if(guaranteed_packs) // Add these to the end?
+		for(var/datum/supply_pack/pack as anything in guaranteed_packs)
+			pack.stock["[id]"] = pack.default_stock
+			sold_goods_init += pack.id
+
 	if(sold_packs)
-		var/list/sold_goods_init = list()
 		var/goods_to_sell = rand(min_packs_amount, max_packs_amount)
 
 		for(var/i = 0, i < goods_to_sell, i++)
@@ -104,18 +111,14 @@
 				group_to_use = pick(group_to_use)
 
 			var/datum/supply_pack/pack = pick(SStrading.group_to_supplies[group_to_use])
-			if(!pack) // ARTEA TODO: Fix groups having the potential to be null. (What the fuck?)
+			// Don't add duplicates, find something else.
+			if(!pack || (pack.id in sold_goods_init)) // ARTEA TODO: Fix groups/packs having the potential to be null. (What the fuck?)
 				i--
 				continue
 			pack.stock["[id]"] = pack.default_stock
 			sold_goods_init += pack.id
 
-		sold_packs = sold_goods_init
-
-	if(guaranteed_packs) // Add these to the end?
-		for(var/datum/supply_pack/pack as anything in guaranteed_packs)
-			pack.stock["[id]"] = pack.default_stock
-			sold_packs += pack.id
+	sold_packs = sold_goods_init
 
 /datum/trader/proc/tick()
 	if(current_credits < (initial(current_credits)*(TRADER_LOW_CASH_THRESHOLD/100)))

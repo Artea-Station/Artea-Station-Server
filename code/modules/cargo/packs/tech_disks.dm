@@ -1,5 +1,6 @@
 /datum/supply_pack/tech_disk
 	group = TRADER_GROUP_TECH_DISKS
+	default_stock = -1
 
 /datum/supply_pack/tech_disk/major
 	name = "Random Middle Tech Disk"
