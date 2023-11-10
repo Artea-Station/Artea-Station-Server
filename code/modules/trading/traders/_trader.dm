@@ -99,6 +99,7 @@
 
 	if(guaranteed_packs) // Add these to the end?
 		for(var/datum/supply_pack/pack as anything in guaranteed_packs)
+			pack = SStrading.supply_packs[pack]
 			pack.stock["[id]"] = pack.default_stock
 			sold_goods_init += pack.id
 
@@ -307,7 +308,8 @@
 
 #undef TRADER_RESTOCK_ESCAPE_CHANCE
 
-/// Removes the
+/// Removes the whole stock of a trader, yeeting the list at the end.
+/// BE SURE TO REINIT THE LIST IF YOU WANT THE TRADER TO KEEP DOING THINGS.
 /datum/trader/proc/clear_stock()
 	for(var/goodie_id as anything in sold_packs)
 		var/datum/supply_pack/goodie = SStrading.supply_packs[goodie_id]
