@@ -27,3 +27,9 @@
 	job_faction = FACTION_BEARCAT
 	job_changes = list()
 	overflow_job = /datum/job/assistant/bearcat
+	shuttles = list(
+		"cargo" = "cargo_bearcat",
+		"ferry" = "ferry_kilo",
+		"whiteship" = "whiteship_kilo",
+		"emergency" = "emergency_kilo",
+	)
