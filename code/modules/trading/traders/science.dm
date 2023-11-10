@@ -27,3 +27,8 @@
 		/datum/trader_bounty/engineering_supplies = 100,
 		/datum/trader_bounty/medical_supplies = 100,
 	)
+	guaranteed_packs = list(
+		/datum/supply_pack/tech_disk/major,
+		/datum/supply_pack/tech_disk/middle,
+		/datum/supply_pack/tech_disk/minor,
+	)

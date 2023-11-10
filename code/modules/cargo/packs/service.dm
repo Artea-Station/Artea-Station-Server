@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/service
-	group = "Service"
+	group = TRADER_GROUP_SERVICE
 
 /datum/supply_pack/service/cargo_supples
 	name = "Cargo Supplies Crate"

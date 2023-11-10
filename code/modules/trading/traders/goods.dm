@@ -18,7 +18,7 @@
 
 /datum/trader/electronics
 	name = "Electronic Shop Employee"
-	pack_groups = list(TRADER_GORUP_SECURITY, TRADER_GROUP_SCIENCE)
+	pack_groups = list(TRADER_GROUP_SECURITY, TRADER_GROUP_SCIENCE)
 	possible_origins = list("Best Sale", "Overstore", "Oldegg", "Circuit Citadel", "Silicon Village", "Positronic Solutions LLC", "Sunvolt Inc.")
 	speech = list("hail"    = "Hello, sir! Welcome to ORIGIN, I hope you find what you are looking for.",
 				"hail_deny"         = "Your call has been disconnected.",
@@ -39,7 +39,7 @@
 
 /datum/trader/devices
 	name = "Convenience Store Employee"
-	pack_groups = list(TRADER_GROUP_GOODIES)
+	pack_groups = list(TRADER_GROUP_GOODIES, TRADER_GROUP_SERVICE)
 	possible_origins = list("Buy 'n Save", "3 Bucks A Tool", "C&B", "Fentles", "Dr. Goods", "Beevees", "McGillicuddy's")
 	speech = list("hail"    = "Hello, hello! Bits and bobs and everything in between, I hope you find what you're looking for!",
 				"hail_silicon"      = "Ah! Hello, robot. We only sell things that, ah.... people can hold in their hands, unfortunately. You are still allowed to buy, though!",

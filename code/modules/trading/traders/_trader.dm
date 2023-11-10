@@ -18,6 +18,8 @@
 	var/min_packs_amount = 8
 	/// What group of packs can this trader sell? Accepts any TRADER_CATEGORY define. Can be a list, or a singleton.
 	var/pack_groups
+	/// What packs are guaranteed to be in this trader's list? List of packs. Ignores pack_groups, and doesn't reduce the amount of other packs.
+	var/guaranteed_packs
 	/// List of sold supply packs. Setting this to null effectively disables the trader's selling functionality.
 	var/list/sold_packs = list()
 
@@ -109,6 +111,11 @@
 			sold_goods_init += pack.id
 
 		sold_packs = sold_goods_init
+
+	if(guaranteed_packs) // Add these to the end?
+		for(var/datum/supply_pack/pack as anything in guaranteed_packs)
+			pack.stock["[id]"] = pack.default_stock
+			sold_packs += pack.id
 
 /datum/trader/proc/tick()
 	if(current_credits < (initial(current_credits)*(TRADER_LOW_CASH_THRESHOLD/100)))

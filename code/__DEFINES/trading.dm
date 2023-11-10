@@ -25,9 +25,10 @@
 #define TRADER_GROUP_MISC "Misc"
 #define TRADER_GROUP_FOOD_AND_HYDROPONICS "Food & Hydroponics"
 #define TRADER_GROUP_SCIENCE "Science"
-#define TRADER_GORUP_SECURITY "Security"
-#define TRADER_GORUP_SERVICE "Service"
-#define TRADER_GORUP_VENDING_RESTOCKS "Vending Restocks"
+#define TRADER_GROUP_SECURITY "Security"
+#define TRADER_GROUP_SERVICE "Service"
+#define TRADER_GROUP_VENDING_RESTOCKS "Vending Restocks"
+#define TRADER_GROUP_TECH_DISKS "Tech Disks"
 
 // The kind of box a supply box is. Decides icons and the material dropped when deconstructed.
 #define SUPPLY_BOX_WOOD 1
