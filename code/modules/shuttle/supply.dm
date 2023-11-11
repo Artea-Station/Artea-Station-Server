@@ -86,20 +86,24 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		if(traders_bought_from && traders_bought_from.len)
 			var/datum/overmap_object/home = SSmapping.station_overmap_object
 			var/total_distance = 0
-			var/min_distance = INFINITY // This should be impossible to be larger than... right?
-			var/datum/trader/min_trader
-			while(traders_bought_from.len)
-				for(var/trader_id in traders_bought_from)
-					var/datum/trader/trader = SStrading.all_traders["[trader_id]"]
-					var/datum/overmap_object/hub = trader.hub.overmap_object
-					if(!hub)
-						CRASH("Unknown hub for trader [trader_id] ([trader])")
-					var/dist = GET_DIST_2D_NUMERICAL(hub.x, hub.y, home.x, home.y)
-					if(dist < min_distance)
-						min_distance = dist
-						min_trader = trader_id
-				total_distance += min_distance
-				traders_bought_from -= min_trader
+			for(var/trader_id in traders_bought_from)
+				var/datum/trader/trader = SStrading.all_traders["[trader_id]"]
+				var/datum/overmap_object/hub = trader.hub.overmap_object
+				total_distance += GET_DIST_2D_NUMERICAL(hub.x, hub.y, home.x, home.y)
+			// var/min_distance = INFINITY // This should be impossible to be larger than... right?
+			// var/datum/trader/min_trader
+			// while(traders_bought_from.len)
+			// 	for(var/trader_id in traders_bought_from)
+			// 		var/datum/trader/trader = SStrading.all_traders["[trader_id]"]
+			// 		var/datum/overmap_object/hub = trader.hub.overmap_object
+			// 		if(!hub)
+			// 			CRASH("Unknown hub for trader [trader_id] ([trader])")
+			// 		var/dist = GET_DIST_2D_NUMERICAL(hub.x, hub.y, home.x, home.y)
+			// 		if(dist < min_distance)
+			// 			min_distance = dist
+			// 			min_trader = trader_id
+			// 	total_distance += min_distance
+			// 	traders_bought_from -= min_trader
 			// Shuttle travels at 1 tile every 5 seconds, if that makes this make more sense.
 			callTime += total_distance * (5 SECONDS)
 
