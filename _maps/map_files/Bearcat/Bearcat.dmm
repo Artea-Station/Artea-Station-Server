@@ -920,6 +920,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/circuit/red,
 /area/station/science/robotics/lab)
+"eP" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/structure/fans/tiny,
+/turf/open/space/openspace,
+/area/station/cargo/sorting)
 "eQ" = (
 /obj/machinery/light_switch/directional/north,
 /obj/machinery/firealarm/directional/north,
@@ -1309,9 +1315,6 @@
 /turf/open/floor/iron,
 /area/station/cargo/sorting)
 "ho" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
@@ -1587,6 +1590,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/smooth_large,
 /area/station/ai_monitored/command/storage/eva)
+"iX" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/structure/fans/tiny,
+/obj/structure/cable,
+/turf/open/space/openspace,
+/area/station/cargo/sorting)
 "ja" = (
 /obj/machinery/lift_status_display{
 	pixel_y = -32;
@@ -1866,12 +1876,10 @@
 /turf/open/floor/plating,
 /area/station/engineering/gravity_generator)
 "kL" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/structure/cable,
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
-/obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/cargo/sorting)
 "kM" = (
@@ -1958,9 +1966,6 @@
 /turf/open/floor/iron/kitchen/herringbone,
 /area/station/service/kitchen)
 "lk" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/iron,
 /area/station/cargo/sorting)
@@ -2165,6 +2170,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/engine,
 /area/station/engineering/supermatter/room)
+"mi" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/station/cargo/sorting)
 "mk" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/firealarm/directional/west,
@@ -5102,13 +5114,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/aft)
-"Cv" = (
-/obj/machinery/door/airlock/external,
-/obj/structure/fans/tiny,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/structure/cable,
-/turf/open/floor/iron,
-/area/station/cargo/sorting)
 "Cw" = (
 /obj/machinery/light/directional/south,
 /obj/structure/cable,
@@ -5368,14 +5373,6 @@
 "Ef" = (
 /turf/closed/wall/r_wall,
 /area/station/engineering/engine_smes)
-"Eg" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
-/turf/open/floor/iron,
-/area/station/cargo/sorting)
 "Eh" = (
 /obj/machinery/disposal/delivery_chute{
 	dir = 8
@@ -6769,12 +6766,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/white,
 /area/station/pathfinders)
-"Ma" = (
-/obj/machinery/door/airlock/external,
-/obj/structure/fans/tiny,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/turf/open/floor/iron,
-/area/station/cargo/sorting)
 "Mb" = (
 /obj/structure/cable,
 /obj/machinery/airalarm/directional/east,
@@ -8071,6 +8062,14 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
+"SL" = (
+/obj/structure/cable,
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/station/cargo/sorting)
 "SN" = (
 /obj/machinery/light_switch/directional/west,
 /obj/structure/closet/secure_closet/chemical/cartridge,
@@ -105818,7 +105817,6 @@ NK
 NK
 NK
 NK
-NK
 DV
 NK
 NK
@@ -105826,6 +105824,7 @@ NK
 NK
 NK
 DV
+NK
 NK
 NK
 Lz
@@ -106596,7 +106595,7 @@ NK
 NK
 NK
 NK
-NK
+QZ
 QZ
 Ah
 QZ
@@ -106853,12 +106852,12 @@ NK
 NK
 NK
 NK
-NK
-Ma
+eP
 CO
 JU
-Eg
+mi
 CO
+JU
 JU
 iv
 Di
@@ -107109,13 +107108,13 @@ NK
 NK
 NK
 NK
-NK
 mb
-Cv
+iX
 Wf
 Kx
+SL
 kL
-Wf
+Kx
 hn
 Cm
 Jf
@@ -107367,10 +107366,10 @@ NK
 NK
 NK
 NK
-NK
+QZ
 QZ
 Ah
-Ah
+Se
 Se
 ho
 aR
@@ -109159,7 +109158,6 @@ NK
 NK
 NK
 NK
-NK
 DV
 NK
 NK
@@ -109167,6 +109165,7 @@ NK
 NK
 NK
 DV
+NK
 NK
 NK
 It
