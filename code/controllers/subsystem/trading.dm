@@ -113,6 +113,7 @@ SUBSYSTEM_DEF(trading)
 	if(config.central_trading_hub_type)
 		central_trade_hub = new config.central_trading_hub_type()
 	// Localised trade hubs are handled in overmap. Please don't try to make them here, they rely on overmap existing.
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/trading/fire(resumed = FALSE)
 	for(var/i in trade_hubs)

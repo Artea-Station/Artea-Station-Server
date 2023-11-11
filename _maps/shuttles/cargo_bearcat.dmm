@@ -32,8 +32,9 @@
 /turf/open/floor/plastic,
 /area/shuttle/supply)
 "i" = (
-/obj/structure/shuttle/engine/huge{
-	pixel_y = -64
+/obj/structure/shuttle/engine/propulsion/in_wall{
+	pixel_y = -17;
+	pixel_x = 5
 	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/supply)
@@ -128,6 +129,13 @@
 /obj/structure/rack,
 /turf/open/floor/plastic,
 /area/shuttle/supply)
+"E" = (
+/obj/structure/shuttle/engine/propulsion/in_wall{
+	pixel_y = -17;
+	pixel_x = -5
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/supply)
 "G" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/rust,
@@ -147,6 +155,12 @@
 "L" = (
 /obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
+/area/shuttle/supply)
+"M" = (
+/obj/structure/shuttle/engine/propulsion/in_wall{
+	pixel_y = -17
+	},
+/turf/closed/wall/mineral/titanium,
 /area/shuttle/supply)
 "N" = (
 /turf/closed/wall/mineral/titanium,
@@ -252,7 +266,7 @@ n
 j
 u
 u
-N
+M
 a
 a
 "}
@@ -268,7 +282,7 @@ z
 b
 u
 N
-N
+E
 a
 a
 "}
