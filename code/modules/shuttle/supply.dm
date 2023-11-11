@@ -77,43 +77,44 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 
 /obj/docking_port/mobile/supply/initiate_docking()
 	if(getDockedId() == "cargo_away") // Buy when we leave home.
+		// Default 20 second spool up to ensure ripples show properly.
+		callTime = 20 SECONDS
 		var/list/traders_bought_from = buy()
 		create_mail()
 		// Look man, this isn't ideal, probably, but I don't care at this point.
 		// This is called once every few minutes at most, and the crew will just have to cry about the sub-optimal pathing.
-		if(traders_bought_from)
+		if(traders_bought_from && traders_bought_from.len)
 			var/datum/overmap_object/home = SSmapping.station_overmap_object
 			var/total_distance = 0
 			var/min_distance = INFINITY // This should be impossible to be larger than... right?
 			var/datum/trader/min_trader
-			while(traders_bought_from)
+			while(traders_bought_from.len)
 				for(var/trader_id in traders_bought_from)
 					var/datum/trader/trader = SStrading.all_traders["[trader_id]"]
-					var/datum/overmap_object/obj = trader.hub.overmap_object
-					var/dist = GET_DIST_2D_NUMERICAL(obj.x, obj.y, home.x, home.y)
+					var/datum/overmap_object/hub = trader.hub.overmap_object
+					if(!hub)
+						CRASH("Unknown hub for trader [trader_id] ([trader])")
+					var/dist = GET_DIST_2D_NUMERICAL(hub.x, hub.y, home.x, home.y)
 					if(dist < min_distance)
 						min_distance = dist
 						min_trader = trader_id
 				total_distance += min_distance
-				LAZYREMOVE(traders_bought_from, min_trader)
-
-			// Add 5 seconds per tile travelled, with a default 20 second spool up to ensure ripples show properly.
-			callTime = 20 SECONDS
+				traders_bought_from -= min_trader
 			// Shuttle travels at 1 tile every 5 seconds, if that makes this make more sense.
 			callTime += total_distance * (5 SECONDS)
 
 	. = ..() // Fly/enter transit.
 	if(. != DOCKING_SUCCESS)
 		return
+
 	if(getDockedId() == "cargo_away") // Sell when we get home
-		// We're home, let's take 30 seconds to return.
-		callTime = 30 SECONDS
-		SSshuttle.moveShuttle("cargo", "cargo_home") // And immediately return to the station!
 		var/datum/export_report/exports = sell()
 		if(!exports.unique_exports || !exports.unique_exports.len)
 			callTime = 10 SECONDS
 		else
 			callTime += exports.unique_exports.len * (15 SECONDS) // Simulate haggling and trading items in a shitty way
+
+		SSshuttle.moveShuttle("cargo", "cargo_home") // And immediately return to the station!
 
 /obj/docking_port/mobile/supply/proc/buy()
 	SEND_SIGNAL(SSshuttle, COMSIG_SUPPLY_SHUTTLE_BUY)
@@ -160,16 +161,16 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		if(!empty_turfs.len && initial(container.density))
 			continue
 
-		var/datum/bank_account/paying_for_this
+		var/datum/bank_account/paying_for_this = spawning_order.paying_account
 
 		//give traders their hard-earned cash, now that the order is complete.
 		if(!spawning_order.department_destination && spawning_order.trader_id)
 			var/datum/trader/trader = SStrading.get_trader_by_id(spawning_order.trader_id)
 			trader.current_credits += spawning_order.cost
 
-		if(spawning_order.paying_account)
+		if(paying_for_this)
 			if(spawning_order.pack.goody)
-				LAZYADD(goodies_by_buyer[spawning_order.paying_account], spawning_order)
+				LAZYADD(goodies_by_buyer[paying_for_this], spawning_order)
 			paying_for_this.bank_talk("Cargo order #[spawning_order.id] is now locked in and will be on cargo shuttle when it returns.")
 			SSeconomy.track_purchase(paying_for_this, spawning_order.cost, spawning_order.pack.name)
 			var/datum/bank_account/department/cargo = SSeconomy.get_dep_account(ACCOUNT_CAR)
@@ -179,8 +180,8 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		SStrading.order_history += spawning_order
 		QDEL_NULL(spawning_order.applied_coupon)
 
-		if(!spawning_order.pack.goody) //we handle goody crates below
-			spawning_order.generate(initial(container.density) ? pick_n_take(empty_turfs) : pick(shelf_turfs))
+		//if(!spawning_order.pack.goody) //we handle goody crates below // FUCK IT, USE NORMAL CODE, I FUCKED IT ALL UP AND I NEEDED THIS DONE LIKE AN HOUR AGO
+		spawning_order.generate(initial(container.density) ? pick_n_take(empty_turfs) : pick(shelf_turfs))
 
 		SSblackbox.record_feedback("nested tally", "cargo_imports", 1, list("[spawning_order.pack.get_cost()]", "[spawning_order.pack.name]"))
 
@@ -191,39 +192,39 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 			message_admins("\A [spawning_order.pack.name] ordered by [ADMIN_LOOKUPFLW(spawning_order.orderer_ckey)], paid by [from_whom] has shipped.")
 		purchases++
 		if(spawning_order.trader_id)
-			traders_bought_from[spawning_order.trader_id] = TRUE // Shut. This is the fastest way to non-duplicate add to a list.
+			traders_bought_from["[spawning_order.trader_id]"] = TRUE // Shut. This is the fastest way to non-duplicate add to a list.
 
-	// we handle packing all the goodies last, since the type of crate we use depends on how many goodies they ordered. If it's more than GOODY_FREE_SHIPPING_MAX
-	// then we send it in a crate (including the CRATE_TAX cost), otherwise send it in a free shipping case
-	for(var/D in goodies_by_buyer)
-		var/list/buying_account_orders = goodies_by_buyer[D]
-		var/datum/bank_account/buying_account = D
-		var/buyer = buying_account.account_holder
+	// // we handle packing all the goodies last, since the type of crate we use depends on how many goodies they ordered. If it's more than GOODY_FREE_SHIPPING_MAX
+	// // then we send it in a crate (including the CRATE_TAX cost), otherwise send it in a free shipping case
+	// for(var/D in goodies_by_buyer)
+	// 	var/list/buying_account_orders = goodies_by_buyer[D]
+	// 	var/datum/bank_account/buying_account = D
+	// 	var/buyer = buying_account.account_holder
 
-		if(buying_account_orders.len > GOODY_FREE_SHIPPING_MAX) // no free shipping, send a crate
-			var/obj/structure/closet/crate/secure/owned/our_crate = new /obj/structure/closet/crate/secure/owned(pick_n_take(empty_turfs))
-			our_crate.buyer_account = buying_account
-			our_crate.name = "goody crate - purchased by [buyer]"
-			miscboxes[buyer] = our_crate
-		else //free shipping in a case
-			miscboxes[buyer] = new /obj/item/storage/lockbox/order(pick(shelf_turfs))
-			var/obj/item/storage/lockbox/order/our_case = miscboxes[buyer]
-			our_case.buyer_account = buying_account
-			miscboxes[buyer].name = "goody case - purchased by [buyer]"
-		misc_contents[buyer] = list()
+	// 	if(buying_account_orders.len > GOODY_FREE_SHIPPING_MAX) // no free shipping, send a crate
+	// 		var/obj/structure/closet/crate/secure/owned/our_crate = new /obj/structure/closet/crate/secure/owned(pick_n_take(empty_turfs))
+	// 		our_crate.buyer_account = buying_account
+	// 		our_crate.name = "goody crate - purchased by [buyer]"
+	// 		miscboxes[buyer] = our_crate
+	// 	else //free shipping in a case
+	// 		miscboxes[buyer] = new /obj/item/storage/lockbox/order(pick(shelf_turfs))
+	// 		var/obj/item/storage/lockbox/order/our_case = miscboxes[buyer]
+	// 		our_case.buyer_account = buying_account
+	// 		miscboxes[buyer].name = "goody case - purchased by [buyer]"
+	// 	misc_contents[buyer] = list()
 
-		for(var/O in buying_account_orders)
-			var/datum/supply_order/our_order = O
-			for (var/item in our_order.pack.contains)
-				misc_contents[buyer] += item
-			misc_costs[buyer] += our_order.pack.cost
-			misc_order_num[buyer] = "[misc_order_num[buyer]]#[our_order.id]  "
+	// 	for(var/O in buying_account_orders)
+	// 		var/datum/supply_order/our_order = O
+	// 		for (var/item in our_order.pack.contains)
+	// 			misc_contents[buyer] += item
+	// 		misc_costs[buyer] += our_order.pack.cost
+	// 		misc_order_num[buyer] = "[misc_order_num[buyer]]#[our_order.id]  "
 
-	for(var/I in miscboxes)
-		var/datum/supply_order/SO = new/datum/supply_order()
-		SO.id = misc_order_num[I]
-		SO.generateCombo(miscboxes[I], I, misc_contents[I], misc_costs[I])
-		qdel(SO)
+	// for(var/I in miscboxes)
+	// 	var/datum/supply_order/SO = new/datum/supply_order()
+	// 	SO.id = misc_order_num[I]
+	// 	SO.generateCombo(miscboxes[I], I, misc_contents[I], misc_costs[I])
+	// 	qdel(SO)
 
 	SSeconomy.import_total += value
 	var/datum/bank_account/cargo_budget = SSeconomy.get_dep_account(ACCOUNT_CAR)

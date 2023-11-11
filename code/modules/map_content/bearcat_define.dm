@@ -22,7 +22,7 @@
 			"Baseturf" = "/turf/open/openspace",
 		),
 	)
-	central_trading_hub_type = /datum/trade_hub/randomname/large
+	//central_trading_hub_type = /datum/trade_hub/randomname/large
 	overmap_object_type = /datum/overmap_object/shuttle/ship/bearcat
 	job_faction = FACTION_BEARCAT
 	job_changes = list()

@@ -153,10 +153,10 @@
 		return get_response("out_of_stock", "I'm afraid I don't have any more of these!", user)
 	applied_coupon?.moveToNullspace()
 	var/obj/item/card/id/inserted_id = console.inserted_id
-	var/datum/supply_order/order = new /datum/supply_order(goodie, inserted_id.registered_name, inserted_id.assignment, user.ckey, null, inserted_id.registered_account, null, applied_coupon, src)
-	if(!console.inserted_id.registered_account.adjust_money(order.cost, "[name]: Purchase of [goodie.name]"))
+	var/datum/supply_order/order = new /datum/supply_order(goodie, inserted_id.registered_name, inserted_id.assignment, user.ckey, null, inserted_id.registered_account, null, applied_coupon, id)
+	if(!console.inserted_id.registered_account.adjust_money(-order.cost, "[name]: Purchase of [goodie.name]"))
 		qdel(order)
-		applied_coupon.forceMove(get_turf(console))
+		applied_coupon?.forceMove(get_turf(console))
 		return get_response("user_no_money", "You can't afford this", user)
 
 	if(applied_coupon)

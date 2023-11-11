@@ -78,8 +78,13 @@
 		container = crate
 
 	else if(ispath(container_type, /obj/item/delivery))
-		var/obj/item/delivery/package = new container_type(A)
-		package.name = container_name
+		var/obj/item/delivery/package
+		if(contains.len == 1 && isitem(contains[1])) // Not reliable on dynamic orders, but fuck it.
+			package = new /obj/item/delivery/small(A)
+		else
+			package = new /obj/item/delivery/big(A)
+
+		package.name = "[container_name] - Purchased by [paying_account.account_holder]"
 		container = package
 
 	else

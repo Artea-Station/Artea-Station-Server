@@ -52,7 +52,8 @@
 /datum/supply_order/New(datum/supply_pack/pack, orderer, orderer_rank, orderer_ckey, reason, paying_account, department_destination, obj/item/coupon/coupon, trader_id)
 	id = SStrading.order_number++
 	cost = pack.get_cost()
-	cost -= cost * coupon.discount_pct_off
+	if(coupon)
+		cost -= cost * coupon.discount_pct_off
 	src.pack = pack
 	src.orderer = orderer
 	src.orderer_rank = orderer_rank
