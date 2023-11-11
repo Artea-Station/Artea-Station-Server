@@ -85,8 +85,8 @@
 //Otherwise static data, that is being applied in ui_data as the crates visible and buyable are not static, and are determined by inserted ID.
 	data["requestonly"] = requestonly
 	data["supplies"] = list()
-	for(var/pack in SSshuttle.supply_packs)
-		var/datum/supply_pack/P = SSshuttle.supply_packs[pack]
+	for(var/pack in SStrading.supply_packs)
+		var/datum/supply_pack/P = SStrading.supply_packs[pack]
 		if(!is_visible_pack(usr, P.access_view , null, P.contraband) || P.hidden)
 			continue
 		if(!data["supplies"][P.group])
@@ -116,29 +116,19 @@
 	data["can_approve_requests"] = can_approve_requests
 	data["app_cost"] = TRUE
 	var/message = "Remember to stamp and send back the supply manifests."
-	if(SSshuttle.centcom_message)
-		message = SSshuttle.centcom_message
+	if(SStrading.trade_message)
+		message = SStrading.trade_message
 	if(SSshuttle.supply_blocked)
 		message = blockade_warning
 	data["message"] = message
 	data["cart"] = list()
-	for(var/datum/supply_order/SO in SSshuttle.shopping_list)
+	for(var/datum/supply_order/SO in SStrading.shopping_list)
 		data["cart"] += list(list(
 			"object" = SO.pack.name,
 			"cost" = SO.pack.get_cost(),
 			"id" = SO.id,
 			"orderer" = SO.orderer,
 			"paid" = !isnull(SO.paying_account) //paid by requester
-		))
-
-	data["requests"] = list()
-	for(var/datum/supply_order/SO in SSshuttle.request_list)
-		data["requests"] += list(list(
-			"object" = SO.pack.name,
-			"cost" = SO.pack.get_cost(),
-			"orderer" = SO.orderer,
-			"reason" = SO.reason,
-			"id" = SO.id
 		))
 
 	return data
@@ -185,7 +175,7 @@
 				. = TRUE
 		if("add")
 			var/id = text2path(params["id"])
-			var/datum/supply_pack/pack = SSshuttle.supply_packs[id]
+			var/datum/supply_pack/pack = SStrading.supply_packs[id]
 			if(!istype(pack))
 				return
 			if(pack.hidden || pack.contraband || pack.drop_pod_only || (pack.special && !pack.special_enabled))
@@ -235,43 +225,22 @@
 			var/turf/T = get_turf(src)
 			var/datum/supply_order/SO = new(pack, name, rank, ckey, reason, account)
 			SO.generateRequisition(T)
-			if((requestonly && !self_paid) || !(computer.computer_id_slot?.GetID()))
-				SSshuttle.request_list += SO
+			if(!(computer.computer_id_slot?.GetID()))
+				computer.say("No valid ID or department card, please insert one to place an order.")
 			else
-				SSshuttle.shopping_list += SO
+				SStrading.shopping_list += SO
 				if(self_paid)
 					computer.say("Order processed. The price will be charged to [account.account_holder]'s bank account on delivery.")
 			. = TRUE
 		if("remove")
 			var/id = text2num(params["id"])
-			for(var/datum/supply_order/SO in SSshuttle.shopping_list)
+			for(var/datum/supply_order/SO in SStrading.shopping_list)
 				if(SO.id == id)
-					SSshuttle.shopping_list -= SO
+					SStrading.shopping_list -= SO
 					. = TRUE
 					break
 		if("clear")
-			SSshuttle.shopping_list.Cut()
-			. = TRUE
-		if("approve")
-			var/id = text2num(params["id"])
-			for(var/datum/supply_order/SO in SSshuttle.request_list)
-				if(SO.id == id)
-					var/obj/item/card/id/id_card = computer.computer_id_slot?.GetID()
-					if(id_card && id_card?.registered_account)
-						SO.paying_account = SSeconomy.get_dep_account(id_card?.registered_account?.account_job.paycheck_department)
-					SSshuttle.request_list -= SO
-					SSshuttle.shopping_list += SO
-					. = TRUE
-					break
-		if("deny")
-			var/id = text2num(params["id"])
-			for(var/datum/supply_order/SO in SSshuttle.request_list)
-				if(SO.id == id)
-					SSshuttle.request_list -= SO
-					. = TRUE
-					break
-		if("denyall")
-			SSshuttle.request_list.Cut()
+			SStrading.shopping_list.Cut()
 			. = TRUE
 		if("toggleprivate")
 			self_paid = !self_paid

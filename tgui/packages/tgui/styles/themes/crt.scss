@@ -145,6 +145,7 @@ $background-radial-opacity: 0.2 !default;
   }
 
   .Button {
+    color: base.$color-bg;
     font-family: $font-family;
     font-weight: bold;
     border: 1px solid base.$color-fg;
@@ -152,9 +153,13 @@ $background-radial-opacity: 0.2 !default;
     &:focus,
     &:visited,
     &:target {
-      background-color: base.$color-fg;
+      background-color: lighten(base.$color-fg, 10);
       color: base.$color-bg;
     }
+  }
+
+  .Button--color--bad {
+    color: white;
   }
 
   .Button--disabled {
@@ -187,6 +192,10 @@ $background-radial-opacity: 0.2 !default;
       font-weight: bold;
     }
 
+    .Tab:hover {
+      background-color: lighten(base.$color-bg, 10);
+    }
+
     .Tab--selected {
       border-color: base.$color-fg;
       background-color: base.$color-fg;
@@ -195,6 +204,7 @@ $background-radial-opacity: 0.2 !default;
         color: base.$color-bg;
       }
       &:hover {
+        background-color: base.$color-fg;
         outline: none;
       }
     }
