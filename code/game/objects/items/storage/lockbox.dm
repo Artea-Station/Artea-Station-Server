@@ -7,6 +7,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/briefcase_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	req_access = list(ACCESS_ARMORY)
+	rustle_sound = 'sound/items/storage/metal_box.ogg'
 	var/broken = FALSE
 	var/open = FALSE
 	var/icon_locked = "lockbox+l"
@@ -95,6 +96,8 @@
 	icon_locked = "medalbox+l"
 	icon_closed = "medalbox"
 	icon_broken = "medalbox+b"
+	drop_sound = 'sound/items/handling/metal_drop.ogg'
+	pickup_sound = 'sound/items/handling/metal_pickup.ogg'
 
 /obj/item/storage/lockbox/medal/Initialize(mapload)
 	. = ..()

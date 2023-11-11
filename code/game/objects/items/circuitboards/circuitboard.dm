@@ -16,6 +16,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	grind_results = list(/datum/reagent/silicon = 20)
 	greyscale_colors = CIRCUIT_COLOR_GENERIC
+	pickup_sound = 'sound/items/handling/tape_drop.ogg'
+	drop_sound = 'sound/items/handling/disk_drop.ogg'
 	var/build_path = null
 	///determines if the circuit board originated from a vendor off station or not.
 	var/onstation = TRUE

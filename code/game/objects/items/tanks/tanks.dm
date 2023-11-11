@@ -27,6 +27,8 @@
 	actions_types = list(/datum/action/item_action/set_internals)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, FIRE = 80, ACID = 30)
 	integrity_failure = 0.5
+	pickup_sound = 'sound/items/handling/gascan_pickup.ogg'
+	drop_sound = 'sound/items/handling/gascan_drop.ogg'
 	/// The gases this tank contains. Don't modify this directly, use return_air() to get it instead
 	var/datum/gas_mixture/air_contents = null
 	/// The volume of this tank. Among other things gas tank explosions (including TTVs) scale off of this. Be sure to account for that if you change this or you will break ~~toxins~~ordinance.

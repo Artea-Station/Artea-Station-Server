@@ -7,11 +7,6 @@ GLOBAL_LIST_INIT(generic_ambience,list(
 	'sound/ambience/ambigen7.ogg',
 	'sound/ambience/ambigen8.ogg',
 	'sound/ambience/ambigen9.ogg',
-	'sound/ambience/ambigen10.ogg',
-	'sound/ambience/ambigen11.ogg',
-	'sound/ambience/ambigen12.ogg',
-	'sound/ambience/ambigen14.ogg',
-	'sound/ambience/ambigen15.ogg',
 ))
 
 GLOBAL_LIST_INIT(holy_ambience,list(

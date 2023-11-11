@@ -85,6 +85,7 @@
 	extra_price = 100
 	payment_department = ACCOUNT_MED
 	refill_canister = /obj/item/vending_refill/drugs
+	vend_sound = 'sound/machines/vending_cans.ogg'
 
 /obj/item/vending_refill/drugs
 	machine_name = "NanoDrug Plus"

@@ -5,6 +5,8 @@
 	desc = "A bag for storing extra clothes and shoes."
 	slot_flags = NONE
 	resistance_flags = FLAMMABLE
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound = 'sound/items/handling/cloth_pickup.ogg'
 
 /obj/item/storage/bag/garment/captain
 	name = "captain's garment bag"

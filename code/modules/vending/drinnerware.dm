@@ -32,6 +32,7 @@
 	extra_price = PAYCHECK_COMMAND
 	payment_department = ACCOUNT_SRV
 	light_mask = "dinnerware-light-mask"
+	vend_sound = 'sound/machines/vending_cans.ogg'
 
 /obj/item/vending_refill/dinnerware
 	machine_name = "Plasteel Chef's Dinnerware Vendor"

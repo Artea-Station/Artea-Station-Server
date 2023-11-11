@@ -128,6 +128,8 @@
 	possible_transfer_amounts = list()
 	volume = 5
 	spillable = FALSE
+	drop_sound = null
+	pickup_sound = null
 
 /obj/item/reagent_containers/cup/rag/Initialize(mapload)
 	. = ..()

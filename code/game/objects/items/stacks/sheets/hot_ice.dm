@@ -8,6 +8,8 @@
 	grind_results = list(/datum/reagent/toxin/hot_ice = 25)
 	material_type = /datum/material/hot_ice
 	merge_type = /obj/item/stack/sheet/hot_ice
+	pickup_sound = 'sound/items/handling/glass_pane_pickup.ogg'
+	drop_sound = 'sound/items/handling/glass_pane_drop.ogg'
 
 /obj/item/stack/sheet/hot_ice/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins licking \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
