@@ -628,6 +628,7 @@
 	name = "escape pod"
 	shuttle_id = "pod"
 	hidden = TRUE
+	can_use_markers = FALSE
 	var/target_area = /area/lavaland/surface/outdoors
 	var/edge_distance = 16
 	// Minimal distance from the map edge, setting this too low can result in shuttle landing on the edge and getting "sliced"

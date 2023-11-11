@@ -171,7 +171,11 @@
 
 /datum/map_template/shuttle/pathfinders/ghetto
 	suffix = "ghetto"
-	name = "pathfinding shuttle (Ghetto)"
+	name = "APV-S Ghetto"
+
+/datum/map_template/shuttle/pathfinders/astrum
+	suffix = "astrum"
+	name = "APV-S Astrum"
 
 // Shuttles start here:
 

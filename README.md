@@ -23,7 +23,7 @@ Unlisted community for now until the requisite systems for a fun and playable ro
 
 Space Station 13 is a paranoia-laden round-based roleplaying game set against the backdrop of a nonsensical, metal death trap masquerading as a space station, with charming spritework designed to represent the sci-fi setting and its dangerous undertones. Have fun, and survive!
 
-**Note**: Artea Station is less focused on the metal deathtrap part, and is more geared towards HRP with a mostly relaxed environment, unless a player makes the environment less safe, or the round rolls a high chaos value, and players approve it.
+**Note**: Artea Station is less focused on the metal deathtrap part, and is more geared towards HRP with a mostly relaxed environment, unless a player makes the environment less safe.
 
 ## Important Note - TEST YOUR PULL REQUESTS
 

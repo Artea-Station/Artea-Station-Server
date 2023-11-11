@@ -5,7 +5,7 @@
 // You do not need to raise this if you are adding new values that have sane defaults.
 // Only raise this value when changing the meaning/format/name/layout of an existing value
 // where you would want the updater procs below to run
-#define SAVEFILE_VERSION_MAX 42
+#define SAVEFILE_VERSION_MAX 43
 
 /*
 SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Carn
@@ -93,6 +93,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	if (current_version < 41)
 		migrate_preferences_to_tgui_prefs_menu()
+
+	if (current_version < 42)
+		S.set_entry(S.get_entry("voice", pick(GLOB.emote_voices)))
+		S.remove_entry("voice") // Let's not savebloat
 
 /datum/preferences/proc/update_character(current_version, list/save_data)
 	if (current_version < 41)

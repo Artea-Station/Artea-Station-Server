@@ -53,6 +53,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/directions/evac, 32)
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/directions/supply, 32)
 
+/obj/structure/sign/directions/pathfinders
+	name = "pathfinders sign"
+	desc = "A direction sign, pointing out which way the pathdinder office and shuttle is."
+	icon_state = "direction_pth"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/directions/pathfinders, 32)
+
 /obj/structure/sign/directions/command
 	name = "command department sign"
 	desc = "A direction sign, pointing out which way the Command department is."
@@ -94,3 +101,80 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/directions/lavaland, 32)
 	icon_state = "direction_arrival"
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/directions/arrival, 32)
+
+/obj/structure/sign/directions/science/z
+	name = "science department sign (level)"
+	desc = "A direction sign, pointing out which level the Science department is."
+	icon_state = "direction_sci_z"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/directions/science/z, 32)
+
+/obj/structure/sign/directions/engineering/z
+	name = "engineering department sign (level)"
+	desc = "A direction sign, pointing out which level the Engineering department is."
+	icon_state = "direction_eng_z"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/directions/engineering/z, 32)
+
+/obj/structure/sign/directions/security/z
+	name = "security department sign (level)"
+	desc = "A direction sign, pointing out which level the Security department is."
+	icon_state = "direction_sec_z"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/directions/security/z, 32)
+
+/obj/structure/sign/directions/medical/z
+	name = "medbay sign (level)"
+	desc = "A direction sign, pointing out which level the Medbay is."
+	icon_state = "direction_med_z"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/directions/medical/z, 32)
+
+/obj/structure/sign/directions/evac/z
+	name = "evacuation sign (level)"
+	desc = "A direction sign, pointing out which level the escape shuttle dock is."
+	icon_state = "direction_evac_z"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/directions/evac/z, 32)
+
+/obj/structure/sign/directions/supply/z
+	name = "cargo sign (level)"
+	desc = "A direction sign, pointing out which level the Cargo Bay is."
+	icon_state = "direction_supply_z"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/directions/supply/z, 32)
+
+/obj/structure/sign/directions/pathfinders/z
+	name = "pathfinders sign (level)"
+	desc = "A direction sign, pointing out which level the pathdinder office and shuttle is."
+	icon_state = "direction_pth_z"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/directions/pathfinders/z, 32)
+
+/obj/structure/sign/directions/command/z
+	name = "command department sign (level)"
+	desc = "A direction sign, pointing out which level the Command department is."
+	icon_state = "direction_bridge_z"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/directions/command/z, 32)
+
+/obj/structure/sign/directions/dorms/z
+	name = "dormitories sign (level)"
+	desc = "A direction sign, pointing out which level the dormitories are."
+	icon_state = "direction_dorms_z"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/directions/dorms/z, 32)
+
+/obj/structure/sign/directions/lavaland/z
+	name = "lava sign (level)"
+	desc = "A direction sign, pointing out which level the hot stuff is."
+	icon_state = "direction_lavaland_z"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/directions/lavaland/z, 32)
+
+/obj/structure/sign/directions/arrival/z
+	name = "arrivals sign (level)"
+	desc = "A direction sign, pointing out which level the arrivals shuttle dock is."
+	icon_state = "direction_arrival_z"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/directions/arrival/z, 32)

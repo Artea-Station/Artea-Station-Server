@@ -22,7 +22,7 @@ export const GENDERS = {
   },
 
   [Gender.Other2]: {
-    icon: 'tg-non-binary',
+    icon: 'question',
     text: 'It/Its',
   },
 };

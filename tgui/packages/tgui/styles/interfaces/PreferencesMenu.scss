@@ -195,21 +195,16 @@ $department_map: (
 
   &__Quirks {
     &__QuirkList {
-      background-color: colors.$light-grey;
-      height: calc(90vh - 170px);
-      min-height: 100%;
-      overflow-y: scroll;
-
       &__quirk {
-        background-color: colors.$white;
-        border-bottom: 1px solid black;
+        margin-top: 5px;
+        border: 1px solid black;
         color: #111;
         transition: background-color 0.1s ease-in;
 
         $quality_map: (
-          'positive': colors.$green,
-          'neutral': colors.$white,
-          'negative': colors.$red,
+          'positive': rgba(colors.$green, 0.7),
+          'neutral': rgba(colors.$white, 0.7),
+          'negative': rgba(#e05353, 0.7),
         );
 
         @each $quality, $color-value in $quality_map {
@@ -220,8 +215,7 @@ $department_map: (
         }
 
         &:hover {
-          background-color: colors.$grey;
-          transition: background-color 0.1s ease-out;
+          color: 'black';
 
           @each $quality, $color-value in $quality_map {
             .PreferencesMenu__Quirks__QuirkList__quirk--#{$quality} {
