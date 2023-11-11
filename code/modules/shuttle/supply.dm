@@ -97,8 +97,10 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 				total_distance += min_distance
 				LAZYREMOVE(traders_bought_from, min_trader)
 
-			// Shuttle travels at 1 tile every 5 seconds, if that makes this make *any* more sense.
-			callTime = total_distance * (5 SECONDS)
+			// Add 5 seconds per tile travelled, with a default 20 second spool up to ensure ripples show properly.
+			callTime = 20 SECONDS
+			// Shuttle travels at 1 tile every 5 seconds, if that makes this make more sense.
+			callTime += total_distance * (5 SECONDS)
 
 	. = ..() // Fly/enter transit.
 	if(. != DOCKING_SUCCESS)
@@ -107,13 +109,11 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		// We're home, let's take 30 seconds to return.
 		callTime = 30 SECONDS
 		SSshuttle.moveShuttle("cargo", "cargo_home") // And immediately return to the station!
-		var/list/exports = sell()
-		if(!exports || !exports.len)
+		var/datum/export_report/exports = sell()
+		if(!exports.unique_exports || !exports.unique_exports.len)
 			callTime = 10 SECONDS
 		else
-			callTime += exports.len * (15 SECONDS) // Simulate haggling and trading items in a shitty way
-
-/obj/docking_port/mobile/supply/proc/get_buy_time()
+			callTime += exports.unique_exports.len * (15 SECONDS) // Simulate haggling and trading items in a shitty way
 
 /obj/docking_port/mobile/supply/proc/buy()
 	SEND_SIGNAL(SSshuttle, COMSIG_SUPPLY_SHUTTLE_BUY)
@@ -122,13 +122,18 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	var/list/misc_contents = list() //list of lists of items that each box will contain
 	var/list/misc_costs = list() //list of overall costs sustained by each buyer.
 
-	var/list/empty_turfs = list()
+	var/list/empty_turfs = list() // Used for crates and other dense objects.
+	for(var/obj/marker as anything in GLOB.cargo_shuttle_crate_markers)
+		var/turf/turf = get_turf(marker)
+		if(!turf.is_blocked_turf())
+			empty_turfs += turf
+
+	var/list/shelf_turfs = list() // Used for anything that isn't dense.
 	for(var/place in shuttle_areas)
 		var/area/shuttle/shuttle_area = place
 		for(var/turf/open/floor/T in shuttle_area)
-			if(T.is_blocked_turf())
-				continue
-			empty_turfs += T
+			if(locate(/obj/structure/rack) in T)
+				shelf_turfs += T
 
 	//quickly and greedily handle chef's grocery runs first, there are a few reasons why this isn't attached to the rest of cargo...
 	//but the biggest reason is that the chef requires produce to cook and do their job, and if they are using this system they
@@ -151,46 +156,31 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	var/list/traders_bought_from = list()
 
 	for(var/datum/supply_order/spawning_order in SStrading.shopping_list)
-		if(!empty_turfs.len)
-			break
-		var/price = spawning_order.pack.get_cost()
-		if(spawning_order.applied_coupon)
-			price *= (1 - spawning_order.applied_coupon.discount_pct_off)
+		var/obj/container = spawning_order.pack.container_type
+		if(!empty_turfs.len && initial(container.density))
+			continue
 
 		var/datum/bank_account/paying_for_this
 
-		//department orders EARN money for cargo, not the other way around
-		if(!spawning_order.department_destination)
-			if(spawning_order.paying_account) //Someone paid out of pocket
-				paying_for_this = spawning_order.paying_account
-				var/list/current_buyer_orders = goodies_by_buyer[spawning_order.paying_account] // so we can access the length a few lines down
-				if(!spawning_order.pack.goody)
-					price *= 1.1
-
-				// note this is before we increment, so this is the GOODY_FREE_SHIPPING_MAX + 1th goody to ship. also note we only increment off this step if they successfully pay the fee, so there's no way around it
-				else if(LAZYLEN(current_buyer_orders) == GOODY_FREE_SHIPPING_MAX)
-					price += CRATE_TAX
-					paying_for_this.bank_talk("Goody order size exceeds free shipping limit: Assessing [CRATE_TAX] credit S&H fee.")
-			else
-				paying_for_this = SSeconomy.get_dep_account(ACCOUNT_CAR)
-			if(spawning_order.trader_id)
-				var/datum/trader/trader = SStrading.get_trader_by_id(spawning_order.trader_id)
-				trader.current_credits += spawning_order.cost
+		//give traders their hard-earned cash, now that the order is complete.
+		if(!spawning_order.department_destination && spawning_order.trader_id)
+			var/datum/trader/trader = SStrading.get_trader_by_id(spawning_order.trader_id)
+			trader.current_credits += spawning_order.cost
 
 		if(spawning_order.paying_account)
 			if(spawning_order.pack.goody)
 				LAZYADD(goodies_by_buyer[spawning_order.paying_account], spawning_order)
-			paying_for_this.bank_talk("Cargo order #[spawning_order.id] is now locked in and will be on cargo shuttle when it returns. [price] credits have been charged to your bank account.")
-			SSeconomy.track_purchase(paying_for_this, price, spawning_order.pack.name)
+			paying_for_this.bank_talk("Cargo order #[spawning_order.id] is now locked in and will be on cargo shuttle when it returns.")
+			SSeconomy.track_purchase(paying_for_this, spawning_order.cost, spawning_order.pack.name)
 			var/datum/bank_account/department/cargo = SSeconomy.get_dep_account(ACCOUNT_CAR)
-			cargo.adjust_money(price - spawning_order.pack.get_cost(), "Cargo: Handling fee for [spawning_order.pack.name]") //Cargo gets the handling fee
+			cargo.adjust_money(spawning_order.cost / 50, "Cargo: Handling fee for [spawning_order.pack.name]") //Cargo gets the handling fee. Not perfect with inflation, but whatever.
 		value += spawning_order.pack.get_cost()
 		SStrading.shopping_list -= spawning_order
 		SStrading.order_history += spawning_order
 		QDEL_NULL(spawning_order.applied_coupon)
 
 		if(!spawning_order.pack.goody) //we handle goody crates below
-			spawning_order.generate(pick_n_take(empty_turfs))
+			spawning_order.generate(initial(container.density) ? pick_n_take(empty_turfs) : pick(shelf_turfs))
 
 		SSblackbox.record_feedback("nested tally", "cargo_imports", 1, list("[spawning_order.pack.get_cost()]", "[spawning_order.pack.name]"))
 
@@ -216,7 +206,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 			our_crate.name = "goody crate - purchased by [buyer]"
 			miscboxes[buyer] = our_crate
 		else //free shipping in a case
-			miscboxes[buyer] = new /obj/item/storage/lockbox/order(pick_n_take(empty_turfs))
+			miscboxes[buyer] = new /obj/item/storage/lockbox/order(pick(shelf_turfs))
 			var/obj/item/storage/lockbox/order/our_case = miscboxes[buyer]
 			our_case.buyer_account = buying_account
 			miscboxes[buyer].name = "goody case - purchased by [buyer]"
@@ -271,7 +261,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	SSeconomy.export_total += (D.account_balance - presale_points)
 	SStrading.trade_message = msg
 	investigate_log("Shuttle contents sold for [D.account_balance - presale_points] credits. Contents: [ex.exported_atoms ? ex.exported_atoms.Join(",") + "." : "none."] Message: [SStrading.trade_message || "none."]", INVESTIGATE_CARGO)
-	return ex.unique_exports
+	return ex
 
 /*
 	Generates a box of mail depending on our exports and imports.
@@ -293,6 +283,18 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 			empty_turfs += shuttle_floor
 
 	new /obj/structure/closet/crate/mail/economy(pick(empty_turfs))
+
+// At some point, maybe make this a set of markers or beacons that players can set? Dunno. Would people use that?
+GLOBAL_LIST_EMPTY(cargo_shuttle_crate_markers)
+
+/obj/effect/landmark/cargo_shuttle_crate
+	name = "Cargo Shuttle Crate Marker"
+	desc = "If you're seeing this, uh, cool! Tell a coder please!"
+	icon_state = "loot_site"
+
+/obj/effect/landmark/cargo_shuttle_crate/Initialize(mapload)
+	. = ..()
+	GLOB.cargo_shuttle_crate_markers += src
 
 #undef GOODY_FREE_SHIPPING_MAX
 #undef CRATE_TAX

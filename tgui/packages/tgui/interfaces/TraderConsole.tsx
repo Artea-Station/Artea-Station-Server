@@ -128,10 +128,6 @@ const CargoStatus = (props, context) => {
           />
           {' credits '}
           <Button onClick={() => act('eject_id')} icon="eject" />
-          <Button onClick={() => act('unload_coupons')}>
-            <Icon name="card" />
-            <Icon name="eject" />
-          </Button>
         </Box>
       }>
       <Stack vertical mb="0.6em">
@@ -158,7 +154,6 @@ const CargoStatus = (props, context) => {
           <Stack>
             <Stack.Item>
               <Button
-                style={{ 'float': 'right' }}
                 onClick={() => act('send_shuttle')}
                 disabled={!data.shuttle_docked || data.shuttle_away}>
                 Send Shuttle
@@ -173,6 +168,11 @@ const CargoStatus = (props, context) => {
                   </Button>
                 </Stack.Item>
               )}
+            <Stack.Item ml="auto">
+              <Button onClick={() => act('unload_coupons')} icon="eject">
+                Eject Coupons
+              </Button>
+            </Stack.Item>
           </Stack>
         </Stack.Item>
       </Stack>
