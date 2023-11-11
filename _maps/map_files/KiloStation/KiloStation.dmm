@@ -16285,14 +16285,9 @@
 /turf/open/floor/iron,
 /area/station/cargo/storage)
 "eYW" = (
-/obj/docking_port/stationary/mining_home/kilo{
+/obj/docking_port/stationary/pathfinders_home{
 	dir = 4;
-	name = "SS13: Pathfinders Dock";
-	shuttle_id = "pathfinders_home";
-	width = 11;
-	dwidth = 4;
-	roundstart_template = /datum/map_template/shuttle/pathfinders/ghetto;
-	height = 14
+	roundstart_template = /datum/map_template/shuttle/pathfinders/ghetto
 	},
 /turf/open/space/basic,
 /area/space)
@@ -20383,6 +20378,12 @@
 /obj/effect/spawner/random/vending/snackvend,
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/starboard)
+"gfm" = (
+/obj/docking_area_marker{
+	dir = 1
+	},
+/turf/open/space/basic,
+/area/space)
 "gfz" = (
 /obj/structure/flora/bush/sparsegrass/style_random,
 /obj/structure/flora/bush/stalky/style_random,
@@ -23215,6 +23216,10 @@
 /obj/effect/mapping_helpers/burnt_floor,
 /turf/open/floor/plating,
 /area/station/maintenance/fore)
+"gVb" = (
+/obj/docking_area_marker,
+/turf/open/space/basic,
+/area/space)
 "gVc" = (
 /obj/machinery/power/terminal,
 /obj/effect/turf_decal/delivery,
@@ -126950,7 +126955,7 @@ ghb
 aaa
 aaa
 aaa
-aaa
+gVb
 aeU
 aeu
 exg
@@ -132849,6 +132854,7 @@ aaa
 aaa
 aaa
 acm
+gfm
 aaa
 aaa
 aaa
@@ -132860,8 +132866,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+gVb
 aaa
 aaa
 aaa

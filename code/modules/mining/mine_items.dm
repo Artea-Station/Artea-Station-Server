@@ -109,6 +109,14 @@
 /obj/docking_port/stationary/mining_home/common/kilo
 	roundstart_template = /datum/map_template/shuttle/mining_common/kilo
 
+/obj/docking_port/stationary/pathfinders_home
+	name = "Kilo: Pathfinders Dock"
+	shuttle_id = "pathfinders_home"
+	roundstart_template = /datum/map_template/shuttle/pathfinders/astrum
+
+/obj/docking_port/stationary/pathfinders_home/bearcat
+	name = "Bearcat: Pathfinders Dock"
+
 /**********************Mining car (Crate like thing, not the rail car)**************************/
 
 /obj/structure/closet/crate/miningcar
