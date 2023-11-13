@@ -356,9 +356,8 @@
 		return
 	if(!check_if_in_ritual_site(cultist, cult_team))
 		return FALSE
-	var/area/summon_location = get_area(cultist)
 	priority_announce(
-		text = "Figments from an eldritch god are being summoned by [cultist.real_name] into [summon_location.get_original_area_name()] from an unknown dimension. Disrupt the ritual at all costs!",
+		text = "Figments from an eldritch god are being summoned by [cultist.real_name] into [get_area(cultist)] from an unknown dimension. Disrupt the ritual at all costs!",
 		sender_override = "[command_name()] Higher Dimensional Affairs",
 		has_important_message = TRUE,
 	)
