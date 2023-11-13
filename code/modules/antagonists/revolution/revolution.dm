@@ -435,7 +435,7 @@
 				rev_head.current.med_hud_set_status()
 
 		priority_announce("It appears the mutiny has been quelled. Please return yourself and your incapacitated colleagues to work. \
-		We have remotely blacklisted the head revolutionaries in your medical records to prevent accidental revival.", null, null, null, "Central Command Loyalty Monitoring Division")
+		We have remotely blacklisted the head revolutionaries in your medical records to prevent accidental revival.", null, null, null, "[command_name()] Loyalty Monitoring Division")
 	else
 		victory_effects()
 

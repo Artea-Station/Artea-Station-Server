@@ -19,8 +19,14 @@
 /datum/hallucination/station_message/shuttle_dock
 
 /datum/hallucination/station_message/shuttle_dock/start()
-	priority_announce("[SSshuttle.emergency || "The Emergency Shuttle"] has docked with the station. You have 3 minutes to board the Emergency Shuttle.", \
-		null, ANNOUNCER_SHUTTLEDOCK, ANNOUNCEMENT_TYPE_PRIORITY, players = list(hallucinator))
+	priority_announce(
+					text = "[SSshuttle.emergency] has docked with the station. You have [DisplayTimeText(SSshuttle.emergency_dock_time)] to board the emergency shuttle.",
+					title = "Emergency Shuttle Arrival",
+					sound = ANNOUNCER_SHUTTLEDOCK,
+					sender_override = "Emergency Shuttle Uplink Alert",
+					players = list(hallucinator),
+					color_override = "orange",
+				)
 	return ..()
 
 /datum/hallucination/station_message/malf_ai
@@ -52,7 +58,13 @@
 
 	var/message_with_name = pick(ascension_bodies)
 	message_with_name = replacetext(message_with_name, "%FAKENAME%", totally_real_heretic.real_name)
-	priority_announce("[generate_heretic_text()] [message_with_name] [generate_heretic_text()]","[generate_heretic_text()]", ANNOUNCER_SPANOMALIES, players = list(hallucinator))
+	priority_announce(
+		text = "[generate_heretic_text()] [message_with_name] [generate_heretic_text()]",
+		title = "[generate_heretic_text()]",
+		sound = ANNOUNCER_SPANOMALIES,
+		players = list(hallucinator),
+		color_override = "pink",
+	)
 	return ..()
 
 /datum/hallucination/station_message/cult_summon
@@ -70,7 +82,7 @@
 
 	priority_announce(
 		"Figments from an eldritch god are being summoned by [totally_real_cult_leader.real_name] into [fake_summon_area] from an unknown dimension. Disrupt the ritual at all costs!",
-		"Central Command Higher Dimensional Affairs",
+		"[command_name()] Higher Dimensional Affairs",
 		ANNOUNCER_SPANOMALIES,
 		has_important_message = TRUE,
 		players = list(hallucinator)
