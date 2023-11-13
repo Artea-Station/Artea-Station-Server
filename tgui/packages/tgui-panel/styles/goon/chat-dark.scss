@@ -940,27 +940,27 @@ $alert-stripe-alternate-colors: (
 );
 
 $alert-major-header-colors: (
-  'default': #33d5ff,
-  'green': #00ff80,
-  'blue': #33d5ff,
-  'pink': #ff5297,
+  'default': #b62222,
+  'green': #18b969,
+  'blue': #13b1d8,
+  'pink': #b62222,
   'yellow': #fff4e0,
   'orange': #feefe7,
-  'red': #ff5297,
+  'red': #b62222,
   'purple': #c7a1f7,
-  'grey': #ff5297,
+  'grey': #b62222,
 );
 
 $alert-subheader-header-colors: (
-  'default': #ff5297,
-  'green': #ff85b5,
-  'blue': #ff5297,
-  'pink': #33d5ff,
-  'yellow': #33d5ff,
-  'orange': #33d5ff,
-  'red': #33d5ff,
-  'purple': #33d5ff,
-  'grey': #33d5ff,
+  'default': #b62222,
+  'green': #b62222,
+  'blue': #b62222,
+  'pink': #13b1d8,
+  'yellow': #13b1d8,
+  'orange': #13b1d8,
+  'red': #13b1d8,
+  'purple': #13b1d8,
+  'grey': #13b1d8,
 );
 
 $border-width: 4;
@@ -1054,6 +1054,10 @@ $border-width-px: $border-width * 1px;
 
   .chat_alert_#{$color-name} .minor_announcement_title {
     color: map.get($alert-major-header-colors, $color-name);
+  }
+
+  .chat_alert_#{$color-name} .announcement_header {
+    background-color: darken(map.get($alert-stripe-colors, $color-name), 2);
   }
 
   .chat_alert_#{$color-name} .subheader_announcement_text {
