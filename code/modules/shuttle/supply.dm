@@ -80,8 +80,15 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	if(getDockedId() == "cargo_away") // Buy when we leave home.
 		// Default 20 second spool up to ensure ripples show properly.
 		callTime = 20 SECONDS
-		var/list/traders_bought_from = buy()
-		create_mail()
+
+		var/list/empty_turfs = list() // Used for crates and other dense objects.
+		for(var/obj/marker as anything in GLOB.cargo_shuttle_crate_markers)
+			var/turf/turf = get_turf(marker)
+			if(!turf.is_blocked_turf())
+				empty_turfs += turf
+
+		var/list/traders_bought_from = buy(empty_turfs)
+		create_mail(empty_turfs)
 		// Look man, this isn't ideal, probably, but I don't care at this point.
 		// This is called once every few minutes at most, and the crew will just have to cry about the sub-optimal pathing.
 		if(traders_bought_from && traders_bought_from.len)
@@ -121,18 +128,12 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 
 		SSshuttle.moveShuttle("cargo", "cargo_home") // And immediately return to the station!
 
-/obj/docking_port/mobile/supply/proc/buy()
+/obj/docking_port/mobile/supply/proc/buy(list/empty_turfs)
 	SEND_SIGNAL(SSshuttle, COMSIG_SUPPLY_SHUTTLE_BUY)
 	var/list/obj/miscboxes = list() //miscboxes are combo boxes that contain all goody orders grouped
 	var/list/misc_order_num = list() //list of strings of order numbers, so that the manifest can show all orders in a box
 	var/list/misc_contents = list() //list of lists of items that each box will contain
 	var/list/misc_costs = list() //list of overall costs sustained by each buyer.
-
-	var/list/empty_turfs = list() // Used for crates and other dense objects.
-	for(var/obj/marker as anything in GLOB.cargo_shuttle_crate_markers)
-		var/turf/turf = get_turf(marker)
-		if(!turf.is_blocked_turf())
-			empty_turfs += turf
 
 	var/list/shelf_turfs = list() // Used for anything that isn't dense.
 	for(var/place in shuttle_areas)
@@ -274,19 +275,10 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	Applied in the cargo shuttle sending/arriving, by building the crate if the round is ready to introduce mail based on the economy subsystem.
 	Then, fills the mail crate with mail, by picking applicable crew who can recieve mail at the time to sending.
 */
-/obj/docking_port/mobile/supply/proc/create_mail()
+/obj/docking_port/mobile/supply/proc/create_mail(list/empty_turfs)
 	//Early return if there's no mail waiting to prevent taking up a slot. We also don't send mails on sundays or holidays.
 	if(!SSeconomy.mail_waiting || SSeconomy.mail_blocked)
 		return
-
-	//spawn crate
-	var/list/empty_turfs = list()
-	for(var/place as anything in shuttle_areas)
-		var/area/shuttle/shuttle_area = place
-		for(var/turf/open/floor/shuttle_floor in shuttle_area)
-			if(shuttle_floor.is_blocked_turf())
-				continue
-			empty_turfs += shuttle_floor
 
 	new /obj/structure/closet/crate/mail/economy(pick(empty_turfs))
 
