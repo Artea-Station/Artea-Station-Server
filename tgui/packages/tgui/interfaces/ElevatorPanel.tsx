@@ -26,23 +26,25 @@ export const ElevatorPanel = (props, context) => {
       <Window.Content>
         <Section title="Select Floor" textAlign="center">
           <Stack vertical>
-            {data.floors.map((entry) => {
-              return (
-                <Stack.Item grow key={entry.id} mb="4em">
-                  <Button
-                    content={entry.name}
-                    textAlign="center"
-                    fontSize="1.2em"
-                    fluid={1}
-                    lineHeight="3"
-                    onClick={() =>
-                      act('task', { task: 'click_waypoint', id: entry.id })
-                    }
-                    color={entry.is_active ? 'green' : null}
-                  />
-                </Stack.Item>
-              );
-            })}
+            {data.floors
+              .map((entry) => {
+                return (
+                  <Stack.Item grow key={entry.id} mb="4em">
+                    <Button
+                      content={entry.name}
+                      textAlign="center"
+                      fontSize="1.2em"
+                      fluid={1}
+                      lineHeight="3"
+                      onClick={() =>
+                        act('task', { task: 'click_waypoint', id: entry.id })
+                      }
+                      color={entry.is_active ? 'green' : null}
+                    />
+                  </Stack.Item>
+                );
+              })
+              .reverse()}
             <Stack.Item grow mb="3.4em">
               <Button
                 content="STOP"
