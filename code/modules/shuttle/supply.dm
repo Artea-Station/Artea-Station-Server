@@ -32,7 +32,8 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		/obj/machinery/camera,
 		/obj/item/gps,
 		/obj/structure/checkoutmachine,
-		/obj/machinery/fax
+		/obj/machinery/fax,
+		/obj/item/delivery_cargo,
 	)))
 
 /// How many goody orders we can fit in a lockbox before we upgrade to a crate
