@@ -552,6 +552,7 @@
 		else
 			. += "There's a [note.name] pinned to the front..."
 			. += note.examine(user)
+			. += span_info("You could [span_bold("cut")] this down.")
 	if(seal)
 		. += "It's been braced with \a [seal]."
 	if(welded)
@@ -633,8 +634,12 @@
 
 			context[SCREENTIP_CONTEXT_LMB] = "Repair"
 			return CONTEXTUAL_SCREENTIP_SET
+		if (TOOL_WIRECUTTER)
+			if(panel_open)
+				return
 
-	return .
+			context[SCREENTIP_CONTEXT_LMB] = "Take down note"
+			return CONTEXTUAL_SCREENTIP_SET
 
 /obj/machinery/door/airlock/attack_ai(mob/user)
 	if(!canAIControl(user))
