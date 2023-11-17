@@ -1,7 +1,7 @@
 ///When attached, the footstep sound played by the footstep element will be replaced by this one's
 /datum/element/footstep_override
-	element_flags = ELEMENT_BESPOKE|ELEMENT_DETACH_ON_HOST_DESTROY
-	argument_hash_start_idx = 2
+	element_flags = ELEMENT_BESPOKE|ELEMENT_DETACH
+	id_arg_index = 2
 	///The sound played for movables with claw step sound type.
 	var/clawfootstep
 	///The sound played for movables with barefoot step sound type.

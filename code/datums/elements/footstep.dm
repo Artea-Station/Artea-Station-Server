@@ -129,8 +129,6 @@
 	if(!prepared_steps)
 		return
 
-	// The sound type to use
-	var/established_type
 	//cache for sanic speed (lists are references anyways)
 	var/static/list/footstep_sounds = GLOB.footstep
 	///list returned by playsound() filled by client mobs who heard the footstep. given to play_fov_effect()
