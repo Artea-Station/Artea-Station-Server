@@ -201,7 +201,7 @@
 		if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 			return
 		if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT)
-			victim.adjust_bodytemperature(5.5 * seconds_per_tick)
+			victim.adjust_bodytemperature(5.5 * delta_time)
 			return
 
 	var/amount_to_heat = (BODYTEMP_HEATING_MAX + (stacks * 12)) * 0.5 * delta_time
