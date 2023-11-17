@@ -103,10 +103,6 @@
 			return
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
-		if(!trans)
-			to_chat(user, span_warning("[target] is too small for you to pour into!"))
-			return
-
 		to_chat(user, span_notice("You transfer [trans] unit\s of the solution to [target]."))
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
