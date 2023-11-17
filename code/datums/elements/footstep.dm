@@ -68,7 +68,8 @@
 		return
 
 	if(source.body_position == LYING_DOWN) //play crawling sound if we're lying
-		playsound(turf, 'sound/effects/footstep/crawl1.ogg', 15 * volume, falloff_distance = 1, vary = sound_vary)
+		if(turf.footstep)
+			playsound(turf, 'sound/effects/footstep/crawl1.ogg', 15 * volume, falloff_distance = 1, vary = sound_vary)
 		return
 
 	if(iscarbon(source))
@@ -92,6 +93,8 @@
 
 	. = list(FOOTSTEP_MOB_SHOE = turf.footstep, FOOTSTEP_MOB_BAREFOOT = turf.barefootstep, FOOTSTEP_MOB_HEAVY = turf.heavyfootstep, FOOTSTEP_MOB_CLAW = turf.clawfootstep, STEP_SOUND_PRIORITY = STEP_SOUND_NO_PRIORITY)
 	SEND_SIGNAL(turf, COMSIG_TURF_PREPARE_STEP_SOUND, .)
+	if(isnull(turf.footstep))
+		return null
 	return .
 
 /datum/element/footstep/proc/play_simplestep(mob/living/source)
