@@ -176,6 +176,9 @@
 				if(independent_radio.independent && independent_radio.can_receive(frequency, signal_reaches_every_z_level))
 					radios += independent_radio
 
+	for(var/obj/item/radio/radio as anything in radios)
+		playsound(radio, 'sound/items/radio/receive.ogg', 15, ignore_walls = FALSE)
+
 	// From the list of radios, find all mobs who can hear those.
 	var/list/receive = get_hearers_in_radio_ranges(radios)
 

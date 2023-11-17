@@ -231,6 +231,7 @@
 				var/to_dispense = max(0, min(amount, holder.maximum_volume - holder.total_volume))
 				cartridge.reagents.trans_to(holder, to_dispense)
 
+				playsound(src, 'sound/machines/reagent_dispense.ogg', 25, 1)
 				work_animation()
 			. = TRUE
 		if("remove")

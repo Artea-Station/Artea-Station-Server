@@ -33,6 +33,7 @@
 	default_price = PAYCHECK_CREW * 0.7
 	extra_price = PAYCHECK_CREW
 	payment_department = ACCOUNT_SRV
+	vend_sound = 'sound/machines/vending_cans.ogg'
 
 
 /obj/item/vending_refill/cola
