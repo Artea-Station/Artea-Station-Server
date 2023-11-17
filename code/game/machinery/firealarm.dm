@@ -48,6 +48,8 @@
 	update_appearance()
 	my_area = get_area(src)
 	LAZYADD(my_area.firealarms, src)
+	if(istype(my_area, /area/station))
+		LAZYADD(GLOB.station_fire_alarms["[z]"], src)
 
 	AddElement(/datum/element/atmos_sensitive, mapload)
 	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(check_security_level))
@@ -67,6 +69,7 @@
 	if(my_area)
 		LAZYREMOVE(my_area.firealarms, src)
 		my_area = null
+	LAZYREMOVE(GLOB.station_fire_alarms["[z]"], src)
 	QDEL_NULL(soundloop)
 	return ..()
 

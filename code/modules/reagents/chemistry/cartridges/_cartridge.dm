@@ -19,6 +19,9 @@
 	// Can be transferred to/from, but can't be spilled.
 	reagent_flags = OPENCONTAINER
 
+	pickup_sound = 'sound/items/handling/device_pickup.ogg'
+	drop_sound = 'sound/items/handling/device_drop.ogg'
+
 	// If non-null, spawns with the specified reagent filling it's volume.
 	var/spawn_reagent
 	// Spawn temperature. You should only change this if the stored reagent reacts at room temperature (300K).

@@ -19,6 +19,7 @@
 	throwforce = 12 // set to 0 upon being opened. Have you ever been domed by a soda can? Those things fucking hurt
 	/// If the can hasn't been opened yet, this is the measure of how fizzed up it is from being shaken or thrown around. When opened, this is rolled as a percentage chance to burst
 	var/fizziness = 0
+	drop_sound = 'sound/items/handling/tin_drop.ogg'
 
 /obj/item/reagent_containers/cup/soda_cans/random/Initialize(mapload)
 	..()
@@ -90,6 +91,8 @@
 	to_chat(user, "You pull back the tab of [src] with a satisfying pop.") //Ahhhhhhhh
 	reagents.flags |= OPENCONTAINER
 	playsound(src, SFX_CAN_OPEN, 50, TRUE)
+	// It's open!
+	drop_sound = 'sound/items/handling/can_drop.ogg'
 	spillable = TRUE
 	throwforce = 0
 
@@ -101,6 +104,8 @@
  * * hide_message - Stops the generic fizzing message, so you can do your own
  */
 /obj/item/reagent_containers/cup/soda_cans/proc/burst_soda(atom/target, hide_message = FALSE)
+	// It's open!
+	drop_sound = 'sound/items/handling/can_drop.ogg'
 	if(!target)
 		return
 
