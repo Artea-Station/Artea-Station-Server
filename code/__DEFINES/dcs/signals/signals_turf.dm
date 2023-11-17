@@ -23,3 +23,6 @@
 
 ///from /datum/element/decal/Detach(): (description, cleanable, directional, mutable_appearance/pic)
 #define COMSIG_TURF_DECAL_DETACHED "turf_decal_detached"
+
+///from /datum/element/footstep/prepare_step(): (list/steps)
+#define COMSIG_TURF_PREPARE_STEP_SOUND "turf_prepare_step_sound"
