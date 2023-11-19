@@ -201,18 +201,6 @@
 	container_name = "coffin"
 	container_type = /obj/structure/closet/crate/coffin
 
-/datum/supply_pack/misc/empty
-	name = "Empty Supplypod"
-	desc = "Presenting the New Nanotrasen-Brand Bluespace Supplypod! Transport cargo with grace and ease! Call today and we'll shoot over a demo unit for just 300 credits!"
-	cost = CARGO_CRATE_VALUE * 0.6 //Empty pod, so no crate refund
-	contains = list()
-	drop_pod_only = TRUE
-	container_type = null
-	special_pod = /obj/structure/closet/supplypod/bluespacepod
-
-/datum/supply_pack/misc/empty/generate(atom/A, datum/bank_account/paying_account)
-	return
-
 /datum/supply_pack/misc/religious_supplies
 	name = "Religious Supplies Crate"
 	desc = "Keep your local chaplain happy and well-supplied, lest they call down judgement upon your cargo bay. Contains two bottles of holywater, bibles, chaplain robes, and burial garmets."

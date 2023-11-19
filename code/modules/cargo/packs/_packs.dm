@@ -31,10 +31,6 @@
 	var/special = FALSE
 	/// When a cargo pack can be unlocked by special events (as seen in special), this toggles if it's been enabled in the round yet (For example, after the station alert, we can now enable buying the station goal pack).
 	var/special_enabled = FALSE
-	/// Only usable by the Bluespace Drop Pod via the express cargo console
-	var/drop_pod_only = FALSE
-	/// If this pack comes shipped in a specific pod when launched from the express console
-	var/special_pod
 	/// Was this spawned through an admin proc?
 	var/admin_spawned = FALSE
 	/// Goodies can only be purchased by private accounts and can have coupons apply to them. They also come in a lockbox instead of a full crate, so the 700 min doesn't apply

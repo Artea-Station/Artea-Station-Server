@@ -282,7 +282,7 @@
 	data["static_galactic_imports"] = list()
 	for(var/datum/supply_pack/galactic_imports/pack as anything in SStrading.group_to_supplies[TRADER_GROUP_GALACTIC_IMPORTS])
 		// I'll eventually make contraband work again.
-		if((pack.hidden && !(obj_flags & EMAGGED)) || pack.contraband || (pack.special && !pack.special_enabled) || pack.drop_pod_only)
+		if((pack.hidden && !(obj_flags & EMAGGED)) || pack.contraband || (pack.special && !pack.special_enabled))
 			continue
 		if(!data["static_galactic_imports"][pack.category])
 			data["static_galactic_imports"][pack.category] = list(
