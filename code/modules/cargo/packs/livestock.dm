@@ -110,7 +110,7 @@
 
 /datum/supply_pack/critter/crab/generate()
 	. = ..()
-	for(var/i in 1 to 49)
+	for(var/i in 1 to 10)
 		new /mob/living/simple_animal/crab(.)
 
 /datum/supply_pack/critter/corgis/exotic
