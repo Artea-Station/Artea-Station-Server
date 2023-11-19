@@ -951,6 +951,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 			name = product_record.name,
 			amount = product_record.amount,
 			colorable = product_record.colorable,
+			free = !!product_record.returned_products,
 		)
 
 		.["stock"][product_record.name] = product_data
