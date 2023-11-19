@@ -333,14 +333,16 @@
 			if(!inserted_id.registered_account)
 				say("No bank account detected.")
 				return
+
 			var/pack_id = text2path(params["id"]) || params["id"]
-			if(!(pack_id in connected_trader?.sold_packs))
+			var/datum/supply_pack/goodie = SStrading.supply_packs[pack_id]
+			var/is_import = islist(goodie.group) ? (TRADER_GROUP_GALACTIC_IMPORTS in goodie.group) : goodie.group == TRADER_GROUP_GALACTIC_IMPORTS
+
+			if(!(pack_id in connected_trader?.sold_packs) && !is_import)
 				say("Unknown product code.")
 				return
 
-			var/datum/supply_pack/goodie = SStrading.supply_packs[pack_id]
-
-			if(goodie.group != TRADER_GROUP_GALACTIC_IMPORTS)
+			if(!is_import)
 				last_transmission = connected_trader.requested_buy(ui.user, src, goodie)
 				return
 
