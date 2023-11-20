@@ -351,7 +351,7 @@
 				return
 
 			var/datum/supply_order/order = new /datum/supply_order(goodie, inserted_id.registered_account.account_holder, inserted_id.assignment, ui.user.ckey, null, inserted_id.registered_account)
-			if(inserted_id.registered_account.adjust_money(order.cost, "Galactic Import: Purchase of [goodie.name]"))
+			if(inserted_id.registered_account.adjust_money(-order.cost, "Galactic Import: Purchase of [goodie.name]"))
 				SStrading.shopping_list += order
 				say("Import requested.")
 			else
