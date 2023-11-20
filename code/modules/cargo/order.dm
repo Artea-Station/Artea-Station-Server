@@ -130,6 +130,10 @@
 		var/obj/structure/closet/crate/C = container
 		C.manifest = manifest_paper
 		C.update_appearance()
+	else if(istype(container, /obj/item/package))
+		var/obj/item/package/package = container
+		package.note = manifest_paper
+		package.update_appearance()
 	else
 		container.contents += manifest_paper
 

@@ -156,9 +156,8 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	var/list/traders_bought_from = list()
 
 	for(var/datum/supply_order/spawning_order in SStrading.shopping_list)
-		var/obj/container = spawning_order.pack.container_type
-		if(!empty_turfs.len && initial(container.density))
-			continue
+		if(!empty_turfs.len) // Let's not risk it.
+			break
 
 		var/datum/bank_account/paying_for_this = spawning_order.paying_account
 
@@ -179,7 +178,11 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		SStrading.order_history += spawning_order
 		QDEL_NULL(spawning_order.applied_coupon)
 
-		spawning_order.generate(initial(container.density) ? pick_n_take(empty_turfs) : pick(shelf_turfs))
+		var/obj/item/package/package = spawning_order.generate(pick(empty_turfs))
+		package.forceMove(package.density ? pick_n_take(empty_turfs) : pick(shelf_turfs))
+		if(!package.density)
+			package.pixel_x = rand(-8, 8)
+			package.pixel_y = rand(-8, 8)
 
 		SSblackbox.record_feedback("nested tally", "cargo_imports", 1, list("[spawning_order.pack.get_cost()]", "[spawning_order.pack.name]"))
 

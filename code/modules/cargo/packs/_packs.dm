@@ -23,8 +23,8 @@
 	var/desc
 	/// What is the name of the crate that is spawned with the crate's contents?
 	var/container_name = "crate"
-	/// What typepath of container do you spawn? Can be a crate OR /obj/item/delivery.
-	var/container_type = /obj/item/delivery
+	/// What typepath of container do you spawn? Can be a crate OR /obj/item/package.
+	var/container_type = /obj/item/package
 	/// Should we message admins?
 	var/dangerous = FALSE
 	/// Event/Station Goals/Admin enabled packs
@@ -58,7 +58,7 @@
 	if(!container_type)
 		CRASH("tried to generate a supply pack without a valid crate type")
 
-	var/obj/item/delivery/package
+	var/obj/item/package/package
 
 	if(ispath(container_type, /obj/structure/closet) || ispath(container_type, /obj/item/storage/secure))
 		// Briefcase and crate both have req_access vars, so this is fine.
@@ -76,50 +76,16 @@
 
 		fill(crate)
 
-		var/obj/item/yarr = crate
-		if(istype(crate, /obj/item/storage/secure) && yarr.w_class < WEIGHT_CLASS_GIGANTIC)
-			package = new /obj/item/delivery/small(crate)
-			package.icon_state = "deliverypackage[yarr.w_class]"
-			package.w_class = yarr.w_class
-		else
-			package = new /obj/item/delivery/big(crate)
-			if(istype(crate))
-				package.icon_state = "deliverycrate"
-			else if(!istype(crate, /obj/structure/closet))
-				package.icon_state = "deliverybox"
+		package = new(crate.loc)
+		package.insert(crate)
+		package.name = "[package.name] - Purchased by [paying_account.account_holder]"
 
-	else if(ispath(container_type, /obj/item/delivery))
-		package = new /obj/item/delivery/big(A)
+	else if(ispath(container_type, /obj/item/package))
+		package = new /obj/item/package(A)
 		fill(package)
 
-		var/target_state = 0
-		var/list/all_contents = package.get_all_contents()
-		for(var/atom/movable/thing as anything in all_contents)
-			if(!isnum(target_state))
-				break
-
-			if(istype(thing, /obj/item))
-				var/obj/item/item = thing
-				target_state += item.w_class
-			else if(istype(thing, /obj/structure/closet))
-				target_state = "deliverycloset"
-			else if(istype(thing, /obj/structure/closet/crate))
-				target_state = "deliverycrate"
-			else
-				target_state = "deliverybox"
-
-			if(target_state > WEIGHT_CLASS_HUGE)
-				target_state = "deliverybox"
-
-		if(isnum(target_state)) // Is smol, and has very few items, let's give it a little dignity.
-			qdel(package)
-			package = new /obj/item/delivery/small
-			target_state = "deliverypackage[target_state]"
-			for(var/atom/movable/thing as anything in all_contents)
-				thing.forceMove(package)
-
-		package.name = "[container_name] - Purchased by [paying_account.account_holder]"
-		package.icon_state = target_state
+		package.update_appearance(ALL)
+		package.name = "[package.name] - Purchased by [paying_account.account_holder]"
 
 	else
 		CRASH("Invalid container_type given for [type]!")
