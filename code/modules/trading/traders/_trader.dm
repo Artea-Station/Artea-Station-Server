@@ -170,45 +170,30 @@
 	console.write_manifest(src, goodie.name, 1, order.cost, user.name)
 	return get_response("trade_complete", "Thanks for your business!", user)
 
-// ARTEA TODO: Make the shuttle check the itself for bounty items when it departs, and flag completed bounties as done and remove the items before selling anything.
-// Then allow the console to claim the bounty. I'm not gonna add locking bounties to an ID. It's up to the crew to not stab each other over the payouts.
+// The flow is as follows: Make the shuttle check the itself for bounty items when it departs, and flag completed bounties as done and remove the items before selling anything.
+// Then the console can claim the bounty. I'm not gonna add locking bounties to an ID. It's up to the crew to not stab each other over the payouts.
 /datum/trader/proc/requested_bounty_claim(mob/user, obj/machinery/computer/trade_console/console, datum/trader_bounty/bounty)
-	return
-	// var/list/items_on_pad = console.linked_pad.get_valid_items()
-	// var/list/valid_items = list()
-	// var/counted_amount = 0
-	// var/bounty_completed = FALSE
-	// for(var/i in items_on_pad)
-	// 	var/atom/movable/AM = i
-	// 	var/amount_in_this_item = bounty.Validate(AM)
-	// 	if(!amount_in_this_item)
-	// 		continue
-	// 	counted_amount += amount_in_this_item
-	// 	valid_items += AM
-	// 	if(counted_amount >= bounty.amount)
-	// 		bounty_completed = TRUE
-	// 		break
-	// if(!bounty_completed)
-	// 	return get_response("bounty_fail_claim", "I'm afraid you're a bit short of what I need!", user)
-	// for(var/i in valid_items)
-	// 	var/atom/movable/AM = i
-	// 	qdel(AM)
-	// console.inserted_id.registered_account.adjust_money(bounty.reward_cash)
-	// if(bounty.reward_item_path)
-	// 	console.write_manifest(src, bounty.reward_item_name, 1, 0, FALSE, user.name)
-	// 	new bounty.reward_item_path(get_turf(console.linked_pad))
-	// console.linked_pad.do_teleport_effect()
-	// after_trade(user,console)
-	// console.write_manifest(src, bounty.name, counted_amount, bounty.reward_cash, TRUE, user.name)
-	// . = bounty.bounty_complete_text
-	// bounties -= bounty
-	// if(bounty.supplies_bounty)
-	// 	current_supplies_bounty = null
-	// else
-	// 	current_bounty = null
-	// qdel(bounty)
-	// if(!bounties.len)
-	// 	bounties = null
+	if(!bounty.completed)
+		return get_response("bounty_fail_claim", "I'm afraid you're a bit short of what I need!", user)
+
+	console.inserted_id.registered_account.adjust_money(bounty.reward_cash, "[src]: Bounty payout for [bounty]")
+
+	if(bounty.reward_item_path)
+		var/datum/supply_pack/pack = new /datum/supply_pack()
+		pack.contains = list(bounty.reward_item_path)
+		pack.name = "Bounty Payout for [console.inserted_id.registered_account.account_holder]"
+		pack.cost = 0
+		pack.cant_be_removed = TRUE
+		SStrading.shopping_list += new(pack, console.inserted_id.registered_account.account_holder, console.inserted_id.assignment, user.ckey, paying_account = console.inserted_id.registered_account)
+		console.write_log("[user] gained [bounty.reward_item_name] from [src]")
+
+	after_trade(user,console)
+	console.write_log("[user] gained [bounty.reward_cash]cr from [src]")
+	. = bounty.bounty_complete_text
+	bounties -= bounty
+	qdel(bounty)
+	if(!bounties.len)
+		bounties = null
 
 /// Returns a greeting message.
 /datum/trader/proc/hail_msg(is_success, mob/user)
@@ -292,19 +277,19 @@
 	if(prob(delivery_gain_chance))
 		gain_delivery()
 	// Restock some sold goodies
-	// if(sold_packs)
-	// 	var/sold_goods_pick_n_take = sold_packs.Copy()
-	// 	var/sold_goods_pick_n_taked = pick_n_take(sold_goods_pick_n_take) // Don't ask fucking why, I can't use pick-n-take inside a fucking list index. What the fuck????
-	// 	var/datum/supply_pack/goodie = SStrading.supply_packs[sold_goods_pick_n_taked]
-	// 	while(goodie)
-	// 		if(goodie.stock["[id]"] == -1)
-	// 			continue
-	// 		var/percentage_remaining = goodie.stock["[id]"] / goodie.default_stock
-	// 		if(percentage_remaining <= TRADER_RESTOCK_THRESHOLD)
-	// 			goodie.stock["[id]"] = goodie.default_stock
-	// 			if(prob(TRADER_RESTOCK_ESCAPE_CHANCE)) //Chance that it's the end of restocking for this tick
-	// 				return
-	// 		goodie = pick_n_take(sold_goods_pick_n_take)
+	if(sold_packs)
+		var/sold_goods_pick_n_take = sold_packs.Copy()
+		var/datum/supply_pack/goodie = SStrading.supply_packs[pick_n_take(sold_goods_pick_n_take)]
+		while(goodie)
+			if(goodie.stock["[id]"] == -1)
+				goodie = SStrading.supply_packs[pick_n_take(sold_goods_pick_n_take)]
+				continue
+			var/percentage_remaining = goodie.stock["[id]"] / goodie.default_stock
+			if(percentage_remaining <= TRADER_RESTOCK_THRESHOLD)
+				goodie.stock["[id]"] = goodie.default_stock
+				if(prob(TRADER_RESTOCK_ESCAPE_CHANCE)) //Chance that it's the end of restocking for this tick
+					return
+			goodie = SStrading.supply_packs[pick_n_take(sold_goods_pick_n_take)]
 
 #undef TRADER_RESTOCK_ESCAPE_CHANCE
 

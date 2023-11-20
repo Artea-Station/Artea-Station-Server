@@ -41,9 +41,12 @@
 	var/list/stock = list()
 	/// Set to TRUE to make it show in the galactic imports menu. Will inherit the FIRST group of the pack as the category.
 	var/galactic_import = FALSE
+	/// If set to TRUE, only admins can remove this pack once added to the shopping list. Used for important things like bounty reward items.
+	/// Also hides the pack from traders.
+	var/cant_be_removed = FALSE
 
 /datum/supply_pack/New()
-	id = type
+	id = "[type]"
 	if(!name && islist(contains))
 		var/obj/ordered_item = contains[1]
 		if(ordered_item)
@@ -55,13 +58,13 @@
 	if(!container_type)
 		CRASH("tried to generate a supply pack without a valid crate type")
 
-	var/obj/container
+	var/obj/item/delivery/package
 
-	// Briefcase and crate both have req_access vars, so this is fine.
-	if(ispath(container_type, /obj/structure/closet/crate) || ispath(container_type, /obj/item/storage/secure/briefcase))
+	if(ispath(container_type, /obj/structure/closet) || ispath(container_type, /obj/item/storage/secure))
+		// Briefcase and crate both have req_access vars, so this is fine.
 		var/obj/structure/closet/crate/crate
 		if(paying_account)
-			crate = new /obj/structure/closet/crate/secure/owned(A, paying_account)
+			crate = ispath(container_type, /obj/item/storage/secure) ? new container_type(A) : new /obj/structure/closet/crate/secure/owned(A, paying_account)
 			crate.name = "[container_name] - Purchased by [paying_account.account_holder]"
 		else
 			crate = new container_type(A)
@@ -71,23 +74,56 @@
 		if(access_any)
 			crate.req_one_access = access_any
 
-		container = crate
+		fill(crate)
+
+		var/obj/item/yarr = crate
+		if(istype(crate, /obj/item/storage/secure) && yarr.w_class < WEIGHT_CLASS_GIGANTIC)
+			package = new /obj/item/delivery/small(crate)
+			package.icon_state = "deliverypackage[yarr.w_class]"
+			package.w_class = yarr.w_class
+		else
+			package = new /obj/item/delivery/big(crate)
+			if(istype(crate))
+				package.icon_state = "deliverycrate"
+			else if(!istype(crate, /obj/structure/closet))
+				package.icon_state = "deliverybox"
 
 	else if(ispath(container_type, /obj/item/delivery))
-		var/obj/item/delivery/package
-		if(contains.len == 1 && isitem(contains[1])) // Not reliable on dynamic orders, but fuck it.
-			package = new /obj/item/delivery/small(A)
-		else
-			package = new /obj/item/delivery/big(A)
+		package = new /obj/item/delivery/big(A)
+		fill(package)
+
+		var/target_state = 0
+		var/list/all_contents = package.get_all_contents()
+		for(var/atom/movable/thing as anything in all_contents)
+			if(istype(thing, /obj/item))
+				var/obj/item/item = thing
+				target_state += item.w_class
+			else if(istype(thing, /obj/structure/closet))
+				target_state = "deliverycloset"
+			else if(istype(thing, /obj/structure/closet/crate))
+				target_state = "deliverycrate"
+			else
+				target_state = "deliverybox"
+
+			if(!isnum(target_state))
+				break
+			if(target_state > WEIGHT_CLASS_HUGE)
+				target_state = "deliverybox"
+
+		if(isnum(target_state)) // Is smol, and has very few items, let's give it a little dignity.
+			qdel(package)
+			package = new /obj/item/delivery/small
+			target_state = "deliverypackage[target_state]"
+			for(var/atom/movable/thing as anything in all_contents)
+				thing.forceMove(package)
 
 		package.name = "[container_name] - Purchased by [paying_account.account_holder]"
-		container = package
+		package.icon_state = target_state
 
 	else
 		CRASH("Invalid container_type given for [type]!")
 
-	fill(container)
-	return container
+	return package
 
 /datum/supply_pack/proc/get_cost()
 	. = cost

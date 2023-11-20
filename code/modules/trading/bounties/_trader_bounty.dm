@@ -25,6 +25,8 @@
 	var/bounty_complete_text = "Thank you very much for getting me those."
 	/// Whether this bounty is a supplies bounty.
 	var/supplies_bounty = FALSE
+	/// Is this bounty completed?
+	var/completed = FALSE
 
 /datum/trader_bounty/New()
 	. = ..()

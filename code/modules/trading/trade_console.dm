@@ -58,12 +58,16 @@
 /obj/machinery/computer/trade_console/proc/write_manifest(datum/trader/trader, item_name, amount, price, user_name)
 	var/trade_string
 	last_user_name = user_name
-	trade_string = "[amount] of [item_name] for [price] cr."
-	write_log("[user_name] bought [trade_string] from [trader.name] (new balance on [inserted_id.registered_account.account_holder]: [inserted_id.registered_account.account_balance] cr.)")
+	if(price)
+		trade_string = "[amount] of [item_name] for [price] cr"
+		write_log("[user_name] bought [trade_string] from [trader.name] (new balance on [inserted_id.registered_account.account_holder]: [inserted_id.registered_account.account_balance] cr.)")
+	else
+		trade_string = "[amount] of [item_name]"
+		trade_string = "[user_name] gained [trade_string] from [trader.name]"
 	if(!makes_manifests)
 		return
 	LAZYINITLIST(manifest_purchased)
-	manifest_purchased += trade_string
+	manifest_purchased += trade_string + "."
 	manifest_loss += price
 
 /obj/machinery/computer/trade_console/proc/print_manifest()
@@ -334,7 +338,7 @@
 				say("No bank account detected.")
 				return
 
-			var/pack_id = text2path(params["id"]) || params["id"]
+			var/pack_id = params["id"]
 			var/datum/supply_pack/goodie = SStrading.supply_packs[pack_id]
 			var/is_import = islist(goodie.group) ? (TRADER_GROUP_GALACTIC_IMPORTS in goodie.group) : goodie.group == TRADER_GROUP_GALACTIC_IMPORTS
 
@@ -403,10 +407,13 @@
 			if(!inserted_id)
 				say("No ID detected.")
 				return
-			var/id = text2num(params["id"])
+			var/id = params["id"]
 			for(var/datum/supply_order/SO in SStrading.shopping_list)
 				if(SO.id != id)
 					continue
+				if(SO.pack.cant_be_removed)
+					say("This is an order that can't be cancelled.")
+					return
 				if(!can_send_shuttle && SO.paying_account.account_id != inserted_id.registered_account?.account_id)
 					say("Only the orderer may cancel their order.")
 					return
@@ -420,7 +427,7 @@
 				break
 		if("clear")
 			for(var/datum/supply_order/cancelled_order in SStrading.shopping_list)
-				if(cancelled_order.department_destination)
+				if(cancelled_order.department_destination || cancelled_order.pack.cant_be_removed)
 					continue //don't cancel other department's orders
 				SStrading.shopping_list -= cancelled_order
 		if("unload_coupons")
