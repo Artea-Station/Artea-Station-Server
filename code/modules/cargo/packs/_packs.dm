@@ -95,6 +95,9 @@
 		var/target_state = 0
 		var/list/all_contents = package.get_all_contents()
 		for(var/atom/movable/thing as anything in all_contents)
+			if(!isnum(target_state))
+				break
+
 			if(istype(thing, /obj/item))
 				var/obj/item/item = thing
 				target_state += item.w_class
@@ -105,8 +108,6 @@
 			else
 				target_state = "deliverybox"
 
-			if(!isnum(target_state))
-				break
 			if(target_state > WEIGHT_CLASS_HUGE)
 				target_state = "deliverybox"
 
