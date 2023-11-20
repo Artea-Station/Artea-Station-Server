@@ -278,18 +278,15 @@
 		gain_delivery()
 	// Restock some sold goodies
 	if(sold_packs)
-		var/sold_goods_pick_n_take = sold_packs.Copy()
-		var/datum/supply_pack/goodie = SStrading.supply_packs[pick_n_take(sold_goods_pick_n_take)]
-		while(goodie)
+		for(var/pack as anything in sold_packs)
+			var/datum/supply_pack/goodie = SStrading.supply_packs[pack]
 			if(goodie.stock["[id]"] == -1)
-				goodie = SStrading.supply_packs[pick_n_take(sold_goods_pick_n_take)]
 				continue
 			var/percentage_remaining = goodie.stock["[id]"] / goodie.default_stock
 			if(percentage_remaining <= TRADER_RESTOCK_THRESHOLD)
 				goodie.stock["[id]"] = goodie.default_stock
 				if(prob(TRADER_RESTOCK_ESCAPE_CHANCE)) //Chance that it's the end of restocking for this tick
 					return
-			goodie = SStrading.supply_packs[pick_n_take(sold_goods_pick_n_take)]
 
 #undef TRADER_RESTOCK_ESCAPE_CHANCE
 
