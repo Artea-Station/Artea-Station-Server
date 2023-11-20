@@ -283,7 +283,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/chair/stool, 0)
 /obj/structure/chair/stool/narsie_act()
 	return
 
-/obj/structure/chair/stool/proc/handle_layer()
+/obj/structure/chair/stool/handle_layer()
 	return OBJ_LAYER
 
 /obj/structure/chair/stool/bar
