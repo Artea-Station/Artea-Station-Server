@@ -185,8 +185,8 @@
 	///Name of lighting mask for the vending machine
 	var/light_mask
 
-	/// used for narcing on underages
-	var/obj/item/radio/Radio
+	/// Sound to play when vending something
+	var/vend_sound = 'sound/machines/vending_drop.ogg'
 
 
 /**
@@ -226,14 +226,11 @@
 				circuit.onstation = onstation //sync up the circuit so the pricing schema is carried over if it's reconstructed.
 	else if(circuit && (circuit.onstation != onstation)) //check if they're not the same to minimize the amount of edited values.
 		onstation = circuit.onstation //if it was constructed outside mapload, sync the vendor up with the circuit's var so you can't bypass price requirements by moving / reconstructing it off station.
-	Radio = new /obj/item/radio(src)
-	Radio.set_listening(FALSE)
 
 /obj/machinery/vending/Destroy()
 	QDEL_NULL(wires)
 	QDEL_NULL(coin)
 	QDEL_NULL(bill)
-	QDEL_NULL(Radio)
 	return ..()
 
 /obj/machinery/vending/can_speak()
@@ -628,7 +625,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	visible_message(span_notice("[src] yields [freebies > 1 ? "several free goodies" : "a free goody"]!"))
 
 	for(var/i in 1 to freebies)
-		playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
+		playsound(src, vend_sound, 50, TRUE, extrarange = -3)
 		for(var/datum/data/vending_product/R in shuffle(product_records))
 
 			if(R.amount <= 0) //Try to use a record that actually has something to dump.
@@ -954,6 +951,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 			name = product_record.name,
 			amount = product_record.amount,
 			colorable = product_record.colorable,
+			free = !!product_record.returned_products,
 		)
 
 		.["stock"][product_record.name] = product_data
@@ -1065,10 +1063,6 @@ GLOBAL_LIST_EMPTY(vending_products)
 			return
 		else if(age_restrictions && R.age_restricted && (!C.registered_age || C.registered_age < AGE_MINOR))
 			say("You are not of legal age to purchase [R.name].")
-			if(!(usr in GLOB.narcd_underages))
-				Radio.set_frequency(FREQ_SECURITY)
-				Radio.talk_into(src, "SECURITY ALERT: Underaged crewmember [usr] recorded attempting to purchase [R.name] in [get_area(src)]. Please watch for substance abuse.", FREQ_SECURITY)
-				GLOB.narcd_underages += usr
 			flick(icon_deny,src)
 			vend_ready = TRUE
 			return
@@ -1098,7 +1092,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	use_power(active_power_usage)
 	if(icon_vend) //Show the vending animation if needed
 		flick(icon_vend,src)
-	playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
+	playsound(src, vend_sound, 50, TRUE, extrarange = -3)
 	var/obj/item/vended_item
 	if(!LAZYLEN(R.returned_products)) //always give out free returned stuff first, e.g. to avoid walling a traitor objective in a bag behind paid items
 		vended_item = new R.product_path(get_turf(src))

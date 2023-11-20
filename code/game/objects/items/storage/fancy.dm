@@ -19,6 +19,7 @@
 	base_icon_state = "donutbox"
 	resistance_flags = FLAMMABLE
 	custom_materials = list(/datum/material/cardboard = 2000)
+	rustle_sound = 'sound/items/storage/card_box.ogg'
 	/// Used by examine to report what this thing is holding.
 	var/contents_tag = "errors"
 	/// What type of thing to fill this storage with.
@@ -192,6 +193,7 @@
 	custom_price = PAYCHECK_CREW
 	age_restricted = TRUE
 	contents_tag = "cigarette"
+	rustle_sound = 'sound/items/storage/small_generic.ogg'
 	///for cigarette overlay
 	var/candy = FALSE
 	/// Does this cigarette packet come with a coupon attached?
@@ -471,6 +473,7 @@
 	spawn_count = 5
 	contents_tag = "pickle"
 	has_open_closed_states = FALSE
+	rustle_sound = 'sound/items/handling/bottle_pickup.ogg'
 
 /obj/item/storage/fancy/pickles_jar/Initialize(mapload)
 	. = ..()

@@ -11,6 +11,8 @@
 	name = "control wand"
 	desc = "Remotely controls airlocks."
 	w_class = WEIGHT_CLASS_TINY
+	pickup_sound = 'sound/items/handling/device_pickup.ogg'
+	drop_sound = 'sound/items/handling/device_drop.ogg'
 	var/mode = WAND_OPEN
 	var/region_access = REGION_GENERAL
 	var/list/access_list

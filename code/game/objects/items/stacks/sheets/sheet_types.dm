@@ -340,6 +340,8 @@ GLOBAL_LIST_INIT(wood_recipes, list ( \
 	grind_results = list(/datum/reagent/cellulose = 20) //no lignocellulose or lignin reagents yet,
 	walltype = /turf/closed/wall/mineral/wood
 	stairs_type = /obj/structure/stairs/wood
+	pickup_sound = 'sound/items/handling/wood_pickup.ogg'
+	drop_sound = 'sound/items/handling/wood_drop.ogg'
 
 /obj/item/stack/sheet/mineral/wood/get_main_recipes()
 	. = ..()
@@ -384,6 +386,8 @@ GLOBAL_LIST_INIT(bamboo_recipes, list ( \
 	merge_type = /obj/item/stack/sheet/mineral/bamboo
 	grind_results = list(/datum/reagent/cellulose = 10)
 	material_type = /datum/material/bamboo
+	pickup_sound = 'sound/items/handling/wood_pickup.ogg'
+	drop_sound = 'sound/items/handling/wood_drop.ogg'
 
 /obj/item/stack/sheet/mineral/bamboo/get_main_recipes()
 	. = ..()
@@ -444,6 +448,8 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound = 'sound/items/handling/cloth_pickup.ogg'
 	grind_results = list(/datum/reagent/cellulose = 20)
+	pickup_sound = 'sound/items/handling/cloth_pickup.ogg'
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 
 /obj/item/stack/sheet/cloth/get_main_recipes()
 	. = ..()
@@ -491,6 +497,8 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
 	var/pull_effort = 10
 	var/loom_result = /obj/item/stack/sheet/cloth
 	grind_results = list(/datum/reagent/cellulose = 20)
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound = 'sound/items/handling/cloth_pickup.ogg'
 
 /obj/item/stack/sheet/cotton/durathread
 	name = "raw durathread bundle"
@@ -587,6 +595,8 @@ GLOBAL_LIST_INIT(cardboard_recipes, list ( \
 	novariants = TRUE
 	grind_results = list(/datum/reagent/cellulose = 10)
 	material_type = /datum/material/cardboard
+	pickup_sound = 'sound/items/handling/cardboardbox_pickup.ogg'
+	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
 
 /obj/item/stack/sheet/cardboard/get_main_recipes()
 	. = ..()
@@ -710,6 +720,8 @@ GLOBAL_LIST_INIT(bronze_recipes, list ( \
 	grind_results = list(/datum/reagent/carbon = 10)
 	merge_type = /obj/item/stack/sheet/bone
 	material_type = /datum/material/bone
+	drop_sound = 'sound/items/handling/wood_drop.ogg'
+	pickup_sound = 'sound/items/handling/wood_pickup.ogg'
 
 GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("plastic floor tile", /obj/item/stack/tile/plastic, 1, 4, 20, category = CAT_TILES), \
@@ -758,6 +770,8 @@ new /datum/stack_recipe("paper frame door", /obj/structure/mineral_door/paperfra
 	resistance_flags = FLAMMABLE
 	grind_results = list(/datum/reagent/cellulose = 20)
 	material_type = /datum/material/paper
+	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
+	pickup_sound = 'sound/items/handling/cardboardbox_pickup.ogg'
 
 /obj/item/stack/sheet/paperframes/get_main_recipes()
 	. = ..()
@@ -779,6 +793,8 @@ new /datum/stack_recipe("paper frame door", /obj/structure/mineral_door/paperfra
 	merge_type = /obj/item/stack/sheet/meat
 	material_type = /datum/material/meat
 	material_modifier = 1 //None of that wussy stuff
+	drop_sound = 'sound/effects/meatslap.ogg'
+	pickup_sound = 'sound/effects/meatslap.ogg'
 
 /obj/item/stack/sheet/meat/fifty
 	amount = 50

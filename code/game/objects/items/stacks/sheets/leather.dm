@@ -5,6 +5,8 @@
 	inhand_icon_state = "sheet-hide"
 	novariants = TRUE
 	merge_type = /obj/item/stack/sheet/animalhide
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound = 'sound/items/handling/cloth_pickup.ogg'
 
 /obj/item/stack/sheet/animalhide/human
 	name = "human skin"
@@ -129,18 +131,24 @@ GLOBAL_LIST_INIT(xeno_recipes, list ( \
 	icon_state = "chitin"
 	novariants = TRUE
 	merge_type = /obj/item/stack/sheet/xenochitin
+	drop_sound = 'sound/items/handling/wood_drop.ogg'
+	pickup_sound = 'sound/items/handling/wood_pickup.ogg'
 
 /obj/item/xenos_claw
 	name = "alien claw"
 	desc = "The claw of a terrible creature."
 	icon = 'icons/mob/nonhuman-player/alien.dmi'
 	icon_state = "claw"
+	drop_sound = 'sound/items/handling/glass_drop.ogg'
+	pickup_sound = 'sound/items/handling/glass_pickup.ogg'
 
 /obj/item/weed_extract
 	name = "weed extract"
 	desc = "A piece of slimy, purplish weed."
 	icon = 'icons/mob/nonhuman-player/alien.dmi'
 	icon_state = "weed_extract"
+	drop_sound = 'sound/effects/meatslap.ogg'
+	pickup_sound = 'sound/effects/meatslap.ogg'
 
 /obj/item/stack/sheet/hairlesshide
 	name = "hairless hide"

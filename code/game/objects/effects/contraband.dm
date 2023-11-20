@@ -128,6 +128,14 @@
 		return CONTEXTUAL_SCREENTIP_SET
 	return .
 
+/obj/structure/sign/poster/examine(mob/user)
+	. = ..()
+	if(ruined)
+		. += span_info("You could [span_bold("cut")] down the remnants.")
+		return
+
+	. += span_info("You could [span_bold("cut")] this down.")
+
 /obj/structure/sign/poster/proc/randomise(base_type)
 	var/list/poster_types = subtypesof(base_type)
 	var/list/approved_types = list()

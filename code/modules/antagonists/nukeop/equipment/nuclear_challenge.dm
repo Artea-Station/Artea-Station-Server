@@ -88,8 +88,24 @@ GLOBAL_LIST_EMPTY(jam_on_wardec)
 
 	priority_announce(war_declaration, title = "Declaration of War", sound = 'sound/machines/alarm.ogg', has_important_message = TRUE)
 
-	for(var/V in GLOB.syndicate_shuttle_boards)
-		var/obj/item/circuitboard/computer/syndicate_shuttle/board = V
+/obj/item/nuclear_challenge/proc/war_was_declared(mob/living/user, memo)
+	priority_announce(
+		text = memo,
+		title = "Declaration of War",
+		sound = 'sound/machines/alarm.ogg',
+		has_important_message = TRUE,
+		sender_override = "Nuclear Operative Outpost",
+		color_override = "red",
+	)
+	if(user)
+		to_chat(user, "You've attracted the attention of powerful forces within the syndicate. \
+			A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
+
+	distribute_tc()
+	CONFIG_SET(number/shuttle_refuel_delay, max(CONFIG_GET(number/shuttle_refuel_delay), CHALLENGE_SHUTTLE_DELAY))
+	SSblackbox.record_feedback("amount", "nuclear_challenge_mode", 1)
+
+	for(var/obj/item/circuitboard/computer/syndicate_shuttle/board as anything in GLOB.syndicate_shuttle_boards)
 		board.challenge = TRUE
 
 	for(var/obj/machinery/computer/camera_advanced/shuttle_docker/D in GLOB.jam_on_wardec)
@@ -157,6 +173,40 @@ GLOBAL_LIST_EMPTY(jam_on_wardec)
 
 /obj/item/nuclear_challenge/clownops
 	uplink_type = /obj/item/uplink/clownop
+
+/// Subtype that does nothing but plays the war op message. Intended for debugging
+/obj/item/nuclear_challenge/literally_just_does_the_message
+	name = "\"Declaration of War\""
+	desc = "It's a Syndicate Declaration of War thing-a-majig, but it only plays the loud sound and message. Nothing else."
+	var/admin_only = TRUE
+
+/obj/item/nuclear_challenge/literally_just_does_the_message/check_allowed(mob/living/user)
+	if(admin_only && !check_rights_for(user.client, R_SPAWN|R_FUN|R_DEBUG))
+		to_chat(user, span_hypnophrase("You shouldn't have this!"))
+		return FALSE
+
+	return TRUE
+
+/obj/item/nuclear_challenge/literally_just_does_the_message/war_was_declared(mob/living/user, memo)
+#ifndef TESTING
+	// Reminder for our friends the admins
+	var/are_you_sure = tgui_alert(user, "Last second reminder that fake war declarations is a horrible idea and yes, \
+		this does the whole shebang, so be careful what you're doing.", "Don't do it", list("I'm sure", "You're right"))
+	if(are_you_sure != "I'm sure")
+		return
+#endif
+
+	priority_announce(
+		text = memo,
+		title = "Declaration of War",
+		sound = 'sound/machines/alarm.ogg',
+		has_important_message = TRUE,
+		sender_override = "Nuclear Operative Outpost",
+		color_override = "red",
+	)
+
+/obj/item/nuclear_challenge/literally_just_does_the_message/distribute_tc()
+	return
 
 #undef CHALLENGE_TELECRYSTALS
 #undef CHALLENGE_TIME_LIMIT

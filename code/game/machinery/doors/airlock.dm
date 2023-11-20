@@ -552,6 +552,7 @@
 		else
 			. += "There's a [note.name] pinned to the front..."
 			. += note.examine(user)
+			. += span_info("You could [span_bold("cut")] this down.")
 	if(seal)
 		. += "It's been braced with \a [seal]."
 	if(welded)
@@ -633,8 +634,12 @@
 
 			context[SCREENTIP_CONTEXT_LMB] = "Repair"
 			return CONTEXTUAL_SCREENTIP_SET
+		if (TOOL_WIRECUTTER)
+			if(panel_open)
+				return
 
-	return .
+			context[SCREENTIP_CONTEXT_LMB] = "Take down note"
+			return CONTEXTUAL_SCREENTIP_SET
 
 /obj/machinery/door/airlock/attack_ai(mob/user)
 	if(!canAIControl(user))
@@ -1452,11 +1457,7 @@
 	if(!note)
 		return
 	else if(istype(note, /obj/item/paper))
-		var/obj/item/paper/pinned_paper = note
-		if(pinned_paper.get_total_length() && pinned_paper.show_written_words)
-			return "note_words_[frame_state]"
-		else
-			return "note_[frame_state]"
+		return "note_[frame_state]"
 
 	else if(istype(note, /obj/item/photo))
 		return "photo_[frame_state]"

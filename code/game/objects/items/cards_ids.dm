@@ -29,6 +29,8 @@
 	desc = "Does card things."
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	drop_sound = 'sound/items/handling/disk_drop.ogg'
+	pickup_sound = 'sound/items/handling/disk_pickup.ogg'
 
 	var/list/files = list()
 
