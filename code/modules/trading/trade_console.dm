@@ -237,7 +237,7 @@
 		// Index is used cause it requires the least amount of refactoring, and I've refactored enough as it is, dammit.
 		var/index = 1
 		for(var/sold_good_id as anything in connected_trader.sold_packs)
-			var/datum/supply_pack/sold_goods = SStrading.supply_packs[sold_good_id]
+			var/datum/supply_pack/sold_goods = SStrading.supply_packs["[sold_good_id]"]
 			trades += list(list(
 				"name" = sold_goods.name,
 				"desc" = sold_goods.desc,
@@ -339,7 +339,7 @@
 				return
 
 			var/pack_id = params["id"]
-			var/datum/supply_pack/goodie = SStrading.supply_packs[pack_id]
+			var/datum/supply_pack/goodie = SStrading.supply_packs["[pack_id]"]
 			var/is_import = islist(goodie.group) ? (TRADER_GROUP_GALACTIC_IMPORTS in goodie.group) : goodie.group == TRADER_GROUP_GALACTIC_IMPORTS
 
 			if(!(pack_id in connected_trader?.sold_packs) && !is_import)

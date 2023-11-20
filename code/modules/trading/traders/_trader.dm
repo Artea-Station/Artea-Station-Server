@@ -99,7 +99,7 @@
 
 	if(guaranteed_packs) // Add these to the end?
 		for(var/datum/supply_pack/pack as anything in guaranteed_packs)
-			pack = SStrading.supply_packs[pack]
+			pack = SStrading.supply_packs["[pack]"]
 			pack.stock["[id]"] = pack.default_stock
 			sold_goods_init += pack.id
 
