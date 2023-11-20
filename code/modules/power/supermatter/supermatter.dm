@@ -224,6 +224,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	QDEL_NULL(soundloop)
 	if(psyOverlay)
 		QDEL_NULL(psyOverlay)
+	if(light_sources) // SM has extra light crap that can cause harddels.
+		for(var/datum/light_source/source as anything in light_sources)
+			source.remove_from_light_sources(src)
 	return ..()
 
 /obj/machinery/power/supermatter_crystal/proc/update_constants()
