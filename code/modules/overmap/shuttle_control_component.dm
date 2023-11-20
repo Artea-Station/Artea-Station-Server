@@ -90,7 +90,7 @@
 /datum/overmap_shuttle_controller/proc/RemoveViewer(mob/our_guy)
 	UnregisterSignal(our_guy, COMSIG_CLICKON)
 	our_guy.client.perspective = MOB_PERSPECTIVE
-	our_guy.client.eye = mob_controller
+	our_guy.client.eye = our_guy
 	our_guy.client.show_popup_menus = TRUE
 	our_guy.client.pixel_x = 0
 	our_guy.client.pixel_y = 0
