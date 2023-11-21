@@ -38,6 +38,7 @@
 		/obj/item/circuitboard/machine/griddle,
 		/obj/item/circuitboard/machine/reagentgrinder,
 		/obj/item/circuitboard/machine/oven,
+		/obj/item/circuitboard/machine/stove,
 		/obj/item/circuitboard/machine/processor,
 		/obj/item/circuitboard/machine/gibber,
 		/obj/item/circuitboard/machine/chem_dispenser/drinks,
@@ -111,4 +112,3 @@
 		/obj/item/circuitboard/computer/mecha_control,
 		/obj/item/circuitboard/computer/apc_control,
 	)
-

@@ -1649,6 +1649,19 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "For enjoying the most wonderful time of the year."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
+/datum/glass_style/has_foodtype/drinking_glass/eggnog
+	required_drink_type = /datum/reagent/consumable/ethanol/eggnog
+	name = "eggnog"
+	desc = "For enjoying the most wonderful time of the year."
+	icon_state = "glass_yellow"
+	drink_type = FRUIT
+
+/datum/glass_style/has_foodtype/juicebox/eggnog
+	required_drink_type = /datum/reagent/consumable/ethanol/eggnog
+	name = "carton of eggnog"
+	desc = "Tasty grape juice in a fun little container. Non-alcoholic!"
+	icon_state = "grapebox"
+	drink_type = FRUIT
 
 /datum/reagent/consumable/ethanol/narsour
 	name = "Nar'Sour"
