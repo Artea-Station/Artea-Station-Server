@@ -21,7 +21,7 @@
 	name = "High-traction Floor Tiles"
 	desc = "Make slipping a thing of the past with thirty industrial-grade anti-slip floor tiles!"
 	cost = CARGO_CRATE_VALUE * 4
-	access_view = ACCESS_JANITOR
+	access = ACCESS_JANITOR
 	contains = list(/obj/item/stack/tile/noslip/thirty)
 	container_name = "high-traction floor tiles crate"
 
@@ -29,7 +29,7 @@
 	name = "Janitorial Supplies Crate"
 	desc = "Fight back against dirt and grime with Nanotrasen's Janitorial Essentials(tm)! Contains three buckets, caution signs, and cleaner grenades. Also has a single mop, broom, spray cleaner, rag, and trash bag."
 	cost = CARGO_CRATE_VALUE * 2
-	access_view = ACCESS_JANITOR
+	access = ACCESS_JANITOR
 	contains = list(/obj/item/reagent_containers/cup/bucket,
 					/obj/item/reagent_containers/cup/bucket,
 					/obj/item/reagent_containers/cup/bucket,
@@ -57,7 +57,7 @@
 
 /datum/supply_pack/service/janitor/janitank
 	name = "Janitor Backpack Crate"
-	desc = "Call forth divine judgement upon dirt and grime with this high capacity janitor backpack. Contains 500 units of station-cleansing cleaner. Requires janitor access to open."
+	desc = "Call forth divine judgement upon dirt and grime with this high capacity janitor backpack. Contains 500 units of station-cleansing cleaner."
 	cost = CARGO_CRATE_VALUE * 2
 	access = ACCESS_JANITOR
 	contains = list(/obj/item/watertank/janitor)
@@ -170,10 +170,9 @@
 
 /datum/supply_pack/service/minerkit
 	name = "Shaft Miner Starter Kit"
-	desc = "All the miners died too fast? Assistant wants to get a taste of life off-station? Either way, this kit is the best way to turn a regular crewman into an ore-producing, monster-slaying machine. Contains meson goggles, a pickaxe, advanced mining scanner, cargo headset, ore bag, gasmask, an explorer suit and a miner ID upgrade. Requires QM access to open."
+	desc = "All the miners died too fast? Assistant wants to get a taste of life off-station? Either way, this kit is the best way to turn a regular crewman into an ore-producing, monster-slaying machine. Contains meson goggles, a pickaxe, advanced mining scanner, cargo headset, ore bag, gasmask, an explorer suit and a miner ID upgrade."
 	cost = CARGO_CRATE_VALUE * 4
 	access = ACCESS_QM
-	access_view = ACCESS_MINING_STATION
 	contains = list(/obj/item/storage/backpack/duffelbag/mining_conscript)
 	container_name = "shaft miner starter kit"
 	container_type = /obj/structure/closet/crate/secure

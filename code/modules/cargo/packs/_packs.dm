@@ -11,8 +11,6 @@
 	var/cost = CARGO_CRATE_VALUE * 1.4
 	/// What access is required to open the crate when spawned?
 	var/access
-	/// Who can view this supply_pack and with what access.
-	var/access_view
 	/// If someone with any of the following accesses in a list can open this cargo pack crate.
 	var/access_any
 	/// A list of items that are spawned in the crate of the supply pack.

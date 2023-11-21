@@ -106,7 +106,7 @@
 				pack.category = pack_group
 				pack.id = "[chem]|[initial(chem.name)]|[size]"
 				pack.desc = "Contains a single [lowertext(size)] cartridge of [initial(chem.name)]. [initial(chem.description)]"
-				pack.access_view = pack_access
+				pack.access = pack_access
 				pack.contains = list(cartridge)
 				pack.chem = chem
 				pack.cost = (pack_cost * pack_cost_multiplier) + CARGO_CRATE_VALUE

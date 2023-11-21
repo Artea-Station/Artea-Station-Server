@@ -4,12 +4,12 @@
 
 /datum/supply_pack/engine
 	group = "Engine Construction"
-	access_view = ACCESS_ENGINEERING
+	access = ACCESS_ENGINEERING
 	container_type = /obj/structure/closet/crate/engineering
 
 /datum/supply_pack/engine/emitter
 	name = "Emitter Crate"
-	desc = "Useful for powering forcefield generators while destroying locked crates and intruders alike. Contains two high-powered energy emitters. Requires CE access to open."
+	desc = "Useful for powering forcefield generators while destroying locked crates and intruders alike. Contains two high-powered energy emitters."
 	cost = CARGO_CRATE_VALUE * 7
 	access = ACCESS_CE
 	contains = list(/obj/machinery/power/emitter,
@@ -70,7 +70,7 @@
 
 /datum/supply_pack/engine/supermatter_shard
 	name = "Supermatter Shard Crate"
-	desc = "The power of the heavens condensed into a single crystal. Requires CE access to open."
+	desc = "The power of the heavens condensed into a single crystal."
 	cost = CARGO_CRATE_VALUE * 20
 	access = ACCESS_CE
 	contains = list(/obj/machinery/power/supermatter_crystal/shard)
@@ -91,7 +91,7 @@
 
 /datum/supply_pack/engine/hypertorus_fusion_reactor
 	name = "HFR Crate"
-	desc = "The new and improved fusion reactor. Requires CE access to open."
+	desc = "The new and improved fusion reactor."
 	cost = CARGO_CRATE_VALUE * 23
 	access = ACCESS_CE
 	contains = list(/obj/item/hfr_box/corner,
@@ -125,7 +125,7 @@
 	name = "50 Empty License Plates"
 	desc = "Create a bunch of boxes."
 	cost = CARGO_CRATE_VALUE * 2  // 50 * 25 + 700 - 1000 = 950 credits profit
-	access_view = ACCESS_BRIG_ENTRANCE
+	access = ACCESS_BRIG_ENTRANCE
 	contains = list(/obj/item/stack/license_plates/empty/fifty)
 	container_name = "empty license plate crate"
 
@@ -206,7 +206,7 @@
 	name = "Large Fuel Tank Crate"
 	desc = "Contains a high-capacity fuel tank. Keep contents away from open flame."
 	cost = CARGO_CRATE_VALUE * 4
-	access_view = ACCESS_ENGINEERING
+	access = ACCESS_ENGINEERING
 	contains = list(/obj/structure/reagent_dispensers/fueltank/large)
 	container_name = "high-capacity fuel tank crate"
 	container_type = /obj/structure/closet/crate/large
@@ -240,9 +240,8 @@
 		pack.name = "[name] Canister"
 		pack.desc = "Contains a canister of [name]."
 		if(initial(gas.dangerous))
-			pack.desc = "[pack.desc] Requires Atmospherics access to open."
+			pack.desc = "[pack.desc]"
 			pack.access = ACCESS_ATMOSPHERICS
-			pack.access_view = ACCESS_ATMOSPHERICS
 		pack.container_name = "[name] canister crate"
 		pack.id = "[type]([name])"
 

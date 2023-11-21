@@ -110,7 +110,7 @@
 	name = "Book Crate"
 	desc = "Surplus from the Nanotrasen Archives, these seven books are sure to be good reads."
 	cost = CARGO_CRATE_VALUE * 3
-	access_view = ACCESS_LIBRARY
+	access = ACCESS_LIBRARY
 	contains = list(/obj/item/book/codex_gigas,
 					/obj/item/book/manual/random/,
 					/obj/item/book/manual/random/,
@@ -123,7 +123,7 @@
 /datum/supply_pack/misc/commandkeys
 	name = "Command Encryption Key Crate"
 	desc = "A pack of encryption keys that give access to the command radio network. Nanotrasen reminds unauthorized employees not to eavesdrop in on secure communications channels, or at least to keep heckling of the command staff to a minimum."
-	access_view = ACCESS_COMMAND
+	access = ACCESS_COMMAND
 	access = ACCESS_COMMAND
 	cost = CARGO_CRATE_VALUE * 4
 	contains = list(/obj/item/encryptionkey/headset_com,
@@ -194,7 +194,7 @@
 	name = "Funeral Supply crate"
 	desc = "At the end of the day, someone's gonna want someone dead. Give them a proper send-off with these funeral supplies! Contains a coffin with burial garmets and flowers."
 	cost = CARGO_CRATE_VALUE * 1.6
-	access_view = ACCESS_CHAPEL_OFFICE
+	access = ACCESS_CHAPEL_OFFICE
 	contains = list(/obj/item/clothing/under/misc/burial,
 					/obj/item/food/grown/harebell,
 					/obj/item/food/grown/poppy/geranium)
@@ -205,7 +205,7 @@
 	name = "Religious Supplies Crate"
 	desc = "Keep your local chaplain happy and well-supplied, lest they call down judgement upon your cargo bay. Contains two bottles of holywater, bibles, chaplain robes, and burial garmets."
 	cost = CARGO_CRATE_VALUE * 6 // it costs so much because the Space Church needs funding to build a cathedral
-	access_view = ACCESS_CHAPEL_OFFICE
+	access = ACCESS_CHAPEL_OFFICE
 	contains = list(/obj/item/reagent_containers/cup/glass/bottle/holywater,
 					/obj/item/reagent_containers/cup/glass/bottle/holywater,
 					/obj/item/storage/book/bible/booze,

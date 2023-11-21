@@ -1,5 +1,5 @@
 import { useBackend, useLocalState, useSharedState } from '../backend';
-import { AnimatedNumber, Box, Button, Icon, LabeledList, NoticeBox, Section, Stack, Tabs, Tooltip } from '../components';
+import { AnimatedNumber, Box, Button, Divider, Icon, LabeledList, NoticeBox, Section, Stack, Tabs, Tooltip } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 import { BooleanLike } from 'common/react';
@@ -67,6 +67,7 @@ type Trade = {
   desc: string;
   cost: number;
   amount: number;
+  access_desc: string;
 };
 
 type Order = Trade & {
@@ -322,7 +323,19 @@ const TradeTab = (props, context) => {
             <LabeledList>
               {data.connected_trader.trades.map((trade) => {
                 return (
-                  <Tooltip content={trade.desc} key={trade.id}>
+                  <Tooltip
+                    content={
+                      <>
+                        {trade.desc}
+                        {trade.access_desc && (
+                          <>
+                            <Divider />
+                            {trade.access_desc}
+                          </>
+                        )}
+                      </>
+                    }
+                    key={trade.id}>
                     <LabeledList.Item
                       alternating
                       label={
@@ -454,7 +467,19 @@ const ImportsTab = (props, context) => {
               <Stack vertical mb="1em">
                 {category.packs.map((trade) => {
                   return (
-                    <Tooltip content={trade.desc} key={trade.id}>
+                    <Tooltip
+                      content={
+                        <>
+                          {trade.desc}
+                          {trade.access_desc && (
+                            <>
+                              <Divider />
+                              {trade.access_desc}
+                            </>
+                          )}
+                        </>
+                      }
+                      key={trade.id}>
                       <LabeledList.Item
                         alternating
                         label={

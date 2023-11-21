@@ -7,7 +7,7 @@
 	container_type = /obj/structure/closet/crate/freezer
 
 /datum/supply_pack/organic/hydroponics
-	access_view = ACCESS_HYDROPONICS
+	access = ACCESS_HYDROPONICS
 
 /datum/supply_pack/organic/hydroponics/beekeeping_suits
 	name = "Beekeeper Suit Crate"
@@ -60,7 +60,7 @@
 	name = "Exotic Seeds Crate"
 	desc = "Any entrepreneuring botanist's dream. Contains fourteen different seeds, including one replica-pod seed and two mystery seeds!"
 	cost = CARGO_CRATE_VALUE * 3
-	access_view = ACCESS_HYDROPONICS
+	access = ACCESS_HYDROPONICS
 	contains = list(/obj/item/seeds/nettle,
 					/obj/item/seeds/replicapod,
 					/obj/item/seeds/plump,
@@ -115,7 +115,7 @@
 	container_name = "party equipment crate"
 	contraband = TRUE
 	access = ACCESS_THEATRE
-	access_view = ACCESS_THEATRE
+	access = ACCESS_THEATRE
 	container_type = /obj/structure/closet/crate/secure
 
 /datum/supply_pack/organic/hydroponics
@@ -136,7 +136,7 @@
 
 /datum/supply_pack/organic/hydroponics/hydrotank
 	name = "Hydroponics Backpack Crate"
-	desc = "Bring on the flood with this high-capacity backpack crate. Contains 500 units of life-giving H2O. Requires hydroponics access to open."
+	desc = "Bring on the flood with this high-capacity backpack crate. Contains 500 units of life-giving H2O."
 	cost = CARGO_CRATE_VALUE * 2
 	access = ACCESS_HYDROPONICS
 	contains = list(/obj/item/watertank)

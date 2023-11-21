@@ -90,7 +90,7 @@
 
 /datum/supply_pack/emergency/atmostank
 	name = "Firefighting Tank Backpack"
-	desc = "Mow down fires with this high-capacity fire fighting tank backpack. Requires Atmospherics access to open."
+	desc = "Mow down fires with this high-capacity fire fighting tank backpack."
 	cost = CARGO_CRATE_VALUE * 1.8
 	access = ACCESS_ATMOSPHERICS
 	contains = list(/obj/item/watertank/atmos)
@@ -142,7 +142,7 @@
 
 /datum/supply_pack/emergency/spacesuit
 	name = "Space Suit Crate"
-	desc = "Contains one aging suit from Space-Goodwill and a jetpack. Requires EVA access to open."
+	desc = "Contains one aging suit from Space-Goodwill and a jetpack."
 	cost = CARGO_CRATE_VALUE * 3
 	access = ACCESS_EVA
 	contains = list(/obj/item/clothing/suit/space,
@@ -169,7 +169,7 @@
 
 /datum/supply_pack/emergency/weedcontrol
 	name = "Weed Control Crate"
-	desc = "Keep those invasive species OUT. Contains a scythe, gasmask, and two anti-weed chemical grenades. Warranty void if used on ambrosia. Requires Hydroponics access to open."
+	desc = "Keep those invasive species OUT. Contains a scythe, gasmask, and two anti-weed chemical grenades. Warranty void if used on ambrosia."
 	cost = CARGO_CRATE_VALUE * 2.5
 	access = ACCESS_HYDROPONICS
 	contains = list(/obj/item/scythe,

@@ -238,12 +238,40 @@
 		var/index = 1
 		for(var/sold_good_id as anything in connected_trader.sold_packs)
 			var/datum/supply_pack/sold_goods = SStrading.supply_packs["[sold_good_id]"]
+
+			var/access_desc
+			var/end_text
+			var/list/access_list
+			if(length(sold_goods.access))
+				access_desc += "Requires "
+				end_text = "and"
+				access_list = sold_goods.access
+			else if (length(sold_goods.access_any))
+				access_desc = "Requires "
+				end_text = "or"
+				access_list = sold_goods.access_any
+
+			if(access_desc && length(access_list)) // Just break the desc instead of breaking the entire UI.
+				if(istext(access_list))
+					access_desc += "[SSid_access.desc_by_access[access_list]] access to open."
+				else if(access_list.len == 1)
+					access_desc += "[SSid_access.desc_by_access[access_list[1]]] access to open."
+				else
+					var/list/access_names = list()
+					for(var/access in access_list)
+						access_names += SSid_access.desc_by_access[access]
+
+					var/last = access_names.Copy(access_names.len)[1]
+					access_names.Cut(access_names.len)
+					access_desc += "[access_names.Join(", ")] [end_text] [last] [ end_text == "or" ? "access" : "accesses" ] to open."
+
 			trades += list(list(
 				"name" = sold_goods.name,
 				"desc" = sold_goods.desc,
 				"id" = sold_goods.id,
 				"cost" = sold_goods.get_cost(),
 				"amount" = sold_goods.stock["[connected_trader.id]"],
+				"access_desc" = access_desc,
 			))
 			index += 1
 		index = 1

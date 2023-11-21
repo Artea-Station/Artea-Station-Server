@@ -10,7 +10,7 @@
 	name = "Anti-breach Shield Projector Crate"
 	desc = "Hull breaches again? Say no more with the Nanotrasen Anti-Breach Shield Projector! Uses forcefield technology to keep the air in, and the space out. Contains two shield projectors."
 	cost = CARGO_CRATE_VALUE * 3
-	access_view = ACCESS_ENGINE_EQUIP
+	access = ACCESS_ENGINE_EQUIP
 	contains = list(/obj/machinery/shieldgen,
 					/obj/machinery/shieldgen)
 	container_name = "anti-breach shield projector crate"
@@ -19,7 +19,7 @@
 	name = "APLU MK-I Crate"
 	desc = "A do-it-yourself kit for building an ALPU MK-I \"Ripley\", designed for lifting and carrying heavy equipment, and other station tasks. Batteries not included."
 	cost = CARGO_CRATE_VALUE * 10
-	access_view = ACCESS_ROBOTICS
+	access = ACCESS_ROBOTICS
 	contains = list(/obj/item/mecha_parts/chassis/ripley,
 					/obj/item/mecha_parts/part/ripley_torso,
 					/obj/item/mecha_parts/part/ripley_right_arm,
@@ -47,7 +47,7 @@
 	name = "Engineering Gear Crate"
 	desc = "Gear up with three toolbelts, high-visibility vests, welding helmets, hardhats, and two pairs of meson goggles!"
 	cost = CARGO_CRATE_VALUE * 4
-	access_view = ACCESS_ENGINEERING
+	access = ACCESS_ENGINEERING
 	contains = list(/obj/item/storage/belt/utility,
 					/obj/item/storage/belt/utility,
 					/obj/item/storage/belt/utility,
@@ -68,7 +68,7 @@
 	name = "Insulated Gloves Crate"
 	desc = "The backbone of modern society. Barely ever ordered for actual engineering. Contains three insulated gloves."
 	cost = CARGO_CRATE_VALUE * 8 //Made of pure-grade bullshittinium
-	access_view = ACCESS_ENGINE_EQUIP
+	access = ACCESS_ENGINE_EQUIP
 	contains = list(/obj/item/clothing/gloves/color/yellow,
 					/obj/item/clothing/gloves/color/yellow,
 					/obj/item/clothing/gloves/color/yellow)
@@ -87,7 +87,7 @@
 	name = "P.A.C.M.A.N Generator Crate"
 	desc = "Engineers can't set up the engine? Not an issue for you, once you get your hands on this P.A.C.M.A.N. Generator! Takes in plasma and spits out sweet sweet energy."
 	cost = CARGO_CRATE_VALUE * 5
-	access_view = ACCESS_ENGINEERING
+	access = ACCESS_ENGINEERING
 	contains = list(/obj/machinery/power/port_gen/pacman)
 	container_name = "\improper PACMAN generator crate"
 	container_type = /obj/structure/closet/crate/engineering/electrical
@@ -104,10 +104,10 @@
 
 /datum/supply_pack/engineering/shuttle_engine
 	name = "Shuttle Engine Crate"
-	desc = "Through advanced bluespace-shenanigans, our engineers have managed to fit an entire shuttle engine into one tiny little crate. Requires CE access to open."
+	desc = "Through advanced bluespace-shenanigans, our engineers have managed to fit an entire shuttle engine into one tiny little crate."
 	cost = CARGO_CRATE_VALUE * 6
 	access = ACCESS_CE
-	access_view = ACCESS_CE
+	access = ACCESS_CE
 	contains = list(/obj/structure/shuttle/engine/propulsion/burst/cargo)
 	container_name = "shuttle engine crate"
 	container_type = /obj/structure/closet/crate/secure/engineering
@@ -116,7 +116,7 @@
 /datum/supply_pack/engineering/tools
 	name = "Toolbox Crate"
 	desc = "Any robust spaceman is never far from their trusty toolbox. Contains three electrical toolboxes and three mechanical toolboxes."
-	access_view = ACCESS_ENGINE_EQUIP
+	access = ACCESS_ENGINE_EQUIP
 	contains = list(/obj/item/storage/toolbox/electrical,
 					/obj/item/storage/toolbox/electrical,
 					/obj/item/storage/toolbox/electrical,
@@ -130,7 +130,7 @@
 	name = "Portable Air Pump Crate"
 	desc = "Did someone let the air out of the shuttle again? We've got you covered. Contains two portable air pumps."
 	cost = CARGO_CRATE_VALUE * 4.5
-	access_view = ACCESS_ATMOSPHERICS
+	access = ACCESS_ATMOSPHERICS
 	contains = list(/obj/machinery/portable_atmospherics/pump,
 					/obj/machinery/portable_atmospherics/pump)
 	container_name = "portable air pump crate"
@@ -139,7 +139,7 @@
 	name = "Portable Scrubber Crate"
 	desc = "Clean up that pesky plasma leak with your very own set of two portable scrubbers."
 	cost = CARGO_CRATE_VALUE * 4.5
-	access_view = ACCESS_ATMOSPHERICS
+	access = ACCESS_ATMOSPHERICS
 	contains = list(/obj/machinery/portable_atmospherics/scrubber,
 					/obj/machinery/portable_atmospherics/scrubber)
 	container_name = "portable scrubber crate"
@@ -148,7 +148,7 @@
 	name = "Huge Portable Scrubber Crate"
 	desc = "A huge portable scrubber for huge atmospherics mistakes."
 	cost = CARGO_CRATE_VALUE * 7.5
-	access_view = ACCESS_ATMOSPHERICS
+	access = ACCESS_ATMOSPHERICS
 	contains = list(/obj/machinery/portable_atmospherics/scrubber/huge/movable/cargo)
 	container_name = "huge portable scrubber crate"
 	container_type = /obj/structure/closet/crate/large
@@ -166,7 +166,7 @@
 	desc = "The pride of Nanotrasen Naval Command. The legendary Bluespace Artillery Cannon is a devastating feat of human engineering and testament to wartime determination. Highly advanced research is required for proper construction. "
 	cost = CARGO_CRATE_VALUE * 30
 	special = TRUE
-	access_view = ACCESS_COMMAND
+	access = ACCESS_COMMAND
 	contains = list(/obj/item/circuitboard/machine/bsa/front,
 					/obj/item/circuitboard/machine/bsa/middle,
 					/obj/item/circuitboard/machine/bsa/back,
@@ -179,7 +179,7 @@
 	desc = "Secure the longevity of the current state of humanity within this massive library of scientific knowledge, capable of granting superhuman powers and abilities. Highly advanced research is required for proper construction. Also contains five DNA probes."
 	cost = CARGO_CRATE_VALUE * 24
 	special = TRUE
-	access_view = ACCESS_COMMAND
+	access = ACCESS_COMMAND
 	contains = list(
 					/obj/item/circuitboard/machine/dna_vault,
 					/obj/item/dna_probe,
@@ -195,7 +195,7 @@
 	desc = "Contains five DNA probes for use in the DNA vault."
 	cost = CARGO_CRATE_VALUE * 6
 	special = TRUE
-	access_view = ACCESS_COMMAND
+	access = ACCESS_COMMAND
 	contains = list(/obj/item/dna_probe,
 					/obj/item/dna_probe,
 					/obj/item/dna_probe,
@@ -210,7 +210,7 @@
 	desc = "Protect the very existence of this station with these Anti-Meteor defenses. Contains three Shield Generator Satellites."
 	cost = CARGO_CRATE_VALUE * 6
 	special = TRUE
-	access_view = ACCESS_COMMAND
+	access = ACCESS_COMMAND
 	contains = list(
 					/obj/machinery/satellite/meteor_shield,
 					/obj/machinery/satellite/meteor_shield,
@@ -224,7 +224,7 @@
 	desc = "A control system for the Shield Generator Satellite system."
 	cost = CARGO_CRATE_VALUE * 10
 	special = TRUE
-	access_view = ACCESS_COMMAND
+	access = ACCESS_COMMAND
 	contains = list(/obj/item/circuitboard/computer/sat_control)
 	container_name= "shield control board crate"
 
