@@ -1,5 +1,5 @@
 /datum/supply_pack/galactic_imports/medical
-	group = "Medical"
+	category = "Medical"
 
 /datum/supply_pack/galactic_imports/medical/large_dispenser
 	name = "Large Chem Dispenser Board"

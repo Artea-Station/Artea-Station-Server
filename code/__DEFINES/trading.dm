@@ -38,40 +38,4 @@
 #define TRADE_USER_SUFFIX_AI "ai"
 #define TRADE_USER_SUFFIX_CYBORG "silicon"
 #define TRADE_USER_SUFFIX_GOLEM "golem"
-#define TRADE_USER_SUFFIX_ROBOT_PERSON "robotperson"
-
-/*
-All of these can have a suffix of _<suffix>. These can be species IDs, or the above TRADE_USER_SUFFIX defines.
-
-hail_generic //When the trader hails the person
-hail_deny //When the trader denies the hail
-
-trade_show_goods //What the trader says when showing goods
-trade_no_sell_goods //What the trader says when disclaiming that he doesnt sell goods
-
-what_want //When showing what items he buys
-trade_no_goods //When disclaiming he doesnt buy items
-
-compliment_deny //When denies a compliment
-compliment_accept //When accepts a compliment
-
-insult_bad //When he's pissed off at an inuslt
-insult_good //When he doesnt mind the insult much
-
-pad_empty //When you try and conduct selling but your pad is empty
-
-how_much //When he appraises the value of item. ITEM = item name, VALUE = amount of cash worth
-appraise_multiple //When he appraises the value of multiple items.  VALUE = amount of cash worth
-
-trade_found_unwanted //When there's only items that they dont want on the pad
-out_of_money //When the trader's out of money to pay us for stuff
-doesnt_use_cash //When he disclaims that he doesnt use cash
-
-trade_complete //Sentence after a successful trade
-trade_not_enough //Sentence when the trader rejects a barter offer
-out_of_stock //The trader is out of stock on an item the user wants to buy
-user_no_money //When the user doesnt have enough money to perform a trade
-only_deal_in_goods //When the user tries to sell items for money, but the trader doesnt deal in money
-
-bounty_fail_claim //When the user tries to turn in a bounty, but doesn't meet the requirements
-*/
+#define TRADE_USER_SUFFIX_SYNTH "synth"

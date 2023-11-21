@@ -223,7 +223,7 @@
 		if(isgolem(human_user))
 			return TRADE_USER_SUFFIX_GOLEM
 		if(issynthetic(user))
-			return TRADE_USER_SUFFIX_ROBOT_PERSON
+			return TRADE_USER_SUFFIX_SYNTH
 		return human_user.dna.species.id
 
 /// Generic getter for responses. Handles replacing keywords and getting species-specific responses as well.

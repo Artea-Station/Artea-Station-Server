@@ -29,7 +29,6 @@
 	desc = "Contains a full set of chem cartridges of the same size inside a soft drinks dispenser at shift start."
 	cost = CARGO_CRATE_VALUE * 20
 	contains = CARTRIDGE_LIST_DRINKS
-	category = "Cartridge Packs"
 	container_type = /obj/structure/closet/crate
 
 /datum/supply_pack/galactic_imports/cart_pack/booze_chem_cartridge_get_out_of_jail_card
@@ -38,7 +37,6 @@
 	desc = "Contains a full set of chem cartridges of the same size inside a booze dispenser at shift start."
 	cost = CARGO_CRATE_VALUE * 25
 	contains = CARTRIDGE_LIST_BOOZE
-	category = "Cartridge Packs"
 	container_type = /obj/structure/closet/crate
 
 // The amount of shit going into this *will* warrant it's own category.
