@@ -100,3 +100,10 @@
 #define COMSIG_ATOM_PROPAGATE_RAD_PULSE "atom_propagate_radiation_pulse"
 /// from cosmetic items to restyle certain mobs, objects or organs: (atom/source, mob/living/trimmer, atom/movable/original_target, body_zone, restyle_type, style_speed)
 #define COMSIG_ATOM_RESTYLE "atom_restyle"
+
+/// when atom falls onto the floor and become exposed to germs: (datum/component/germ_exposure)
+#define COMSIG_ATOM_GERM_EXPOSED "atom_germ_exposed"
+/// when atom is picked up from the floor or moved to an elevated structure: (datum/component/germ_exposure)
+#define COMSIG_ATOM_GERM_UNEXPOSED "atom_germ_unexposed"
+/// when atom is washed
+#define COMSIG_ATOM_WASHED "atom_washed"

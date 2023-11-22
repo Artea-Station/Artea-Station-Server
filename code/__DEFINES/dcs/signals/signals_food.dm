@@ -12,6 +12,8 @@
 
 ///from base of Component/edible/On_Consume: (mob/living/eater, mob/living/feeder)
 #define COMSIG_FOOD_CONSUMED "food_consumed"
+/// called when a pill is injested (mob/living/eater, mob/living/feeder)
+#define COMSIG_PILL_CONSUMED "pill_consumed"
 
 ///from base of Component/edible/on_silver_slime_reaction: (obj/item/source)
 #define COMSIG_FOOD_SILVER_SPAWNED "food_silver_spawned"

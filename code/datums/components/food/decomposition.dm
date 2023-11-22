@@ -4,6 +4,7 @@
 #define DECOMPOSITION_TIME_RAW 5 MINUTES
 #define DECOMPOSITION_TIME_GROSS 7 MINUTES
 
+///Makes things decompose when exposed to germs. Requires /datum/component/germ_sensitive to detect exposure.
 /datum/component/decomposition
 	dupe_mode = COMPONENT_DUPE_UNIQUE
 	/// Makes sure maploaded food only starts decomposing if a player's EVER picked it up before
@@ -23,8 +24,8 @@
 	/// Does our food attract ants?
 	var/produce_ants = FALSE
 
-/datum/component/decomposition/Initialize(mapload, decomp_req_handle, decomp_flags = NONE, decomp_result, ant_attracting = FALSE, custom_time = 0)
-	if(!isobj(parent))
+/datum/component/decomposition/Initialize(mapload, decomp_req_handle, decomp_flags = NONE, decomp_result, ant_attracting = FALSE, custom_time = 0, stink_particles = /particles/stink)
+	if(!ismovable(parent) || !HAS_TRAIT(parent, TRAIT_GERM_SENSITIVE))
 		return COMPONENT_INCOMPATIBLE
 
 	src.decomp_flags = decomp_flags
@@ -53,34 +54,30 @@
 
 	time_remaining = original_time
 
-	handle_movement()
+	src.stink_particles = stink_particles
 
+/datum/component/decomposition/Destroy()
+	. = ..()
+	if(particle_effect)
+		QDEL_NULL(particle_effect)
+
+/datum/component/decomposition/RegisterWithParent()
+	RegisterSignal(parent, COMSIG_ATOM_GERM_EXPOSED, PROC_REF(start_timer))
+	RegisterSignal(parent, COMSIG_ATOM_GERM_UNEXPOSED, PROC_REF(remove_timer))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(examine))
 
 /datum/component/decomposition/UnregisterFromParent()
 	UnregisterSignal(parent, list(
-		COMSIG_ITEM_PICKUP,
-		COMSIG_ATOM_ENTERED,
-		COMSIG_MOVABLE_MOVED,
-		COMSIG_ITEM_DROPPED,
-		COMSIG_ATOM_EXITED,
-		COMSIG_PARENT_EXAMINE))
+		COMSIG_ATOM_GERM_EXPOSED,
+		COMSIG_ATOM_GERM_UNEXPOSED,
+		COMSIG_ATOM_EXAMINE
+	))
 
-/datum/component/decomposition/proc/handle_movement()
+/datum/component/decomposition/proc/start_timer()
 	SIGNAL_HANDLER
 	if(!handled) // If maploaded, has someone touched this previously?
+		handled = TRUE // First germ exposure is ignored
 		return
-	var/obj/food = parent // Doesn't HAVE to be food, that's just what it's intended for
-
-	var/turf/open/open_turf = food.loc
-
-	if(!istype(open_turf) || islava(open_turf) || istype(open_turf, /turf/open/misc/asteroid)) //Are we actually in a valid open turf?
-		remove_timer()
-		return
-
-	for(var/atom/movable/content as anything in open_turf.contents)
-		if(GLOB.typecache_elevated_structures[content.type])
-			remove_timer()
-			return
 
 	// If all other checks fail, then begin decomposition.
 	timerid = addtimer(CALLBACK(src, PROC_REF(decompose)), time_remaining, TIMER_STOPPABLE | TIMER_UNIQUE)
@@ -94,17 +91,13 @@
 		time_remaining = timeleft(timerid)
 		deltimer(timerid)
 
-/datum/component/decomposition/proc/dropped()
-	SIGNAL_HANDLER
-	protected = FALSE
-	handle_movement()
-
-/datum/component/decomposition/proc/picked_up()
-	SIGNAL_HANDLER
-	remove_timer()
-	protected = TRUE
-	if(!handled)
-		handled = TRUE
+/datum/component/decomposition/proc/stink_up()
+	stink_timerid = null
+	// Neither should happen, but to be sure
+	if(particle_effect || !stink_particles)
+		return
+	// we don't want stink lines on mobs (even though it'd be quite funny)
+	particle_effect = new(parent, stink_particles, isitem(parent) ? NONE : PARTICLE_ATTACH_MOB)
 
 /datum/component/decomposition/proc/decompose()
 	var/obj/decomp = parent //Lets us spawn things at decomp
