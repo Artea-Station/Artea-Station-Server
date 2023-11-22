@@ -56,7 +56,7 @@
 		/obj/item/food/grown/potato = 1,
 		/obj/item/food/cheese/wedge = 1
 	)
-	result = /obj/item/food/loadedbakedpotato
+	result = /obj/item/food/loaded_baked_potato
 	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/cheesyfries

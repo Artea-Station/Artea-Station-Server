@@ -388,7 +388,7 @@
 		/datum/component/takes_reagent_appearance, \
 		on_icon_changed = CALLBACK(src, PROC_REF(on_cup_change)), \
 		on_icon_reset = CALLBACK(src, PROC_REF(on_cup_reset)), \
-		base_container_type = /obj/item/reagent_containers/cup/glass/bottle/juice/smallcarton, \
+		base_container_type = /obj/item/reagent_containers/cup/glass/sillycup/smallcarton, \
 	)
 
 /obj/item/reagent_containers/cup/glass/sillycup/smallcarton/smash(atom/target, mob/thrower, ranged = FALSE)
