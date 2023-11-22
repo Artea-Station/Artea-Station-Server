@@ -182,8 +182,8 @@
 	SIGNAL_HANDLER
 
 	var/new_multiplier = 0
-	for(var/datum/stock_part/micro_laser/part in source.component_parts)
-		new_multiplier += (part.tier * 0.5)
+	for(var/obj/item/stock_parts/micro_laser/part in source.component_parts)
+		new_multiplier += (part.rating * 0.5)
 
 	heat_coefficient = initial(heat_coefficient) * max(round(new_multiplier), 1)
 

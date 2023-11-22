@@ -30,6 +30,8 @@
 	var/category
 	///Set to FALSE if it needs to be learned first.
 	var/always_available = TRUE
+	/// Additonal requirements text shown in UI
+	var/additional_req_text
 	///Required machines for the craft, set the assigned value of the typepath to CRAFTING_MACHINERY_CONSUME or CRAFTING_MACHINERY_USE. Lazy associative list: type_path key -> flag value.
 	var/list/machinery
 	///Required structures for the craft, set the assigned value of the typepath to CRAFTING_STRUCTURE_CONSUME or CRAFTING_STRUCTURE_USE. Lazy associative list: type_path key -> flag value.

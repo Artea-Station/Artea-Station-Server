@@ -64,7 +64,7 @@
 
 	if(!length(orderable))
 		orderable = list(
-			/obj/item/clothing/head/utility/chefhat = 3,
+			/obj/item/clothing/head/chefhat = 3,
 			/obj/item/clothing/shoes/sneakers/black = 3,
 			/obj/item/clothing/gloves/color/black = 1,
 		)

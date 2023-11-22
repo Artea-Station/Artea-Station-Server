@@ -118,18 +118,13 @@
 	return "I'll take a glass of [initial(reagent_to_order.name)]"
 
 /datum/venue/bar/on_get_order(mob/living/simple_animal/robot_customer/customer_pawn, obj/item/order_item)
-	var/datum/reagent/consumable/ordered_reagent_type = customer_pawn.ai_controller.blackboard[BB_CUSTOMER_CURRENT_ORDER]
-
-	for(var/datum/reagent/reagent as anything in order_item.reagents.reagent_list)
-		if(reagent.type != ordered_reagent_type)
-			continue
-		SEND_SIGNAL(reagent, COMSIG_ITEM_SOLD_TO_CUSTOMER, customer_pawn, order_item)
+	. = ..()
+	if((. & TRANSACTION_HANDLED) || !(. & TRANSACTION_SUCCESS))
+		return
 
 	customer_pawn.visible_message(span_danger("[customer_pawn] slurps up [order_item] in one go!"), span_danger("You slurp up [order_item] in one go."))
 	playsound(get_turf(customer_pawn), 'sound/items/drink.ogg', 50, TRUE)
-	customers_served += 1
 	order_item.reagents.clear_reagents()
-
 
 ///The bar needs to have a minimum amount of the reagent
 /datum/venue/bar/is_correct_order(object_used, wanted_item)

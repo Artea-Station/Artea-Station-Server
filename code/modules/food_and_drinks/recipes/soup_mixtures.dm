@@ -26,8 +26,6 @@
 	required_temp = 450
 	optimal_temp = 480
 	overheat_temp = SOUP_BURN_TEMP
-	optimal_ph_min = 1
-	optimal_ph_max = 14
 	thermic_constant = 10
 	required_reagents = null
 	mob_react = FALSE
@@ -104,6 +102,7 @@
 	testing("Soup reaction started of type [type]! [length(pot.added_ingredients)] inside.")
 
 /datum/chemical_reaction/food/soup/reaction_step(datum/reagents/holder, datum/equilibrium/reaction, delta_t, delta_ph, step_reaction_vol)
+	SHOULD_CALL_PARENT(FALSE) // Soup has special code, and never handles inversifiers and such. This is safe.
 	if(!length(required_ingredients))
 		return
 
@@ -177,11 +176,12 @@
 
 		// Everything else will just get fried
 		else
-			ingredient.AddElement(/datum/element/fried_item, 30)
+			pot.added_ingredients -= ingredient
+			var/obj/item/food/deepfryholder/holder = new(pot, ingredient)
+			holder.fry()
+			pot.added_ingredients += holder
 
 	LAZYNULL(pot.added_ingredients)
-	// Blackbox log the chemical reaction used, to account for soup reaction that don't produce typical results
-	BLACKBOX_LOG_FOOD_MADE(type)
 
 /datum/chemical_reaction/food/soup/proc/transfer_ingredient_reagents(obj/item/ingredient, datum/reagents/holder, amount)
 	var/datum/reagents/ingredient_pool = ingredient.reagents
@@ -672,7 +672,6 @@
 	name = "Clown's Tears"
 	description = "The sorrow and melancholy of a thousand bereaved clowns, forever denied their Honkmechs."
 	nutriment_factor = 5 * REAGENTS_METABOLISM
-	ph = 9.2
 	data = list("a bad joke" = 1, "mournful honking" = 1)
 	color = "#EEF442"
 

@@ -721,7 +721,7 @@
 							. += "&bull; [round(current_reagent.volume, 0.01)] units of [current_reagent.name]"
 						if(reagents.is_reacting)
 							. += span_warning("It is currently reacting!")
-						. += span_notice("The solution's pH is [round(reagents.ph, 0.01)] and has a temperature of [reagents.chem_temp]K.")
+						. += span_notice("The solution has a temperature of [reagents.chem_temp]K.")
 
 				else
 					. += "It contains:<br>Nothing."
