@@ -73,7 +73,7 @@
 		/datum/reagent/consumable/salt = 2,
 	)
 	tastes = list("salt" = 2, "popcorn" = 1)
-	trash_type = /obj/item/trash/popcorn/salty
+	trash_type = /obj/item/trash/popcorn
 
 /obj/item/food/popcorn/caramel
 	name = "caramel popcorn"
@@ -997,4 +997,29 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 5, /datum/reagent/consumable/capsaicin = 2)
 	tastes = list("rice wrappers" = 1, "spice" = 1, "crunchy veggies" = 1)
 	foodtypes = GRAIN | VEGETABLES
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/food/cheese_pierogi
+	name = "cheese pierogi"
+	desc = "A dumpling made by wrapping unleavened dough around a savoury or sweet filling and cooking in boiling water. This one is filled with a potato and cheese mixture."
+	icon_state = "cheese_pierogi"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 4,
+		/datum/reagent/consumable/nutriment/vitamin = 4,
+	)
+	tastes = list("potato" = 1, "cheese" = 1)
+	foodtypes = GRAIN | VEGETABLES | DAIRY
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/food/meat_pierogi
+	name = "meat pierogi"
+	desc = "A dumpling made by wrapping unleavened dough around a savoury or sweet filling and cooking in boiling water. This one is filled with a potato and meat mixture."
+	icon_state = "meat_pierogi"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 4,
+		/datum/reagent/consumable/nutriment/vitamin = 2,
+		/datum/reagent/consumable/nutriment/protein = 2,
+	)
+	tastes = list("potato" = 1, "cheese" = 1)
+	foodtypes = GRAIN | VEGETABLES | MEAT
 	w_class = WEIGHT_CLASS_SMALL

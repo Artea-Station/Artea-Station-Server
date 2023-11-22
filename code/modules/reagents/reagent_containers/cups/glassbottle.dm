@@ -738,4 +738,30 @@
 	list_reagents = list(/datum/reagent/consumable/menthol = 100)
 	age_restricted = TRUE
 
+/obj/item/reagent_containers/cup/glass/bottle/juice/smallcarton
+	name = "small carton"
+	desc = "A small carton, intended for holding drinks."
+	icon = 'icons/obj/drinks/boxes.dmi'
+	icon_state = "juicebox"
+	volume = 15
+	drink_type = NONE
+
+/obj/item/reagent_containers/cup/glass/bottle/juice/smallcarton/Initialize(mapload, vol)
+	. = ..()
+	AddComponent( \
+		/datum/component/takes_reagent_appearance, \
+		on_icon_changed = CALLBACK(src, PROC_REF(on_cup_change)), \
+		on_icon_reset = CALLBACK(src, PROC_REF(on_cup_reset)), \
+		base_container_type = /obj/item/reagent_containers/cup/glass/bottle/juice/smallcarton, \
+	)
+
+/obj/item/reagent_containers/cup/glass/bottle/juice/smallcarton/smash(atom/target, mob/thrower, ranged = FALSE)
+	if(bartender_check(target) && ranged)
+		return
+	SplashReagents(target, ranged, override_spillable = TRUE)
+	var/obj/item/broken_bottle/bottle_shard = new (loc)
+	bottle_shard.mimic_broken(src, target)
+	qdel(src)
+	target.Bumped(bottle_shard)
+
 #undef BOTTLE_KNOCKDOWN_DEFAULT_DURATION

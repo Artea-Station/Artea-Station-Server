@@ -177,9 +177,9 @@
 		// Everything else will just get fried
 		else
 			pot.added_ingredients -= ingredient
-			var/obj/item/food/deepfryholder/holder = new(pot, ingredient)
-			holder.fry()
-			pot.added_ingredients += holder
+			var/obj/item/food/deepfryholder/fry_holder = new(pot, ingredient)
+			fry_holder.fry()
+			pot.added_ingredients += fry_holder
 
 	LAZYNULL(pot.added_ingredients)
 
@@ -570,7 +570,7 @@
 		/datum/reagent/consumable/nutriment = 2,
 		/datum/reagent/consumable/nutriment/protein = 6,
 		/datum/reagent/consumable/tomatojuice = 6,
-		/datum/reagent/consumable/liquidgibs = 6,
+		/datum/reagent/liquidgibs = 6,
 	)
 	percentage_of_nutriment_converted = 0.1
 
@@ -1322,7 +1322,7 @@
 	results = list(
 		/datum/reagent/consumable/nutriment/soup/black_broth = 30,
 		/datum/reagent/blood = 8,
-		/datum/reagent/consumable/liquidgibs = 7,
+		/datum/reagent/liquidgibs = 7,
 		/datum/reagent/consumable/vinegar = 5,
 	)
 	ingredient_reagent_multiplier = 0.5
@@ -1344,7 +1344,7 @@
 /datum/chemical_reaction/food/soup/jellyfish_stew
 	required_reagents = list(/datum/reagent/water = 50)
 	required_ingredients = list(
-		/obj/item/food/canned/jellyfish = 1,
+		/obj/item/fish/gunner_jellyfish = 1,
 		/obj/item/food/grown/soybeans = 1,
 		/obj/item/food/grown/redbeet = 1,
 		/obj/item/food/grown/potato = 1

@@ -530,7 +530,6 @@
 
 	suppressive_reagents = list(
 		/datum/reagent/consumable/nutriment/soup/clown_tears = -8,
-		/datum/reagent/consumable/mintextract = -6,
 		/datum/reagent/consumable/ethanol/silencer = -3,
 		/datum/reagent/consumable/ethanol/fernet = -3,
 		/datum/reagent/toxin/lipolicide = -3,
