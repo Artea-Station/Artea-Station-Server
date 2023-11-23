@@ -111,6 +111,23 @@
 			var/mob/living/buckled_mob = m
 			buckled_mob.setDir(direction)
 
+/obj/structure/chair/MouseDrop(over_object, src_location, over_location)
+	. = ..()
+	if(over_object == usr && Adjacent(usr))
+		if(!item_chair || has_buckled_mobs() || src.flags_1 & NODECONSTRUCT_1)
+			return
+		if(!usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
+			return
+		usr.visible_message(span_notice("[usr] grabs \the [src.name]."), span_notice("You grab \the [src.name]."))
+		var/obj/item/C = new item_chair(loc)
+		C.set_custom_materials(custom_materials)
+		TransferComponents(C)
+		usr.put_in_hands(C)
+		qdel(src)
+
+/obj/structure/chair/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
+	return ..()
+
 /obj/structure/chair/proc/handle_layer()
 	if(has_buckled_mobs() && dir == NORTH)
 		layer = ABOVE_MOB_LAYER
@@ -258,7 +275,6 @@
 	name = "stool"
 	desc = "Apply butt."
 	icon_state = "stool"
-	can_buckle = FALSE
 	buildstackamount = 1
 	item_chair = /obj/item/chair/stool
 
@@ -267,22 +283,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/chair/stool, 0)
 /obj/structure/chair/stool/narsie_act()
 	return
 
-/obj/structure/chair/MouseDrop(over_object, src_location, over_location)
-	. = ..()
-	if(over_object == usr && Adjacent(usr))
-		if(!item_chair || has_buckled_mobs() || src.flags_1 & NODECONSTRUCT_1)
-			return
-		if(!usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
-			return
-		usr.visible_message(span_notice("[usr] grabs \the [src.name]."), span_notice("You grab \the [src.name]."))
-		var/obj/item/C = new item_chair(loc)
-		C.set_custom_materials(custom_materials)
-		TransferComponents(C)
-		usr.put_in_hands(C)
-		qdel(src)
-
-/obj/structure/chair/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
-	return ..()
+/obj/structure/chair/stool/handle_layer()
+	return OBJ_LAYER
 
 /obj/structure/chair/stool/bar
 	name = "bar stool"
@@ -366,9 +368,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/chair/stool/bar, 0)
 	else if(custom_materials[GET_MATERIAL_REF(/datum/material/iron)])
 		new /obj/item/stack/rods(get_turf(loc), 2)
 	qdel(src)
-
-
-
 
 /obj/item/chair/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == UNARMED_ATTACK && prob(hit_reaction_chance))
