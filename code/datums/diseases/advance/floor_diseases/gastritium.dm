@@ -17,34 +17,34 @@
 	symptoms = list(new/datum/symptom/fever)
 	..()
 
-/datum/disease/advance/gastritium/generate_cure()
+/datum/disease/advance/gastritium/GenerateCure()
 	cures = list(pick(cures))
 	var/datum/reagent/cure = GLOB.chemical_reagents_list[cures[1]]
 	cure_text = cure.name
 
-/datum/disease/advance/gastritium/stage_act(seconds_per_tick, times_fired)
+/datum/disease/advance/gastritium/stage_act(delta_time, times_fired)
 	. = ..()
 	if(!.)
 		return
 
 	switch(stage)
 		if(2)
-			if(SPT_PROB(1, seconds_per_tick))
+			if(DT_PROB(1, delta_time))
 				affected_mob.emote("burp")
 		if(3)
-			if(SPT_PROB(1, seconds_per_tick) && affected_mob.stat == CONSCIOUS)
+			if(DT_PROB(1, delta_time) && affected_mob.stat == CONSCIOUS)
 				to_chat(affected_mob, span_warning("Your stomach makes turbine noises..."))
-			else if(SPT_PROB(1, seconds_per_tick))
+			else if(DT_PROB(1, delta_time))
 				affected_mob.emote("burp")
 		if(4)
-			if(SPT_PROB(1, seconds_per_tick) && affected_mob.stat == CONSCIOUS)
+			if(DT_PROB(1, delta_time) && affected_mob.stat == CONSCIOUS)
 				to_chat(affected_mob, span_warning("You're starting to feel like a burn chamber..."))
-			else if(SPT_PROB(1, seconds_per_tick))
+			else if(DT_PROB(1, delta_time))
 				tritium_burp()
 		if(5)
-			if(SPT_PROB(1, seconds_per_tick) && affected_mob.stat == CONSCIOUS)
+			if(DT_PROB(1, delta_time) && affected_mob.stat == CONSCIOUS)
 				to_chat(affected_mob, span_warning("You feel like you're about to delam..."))
-			else if(SPT_PROB(1, seconds_per_tick))
+			else if(DT_PROB(1, delta_time))
 				tritium_burp(hot_chance = TRUE)
 
 /datum/disease/advance/gastritium/proc/tritium_burp(hot_chance = FALSE)

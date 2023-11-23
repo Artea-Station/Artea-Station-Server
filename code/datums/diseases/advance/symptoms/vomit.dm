@@ -52,13 +52,12 @@ and your disease can spread via people walking on vomit.
 			vomit(M)
 
 /datum/symptom/vomit/proc/vomit(mob/living/carbon/M)
-	if(vomit_nebula)
-		M.vomit(lost_nutrition = 10, blood = vomit_blood, vomit_type = VOMIT_NEBULA, stun = FALSE, distance = proj_vomit)
-	else
-		M.vomit(lost_nutrition = 20, blood = vomit_blood, distance = proj_vomit)
+	M.vomit(lost_nutrition = 20, blood = vomit_blood, distance = proj_vomit)
 
 /datum/symptom/vomit/nebula
 	name = "Nebula Vomiting"
-	desc = "The condition irritates the stomach, causing occasional vomit with stars that does not stun."
-	illness = "Nebula Nausea"
+	desc = "The condition irritates the stomach, causing occasional vomit with stars."
 	vomit_nebula = TRUE
+
+/datum/symptom/vomit/nebula/vomit(mob/living/carbon/M)
+	M.vomit(lost_nutrition = 10, blood = vomit_blood, vomit_type = VOMIT_NEBULA, distance = proj_vomit)

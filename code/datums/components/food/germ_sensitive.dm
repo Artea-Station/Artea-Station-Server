@@ -5,9 +5,8 @@
 
 /// Possible diseases
 GLOBAL_LIST_INIT(floor_diseases, list(
-	/datum/disease/advance/nebula_nausea = 2,
-	/datum/disease/advance/gastritium = 2,
-	/datum/disease/advance/carpellosis = 1,
+	/datum/disease/advance/nebula_nausea = 1,
+	/datum/disease/advance/gastritium = 1,
 ))
 
 /// Makes items infective if left on floor, also sending corresponding signals to parent
@@ -23,17 +22,17 @@ GLOBAL_LIST_INIT(floor_diseases, list(
 
 	ADD_TRAIT(parent, TRAIT_GERM_SENSITIVE, src)
 
-	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(examine))
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(examine))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(handle_movement))
 	RegisterSignal(parent, COMSIG_ATOM_WASHED, PROC_REF(wash)) //Wash germs off dirty things
 
-	RegisterSignals(parent, list(
+	RegisterSignal(parent, list(
 		COMSIG_ITEM_DROPPED, //Dropped into the world
 		COMSIG_ATOM_EXITED, //Object exits a storage object (tables, boxes, etc)
 	),
 	PROC_REF(dropped))
 
-	RegisterSignals(parent, list(
+	RegisterSignal(parent, list(
 		COMSIG_ITEM_PICKUP, //Picked up by mob
 		COMSIG_ATOM_ENTERED, //Object enters a storage object (tables, boxes, etc.)
 	),
@@ -46,7 +45,7 @@ GLOBAL_LIST_INIT(floor_diseases, list(
 /datum/component/germ_sensitive/UnregisterFromParent()
 	REMOVE_TRAIT(parent, TRAIT_GERM_SENSITIVE, src)
 	UnregisterSignal(parent, list(
-		COMSIG_ATOM_EXAMINE,
+		COMSIG_PARENT_EXAMINE,
 		COMSIG_MOVABLE_MOVED,
 		COMSIG_ATOM_WASHED,
 		COMSIG_ITEM_DROPPED,

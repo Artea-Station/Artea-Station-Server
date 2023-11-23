@@ -37,7 +37,6 @@ GLOBAL_LIST_INIT(typecache_elevated_structures, typecacheof(list(
 	//Medbay
 	/obj/machinery/stasis,
 	/obj/machinery/chem_master, // Pills may catch germs
-	/obj/machinery/plumbing/pill_press,
 )))
 
 /// A typecache of objects that player controlled, easily accessible, hostile mobs should not be able to attack
