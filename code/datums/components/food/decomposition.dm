@@ -116,11 +116,9 @@
 /datum/component/decomposition/proc/decompose()
 	decomp_timerid = null
 	var/obj/decomp = parent //Lets us spawn things at decomp
-	if(produce_ants)
-		new /obj/effect/decal/cleanable/ants(decomp.loc)
 	if(decomp_result)
 		new decomp_result(decomp.loc)
-	decomp.visible_message(span_warning("[decomp] gets overtaken by mold[produce_ants ? " and ants":""]! Gross!"))
+	decomp.visible_message(span_warning("[decomp] gets overtaken by mold! Gross!"))
 	qdel(decomp)
 	return
 

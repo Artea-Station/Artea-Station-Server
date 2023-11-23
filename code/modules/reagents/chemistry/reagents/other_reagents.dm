@@ -2672,30 +2672,6 @@
 		amount_left = round(reac_volume,0.1)
 		exposed_mob.apply_status_effect(/datum/status_effect/ants, amount_left)
 
-/datum/reagent/ants/expose_obj(obj/exposed_obj, reac_volume)
-	. = ..()
-	var/turf/open/my_turf = exposed_obj.loc // No dumping ants on an object in a storage slot
-	if(!istype(my_turf)) //Are we actually in an open turf?
-		return
-	var/static/list/accepted_types = typecacheof(list(/obj/machinery/atmospherics, /obj/structure/cable, /obj/structure/disposalpipe))
-	if(!accepted_types[exposed_obj.type]) // Bypasses pipes, vents, and cables to let people create ant mounds on top easily.
-		return
-	expose_turf(my_turf, reac_volume)
-
-/datum/reagent/ants/expose_turf(turf/exposed_turf, reac_volume)
-	. = ..()
-	if(!istype(exposed_turf) || isspaceturf(exposed_turf)) // Is the turf valid
-		return
-	if((reac_volume <= 10)) // Makes sure people don't duplicate ants.
-		return
-
-	var/obj/effect/decal/cleanable/ants/pests = locate() in exposed_turf.contents
-	if(!pests)
-		pests = new(exposed_turf)
-	var/spilled_ants = (round(reac_volume,1) - 5) // To account for ant decals giving 3-5 ants on initialize.
-	pests.reagents.add_reagent(/datum/reagent/ants, spilled_ants)
-	pests.update_ant_damage()
-
 //This is intended to a be a scarce reagent to gate certain drugs and toxins with. Do not put in a synthesizer. Renewable sources of this reagent should be inefficient.
 /datum/reagent/lead
 	name = "Lead"
