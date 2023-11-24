@@ -30,24 +30,24 @@
 	resistance_flags = FIRE_PROOF
 	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.1
 	active_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.8
+	anchored_tabletop_offset = 6
 
 /obj/machinery/table_hob/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/stove, container_x = -6, container_y = 16)
 
-/obj/machinery/table_hob/attackby(obj/item/wrench, mob/user, params)
-	if(wrench.tool_behaviour == TOOL_WRENCH)
-		var/datum/component/stove/stove = GetComponent(/datum/component/stove)
-		if(length(stove?.containers))
-			to_chat(user, span_notice("Remove the container first!"))
-			return
-		if(stove?.on)
-			to_chat(user, span_notice("Turn off [src] first!"))
-
-		set_anchored(!anchored)
-		to_chat(user, span_notice("You [anchored ? "attached" : "detached"] [src]."))
-		wrench.play_tool_sound(src)
+/obj/machinery/table_hob/wrench_act(mob/living/user, obj/item/tool)
+	. = ..()
+	var/datum/component/stove/stove = GetComponent(/datum/component/stove)
+	if(length(stove?.containers))
+		to_chat(user, span_notice("Remove the container first!"))
 		return
+	if(stove?.on)
+		to_chat(user, span_notice("Turn off [src] first!"))
+		return
+	if(default_unfasten_wrench(user, tool))
+		update_appearance()
+	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 // Soup pot for cooking soup
 // Future addention ideas:

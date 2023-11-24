@@ -1,4 +1,11 @@
-#define POT_PIXEL_WIDTH 12
+#define POT_PIXEL_WIDTH 13
+
+/// The smoke type. Can be null.
+#define CONTAINER_SMOKE_TYPE "smoke_type"
+/// The smoke instance. Can be null.
+#define CONTAINER_SMOKE_INSTANCE "smoke_instance"
+/// Used to figure out what slots are used.
+#define CONTAINER_X_POSITION "x_pos"
 
 /**
  * # Stove Component
@@ -13,10 +20,8 @@
 /datum/component/stove
 	/// Whether we're currently cooking
 	VAR_FINAL/on = FALSE
-	/// An assoc list to the current soup pots overtop to their smoke types
+	/// An assoc list to the current soup pots overtop to a an assoc list of their smoke type, smoke instance, and position.
 	VAR_FINAL/list/containers = list()
-	/// An assoc list of the current soup pots to their particle holder for their smoke.
-	VAR_FINAL/list/soup_smokes = list()
 	/// The color of the flames around the burner.
 	var/flame_color = "#006eff"
 	/// Container's pixel x when placed on the stove, offset by 12 for the second container.
@@ -60,8 +65,8 @@
 		for(var/obj/container as anything in containers)
 			container.forceMove(real_parent.drop_location())
 
-	for(var/container in soup_smokes)
-		QDEL_NULL(soup_smokes[container])
+	for(var/container in containers)
+		QDEL_NULL(containers[container][CONTAINER_SMOKE_INSTANCE])
 
 	UnregisterSignal(parent, list(
 		COMSIG_ATOM_ATTACK_HAND_SECONDARY,
@@ -127,7 +132,7 @@
 
 	if(!attacking_item.is_open_container())
 		return
-	if(containers.len > maximum_containers)
+	if(containers.len >= maximum_containers)
 		to_chat(user, span_warning("You can't fit any more containers!"))
 		return COMPONENT_NO_AFTERATTACK
 
@@ -200,18 +205,31 @@
 	heat_coefficient = initial(heat_coefficient) * max(round(new_multiplier), 1)
 
 /datum/component/stove/proc/add_container(obj/item/container, mob/user)
+	var/container_x_offset = find_gap()
+	if(isnull(container_x_offset))
+		CRASH("Error in trying to add a container! Found no free index?")
+
 	var/obj/real_parent = parent
 	real_parent.vis_contents += container
 	container.flags_1 |= IS_ONTOP_1
 	container.vis_flags |= VIS_INHERIT_PLANE
-
-	containers |= container
-	container.pixel_x = container_x + ((containers.len - 1) * POT_PIXEL_WIDTH)
+	container.pixel_x = container_x + ((container_x_offset) * POT_PIXEL_WIDTH)
 	container.pixel_y = container_y
 
-	update_smoke_type(container)
+	containers[container] = list(CONTAINER_SMOKE_INSTANCE = null, CONTAINER_SMOKE_TYPE = null, CONTAINER_X_POSITION = container_x_offset)
+	update_smoke_type(container.reagents)
 	RegisterSignal(container.reagents, COMSIG_REAGENTS_TEMP_CHANGE, PROC_REF(update_smoke_type))
 	real_parent.update_appearance(UPDATE_OVERLAYS)
+
+/// Probably definitely shitcode, but the list in the current iteration of code goes at most 2 entries long, so... yup.
+/datum/component/stove/proc/find_gap()
+	if(!length(containers))
+		return 0
+	for(var/index = 0, index < maximum_containers, index++) // Try until max containers, if this can't find anything, then a check got fucked, or an admin tried to be smart.
+		for(var/container in containers)
+			if(containers[container][CONTAINER_X_POSITION] == index)
+				continue
+			return index
 
 /datum/component/stove/proc/remove_container(obj/item/container)
 	var/obj/real_parent = parent
@@ -223,59 +241,51 @@
 
 	container.pixel_x = container.base_pixel_x
 	container.pixel_y = container.base_pixel_y
-	containers -= container
-	soup_smokes -= container
 
-	update_smoke()
+	qdel(containers[container][CONTAINER_SMOKE_INSTANCE])
+	containers -= container
+
 	real_parent.update_appearance(UPDATE_OVERLAYS)
 
-/datum/component/stove/proc/update_smoke_type(datum/source, new_temp, old_temp, datum/reagents/reagents)
+/datum/component/stove/proc/update_smoke_type(datum/reagents/reagents, new_temp, old_temp)
 	SIGNAL_HANDLER
-	var/existing_temp = reagents?.chem_temp || 0
+	var/existing_temp = reagents.chem_temp || 0
 	if(existing_temp >= SOUP_BURN_TEMP)
-		containers[reagents.my_atom] = /particles/smoke/steam/bad
+		containers[reagents.my_atom][CONTAINER_SMOKE_TYPE] = /particles/smoke/steam/bad
 	else if(existing_temp >= WATER_BOILING_POINT)
-		containers[reagents.my_atom] = /particles/smoke/steam/mild
+		containers[reagents.my_atom][CONTAINER_SMOKE_TYPE] = /particles/smoke/steam/mild
 	else
-		containers[reagents.my_atom] = null
+		containers[reagents.my_atom][CONTAINER_SMOKE_TYPE] = null
 
 	update_smoke()
 
 /datum/component/stove/proc/update_smoke()
 	// Not turned on, yeet it all
 	if(!on)
-		for(var/container in soup_smokes)
-			var/soup_smoke = soup_smokes[container]
-			soup_smokes -= container
-			qdel(soup_smoke)
+		for(var/container in containers)
+			QDEL_NULL(containers[container][CONTAINER_SMOKE_INSTANCE])
 		return
 
-	var/did_changes = FALSE
 	for(var/obj/container as anything in containers)
-		if(container?.reagents.total_volume > 0)
-			var/obj/effect/abstract/particle_holder/soup_smoke = soup_smokes[container]
-			var/particle_type = containers[container]
-			// Don't override existing particles, wasteful
-			if(isnull(soup_smoke) || soup_smoke.particles.type != particle_type)
-				if(soup_smoke)
-					soup_smokes -= container
-					qdel(soup_smoke)
-				if(isnull(particle_type))
-					return
-				// this gets badly murdered by sidemap
-				soup_smoke = new(parent, particle_type)
-				soup_smoke.set_particle_position(list(container_x, round(world.icon_size * 0.66), 0))
-				soup_smokes[container] = soup_smoke
-			return
 
-	// If we changed, don't yeet it all
-	if(did_changes)
-		return
+		var/obj/effect/abstract/particle_holder/soup_smoke = containers[container][CONTAINER_SMOKE_INSTANCE]
+		var/particle_type = containers[container][CONTAINER_SMOKE_TYPE]
 
-	// Nothing on the stove, yeet it all
-	for(var/container in soup_smokes)
-		var/soup_smoke = soup_smokes[container]
-		soup_smokes -= container
-		QDEL_NULL(soup_smoke)
+		if(!isnull(soup_smoke) && soup_smoke.particles.type == particle_type)
+			continue
+
+		if(soup_smoke)
+			QDEL_NULL(containers[container][CONTAINER_SMOKE_INSTANCE])
+
+		if(isnull(particle_type))
+			continue
+
+		// this gets badly murdered by sidemap // We don't use sidemap, but this is harmless so... /shrug
+		soup_smoke = new(parent, particle_type)
+		soup_smoke.set_particle_position(list(container.pixel_x, round(world.icon_size * 0.66), 0))
+		containers[container][CONTAINER_SMOKE_INSTANCE] = soup_smoke
 
 #undef POT_PIXEL_WIDTH
+#undef CONTAINER_SMOKE_TYPE
+#undef CONTAINER_SMOKE_INSTANCE
+#undef CONTAINER_X_POSITION
