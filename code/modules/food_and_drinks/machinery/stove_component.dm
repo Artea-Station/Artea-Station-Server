@@ -128,7 +128,7 @@
 	if(!attacking_item.is_open_container())
 		return
 	if(containers.len > maximum_containers)
-		to_chat(span_warning("You can't fit any more containers!"))
+		to_chat(user, span_warning("You can't fit any more containers!"))
 		return COMPONENT_NO_AFTERATTACK
 
 	if(user.transferItemToLoc(attacking_item, parent))
