@@ -18,6 +18,12 @@
 /obj/machinery/stove/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/stove, container_x = -6, container_y = 16, maximum_containers = 2)
+	if(mapload)
+		bowls = list()
+		for(var/i = 0, i < 6, i++) // Spawn a full bowl compliment if placed roundstart.
+			var/obj/item/reagent_containers/cup/bowl/bowl = new(src)
+			bowls += bowl
+		update_appearance()
 
 /obj/machinery/stove/attackby(obj/item/weapon, mob/user, params)
 	if(weapon.type == /obj/item/reagent_containers/cup/bowl)
