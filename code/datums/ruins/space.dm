@@ -276,3 +276,8 @@
 	name = "Pod Crash"
 	description = "A tragic display of what happens to drivers who pda and pod."
 
+/datum/map_template/ruin/space/babylon_derelict
+	id = "babylon_derelict"
+	suffix = "babylon_derelict.dmm"
+	name = "Derelict Babylon Station"
+	description = "A long abandoned station left adrift in the depths of the cosmos."
