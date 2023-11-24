@@ -182,23 +182,6 @@
 	default_unfasten_wrench(user, tool, time = 2 SECONDS)
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-/obj/machinery/oven/range
-	name = "range"
-	desc = "And Oven AND a Stove? I guess that's why it's got range!"
-	icon_state = "range_off"
-	base_icon_state = "range"
-	pass_flags_self = PASSMACHINE|PASSTABLE|LETPASSTHROW // Like the griddle, short
-	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 1.2
-	circuit = /obj/item/circuitboard/machine/range
-
-/obj/machinery/oven/range/Initialize(mapload)
-	. = ..()
-	var/obj/item/reagent_containers/cup/soup_pot/mapload_container
-	if(mapload)
-		mapload_container = new(loc)
-
-	AddComponent(/datum/component/stove, container_x = -6, container_y = 14, spawn_container = mapload_container)
-
 /obj/item/plate/oven_tray
 	name = "oven tray"
 	desc = "Time to bake cookies!"

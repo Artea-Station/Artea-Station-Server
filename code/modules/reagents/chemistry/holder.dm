@@ -1375,7 +1375,7 @@
 
 	. = chem_temp
 	chem_temp = clamp(_temperature, 0, CHEMICAL_MAXIMUM_TEMPERATURE)
-	SEND_SIGNAL(src, COMSIG_REAGENTS_TEMP_CHANGE, _temperature, .)
+	SEND_SIGNAL(src, COMSIG_REAGENTS_TEMP_CHANGE, _temperature, ., src)
 
 /**
  * Outputs a log-friendly list of reagents based on an external reagent list.

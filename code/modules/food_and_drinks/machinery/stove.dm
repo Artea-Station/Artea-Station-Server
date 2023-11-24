@@ -1,25 +1,53 @@
-/obj/machinery/stove
-	name = "stove"
-	desc = "You'd think this thing would be more useful in here."
-	icon = 'icons/obj/machines/kitchen_stove.dmi'
-	icon_state = "stove"
-	base_icon_state = "stove"
+/obj/machinery/standing_hob
+	name = "standing hob"
+	desc = "Multi-track dri- wait, no, multi-hob burning!"
+	icon = 'icons/obj/machines/kitchenmachines.dmi'
+	icon_state = "standing_hob"
+	base_icon_state = "standing_hob"
 	density = TRUE
 	pass_flags_self = PASSMACHINE | LETPASSTHROW
 	layer = BELOW_OBJ_LAYER
-	circuit = /obj/item/circuitboard/machine/stove
+	circuit = /obj/item/circuitboard/machine/standing_hob
 	processing_flags = START_PROCESSING_MANUALLY
 	resistance_flags = FIRE_PROOF
 	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.1
 	active_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.8
 
-	// Stove icon is 32x48, we'll use a Range for preview instead
-	icon_preview = 'icons/obj/machines/kitchenmachines.dmi'
-	icon_state_preview = "range_off"
+/obj/machinery/standing_hob/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/stove, container_x = -6, container_y = 16, maximum_containers = 2)
 
-/obj/machinery/stove/Initialize(mapload)
+/obj/machinery/table_hob
+	name = "table hob"
+	desc = "Compact table hob, for your tiny kitchen and survival needs."
+	icon = 'icons/obj/machines/kitchenmachines.dmi'
+	icon_state = "table_hob"
+	base_icon_state = "table_hob"
+	pass_flags_self = PASSMACHINE | LETPASSTHROW
+	pass_flags = PASSTABLE
+	circuit = /obj/item/circuitboard/machine/table_hob
+	processing_flags = START_PROCESSING_MANUALLY
+	resistance_flags = FIRE_PROOF
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.1
+	active_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.8
+
+/obj/machinery/table_hob/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/stove, container_x = -6, container_y = 16)
+
+/obj/machinery/table_hob/attackby(obj/item/wrench, mob/user, params)
+	if(wrench.tool_behaviour == TOOL_WRENCH)
+		var/datum/component/stove/stove = GetComponent(/datum/component/stove)
+		if(length(stove?.containers))
+			to_chat(user, span_notice("Remove the container first!"))
+			return
+		if(stove?.on)
+			to_chat(user, span_notice("Turn off [src] first!"))
+
+		set_anchored(!anchored)
+		to_chat(user, span_notice("You [anchored ? "attached" : "detached"] [src]."))
+		wrench.play_tool_sound(src)
+		return
 
 // Soup pot for cooking soup
 // Future addention ideas:
