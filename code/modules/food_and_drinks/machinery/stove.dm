@@ -1,21 +1,49 @@
-/obj/machinery/standing_hob
-	name = "standing hob"
+/obj/machinery/stove
+	name = "stove"
 	desc = "Multi-track dri- wait, no, multi-hob burning!"
 	icon = 'icons/obj/machines/kitchenmachines.dmi'
-	icon_state = "standing_hob"
-	base_icon_state = "standing_hob"
+	icon_state = "stove"
+	base_icon_state = "stove"
 	density = TRUE
 	pass_flags_self = PASSMACHINE | LETPASSTHROW
 	layer = BELOW_OBJ_LAYER
-	circuit = /obj/item/circuitboard/machine/standing_hob
+	circuit = /obj/item/circuitboard/machine/stove
 	processing_flags = START_PROCESSING_MANUALLY
 	resistance_flags = FIRE_PROOF
 	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.1
 	active_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.8
+	/// The bowls currently stored
+	var/list/bowls
 
-/obj/machinery/standing_hob/Initialize(mapload)
+/obj/machinery/stove/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/stove, container_x = -6, container_y = 16, maximum_containers = 2)
+
+/obj/machinery/stove/attackby(obj/item/weapon, mob/user, params)
+	if(weapon.type == /obj/item/reagent_containers/cup/bowl)
+		if(length(bowls) >= 6)
+			to_chat(user, span_warning("You can't fit any more bowls!"))
+			return
+		weapon.forceMove(src)
+		LAZYADD(bowls, weapon)
+		update_appearance()
+		return
+	return ..()
+
+/obj/machinery/stove/attack_hand(mob/living/user, list/modifiers)
+	if(!length(bowls))
+		to_chat(user, span_warning("There are no more bowls!"))
+		return
+
+	var/obj/item/bowl = bowls[1]
+	LAZYREMOVE(bowls, bowl)
+	user.put_in_active_hand(bowl)
+	update_appearance()
+
+/obj/machinery/stove/update_overlays()
+	. = ..()
+	if(length(bowls))
+		. += mutable_appearance(icon, "[base_icon_state]_bowls_[length(bowls)]")
 
 /obj/machinery/table_hob
 	name = "table hob"

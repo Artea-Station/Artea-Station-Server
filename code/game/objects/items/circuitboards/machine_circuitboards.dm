@@ -1034,10 +1034,10 @@
 	req_components = list(/obj/item/stock_parts/micro_laser = 1)
 	needs_anchored = TRUE
 
-/obj/item/circuitboard/machine/standing_hob
+/obj/item/circuitboard/machine/stove
 	name = "Standing Hob"
 	greyscale_colors = CIRCUIT_COLOR_SERVICE
-	build_path = /obj/machinery/standing_hob
+	build_path = /obj/machinery/stove
 	req_components = list(/obj/item/stock_parts/micro_laser = 2)
 	needs_anchored = TRUE
 

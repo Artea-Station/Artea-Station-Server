@@ -129,7 +129,7 @@
 /datum/component/stove/proc/on_attackby(obj/machinery/source, obj/item/attacking_item, mob/user, params)
 	SIGNAL_HANDLER
 
-	if(!attacking_item.is_open_container())
+	if(!attacking_item.is_open_container() || istype(attacking_item, /obj/item/reagent_containers/cup/bowl))
 		return
 	if(containers.len >= maximum_containers)
 		to_chat(user, span_warning("You can't fit any more containers!"))

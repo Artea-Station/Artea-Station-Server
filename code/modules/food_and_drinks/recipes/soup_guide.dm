@@ -1,5 +1,5 @@
 /datum/crafting_recipe/food/reaction/soup
-	machinery = list(/obj/machinery/standing_hob)
+	machinery = list(/obj/machinery/stove)
 	category = CAT_SOUP
 	non_craftable = TRUE
 
