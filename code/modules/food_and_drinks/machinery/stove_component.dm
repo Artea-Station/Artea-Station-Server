@@ -215,10 +215,7 @@
 	container.pixel_x = container_x + ((container_x_offset) * POT_PIXEL_WIDTH)
 	container.pixel_y = container_y
 	if(container.drop_sound)
-		if(full_drop_sound && length(contents))
-			playsound(container, container.full_drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
-		else if (drop_sound)
-			playsound(container, container.drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
+		playsound(container, container.drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
 
 	containers[container] = list(CONTAINER_SMOKE_INSTANCE = null, CONTAINER_SMOKE_TYPE = null, CONTAINER_X_POSITION = container_x_offset)
 	update_smoke_type(container.reagents)
