@@ -521,8 +521,8 @@
 	description = "Big Data, in space!"
 	prereq_ids = list("base")
 	design_ids = list(
-		"bounty_pad",
-		"bounty_pad_control",
+		"trade_console",
+		"cargo_trade_console",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
@@ -672,7 +672,6 @@
 	description = "Application of Bluespace for static teleportation technology."
 	prereq_ids = list("practical_bluespace")
 	design_ids = list(
-		"bluespace_pod",
 		"launchpad",
 		"launchpad_console",
 		"tele_hub",
@@ -924,8 +923,6 @@
 	description = "Computers and how they work."
 	prereq_ids = list("datatheory")
 	design_ids = list(
-		"cargo",
-		"cargorequest",
 		"comconsole",
 		"crewconsole",
 		"idcard",
@@ -1152,7 +1149,6 @@
 	description = "Better than Efficiency V."
 	prereq_ids = list("engineering", "basic_plasma")
 	design_ids = list(
-		"cargoexpress",
 		"cooldownmod",
 		"damagemod",
 		"drill",

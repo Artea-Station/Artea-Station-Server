@@ -97,7 +97,7 @@
 	icon_state = "cargodisk"
 	starting_programs = list(
 		/datum/computer_file/program/shipping,
-		/datum/computer_file/program/budgetorders,
+		/datum/computer_file/program/robocontrol,
 	)
 
 /**

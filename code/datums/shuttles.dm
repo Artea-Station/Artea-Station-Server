@@ -195,7 +195,7 @@
 /datum/map_template/shuttle/emergency/construction/post_load()
 	. = ..()
 	//enable buying engines from cargo
-	var/datum/supply_pack/P = SSshuttle.supply_packs[/datum/supply_pack/engineering/shuttle_engine]
+	var/datum/supply_pack/P = SStrading.supply_packs["[/datum/supply_pack/engineering/shuttle_engine]"]
 	P.special_enabled = TRUE
 
 
@@ -545,6 +545,10 @@
 /datum/map_template/shuttle/cargo/kilo
 	suffix = "kilo"
 	name = "supply shuttle (Kilo)"
+
+/datum/map_template/shuttle/cargo/bearcat
+	suffix = "bearcat"
+	name = "supply shuttle (Bearcat)"
 
 /datum/map_template/shuttle/cargo/birdboat
 	suffix = "birdboat"
