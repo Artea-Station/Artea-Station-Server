@@ -39,11 +39,9 @@
 	. += mutable_appearance(icon, display_icon)
 	. += emissive_appearance(icon, display_icon)
 
-
 /obj/item/assembly/control/elevator
 	name = "elevator controller"
 	desc = "A small device used to call elevators to the current floor."
-	var/has_speaker = FALSE
 
 /obj/item/assembly/control/elevator/activate()
 	if(cooldown)
@@ -60,20 +58,14 @@
 	if(!stop_wp)
 		return
 	if(controller.called_waypoints[stop_wp])
-		if(has_speaker)
-			say("The [controller.name] is already called to this location.")
+		say("The [controller.name] is already called to this location.")
 		return
 	if(!controller.destination_wp && controller.current_wp == stop_wp)
-		if(has_speaker)
-			say("The [controller.name] is already here. Please board the [controller.name] and select a destination.")
+		say("The [controller.name] is already here. Please board the [controller.name] and select a destination.")
 		return
 	playsound(my_turf, 'sound/lifts/elevator_ding.ogg', 60)
-	if(has_speaker)
-		say("The [controller.name] has been called to [stop_wp.name]. Please wait for its arrival.")
+	say("The [controller.name] has been called to [stop_wp.name]. Please wait for its arrival.")
 	controller.CallWaypoint(stop_wp)
-
-/obj/item/assembly/control/elevator/speaker
-	has_speaker = TRUE
 
 /obj/machinery/button/elevator
 	name = "elevator button"
@@ -81,9 +73,6 @@
 	icon_state = "launcher"
 	skin = "launcher"
 	device_type = /obj/item/assembly/control/elevator
-
-/obj/machinery/button/elevator/speaker
-	device_type = /obj/item/assembly/control/elevator/speaker
 
 /obj/structure/elevator_control_panel
 	icon = 'icons/obj/structures/elevator_control.dmi'
@@ -119,6 +108,7 @@
 	if(linked_controller)
 		name = "[linked_controller.name] control panel"
 		desc = "A panel which interfaces with \the [linked_controller.name] controls."
+		linked_controller.controller_machines |= src
 
 /obj/structure/elevator_control_panel/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -140,7 +130,7 @@
 		var/datum/lift_waypoint/stop_wp = i
 		floors += list(list("id" = stop_wp.waypoint_id, "is_active" = !!queued_stops[stop_wp] || stop_wp.position.z == z, "name" = stop_wp.name))
 
-	data += list("floors" = floors, "is_stopped" = linked_controller.halted)
+	data += list("floors" = floors, "is_stopped" = linked_controller.intentionally_halted)
 	return data
 
 /obj/structure/elevator_control_panel/ui_act(action, params)
@@ -168,3 +158,8 @@
 	playsound(src, SFX_TERMINAL_TYPE, 50)
 	ui_interact(usr)
 	return TRUE
+
+/obj/structure/elevator_control_panel/Destroy()
+	if(linked_controller)
+		linked_controller.controller_machines -= src
+	return ..()
