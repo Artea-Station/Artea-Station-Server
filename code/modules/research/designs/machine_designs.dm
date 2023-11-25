@@ -704,10 +704,10 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SERVICE
 
-/datum/design/board/standing_hob
-	name = "Standing Hob"
-	desc = "The circuit board for a Standing Hob, which is a dual hob on a stand which can hold a handful of bowls."
-	id = "standing_hob"
+/datum/design/board/stove
+	name = "Stove"
+	desc = "The circuit board for a Stove, which is a dual hob on a stand which can hold a handful of bowls."
+	id = "stove"
 	build_path = /obj/item/circuitboard/machine/stove
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_KITCHEN
