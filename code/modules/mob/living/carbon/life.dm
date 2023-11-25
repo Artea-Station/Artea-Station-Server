@@ -121,10 +121,15 @@
 				var/obj/loc_as_obj = loc
 				loc_as_obj.handle_internal_lifeform(src,0)
 
-	check_breath(breath)
+	var/took_breath = check_breath(breath)
 
 	if(breath)
 		loc.assume_air(breath)
+
+	// If we took a breath, we probably did that via internals.
+	if(took_breath && COOLDOWN_FINISHED(src, breath_sound_cd) && environment?.return_pressure() < SOUND_MINIMUM_PRESSURE)
+		playsound(src, 'sound/voice/breathing.ogg', 5)
+		COOLDOWN_START(src, breath_sound_cd, 3.5 SECONDS)
 
 /mob/living/carbon/proc/has_smoke_protection()
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
@@ -154,7 +159,7 @@
 		failed_last_breath = TRUE
 		throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 		return FALSE
-	
+
 	var/safe_oxy_min = 16
 	var/safe_co2_max = 10
 	var/safe_plas_max = 0.05
