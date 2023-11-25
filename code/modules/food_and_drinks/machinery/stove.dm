@@ -68,7 +68,7 @@
 
 /obj/machinery/table_hob/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/stove, container_x = -6, container_y = 16)
+	AddComponent(/datum/component/stove, container_x = 0, container_y = 2)
 
 /obj/machinery/table_hob/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
