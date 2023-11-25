@@ -446,7 +446,7 @@
 		"monkey_recycler",
 		"oven",
 		"processor",
-		"standing_range",
+		"stove",
 		"table_hob",
 		"reagentgrinder",
 		"smartfridge",
