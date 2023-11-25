@@ -41,6 +41,7 @@
 
 /obj/item/food/hugemushroomslice
 	name = "huge mushroom slice"
+	icon = 'icons/obj/food/meat.dmi'
 	desc = "A slice from a huge mushroom."
 	icon_state = "hugemushroomslice"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 1)
