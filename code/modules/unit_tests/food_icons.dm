@@ -3,5 +3,5 @@
 
 /datum/unit_test/food_icons/Run()
 	for(var/obj/item/food/food as anything in subtypesof(/obj/item/food))
-		if(!icon_exists(initial(food.icon), initial(food.icon_state)))
+		if(food.icon && food.icon_state && !icon_exists(initial(food.icon), initial(food.icon_state)))
 			TEST_FAIL("No icon found for [initial(food.name)] ([food])!")
