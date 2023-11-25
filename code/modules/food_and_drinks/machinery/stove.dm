@@ -102,6 +102,8 @@
 	w_class = WEIGHT_CLASS_BULKY
 	custom_price = PAYCHECK_LOWER * 8
 	fill_icon_thresholds = null
+	pickup_sound = 'sound/items/handling/pot_pickup.ogg'
+	drop_sound = 'sound/items/handling/pot_drop.ogg'
 
 	/// Max number of ingredients we can add
 	var/max_ingredients = 24

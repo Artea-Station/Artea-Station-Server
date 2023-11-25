@@ -140,6 +140,8 @@
 	fill_icon_thresholds = list(0)
 	fill_icon_state = "fullbowl"
 	fill_icon = 'icons/obj/food/soupsalad.dmi'
+	pickup_sound = 'sound/items/handling/plastic_pickup.ogg'
+	drop_sound = 'sound/items/handling/plastic_drop.ogg'
 
 	volume = SOUP_SERVING_SIZE + 5
 	gulp_size = 3
