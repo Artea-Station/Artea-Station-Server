@@ -122,7 +122,7 @@
 	can_jam = FALSE
 
 /obj/item/gun/ballistic/rifle/boltaction/brand_new
-	desc = "A brand new Mosin Nagant issued by Nanotrasen for their interns. You would rather not to damage it."
+	desc = "A brand new Mosin Nagant issued by Artea for their interns. You would rather not to damage it."
 	can_be_sawn_off = FALSE
 	can_jam = FALSE
 

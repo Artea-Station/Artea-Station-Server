@@ -366,7 +366,7 @@ GLOBAL_LIST_EMPTY(active_antag_objectives)
 /datum/objective/jailbreak/detain/update_explanation_text()
 	..()
 	if(target?.current)
-		explanation_text = "Ensure that [target.name], the [!target_role_type ? target.assigned_role.title : target.special_role] is delivered to nanotrasen alive and in custody."
+		explanation_text = "Ensure that [target.name], the [!target_role_type ? target.assigned_role.title : target.special_role] is delivered to Artea alive and in custody."
 	else
 		explanation_text = "Free Objective"
 

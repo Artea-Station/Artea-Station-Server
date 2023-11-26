@@ -64,7 +64,7 @@
 	icon_state = "centcom_cells"
 
 /area/centcom/central_command_areas/courtroom
-	name = "Nanotrasen Grand Courtroom"
+	name = "Artea Grand Courtroom"
 	icon_state = "centcom_court"
 
 /area/centcom/central_command_areas/holding
