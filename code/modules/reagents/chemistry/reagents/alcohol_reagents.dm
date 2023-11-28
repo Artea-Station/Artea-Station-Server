@@ -1194,7 +1194,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/grog
 	name = "Grog"
-	description = "Watered-down rum, Nanotrasen approves!"
+	description = "Watered-down rum, Artea approves!"
 	color = "#e0e058" // rgb: 224,224,88
 	boozepwr = 1 //Basically nothing
 	taste_description = "a poor excuse for alcohol"
@@ -1252,12 +1252,12 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	taste_description = "stomach acid"
 	glass_icon_state = "acidspitglass"
 	glass_name = "Acid Spit"
-	glass_desc = "A drink from Nanotrasen. Made from live aliens."
+	glass_desc = "A drink from Artea. Made from live aliens."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/ethanol/amasec
 	name = "Amasec"
-	description = "Official drink of the Nanotrasen Gun-Club!"
+	description = "Official drink of the Artea Gun-Club!"
 	color = "#e0e058" // rgb: 224,224,88
 	boozepwr = 35
 	quality = DRINK_GOOD
@@ -1495,7 +1495,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	taste_description = "da bomb"
 	glass_icon_state = "atomicbombglass"
 	glass_name = "Atomic Bomb"
-	glass_desc = "Nanotrasen cannot take legal responsibility for your actions after imbibing."
+	glass_desc = "Artea cannot take legal responsibility for your actions after imbibing."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	glass_price = DRINK_PRICE_HIGH
 
@@ -1974,7 +1974,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	taste_description = "seduction"
 	glass_icon_state = "between_the_sheets"
 	glass_name = "Between the Sheets"
-	glass_desc = "The only drink that comes with a label reminding you of Nanotrasen's zero-tolerance promiscuity policy."
+	glass_desc = "The only drink that comes with a label reminding you of Artea's zero-tolerance promiscuity policy."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	glass_price = DRINK_PRICE_MEDIUM
 

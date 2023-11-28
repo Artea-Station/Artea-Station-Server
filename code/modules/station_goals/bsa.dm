@@ -15,7 +15,7 @@ GLOBAL_VAR_INIT(bsa_unlock, FALSE)
 		"We need you to construct BSA-[rand(1,99)] Artillery position aboard your station.",
 		"",
 		"Base parts are available for shipping via cargo.",
-		"-Nanotrasen Naval Command</blockquote>",
+		"-Artea Naval Command</blockquote>",
 	).Join("\n")
 
 /datum/station_goal/bluespace_cannon/on_report()
@@ -69,7 +69,7 @@ GLOBAL_VAR_INIT(bsa_unlock, FALSE)
 
 /obj/machinery/bsa/middle
 	name = "Bluespace Artillery Fusor"
-	desc = "Contents classified by Nanotrasen Naval Command. Needs to be linked with the other BSA parts using a multitool."
+	desc = "Contents classified by Artea Naval Command. Needs to be linked with the other BSA parts using a multitool."
 	icon_state = "fuel_chamber"
 	var/datum/weakref/back_ref
 	var/datum/weakref/front_ref

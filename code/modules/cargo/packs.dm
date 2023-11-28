@@ -339,7 +339,7 @@
 
 /datum/supply_pack/security/forensics
 	name = "Forensics Crate"
-	desc = "Stay hot on the criminal's heels with Nanotrasen's Detective Essentials(tm). Contains a forensics scanner, six evidence bags, camera, tape recorder, white crayon, and of course, a fedora. Requires Security access to open."
+	desc = "Stay hot on the criminal's heels with Artea's Detective Essentials(tm). Contains a forensics scanner, six evidence bags, camera, tape recorder, white crayon, and of course, a fedora. Requires Security access to open."
 	cost = CARGO_CRATE_VALUE * 2.5
 	access_view = ACCESS_MORGUE
 	contains = list(/obj/item/detective_scanner,
@@ -438,7 +438,7 @@
 
 /datum/supply_pack/security/justiceinbound
 	name = "Standard Justice Enforcer Crate"
-	desc = "This is it. The Bee's Knees. The Creme of the Crop. The Pick of the Litter. The best of the best of the best. The Crown Jewel of Nanotrasen. The Alpha and the Omega of security headwear. Guaranteed to strike fear into the hearts of each and every criminal aboard the station. Also comes with a security gasmask. Requires Security access to open."
+	desc = "This is it. The Bee's Knees. The Creme of the Crop. The Pick of the Litter. The best of the best of the best. The Crown Jewel of Artea. The Alpha and the Omega of security headwear. Guaranteed to strike fear into the hearts of each and every criminal aboard the station. Also comes with a security gasmask. Requires Security access to open."
 	cost = CARGO_CRATE_VALUE * 6 //justice comes at a price. An expensive, noisy price.
 	contraband = TRUE
 	contains = list(/obj/item/clothing/head/helmet/justice,
@@ -646,7 +646,7 @@
 
 /datum/supply_pack/security/armory/swat
 	name = "SWAT Crate"
-	desc = "Contains two fullbody sets of tough, fireproof suits designed in a joint effort by IS-ERI and Nanotrasen. Each set contains a suit, helmet, mask, combat belt, and combat gloves. Requires Armory access to open."
+	desc = "Contains two fullbody sets of tough, fireproof suits designed in a joint effort by IS-ERI and Artea. Each set contains a suit, helmet, mask, combat belt, and combat gloves. Requires Armory access to open."
 	cost = CARGO_CRATE_VALUE * 7
 	contains = list(/obj/item/clothing/head/helmet/swat/nanotrasen,
 					/obj/item/clothing/head/helmet/swat/nanotrasen,
@@ -686,7 +686,7 @@
 
 /datum/supply_pack/engineering/shieldgen
 	name = "Anti-breach Shield Projector Crate"
-	desc = "Hull breaches again? Say no more with the Nanotrasen Anti-Breach Shield Projector! Uses forcefield technology to keep the air in, and the space out. Contains two shield projectors."
+	desc = "Hull breaches again? Say no more with the Artea Anti-Breach Shield Projector! Uses forcefield technology to keep the air in, and the space out. Contains two shield projectors."
 	cost = CARGO_CRATE_VALUE * 3
 	access_view = ACCESS_ENGINE_EQUIP
 	contains = list(/obj/machinery/shieldgen,
@@ -841,7 +841,7 @@
 
 /datum/supply_pack/engineering/bsa
 	name = "Bluespace Artillery Parts"
-	desc = "The pride of Nanotrasen Naval Command. The legendary Bluespace Artillery Cannon is a devastating feat of human engineering and testament to wartime determination. Highly advanced research is required for proper construction. "
+	desc = "The pride of Artea Naval Command. The legendary Bluespace Artillery Cannon is a devastating feat of human engineering and testament to wartime determination. Highly advanced research is required for proper construction. "
 	cost = CARGO_CRATE_VALUE * 30
 	special = TRUE
 	access_view = ACCESS_COMMAND
@@ -1573,7 +1573,7 @@
 
 /datum/supply_pack/service/janitor
 	name = "Janitorial Supplies Crate"
-	desc = "Fight back against dirt and grime with Nanotrasen's Janitorial Essentials(tm)! Contains three buckets, caution signs, and cleaner grenades. Also has a single mop, broom, spray cleaner, rag, and trash bag."
+	desc = "Fight back against dirt and grime with Artea's Janitorial Essentials(tm)! Contains three buckets, caution signs, and cleaner grenades. Also has a single mop, broom, spray cleaner, rag, and trash bag."
 	cost = CARGO_CRATE_VALUE * 2
 	access_view = ACCESS_JANITOR
 	contains = list(/obj/item/reagent_containers/cup/bucket,
@@ -1620,7 +1620,7 @@
 
 /datum/supply_pack/service/party
 	name = "Party Equipment"
-	desc = "Celebrate both life and death on the station with Nanotrasen's Party Essentials(tm)! Contains seven colored glowsticks, six beers, six sodas, two ales, and a bottle of patron, goldschlager, and shaker!"
+	desc = "Celebrate both life and death on the station with Artea's Party Essentials(tm)! Contains seven colored glowsticks, six beers, six sodas, two ales, and a bottle of patron, goldschlager, and shaker!"
 	cost = CARGO_CRATE_VALUE * 5
 	contains = list(/obj/item/storage/box/drinkingglasses,
 					/obj/item/reagent_containers/cup/glass/shaker,
@@ -1735,7 +1735,7 @@
 
 /datum/supply_pack/service/survivalknives
 	name = "Survival Knives Crate"
-	desc = "Contains three sharpened survival knives. Each knife guaranteed to fit snugly inside any Nanotrasen-standard boot."
+	desc = "Contains three sharpened survival knives. Each knife guaranteed to fit snugly inside any Artea-standard boot."
 	cost = CARGO_CRATE_VALUE * 3
 	contains = list(/obj/item/knife/combat/survival,
 					/obj/item/knife/combat/survival,
@@ -1858,7 +1858,7 @@
 
 /datum/supply_pack/organic/hydroponics/beekeeping_fullkit
 	name = "Beekeeping Starter Crate"
-	desc = "BEES BEES BEES. Contains three honey frames, a beekeeper suit and helmet, flyswatter, bee house, and, of course, a pure-bred Nanotrasen-Standardized Queen Bee!"
+	desc = "BEES BEES BEES. Contains three honey frames, a beekeeper suit and helmet, flyswatter, bee house, and, of course, a pure-bred Artea-Standardized Queen Bee!"
 	cost = CARGO_CRATE_VALUE * 3
 	contains = list(/obj/structure/beebox/unwrenched,
 					/obj/item/honey_frame,
@@ -2066,7 +2066,7 @@
 
 /datum/supply_pack/organic/potted_plants
 	name = "Potted Plants Crate"
-	desc = "Spruce up the station with these lovely plants! Contains a random assortment of five potted plants from Nanotrasen's potted plant research division. Warranty void if thrown."
+	desc = "Spruce up the station with these lovely plants! Contains a random assortment of five potted plants from Artea's potted plant research division. Warranty void if thrown."
 	cost = CARGO_CRATE_VALUE * 1.5
 	contains = list(/obj/item/kirbyplants/random,
 					/obj/item/kirbyplants/random,
@@ -2563,7 +2563,7 @@
 
 /datum/supply_pack/costumes_toys/costume
 	name = "Standard Costume Crate"
-	desc = "Supply the station's entertainers with the equipment of their trade with these Nanotrasen-approved costumes! Contains a full clown and mime outfit, along with a bike horn and a bottle of nothing."
+	desc = "Supply the station's entertainers with the equipment of their trade with these Artea-approved costumes! Contains a full clown and mime outfit, along with a bike horn and a bottle of nothing."
 	cost = CARGO_CRATE_VALUE * 2
 	access = ACCESS_THEATRE
 	contains = list(/obj/item/storage/backpack/clown,
@@ -2602,7 +2602,7 @@
 
 /datum/supply_pack/costumes_toys/wizard
 	name = "Wizard Costume Crate"
-	desc = "Pretend to join the Wizard Federation with this full wizard outfit! Nanotrasen would like to remind its employees that actually joining the Wizard Federation is subject to termination of job and life."
+	desc = "Pretend to join the Wizard Federation with this full wizard outfit! Artea would like to remind its employees that actually joining the Wizard Federation is subject to termination of job and life."
 	cost = CARGO_CRATE_VALUE * 4
 	contains = list(/obj/item/staff,
 					/obj/item/clothing/suit/wizrobe/fake,
@@ -2619,7 +2619,7 @@
 
 /datum/supply_pack/costumes_toys/trekkie
 	name = "Trekkie Costume Crate"
-	desc = "Wear the scrapped concepts for Nanotrasen's jumpsuits, based off popular late-20th century Earth media! While they couldn't be used for the official jumpsuits due to copyright infringement, it's been assured that they can still legally be sold under the label of being 'failed designs'."
+	desc = "Wear the scrapped concepts for Artea's jumpsuits, based off popular late-20th century Earth media! While they couldn't be used for the official jumpsuits due to copyright infringement, it's been assured that they can still legally be sold under the label of being 'failed designs'."
 	cost = CARGO_CRATE_VALUE * 2
 	contains = list(
 		/obj/item/clothing/under/trek/command,
@@ -2752,7 +2752,7 @@
 
 /datum/supply_pack/misc/bicycle
 	name = "Bicycle"
-	desc = "Nanotrasen reminds all employees to never toy with powers outside their control."
+	desc = "Artea reminds all employees to never toy with powers outside their control."
 	cost = 1000000 //Special case, we don't want to make this in terms of crates because having bikes be a million credits is the whole meme.
 	contains = list(/obj/vehicle/ridden/bicycle)
 	crate_name = "bicycle crate"
@@ -2776,7 +2776,7 @@
 
 /datum/supply_pack/misc/book_crate
 	name = "Book Crate"
-	desc = "Surplus from the Nanotrasen Archives, these seven books are sure to be good reads."
+	desc = "Surplus from the Artea Archives, these seven books are sure to be good reads."
 	cost = CARGO_CRATE_VALUE * 3
 	access_view = ACCESS_LIBRARY
 	contains = list(/obj/item/book/codex_gigas,
@@ -2790,7 +2790,7 @@
 
 /datum/supply_pack/misc/commandkeys
 	name = "Command Encryption Key Crate"
-	desc = "A pack of encryption keys that give access to the command radio network. Nanotrasen reminds unauthorized employees not to eavesdrop in on secure communications channels, or at least to keep heckling of the command staff to a minimum."
+	desc = "A pack of encryption keys that give access to the command radio network. Artea reminds unauthorized employees not to eavesdrop in on secure communications channels, or at least to keep heckling of the command staff to a minimum."
 	access_view = ACCESS_COMMAND
 	access = ACCESS_COMMAND
 	cost = CARGO_CRATE_VALUE * 4
@@ -2871,7 +2871,7 @@
 
 /datum/supply_pack/misc/empty
 	name = "Empty Supplypod"
-	desc = "Presenting the New Nanotrasen-Brand Bluespace Supplypod! Transport cargo with grace and ease! Call today and we'll shoot over a demo unit for just 300 credits!"
+	desc = "Presenting the New Artea-Brand Bluespace Supplypod! Transport cargo with grace and ease! Call today and we'll shoot over a demo unit for just 300 credits!"
 	cost = CARGO_CRATE_VALUE * 0.6 //Empty pod, so no crate refund
 	contains = list()
 	drop_pod_only = TRUE
