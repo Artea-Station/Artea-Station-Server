@@ -97,10 +97,10 @@
 				<li>Secure the mainboard with a screwdriver.</li>
 				<li>Install the peripherals control module (Not included. Use supplied datadisk to create one).</li>
 				<li>Secure the peripherals control module with a screwdriver</li>
-				<li>Install the internal armor plating (Not included due to Nanotrasen regulations. Can be made using 5 iron sheets.)</li>
+				<li>Install the internal armor plating (Not included due to Artea regulations. Can be made using 5 iron sheets.)</li>
 				<li>Secure the internal armor plating with a wrench</li>
 				<li>Weld the internal armor plating to the chassis</li>
-				<li>Install the external reinforced armor plating (Not included due to Nanotrasen regulations. Can be made using 5 reinforced iron sheets.)</li>
+				<li>Install the external reinforced armor plating (Not included due to Artea regulations. Can be made using 5 reinforced iron sheets.)</li>
 				<li>Secure the external reinforced armor plating with a wrench</li>
 				<li>Weld the external reinforced armor plating to the chassis</li>
 				</ol>
@@ -108,7 +108,7 @@
 				</html>
 
 				<h2>Operation</h2>
-				Please consult the Nanotrasen compendium "Robotics for Dummies".
+				Please consult the Artea compendium "Robotics for Dummies".
 			"}
 
 /obj/item/book/manual/chef_recipes
@@ -205,7 +205,7 @@
 			<body>
 			Nuclear Explosives 101:<br>
 			Hello and thank you for choosing the Syndicate for your nuclear information needs.<br>
-			Today's crash course will deal with the operation of a Fusion Class Nanotrasen made Nuclear Device.<br>
+			Today's crash course will deal with the operation of a Fusion Class Artea made Nuclear Device.<br>
 			First and foremost, DO NOT TOUCH ANYTHING UNTIL THE BOMB IS IN PLACE.<br>
 			Pressing any button on the compacted bomb will cause it to extend and bolt itself into place.<br>
 			If this is done to unbolt it one must completely log in which at this time may not be possible.<br>
@@ -217,7 +217,7 @@
 			<li>Press the E button to log onto the device.</li>
 			You now have activated the device. To deactivate the buttons at anytime for example when you've already prepped the bomb for detonation remove the auth disk OR press the R on the keypad.<br>
 			Now the bomb CAN ONLY be detonated using the timer. Manual detonation is not an option.<br>
-			Note: Nanotrasen is a pain in the neck.<br>
+			Note: Artea is a pain in the neck.<br>
 			Toggle off the SAFETY.<br>
 			Note: You wouldn't believe how many Syndicate Operatives with doctorates have forgotten this step.<br>
 			So use the - - and + + to set a det time between 5 seconds and 10 minutes.<br>
@@ -228,7 +228,7 @@
 			Toggle off the anchor, move it, and re-anchor.<br><br>
 			Good luck. Remember the order:<br>
 			<b>Disk, Code, Safety, Timer, Disk, RUN!</b><br>
-			Intelligence Analysts believe that normal Nanotrasen procedure is for the Captain to secure the nuclear authorisation disk.<br>
+			Intelligence Analysts believe that normal Artea procedure is for the Captain to secure the nuclear authorisation disk.<br>
 			Good luck!
 			</body>
 			</html>"}
@@ -278,7 +278,7 @@
 /obj/item/book/manual/wiki/chemistry
 	name = "Chemistry Textbook"
 	icon_state ="chemistrybook"
-	starting_author = "Nanotrasen"
+	starting_author = "Artea"
 	starting_title = "Chemistry Textbook"
 	page_link = "Guide_to_chemistry"
 
@@ -298,9 +298,9 @@
 
 /obj/item/book/manual/wiki/security_space_law
 	name = "Space Law"
-	desc = "A set of Nanotrasen guidelines for keeping law and order on their space stations."
+	desc = "A set of Artea guidelines for keeping law and order on their space stations."
 	icon_state = "bookSpaceLaw"
-	starting_author = "Nanotrasen"
+	starting_author = "Artea"
 	starting_title = "Space Law"
 	page_link = "Space_Law"
 
@@ -332,7 +332,7 @@
 /obj/item/book/manual/wiki/detective
 	name = "The Film Noir: Proper Procedures for Investigations"
 	icon_state ="bookDetective"
-	starting_author = "Nanotrasen"
+	starting_author = "Artea"
 	starting_title = "The Film Noir: Proper Procedures for Investigations"
 	page_link = "Detective"
 

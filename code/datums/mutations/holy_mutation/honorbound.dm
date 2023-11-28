@@ -2,7 +2,7 @@
 ///Honorbound prevents you from attacking the unready, the just, or the innocent
 /datum/mutation/human/honorbound
 	name = "Honorbound"
-	desc = "Less of a genome and more of a forceful rewrite of genes. Nothing Nanotrasen supplies allows for a genetic restructure like this... \
+	desc = "Less of a genome and more of a forceful rewrite of genes. Nothing Artea supplies allows for a genetic restructure like this... \
 	The user feels compelled to follow supposed \"rules of combat\" but in reality they physically are unable to. \
 	Their brain is rewired to excuse any curious inabilities that arise from this odd effect."
 	quality = POSITIVE //so it gets carried over on revives

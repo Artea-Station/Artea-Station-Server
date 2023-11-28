@@ -229,7 +229,7 @@
 
 /obj/item/surgical_drapes
 	name = "surgical drapes"
-	desc = "Nanotrasen brand surgical drapes provide optimal safety and infection control."
+	desc = "Artea brand surgical drapes provide optimal safety and infection control."
 	icon = 'icons/obj/medical/surgery_tools.dmi'
 	icon_state = "surgical_drapes"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'

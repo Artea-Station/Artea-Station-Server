@@ -2046,7 +2046,7 @@
 /datum/techweb_node/tackle_advanced
 	id = "tackle_advanced"
 	display_name = "Advanced Grapple Technology"
-	description = "Nanotrasen would like to remind its researching staff that it is never acceptable to \"glomp\" your coworkers, and further \"scientific trials\" on the subject \
+	description = "Artea would like to remind its researching staff that it is never acceptable to \"glomp\" your coworkers, and further \"scientific trials\" on the subject \
 	will no longer be accepted in its academic journals."
 	design_ids = list(
 		"tackle_dolphin",

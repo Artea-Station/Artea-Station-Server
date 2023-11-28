@@ -194,7 +194,7 @@ SUBSYSTEM_DEF(economy)
 		if(MC_TICK_CHECK)
 			cached_processing.Cut(1, i + 1)
 			return FALSE
-	earning_report = "<b>Sector Economic Report</b><br><br> Sector vendor prices is currently at <b>[SSeconomy.inflation_value()*100]%</b>.<br><br> The station spending power is currently <b>[station_total] Credits</b>, and the crew's targeted allowance is at <b>[station_target] Credits</b>.<br><br> That's all from the <i>Nanotrasen Economist Division</i>."
+	earning_report = "<b>Sector Economic Report</b><br><br> Sector vendor prices is currently at <b>[SSeconomy.inflation_value()*100]%</b>.<br><br> The station spending power is currently <b>[station_total] Credits</b>, and the crew's targeted allowance is at <b>[station_target] Credits</b>.<br><br> That's all from the <i>Artea Economist Division</i>."
 	GLOB.news_network.submit_article(earning_report, "Station Earnings Report", "Station Announcements", null, update_alert = FALSE)
 	return TRUE
 

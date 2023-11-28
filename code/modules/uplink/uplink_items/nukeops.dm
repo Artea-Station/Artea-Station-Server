@@ -548,7 +548,7 @@
 	name = "Syndicate Saboteur Cyborg"
 	desc = "A streamlined engineering cyborg, equipped with covert modules. Also incapable of leaving the welder in the shuttle. \
 			Aside from regular Engineering equipment, it comes with a special destination tagger that lets it traverse disposals networks. \
-			Its chameleon projector lets it disguise itself as a Nanotrasen cyborg, on top it has thermal vision and a pinpointer."
+			Its chameleon projector lets it disguise itself as a Artea cyborg, on top it has thermal vision and a pinpointer."
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
 	refundable = TRUE
 	cost = 35
@@ -643,7 +643,7 @@
 
 /datum/uplink_item/device_tools/syndie_jaws_of_life
 	name = "Syndicate Jaws of Life"
-	desc = "Based on a Nanotrasen model, this powerful tool can be used as both a crowbar and a pair of wirecutters. \
+	desc = "Based on a Artea model, this powerful tool can be used as both a crowbar and a pair of wirecutters. \
 	In its crowbar configuration, it can be used to force open airlocks. Very useful for entering the station or its departments."
 	item = /obj/item/crowbar/power/syndicate
 	cost = 4

@@ -107,7 +107,7 @@
 
 /obj/item/paper/fluff/stations/centcom/bulletin
 	name = "paper- 'Official Bulletin'"
-	default_raw_text = "<BR>CentCom Security<BR>Port Division<BR>Official Bulletin<BR><BR>Inspector,<BR>There is an emergency shuttle arriving today.<BR><BR>Approval is restricted to Nanotrasen employees only. Deny all other entrants.<BR><BR>CentCom Port Commissioner"
+	default_raw_text = "<BR>CentCom Security<BR>Port Division<BR>Official Bulletin<BR><BR>Inspector,<BR>There is an emergency shuttle arriving today.<BR><BR>Approval is restricted to Artea employees only. Deny all other entrants.<BR><BR>CentCom Port Commissioner"
 
 
 /////////// Lavaland

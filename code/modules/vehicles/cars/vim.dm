@@ -6,7 +6,7 @@
  */
 /obj/vehicle/sealed/car/vim
 	name = "\improper Vim"
-	desc = "An minature exosuit from Nanotrasen, developed to let the irreplacable station pets live a little longer."
+	desc = "An minature exosuit from Artea, developed to let the irreplacable station pets live a little longer."
 	icon_state = "vim"
 	max_integrity = 50
 	armor = list(MELEE = 70, BULLET = 40, LASER = 40, ENERGY = 0, BOMB = 30, BIO = 0, FIRE = 80, ACID = 80)
@@ -113,7 +113,7 @@
 
 /obj/item/circuit_component/vim
 	display_name = "Vim"
-	desc = "An minature exosuit from Nanotrasen, developed to let the irreplacable station pets live a little longer."
+	desc = "An minature exosuit from Artea, developed to let the irreplacable station pets live a little longer."
 
 	/// Sent when the mech chimes.
 	var/datum/port/output/chime

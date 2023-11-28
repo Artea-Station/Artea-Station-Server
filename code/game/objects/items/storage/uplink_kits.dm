@@ -432,7 +432,7 @@
 
 /obj/item/storage/box/syndie_kit/nuke
 	name = "nuke core extraction kit"
-	desc = "A box containing the equipment and instructions for extracting the plutonium cores of most Nanotrasen nuclear explosives."
+	desc = "A box containing the equipment and instructions for extracting the plutonium cores of most Artea nuclear explosives."
 
 /obj/item/storage/box/syndie_kit/nuke/PopulateContents()
 	new /obj/item/screwdriver/nuke(src)

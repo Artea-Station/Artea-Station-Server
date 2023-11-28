@@ -36,7 +36,7 @@
 	id = "asteroid4"
 	suffix = "asteroid4.dmm"
 	name = "Asteroid 4"
-	description = "Nanotrasen Escape Pods have a 100%* success rate, and a 99%* customer satisfaction rate. \
+	description = "Artea Escape Pods have a 100%* success rate, and a 99%* customer satisfaction rate. \
 	*Please note that these statistics are taken from pods that have successfully docked with a recovery vessel."
 
 /datum/map_template/ruin/space/asteroid5
@@ -96,7 +96,7 @@
 	id = "derelict6"
 	suffix = "derelict6.dmm"
 	name = "Derelict 6"
-	description = "The hush-hush of Nanotrasen when it comes to stations seemingly vanishing off the radar is an interesting topic, theories of nuclear destruction float about while Nanotrasen \
+	description = "The hush-hush of Artea when it comes to stations seemingly vanishing off the radar is an interesting topic, theories of nuclear destruction float about while Artea \
 	flat-out denies said stations ever existing."
 
 /datum/map_template/ruin/space/derelict7
@@ -276,3 +276,8 @@
 	name = "Pod Crash"
 	description = "A tragic display of what happens to drivers who pda and pod."
 
+/datum/map_template/ruin/space/babylon_derelict
+	id = "babylon_derelict"
+	suffix = "babylon_derelict.dmm"
+	name = "Derelict Babylon Station"
+	description = "A long abandoned station left adrift in the depths of the cosmos."
