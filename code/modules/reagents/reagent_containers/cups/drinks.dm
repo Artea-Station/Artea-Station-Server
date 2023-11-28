@@ -11,6 +11,9 @@
 
 	isGlass = TRUE
 
+	pickup_sound = 'sound/items/handling/glass_pickup.ogg'
+	drop_sound = 'sound/items/handling/glass_drop.ogg'
+
 
 /obj/item/reagent_containers/cup/glass/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum, do_splash = TRUE)
 	. = ..()
@@ -101,6 +104,8 @@
 	resistance_flags = FREEZE_PROOF
 	isGlass = FALSE
 	drink_type = BREAKFAST
+	pickup_sound = 'sound/items/handling/papercup_pickup.ogg'
+	drop_sound = 'sound/items/handling/papercup_drop.ogg'
 	var/lid_open = 0
 
 /obj/item/reagent_containers/cup/glass/coffee/no_lid
@@ -135,7 +140,7 @@
 
 /obj/item/reagent_containers/cup/glass/ice/prison
 	name = "dirty ice cup"
-	desc = "Either Nanotrasen's water supply is contaminated, or this machine actually vends lemon, chocolate, and cherry snow cones."
+	desc = "Either Artea's water supply is contaminated, or this machine actually vends lemon, chocolate, and cherry snow cones."
 	list_reagents = list(/datum/reagent/consumable/ice = 25, /datum/reagent/liquidgibs = 5)
 
 /obj/item/reagent_containers/cup/glass/mug // parent type is literally just so empty mug sprites are a thing
@@ -179,6 +184,8 @@
 	volume = 30
 	spillable = TRUE
 	isGlass = FALSE
+	pickup_sound = 'sound/items/handling/papercup_pickup.ogg'
+	drop_sound = 'sound/items/handling/papercup_drop.ogg'
 
 /obj/item/reagent_containers/cup/glass/coffee_cup/update_icon_state()
 	icon_state = reagents.total_volume ? "coffee_cup" : "coffee_cup_e"
@@ -192,6 +199,8 @@
 	drink_type = GRAIN
 	isGlass = FALSE
 	custom_price = PAYCHECK_CREW * 0.9
+	pickup_sound = 'sound/items/handling/papercup_pickup.ogg'
+	drop_sound = 'sound/items/handling/papercup_drop.ogg'
 
 /obj/item/reagent_containers/cup/glass/waterbottle
 	name = "bottle of water"
@@ -205,6 +214,8 @@
 	amount_per_transfer_from_this = 10
 	fill_icon_thresholds = list(0, 10, 25, 50, 75, 80, 90)
 	isGlass = FALSE
+	pickup_sound = 'sound/items/handling/papercup_pickup.ogg'
+	drop_sound = 'sound/items/handling/papercup_drop.ogg'
 	// The 2 bottles have separate cap overlay icons because if the bottle falls over while bottle flipping the cap stays fucked on the moved overlay
 	var/cap_icon_state = "bottle_cap_small"
 	var/cap_on = TRUE

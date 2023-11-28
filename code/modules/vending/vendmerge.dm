@@ -207,6 +207,7 @@
 		/obj/item/storage/pill_bottle/psicodine = 2,
 	)
 	refill_canister = /obj/item/vending_refill/medical/deluxe
+	vend_sound = 'sound/machines/vending_cans.ogg'
 
 /obj/item/vending_refill/medical/deluxe
 	machine_name = "NanoMed Deluxe"
@@ -373,6 +374,7 @@
 		/obj/item/reagent_containers/cup/bottle/diethylamine = 5,
 	)
 	refill_canister = /obj/item/vending_refill/hydroseeds/deluxe
+	vend_sound = 'sound/machines/vending_cans.ogg'
 
 /obj/item/vending_refill/hydroseeds/deluxe
 	machine_name = "MegaSeed Servitor Deluxe"

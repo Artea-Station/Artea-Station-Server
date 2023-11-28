@@ -168,6 +168,9 @@
 	/// The manufacturer text to be shown on examine. Won't be updated post init, so you'll have to handle adding/removing the element post init.
 	var/manufacturer
 
+	/// The sound to play when our storage is opened.
+	var/rustle_sound = SFX_RUSTLE
+
 /**
  * Called when an atom is created in byond (built in engine proc)
  *
@@ -359,7 +362,7 @@
 	if(atom_storage)
 		QDEL_NULL(atom_storage)
 
-	atom_storage = new type(src, max_slots, max_specific_storage, max_total_storage, numerical_stacking, allow_quick_gather, collection_mode, attack_hand_interact)
+	atom_storage = new type(src, max_slots, max_specific_storage, max_total_storage, numerical_stacking, allow_quick_gather, allow_quick_empty, collection_mode, attack_hand_interact, rustle_sound)
 
 	if(canhold || canthold)
 		atom_storage.set_holdable(canhold, canthold)

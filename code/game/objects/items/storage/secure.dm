@@ -12,6 +12,7 @@
 	name = "secstorage"
 	desc = "This shouldn't exist. If it does, create an issue report."
 	w_class = WEIGHT_CLASS_NORMAL
+	rustle_sound = 'sound/items/storage/metal_box.ogg'
 
 	/// icon_state of locked safe
 	var/icon_locking = "secureb"
@@ -138,6 +139,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb_continuous = list("bashes", "batters", "bludgeons", "thrashes", "whacks")
 	attack_verb_simple = list("bash", "batter", "bludgeon", "thrash", "whack")
+	rustle_sound = 'sound/items/storage/briefcase.ogg'
 
 /obj/item/storage/secure/briefcase/PopulateContents()
 	new /obj/item/paper(src)

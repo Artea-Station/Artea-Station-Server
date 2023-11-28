@@ -149,7 +149,7 @@
 	///Multiplier for power consumption.
 	var/machine_power_rectifier = 1
 	/// The sound that plays on UI interaction.
-	var/interaction_sound = SFX_PDA
+	var/interaction_sound = SFX_SMALL_BUTTON
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)

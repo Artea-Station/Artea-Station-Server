@@ -10,7 +10,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 	// Large, but inaccurate. Use a chem dispenser or beaker for accuracy.
-	possible_transfer_amounts = list("50", "100")
+	possible_transfer_amounts = list(50, 100)
 	amount_per_transfer_from_this = 50
 
 	// These are pretty robust devices.
@@ -18,6 +18,9 @@
 
 	// Can be transferred to/from, but can't be spilled.
 	reagent_flags = OPENCONTAINER
+
+	pickup_sound = 'sound/items/handling/device_pickup.ogg'
+	drop_sound = 'sound/items/handling/device_drop.ogg'
 
 	// If non-null, spawns with the specified reagent filling it's volume.
 	var/spawn_reagent

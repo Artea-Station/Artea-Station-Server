@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
+
 // A datum for dealing with threshold limit values
 /datum/tlv
 	var/warning_min
@@ -122,6 +124,7 @@
 
 /obj/machinery/airalarm/Initialize(mapload, ndir, nbuild)
 	. = ..()
+	GLOB.air_alarms += src
 	wires = new /datum/wires/airalarm(src)
 	if(ndir)
 		setDir(ndir)
@@ -149,6 +152,7 @@
 
 
 /obj/machinery/airalarm/Destroy()
+	GLOB.air_alarms -= src
 	if(my_area)
 		my_area = null
 	SSradio.remove_object(src, frequency)

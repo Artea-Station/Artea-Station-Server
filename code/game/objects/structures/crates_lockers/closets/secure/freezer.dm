@@ -6,6 +6,8 @@
 	door_anim_time = 4
 	/// If FALSE, we will protect the first person in the freezer from an explosion / nuclear blast.
 	var/jones = FALSE
+	open_sound = 'sound/effects/fridge_open.ogg'
+	close_sound = 'sound/effects/fridge_close.ogg'
 
 /obj/structure/closet/secure_closet/freezer/Destroy()
 	recursive_organ_check(src)

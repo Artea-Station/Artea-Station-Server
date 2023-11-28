@@ -10,6 +10,9 @@
 	lefthand_file = 'icons/mob/inhands/items/drinks_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items/drinks_righthand.dmi'
 
+	pickup_sound = 'sound/items/handling/papercup_pickup.ogg'
+	drop_sound = 'sound/items/handling/papercup_drop.ogg'
+
 	///Like Edible's food type, what kind of drink is this?
 	var/drink_type = NONE
 	///The last time we have checked for taste.
@@ -207,6 +210,8 @@
 	worn_icon_state = "beaker"
 	custom_materials = list(/datum/material/glass=500)
 	fill_icon_thresholds = list(0, 1, 20, 40, 60, 80, 100)
+	pickup_sound = 'sound/items/handling/glass_pickup.ogg'
+	drop_sound = 'sound/items/handling/glass_drop.ogg'
 
 /obj/item/reagent_containers/cup/beaker/Initialize(mapload)
 	. = ..()
