@@ -385,3 +385,13 @@
 		RND_CATEGORY_COMPUTER + RND_SUBCATEGORY_COMPUTER_RECORDS
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SERVICE
+
+/datum/design/board/chef_order
+	name = "Produce Orders Console"
+	desc = "An interface for ordering fresh produce and other. A far more expensive option than the botanists, but oh well."
+	id = "chef_order_console"
+	build_path = /obj/item/circuitboard/computer/chef_order
+	category = list(
+		RND_CATEGORY_COMPUTER + RND_SUBCATEGORY_COMPUTER_ENTERTAINMENT
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_SERVICE
