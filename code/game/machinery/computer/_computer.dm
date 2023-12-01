@@ -44,7 +44,8 @@
 
 	if(machine_stat & BROKEN)
 		icon_state = "computer_broken"
-		. += mutable_appearance(icon, "[base_icon_state]_glass")
+		. += "[icon_keyboard]_off"
+		. += mutable_appearance(icon, "[base_icon_state]_glass", layer + 0.01)
 		return // If we don't do this broken computers glow in the dark.
 
 	// Just in case.
@@ -52,12 +53,12 @@
 
 	// Glass is a separate layer to make keyboard and program overlays look correct when facing noth.
 	// The things I do for asthetics.
-	. += mutable_appearance(icon, "[base_icon_state]_glass")
+	. += mutable_appearance(icon, "[base_icon_state]_glass", layer + 0.02)
 
 	if(machine_stat & NOPOWER) // Your screen can't be on if you've got no damn power
 		return
 
-	. += mutable_appearance(icon, icon_screen)
+	. += mutable_appearance(icon, icon_screen, layer + 0.03)
 	// This lets screens ignore lighting and be visible even in the darkest room
 	. += emissive_appearance(icon, icon_screen)
 
