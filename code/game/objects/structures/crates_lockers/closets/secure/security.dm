@@ -149,6 +149,8 @@
 	name = "\improper detective's cabinet"
 	req_access = list(ACCESS_DETECTIVE)
 	icon_state = "cabinet"
+	icon_locked = "locked_wood"
+	icon_unlocked = "unlocked_wood"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	door_anim_time = 0 // no animation
