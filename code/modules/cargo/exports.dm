@@ -24,6 +24,8 @@ Then the player gets the profit from selling his own wasted time.
 	var/list/exported_atoms = list() //names of atoms sold/deleted by export
 	var/list/total_amount = list() //export instance => total count of sold objects of its type, only exists if any were sold
 	var/list/total_value = list() //export instance => total value of sold objects
+	/// A list of unique export datums used to export this item and it's contents.
+	var/list/unique_exports = list()
 
 // external_report works as "transaction" object, pass same one in if you're doing more than one export in single go
 /proc/export_item_and_contents(atom/movable/AM, apply_elastic = TRUE, delete_unsold = TRUE, dry_run = FALSE, datum/export_report/external_report)
@@ -47,6 +49,7 @@ Then the player gets the profit from selling his own wasted time.
 					break
 				sold = export.sell_object(thing, report, dry_run, apply_elastic)
 				report.exported_atoms += " [thing.name]"
+				report.unique_exports[export.type] = TRUE
 				break
 		if(!dry_run && (sold || delete_unsold))
 			if(ismob(thing))

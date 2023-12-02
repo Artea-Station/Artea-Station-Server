@@ -591,7 +591,7 @@
 	if (single_order)
 		if (istype(single_order, /datum/supply_order))
 			var/datum/supply_order/SO = single_order
-			if (SO.pack.crate_type)
+			if (SO.pack.container_type)
 				SO.generate(pod)
 		else if (istype(single_order, /atom/movable))
 			var/atom/movable/O = single_order
@@ -664,12 +664,3 @@
 	pod.preOpen() //Begin supplypod open procedures. Here effects like explosions, damage, and other dangerous (and potentially admin-caused, if the centcom_podlauncher datum was used) memes will take place
 	drawSmoke()
 	qdel(src) //The pod_landingzone's purpose is complete. It can rest easy now
-
-//------------------------------------UPGRADES-------------------------------------//
-/obj/item/disk/cargo/bluespace_pod //Disk that can be inserted into the Express Console to allow for Advanced Bluespace Pods
-	name = "Bluespace Drop Pod Upgrade"
-	desc = "This disk provides a firmware update to the Express Supply Console, granting the use of Nanotrasen's Bluespace Drop Pods to the supply department."
-	icon = 'icons/obj/module.dmi'
-	icon_state = "cargodisk"
-	inhand_icon_state = "card-id"
-	w_class = WEIGHT_CLASS_SMALL

@@ -75,7 +75,7 @@ $fg-map: colors.$fg-map !default;
   min-width: 4em;
 }
 
-.Tab:not(.Tab--selected):hover {
+.Tab:not(.Tab--selected, .Tab--disabled):hover {
   background-color: $tab-color-hovered;
 }
 
@@ -136,4 +136,14 @@ $fg-map: colors.$fg-map !default;
   .Tabs--vertical .Tab--selected.Tab--color--#{$color-name} {
     border-right-color: $color-value;
   }
+
+  .Tab--disabled--#{$color-name} {
+    color: darken($color-value, 50);
+    background-color: darken($color-value, 50);
+  }
+}
+
+.Tab--disabled {
+  color: darken($color-default, 70);
+  background-color: darken($tab-color, 70);
 }
