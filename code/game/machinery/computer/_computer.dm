@@ -34,6 +34,14 @@
 		return FALSE
 	return TRUE
 
+/obj/machinery/computer/update_icon(updates)
+	. = ..()
+	if(machine_stat & BROKEN)
+		icon_state = "[base_icon_state]_broken"
+		return
+
+	icon_state = base_icon_state
+
 /obj/machinery/computer/update_overlays()
 	. = ..()
 	if(icon_keyboard)
@@ -43,13 +51,9 @@
 			. += icon_keyboard
 
 	if(machine_stat & BROKEN)
-		icon_state = "computer_broken"
 		. += "[icon_keyboard]_off"
-		. += mutable_appearance(icon, "[base_icon_state]_glass", layer + 0.01)
+		. += mutable_appearance(icon, "[base_icon_state]_glass_broken", layer + 0.01)
 		return // If we don't do this broken computers glow in the dark.
-
-	// Just in case.
-	icon_state = "computer"
 
 	// Glass is a separate layer to make keyboard and program overlays look correct when facing noth.
 	// The things I do for asthetics.
@@ -60,7 +64,7 @@
 
 	. += mutable_appearance(icon, icon_screen, layer + 0.02)
 	// This lets screens ignore lighting and be visible even in the darkest room
-	. += emissive_appearance(icon, icon_screen)
+	. += emissive_appearance(icon, "[base_icon_state]_emissive")
 
 /obj/machinery/computer/power_change()
 	. = ..()
