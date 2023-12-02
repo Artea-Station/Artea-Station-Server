@@ -62,6 +62,9 @@
 	/// Whether we are currently managing a roof
 	var/managing_roof = FALSE
 
+	/// A list of elevator panels to notify when lift is e-stopped.
+	var/list/controller_machines = list()
+
 /datum/lift_controller/process(delta_time)
 	if(next_action_time > world.time)
 		return
@@ -269,6 +272,9 @@
 	intentionally_halted = !intentionally_halted
 	if(intentionally_halted)
 		SetHalted(TRUE)
+		for(var/atom/movable/speaker as anything in controller_machines)
+			speaker.say("The elevator has been emergency stopped!")
+			playsound(speaker, 'sound/machines/warning-buzzer.ogg', 75)
 	else
 		next_action_time = world.time + 1 SECONDS
 
@@ -339,6 +345,7 @@
 	if(halted)
 		travel_progress = 0
 		loop_sound.stop()
+		playsound(GetSoundTurf(), )
 	else
 		loop_sound.start()
 	if(!current_wp)

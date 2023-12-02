@@ -193,7 +193,7 @@
 
 /datum/supply_pack/costumes_toys/costume
 	name = "Standard Costume Crate"
-	desc = "Supply the station's entertainers with the equipment of their trade with these Nanotrasen-approved costumes! Contains a full clown and mime outfit, along with a bike horn and a bottle of nothing."
+	desc = "Supply the station's entertainers with the equipment of their trade with these Artea-approved costumes! Contains a full clown and mime outfit, along with a bike horn and a bottle of nothing."
 	cost = CARGO_CRATE_VALUE * 2
 	access = ACCESS_THEATRE
 	contains = list(/obj/item/storage/backpack/clown,
@@ -232,7 +232,7 @@
 
 /datum/supply_pack/costumes_toys/wizard
 	name = "Wizard Costume Crate"
-	desc = "Pretend to join the Wizard Federation with this full wizard outfit! Nanotrasen would like to remind its employees that actually joining the Wizard Federation is subject to termination of job and life."
+	desc = "Pretend to join the Wizard Federation with this full wizard outfit! Artea would like to remind its employees that actually joining the Wizard Federation is subject to termination of job and life."
 	cost = CARGO_CRATE_VALUE * 4
 	contains = list(/obj/item/staff,
 					/obj/item/clothing/suit/wizrobe/fake,
@@ -249,7 +249,7 @@
 
 /datum/supply_pack/costumes_toys/trekkie
 	name = "Trekkie Costume Crate"
-	desc = "Wear the scrapped concepts for Nanotrasen's jumpsuits, based off popular late-20th century Earth media! While they couldn't be used for the official jumpsuits due to copyright infringement, it's been assured that they can still legally be sold under the label of being 'failed designs'."
+	desc = "Wear the scrapped concepts for Artea's jumpsuits, based off popular late-20th century Earth media! While they couldn't be used for the official jumpsuits due to copyright infringement, it's been assured that they can still legally be sold under the label of being 'failed designs'."
 	cost = CARGO_CRATE_VALUE * 2
 	contains = list(
 		/obj/item/clothing/under/trek/command,

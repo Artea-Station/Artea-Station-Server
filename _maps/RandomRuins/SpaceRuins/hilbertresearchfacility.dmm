@@ -156,11 +156,6 @@
 /obj/machinery/light/floor,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
-"el" = (
-/obj/machinery/autolathe,
-/obj/machinery/light/red/directional/north,
-/turf/open/floor/mineral/plastitanium,
-/area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "en" = (
 /obj/machinery/door/airlock/titanium,
 /turf/open/floor/mineral/plastitanium,
@@ -269,6 +264,21 @@
 	},
 /obj/effect/turf_decal/siding/wood/corner,
 /turf/open/floor/grass/fairy,
+/area/ruin/space/has_grav/powered/hilbertresearchfacility)
+"gG" = (
+/obj/effect/turf_decal/trimline/brown/arrow_cw{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/brown/mid_joiner{
+	dir = 1
+	},
+/obj/structure/sign/departments/cargo/directional/north,
+/obj/machinery/button/elevator{
+	id = "hilbert";
+	pixel_y = 4
+	},
+/obj/structure/table/reinforced/plastitaniumglass,
+/turf/open/floor/mineral/plastitanium,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "gU" = (
 /obj/effect/turf_decal/stripes/corner,
@@ -455,17 +465,6 @@
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "kO" = (
 /obj/effect/turf_decal/siding/thinplating_new/light,
-/turf/open/floor/mineral/titanium/tiled/white,
-/area/ruin/space/has_grav/powered/hilbertresearchfacility)
-"kP" = (
-/obj/machinery/button/elevator/speaker{
-	id = "hilbert";
-	pixel_y = 4
-	},
-/obj/structure/table/reinforced/rglass,
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 4
-	},
 /turf/open/floor/mineral/titanium/tiled/white,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "le" = (
@@ -789,6 +788,17 @@
 /area/ruin/space/has_grav/powered/hilbertresearchfacility/secretroom)
 "sz" = (
 /turf/open/floor/mineral/plastitanium/red,
+/area/ruin/space/has_grav/powered/hilbertresearchfacility)
+"sA" = (
+/obj/machinery/button/elevator{
+	id = "hilbert";
+	pixel_y = 4
+	},
+/obj/structure/table/reinforced/rglass,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/tiled/white,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "sO" = (
 /obj/effect/mob_spawn/corpse/human/monkey,
@@ -1160,6 +1170,17 @@
 	},
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/wood,
+/area/ruin/space/has_grav/powered/hilbertresearchfacility)
+"zJ" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/obj/structure/table/reinforced/rglass,
+/obj/machinery/button/elevator{
+	id = "right_part_hilbert";
+	pixel_y = 4
+	},
+/turf/open/floor/mineral/titanium/tiled/white,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "zM" = (
 /obj/structure/table/wood,
@@ -2128,35 +2149,14 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/grimy,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
-"Uo" = (
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 8
-	},
-/obj/structure/table/reinforced/rglass,
-/obj/machinery/button/elevator/speaker{
-	id = "right_part_hilbert";
-	pixel_y = 4
-	},
-/turf/open/floor/mineral/titanium/tiled/white,
+"Uq" = (
+/obj/machinery/autolathe,
+/obj/machinery/light/red/directional/north,
+/turf/open/floor/mineral/plastitanium,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Ut" = (
 /turf/template_noop,
 /area/template_noop)
-"Uu" = (
-/obj/effect/turf_decal/trimline/brown/arrow_cw{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/brown/mid_joiner{
-	dir = 1
-	},
-/obj/structure/sign/departments/cargo/directional/north,
-/obj/machinery/button/elevator/speaker{
-	id = "hilbert";
-	pixel_y = 4
-	},
-/obj/structure/table/reinforced/plastitaniumglass,
-/turf/open/floor/mineral/plastitanium,
-/area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Uy" = (
 /obj/machinery/mineral/unloading_machine{
 	dir = 1;
@@ -3062,7 +3062,7 @@ Bo
 Bo
 CV
 Ru
-kP
+sA
 Ru
 LD
 Bo
@@ -3800,7 +3800,7 @@ La
 La
 wo
 Bo
-Uu
+gG
 Xi
 Yt
 QS
@@ -3826,7 +3826,7 @@ Ut
 cg
 cg
 Bo
-el
+Uq
 ZV
 Wt
 KC
@@ -4622,7 +4622,7 @@ Bo
 Bo
 Gy
 zw
-Uo
+zJ
 zw
 NQ
 Bo

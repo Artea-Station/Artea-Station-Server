@@ -98,7 +98,7 @@
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', "screwdriver_nuke")
 
 /obj/item/paper/guides/antag/nuke_instructions
-	default_raw_text = "How to break into a Nanotrasen self-destruct terminal and remove its plutonium core:<br>\
+	default_raw_text = "How to break into a Artea self-destruct terminal and remove its plutonium core:<br>\
 	<ul>\
 	<li>Use a screwdriver with a very thin tip (provided) to unscrew the terminal's front panel</li>\
 	<li>Dislodge and remove the front panel with a crowbar</li>\
@@ -109,12 +109,12 @@
 	</ul>"
 
 /obj/item/paper/guides/antag/hdd_extraction
-	default_raw_text = "<h1>Source Code Theft & You - The Idiot's Guide to Crippling Nanotrasen Research & Development</h1><br>\
-	Rumour has it that Nanotrasen are using their R&D Servers to create something awful! They've codenamed it Project Goon, whatever that means.<br>\
+	default_raw_text = "<h1>Source Code Theft & You - The Idiot's Guide to Crippling Artea Research & Development</h1><br>\
+	Rumour has it that Artea are using their R&D Servers to create something awful! They've codenamed it Project Goon, whatever that means.<br>\
 	This cannot be allowed to stand. Below is all our intel for stealing their source code and crippling their research efforts:<br>\
 	<ul>\
 	<li>Locate the physical R&D Server mainframes. Intel suggests these are stored in specially cooled rooms deep within their Science department.</li>\
-	<li>Nanotrasen is a corporation not known for subtlety in design. You should be able to identify the master server by any distinctive markings.</li>\
+	<li>Artea is a corporation not known for subtlety in design. You should be able to identify the master server by any distinctive markings.</li>\
 	<li>Tools are on-site procurement. Screwdriver, crowbar and wirecutters should be all you need to do the job.<li>\
 	<li>The front panel screws are hidden in recesses behind stickers. Easily removed once you know they're there.</li>\
 	<li>You'll probably find the hard drive in secure housing. You may need to pry it loose with a crowbar, shouldn't do too much damage.</li>\

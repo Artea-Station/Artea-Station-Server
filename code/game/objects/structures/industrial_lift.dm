@@ -42,7 +42,8 @@
 	if(!id || lift_controller)
 		return ..()
 	new lift_controller_type(src)
-	return ..()
+	. = ..()
+	AddElement(/datum/element/footstep_override, footstep = FOOTSTEP_CATWALK)
 
 /obj/structure/industrial_lift/proc/InitializeBlacklist()
 	type_blacklist = list()

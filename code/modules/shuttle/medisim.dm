@@ -9,7 +9,7 @@
 	default_raw_text = {"Yeah, you may as well just melt this crap back down into metal.<br>
 	<br>
 	<br>
-	What else am I supposed to say? Nanotrasen thinks these authentic cuirass models are too expensive for the simulation watchers.
+	What else am I supposed to say? Artea thinks these authentic cuirass models are too expensive for the simulation watchers.
 	That's bullshit, but my hands are tied. But you know. If one of you cargo folk up at central command take a cuirass for yourself
 	instead of throwing the damn thing out, like, I'm sure nobody would notice or care. OK, but I'm sitting here on an official
 	NT shuttle encouraging you to break spacelaw. Damn, I'm bored as fuck. I was kidding. Melt em. See you guys soon.

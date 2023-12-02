@@ -290,7 +290,7 @@
 
 /obj/item/storage/box/sparklers
 	name = "box of sparklers"
-	desc = "A box of Nanotrasen brand sparklers, burns hot even in the cold of space-winter."
+	desc = "A box of Artea brand sparklers, burns hot even in the cold of space-winter."
 	illustration = "sparkler"
 
 /obj/item/storage/box/sparklers/PopulateContents()

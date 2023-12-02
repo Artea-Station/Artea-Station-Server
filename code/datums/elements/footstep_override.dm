@@ -1,48 +1,81 @@
+///When attached, the footstep sound played by the footstep element will be replaced by this one's
 /datum/element/footstep_override
-	element_flags = ELEMENT_BESPOKE | ELEMENT_DETACH
+	element_flags = ELEMENT_BESPOKE|ELEMENT_DETACH
 	id_arg_index = 2
-	var/footstep
-	var/barefootstep
+	///The sound played for movables with claw step sound type.
 	var/clawfootstep
+	///The sound played for movables with barefoot step sound type.
+	var/barefootstep
+	///The sound played for movables with heavy step sound type.
 	var/heavyfootstep
-	var/static/list/connection_signal = list(
-		COMSIG_MOB_PLAYS_FOOTSTEP = PROC_REF(on_footstep),
-	)
+	///The sound played for movables with shoed step sound type.
+	var/footstep
+	///The priority this element has in relation to other elements of the same type attached to other movables on the same turf.
+	var/priority
+	/**
+	 * A list of turfs occupied by the movables this element is attached to.
+	 * Needed so it stops listening the turf's signals ONLY when it has no movable with the element.
+	 */
+	var/list/occupied_turfs = list()
 
-/datum/element/footstep_override/Attach(datum/target, _footstep, _barefootstep, _clawfootstep, _heavyfootstep)
+/datum/element/footstep_override/Attach(atom/movable/target, clawfootstep = FOOTSTEP_HARD_CLAW, barefootstep = FOOTSTEP_HARD_BAREFOOT, heavyfootstep = FOOTSTEP_GENERIC_HEAVY, footstep = FOOTSTEP_FLOOR, priority = STEP_SOUND_NO_PRIORITY)
 	. = ..()
 	if(!ismovable(target))
 		return ELEMENT_INCOMPATIBLE
 
-	src.footstep = _footstep
-	src.barefootstep = _barefootstep
-	src.clawfootstep = _clawfootstep
-	src.heavyfootstep = _heavyfootstep
+	src.clawfootstep = clawfootstep
+	src.barefootstep = barefootstep
+	src.heavyfootstep = heavyfootstep
+	src.footstep = footstep
+	src.priority = priority
 
-	AddElement(/datum/element/connect_loc, target, connection_signal)
+	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
+	if(isturf(target.loc))
+		occupy_turf(target, target.loc)
 
-/datum/element/footstep_override/proc/on_footstep(datum/source, footstep_type, volume, e_range, sound_vary)
-	var/played_step
-	var/sound_ref
-	switch(footstep_type)
-		if(FOOTSTEP_MOB_CLAW)
-			played_step = clawfootstep
-			sound_ref = GLOB.clawfootstep
-		if(FOOTSTEP_MOB_BAREFOOT)
-			played_step = barefootstep
-			sound_ref = GLOB.barefootstep
-		if(FOOTSTEP_MOB_HEAVY)
-			played_step = heavyfootstep
-			sound_ref = GLOB.heavyfootstep
-		if(FOOTSTEP_MOB_SHOE)
-			played_step = footstep
-			sound_ref = GLOB.footstep
-	if(!played_step)
+/datum/element/footstep_override/Detach(atom/movable/source)
+	if(isturf(source.loc))
+		vacate_turf(source, source.loc)
+	return ..()
+
+/datum/element/footstep_override/proc/on_moved(atom/movable/source, atom/oldloc)
+	SIGNAL_HANDLER
+	if(isturf(oldloc))
+		vacate_turf(source, oldloc)
+	if(isturf(source.loc))
+		occupy_turf(source, source.loc)
+
+/**
+ * Adds the movable to the list of movables with the element occupying the turf.
+ * If the turf was not on the list of occupied turfs before, a signal will be registered
+ * to it.
+ */
+/datum/element/footstep_override/proc/occupy_turf(atom/movable/movable, turf/location)
+	if(occupied_turfs[location])
+		occupied_turfs[location] |= movable
 		return
-	playsound(source, pick(sound_ref[played_step][1]), sound_ref[played_step][2] * volume, TRUE, sound_ref[played_step][3] + e_range, falloff_distance = 1, vary = sound_vary)
-	return COMPONENT_CANCEL_PLAY_FOOTSTEP
+	occupied_turfs[location] = list(movable)
+	RegisterSignal(location, COMSIG_TURF_PREPARE_STEP_SOUND, PROC_REF(prepare_steps))
 
-/datum/element/footstep_override/Detach(datum/target)
-	. = ..()
-	if(ismovable(target))
-		RemoveElement(/datum/element/connect_loc, target, connection_signal)
+/**
+ * Removes the movable from the list of movables with the element occupying the turf.
+ * If the turf is no longer occupied, it'll be removed from the list, and the signal
+ * unregistered from it
+ */
+/datum/element/footstep_override/proc/vacate_turf(atom/movable/movable, turf/location)
+	LAZYREMOVE(occupied_turfs[location], movable)
+	if(!occupied_turfs[location])
+		occupied_turfs -= location
+		UnregisterSignal(location, COMSIG_TURF_PREPARE_STEP_SOUND)
+
+///Changes the sound types to be played if the element priority is higher than the one in the steps list.
+/datum/element/footstep_override/proc/prepare_steps(turf/source, list/steps)
+	SIGNAL_HANDLER
+	if(steps[STEP_SOUND_PRIORITY] > priority)
+		return
+	steps[FOOTSTEP_MOB_SHOE] = footstep
+	steps[FOOTSTEP_MOB_BAREFOOT] = barefootstep
+	steps[FOOTSTEP_MOB_HEAVY] = heavyfootstep
+	steps[FOOTSTEP_MOB_CLAW] = clawfootstep
+	steps[STEP_SOUND_PRIORITY] = priority
+	return FOOTSTEP_OVERRIDEN
