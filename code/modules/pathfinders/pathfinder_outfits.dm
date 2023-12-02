@@ -17,6 +17,8 @@
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 
 /obj/item/clothing/under/rank/pathfinder/head
+	icon = 'icons/obj/clothing/under/artea_core_clothes.dmi'
+	worn_icon = 'icons/mob/clothing/under/artea_core_clothes.dmi'
 	name = "lead pathfinder's jumpsuit"
 	desc = "A comfy and durable jumpsuit."
 	icon_state = "pathfinder_h"
