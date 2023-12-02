@@ -178,7 +178,7 @@ const JobRow = (
   const { className, job, name } = props;
 
   const isOverflow = data.overflow_role === name;
-  const priority = data.job_preferences[name];
+  const priority = data.job_preferences[job.faction + '_' + name];
 
   const createSetPriority = createCreateSetPriorityFromName(context, name);
 

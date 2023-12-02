@@ -45,7 +45,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	//Quirk list
 	var/list/all_quirks = list()
 
-	//Job preferences 2.0 - indexed by job title , no key or value implies never
+	//Job preferences 2.0 - indexed by job faction + title, no key or value implies never. E.g: "artea_Chief Engineer"
 	var/list/job_preferences = list()
 
 	/// The current window, PREFERENCE_TAB_* in [`code/__DEFINES/preferences.dm`]
@@ -517,7 +517,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 				else
 					job_preferences[other_job] = JP_MEDIUM
 
-	job_preferences[job.title] = level
+	job_preferences["[job.faction]_[job.title]"] = level
 
 	return TRUE
 

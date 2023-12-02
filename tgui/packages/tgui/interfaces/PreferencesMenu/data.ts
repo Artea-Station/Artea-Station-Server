@@ -74,6 +74,7 @@ export type Department = {
 export type Job = {
   description: string;
   department: string;
+  faction: string;
 };
 
 export type Quirk = {
