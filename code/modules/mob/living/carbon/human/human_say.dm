@@ -20,6 +20,12 @@
 		verb_say = tongue.temp_say_mod || tongue.say_mod
 	return ..()
 
+/mob/living/carbon/human/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods)
+	. = ..()
+	if(. && head?.clothing_flags & (STOPSPRESSUREDAMAGE | SNUG_FIT) && !radio_freq) // We're not gonna look too hard about this.
+		var/static/sound/radio_sound = sound('sound/items/radio/receive.ogg', 15)
+		src << radio_sound
+
 /mob/living/carbon/human/GetVoice()
 	if(istype(wear_mask, /obj/item/clothing/mask/chameleon))
 		var/obj/item/clothing/mask/chameleon/V = wear_mask
