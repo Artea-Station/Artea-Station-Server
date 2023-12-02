@@ -116,7 +116,6 @@
 		/obj/effect/decal/cleanable/wrapping = 1,
 		/obj/effect/decal/cleanable/plastic = 1,
 		/obj/effect/decal/cleanable/glass = 1,
-		/obj/effect/decal/cleanable/ants = 1,
 	)
 
 /obj/effect/spawner/random/trash/grime

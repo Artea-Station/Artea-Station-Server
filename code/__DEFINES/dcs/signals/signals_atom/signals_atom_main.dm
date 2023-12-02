@@ -11,7 +11,12 @@
 #define COMSIG_PARENT_EXAMINE "atom_examine"
 ///from base of atom/get_examine_name(): (/mob, list/overrides)
 #define COMSIG_ATOM_GET_EXAMINE_NAME "atom_examine_name"
-#define COMSIG_PARENT_EXAMINE_MORE "atom_examine_more"                    ///from base of atom/examine_more(): (/mob)
+///from base of atom/examine(): (/mob, list/examine_text, can_see_inside)
+#define COMSIG_PARENT_REAGENT_EXAMINE "atom_reagent_examine"
+	/// Stop the generic reagent examine text
+	#define STOP_GENERIC_REAGENT_EXAMINE (1<<0)
+///from base of atom/examine_more(): (/mob)
+#define COMSIG_PARENT_EXAMINE_MORE "atom_examine_more"
 	//Positions for overrides list
 	#define EXAMINE_POSITION_ARTICLE (1<<0)
 	#define EXAMINE_POSITION_BEFORE (1<<1)
@@ -95,3 +100,10 @@
 #define COMSIG_ATOM_PROPAGATE_RAD_PULSE "atom_propagate_radiation_pulse"
 /// from cosmetic items to restyle certain mobs, objects or organs: (atom/source, mob/living/trimmer, atom/movable/original_target, body_zone, restyle_type, style_speed)
 #define COMSIG_ATOM_RESTYLE "atom_restyle"
+
+/// when atom falls onto the floor and become exposed to germs: (datum/component/germ_exposure)
+#define COMSIG_ATOM_GERM_EXPOSED "atom_germ_exposed"
+/// when atom is picked up from the floor or moved to an elevated structure: (datum/component/germ_exposure)
+#define COMSIG_ATOM_GERM_UNEXPOSED "atom_germ_unexposed"
+/// when atom is washed
+#define COMSIG_ATOM_WASHED "atom_washed"
