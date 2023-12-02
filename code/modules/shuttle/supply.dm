@@ -257,5 +257,9 @@ GLOBAL_LIST_EMPTY(cargo_shuttle_crate_markers)
 	. = ..()
 	GLOB.cargo_shuttle_crate_markers += src
 
+/obj/effect/landmark/cargo_shuttle_crate/Destroy()
+	GLOB.cargo_shuttle_crate_markers -= src
+	. = ..()
+
 #undef GOODY_FREE_SHIPPING_MAX
 #undef CRATE_TAX
