@@ -355,7 +355,7 @@ export const JobsPage = () => {
     <>
       <JoblessRoleDropdown />
 
-      <Stack vertical fill>
+      <Stack vertical fill mt="4rem">
         <Gap amount={22} />
 
         <Stack.Item>
