@@ -84,6 +84,13 @@
 	if(isdummy(transformer)) // This is to make the dummy work properly with the synth parts. Cursed code.
 		set_limb_icons(transformer)
 
+/datum/species/synthetic/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	var/obj/item/organ/external/screen/screen = C.getorganslot(MUTANT_SYNTH_SCREEN) // This is such a hackjob fix, but whatever.
+	if(screen)
+		screen.Remove(C)
+		qdel(screen)
+	. = ..()
+
 /datum/species/synthetic/replace_body(mob/living/carbon/target, datum/species/new_species)
 	. = ..()
 	set_limb_icons(target)
