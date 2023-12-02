@@ -13,7 +13,18 @@
 	name = "pathfinder's jumpskirt"
 	desc = "A comfy and durable jumpskirt. Comes with pockets!"
 	icon_state = "pathfinder_skirt"
-	inhand_icon_state = "lb_suit"
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
+
+/obj/item/clothing/under/rank/pathfinder/head
+	name = "lead pathfinder's jumpsuit"
+	desc = "A comfy and durable jumpsuit."
+	icon_state = "pathfinder_h"
+
+/obj/item/clothing/under/rank/pathfinder/head/skirt
+	name = "lead pathfinder's jumpskirt"
+	desc = "A comfy and durable jumpskirt. Comes with pockets!"
+	icon_state = "pathfinder_h_skirt"
 	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 
