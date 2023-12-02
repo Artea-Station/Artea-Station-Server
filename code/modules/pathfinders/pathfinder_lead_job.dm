@@ -52,7 +52,7 @@
 
 	id = /obj/item/card/id/advanced/silver
 	id_trim = /datum/id_trim/job/lead_pathfinder
-	uniform = /obj/item/clothing/under/rank/pathfinder
+	uniform = /obj/item/clothing/under/rank/pathfinder/head
 	ears = /obj/item/radio/headset/heads/pl
 	shoes = /obj/item/clothing/shoes/jackboots
 	belt = /obj/item/modular_computer/pda/heads/pl
