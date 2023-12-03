@@ -162,10 +162,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Chief Medical Officer"
 	icon_state = "Chief Medical Officer"
 
-/obj/effect/landmark/start/psychologist
-	name = "Psychologist"
-	icon_state = "Psychologist"
-
 /obj/effect/landmark/start/chaplain
 	name = "Chaplain"
 	icon_state = "Chaplain"
