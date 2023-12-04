@@ -8,7 +8,7 @@
 #define JOB_UNAVAILABLE_ANTAG_INCOMPAT 6
 /// Job unavailable due to one or more content prefs being unset.
 #define JOB_UNAVAILABLE_CONTENT_PREFS_UNSET 7
-/// Checks for character age. 
+/// Checks for character age.
 #define JOB_UNAVAILABLE_AGE 8
 
 /// Used when the `get_job_unavailable_error_message` proc can't make sense of a given code.
@@ -81,7 +81,6 @@
 #define JOB_CURATOR "Curator"
 #define JOB_LAWYER "Lawyer"
 #define JOB_CHAPLAIN "Chaplain"
-#define JOB_PSYCHOLOGIST "Psychologist"
 //ERTs
 #define JOB_ERT_DEATHSQUAD "Death Commando"
 #define JOB_ERT_COMMANDER "Emergency Response Team Commander"
@@ -117,7 +116,6 @@
 #define JOB_DISPLAY_ORDER_CURATOR 10
 #define JOB_DISPLAY_ORDER_LAWYER 11
 #define JOB_DISPLAY_ORDER_CHAPLAIN 12
-#define JOB_DISPLAY_ORDER_PSYCHOLOGIST 13
 #define JOB_DISPLAY_ORDER_AI 14
 #define JOB_DISPLAY_ORDER_CYBORG 15
 #define JOB_DISPLAY_ORDER_CHIEF_ENGINEER 16
