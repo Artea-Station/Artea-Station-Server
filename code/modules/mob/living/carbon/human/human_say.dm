@@ -7,7 +7,11 @@
 		if(message[1] != "*")
 			message = tongueless_lower.Replace(message, pick("aa","oo","'"))
 			message = tongueless_upper.Replace(message, pick("AA","OO","'"))
-	return ..()
+
+	. = ..()
+
+	if(. && head?.clothing_flags & (STOPSPRESSUREDAMAGE | SNUG_FIT)) // We're not gonna look too hard about this.
+		playsound('sound/items/radio/receive.ogg', volume = 15, play_directly_to_source = TRUE)
 
 /mob/living/carbon/human/say_mod(input, list/message_mods = list())
 	var/obj/item/organ/internal/tongue/tongue = getorganslot(ORGAN_SLOT_TONGUE)
@@ -23,7 +27,7 @@
 /mob/living/carbon/human/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods)
 	. = ..()
 	if(. && head?.clothing_flags & (STOPSPRESSUREDAMAGE | SNUG_FIT) && !radio_freq) // We're not gonna look too hard about this.
-		var/static/sound/radio_sound = sound('sound/items/radio/receive.ogg', volume=15)
+		var/static/sound/radio_sound = sound('sound/items/radio/receive.ogg', volume = 15)
 		src << radio_sound
 
 /mob/living/carbon/human/GetVoice()
