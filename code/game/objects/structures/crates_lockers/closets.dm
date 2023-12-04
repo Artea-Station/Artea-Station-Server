@@ -57,6 +57,8 @@
 	var/delivery_icon = "deliverycloset" //which icon to use when packagewrapped. null to be unwrappable.
 	var/anchorable = TRUE
 	var/icon_welded = "welded"
+	var/icon_locked = "locked"
+	var/icon_unlocked = "unlocked"
 	/// How close being inside of the thing provides complete pressure safety. Must be between 0 and 1!
 	contents_pressure_protection = 0
 	/// How insulated the thing is, for the purposes of calculating body temperature. Must be between 0 and 1!
@@ -134,8 +136,8 @@
 	if(broken || !secure)
 		return
 	//Overlay is similar enough for both that we can use the same mask for both
-	. += emissive_appearance(icon, "locked", alpha = src.alpha)
-	. += locked ? "locked" : "unlocked"
+	. += emissive_appearance(icon, icon_locked, alpha = src.alpha)
+	. += locked ? icon_locked : icon_unlocked
 
 /obj/structure/closet/vv_edit_var(vname, vval)
 	if(vname == NAMEOF(src, opened))
