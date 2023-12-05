@@ -11,7 +11,7 @@
 	. = ..()
 
 	if(. && head?.clothing_flags & (STOPSPRESSUREDAMAGE | SNUG_FIT)) // We're not gonna look too hard about this.
-		playsound('sound/items/radio/receive.ogg', volume = 15, play_directly_to_source = TRUE)
+		playsound(src, 'sound/items/radio/receive.ogg', 15, play_directly_to_source = TRUE)
 
 /mob/living/carbon/human/say_mod(input, list/message_mods = list())
 	var/obj/item/organ/internal/tongue/tongue = getorganslot(ORGAN_SLOT_TONGUE)
