@@ -507,7 +507,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 
 	if (level == JP_HIGH)
 		var/datum/job/overflow_role = SSjob.overflow_role
-		var/overflow_role_title = initial(overflow_role.title)
+		var/overflow_role_title = "[initial(overflow_role.faction)]_[initial(overflow_role.title)]"
 
 		for(var/other_job in job_preferences)
 			if(job_preferences[other_job] == JP_HIGH)
