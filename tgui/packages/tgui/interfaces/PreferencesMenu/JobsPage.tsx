@@ -178,7 +178,7 @@ const JobRow = (
   const { className, job, name } = props;
 
   const isOverflow = data.overflow_role === name;
-  const priority = data.job_preferences[name];
+  const priority = data.job_preferences[job.faction + '_' + name];
 
   const createSetPriority = createCreateSetPriorityFromName(context, name);
 
@@ -355,7 +355,7 @@ export const JobsPage = () => {
     <>
       <JoblessRoleDropdown />
 
-      <Stack vertical fill>
+      <Stack vertical fill mt="4rem">
         <Gap amount={22} />
 
         <Stack.Item>
