@@ -438,19 +438,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/aft)
-"cu" = (
-/obj/structure/sink{
-	pixel_y = 22
-	},
-/obj/machinery/button/door/directional/south{
-	id = "kitchen_service";
-	name = "Service Shutter Control";
-	pixel_x = 6;
-	pixel_y = 40
-	},
-/obj/machinery/oven,
-/turf/open/floor/iron/kitchen/herringbone,
-/area/station/service/kitchen)
 "cv" = (
 /obj/machinery/telecomms/server/presets/service,
 /turf/open/floor/circuit,
@@ -1016,6 +1003,17 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/station/commons/vacant_room)
+"fx" = (
+/obj/structure/cable,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/power/apc/auto_name/directional/west,
+/obj/structure/janitorialcart,
+/obj/item/mop,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/storage/box/lights/mixed,
+/obj/item/lightreplacer,
+/turf/open/floor/wood,
+/area/station/hallway/secondary/service)
 "fy" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -1235,6 +1233,12 @@
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/open/floor/plating,
 /area/station/maintenance/port/aft)
+"gY" = (
+/obj/machinery/computer/security{
+	dir = 8
+	},
+/turf/open/floor/iron/smooth,
+/area/station/command/meeting_room)
 "gZ" = (
 /obj/machinery/telecomms/server/presets/supply,
 /turf/open/floor/circuit,
@@ -1468,14 +1472,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /turf/open/floor/engine,
 /area/station/engineering/supermatter/room)
-"iy" = (
-/obj/structure/table/wood,
-/obj/machinery/reagentgrinder{
-	pixel_y = 7;
-	pixel_x = -5
-	},
-/turf/open/floor/wood,
-/area/station/hallway/secondary/service)
 "iz" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
@@ -2241,6 +2237,17 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmos)
+"mK" = (
+/obj/machinery/button/door/directional/north{
+	id = "captainshutters";
+	name = "Shutters Control Button";
+	pixel_y = -26
+	},
+/obj/machinery/computer/security{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/station/command/heads_quarters/captain)
 "mL" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
@@ -3144,23 +3151,6 @@
 /obj/item/stock_parts/cell,
 /turf/open/floor/iron/dark,
 /area/station/engineering/engine_smes)
-"rF" = (
-/obj/structure/table,
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = 3
-	},
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -3
-	},
-/obj/structure/cable,
-/obj/machinery/power/apc/auto_name/directional/west,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
-/obj/item/reagent_containers/condiment/enzyme{
-	layer = 5;
-	pixel_x = -4
-	},
-/turf/open/floor/iron/kitchen/herringbone,
-/area/station/service/kitchen)
 "rJ" = (
 /obj/structure/chair/stool/bar/directional/north,
 /obj/structure/cable,
@@ -3493,12 +3483,6 @@
 /obj/machinery/rnd/destructive_analyzer,
 /turf/open/floor/iron/white/smooth_edge,
 /area/station/pathfinders)
-"tE" = (
-/obj/machinery/computer/security{
-	dir = 8
-	},
-/turf/open/floor/iron/smooth,
-/area/station/command/meeting_room)
 "tG" = (
 /turf/closed/wall,
 /area/station/commons/toilet)
@@ -4796,6 +4780,19 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/station/hallway/primary/central/port)
+"AY" = (
+/obj/structure/sink{
+	pixel_y = 22
+	},
+/obj/machinery/button/door/directional/south{
+	id = "kitchen_service";
+	name = "Service Shutter Control";
+	pixel_x = 6;
+	pixel_y = 40
+	},
+/obj/machinery/oven,
+/turf/open/floor/iron/kitchen/herringbone,
+/area/station/service/kitchen)
 "Bb" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 8
@@ -4830,6 +4827,20 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/dark/visible,
 /turf/open/floor/engine,
 /area/station/engineering/supermatter/room)
+"Bq" = (
+/obj/structure/table,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/condiment/enzyme{
+	layer = 5;
+	pixel_x = -4
+	},
+/turf/open/floor/iron/kitchen/herringbone,
+/area/station/service/kitchen)
 "Bt" = (
 /obj/machinery/modular_computer/console/preset/command{
 	dir = 4
@@ -5628,15 +5639,12 @@
 /obj/machinery/light_switch/directional/east,
 /turf/open/floor/iron,
 /area/station/hallway/primary/upper/port)
-"Gc" = (
-/obj/structure/cable,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/power/apc/auto_name/directional/west,
-/obj/structure/janitorialcart,
-/obj/item/mop,
-/obj/item/reagent_containers/cup/bucket,
-/obj/item/storage/box/lights/mixed,
-/obj/item/lightreplacer,
+"Gb" = (
+/obj/structure/table/wood,
+/obj/machinery/reagentgrinder{
+	pixel_y = 7;
+	pixel_x = -5
+	},
 /turf/open/floor/wood,
 /area/station/hallway/secondary/service)
 "Gd" = (
@@ -7500,6 +7508,17 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
+"PD" = (
+/obj/structure/table,
+/obj/structure/cable,
+/obj/machinery/power/apc/auto_name/directional/west,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
+/obj/machinery/table_hob,
+/obj/item/reagent_containers/cup/soup_pot{
+	pixel_y = 8
+	},
+/turf/open/floor/iron/kitchen/herringbone,
+/area/station/service/kitchen)
 "PH" = (
 /obj/structure/cable,
 /turf/open/floor/plating,
@@ -7555,12 +7574,6 @@
 /obj/machinery/light/directional/east,
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
-"PZ" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light_switch/directional/north,
-/obj/machinery/computer/chef_order,
-/turf/open/floor/wood,
-/area/station/hallway/secondary/service)
 "Qb" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -7734,6 +7747,12 @@
 /obj/machinery/disposal/bin,
 /turf/open/floor/iron,
 /area/station/commons/storage/cryo)
+"QX" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light_switch/directional/north,
+/obj/machinery/computer/chef_order,
+/turf/open/floor/wood,
+/area/station/hallway/secondary/service)
 "QZ" = (
 /turf/closed/wall/r_wall,
 /area/station/cargo/sorting)
@@ -7820,17 +7839,6 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/engine,
 /area/station/science/research/abandoned)
-"Rq" = (
-/obj/machinery/button/door/directional/north{
-	id = "captainshutters";
-	name = "Shutters Control Button";
-	pixel_y = -26
-	},
-/obj/machinery/computer/security{
-	dir = 1
-	},
-/turf/open/floor/wood,
-/area/station/command/heads_quarters/captain)
 "Rs" = (
 /obj/machinery/light_switch/directional/north,
 /obj/item/kirbyplants/random/dead,
@@ -170424,10 +170432,10 @@ zD
 Fa
 Tg
 zE
-cu
+AY
 rX
 BI
-rF
+PD
 vC
 vk
 jt
@@ -170942,7 +170950,7 @@ Qx
 oF
 Jc
 Sy
-Jc
+Bq
 fQ
 BJ
 Qf
@@ -172726,7 +172734,7 @@ EJ
 Nt
 Gw
 uS
-Gc
+fx
 Gw
 bE
 ij
@@ -172982,7 +172990,7 @@ jR
 jp
 HX
 Gw
-iy
+Gb
 rP
 ep
 IE
@@ -173239,7 +173247,7 @@ Ss
 nR
 tg
 Gw
-PZ
+QX
 WO
 Gw
 Xb
@@ -173998,7 +174006,7 @@ NK
 NK
 VY
 VY
-tE
+gY
 Im
 eF
 RU
@@ -174519,7 +174527,7 @@ RU
 pF
 gt
 vo
-Rq
+mK
 RU
 aj
 uW
