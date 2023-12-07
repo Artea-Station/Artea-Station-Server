@@ -283,7 +283,7 @@
 
 		// this gets badly murdered by sidemap // We don't use sidemap, but this is harmless so... /shrug
 		soup_smoke = new(container, particle_type)
-		soup_smoke.set_particle_position(list(-6, 4, 0))
+		soup_smoke.set_particle_position(list(0, 4, 0))
 		containers[container][CONTAINER_SMOKE_INSTANCE] = soup_smoke
 
 #undef POT_PIXEL_WIDTH
