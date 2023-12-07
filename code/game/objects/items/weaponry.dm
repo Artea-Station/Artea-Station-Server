@@ -789,7 +789,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		/obj/item/queen_bee,
 		/obj/structure/spider/spiderling,
 		/mob/living/simple_animal/hostile/ant,
-		/obj/effect/decal/cleanable/ants,
 	))
 	strong_against = typecacheof(list(
 		/mob/living/simple_animal/hostile/giant_spider,

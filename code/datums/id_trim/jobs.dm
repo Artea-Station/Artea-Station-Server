@@ -719,27 +719,6 @@
 /datum/id_trim/job/prisoner/seven
 	template_access = null
 
-/datum/id_trim/job/psychologist
-	assignment = "Psychologist"
-	trim_state = "dept-service"
-	orbit_icon = "brain"
-	department_color = COLOR_SERVICE_LIME
-	subdepartment_color = COLOR_MEDICAL_BLUE
-	sechud_icon_state = SECHUD_PSYCHOLOGIST
-	minimal_access = list(
-		ACCESS_MEDICAL,
-		ACCESS_PSYCHOLOGY,
-		ACCESS_SERVICE,
-		)
-	extra_access = list()
-	template_access = list(
-		ACCESS_CAPTAIN,
-		ACCESS_CHANGE_IDS,
-		ACCESS_CMO,
-		ACCESS_HOP,
-		)
-	job = /datum/job/psychologist
-
 /datum/id_trim/job/quartermaster
 	assignment = "Quartermaster"
 	trim_state = "dept-cargo"

@@ -446,6 +446,8 @@
 		"monkey_recycler",
 		"oven",
 		"processor",
+		"stove",
+		"table_hob",
 		"reagentgrinder",
 		"smartfridge",
 	)
