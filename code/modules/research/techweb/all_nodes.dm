@@ -935,6 +935,7 @@
 		"mining",
 		"rdcamera",
 		"seccamera",
+		"chef_order_console",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
 

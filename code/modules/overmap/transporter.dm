@@ -33,6 +33,22 @@
 		icon_state = "transporter_on"
 		set_light(2.5)
 
+/obj/machinery/transporter/wrench_act(mob/living/user, obj/item/tool)
+	. = ..()
+	default_unfasten_wrench(user, tool)
+	return TOOL_ACT_TOOLTYPE_SUCCESS
+
+/obj/machinery/transporter/attackby(obj/item/I, mob/user, params)
+	add_fingerprint(user)
+
+	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
+		user.visible_message(span_notice("\The [user] [panel_open ? "opens" : "closes"] the hatch on \the [src]."), span_notice("You [panel_open ? "open" : "close"] the hatch on \the [src]."))
+		return TRUE
+
+	if(default_deconstruction_crowbar(I))
+		return TRUE
+	return ..()
+
 /obj/item/circuitboard/machine/transporter
 	name = "Transporter Pad (Machine Board)"
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING

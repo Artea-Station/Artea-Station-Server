@@ -101,7 +101,6 @@
 #define SECHUD_MIME "hudmime"
 #define SECHUD_PARAMEDIC "hudparamedic"
 #define SECHUD_PRISONER "hudprisoner"
-#define SECHUD_PSYCHOLOGIST "hudpsychologist"
 #define SECHUD_QUARTERMASTER "hudquartermaster"
 #define SECHUD_ROBOTICIST "hudroboticist"
 #define SECHUD_SECURITY_OFFICER "hudsecurityofficer"
