@@ -194,9 +194,9 @@
 		"wallet_name" = inserted_id?.registered_account?.account_holder,
 		"credits" = inserted_id?.registered_account?.account_balance,
 		"shuttle_sendable" = can_send_shuttle,
-		"shuttle_location" = SSshuttle.supply.getStatusText(),
-		"shuttle_away" = SSshuttle.supply.getDockedId() == docking_away,
-		"shuttle_docked" = SSshuttle.supply.mode == SHUTTLE_IDLE,
+		"shuttle_location" = SSshuttle.supply.get_status_text_tgui(),
+		"shuttle_away" = docking_away,
+		"shuttle_home" = docking_home,
 		"shuttle_loanable" = !!SSshuttle.shuttle_loan,
 		"shuttle_loan_dispatched" = SSshuttle.shuttle_loan && SSshuttle.shuttle_loan.dispatched,
 		"shuttle_blockaded" = !!SSshuttle.trade_blockade.len || !!SSshuttle.supply_blocked,
@@ -422,7 +422,7 @@
 				return
 			else if(SSshuttle.supply.mode != SHUTTLE_IDLE)
 				return
-			else if(SSshuttle.supply.getDockedId() != docking_away)
+			else if(SSshuttle.supply.getDockedId() != docking_home)
 				return
 			else if(stationcargo != TRUE)
 				return

@@ -113,7 +113,7 @@
 
 			var/datum/supply_pack/pack = pick(SStrading.group_to_supplies[group_to_use])
 			// Don't add duplicates, find something else.
-			if(!pack || (pack.id in sold_goods_init)) // ARTEA TODO: Fix groups/packs having the potential to be null. (What the fuck?)
+			if(!pack || (pack.id in sold_goods_init))
 				i--
 				continue
 			pack.stock["[id]"] = pack.default_stock
@@ -268,6 +268,7 @@
 	deliveries += new delivery_type(src)
 
 #define TRADER_RESTOCK_ESCAPE_CHANCE 60
+#define TRADER_FULL_ROTATE_CHANCE 40
 
 /datum/trader/proc/rotate_stock()
 	if(prob(bounty_gain_chance))
@@ -276,19 +277,44 @@
 		gain_supplies_bounty()
 	if(prob(delivery_gain_chance))
 		gain_delivery()
+	if(!sold_packs)
+		return
+
 	// Restock some sold goodies
-	if(sold_packs)
-		for(var/pack as anything in sold_packs)
-			var/datum/supply_pack/goodie = SStrading.supply_packs[pack]
-			if(goodie.stock["[id]"] == -1)
+	var/list/packs = sold_packs.Copy()
+	var/pack = pick_n_take(packs)
+	while(pack)
+		var/datum/supply_pack/existing_goodie = SStrading.supply_packs[pack]
+		pack = pick_n_take(packs)
+
+		if(existing_goodie.stock["[id]"] == -1)
+			continue
+
+		if(prob(TRADER_FULL_ROTATE_CHANCE))
+			existing_goodie.stock -= "[id]"
+
+			var/group_to_use = pack_groups
+			if(islist(group_to_use))
+				group_to_use = pick(group_to_use)
+
+			var/datum/supply_pack/goodie = pick(SStrading.group_to_supplies[group_to_use])
+			// Don't add duplicates, find something else.
+			if(!goodie || (goodie.id in sold_packs))
 				continue
-			var/percentage_remaining = goodie.stock["[id]"] / goodie.default_stock
-			if(percentage_remaining <= TRADER_RESTOCK_THRESHOLD)
-				goodie.stock["[id]"] = goodie.default_stock
-				if(prob(TRADER_RESTOCK_ESCAPE_CHANCE)) //Chance that it's the end of restocking for this tick
-					return
+			goodie.stock["[id]"] = goodie.default_stock
+			sold_packs -= existing_goodie.id
+			if(prob(TRADER_RESTOCK_ESCAPE_CHANCE)) //Chance that it's the end of restocking for this tick
+				return
+			continue
+
+		var/percentage_remaining = existing_goodie.stock["[id]"] / existing_goodie.default_stock
+		if(percentage_remaining <= TRADER_RESTOCK_THRESHOLD)
+			existing_goodie.stock["[id]"] = existing_goodie.default_stock
+			if(prob(TRADER_RESTOCK_ESCAPE_CHANCE)) //Chance that it's the end of restocking for this tick
+				return
 
 #undef TRADER_RESTOCK_ESCAPE_CHANCE
+#undef TRADER_FULL_ROTATE_CHANCE
 
 /// Removes the whole stock of a trader, yeeting the list at the end.
 /// BE SURE TO REINIT THE LIST IF YOU WANT THE TRADER TO KEEP DOING THINGS.

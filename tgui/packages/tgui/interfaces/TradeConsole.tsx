@@ -3,7 +3,6 @@ import { AnimatedNumber, Box, Button, Divider, Icon, LabeledList, NoticeBox, Sec
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 import { BooleanLike } from 'common/react';
-import { ButtonCheckbox } from '../components/Button';
 
 export const TradeConsole = (props, context) => {
   return (
@@ -28,8 +27,8 @@ type Data = {
 
   shuttle_blockaded: BooleanLike;
   shuttle_location: string;
-  shuttle_away: BooleanLike;
-  shuttle_docked: BooleanLike;
+  shuttle_home: string;
+  shuttle_away: string;
   shuttle_loanable: BooleanLike;
   shuttle_loan_dispatched: BooleanLike;
   shuttle_eta: string;
@@ -135,19 +134,16 @@ const CargoStatus = (props, context) => {
         <Stack.Item>
           <Stack>
             <Stack.Item>Shuttle Status:</Stack.Item>
-            <Stack.Item>
-              {data.shuttle_loan_dispatched ? (
-                <Box color="average">On Loan</Box>
-              ) : data.shuttle_away ? (
-                <Box color="average">Away (ETA {data.shuttle_eta})</Box>
-              ) : data.shuttle_docked ? (
-                <Box color="good">Docked</Box>
-              ) : (
-                <Box color="bad">Unknown</Box>
-              )}
-            </Stack.Item>
+            <Stack.Item>{data.shuttle_location}</Stack.Item>
             <Stack.Item ml="auto">
-              <b>Produce Orders: {data.grocery_amount}</b>
+              <b
+                className={
+                  data.grocery_amount > 0
+                    ? 'TradeConsoleBlinkingButton'
+                    : undefined
+                }>
+                Produce Orders: {data.grocery_amount}
+              </b>
             </Stack.Item>
           </Stack>
         </Stack.Item>
@@ -155,20 +151,24 @@ const CargoStatus = (props, context) => {
           <Stack>
             <Stack.Item>
               <Button
+                className={
+                  data.grocery_amount > 0 && 'TradeConsoleBlinkingButton'
+                }
                 onClick={() => act('send_shuttle')}
-                disabled={!data.shuttle_docked || data.shuttle_away}>
+                disabled={data.shuttle_location === data.shuttle_home}>
                 Send Shuttle
               </Button>
             </Stack.Item>
-            {!!data.shuttle_docked &&
-              !data.shuttle_away &&
-              !!data.shuttle_loanable && (
-                <Stack.Item>
-                  <Button color="bad" onClick={() => act('loan_shuttle')}>
-                    Loan Shuttle
-                  </Button>
-                </Stack.Item>
-              )}
+            {!!data.shuttle_loanable && (
+              <Stack.Item>
+                <Button
+                  color="bad"
+                  onClick={() => act('loan_shuttle')}
+                  disabled={data.shuttle_location === data.shuttle_home}>
+                  Loan Shuttle
+                </Button>
+              </Stack.Item>
+            )}
             <Stack.Item ml="auto">
               <Button onClick={() => act('unload_coupons')} icon="eject">
                 Eject Coupons
@@ -212,17 +212,7 @@ const CommsTab = (props, context) => {
   const { act, data } = useBackend<Data>(context);
   const [tab, setTab] = useSharedState(context, 'tab', 'comms');
   return (
-    <Section
-      title="Available Hubs"
-      buttons={
-        <ButtonCheckbox
-          checked={data.makes_manifests}
-          onClick={() => {
-            act('toggle_manifest');
-          }}>
-          Print Manifests
-        </ButtonCheckbox>
-      }>
+    <Section title="Available Hubs">
       <Stack vertical>
         <Stack.Divider hidden height="1rem" />
         {data.trade_hubs.map((hub) => {
@@ -291,22 +281,13 @@ const TradeTab = (props, context) => {
       height="560px"
       title={data.connected_trader.name}
       buttons={
-        <>
-          <Button
-            icon="print"
-            onClick={() => {
-              act('print_manifest');
-            }}>
-            Print Manifest
-          </Button>
-          <ButtonCheckbox
-            checked={data.makes_manifests}
-            onClick={() => {
-              act('toggle_manifest');
-            }}>
-            Log to Manifest
-          </ButtonCheckbox>
-        </>
+        <Button
+          icon="print"
+          onClick={() => {
+            act('print_manifest');
+          }}>
+          Print Manifest
+        </Button>
       }>
       {!!data.connected_hub?.last_transmission && (
         <Box style={{ 'color': data.connected_trader.color }}>

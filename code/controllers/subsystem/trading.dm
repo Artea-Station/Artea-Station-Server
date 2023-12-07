@@ -54,9 +54,11 @@ SUBSYSTEM_DEF(trading)
 	var/list/traders_to_visit = list()
 
 /datum/controller/subsystem/trading/proc/get_trade_hub_by_id(id)
+	RETURN_TYPE(/datum/trade_hub)
 	return trade_hubs["[id]"]
 
 /datum/controller/subsystem/trading/proc/get_trader_by_id(id)
+	RETURN_TYPE(/datum/trader)
 	return all_traders["[id]"]
 
 /datum/controller/subsystem/trading/proc/get_next_trade_hub_id()

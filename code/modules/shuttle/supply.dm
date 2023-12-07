@@ -44,14 +44,16 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 /obj/docking_port/mobile/supply
 	name = "supply shuttle"
 	shuttle_id = "cargo"
-	callTime = 600
+	callTime = 20 SECONDS
 
 	dir = WEST
 	port_direction = EAST
 	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0)
 
-	//Export categories for this run, this is set by console sending the shuttle.
+	/// Export categories for this run, this is set by console sending the shuttle.
 	var/export_categories = EXPORT_CARGO
+	/// How many traders did we trade with last time we left home?
+	var/last_trade_trader_amount = 0
 
 /obj/docking_port/mobile/supply/register()
 	. = ..()
@@ -77,10 +79,9 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	return ..()
 
 /obj/docking_port/mobile/supply/initiate_docking()
-	if(getDockedId() == "cargo_away") // Buy when we leave home.
-		// Default 20 second spool up to ensure ripples show properly.
-		callTime = 20 SECONDS
+	var/new_call_time = callTime
 
+	if(getDockedId() == "cargo_away") // Buy when we leave home.
 		var/list/empty_turfs = list() // Used for crates and other dense objects.
 		for(var/obj/marker as anything in GLOB.cargo_shuttle_crate_markers)
 			var/turf/turf = get_turf(marker)
@@ -88,10 +89,11 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 				empty_turfs += turf
 
 		var/list/traders_bought_from = buy(empty_turfs)
+		last_trade_trader_amount = traders_bought_from && traders_bought_from.len
 		create_mail(empty_turfs)
 		// Look man, this isn't ideal, probably, but I don't care at this point.
 		// This is called once every few minutes at most, and the crew will just have to cry about the sub-optimal pathing.
-		if(traders_bought_from && traders_bought_from.len)
+		if(last_trade_trader_amount)
 			var/datum/overmap_object/home = SSmapping.station_overmap_object
 			var/total_distance = 0
 			var/min_distance = INFINITY // This should be impossible to be larger than... right?
@@ -101,7 +103,8 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 					var/datum/trader/trader = SStrading.all_traders["[trader_id]"]
 					var/datum/overmap_object/hub = trader.hub.overmap_object
 					if(!hub)
-						CRASH("Unknown hub for trader [trader_id] ([trader])")
+						stack_trace("Unknown hub for trader [trader_id] ([trader])")
+						continue
 					var/dist = GET_DIST_2D_NUMERICAL(hub.x, hub.y, home.x, home.y)
 					if(dist < min_distance)
 						min_distance = dist
@@ -110,7 +113,8 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 				traders_bought_from -= min_trader
 				min_distance = INFINITY
 			// Shuttle travels at 1 tile every 5 seconds, if that makes this make more sense.
-			callTime += total_distance * (5 SECONDS)
+			new_call_time += total_distance * (5 SECONDS)
+		setTimer(new_call_time)
 
 	. = ..() // Fly/enter transit.
 	if(. != DOCKING_SUCCESS)
@@ -119,11 +123,12 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	if(getDockedId() == "cargo_away") // Sell when we get home
 		var/datum/export_report/exports = sell()
 		if(!exports.unique_exports || !exports.unique_exports.len)
-			callTime = 10 SECONDS
+			new_call_time = 10 SECONDS
 		else
-			callTime += exports.unique_exports.len * (15 SECONDS) // Simulate haggling and trading items in a shitty way
+			new_call_time += exports.unique_exports.len * (15 SECONDS) // Simulate haggling and trading items in a shitty way
 
-		SSshuttle.moveShuttle("cargo", "cargo_home") // And immediately return to the station!
+		setTimer(new_call_time)
+		SSshuttle.moveShuttle("cargo", "cargo_home", TRUE) // And immediately return to the station!
 
 /obj/docking_port/mobile/supply/proc/buy(list/empty_turfs)
 	SEND_SIGNAL(SSshuttle, COMSIG_SUPPLY_SHUTTLE_BUY)
@@ -244,6 +249,13 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		return
 
 	new /obj/structure/closet/crate/mail/economy(pick(empty_turfs))
+
+/obj/docking_port/mobile/supply/get_status_text_tgui()
+	var/obj/docking_port/stationary/port = get_docked()
+	if(port.shuttle_id == "cargo_home" && last_trade_trader_amount)
+		return "Engaging in trade with [last_trade_trader_amount] traders"
+
+	return ..()
 
 // At some point, maybe make this a set of markers or beacons that players can set? Dunno. Would people use that?
 GLOBAL_LIST_EMPTY(cargo_shuttle_crate_markers)
