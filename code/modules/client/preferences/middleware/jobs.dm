@@ -15,7 +15,7 @@
 	if (isnull(job))
 		return FALSE
 
-	if (job.faction != FACTION_STATION)
+	if (job.faction != SSmapping.config.job_faction)
 		return FALSE
 
 	if (!preferences.set_job_preference_level(job, level))
@@ -52,6 +52,7 @@
 		jobs[job.title] = list(
 			"description" = job.description,
 			"department" = department_name,
+			"faction" = job.faction,
 		)
 
 	data["departments"] = departments

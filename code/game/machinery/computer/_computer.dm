@@ -2,6 +2,7 @@
 	name = "computer"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "computer"
+	base_icon_state = "computer"
 	density = TRUE
 	max_integrity = 200
 	integrity_failure = 0.5
@@ -33,6 +34,14 @@
 		return FALSE
 	return TRUE
 
+/obj/machinery/computer/update_icon(updates)
+	. = ..()
+	if(machine_stat & BROKEN)
+		icon_state = "[base_icon_state]_broken"
+		return
+
+	icon_state = base_icon_state
+
 /obj/machinery/computer/update_overlays()
 	. = ..()
 	if(icon_keyboard)
@@ -41,16 +50,21 @@
 		else
 			. += icon_keyboard
 
-	// This whole block lets screens ignore lighting and be visible even in the darkest room
 	if(machine_stat & BROKEN)
-		. += mutable_appearance(icon, "[icon_state]_broken")
+		. += "[icon_keyboard]_off"
+		. += mutable_appearance(icon, "[base_icon_state]_glass_broken", layer + 0.01)
 		return // If we don't do this broken computers glow in the dark.
 
-	if(machine_stat & NOPOWER) // Your screen can't be on if you've got no damn charge
+	// Glass is a separate layer to make keyboard and program overlays look correct when facing noth.
+	// The things I do for asthetics.
+	. += mutable_appearance(icon, "[base_icon_state]_glass", layer + (dir == NORTH ? 0.03 : 0.01))
+
+	if(machine_stat & NOPOWER) // Your screen can't be on if you've got no damn power
 		return
 
-	. += mutable_appearance(icon, icon_screen)
-	. += emissive_appearance(icon, icon_screen)
+	. += mutable_appearance(icon, icon_screen, layer + 0.02)
+	// This lets screens ignore lighting and be visible even in the darkest room
+	. += emissive_appearance(icon, "[base_icon_state]_emissive")
 
 /obj/machinery/computer/power_change()
 	. = ..()
