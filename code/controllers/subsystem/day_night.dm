@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(day_night)
 	name = "Day and Night Cycle"
-	flags = SS_BACKGROUND
+	flags = SS_BACKGROUND | SS_NO_INIT
 	wait = 1.5 MINUTES
 	runlevels = RUNLEVEL_GAME
 	var/list/day_night_controllers = list()
