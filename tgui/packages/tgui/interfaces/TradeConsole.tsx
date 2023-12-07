@@ -5,7 +5,7 @@ import { Window } from '../layouts';
 import { BooleanLike } from 'common/react';
 import { ButtonCheckbox } from '../components/Button';
 
-export const TraderConsole = (props, context) => {
+export const TradeConsole = (props, context) => {
   return (
     <Window width={780} height={750}>
       <Window.Content scrollable>

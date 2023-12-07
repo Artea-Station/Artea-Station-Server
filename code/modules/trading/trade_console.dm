@@ -174,7 +174,7 @@
 	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "TraderConsole", "Trade Console")
+		ui = new(user, src, "TradeConsole", "Trade Console")
 		ui.open()
 
 /obj/machinery/computer/trade_console/ui_data()
