@@ -2,7 +2,6 @@
 	name = "ClothesMate"
 	desc = "A vending machine for clothing."
 	icon_state = "clothes"
-	icon_deny = "clothes-deny"
 	panel_type = "panel15"
 	product_slogans = "Dress for success!;Prepare to look swagalicious!;Look at all this swag!;Why leave style up to fate? Use the ClothesMate!"
 	vend_reply = "Thank you for using the ClothesMate!"
@@ -190,7 +189,6 @@
 	default_price = PAYCHECK_CREW * 0.7 //Default of
 	extra_price = PAYCHECK_COMMAND
 	payment_department = NO_FREEBIES
-	light_mask = "wardrobe-light-mask"
 	light_color = LIGHT_COLOR_ELECTRIC_GREEN
 
 /obj/item/vending_refill/clothing

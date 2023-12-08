@@ -135,16 +135,16 @@
 	switch(dir)
 		if(NORTH)
 			offset_old = pixel_y
-			pixel_y = APC_PIXEL_OFFSET
+			pixel_y = APC_PIXEL_OFFSET_NORTH
 		if(SOUTH)
 			offset_old = pixel_y
-			pixel_y = -APC_PIXEL_OFFSET
+			pixel_y = APC_PIXEL_OFFSET_SOUTH
 		if(EAST)
 			offset_old = pixel_x
-			pixel_x = APC_PIXEL_OFFSET
+			pixel_x = APC_PIXEL_OFFSET_EAST
 		if(WEST)
 			offset_old = pixel_x
-			pixel_x = -APC_PIXEL_OFFSET
+			pixel_x = APC_PIXEL_OFFSET_WEST
 
 /obj/machinery/power/apc/Initialize(mapload)
 	. = ..()
