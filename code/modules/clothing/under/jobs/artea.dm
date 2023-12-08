@@ -14,7 +14,7 @@
 }
 
 /obj/item/clothing/under/artea
-	icon = 'icons/obj/clothing/under/artea_core_clothes.dmi' // Wrong path, I know, I can't be assed.
+	icon = 'icons/obj/clothing/under/artea_core_clothes.dmi'
 	worn_icon = 'icons/mob/clothing/under/artea_core_clothes.dmi'
 	can_adjust = FALSE
 

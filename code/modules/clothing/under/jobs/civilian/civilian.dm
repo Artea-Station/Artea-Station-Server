@@ -37,7 +37,7 @@
 /obj/item/clothing/under/rank/civilian/chaplain/skirt
 	name = "chaplain's jumpskirt"
 	desc = "It's a black jumpskirt. If you wear this, you probably need religious help more than you will be providing it."
-	icon_state = "chapblack_skirt"
+	icon_state = "chaplain_skirt"
 	inhand_icon_state = "bl_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
 	dying_key = DYE_REGISTRY_JUMPSKIRT
