@@ -291,17 +291,34 @@
 			continue
 
 		if(prob(TRADER_FULL_ROTATE_CHANCE))
-			existing_goodie.stock -= "[id]"
-
 			var/group_to_use = pack_groups
 			if(islist(group_to_use))
 				group_to_use = pick(group_to_use)
 
-			var/datum/supply_pack/goodie = pick(SStrading.group_to_supplies[group_to_use])
-			// Don't add duplicates, find something else.
-			if(!goodie || (goodie.id in sold_packs))
+			var/list/actual_goodies = list()
+			for(var/datum/supply_pack/pack as anything in SStrading.group_to_supplies[group_to_use])
+				if(!(pack.id in sold_packs))
+					actual_goodies += pack
+
+			var/datum/supply_pack/goodie = pick_n_take(actual_goodies)
+
+			var/goodie_valid = FALSE
+			while(!goodie_valid)
+
+				// Is our good not already being sold?
+				goodie_valid = goodie && !(goodie.id in sold_packs)
+				if(goodie_valid || !actual_goodies.len)
+					break
+
+				// Don't add duplicates, find something else.
+				goodie = pick_n_take(actual_goodies)
+
+			if(!goodie) // Yeah, we found nothing.
 				continue
+
 			goodie.stock["[id]"] = goodie.default_stock
+			existing_goodie.stock -= "[id]"
+			sold_packs += goodie.id
 			sold_packs -= existing_goodie.id
 			if(prob(TRADER_RESTOCK_ESCAPE_CHANCE)) //Chance that it's the end of restocking for this tick
 				return
