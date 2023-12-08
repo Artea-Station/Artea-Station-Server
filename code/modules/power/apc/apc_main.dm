@@ -185,8 +185,8 @@
 	addtimer(CALLBACK(src, PROC_REF(update)), 5)
 
 	///This is how we test to ensure that mappers use the directional subtypes of APCs, rather than use the parent and pixel-shift it themselves.
-	if(abs(offset_old) != APC_PIXEL_OFFSET)
-		log_mapping("APC: ([src]) at [AREACOORD(src)] with dir ([dir] | [uppertext(dir2text(dir))]) has pixel_[dir & (WEST|EAST) ? "x" : "y"] value [offset_old] - should be [dir & (SOUTH|EAST) ? "-" : ""][APC_PIXEL_OFFSET]. Use the directional/ helpers!")
+	if(pixel_x != initial(pixel_x) || pixel_y != initial(pixel_y))
+		log_mapping("APC: ([src]) at [AREACOORD(src)] with dir ([dir] | [uppertext(dir2text(dir))]) has pixel_[dir & (WEST|EAST) ? "x" : "y"] value [offset_old]. Use the directional/ helpers, and do not pixel shift!")
 
 /obj/machinery/power/apc/Destroy()
 	GLOB.apcs_list -= src
