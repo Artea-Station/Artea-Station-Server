@@ -47,7 +47,8 @@
 	SIGNAL_HANDLER
 
 	// This is so it isn't completely instant
-	amount /= 200
+	// This is called ~once every second, so it'd take ~40s to fully charge from stock t1 parts (amount = 200) from empty.
+	amount /= 15
 	if(owner.nutrition < NUTRITION_LEVEL_WELL_FED)
 		owner.nutrition += amount
 		if(owner.nutrition > NUTRITION_LEVEL_FULL)
