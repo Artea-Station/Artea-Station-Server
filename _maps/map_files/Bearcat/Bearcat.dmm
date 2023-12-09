@@ -436,6 +436,7 @@
 "ct" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/engineering,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/aft)
 "cv" = (
@@ -1314,7 +1315,9 @@
 /turf/open/floor/engine,
 /area/station/engineering/supermatter/room)
 "hv" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/engineering{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/aft)
 "hx" = (
@@ -1725,14 +1728,14 @@
 /area/station/maintenance/solars/port/aft)
 "jR" = (
 /obj/structure/cable,
-/obj/machinery/door/airlock{
-	name = "Command & Telecomms"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/tcoms,
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
+/obj/machinery/door/airlock/command{
+	name = "Command & Telecomms"
+	},
 /turf/open/floor/plating,
 /area/station/hallway/primary/fore)
 "jU" = (
@@ -3151,6 +3154,10 @@
 /obj/item/stock_parts/cell,
 /turf/open/floor/iron/dark,
 /area/station/engineering/engine_smes)
+"rx" = (
+/obj/machinery/door/airlock/engineering,
+/turf/open/floor/plating,
+/area/station/maintenance/solars/port/aft)
 "rJ" = (
 /obj/structure/chair/stool/bar/directional/north,
 /obj/structure/cable,
@@ -3457,6 +3464,7 @@
 /turf/open/floor/iron,
 /area/station/security/brig)
 "tA" = (
+/obj/effect/mapping_helpers/paint_wall/engineering,
 /turf/closed/wall/r_wall,
 /area/station/maintenance/solars/port/aft)
 "tB" = (
@@ -5041,6 +5049,7 @@
 /area/station/commons/dorms)
 "Cu" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/effect/mapping_helpers/paint_wall/engineering,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/aft)
 "Cw" = (
@@ -5580,6 +5589,7 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/storage)
 "Fz" = (
+/obj/effect/mapping_helpers/paint_wall/engineering,
 /turf/closed/wall/r_wall,
 /area/station/engineering/gravity_generator)
 "FA" = (
@@ -7524,10 +7534,10 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port/aft)
 "PI" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/machinery/door/airlock/engineering,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/aft)
 "PL" = (
@@ -7535,6 +7545,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
+"PM" = (
+/obj/effect/mapping_helpers/paint_wall/security,
+/turf/closed/wall,
+/area/station/hallway/secondary/exit)
 "PP" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -7975,6 +7989,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/central/fore)
 "RZ" = (
+/obj/effect/mapping_helpers/paint_wall/engineering,
 /turf/closed/wall,
 /area/station/maintenance/solars/port/aft)
 "Sd" = (
@@ -8048,7 +8063,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/tcoms,
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
-/obj/machinery/door/airlock{
+/obj/machinery/door/airlock/command{
 	name = "Command & Telecomms"
 	},
 /turf/open/floor/plating,
@@ -9152,10 +9167,10 @@
 /area/station/hallway/secondary/exit)
 "Yz" = (
 /obj/machinery/light/directional/west,
-/obj/effect/spawner/structure/window/wood,
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
+/obj/effect/spawner/structure/window,
 /turf/open/floor/wood,
 /area/station/service/bar)
 "YB" = (
@@ -42458,7 +42473,7 @@ lg
 ll
 AO
 dz
-gb
+PM
 uA
 Wg
 Fi
@@ -238555,7 +238570,7 @@ Gq
 yn
 mQ
 fm
-hv
+rx
 Pn
 BL
 Pn
@@ -239326,8 +239341,8 @@ Fz
 oH
 nt
 MM
+dw
 Fz
-zR
 mD
 zR
 mD
@@ -239583,8 +239598,8 @@ Fz
 dw
 dw
 dw
+dw
 Fz
-zR
 ib
 ib
 ib
@@ -239840,8 +239855,8 @@ Fz
 dw
 dw
 Cg
+dw
 Fz
-zR
 zR
 zR
 zR
@@ -240097,8 +240112,8 @@ Fz
 dw
 dw
 dw
+dw
 Fz
-zR
 zR
 zR
 zR
@@ -240355,7 +240370,7 @@ Fz
 Fz
 Fz
 Fz
-zR
+Fz
 zR
 zR
 zR
