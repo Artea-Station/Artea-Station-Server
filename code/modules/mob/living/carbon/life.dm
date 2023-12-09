@@ -128,7 +128,7 @@
 
 	// If we took a breath, we probably did that via internals.
 	if(took_breath && COOLDOWN_FINISHED(src, breath_sound_cd) && environment?.return_pressure() < SOUND_MINIMUM_PRESSURE)
-		playsound(src, 'sound/voice/breathing.ogg', 5, play_directly_to_source = TRUE)
+		playsound(src, 'sound/voice/breathing.ogg', 3, play_directly_to_source = TRUE)
 		COOLDOWN_START(src, breath_sound_cd, 3.5 SECONDS)
 
 /mob/living/carbon/proc/has_smoke_protection()
