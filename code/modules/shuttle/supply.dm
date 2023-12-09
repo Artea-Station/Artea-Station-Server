@@ -81,7 +81,12 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 /obj/docking_port/mobile/supply/initiate_docking()
 	var/new_call_time = callTime
 
-	if(getDockedId() == "cargo_away") // Buy when we leave home.
+	if(getDockedId() == "cargo_away") // Sell and buy when we leave home.
+
+		var/datum/export_report/exports = sell()
+		if(exports.unique_exports && exports.unique_exports.len)
+			new_call_time += exports.unique_exports.len * (15 SECONDS) // Simulate haggling and trading items in a shitty way
+
 		var/list/empty_turfs = list() // Used for crates and other dense objects.
 		for(var/obj/marker as anything in GLOB.cargo_shuttle_crate_markers)
 			var/turf/turf = get_turf(marker)
@@ -120,15 +125,8 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	if(. != DOCKING_SUCCESS)
 		return
 
-	if(getDockedId() == "cargo_away") // Sell when we get home
-		var/datum/export_report/exports = sell()
-		if(!exports.unique_exports || !exports.unique_exports.len)
-			new_call_time = 10 SECONDS
-		else
-			new_call_time += exports.unique_exports.len * (15 SECONDS) // Simulate haggling and trading items in a shitty way
-
-		setTimer(new_call_time)
-		SSshuttle.moveShuttle("cargo", "cargo_home", TRUE) // And immediately return to the station!
+	if(getDockedId() == "cargo_away")
+		SSshuttle.moveShuttle("cargo", "cargo_home") // And immediately return to the station!
 
 /obj/docking_port/mobile/supply/proc/buy(list/empty_turfs)
 	SEND_SIGNAL(SSshuttle, COMSIG_SUPPLY_SHUTTLE_BUY)
@@ -252,8 +250,9 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 
 /obj/docking_port/mobile/supply/get_status_text_tgui()
 	var/obj/docking_port/stationary/port = get_docked()
-	if(port.shuttle_id == "cargo_home" && last_trade_trader_amount)
-		return "Engaging in trade with [last_trade_trader_amount] traders"
+
+	if(port.shuttle_id != "cargo_home" && last_trade_trader_amount)
+		return "Engaging in trade with [last_trade_trader_amount] traders ([getTimerStr()])"
 
 	return ..()
 
