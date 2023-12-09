@@ -43,7 +43,7 @@
 	var/list/safe_coords = system_to_deliver.GetRandomSafeCoords()
 	overmap_x = safe_coords[1]
 	overmap_y = safe_coords[2]
-	new /datum/delivery_run_instance(src, console)
+	new /datum/delivery_run_instance(src, user, console)
 
 /datum/delivery_run_instance
 	//All internal variables holding data from /datum/delivery_run
@@ -59,7 +59,7 @@
 
 	var/datum/overmap_object/delivery_ship/fluff_overmap_object
 
-/datum/delivery_run_instance/New(datum/delivery_run/source_datum, obj/machinery/computer/trade_console/console)
+/datum/delivery_run_instance/New(datum/delivery_run/source_datum, mob/orderer, obj/machinery/computer/trade_console/console)
 	SStrading.delivery_runs += src
 	reward_cash = source_datum.reward_cash
 	reward_item_path = source_datum.reward_item_path
@@ -77,7 +77,8 @@
 	manifest.add_raw_text("<BR>Star System: [source_datum.system_to_deliver.name]<BR>X:[source_datum.overmap_x], Y:[source_datum.overmap_y]")
 	manifest.update_appearance()
 
-	SStrading.shopping_list += new /datum/supply_pack/delivery_run(source_datum.cargo_name, source_datum.cargo_type, src, manifest)
+	var/datum/supply_pack/delivery_run/pack = new(source_datum.cargo_name, source_datum.cargo_type, src, manifest)
+	SStrading.shopping_list += new /datum/supply_order(pack, orderer, console.inserted_id?.assignment, orderer.ckey, "Delivery: [source_datum.name]")
 	return ..()
 
 /datum/delivery_run_instance/Destroy()
@@ -202,6 +203,7 @@
 	var/manifest
 
 /datum/supply_pack/delivery_run/New(name, cargo_type, /datum/delivery_run_instance/delivery_instance, manifest)
+	cant_be_removed = TRUE
 	src.name = name
 	src.cargo_type = cargo_type
 	src.delivery_instance = delivery_instance
