@@ -79,9 +79,8 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	return ..()
 
 /obj/docking_port/mobile/supply/initiate_docking()
-	var/new_call_time = callTime
-
 	if(getDockedId() == "cargo_away") // Sell and buy when we leave home.
+		var/new_call_time = initial(callTime)
 
 		var/datum/export_report/exports = sell()
 		if(exports.unique_exports && exports.unique_exports.len)
