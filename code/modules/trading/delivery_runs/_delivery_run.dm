@@ -139,14 +139,6 @@
 		. += span_notice("There's a manifest on it.")
 		. += manifest.examine(user)
 
-/obj/item/delivery_cargo/Initialize(mapload, datum/delivery_run_instance/source_datum, obj/item/paper/passed_paper)
-	. = ..()
-	delivery_instance = source_datum
-	manifest = passed_paper
-	if(manifest)
-		manifest.forceMove(src)
-	update_appearance()
-
 /obj/item/delivery_cargo/attack_self(mob/living/user)
 	if(spooling_delivery)
 		return
@@ -200,7 +192,7 @@
 /datum/supply_pack/delivery_run
 	var/cargo_type
 	var/delivery_instance
-	var/manifest
+	var/obj/item/paper/manifest
 
 /datum/supply_pack/delivery_run/New(name, cargo_type, /datum/delivery_run_instance/delivery_instance, manifest)
 	cant_be_removed = TRUE
@@ -211,4 +203,9 @@
 	return ..()
 
 /datum/supply_pack/delivery_run/generate(atom/A, datum/bank_account/paying_account)
-	return new cargo_type(A, delivery_instance, manifest)
+	var/obj/item/delivery_cargo/cargo = new cargo_type(A)
+	cargo.delivery_instance = delivery_instance
+	cargo.manifest = manifest
+	if(cargo.manifest)
+		manifest.forceMove(cargo)
+	cargo.update_appearance()
