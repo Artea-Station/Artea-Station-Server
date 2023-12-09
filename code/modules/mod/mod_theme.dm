@@ -363,7 +363,7 @@
 	slowdown_active = 0
 	allowed_suit_storage = list(
 		/obj/item/mail,
-		/obj/item/delivery/small,
+		/obj/item/package,
 		/obj/item/paper,
 		/obj/item/storage/bag/mail,
 	)

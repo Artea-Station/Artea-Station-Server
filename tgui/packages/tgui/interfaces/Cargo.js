@@ -18,9 +18,7 @@ export const Cargo = (props, context) => {
 export const CargoContent = (props, context) => {
   const { act, data } = useBackend(context);
   const [tab, setTab] = useSharedState(context, 'tab', 'catalog');
-  const { requestonly } = data;
   const cart = data.cart || [];
-  const requests = data.requests || [];
   return (
     <Box>
       <CargoStatus />
@@ -33,33 +31,21 @@ export const CargoContent = (props, context) => {
             Catalog
           </Tabs.Tab>
           <Tabs.Tab
-            icon="envelope"
-            textColor={tab !== 'requests' && requests.length > 0 && 'yellow'}
-            selected={tab === 'requests'}
-            onClick={() => setTab('requests')}>
-            Requests ({requests.length})
+            icon="shopping-cart"
+            textColor={tab !== 'cart' && cart.length > 0 && 'yellow'}
+            selected={tab === 'cart'}
+            onClick={() => setTab('cart')}>
+            Checkout ({cart.length})
           </Tabs.Tab>
-          {!requestonly && (
-            <>
-              <Tabs.Tab
-                icon="shopping-cart"
-                textColor={tab !== 'cart' && cart.length > 0 && 'yellow'}
-                selected={tab === 'cart'}
-                onClick={() => setTab('cart')}>
-                Checkout ({cart.length})
-              </Tabs.Tab>
-              <Tabs.Tab
-                icon="question"
-                selected={tab === 'help'}
-                onClick={() => setTab('help')}>
-                Help
-              </Tabs.Tab>
-            </>
-          )}
+          <Tabs.Tab
+            icon="question"
+            selected={tab === 'help'}
+            onClick={() => setTab('help')}>
+            Help
+          </Tabs.Tab>
         </Tabs>
       </Section>
       {tab === 'catalog' && <CargoCatalog />}
-      {tab === 'requests' && <CargoRequests />}
       {tab === 'cart' && <CargoCart />}
       {tab === 'help' && <CargoHelp />}
     </Box>
@@ -78,7 +64,6 @@ const CargoStatus = (props, context) => {
     location,
     message,
     points,
-    requestonly,
     can_send,
   } = data;
   return (
@@ -95,7 +80,7 @@ const CargoStatus = (props, context) => {
       }>
       <LabeledList>
         <LabeledList.Item label="Shuttle">
-          {(docked && !requestonly && can_send && (
+          {(docked && can_send && (
             <Button
               color={(grocery && 'orange') || 'green'}
               content={location}
@@ -110,7 +95,7 @@ const CargoStatus = (props, context) => {
             location}
         </LabeledList.Item>
         <LabeledList.Item label="CentCom Message">{message}</LabeledList.Item>
-        {!!loan && !requestonly && (
+        {!!loan && (
           <LabeledList.Item label="Loan">
             {(!loan_dispatched && (
               <Button
@@ -292,78 +277,12 @@ export const CargoCatalog = (props, context) => {
   );
 };
 
-const CargoRequests = (props, context) => {
-  const { act, data } = useBackend(context);
-  const { requestonly, can_send, can_approve_requests } = data;
-  const requests = data.requests || [];
-  // Labeled list reimplementation to squeeze extra columns out of it
-  return (
-    <Section
-      title="Active Requests"
-      buttons={
-        !requestonly && (
-          <Button
-            icon="times"
-            content="Clear"
-            color="transparent"
-            onClick={() => act('denyall')}
-          />
-        )
-      }>
-      {requests.length === 0 && <Box color="good">No Requests</Box>}
-      {requests.length > 0 && (
-        <Table>
-          {requests.map((request) => (
-            <Table.Row key={request.id} className="candystripe">
-              <Table.Cell collapsing color="label">
-                #{request.id}
-              </Table.Cell>
-              <Table.Cell>{request.object}</Table.Cell>
-              <Table.Cell>
-                <b>{request.orderer}</b>
-              </Table.Cell>
-              <Table.Cell width="25%">
-                <i>{request.reason}</i>
-              </Table.Cell>
-              <Table.Cell collapsing textAlign="right">
-                {formatMoney(request.cost)} cr
-              </Table.Cell>
-              {(!requestonly || can_send) && can_approve_requests && (
-                <Table.Cell collapsing>
-                  <Button
-                    icon="check"
-                    color="good"
-                    onClick={() =>
-                      act('approve', {
-                        id: request.id,
-                      })
-                    }
-                  />
-                  <Button
-                    icon="times"
-                    color="bad"
-                    onClick={() =>
-                      act('deny', {
-                        id: request.id,
-                      })
-                    }
-                  />
-                </Table.Cell>
-              )}
-            </Table.Row>
-          ))}
-        </Table>
-      )}
-    </Section>
-  );
-};
-
 const CargoCartButtons = (props, context) => {
   const { act, data } = useBackend(context);
-  const { requestonly, can_send, can_approve_requests } = data;
+  const { can_send } = data;
   const cart = data.cart || [];
   const total = cart.reduce((total, entry) => total + entry.cost, 0);
-  if (requestonly || !can_send || !can_approve_requests) {
+  if (!can_send) {
     return null;
   }
   return (
@@ -386,7 +305,7 @@ const CargoCartButtons = (props, context) => {
 
 const CargoCart = (props, context) => {
   const { act, data } = useBackend(context);
-  const { requestonly, away, docked, location, can_send } = data;
+  const { away, docked, location, can_send } = data;
   const cart = data.cart || [];
   return (
     <Section title="Current Cart" buttons={<CargoCartButtons />}>
@@ -429,7 +348,7 @@ const CargoCart = (props, context) => {
           ))}
         </Table>
       )}
-      {cart.length > 0 && !requestonly && (
+      {cart.length > 0 && (
         <Box mt={2}>
           {(away === 1 && docked === 1 && (
             <Button

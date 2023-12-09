@@ -51,7 +51,8 @@
 		return
 	if(!mod.wearer.Adjacent(target))
 		return
-	if(istype(target, /obj/structure/closet/crate) || istype(target, /obj/item/delivery/big))
+	var/obj/item/package/package = target
+	if(istype(target, /obj/structure/closet/crate) || (istype(target, /obj/item/package) && package.density))
 		var/atom/movable/picked_crate = target
 		if(!check_crate_pickup(picked_crate))
 			return

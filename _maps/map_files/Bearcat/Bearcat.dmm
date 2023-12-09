@@ -1286,9 +1286,6 @@
 /turf/open/floor/iron,
 /area/station/cargo/sorting)
 "ho" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
@@ -1393,14 +1390,6 @@
 /obj/structure/grille,
 /turf/open/floor/engine/airless,
 /area/space/nearstation)
-"ic" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
-/turf/open/floor/iron,
-/area/station/cargo/sorting)
 "id" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/trinary/filter/critical{
@@ -1928,9 +1917,6 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/central/fore)
 "lk" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/iron,
 /area/station/cargo/sorting)
@@ -2141,7 +2127,7 @@
 "mh" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/railing,
-/obj/effect/spawner/supplies_box/common,
+/obj/effect/spawner/random/supplies_box/common,
 /turf/open/floor/iron,
 /area/station/cargo/sorting)
 "mk" = (
@@ -2205,11 +2191,12 @@
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen)
 "mA" = (
-/obj/docking_port/stationary/huge{
-	name = "FTV Bearcat Cargo Dock"
-	},
-/turf/open/space/openspace,
-/area/space)
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/structure/fans/tiny,
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/station/cargo/sorting)
 "mB" = (
 /obj/structure/cable,
 /obj/structure/closet/radiation,
@@ -2700,6 +2687,12 @@
 	},
 /turf/open/floor/iron,
 /area/station/maintenance/disposal)
+"oU" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/structure/fans/tiny,
+/turf/open/floor/iron,
+/area/station/cargo/sorting)
 "oV" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -2792,6 +2785,14 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
 /area/station/cargo/office)
+"pC" = (
+/obj/docking_port/stationary{
+	name = "Cargo Bay";
+	shuttle_id = "cargo_home";
+	pixel_y = -1
+	},
+/turf/open/space/openspace,
+/area/space)
 "pE" = (
 /obj/structure/tank_dispenser,
 /obj/effect/decal/cleanable/dirt,
@@ -3553,6 +3554,14 @@
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/open/floor/iron/white,
 /area/station/medical/medbay)
+"ua" = (
+/obj/structure/cable,
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/station/cargo/sorting)
 "uc" = (
 /obj/machinery/atmospherics/components/unary/engine,
 /turf/closed/wall,
@@ -5383,12 +5392,6 @@
 /obj/machinery/door/airlock/security,
 /turf/open/floor/iron,
 /area/station/security)
-"Es" = (
-/obj/machinery/door/airlock/external,
-/obj/structure/fans/tiny,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/turf/open/floor/iron,
-/area/station/cargo/sorting)
 "Et" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/cobweb,
@@ -5806,13 +5809,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/medical/medbay)
-"GT" = (
-/obj/machinery/door/airlock/external,
-/obj/structure/fans/tiny,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/structure/cable,
-/turf/open/floor/iron,
-/area/station/cargo/sorting)
 "GU" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 4
@@ -6092,6 +6088,13 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/station/commons/storage/cryo)
+"Iu" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/station/cargo/sorting)
 "Ix" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -7307,7 +7310,7 @@
 /area/station/pathfinders)
 "OG" = (
 /obj/effect/turf_decal/bot,
-/obj/effect/spawner/supplies_box/common,
+/obj/effect/spawner/random/supplies_box/common,
 /turf/open/floor/iron/cafeteria,
 /area/station/service/bar)
 "OJ" = (
@@ -7442,7 +7445,7 @@
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
 "Pl" = (
-/obj/effect/spawner/supplies_box,
+/obj/effect/spawner/random/supplies_box,
 /obj/structure/spider/stickyweb,
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
@@ -8102,12 +8105,10 @@
 /turf/open/floor/iron/kitchen/herringbone,
 /area/station/service/kitchen)
 "SB" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/structure/cable,
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
-/obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/cargo/sorting)
 "SE" = (
@@ -8219,7 +8220,6 @@
 /area/station/service/kitchen/coldroom)
 "Tk" = (
 /obj/machinery/light_switch/directional/east,
-/obj/machinery/trade_pad,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/station/cargo/sorting)
@@ -8373,7 +8373,7 @@
 /turf/open/space/openspace,
 /area/space/nearstation)
 "TU" = (
-/obj/effect/spawner/supplies_box/common,
+/obj/effect/spawner/random/supplies_box/common,
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
 "TY" = (
@@ -105924,13 +105924,13 @@ NK
 NK
 NK
 NK
+JG
 NK
 NK
 NK
 NK
 NK
-NK
-NK
+JG
 NK
 NK
 NK
@@ -106702,7 +106702,7 @@ NK
 NK
 NK
 NK
-NK
+QZ
 QZ
 Ah
 QZ
@@ -106959,12 +106959,12 @@ NK
 NK
 NK
 NK
-NK
-Es
+oU
 CO
 JU
-ic
+Iu
 CO
+JU
 JU
 iv
 Di
@@ -107215,13 +107215,13 @@ NK
 NK
 NK
 NK
-NK
+pC
 mA
-GT
 Wf
 op
+ua
 SB
-Wf
+op
 hn
 Cm
 Jf
@@ -107473,10 +107473,10 @@ NK
 NK
 NK
 NK
-NK
+QZ
 QZ
 Ah
-Ah
+Se
 Se
 ho
 aR
@@ -109265,13 +109265,13 @@ NK
 NK
 NK
 NK
+JG
 NK
 NK
 NK
 NK
 NK
-NK
-NK
+JG
 NK
 NK
 NK
