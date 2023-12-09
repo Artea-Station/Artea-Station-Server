@@ -44,7 +44,7 @@ GLOBAL_VAR_INIT(NORMAL_LOOC_COLOR, "#f29180")
 	var/list/soft_filter_result = filter_result || is_soft_ooc_filtered(msg)
 
 	if (soft_filter_result)
-		if(tgui_alert(usr,"Your message contains \"[soft_filter_result[CHAT_FILTER_INDEX_WORD]]\". \"[soft_filter_result[CHAT_FILTER_INDEX_REASON]]\", Are you sure you want to say it?", "Soft Blocked Word", list("Yes", "No")) != "Yes")
+		if(tgui_alert(usr, "Your message contains \"[soft_filter_result[CHAT_FILTER_INDEX_WORD]]\". \"[soft_filter_result[CHAT_FILTER_INDEX_REASON]]\", Are you sure you want to say it?", "Soft Blocked Word", list("Yes", "No")) != "Yes")
 			return
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has passed the soft filter for \"[soft_filter_result[CHAT_FILTER_INDEX_WORD]]\" they may be using a disallowed term. Message: \"[msg]\"")
 		log_admin_private("[key_name(usr)] has passed the soft filter for \"[soft_filter_result[CHAT_FILTER_INDEX_WORD]]\" they may be using a disallowed term. Message: \"[msg]\"")
@@ -54,12 +54,13 @@ GLOBAL_VAR_INIT(NORMAL_LOOC_COLOR, "#f29180")
 
 	msg = emoji_parse(msg)
 
-	if(SSticker.HasRoundStarted() && (msg[1] in list(".",";",":","#") || findtext_char(msg, "say", 1, 5)))
+	// If the round has started, and the message has a radio/speech modifier key at the start and it isn't a common smiley face, or if it "say" at the beginning.
+	if(SSticker.HasRoundStarted() && (((msg[1] in list(".",";",":","#")) && !(msg[2] in list(")", "(", "P", "p", "o", "O"))) || findtext_char(msg, "say", 1, 5)))
 		if(tgui_alert(usr,"Your message \"[raw_msg]\" looks like it was meant for in game communication, say it in LOOC?", "Meant for LOOC?", list("Yes", "No")) != "Yes")
 			return
 
 	if(!holder)
-		if(handle_spam_prevention(msg,MUTE_OOC))
+		if(handle_spam_prevention(msg, MUTE_OOC))
 			return
 		if(findtext(msg, "byond://"))
 			to_chat(src, span_boldannounce("<B>Advertising other servers is not allowed.</B>"))

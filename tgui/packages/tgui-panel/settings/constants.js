@@ -15,7 +15,7 @@ export const SETTINGS_TABS = [
   },
 ];
 
-export const FONTS_DISABLED = 'Default';
+export const FONTS_DISABLED = 'System Default';
 
 export const FONTS = [
   FONTS_DISABLED,
@@ -30,3 +30,10 @@ export const FONTS = [
   'Courier New',
   'Lucida Console',
 ];
+
+export const THEME_DARK = 'dark';
+export const THEME_LIGHT = 'light';
+
+export const DEFAULT_THEME = THEME_DARK;
+
+export const THEMES = [THEME_LIGHT, THEME_DARK];
