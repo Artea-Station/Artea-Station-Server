@@ -66,6 +66,8 @@
 	if (flags_1 & ON_BORDER_1)
 		AddElement(/datum/element/connect_loc, loc_connections)
 
+	update_adjacent_firelocks(src)
+
 /obj/structure/window/examine(mob/user)
 	. = ..()
 	switch(state)
@@ -122,6 +124,19 @@
 		return valid_window_location(loc, mover.dir, is_fulltile = FALSE)
 
 	return TRUE
+
+/obj/structure/window/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+	. = ..()
+	// nullspace my beloathed.
+	if(old_loc)
+		update_adjacent_firelocks(old_loc)
+	if(isturf(loc))
+		update_adjacent_firelocks(src)
+
+/obj/structure/window/proc/update_adjacent_firelocks(atom/center_turf)
+	for(var/turf/open_turf as anything in get_adjacent_open_turfs(center_turf))
+		var/obj/machinery/door/firedoor/firelock = locate() in open_turf
+		firelock?.process_results(get_turf(src))
 
 /obj/structure/window/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
@@ -354,6 +369,7 @@
 	set_density(FALSE)
 	air_update_turf(TRUE, FALSE)
 	update_nearby_icons()
+	update_adjacent_firelocks(src)
 	return ..()
 
 /obj/structure/window/Move()
