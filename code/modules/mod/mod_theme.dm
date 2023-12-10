@@ -652,6 +652,10 @@
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	slowdown_inactive = 0.75
 	slowdown_active = 0.25
+	inbuilt_modules = list(
+		/obj/item/mod/module/megaphone,
+		/obj/item/mod/module/pepper_shoulders,
+	)
 	allowed_suit_storage = list(
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,
