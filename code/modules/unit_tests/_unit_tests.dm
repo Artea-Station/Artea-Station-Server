@@ -115,7 +115,6 @@
 #include "knockoff_component.dm"
 #include "limbsanity.dm"
 #include "load_map_security.dm"
-#include "lungs.dm"
 #include "machine_disassembly.dm"
 #include "mapping.dm"
 #include "mecha_damage.dm"
