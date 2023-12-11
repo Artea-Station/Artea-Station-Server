@@ -36,7 +36,8 @@
 
 /turf/open/lava/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/lazy_fishing_spot, FISHING_SPOT_PRESET_LAVALAND_LAVA)refresh_light()
+	AddElement(/datum/element/lazy_fishing_spot, FISHING_SPOT_PRESET_LAVALAND_LAVA)
+	refresh_light()
 	if(!smoothing_flags)
 		update_appearance()
 
