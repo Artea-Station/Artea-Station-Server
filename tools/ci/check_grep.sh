@@ -150,19 +150,6 @@ if ls _maps/*.json | $grep "[A-Z]"; then
 	echo
     echo -e "${RED}ERROR: Uppercase in a map .JSON file detected, these must be all lowercase.${NC}"
 fi;
-part "map json sanity"
-for json in _maps/*.json
-do
-        filename="_maps/$map_path/$map_file"
-        if [ ! -f $filename ]
-        then
-			echo
-            echo -e "${RED}ERROR: Found an invalid file reference to $filename in _maps/$json ${NC}"
-            st=1
-        fi
-    done < <(jq -r '[.map_file] | flatten | .[]' $json)
-done
-
 
 # Check for non-515 compatable .proc/ syntax
 if grep -P --exclude='__byond_version_compat.dm' '\.proc/' code/**/*.dm; then
