@@ -80,6 +80,7 @@
 
 	if(play_directly_to_source && ismob(source))
 		SEND_SOUND(source, S)
+		listeners -= source
 
 	for(var/mob/listening_mob in listeners | SSmobs.dead_players_by_zlevel[source_z])//observers always hear through walls
 		if(get_dist(listening_mob, turf_source) <= maxdistance)
