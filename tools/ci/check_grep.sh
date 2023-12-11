@@ -12,14 +12,48 @@ NC="\033[0m" # No Color
 
 st=0
 
-echo -e "${BLUE}Checking for map issues...${NC}"
+# check for ripgrep
+if command -v rg >/dev/null 2>&1; then
+	grep=rg
+	pcre2_support=1
+	if [ ! rg -P '' >/dev/null 2>&1 ] ; then
+		pcre2_support=0
+	fi
+	code_files="-g *.dm"
+	map_files="-g *.dmm"
+	ignore_515_proc_marker='-g !__byond_version_compat.dm'
+else
+	pcre2_support=0
+	grep=grep
+	code_files="-r --include=*.dm"
+	map_files="-r --include=*.dmm"
+	ignore_515_proc_marker="--exclude=__byond_version_compat.dm"
+fi
 
-if grep -El '^\".+\" = \(.+\)' _maps/**/*.dmm;	then
+echo -e "${BLUE}Using grep provider at $(which $grep)${NC}"
+
+part=0
+section() {
+	echo -e "${BLUE}Checking for $1${NC}..."
+	part=0
+}
+
+part() {
+	part=$((part+1))
+	padded=$(printf "%02d" $part)
+	echo -e "${GREEN} $padded- $1${NC}"
+}
+
+section "map issues"
+
+part "TGM"
+if $grep -U '^".+" = \(.+\)' $map_files;	then
 	echo
     echo -e "${RED}ERROR: Non-TGM formatted map detected. Please convert it using Map Merger!${NC}"
     st=1
 fi;
-if grep -P '//' _maps/**/*.dmm | grep -v '//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE' | grep -Ev 'name|desc'; then
+part "comments"
+if $grep '//' $map_files | $grep -v '//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE' | $grep -v 'name|desc'; then
 	echo
 	echo -e "${RED}ERROR: Unexpected commented out line detected in this map file. Please remove it.${NC}"
 	st=1
@@ -36,41 +70,20 @@ if $grep '(new|newlist|icon|matrix|sound)\(.+\)' $map_files;	then
 	echo -e "${RED}ERROR: Using unsupported procs in variables in a map file! Please remove all instances of this.${NC}"
 	st=1
 fi;
-part "common spelling mistakes"
-if $grep -i 'nanotransen' $map_files; then
-	echo
-    echo -e "${RED}ERROR: Misspelling of Nanotrasen detected in maps, please remove the extra N(s).${NC}"
-    st=1
-fi;
-if grep -i 'centcomm' _maps/**/*.dmm; then
-	echo
-    echo -e "${RED}ERROR: Misspelling(s) of CentCom detected in maps, please remove the extra M(s).${NC}"
-    st=1
-fi;
 
-echo -e "${BLUE}Checking for whitespace issues...${NC}"
-
-if grep -P '(^ {2})|(^ [^ * ])|(^    +)' code/**/*.dm; then
+section "whitespace issues"
+part "space indentation"
+if $grep '(^ {2})|(^ [^ * ])|(^    +)' $code_files; then
 	echo
     echo -e "${RED}ERROR: Space indentation detected, please use tab indentation.${NC}"
     st=1
 fi;
-if grep -P '^\t+ [^ *]' code/**/*.dm; then
+part "mixed indentation"
+if $grep '^\t+ [^ *]' $code_files; then
 	echo
     echo -e "${RED}ERROR: Mixed <tab><space> indentation detected, please stick to tab indentation.${NC}"
     st=1
 fi;
-nl='
-'
-nl=$'\n'
-while read f; do
-    t=$(tail -c2 "$f"; printf x); r1="${nl}$"; r2="${nl}${r1}"
-    if [[ ! ${t%x} =~ $r1 ]]; then
-		echo
-        echo -e "${RED}ERROR: file $f is missing a trailing newline.${NC}"
-        st=1
-    fi;
-done < <(find . -type f -name '*.dm')
 
 echo -e "${BLUE}Checking for common mistakes...${NC}"
 
@@ -98,29 +111,22 @@ if grep '^/*var/' code/**/*.dm; then
     echo -e "${RED}ERROR: Unmanaged global var use detected in code, please use the helpers.${NC}"
     st=1
 fi;
-if grep -P '^/[\w/]\S+\(.*(var/|, ?var/.*).*\)' code/**/*.dm; then
+part "proc args with var/"
+if $grep '^/[\w/]\S+\(.*(var/|, ?var/.*).*\)' $code_files; then
 	echo
     echo -e "${RED}ERROR: Changed files contains a proc argument starting with 'var'.${NC}"
     st=1
 fi;
-if grep 'balloon_alert\(".+"\)' code/**/*.dm; then
+part "balloon_alert sanity"
+if $grep 'balloon_alert\(".+"\)' $code_files; then
 	echo
 	echo -e "${RED}ERROR: Found a balloon alert with improper arguments.${NC}"
 	st=1
 fi;
-if grep -i 'centcomm' code/**/*.dm; then
+part "common spelling mistakes"
+if $grep -i 'centcomm' $code_files; then
 	echo
     echo -e "${RED}ERROR: Misspelling(s) of CentCom detected in code, please remove the extra M(s).${NC}"
-    st=1
-fi;
-if grep -ni 'nanotransen' code/**/*.dm; then
-	echo
-    echo -e "${RED}ERROR: Misspelling(s) of Nanotrasen detected in code, please remove the extra N(s).${NC}"
-    st=1
-fi;
-if ls _maps/*.json | grep -P "[A-Z]"; then
-	echo
-    echo -e "${RED}ERROR: Uppercase in a map .JSON file detected, these must be all lowercase.${NC}"
     st=1
 fi;
 if $grep -ni 'nanotransen' $code_files; then
@@ -134,11 +140,19 @@ if ls _maps/*.json | $grep "[A-Z]"; then
     echo -e "${RED}ERROR: Uppercase in a map .JSON file detected, these must be all lowercase.${NC}"
     st=1
 fi;
+if $grep -ni 'nanotransen' $code_files; then
+	echo
+    echo -e "${RED}ERROR: Misspelling(s) of Nanotrasen detected in code, please remove the extra N(s).${NC}"
+    st=1
+fi;
+part "map json naming"
+if ls _maps/*.json | $grep "[A-Z]"; then
+	echo
+    echo -e "${RED}ERROR: Uppercase in a map .JSON file detected, these must be all lowercase.${NC}"
+fi;
 part "map json sanity"
 for json in _maps/*.json
 do
-    map_path=$(jq -r '.map_path' $json)
-    while read map_file; do
         filename="_maps/$map_path/$map_file"
         if [ ! -f $filename ]
         then
@@ -184,7 +198,7 @@ fi
 
 if [ $st = 0 ]; then
     echo
-    echo -e "${GREEN}No errors found using grep!${NC}"
+    echo -e "${GREEN}No errors found using $grep!${NC}"
 fi;
 
 if [ $st = 1 ]; then
