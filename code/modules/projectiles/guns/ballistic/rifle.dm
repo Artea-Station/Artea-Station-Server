@@ -20,7 +20,7 @@
 	if (bolt_locked == FALSE)
 		to_chat(user, span_notice("You open the bolt of \the [src]."))
 		playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
-		process_chamber(FALSE, FALSE, FALSE)
+		process_chamber(user = user, empty_chamber = FALSE, from_firing = FALSE, chamber_next_round = FALSE)
 		bolt_locked = TRUE
 		update_appearance()
 		return
@@ -167,7 +167,7 @@
 	can_be_sawn_off = FALSE
 	projectile_damage_multiplier = 0.75
 
-/obj/item/gun/ballistic/rifle/boltaction/pipegun/handle_chamber()
+/obj/item/gun/ballistic/rifle/boltaction/pipegun/handle_chamber(mob/living/user, empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
 	. = ..()
 	do_sparks(1, TRUE, src)
 

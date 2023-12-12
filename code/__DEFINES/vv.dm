@@ -94,6 +94,7 @@
 #define VV_HK_TRIGGER_EXPLOSION "explode"
 #define VV_HK_AUTO_RENAME "auto_rename"
 #define VV_HK_EDIT_FILTERS "edit_filters"
+#define VV_HK_EDIT_MOVABLE_PHYSICS "edit_movable_physics"
 #define VV_HK_EDIT_COLOR_MATRIX "edit_color_matrix"
 #define VV_HK_ADD_AI "add_ai"
 
