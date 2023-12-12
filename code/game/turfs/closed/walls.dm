@@ -49,11 +49,12 @@ GLOBAL_REAL_VAR(wall_overlays_cache) = list()
 	//These are set by the material, do not touch!!!
 	var/material_color
 	var/shiny_wall
+	var/icon/shiny_wall_icon
 
 	var/shiny_stripe
 	var/stripe_icon
+	var/icon/shiny_stripe_icon
 	//Ok you can touch vars again :)
-
 
 	/// Paint color of which the wall has been painted with.
 	var/wall_paint
@@ -165,7 +166,7 @@ GLOBAL_REAL_VAR(wall_overlays_cache) = list()
 			var/list/new_overlays = list()
 
 			if(shiny_wall)
-				var/image/shine = image(icon, "shine-[smoothing_junction]")
+				var/image/shine = image(shiny_wall_icon, "shine-[smoothing_junction]")
 				shine.appearance_flags = RESET_COLOR
 				new_overlays += shine
 
@@ -175,7 +176,7 @@ GLOBAL_REAL_VAR(wall_overlays_cache) = list()
 			new_overlays += smoothed_stripe
 
 			if(shiny_stripe)
-				var/image/stripe_shine = image(stripe_icon, "shine-[smoothing_junction]")
+				var/image/stripe_shine = image(shiny_stripe_icon, "shine-[smoothing_junction]")
 				stripe_shine.appearance_flags = RESET_COLOR
 				new_overlays += stripe_shine
 
@@ -271,18 +272,24 @@ GLOBAL_REAL_VAR(wall_overlays_cache) = list()
 	else
 		hard_decon = null
 
-	if(reinf_mat_ref)
+	if(reinf_mat_ref) // Wait, why does both shiny_wall and shiny_stripe exist- ugh, whatever.
 		icon = plating_mat_ref.reinforced_wall_icon
 		shiny_wall = plating_mat_ref.wall_shine & WALL_SHINE_REINFORCED
+		if(shiny_wall)
+			shiny_wall_icon = plating_mat_ref.wall_shine_icon
 		shiny_stripe = plating_mat_ref.wall_shine & WALL_SHINE_REINFORCED
 		material_color = plating_mat_ref.wall_color
 	else
 		icon = plating_mat_ref.wall_icon
 		shiny_wall = plating_mat_ref.wall_shine & WALL_SHINE_PLATING
+		if(shiny_wall)
+			shiny_wall_icon = plating_mat_ref.reinforced_wall_shine_icon
 		shiny_stripe = plating_mat_ref.wall_shine & WALL_SHINE_PLATING
 		material_color = plating_mat_ref.wall_color
 
 	stripe_icon = plating_mat_ref.wall_stripe_icon
+	if(shiny_stripe)
+		shiny_stripe_icon = plating_mat_ref.wall_stripe_shine_icon
 
 	plating_material = plating_mat
 	reinf_material = reinf_mat

@@ -41,6 +41,7 @@
 	categories = list(MAT_CATEGORY_RIGID=TRUE, MAT_CATEGORY_BASE_RECIPES=TRUE, MAT_CATEGORY_ITEM_MATERIAL=TRUE)
 	composition = list(/datum/material/iron=1, /datum/material/plasma=1)
 	reinforced_wall_icon = 'icons/turf/walls/solid_wall_reinforced.dmi'
+	reinforced_wall_shine_icon = 'icons/turf/walls/solid_wall_reinforced_shine.dmi'
 	//This creates legacy r_walls so that I don't have to recode a shitload of stuff
 	wall_type = /turf/closed/wall/r_wall
 	false_wall_type = /obj/structure/falsewall/reinforced
@@ -169,6 +170,7 @@
 	categories = list(MAT_CATEGORY_RIGID=TRUE, MAT_CATEGORY_BASE_RECIPES=TRUE, MAT_CATEGORY_ITEM_MATERIAL=TRUE)
 	composition = list(/datum/material/iron=2, /datum/material/plasma=2)
 	reinforced_wall_icon = 'icons/turf/walls/solid_wall_reinforced.dmi'
+	reinforced_wall_shine_icon = 'icons/turf/walls/solid_wall_reinforced_shine.dmi'
 	wall_name = "hull"
 	hard_wall_decon = TRUE
 
