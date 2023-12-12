@@ -18,7 +18,7 @@ on:
         type: string
 jobs:
   run_integration_tests:
-    runs-on: ubuntu-23.10
+    runs-on: ubuntu-latest
     services:
       mysql:
         image: mysql:latest
