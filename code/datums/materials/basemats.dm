@@ -107,7 +107,6 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	wall_icon = 'icons/turf/walls/stone_wall.dmi'
 	wall_type = /turf/closed/wall/mineral/uranium
 	false_wall_type = /obj/structure/falsewall/uranium
-	wall_greyscale_config = /datum/greyscale_config/stone_wall
 
 	wall_shine = NONE
 
