@@ -284,7 +284,7 @@
 	source.set_visual_angle(new_angle)
 
 /// Stops movement for pesky items when they get picked up, as that essentially invalidates this component
-/datum/component/movable_physics/proc/COMSIG_ITEM_PICKUP(obj/item/source)
+/datum/component/movable_physics/proc/on_item_pickup(obj/item/source)
 	SIGNAL_HANDLER
 
 	stop_movement()
