@@ -34,10 +34,6 @@
 /obj/structure/low_wall/Initialize(mapload)
 	color = null //To remove the mapping preview color
 	. = ..()
-	if(!mapload)
-		var/turf/T = get_turf(src)
-		if(T)
-			T.regenerate_ao()
 
 	AddElement(/datum/element/climbable)
 	set_material(plating_material, FALSE)
