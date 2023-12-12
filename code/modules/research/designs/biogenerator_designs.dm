@@ -70,7 +70,7 @@
 	name = "Monkey Cube"
 	id = "mcube"
 	build_type = BIOGENERATOR
-	materials = list(/datum/material/biomass= 250)
+	materials = list(/datum/material/biomass= 1000)
 	build_path = /obj/item/food/monkeycube
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_FOOD)
 
@@ -80,6 +80,14 @@
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 30)
 	build_path = /obj/item/food/seaweedsheet
+	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_FOOD)
+
+/datum/design/synthmeat
+	name = "Synthmeat"
+	id = "synthmeat"
+	build_type = BIOGENERATOR
+	materials = list(/datum/material/biomass= 250)
+	build_path = /obj/item/food/meat/slab/synthmeat
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_FOOD)
 
 /datum/design/ez_nut   //easy nut :)
