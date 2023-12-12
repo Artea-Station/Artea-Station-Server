@@ -129,9 +129,9 @@
 	cached_transform = null
 
 /datum/component/movable_physics/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_MOVABLE_BUMP, .proc/on_bump)
+	RegisterSignal(parent, COMSIG_MOVABLE_BUMP, PROC_REF(on_bump))
 	if(isitem(parent))
-		RegisterSignal(parent, COMSIG_ITEM_PICKUP, .proc/on_item_pickup)
+		RegisterSignal(parent, COMSIG_ITEM_PICKUP, PROC_REF(on_item_pickup))
 	if(has_movement())
 		start_movement()
 	else if(physics_flags & MPHYSICS_QDEL_WHEN_NO_MOVEMENT)
@@ -284,7 +284,7 @@
 	source.set_visual_angle(new_angle)
 
 /// Stops movement for pesky items when they get picked up, as that essentially invalidates this component
-/datum/component/movable_physics/proc/on_item_pickup(obj/item/source)
+/datum/component/movable_physics/proc/COMSIG_ITEM_PICKUP(obj/item/source)
 	SIGNAL_HANDLER
 
 	stop_movement()
