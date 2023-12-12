@@ -5,7 +5,7 @@
 	name = "wall"
 	desc = "A huge chunk of metal used to separate rooms."
 	anchored = TRUE
-	icon = 'icons/turf/walls/solid_wall.dmi'
+	icon = 'icons/turf/walls/false_walls.dmi'
 	icon_state = "wall-0"
 	base_icon_state = "wall"
 	color = "#57575c" //To display in mapping softwares
@@ -98,9 +98,9 @@
 
 /obj/structure/falsewall/update_icon_state()
 	if(opening)
-		icon_state = "fwall_[density ? "opening" : "closing"]"
+		icon_state = "greyscale-[density ? "opening" : "closing"]"
 		return ..()
-	icon_state = density ? "[base_icon_state]-[smoothing_junction]" : "fwall_open"
+	icon_state = density ? "[base_icon_state]-[smoothing_junction]" : "greyscale-open"
 	return ..()
 
 /// Partially copypasted from /turf/closed/wall

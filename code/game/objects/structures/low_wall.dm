@@ -77,6 +77,11 @@
 				neighbor_stripe ^= cardinal
 				break
 
+	if(shiny_stripe)
+		var/image/shine = image('icons/obj/smooth_structures/low_wall_shine.dmi', "shine-[smoothing_junction]")
+		shine.appearance_flags = RESET_COLOR
+		overlays += shine
+
 	if(neighbor_stripe)
 		var/image/neighb_stripe_overlay = new ('icons/turf/walls/neighbor_stripe.dmi', "stripe-[neighbor_stripe]", layer = LOW_WALL_STRIPE_LAYER)
 		neighb_stripe_overlay.appearance_flags = RESET_COLOR

@@ -170,7 +170,7 @@ GLOBAL_REAL_VAR(wall_overlays_cache) = list()
 				shine.appearance_flags = RESET_COLOR
 				new_overlays += shine
 
-			var/image/smoothed_stripe = image(stripe_icon, icon_state)
+			var/image/smoothed_stripe = image(stripe_icon, "stripe-[smoothing_junction]")
 			smoothed_stripe.appearance_flags = RESET_COLOR
 			smoothed_stripe.color = stripe_color
 			new_overlays += smoothed_stripe
@@ -186,7 +186,7 @@ GLOBAL_REAL_VAR(wall_overlays_cache) = list()
 				neighb_stripe_overlay.color = stripe_color
 				new_overlays += neighb_stripe_overlay
 				if(shiny_wall)
-					var/image/shine = image('icons/turf/walls/neighbor_stripe.dmi', "shine-[neighbor_stripe]")
+					var/image/shine = image('icons/turf/walls/neighbor_stripe_shine.dmi', "shine-[neighbor_stripe]")
 					shine.appearance_flags = RESET_COLOR
 					new_overlays += shine
 
