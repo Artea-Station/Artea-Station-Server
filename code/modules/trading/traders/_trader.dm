@@ -261,8 +261,6 @@
 
 /// Adds a new delivery IF there is no other delivery up for grabs. Deliveries pay *a lot* relative to effort.
 /datum/trader/proc/gain_delivery()
-	if(!deliveries) // ARTEA TODO: Figure out why manifest is replacing itself with the fucking delivery instance. What the fuck?
-		return
 	if(deliveries || !possible_deliveries)
 		return
 	LAZYINITLIST(deliveries)
