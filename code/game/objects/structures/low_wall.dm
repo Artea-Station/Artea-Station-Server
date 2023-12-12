@@ -57,7 +57,7 @@
 
 	color = wall_paint || material_color
 
-	var/image/smoothed_stripe = image(stripe_icon, icon_state, layer = LOW_WALL_STRIPE_LAYER)
+	var/image/smoothed_stripe = image(stripe_icon, "stripe-[smoothing_junction]", layer = LOW_WALL_STRIPE_LAYER)
 	smoothed_stripe.appearance_flags = RESET_COLOR
 	smoothed_stripe.color = stripe_paint || material_color
 	overlays += smoothed_stripe
