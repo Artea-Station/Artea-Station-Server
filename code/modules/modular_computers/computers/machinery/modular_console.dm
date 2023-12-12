@@ -6,7 +6,7 @@
 	icon_state = "computer"
 	icon_state_powered = "computer"
 	icon_state_unpowered = "computer"
-	base_icon_state = "console"
+	base_icon_state = "computer"
 	hardware_flag = PROGRAM_CONSOLE
 	density = TRUE
 	base_idle_power_usage = 100
@@ -36,14 +36,11 @@
 
 	if(cpu.get_integrity() <= cpu.integrity_failure * cpu.max_integrity)
 		. -= "broken"
-		. += mutable_appearance(icon, "[base_icon_state]_glass", layer + 0.01)
+		. += mutable_appearance(icon, "[base_icon_state]_broken_glass", layer + 0.01)
 		return // If we don't do this broken computers glow in the dark.
 
-	// Glass is a separate layer to make keyboard and program overlays look correct when facing noth.
-	// The things I do for asthetics.
-	. += mutable_appearance(icon, "[base_icon_state]_glass", layer + (dir == NORTH ? 0.03 : 0.01))
-
 	if(!cpu.last_power_usage) // Your screen can't be on if you're not using any damn power
+		. += mutable_appearance(icon, "[base_icon_state]_glass", layer + 0.01)
 		return
 
-	. += emissive_appearance(icon, "[base_icon_state]_emissive")
+	. += emissive_appearance(icon, cpu.active_program?.program_icon_state || screen_icon_state_menu)

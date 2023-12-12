@@ -183,7 +183,7 @@
 	var/loaded_items = 0
 
 	///Name of lighting mask for the vending machine
-	var/light_mask
+	var/light_mask = "new-light-mask"
 
 	/// Sound to play when vending something
 	var/vend_sound = 'sound/machines/vending_drop.ogg'
