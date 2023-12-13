@@ -389,9 +389,14 @@
 			if(!inserted_id)
 				say("No ID detected.")
 				return
+			if(!istype(!console.inserted_id?.registered_account, /datum/bank_account/department))
+				say("This card is not a department card! Bounties are ineligable for private accounts!")
+				return
 			var/index = text2num(params["index"])
 			if(connected_trader.bounties.len < index)
+				say("Invalid bounty!")
 				return
+
 			var/datum/trader_bounty/goodie = connected_trader.bounties[index]
 			last_transmission = connected_trader.requested_bounty_claim(ui.user, src, goodie)
 		if("delivery")
