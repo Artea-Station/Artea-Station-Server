@@ -125,6 +125,8 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		return
 
 	if(getDockedId() == "cargo_away")
+		if(!SSshuttle.getDock("cargo_home"))
+			return // No runtimes, thanks
 		SSshuttle.moveShuttle("cargo", "cargo_home") // And immediately return to the station!
 
 /obj/docking_port/mobile/supply/proc/buy(list/empty_turfs)
