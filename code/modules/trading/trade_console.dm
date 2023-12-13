@@ -386,12 +386,6 @@
 				say("Not enough credits. Import rejected.")
 				qdel(order)
 		if("bounty")
-			if(!inserted_id)
-				say("No ID detected.")
-				return
-			if(!istype(!inserted_id?.registered_account, /datum/bank_account/department))
-				say("This card is not a department card! Bounties are ineligable for private accounts!")
-				return
 			var/index = text2num(params["index"])
 			if(connected_trader.bounties.len < index)
 				say("Invalid bounty!")
