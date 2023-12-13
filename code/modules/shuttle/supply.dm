@@ -221,6 +221,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 			if(!AM.anchored)
 				var/bounty_instead = FALSE
 				for(var/datum/trader_bounty/bounty as anything in GLOB.trader_bounties)
+					ex.unique_exports += 1 // Bounties are significantly more time efficient. Do them.
 					if(bounty.hand_in(AM))
 						bounty_instead = TRUE
 						break

@@ -176,7 +176,10 @@
 	if(!bounty.completed)
 		return get_response("bounty_fail_claim", "I'm afraid you're a bit short of what I need!", user)
 
-	console.inserted_id.registered_account.adjust_money(bounty.reward_cash, "[src]: Bounty payout for [bounty]")
+
+	var/split_cash = round(SSeconomy.department_accounts.len / bounty.reward_cash)
+	for(var/datum/bank_account/department_account as anything in department_accounts)
+		department_account.adjust_money(split_cash, "[src]: Bounty payout for [bounty]")
 
 	if(bounty.reward_item_path)
 		var/datum/supply_pack/pack = new /datum/supply_pack()
