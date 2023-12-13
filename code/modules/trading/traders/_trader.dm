@@ -178,7 +178,7 @@
 
 
 	var/split_cash = round(SSeconomy.department_accounts.len / bounty.reward_cash)
-	for(var/datum/bank_account/department_account as anything in SSeconomy.department_accounts)
+	for(var/datum/bank_account/department_account as anything in SSeconomy.generated_accounts)
 		department_account.adjust_money(split_cash, "[src]: Bounty payout for [bounty]")
 
 	if(bounty.reward_item_path)
