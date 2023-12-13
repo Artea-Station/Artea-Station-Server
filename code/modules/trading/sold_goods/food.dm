@@ -6,7 +6,7 @@
 	path = /obj/item/food/kebab/monkey
 
 /datum/sold_goods/monkeysoup
-	path = /obj/item/food/soup/monkeysdelight
+	path = /obj/item/reagent_containers/cup/bowl/soup/monkey
 
 /datum/sold_goods/ricepudding
 	path = /obj/item/food/salad/ricepudding

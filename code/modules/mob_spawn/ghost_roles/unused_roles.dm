@@ -8,7 +8,7 @@
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper_s"
 	outfit = /datum/outfit/lavalandprisoner
-	you_are_text = "You're a prisoner, sentenced to hard work in one of Nanotrasen's labor camps, but it seems as \
+	you_are_text = "You're a prisoner, sentenced to hard work in one of Artea's labor camps, but it seems as \
 	though fate has other plans for you."
 	flavour_text = "Good. It seems as though your ship crashed. You remember that you were convicted of "
 	spawner_job_path = /datum/job/escaped_prisoner
@@ -26,7 +26,7 @@
 
 /obj/effect/mob_spawn/ghost_role/human/prisoner_transport/special(mob/living/carbon/human/spawned_human)
 	. = ..()
-	spawned_human.fully_replace_character_name(null, "NTP #LL-0[rand(111,999)]") //Nanotrasen Prisoner #Lavaland-(numbers)
+	spawned_human.fully_replace_character_name(null, "NTP #LL-0[rand(111,999)]") //Artea Prisoner #Lavaland-(numbers)
 
 /datum/outfit/lavalandprisoner
 	name = "Lavaland Prisoner"
@@ -87,7 +87,7 @@
 	icon_state = "sleeper_s"
 	prompt_name = "a syndicate operative"
 	you_are_text = "You are a syndicate operative."
-	flavour_text = "You have awoken, without instruction. Death to Nanotrasen! If there are some clues around as to what you're supposed to be doing, you best follow those."
+	flavour_text = "You have awoken, without instruction. Death to Artea! If there are some clues around as to what you're supposed to be doing, you best follow those."
 	outfit = /datum/outfit/syndicate_empty
 	spawner_job_path = /datum/job/space_syndicate
 

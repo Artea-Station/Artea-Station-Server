@@ -169,6 +169,21 @@
 			reagents.trans_to(H, reagents.total_volume, transfered_by = user)
 			qdel(src)
 
+/obj/effect/decal/cleanable/vomit/nebula
+	name = "nebula vomit"
+	desc = "Gosh, how... beautiful."
+	icon_state = "vomitnebula_1"
+	random_icon_states = list("vomitnebula_1", "vomitnebula_2", "vomitnebula_3", "vomitnebula_4")
+	beauty = 10
+
+/obj/effect/decal/cleanable/vomit/nebula/Initialize(mapload, list/datum/disease/diseases)
+	. = ..()
+	update_appearance(UPDATE_OVERLAYS)
+
+/obj/effect/decal/cleanable/vomit/nebula/update_overlays()
+	. = ..()
+	. += emissive_appearance(icon, icon_state, src, alpha = src.alpha)
+
 /obj/effect/decal/cleanable/vomit/old
 	name = "crusty dried vomit"
 	desc = "You try not to look at the chunks, and fail."
@@ -271,96 +286,6 @@
 /obj/effect/decal/cleanable/garbage/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/swabable, CELL_LINE_TABLE_SLUDGE, CELL_VIRUS_TABLE_GENERIC, rand(2,4), 15)
-
-/obj/effect/decal/cleanable/ants
-	name = "space ants"
-	desc = "A small colony of space ants. They're normally used to the vacuum of space, so they can't climb too well."
-	icon = 'icons/obj/objects.dmi'
-	icon_state = "ants"
-	beauty = -150
-	plane = GAME_PLANE
-	layer = LOW_OBJ_LAYER
-	decal_reagent = /datum/reagent/ants
-	reagent_amount = 5
-	/// Sound the ants make when biting
-	var/bite_sound = 'sound/weapons/bite.ogg'
-
-/obj/effect/decal/cleanable/ants/Initialize(mapload)
-	if(mapload && reagent_amount > 2)
-		reagent_amount = rand((reagent_amount - 2), reagent_amount)
-	. = ..()
-	update_ant_damage()
-
-/obj/effect/decal/cleanable/ants/vv_edit_var(vname, vval)
-	. = ..()
-	if(vname == NAMEOF(src, bite_sound))
-		update_ant_damage()
-
-/obj/effect/decal/cleanable/ants/handle_merge_decal(obj/effect/decal/cleanable/merger)
-	. = ..()
-	var/obj/effect/decal/cleanable/ants/ants = merger
-	ants.update_ant_damage()
-
-/obj/effect/decal/cleanable/ants/proc/update_ant_damage(ant_min_damage, ant_max_damage)
-	if(!ant_max_damage)
-		ant_max_damage = min(10, round((reagents.get_reagent_amount(/datum/reagent/ants) * 0.1),0.1)) // 100u ants = 10 max_damage
-	if(!ant_min_damage)
-		ant_min_damage = 0.1
-	var/ant_flags = (CALTROP_NOCRAWL | CALTROP_NOSTUN) /// Small amounts of ants won't be able to bite through shoes.
-	if(ant_max_damage > 1)
-		ant_flags = (CALTROP_NOCRAWL | CALTROP_NOSTUN | CALTROP_BYPASS_SHOES)
-
-	var/datum/component/caltrop/caltrop_comp = GetComponent(/datum/component/caltrop)
-	if(caltrop_comp)
-		caltrop_comp.min_damage = ant_min_damage
-		caltrop_comp.max_damage = ant_max_damage
-		caltrop_comp.flags = ant_flags
-		caltrop_comp.soundfile = bite_sound
-	else
-		AddComponent(/datum/component/caltrop, min_damage = ant_min_damage, max_damage = ant_max_damage, flags = ant_flags, soundfile = bite_sound)
-
-	update_appearance(UPDATE_ICON)
-
-/obj/effect/decal/cleanable/ants/update_icon_state()
-	if(istype(src, /obj/effect/decal/cleanable/ants/fire)) //i fucking hate this but you're forced to call parent in update_icon_state()
-		return ..()
-
-	var/datum/component/caltrop/caltrop_comp = GetComponent(/datum/component/caltrop)
-	if(!caltrop_comp)
-		return ..()
-
-	switch(caltrop_comp.max_damage)
-		if(0 to 1)
-			icon_state = initial(icon_state)
-		if(1.1 to 4)
-			icon_state = "[initial(icon_state)]_2"
-		if(4.1 to 7)
-			icon_state = "[initial(icon_state)]_3"
-		if(7.1 to INFINITY)
-			icon_state = "[initial(icon_state)]_4"
-	return ..()
-
-/obj/effect/decal/cleanable/ants/update_overlays()
-	. = ..()
-	. += emissive_appearance(icon, "[icon_state]_light", alpha = src.alpha)
-
-/obj/effect/decal/cleanable/ants/fire_act(exposed_temperature, exposed_volume)
-	var/obj/effect/decal/cleanable/ants/fire/fire_ants = new(loc)
-	fire_ants.reagents.clear_reagents()
-	reagents.trans_to(fire_ants, fire_ants.reagents.maximum_volume)
-	qdel(src)
-
-/obj/effect/decal/cleanable/ants/fire
-	name = "space fire ants"
-	desc = "A small colony no longer. We are the fire nation."
-	icon_state = "fire_ants"
-	mergeable_decal = FALSE
-
-/obj/effect/decal/cleanable/ants/fire/update_ant_damage(ant_min_damage, ant_max_damage)
-	return ..(15, 25)
-
-/obj/effect/decal/cleanable/ants/fire/fire_act(exposed_temperature, exposed_volume)
-	return
 
 /obj/effect/decal/cleanable/fuel_pool
 	name = "pool of fuel"

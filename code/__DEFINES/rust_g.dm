@@ -103,6 +103,12 @@
 #define rustg_dmi_strip_metadata(fname) LIBCALL(RUST_G, "dmi_strip_metadata")(fname)
 #define rustg_dmi_create_png(path, width, height, data) LIBCALL(RUST_G, "dmi_create_png")(path, width, height, data)
 #define rustg_dmi_resize_png(path, width, height, resizetype) LIBCALL(RUST_G, "dmi_resize_png")(path, width, height, resizetype)
+/**
+ * input: must be a path, not an /icon; you have to do your own handling if it is one, as icon objects can't be directly passed to rustg.
+ *
+ * output: json_encode'd list. json_decode to get a flat list with icon states in the order they're in inside the .dmi
+ */
+#define rustg_dmi_icon_states(fname) LIBCALL(RUST_G, "dmi_icon_states")(fname)
 
 #define rustg_file_read(fname) LIBCALL(RUST_G, "file_read")(fname)
 #define rustg_file_exists(fname) LIBCALL(RUST_G, "file_exists")(fname)
@@ -150,6 +156,10 @@
 #define rustg_time_microseconds(id) text2num(LIBCALL(RUST_G, "time_microseconds")(id))
 #define rustg_time_milliseconds(id) text2num(LIBCALL(RUST_G, "time_milliseconds")(id))
 #define rustg_time_reset(id) LIBCALL(RUST_G, "time_reset")(id)
+
+/// Returns the timestamp as a string
+/proc/rustg_unix_timestamp()
+	return LIBCALL(RUST_G, "unix_timestamp")()
 
 #define rustg_raw_read_toml_file(path) json_decode(LIBCALL(RUST_G, "toml_file_to_json")(path) || "null")
 

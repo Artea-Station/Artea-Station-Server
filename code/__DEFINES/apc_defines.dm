@@ -15,8 +15,11 @@
 #define APC_COVER_REMOVED 2
 
 // APC visuals
-/// Pixel offset of the APC from the floor turf
-#define APC_PIXEL_OFFSET 25
+// Pixel offset of the APC from the floor turf
+#define APC_PIXEL_OFFSET_NORTH 32
+#define APC_PIXEL_OFFSET_SOUTH -18
+#define APC_PIXEL_OFFSET_EAST 35
+#define APC_PIXEL_OFFSET_WEST -35
 
 // APC charging status:
 /// The APC is not charging.

@@ -704,6 +704,26 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SERVICE
 
+/datum/design/board/stove
+	name = "Stove"
+	desc = "The circuit board for a Stove, which is a dual hob on a stand which can hold a handful of bowls."
+	id = "stove"
+	build_path = /obj/item/circuitboard/machine/stove
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_KITCHEN
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_SERVICE
+
+/datum/design/board/table_hob
+	name = "Table Hob"
+	desc = "The circuit board for a Table Hob, which is a single hob that's placable on a table."
+	id = "table_hob"
+	build_path = /obj/item/circuitboard/machine/table_hob
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_KITCHEN
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_SERVICE
+
 /datum/design/board/donksofttoyvendor
 	name = "Donksoft Toy Vendor Board"
 	desc = "The circuit board for a Donksoft Toy Vendor."
