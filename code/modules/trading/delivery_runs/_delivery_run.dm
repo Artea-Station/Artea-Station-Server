@@ -110,7 +110,7 @@
 /datum/delivery_run_instance/proc/TimedReward(turf/position, delivery_name)
 	if(reward_cash)
 		var/split_cash = round(SSeconomy.department_accounts.len / reward_cash)
-		for(var/datum/bank_account/department_account as anything in department_accounts)
+		for(var/datum/bank_account/department_account as anything in SSeconomy.department_accounts)
 			department_account.adjust_money(split_cash, "DELIVERY: [delivery_name]")
 	if(reward_item_path)
 		new reward_item_path(position)
