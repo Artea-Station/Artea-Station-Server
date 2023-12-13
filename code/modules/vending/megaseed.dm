@@ -5,7 +5,6 @@
 	product_ads = "We like plants!;Grow some crops!;Grow, baby, growww!;Aw h'yeah son!"
 	icon_state = "seeds"
 	panel_type = "panel2"
-	light_mask = "seeds-light-mask"
 	products = list(
 		/obj/item/seeds/aloe = 3,
 		/obj/item/seeds/ambrosia = 3,
