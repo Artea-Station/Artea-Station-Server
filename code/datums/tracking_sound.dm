@@ -78,7 +78,7 @@
 	src.sound_length = sound_length
 	if(sound_length)
 		schedule_qdel(sound_length)
-	RegisterSignal(source, COMSIG_QDELETING, PROC_REF(source_gone))
+	RegisterSignal(source, COMSIG_PARENT_QDELETING, PROC_REF(source_gone))
 	return ..()
 
 /datum/sound_spatial_tracker/Destroy(force, ...)
@@ -219,7 +219,7 @@
 /datum/sound_spatial_tracker/proc/schedule_qdel(length)
 	if(qdel_scheduled)
 		return
-	qdel_scheduled = QDEL_IN_STOPPABLE(src, length)
+	qdel_scheduled = QDEL_IN(src, length)
 
 /datum/sound_spatial_tracker/proc/source_gone()
 	SIGNAL_HANDLER
