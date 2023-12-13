@@ -96,7 +96,6 @@ SUBSYSTEM_DEF(economy)
 	if(!resumed)
 		temporary_total = 0
 		processing_part = ECON_ACCOUNT_STEP
-		cached_processing = department_accounts.Copy()
 
 	if(processing_part == ECON_ACCOUNT_STEP)
 		if(!issue_paydays())
