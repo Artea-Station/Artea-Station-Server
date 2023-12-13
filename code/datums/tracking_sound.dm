@@ -16,10 +16,13 @@
 	var/sound/sound // this one is only for restarting a sound if the client loses it
 	var/base_volume
 	var/falloff_exponent
+	var/vary
+	var/frequency
 	var/channel
 	var/pressure_affected
 	var/max_distance
 	var/falloff_distance
+	var/distance_multiplier
 	var/use_reverb
 
 	/// null sound datum used to stop the sound on a client; stored to prevent constant generation
@@ -53,22 +56,28 @@
 	source,
 	sound,
 	base_volume,
+	vary,
+	frequency,
 	falloff_exponent,
-	channel,
+	channel = 0,
 	pressure_affected,
 	max_distance,
 	falloff_distance,
+	distance_multiplier,
 	use_reverb,
 	sound_length,
 )
 	src.source = source
 	src.sound = sound(file = sound, channel = channel)
 	src.base_volume = base_volume
+	src.vary = vary
+	src.frequency = frequency
 	src.falloff_exponent = falloff_exponent
 	src.channel = channel
 	src.pressure_affected = pressure_affected
 	src.max_distance = max_distance
 	src.falloff_distance = falloff_distance
+	src.distance_multiplier = distance_multiplier
 	src.use_reverb = use_reverb
 
 	start_time = REALTIMEOFDAY
@@ -165,14 +174,18 @@
 	sound.offset = (expected_offset + listener_offset) * 0.1
 	listener.playsound_local(
 		get_turf(source),
-		vol = base_volume,
-		falloff_exponent = falloff_exponent,
-		channel = channel,
-		pressure_affected = pressure_affected,
-		max_distance = max_distance,
-		falloff_distance = falloff_distance,
-		use_reverb = use_reverb,
-		sound_to_use = sound,
+		null,
+		base_volume,
+		vary,
+		frequency,
+		falloff_exponent,
+		channel,
+		pressure_affected,
+		sound,
+		max_distance,
+		falloff_distance,
+		distance_multiplier,
+		use_reverb,
 	)
 
 /// Sets up a listener to be tracked by this datum.
@@ -218,6 +231,11 @@
 /// Schedules a qdel if not already scheduled.
 /datum/sound_spatial_tracker/proc/schedule_qdel(length)
 	if(qdel_scheduled)
+		return
+	if(length <= 0)
+		if(qdel_scheduled)
+			deltimer(qdel_scheduled)
+		qdel(src)
 		return
 	qdel_scheduled = QDEL_IN(src, length)
 

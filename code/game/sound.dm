@@ -50,7 +50,7 @@
 	//allocate a channel if necessary now so its the same for everyone
 	channel = channel || SSsounds.random_available_channel()
 
-	var/sound/S = sound(get_sfx(soundin))
+	soundin = get_sfx(soundin)
 	var/maxdistance = SOUND_RANGE + extrarange
 	var/source_z = turf_source.z
 	var/list/listeners = SSmobs.clients_by_zlevel[source_z].Copy()
@@ -77,10 +77,12 @@
 		if(below_turf && istransparentturf(turf_source))
 			listeners += get_hearers_in_view(maxdistance, below_turf)
 
-	for(var/mob/listening_mob in listeners | SSmobs.dead_players_by_zlevel[source_z])//observers always hear through walls
-		if(get_dist(listening_mob, turf_source) <= maxdistance)
-			listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
-			. += listening_mob
+	var/list/listening_mobs = listeners | SSmobs.dead_players_by_zlevel[source_z]
+	for(var/listening_mob in listening_mobs)
+		if(!(get_dist(listening_mob, turf_source) <= maxdistance))
+			listening_mobs -= listening_mob
+
+	new /datum/sound_spatial_tracker(source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, maxdistance, falloff_distance, 1, use_reverb)
 
 /mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/sound_to_use, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE)
 	if(!client || !can_hear())
