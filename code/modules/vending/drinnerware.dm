@@ -33,7 +33,6 @@
 	default_price = PAYCHECK_CREW * 0.8
 	extra_price = PAYCHECK_COMMAND
 	payment_department = ACCOUNT_SRV
-	light_mask = "dinnerware-light-mask"
 	vend_sound = 'sound/machines/vending_cans.ogg'
 
 /obj/item/vending_refill/dinnerware
