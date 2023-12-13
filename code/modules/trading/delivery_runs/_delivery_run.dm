@@ -99,16 +99,19 @@
 	if(overmap_object.x == overmap_x && overmap_object.y == overmap_y)
 		Delivered(user)
 
+/// I really don't like this, but I've spent long enough on cargo.
 /datum/delivery_run_instance/proc/Delivered(mob/living/user)
 	var/turf/user_turf = get_turf(user)
 	waiting_for_reward = TRUE
-	addtimer(CALLBACK(src, PROC_REF(TimedReward), user_turf), rand(2 SECONDS, 4 SECONDS))
+	addtimer(CALLBACK(src, PROC_REF(TimedReward), user_turf, fluff_overmap_object.name), rand(2 SECONDS, 4 SECONDS))
 	do_sparks(3, TRUE, user_turf)
 	qdel(delivery_object)
 
-/datum/delivery_run_instance/proc/TimedReward(turf/position)
+/datum/delivery_run_instance/proc/TimedReward(turf/position, delivery_name)
 	if(reward_cash)
-		new /obj/item/holochip(position, reward_cash)
+		var/split_cash = round(SSeconomy.department_accounts.len / reward_cash)
+		for(var/datum/bank_account/department_account as anything in department_accounts)
+			department_account.adjust_money(split_cash, "DELIVERY: [delivery_name]")
 	if(reward_item_path)
 		new reward_item_path(position)
 	do_sparks(3, TRUE, position)
