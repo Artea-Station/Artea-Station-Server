@@ -32,7 +32,6 @@
 	default_price = PAYCHECK_CREW
 	extra_price = PAYCHECK_COMMAND
 	payment_department = ACCOUNT_SRV
-	light_mask = "cigs-light-mask"
 
 /obj/machinery/vending/cigarette/syndicate
 	products = list(
