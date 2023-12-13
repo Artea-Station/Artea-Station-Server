@@ -258,10 +258,10 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 /obj/docking_port/mobile/supply/get_status_text_tgui()
 	var/obj/docking_port/stationary/port = get_docked()
 
-	if(port.shuttle_id != "cargo_home" && last_trade_trader_amount)
+	if(port.shuttle_id != "cargo_home")
 		return "Engaging in trade with [last_trade_trader_amount] traders ([getTimerStr()])"
 
-	return ..()
+	return "Docked: [port.name]"
 
 // At some point, maybe make this a set of markers or beacons that players can set? Dunno. Would people use that?
 GLOBAL_LIST_EMPTY(cargo_shuttle_crate_markers)
