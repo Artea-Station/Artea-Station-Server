@@ -116,7 +116,7 @@
 			if (value && isnewplayer(user))
 				user.client?.playtitlemusic()
 			else
-				user.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+				user.stop_sound_channel(SOUND_CHANNEL_LOBBYMUSIC)
 
 		return TRUE
 

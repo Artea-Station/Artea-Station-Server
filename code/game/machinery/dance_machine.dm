@@ -441,7 +441,7 @@
 	for(var/mob/living/L in rangers)
 		if(!L || !L.client)
 			continue
-		L.stop_sound_channel(CHANNEL_JUKEBOX)
+		L.stop_sound_channel(SOUND_CHANNEL_JUKEBOX)
 	rangers = list()
 
 /obj/machinery/jukebox/disco/dance_over()
@@ -458,13 +458,13 @@
 				continue
 			if(!(M in rangers))
 				rangers[M] = TRUE
-				M.playsound_local(get_turf(M), null, volume, channel = CHANNEL_JUKEBOX, sound_to_use = song_played, use_reverb = FALSE)
+				M.playsound_local(get_turf(M), null, volume, channel = SOUND_CHANNEL_JUKEBOX, sound_to_use = song_played, use_reverb = FALSE)
 		for(var/mob/L in rangers)
 			if(get_dist(src,L) > 10)
 				rangers -= L
 				if(!L || !L.client)
 					continue
-				L.stop_sound_channel(CHANNEL_JUKEBOX)
+				L.stop_sound_channel(SOUND_CHANNEL_JUKEBOX)
 	else if(active)
 		active = FALSE
 		update_use_power(IDLE_POWER_USE)

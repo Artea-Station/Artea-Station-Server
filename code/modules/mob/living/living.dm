@@ -848,7 +848,7 @@
 		suiciding = FALSE
 
 	updatehealth()
-	stop_sound_channel(CHANNEL_HEARTBEAT)
+	stop_sound_channel(SOUND_CHANNEL_HEARTBEAT)
 	SEND_SIGNAL(src, COMSIG_LIVING_POST_FULLY_HEAL, heal_flags)
 
 /// Checks if we are actually able to ressuscitate this mob.

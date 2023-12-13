@@ -25,7 +25,7 @@
 			handle_brain_damage(delta_time, times_fired)
 
 	if(stat == DEAD)
-		stop_sound_channel(CHANNEL_HEARTBEAT)
+		stop_sound_channel(SOUND_CHANNEL_HEARTBEAT)
 	else
 
 		if(staminaloss > 0 && stam_regen_start_time <= world.time)
@@ -154,7 +154,7 @@
 		failed_last_breath = TRUE
 		throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 		return FALSE
-	
+
 	var/safe_oxy_min = 16
 	var/safe_co2_max = 10
 	var/safe_plas_max = 0.05

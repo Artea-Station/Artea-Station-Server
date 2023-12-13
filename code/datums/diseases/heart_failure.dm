@@ -42,7 +42,7 @@
 				to_chat(affected_mob, span_warning("You feel [pick("full", "nauseated", "sweaty", "weak", "tired", "short on breath", "uneasy")]."))
 		if(3 to 4)
 			if(!sound)
-				affected_mob.playsound_local(affected_mob, 'sound/health/slowbeat.ogg', 40, FALSE, channel = CHANNEL_HEARTBEAT, use_reverb = FALSE)
+				affected_mob.playsound_local(affected_mob, 'sound/health/slowbeat.ogg', 40, FALSE, channel = SOUND_CHANNEL_HEARTBEAT, use_reverb = FALSE)
 				sound = TRUE
 			if(DT_PROB(1.5, delta_time))
 				to_chat(affected_mob, span_danger("You feel a sharp pain in your chest!"))
@@ -57,7 +57,7 @@
 				affected_mob.adjustStaminaLoss(40, FALSE)
 				affected_mob.emote("cough")
 		if(5)
-			affected_mob.stop_sound_channel(CHANNEL_HEARTBEAT)
+			affected_mob.stop_sound_channel(SOUND_CHANNEL_HEARTBEAT)
 			affected_mob.playsound_local(affected_mob, 'sound/effects/singlebeat.ogg', 100, FALSE, use_reverb = FALSE)
 			if(affected_mob.stat == CONSCIOUS)
 				affected_mob.visible_message(span_danger("[affected_mob] clutches at [affected_mob.p_their()] chest as if [affected_mob.p_their()] heart is stopping!"), \
