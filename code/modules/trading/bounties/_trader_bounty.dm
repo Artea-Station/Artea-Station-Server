@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(trader_bounties)
+
 /datum/trader_bounty
 	/// Name of the bounty
 	var/bounty_name = "Epic Items Bounty Quest"
@@ -5,6 +7,8 @@
 	var/name
 	/// Amount of requested items
 	var/amount = 1
+	/// Amount of items handed in
+	var/completed_amount = 0
 	/// Whether to check type for the item, if FALSE, make sure your subtype is checking the item in IsValid()
 	var/check_type = TRUE
 	/// Type path of the requested item
@@ -42,6 +46,22 @@
 		reward_item_name = initial(reward_item_path.name)
 
 	bounty_text = replacetext(replacetext(bounty_text, "%amount%", amount), "%item%", name)
+	GLOB.trader_bounties += src
+
+/datum/trader_bounty/proc/hand_in(atom/movable/movable_to_valid)
+	var/amount_to_add = Validate(movable_to_valid)
+	var/old_completed = completed_amount
+	completed_amount = min(amount, completed_amount + amount_to_add)
+	var/amount_diff = completed_amount - old_completed
+
+	if(amount_diff)
+		handle_diff(movable_to_valid, amount_diff)
+		return TRUE
+
+	return FALSE
+
+/datum/trader_bounty/proc/handle_diff(atom/movable/movable_to_valid, amount_diff)
+	qdel(movable_to_valid)
 
 /datum/trader_bounty/proc/Validate(atom/movable/movable_to_valid)
 	if((!check_type || movable_to_valid.type == path) && IsValid(movable_to_valid))
@@ -53,11 +73,21 @@
 /datum/trader_bounty/proc/GetAmount(atom/movable/movable_to_valid)
 	return 1
 
+/datum/trader_bounty/Destroy(force, ...)
+	GLOB.trader_bounties -= src
+	. = ..()
+
 /datum/trader_bounty/stack
 
-/datum/trader_bounty/stack/GetAmount(atom/movable/movable_to_valid)
-	var/obj/item/stack/our_stack = movable_to_valid
-	return our_stack.amount
+/datum/trader_bounty/stack/handle_diff(obj/item/stack/movable_to_valid, amount_diff)
+	if(movable_to_valid.amount <= amount_diff)
+		qdel(movable_to_valid)
+
+	movable_to_valid.amount -= amount_diff
+	movable_to_valid.update_appearance()
+
+/datum/trader_bounty/stack/GetAmount(obj/item/stack/movable_to_valid)
+	return movable_to_valid.amount
 
 /datum/trader_bounty/reagent
 	check_type = FALSE

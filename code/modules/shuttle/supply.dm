@@ -219,6 +219,13 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 			if(iscameramob(AM))
 				continue
 			if(!AM.anchored)
+				var/bounty_instead = FALSE
+				for(var/datum/trader_bounty/bounty as anything in GLOB.trader_bounties)
+					if(bounty.hand_in(AM))
+						bounty_instead = TRUE
+						break
+				if(bounty_instead)
+					continue
 				var/datum/export_report/report = export_item_and_contents(AM, export_categories, dry_run = FALSE, external_report = ex)
 				ex.unique_exports += report.unique_exports
 
