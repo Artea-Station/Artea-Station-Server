@@ -49,14 +49,6 @@
 	icon_state = "cola_black"
 	light_mask = "cola-light-mask"
 
-/obj/machinery/vending/cola/red
-	icon_state = "red_cola"
-	name = "\improper Space Cola Vendor"
-	desc = "It vends cola, in space."
-	product_slogans = "Cola in space!"
-	light_mask = "red_cola-light-mask"
-	light_color = COLOR_DARK_RED
-
 /obj/machinery/vending/cola/space_up
 	icon_state = "space_up"
 	name = "\improper Space-up! Vendor"
@@ -85,7 +77,6 @@
 	name = "\improper Pwr Game Vendor"
 	desc = "You want it, we got it. Brought to you in partnership with Vlad's Salads."
 	product_slogans = "The POWER that gamers crave! PWR GAME!"
-	light_mask = "pwr_game-light-mask"
 	light_color = COLOR_STRONG_VIOLET
 
 /obj/machinery/vending/cola/shamblers
@@ -105,5 +96,4 @@
 		)
 	product_slogans = "~Shake me up some of that Shambler's Juice!~"
 	product_ads = "Refreshing!;Jyrbv dv lg jfdv fw kyrk Jyrdscvi'j Alztv!;Over 1 trillion souls drank!;Thirsty? Nyp efk uizeb kyv uribevjj?;Kyv Jyrdscvi uizebj kyv ezxyk!;Drink up!;Krjkp."
-	light_mask = "shamblers-light-mask"
 	light_color = COLOR_MOSTLY_PURE_PINK

@@ -48,6 +48,8 @@
 	name = "psychology locker"
 	req_access = list(ACCESS_PSYCHOLOGY)
 	icon_state = "cabinet"
+	icon_locked = "locked_wood"
+	icon_unlocked = "unlocked_wood"
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25

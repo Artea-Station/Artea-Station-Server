@@ -110,7 +110,7 @@
 /obj/item/reagent_containers/cup/bottle/adminordrazine
 	name = "Adminordrazine Bottle"
 	desc = "A small bottle. Contains the liquid essence of the gods."
-	icon = 'icons/obj/drinks.dmi'
+	icon = 'icons/obj/drinks/bottles.dmi'
 	icon_state = "holyflask"
 	list_reagents = list(/datum/reagent/medicine/adminordrazine = 30)
 
@@ -410,7 +410,7 @@
 /obj/item/reagent_containers/cup/bottle/clownstears
 	name = "bottle of distilled clown misery"
 	desc = "A small bottle. Contains a mythical liquid used by sublime bartenders; made from the unhappiness of clowns."
-	list_reagents = list(/datum/reagent/consumable/clownstears = 30)
+	list_reagents = list(/datum/reagent/consumable/nutriment/soup/clown_tears = 30)
 
 /obj/item/reagent_containers/cup/bottle/saltpetre
 	name = "saltpetre bottle"
