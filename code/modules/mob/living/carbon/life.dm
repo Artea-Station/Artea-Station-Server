@@ -121,15 +121,13 @@
 				var/obj/loc_as_obj = loc
 				loc_as_obj.handle_internal_lifeform(src,0)
 
-	var/took_breath = check_breath(breath)
+	// If we took a breath, we probably did that via internals.
+	if(check_breath(breath) && COOLDOWN_FINISHED(src, breath_sound_cd) && internal)
+		playsound(src, 'sound/voice/breathing.ogg', 5, play_directly_to_source = TRUE)
+		COOLDOWN_START(src, breath_sound_cd, 3.5 SECONDS)
 
 	if(breath)
 		loc.assume_air(breath)
-
-	// If we took a breath, we probably did that via internals.
-	if(took_breath && COOLDOWN_FINISHED(src, breath_sound_cd) && environment?.return_pressure() < SOUND_MINIMUM_PRESSURE)
-		playsound(src, 'sound/voice/breathing.ogg', 3, play_directly_to_source = TRUE)
-		COOLDOWN_START(src, breath_sound_cd, 3.5 SECONDS)
 
 /mob/living/carbon/proc/has_smoke_protection()
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
