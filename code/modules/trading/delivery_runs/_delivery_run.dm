@@ -215,3 +215,4 @@
 	if(cargo.manifest)
 		manifest.forceMove(cargo)
 	cargo.update_appearance()
+	return cargo
