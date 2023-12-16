@@ -83,7 +83,7 @@
 				say("No bank account detected!")
 				return
 			var/final_cost = get_total_cost()
-			if(!chef_card.registered_account.adjust_money(-final_cost))
+			if(!chef_card.registered_account.adjust_money(-final_cost, "Chef Order: Purchase"))
 				say("Sorry, but you do not have enough money.")
 				return
 			say("Thank you for your purchase! It will arrive on the next cargo shuttle!")
@@ -91,10 +91,10 @@
 			radio.talk_into(src, message, radio_channel)
 			COOLDOWN_START(src, order_cooldown, 60 SECONDS)
 			for(var/datum/orderable_item/ordered_item in grocery_list)
-				if(ordered_item in SSshuttle.chef_groceries)
-					SSshuttle.chef_groceries[ordered_item] += grocery_list[ordered_item]
+				if(ordered_item in SStrading.chef_groceries)
+					SStrading.chef_groceries[ordered_item] += grocery_list[ordered_item]
 				else
-					SSshuttle.chef_groceries[ordered_item] = grocery_list[ordered_item]
+					SStrading.chef_groceries[ordered_item] = grocery_list[ordered_item]
 			grocery_list.Cut()
 			update_static_data(chef)
 		if("express")
@@ -106,7 +106,7 @@
 				return
 			var/final_cost = get_total_cost()
 			final_cost *= 2
-			if(!chef_card.registered_account.adjust_money(-final_cost))
+			if(!chef_card.registered_account.adjust_money(-final_cost, "Chef Order: Purchase"))
 				say("Sorry, but you do not have enough money. Remember, Express upcharges the cost!")
 				return
 			say("Thank you for your purchase! Please note: The charge of this purchase and machine cooldown has been doubled!")

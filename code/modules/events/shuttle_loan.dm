@@ -70,28 +70,28 @@
 
 	switch(dispatch_type)
 		if(HIJACK_SYNDIE)
-			SSshuttle.centcom_message += "Syndicate hijack team incoming."
+			SStrading.trade_message += "Syndicate hijack team incoming."
 			loan_type = "Syndicate boarding party"
 		if(RUSKY_PARTY)
-			SSshuttle.centcom_message += "Partying Russians incoming."
+			SStrading.trade_message += "Partying Russians incoming."
 			loan_type = "Russian party squad"
 		if(SPIDER_GIFT)
-			SSshuttle.centcom_message += "Spider Clan gift incoming."
+			SStrading.trade_message += "Spider Clan gift incoming."
 			loan_type = "Shuttle full of spiders"
 		if(DEPARTMENT_RESUPPLY)
-			SSshuttle.centcom_message += "Department resupply incoming."
+			SStrading.trade_message += "Department resupply incoming."
 			loan_type = "Resupply packages"
 		if(ANTIDOTE_NEEDED)
-			SSshuttle.centcom_message += "Virus samples incoming."
+			SStrading.trade_message += "Virus samples incoming."
 			loan_type = "Virus shuttle"
 		if(PIZZA_DELIVERY)
-			SSshuttle.centcom_message += "Pizza delivery for [station_name()]"
+			SStrading.trade_message += "Pizza delivery for [station_name()]"
 			loan_type = "Pizza delivery"
 		if(ITS_HIP_TO)
-			SSshuttle.centcom_message += "Biohazard cleanup incoming."
+			SStrading.trade_message += "Biohazard cleanup incoming."
 			loan_type = "Shuttle full of bees"
 		if(MY_GOD_JC)
-			SSshuttle.centcom_message += "Live explosive ordnance incoming. Exercise extreme caution."
+			SStrading.trade_message += "Live explosive ordnance incoming. Exercise extreme caution."
 			loan_type = "Shuttle with a ticking bomb"
 
 	log_game("Shuttle loan event firing with type '[loan_type]'.")
@@ -122,7 +122,7 @@
 		var/list/shuttle_spawns = list()
 		switch(dispatch_type)
 			if(HIJACK_SYNDIE)
-				var/datum/supply_pack/pack = SSshuttle.supply_packs[/datum/supply_pack/emergency/specialops]
+				var/datum/supply_pack/pack = SStrading.supply_packs["[/datum/supply_pack/emergency/specialops]"]
 				pack.generate(pick_n_take(empty_shuttle_turfs))
 
 				shuttle_spawns.Add(/mob/living/simple_animal/hostile/syndicate/ranged/infiltrator)
@@ -133,7 +133,7 @@
 					shuttle_spawns.Add(/mob/living/simple_animal/hostile/syndicate/ranged/infiltrator)
 
 			if(RUSKY_PARTY)
-				var/datum/supply_pack/pack = SSshuttle.supply_packs[/datum/supply_pack/service/party]
+				var/datum/supply_pack/pack = SStrading.supply_packs["[/datum/supply_pack/service/party]"]
 				pack.generate(pick_n_take(empty_shuttle_turfs))
 
 				shuttle_spawns.Add(/mob/living/simple_animal/hostile/russian)
@@ -145,7 +145,7 @@
 					shuttle_spawns.Add(/mob/living/simple_animal/hostile/bear/russian)
 
 			if(SPIDER_GIFT)
-				var/datum/supply_pack/pack = SSshuttle.supply_packs[/datum/supply_pack/emergency/specialops]
+				var/datum/supply_pack/pack = SStrading.supply_packs["[/datum/supply_pack/emergency/specialops]"]
 				pack.generate(pick_n_take(empty_shuttle_turfs))
 
 				shuttle_spawns.Add(/mob/living/simple_animal/hostile/giant_spider)
@@ -193,7 +193,7 @@
 					/datum/supply_pack/medical/supplies
 					)
 				for(var/crate in crate_types)
-					var/datum/supply_pack/pack = SSshuttle.supply_packs[crate]
+					var/datum/supply_pack/pack = SStrading.supply_packs["[crate]"]
 					pack.generate(pick_n_take(empty_shuttle_turfs))
 
 				for(var/i in 1 to 5)
@@ -205,7 +205,7 @@
 				for(var/i in 1 to 6)
 					shuttle_spawns.Add(pick(prob(5) ? naughtypizza : nicepizza))
 			if(ITS_HIP_TO)
-				var/datum/supply_pack/pack = SSshuttle.supply_packs[/datum/supply_pack/organic/hydroponics/beekeeping_fullkit]
+				var/datum/supply_pack/pack = SStrading.supply_packs["[/datum/supply_pack/organic/hydroponics/beekeeping_fullkit]"]
 				pack.generate(pick_n_take(empty_shuttle_turfs))
 
 				shuttle_spawns.Add(/obj/effect/mob_spawn/corpse/human/bee_terrorist)

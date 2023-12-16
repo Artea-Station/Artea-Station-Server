@@ -54,7 +54,7 @@
 		/obj/item/stock_parts/matter_bin = 3,
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stack/sheet/glass = 1)
-	manufacturer = MANUFACTURER_NOSHA_INDUSTRIES
+	manufacturer = MANUFACTURER_RYOSHI_INDUSTRIES
 
 /obj/item/circuitboard/machine/grounding_rod
 	name = "Grounding Rod"
@@ -64,7 +64,7 @@
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/telecomms
-	manufacturer = MANUFACTURER_NOSHA_INDUSTRIES
+	manufacturer = MANUFACTURER_RYOSHI_INDUSTRIES
 
 /obj/item/circuitboard/machine/telecomms/broadcaster
 	name = "Subspace Broadcaster"
@@ -374,7 +374,7 @@
 		/obj/item/stock_parts/matter_bin = 1,
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/reagent_containers/cup/beaker = 2)
-	manufacturer = MANUFACTURER_NOSHA_INDUSTRIES
+	manufacturer = MANUFACTURER_RYOSHI_INDUSTRIES
 
 /obj/item/circuitboard/machine/circuit_imprinter/offstation
 	name = "Ancient Circuit Imprinter"
@@ -426,7 +426,7 @@
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/manipulator = 2,
 		/obj/item/reagent_containers/cup/beaker = 2)
-	manufacturer = MANUFACTURER_NOSHA_INDUSTRIES
+	manufacturer = MANUFACTURER_RYOSHI_INDUSTRIES
 
 /obj/item/circuitboard/machine/protolathe/offstation
 	name = "Ancient Protolathe"
@@ -611,16 +611,6 @@
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/vending_refill/donksoft = 1)
-
-/obj/item/circuitboard/machine/bountypad
-	name = "Civilian Bounty Pad"
-	greyscale_colors = CIRCUIT_COLOR_GENERIC
-	build_path = /obj/machinery/piratepad/civilian
-	req_components = list(
-		/obj/item/stock_parts/card_reader = 1,
-		/obj/item/stock_parts/scanning_module = 1,
-		/obj/item/stock_parts/micro_laser = 1
-	)
 
 /obj/item/circuitboard/machine/fax
 	name = "Fax Machine"

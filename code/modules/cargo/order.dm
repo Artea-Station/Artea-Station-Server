@@ -37,19 +37,24 @@
 
 /datum/supply_order
 	var/id
+	var/cost
 	var/orderer
 	var/orderer_rank
 	var/orderer_ckey
 	var/reason
-	var/discounted_pct
 	///area this order wants to reach, if not null then it will come with the deliver_first component set to this area
 	var/department_destination
 	var/datum/supply_pack/pack
 	var/datum/bank_account/paying_account
 	var/obj/item/coupon/applied_coupon
+	var/trader_id
+	var/generate_manifest
 
-/datum/supply_order/New(datum/supply_pack/pack, orderer, orderer_rank, orderer_ckey, reason, paying_account, department_destination, coupon)
-	id = SSshuttle.order_number++
+/datum/supply_order/New(datum/supply_pack/pack, orderer, orderer_rank, orderer_ckey, reason, paying_account, department_destination, obj/item/coupon/coupon, trader_id, generate_manifest = TRUE)
+	id = SStrading.order_number++
+	cost = pack.get_cost()
+	if(coupon)
+		cost -= cost * coupon.discount_pct_off
 	src.pack = pack
 	src.orderer = orderer
 	src.orderer_rank = orderer_rank
@@ -58,6 +63,8 @@
 	src.paying_account = paying_account
 	src.department_destination = department_destination
 	src.applied_coupon = coupon
+	src.trader_id = trader_id
+	src.generate_manifest = generate_manifest
 
 /datum/supply_order/proc/generateRequisition(turf/T)
 	var/obj/item/paper/requisition_paper = new(T)
@@ -80,6 +87,9 @@
 	return requisition_paper
 
 /datum/supply_order/proc/generateManifest(obj/container, owner, packname, cost) //generates-the-manifests.
+	if(!generate_manifest)
+		return
+
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest_paper = new(null, id, cost)
 
 	var/station_name = (manifest_paper.errors & MANIFEST_ERROR_NAME) ? new_station_name() : station_name()
@@ -125,6 +135,10 @@
 		var/obj/structure/closet/crate/C = container
 		C.manifest = manifest_paper
 		C.update_appearance()
+	else if(istype(container, /obj/item/package))
+		var/obj/item/package/package = container
+		package.note = manifest_paper
+		package.update_appearance()
 	else
 		container.contents += manifest_paper
 

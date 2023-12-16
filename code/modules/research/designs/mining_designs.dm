@@ -2,29 +2,6 @@
 /////////////////////////////////////////
 /////////////////Mining//////////////////
 /////////////////////////////////////////
-/datum/design/cargo_express
-	name = "Express Supply Console Board"//shes beautiful
-	desc = "Allows for the construction of circuit boards used to build an Express Supply Console."//who?
-	id = "cargoexpress"//the coder reading this
-	build_type = IMPRINTER
-	materials = list(/datum/material/glass = 1000)
-	build_path = /obj/item/circuitboard/computer/cargo/express
-	category = list(
-		RND_CATEGORY_COMPUTER + RND_SUBCATEGORY_COMPUTER_CARGO
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
-
-/datum/design/bluespace_pod
-	name = "Express Supply Drop Pod Upgrade Disk"
-	desc = "Allows the Cargo Express Console to call down the Bluespace Drop Pod, greatly increasing user safety."//who?
-	id = "bluespace_pod"//the coder reading this
-	build_type = PROTOLATHE
-	materials = list(/datum/material/glass = 1000)
-	build_path = /obj/item/disk/cargo/bluespace_pod
-	category = list(
-		RND_CATEGORY_COMPUTER + RND_SUBCATEGORY_COMPUTER_CARGO
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
 
 /datum/design/drill
 	name = "Mining Drill"

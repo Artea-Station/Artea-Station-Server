@@ -75,19 +75,6 @@
 	grind_results = list(/datum/reagent/cellulose = 5)
 	merge_type = /obj/item/stack/package_wrap
 
-/obj/item/stack/package_wrap/suicide_act(mob/living/user)
-	user.visible_message(span_suicide("[user] begins wrapping [user.p_them()]self in \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
-	if(use(3))
-		var/obj/item/delivery/big/parcel = new(get_turf(user.loc))
-		parcel.base_icon_state = "deliverypackage5"
-		parcel.update_icon()
-		user.forceMove(parcel)
-		parcel.add_fingerprint(user)
-		return OXYLOSS
-	else
-		balloon_alert(user, span_warning("You need more paper!"))
-		return SHAME
-
 /obj/item/proc/can_be_package_wrapped() //can the item be wrapped with package wrapper into a delivery package
 	return TRUE
 
@@ -97,7 +84,7 @@
 /obj/item/storage/box/can_be_package_wrapped()
 	return TRUE
 
-/obj/item/delivery/can_be_package_wrapped()
+/obj/item/package/can_be_package_wrapped()
 	return FALSE
 
 /obj/item/stack/package_wrap/afterattack(obj/target, mob/user, proximity)
@@ -120,18 +107,12 @@
 		else if(!isturf(item.loc))
 			return
 		if(use(1))
-			var/obj/item/delivery/small/parcel = new(get_turf(item.loc))
+			var/obj/item/package/parcel = new(get_turf(item.loc))
 			if(user.Adjacent(item))
 				parcel.add_fingerprint(user)
 				item.add_fingerprint(user)
 				user.put_in_hands(parcel)
-			item.forceMove(parcel)
-			var/size = round(item.w_class)
-			parcel.name = "[weight_class_to_text(size)] parcel"
-			parcel.w_class = size
-			size = min(size, 5)
-			parcel.base_icon_state = "deliverypackage[size]"
-			parcel.update_icon()
+			parcel.insert(item)
 
 	else if(istype(target, /obj/structure/closet))
 		var/obj/structure/closet/closet = target
@@ -142,11 +123,8 @@
 			balloon_alert(user, span_warning("You can't wrap this!"))
 			return
 		if(use(3))
-			var/obj/item/delivery/big/parcel = new(get_turf(closet.loc))
-			parcel.base_icon_state = closet.delivery_icon
-			parcel.update_icon()
-			parcel.drag_slowdown = closet.drag_slowdown
-			closet.forceMove(parcel)
+			var/obj/item/package/parcel = new(get_turf(closet.loc))
+			parcel.insert(closet)
 			parcel.add_fingerprint(user)
 			closet.add_fingerprint(user)
 		else
@@ -159,11 +137,8 @@
 			balloon_alert(user, span_warning("You can not wrap the [target] while it is anchored!"))
 			return
 		if(use(3))
-			var/obj/item/delivery/big/parcel = new(get_turf(portable_atmospherics.loc))
-			parcel.base_icon_state = "deliverybox"
-			parcel.update_icon()
-			parcel.drag_slowdown = portable_atmospherics.drag_slowdown
-			portable_atmospherics.forceMove(parcel)
+			var/obj/item/package/parcel = new(get_turf(portable_atmospherics.loc))
+			parcel.insert(portable_atmospherics)
 			parcel.add_fingerprint(user)
 			portable_atmospherics.add_fingerprint(user)
 		else
