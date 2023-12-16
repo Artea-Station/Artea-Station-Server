@@ -299,9 +299,9 @@
 				group_to_use = pick(group_to_use)
 
 			var/list/actual_goodies = list()
-			for(var/datum/supply_pack/pack as anything in SStrading.group_to_supplies[group_to_use])
-				if(!(pack.id in sold_packs))
-					actual_goodies += pack
+			for(var/datum/supply_pack/new_pack as anything in SStrading.group_to_supplies[group_to_use])
+				if(!(new_pack.id in sold_packs))
+					actual_goodies += new_pack
 
 			var/datum/supply_pack/goodie = pick_n_take(actual_goodies)
 
