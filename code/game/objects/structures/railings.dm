@@ -1,7 +1,7 @@
 /obj/structure/railing
 	name = "railing"
 	desc = "Basic railing meant to protect idiots like you from falling."
-	icon = 'icons/obj/fluff.dmi'
+	icon = 'icons/obj/structures/railing.dmi'
 	icon_state = "railing"
 	flags_1 = ON_BORDER_1
 	density = TRUE
@@ -14,11 +14,6 @@
 
 	var/climbable = TRUE
 
-/obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
-	icon_state = "railing_corner"
-	density = FALSE
-	climbable = FALSE
-
 /obj/structure/railing/Initialize(mapload)
 	. = ..()
 	if(climbable)
@@ -30,7 +25,14 @@
 		)
 		AddElement(/datum/element/connect_loc, loc_connections)
 
-	AddComponent(/datum/component/simple_rotation, ROTATION_NEEDS_ROOM)
+	AddComponent(/datum/component/simple_rotation, ROTATION_NEEDS_ROOM, PROC_REF(on_rotation))
+
+/obj/structure/railing/proc/on_rotation()
+	if((NORTH | SOUTH) & dir)
+		layer = ABOVE_MOB_LAYER
+		return
+
+	layer = initial(layer)
 
 /obj/structure/railing/attackby(obj/item/I, mob/living/user, params)
 	..()
@@ -115,3 +117,14 @@
 /obj/structure/railing/proc/check_anchored(checked_anchored)
 	if(anchored == checked_anchored)
 		return TRUE
+
+/obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
+	icon_state = "railing_corner"
+	density = FALSE
+	climbable = FALSE
+
+/obj/structure/railing/corner/end //end of a segment of railing without making a loop
+	icon_state = "railing_end"
+
+/obj/structure/railing/corner/end/flip //same as above but flipped around
+	icon_state = "railing_end_flip"
