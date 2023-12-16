@@ -55,8 +55,7 @@ type TraderStub = {
 
 type Trader = TraderStub & {
   trades: Trade[];
-  bounties: Bounty[];
-  deliveries: Bounty[];
+  deliveries: Delivery[];
   color: string;
 };
 
@@ -73,7 +72,7 @@ type Order = Trade & {
   orderer: string;
 };
 
-type Bounty = {
+type Delivery = {
   name: string;
   desc: string;
   index: number;
@@ -344,35 +343,6 @@ const TradeTab = (props, context) => {
                             </Box>
                           )}
                         </Box>
-                      </Box>
-                    </LabeledList.Item>
-                  </Tooltip>
-                );
-              })}
-            </LabeledList>
-          </Section>
-        </Stack.Item>
-        <Stack.Divider hidden height="1rem" />
-        <Stack.Item>
-          <Section title="Bounties">
-            <LabeledList>
-              {data.connected_trader.bounties.map((bounty) => {
-                return (
-                  <Tooltip content={bounty.desc} key={bounty.index}>
-                    <LabeledList.Item
-                      alternating
-                      label={
-                        <Button
-                          width="100%"
-                          icon="check"
-                          onClick={() => {
-                            act('bounty', { 'index': bounty.index });
-                          }}>
-                          Deliver ({bounty.reward}cr)
-                        </Button>
-                      }>
-                      <Box inline style={{ 'text-transform': 'capitalize' }}>
-                        {bounty.name}
                       </Box>
                     </LabeledList.Item>
                   </Tooltip>
