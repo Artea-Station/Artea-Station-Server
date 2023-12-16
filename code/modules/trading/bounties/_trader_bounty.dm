@@ -62,6 +62,7 @@ GLOBAL_LIST_EMPTY(trader_bounties)
 
 /datum/trader_bounty/proc/handle_diff(atom/movable/movable_to_valid, amount_diff)
 	qdel(movable_to_valid)
+	completed = completed_amount >= amount
 
 /datum/trader_bounty/proc/Validate(atom/movable/movable_to_valid)
 	if((!check_type || movable_to_valid.type == path) && IsValid(movable_to_valid))
@@ -81,10 +82,11 @@ GLOBAL_LIST_EMPTY(trader_bounties)
 
 /datum/trader_bounty/stack/handle_diff(obj/item/stack/movable_to_valid, amount_diff)
 	if(movable_to_valid.amount <= amount_diff)
-		qdel(movable_to_valid)
+		return ..()
 
 	movable_to_valid.amount -= amount_diff
 	movable_to_valid.update_appearance()
+	completed = completed_amount >= amount
 
 /datum/trader_bounty/stack/GetAmount(obj/item/stack/movable_to_valid)
 	return movable_to_valid.amount

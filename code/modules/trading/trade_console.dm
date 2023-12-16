@@ -33,8 +33,6 @@
 	var/last_trade_time = ""
 	var/manifest_counter = 0
 
-	var/next_bounty_print = 0
-
 	var/obj/item/card/id/inserted_id
 
 	///The name of the shuttle template being used as the cargo shuttle. 'cargo' is default and contains critical code. Don't change this unless you know what you're doing.
@@ -232,7 +230,6 @@
 
 	if(connected_trader)
 		var/list/trades = list()
-		var/list/bounties = list()
 		var/list/deliveries = list()
 		// Index is used cause it requires the least amount of refactoring, and I've refactored enough as it is, dammit.
 		var/index = 1
@@ -275,15 +272,6 @@
 			))
 			index += 1
 		index = 1
-		for(var/datum/trader_bounty/bounty as anything in connected_trader.bounties)
-			bounties += list(list(
-				"name" = bounty.bounty_name,
-				"desc" = bounty.bounty_text,
-				"index" = index,
-				"reward" = bounty.reward_cash,
-			))
-			index += 1
-		index = 1
 		for(var/datum/delivery_run/delivery_run as anything in connected_trader.deliveries)
 			deliveries += list(list(
 				"name" = delivery_run.name,
@@ -296,7 +284,6 @@
 			"name" = connected_trader.name,
 			"id" = connected_trader.id,
 			"trades" = trades,
-			"bounties" = bounties,
 			"deliveries" = deliveries,
 			"color" = connected_trader.speech_color,
 		)
@@ -385,14 +372,6 @@
 			else
 				say("Not enough credits. Import rejected.")
 				qdel(order)
-		if("bounty")
-			var/index = text2num(params["index"])
-			if(connected_trader.bounties.len < index)
-				say("Invalid bounty!")
-				return
-
-			var/datum/trader_bounty/goodie = connected_trader.bounties[index]
-			last_transmission = connected_trader.requested_bounty_claim(ui.user, src, goodie)
 		if("delivery")
 			var/index = text2num(params["index"])
 			if(connected_trader.deliveries.len < index)

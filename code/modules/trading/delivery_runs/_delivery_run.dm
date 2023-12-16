@@ -78,7 +78,7 @@
 	manifest.update_appearance()
 
 	var/datum/supply_pack/delivery_run/pack = new(list(source_datum.cargo_name, source_datum.cargo_type, src, manifest))
-	SStrading.shopping_list += new /datum/supply_order(pack, orderer, console.inserted_id?.assignment, orderer.ckey, "Delivery: [source_datum.name]")
+	SStrading.shopping_list += new /datum/supply_order(pack, orderer, console.inserted_id?.assignment, orderer.ckey, "Delivery: [source_datum.name]", generate_manifest = FALSE)
 	return ..()
 
 /datum/delivery_run_instance/Destroy()
