@@ -305,17 +305,17 @@
 /obj/item/clothing/under/proc/rolldown()
 	if(!can_use(usr))
 		return
-	if(!can_adjust)
-		to_chat(usr, span_warning("You cannot wear this suit any differently!"))
-		return
-	if(toggle_jumpsuit_adjust())
-		to_chat(usr, span_notice("You adjust the suit to wear it more casually."))
-	else
-		to_chat(usr, span_notice("You adjust the suit back to normal."))
-	if(ishuman(usr))
-		var/mob/living/carbon/human/H = usr
-		H.update_worn_undersuit()
-		H.update_body()
+	// if(!can_adjust)
+	to_chat(usr, span_warning("You cannot wear this suit any differently!"))
+	return
+	// if(toggle_jumpsuit_adjust())
+	// 	to_chat(usr, span_notice("You adjust the suit to wear it more casually."))
+	// else
+	// 	to_chat(usr, span_notice("You adjust the suit back to normal."))
+	// if(ishuman(usr))
+	// 	var/mob/living/carbon/human/H = usr
+	// 	H.update_worn_undersuit()
+	// 	H.update_body()
 
 /obj/item/clothing/under/proc/toggle_jumpsuit_adjust()
 	if(adjusted == DIGITIGRADE_STYLE)

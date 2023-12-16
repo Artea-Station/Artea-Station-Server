@@ -39,8 +39,8 @@
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the lead pathfinder."
 
 /obj/item/storage/bag/garment/lead_pathfinder/PopulateContents()
-	new /obj/item/clothing/under/rank/pathfinder(src)
-	new /obj/item/clothing/under/rank/pathfinder/skirt(src)
+	new /obj/item/clothing/under/rank/pathfinder/head(src)
+	new /obj/item/clothing/under/rank/pathfinder/head/skirt(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/shoes/sneakers/purple(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/science/rd(src)
