@@ -13,8 +13,6 @@
 	interaction_flags_atom = NONE
 
 	var/climbable = TRUE
-	///Initial direction of the railing.
-	var/ini_dir
 
 /obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
 	icon_state = "railing_corner"
@@ -23,7 +21,6 @@
 
 /obj/structure/railing/Initialize(mapload)
 	. = ..()
-	ini_dir = dir
 	if(climbable)
 		AddElement(/datum/element/climbable)
 
