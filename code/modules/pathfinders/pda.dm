@@ -7,7 +7,6 @@
 	starting_programs = list(
 		/datum/computer_file/program/crew_manifest,
 		/datum/computer_file/program/science,
-		/datum/computer_file/program/budgetorders,
 		/datum/computer_file/program/atmosscan,
 	)
 

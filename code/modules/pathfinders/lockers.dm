@@ -84,6 +84,7 @@
 	new /obj/item/circuitboard/machine/techfab/department/pathfinders(src)
 	new /obj/item/storage/photo_album/pl(src)
 	new /obj/item/storage/lockbox/medal/pl(src)
+	new /obj/item/card/id/departmental_budget/pth(src)
 
 /obj/structure/closet/secure_closet/pathfinder_weapons
 	name = "\proper pathfinder's weapons locker"

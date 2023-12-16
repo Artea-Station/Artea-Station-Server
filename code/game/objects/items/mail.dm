@@ -289,7 +289,7 @@
 	atom_storage.numerical_stacking = FALSE
 	atom_storage.set_holdable(list(
 		/obj/item/mail,
-		/obj/item/delivery/small,
+		/obj/item/package,
 		/obj/item/paper
 	))
 
