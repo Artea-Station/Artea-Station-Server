@@ -7,7 +7,7 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 	/obj/item/reagent_containers/syringe,
 	/obj/item/reagent_containers/condiment,
 	/obj/item/storage,
-	/obj/item/delivery,
+	/obj/item/package,
 	/obj/item/his_grace)))
 
 /obj/machinery/deepfryer

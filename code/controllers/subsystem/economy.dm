@@ -87,7 +87,6 @@ SUBSYSTEM_DEF(economy)
 	dep_cards = SSeconomy.dep_cards
 
 /// Processing step defines, to track what we've done so far
-#define ECON_DEPARTMENT_STEP "econ_dpt_stp"
 #define ECON_ACCOUNT_STEP "econ_act_stp"
 #define ECON_PRICE_UPDATE_STEP "econ_prc_stp"
 
@@ -96,21 +95,16 @@ SUBSYSTEM_DEF(economy)
 
 	if(!resumed)
 		temporary_total = 0
-		processing_part = ECON_DEPARTMENT_STEP
-		cached_processing = department_accounts.Copy()
-
-	if(processing_part == ECON_DEPARTMENT_STEP)
-		if(!departmental_payouts())
-			return
-
 		processing_part = ECON_ACCOUNT_STEP
 		cached_processing = bank_accounts_by_id.Copy()
-		station_total = 0
-		station_target_buffer += STATION_TARGET_BUFFER
 
 	if(processing_part == ECON_ACCOUNT_STEP)
 		if(!issue_paydays())
 			return
+
+		cached_processing = bank_accounts_by_id.Copy()
+		station_total = 0
+		station_target_buffer += STATION_TARGET_BUFFER
 
 		processing_part = ECON_PRICE_UPDATE_STEP
 		var/list/obj/machinery/vending/prices_to_update = list()
@@ -147,23 +141,6 @@ SUBSYSTEM_DEF(economy)
 	for(var/datum/bank_account/department/D in generated_accounts)
 		if(D.department_id == dep_id)
 			return D
-
-/**
- * Departmental income payments are kept static and linear for every department, and paid out once every 5 minutes, as determined by MAX_GRANT_DPT.
- * Iterates over every department account for the same payment.
- */
-/datum/controller/subsystem/economy/proc/departmental_payouts()
-	// son sonic speed? cache? hot over in cold food why? (datum var accesses are slow, cache lists for sonic speed)
-	var/list/cached_processing = src.cached_processing
-	for(var/i in 1 to length(cached_processing))
-		var/datum/bank_account/dept_account = get_dep_account(cached_processing[i])
-		if(!dept_account)
-			continue
-		dept_account.adjust_money(MAX_GRANT_DPT)
-		if(MC_TICK_CHECK)
-			cached_processing.Cut(1, i + 1)
-			return FALSE
-	return TRUE
 
 /**
  * Issues all our bank-accounts paydays, and gets an idea of how much money is in circulation

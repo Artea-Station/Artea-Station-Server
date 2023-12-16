@@ -42,7 +42,7 @@
 	var/library_areas = list()
 
 	/// Type of the global trading hub that will be created
-	var/global_trading_hub_type
+	var/central_trading_hub_type
 	/// A lazylist of types of trading hubs to be spawned randomly in space. Spawns one of each entry.
 	var/localized_trading_hub_types = list(/datum/trade_hub/randomname/artea_scrapper)
 	/// A whitelist of types of trading hubs to be spawned on a planet overmap tile, unlike localized, these are *not* guaranteed, and can repeat spawn.

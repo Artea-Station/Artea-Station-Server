@@ -15,14 +15,10 @@
 	var/account_id
 	///Is there a CRAB 17 on the station draining funds? Prevents manual fund transfer. pink levels are rising
 	var/being_dumped = FALSE
-	///Reference to the current civilian bounty that the account is working on.
-	var/datum/bounty/civilian_bounty
-	///If player is currently picking a civilian bounty to do, these options are held here to prevent soft-resetting through the UI.
-	var/list/datum/bounty/bounties
 	///Can this account be replaced? Set to true for default IDs not recognized by the station.
 	var/replaceable = FALSE
-	///Cooldown timer on replacing a civilain bounty. Bounties can only be replaced once every 5 minutes.
-	COOLDOWN_DECLARE(bounty_timer)
+	///List with a transaction history for NT pay app
+	var/list/transaction_history = list()
 
 /datum/bank_account/New(newname, job, modifier = 1, player_account = TRUE)
 	account_holder = newname
@@ -56,6 +52,7 @@
 
 /datum/bank_account/vv_edit_var(var_name, var_value) // just so you don't have to do it manually
 	var/old_id = account_id
+	var/old_balance = account_balance
 	. = ..()
 	switch(var_name)
 		if(NAMEOF(src, account_id))
@@ -67,6 +64,8 @@
 				setup_unique_account_id()
 			else
 				SSeconomy.bank_accounts_by_id -= "[account_id]"
+		if(NAMEOF(src, account_balance))
+			add_log_to_history(var_value - old_balance, "Artea Logistics: Moderator Action")
 
 /**
  * Sets the bank_account to behave as though a CRAB-17 event is happening.
@@ -91,24 +90,42 @@
 
 /**
  * Adjusts the balance of a bank_account as well as sanitizes the numerical input.
+ * Arguments:
+ * * amount - the quantity of credits that will be written off if the value is negative, or added if it is positive.
+ * * reason - the reason for the appearance or loss of money
  */
-/datum/bank_account/proc/adjust_money(amt)
-	if((amt < 0 && has_money(-amt)) || amt > 0)
-		_adjust_money(amt)
+/datum/bank_account/proc/adjust_money(amount, reason)
+	if((amount < 0 && has_money(-amount)) || amount > 0)
+		_adjust_money(amount)
+		if(reason)
+			add_log_to_history(amount, reason)
 		return TRUE
 	return FALSE
 
 /**
  * Performs a transfer of credits to the bank_account datum from another bank account.
- * *datum/bank_account/from: The bank account that is sending the credits to this bank_account datum.
- * *amount: the quantity of credits that are being moved between bank_account datums.
+ * Arguments:
+ * * datum/bank_account/from - The bank account that is sending the credits to this bank_account datum.
+ * * amount - the quantity of credits that are being moved between bank_account datums.
+ * * transfer_reason - override for adjust_money reason. Use if no default reason(Transfer to/from Name Surname).
  */
-/datum/bank_account/proc/transfer_money(datum/bank_account/from, amount)
+/datum/bank_account/proc/transfer_money(datum/bank_account/from, amount, transfer_reason)
 	if(from.has_money(amount))
-		adjust_money(amount)
+		var/reason_to = "Transfer: From [from.account_holder]"
+		var/reason_from = "Transfer: To [account_holder]"
+
+		if(istype(from, /datum/bank_account/department))
+			reason_to = "Artea Logistics: Salary"
+			reason_from = ""
+
+		if(transfer_reason)
+			reason_to = istype(src, /datum/bank_account/department) ? "" : transfer_reason
+			reason_from = transfer_reason
+
+		adjust_money(amount, reason_to)
+		from.adjust_money(-amount, reason_from)
 		SSblackbox.record_feedback("amount", "credits_transferred", amount)
 		log_econ("[amount] credits were transferred from [from.account_holder]'s account to [src.account_holder]")
-		from.adjust_money(-amount)
 		return TRUE
 	return FALSE
 
@@ -123,7 +140,7 @@
 	if(amt_of_paychecks == 1)
 		money_to_transfer = clamp(money_to_transfer, 0, PAYCHECK_CREW) //We want to limit single, passive paychecks to regular crew income.
 	if(free)
-		adjust_money(money_to_transfer)
+		adjust_money(money_to_transfer, "Artea Logistics: Shift Payment")
 		SSblackbox.record_feedback("amount", "free_income", money_to_transfer)
 		SSeconomy.station_target += money_to_transfer
 		log_econ("[money_to_transfer] credits were given to [src.account_holder]'s account from income.")
@@ -131,22 +148,24 @@
 		var/datum/bank_account/D = SSeconomy.get_dep_account(account_job.paycheck_department)
 		if(D)
 			if(!transfer_money(D, money_to_transfer))
-				bank_card_talk("ERROR: Payday aborted, departmental funds insufficient.")
+				bank_talk("ERROR: Payday aborted, departmental funds insufficient.")
 				return FALSE
 			else
-				bank_card_talk("Payday processed, account now holds [account_balance] cr.")
+				bank_talk("Payday processed, account now holds [account_balance] cr.")
 				return TRUE
-	bank_card_talk("ERROR: Payday aborted, unable to contact departmental account.")
+	bank_talk("ERROR: Payday aborted, unable to contact departmental account.")
 	return FALSE
 
 /**
- * This sends a local chat message to the owner of a bank account, on all ID cards registered to the bank_account.
+ * This sends a local chat message to the owner of a bank account, on all ID cards registered to the bank_account, provided they're in a modular computer of some kind (PDAs included).
  * If not held, sends out a message to all nearby players.
  */
-/datum/bank_account/proc/bank_card_talk(message, force)
+/datum/bank_account/proc/bank_talk(message, force)
 	if(!message || !bank_cards.len)
 		return
 	for(var/obj/A in bank_cards)
+		if(!istype(A.loc, /obj/item/modular_computer))
+			return
 		var/icon_source = A
 		if(isidcard(A))
 			var/obj/item/card/id/id_card = A
@@ -159,8 +178,8 @@
 			if(card_holder.can_hear())
 				card_holder.playsound_local(get_turf(card_holder), 'sound/machines/twobeep_high.ogg', 50, TRUE)
 				to_chat(card_holder, "[icon2html(icon_source, card_holder)] [span_notice("[message]")]")
-		else if(isturf(A.loc)) //If on the ground
-			var/turf/T = A.loc
+		else if(isturf(A.loc.loc)) //If on the ground
+			var/turf/T = A.loc.loc
 			for(var/mob/M in hearers(1,T))
 				if(!M.client || (!(M.client.prefs.chat_toggles & CHAT_BANKCARD) && !force))
 					continue
@@ -169,7 +188,7 @@
 					to_chat(M, "[icon2html(icon_source, M)] [span_notice("[message]")]")
 		else
 			var/atom/sound_atom
-			for(var/mob/M in A.loc) //If inside a container with other mobs (e.g. locker)
+			for(var/mob/M in A.loc.loc) //If inside a container with other mobs (e.g. locker)
 				if(!M.client || (!(M.client.prefs.chat_toggles & CHAT_BANKCARD) && !force))
 					continue
 				if(!sound_atom)
@@ -177,45 +196,6 @@
 				if(M.can_hear())
 					M.playsound_local(get_turf(sound_atom), 'sound/machines/twobeep_high.ogg', 50, TRUE)
 					to_chat(M, "[icon2html(icon_source, M)] [span_notice("[message]")]")
-
-/**
- * Returns a string with the civilian bounty's description on it.
- */
-/datum/bank_account/proc/bounty_text()
-	if(!civilian_bounty)
-		return FALSE
-	return civilian_bounty.description
-
-
-/**
- * Returns the required item count, or required chemical units required to submit a bounty.
- */
-/datum/bank_account/proc/bounty_num()
-	if(!civilian_bounty)
-		return FALSE
-	if(istype(civilian_bounty, /datum/bounty/item))
-		var/datum/bounty/item/item = civilian_bounty
-		return "[item.shipped_count]/[item.required_count]"
-	if(istype(civilian_bounty, /datum/bounty/reagent))
-		var/datum/bounty/reagent/chemical = civilian_bounty
-		return "[chemical.shipped_volume]/[chemical.required_volume] u"
-	if(istype(civilian_bounty, /datum/bounty/virus))
-		return "At least 1u"
-
-/**
- * Produces the value of the account's civilian bounty reward, if able.
- */
-/datum/bank_account/proc/bounty_value()
-	if(!civilian_bounty)
-		return FALSE
-	return civilian_bounty.reward
-
-/**
- * Performs house-cleaning on variables when a civilian bounty is replaced, or, when a bounty is claimed.
- */
-/datum/bank_account/proc/reset_bounty()
-	civilian_bounty = null
-	COOLDOWN_RESET(src, bounty_timer)
 
 /datum/bank_account/department
 	account_holder = "Guild Credit Agency"
@@ -230,5 +210,21 @@
 
 /datum/bank_account/remote // Bank account not belonging to the local station
 	add_to_accounts = FALSE
+
+/**
+ * Add log to transactions history. Deletes the oldest log when the history has more than 20 entries.
+ * Main format: Category: Reason in Reason. Example: Vending: Machinery Using
+ * Arguments:
+ * * adjusted_money - How much was added, negative values removing cash.
+ * * reason - The reason of interact with balance, for example, "Bought chips" or "Payday".
+ */
+/datum/bank_account/proc/add_log_to_history(adjusted_money, reason)
+	if(transaction_history.len >= 20)
+		transaction_history.Cut(1,2)
+
+	transaction_history += list(list(
+		"adjusted_money" = adjusted_money,
+		"reason" = reason,
+	))
 
 #undef DUMPTIME

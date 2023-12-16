@@ -865,16 +865,6 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SERVICE
 
-/datum/design/board/bountypad
-	name = "Civilian Bounty Pad Board"
-	desc = "The circuit board for a Civilian Bounty Pad."
-	id = "bounty_pad"
-	build_path = /obj/item/circuitboard/machine/bountypad
-	category = list(
-		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CARGO
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
-
 /datum/design/board/skill_station
 	name = "Skill Station Board"
 	desc = "The circuit board for Skill station."
