@@ -79,7 +79,6 @@
 			listeners += get_hearers_in_view(maxdistance, below_turf)
 
 	if(play_directly_to_source && ismob(source))
-		var/sound/direct_sound = sound(S.file, volume = vol)
 		var/mob/source_mob = source
 		source_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, FALSE, S, maxdistance, falloff_distance, 1, FALSE)
 		listeners -= source
