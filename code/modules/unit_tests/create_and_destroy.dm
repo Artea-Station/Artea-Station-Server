@@ -140,7 +140,7 @@ GLOBAL_VAR_INIT(running_create_and_destroy, FALSE)
 
 	// Drastically lower the amount of time it takes to GC, since we don't have clients that can hold it up.
 	// Except lighting and gravgens have a tendency to hold GC for a moment. - Rimi
-	SSgarbage.collection_timeout[GC_QUEUE_CHECK] = 30 SECONDS
+	SSgarbage.collection_timeout[GC_QUEUE_CHECK] = 1 MINUTE
 	//Prevent the garbage subsystem from harddeling anything, if only to save time
 	SSgarbage.collection_timeout[GC_QUEUE_HARDDELETE] = 10000 HOURS
 	//Clear it, just in case
