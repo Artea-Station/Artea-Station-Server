@@ -80,7 +80,8 @@
 
 	if(play_directly_to_source && ismob(source))
 		var/sound/direct_sound = sound(S.file, volume = vol)
-		playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, FALSE, S, maxdistance, falloff_distance, 1, FALSE)
+		var/mob/source_mob = source
+		source_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, FALSE, S, maxdistance, falloff_distance, 1, FALSE)
 		listeners -= source
 
 	for(var/mob/listening_mob in listeners | SSmobs.dead_players_by_zlevel[source_z])//observers always hear through walls
