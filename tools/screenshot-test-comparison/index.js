@@ -32,14 +32,16 @@ const fail = (screenshotName, newScreenshot, oldScreenshot, diff) => {
 		recursive: true
 	})
 
-	fs.copyFileSync(newScreenshot, path.join(outputPath, "new.png"))
+	const nameWithoutExtension = screenshotName.slice(0, -4)
+
+	fs.copyFileSync(newScreenshot, path.join(outputPath, `${nameWithoutExtension}_new.png`))
 
 	if (oldScreenshot) {
-		fs.copyFileSync(oldScreenshot, path.join(outputPath, "old.png"))
+		fs.copyFileSync(oldScreenshot, path.join(outputPath, `${nameWithoutExtension}_old.png`))
 	}
 
 	if (diff) {
-		fs.writeFileSync(path.join(outputPath, "diff.png"), PNG.sync.write(diff))
+		fs.writeFileSync(path.join(outputPath, `${nameWithoutExtension}_diff.png`), PNG.sync.write(diff))
 	}
 }
 
