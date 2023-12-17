@@ -9,7 +9,7 @@
 	fade = 1 SECONDS
 	velocity = list(0, 0.4, 0)
 	position = list(6, 0, 0)
-	drift = generator("sphere", 0, 2, NORMAL_RAND)
+	drift = generator(GEN_SPHERE, 0, 2, NORMAL_RAND)
 	friction = 0.2
 	gravity = list(0, 0.95)
 	grow = 0.05
@@ -34,5 +34,5 @@
 	spawning = 1
 	lifespan = 1 SECONDS
 	fade = 0.2 SECONDS
-	position = generator("vector", list(-3, 5, 0), list(3, 6.5, 0), NORMAL_RAND)
-	velocity = generator("vector", list(-0.1, 0.4, 0), list(0.1, 0.5, 0), NORMAL_RAND)
+	position = generator(GEN_VECTOR, list(-3, 5, 0), list(3, 6.5, 0), NORMAL_RAND)
+	velocity = generator(GEN_VECTOR, list(-0.1, 0.4, 0), list(0.1, 0.5, 0), NORMAL_RAND)

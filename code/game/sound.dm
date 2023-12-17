@@ -37,8 +37,9 @@
  * pressure_affected - Whether or not difference in pressure affects the sound (E.g. if you can hear in space).
  * ignore_walls - Whether or not the sound can pass through walls.
  * falloff_distance - Distance at which falloff begins. Sound is at peak volume (in regards to falloff) aslong as it is in this range.
+ * play_directly_to_source - If TRUE, makes the sound play directly with no filtering to the source, if it can hear.
  */
-/proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff_exponent = SOUND_FALLOFF_EXPONENT, frequency = null, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, use_reverb = TRUE)
+/proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff_exponent = SOUND_FALLOFF_EXPONENT, frequency = null, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, use_reverb = TRUE, play_directly_to_source = FALSE)
 	if(isarea(source))
 		CRASH("playsound(): source is an area")
 
@@ -76,6 +77,11 @@
 
 		if(below_turf && istransparentturf(turf_source))
 			listeners += get_hearers_in_view(maxdistance, below_turf)
+
+	if(play_directly_to_source && ismob(source))
+		var/mob/source_mob = source
+		source_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, FALSE, S, maxdistance, falloff_distance, 1, FALSE)
+		listeners -= source
 
 	for(var/mob/listening_mob in listeners | SSmobs.dead_players_by_zlevel[source_z])//observers always hear through walls
 		if(get_dist(listening_mob, turf_source) <= maxdistance)

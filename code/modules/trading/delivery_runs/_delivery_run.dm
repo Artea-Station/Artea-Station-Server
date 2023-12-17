@@ -58,6 +58,7 @@
 	var/system_to_deliver
 
 	var/datum/overmap_object/delivery_ship/fluff_overmap_object
+	var/fluff_name
 
 /datum/delivery_run_instance/New(datum/delivery_run/source_datum, mob/orderer, obj/machinery/computer/trade_console/console)
 	SStrading.delivery_runs += src
@@ -68,6 +69,7 @@
 	overmap_y = source_datum.overmap_y
 
 	fluff_overmap_object = new(system_to_deliver, overmap_x, overmap_y)
+	fluff_name = fluff_overmap_object.name
 
 	var/obj/item/paper/manifest = new /obj/item/paper()
 	manifest.name = "Delivery: [source_datum.name]"
@@ -103,15 +105,15 @@
 /datum/delivery_run_instance/proc/Delivered(mob/living/user)
 	var/turf/user_turf = get_turf(user)
 	waiting_for_reward = TRUE
-	addtimer(CALLBACK(src, PROC_REF(TimedReward), user_turf, fluff_overmap_object.name), rand(2 SECONDS, 4 SECONDS))
+	addtimer(CALLBACK(src, PROC_REF(TimedReward), user_turf), rand(2 SECONDS, 4 SECONDS))
 	do_sparks(3, TRUE, user_turf)
 	qdel(delivery_object)
 
-/datum/delivery_run_instance/proc/TimedReward(turf/position, delivery_name)
+/datum/delivery_run_instance/proc/TimedReward(turf/position)
 	if(reward_cash)
 		var/split_cash = round(SSeconomy.department_accounts.len / reward_cash)
 		for(var/datum/bank_account/department_account as anything in SSeconomy.generated_accounts)
-			department_account.adjust_money(split_cash, "DELIVERY: [delivery_name]")
+			department_account.adjust_money(split_cash, "DELIVERY: [fluff_name]")
 	if(reward_item_path)
 		new reward_item_path(position)
 	do_sparks(3, TRUE, position)
