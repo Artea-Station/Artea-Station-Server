@@ -8,5 +8,5 @@
 	spawning = 0.25
 	lifespan = 1 SECONDS
 	fade = 1 SECONDS
-	position = generator("circle", 0, 16, UNIFORM_RAND)
+	position = generator(GEN_CIRCLE, 0, 16, UNIFORM_RAND)
 	gravity = list(0, 0.25)

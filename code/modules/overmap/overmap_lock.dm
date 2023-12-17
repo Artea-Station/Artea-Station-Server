@@ -45,3 +45,4 @@
 		return
 	is_calibrated = TRUE
 	effect.icon_state = "locked"
+	playsound(usr, 'sound/machines/triple_beep.ogg', 75, TRUE)
