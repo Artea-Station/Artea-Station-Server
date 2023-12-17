@@ -349,6 +349,7 @@
 		DisplayHelmPad(usr)
 
 /datum/overmap_object/shuttle/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	playsound(usr, SFX_PDA, 50, TRUE, ignore_walls = FALSE)
 	..()
 	. = TRUE
 
@@ -464,6 +465,7 @@
 			if(!lock)
 				return
 			target_command = TARGET_BEAM_ON_BOARD
+			playsound(usr, 'sound/machines/wewewew.ogg', 70, TRUE)
 		if("target")
 			if(!(shuttle_capability & SHUTTLE_CAN_USE_SENSORS))
 				return
