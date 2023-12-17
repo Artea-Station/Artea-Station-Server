@@ -5,8 +5,6 @@
 	name = "material spawner"
 	loot = list(
 		/obj/item/stack/sheet/plastic/fifty = 5,
-		/obj/item/stack/sheet/runed_metal/ten = 20,
-		/obj/item/stack/sheet/runed_metal/fifty = 5,
 		/obj/item/stack/sheet/mineral/diamond{amount = 15} = 15,
 		/obj/item/stack/sheet/mineral/uranium{amount = 15} = 15,
 		/obj/item/stack/sheet/mineral/plasma{amount = 15} = 15,
