@@ -96,7 +96,6 @@
 #define VV_HK_EDIT_FILTERS "edit_filters"
 #define VV_HK_EDIT_PARTICLES "edit_particles"
 #define VV_HK_EDIT_MOVABLE_PHYSICS "edit_movable_physics"
-#define VV_HK_EDIT_PARTICLES "edit_particles"
 #define VV_HK_EDIT_COLOR_MATRIX "edit_color_matrix"
 #define VV_HK_ADD_AI "add_ai"
 
