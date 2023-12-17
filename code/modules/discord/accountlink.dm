@@ -30,6 +30,7 @@
 	Your one time token is <span class='bad'>[cached_one_time_token]</span>\
 	<br><br>You can verify yourself in discord by using the command <span class='bad'>[prefix]verify [cached_one_time_token]</span> inside the #user-bot-spam channel!\
 	If you haven't done so already, you will need to apply to gain access to the channel to verify yourself upon joining the discord.\
+	Don't worry, the process takes only a few minutes, and you don't have to write a ton.\
 	<br><br><a href=\"[CONFIG_GET(string/discord_link)]\">Discord</a>"
 
 	//Now give them a browse window so they can't miss whatever we told them
