@@ -119,3 +119,4 @@
 	var/last_top_offset
 
 	COOLDOWN_DECLARE(bleeding_message_cd)
+	COOLDOWN_DECLARE(breath_sound_cd)

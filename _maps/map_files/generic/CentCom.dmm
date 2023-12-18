@@ -311,6 +311,18 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/closed/wall/indestructible/reinforced/syndicate,
 /area/centcom/syndicate_mothership/expansion_bioterrorism)
+"aX" = (
+/obj/machinery/newscaster{
+	pixel_y = -32
+	},
+/obj/machinery/computer/trade_console{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/iron,
+/area/centcom/central_command_areas/supply)
 "aZ" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 4
@@ -3394,27 +3406,6 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/central_command_areas/prison)
-"jy" = (
-/obj/machinery/button/door/indestructible{
-	id = "XCCQMLoaddoor";
-	layer = 4;
-	name = "Loading Doors";
-	pixel_x = -27;
-	pixel_y = -5
-	},
-/obj/machinery/button/door/indestructible{
-	id = "XCCQMLoaddoor2";
-	layer = 4;
-	name = "Loading Doors";
-	pixel_x = -27;
-	pixel_y = 5
-	},
-/obj/machinery/computer/cargo{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/centcom/central_command_areas/supply)
 "jz" = (
 /obj/machinery/airalarm/directional/west,
 /obj/effect/turf_decal/stripes/line{
@@ -4442,16 +4433,6 @@
 /obj/machinery/status_display/evac/directional/east,
 /turf/open/floor/iron,
 /area/centcom/central_command_areas/supply)
-"mG" = (
-/obj/machinery/computer/cargo{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/machinery/status_display/ai/directional/west,
-/turf/open/floor/iron,
-/area/centcom/central_command_areas/supply)
 "mH" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -5117,15 +5098,6 @@
 /obj/machinery/photocopier,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
-	},
-/turf/open/floor/iron,
-/area/centcom/central_command_areas/supply)
-"ov" = (
-/obj/machinery/computer/cargo{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
 	},
 /turf/open/floor/iron,
 /area/centcom/central_command_areas/supply)
@@ -8470,18 +8442,6 @@
 /obj/machinery/status_display/evac/directional/north,
 /turf/open/floor/iron/grimy,
 /area/centcom/central_command_areas/admin)
-"yP" = (
-/obj/machinery/newscaster{
-	pixel_y = -32
-	},
-/obj/machinery/computer/cargo{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/iron,
-/area/centcom/central_command_areas/supply)
 "yQ" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -8553,6 +8513,16 @@
 	},
 /turf/open/space,
 /area/space)
+"yW" = (
+/obj/machinery/computer/trade_console{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/status_display/ai/directional/west,
+/turf/open/floor/iron,
+/area/centcom/central_command_areas/supply)
 "yY" = (
 /obj/structure/chair,
 /obj/effect/landmark/thunderdome/observe,
@@ -9129,20 +9099,6 @@
 /obj/effect/decal/remains/xeno,
 /turf/open/floor/grass,
 /area/centcom/wizard_station)
-"AC" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -8;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = -8
-	},
-/obj/item/reagent_containers/cup/glass/mug/britcup,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/centcom/tdome/observation)
 "AD" = (
 /obj/effect/turf_decal/tile/yellow/half,
 /obj/effect/turf_decal/tile/yellow/half{
@@ -9905,6 +9861,16 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/expansion_chemicalwarfare)
+"CC" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/item/reagent_containers/cup/glass/mug/britcup,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/centcom/central_command_areas/control)
 "CD" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
@@ -10178,16 +10144,6 @@
 /obj/item/storage/fancy/donut_box,
 /obj/structure/window/reinforced{
 	dir = 4
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/centcom/central_command_areas/control)
-"Du" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
-/obj/item/reagent_containers/cup/glass/mug/britcup,
-/obj/structure/window/reinforced{
-	dir = 8
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
@@ -10951,6 +10907,20 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/central_command_areas/armory)
+"FC" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -8;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/cup/glass/mug/britcup,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/centcom/tdome/observation)
 "FD" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 8
@@ -12209,6 +12179,27 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
 /turf/open/floor/iron,
 /area/centcom/syndicate_mothership/control)
+"Jo" = (
+/obj/machinery/button/door/indestructible{
+	id = "XCCQMLoaddoor";
+	layer = 4;
+	name = "Loading Doors";
+	pixel_x = -27;
+	pixel_y = -5
+	},
+/obj/machinery/button/door/indestructible{
+	id = "XCCQMLoaddoor2";
+	layer = 4;
+	name = "Loading Doors";
+	pixel_x = -27;
+	pixel_y = 5
+	},
+/obj/machinery/computer/trade_console{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/centcom/central_command_areas/supply)
 "Jp" = (
 /obj/machinery/vending/cigarette/syndicate,
 /turf/open/floor/mineral/titanium,
@@ -12899,6 +12890,15 @@
 /obj/structure/speaking_tile,
 /turf/closed/mineral/ash_rock,
 /area/awaymission/errorroom)
+"LZ" = (
+/obj/machinery/computer/trade_console{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/iron,
+/area/centcom/central_command_areas/supply)
 "Mb" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/siding/red/corner{
@@ -57572,7 +57572,7 @@ aa
 aa
 iX
 OM
-mG
+yW
 nl
 pd
 On
@@ -58076,7 +58076,7 @@ iO
 jc
 jn
 iP
-jy
+Jo
 jD
 jL
 jc
@@ -58088,7 +58088,7 @@ iX
 md
 iR
 nn
-yP
+aX
 On
 On
 On
@@ -59413,7 +59413,7 @@ Zj
 bi
 ni
 zw
-AC
+FC
 Bs
 di
 QC
@@ -60146,7 +60146,7 @@ jf
 iZ
 nJ
 iF
-ov
+LZ
 oO
 do
 hz
@@ -62226,7 +62226,7 @@ mQ
 io
 io
 iu
-Du
+CC
 DI
 iu
 in

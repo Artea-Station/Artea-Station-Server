@@ -492,3 +492,50 @@
 
 /obj/effect/turf_decal/siding/wideplating_new/terracotta/end
 	icon_state = "siding_wideplating_new_end"
+
+/// Orange Artea flavor markings
+
+/obj/effect/turf_decal/delivery/orange
+	icon_state = "delivery_orange"
+
+/obj/effect/turf_decal/bot_orange
+	icon_state = "bot_orange"
+
+/obj/effect/turf_decal/loading_area/orange
+	icon_state = "loadingarea_orange"
+
+/obj/effect/turf_decal/stripes/orange/line
+	icon_state = "warningline_orange"
+
+/obj/effect/turf_decal/stripes/orange/end
+	icon_state = "warn_end_orange"
+
+/obj/effect/turf_decal/stripes/orange/corner
+	icon_state = "warninglinecorner_orange"
+
+/obj/effect/turf_decal/stripes/orange/box
+	icon_state = "warn_box_orange"
+
+/obj/effect/turf_decal/stripes/orange/full
+	icon_state = "warn_full_orange"
+
+/obj/effect/turf_decal/caution/orange
+	icon_state = "caution_orange"
+
+/obj/effect/turf_decal/caution/stand_clear/orange
+	icon_state = "stand_clear_orange"
+
+/obj/effect/turf_decal/arrows/orange
+	icon_state = "arrows_orange"
+
+/obj/effect/turf_decal/box/orange
+	icon_state = "box_orange"
+
+/obj/effect/turf_decal/box/corners/orange
+	icon_state = "box_corners_orange"
+
+/obj/effect/turf_decal/bot/right/orange
+	icon_state = "bot_right_orange"
+
+/obj/effect/turf_decal/bot/left/orange
+	icon_state = "bot_left_orange"
