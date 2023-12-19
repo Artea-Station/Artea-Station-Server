@@ -5,6 +5,15 @@
 	main_feature_name = "Body markings"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "body_markings"
+	var/sprite_accessory // Shitcode cause I don't want to write new code to do the same shit as mutant stuff
+
+/datum/preference/choiced/lizard_body_markings/New()
+	. = ..()
+	sprite_accessory = GLOB.body_markings_list
+
+/datum/preference/choiced/lizard_body_markings/compile_constant_data()
+	. = ..()
+	.[SUPPLEMENTAL_FEATURE_KEY] = "body_markings_color"
 
 /datum/preference/choiced/lizard_body_markings/init_possible_values()
 	var/list/values = list()
@@ -35,6 +44,11 @@
 
 /datum/preference/choiced/lizard_body_markings/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.dna.features["body_markings"] = value
+
+/datum/preference/color/mutant/lizard_body_markings
+	savefile_key = "body_markings_color"
+	relevant_mutant_bodypart = "body_markings"
+	choiced_preference_datum = /datum/preference/choiced/lizard_body_markings
 
 /datum/preference/choiced/mutant/lizard_frills
 	savefile_key = "feature_lizard_frills"
