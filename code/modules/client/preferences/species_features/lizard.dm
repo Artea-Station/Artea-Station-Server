@@ -101,30 +101,49 @@ MUTANT_CHOICED_NEW(lizard_snout, GLOB.snouts_list)
 	relevant_mutant_bodypart = MUTANT_SNOUT
 	choiced_preference_datum = /datum/preference/choiced/mutant/lizard_snout
 
-/datum/preference/choiced/lizard_spines
+/datum/preference/choiced/mutant/lizard_spines
 	savefile_key = "feature_lizard_spines"
-	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_APPEARANCE_LIST
-	relevant_mutant_bodypart = "spines"
+	main_feature_name = "Spines"
+	should_generate_icons = TRUE
+	relevant_mutant_bodypart = MUTANT_SPINES
+	color_feature_id = "lizard_spines_color"
+	organ_to_add = /obj/item/organ/external/spines
+	sprite_direction = NORTH
+	greyscale_color = COLOR_VIBRANT_LIME
 
-/datum/preference/choiced/lizard_spines/init_possible_values()
-	return assoc_to_keys(GLOB.spines_list)
+MUTANT_CHOICED_NEW(lizard_spines, GLOB.spines_list)
 
-/datum/preference/choiced/lizard_spines/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
-	target.dna.features["spines"] = value
+/datum/preference/choiced/mutant/lizard_spines/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state, suffix)
+	return "m_spines_[original_icon_state]_ADJ[suffix]"
 
-/datum/preference/choiced/lizard_tail
+/datum/preference/choiced/mutant/lizard_spines/create_default_value()
+	return pick(sprite_accessory)
+
+/datum/preference/color/mutant/lizard_spines
+	savefile_key = "lizard_spines_color"
+	relevant_mutant_bodypart = MUTANT_SPINES
+	choiced_preference_datum = /datum/preference/choiced/mutant/lizard_spines
+
+/datum/preference/choiced/mutant/lizard_tail
 	savefile_key = "feature_lizard_tail"
-	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_APPEARANCE_LIST
-	relevant_external_organ = /obj/item/organ/external/tail/lizard
+	main_feature_name = "Lizard Tail"
+	should_generate_icons = TRUE
+	relevant_mutant_bodypart = MUTANT_LIZARD_TAIL
+	color_feature_id = "lizard_tail_color"
+	organ_to_add = /obj/item/organ/external/tail/lizard
+	sprite_direction = SOUTH
+	greyscale_color = COLOR_VIBRANT_LIME
+	crop_area = list(1, 1, 20, 20) // We want just the lower+mid left legs+torso area.
 
-/datum/preference/choiced/lizard_tail/init_possible_values()
-	return assoc_to_keys(GLOB.tails_list_lizard)
+MUTANT_CHOICED_NEW(lizard_tail, GLOB.tails_list_lizard)
 
-/datum/preference/choiced/lizard_tail/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
-	target.dna.features["tail_lizard"] = value
+/datum/preference/choiced/mutant/lizard_tail/generate_icon_state(datum/sprite_accessory/sprite_accessory, original_icon_state, suffix)
+	return "m_tail_lizard_[original_icon_state]_BEHIND[suffix]"
 
-/datum/preference/choiced/lizard_tail/create_default_value()
-	var/datum/sprite_accessory/tails/lizard/smooth/tail = /datum/sprite_accessory/tails/lizard/smooth
-	return initial(tail.name)
+/datum/preference/choiced/mutant/lizard_tail/create_default_value()
+	return pick(sprite_accessory)
+
+/datum/preference/color/mutant/lizard_tail
+	savefile_key = "lizard_tail_color"
+	relevant_mutant_bodypart = MUTANT_LIZARD_TAIL
+	choiced_preference_datum = /datum/preference/choiced/mutant/lizard_tail
