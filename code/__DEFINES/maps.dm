@@ -78,6 +78,7 @@ Always compile, always use that verb, and always make sure that it works for wha
 #define ZTRAIT_AWAY "Away Mission"
 #define ZTRAIT_SPACE_RUINS "Space Ruins"
 #define ZTRAIT_LAVA_RUINS "Lava Ruins"
+#define ZTRAIT_PLANET_RUINS "Planet Ruins"
 #define ZTRAIT_ICE_RUINS "Ice Ruins"
 #define ZTRAIT_ICE_RUINS_UNDERGROUND "Ice Ruins Underground"
 #define ZTRAIT_ISOLATED_RUINS "Isolated Ruins" //Placing ruins on z levels with this trait will use turf reservation instead of usual placement.
@@ -157,6 +158,7 @@ Always compile, always use that verb, and always make sure that it works for wha
 #define PLACE_SAME_Z "same" //On same z level as original ruin
 #define PLACE_SPACE_RUIN "space" //On space ruin z level(s)
 #define PLACE_LAVA_RUIN "lavaland" //On lavaland ruin z levels(s)
+#define PLACE_PLANET_RUIN "planet" //on planetary ruin z level
 #define PLACE_BELOW "below" //On z levl below - centered on same tile
 #define PLACE_ISOLATED "isolated" //On isolated ruin z level
 
@@ -186,3 +188,11 @@ Always compile, always use that verb, and always make sure that it works for wha
 #define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"
 /// Shelter spot is out of bounds from the maps x/y coordinates
 #define SHELTER_DEPLOY_OUTSIDE_MAP "outside map"
+
+/// Planet traits
+/// Z level traits for Barren planet
+#define ZTRAITS_BARREN_PLANET list(\
+	ZTRAIT_MINING = TRUE, \
+	ZTRAIT_NOPARALLAX = TRUE, \
+	ZTRAIT_PLANET_RUINS = TRUE, \
+	ZTRAIT_BASETURF = /turf/open/misc/planetary/barren)

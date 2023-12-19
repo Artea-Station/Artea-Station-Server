@@ -3,7 +3,7 @@
 	area_type = /area/planet/barren
 	generator_type = /datum/map_generator/planet_gen/barren
 
-	default_traits_input = list(ZTRAIT_MINING = TRUE, ZTRAIT_BASETURF = /turf/open/misc/planetary/barren)
+	default_traits_input = ZTRAITS_BARREN_PLANET
 	overmap_type = /datum/overmap_object/shuttle/planet/barren
 	atmosphere_type = /datum/atmosphere/barren
 	weather_controller_type = /datum/weather_controller/desert
@@ -13,12 +13,6 @@
 /datum/overmap_object/shuttle/planet/barren
 	name = "Barren Planet"
 	planet_color = COLOR_BEIGE_GRAYISH
-
-/area/planet/barren
-	name = "Barren Planet Surface"
-	ambientsounds = list('sound/effects/wind/wind1.ogg','sound/effects/wind/wind2.ogg','sound/effects/wind/wind3.ogg','sound/effects/wind/wind4.ogg','sound/effects/wind/wind5.ogg','sound/effects/wind/wind6.ogg')
-	min_ambience_cooldown = 12 SECONDS
-	max_ambience_cooldown = 30 SECONDS
 
 /datum/map_generator/planet_gen/barren
 	possible_biomes = list(
@@ -82,3 +76,15 @@
 
 	minimum_temp = 180
 	maximum_temp = 180
+
+/datum/planet_template/barren_planet/SeedRuins(list/z_levels)
+	var/list/planet_ruins = SSmapping.levels_by_trait(ZTRAIT_PLANET_RUINS)
+	//Only account for the levels we loaded, in case we load 2 lavalands
+	for(var/i in planet_ruins)
+		if(!(i in z_levels))
+			planet_ruins -= i
+
+	if (z_levels.len)
+		seedRuins(z_levels, CONFIG_GET(number/planet_budget), list(/area/planet/barren), SSmapping.themed_ruins[ZTRAIT_PLANET_RUINS])
+		for (var/lava_z in z_levels)
+			spawn_rivers(lava_z)

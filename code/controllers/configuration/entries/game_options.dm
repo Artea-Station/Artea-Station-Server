@@ -324,6 +324,11 @@
 	integer = FALSE
 	min_val = 0
 
+/datum/config_entry/number/planet_budget
+	default = 60
+	integer = FALSE
+	min_val = 0
+
 /datum/config_entry/number/icemoon_budget
 	default = 90
 	integer = FALSE

@@ -24,16 +24,6 @@
 	name = "Snow Planet"
 	planet_color = COLOR_WHITE
 
-/area/planet/snow
-	name = "Snow Planet Surface"
-	ambientsounds = list(
-		'sound/effects/wind/tundra0.ogg',
-		'sound/effects/wind/tundra1.ogg',
-		'sound/effects/wind/tundra2.ogg',
-		'sound/effects/wind/spooky0.ogg',
-		'sound/effects/wind/spooky1.ogg',
-	)
-
 /datum/map_generator/planet_gen/snow
 	possible_biomes = list(
 	BIOME_LOW_HEAT = list(

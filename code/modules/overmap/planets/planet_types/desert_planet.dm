@@ -19,17 +19,6 @@
 	name = "Desert Planet"
 	planet_color = COLOR_BEIGE
 
-/area/planet/desert
-	name = "Desert Planet Surface"
-	ambientsounds = list(
-		'sound/effects/wind/desert0.ogg',
-		'sound/effects/wind/desert1.ogg',
-		'sound/effects/wind/desert2.ogg',
-		'sound/effects/wind/desert3.ogg',
-		'sound/effects/wind/desert4.ogg',
-		'sound/effects/wind/desert5.ogg',
-	)
-
 /datum/map_generator/planet_gen/desert
 	possible_biomes = list(
 	BIOME_LOW_HEAT = list(

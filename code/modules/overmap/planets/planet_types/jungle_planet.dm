@@ -16,16 +16,6 @@
 	name = "Jungle Planet"
 	planet_color = COLOR_PALE_BTL_GREEN
 
-/area/planet/jungle
-	name = "Jungle Planet Surface"
-	ambientsounds = list(
-		'sound/ambience/jungle.ogg',
-		'sound/ambience/eeriejungle1.ogg',
-		'sound/ambience/eeriejungle2.ogg',
-	)
-	min_ambience_cooldown = 2 MINUTES
-	max_ambience_cooldown = 3 MINUTES
-
 /datum/map_generator/planet_gen/jungle
 	possible_biomes = list(
 	BIOME_LOW_HEAT = list(

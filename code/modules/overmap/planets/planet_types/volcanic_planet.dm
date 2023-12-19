@@ -17,12 +17,6 @@
 	name = "Volcanic Planet"
 	planet_color = COLOR_RED
 
-/area/planet/volcanic
-	name = "Volcanic Planet Surface"
-	ambientsounds = list('sound/ambience/magma.ogg')
-	min_ambience_cooldown = 2 MINUTES
-	max_ambience_cooldown = 4 MINUTES
-
 /datum/map_generator/planet_gen/volcanic
 	possible_biomes = list(
 	BIOME_LOW_HEAT = list(
