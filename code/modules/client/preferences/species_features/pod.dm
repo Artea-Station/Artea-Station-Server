@@ -29,6 +29,9 @@ MUTANT_CHOICED_NEW(pod_hair, GLOB.pod_hair_list)
 
 	return values
 
+/datum/preference/choiced/mutant/pod_hair/create_default_value()
+	return "Cabbage"
+
 /datum/preference/color/mutant/pod_hair
 	savefile_key = "pod_hair_color"
 	relevant_mutant_bodypart = MUTANT_POD_HAIR
