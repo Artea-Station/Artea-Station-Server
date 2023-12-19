@@ -177,6 +177,7 @@
 #include "tgui_create_message.dm"
 #include "timer_sanity.dm"
 #include "traitor.dm"
+#include "turf_sound.dm"
 #include "unit_test.dm"
 #include "wizard_loadout.dm"
 // END_INCLUDE
