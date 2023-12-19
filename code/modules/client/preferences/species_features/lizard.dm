@@ -56,7 +56,6 @@
 	relevant_mutant_bodypart = MUTANT_FRILLS
 	should_generate_icons = TRUE
 	color_feature_id = "lizard_frills_color"
-	organ_to_add = /obj/item/organ/external/frills
 	sprite_direction = EAST
 	greyscale_color = COLOR_VIBRANT_LIME
 	crop_area = list(11, 22, 21, 32) // We want just the head.
@@ -97,7 +96,6 @@ MUTANT_CHOICED_NEW(lizard_frills, GLOB.frills_list)
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = MUTANT_SNOUT
 	color_feature_id = "lizard_snout_color"
-	organ_to_add = /obj/item/organ/external/snout
 	sprite_direction = EAST
 	greyscale_color = COLOR_VIBRANT_LIME
 	crop_area = list(14, 22, 24, 32) // We want just the head.
@@ -121,7 +119,6 @@ MUTANT_CHOICED_NEW(lizard_snout, GLOB.snouts_list)
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = MUTANT_SPINES
 	color_feature_id = "lizard_spines_color"
-	organ_to_add = /obj/item/organ/external/spines
 	sprite_direction = NORTH
 	greyscale_color = COLOR_VIBRANT_LIME
 
@@ -144,7 +141,6 @@ MUTANT_CHOICED_NEW(lizard_spines, GLOB.spines_list)
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = MUTANT_LIZARD_TAIL
 	color_feature_id = "lizard_tail_color"
-	organ_to_add = /obj/item/organ/external/tail/lizard
 	sprite_direction = SOUTH
 	greyscale_color = COLOR_VIBRANT_LIME
 	crop_area = list(1, 1, 20, 20) // We want just the lower+mid left legs+torso area.

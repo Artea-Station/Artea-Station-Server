@@ -1,6 +1,8 @@
+// Oh man, these really are horny
 /datum/sprite_accessory/horns
 	icon = 'icons/mob/species/lizard/lizard_misc.dmi'
 	em_block = TRUE
+	organ_type_to_use = /obj/item/organ/external/horns
 
 /datum/sprite_accessory/horns/none
 	name = "None"

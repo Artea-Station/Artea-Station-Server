@@ -1,5 +1,6 @@
 /datum/sprite_accessory/frills
 	icon = 'icons/mob/species/lizard/lizard_misc.dmi'
+	organ_type_to_use = /obj/item/organ/external/frills
 
 /datum/sprite_accessory/frills/none
 	name = "None"
