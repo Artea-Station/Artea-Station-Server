@@ -6,6 +6,7 @@
 /datum/sprite_accessory/tails/lizard
 	icon = 'icons/mob/species/lizard/lizard_tails.dmi'
 	key = "tail_lizard"
+	organ_type_to_use = /obj/item/organ/external/tail/lizard
 
 /datum/sprite_accessory/tails/lizard/smooth
 	name = "Smooth"
