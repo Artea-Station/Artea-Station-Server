@@ -86,5 +86,3 @@
 
 	if (z_levels.len)
 		seedRuins(z_levels, CONFIG_GET(number/planet_budget), list(/area/planet/barren), SSmapping.themed_ruins[ZTRAIT_PLANET_RUINS])
-		for (var/lava_z in z_levels)
-			spawn_rivers(lava_z)

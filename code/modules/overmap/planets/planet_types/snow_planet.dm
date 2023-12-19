@@ -3,7 +3,7 @@
 	area_type = /area/planet/snow
 	generator_type = /datum/map_generator/planet_gen/snow
 
-	default_traits_input = list(ZTRAIT_MINING = TRUE, ZTRAIT_BASETURF = /turf/open/misc/planetary/dirt)
+	default_traits_input = ZTRAITS_SNOW_PLANET
 	overmap_type = /datum/overmap_object/shuttle/planet/snow
 	atmosphere_type = /datum/atmosphere/snow
 	weather_controller_type = /datum/weather_controller/snow_planet
@@ -161,3 +161,13 @@
 
 	minimum_temp = T20C - 100
 	maximum_temp = T20C - 10
+
+/datum/planet_template/snow_planet/SeedRuins(list/z_levels)
+	var/list/planet_ruins = SSmapping.levels_by_trait(ZTRAIT_PLANET_RUINS)
+	//Only account for the levels we loaded, in case we load 2 lavalands
+	for(var/i in planet_ruins)
+		if(!(i in z_levels))
+			planet_ruins -= i
+
+	if (z_levels.len)
+		seedRuins(z_levels, CONFIG_GET(number/planet_budget), list(/area/planet/snow), SSmapping.themed_ruins[ZTRAIT_PLANET_RUINS])

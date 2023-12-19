@@ -3,7 +3,7 @@
 	area_type = /area/planet/desert
 	generator_type = /datum/map_generator/planet_gen/desert
 
-	default_traits_input = list(ZTRAIT_MINING = TRUE, ZTRAIT_BASETURF = /turf/open/misc/planetary/dry_seafloor)
+	default_traits_input = ZTRAITS_DESERT_PLANET
 	overmap_type = /datum/overmap_object/shuttle/planet/desert
 	atmosphere_type = /datum/atmosphere/desert
 	weather_controller_type = /datum/weather_controller/desert
@@ -91,3 +91,13 @@
 	gender = PLURAL
 	name = "desert sand"
 	baseturfs = /turf/open/misc/planetary/sand/desert
+
+/datum/planet_template/desert_planet/SeedRuins(list/z_levels)
+	var/list/planet_ruins = SSmapping.levels_by_trait(ZTRAIT_PLANET_RUINS)
+	//Only account for the levels we loaded, in case we load 2 lavalands
+	for(var/i in planet_ruins)
+		if(!(i in z_levels))
+			planet_ruins -= i
+
+	if (z_levels.len)
+		seedRuins(z_levels, CONFIG_GET(number/planet_budget), list(/area/planet/desert), SSmapping.themed_ruins[ZTRAIT_PLANET_RUINS])

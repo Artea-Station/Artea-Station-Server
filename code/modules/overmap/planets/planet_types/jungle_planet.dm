@@ -3,7 +3,7 @@
 	area_type = /area/planet/jungle
 	generator_type = /datum/map_generator/planet_gen/jungle
 
-	default_traits_input = list(ZTRAIT_MINING = TRUE, ZTRAIT_BASETURF = /turf/open/lava/smooth/lava_land_surface)
+	default_traits_input = ZTRAITS_JUNGLE_PLANET
 	overmap_type = /datum/overmap_object/shuttle/planet/jungle
 	atmosphere_type = /datum/atmosphere/jungle
 	weather_controller_type = /datum/weather_controller/lush
@@ -123,3 +123,13 @@
 
 	minimum_temp = T20C + 20
 	maximum_temp = T20C + 40
+
+/datum/planet_template/jungle_planet/SeedRuins(list/z_levels)
+	var/list/planet_ruins = SSmapping.levels_by_trait(ZTRAIT_PLANET_RUINS)
+	//Only account for the levels we loaded, in case we load 2 lavalands
+	for(var/i in planet_ruins)
+		if(!(i in z_levels))
+			planet_ruins -= i
+
+	if (z_levels.len)
+		seedRuins(z_levels, CONFIG_GET(number/planet_budget), list(/area/planet/jungle), SSmapping.themed_ruins[ZTRAIT_PLANET_RUINS])

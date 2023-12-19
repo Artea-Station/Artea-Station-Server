@@ -325,7 +325,7 @@
 	min_val = 0
 
 /datum/config_entry/number/planet_budget
-	default = 60
+	default = 240
 	integer = FALSE
 	min_val = 0
 

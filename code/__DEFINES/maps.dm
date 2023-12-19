@@ -196,3 +196,45 @@ Always compile, always use that verb, and always make sure that it works for wha
 	ZTRAIT_NOPARALLAX = TRUE, \
 	ZTRAIT_PLANET_RUINS = TRUE, \
 	ZTRAIT_BASETURF = /turf/open/misc/planetary/barren)
+/// Z level traits for chlorine planet
+#define ZTRAITS_CHLORINE_PLANET list (\
+	ZTRAIT_MINING = TRUE, \
+	ZTRAIT_NOPARALLAX = TRUE, \
+	ZTRAIT_PLANET_RUINS = TRUE, \
+	ZTRAIT_BASETURF = /turf/open/misc/planetary/chlorine_sand)
+/// Z level traits for desert planet
+#define ZTRAITS_DESERT_PLANET list(\
+	ZTRAIT_MINING = TRUE, \
+	ZTRAIT_NOPARALLAX = TRUE, \
+	ZTRAIT_PLANET_RUINS = TRUE, \
+	ZTRAIT_BASETURF = /turf/open/misc/planetary/dry_seafloor)
+/// Z level traits for jungle planet
+#define ZTRAITS_JUNGLE_PLANET list(\
+	ZTRAIT_MINING = TRUE, \
+	ZTRAIT_NOPARALLAX = TRUE, \
+	ZTRAIT_PLANET_RUINS = TRUE, \
+	ZTRAIT_BASETURF = /turf/open/lava/smooth/lava_land_surface)
+/// Z level traits for lush planet
+#define ZTRAITS_LUSH_PLANET list(\
+	ZTRAIT_MINING = TRUE, \
+	ZTRAIT_NOPARALLAX = TRUE, \
+	ZTRAIT_PLANET_RUINS = TRUE, \
+	ZTRAIT_BASETURF = /turf/open/misc/planetary/dirt)
+/// Z level traits for shroud planet
+#define ZTRAITS_SHROUD_PLANET list(\
+	ZTRAIT_MINING = TRUE, \
+	ZTRAIT_NOPARALLAX = TRUE, \
+	ZTRAIT_PLANET_RUINS = TRUE, \
+	ZTRAIT_BASETURF = /turf/open/misc/planetary/shrouded_sand)
+/// Z level traits for snow planet
+#define ZTRAITS_SNOW_PLANET list(\
+	ZTRAIT_MINING = TRUE, \
+	ZTRAIT_NOPARALLAX = TRUE, \
+	ZTRAIT_PLANET_RUINS = TRUE, \
+	ZTRAIT_BASETURF = /turf/open/misc/planetary/dirt)
+/// Z level traits for volcanic planet
+#define ZTRAITS_VOLCANIC_PLANET list(\
+	ZTRAIT_MINING = TRUE, \
+	ZTRAIT_NOPARALLAX = TRUE, \
+	ZTRAIT_PLANET_RUINS = TRUE, \
+	ZTRAIT_BASETURF = /turf/open/misc/asteroid/basalt)

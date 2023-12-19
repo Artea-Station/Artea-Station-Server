@@ -3,7 +3,7 @@
 	area_type = /area/planet/chlorine
 	generator_type = /datum/map_generator/planet_gen/chlorine
 
-	default_traits_input = list(ZTRAIT_MINING = TRUE, ZTRAIT_BASETURF = /turf/open/misc/planetary/chlorine_sand)
+	default_traits_input = ZTRAITS_CHLORINE_PLANET
 	overmap_type = /datum/overmap_object/shuttle/planet/chlorine
 	atmosphere_type = /datum/atmosphere/chlorine
 	weather_controller_type = /datum/weather_controller/chlorine
@@ -122,3 +122,13 @@
 	desc = "A pool of noxious liquid chlorine. It's full of silt and plant matter."
 	color = "#d2e0b7"
 	baseturfs = /turf/open/misc/planetary/water/chlorine
+
+/datum/planet_template/chlorine_planet/SeedRuins(list/z_levels)
+	var/list/planet_ruins = SSmapping.levels_by_trait(ZTRAIT_PLANET_RUINS)
+	//Only account for the levels we loaded, in case we load 2 lavalands
+	for(var/i in planet_ruins)
+		if(!(i in z_levels))
+			planet_ruins -= i
+
+	if (z_levels.len)
+		seedRuins(z_levels, CONFIG_GET(number/planet_budget), list(/area/planet/chlorine), SSmapping.themed_ruins[ZTRAIT_PLANET_RUINS])
