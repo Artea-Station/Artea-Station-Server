@@ -32,6 +32,8 @@
 #define ACCESS_CAPTAIN "captain"
 /// Access used for the Head of Personnel's personal quarters in mapping, as well as the security console and other HoP-related things.
 #define ACCESS_HOP "hop"
+/// Access used for Internal Affairs.
+#define ACCESS_INTERNAL_AFFAIRS "internal_affairs"
 
 /// Security's General Access. In mapping, grants access to spaces such as to the "meeting room" or firing range, as well as being the general access that Tablet/Computer Programs check for "heads". Also unlocks other types of security equipment.
 #define ACCESS_SECURITY "security"
@@ -136,8 +138,6 @@
 #define ACCESS_HYDROPONICS "hydroponics"
 /// Access to the Janitor's room, and some tablet apps for control of the station's janitorial equipment.
 #define ACCESS_JANITOR "janitor"
-/// Access to the Lawyer's office.
-#define ACCESS_LAWYER "lawyer"
 
 #define ACCESS_PATHFINDERS "pathfinders"
 #define ACCESS_PATHFINDERS_DOCK "pathfinders_dock"
@@ -297,7 +297,6 @@
 	ACCESS_HYDROPONICS, \
 	ACCESS_JANITOR, \
 	ACCESS_KITCHEN, \
-	ACCESS_LAWYER, \
 	ACCESS_LIBRARY, \
 	ACCESS_MAINT_TUNNELS, \
 	ACCESS_MECH_MINING, \
@@ -351,6 +350,7 @@
 	ACCESS_TECH_STORAGE, \
 	ACCESS_TELEPORTER, \
 	ACCESS_VAULT, \
+	ACCESS_INTERNAL_AFFAIRS, \
 )
 
 /// Private head of staff offices, usually only granted to most cards by trimming. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_PRV_COMMAND)
@@ -423,7 +423,6 @@
 	ACCESS_HYDROPONICS, \
 	ACCESS_JANITOR, \
 	ACCESS_KITCHEN, \
-	ACCESS_LAWYER, \
 	ACCESS_LIBRARY, \
 	ACCESS_SERVICE, \
 	ACCESS_THEATRE, \
@@ -517,6 +516,7 @@
 	ACCESS_RC_ANNOUNCE, \
 	ACCESS_TELEPORTER, \
 	ACCESS_VAULT, \
+	ACCESS_INTERNAL_AFFAIRS, \
 )
 /// Name for the Centcom region.
 #define REGION_CENTCOM "Central Command"

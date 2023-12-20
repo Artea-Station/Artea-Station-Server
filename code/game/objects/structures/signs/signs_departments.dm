@@ -196,7 +196,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/drop, 32)
 /obj/structure/sign/departments/court
 	name = "\improper Courtroom sign"
 	sign_change_name = "Location - Courtroom"
-	desc = "A sign labelling the courtroom, where the ever sacred Space Law is upheld."
+	desc = "A sign labelling the courtroom, where the ever sacred Sectorial Statute is upheld."
 	icon_state = "court"
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/court, 32)

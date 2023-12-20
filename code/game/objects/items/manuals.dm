@@ -297,12 +297,12 @@
 	page_link = "Guide_to_engineering"
 
 /obj/item/book/manual/wiki/security_space_law
-	name = "Space Law"
-	desc = "A set of Artea guidelines for keeping law and order on their space stations."
+	name = "Sectorial Statute"
+	desc = "A set of guidelines for keeping law and order aboard vessels that brave the void."
 	icon_state = "bookSpaceLaw"
 	starting_author = "Artea"
-	starting_title = "Space Law"
-	page_link = "Space_Law"
+	starting_title = "Sectorial Statute"
+	page_link = "Sectorial_Statute
 
 /obj/item/book/manual/wiki/security_space_law/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] pretends to read \the [src] intently... then promptly dies of laughter!"))
