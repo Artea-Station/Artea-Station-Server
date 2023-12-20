@@ -110,7 +110,7 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_SAND
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/open/misc/planetary/chlorine_sand/Initialize()
 	. = ..()

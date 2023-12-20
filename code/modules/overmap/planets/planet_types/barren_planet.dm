@@ -54,7 +54,7 @@
 	icon = 'icons/planet/barren/barren_floor.dmi'
 	icon_state = "barren"
 	base_icon_state = "barren"
-	footstep = FOOTSTEP_GENERIC_HEAVY
+	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY

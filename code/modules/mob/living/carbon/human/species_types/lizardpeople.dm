@@ -19,11 +19,9 @@
 		MUTANT_HORNS = "None",
 		MUTANT_FRILLS = "None",
 		MUTANT_SNOUT = "Round",
+		MUTANT_SPINES = "Long",
+		MUTANT_LIZARD_TAIL = "Smooth",
 		)
-	external_organs = list(
-		/obj/item/organ/external/spines = "None",
-		/obj/item/organ/external/tail/lizard = "Smooth",
-	)
 	mutanttongue = /obj/item/organ/internal/tongue/lizard
 	coldmod = 1.5
 	heatmod = 0.67

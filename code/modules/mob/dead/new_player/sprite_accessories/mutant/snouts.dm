@@ -1,6 +1,7 @@
 /datum/sprite_accessory/snouts
 	icon = 'icons/mob/species/lizard/lizard_misc.dmi'
 	em_block = TRUE
+	organ_type_to_use = /obj/item/organ/external/snout
 
 /datum/sprite_accessory/snouts/sharp
 	name = "Sharp"
