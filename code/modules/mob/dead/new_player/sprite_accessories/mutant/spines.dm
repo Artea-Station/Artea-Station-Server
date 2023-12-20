@@ -1,10 +1,13 @@
 /datum/sprite_accessory/spines
 	icon = 'icons/mob/species/lizard/lizard_spines.dmi'
 	em_block = TRUE
+	organ_type_to_use = /obj/item/organ/external/spines
 
 /datum/sprite_accessory/spines_animated
 	icon = 'icons/mob/species/lizard/lizard_spines.dmi'
 	em_block = TRUE
+	// This shouldn't be needed... but shitcode has it's ways.
+	organ_type_to_use = /obj/item/organ/external/spines
 
 /datum/sprite_accessory/spines/none
 	name = "None"

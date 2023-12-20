@@ -58,7 +58,6 @@
 	relevant_mutant_bodypart = MUTANT_SYNTH_SCREEN
 	crop_area = list(11, 22, 21, 32) // We want just the head.
 	color_feature_id = "synth_screen_color"
-	organ_to_add = /obj/item/organ/external/screen
 
 /datum/preference/choiced/mutant/synth_screen/New()
 	. = ..()
@@ -88,7 +87,6 @@
 	crop_area = list(11, 22, 21, 32) // We want just the head.
 	color_feature_id = "synth_antenna_color"
 	greyscale_color = DEFAULT_SYNTH_PART_COLOR
-	organ_to_add = /obj/item/organ/external/synth_antenna
 
 MUTANT_CHOICED_NEW(synth_antenna, GLOB.synth_antennae)
 

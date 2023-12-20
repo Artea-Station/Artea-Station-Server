@@ -6,7 +6,6 @@
 	greyscale_color = COLOR_DARK_BROWN
 	main_feature_name = "Tail"
 	color_feature_id = "tail_human_color"
-	organ_to_add = /obj/item/organ/external/tail
 	sprite_direction = NORTH
 	accessories_to_ignore = list(/datum/sprite_accessory/tails/lizard)
 
@@ -30,7 +29,6 @@ MUTANT_CHOICED_NEW(tail_human, GLOB.tails_list)
 	greyscale_color = COLOR_DARK_BROWN
 	main_feature_name = "Ears"
 	color_feature_id = "ears_color"
-	organ_to_add = /obj/item/organ/internal/ears
 	crop_area = list(11, 22, 21, 32) // We want just the head area.
 
 MUTANT_CHOICED_NEW(ears, GLOB.ears_list)
@@ -53,7 +51,6 @@ MUTANT_CHOICED_NEW(ears, GLOB.ears_list)
 	greyscale_color = COLOR_DARK_BROWN
 	main_feature_name = "Horns"
 	color_feature_id = "horns_color"
-	organ_to_add = /obj/item/organ/external/horns
 	crop_area = list(11, 22, 21, 32) // We want just the head area.
 
 MUTANT_CHOICED_NEW(horns, GLOB.horns_list)

@@ -148,3 +148,18 @@ export const lizard_snout_color: Feature<string> = {
   name: 'Snout Color',
   component: FeatureTriColorInput,
 };
+
+export const lizard_tail_color: Feature<string> = {
+  name: 'Tail Color',
+  component: FeatureTriColorInput,
+};
+
+export const lizard_spines_color: Feature<string> = {
+  name: 'Spines Color',
+  component: FeatureTriColorInput,
+};
+
+export const body_markings_color: Feature<string> = {
+  name: 'Body Markings Color',
+  component: FeatureTriColorInput,
+};
