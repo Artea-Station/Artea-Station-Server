@@ -302,7 +302,7 @@
 	icon_state = "bookSpaceLaw"
 	starting_author = "Artea"
 	starting_title = "Sectorial Statute"
-	page_link = "Sectorial_Statute
+	page_link = "Sectorial_Statute"
 
 /obj/item/book/manual/wiki/security_space_law/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] pretends to read \the [src] intently... then promptly dies of laughter!"))
