@@ -135,9 +135,9 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/list/cached_spritesheets_needed
 	var/generating_cache = FALSE
 	var/fully_generated = FALSE
-	/// If this asset should be fully loaded on new. Valid values are ASSET_LOAD_BLOCKING, ASSET_LOAD_YIELDING, ASSET_LOAD_LAZY.
-	/// Defaults to ASSET_LOAD_LAZY so we can process this stuff nicely.
-	var/asset_load_mode = ASSET_LOAD_YIELDING
+	/// If this asset should be fully loaded on new
+	/// Defaults to false so we can process this stuff nicely
+	var/load_immediately = FALSE
 
 /datum/asset/spritesheet/should_refresh()
 	if (..())
@@ -164,14 +164,13 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 	// If it's cached, may as well load it now, while the loading is cheap
 	if(CONFIG_GET(flag/cache_assets) && cross_round_cachable)
-		asset_load_mode = ASSET_LOAD_YIELDING
+		load_immediately = TRUE
 
 	create_spritesheets()
-	if(asset_load_mode == ASSET_LOAD_LAZY)
-		SSasset_loading.generate_queue += src
+	if(load_immediately)
+		realize_spritesheets(yield = FALSE)
 	else
-		log_world("Force realizing spritesheets for [type]")
-		realize_spritesheets(yield = asset_load_mode == ASSET_LOAD_YIELDING)
+		SSasset_loading.generate_queue += src
 
 /datum/asset/spritesheet/proc/realize_spritesheets(yield)
 	if(fully_generated)
@@ -329,7 +328,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	CRASH("create_spritesheets() not implemented for [type]!")
 
 /datum/asset/spritesheet/proc/Insert(sprite_name, icon/I, icon_state="", dir=SOUTH, frame=1, moving=FALSE)
-	if(asset_load_mode == ASSET_LOAD_BLOCKING)
+	if(load_immediately)
 		queuedInsert(sprite_name, I, icon_state, dir, frame, moving)
 	else
 		to_generate += list(args.Copy())
