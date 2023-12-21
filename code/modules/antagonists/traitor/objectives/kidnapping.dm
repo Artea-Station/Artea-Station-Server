@@ -46,7 +46,6 @@
 		/datum/job/botanist,
 		/datum/job/janitor,
 		/datum/job/mime,
-		/datum/job/lawyer,
 		/datum/job/chaplain,
 		/datum/job/bartender,
 		/datum/job/curator,

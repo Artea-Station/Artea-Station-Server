@@ -8,7 +8,7 @@
 	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "Nanotrasen officials and Space Law"
+	supervisors = "Artea officials"
 	selection_color = "#ccccff"
 	req_admin_notify = 1
 	minimal_player_age = 14
