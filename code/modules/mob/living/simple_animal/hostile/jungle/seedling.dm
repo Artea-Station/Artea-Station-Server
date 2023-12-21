@@ -95,6 +95,8 @@
 	return ..()
 
 /datum/status_effect/seedling_beam_indicator/tick()
+	if (!seedling_screen_object)
+		return
 	var/target_angle = get_angle(owner, target)
 	var/matrix/final = matrix()
 	final.Turn(target_angle)
