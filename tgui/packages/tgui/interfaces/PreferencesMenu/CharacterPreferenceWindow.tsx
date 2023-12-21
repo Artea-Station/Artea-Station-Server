@@ -74,6 +74,12 @@ export const CharacterPreferenceWindow = (props, context) => {
     Page.Index
   );
 
+  const [tutorialStatus, setTutorialStatus] = useLocalState<string | null>(
+    context,
+    'tutorialStatus',
+    null
+  );
+
   let pageContents;
   let extraCharacterControls;
 
@@ -152,12 +158,6 @@ export const CharacterPreferenceWindow = (props, context) => {
       exhaustiveCheck(currentPage);
   }
 
-  const [tutorialStatus, setTutorialStatus] = useLocalState<string | null>(
-    context,
-    'tutorialStatus',
-    null
-  );
-
   return (
     <Window title="Character Preferences" width={920} height={770}>
       <Window.Content scrollable>
@@ -174,6 +174,44 @@ export const CharacterPreferenceWindow = (props, context) => {
                   <li>
                     Is something not appearing correctly? Please file a bug
                     report!
+                  </li>
+                </ul>
+              </Stack.Item>
+              <Stack.Item>
+                <Button
+                  mt={1}
+                  align="center"
+                  onClick={() => setTutorialStatus(null)}>
+                  Okay.
+                </Button>
+              </Stack.Item>
+            </Stack>
+          </Dimmer>
+        )}
+        {tutorialStatus === 'new_player' && (
+          <Dimmer>
+            <Stack vertical align="center">
+              <Stack.Item preserveWhitespace>
+                So you&apos;re new here, and you want to make your first
+                character? Here&apos;s the lowdown:
+                <ul>
+                  <li>
+                    Pick your species. This will make figuring out what the heck
+                    you&apos;re going to do later on much much easier.
+                  </li>
+                  <li>
+                    Generally speaking, start in the top left, and work your way
+                    to the bottom right.
+                    <br />
+                    I&apos;ve tried to keep things in order of importance for
+                    new players.
+                  </li>
+                  <li>
+                    If you want to read up on some of the lore, see{' '}
+                    <a href="https://artea-station.net/wiki/index.php/Lore_portal">
+                      our wiki
+                    </a>{' '}
+                    for some!
                   </li>
                 </ul>
               </Stack.Item>

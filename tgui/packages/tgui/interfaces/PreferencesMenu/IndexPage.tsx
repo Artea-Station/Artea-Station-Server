@@ -45,6 +45,12 @@ export const IndexPage = (context, parentContext) => {
     false
   );
 
+  const [tutorialStatus, setTutorialStatus] = useLocalState<string | null>(
+    parentContext,
+    'tutorialStatus',
+    null
+  );
+
   return (
     <Box>
       {multiNameInputOpen && (
@@ -65,7 +71,20 @@ export const IndexPage = (context, parentContext) => {
         />
       )}
 
-      <h2>Categories</h2>
+      <Box width="100%">
+        <Box inline>
+          <h2>Categories</h2>
+        </Box>
+        <Button
+          position="absolute"
+          right={0.5}
+          fontSize="1.2em"
+          onClick={() => {
+            setTutorialStatus('new_player');
+          }}>
+          New Player Introduction
+        </Button>
+      </Box>
 
       <Divider />
 
@@ -101,10 +120,10 @@ export const IndexPage = (context, parentContext) => {
 
             <Stack.Item>
               <BigPageButton
-                page={Page.Inspection}
+                page={Page.OOC}
                 setPage={setCurrentPage}
-                tooltip="The flavour text that's shown for your character!">
-                Inspection Text
+                tooltip="Information related to you, the player!">
+                OOC
               </BigPageButton>
             </Stack.Item>
 
@@ -123,11 +142,10 @@ export const IndexPage = (context, parentContext) => {
           <Stack vertical>
             <Stack.Item>
               <BigPageButton
-                page={Page.Food}
+                page={Page.Inspection}
                 setPage={setCurrentPage}
-                tooltip="The food your character enjoys and dislikes!"
-                tooltipPosition="bottom">
-                Food Preferences
+                tooltip="The flavour text that's shown for your character!">
+                Inspection Text
               </BigPageButton>
             </Stack.Item>
 
@@ -185,10 +203,11 @@ export const IndexPage = (context, parentContext) => {
 
             <Stack.Item>
               <BigPageButton
-                page={Page.OOC}
+                page={Page.Food}
                 setPage={setCurrentPage}
-                tooltip="Information related to you, the player!">
-                OOC
+                tooltip="The food your character enjoys and dislikes!"
+                tooltipPosition="bottom">
+                Food Preferences
               </BigPageButton>
             </Stack.Item>
           </Stack>
