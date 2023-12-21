@@ -25,7 +25,7 @@ export const ClothingPage = (context, parentContext) => {
               }}
               overflowX="hidden"
               overflowY="scroll">
-              <Stack height="100%" wrap>
+              <Stack wrap>
                 {Object.entries(data.character_preferences.clothing).map(
                   ([clothingKey, clothing]) => {
                     const catalog =
@@ -36,20 +36,19 @@ export const ClothingPage = (context, parentContext) => {
 
                     return (
                       catalog && (
-                        <Stack.Item key={clothingKey} mt={0.5} px={0.5}>
-                          <MainFeature
-                            catalog={catalog}
-                            currentValue={clothing}
-                            isOpen={currentClothingMenu === clothingKey}
-                            handleClose={() => {
-                              setCurrentClothingMenu(null);
-                            }}
-                            handleOpen={() => {
-                              setCurrentClothingMenu(clothingKey);
-                            }}
-                            handleSelect={createSetPreference(act, clothingKey)}
-                          />
-                        </Stack.Item>
+                        <MainFeature
+                          key={clothingKey}
+                          catalog={catalog}
+                          currentValue={clothing}
+                          isOpen={currentClothingMenu === clothingKey}
+                          handleClose={() => {
+                            setCurrentClothingMenu(null);
+                          }}
+                          handleOpen={() => {
+                            setCurrentClothingMenu(clothingKey);
+                          }}
+                          handleSelect={createSetPreference(act, clothingKey)}
+                        />
                       )
                     );
                   }
