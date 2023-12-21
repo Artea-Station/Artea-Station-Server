@@ -1,5 +1,4 @@
 /// Planetary Areas
-
 /area/planet
 	icon = 'icons/area/areas_planet.dmi'
 	icon_state = "planet"
@@ -8,6 +7,18 @@
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | CAVES_ALLOWED | FLORA_ALLOWED | MOB_SPAWN_ALLOWED | MEGAFAUNA_SPAWN_ALLOWED | NO_ALERTS
 	ambience_index = AMBIENCE_AWAY
 	outdoors = TRUE
+
+/*
+Planetary Ruin areas
+*/
+/area/planet/ruin
+	name = "Planetary ruin"
+	icon_state = "planet_ruin"
+	ambience_index = AMBIENCE_AWAY
+
+
+/area/planet/ruin/engi_outpost
+	name = "\improper Engineering Outpost"
 
 /*
 Barren planet areas
