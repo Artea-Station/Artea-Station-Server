@@ -16,7 +16,6 @@ Planetary Ruin areas
 	icon_state = "planet_ruin"
 	ambience_index = AMBIENCE_AWAY
 
-
 /area/planet/ruin/engi_outpost
 	name = "\improper Engineering Outpost"
 
