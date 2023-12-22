@@ -79,7 +79,6 @@
 #define JOB_CLOWN "Clown"
 #define JOB_MIME "Mime"
 #define JOB_CURATOR "Curator"
-#define JOB_LAWYER "Lawyer"
 #define JOB_CHAPLAIN "Chaplain"
 //ERTs
 #define JOB_ERT_DEATHSQUAD "Death Commando"
@@ -114,7 +113,6 @@
 #define JOB_DISPLAY_ORDER_CLOWN 8
 #define JOB_DISPLAY_ORDER_MIME 9
 #define JOB_DISPLAY_ORDER_CURATOR 10
-#define JOB_DISPLAY_ORDER_LAWYER 11
 #define JOB_DISPLAY_ORDER_CHAPLAIN 12
 #define JOB_DISPLAY_ORDER_AI 14
 #define JOB_DISPLAY_ORDER_CYBORG 15

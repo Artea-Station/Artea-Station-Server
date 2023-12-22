@@ -9,6 +9,7 @@
 	resistance_flags = FLAMMABLE
 	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
 	pickup_sound = 'sound/items/handling/cardboardbox_pickup.ogg'
+	rustle_sound = 'sound/items/storage/card_box.ogg'
 	/// What material do we get when we fold this box?
 	var/foldable = /obj/item/stack/sheet/cardboard
 	/// What drawing will we get on the face of the box?

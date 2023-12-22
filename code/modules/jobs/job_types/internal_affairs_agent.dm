@@ -1,6 +1,6 @@
 /datum/job/internal_affairs_agent
 	title = JOB_INTERNAL_AFFAIRS_AGENT
-	description = "Your job is to deal with affairs regarding Standard Operating Procedure. You are NOT in charge of Space Law affairs, nor can you override it. You are not a prisoner defence lawyer."
+	description = "Your job is to deal with affairs regarding Standard Operating Procedure. You are NOT in charge of Sectorial Statute affairs, nor can you override it. You are however free to defend criminals in trials!"
 	department_head = list(JOB_CAPTAIN)
 	faction = FACTION_STATION
 	total_positions = 2

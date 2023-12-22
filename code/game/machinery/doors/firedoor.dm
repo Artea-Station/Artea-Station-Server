@@ -685,7 +685,10 @@
 
 /obj/machinery/door/firedoor/border_only/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_ATOM_EXIT, PROC_REF(on_exit))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/machinery/door/firedoor/border_only/closed
 	icon_state = "door_closed"
