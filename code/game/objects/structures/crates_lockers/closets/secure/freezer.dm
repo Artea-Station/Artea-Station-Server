@@ -2,8 +2,9 @@
 	icon_state = "freezer"
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	door_anim_squish = 0.22
-	door_anim_angle = 123
 	door_anim_time = 4
+	door_hinge_x = -7
+	door_open_x_offset = -5
 	/// If FALSE, we will protect the first person in the freezer from an explosion / nuclear blast.
 	var/jones = FALSE
 	open_sound = 'sound/effects/fridge_open.ogg'
