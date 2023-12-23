@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(lobby_eye)
 	///how many tiles the camera will do
 	var/path_target = 30
 	///how many tiles into invalid areas can we go
-	var/invalid_reset = 5
+	var/invalid_reset = 8
 	///the areas that are considered invalid
 	var/static/list/invalid_areas = list(/area/space, /area/icemoon)
 	///how fast the camera will "move"
