@@ -40,27 +40,24 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 //if your savefile is 3 months out of date, then 'tough shit'.
 
 /datum/preferences/proc/update_preferences(current_version, datum/json_savefile/S)
-	if (current_version < 42)
-		S.set_entry(S.get_entry("voice", pick(GLOB.emote_voices)))
-		S.remove_entry("voice") // Let's not savebloat
-
-	// Synth colours are now handled by the color pref datum itself.
-	if (current_version < 43)
-		var/color_pref = S.get_entry("synth_chassis_color")
-		if(color_pref && copytext(color_pref, 1, 7) == "000000")
-			var/skin_pref = S.get_entry("use_skin_tone") ? skintone2hex(S.get_entry("skin_tone")) : S.get_entry("skin_color")
-			S.set_entry("synth_chassis_color", "[skin_pref][copytext(color_pref, 7)]")
-
-		color_pref = S.get_entry("synth_head_color")
-		if(color_pref && copytext(color_pref, 1, 7) == "000000")
-			var/skin_pref = S.get_entry("use_skin_tone") ? skintone2hex(S.get_entry("skin_tone")) : S.get_entry("skin_color")
-			S.set_entry("synth_head_color", "[skin_pref][copytext(color_pref, 7)]")
+	return // We have no changed client prefs.
 
 
 /datum/preferences/proc/update_character(current_version, list/save_data)
-
 	if (current_version < 42)
 		migrate_body_types(save_data)
+
+	// Synth colours are now handled by the color pref datum itself.
+	if (current_version < 44)
+		var/color_pref = save_data["synth_chassis_color"]
+		if(color_pref && copytext(color_pref, 1, 7) == "000000")
+			var/skin_pref = save_data["use_skin_tone"] ? skintone2hex(save_data["skin_tone"]) : save_data["skin_color"]
+			save_data["synth_chassis_color"] = "[skin_pref][copytext(color_pref, 7)]"
+
+		color_pref = save_data["synth_head_color"]
+		if(color_pref && copytext(color_pref, 1, 7) == "000000")
+			var/skin_pref = save_data["use_skin_tone"] ? skintone2hex(save_data["skin_tone"]) : save_data["skin_color"]
+			save_data["synth_head_color"] = "[skin_pref][copytext(color_pref, 7)]"
 
 /// checks through keybindings for outdated unbound keys and updates them
 /datum/preferences/proc/check_keybindings()
