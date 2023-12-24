@@ -5,7 +5,7 @@
 // You do not need to raise this if you are adding new values that have sane defaults.
 // Only raise this value when changing the meaning/format/name/layout of an existing value
 // where you would want the updater procs below to run
-#define SAVEFILE_VERSION_MAX 43
+#define SAVEFILE_VERSION_MAX 44
 
 /*
 SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Carn
@@ -97,6 +97,19 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	if (current_version < 42)
 		S.set_entry(S.get_entry("voice", pick(GLOB.emote_voices)))
 		S.remove_entry("voice") // Let's not savebloat
+
+	// Synth colours are now handled on set by the color pref datum itself. No need for storing 000000 anymore.
+	if (current_version < 43)
+		var/color_pref = S.get_entry("synth_chassis_color")
+		if(color_pref && copytext(color_pref, 1, 7) == "000000")
+			var/skin_pref = S.get_entry("use_skin_tone") ? skintone2hex(S.get_entry("skin_tone")) : S.get_entry("skin_color")
+			S.set_entry("synth_chassis_color", "[skin_pref][copytext(color_pref, 7)]")
+
+		color_pref = S.get_entry("synth_head_color")
+		if(color_pref && copytext(color_pref, 1, 7) == "000000")
+			var/skin_pref = S.get_entry("use_skin_tone") ? skintone2hex(S.get_entry("skin_tone")) : S.get_entry("skin_color")
+			S.set_entry("synth_head_color", "[skin_pref][copytext(color_pref, 7)]")
+
 
 /datum/preferences/proc/update_character(current_version, list/save_data)
 	if (current_version < 41)
