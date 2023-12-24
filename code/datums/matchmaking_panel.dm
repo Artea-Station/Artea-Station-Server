@@ -12,7 +12,7 @@ GLOBAL_DATUM_INIT(matchmaking_panel, /datum/matchmaking_panel, new)
 /datum/matchmaking_panel/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "MatchmakingPanel")
+		ui = new(user, src, "MatchmakingPanel", "Matchmaking Panel")
 		ui.open()
 
 /datum/matchmaking_panel/ui_data(mob/user)
@@ -55,7 +55,7 @@ GLOBAL_DATUM_INIT(matchmaking_panel, /datum/matchmaking_panel, new)
 
 		if(ishuman(client.mob))
 			var/mob/living/carbon/human/human = client.mob
-			if(!find_record("name", human.real_name, GLOB.manifest.general))
+			if(!find_record(human.real_name, TRUE))
 				continue
 			name = human.real_name
 			species = human.dna.species.name
