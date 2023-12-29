@@ -91,6 +91,20 @@
 	name = "Bridge Maintenance"
 	icon_state = "maint_bridge"
 
+/area/station/maintenance/department/command
+	name = "Command Maintenance"
+	icon_state = "command_maint"
+
+/area/station/maintenance/department/pathfinders
+	name = "Pathfinders Maintenance"
+	icon_state = "pathfinders_maint"
+
+/area/station/maintenance/department/pathfinders/greater
+	name = "Greater Pathfinders Maintenance"
+
+/area/station/maintenance/department/pathfinders/lesser
+	name = "Lesser Pathfinders Maintenance"
+
 /area/station/maintenance/department/engine
 	name = "Engineering Maintenance"
 	icon_state = "maint_engi"
@@ -438,6 +452,11 @@
 	name = "\improper Gateway"
 	icon_state = "gateway"
 	ambience_index = AMBIENCE_ENGI
+
+/area/station/command/internal_affairs_office
+	name = "\improper Internal Affairs Office"
+	icon_state = "iaa_office"
+	sound_environment = SOUND_AREA_WOODFLOOR
 
 //Commons
 
@@ -1532,3 +1551,6 @@
 
 /area/station/pathfinders/pathfinders_armory
 	name = "\improper Pathfinders Armory"
+
+/area/station/pathfinders/pathfinders_hallway
+	name = "\improper Pathfinders Hallway"
