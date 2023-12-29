@@ -10,6 +10,9 @@
 	icon_state = "plating"
 	initial_gas_mix = PLANETARY_ATMOS
 
+/turf/open/floor/plating/telecomms
+	initial_gas_mix = TCOMMS_ATMOS
+
 /turf/open/floor/plating/abductor
 	name = "alien floor"
 	icon_state = "alienpod1"
