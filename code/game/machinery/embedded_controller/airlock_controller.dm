@@ -4,6 +4,7 @@
 #define AIRLOCK_STATE_CLOSED "closed"
 #define AIRLOCK_STATE_DEPRESSURIZE "depressurize"
 #define AIRLOCK_STATE_OUTOPEN "outopen"
+#define AIRLOCK_STATE_OPEN "open"
 
 /datum/computer/file/embedded_program/airlock_controller
 	var/id_tag
@@ -56,17 +57,76 @@
 			target_state = AIRLOCK_STATE_INOPEN
 		if("abort")
 			target_state = AIRLOCK_STATE_CLOSED
+		if("cycleOpen") // Only available for indoor airlocks, which come into action when atmos is unlivable on one side.
+			target_state = AIRLOCK_STATE_OPEN
+		if("forceExterior")
+			var/new_door_state = "secure_open"
+
+			if(state == AIRLOCK_STATE_OUTOPEN)
+				new_door_state = "secure_close"
+				state = memory["interior_status"] == "open" ? AIRLOCK_STATE_INOPEN : AIRLOCK_STATE_CLOSED
+			else
+				state = memory["interior_status"] == "open" ? AIRLOCK_STATE_OPEN : AIRLOCK_STATE_OUTOPEN
+
+			post_signal(new /datum/signal(list(
+				"tag" = exterior_door_tag,
+				"command" = new_door_state,
+			)))
+		if("forceInterior")
+			var/new_door_state = "secure_open"
+
+			if(state == AIRLOCK_STATE_OUTOPEN)
+				new_door_state = "secure_close"
+				state = memory["exterior_status"] == "open" ? AIRLOCK_STATE_OUTOPEN : AIRLOCK_STATE_CLOSED
+			else
+				state = memory["exterior_status"] == "open" ? AIRLOCK_STATE_OPEN : AIRLOCK_STATE_INOPEN
+
+			post_signal(new /datum/signal(list(
+				"tag" = interior_door_tag,
+				"command" = new_door_state,
+			)))
 
 /datum/computer/file/embedded_program/airlock_controller/process()
-	var/process_again = 1
+	var/process_again = TRUE
 	while(process_again)
-		process_again = 0
+		process_again = FALSE
 		switch(state)
+			if(AIRLOCK_STATE_OPEN)
+				if(target_state == AIRLOCK_STATE_INOPEN)
+					if(sensor_pressure >= ONE_ATMOSPHERE*0.95)
+						if(memory["interior_status"] == "open" && memory["exterior_status"] == "open")
+							state = AIRLOCK_STATE_OPEN
+							process_again = TRUE
+						else
+							if(memory["interior_status"] == "closed")
+								post_signal(new /datum/signal(list(
+									"tag" = interior_door_tag,
+									"command" = "secure_open",
+								)))
+							if(memory["exterior_status"] == "closed")
+								post_signal(new /datum/signal(list(
+									"tag" = exterior_door_tag,
+									"command" = "secure_open",
+								)))
+					else
+						var/datum/signal/signal = new(list(
+							"tag" = airpump_tag,
+							"sigtype" = "command"
+						))
+						if(memory["pump_status"] == "siphon")
+							signal.data["stabilize"] = TRUE
+						else if(memory["pump_status"] != "release")
+							signal.data["power"] = TRUE
+						post_signal(signal)
+				else
+					state = AIRLOCK_STATE_CLOSED
+					process_again = TRUE
+
 			if(AIRLOCK_STATE_INOPEN)
 				if(target_state != state)
 					if(memory["interior_status"] == "closed")
 						state = AIRLOCK_STATE_CLOSED
-						process_again = 1
+						process_again = TRUE
 					else
 						post_signal(new /datum/signal(list(
 							"tag" = interior_door_tag,
@@ -76,7 +136,7 @@
 					if(memory["pump_status"] != "off")
 						post_signal(new /datum/signal(list(
 							"tag" = airpump_tag,
-							"power" = 0,
+							"power" = FALSE,
 							"sigtype" = "command"
 						)))
 
@@ -85,7 +145,7 @@
 					if(sensor_pressure >= ONE_ATMOSPHERE*0.95)
 						if(memory["interior_status"] == "open")
 							state = AIRLOCK_STATE_INOPEN
-							process_again = 1
+							process_again = TRUE
 						else
 							post_signal(new /datum/signal(list(
 								"tag" = interior_door_tag,
@@ -97,19 +157,19 @@
 							"sigtype" = "command"
 						))
 						if(memory["pump_status"] == "siphon")
-							signal.data["stabilize"] = 1
+							signal.data["stabilize"] = TRUE
 						else if(memory["pump_status"] != "release")
-							signal.data["power"] = 1
+							signal.data["power"] = TRUE
 						post_signal(signal)
 				else
 					state = AIRLOCK_STATE_CLOSED
-					process_again = 1
+					process_again = TRUE
 
 			if(AIRLOCK_STATE_CLOSED)
 				if(target_state == AIRLOCK_STATE_OUTOPEN)
 					if(memory["interior_status"] == "closed")
 						state = AIRLOCK_STATE_DEPRESSURIZE
-						process_again = 1
+						process_again = TRUE
 					else
 						post_signal(new /datum/signal(list(
 							"tag" = interior_door_tag,
@@ -118,7 +178,7 @@
 				else if(target_state == AIRLOCK_STATE_INOPEN)
 					if(memory["exterior_status"] == "closed")
 						state = AIRLOCK_STATE_PRESSURIZE
-						process_again = 1
+						process_again = TRUE
 					else
 						post_signal(new /datum/signal(list(
 							"tag" = exterior_door_tag,
@@ -129,7 +189,7 @@
 					if(memory["pump_status"] != "off")
 						post_signal(new /datum/signal(list(
 							"tag" = airpump_tag,
-							"power" = 0,
+							"power" = FALSE,
 							"sigtype" = "command"
 						)))
 
@@ -149,19 +209,19 @@
 							)))
 					else
 						state = AIRLOCK_STATE_CLOSED
-						process_again = 1
+						process_again = TRUE
 				else if((target_state != AIRLOCK_STATE_OUTOPEN) && !sanitize_external)
 					state = AIRLOCK_STATE_CLOSED
-					process_again = 1
+					process_again = TRUE
 				else
 					var/datum/signal/signal = new(list(
 						"tag" = airpump_tag,
 						"sigtype" = "command"
 					))
 					if(memory["pump_status"] == "release")
-						signal.data["purge"] = 1
+						signal.data["purge"] = TRUE
 					else if(memory["pump_status"] != "siphon")
-						signal.data["power"] = 1
+						signal.data["power"] = TRUE
 					post_signal(signal)
 
 			if(AIRLOCK_STATE_OUTOPEN) //state 2
@@ -169,10 +229,10 @@
 					if(memory["exterior_status"] == "closed")
 						if(sanitize_external)
 							state = AIRLOCK_STATE_DEPRESSURIZE
-							process_again = 1
+							process_again = TRUE
 						else
 							state = AIRLOCK_STATE_CLOSED
-							process_again = 1
+							process_again = TRUE
 					else
 						post_signal(new /datum/signal(list(
 							"tag" = exterior_door_tag,
@@ -182,7 +242,7 @@
 					if(memory["pump_status"] != "off")
 						post_signal(new /datum/signal(list(
 							"tag" = airpump_tag,
-							"power" = 0,
+							"power" = FALSE,
 							"sigtype" = "command"
 						)))
 
@@ -190,8 +250,7 @@
 	memory["processing"] = state != target_state
 	//sensor_pressure = null //not sure if we can comment this out. Uncomment in case of problems -rastaf0
 
-	return 1
-
+	return TRUE
 
 /obj/machinery/embedded_controller/radio/airlock_controller
 	icon = 'icons/obj/airlock_machines.dmi'
@@ -212,6 +271,7 @@
 	var/sanitize_external
 
 /obj/machinery/embedded_controller/radio/airlock_controller/Topic(href, href_list) // needed to override obj/machinery/embedded_controller/Topic, dont think its actually used in game other than here but the code is still here
+	return
 
 /obj/machinery/embedded_controller/radio/airlock_controller/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

@@ -119,6 +119,9 @@
 	/// Should this area allow door remotes to be used? Should be enabled for stations and station-owned shuttles only!
 	var/allow_door_remotes = FALSE
 
+	/// The airlock controller in this area. Used by mapped custom controllers to yell at mappers.
+	var/obj/machinery/embedded_controller/radio/airlock_controller/airlock_controller
+
 /**
  * A list of teleport locations
  *
@@ -257,6 +260,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	GLOB.sortedAreas -= src
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(alarm_manager)
+	airlock_controller = null
 	return ..()
 
 /**
