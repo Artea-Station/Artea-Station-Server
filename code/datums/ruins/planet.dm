@@ -11,6 +11,7 @@
 	description = "Blown up by an unfortunate accident."
 	suffix = "planet_ruin_engioutpost.dmm"
 	cost = 10
+	allow_duplicates = FALSE
 
 /*
 DO NOT ADD THIS TO THE LIST, IT NEEDS MAPPING WORK DONE ON IT!!!!
