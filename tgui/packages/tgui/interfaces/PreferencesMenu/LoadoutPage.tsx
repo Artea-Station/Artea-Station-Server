@@ -32,10 +32,10 @@ type Data = {
 export const LoadoutPage = (props, context) => {
   const { data } = useBackend<Data>(context);
   const { loadout_tabs } = data;
-  const [tutorialStatus, setTutorialStatus] = useLocalState(
+  const [tutorialStatus, setTutorialStatus] = useLocalState<string | null>(
     context,
     'tutorialStatus',
-    false
+    null
   );
   const [searchLoadout, setSearchLoadout] = useLocalState(
     context,
@@ -51,7 +51,7 @@ export const LoadoutPage = (props, context) => {
   return (
     <Stack vertical fill>
       <Stack.Item>
-        {!!tutorialStatus && <LoadoutTutorialDimmer />}
+        {tutorialStatus === 'loadout' && <LoadoutTutorialDimmer />}
         <Section
           title={
             <>
@@ -59,7 +59,7 @@ export const LoadoutPage = (props, context) => {
                 icon="info"
                 align="center"
                 content="Tutorial"
-                onClick={() => setTutorialStatus(true)}
+                onClick={() => setTutorialStatus('loadout')}
               />
               <span style={{ 'margin-left': '22%' }}>Loadout Categories</span>
             </>
@@ -114,10 +114,10 @@ export const _LoadoutManager = () => {
 const LoadoutTutorialDimmer = (props, context) => {
   const { data } = useBackend<Data>(context);
   const { tutorial_text } = data;
-  const [tutorialStatus, setTutorialStatus] = useLocalState(
+  const [tutorialStatus, setTutorialStatus] = useLocalState<string | null>(
     context,
     'tutorialStatus',
-    false
+    null
   );
   return (
     <Dimmer>
@@ -126,10 +126,7 @@ const LoadoutTutorialDimmer = (props, context) => {
           {tutorial_text}
         </Stack.Item>
         <Stack.Item>
-          <Button
-            mt={1}
-            align="center"
-            onClick={() => setTutorialStatus(false)}>
+          <Button mt={1} align="center" onClick={() => setTutorialStatus(null)}>
             Okay.
           </Button>
         </Stack.Item>

@@ -170,57 +170,71 @@ export const MainFeature = (
   const supplementalFeature = catalog.supplemental_feature;
 
   return (
-    <Popper
-      options={{
-        placement: 'bottom-start',
-      }}
-      popperContent={
-        isOpen && (
-          <TrackOutsideClicks onOutsideClick={props.handleClose}>
-            <ChoicedSelection
-              name={catalog.name}
-              catalog={catalog}
-              selected={currentValue}
-              supplementalFeature={supplementalFeature}
-              supplementalValue={
-                supplementalFeature &&
-                data.character_preferences.supplemental_features[
-                  supplementalFeature
-                ]
-              }
-              onClose={handleClose}
-              onSelect={handleSelect}
-            />
-          </TrackOutsideClicks>
-        )
-      }>
-      <Button
-        onClick={() => {
-          if (isOpen) {
-            handleClose();
-          } else {
-            handleOpen();
-          }
+    <Stack.Item
+      height={`${CLOTHING_CELL_SIZE + 10}px`}
+      mt={0.5}
+      pr={2}
+      pb={1}
+      ml={0}
+      width={'31.4%' /* I hate this */}
+      alternating
+      position="relative">
+      {/* And this */}
+      <Box fontSize={1.2} ml="5px" mt="1em">
+        {catalog.name}
+      </Box>
+      <Popper
+        options={{
+          placement: 'bottom-start',
         }}
-        style={{
-          height: `${CLOTHING_CELL_SIZE}px`,
-          width: `${CLOTHING_CELL_SIZE}px`,
-        }}
-        position="relative"
-        tooltip={catalog.name}
-        tooltipPosition="right">
-        <Box
-          className={classes([
-            'preferences32x32',
-            catalog.icons![currentValue],
-            'centered-image',
-          ])}
-          style={{
-            transform: 'translateX(-50%) translateY(-50%) scale(1.3)',
+        popperContent={
+          isOpen && (
+            <TrackOutsideClicks onOutsideClick={props.handleClose}>
+              <ChoicedSelection
+                name={catalog.name}
+                catalog={catalog}
+                selected={currentValue}
+                supplementalFeature={supplementalFeature}
+                supplementalValue={
+                  supplementalFeature &&
+                  data.character_preferences.supplemental_features[
+                    supplementalFeature
+                  ]
+                }
+                onClose={handleClose}
+                onSelect={handleSelect}
+              />
+            </TrackOutsideClicks>
+          )
+        }>
+        <Button
+          onClick={() => {
+            if (isOpen) {
+              handleClose();
+            } else {
+              handleOpen();
+            }
           }}
-        />
-      </Button>
-    </Popper>
+          style={{
+            'height': `${CLOTHING_CELL_SIZE}px`,
+            'width': `${CLOTHING_CELL_SIZE}px`,
+            'right': '5px',
+            'top': '5px',
+          }}
+          position="absolute">
+          <Box
+            className={classes([
+              'preferences32x32',
+              catalog.icons![currentValue],
+              'centered-image',
+            ])}
+            style={{
+              transform: 'translateX(-50%) translateY(-50%) scale(1.3)',
+            }}
+          />
+        </Button>
+      </Popper>
+    </Stack.Item>
   );
 };
 
