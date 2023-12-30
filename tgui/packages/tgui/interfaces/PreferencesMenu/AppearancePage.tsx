@@ -53,25 +53,19 @@ export const AppearancePage = (context, parentContext) => {
 
                   return (
                     catalog && (
-                      <Stack.Item
+                      <MainFeature
                         key={clothingKey}
-                        mt={0.5}
-                        pr={2}
-                        pb={1}
-                        ml={0}>
-                        <MainFeature
-                          catalog={catalog}
-                          currentValue={clothing}
-                          isOpen={currentClothingMenu === clothingKey}
-                          handleClose={() => {
-                            setCurrentClothingMenu(null);
-                          }}
-                          handleOpen={() => {
-                            setCurrentClothingMenu(clothingKey);
-                          }}
-                          handleSelect={createSetPreference(act, clothingKey)}
-                        />
-                      </Stack.Item>
+                        catalog={catalog}
+                        currentValue={clothing}
+                        isOpen={currentClothingMenu === clothingKey}
+                        handleClose={() => {
+                          setCurrentClothingMenu(null);
+                        }}
+                        handleOpen={() => {
+                          setCurrentClothingMenu(clothingKey);
+                        }}
+                        handleSelect={createSetPreference(act, clothingKey)}
+                      />
                     )
                   );
                 })}

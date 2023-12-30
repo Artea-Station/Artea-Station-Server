@@ -125,6 +125,7 @@ export const FoodPage = (props, context) => {
                   }
                   color="olive"
                   tooltip="Your character will almost immediately throw up on eating anything toxic."
+                  tooltipPosition="right"
                 />
                 <FoodButton
                   foodName={foodName}
@@ -145,6 +146,7 @@ export const FoodPage = (props, context) => {
                   }
                   color="red"
                   tooltip="Your character will become grossed out, before eventually throwing up after a decent intake of disliked food."
+                  tooltipPosition="right"
                 />
                 <FoodButton
                   foodName={foodName}
@@ -165,6 +167,7 @@ export const FoodPage = (props, context) => {
                   }
                   color="grey"
                   tooltip="Your character has very little to say about something that's neutral."
+                  tooltipPosition="right"
                 />
                 <FoodButton
                   foodName={foodName}
@@ -185,6 +188,7 @@ export const FoodPage = (props, context) => {
                   }
                   color="green"
                   tooltip="Your character will enjoy anything that's liked."
+                  tooltipPosition="right"
                 />
               </Section>
             </Box>
