@@ -5,12 +5,6 @@
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "prefered_security_department"
 
-// This is what that #warn wants you to remove :)
-/datum/preference/choiced/security_department/deserialize(input, datum/preferences/preferences)
-	if (!(input in GLOB.security_depts_prefs))
-		return SEC_DEPT_NONE
-	return ..(input, preferences)
-
 /datum/preference/choiced/security_department/init_possible_values()
 	return GLOB.security_depts_prefs
 
