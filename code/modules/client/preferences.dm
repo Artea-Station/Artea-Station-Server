@@ -279,6 +279,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if (!new_color)
 				return FALSE
 
+			// Handles turning #000000 to skin/mut color
+			if(new_color == COLOR_BLACK && !istype(requested_preference, /datum/preference/color/skin_color))
+				if(read_preference(/datum/preference/toggle/use_skin_tone))
+					new_color = skintone2hex(read_preference(/datum/preference/choiced/skin_tone))
+				else
+					new_color = read_preference(/datum/preference/color/skin_color)
+
 			if (!update_preference(requested_preference, new_color))
 				return FALSE
 
@@ -312,6 +319,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			if (!new_color)
 				return FALSE
+
+			// Handles turning #000000 to skin/mut color
+			if(new_color == COLOR_BLACK)
+				if(read_preference(/datum/preference/toggle/use_skin_tone))
+					new_color = skintone2hex(read_preference(/datum/preference/choiced/skin_tone))
+				else
+					new_color = read_preference(/datum/preference/color/skin_color)
 
 			old_value_list[index_key] = copytext(new_color, 2)
 

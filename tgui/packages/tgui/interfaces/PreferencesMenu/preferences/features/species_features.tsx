@@ -103,15 +103,11 @@ export const synth_screen_color: Feature<string> = {
 export const synth_head_color: Feature<string> = {
   name: 'Synth Head Color',
   component: FeatureTriColorInput,
-  description:
-    'Set this to 000000 to use your selected skin tone/color instead!',
 };
 
 export const synth_chassis_color: Feature<string> = {
   name: 'Synth Chassis Color',
   component: FeatureTriColorInput,
-  description:
-    'Set this to 000000 to use your selected skin tone/color instead!',
 };
 
 export const feature_hair_opacity: Feature<number> = {
