@@ -248,6 +248,16 @@
 	},
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
+"bz" = (
+/obj/machinery/airlock_sensor/incinerator_atmos{
+	pixel_y = 24
+	},
+/obj/machinery/embedded_controller/radio/airlock_controller/autoset{
+	pixel_x = -23
+	},
+/obj/effect/mapping_helpers/airlock_controller_helper/sensor,
+/turf/open/floor/iron,
+/area/station/hallway/primary/central/fore)
 "bA" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -3492,6 +3502,11 @@
 /obj/machinery/power/apc/auto_name/directional/west,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central/starboard)
+"tj" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock_controller_helper/interior,
+/turf/open/floor/iron,
+/area/station/hallway/primary/central/fore)
 "tk" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible{
 	dir = 6
@@ -5031,7 +5046,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /obj/machinery/firealarm/directional/west,
-/obj/machinery/door/airlock/glass,
 /turf/open/floor/iron,
 /area/station/hallway/primary/upper/starboard)
 "BP" = (
@@ -5052,7 +5066,6 @@
 /area/station/engineering/lobby)
 "BT" = (
 /obj/structure/cable,
-/obj/machinery/door/airlock/glass,
 /turf/open/floor/iron,
 /area/station/hallway/primary/upper/starboard)
 "BU" = (
@@ -5120,6 +5133,11 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/exit)
+"Cj" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock_controller_helper/exterior,
+/turf/open/floor/iron,
+/area/station/hallway/primary/central/fore)
 "Cl" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/cable,
@@ -5395,14 +5413,6 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/station/maintenance/disposal)
-"DP" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	shuttle_id = "largedock";
-	name = "Bearcat: Public Dock"
-	},
-/turf/open/space/openspace,
-/area/space)
 "DX" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -6206,6 +6216,13 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/station/commons/storage/cryo)
+"Iv" = (
+/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/station/hallway/primary/central/fore)
 "Iw" = (
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/cable,
@@ -6889,6 +6906,11 @@
 /obj/machinery/hydroponics/constructable,
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
+"LI" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume,
+/obj/effect/mapping_helpers/airlock_controller_helper/pump,
+/turf/open/floor/iron,
+/area/station/hallway/primary/central/fore)
 "LL" = (
 /obj/structure/closet/secure_closet/engineering_welding,
 /turf/open/floor/iron/dark,
@@ -169060,11 +169082,11 @@ NK
 NK
 NK
 NK
-NK
-NK
-NK
-NK
-NK
+sW
+sW
+sW
+sW
+sW
 NK
 NK
 NK
@@ -169317,11 +169339,11 @@ NK
 NK
 NK
 NK
-NK
-NK
-NK
-NK
-NK
+sW
+EJ
+EJ
+EJ
+sW
 NK
 NK
 NK
@@ -169574,11 +169596,11 @@ NK
 NK
 NK
 NK
-NK
-NK
-NK
-NK
-NK
+sW
+sW
+Cj
+sW
+sW
 NK
 NK
 NK
@@ -169831,11 +169853,11 @@ NK
 NK
 NK
 NK
-NK
-NK
-NK
-NK
-NK
+sW
+bz
+LI
+Iv
+sW
 NK
 NK
 NK
@@ -170088,11 +170110,11 @@ NK
 NK
 NK
 NK
-NK
-NK
-NK
-NK
-NK
+sW
+sW
+tj
+sW
+sW
 NK
 NK
 NK
@@ -170345,11 +170367,11 @@ NK
 NK
 NK
 NK
-NK
-NK
-NK
-NK
-NK
+sW
+EJ
+EJ
+EJ
+sW
 NK
 NK
 NK
@@ -170602,11 +170624,11 @@ NK
 NK
 NK
 NK
-NK
-NK
-DP
-NK
-NK
+sW
+sW
+EJ
+sW
+sW
 NK
 NK
 NK

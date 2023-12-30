@@ -31,7 +31,7 @@
 /obj/effect/mapping_helpers/airlock_controller_helper
 	name = "use the subtypes"
 	layer = DOOR_HELPER_LAYER
-	icon = ''
+	icon = 'icons/effects/airlock_helpers.dmi'
 	/// The object to scan for.
 	var/affected_type
 	/// The base tag name. Used in conjunction with controllers. Optional.
@@ -46,7 +46,9 @@
 	if(!obj_of_interest)
 		CRASH("[src] failed to find [affected_type] at [AREACOORD(src)]") // Fuck you, map properly.
 
-	var/controller = locate(/obj/machinery/embedded_controller/radio/airlock_controller/autoset)
+	controller = locate(/obj/machinery/embedded_controller/radio/airlock_controller/autoset) in get_area(src)
+	if(!controller)
+		CRASH("[src] failed to find an airlock controller at [AREACOORD(src)]")
 
 	payload(obj_of_interest)
 
@@ -56,6 +58,7 @@
 
 /obj/effect/mapping_helpers/airlock_controller_helper/interior
 	name = "interior airlock"
+	icon_state = "doorin"
 	affected_type = /obj/machinery/door/airlock
 
 /obj/effect/mapping_helpers/airlock_controller_helper/interior/payload(obj/machinery/door/airlock/airlock)
@@ -64,22 +67,28 @@
 
 /obj/effect/mapping_helpers/airlock_controller_helper/exterior
 	name = "exterior airlock"
+	icon_state = "doorout"
 	affected_type = /obj/machinery/door/airlock
 
 /obj/effect/mapping_helpers/airlock_controller_helper/exterior/payload(obj/machinery/door/airlock/airlock)
 	airlock.id_tag = "custom_airlock_exterior_[base_tag_name]"
+	airlock.frequency = controller.frequency
 
 /obj/effect/mapping_helpers/airlock_controller_helper/sensor
 	name = "airlock sensor"
+	icon_state = "sens"
 	affected_type = /obj/machinery/airlock_sensor
 
 /obj/effect/mapping_helpers/airlock_controller_helper/sensor/payload(obj/machinery/airlock_sensor/sensor)
 	sensor.id_tag = "custom_airlock_sensor_[base_tag_name]"
+	sensor.frequency = controller.frequency
 
 /obj/effect/mapping_helpers/airlock_controller_helper/pump
 	name = "airlock pump"
+	icon_state = "pump"
 	affected_type = /obj/machinery/atmospherics/components/binary/dp_vent_pump
 
 /obj/effect/mapping_helpers/airlock_controller_helper/pump/payload(obj/machinery/atmospherics/components/binary/dp_vent_pump/pump)
 	pump.id = "custom_airlock_pump_[base_tag_name]"
+	pump.frequency = controller.frequency
 
