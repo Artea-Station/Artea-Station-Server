@@ -15,6 +15,7 @@ Planetary Ruin areas
 	name = "Planetary ruin"
 	icon_state = "planet_ruin"
 	ambience_index = AMBIENCE_AWAY
+	area_flags = VALID_TERRITORY | UNIQUE_AREA
 
 /area/planet/ruin/engi_outpost
 	name = "\improper Engineering Outpost"
