@@ -113,7 +113,6 @@ GLOBAL_LIST_INIT(sprite_accessory_layers, list( \
 /datum/sprite_accessory/New()
 	. = ..()
 	if(color_src == TRI_COLOR_LAYERS)
-		color_layer_names = list()
 		if(!GLOB.cached_sprite_accessory_sprites[icon])
 			GLOB.cached_sprite_accessory_sprites[icon] = icon_states(new /icon(icon))
 		for(var/layer in GLOB.sprite_accessory_layers)

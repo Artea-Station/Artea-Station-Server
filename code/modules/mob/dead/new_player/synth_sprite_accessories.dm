@@ -6,6 +6,7 @@
 	icon = 'icons/mob/species/synth/screens.dmi'
 	gender_specific = FALSE
 	color_src = null
+	organ_type_to_use = /obj/item/organ/external/screen
 
 /datum/sprite_accessory/screen/none
 	name = "None"
@@ -148,6 +149,7 @@
 /datum/sprite_accessory/antenna
 	icon = 'icons/mob/species/synth/synth_antennas.dmi'
 	key = "synth_antenna"
+	organ_type_to_use = /obj/item/organ/external/synth_antenna
 
 /datum/sprite_accessory/antenna/none
 	name = "None"

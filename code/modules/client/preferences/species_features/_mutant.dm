@@ -9,8 +9,6 @@
 	var/color_feature_id
 	/// The global list containing the sprite accessories to use. Override New to set.
 	var/list/sprite_accessory
-	/// The typepath of the external organ to add.
-	var/organ_to_add
 	/// Direction to render the preview on. Can take NORTH, SOUTH, EAST, WEST.
 	var/sprite_direction = SOUTH
 	/// A list of types to exclude, including their subtypes.
@@ -24,13 +22,14 @@
 
 /datum/preference/choiced/mutant/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	target.dna.features[relevant_mutant_bodypart] = value
-	if(organ_to_add)
-		var/datum/sprite_accessory/accessory = sprite_accessory[value]
+
+	var/datum/sprite_accessory/accessory = sprite_accessory[value]
+	if(accessory.organ_type_to_use)
 		if(!accessory)
 			CRASH("Accessory is null for [value]!")
 		if(accessory.name == "None" || !is_accessible(preferences))
 			return
-		var/obj/item/organ/external/new_organ_to_add = new organ_to_add(FALSE, accessory.type)
+		var/obj/item/organ/external/new_organ_to_add = new accessory.organ_type_to_use(FALSE, accessory.type)
 		new_organ_to_add.Insert(target, TRUE, FALSE)
 
 /datum/preference/choiced/mutant/is_accessible(datum/preferences/preferences)

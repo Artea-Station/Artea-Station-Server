@@ -134,10 +134,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Curator"
 	icon_state = "Curator"
 
-/obj/effect/landmark/start/lawyer
-	name = "Lawyer"
-	icon_state = "Lawyer"
-
 /obj/effect/landmark/start/station_engineer
 	name = "Station Engineer"
 	icon_state = "Station Engineer"
@@ -610,9 +606,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 
 /obj/effect/landmark/navigate_destination/janitor
 	location = "Janitor's Closet"
-
-/obj/effect/landmark/navigate_destination/lawyer
-	location = "Lawyer's Office"
 
 //Shuttle docks
 /obj/effect/landmark/navigate_destination/dockarrival
