@@ -555,9 +555,9 @@
 					if(!M.client)
 						continue
 					if(M in can_see_target)
-						to_chat(M, span_subtle("\The [usr] looks at \the [examinify]"))
+						to_chat(M, span_examine("\The [usr] looks at \the [examinify]"))
 					else
-						to_chat(M, span_subtle("\The [usr] intently looks at something..."))
+						to_chat(M, span_examine("\The [usr] intently looks at something..."))
 	else
 		result = examinify.examine(src) // if a tree is examined but no client is there to see it, did the tree ever really exist?
 
