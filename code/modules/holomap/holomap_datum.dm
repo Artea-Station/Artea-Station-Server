@@ -125,7 +125,7 @@
 		return
 
 	UnregisterSignal(watching_mob, COMSIG_MOVABLE_MOVED)
-	playsound(src, 'sound/machines/holomap/holomap_close.ogg', 125)
+	playsound(station_map, 'sound/machines/holomap/holomap_close.ogg', 125)
 	if(watching_mob?.client)
 		animate(base_map, alpha = 0, time = 5, easing = LINEAR_EASING)
 		spawn(5) //we give it time to fade out
