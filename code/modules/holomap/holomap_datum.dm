@@ -120,7 +120,7 @@
 
 	return TRUE
 
-/datum/station_holomap/proc/close_holomap()
+/datum/station_holomap/proc/close_holomap(obj/machinery/holomap/station_map)
 	if(!watching_mob)
 		return
 

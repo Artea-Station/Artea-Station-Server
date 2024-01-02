@@ -65,7 +65,7 @@
 
 /obj/machinery/holomap/attack_hand(mob/user)
 	if(user && user == holomap_datum?.watching_mob)
-		holomap_datum.close_holomap(user)
+		holomap_datum.close_holomap(src)
 		return
 
 	holomap_datum.open_holomap(user, src)
@@ -107,7 +107,7 @@
 		close_map(watching_mob)
 
 /obj/machinery/holomap/proc/close_map()
-	if(holomap_datum.close_holomap())
+	if(holomap_datum.close_holomap(src))
 		icon_state = initial(icon_state)
 		set_light(HOLOMAP_LOW_LIGHT)
 
