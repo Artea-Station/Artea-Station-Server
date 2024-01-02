@@ -17,14 +17,14 @@ type AirlockStatus = {
 };
 
 export const AirlockController = (props, context) => {
-  const { data } = useBackend<AirlockControllerData>(context);
+  const { act, data } = useBackend<AirlockControllerData>(context);
   const { airlockState, pumpStatus, interiorStatus, exteriorStatus } = data;
   const currentStatus: AirlockStatus = getAirlockStatus(airlockState);
   const nameToUpperCase = (str: string) =>
     str.replace(/^\w/, (c) => c.toUpperCase());
 
   return (
-    <Window width={500} height={190}>
+    <Window width={580} height={190}>
       <Window.Content>
         <Section title="Airlock Status" buttons={<AirLockButtons />}>
           <LabeledList>
@@ -41,10 +41,20 @@ export const AirlockController = (props, context) => {
               <Box color={interiorStatus === 'open' && 'good'}>
                 {nameToUpperCase(interiorStatus)}
               </Box>
+              <Box inline>
+                <Button icon="lock" onClick={() => act('forceExterior')}>
+                  Force
+                </Button>
+              </Box>
             </LabeledList.Item>
             <LabeledList.Item label="Exterior Door">
               <Box color={exteriorStatus === 'open' && 'good'}>
                 {nameToUpperCase(exteriorStatus)}
+              </Box>
+              <Box inline>
+                <Button icon="lock" onClick={() => act('forceInterior')}>
+                  Force
+                </Button>
               </Box>
             </LabeledList.Item>
           </LabeledList>
@@ -96,6 +106,17 @@ const AirLockButtons = (props, context) => {
           </Button>
           <Button icon="sync" onClick={() => act('cycleInterior')}>
             Cycle to Interior Airlock
+          </Button>
+        </>
+      );
+    case 'open':
+      return (
+        <>
+          <Button icon="lock" onClick={() => act('cycleClosed')}>
+            Close Exterior Airlock
+          </Button>
+          <Button icon="lock" onClick={() => act('cycleInterior')}>
+            Close Interior Airlock
           </Button>
         </>
       );
