@@ -95,7 +95,7 @@
 
 	update_map(overlays_to_use = list("" = list("icon" = legend)))
 
-/datum/station_holomap/proc/open_holomap(mob/user)
+/datum/station_holomap/proc/open_holomap(mob/user, obj/machinery/holomap/station_map)
 	if(!user)
 		return FALSE
 
@@ -103,10 +103,10 @@
 	base_map.loc = user_hud.holomap  // Put the image on the holomap hud
 	base_map.alpha = 0 // Set to transparent so we can fade in
 
-	playsound(src, 'sound/machines/holomap/holomap_open.ogg', 125)
+	playsound(station_map, 'sound/machines/holomap/holomap_open.ogg', 125)
 	animate(base_map, alpha = 255, time = 5, easing = LINEAR_EASING)
 
-	user.hud_used.holomap.used_station_map = src
+	user.hud_used.holomap.used_station_map = station_map
 	user.hud_used.holomap.mouse_opacity = MOUSE_OPACITY_ICON
 	user.client.screen |= user.hud_used.holomap
 	user.client.images |= base_map

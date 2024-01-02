@@ -68,7 +68,7 @@
 		holomap_datum.close_holomap(user)
 		return
 
-	holomap_datum.open_holomap(user)
+	holomap_datum.open_holomap(user, src)
 
 /// Tries to open the map for the given mob. Returns FALSE if it doesn't meet the criteria, TRUE if the map successfully opened with no runtimes.
 /obj/machinery/holomap/proc/open_map(mob/user)
@@ -82,7 +82,7 @@
 
 	holomap_datum.update_map(handle_overlays())
 
-	if(holomap_datum.open_holomap(user))
+	if(holomap_datum.open_holomap(user, src))
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_position))
 		icon_state = "[initial(icon_state)]_active"
 		set_light(HOLOMAP_HIGH_LIGHT)
