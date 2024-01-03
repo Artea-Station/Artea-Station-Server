@@ -15,14 +15,19 @@ export const AirlockController = (props, context) => {
   const bars = [
     {
       minValue: 0,
-      maxValue: 202,
+      maxValue:
+        data.chamberPressure < 102
+          ? 102
+          : data.chamberPressure < 325
+            ? 325
+            : 550,
       value: data.chamberPressure,
       label: 'Chamber Pressure',
       textValue: data.chamberPressure + ' kPa',
       color: (value) => {
-        return value < 80 || value > 120
+        return value < 80 || value > 550
           ? 'bad'
-          : value < 95 || value > 110
+          : value < 95 || value > 325
             ? 'average'
             : 'good';
       },
