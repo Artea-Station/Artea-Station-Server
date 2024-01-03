@@ -8,7 +8,6 @@ import { Window } from '../layouts';
  * Simple airlock consoles are the least complicated airlock controller.
  * They show the current chamber pressure, two cycle buttons, and two
  * force door buttons. That's it.
- * Replaces simple_airlock_console.tmpl
  */
 export const AirlockController = (props, context) => {
   const { act, data } = useBackend<AirlockControllerData>(context);
