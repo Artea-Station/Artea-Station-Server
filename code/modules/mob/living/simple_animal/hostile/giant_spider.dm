@@ -37,7 +37,7 @@
 	melee_damage_lower = 20
 	melee_damage_upper = 25
 	combat_mode = TRUE
-	faction = list("spiders")
+	faction = list("spiders", "planet")
 	pass_flags = PASSTABLE
 	move_to_delay = 6
 	attack_verb_continuous = "bites"
