@@ -166,24 +166,22 @@
 					process_again = TRUE
 
 			if(AIRLOCK_STATE_CLOSED)
-				if(target_state == AIRLOCK_STATE_OUTOPEN)
-					if(memory["interior_status"] == "closed")
-						state = AIRLOCK_STATE_DEPRESSURIZE
-						process_again = TRUE
-					else
-						post_signal(new /datum/signal(list(
-							"tag" = interior_door_tag,
-							"command" = "secure_close"
-						)))
-				else if(target_state == AIRLOCK_STATE_INOPEN)
-					if(memory["exterior_status"] == "closed")
-						state = AIRLOCK_STATE_PRESSURIZE
-						process_again = TRUE
-					else
-						post_signal(new /datum/signal(list(
-							"tag" = exterior_door_tag,
-							"command" = "secure_close"
-						)))
+				if(memory["interior_status"] == "closed")
+					state = AIRLOCK_STATE_DEPRESSURIZE
+					process_again = TRUE
+				else
+					post_signal(new /datum/signal(list(
+						"tag" = interior_door_tag,
+						"command" = "secure_close"
+					)))
+				if(memory["exterior_status"] == "closed")
+					state = AIRLOCK_STATE_PRESSURIZE
+					process_again = TRUE
+				else
+					post_signal(new /datum/signal(list(
+						"tag" = exterior_door_tag,
+						"command" = "secure_close"
+					)))
 
 				else
 					if(memory["pump_status"] != "off")
@@ -246,9 +244,8 @@
 							"sigtype" = "command"
 						)))
 
-	memory["sensor_pressure"] = sensor_pressure
+	memory["chamberPressure"] = sensor_pressure
 	memory["processing"] = state != target_state
-	//sensor_pressure = null //not sure if we can comment this out. Uncomment in case of problems -rastaf0
 
 	return TRUE
 
@@ -289,10 +286,13 @@
 /obj/machinery/embedded_controller/radio/airlock_controller/ui_data(mob/user)
 	var/list/data = list()
 	data["airlockState"] = program.state
-	data["sensorPressure"] = program.memory["sensor_pressure"] ? program.memory["sensor_pressure"] : "----"
-	data["exteriorStatus"] = program.memory["exterior_status"] ? program.memory["exterior_status"] : "----"
-	data["interiorStatus"] = program.memory["interior_status"] ? program.memory["interior_status"] : "----"
-	data["pumpStatus"] = program.memory["pump_status"] ? program.memory["pump_status"] : "----"
+	data["chamberPressure"] = program.memory["chamberPressure"]
+	data["interiorPressure"] = program.memory["interior_pressure"]
+	data["exteriorPressure"] = program.memory["exterior_pressure"]
+	data["exteriorStatus"] = program.memory["exterior_status"]
+	data["interiorStatus"] = program.memory["interior_status"]
+	data["pumpStatus"] = program.memory["pump_status"]
+	data["airlockDisabled"] = machine_stat & MAINT
 	return data
 
 /obj/machinery/embedded_controller/radio/airlock_controller/ui_act(action, params)
