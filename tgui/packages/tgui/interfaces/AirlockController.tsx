@@ -88,6 +88,7 @@ type AirlockControllerData = {
   airlockDisabled: BooleanLike;
   externalPressure: number;
   internalPressure: number;
+  processing: BooleanLike;
 };
 
 /**
@@ -100,7 +101,7 @@ export const StandardControls = (props, context) => {
   const { data, act } = useBackend<AirlockControllerData>(context);
 
   let externalForceSafe = true;
-  if (data.interiorStatus === 'open') {
+  if (data.processing) {
     externalForceSafe = false;
   } else if (data.externalPressure && data.chamberPressure) {
     externalForceSafe = !(
@@ -109,7 +110,7 @@ export const StandardControls = (props, context) => {
   }
 
   let internalForceSafe = true;
-  if (data.exteriorStatus === 'open') {
+  if (data.processing) {
     internalForceSafe = false;
   } else if (data.internalPressure && data.chamberPressure) {
     internalForceSafe = !(

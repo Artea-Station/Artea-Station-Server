@@ -12,11 +12,12 @@
 	var/interior_door_tag //Station facing door
 	var/airpump_tag //See: dp_vent_pump.dm
 	var/sensor_tag //See: /obj/machinery/airlock_sensor
+	var/exterior_sensor_tag //See: /obj/machinery/airlock_sensor
+	var/interior_sensor_tag //See: /obj/machinery/airlock_sensor
 	var/sanitize_external //Before the interior airlock opens, do we first drain all gases inside the chamber and then repressurize?
 
 	state = AIRLOCK_STATE_CLOSED
 	var/target_state = AIRLOCK_STATE_CLOSED
-	var/sensor_pressure = null
 
 /datum/computer/file/embedded_program/airlock_controller/receive_signal(datum/signal/signal)
 	var/receive_tag = signal.data["tag"]
@@ -25,7 +26,15 @@
 
 	if(receive_tag==sensor_tag)
 		if(signal.data["pressure"])
-			sensor_pressure = text2num(signal.data["pressure"])
+			memory["chamber_pressure"] = text2num(signal.data["pressure"])
+
+	if(receive_tag==exterior_sensor_tag)
+		if(signal.data["pressure"])
+			memory["exterior_pressure"] = text2num(signal.data["pressure"])
+
+	if(receive_tag==interior_sensor_tag)
+		if(signal.data["pressure"])
+			memory["interior_pressure"] = text2num(signal.data["pressure"])
 
 	else if(receive_tag==exterior_door_tag)
 		memory["exterior_status"] = signal.data["door_status"]
@@ -88,6 +97,7 @@
 
 /datum/computer/file/embedded_program/airlock_controller/process()
 	var/process_again = TRUE
+	var/sensor_pressure = memory["chamber_pressure"]
 	while(process_again)
 		process_again = FALSE
 		switch(state)
@@ -165,23 +175,32 @@
 					state = AIRLOCK_STATE_CLOSED
 					process_again = TRUE
 
-			if(AIRLOCK_STATE_CLOSED)
-				if(memory["interior_status"] == "closed")
-					state = AIRLOCK_STATE_DEPRESSURIZE
-					process_again = TRUE
-				else
-					post_signal(new /datum/signal(list(
-						"tag" = interior_door_tag,
-						"command" = "secure_close"
-					)))
-				if(memory["exterior_status"] == "closed")
-					state = AIRLOCK_STATE_PRESSURIZE
-					process_again = TRUE
-				else
-					post_signal(new /datum/signal(list(
-						"tag" = exterior_door_tag,
-						"command" = "secure_close"
-					)))
+				if(target_state == AIRLOCK_STATE_OUTOPEN)
+					if(memory["interior_status"] == "closed")
+						state = AIRLOCK_STATE_DEPRESSURIZE
+						process_again = TRUE
+					else
+						post_signal(new /datum/signal(list(
+							"tag" = interior_door_tag,
+							"command" = "secure_close"
+						)))
+						post_signal(new /datum/signal(list(
+							"tag" = exterior_door_tag,
+							"command" = "secure_close"
+						)))
+				else if(target_state == AIRLOCK_STATE_INOPEN)
+					if(memory["exterior_status"] == "closed")
+						state = AIRLOCK_STATE_PRESSURIZE
+						process_again = TRUE
+					else
+						post_signal(new /datum/signal(list(
+							"tag" = interior_door_tag,
+							"command" = "secure_close"
+						)))
+						post_signal(new /datum/signal(list(
+							"tag" = exterior_door_tag,
+							"command" = "secure_close"
+						)))
 
 				else
 					if(memory["pump_status"] != "off")
@@ -244,7 +263,6 @@
 							"sigtype" = "command"
 						)))
 
-	memory["chamberPressure"] = sensor_pressure
 	memory["processing"] = state != target_state
 
 	return TRUE
@@ -286,13 +304,14 @@
 /obj/machinery/embedded_controller/radio/airlock_controller/ui_data(mob/user)
 	var/list/data = list()
 	data["airlockState"] = program.state
-	data["chamberPressure"] = program.memory["chamberPressure"]
+	data["chamberPressure"] = program.memory["chamber_pressure"]
 	data["interiorPressure"] = program.memory["interior_pressure"]
 	data["exteriorPressure"] = program.memory["exterior_pressure"]
 	data["exteriorStatus"] = program.memory["exterior_status"]
 	data["interiorStatus"] = program.memory["interior_status"]
 	data["pumpStatus"] = program.memory["pump_status"]
 	data["airlockDisabled"] = machine_stat & MAINT
+	data["processing"] = program.memory["processing"]
 	return data
 
 /obj/machinery/embedded_controller/radio/airlock_controller/ui_act(action, params)
