@@ -54,7 +54,7 @@
 		pack_type = pick(stray_spawnable_supply_packs)
 	var/datum/supply_pack/SP = SStrading.supply_packs["[pack_type]"]
 	var/obj/structure/closet/crate/crate = SP.generate(null)
-	if(crate) //empty supply packs are a thing! get memed on.
+	if(istype(crate)) //empty supply packs are a thing! get memed on.
 		crate.locked = FALSE //Unlock secure crates
 		crate.update_appearance()
 	var/obj/structure/closet/supplypod/pod = make_pod()
