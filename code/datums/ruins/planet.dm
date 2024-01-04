@@ -13,6 +13,14 @@
 	cost = 10
 	allow_duplicates = FALSE
 
+/datum/map_template/ruin/planet/crashedshuttle
+	name = "Crashed Shuttle"
+	id = "crashedshuttle"
+	description = "A shuttle that met an unfortunate end on a planet."
+	suffix = "planet_ruin_crashedshuttle.dmm"
+	cost = 10
+	allow_duplicates = FALSE
+
 /*
 DO NOT ADD THIS TO THE LIST, IT NEEDS MAPPING WORK DONE ON IT!!!!
 /datum/map_template/ruin/planet/plasma_facility

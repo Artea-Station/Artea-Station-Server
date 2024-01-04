@@ -79,6 +79,9 @@
 /turf/open/floor/mineral/titanium/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
+/turf/open/floor/mineral/titanium/icemoon
+	initial_gas_mix = PLANETARY_ATMOS
+
 /turf/open/floor/mineral/titanium/yellow
 	icon_state = "titanium_yellow"
 	floor_tile = /obj/item/stack/tile/mineral/titanium/yellow
@@ -169,6 +172,9 @@
 
 /turf/open/floor/mineral/plastitanium/red/airless
 	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/floor/mineral/plastitanium/red/icemoon
+	initial_gas_mix = PLANETARY_ATMOS
 
 //Used in SnowCabin.dm
 /turf/open/floor/mineral/plastitanium/red/snow_cabin

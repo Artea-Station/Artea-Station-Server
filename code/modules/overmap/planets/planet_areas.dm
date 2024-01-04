@@ -20,6 +20,9 @@ Planetary Ruin areas
 /area/planet/ruin/engi_outpost
 	name = "\improper Engineering Outpost"
 
+/area/planet/ruin/crashed_shuttle
+	name = "\improper Crashed Shuttle"
+
 /*
 Barren planet areas
 */
