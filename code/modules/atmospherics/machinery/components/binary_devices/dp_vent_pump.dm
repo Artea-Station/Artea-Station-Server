@@ -18,8 +18,6 @@
 
 	///Variable for radio frequency
 	var/frequency = 0
-	///Variable for radio id
-	var/id = null
 	///Stores the radio connection
 	var/datum/radio_frequency/radio_connection
 	///Indicates that the direction of the pump, if 0 is siphoning, if 1 is releasing
@@ -131,7 +129,7 @@
 		return
 
 	var/datum/signal/signal = new(list(
-		"tag" = id,
+		"tag" = id_tag,
 		"device" = "ADVP",
 		"power" = on,
 		"direction" = pump_direction?("release"):("siphon"),
@@ -150,7 +148,7 @@
 	broadcast_status()
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/receive_signal(datum/signal/signal)
-	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
+	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
 		return
 
 	if("power" in signal.data)
@@ -220,15 +218,15 @@
 	icon_state = "dpvent_map_on-4"
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_ordmix
-	id = INCINERATOR_ORDMIX_DP_VENTPUMP
+	id_tag = INCINERATOR_ORDMIX_DP_VENTPUMP
 	frequency = FREQ_AIRLOCK_CONTROL
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_atmos
-	id = INCINERATOR_ATMOS_DP_VENTPUMP
+	id_tag = INCINERATOR_ATMOS_DP_VENTPUMP
 	frequency = FREQ_AIRLOCK_CONTROL
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_syndicatelava
-	id = INCINERATOR_SYNDICATELAVA_DP_VENTPUMP
+	id_tag = INCINERATOR_SYNDICATELAVA_DP_VENTPUMP
 	frequency = FREQ_AIRLOCK_CONTROL
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/layer2
