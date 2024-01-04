@@ -187,6 +187,9 @@
 /turf/open/floor/iron/dark/corner/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
+/turf/open/floor/iron/dark/icemoon
+	initial_gas_mix = PLANETARY_ATMOS
+
 /turf/open/floor/iron/checker/airless
 	initial_gas_mix = AIRLESS_ATMOS
 

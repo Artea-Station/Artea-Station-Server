@@ -21,6 +21,14 @@
 	cost = 10
 	allow_duplicates = FALSE
 
+/datum/map_template/ruin/planet/mining_facility
+	name = "Mining Facility"
+	id = "miningfacility"
+	description = "An old mining facility, long abandoned and forgotten, its crew left to an unfortunate fate."
+	suffix = "planet_ruin_mining_facility.dmm"
+	cost = 10
+	allow_duplicates = FALSE
+
 /*
 DO NOT ADD THIS TO THE LIST, IT NEEDS MAPPING WORK DONE ON IT!!!!
 /datum/map_template/ruin/planet/plasma_facility

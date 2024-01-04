@@ -191,6 +191,9 @@
 	name = "air floor"
 	initial_gas_mix = ATMOS_TANK_AIRMIX
 
+/turf/open/floor/engine/icemoon
+	initial_gas_mix = PLANETARY_ATMOS
+
 
 
 /turf/open/floor/engine/cult

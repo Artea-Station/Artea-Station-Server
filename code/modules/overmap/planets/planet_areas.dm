@@ -23,6 +23,9 @@ Planetary Ruin areas
 /area/planet/ruin/crashed_shuttle
 	name = "\improper Crashed Shuttle"
 
+/area/planet/ruin/mining_facility
+	name = "\improper Mining Facility"
+
 /*
 Barren planet areas
 */
