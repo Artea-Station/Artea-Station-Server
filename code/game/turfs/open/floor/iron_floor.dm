@@ -296,6 +296,9 @@
 /turf/open/floor/iron/recharge_floor/Airless
 	initial_gas_mix = AIRLESS_ATMOS
 
+/turf/open/floor/iron/recharge_floor/icemoon
+	initial_gas_mix = PLANETARY_ATMOS
+
 /turf/open/floor/iron/recharge_floor/asteroid
 	icon_state = "recharge_floor_asteroid"
 	base_icon_state = "recharge_floor_asteroid"
