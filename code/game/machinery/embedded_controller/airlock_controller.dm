@@ -19,9 +19,8 @@
 	var/sanitize_external //Before the interior airlock opens, do we first drain all gases inside the chamber and then repressurize?
 
 	/// If set to TRUE, enables opening both sides at once outside of maintenance and emag modes.
+	/// Also enables firelock functionality. If one of the sensors are tripped, it closes the side that's fucked.
 	var/is_hallway = FALSE
-	/// If one of the sensors are tripped, engage firelock mode, and close the side that's fucked.
-	var/is_firelock = FALSE
 
 	state = AIRLOCK_STATE_CLOSED
 	var/target_state = AIRLOCK_STATE_CLOSED
@@ -36,19 +35,10 @@
 			memory["chamber_pressure"] = text2num(signal.data["pressure"])
 
 	else if(receive_tag==exterior_sensor_tag)
-		handle_pressure("exterior_pressure")
+		handle_pressure(signal.data["pressure"], "exterior_pressure")
 
 	else if(receive_tag==interior_sensor_tag)
-		if(signal.data["pressure"])
-			var/int_pressure = text2num(signal.data["pressure"])
-			var/old_int_pressure = memory["interior_pressure"]
-			memory["exterior_pressure"] = int_pressure
-			// Don't trip if not a firelock, and also don't constantly close yourself after initially doing so. Let the crew die if they force it open.
-			if(!is_firelock || old_int_pressure > WARNING_HIGH_PRESSURE || old_int_pressure < WARNING_LOW_PRESSURE)
-				return
-
-			if(int_pressure > WARNING_HIGH_PRESSURE || int_pressure < WARNING_LOW_PRESSURE)
-				target_state = AIRLOCK_STATE_CLOSED
+		handle_pressure(signal.data["pressure"], "interior_pressure")
 
 	else if(receive_tag==exterior_door_tag)
 		memory["exterior_status"] = signal.data["door_status"]
@@ -77,6 +67,10 @@
 	if(!isnum(pressure))
 		pressure = text2num(pressure)
 
+	if(!is_hallway) // Non-hallways don't try to act like a firelock.
+		memory["chamber_pressure"] = pressure
+		return
+
 	var/old_ext_pressure = memory["exterior_pressure"]
 	var/old_int_pressure = memory["interior_pressure"]
 	var/old_chm_pressure = memory["chamber_pressure"]
@@ -85,8 +79,8 @@
 	var/is_old_chm_bad = IS_AIR_BAD(old_chm_pressure)
 	memory[memory_index] = pressure
 
-	// Don't trip if not a firelock, and also don't constantly close yourself after initially doing so. Let the crew die if they force open.
-	if(!is_firelock || is_old_ext_bad || is_old_int_bad || is_old_chm_bad)
+	// Don't constantly close yourself after initially doing so. Let the crew die if they force open.
+	if(is_old_ext_bad || is_old_int_bad || is_old_chm_bad)
 		return
 
 	var/is_bad_air = pressure > WARNING_HIGH_PRESSURE || pressure < WARNING_LOW_PRESSURE
