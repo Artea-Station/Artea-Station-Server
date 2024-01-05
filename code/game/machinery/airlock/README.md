@@ -1,9 +1,7 @@
 ## Airlocks and You
 ###### The cumulation of my hatred for TG magic locks.
 
-So, you want an airlock? Fuck you. You have to manually set a bunch of vars, unless you're happy with the compromise of magic airlocks, neither of which can be rebuilt. Ew.
-
-Anyways, so here's how the new system works:
+Here's how the new system works:
 
 1. Place down two doors in a hallway/either side of a room. 
 2. **Make sure the airlock doesn't share an area with another.**

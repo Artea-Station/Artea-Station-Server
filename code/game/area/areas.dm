@@ -121,7 +121,7 @@
 	var/allow_door_remotes = FALSE
 
 	/// The airlock controller in this area. Used by mapped custom controllers to yell at mappers.
-	var/obj/machinery/embedded_controller/radio/airlock_controller/airlock_controller
+	var/obj/machinery/airlock_controller/airlock_controller
 
 /**
  * A list of teleport locations
