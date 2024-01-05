@@ -35,7 +35,7 @@
 	var/datum/looping_sound/sound_loop
 
 /obj/machinery/portable_atmospherics/scrubber/New(loc, ...)
-	sound_loop = new /datum/looping_sound/air_pump(src)
+	sound_loop = new /datum/looping_sound/air_pump(src, FALSE)
 	sound_loop.volume = 25 // This is loud.
 	sound_loop.falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE
 	. = ..()
