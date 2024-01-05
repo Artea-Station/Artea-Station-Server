@@ -70,6 +70,7 @@
 /datum/biome/chlorine_desert
 	turf_type = /turf/open/misc/planetary/chlorine_sand
 	fauna_density = 0.5
+
 	fauna_weight_types = list(
 		/mob/living/simple_animal/hostile/planet/jelly = 100,
 		/mob/living/simple_animal/tindalos = 50,
@@ -125,7 +126,7 @@
 
 /datum/planet_template/chlorine_planet/SeedRuins(list/z_levels)
 	var/list/planet_ruins = SSmapping.levels_by_trait(ZTRAIT_PLANET_RUINS)
-	//Only account for the levels we loaded, in case we load 2 lavalands
+	//Only account for the levels we loaded, in case we load 2
 	for(var/i in planet_ruins)
 		if(!(i in z_levels))
 			planet_ruins -= i

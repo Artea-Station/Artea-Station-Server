@@ -56,6 +56,9 @@
 
 /datum/biome/grass_tundra
 	turf_type = /turf/open/misc/planetary/grass
+	flora_density = 12
+	fauna_density = 0.5
+
 	flora_types = list(
 		/obj/structure/flora/planetary/firstbush,
 		/obj/structure/flora/planetary_grass/sparsegrass,
@@ -70,8 +73,7 @@
 		/obj/structure/flora/tree/pine,
 		/obj/structure/flora/rock/pile/icy
 	)
-	flora_density = 30
-	fauna_density = 0.5
+
 	fauna_weight_types = list(
 		/mob/living/simple_animal/hostile/planet/samak = 1,
 		/mob/living/simple_animal/hostile/planet/diyaab = 1,
@@ -80,6 +82,9 @@
 
 /datum/biome/snow
 	turf_type = /turf/open/misc/planetary/snow
+	flora_density = 12
+	fauna_density = 0.5
+
 	flora_types = list(
 		/obj/structure/flora/planetary_grass/sparsegrass,
 		/obj/structure/flora/grass,/obj/structure/flora/grass/brown,
@@ -90,8 +95,7 @@
 		/obj/structure/flora/rock/pile/icy,
 		/obj/structure/flora/rock/icy,
 	)
-	flora_density = 12
-	fauna_density = 0.5
+
 	fauna_weight_types = list(
 		/mob/living/simple_animal/hostile/planet/samak = 100,
 		/mob/living/simple_animal/hostile/planet/diyaab = 100,

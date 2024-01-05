@@ -55,6 +55,9 @@
 
 /datum/biome/grass
 	turf_type = /turf/open/misc/planetary/grass
+	flora_density = 7
+	fauna_density = 0.5
+
 	flora_types = list(
 		/obj/structure/flora/tree/jungle,
 		/obj/structure/flora/planetary/palebush,
@@ -71,8 +74,7 @@
 		/obj/structure/flora/planetary_grass/sparsegrass,
 		/obj/structure/flora/planetary_grass/fullgrass,
 	)
-	flora_density = 7
-	fauna_density = 0.5
+
 	fauna_weight_types = list(
 		/mob/living/simple_animal/tindalos = 1,
 		/mob/living/simple_animal/yithian = 1,

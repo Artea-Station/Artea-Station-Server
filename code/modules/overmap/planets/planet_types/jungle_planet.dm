@@ -48,16 +48,19 @@
 
 /datum/biome/mudlands
 	turf_type = /turf/open/misc/dirt/jungle/dark
+	flora_density = 3
+
 	flora_types = list(
 		/obj/structure/flora/grass/jungle,
 		/obj/structure/flora/grass/jungle/b/style_random,
 		/obj/structure/flora/rock/pile/jungle,
 		/obj/structure/flora/rock/pile/jungle/large,
 	)
-	flora_density = 3
 
 /datum/biome/plains
 	turf_type = /turf/open/misc/grass/jungle
+	flora_density = 15
+
 	flora_types = list(
 		/obj/structure/flora/grass/jungle,
 		/obj/structure/flora/grass/jungle/b/style_random,
@@ -69,10 +72,12 @@
 		/obj/structure/flora/bush/large/style_random,
 		/obj/structure/flora/rock/pile/jungle/large/style_random,
 	)
-	flora_density = 15
 
 /datum/biome/jungle
 	turf_type = /turf/open/misc/grass/jungle
+	flora_density = 40
+	fauna_density = 0.5
+
 	flora_types = list(
 		/obj/structure/flora/grass/jungle,
 		/obj/structure/flora/grass/jungle/b/style_random,
@@ -84,8 +89,7 @@
 		/obj/structure/flora/bush/large/style_random,
 		/obj/structure/flora/rock/pile/jungle/large/style_random,
 	)
-	flora_density = 40
-	fauna_density = 0.5
+
 	fauna_weight_types = list(
 		/mob/living/simple_animal/hostile/jungle/leaper = 100,
 		/mob/living/simple_animal/hostile/jungle/mega_arachnid = 100,
@@ -96,6 +100,7 @@
 /datum/biome/jungle/deep
 	flora_density = 65
 	fauna_density = 0.5
+
 	fauna_weight_types = list(
 		/mob/living/simple_animal/hostile/jungle/leaper = 100,
 		/mob/living/simple_animal/hostile/jungle/mega_arachnid = 100,
@@ -126,7 +131,7 @@
 
 /datum/planet_template/jungle_planet/SeedRuins(list/z_levels)
 	var/list/planet_ruins = SSmapping.levels_by_trait(ZTRAIT_PLANET_RUINS)
-	//Only account for the levels we loaded, in case we load 2 lavalands
+	//Only account for the levels we loaded, in case we load 2
 	for(var/i in planet_ruins)
 		if(!(i in z_levels))
 			planet_ruins -= i

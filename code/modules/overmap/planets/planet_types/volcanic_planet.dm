@@ -49,6 +49,9 @@
 
 /datum/biome/basalt
 	turf_type = /turf/open/misc/asteroid/basalt
+	flora_density = 7
+	fauna_density = 0.5
+
 	flora_types = list(
 		/obj/structure/flora/rock,
 		/obj/structure/flora/rock/pile,
@@ -58,8 +61,7 @@
 		/obj/structure/flora/ash/stem_shroom,
 		/obj/structure/flora/ash/cacti,
 	)
-	flora_density = 7
-	fauna_density = 0.5
+
 	fauna_weight_types = list(
 		/mob/living/simple_animal/hostile/megafauna/dragon = 4,
 		/mob/living/simple_animal/hostile/planet/charbaby = 100,
@@ -91,7 +93,7 @@
 
 /datum/planet_template/volcanic_planet/SeedRuins(list/z_levels)
 	var/list/planet_ruins = SSmapping.levels_by_trait(ZTRAIT_PLANET_RUINS)
-	//Only account for the levels we loaded, in case we load 2 lavalands
+	//Only account for the levels we loaded, in case we load 2
 	for(var/i in planet_ruins)
 		if(!(i in z_levels))
 			planet_ruins -= i
