@@ -15,6 +15,7 @@
 
 	name = "airlock console"
 	density = FALSE
+	processing_flags = START_PROCESSING_MANUALLY
 
 	var/frequency = FREQ_AIRLOCK_CONTROL
 	var/datum/radio_frequency/radio_connection
@@ -47,6 +48,7 @@
 
 /obj/machinery/airlock_controller/Initialize(mapload)
 	. = ..()
+	START_PROCESSING(SSairlocks, src)
 	if(!mapload)
 		return // Placed by crew. They need to configure this themselves.
 
@@ -56,9 +58,9 @@
 
 /obj/machinery/airlock_controller/update_icon_state()
 	if(machine_stat & NOPOWER)
+		icon_state = "[base_icon_state]_off"
+	else
 		icon_state = "[base_icon_state]_[memory["processing"] ? "process" : "standby"]"
-		return ..()
-	icon_state = "[base_icon_state]_off"
 	return ..()
 
 /obj/machinery/airlock_controller/Topic(href, href_list) // needed to override obj/machinery/embedded_controller/Topic, dont think its actually used in game other than here but the code is still here
@@ -138,18 +140,23 @@
 	if(receive_tag==sensor_tag)
 		if(signal.data["pressure"])
 			memory["chamber_pressure"] = text2num(signal.data["pressure"])
+			SStgui.update_uis(src)
 
 	else if(receive_tag==exterior_sensor_tag)
 		handle_pressure(signal.data["pressure"], "exterior_pressure")
+		SStgui.update_uis(src)
 
 	else if(receive_tag==interior_sensor_tag)
 		handle_pressure(signal.data["pressure"], "interior_pressure")
+		SStgui.update_uis(src)
 
 	else if(receive_tag==exterior_door_tag)
 		memory["exterior_status"] = signal.data["door_status"]
+		SStgui.update_uis(src)
 
 	else if(receive_tag==interior_door_tag)
 		memory["interior_status"] = signal.data["door_status"]
+		SStgui.update_uis(src)
 
 	else if(receive_tag==airpump_tag)
 		if(signal.data["power"])
@@ -201,6 +208,7 @@
 		set_light(l_power = 0.8)
 
 /obj/machinery/airlock_controller/Destroy()
+	STOP_PROCESSING(SSairlocks, src)
 	SSradio.remove_object(src,frequency)
 	return ..()
 
