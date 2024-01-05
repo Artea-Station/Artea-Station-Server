@@ -246,16 +246,21 @@
 						"command" = "secure_close"
 					)))
 			else if(target_state == AIRLOCK_STATE_OPEN)
-				if(sensor_pressure >= ONE_ATMOSPHERE*0.95)
+				var/did_something = FALSE
+				if(memory["interior_status"] != "open")
 					post_signal(new /datum/signal(list(
 						"tag" = interior_door_tag,
 						"command" = "secure_open"
 					)))
+					did_something = TRUE
+				if(memory["exterior_status"] != "open")
 					post_signal(new /datum/signal(list(
 						"tag" = exterior_door_tag,
 						"command" = "secure_open"
 					)))
-				else
+					did_something = TRUE
+
+				if(!did_something)
 					state = AIRLOCK_STATE_PRESSURIZE
 
 			else
