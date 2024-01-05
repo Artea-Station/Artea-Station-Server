@@ -4,7 +4,7 @@
 #define INT_BOUND 2
 #define NO_BOUND 3
 
-#define SIPHONING "sipon"
+#define SIPHONING "siphon"
 #define RELEASING "release"
 
 /obj/machinery/atmospherics/components/unary/airlock_vent
