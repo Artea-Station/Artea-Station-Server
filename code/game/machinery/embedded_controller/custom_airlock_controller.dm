@@ -24,7 +24,7 @@
 	exterior_door_tag = "custom_airlock_exterior_[base_tag_name]"
 	interior_door_tag = "custom_airlock_interior_[base_tag_name]"
 	airpump_tag = "custom_airlock_pump_[base_tag_name]"
-	sensor_tag = "custom_airlock_sensor_[base_tag_name]"
+	sensor_tag = "custom_airlock_sensor_chamber_[base_tag_name]"
 	return ..()
 
 /// Place in the same area as an autoset airlock controller to link up.
