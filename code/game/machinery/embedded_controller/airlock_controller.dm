@@ -339,6 +339,8 @@
 	var/interior_door_tag
 	var/airpump_tag
 	var/sensor_tag
+	var/interior_sensor_tag
+	var/exterior_sensor_tag
 	var/sanitize_external
 
 	/// Fire alarm sound. Used when the airlock is outside normal parameters, such as when hallway airlocks contain non-breathable air.
