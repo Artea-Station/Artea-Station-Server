@@ -104,15 +104,21 @@
 	var/on = TRUE
 	var/alert = FALSE
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_sensor, 24)
+
+// LEGACY SUBTYPES, DO NOT USE THESE. These are used in maps that aren't in rotation, and aren't seeing updates.
 /obj/machinery/airlock_sensor/incinerator_ordmix
+	name = "do not use"
 	id_tag = INCINERATOR_ORDMIX_AIRLOCK_SENSOR
 	master_tag = INCINERATOR_ORDMIX_AIRLOCK_CONTROLLER
 
 /obj/machinery/airlock_sensor/incinerator_atmos
+	name = "do not use"
 	id_tag = INCINERATOR_ATMOS_AIRLOCK_SENSOR
 	master_tag = INCINERATOR_ATMOS_AIRLOCK_CONTROLLER
 
 /obj/machinery/airlock_sensor/incinerator_syndicatelava
+	name = "do not use"
 	id_tag = INCINERATOR_SYNDICATELAVA_AIRLOCK_SENSOR
 	master_tag = INCINERATOR_SYNDICATELAVA_AIRLOCK_CONTROLLER
 
