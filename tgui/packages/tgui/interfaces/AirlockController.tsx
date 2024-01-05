@@ -12,18 +12,25 @@ import { Window } from '../layouts';
 export const AirlockController = (props, context) => {
   const { act, data } = useBackend<AirlockControllerData>(context);
 
-  const bars = [
-    {
+  const barValues = {
+    'Chamber Pressure': data.chamberPressure,
+    'Exterior Pressure': data.exteriorPressure,
+    'Interior Pressure': data.interiorPressure,
+  };
+
+  let bars: object[] = [];
+  let winHeight = 210;
+
+  Object.entries(barValues).forEach(([entry, value]) => {
+    if (value === null) {
+      return;
+    }
+    bars.push({
       minValue: 0,
-      maxValue:
-        data.chamberPressure < 102
-          ? 102
-          : data.chamberPressure < 325
-            ? 325
-            : 550,
-      value: data.chamberPressure,
-      label: 'Chamber Pressure',
-      textValue: data.chamberPressure + ' kPa',
+      maxValue: value < 102 ? 102 : value < 325 ? 325 : 550,
+      value: value,
+      label: entry,
+      textValue: value + ' kPa',
       color: (value) => {
         return value < 80 || value > 550
           ? 'bad'
@@ -31,11 +38,12 @@ export const AirlockController = (props, context) => {
             ? 'average'
             : 'good';
       },
-    },
-  ];
+    });
+    winHeight += 24;
+  });
 
   return (
-    <Window width={580} height={190}>
+    <Window width={580} height={winHeight}>
       <Window.Content>
         <StatusDisplay bars={bars} />
         <Section title="Controls">
@@ -90,8 +98,8 @@ type AirlockControllerData = {
   interiorStatus: string;
   exteriorStatus: string;
   airlockDisabled: BooleanLike;
-  externalPressure: number;
-  internalPressure: number;
+  interiorPressure: number;
+  exteriorPressure: number;
   processing: BooleanLike;
 };
 

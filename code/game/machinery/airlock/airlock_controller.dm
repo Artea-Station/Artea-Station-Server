@@ -180,24 +180,22 @@
 		pressure = text2num(pressure)
 
 	if(!is_hallway) // Non-hallways don't try to act like a firelock.
-		memory["chamber_pressure"] = pressure
+		memory[memory_index] = pressure
 		return
 
 	var/old_ext_pressure = memory["exterior_pressure"]
 	var/old_int_pressure = memory["interior_pressure"]
-	var/old_chm_pressure = memory["chamber_pressure"]
 	var/is_old_ext_bad = IS_AIR_BAD(old_ext_pressure)
 	var/is_old_int_bad = IS_AIR_BAD(old_int_pressure)
-	var/is_old_chm_bad = IS_AIR_BAD(old_chm_pressure)
 	memory[memory_index] = pressure
 
 	// Don't constantly close yourself after initially doing so. Let the crew die if they force open.
-	if(is_old_ext_bad || is_old_int_bad || is_old_chm_bad)
+	if(is_old_ext_bad || is_old_int_bad)
 		return
 
 	var/is_bad_air = pressure > WARNING_HIGH_PRESSURE || pressure < WARNING_LOW_PRESSURE
 	if(is_bad_air)
-		target_state = AIRLOCK_STATE_CLOSED
+		target_state = AIRLOCK_STATE_PRESSURIZE
 
 	// Doesn't hook into the firealarm system cause that shit's awful to work with.
 	if(sound_loop.is_active() && !is_bad_air)
