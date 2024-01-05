@@ -120,7 +120,7 @@
 
 /datum/planet_template/shrouded_planet/SeedRuins(list/z_levels)
 	var/list/planet_ruins = SSmapping.levels_by_trait(ZTRAIT_PLANET_RUINS)
-	//Only account for the levels we loaded, in case we load 2 lavalands
+	//Only account for the levels we loaded, in case we load 2
 	for(var/i in planet_ruins)
 		if(!(i in z_levels))
 			planet_ruins -= i
