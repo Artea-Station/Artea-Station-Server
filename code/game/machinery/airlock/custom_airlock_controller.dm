@@ -101,15 +101,20 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset/hallway, 2
 /obj/effect/mapping_helpers/airlock_controller_helper/airlock/exterior/post_init(obj/machinery/door/airlock/airlock)
 	airlock.send_status()
 
+/obj/effect/mapping_helpers/airlock_controller_helper/sensor
+	affected_type = /obj/machinery/airlock_sensor
+
+/obj/effect/mapping_helpers/airlock_controller_helper/sensor/payload(obj/machinery/airlock_sensor/sensor)
+	sensor.frequency = FREQ_AIRLOCK_CONTROL
+	sensor.master_tag = "custom_airlock_controller_[base_tag_name]"
+
 /obj/effect/mapping_helpers/airlock_controller_helper/sensor/chamber
 	name = "airlock sensor"
 	icon_state = "sens"
-	affected_type = /obj/machinery/airlock_sensor
 
 /obj/effect/mapping_helpers/airlock_controller_helper/sensor/chamber/payload(obj/machinery/airlock_sensor/sensor)
+	. = ..()
 	sensor.id_tag = "custom_airlock_sensor_chamber_[base_tag_name]"
-	sensor.frequency = FREQ_AIRLOCK_CONTROL
-	sensor.master_tag = "custom_airlock_controller_[base_tag_name]"
 
 /obj/effect/mapping_helpers/airlock_controller_helper/sensor/interior
 	name = "airlock interior sensor"
