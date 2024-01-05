@@ -137,6 +137,12 @@ export const StandardControls = (props, context) => {
           content="Cycle to Interior"
           onClick={() => act('cycleInterior')}
         />
+        <Button
+          disabled={data.airlockDisabled}
+          icon="door"
+          content="Cycle Open"
+          onClick={() => act('cycleOpen')}
+        />
       </Box>
       <Box>
         <Button.Confirm

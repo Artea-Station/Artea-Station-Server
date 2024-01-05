@@ -36,6 +36,8 @@
 	var/affected_type
 	/// The base tag name. Used in conjunction with controllers. Optional.
 	var/base_tag_name
+	/// Should this call post_init()?
+	var/post_init = FALSE
 
 /obj/effect/mapping_helpers/airlock_controller_helper/Initialize(mapload)
 	. = ..()
@@ -48,7 +50,8 @@
 		base_tag_name = REF(get_area(src))
 
 	payload(obj_of_interest)
-	addtimer(CALLBACK(src, PROC_REF(post_init)), 1 SECONDS)
+	if(post_init)
+		addtimer(CALLBACK(src, PROC_REF(post_init)), 1 SECONDS)
 
 /// Override in subtypes to do stuff.
 /obj/effect/mapping_helpers/airlock_controller_helper/proc/payload(obj/object)
@@ -57,12 +60,14 @@
 /obj/effect/mapping_helpers/airlock_controller_helper/proc/post_init(obj/object)
 	return
 
-/obj/effect/mapping_helpers/airlock_controller_helper/interior
-	name = "interior airlock"
-	icon_state = "doorin"
+/obj/effect/mapping_helpers/airlock_controller_helper/airlock
 	affected_type = /obj/machinery/door/airlock
 
-/obj/effect/mapping_helpers/airlock_controller_helper/interior/payload(obj/machinery/door/airlock/airlock)
+/obj/effect/mapping_helpers/airlock_controller_helper/airlock/interior
+	name = "interior airlock"
+	icon_state = "doorin"
+
+/obj/effect/mapping_helpers/airlock_controller_helper/airlock/interior/payload(obj/machinery/door/airlock/airlock)
 	airlock.id_tag = "custom_airlock_interior_[base_tag_name]"
 	airlock.density = FALSE
 	airlock.locked = TRUE
@@ -70,33 +75,48 @@
 	airlock.update_appearance()
 	airlock.set_frequency(FREQ_AIRLOCK_CONTROL)
 
-/obj/effect/mapping_helpers/airlock_controller_helper/interior/post_init(obj/machinery/door/airlock/airlock)
+/obj/effect/mapping_helpers/airlock_controller_helper/airlock/interior/post_init(obj/machinery/door/airlock/airlock)
 	airlock.send_status()
 
-/obj/effect/mapping_helpers/airlock_controller_helper/exterior
+/obj/effect/mapping_helpers/airlock_controller_helper/airlock/exterior
 	name = "exterior airlock"
 	icon_state = "doorout"
-	affected_type = /obj/machinery/door/airlock
 
-/obj/effect/mapping_helpers/airlock_controller_helper/exterior/payload(obj/machinery/door/airlock/airlock)
+/obj/effect/mapping_helpers/airlock_controller_helper/airlock/exterior/payload(obj/machinery/door/airlock/airlock)
 	airlock.id_tag = "custom_airlock_exterior_[base_tag_name]"
 	airlock.locked = TRUE
 	airlock.autoclose = FALSE
 	airlock.update_appearance()
 	airlock.set_frequency(FREQ_AIRLOCK_CONTROL)
 
-/obj/effect/mapping_helpers/airlock_controller_helper/exterior/post_init(obj/machinery/door/airlock/airlock)
+/obj/effect/mapping_helpers/airlock_controller_helper/airlock/exterior/post_init(obj/machinery/door/airlock/airlock)
 	airlock.send_status()
 
-/obj/effect/mapping_helpers/airlock_controller_helper/sensor
+/obj/effect/mapping_helpers/airlock_controller_helper/sensor/chamber
 	name = "airlock sensor"
 	icon_state = "sens"
 	affected_type = /obj/machinery/airlock_sensor
 
-/obj/effect/mapping_helpers/airlock_controller_helper/sensor/payload(obj/machinery/airlock_sensor/sensor)
-	sensor.id_tag = "custom_airlock_sensor_[base_tag_name]"
+/obj/effect/mapping_helpers/airlock_controller_helper/sensor/chamber/payload(obj/machinery/airlock_sensor/sensor)
+	sensor.id_tag = "custom_airlock_sensor_chamber_[base_tag_name]"
 	sensor.frequency = FREQ_AIRLOCK_CONTROL
 	sensor.master_tag = "custom_airlock_controller_[base_tag_name]"
+
+/obj/effect/mapping_helpers/airlock_controller_helper/sensor/interior
+	name = "airlock interior sensor"
+	icon_state = "sensin"
+
+/obj/effect/mapping_helpers/airlock_controller_helper/sensor/interior/payload(obj/machinery/airlock_sensor/sensor)
+	. = ..()
+	sensor.id_tag = "custom_airlock_sensor_interior_[base_tag_name]"
+
+/obj/effect/mapping_helpers/airlock_controller_helper/sensor/exterior
+	name = "airlock exterior sensor"
+	icon_state = "sensout"
+
+/obj/effect/mapping_helpers/airlock_controller_helper/sensor/exterior/payload(obj/machinery/airlock_sensor/sensor)
+	. = ..()
+	sensor.id_tag = "custom_airlock_sensor_exterior_[base_tag_name]"
 
 /obj/effect/mapping_helpers/airlock_controller_helper/pump
 	name = "airlock pump"
@@ -104,6 +124,10 @@
 	affected_type = /obj/machinery/atmospherics/components/binary/dp_vent_pump
 
 /obj/effect/mapping_helpers/airlock_controller_helper/pump/payload(obj/machinery/atmospherics/components/binary/dp_vent_pump/pump)
-	pump.id = "custom_airlock_pump_[base_tag_name]"
+	pump.id_tag = "custom_airlock_pump_[base_tag_name]"
 	pump.frequency = FREQ_AIRLOCK_CONTROL
+
+/obj/effect/mapping_helpers/airlock_controller_helper/pump/simple
+	icon_state = "pumpsingle"
+	affected_type = /obj/machinery/atmospherics/components/unary/vent_pump
 

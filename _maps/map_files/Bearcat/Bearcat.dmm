@@ -249,15 +249,11 @@
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
 "bz" = (
-/obj/machinery/airlock_sensor/incinerator_atmos{
-	pixel_y = 24
-	},
 /obj/machinery/embedded_controller/radio/airlock_controller/autoset{
 	pixel_x = -23
 	},
-/obj/effect/mapping_helpers/airlock_controller_helper/sensor,
-/obj/machinery/atmospherics/components/unary/portables_connector,
-/obj/machinery/portable_atmospherics/canister,
+/obj/effect/mapping_helpers/airlock_controller_helper/sensor/chamber,
+/obj/machinery/airlock_sensor/directional/north,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central/fore)
 "bA" = (
@@ -348,6 +344,11 @@
 /obj/machinery/light/small/directional/north,
 /turf/open/floor/engine,
 /area/station/science/research/abandoned)
+"cb" = (
+/obj/effect/mapping_helpers/airlock_controller_helper/sensor/exterior,
+/obj/machinery/airlock_sensor/directional/east,
+/turf/open/floor/iron,
+/area/station/hallway/primary/central/fore)
 "cc" = (
 /obj/machinery/button/door/directional/north{
 	id = "firstmateshutters";
@@ -2133,6 +2134,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
 /area/station/cargo/sorting)
+"lO" = (
+/obj/machinery/light/directional/west,
+/turf/open/floor/iron,
+/area/station/hallway/primary/central/fore)
 "lP" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/left/directional/north{
@@ -3506,7 +3511,7 @@
 /area/station/hallway/primary/central/starboard)
 "tj" = (
 /obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock_controller_helper/interior,
+/obj/effect/mapping_helpers/airlock_controller_helper/airlock/interior,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central/fore)
 "tk" = (
@@ -5137,7 +5142,7 @@
 /area/station/hallway/secondary/exit)
 "Cj" = (
 /obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock_controller_helper/exterior,
+/obj/effect/mapping_helpers/airlock_controller_helper/airlock/exterior,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central/fore)
 "Cl" = (
@@ -6223,6 +6228,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central/fore)
 "Iw" = (
@@ -6355,6 +6361,11 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central/port)
+"IP" = (
+/obj/effect/mapping_helpers/airlock_controller_helper/sensor/interior,
+/obj/machinery/airlock_sensor/directional/west,
+/turf/open/floor/iron,
+/area/station/hallway/primary/central/fore)
 "IQ" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /obj/structure/cable,
@@ -6909,10 +6920,8 @@
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
 "LI" = (
-/obj/effect/mapping_helpers/airlock_controller_helper/pump,
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume{
-	dir = 1
-	},
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume,
+/obj/effect/mapping_helpers/airlock_controller_helper/pump/simple,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central/fore)
 "LL" = (
@@ -169344,9 +169353,9 @@ NK
 NK
 NK
 sW
+cb
 EJ
-EJ
-EJ
+lO
 sW
 NK
 NK
@@ -170372,9 +170381,9 @@ NK
 NK
 NK
 sW
+IP
 EJ
-EJ
-EJ
+lO
 sW
 NK
 NK
