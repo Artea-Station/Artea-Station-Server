@@ -129,5 +129,5 @@
 
 /obj/effect/mapping_helpers/airlock_controller_helper/pump/simple
 	icon_state = "pumpsingle"
-	affected_type = /obj/machinery/atmospherics/components/unary/vent_pump
+	affected_type = /obj/machinery/atmospherics/components/unary/airlock_vent
 

@@ -1587,6 +1587,10 @@
 /obj/structure/cable,
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain)
+"iM" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/turf/open/floor/iron,
+/area/station/hallway/primary/central/fore)
 "iN" = (
 /obj/machinery/holopad,
 /turf/open/floor/iron,
@@ -3512,6 +3516,7 @@
 "tj" = (
 /obj/machinery/door/airlock/external,
 /obj/effect/mapping_helpers/airlock_controller_helper/airlock/interior,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central/fore)
 "tk" = (
@@ -6223,14 +6228,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/station/commons/storage/cryo)
-"Iv" = (
-/obj/machinery/portable_atmospherics/canister/air,
-/obj/machinery/atmospherics/components/unary/portables_connector{
-	dir = 1
-	},
-/obj/machinery/light/directional/west,
-/turf/open/floor/iron,
-/area/station/hallway/primary/central/fore)
 "Iw" = (
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/cable,
@@ -6920,8 +6917,10 @@
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
 "LI" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/high_volume,
 /obj/effect/mapping_helpers/airlock_controller_helper/pump/simple,
+/obj/machinery/atmospherics/components/unary/airlock_vent/supply/layer4{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/central/fore)
 "LL" = (
@@ -169869,7 +169868,7 @@ NK
 sW
 bz
 LI
-Iv
+lO
 sW
 NK
 NK
@@ -170382,7 +170381,7 @@ NK
 NK
 sW
 IP
-EJ
+iM
 lO
 sW
 NK
@@ -170639,7 +170638,7 @@ NK
 NK
 sW
 sW
-EJ
+iM
 sW
 sW
 NK

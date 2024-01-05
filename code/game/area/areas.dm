@@ -103,6 +103,7 @@
 
 	var/list/air_vent_info = list()
 	var/list/air_scrub_info = list()
+	var/list/airlock_vent_info = list()
 
 	/// Whether the area is underground, checked for the purposes of above/underground weathers
 	var/underground = FALSE
