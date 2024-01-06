@@ -61,7 +61,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset, 24)
 /// Used in hallways as a replacement for normal firelocks, where it makes sense.
 /obj/machinery/airlock_controller/autoset/hallway
 	name = "autoset hallway airlock controller"
-	is_hallway = TRUE
+	is_firelock = TRUE
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset/hallway, 24)
 

@@ -50,8 +50,9 @@
 					)))
 
 		if(AIRLOCK_STATE_PRESSURIZE)
-			if(target_state == AIRLOCK_STATE_INOPEN || target_state == AIRLOCK_STATE_OPEN)
-				if(sensor_pressure >= ONE_ATMOSPHERE*0.95 && target_state == AIRLOCK_STATE_INOPEN)
+			if(target_state == AIRLOCK_STATE_INOPEN || target_state == AIRLOCK_STATE_OPEN || target_state == AIRLOCK_STATE_OUTOPEN)
+				var/is_safe = sensor_pressure >= ONE_ATMOSPHERE*0.95
+				if(is_safe && target_state == AIRLOCK_STATE_INOPEN)
 					if(memory["interior_status"] == "open")
 						state = AIRLOCK_STATE_INOPEN
 					else
@@ -59,7 +60,7 @@
 							"tag" = interior_door_tag,
 							"command" = "secure_open"
 						)))
-				else if(sensor_pressure >= ONE_ATMOSPHERE*0.95 && target_state == AIRLOCK_STATE_OPEN)
+				else if(is_safe && target_state == AIRLOCK_STATE_OPEN)
 					if(memory["interior_status"] == "open" && memory["exterior_status"] == "open")
 						state = AIRLOCK_STATE_OPEN
 					else
@@ -88,7 +89,7 @@
 		if(AIRLOCK_STATE_CLOSED)
 			if(target_state == AIRLOCK_STATE_OUTOPEN)
 				if(memory["interior_status"] == "closed")
-					state = AIRLOCK_STATE_DEPRESSURIZE
+					state = sanitize_external ? AIRLOCK_STATE_DEPRESSURIZE : AIRLOCK_STATE_PRESSURIZE
 				else
 					post_signal(new /datum/signal(list(
 						"tag" = interior_door_tag,
@@ -165,11 +166,11 @@
 					signal.data["power"] = TRUE
 				post_signal(signal)
 
-		if(AIRLOCK_STATE_OUTOPEN) //state 2
+		if(AIRLOCK_STATE_OUTOPEN)
 			if(target_state != AIRLOCK_STATE_OUTOPEN)
 				if(memory["exterior_status"] == "closed")
 					if(sanitize_external)
-						state = AIRLOCK_STATE_DEPRESSURIZE
+						state = sanitize_external ? AIRLOCK_STATE_DEPRESSURIZE : AIRLOCK_STATE_PRESSURIZE
 					else
 						state = AIRLOCK_STATE_CLOSED
 				else

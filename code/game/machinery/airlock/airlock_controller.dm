@@ -37,11 +37,15 @@
 	var/exterior_sensor_tag
 	var/sanitize_external
 
-	var/memory = list()
+	var/list/memory = list()
 
 	/// If set to TRUE, enables opening both sides at once outside of maintenance and emag modes.
-	/// Also enables firelock functionality. If one of the sensors are tripped, it closes the side that's fucked.
-	var/is_hallway = FALSE
+	/// Also enables firelock functionality. If one of the sensors are tripped, it closes, and puts itself into airlock mode.
+	var/is_firelock = FALSE
+
+	/// Is a shuttle docked to the port assigned to this airlock?
+	/// When this is set to TRUE, the airlock cycles to open the outside, and co-ordinates airlock status with the other.
+	var/is_docked = FALSE
 
 	/// Fire alarm sound. Used when the airlock is outside normal parameters, such as when hallway airlocks contain non-breathable air.
 	var/datum/looping_sound/firealarm/sound_loop
@@ -73,16 +77,10 @@
 		ui.open()
 
 /obj/machinery/airlock_controller/ui_data(mob/user)
-	var/list/data = list()
-	data["airlockState"] = state
-	data["chamberPressure"] = memory["chamber_pressure"]
-	data["interiorPressure"] = memory["interior_pressure"]
-	data["exteriorPressure"] = memory["exterior_pressure"]
-	data["exteriorStatus"] = memory["exterior_status"]
-	data["interiorStatus"] = memory["interior_status"]
-	data["pumpStatus"] = memory["pump_status"]
-	data["airlockDisabled"] = machine_stat & MAINT
-	data["processing"] = memory["processing"]
+	var/list/data = memory.Copy()
+	data["airlock_state"] = state
+	data["airlock_disabled"] = machine_stat & MAINT
+	data["is_firelock"] = is_firelock
 	return data
 
 /obj/machinery/airlock_controller/ui_act(action, params)
@@ -100,7 +98,7 @@
 		if("abort")
 			target_state = AIRLOCK_STATE_CLOSED
 		if("cycleOpen") // Only available for indoor airlocks, which come into action when atmos is unlivable on one side.
-			if(!is_hallway)
+			if(!is_firelock && !is_docked)
 				return // Bad exploiter
 			target_state = AIRLOCK_STATE_OPEN
 		if("forceExterior")
@@ -137,34 +135,34 @@
 	if(!receive_tag)
 		return
 
-	if(receive_tag==sensor_tag)
+	if(receive_tag == sensor_tag)
 		if(signal.data["pressure"])
 			memory["chamber_pressure"] = text2num(signal.data["pressure"])
 			SStgui.update_uis(src)
 
-	else if(receive_tag==exterior_sensor_tag)
+	else if(receive_tag == exterior_sensor_tag)
 		handle_pressure(signal.data["pressure"], "exterior_pressure")
 		SStgui.update_uis(src)
 
-	else if(receive_tag==interior_sensor_tag)
+	else if(receive_tag == interior_sensor_tag)
 		handle_pressure(signal.data["pressure"], "interior_pressure")
 		SStgui.update_uis(src)
 
-	else if(receive_tag==exterior_door_tag)
+	else if(receive_tag == exterior_door_tag)
 		memory["exterior_status"] = signal.data["door_status"]
 		SStgui.update_uis(src)
 
-	else if(receive_tag==interior_door_tag)
+	else if(receive_tag == interior_door_tag)
 		memory["interior_status"] = signal.data["door_status"]
 		SStgui.update_uis(src)
 
-	else if(receive_tag==airpump_tag)
+	else if(receive_tag == airpump_tag)
 		if(signal.data["power"])
 			memory["pump_status"] = signal.data["direction"]
 		else
 			memory["pump_status"] = "off"
 
-	else if(receive_tag==id_tag)
+	else if(receive_tag == id_tag)
 		switch(signal.data["command"])
 			if("cycle")
 				if(state == AIRLOCK_STATE_INOPEN)
@@ -179,7 +177,7 @@
 	if(!isnum(pressure))
 		pressure = text2num(pressure)
 
-	if(!is_hallway) // Non-hallways don't try to act like a firelock.
+	if(!is_firelock) // Non-hallways don't try to act like a firelock.
 		memory[memory_index] = pressure
 		return
 

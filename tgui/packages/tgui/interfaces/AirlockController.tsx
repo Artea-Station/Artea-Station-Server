@@ -13,9 +13,9 @@ export const AirlockController = (props, context) => {
   const { act, data } = useBackend<AirlockControllerData>(context);
 
   const barValues = {
-    'Chamber Pressure': data.chamberPressure,
-    'Exterior Pressure': data.exteriorPressure,
-    'Interior Pressure': data.interiorPressure,
+    'Chamber Pressure': data.chamber_pressure,
+    'Exterior Pressure': data.exterior_pressure,
+    'Interior Pressure': data.interior_pressure,
   };
 
   let bars: object[] = [];
@@ -51,7 +51,7 @@ export const AirlockController = (props, context) => {
           <Box>
             <Button
               disabled={
-                data.airlockState !== 'open' && data.airlockState !== 'closed'
+                data.airlock_state !== 'open' && data.airlock_state !== 'closed'
               }
               icon="ban"
               color="bad"
@@ -92,15 +92,16 @@ const StatusDisplay = (props, context) => {
 };
 
 type AirlockControllerData = {
-  airlockState: string;
-  chamberPressure: number;
-  pumpStatus: string;
-  interiorStatus: string;
-  exteriorStatus: string;
-  airlockDisabled: BooleanLike;
-  interiorPressure: number;
-  exteriorPressure: number;
+  airlock_state: string;
+  chamber_pressure: number;
+  pump_status: string;
+  interior_status: string;
+  exterior_status: string;
+  airlock_disabled: BooleanLike;
+  interior_pressure: number;
+  exterior_pressure: number;
   processing: BooleanLike;
+  is_firelock: BooleanLike;
 };
 
 /**
@@ -115,18 +116,18 @@ export const StandardControls = (props, context) => {
   let externalForceSafe = true;
   if (data.processing) {
     externalForceSafe = false;
-  } else if (data.externalPressure && data.chamberPressure) {
+  } else if (data.exterior_pressure && data.chamber_pressure) {
     externalForceSafe = !(
-      Math.abs(data.externalPressure - data.chamberPressure) > 5
+      Math.abs(data.exterior_pressure - data.chamber_pressure) > 5
     );
   }
 
   let internalForceSafe = true;
   if (data.processing) {
     internalForceSafe = false;
-  } else if (data.internalPressure && data.chamberPressure) {
+  } else if (data.interior_pressure && data.chamber_pressure) {
     internalForceSafe = !(
-      Math.abs(data.internalPressure - data.chamberPressure) > 5
+      Math.abs(data.interior_pressure - data.chamber_pressure) > 5
     );
   }
 
@@ -134,27 +135,35 @@ export const StandardControls = (props, context) => {
     <Fragment>
       <Box>
         <Button
-          disabled={data.airlockDisabled}
+          disabled={data.airlock_disabled}
           icon="arrow-left"
-          content="Cycle to Exterior"
+          _pcontent="Cycle to Exterior"
           onClick={() => act('cycleExterior')}
         />
         <Button
-          disabled={data.airlockDisabled}
+          disabled={data.airlock_disabled}
           icon="arrow-right"
-          content="Cycle to Interior"
+          _pcontent="Cycle to Interior"
           onClick={() => act('cycleInterior')}
         />
         <Button
-          disabled={data.airlockDisabled}
-          icon="door"
-          content="Cycle Open"
-          onClick={() => act('cycleOpen')}
+          disabled={data.airlock_disabled}
+          icon="door-open"
+          _pcontent="Cycle Closed"
+          onClick={() => act('cycleClosed')}
         />
+        {data.is_firelock && (
+          <Button
+            disabled={data.airlock_disabled}
+            icon="door-open"
+            _pcontent="Cycle Open"
+            onClick={() => act('cycleOpen')}
+          />
+        )}
       </Box>
       <Box>
         <Button.Confirm
-          disabled={data.airlockDisabled}
+          disabled={data.airlock_disabled}
           color={externalForceSafe ? '' : 'bad'}
           icon="exclamation-triangle"
           confirmIcon="exclamation-triangle"
@@ -162,7 +171,7 @@ export const StandardControls = (props, context) => {
           onClick={() => act('forceExterior')}
         />
         <Button.Confirm
-          disabled={data.airlockDisabled}
+          disabled={data.airlock_disabled}
           color={internalForceSafe ? '' : 'bad'}
           icon="exclamation-triangle"
           confirmIcon="exclamation-triangle"
