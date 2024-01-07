@@ -22,30 +22,26 @@
 			close(TRUE)
 
 		if("unlock")
-			locked = FALSE
-			update_appearance()
+			unlock()
 
 		if("lock")
-			locked = TRUE
-			update_appearance()
+			lock()
 
 		if("secure_open")
-			locked = FALSE
-			update_appearance()
+			unlock()
 
 			sleep(2)
 			open(TRUE)
 
-			locked = TRUE
-			update_appearance()
+			lock()
 
 		if("secure_close")
-			locked = FALSE
+			unlock()
+
+			sleep(2)
 			close(TRUE)
 
-			locked = TRUE
-			sleep(2)
-			update_appearance()
+			lock()
 
 	send_status()
 
