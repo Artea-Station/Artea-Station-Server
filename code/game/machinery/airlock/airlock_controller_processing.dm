@@ -4,32 +4,22 @@
 	var/sensor_pressure = memory["chamber_pressure"]
 	switch(state)
 		if(AIRLOCK_STATE_OPEN)
-			if(target_state == AIRLOCK_STATE_INOPEN)
-				if(sensor_pressure >= ONE_ATMOSPHERE*0.95)
-					if(memory["interior_status"] == "open" && memory["exterior_status"] == "open")
-						state = AIRLOCK_STATE_OPEN
-					else
-						if(memory["interior_status"] == "closed")
-							post_signal(new /datum/signal(list(
-								"tag" = interior_door_tag,
-								"command" = "secure_open",
-							)))
-						if(memory["exterior_status"] == "closed")
-							post_signal(new /datum/signal(list(
-								"tag" = exterior_door_tag,
-								"command" = "secure_open",
-							)))
-				else
-					var/datum/signal/signal = new(list(
-						"tag" = airpump_tag,
-						"sigtype" = "command"
-					))
-					if(memory["pump_status"] == "siphon")
-						signal.data["stabilize"] = TRUE
-					else if(memory["pump_status"] != "release")
-						signal.data["power"] = TRUE
-					post_signal(signal)
-			else
+			if(memory["pump_status"] != "off")
+				post_signal(new /datum/signal(list(
+					"tag" = airpump_tag,
+					"power" = FALSE,
+					"sigtype" = "command"
+				)))
+			else if(target_state == AIRLOCK_STATE_INOPEN && is_docked)
+				target_state = AIRLOCK_STATE_OUTOPEN
+				state = AIRLOCK_STATE_PRESSURIZE
+				if(is_docked == AIRLOCK_DOCKED_PARENT)
+					post_signal(new /datum/signal(list(
+						"tag" = memory["docked_airlock"],
+						"command" = "cycle",
+					)))
+
+			else if (target_state != AIRLOCK_STATE_OPEN)
 				state = AIRLOCK_STATE_CLOSED
 
 		if(AIRLOCK_STATE_INOPEN)
@@ -179,7 +169,7 @@
 						"command" = "secure_close"
 					)))
 			else
-				if(memory["pump_status"] != "off")
+				if((memory["pump_status"] != "off" && is_docked) || sensor_pressure >= ONE_ATMOSPHERE*0.95)
 					post_signal(new /datum/signal(list(
 						"tag" = airpump_tag,
 						"power" = FALSE,

@@ -6,6 +6,11 @@
 #define AIRLOCK_STATE_OUTOPEN "outopen"
 #define AIRLOCK_STATE_OPEN "open"
 
+/// This is on the shuttle.
+#define AIRLOCK_DOCKED_PARENT "parent"
+/// This is on the station.
+#define AIRLOCK_DOCKED_CHILD "child"
+
 #define IS_AIR_BAD(P) P > WARNING_HIGH_PRESSURE || P < WARNING_LOW_PRESSURE
 
 /obj/machinery/airlock_controller
@@ -44,7 +49,8 @@
 	var/is_firelock = FALSE
 
 	/// Is a shuttle docked to the port assigned to this airlock?
-	/// When this is set to TRUE, the airlock cycles to open the outside, and co-ordinates airlock status with the other.
+	/// When this is set to either AIRLOCK_DOCKED_PARENT, or AIRLOCK_DOCKED_CHILD, the airlock cycles to open the exterior door,
+	/// and co-ordinates airlock status with the other to make one large airlock.
 	var/is_docked = FALSE
 
 	/// Fire alarm sound. Used when the airlock is outside normal parameters, such as when hallway airlocks contain non-breathable air.
@@ -90,7 +96,16 @@
 
 	switch(action)
 		if("cycleClosed")
-			target_state = AIRLOCK_STATE_CLOSED
+			if(!is_docked)
+				target_state = AIRLOCK_STATE_CLOSED
+			else if(is_docked == AIRLOCK_DOCKED_PARENT)
+				target_state = AIRLOCK_STATE_OUTOPEN
+				post_signal(new /datum/signal(list(
+					"tag" = memory["docked_airlock"],
+					"docked" = TRUE,
+					"id_tag", id_tag,
+				)))
+
 		if("cycleExterior")
 			target_state = AIRLOCK_STATE_OUTOPEN
 		if("cycleInterior")
@@ -98,7 +113,7 @@
 		if("abort")
 			target_state = AIRLOCK_STATE_CLOSED
 		if("cycleOpen") // Only available for indoor airlocks, which come into action when atmos is unlivable on one side.
-			if(!is_firelock && !is_docked)
+			if(!is_firelock)
 				return // Bad exploiter
 			target_state = AIRLOCK_STATE_OPEN
 		if("forceExterior")
@@ -135,7 +150,25 @@
 	if(!receive_tag)
 		return
 
-	if(receive_tag == sensor_tag)
+	if(receive_tag == "dock" && !is_firelock) // Uhhhhh, we should be the only thing in range for this kind of thing.
+		if(signal.data["docked"])
+			is_docked = AIRLOCK_DOCKED_CHILD
+			target_state = AIRLOCK_STATE_OUTOPEN
+			memory["docked_airlock"] = signal.data["id_tag"]
+			post_signal(new /datum/signal(list( // Finish the secret handshake
+				"tag" = "dock",
+				"received" = TRUE,
+				"id_tag" = id_tag,
+			)))
+		if(signal.data["undocked"])
+			is_docked = FALSE
+			target_state = AIRLOCK_STATE_CLOSED
+		if(signal.data["received"])
+			is_docked = AIRLOCK_DOCKED_PARENT
+			target_state = AIRLOCK_STATE_OUTOPEN
+			memory["docked_airlock"] = signal.data["id_tag"]
+
+	else if(receive_tag == sensor_tag)
 		if(signal.data["pressure"])
 			memory["chamber_pressure"] = text2num(signal.data["pressure"])
 			SStgui.update_uis(src)
@@ -162,13 +195,23 @@
 		else
 			memory["pump_status"] = "off"
 
-	else if(receive_tag == id_tag)
-		switch(signal.data["command"])
-			if("cycle")
-				if(state == AIRLOCK_STATE_INOPEN)
-					target_state = AIRLOCK_STATE_OUTOPEN
-				else
-					target_state = AIRLOCK_STATE_INOPEN
+	else if(receive_tag == id_tag && signal.data["command"] == "cycle")
+		if(!is_docked)
+			if(state == AIRLOCK_STATE_INOPEN)
+				target_state = AIRLOCK_STATE_OUTOPEN
+			else
+				target_state = AIRLOCK_STATE_INOPEN
+			return
+
+		if(target_state == AIRLOCK_STATE_OPEN)
+			target_state = AIRLOCK_STATE_OUTOPEN
+		else
+			target_state = AIRLOCK_STATE_OPEN
+
+		post_signal(new /datum/signal(list(
+			"tag" = memory["docked_airlock"],
+			"cycle" = AIRLOCK_STATE_OUTOPEN,
+		)))
 
 /obj/machinery/airlock_controller/proc/handle_pressure(pressure, memory_index)
 	if(isnull(pressure)) // Pressure can be 0!!!
@@ -205,17 +248,17 @@
 
 /obj/machinery/airlock_controller/Destroy()
 	STOP_PROCESSING(SSairlocks, src)
-	SSradio.remove_object(src,frequency)
+	SSradio.remove_object(src, frequency)
 	return ..()
 
 /obj/machinery/airlock_controller/proc/post_signal(datum/signal/signal)
 	signal.transmission_method = TRANSMISSION_RADIO
 	if(radio_connection)
-		return radio_connection.post_signal(src, signal)
+		return radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
 	else
 		signal = null
 
 /obj/machinery/airlock_controller/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
-	radio_connection = SSradio.add_object(src, frequency)
+	radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)

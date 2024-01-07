@@ -196,6 +196,27 @@ All ShuttleMove procs go here
 			shuttledocked = TRUE
 			other_airlock.shuttledocked = TRUE
 
+/obj/machinery/airlock_controller/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
+	. = ..()
+	if(is_firelock)
+		return
+
+	post_signal(new /datum/signal(list(
+		"tag" = "dock",
+		"undocked" = TRUE,
+	)))
+
+/obj/machinery/airlock_controller/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
+	. = ..()
+	if(is_firelock)
+		return
+
+	post_signal(new /datum/signal(list(
+		"tag" = "dock",
+		"docked" = TRUE,
+		"id_tag", id_tag,
+	)))
+
 /obj/machinery/camera/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
 	. = ..()
 	if(. & MOVE_AREA)
