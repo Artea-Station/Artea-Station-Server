@@ -374,6 +374,13 @@ SUBSYSTEM_DEF(explosions)
 		E.set_up(epicenter)
 		E.start()
 
+	if(devastation_range > 0)
+		new /obj/effect/temp_visual/explosion(epicenter, max_range, LIGHT_COLOR_LAVA, FALSE, TRUE)
+	else if(heavy_impact_range > 0)
+		new /obj/effect/temp_visual/explosion(epicenter, max_range, LIGHT_COLOR_LAVA, FALSE, FALSE)
+	else if(light_impact_range > 0)
+		new /obj/effect/temp_visual/explosion(epicenter, max_range, LIGHT_COLOR_LAVA, TRUE, FALSE)
+
 	//flash mobs
 	if(flash_range)
 		for(var/mob/living/L in viewers(flash_range, epicenter))
