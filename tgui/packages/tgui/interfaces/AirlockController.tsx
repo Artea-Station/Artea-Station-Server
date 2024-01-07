@@ -22,7 +22,7 @@ export const AirlockController = (props, context) => {
   let winHeight = 210;
 
   Object.entries(barValues).forEach(([entry, value]) => {
-    if (value === null) {
+    if (value === null || value === undefined) {
       return;
     }
     bars.push({
@@ -137,26 +137,26 @@ export const StandardControls = (props, context) => {
         <Button
           disabled={data.airlock_disabled}
           icon="arrow-left"
-          _pcontent="Cycle to Exterior"
+          content="Cycle to Exterior"
           onClick={() => act('cycleExterior')}
         />
         <Button
           disabled={data.airlock_disabled}
           icon="arrow-right"
-          _pcontent="Cycle to Interior"
+          content="Cycle to Interior"
           onClick={() => act('cycleInterior')}
         />
         <Button
           disabled={data.airlock_disabled}
-          icon="door-open"
-          _pcontent="Cycle Closed"
+          icon="door-closed"
+          content="Cycle Closed"
           onClick={() => act('cycleClosed')}
         />
-        {data.is_firelock && (
+        {!!data.is_firelock && (
           <Button
             disabled={data.airlock_disabled}
             icon="door-open"
-            _pcontent="Cycle Open"
+            content="Cycle Open"
             onClick={() => act('cycleOpen')}
           />
         )}
