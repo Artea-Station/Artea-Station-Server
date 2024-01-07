@@ -49,9 +49,9 @@
 	var/is_firelock = FALSE
 
 	/// Is a shuttle docked to the port assigned to this airlock?
-	/// When this is set to either AIRLOCK_DOCKED_PARENT, or AIRLOCK_DOCKED_CHILD, the airlock cycles to open the exterior door,
+	/// When this is set to TRUE, the airlock cycles to open the exterior door, and allows the inner door to open and close freely,
 	/// and co-ordinates airlock status with the other to make one large airlock.
-	var/is_docked = FALSE
+	var/docked = FALSE
 
 	/// Fire alarm sound. Used when the airlock is outside normal parameters, such as when hallway airlocks contain non-breathable air.
 	var/datum/looping_sound/firealarm/sound_loop
@@ -94,28 +94,38 @@
 	if(.)
 		return
 
+	handle_action(action)
+	return TRUE
+
+/obj/machinery/airlock_controller/proc/handle_action(action)
+	if(docked)
+		say("A ship is docked. Unable to rotate airlock.")
+		return
+
 	switch(action)
-		if("cycleClosed")
-			if(!is_docked)
-				target_state = AIRLOCK_STATE_CLOSED
-			else if(is_docked == AIRLOCK_DOCKED_PARENT)
+		if("cycle")
+			if(state == AIRLOCK_STATE_INOPEN)
 				target_state = AIRLOCK_STATE_OUTOPEN
-				post_signal(new /datum/signal(list(
-					"tag" = memory["docked_airlock"],
-					"docked" = TRUE,
-					"id_tag", id_tag,
-				)))
+			else
+				target_state = AIRLOCK_STATE_INOPEN
+
+		if("cycleClosed")
+			target_state = AIRLOCK_STATE_CLOSED
 
 		if("cycleExterior")
 			target_state = AIRLOCK_STATE_OUTOPEN
+
 		if("cycleInterior")
 			target_state = AIRLOCK_STATE_INOPEN
+
 		if("abort")
 			target_state = AIRLOCK_STATE_CLOSED
+
 		if("cycleOpen") // Only available for indoor airlocks, which come into action when atmos is unlivable on one side.
 			if(!is_firelock)
 				return // Bad exploiter
 			target_state = AIRLOCK_STATE_OPEN
+
 		if("forceExterior")
 			var/new_door_state = "secure_open"
 
@@ -129,6 +139,7 @@
 				"tag" = exterior_door_tag,
 				"command" = new_door_state,
 			)))
+
 		if("forceInterior")
 			var/new_door_state = "secure_open"
 
@@ -143,8 +154,6 @@
 				"command" = new_door_state,
 			)))
 
-	return TRUE
-
 /obj/machinery/airlock_controller/receive_signal(datum/signal/signal)
 	var/receive_tag = signal.data["tag"]
 	if(!receive_tag)
@@ -152,7 +161,7 @@
 
 	if(receive_tag == "dock" && !is_firelock) // Uhhhhh, we should be the only thing in range for this kind of thing.
 		if(signal.data["docked"])
-			is_docked = AIRLOCK_DOCKED_CHILD
+			docked = TRUE
 			target_state = AIRLOCK_STATE_OUTOPEN
 			memory["docked_airlock"] = signal.data["id_tag"]
 			post_signal(new /datum/signal(list( // Finish the secret handshake
@@ -161,12 +170,11 @@
 				"id_tag" = id_tag,
 			)))
 		if(signal.data["undocked"])
-			is_docked = FALSE
+			docked = FALSE
 			target_state = AIRLOCK_STATE_CLOSED
 		if(signal.data["received"])
-			is_docked = AIRLOCK_DOCKED_PARENT
+			docked = AIRLOCK_DOCKED_PARENT
 			target_state = AIRLOCK_STATE_OUTOPEN
-			memory["docked_airlock"] = signal.data["id_tag"]
 
 	else if(receive_tag == sensor_tag)
 		if(signal.data["pressure"])
@@ -187,6 +195,7 @@
 
 	else if(receive_tag == interior_door_tag)
 		memory["interior_status"] = signal.data["door_status"]
+		memory["interior_lock_status"] = signal.data["lock_status"]
 		SStgui.update_uis(src)
 
 	else if(receive_tag == airpump_tag)
@@ -196,22 +205,7 @@
 			memory["pump_status"] = "off"
 
 	else if(receive_tag == id_tag && signal.data["command"] == "cycle")
-		if(!is_docked)
-			if(state == AIRLOCK_STATE_INOPEN)
-				target_state = AIRLOCK_STATE_OUTOPEN
-			else
-				target_state = AIRLOCK_STATE_INOPEN
-			return
-
-		if(target_state == AIRLOCK_STATE_OPEN)
-			target_state = AIRLOCK_STATE_OUTOPEN
-		else
-			target_state = AIRLOCK_STATE_OPEN
-
-		post_signal(new /datum/signal(list(
-			"tag" = memory["docked_airlock"],
-			"cycle" = AIRLOCK_STATE_OUTOPEN,
-		)))
+		handle_action("cycle")
 
 /obj/machinery/airlock_controller/proc/handle_pressure(pressure, memory_index)
 	if(isnull(pressure)) // Pressure can be 0!!!
