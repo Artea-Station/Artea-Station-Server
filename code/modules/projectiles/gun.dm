@@ -3,7 +3,7 @@
 #define FIRING_PIN_REMOVAL_DELAY 50
 
 /particles/firing_smoke
-	icon = 'mojave/icons/effects/96x96.dmi'
+	icon = 'icons/effects/96x96.dmi'
 	icon_state = "smoke5"
 	width = 500
 	height = 500

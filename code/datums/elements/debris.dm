@@ -1,12 +1,5 @@
-#define DEBRIS_SPARKS "spark"
-#define DEBRIS_WOOD "wood"
-#define DEBRIS_ROCK "rock"
-#define DEBRIS_GLASS "glass"
-#define DEBRIS_LEAF "leaf"
-#define DEBRIS_SNOW "snow"
-
 /particles/debris
-	icon = 'mojave/icons/effects/particles/generic_particles.dmi'
+	icon = 'icons/effects/particles/generic.dmi'
 	width = 500
 	height = 500
 	count = 10
