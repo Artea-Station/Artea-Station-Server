@@ -54,7 +54,7 @@
 
 /datum/element/debris/proc/register_for_impact(datum/source, obj/projectile/proj)
 	SIGNAL_HANDLER
-	INVOKE_ASYNC(src, PROC_REF(on_impact, source, proj))
+	INVOKE_ASYNC(src, PROC_REF(on_impact), source, proj)
 
 /datum/element/debris/proc/on_impact(datum/source, obj/projectile/P)
 	//if(!P.ammo.ping)
@@ -87,7 +87,7 @@
 			pitch = 55000
 		playsound(source, P.ammo.sound_bounce, 50, 1, frequency = pitch)
 	*/
-	addtimer(CALLBACK(src, PROC_REF(remove_ping, src, smoke_visuals, debris_visuals)), 0.7 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(remove_ping), src, smoke_visuals, debris_visuals), 0.7 SECONDS)
 
 /datum/element/debris/proc/remove_ping(hit, obj/effect/abstract/particle_holder/smoke_visuals, obj/effect/abstract/particle_holder/debris_visuals)
 	QDEL_NULL(smoke_visuals)
