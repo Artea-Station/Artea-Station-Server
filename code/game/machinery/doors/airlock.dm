@@ -192,10 +192,6 @@
 	)
 	AddElement(/datum/element/connect_loc, connections)
 
-/obj/machinery/door/airlock/connect_to_shuttle(mapload, obj/docking_port/mobile/port, obj/docking_port/stationary/dock)
-	if(id_tag)
-		id_tag = "[port.shuttle_id]_[id_tag]"
-
 /obj/machinery/door/airlock/proc/update_other_id()
 	for(var/obj/machinery/door/airlock/Airlock in GLOB.airlocks)
 		if(Airlock.closeOtherId == closeOtherId && Airlock != src)
