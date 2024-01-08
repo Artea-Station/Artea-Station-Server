@@ -214,7 +214,6 @@ All ShuttleMove procs go here
 	post_signal(new /datum/signal(list(
 		"tag" = "dock",
 		"docked" = TRUE,
-		"id_tag", id_tag,
 	)))
 
 /obj/machinery/camera/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)

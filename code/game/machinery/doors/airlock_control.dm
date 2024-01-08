@@ -16,10 +16,10 @@
 
 	switch(signal.data["command"])
 		if("open")
-			open(TRUE)
+			open()
 
 		if("close")
-			close(TRUE)
+			close()
 
 		if("unlock")
 			unlock()
@@ -31,7 +31,7 @@
 			unlock()
 
 			sleep(2)
-			open(TRUE)
+			open()
 
 			lock()
 
@@ -39,7 +39,7 @@
 			unlock()
 
 			sleep(2)
-			close(TRUE)
+			close()
 
 			lock()
 

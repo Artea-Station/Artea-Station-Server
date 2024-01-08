@@ -161,7 +161,7 @@
 						"command" = "secure_close"
 					)))
 			else
-				if(memory["interior_lock_status"] == "locked")
+				if(memory["interior_lock_status"] == "locked" && docked)
 					post_signal(new /datum/signal(list(
 						"tag" = interior_door_tag,
 						"command" = "unlock"

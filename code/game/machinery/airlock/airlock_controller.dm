@@ -6,11 +6,6 @@
 #define AIRLOCK_STATE_OUTOPEN "outopen"
 #define AIRLOCK_STATE_OPEN "open"
 
-/// This is on the shuttle.
-#define AIRLOCK_DOCKED_PARENT "parent"
-/// This is on the station.
-#define AIRLOCK_DOCKED_CHILD "child"
-
 #define IS_AIR_BAD(P) P > WARNING_HIGH_PRESSURE || P < WARNING_LOW_PRESSURE
 
 /obj/machinery/airlock_controller
@@ -163,17 +158,15 @@
 		if(signal.data["docked"])
 			docked = TRUE
 			target_state = AIRLOCK_STATE_OUTOPEN
-			memory["docked_airlock"] = signal.data["id_tag"]
 			post_signal(new /datum/signal(list( // Finish the secret handshake
 				"tag" = "dock",
 				"received" = TRUE,
-				"id_tag" = id_tag,
 			)))
 		if(signal.data["undocked"])
 			docked = FALSE
 			target_state = AIRLOCK_STATE_CLOSED
 		if(signal.data["received"])
-			docked = AIRLOCK_DOCKED_PARENT
+			docked = TRUE
 			target_state = AIRLOCK_STATE_OUTOPEN
 
 	else if(receive_tag == sensor_tag)

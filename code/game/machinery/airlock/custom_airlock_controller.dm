@@ -62,6 +62,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset, 24)
 /obj/machinery/airlock_controller/autoset/hallway
 	name = "autoset hallway airlock controller"
 	is_firelock = TRUE
+	target_state = AIRLOCK_STATE_OPEN
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset/hallway, 24)
 
