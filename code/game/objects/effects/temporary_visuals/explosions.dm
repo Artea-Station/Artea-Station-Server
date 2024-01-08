@@ -274,29 +274,30 @@
 		falling_debris = new(src, /particles/water_falling)
 		sparks = new(src, /particles/water_outwards)
 		large_kickup = new(src, /particles/water_splash_large)
-	if(small)
-		smoke_wave = new(src, /particles/smoke_wave/small)
 	else
-		smoke_wave = new(src, /particles/smoke_wave)
+		if(small)
+			smoke_wave = new(src, /particles/smoke_wave/small)
+		else
+			smoke_wave = new(src, /particles/smoke_wave)
 
-	if(large)
-		explosion_smoke = new(src, /particles/explosion_smoke/deva)
-	else if(small)
-		explosion_smoke = new(src, /particles/explosion_smoke/small)
-	else
-		explosion_smoke = new(src, /particles/explosion_smoke)
+		if(large)
+			explosion_smoke = new(src, /particles/explosion_smoke/deva)
+		else if(small)
+			explosion_smoke = new(src, /particles/explosion_smoke/small)
+		else
+			explosion_smoke = new(src, /particles/explosion_smoke)
 
-	dirt_kickup = new(src, /particles/dirt_kickup)
-	if(small)
-		falling_debris = new(src, /particles/falling_debris/small)
-	else
-		falling_debris = new(src, /particles/falling_debris)
-	sparks = new(src, /particles/sparks_outwards)
+		dirt_kickup = new(src, /particles/dirt_kickup)
+		if(small)
+			falling_debris = new(src, /particles/falling_debris/small)
+		else
+			falling_debris = new(src, /particles/falling_debris)
+		sparks = new(src, /particles/sparks_outwards)
 
-	if(large)
-		large_kickup = new(src, /particles/dirt_kickup_large/deva)
-	else
-		large_kickup = new(src, /particles/dirt_kickup_large)
+		if(large)
+			large_kickup = new(src, /particles/dirt_kickup_large/deva)
+		else
+			large_kickup = new(src, /particles/dirt_kickup_large)
 
 	if(large)
 		smoke_wave.particles.velocity = generator(GEN_CIRCLE, 6 * radius, 6 * radius)
