@@ -47,10 +47,8 @@
 	var/atom/object = src
 	if(connected?.holder)
 		object = connected.holder
-	for(object, object && !ismob(object), object=object.loc);
 	// like get_turf(), but for mobs.
-	var/mob/living/M = object
-
+	for(object, object && !ismob(object), object=object.loc);
 
 	//only do the pulse if we are within alarm thresholds
 	var/mob/living/target_mob = object
