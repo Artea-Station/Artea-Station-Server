@@ -76,7 +76,8 @@
 
 		package = new(crate.loc)
 		package.insert(crate)
-		package.name = "[package.name] - Purchased by [paying_account.account_holder]"
+		if(paying_account)
+			package.name += " - Purchased by [paying_account.account_holder]"
 
 	else if(ispath(container_type, /obj/item/package))
 		package = new /obj/item/package(A)
