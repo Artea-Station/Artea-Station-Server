@@ -228,8 +228,8 @@
 	duration = 12.5
 
 /obj/effect/temp_visual/explosion/fast/setup_delayed_cleanup()
-	addtimer(CALLBACK(src, .proc/set_count_short), 2.5)
-	addtimer(CALLBACK(src, .proc/set_count_long), 5)
+	addtimer(CALLBACK(src, PROC_REF(set_count_short)), 2.5)
+	addtimer(CALLBACK(src, PROC_REF(set_count_long)), 5)
 
 /obj/effect/temp_visual/explosion
 	name = "boom"
@@ -313,8 +313,8 @@
 
 //Made into it's own proc for easier overriding
 /obj/effect/temp_visual/explosion/proc/setup_delayed_cleanup()
-	addtimer(CALLBACK(src, .proc/set_count_short), 5)
-	addtimer(CALLBACK(src, .proc/set_count_long), 10)
+	addtimer(CALLBACK(src, PROC_REF(set_count_short)), 5)
+	addtimer(CALLBACK(src,  PROC_REF(set_count_long)), 10)
 
 /obj/effect/temp_visual/explosion/proc/set_count_short()
 	smoke_wave.particles.count = 0
