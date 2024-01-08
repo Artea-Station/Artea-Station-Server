@@ -254,9 +254,9 @@
 	. = ..()
 	set_light(radius, radius, color)
 	generate_particles(radius, small, large)
-	//if(iswater(get_turf(src)))
-	//	icon_state = null
-	//	return
+	if(iswater(get_turf(src)))
+		icon_state = null
+		return
 	var/image/I = image(icon, src, icon_state, 10, -32, -32)
 	var/matrix/rotate = matrix()
 	rotate.Turn(rand(0, 359))
@@ -266,7 +266,6 @@
 
 ///Generate the particles
 /obj/effect/temp_visual/explosion/proc/generate_particles(radius, small = FALSE, large = FALSE)
-/*
 	var/turf/turf_type = get_turf(src)
 	if(iswater(turf_type))
 		smoke_wave = new(src, /particles/wave_water)
@@ -275,8 +274,6 @@
 		falling_debris = new(src, /particles/water_falling)
 		sparks = new(src, /particles/water_outwards)
 		large_kickup = new(src, /particles/water_splash_large)
-	else
-*/
 	if(small)
 		smoke_wave = new(src, /particles/smoke_wave/small)
 	else
