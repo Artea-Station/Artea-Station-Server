@@ -101,6 +101,8 @@ GLOBAL_VAR_INIT(running_create_and_destroy, FALSE)
 	ignore += typesof(/obj/machinery/computer/holodeck)
 	//runtimes if not paired with a landmark
 	ignore += typesof(/obj/structure/industrial_lift)
+	//Harddels if removed. This should never be removed, and admins should ideally not fuck with gravgens, so.
+	ignore += typesof(/obj/machinery/gravity_generator/main)
 
 	var/list/cached_contents = spawn_at.contents.Copy()
 	var/original_turf_type = spawn_at.type
@@ -139,7 +141,7 @@ GLOBAL_VAR_INIT(running_create_and_destroy, FALSE)
 	SSticker.delay_end = TRUE
 
 	// Drastically lower the amount of time it takes to GC, since we don't have clients that can hold it up.
-	// Except lighting and gravgens have a tendency to hold GC for a moment. - Rimi
+	// Except lighting has a tendency to hold GC for a moment. - Rimi
 	SSgarbage.collection_timeout[GC_QUEUE_CHECK] = 1 MINUTES
 	//Prevent the garbage subsystem from harddeling anything, if only to save time
 	SSgarbage.collection_timeout[GC_QUEUE_HARDDELETE] = 10000 HOURS
