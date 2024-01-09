@@ -186,8 +186,11 @@
 	if(prefs && (prefs.toggles & SOUND_LOBBY) && !CONFIG_GET(flag/disallow_title_music))
 		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = LOG_AUDIOVOLUME(vol), channel = SOUND_CHANNEL_LOBBYMUSIC)) // MAD JAMS
 
-/proc/get_rand_frequency()
-	return rand(32000, 55000) //Frequency stuff only works with 45kbps oggs.
+/proc/get_rand_frequency(frequency)
+	if(frequency)
+		return rand(round(frequency / 1.4), round(frequency * 1.2))
+
+	return rand(32000, 55000)
 
 /proc/get_sfx(soundin)
 	if(istext(soundin))
