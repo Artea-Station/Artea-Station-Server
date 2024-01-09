@@ -52,6 +52,15 @@
 		to_chat(user, span_warning("You cannot unwrench [src], detach [connected_device] first!"))
 		return FALSE
 
+/obj/machinery/atmospherics/components/unary/portables_connector/connect_roundstart/build_network()
+	. = ..()
+	var/obj/machinery/portable_atmospherics/canister = locate(/obj/machinery/portable_atmospherics) in loc
+	if(canister)
+		canister.connect(src)
+		return
+	// Crash so CI gets angry
+	CRASH("No connectable found on top of the portables connector at [x], [y], [z]! Fix this.")
+
 /obj/machinery/atmospherics/components/unary/portables_connector/layer2
 	piping_layer = 2
 	icon_state = "connector_map-2"
