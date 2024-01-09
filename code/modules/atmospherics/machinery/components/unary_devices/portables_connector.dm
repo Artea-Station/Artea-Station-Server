@@ -17,11 +17,16 @@
 
 	///Reference to the connected device
 	var/obj/machinery/portable_atmospherics/connected_device
+	/// If TRUE, it will try to connect to a canister on roundstart.
+	var/connect_roundstart = FALSE
 
 /obj/machinery/atmospherics/components/unary/portables_connector/New()
 	. = ..()
 	var/datum/gas_mixture/air_contents = airs[1]
 	air_contents.volume = 0
+	if(!connect_roundstart)
+		return
+	addtimer(CALLBACK(src, PROC_REF(connect_to_canister)), 1 SECONDS)
 
 /obj/machinery/atmospherics/components/unary/portables_connector/Destroy()
 	if(connected_device)
@@ -52,8 +57,8 @@
 		to_chat(user, span_warning("You cannot unwrench [src], detach [connected_device] first!"))
 		return FALSE
 
-/obj/machinery/atmospherics/components/unary/portables_connector/connect_roundstart/build_network()
-	. = ..()
+/obj/machinery/atmospherics/components/unary/portables_connector/proc/connect_to_canister()
+	connect_roundstart = FALSE
 	var/obj/machinery/portable_atmospherics/canister = locate(/obj/machinery/portable_atmospherics) in loc
 	if(canister)
 		canister.connect(src)
@@ -61,21 +66,39 @@
 	// Crash so CI gets angry
 	CRASH("No connectable found on top of the portables connector at [x], [y], [z]! Fix this.")
 
+/obj/machinery/atmospherics/components/unary/portables_connector/auto_connect
+	connect_roundstart = TRUE
+
 /obj/machinery/atmospherics/components/unary/portables_connector/layer2
 	piping_layer = 2
 	icon_state = "connector_map-2"
+
+/obj/machinery/atmospherics/components/unary/portables_connector/layer2/auto_connect
+	connect_roundstart = TRUE
 
 /obj/machinery/atmospherics/components/unary/portables_connector/layer4
 	piping_layer = 4
 	icon_state = "connector_map-4"
 
+/obj/machinery/atmospherics/components/unary/portables_connector/layer4/auto_connect
+	connect_roundstart = TRUE
+
 /obj/machinery/atmospherics/components/unary/portables_connector/visible
 	hide = FALSE
+
+/obj/machinery/atmospherics/components/unary/portables_connector/visible/auto_connect
+	connect_roundstart = TRUE
 
 /obj/machinery/atmospherics/components/unary/portables_connector/visible/layer2
 	piping_layer = 2
 	icon_state = "connector_map-2"
 
+/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer2/auto_connect
+	connect_roundstart = TRUE
+
 /obj/machinery/atmospherics/components/unary/portables_connector/visible/layer4
 	piping_layer = 4
 	icon_state = "connector_map-4"
+
+/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer4/auto_connect
+	connect_roundstart = TRUE
