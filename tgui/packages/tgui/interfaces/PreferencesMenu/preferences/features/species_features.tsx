@@ -103,15 +103,11 @@ export const synth_screen_color: Feature<string> = {
 export const synth_head_color: Feature<string> = {
   name: 'Synth Head Color',
   component: FeatureTriColorInput,
-  description:
-    'Set this to 000000 to use your selected skin tone/color instead!',
 };
 
 export const synth_chassis_color: Feature<string> = {
   name: 'Synth Chassis Color',
   component: FeatureTriColorInput,
-  description:
-    'Set this to 000000 to use your selected skin tone/color instead!',
 };
 
 export const feature_hair_opacity: Feature<number> = {
@@ -146,5 +142,20 @@ export const lizard_frills_color: Feature<string> = {
 
 export const lizard_snout_color: Feature<string> = {
   name: 'Snout Color',
+  component: FeatureTriColorInput,
+};
+
+export const lizard_tail_color: Feature<string> = {
+  name: 'Tail Color',
+  component: FeatureTriColorInput,
+};
+
+export const lizard_spines_color: Feature<string> = {
+  name: 'Spines Color',
+  component: FeatureTriColorInput,
+};
+
+export const body_markings_color: Feature<string> = {
+  name: 'Body Markings Color',
   component: FeatureTriColorInput,
 };

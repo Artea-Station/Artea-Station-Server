@@ -32,7 +32,7 @@
 		CRASH("Stray Cargo Pod : No valid turfs found for [impact_area] - [impact_area.type]")
 
 	if(!stray_spawnable_supply_packs.len)
-		stray_spawnable_supply_packs = SSshuttle.supply_packs.Copy()
+		stray_spawnable_supply_packs = SStrading.supply_packs.Copy()
 		for(var/pack in stray_spawnable_supply_packs)
 			var/datum/supply_pack/pack_type = pack
 			if(initial(pack_type.special))
@@ -52,13 +52,9 @@
 		pack_type = pick(possible_pack_types)
 	else
 		pack_type = pick(stray_spawnable_supply_packs)
-	var/datum/supply_pack/SP
-	if(ispath(pack_type, /datum/supply_pack))
-		SP = new pack_type
-	else  // treat this as a supply pack id and resolving it with SSshuttle
-		SP = SSshuttle.supply_packs[pack_type] 
+	var/datum/supply_pack/SP = SStrading.supply_packs["[pack_type]"]
 	var/obj/structure/closet/crate/crate = SP.generate(null)
-	if(crate) //empty supply packs are a thing! get memed on.
+	if(istype(crate)) //empty supply packs are a thing! get memed on.
 		crate.locked = FALSE //Unlock secure crates
 		crate.update_appearance()
 	var/obj/structure/closet/supplypod/pod = make_pod()

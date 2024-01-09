@@ -67,6 +67,11 @@
 	access_list += ACCESS_CAPTAIN
 	return access_list
 
+/obj/effect/mapping_helpers/airlock/access/any/command/internal_affairs/get_access()
+	var/list/access_list = ..()
+	access_list += ACCESS_INTERNAL_AFFAIRS
+	return access_list
+
 /obj/effect/mapping_helpers/airlock/access/any/command/maintenance/get_access()
 	var/list/access_list = ..()
 	access_list += list(ACCESS_COMMAND, ACCESS_MAINT_TUNNELS)
@@ -333,11 +338,6 @@
 	access_list += ACCESS_THEATRE
 	return access_list
 
-/obj/effect/mapping_helpers/airlock/access/any/service/lawyer/get_access()
-	var/list/access_list = ..()
-	access_list += ACCESS_LAWYER
-	return access_list
-
 /obj/effect/mapping_helpers/airlock/access/any/service/maintenance/get_access()
 	var/list/access_list = ..()
 	access_list += list(ACCESS_SERVICE, ACCESS_MAINT_TUNNELS)
@@ -552,6 +552,11 @@
 /obj/effect/mapping_helpers/airlock/access/all/command/captain/get_access()
 	var/list/access_list = ..()
 	access_list += ACCESS_CAPTAIN
+	return access_list
+
+/obj/effect/mapping_helpers/airlock/access/all/command/internal_affairs/get_access()
+	var/list/access_list = ..()
+	access_list += ACCESS_INTERNAL_AFFAIRS
 	return access_list
 
 // -------------------- Engineering access helpers
@@ -793,11 +798,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/service/theatre/get_access()
 	var/list/access_list = ..()
 	access_list += ACCESS_THEATRE
-	return access_list
-
-/obj/effect/mapping_helpers/airlock/access/all/service/lawyer/get_access()
-	var/list/access_list = ..()
-	access_list += ACCESS_LAWYER
 	return access_list
 
 // -------------------- Supply access helpers

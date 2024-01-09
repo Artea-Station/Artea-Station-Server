@@ -96,6 +96,9 @@
 		return
 
 	user.log_message(msg, LOG_EMOTE)
+
+	msg = user.say_emphasis(msg)
+
 	var/dchatmsg = "<b>[user]</b> [msg]"
 
 	var/tmp_sound = get_sound(user)

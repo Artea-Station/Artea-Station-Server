@@ -12,7 +12,7 @@ GLOBAL_DATUM_INIT(matchmaking_panel, /datum/matchmaking_panel, new)
 /datum/matchmaking_panel/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "MatchmakingPanel")
+		ui = new(user, src, "MatchmakingPanel", "Matchmaking Panel")
 		ui.open()
 
 /datum/matchmaking_panel/ui_data(mob/user)
@@ -35,11 +35,12 @@ GLOBAL_DATUM_INIT(matchmaking_panel, /datum/matchmaking_panel, new)
 				to_chat(ui.user, span_warning("You have to wait 5 seconds between each refresh!"))
 				return
 
-			update_static_data(ui.user, ui)
 			TIMER_COOLDOWN_START(ui.user, COOLDOWN_MATCHMAKING_PANEL_REFRESH, 5 SECONDS)
+			update_static_data(ui.user, ui)
 
 		if("toggle_victim_status")
 			ui.user.client.prefs.write_preference(GLOB.preference_entries[/datum/preference/toggle/be_victim], !ui.user.client.prefs.read_preference(/datum/preference/toggle/be_victim))
+			return TRUE
 
 /datum/matchmaking_panel/proc/get_other_players()
 	var/list/directory_mobs = list()
@@ -55,7 +56,7 @@ GLOBAL_DATUM_INIT(matchmaking_panel, /datum/matchmaking_panel, new)
 
 		if(ishuman(client.mob))
 			var/mob/living/carbon/human/human = client.mob
-			if(!find_record("name", human.real_name, GLOB.manifest.general))
+			if(!find_record(human.real_name, TRUE))
 				continue
 			name = human.real_name
 			species = human.dna.species.name

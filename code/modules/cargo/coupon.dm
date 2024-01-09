@@ -9,7 +9,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/datum/supply_pack/discounted_pack
 	var/discount_pct_off = 0.05
-	var/obj/machinery/computer/cargo/inserted_console
+	var/obj/machinery/computer/trade_console/inserted_console
 
 /// Choose what our prize is :D
 /obj/item/coupon/proc/generate(rig_omen=FALSE)
@@ -30,8 +30,8 @@
 		discount_pct_off = text2num(discount_pct_off)
 		name = "coupon - [round(discount_pct_off * 100)]% off [initial(discounted_pack.name)]"
 
-/obj/item/coupon/attack_atom(obj/O, mob/living/user, params)
-	if(!istype(O, /obj/machinery/computer/cargo))
+/obj/item/coupon/attack_atom(obj/O, mob/living/user, params) // I hate this.
+	if(!istype(O, /obj/machinery/computer/trade_console))
 		return ..()
 	if(discount_pct_off == COUPON_OMEN)
 		to_chat(user, span_warning("\The [O] validates the coupon as authentic, but refuses to accept it..."))

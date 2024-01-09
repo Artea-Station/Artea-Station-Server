@@ -242,6 +242,7 @@
 	// Minimum 3x3 size.
 	height = 1
 	width = 1
+	dwidth = 1
 
 	// Scan to the right for a docking area marker so we know our offset.
 	while(!found_marker && !(step_ref.x + 1 > world.maxx) && !(step_ref.y + 1 > world.maxy))
@@ -267,6 +268,7 @@
 						step_ref = get_step(step_ref, dir_to_scan)
 						found_marker = locate(/obj/docking_area_marker) in step_ref
 						if(found_marker)
+							dwidth = width - dwidth
 							return
 
 						// These testing blocks visualise what the scanner saw. Placed here so the corners aren't placed, as that's where the markers are.

@@ -238,11 +238,11 @@
 
 		if(!checked_turf)
 			continue
-		if(isclosedturf(checked_turf))
+		RegisterSignal(checked_turf, COMSIG_TURF_CHANGE, PROC_REF(adjacent_change))
+		RegisterSignal(checked_turf, COMSIG_TURF_EXPOSE, PROC_REF(process_results))
+		if(!isopenturf(checked_turf))
 			continue
 		process_results(checked_turf)
-		RegisterSignal(checked_turf, COMSIG_TURF_EXPOSE, PROC_REF(process_results))
-
 
 /obj/machinery/door/firedoor/proc/unregister_adjacent_turfs(atom/old_loc)
 	if(!loc)
@@ -256,7 +256,14 @@
 		if(!checked_turf)
 			continue
 
+		UnregisterSignal(checked_turf, COMSIG_TURF_CHANGE)
 		UnregisterSignal(checked_turf, COMSIG_TURF_EXPOSE)
+
+// If a turf adjacent to us changes, recalc our affecting areas when it's done yeah?
+/obj/machinery/door/firedoor/proc/adjacent_change(turf/changed, path, list/new_baseturfs, flags, list/post_change_callbacks)
+	SIGNAL_HANDLER
+	post_change_callbacks += CALLBACK(src, PROC_REF(CalculateAffectingAreas))
+	post_change_callbacks += CALLBACK(src, PROC_REF(process_results), changed) //check the atmosphere of the changed turf so we don't hold onto alarm if a wall is built
 
 /obj/machinery/door/firedoor/proc/check_atmos(turf/checked_turf)
 	var/datum/gas_mixture/environment = checked_turf.return_air()
@@ -267,14 +274,17 @@
 		return FIRELOCK_ALARM_TYPE_COLD
 	return
 
-/obj/machinery/door/firedoor/proc/process_results(datum/source)
+/obj/machinery/door/firedoor/proc/process_results(turf/checked_turf)
 	SIGNAL_HANDLER
 
 	for(var/area/place in affecting_areas)
 		if(!place.fire_detect) //if any area is set to disable detection
 			return
 
-	var/turf/checked_turf = source
+	var/area/turf_area = get_area(checked_turf)
+	if(istype(turf_area, /area/space)) // Ignore stuff that's in space.
+		return
+
 	var/result = check_atmos(checked_turf)
 
 	if(result && TURF_SHARES(checked_turf))
@@ -673,7 +683,10 @@
 
 /obj/machinery/door/firedoor/border_only/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_ATOM_EXIT, PROC_REF(on_exit))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/machinery/door/firedoor/border_only/closed
 	icon_state = "door_closed"

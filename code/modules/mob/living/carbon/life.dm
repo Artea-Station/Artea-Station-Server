@@ -121,7 +121,10 @@
 				var/obj/loc_as_obj = loc
 				loc_as_obj.handle_internal_lifeform(src,0)
 
-	check_breath(breath)
+	// If we took a breath, we probably did that via internals.
+	if(check_breath(breath) && COOLDOWN_FINISHED(src, breath_sound_cd) && internal)
+		playsound(src, 'sound/voice/breathing.ogg', 5, play_directly_to_source = TRUE)
+		COOLDOWN_START(src, breath_sound_cd, 3.5 SECONDS)
 
 	if(breath)
 		loc.assume_air(breath)
