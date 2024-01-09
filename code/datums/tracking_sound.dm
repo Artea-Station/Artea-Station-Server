@@ -26,13 +26,7 @@
 	var/use_reverb
 
 	/// null sound datum used to stop the sound on a client; stored to prevent constant generation
-	var/sound/null_sound
-
-	/// world.timeofday we started playing the sound.
-	var/start_time
-
-	/// sound length
-	var/sound_length
+	var/static/sound/null_sound
 
 	/// The listeners of the sound.
 	var/list/mob/listeners = list()
@@ -48,9 +42,6 @@
 
 	/// Set to true if we were able to track sound length for self deletion.
 	var/qdel_scheduled = FALSE
-
-	/// Map of client ckeys to their expected offset, offset
-	var/list/client_offsets = list()
 
 /datum/sound_spatial_tracker/New(
 	source,
@@ -70,8 +61,7 @@
 	src.source = source
 	src.sound = sound(file = sound, channel = channel)
 	src.base_volume = base_volume
-	src.vary = vary
-	src.frequency = frequency
+	src.frequency = vary ? get_rand_frequency() : frequency
 	src.falloff_exponent = falloff_exponent
 	src.channel = channel
 	src.pressure_affected = pressure_affected
@@ -80,11 +70,9 @@
 	src.distance_multiplier = distance_multiplier
 	src.use_reverb = use_reverb
 
-	start_time = REALTIMEOFDAY
 	SSsounds.register_spatial_tracker(src)
 	spatial_tracker = new(max_distance, max_distance)
 	update_spatial_tracker()
-	src.sound_length = sound_length
 	if(sound_length)
 		schedule_qdel(sound_length)
 	RegisterSignal(source, COMSIG_PARENT_QDELETING, PROC_REF(source_gone))
@@ -133,8 +121,6 @@
 
 /datum/sound_spatial_tracker/proc/update_listener(mob/listener)
 	set waitfor = FALSE
-	// special note for debuggers,
-	// having a breakpoint here will cause the logic to break as the offset won't take into account the time it takes to step through this proc
 
 	if(isnull(listener.client))
 		release_listener(listener)
@@ -144,39 +130,21 @@
 		stop_sound_for(listener)
 		return
 
-	var/expected_offset = (REALTIMEOFDAY - start_time)
-	var/listener_offset = LISTENER_OFFSET_GET(listener)
-	if(listener_offset == LISTENER_OFFSET_UNKNOWN)
-		var/sound/existing_sound = null
-		for(var/sound/playing as anything in listener.client?.SoundQuery())
-			if(playing.channel != channel)
-				continue
-			existing_sound = playing
-			break
+	var/sound/existing_sound = null
+	for(var/sound/playing as anything in listener.client?.SoundQuery())
+		if(playing.channel != channel)
+			continue
+		existing_sound = playing
+		break
 
-		if(!isnull(existing_sound))
-			if(!sound_length)
-				sound_length = existing_sound.len * 10
-				schedule_qdel(sound_length - expected_offset)
+	if(existing_sound)
+		sound.status |= SOUND_UPDATE
 
-			listener_offset = expected_offset - (existing_sound.offset * 10)
-			LISTENER_OFFSET_SET(listener, listener_offset)
-
-	// we got here even though the sound is supposed to be stopped
-	if(sound_length && (expected_offset >= sound_length))
-		qdel(src)
-		if(qdel_scheduled)
-			deltimer(qdel_scheduled)
-		return
-
-	// offset by the amount of deciseconds we expect the client to take to recieve the message
-	// remember that sound.offset is seconds based
-	sound.offset = (expected_offset + listener_offset) * 0.1
 	listener.playsound_local(
 		get_turf(source),
 		null,
 		base_volume,
-		vary,
+		FALSE,
 		frequency,
 		falloff_exponent,
 		channel,
