@@ -1,11 +1,14 @@
 // This code allows for airlocks to be controlled externally by setting an id_tag and comm frequency (disables ID access)
+
+/obj/machinery/door
+	var/datum/radio_frequency/radio_connection
+
 /obj/machinery/door/airlock
 	opens_with_door_remote = TRUE
 
 	/// The current state of the airlock, used to construct the airlock overlays
 	var/airlock_state
 	var/frequency
-	var/datum/radio_frequency/radio_connection
 
 /obj/machinery/door/airlock/receive_signal(datum/signal/signal)
 	if(!signal)
@@ -28,6 +31,9 @@
 			lock()
 
 		if("secure_open")
+			if(!density || opening)
+				return
+
 			unlock()
 
 			sleep(2)
@@ -36,6 +42,8 @@
 			lock()
 
 		if("secure_close")
+			if(density || closing)
+				return
 			unlock()
 
 			sleep(2)
@@ -45,25 +53,15 @@
 
 	send_status()
 
-/obj/machinery/door/airlock/proc/send_status()
+/obj/machinery/door/proc/send_status()
 	if(radio_connection)
 		var/datum/signal/signal = new(list(
 			"tag" = id_tag,
 			"timestamp" = world.time,
-			"door_status" = density ? "closed" : "open",
+			"door_status" = closing ? "closed" : opening ? "open" : density ? "closed" : "open",
 			"lock_status" = locked ? "locked" : "unlocked"
 		))
 		radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
-
-/obj/machinery/door/airlock/open(surpress_send)
-	. = ..()
-	if(!surpress_send)
-		send_status()
-
-/obj/machinery/door/airlock/close(surpress_send)
-	. = ..()
-	if(!surpress_send)
-		send_status()
 
 /obj/machinery/door/airlock/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)

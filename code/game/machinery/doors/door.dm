@@ -55,6 +55,10 @@
 	///Sound to play when knocked on
 	var/knock_sound = 'goon/sounds/door_metal_knock_1.ogg'
 
+	// Temp vars to make signals treat doors properly.
+	var/opening = FALSE
+	var/closing = FALSE
+
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
 	set_init_door_layer()
@@ -420,12 +424,15 @@
 				flick("door_deny", src)
 
 
-/obj/machinery/door/proc/open()
+/obj/machinery/door/proc/open(surpress_send)
 	if(!density)
 		return 1
 	if(operating)
 		return
+	opening = TRUE
 	operating = TRUE
+	if(!surpress_send)
+		send_status()
 	use_power(active_power_usage)
 	do_animate("opening")
 	set_opacity(0)
@@ -436,6 +443,7 @@
 	layer = initial(layer)
 	update_appearance()
 	set_opacity(0)
+	opening = FALSE
 	operating = FALSE
 	air_update_turf(TRUE, FALSE)
 	update_freelook_sight()
@@ -443,7 +451,7 @@
 		autoclose_in(DOOR_CLOSE_WAIT)
 	return 1
 
-/obj/machinery/door/proc/close()
+/obj/machinery/door/proc/close(surpress_send)
 	if(density)
 		return TRUE
 	if(operating || welded)
@@ -455,7 +463,10 @@
 					autoclose_in(DOOR_CLOSE_WAIT)
 				return
 
+	closing = TRUE
 	operating = TRUE
+	if(!surpress_send)
+		send_status()
 
 	do_animate("closing")
 	layer = closingLayer
@@ -466,6 +477,7 @@
 	update_appearance()
 	if(visible && !glass)
 		set_opacity(1)
+	closing = FALSE
 	operating = FALSE
 	air_update_turf(TRUE, TRUE)
 	update_freelook_sight()
