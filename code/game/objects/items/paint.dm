@@ -66,7 +66,7 @@
 	. += span_notice("Choose any color by alt-clicking the paint.")
 
 /obj/item/paint/anycolor/AltClick(mob/living/user)
-	var/new_paint_color = input(user, "Choose new paint color", "Paint Color", paint_color) as color|null
+	var/new_paint_color = tgui_color_picker(user, "Choose new paint color", "Paint Color", paint_color)
 	if(new_paint_color)
 		paint_color = new_paint_color
 		icon_state = "paint_neutral"
