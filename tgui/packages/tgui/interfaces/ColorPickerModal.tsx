@@ -9,7 +9,7 @@ import { useBackend, useLocalState } from '../backend';
 import { Autofocus, Box, Flex, Section, Stack, Pointer, NumberInput, Tooltip, Button } from '../components';
 import { Window } from '../layouts';
 import { clamp } from 'common/math';
-import { hexToHsva, HsvaColor, hsvaToHex, hsvaToHslString, hsvaToRgba, rgbaToHsva, validHex } from 'common/color';
+import { colorList, hexToHsva, HsvaColor, hsvaToHex, hsvaToHslString, hsvaToRgba, rgbaToHsva, validHex } from 'common/color';
 import { Interaction, Interactive } from 'tgui/components/Interactive';
 import { classes } from 'common/react';
 import { Component, FocusEvent, FormEvent } from 'inferno';
@@ -29,13 +29,8 @@ type ColorPickerData = {
 
 export const ColorPickerModal = (_, context) => {
   const { data } = useBackend<ColorPickerData>(context);
-  const {
-    timeout,
-    message,
-    title,
-    autofocus,
-    default_color = '#000000',
-  } = data;
+  const { timeout, message, autofocus, default_color = '#000000' } = data;
+  let { title } = data;
   let [selectedColor, setSelectedColor] = useLocalState<HsvaColor>(
     context,
     'color_picker_choice',
@@ -47,8 +42,16 @@ export const ColorPickerModal = (_, context) => {
     false
   );
 
+  if (!title) {
+    title = 'Color';
+  }
+
   return (
-    <Window height={400} title={title} width={600} theme="generic">
+    <Window
+      height={message ? 400 : 360}
+      title={title}
+      width={600}
+      theme="generic">
       {!!timeout && <Loader value={timeout} />}
       <Window.Content>
         <Stack fill vertical>
@@ -64,14 +67,11 @@ export const ColorPickerModal = (_, context) => {
           )}
           <Stack.Item grow>
             <Section fill>
-              {showPresets && <ColorPresets />}
-              {!showPresets && (
-                <ColorSelector
-                  color={selectedColor}
-                  setColor={setSelectedColor}
-                  defaultColor={default_color}
-                />
-              )}
+              <ColorSelector
+                color={selectedColor}
+                setColor={setSelectedColor}
+                defaultColor={default_color}
+              />
             </Section>
           </Stack.Item>
           <Stack.Item>
@@ -83,8 +83,47 @@ export const ColorPickerModal = (_, context) => {
   );
 };
 
-export const ColorPresets = () => {
-  return <Box />;
+export const ColorPresets = ({ setColor, setShowPresets }) => {
+  return (
+    <>
+      <Button
+        onClick={() => setShowPresets(false)}
+        position="absolute"
+        right="4px"
+        icon="arrow-left"
+      />
+      <Stack justify="center">
+        <Stack.Item>
+          {colorList.map((row, index) => {
+            return (
+              <Stack.Item key={index} width="100%">
+                <Stack justify="center">
+                  {row.map((entry) => {
+                    return (
+                      <Box key={entry} p="1px" backgroundColor="black">
+                        <Box
+                          key={entry}
+                          p="1px"
+                          backgroundColor="#AAAAAA"
+                          onClick={() => setColor(hexToHsva(entry))}>
+                          <Box
+                            onClick={() => setColor(hexToHsva(entry))}
+                            backgroundColor={'#' + entry}
+                            width="21px"
+                            height="14px"
+                          />
+                        </Box>
+                      </Box>
+                    );
+                  })}
+                </Stack>
+              </Stack.Item>
+            );
+          })}
+        </Stack.Item>
+      </Stack>
+    </>
+  );
 };
 
 export const ColorSelector = (
@@ -149,145 +188,153 @@ export const ColorSelector = (
         </Stack>
       </Flex.Item>
       <Flex.Item grow fontSize="15px" lineHeight="24px">
-        <Stack vertical>
-          <Stack.Item>
-            <Stack>
-              <Stack.Item>
-                <Box textColor="label">Hex:</Box>
-              </Stack.Item>
-              <Stack.Item grow height="24px">
-                <HexColorInput
-                  fluid
-                  color={hsvaToHex(color).substring(1)}
-                  onChange={(value) => {
-                    logger.info(value);
-                    setColor(hexToHsva(value));
-                  }}
-                />
-              </Stack.Item>
-              <Stack.Item>
-                <Button
-                  icon="eye-dropper"
-                  onClick={() => setShowPresets(true)}
-                />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Divider />
-          <Stack.Item>
-            <Stack>
-              <Stack.Item width="25px">
-                <Box textColor="label">H:</Box>
-              </Stack.Item>
-              <Stack.Item grow>
-                <Hue hue={color.h} onChange={handleChange} />
-              </Stack.Item>
-              <Stack.Item>
-                <TextSetter
-                  value={color.h}
-                  callback={(_, v) => handleChange({ h: v })}
-                  max={360}
-                  unit="°"
-                />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Item>
-            <Stack>
-              <Stack.Item width="25px">
-                <Box textColor="label">S:</Box>
-              </Stack.Item>
-              <Stack.Item grow>
-                <Saturation color={color} onChange={handleChange} />
-              </Stack.Item>
-              <Stack.Item>
-                <TextSetter
-                  value={color.s}
-                  callback={(_, v) => handleChange({ s: v })}
-                  unit="%"
-                />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Item>
-            <Stack>
-              <Stack.Item width="25px">
-                <Box textColor="label">V:</Box>
-              </Stack.Item>
-              <Stack.Item grow>
-                <Value color={color} onChange={handleChange} />
-              </Stack.Item>
-              <Stack.Item>
-                <TextSetter
-                  value={color.v}
-                  callback={(_, v) => handleChange({ v: v })}
-                  unit="%"
-                />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Divider />
-          <Stack.Item>
-            <Stack>
-              <Stack.Item width="25px">
-                <Box textColor="label">R:</Box>
-              </Stack.Item>
-              <Stack.Item grow>
-                <RGBSlider color={color} onChange={handleChange} target="r" />
-              </Stack.Item>
-              <Stack.Item>
-                <TextSetter
-                  value={rgb.r}
-                  callback={(_, v) => {
-                    rgb.r = v;
-                    handleChange(rgbaToHsva(rgb));
-                  }}
-                  max={255}
-                />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Item>
-            <Stack>
-              <Stack.Item width="25px">
-                <Box textColor="label">G:</Box>
-              </Stack.Item>
-              <Stack.Item grow>
-                <RGBSlider color={color} onChange={handleChange} target="g" />
-              </Stack.Item>
-              <Stack.Item>
-                <TextSetter
-                  value={rgb.g}
-                  callback={(_, v) => {
-                    rgb.g = v;
-                    handleChange(rgbaToHsva(rgb));
-                  }}
-                  max={255}
-                />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Item>
-            <Stack>
-              <Stack.Item width="25px">
-                <Box textColor="label">B:</Box>
-              </Stack.Item>
-              <Stack.Item grow>
-                <RGBSlider color={color} onChange={handleChange} target="b" />
-              </Stack.Item>
-              <Stack.Item>
-                <TextSetter
-                  value={rgb.b}
-                  callback={(_, v) => {
-                    rgb.b = v;
-                    handleChange(rgbaToHsva(rgb));
-                  }}
-                  max={255}
-                />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-        </Stack>
+        {showPresets && (
+          <ColorPresets
+            setColor={handleChange}
+            setShowPresets={setShowPresets}
+          />
+        )}
+        {!showPresets && (
+          <Stack vertical>
+            <Stack.Item>
+              <Stack>
+                <Stack.Item>
+                  <Box textColor="label">Hex:</Box>
+                </Stack.Item>
+                <Stack.Item grow height="24px">
+                  <HexColorInput
+                    fluid
+                    color={hsvaToHex(color).substring(1)}
+                    onChange={(value) => {
+                      logger.info(value);
+                      setColor(hexToHsva(value));
+                    }}
+                  />
+                </Stack.Item>
+                <Stack.Item>
+                  <Button
+                    icon="eye-dropper"
+                    onClick={() => setShowPresets(true)}
+                  />
+                </Stack.Item>
+              </Stack>
+            </Stack.Item>
+            <Stack.Divider />
+            <Stack.Item>
+              <Stack>
+                <Stack.Item width="25px">
+                  <Box textColor="label">H:</Box>
+                </Stack.Item>
+                <Stack.Item grow>
+                  <Hue hue={color.h} onChange={handleChange} />
+                </Stack.Item>
+                <Stack.Item>
+                  <TextSetter
+                    value={color.h}
+                    callback={(_, v) => handleChange({ h: v })}
+                    max={360}
+                    unit="°"
+                  />
+                </Stack.Item>
+              </Stack>
+            </Stack.Item>
+            <Stack.Item>
+              <Stack>
+                <Stack.Item width="25px">
+                  <Box textColor="label">S:</Box>
+                </Stack.Item>
+                <Stack.Item grow>
+                  <Saturation color={color} onChange={handleChange} />
+                </Stack.Item>
+                <Stack.Item>
+                  <TextSetter
+                    value={color.s}
+                    callback={(_, v) => handleChange({ s: v })}
+                    unit="%"
+                  />
+                </Stack.Item>
+              </Stack>
+            </Stack.Item>
+            <Stack.Item>
+              <Stack>
+                <Stack.Item width="25px">
+                  <Box textColor="label">V:</Box>
+                </Stack.Item>
+                <Stack.Item grow>
+                  <Value color={color} onChange={handleChange} />
+                </Stack.Item>
+                <Stack.Item>
+                  <TextSetter
+                    value={color.v}
+                    callback={(_, v) => handleChange({ v: v })}
+                    unit="%"
+                  />
+                </Stack.Item>
+              </Stack>
+            </Stack.Item>
+            <Stack.Divider />
+            <Stack.Item>
+              <Stack>
+                <Stack.Item width="25px">
+                  <Box textColor="label">R:</Box>
+                </Stack.Item>
+                <Stack.Item grow>
+                  <RGBSlider color={color} onChange={handleChange} target="r" />
+                </Stack.Item>
+                <Stack.Item>
+                  <TextSetter
+                    value={rgb.r}
+                    callback={(_, v) => {
+                      rgb.r = v;
+                      handleChange(rgbaToHsva(rgb));
+                    }}
+                    max={255}
+                  />
+                </Stack.Item>
+              </Stack>
+            </Stack.Item>
+            <Stack.Item>
+              <Stack>
+                <Stack.Item width="25px">
+                  <Box textColor="label">G:</Box>
+                </Stack.Item>
+                <Stack.Item grow>
+                  <RGBSlider color={color} onChange={handleChange} target="g" />
+                </Stack.Item>
+                <Stack.Item>
+                  <TextSetter
+                    value={rgb.g}
+                    callback={(_, v) => {
+                      rgb.g = v;
+                      handleChange(rgbaToHsva(rgb));
+                    }}
+                    max={255}
+                  />
+                </Stack.Item>
+              </Stack>
+            </Stack.Item>
+            <Stack.Item>
+              <Stack>
+                <Stack.Item width="25px">
+                  <Box textColor="label">B:</Box>
+                </Stack.Item>
+                <Stack.Item grow>
+                  <RGBSlider color={color} onChange={handleChange} target="b" />
+                </Stack.Item>
+                <Stack.Item>
+                  <TextSetter
+                    value={rgb.b}
+                    callback={(_, v) => {
+                      rgb.b = v;
+                      handleChange(rgbaToHsva(rgb));
+                    }}
+                    max={255}
+                  />
+                </Stack.Item>
+              </Stack>
+            </Stack.Item>
+          </Stack>
+        )}
       </Flex.Item>
     </Flex>
   );

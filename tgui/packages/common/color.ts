@@ -376,7 +376,7 @@ export const validHex = (value: string, alpha?: boolean): boolean => {
 };
 
 // Used for the colour picker, and anything else that wants a list of preset colours.
-const colorList = [
+export const colorList = [
   ['003366', '336699', '3366CC', '003399', '000099', '0000CC', '000066'],
   [
     '006666',
