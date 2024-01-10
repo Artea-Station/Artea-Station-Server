@@ -43,6 +43,9 @@
 	/// Set to true if we were able to track sound length for self deletion.
 	var/qdel_scheduled = FALSE
 
+	/// The world time this was spawned at. Required in a measure to prevent sounds being replayed.
+	var/started_at
+
 /datum/sound_spatial_tracker/New(
 	source,
 	sound,
@@ -69,6 +72,8 @@
 	src.falloff_distance = falloff_distance
 	src.distance_multiplier = distance_multiplier
 	src.use_reverb = use_reverb
+
+	started_at = world.time
 
 	SSsounds.register_spatial_tracker(src)
 	spatial_tracker = new(max_distance, max_distance)
@@ -138,6 +143,10 @@
 		break
 
 	if(existing_sound)
+		// ~333ms before sound ends? Let's not update it, cause user latency may cause this to replay when it shouldn't
+		// Set this high cause lag spikes may happen for a variety of reasons.
+		if(started_at + (existing_sound.len SECONDS) > world.time + ((existing_sound.len SECONDS) - (0.3 SECONDS)))
+			return
 		sound.status |= SOUND_UPDATE
 
 	listener.playsound_local(
