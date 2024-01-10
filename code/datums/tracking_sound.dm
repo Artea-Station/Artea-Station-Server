@@ -99,7 +99,11 @@
 
 /// Go through and check our location for spatial grid changes
 /datum/sound_spatial_tracker/proc/update_spatial_tracker()
-	var/list/new_and_old_cells = spatial_tracker.recalculate_cells(get_turf(source))
+	var/turf/source_turf = get_turf(source)
+	var/list/new_and_old_cells = spatial_tracker.recalculate_cells(source_turf)
+	sound.x = source_turf.x
+	sound.y = source_turf.y
+	sound.z = source_turf.z
 	for(var/datum/spatial_grid_cell/new_cell as anything in new_and_old_cells[1])
 		RegisterSignal(new_cell, SPATIAL_GRID_CELL_ENTERED(SPATIAL_GRID_CONTENTS_TYPE_CLIENTS), PROC_REF(entered_cell))
 		RegisterSignal(new_cell, SPATIAL_GRID_CELL_EXITED(SPATIAL_GRID_CONTENTS_TYPE_CLIENTS), PROC_REF(exited_cell))
