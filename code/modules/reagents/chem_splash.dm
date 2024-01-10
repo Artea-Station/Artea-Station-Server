@@ -97,7 +97,7 @@
 		for(var/turf/T in turflist)
 			if(accessible[T])
 				continue
-			//for(var/thing in T.get_atmos_adjacent_turfs(alldir = TRUE))
+			//for(var/thing in T.get_get_atmos_adjacent_turfs()(alldir = TRUE))
 			for(var/turf/NT as anything in get_adjacent_open_turfs(T))
 				if(!(NT in accessible))
 					continue

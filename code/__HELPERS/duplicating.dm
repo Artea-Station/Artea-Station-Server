@@ -6,7 +6,7 @@ GLOBAL_LIST_INIT(duplicate_forbidden_vars, list(
 	"AIStatus",
 	"appearance",
 	"area",
-	"atmos_adjacent_turfs",
+	"get_atmos_adjacent_turfs()",
 	"bodyparts",
 	"ckey",
 	"comp_lookup",
