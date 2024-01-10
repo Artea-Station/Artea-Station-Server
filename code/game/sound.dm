@@ -90,8 +90,9 @@
 	for(var/mob/listening_mob as anything in listening_mobs)
 		if(!(get_dist(listening_mob, turf_source) <= maxdistance))
 			listening_mobs -= listening_mob
-			if(!use_tracking)
-				listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, sound_to_use, maxdistance, falloff_distance, 1, use_reverb)
+			continue
+		if(!use_tracking)
+			listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, sound_to_use, maxdistance, falloff_distance, 1, use_reverb)
 
 	. = listening_mobs
 
@@ -99,7 +100,6 @@
 		return
 
 	new /datum/sound_spatial_tracker(source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, maxdistance, falloff_distance, 1, use_reverb)
-
 
 /mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/sound_to_use, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE)
 	if(!client || !can_hear())

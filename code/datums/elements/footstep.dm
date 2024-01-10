@@ -141,10 +141,10 @@
 		// we are wearing shoes
 
 		var/shoestep_type = prepared_steps[FOOTSTEP_MOB_SHOE]
-		heard_clients = playsound(source.loc, pick(footstep_sounds[shoestep_type][1], use_tracking = FALSE),
+		heard_clients = playsound(source.loc, pick(footstep_sounds[shoestep_type][1]),
 			footstep_sounds[shoestep_type][2] * volume * volume_multiplier,
 			TRUE,
-			footstep_sounds[shoestep_type][3] + e_range + range_adjustment, falloff_distance = 1, vary = sound_vary)
+			footstep_sounds[shoestep_type][3] + e_range + range_adjustment, falloff_distance = 1, vary = sound_vary, use_tracking = FALSE)
 	else
 		var/barefoot_type = prepared_steps[FOOTSTEP_MOB_BAREFOOT]
 		if(source.dna.species.special_step_sounds)
@@ -152,10 +152,10 @@
 		else
 			var/static/list/bare_footstep_sounds = GLOB.barefootstep
 
-			heard_clients = playsound(source.loc, pick(bare_footstep_sounds[barefoot_type][1], use_tracking = FALSE),
+			heard_clients = playsound(source.loc, pick(bare_footstep_sounds[barefoot_type][1]),
 				bare_footstep_sounds[barefoot_type][2] * volume * volume_multiplier,
 				TRUE,
-				bare_footstep_sounds[barefoot_type][3] + e_range + range_adjustment, falloff_distance = 1, vary = sound_vary)
+				bare_footstep_sounds[barefoot_type][3] + e_range + range_adjustment, falloff_distance = 1, vary = sound_vary, use_tracking = FALSE)
 
 	if(heard_clients)
 		play_fov_effect(source, 5, "footstep", direction, ignore_self = TRUE, override_list = heard_clients)
