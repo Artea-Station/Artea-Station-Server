@@ -28,32 +28,6 @@
 		qdel(picker)
 
 /**
- * Creates an asynchronous TGUI color picker window with an associated callback.
- *
- * This proc should be used to create a color picker that invokes a callback with the user's chosen option.
- * Arguments:
- * * user - The user to show the picker to.
- * * title - The of the picker modal, shown on the top of the TGUI window.
- * * callback - The callback to be invoked when a choice is made.
- * * timeout - The timeout of the picker, after which the modal will close and qdel itself. Set to zero for no timeout.
- * * autofocus - The bool that controls if this picker should grab window focus.
- */
-/proc/tgui_color_picker_async(mob/user, message, title, default = "#000000", datum/callback/callback, timeout = 0, autofocus = TRUE)
-	if (!user)
-		user = usr
-	if (!istype(user))
-		if (istype(user, /client))
-			var/client/client = user
-			user = client.mob
-		else
-			return
-	// Client does NOT have tgui_input on: Returns regular input
-	if(!user.client.prefs.read_preference(/datum/preference/toggle/tgui_input))
-		return input(user, message, title, default) as color|null
-	var/datum/tgui_color_picker/async/picker = new(user, message, title, default, callback, timeout, autofocus)
-	picker.ui_interact(user)
-
-/**
  * # tgui_color_picker
  *
  * Datum used for instantiating and using a TGUI-controlled color picker.
