@@ -248,8 +248,7 @@
 /obj/machinery/door/airlock/proc/set_bolt(should_bolt)
 	if(locked == should_bolt)
 		return
-	SEND_SIGNAL(src, COMSIG_AIRLOCK_SET
-	_BOLT, should_bolt)
+	SEND_SIGNAL(src, COMSIG_AIRLOCK_SET_BOLT, should_bolt)
 	. = locked
 	locked = should_bolt
 
