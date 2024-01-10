@@ -141,18 +141,18 @@
 		// we are wearing shoes
 
 		var/shoestep_type = prepared_steps[FOOTSTEP_MOB_SHOE]
-		heard_clients = playsound(source.loc, pick(footstep_sounds[shoestep_type][1]),
+		heard_clients = playsound(source.loc, pick(footstep_sounds[shoestep_type][1], use_tracking = FALSE),
 			footstep_sounds[shoestep_type][2] * volume * volume_multiplier,
 			TRUE,
 			footstep_sounds[shoestep_type][3] + e_range + range_adjustment, falloff_distance = 1, vary = sound_vary)
 	else
 		var/barefoot_type = prepared_steps[FOOTSTEP_MOB_BAREFOOT]
 		if(source.dna.species.special_step_sounds)
-			heard_clients = playsound(source.loc, pick(source.dna.species.special_step_sounds), 50, TRUE, falloff_distance = 1, vary = sound_vary)
+			heard_clients = playsound(source.loc, pick(source.dna.species.special_step_sounds), 50, TRUE, falloff_distance = 1, vary = sound_vary, use_tracking = FALSE)
 		else
 			var/static/list/bare_footstep_sounds = GLOB.barefootstep
 
-			heard_clients = playsound(source.loc, pick(bare_footstep_sounds[barefoot_type][1]),
+			heard_clients = playsound(source.loc, pick(bare_footstep_sounds[barefoot_type][1], use_tracking = FALSE),
 				bare_footstep_sounds[barefoot_type][2] * volume * volume_multiplier,
 				TRUE,
 				bare_footstep_sounds[barefoot_type][3] + e_range + range_adjustment, falloff_distance = 1, vary = sound_vary)

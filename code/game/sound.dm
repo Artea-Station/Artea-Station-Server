@@ -39,7 +39,7 @@
  * falloff_distance - Distance at which falloff begins. Sound is at peak volume (in regards to falloff) aslong as it is in this range.
  * play_directly_to_source - If TRUE, makes the sound play directly with no filtering to the source, if it can hear.
  */
-/proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff_exponent = SOUND_FALLOFF_EXPONENT, frequency = null, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, use_reverb = TRUE, play_directly_to_source = FALSE)
+/proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff_exponent = SOUND_FALLOFF_EXPONENT, frequency = null, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, use_reverb = TRUE, play_directly_to_source = FALSE, use_tracking = TRUE)
 	if(isarea(source))
 		CRASH("playsound(): source is an area")
 
@@ -83,12 +83,23 @@
 		source_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, FALSE, null, maxdistance, falloff_distance, 1, FALSE)
 		listeners -= source
 
+	// Cached sound for when we're playing the sound with no tracking.
+	var/sound_to_use = use_tracking ? null : sound(soundin)
+
 	var/list/listening_mobs = listeners | SSmobs.dead_players_by_zlevel[source_z]
-	for(var/listening_mob in listening_mobs)
+	for(var/mob/listening_mob as anything in listening_mobs)
 		if(!(get_dist(listening_mob, turf_source) <= maxdistance))
 			listening_mobs -= listening_mob
+			if(!use_tracking)
+				listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, sound_to_use, maxdistance, falloff_distance, 1, use_reverb)
+
+	. = listening_mobs
+
+	if(!use_tracking)
+		return
 
 	new /datum/sound_spatial_tracker(source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, maxdistance, falloff_distance, 1, use_reverb)
+
 
 /mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/sound_to_use, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE)
 	if(!client || !can_hear())
