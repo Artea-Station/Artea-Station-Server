@@ -174,3 +174,7 @@
 /// Passed a list of assoc lists, sorts them by the list's "name" keys.
 /proc/cmp_assoc_list_name(list/A, list/B)
 	return sorttext(B["name"], A["name"])
+
+///Orders R-UST fusion by priority
+/proc/cmp_fusion_reaction_des(datum/fusion_reaction/A, datum/fusion_reaction/B)
+	return B.priority - A.priority

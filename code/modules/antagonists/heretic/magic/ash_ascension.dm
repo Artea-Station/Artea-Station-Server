@@ -151,7 +151,8 @@
 			L.adjustFireLoss(20)
 			to_chat(L, span_userdanger("You're hit by [source]'s eldritch flames!"))
 
-		new /obj/effect/hotspot(T)
+		//new /obj/effect/hotspot(T)
+		T.create_fire(1, 10)
 		T.hotspot_expose(700,50,1)
 		// deals damage to mechs
 		for(var/obj/vehicle/sealed/mecha/M in T.contents)

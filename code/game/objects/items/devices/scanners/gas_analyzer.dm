@@ -109,7 +109,7 @@
 		ui.open()
 
 /obj/item/analyzer/ui_static_data(mob/user)
-	return return_atmos_handbooks()
+	return //return_atmos_handbooks()
 
 /obj/item/analyzer/ui_data(mob/user)
 	LAZYINITLIST(last_gasmix_data)
@@ -131,28 +131,13 @@
 
 	ui_interact(user)
 
-/// Called when our analyzer is used on something
-/obj/item/analyzer/proc/on_analyze(datum/source, atom/target)
-	SIGNAL_HANDLER
-	var/mixture = target.return_analyzable_air()
-	if(!mixture)
-		return FALSE
-	var/list/airs = islist(mixture) ? mixture : list(mixture)
-	var/list/new_gasmix_data = list()
-	for(var/datum/gas_mixture/air as anything in airs)
-		var/mix_name = capitalize(lowertext(target.name))
-		if(airs.len != 1) //not a unary gas mixture
-			mix_name += " - Node [airs.Find(air)]"
-		new_gasmix_data += list(gas_mixture_parser(air, mix_name))
-	last_gasmix_data = new_gasmix_data
-
 /**
  * Outputs a message to the user describing the target's gasmixes.
  *
  * Gets called by analyzer_act, which in turn is called by tool_act.
  * Also used in other chat-based gas scans.
  */
-/proc/atmos_scan(mob/user, atom/target, silent=FALSE)
+/proc/atmos_scan(mob/user, atom/target, obj/item/analyzer/tool, silent=FALSE)
 	var/mixture = target.return_analyzable_air()
 	if(!mixture)
 		return FALSE
@@ -181,10 +166,11 @@
 		if(total_moles > 0)
 			message += span_notice("Moles: [round(total_moles, 0.01)] mol")
 
-			var/list/cached_gases = air.gases
+			var/list/cached_gases = air.gas
 			for(var/id in cached_gases)
-				var/gas_concentration = cached_gases[id][MOLES]/total_moles
-				message += span_notice("[cached_gases[id][GAS_META][META_GAS_NAME]]: [round(cached_gases[id][MOLES], 0.01)] mol ([round(gas_concentration*100, 0.01)] %)")
+				var/gas_concentration = cached_gases[id]/total_moles
+				var/amount = round(air.gas[id], 0.01)
+				message += span_notice("[xgm_gas_data.name[id]]: [amount >= 0.01 ? "[amount] mol" : "Trace amounts." ] ([round(gas_concentration*100, 0.01)] %)")
 			message += span_notice("Temperature: [round(temperature - T0C,0.01)] &deg;C ([round(temperature, 0.01)] K)")
 			message += span_notice("Volume: [volume] L")
 			message += span_notice("Pressure: [round(pressure, 0.01)] kPa")

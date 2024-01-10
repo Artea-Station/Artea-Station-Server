@@ -117,10 +117,10 @@
 	data["internal_damage"] = internal_damage
 	data["airtank_present"] = !!internal_tank
 	data["air_source"] = use_internal_tank ? "Internal Airtank" : "Environment"
-	data["airtank_pressure"] = int_tank_air ? round(int_tank_air.return_pressure(), 0.01) : null
+	data["airtank_pressure"] = int_tank_air ? round(int_tank_air.returnPressure(), 0.01) : null
 	data["airtank_temp"] = int_tank_air?.temperature
 	data["port_connected"] = internal_tank?.connected_port ? TRUE : FALSE
-	data["cabin_pressure"] = round(return_pressure(), 0.01)
+	data["cabin_pressure"] = round(returnPressure(), 0.01)
 	data["cabin_temp"] = return_temperature()
 	data["dna_lock"] = dna_lock
 	data["weapons_safety"] = weapons_safety

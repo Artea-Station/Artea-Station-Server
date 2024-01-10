@@ -21,16 +21,12 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	// This shouldn't be modified directly, use the helper procs.
 	var/list/baseturfs = /turf/baseturf_bottom
 
-	var/temperature = T20C
 	///Used for fire, if a melting temperature was reached, it will be destroyed
 	var/to_be_destroyed = 0
 	///The max temperature of the fire which it was subjected to
 	var/max_fire_temperature_sustained = 0
 
-	var/blocks_air = FALSE
-	// If this turf should initialize atmos adjacent turfs or not
-	// Optimization, not for setting outside of initialize
-	var/init_air = TRUE
+	var/blocks_air = AIR_ALLOWED
 
 	var/list/image/blueprint_data //for the station blueprints, images of objects eg: pipes
 
@@ -105,6 +101,10 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
 
+	// if(!blocks_air || !simulated)
+		// air = new
+		// air.copyFrom(src.return_air())
+
 	// by default, vis_contents is inherited from the turf that was here before
 	vis_contents.Cut()
 
@@ -140,8 +140,10 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(our_area.area_has_base_lighting && always_lit) //Only provide your own lighting if the area doesn't for you
 		add_overlay(GLOB.fullbright_overlay)
 
+	/*
 	if(requires_activation)
 		CALCULATE_ADJACENT_TURFS(src, KILL_EXCITED)
+	*/
 
 	if (light_power && light_range)
 		update_light()
@@ -170,10 +172,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 	return INITIALIZE_HINT_NORMAL
 
-/// Initializes our adjacent turfs. If you want to avoid this, do not override it, instead set init_air to FALSE
-/turf/proc/Initalize_Atmos(time)
-	CALCULATE_ADJACENT_TURFS(src, NORMAL_TURF)
-
 /turf/Destroy(force)
 	. = QDEL_HINT_IWILLGC
 	if(!changing_turf)
@@ -192,10 +190,26 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		for(var/A in B.contents)
 			qdel(A)
 		return
+
 	visibilityChanged()
 	QDEL_LIST(blueprint_data)
 	flags_1 &= ~INITIALIZED_1
 	requires_activation = FALSE
+
+	///ZAS THINGS
+	if(connections)
+		connections.erase_all()
+
+	if(simulated && zone)
+		///Try to gracefully remove
+		if(can_safely_remove_from_zone())
+			copy_zone_air()
+			zone.remove_turf(src)
+
+		else //Just rebuild the fucker
+			INVOKE_ASYNC(zone, /zone.proc/rebuild) //rebuild() contains CHECK_TICK
+	///NO MORE ZAS THINGS
+
 	..()
 
 	vis_contents.Cut()

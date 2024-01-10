@@ -17,7 +17,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	worn_icon = 'icons/mob/clothing/back.dmi' //since these can also get thrown into suit storage slots. if something goes on the belt, set this to null.
 	hitsound = 'sound/weapons/smash.ogg'
-	pressure_resistance = ONE_ATMOSPHERE * 5
+	//pressure_resistance = ONE_ATMOSPHERE * 5
 	force = 5
 	throwforce = 10
 	throw_speed = 1
@@ -118,7 +118,7 @@
 			. += span_notice("If you want any more information you'll need to get closer.")
 		return
 
-	. += span_notice("The pressure gauge reads [round(src.air_contents.return_pressure(),0.01)] kPa.")
+	. += span_notice("The pressure gauge reads [round(src.air_contents.returnPressure(),0.01)] kPa.")
 
 	var/celsius_temperature = air_contents.temperature-T0C
 	var/descriptive
@@ -149,7 +149,7 @@
 	var/mob/living/carbon/human/H = user
 	user.visible_message(span_suicide("[user] is putting [src]'s valve to [user.p_their()] lips! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
-	if(!QDELETED(H) && air_contents && air_contents.return_pressure() >= 1000)
+	if(!QDELETED(H) && air_contents && air_contents.returnPressure() >= 1000)
 		ADD_TRAIT(H, TRAIT_DISFIGURED, TRAIT_GENERIC)
 		H.inflate_gib()
 		return MANUAL_SUICIDE
@@ -184,7 +184,7 @@
 
 /obj/item/tank/ui_data(mob/user)
 	. = list(
-		"tankPressure" = round(air_contents.return_pressure()),
+		"tankPressure" = round(air_contents.returnPressure()),
 		"releasePressure" = round(distribute_pressure)
 	)
 
@@ -221,6 +221,7 @@
 	return air_contents.remove(amount)
 
 /obj/item/tank/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	START_PROCESSING(SSobj, src)
 	return air_contents
 
@@ -243,7 +244,7 @@
 	if(!air_contents)
 		return null
 
-	var/tank_pressure = air_contents.return_pressure()
+	var/tank_pressure = air_contents.returnPressure()
 	var/actual_distribute_pressure = clamp(tank_pressure, 0, distribute_pressure)
 
 	// Lets do some algebra to understand why this works, yeah?
@@ -262,7 +263,7 @@
 		return
 
 	//Allow for reactions
-	excited = (excited | air_contents.react(src))
+	excited = (excited | air_contents.react())
 	excited = (excited | handle_tolerances(delta_time))
 	excited = (excited | leaking)
 
@@ -275,7 +276,7 @@
 	var/atom/location = loc
 	if(!location)
 		return
-	var/datum/gas_mixture/leaked_gas = air_contents.remove_ratio(0.25)
+	var/datum/gas_mixture/leaked_gas = air_contents.removeRatio(0.25)
 	location.assume_air(leaked_gas)
 
 /**
@@ -289,8 +290,8 @@
 	if(!air_contents)
 		return FALSE
 
-	var/pressure = air_contents.return_pressure()
-	var/temperature = air_contents.return_temperature()
+	var/pressure = air_contents.returnPressure()
+	var/temperature = air_contents.get_temperature()
 	if(temperature >= TANK_MELT_TEMPERATURE)
 		var/temperature_damage_ratio = (temperature - TANK_MELT_TEMPERATURE) / temperature
 		take_damage(max_integrity * temperature_damage_ratio * delta_time, BURN, FIRE, FALSE, NONE)
@@ -322,24 +323,56 @@
 	if(!air_contents)
 		return ..()
 
+	var/turf/T = get_turf(src)
+	if(!T)
+		return ..()
+	T.hotspot_expose(air_contents.temperature, 70, 1)
+	T.assume_air(air_contents)
 	/// Handle fragmentation
-	var/pressure = air_contents.return_pressure()
+	var/pressure = air_contents.returnPressure()
 	if(pressure > TANK_FRAGMENT_PRESSURE)
 		if(!istype(loc, /obj/item/transfer_valve))
 			log_bomber(get_mob_by_key(fingerprintslast), "was last key to touch", src, "which ruptured explosively")
-		//Give the gas a chance to build up more pressure through reacting
-		air_contents.react(src)
-		pressure = air_contents.return_pressure()
+		//Give the gas a chance to build up more pressure through reacting. Alot.
+		air_contents.react()
+		air_contents.react()
+		air_contents.react()
 
-		// As of writing this this is calibrated to maxcap at 140L and 160atm.
-		var/power = (air_contents.volume * (pressure - TANK_FRAGMENT_PRESSURE)) / TANK_FRAGMENT_SCALE
-		log_atmos("[type] exploded with a power of [power] and a mix of ", air_contents)
-		dyn_explosion(src, power, flash_range = 1.5, ignorecap = FALSE)
+		pressure = air_contents.returnPressure()
+
+		var/strength = ((pressure-TANK_FRAGMENT_PRESSURE)/TANK_FRAGMENT_SCALE)
+		var/mult = ((air_contents.volume/140)**(1/2)) * (air_contents.total_moles**2/3)/((29*0.64) **2/3)
+
+		log_atmos("[type] exploded with a power of [strength * mult] and a mix of ", air_contents)
+		explosion(
+			src,
+			round(mult*strength*0.15),
+			round(mult*strength*0.35),
+			round(mult*strength*0.80),
+			round(mult*strength*1.20),
+		)
+		var/num_fragments = round(rand(8,10) * sqrt(strength * mult))
+		///Holy. Fucking. Shit. This is AGONIZING. Give me /obj/proc/fragmentate() PLEASE.
+		AddComponent(/datum/component/pellet_cloud, projectile_type = /obj/projectile/bullet/shrapnel, magnitude = num_fragments)
+		SEND_SIGNAL(src, COMSIG_TANK_SNOWFLAKE_PELLET_TRIGGER)
+
+	else if (pressure > TANK_RUPTURE_PRESSURE)
+		playsound(T, 'sound/weapons/gun/shotgun/shot.ogg', 20, 1)
+		visible_message("[icon2html(src, viewers(get_turf(src)))] <span class='danger'>\The [src] flies apart!</span>", "<span class='warning'>You hear a bang!</span>")
+
+		var/strength = 1+((pressure-TANK_LEAK_PRESSURE)/TANK_FRAGMENT_SCALE)
+
+		var/mult = (air_contents.total_moles**2/3)/((29*0.64) **2/3) //tanks appear to be experiencing a reduction on scale of about 0.64 total moles
+
+		var/num_fragments = round(rand(6,8) * sqrt(strength * mult)) //Less chunks, but bigger
+		AddComponent(/datum/component/pellet_cloud, projectile_type = /obj/projectile/bullet/shrapnel/mega, magnitude = num_fragments)
+		SEND_SIGNAL(src, COMSIG_TANK_SNOWFLAKE_PELLET_TRIGGER)
+
 	return ..()
 
 /obj/item/tank/proc/merging_information()
 	SIGNAL_HANDLER
-	if(air_contents.return_pressure() > TANK_FRAGMENT_PRESSURE)
+	if(air_contents.returnPressure() > TANK_FRAGMENT_PRESSURE)
 		explosion_info += TANK_MERGE_OVERPRESSURE
 
 /obj/item/tank/proc/explosion_information()

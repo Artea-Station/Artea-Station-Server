@@ -1,6 +1,6 @@
 import { InfernoNode } from 'inferno';
 import { useBackend, useLocalState } from '../../backend';
-import { Box, Button, Flex, Input, LabeledList, Section, Stack, Tooltip } from '../../components';
+import { Box, Button, Flex, Input, LabeledList, Section, Tooltip } from '../../components';
 
 /**
  * This describes something that influences a particular reaction
@@ -202,27 +202,6 @@ const ReactionHandbook = (props, context) => {
         </>
       )}
     </Section>
-  );
-};
-
-export const AtmosHandbookContent = (
-  props: { vertical?: boolean },
-  context
-) => {
-  return props.vertical ? (
-    <>
-      <GasHandbook />
-      <ReactionHandbook />
-    </>
-  ) : (
-    <Stack>
-      <Stack.Item grow>
-        <ReactionHandbook />
-      </Stack.Item>
-      <Stack.Item grow>
-        <GasHandbook />
-      </Stack.Item>
-    </Stack>
   );
 };
 

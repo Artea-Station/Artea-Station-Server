@@ -41,7 +41,6 @@
 		AddComponent(/datum/component/slippery, 100)
 	create_reagents(1000, REAGENT_HOLDER_INSTANT_REACT)
 	playsound(src, 'sound/effects/bubbles2.ogg', 80, TRUE, -3)
-	AddElement(/datum/element/atmos_sensitive, mapload)
 	SSfoam.start_processing(src)
 
 /obj/effect/particle_effect/fluid/foam/Destroy()
@@ -145,12 +144,10 @@
 		spread_foam.result_type = result_type
 		SSfoam.queue_spread(spread_foam)
 
-/obj/effect/particle_effect/fluid/foam/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
-	return exposed_temperature > 475
-
-/obj/effect/particle_effect/fluid/foam/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	if(prob(max(0, exposed_temperature - 475)))   //foam dissolves when heated
-		kill_foam()
+/obj/effect/particle_effect/foam/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	if(exposed_temperature > 475)
+		if(prob(max(0, exposed_temperature - 475)))   //foam dissolves when heated
+			kill_foam()
 
 /// A factory for foam fluid floods.
 /datum/effect_system/fluid_spread/foam
@@ -213,10 +210,6 @@
 	/// The amount of plasma gas this foam has absorbed. To be deposited when the foam dissipates.
 	var/absorbed_plasma = 0
 
-/obj/effect/particle_effect/fluid/foam/firefighting/Initialize(mapload)
-	. = ..()
-	RemoveElement(/datum/element/atmos_sensitive)
-
 /obj/effect/particle_effect/fluid/foam/firefighting/process()
 	..()
 
@@ -225,20 +218,19 @@
 		return
 
 	var/obj/effect/hotspot/hotspot = locate() in location
-	if(!(hotspot && location.air))
+	if(!(hotspot && location.air && location.zone))
 		return
 
 	QDEL_NULL(hotspot)
-	var/datum/gas_mixture/air = location.air
-	var/list/gases = air.gases
-	if (gases[/datum/gas/plasma])
-		var/scrub_amt = min(30, gases[/datum/gas/plasma][MOLES]) //Absorb some plasma
-		gases[/datum/gas/plasma][MOLES] -= scrub_amt
-		absorbed_plasma += scrub_amt
+	var/datum/gas_mixture/air = location.return_air()
+	if (air.getGroupGas(GAS_PLASMA))
+		var/plas_amt = min(30, air.gas[GAS_PLASMA]) //Absorb some plasma
+		air.adjustGas(GAS_PLASMA, -plas_amt)
+		absorbed_plasma += plas_amt
 	if (air.temperature > T20C)
 		air.temperature = max(air.temperature / 2, T20C)
 	air.garbage_collect()
-	location.air_update_turf(FALSE, FALSE)
+	// ARTEA TODO: location.air_update_turf(FALSE, FALSE)
 
 /obj/effect/particle_effect/fluid/foam/firefighting/make_result()
 	var/atom/movable/deposit = ..()
@@ -286,16 +278,15 @@
 
 /obj/structure/foamedmetal/Initialize(mapload)
 	. = ..()
-	air_update_turf(TRUE, TRUE)
+	update_nearby_tiles()
 
 /obj/structure/foamedmetal/Destroy()
-	air_update_turf(TRUE, FALSE)
+	update_nearby_tiles()
 	. = ..()
 
 /obj/structure/foamedmetal/Move()
-	var/turf/T = loc
 	. = ..()
-	move_update_air(T)
+	update_nearby_tiles()
 
 /obj/structure/foamedmetal/attack_paw(mob/user, list/modifiers)
 	return attack_hand(user, modifiers)
@@ -370,20 +361,20 @@
 		return
 
 	location.ClearWet()
-	if(location.air)
-		var/datum/gas_mixture/air = location.air
+	if(location.return_air())
+		var/datum/gas_mixture/air = location.return_air()
 		air.temperature = 293.15
 		for(var/obj/effect/hotspot/fire in location)
 			qdel(fire)
 
-		var/list/gases = air.gases
+		var/list/gases = air.gas
 		for(var/gas_type in gases)
 			switch(gas_type)
-				if(/datum/gas/oxygen, /datum/gas/nitrogen)
+				if(GAS_OXYGEN, GAS_NITROGEN)
 					continue
 				else
-					gases[gas_type][MOLES] = 0
-		air.garbage_collect()
+					gases[gas_type] = 0
+		AIR_UPDATE_VALUES(air)
 
 	for(var/obj/machinery/atmospherics/components/unary/comp in location)
 		if(!comp.welded)

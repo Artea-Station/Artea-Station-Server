@@ -35,8 +35,8 @@
 	var/buildstage = 2
 	///Our home area, set in Init. Due to loading step order, this seems to be null very early in the server setup process, which is why some procs use `my_area?` for var or list checks.
 	var/area/my_area = null
-	///looping sound datum for our fire alarm siren.
-	var/datum/looping_sound/firealarm/soundloop
+	///The current alarm state
+	var/alarm_type = FIRE_CLEAR
 
 /obj/machinery/firealarm/Initialize(mapload, dir, building)
 	. = ..()
@@ -52,6 +52,7 @@
 		LAZYADD(GLOB.station_fire_alarms["[z]"], src)
 
 	AddElement(/datum/element/atmos_sensitive, mapload)
+	RegisterSignal(src, COMSIG_FIRE_ALERT, PROC_REF(handle_alert))
 	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(check_security_level))
 	soundloop = new(src, FALSE)
 
@@ -65,51 +66,34 @@
 		rmb_text = "Turn off", \
 	)
 
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/firealarm/LateInitialize()
+	. = ..()
+	set_area(get_area(src))
+
 /obj/machinery/firealarm/Destroy()
-	if(my_area)
-		LAZYREMOVE(my_area.firealarms, src)
-		my_area = null
-	LAZYREMOVE(GLOB.station_fire_alarms["[z]"], src)
-	QDEL_NULL(soundloop)
+	set_area(null)
 	return ..()
 
-// Area sensitivity is traditionally tied directly to power use, as an optimization
-// But since we want it for fire reacting, we disregard that
-/obj/machinery/firealarm/setup_area_power_relationship()
+/obj/machinery/firealarm/Moved(atom/OldLoc, Dir)
 	. = ..()
-	if(!.)
+	var/new_area = get_area(src)
+	if(my_area != new_area)
+		set_area(new_area)
+
+/obj/machinery/firealarm/proc/set_area(new_area)
+	if(my_area)
+		LAZYREMOVE(my_area.firealarms, src)
+	if(!new_area)
 		return
-	var/area/our_area = get_area(src)
-	RegisterSignal(our_area, COMSIG_AREA_FIRE_CHANGED, PROC_REF(handle_fire))
-
-/obj/machinery/firealarm/on_enter_area(datum/source, area/area_to_register)
-	..()
-	RegisterSignal(area_to_register, COMSIG_AREA_FIRE_CHANGED, PROC_REF(handle_fire))
-	handle_fire(area_to_register, area_to_register.fire)
-
-/obj/machinery/firealarm/on_exit_area(datum/source, area/area_to_unregister)
-	..()
-	UnregisterSignal(area_to_unregister, COMSIG_AREA_FIRE_CHANGED)
-
-/obj/machinery/firealarm/proc/handle_fire(area/source, new_fire)
-	SIGNAL_HANDLER
-	set_status()
-
-/**
- * Sets the sound state, and then calls update_icon()
- *
- * This proc exists to be called by areas and firelocks
- * so that it may update its icon and start or stop playing
- * the alarm sound based on the state of an area variable.
- */
-/obj/machinery/firealarm/proc/set_status()
-	if(!(my_area.fire || LAZYLEN(my_area.active_firelocks)) || (obj_flags & EMAGGED))
-		soundloop.stop()
-	update_appearance()
+	my_area = new_area
+	if(my_area)
+		LAZYADD(my_area.firealarms, src)
 
 /obj/machinery/firealarm/update_appearance(updates)
 	. = ..()
-	if((my_area?.fire || LAZYLEN(my_area?.active_firelocks)) && !(obj_flags & EMAGGED) && !(machine_stat & (BROKEN|NOPOWER)))
+	if(alarm_type && !(obj_flags & EMAGGED) && !(machine_stat & (BROKEN|NOPOWER)))
 		set_light(l_power = 0.8)
 	else
 		set_light(l_power = 0)
@@ -137,7 +121,7 @@
 		. += mutable_appearance(icon, "fire_[SEC_LEVEL_GREEN]")
 		. += emissive_appearance(icon, "fire_[SEC_LEVEL_GREEN]", alpha = src.alpha)
 
-	if(!(my_area?.fire || LAZYLEN(my_area?.active_firelocks)))
+	if(!alarm_type)
 		if(my_area?.fire_detect) //If this is false, leave the green light missing. A good hint to anyone paying attention.
 			. += mutable_appearance(icon, "fire_off")
 			. += emissive_appearance(icon, "fire_off", alpha = src.alpha)
@@ -147,6 +131,11 @@
 	else
 		. += mutable_appearance(icon, "fire_on")
 		. += emissive_appearance(icon, "fire_on", alpha = src.alpha)
+
+	if(!panel_open && alarm_type) //It just looks horrible with the panel open
+		. += "fire_detected"
+		. += mutable_appearance(icon, "fire_detected")
+		. += emissive_appearance(icon, "fire_detected", alpha = src.alpha) //Pain
 
 /obj/machinery/firealarm/emp_act(severity)
 	. = ..()
@@ -167,7 +156,7 @@
 							span_notice("You override [src], disabling the speaker."))
 		user.log_message("emagged [src].", LOG_ATTACK)
 	playsound(src, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	set_status()
+
 
 /**
  * Signal handler for checking if we should update fire alarm appearance accordingly to a newly set security level
@@ -182,6 +171,27 @@
 	if(is_station_level(z))
 		update_appearance()
 
+/obj/machinery/firealarm/proc/handle_alert(datum/source, code)
+	SIGNAL_HANDLER
+
+	if(alarm_type == code)
+		return
+
+	switch(code)
+		if(FIRE_CLEAR)
+			alarm_type = code
+			reset()
+		if(FIRE_RAISED_AIRALARM)
+			if(alarm_type & FIRE_RAISED_PULL)
+				return
+			alarm_type = code
+			alarm()
+		if(FIRE_RAISED_PULL)
+			if(alarm_type & FIRE_RAISED_AIRALARM)
+				return //We cannot overrule airalarms
+			alarm_type = code
+			alarm()
+
 /**
  * Sounds the fire alarm and closes all firelocks in the area. Also tells the area to color the lights red.
  *
@@ -191,18 +201,10 @@
 /obj/machinery/firealarm/proc/alarm(mob/user)
 	if(!is_operational)
 		return
-
-	if(my_area.fire)
-		return //area alarm already active
-	my_area.alarm_manager.send_alarm(ALARM_FIRE, my_area)
-	// This'll setup our visual effects, so we only need to worry about the alarm
-	for(var/obj/machinery/door/firedoor/firelock in my_area.firedoors)
-		firelock.activate(FIRELOCK_ALARM_TYPE_GENERIC)
-	if(user)
-		user.log_message("triggered a fire alarm.", LOG_GAME)
-	soundloop.start() //Manually pulled fire alarms will make the sound, rather than the doors.
 	SEND_SIGNAL(src, COMSIG_FIREALARM_ON_TRIGGER)
 	update_use_power(ACTIVE_POWER_USE)
+	update_appearance()
+
 
 /**
  * Resets all firelocks in the area. Also tells the area to disable alarm lighting, if it was enabled.
@@ -213,23 +215,31 @@
 /obj/machinery/firealarm/proc/reset(mob/user)
 	if(!is_operational)
 		return
-	my_area.alarm_manager.clear_alarm(ALARM_FIRE, my_area)
-	// Clears all fire doors and their effects for now
-	// They'll reclose if there's a problem
-	for(var/obj/machinery/door/firedoor/firelock in my_area.firedoors)
-		firelock.crack_open()
-	if(user)
-		user.log_message("reset a fire alarm.", LOG_GAME)
-	soundloop.stop()
 	SEND_SIGNAL(src, COMSIG_FIREALARM_ON_RESET)
 	update_use_power(IDLE_POWER_USE)
+	update_appearance()
 
 /obj/machinery/firealarm/attack_hand(mob/user, list/modifiers)
 	if(buildstage != 2)
 		return
 	. = ..()
 	add_fingerprint(user)
-	alarm(user)
+	if(!is_operational)
+		return
+
+	switch(alarm_type)
+		if(FIRE_RAISED_AIRALARM) //Can't clear an atmos alert with a fire alarm
+			if(issilicon(user))
+				to_chat(user, span_danger("This alert was triggered by an airalarm, it won't budge!"))
+			else
+				to_chat(user, span_danger("[src] doesn't budge!"))
+			return
+		if(FIRE_RAISED_PULL)
+			my_area.communicate_fire_alert(FIRE_CLEAR)
+			log_game("[user] triggered a fire alarm at [COORD(src)]")
+		else
+			my_area.communicate_fire_alert(FIRE_RAISED_PULL)
+			log_game("[user] cleared a fire alarm at [COORD(src)]")
 
 /obj/machinery/firealarm/attack_hand_secondary(mob/user, list/modifiers)
 	if(buildstage != 2)
@@ -287,9 +297,7 @@
 
 				else if(tool.force) //hit and turn it on
 					..()
-					var/area/area = get_area(src)
-					if(!area.fire)
-						alarm()
+					attack_hand(user)
 					return
 
 			if(1)
@@ -391,13 +399,8 @@
 // Allows users to examine the state of the thermal sensor
 /obj/machinery/firealarm/examine(mob/user)
 	. = ..()
-	if((my_area?.fire || LAZYLEN(my_area?.active_firelocks)))
+	if((alarm_type))
 		. += "The local area hazard light is flashing."
-		. += "<b>Left-Click</b> to activate all firelocks in this area."
-		. += "<b>Right-Click</b> to reset firelocks in this area."
-	else
-		. += "The local area thermal detection light is [my_area.fire_detect ? "lit" : "unlit"]."
-		. += "<b>Left-Click</b> to activate all firelocks in this area."
 
 // Allows Silicons to disable thermal sensor
 /obj/machinery/firealarm/BorgCtrlClick(mob/living/silicon/robot/user)

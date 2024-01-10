@@ -36,12 +36,12 @@
 	air_contents = new
 	air_contents.volume = volume
 	air_contents.temperature = T20C
-	SSair.start_processing_machine(src)
+	SSairmachines.start_processing_machine(src)
 
 /obj/machinery/portable_atmospherics/Destroy()
 	disconnect()
 	air_contents = null
-	SSair.stop_processing_machine(src)
+	SSairmachines.stop_processing_machine(src)
 
 	if(nob_crystal_inserted)
 		new /obj/item/hypernoblium_crystal(src)
@@ -67,9 +67,10 @@
 	return ..()
 
 /obj/machinery/portable_atmospherics/process_atmos()
-	excited = (!suppress_reactions && (excited || air_contents.react(src)))
-	if(!excited)
-		return PROCESS_KILL
+	if(!connected_port) // Pipe network handles reactions if connected, and we can't stop processing if there's a port effecting our mix
+		excited = (excited | air_contents.react())
+		if(!excited)
+			return PROCESS_KILL
 	excited = FALSE
 
 /// Take damage if a variable is exceeded. Damage is equal to temp/limit * heat/limit.
@@ -96,7 +97,7 @@
 	return TRUE
 
 /obj/machinery/portable_atmospherics/return_air()
-	SSair.start_processing_machine(src)
+	SSairmachines.start_processing_machine(src)
 	return air_contents
 
 /obj/machinery/portable_atmospherics/return_analyzable_air()
@@ -126,7 +127,7 @@
 	pixel_x = new_port.pixel_x
 	pixel_y = new_port.pixel_y
 
-	SSair.start_processing_machine(src)
+	SSairmachines.start_processing_machine(src)
 	update_appearance()
 	return TRUE
 
@@ -147,7 +148,7 @@
 	pixel_x = 0
 	pixel_y = 0
 
-	SSair.start_processing_machine(src)
+	SSairmachines.start_processing_machine(src)
 	update_appearance()
 	return TRUE
 
@@ -185,7 +186,7 @@
 		holding = new_tank
 		RegisterSignal(holding, COMSIG_PARENT_QDELETING, PROC_REF(unregister_holding))
 
-	SSair.start_processing_machine(src)
+	SSairmachines.start_processing_machine(src)
 	update_appearance()
 	return TRUE
 

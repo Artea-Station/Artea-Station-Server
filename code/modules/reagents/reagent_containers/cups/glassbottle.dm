@@ -591,7 +591,9 @@
 				break
 	if(firestarter && active)
 		target.fire_act()
-		new /obj/effect/hotspot(get_turf(target))
+		//new /obj/effect/hotspot(get_turf(hit_atom))
+		var/turf/T = get_turf(hit_atom)
+		T.create_fire(1, 10)
 	..()
 
 /obj/item/reagent_containers/cup/glass/bottle/molotov/attackby(obj/item/I, mob/user, params)

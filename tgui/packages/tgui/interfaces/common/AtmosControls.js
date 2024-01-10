@@ -138,7 +138,7 @@ export const Vent = (props, context) => {
 export const Scrubber = (props, context) => {
   const { scrubber } = props;
   const { act } = useBackend(context);
-  const { long_name, power, scrubbing, id_tag, widenet, filter_types } =
+  const { long_name, power, scrubbing, id_tag, quicksucc, filter_types } =
     scrubber;
   return (
     <Section
@@ -171,13 +171,13 @@ export const Scrubber = (props, context) => {
             }
           />
           <Button
-            icon={widenet ? 'expand' : 'compress'}
-            selected={widenet}
-            content={widenet ? 'Expanded range' : 'Normal range'}
+            icon={quicksucc ? 'expand' : 'compress'}
+            selected={quicksucc}
+            content={quicksucc ? 'Fast Siphon' : 'Standard Siphon'}
             onClick={() =>
-              act('widenet', {
+              act('quicksucc', {
                 id_tag,
-                val: Number(!widenet),
+                val: Number(!quicksucc),
               })
             }
           />

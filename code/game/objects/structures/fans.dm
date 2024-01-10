@@ -8,7 +8,7 @@
 	density = TRUE
 	var/buildstacktype = /obj/item/stack/sheet/iron
 	var/buildstackamount = 5
-	can_atmos_pass = ATMOS_PASS_NO
+	can_atmos_pass = CANPASS_NEVER
 	interaction_flags_atom = NONE
 
 /obj/structure/fans/deconstruct()

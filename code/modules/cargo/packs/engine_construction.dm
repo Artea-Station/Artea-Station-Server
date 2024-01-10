@@ -89,24 +89,6 @@
 	container_name = "tesla coil crate"
 	container_type = /obj/structure/closet/crate/engineering/electrical
 
-/datum/supply_pack/engine/hypertorus_fusion_reactor
-	name = "HFR Crate"
-	desc = "The new and improved fusion reactor."
-	cost = CARGO_CRATE_VALUE * 23
-	access = ACCESS_CE
-	contains = list(/obj/item/hfr_box/corner,
-					/obj/item/hfr_box/corner,
-					/obj/item/hfr_box/corner,
-					/obj/item/hfr_box/corner,
-					/obj/item/hfr_box/body/fuel_input,
-					/obj/item/hfr_box/body/moderator_input,
-					/obj/item/hfr_box/body/waste_output,
-					/obj/item/hfr_box/body/interface,
-					/obj/item/hfr_box/core)
-	container_name = "HFR crate"
-	container_type = /obj/structure/closet/crate/secure/engineering
-	dangerous = TRUE
-
 //////////////////////////////////////////////////////////////////////////////
 /////////////////////// Canisters & Materials ////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -231,15 +213,14 @@
 	// This is the amount of moles in a default canister
 	var/moleCount = (initial(fakeCanister.maximum_pressure) * initial(fakeCanister.filled)) * initial(fakeCanister.volume) / (R_IDEAL_GAS_EQUATION * T20C)
 
-	for(var/gasType in GLOB.meta_gas_info)
-		var/datum/gas/gas = gasType
-		var/name = initial(gas.name)
-		if(!initial(gas.purchaseable))
+	for(var/gasType in xgm_gas_data.gases)
+		if(!xgm_gas_data.purchaseable[gasType])
 			continue
+		var/name = xgm_gas_data.name[gasType]
 		var/datum/supply_pack/materials/pack = new
 		pack.name = "[name] Canister"
 		pack.desc = "Contains a canister of [name]."
-		if(initial(gas.dangerous))
+		if(xgm_gas_data.flags[gasType] & XGM_GAS_FUEL)
 			pack.desc = "[pack.desc]"
 			pack.access = ACCESS_ATMOSPHERICS
 		pack.container_name = "[name] canister crate"
@@ -253,5 +234,16 @@
 		pack.container_type = container_type
 
 		canister_packs += pack
+
+		//AIRMIX SPECIAL BABY
+		var/datum/supply_pack/materials/airpack = new
+		airpack.name = "Airmix Canister"
+		airpack.desc = "Contains a canister of breathable air."
+		airpack.crate_name = "airmix canister crate"
+		airpack.id = "[type](airmix)"
+		airpack.cost = 3000
+		airpack.contains = list(/obj/machinery/portable_atmospherics/canister/air)
+		airpack.crate_type = crate_type
+		canister_packs += airpack
 
 	return canister_packs

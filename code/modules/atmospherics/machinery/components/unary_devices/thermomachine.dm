@@ -140,10 +140,10 @@
 	// The gas we want to cool/heat
 	var/datum/gas_mixture/port = airs[1]
 
-	if(!port.total_moles()) // Nothing to cool? go home lad
+	if(!port.get_moles()) // Nothing to cool? go home lad
 		return
 
-	var/port_capacity = port.heat_capacity()
+	var/port_capacity = port.getHeatCapacity()
 
 	// The difference between target and what we need to heat/cool. Positive if heating, negative if cooling.
 	var/temperature_target_delta = target_temperature - port.temperature
@@ -211,6 +211,30 @@
 			return TRUE
 	return FALSE
 
+/obj/machinery/atmospherics/components/unary/thermomachine/proc/change_pipe_connection(disconnect)
+	if(disconnect)
+		disconnect_pipes()
+		return
+	connect_pipes()
+
+/obj/machinery/atmospherics/components/unary/thermomachine/proc/connect_pipes()
+	var/obj/machinery/atmospherics/node1 = nodes[1]
+	atmos_init()
+	node1 = nodes[1]
+	if(node1)
+		node1.atmos_init()
+		node1.add_member(src)
+	SSairmachines.add_to_rebuild_queue(src)
+
+/obj/machinery/atmospherics/components/unary/thermomachine/proc/disconnect_pipes()
+	var/obj/machinery/atmospherics/node1 = nodes[1]
+	if(node1)
+		if(src in node1.nodes) //Only if it's actually connected. On-pipe version would is one-sided.
+			node1.disconnect(src)
+		nodes[1] = null
+	if(parents[1])
+		nullify_pipenet(parents[1])
+
 /obj/machinery/atmospherics/components/unary/thermomachine/wrench_act_secondary(mob/living/user, obj/item/tool)
 	if(!panel_open || check_pipe_on_turf())
 		return
@@ -242,7 +266,7 @@
 
 	var/datum/gas_mixture/port = airs[1]
 	data["temperature"] = port.temperature
-	data["pressure"] = port.return_pressure()
+	data["pressure"] = port.returnPressure()
 	return data
 
 /obj/machinery/atmospherics/components/unary/thermomachine/ui_act(action, params)

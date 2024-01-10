@@ -1,19 +1,19 @@
 // Atmos types used for planetary airs
 /datum/atmosphere/lavaland
 	base_gases = list(
-		/datum/gas/oxygen=5,
-		/datum/gas/nitrogen=10,
+		GAS_OXYGEN = 5,
+		GAS_NITROGEN = 10,
 	)
 	normal_gases = list(
-		/datum/gas/oxygen=10,
-		/datum/gas/nitrogen=10,
-		/datum/gas/carbon_dioxide=10,
+		GAS_OXYGEN = 10,
+		GAS_NITROGEN = 10,
+		GAS_CO2 = 10,
 	)
 	restricted_gases = list(
-		/datum/gas/plasma=0.1,
-		/datum/gas/bz=1.2,
-		/datum/gas/miasma=1.2,
-		/datum/gas/water_vapor=0.1,
+		GAS_PLASMA =0.1,
+		///datum/gas/bz=1.2,
+		///datum/gas/miasma=1.2,
+		///datum/gas/water_vapor=0.1,
 	)
 	restricted_chance = 30
 
@@ -25,18 +25,18 @@
 
 /datum/atmosphere/icemoon
 	base_gases = list(
-		/datum/gas/oxygen=5,
-		/datum/gas/nitrogen=10,
+		GAS_OXYGEN = 5,
+		GAS_NITROGEN = 10,
 	)
 	normal_gases = list(
-		/datum/gas/oxygen=10,
-		/datum/gas/nitrogen=10,
-		/datum/gas/carbon_dioxide=10,
+		GAS_OXYGEN = 10,
+		GAS_NITROGEN = 10,
+		GAS_CO2 = 10,
 	)
 	restricted_gases = list(
-		/datum/gas/plasma=0.1,
-		/datum/gas/water_vapor=0.1,
-		/datum/gas/miasma=1.2,
+		GAS_PLASMA=0.1,
+		///datum/gas/water_vapor=0.1,
+		///datum/gas/miasma=1.2,
 	)
 	restricted_chance = 20
 

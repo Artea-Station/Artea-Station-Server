@@ -45,7 +45,6 @@
 	base_icon_state = "reinf_glass"
 	floor_tile = /obj/item/stack/tile/rglass
 
-
 /turf/open/floor/glass/reinforced/icemoon
 	initial_gas_mix = PLANETARY_ATMOS
 

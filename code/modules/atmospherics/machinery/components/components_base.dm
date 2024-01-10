@@ -198,7 +198,7 @@
  * This way gases won't get stuck
  */
 /obj/machinery/atmospherics/components/proc/update_parents()
-	if(!SSair.initialized)
+	if(!SSzas.initialized)
 		return
 	if(rebuilding)
 		update_parents_after_rebuild = TRUE
@@ -207,7 +207,7 @@
 		var/datum/pipeline/parent = parents[i]
 		if(!parent)
 			WARNING("Component is missing a pipenet! Rebuilding...")
-			SSair.add_to_rebuild_queue(src)
+			SSairmachines.add_to_rebuild_queue(src)
 		else
 			parent.update = TRUE
 

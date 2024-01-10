@@ -248,7 +248,8 @@
 /obj/machinery/door/airlock/proc/set_bolt(should_bolt)
 	if(locked == should_bolt)
 		return
-	SEND_SIGNAL(src, COMSIG_AIRLOCK_SET_BOLT, should_bolt)
+	SEND_SIGNAL(src, COMSIG_AIRLOCK_SET
+	_BOLT, should_bolt)
 	. = locked
 	locked = should_bolt
 
@@ -1171,7 +1172,7 @@
 	sleep(6)
 	set_density(FALSE)
 	flags_1 &= ~PREVENT_CLICK_UNDER_1
-	air_update_turf(TRUE, FALSE)
+	update_nearby_tiles()
 	sleep(8)
 	layer = OPEN_DOOR_LAYER
 	update_icon(ALL, AIRLOCK_OPEN, TRUE)
@@ -1216,12 +1217,12 @@
 	if(air_tight)
 		set_density(TRUE)
 		flags_1 |= PREVENT_CLICK_UNDER_1
-		air_update_turf(TRUE, TRUE)
+		update_nearby_tiles()
 	sleep(6)
 	if(!air_tight)
 		set_density(TRUE)
 		flags_1 |= PREVENT_CLICK_UNDER_1
-		air_update_turf(TRUE, TRUE)
+		update_nearby_tiles()
 	sleep(8)
 	if(dangerous_close)
 		crush()

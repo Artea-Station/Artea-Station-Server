@@ -37,7 +37,7 @@
 		flooded_turf = parent_turf.ScrapeAway(1, CHANGETURF_INHERIT_AIR)
 		delete_parent = FALSE
 
-	flooded_turf.atmos_spawn_air("[gas_id]=[gas_amount];TEMP=[temp_amount || trigger_temperature]")
+	flooded_turf.atmos_spawn_air(gas_id, gas_amount, temp_amount||trigger_temperature)
 
 	// Logging-related
 	var/admin_message = "[flooded_turf] ignited in [ADMIN_VERBOSEJMP(flooded_turf)]"
@@ -57,7 +57,7 @@
 	qdel(src)
 
 /// fire_act reaction.
-/datum/component/combustible_flooder/proc/flame_react(datum/source, exposed_temperature, exposed_volume)
+/datum/component/combustible_flooder/proc/flame_react(datum/source, exposed_contents, exposed_temperature, exposed_volume)
 	SIGNAL_HANDLER
 
 	if(exposed_temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)

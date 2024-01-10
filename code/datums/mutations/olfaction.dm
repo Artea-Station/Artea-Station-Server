@@ -45,7 +45,7 @@
 /datum/action/cooldown/spell/olfaction/cast(mob/living/cast_on)
 	. = ..()
 	// Can we sniff? is there miasma in the air?
-	var/datum/gas_mixture/air = cast_on.loc.return_air()
+	var/datum/gas_mixture/air = cast_on.loc.return_air().gas
 	var/list/cached_gases = air.gases
 
 	if(cached_gases[/datum/gas/miasma])

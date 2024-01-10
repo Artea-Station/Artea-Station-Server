@@ -47,7 +47,6 @@
 	prev_access = access_card.access.Copy()
 
 	create_extinguisher()
-	AddElement(/datum/element/atmos_sensitive, mapload)
 
 /mob/living/simple_animal/bot/firebot/bot_reset()
 	create_extinguisher()
@@ -153,7 +152,7 @@
 
 	else if(isturf(target))
 		var/turf/open/T = target
-		if(T.active_hotspot)
+		if(T.fire)
 			return TRUE
 
 	return FALSE
@@ -264,13 +263,11 @@
 
 	return result
 
-/mob/living/simple_animal/bot/firebot/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
-	return (exposed_temperature > T0C + 200 || exposed_temperature < BODYTEMP_COLD_DAMAGE_LIMIT)
-
 /mob/living/simple_animal/bot/firebot/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	if(COOLDOWN_FINISHED(src, foam_cooldown))
-		new /obj/effect/particle_effect/fluid/foam/firefighting(loc)
-		COOLDOWN_START(src, foam_cooldown, FOAM_INTERVAL)
+	if(exposed_temperature > T0C + 200 || exposed_temperature < BODYTEMP_COLD_DAMAGE_LIMIT)
+		if(COOLDOWN_FINISHED(src, foam_cooldown))
+			new /obj/effect/particle_effect/foam/firefighting(loc)
+			COOLDOWN_START(src, foam_cooldown, FOAM_INTERVAL)
 
 /mob/living/simple_animal/bot/firebot/proc/spray_water(atom/target, mob/user)
 	if(stationary_mode)

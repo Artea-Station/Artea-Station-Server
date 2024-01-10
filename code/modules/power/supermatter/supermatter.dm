@@ -64,6 +64,63 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/power = 0
 	///The list of gases mapped against their current comp. We use this to calculate different values the supermatter uses, like power or heat resistance. Ranges from 0 to 1
 	var/list/gas_percentage
+	///Determines the rate of positve change in gas comp values
+	var/gas_change_rate = 0.05
+	///The list of gases we will be interacting with in process_atoms()
+	var/list/gases_we_care_about = list(
+		GAS_OXYGEN,
+		GAS_PLASMA,
+		GAS_CO2,
+		GAS_N2O,
+		GAS_NITROGEN,
+		GAS_TRITIUM,
+		GAS_HYDROGEN,
+		GAS_STEAM,
+	)
+	///The list of gases mapped against their current comp. We use this to calculate different values the supermatter uses, like power or heat resistance. It doesn't perfectly match the air around the sm, instead moving up at a rate determined by gas_change_rate per call. Ranges from 0 to 1
+	var/list/gas_comp = list(
+		GAS_OXYGEN = 0,
+		GAS_PLASMA = 0,
+		GAS_CO2 = 0,
+		GAS_N2O = 0,
+		GAS_NITROGEN = 0,
+		GAS_TRITIUM = 0,
+		GAS_HYDROGEN = 0,
+		GAS_STEAM = 0,
+	)
+	///The list of gases mapped against their transmit values. We use it to determine the effect different gases have on the zaps
+	var/list/gas_trans = list(
+		GAS_OXYGEN = OXYGEN_TRANSMIT_MODIFIER,
+		GAS_PLASMA = PLASMA_TRANSMIT_MODIFIER,
+		GAS_TRITIUM = TRITIUM_TRANSMIT_MODIFIER,
+		GAS_HYDROGEN = HYDROGEN_TRANSMIT_MODIFIER,
+		GAS_STEAM = H2O_TRANSMIT_MODIFIER,
+	)
+	///The list of gases mapped against their heat penaltys. We use it to determin molar and heat output
+	var/list/gas_heat = list(
+		GAS_OXYGEN = OXYGEN_HEAT_PENALTY,
+		GAS_PLASMA = PLASMA_HEAT_PENALTY,
+		GAS_CO2 = CO2_HEAT_PENALTY,
+		GAS_NITROGEN = NITROGEN_HEAT_PENALTY,
+		GAS_TRITIUM = TRITIUM_HEAT_PENALTY,
+		GAS_HYDROGEN = HYDROGEN_HEAT_PENALTY,
+		GAS_STEAM = H2O_HEAT_PENALTY,
+	)
+	///The list of gases mapped against their heat resistance. We use it to moderate heat damage.
+	var/list/gas_resist = list(
+		GAS_N2O = N2O_HEAT_RESISTANCE,
+		GAS_HYDROGEN = HYDROGEN_HEAT_RESISTANCE,
+	)
+	///The list of gases mapped against their powermix ratio
+	var/list/gas_powermix = list(
+		GAS_OXYGEN = 1,
+		GAS_STEAM = 1,
+		GAS_PLASMA = 1,
+		GAS_CO2 = 1,
+		GAS_NITROGEN = -1,
+		GAS_TRITIUM = 1,
+		GAS_HYDROGEN = 1,
+	)
 	///The last air sample's total molar count, will always be above or equal to 0
 	var/combined_gas = 0
 	///Total mole count of the environment we are in
@@ -177,7 +234,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	. = ..()
 	uid = gl_uid++
 	set_delam(SM_DELAM_PRIO_NONE, /datum/sm_delam/explosive)
-	SSair.start_processing_machine(src)
+	SSairmachines.start_processing_machine(src)
 	countdown = new(src)
 	countdown.start()
 	SSpoints_of_interest.make_point_of_interest(src)
@@ -216,7 +273,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		vis_contents -= warp
 		QDEL_NULL(warp)
 	investigate_log("has been destroyed.", INVESTIGATE_ENGINE)
-	SSair.stop_processing_machine(src)
+	SSairmachines.stop_processing_machine(src)
 	QDEL_NULL(radio)
 	QDEL_NULL(countdown)
 	if(is_main_engine && GLOB.main_supermatter_engine == src)
@@ -263,7 +320,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	data["SM_integrity"] = get_integrity_percent()
 	data["SM_power"] = power
 	data["SM_ambienttemp"] = air.temperature
-	data["SM_ambientpressure"] = air.return_pressure()
+	data["SM_ambientpressure"] = air.returnPressure()
 	data["SM_bad_moles_amount"] = MOLE_PENALTY_THRESHOLD / absorption_ratio
 	data["SM_moles"] = 0
 	data["SM_uid"] = uid
@@ -272,17 +329,17 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 	var/list/gasdata = list()
 
-	if(air.total_moles())
-		data["SM_moles"] = air.total_moles()
-		for(var/gasid in air.gases)
+	if(air.total_moles)
+		data["SM_moles"] = air.total_moles
+		for(var/gasid in air.gas)
 			gasdata.Add(list(list(
-			"name"= air.gases[gasid][GAS_META][META_GAS_NAME],
-			"amount" = round(100*air.gases[gasid][MOLES]/air.total_moles(),0.01))))
+			"name"= xgm_gas_data.name[gasid],
+			"amount" = round(100*air.gas[gasid]/air.total_moles,0.01))))
 
 	else
-		for(var/gasid in air.gases)
+		for(var/gasid in air.gas)
 			gasdata.Add(list(list(
-				"name"= air.gases[gasid][GAS_META][META_GAS_NAME],
+				"name"= xgm_gas_data.name[gasid],
 				"amount" = 0)))
 
 	data["gases"] = gasdata
@@ -542,7 +599,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/turf/target_turf = get_turf(target)
 	var/pressure = 1
 	if(target_turf?.return_air())
-		pressure = max(1,target_turf.return_air().return_pressure())
+		pressure = max(1,target_turf.return_air().returnPressure())
 	//We get our range with the strength of the zap and the pressure, the higher the former and the lower the latter the better
 	var/new_range = clamp(zap_str / pressure * 10, 2, 7)
 	var/zap_count = 1

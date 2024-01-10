@@ -199,7 +199,8 @@
 
 	// Priority 1: use air from environment.
 	var/datum/gas_mixture/environment = owner_turf.return_air()
-	if(environment && environment.return_pressure() > 30)
+	if(environment && environment.returnPressure() > 30)
+		ion_trail.generate_effect()
 		return TRUE
 
 	// Priority 2: use plasma from internal plasma storage.
@@ -210,12 +211,12 @@
 		return TRUE
 
 	// Priority 3: use internals tank.
-	var/datum/gas_mixture/internal_mix = owner.internal?.return_air()
-	if(internal_mix && internal_mix.total_moles() > num)
+	var/datum/gas_mixture/internal_mix = owner.internal.return_air()
+	if(internal_mix && internal_mix.get_moles() > num)
 		if(!use_fuel)
 			return TRUE
 		var/datum/gas_mixture/removed = internal_mix.remove(num)
-		if(removed.total_moles() > 0.005)
+		if(removed.get_moles() > 0.005)
 			owner_turf.assume_air(removed)
 			return TRUE
 		else

@@ -51,7 +51,7 @@
 	last_gasmix_data = new_gasmix_data
 
 /datum/computer_file/program/atmosscan/ui_static_data(mob/user)
-	return return_atmos_handbooks()
+	return
 
 /datum/computer_file/program/atmosscan/ui_data(mob/user)
 	var/list/data = list()

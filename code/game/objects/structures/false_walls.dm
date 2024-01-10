@@ -17,7 +17,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTERS_BLASTDOORS)
 	can_be_unanchored = FALSE
-	can_atmos_pass = ATMOS_PASS_DENSITY
+	can_atmos_pass = CANPASS_PROC
 	rad_insulation = RAD_MEDIUM_INSULATION
 	material_flags = MATERIAL_EFFECTS
 	/// Material type of the plating
@@ -47,7 +47,7 @@
 	color = null //Clear the mapaid color. This should hopefully not cause problems.
 	//This has to be stripped before the supercall so it doesn't end up in atom_colours.
 	. = ..()
-	air_update_turf(TRUE, TRUE)
+	update_nearby_tiles()
 	set_materials(plating_material, reinf_material)
 
 /obj/structure/falsewall/proc/get_wall_color()
@@ -82,7 +82,12 @@
 		set_opacity(density)
 		opening = FALSE
 		update_appearance()
-		air_update_turf(TRUE, !density)
+		update_nearby_tiles()
+
+/obj/structure/falsewall/zas_canpass(turf/other)
+	if(QDELETED(src))
+		return AIR_ALLOWED
+	return ZONE_BLOCKED
 
 /obj/structure/falsewall/update_icon(updates=ALL)//Calling icon_update will refresh the smoothwalls if it's closed, otherwise it will make sure the icon is correct if it's open
 	. = ..()
