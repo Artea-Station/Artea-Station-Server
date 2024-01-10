@@ -1216,11 +1216,11 @@
 	name = "\improper Prison Garden"
 	icon_state = "prison_garden"
 
-/area/station/security/processing
+/area/station/security/labor_shuttle_dock
 	name = "\improper Labor Shuttle Dock"
 	icon_state = "sec_labor_processing"
 
-/area/station/security/processing/cremation
+/area/station/security/cremation
 	name = "\improper Security Crematorium"
 	icon_state = "sec_cremation"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
@@ -1307,6 +1307,15 @@
 /area/station/security/checkpoint/customs/aft
 	name = "Aft Customs"
 	icon_state = "customs_point_aft"
+
+/area/station/security/evidence
+	name = "Evidence Storage"
+
+/area/station/security/desk
+	name = "Security Desk"
+
+/area/station/security/processing
+	name = "Processing"
 
 //Cargo
 
