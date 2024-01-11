@@ -234,9 +234,6 @@
 			else
 				modeled_location.air.temperature += sharer_temperature_delta
 
-	var/turf_temperature = target.GetTemperature()
-	var/turf_heat_capacity = target.GetHeatCapacity()
-
 	else
 		if((target.heat_capacity>0) && (partial_heat_capacity>0))
 			var/delta_temperature = air.temperature - target.temperature
@@ -246,8 +243,6 @@
 
 			air.temperature -= heat/total_heat_capacity
 
-	if(target.blocks_air)
-		target.temperature_expose(air, target.temperature)
 	update = TRUE
 
 /datum/pipeline/proc/return_air()

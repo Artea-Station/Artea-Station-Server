@@ -238,11 +238,10 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 	pressure_limit = 1e14
 
 /obj/machinery/portable_atmospherics/canister/fusion_test/create_gas()
-	air_contents.add_gases(/datum/gas/hydrogen, /datum/gas/tritium)
-	air_contents.gases[GAS_HYDROGEN] = 300
-	air_contents.gases[GAS_TRITIUM] = 300
+	air_contents.gas[GAS_HYDROGEN] = 300
+	air_contents.gas[GAS_TRITIUM] = 300
 	air_contents.temperature = 10000
-	SSair.start_processing_machine(src)
+	SSairmachines.start_processing_machine(src)
 
 /obj/machinery/portable_atmospherics/canister/anesthetic_mix
 	name = "anesthetic mix"
@@ -560,8 +559,8 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 	var/our_temperature = air_contents.get_temperature()
 
 	///function used to check the limit of the canisters and also set the amount of damage that the canister can receive, if the heat and pressure are way higher than the limit the more damage will be done
-	if(!protected_contents && (our_temperature > heat_limit || our_pressure > pressure_limit))
-		take_damage(clamp((our_temperature/heat_limit) * (our_pressure/pressure_limit), 5, 50), BURN, 0)
+	if(!protected_contents && (our_temperature > temp_limit || our_pressure > pressure_limit))
+		take_damage(clamp((our_temperature/temp_limit) * (our_pressure/pressure_limit), 5, 50), BURN, 0)
 		excited = TRUE
 	update_appearance()
 
@@ -593,7 +592,6 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 		"isPrototype" = !!prototype,
 		"hasHoldingTank" = !!holding,
 		"hasHypernobCrystal" = !!nob_crystal_inserted,
-		"reactionSuppressionEnabled" = !!suppress_reactions
 	)
 
 	if (prototype)
@@ -728,18 +726,9 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 
 		if("shielding")
 			shielding_powered = !shielding_powered
-			SSair.start_processing_machine(src)
+			SSairmachines.start_processing_machine(src)
 			message_admins("[ADMIN_LOOKUPFLW(usr)] turned [shielding_powered ? "on" : "off"] the [src] powered shielding.")
 			investigate_log("[key_name(usr)] turned [shielding_powered ? "on" : "off"] the [src] powered shielding.")
-			. = TRUE
-		if("reaction_suppression")
-			if(!nob_crystal_inserted)
-				stack_trace("[usr] tried to toggle reaction suppression on a canister without a noblium crystal inside, possible href exploit attempt.")
-				return
-			suppress_reactions = !suppress_reactions
-			SSair.start_processing_machine(src)
-			message_admins("[ADMIN_LOOKUPFLW(usr)] turned [suppress_reactions ? "on" : "off"] the [src] reaction suppression.")
-			investigate_log("[key_name(usr)] turned [suppress_reactions ? "on" : "off"] the [src] reaction suppression.")
 			. = TRUE
 
 	update_appearance()

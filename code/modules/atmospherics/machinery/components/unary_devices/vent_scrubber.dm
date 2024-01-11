@@ -152,10 +152,11 @@
 			icon_state = "scrub_wide_hibernating"
 		else
 			icon_state = "scrub_hibernating"
+		return
 
 	sound_loop.start()
 
-	else if(scrubbing & SCRUBBING)
+	if(scrubbing & SCRUBBING)
 		if(quicksucc)
 			icon_state = "scrub_wide"
 		else

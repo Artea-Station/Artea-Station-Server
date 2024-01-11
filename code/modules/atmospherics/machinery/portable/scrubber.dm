@@ -108,7 +108,6 @@
 	data["pressure"] = round(air_contents.returnPressure() ? air_contents.returnPressure() : 0)
 
 	data["hasHypernobCrystal"] = !!nob_crystal_inserted
-	data["reactionSuppressionEnabled"] = !!suppress_reactions
 
 	data["filterTypes"] = list()
 	for(var/gas_id in ASSORTED_GASES)
@@ -150,15 +149,6 @@
 				. = TRUE
 		if("toggle_filter")
 			scrubbing ^= params["val"]
-			. = TRUE
-		if("reaction_suppression")
-			if(!nob_crystal_inserted)
-				message_admins("[ADMIN_LOOKUPFLW(usr)] tried to toggle reaction suppression on a scrubber without a noblium crystal inside, possible href exploit attempt.")
-				return
-			suppress_reactions = !suppress_reactions
-			SSair.start_processing_machine(src)
-			message_admins("[ADMIN_LOOKUPFLW(usr)] turned [suppress_reactions ? "on" : "off"] the [src] reaction suppression.")
-			investigate_log("[key_name(usr)] turned [suppress_reactions ? "on" : "off"] the [src] reaction suppression.")
 			. = TRUE
 	update_appearance()
 
