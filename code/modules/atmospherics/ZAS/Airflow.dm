@@ -150,13 +150,13 @@ This entire system is an absolute mess.
 		if(airflow_speed > 10)
 			Paralyze(round(airflow_speed * zas_settings.airflow_stun))
 			Stun(round(airflow_speed * zas_settings.airflow_stun) + 3)
-			loc.add_blood_DNA(return_blood_DNA())
+			loc.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
 			visible_message(
 				span_danger("[src] splats against \the [A]!"),
 				span_userdanger("You slam into \the [A] with tremendous force!"),
 				span_hear("You hear a loud thud.")
 			)
-			INVOKE_ASYNC(emote("scream"))
+			INVOKE_ASYNC(src, PROC_REF(emote), "scream")
 		else
 			Stun(round(airflow_speed * zas_settings.airflow_stun/2))
 			visible_message(
@@ -210,7 +210,7 @@ This entire system is an absolute mess.
 	. = ..()
 
 	if (prob(33))
-		loc.add_blood_DNA(return_blood_DNA())
+		loc.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
 
 	var/b_loss = AIRBORNE_DAMAGE(flying)
 

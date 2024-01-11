@@ -221,15 +221,14 @@
 		pack.name = "[name] Canister"
 		pack.desc = "Contains a canister of [name]."
 		if(xgm_gas_data.flags[gasType] & XGM_GAS_FUEL)
-			pack.desc = "[pack.desc]"
 			pack.access = ACCESS_ATMOSPHERICS
-		pack.container_name = "[name] canister crate"
+		pack.container_name = "[name] canister"
 		pack.id = "[type]([name])"
 
-		pack.cost = cost + moleCount * initial(gas.base_value) * 1.6
+		pack.cost = cost + moleCount * xgm_gas_data.base_value[gasType] * 1.6
 		pack.cost = CEILING(pack.cost, 10)
 
-		pack.contains = list(GLOB.gas_id_to_canister[initial(gas.id)])
+		pack.contains = list(GLOB.gas_id_to_canister[gasType])
 
 		pack.container_type = container_type
 
@@ -239,11 +238,11 @@
 		var/datum/supply_pack/materials/airpack = new
 		airpack.name = "Airmix Canister"
 		airpack.desc = "Contains a canister of breathable air."
-		airpack.crate_name = "airmix canister crate"
+		airpack.container_name = "airmix canister crate"
 		airpack.id = "[type](airmix)"
 		airpack.cost = 3000
 		airpack.contains = list(/obj/machinery/portable_atmospherics/canister/air)
-		airpack.crate_type = crate_type
+		airpack.container_type = container_type
 		canister_packs += airpack
 
 	return canister_packs

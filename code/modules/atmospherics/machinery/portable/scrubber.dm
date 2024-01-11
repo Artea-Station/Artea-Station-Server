@@ -17,11 +17,11 @@
 	///List of gases that are being scrubbed.
 	var/list/scrubbing = list()
 
-/obj/machinery/portable_atmospherics/scrubber/Initialize(mapload)
-	. = ..()
-
 	/// The passive sounds this scrubber emits.
 	var/datum/looping_sound/sound_loop
+
+/obj/machinery/portable_atmospherics/scrubber/Initialize(mapload)
+	. = ..()
 
 /obj/machinery/portable_atmospherics/scrubber/New(loc, ...)
 	sound_loop = new /datum/looping_sound/air_pump(src)
@@ -55,8 +55,8 @@
 	var/pressure = air_contents.returnPressure()
 	var/temperature = air_contents.get_temperature()
 	///function used to check the limit of the scrubbers and also set the amount of damage that the scrubber can receive, if the heat and pressure are way higher than the limit the more damage will be done
-	if(temperature > heat_limit || pressure > pressure_limit)
-		take_damage(clamp((temperature/heat_limit) * (pressure/pressure_limit), 5, 50), BURN, 0)
+	if(temperature > temp_limit || pressure > pressure_limit)
+		take_damage(clamp((temperature/temp_limit) * (pressure/pressure_limit), 5, 50), BURN, 0)
 		excited = TRUE
 		return ..()
 
@@ -106,8 +106,6 @@
 	data["on"] = on
 	data["connected"] = connected_port ? 1 : 0
 	data["pressure"] = round(air_contents.returnPressure() ? air_contents.returnPressure() : 0)
-
-	data["hasHypernobCrystal"] = !!nob_crystal_inserted
 
 	data["filterTypes"] = list()
 	for(var/gas_id in ASSORTED_GASES)

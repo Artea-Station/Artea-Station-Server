@@ -204,7 +204,7 @@
 	holder.always_atmos_process = TRUE
 
 /datum/spacevine_mutation/temp_stabilisation/additional_atmos_processes(obj/structure/spacevine/holder, datum/gas_mixture/air)
-	var/heat_capacity = air.heat_capacity()
+	var/heat_capacity = air.getHeatCapacity()
 	if(!heat_capacity) // No heating up space or vacuums
 		return
 	var/energy_used = min(abs(air.temperature - T20C) * heat_capacity, TEMP_STABILISATION_MUTATION_MAXIMUM_ENERGY)
@@ -214,7 +214,7 @@
 	if(air.temperature > T20C)
 		delta_temperature *= -1
 	air.temperature += delta_temperature
-	holder.air_update_turf(FALSE, FALSE)
+	// holder.air_update_turf(FALSE, FALSE)
 
 /datum/spacevine_mutation/vine_eating
 	name = "Vine eating"

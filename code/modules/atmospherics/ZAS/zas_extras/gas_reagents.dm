@@ -6,7 +6,6 @@
 	metabolization_rate = 0.3 * REAGENTS_METABOLISM
 	color = "#808080"
 	taste_description = "sweetness"
-	ph = 5.8
 	chemical_flags = REAGENT_NO_RANDOM_RECIPE
 
 /datum/reagent/carbon_monoxide

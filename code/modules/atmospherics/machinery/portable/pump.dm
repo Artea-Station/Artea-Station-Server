@@ -55,8 +55,8 @@
 	var/pressure = air_contents.returnPressure()
 	var/temperature = air_contents.get_temperature()
 	///function used to check the limit of the pumps and also set the amount of damage that the pump can receive, if the heat and pressure are way higher than the limit the more damage will be done
-	if(temperature > heat_limit || pressure > pressure_limit)
-		take_damage(clamp((temperature/heat_limit) * (pressure/pressure_limit), 5, 50), BURN, 0)
+	if(temperature > temp_limit || pressure > pressure_limit)
+		take_damage(clamp((temperature/temp_limit) * (pressure/pressure_limit), 5, 50), BURN, 0)
 		excited = TRUE
 		return ..()
 
@@ -137,7 +137,6 @@
 	data["defaultPressure"] = round(PUMP_DEFAULT_PRESSURE)
 	data["minPressure"] = round(PUMP_MIN_PRESSURE)
 	data["maxPressure"] = round(PUMP_MAX_PRESSURE)
-	data["hasHypernobCrystal"] = !!nob_crystal_inserted
 
 	if(holding)
 		data["holding"] = list()

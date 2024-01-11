@@ -591,7 +591,6 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 		"valveOpen" = !!valve_open,
 		"isPrototype" = !!prototype,
 		"hasHoldingTank" = !!holding,
-		"hasHypernobCrystal" = !!nob_crystal_inserted,
 	)
 
 	if (prototype)

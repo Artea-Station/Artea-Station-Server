@@ -9,7 +9,6 @@
 	opacity = TRUE
 	density = TRUE
 	blocks_air = TRUE
-	init_air = FALSE
 	always_lit = TRUE
 	bullet_bounce_sound = null
 	turf_flags = NOJAUNT
