@@ -256,7 +256,7 @@ GLOBAL_REAL_VAR(list/gzn_check) = list(NORTH, SOUTH, EAST, WEST)
 ///A long and hot fire
 #define BURNMIX_ATMOS list(GAS_OXYGEN = 2500, GAS_PLASMA = 5000); temperature = PHORON_FLASHPOINT
 /// -193,15°C telecommunications. also used for xenobiology slime killrooms
-#define TCOMMS_ATMOS list(GAS_NITROGEN = 100)
+#define TCOMMS_ATMOS list(GAS_NITROGEN = 100); temperature = 80
 //#define TCOMMS_ATMOS "n2=100;TEMP=80"
 /// space
 #define AIRLESS_ATMOS list()

@@ -163,7 +163,6 @@
 /turf/open/indestructible/airblock
 	icon_state = "bluespace"
 	blocks_air = TRUE
-	init_air = FALSE
 	baseturfs = /turf/open/indestructible/airblock
 
 /turf/open/GetHeatCapacity()

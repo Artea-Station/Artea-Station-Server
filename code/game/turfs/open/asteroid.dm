@@ -99,8 +99,7 @@
 	icon_state = "asteroid_dug"
 
 /turf/open/misc/asteroid/lavaland_atmos
-	initial_gas_mix = PLANETARY_ATMOS
-	planetary_atmos = TRUE
+	initial_gas = PLANETARY_ATMOS
 	baseturfs = /turf/open/misc/asteroid/lavaland_atmos
 
 /// Used by ashstorms to replenish basalt tiles that have been dug up without going through all of them.
@@ -115,9 +114,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	floor_variance = 15
 	digResult = /obj/item/stack/ore/glass/basalt
 	broken_state = "basalt_dug"
-	initial_gas_mix = PLANETARY_ATMOS
-
-	initial_gas = LAVALAND_DEFAULT_ATMOS
+	initial_gas = PLANETARY_ATMOS
 	simulated = FALSE //OH *FUCK* NO.
 
 /turf/open/misc/asteroid/basalt/getDug()
@@ -239,12 +236,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 //Used for when you want to have real, genuine snow in your kitchen's cold room
 /turf/open/misc/asteroid/snow/coldroom
 	baseturfs = /turf/open/misc/asteroid/snow/coldroom
-	planetary_atmos = FALSE
-	temperature = COLD_ROOM_TEMP
-
-/turf/open/misc/asteroid/snow/coldroom/Initialize(mapload)
-	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
-	return ..()
+	initial_gas = KITCHEN_COLDROOM_ATMOS
 
 //Used in SnowCabin.dm
 /turf/open/misc/asteroid/snow/snow_cabin
