@@ -16,7 +16,7 @@
 
 /obj/machinery/meter/monitored/on_deconstruction()
 	. = ..()
-	SSair.broadcast_destruction(id_tag, frequency)
+	SSairmachines.broadcast_destruction(id_tag, frequency)
 
 /obj/machinery/meter/monitored/process_atmos()
 	. = ..()

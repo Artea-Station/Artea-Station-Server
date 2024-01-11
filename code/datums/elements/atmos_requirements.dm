@@ -47,9 +47,6 @@
 		return FALSE
 
 	var/open_turf_gases = open_turf.return_air().gas
-	open_turf.air.assert_gases(/datum/gas/oxygen, /datum/gas/nitrogen, /datum/gas/carbon_dioxide, /datum/gas/plasma)
-
-
 	var/plas = open_turf_gases[GAS_PLASMA]
 	var/oxy = open_turf_gases[GAS_OXYGEN]
 	var/n2 = open_turf_gases[GAS_NITROGEN]

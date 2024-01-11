@@ -192,7 +192,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	QDEL_NULL(soundloop)
 	return ..()
 
-/obj/machinery/airalarm/Moved(atom/OldLoc, Dir)
+/obj/machinery/airalarm/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	var/new_area = get_area(src)
 	if(my_area != new_area)

@@ -285,3 +285,12 @@ SUBSYSTEM_DEF(airmachines)
 			build_off.build_pipeline_blocking(AM)
 		CHECK_TICK
 
+/// Helper proc to remove an atmos-monitor'd component from the network. Done here to avoid harddels from GC/async SSradio overlap.
+/datum/controller/subsystem/airmachines/proc/broadcast_destruction(id_tag, frequency)
+	var/datum/signal/signal = new(list(
+		"sigtype" = "destroyed",
+		"tag" = id_tag,
+		"timestamp" = world.time,
+	))
+	var/datum/radio_frequency/connection = SSradio.return_frequency(frequency)
+	INVOKE_ASYNC(connection, TYPE_PROC_REF(/datum/radio_frequency, post_signal), null, signal, RADIO_ATMOSIA)

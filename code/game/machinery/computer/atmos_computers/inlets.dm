@@ -21,7 +21,7 @@
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/on_deconstruction()
 	. = ..()
-	SSair.broadcast_destruction(id_tag, frequency)
+	SSairmachines.broadcast_destruction(id_tag, frequency)
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/ui_act(action, params)
 	. = ..()

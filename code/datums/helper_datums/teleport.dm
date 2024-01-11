@@ -143,7 +143,7 @@
 		return
 
 	var/list/floor_gases = floor_gas.gas
-	var/list/gases_to_check = list(/datum/gas/oxygen, /datum/gas/nitrogen, /datum/gas/carbon_dioxide, /datum/gas/plasma)
+	var/list/gases_to_check = list(GAS_OXYGEN, GAS_NITROGEN, GAS_CO2, GAS_PLASMA)
 	var/trace_gases
 	for(var/id in floor_gases)
 		if(id in gases_to_check)

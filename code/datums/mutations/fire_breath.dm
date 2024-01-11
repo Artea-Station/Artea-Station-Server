@@ -93,5 +93,6 @@
 
 /datum/action/cooldown/spell/cone/staggered/firebreath/do_obj_cone_effect(obj/target_obj, atom/caster, level)
 	// Further out objects experience less exposed_temperature and exposed_volume
+	var/turf/target_turf = get_turf(target_obj)
 	target_turf.create_fire(1, 10) // for style
 	target_obj.fire_act(max(500, 900 - (100 * level)), max(50, 200 - (50 * level)))
