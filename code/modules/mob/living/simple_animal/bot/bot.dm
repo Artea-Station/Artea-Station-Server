@@ -498,7 +498,7 @@
 	var/turf/current_turf = get_turf(src)
 	if(!current_turf)
 		return
-	var/list/adjacent = get_adjacent_open_turfs(T)
+	var/list/adjacent = get_adjacent_open_turfs(current_turf)
 	if(shuffle) //If we were on the same tile as another bot, let's randomize our choices so we dont both go the same way
 		adjacent = shuffle(adjacent)
 		shuffle = FALSE

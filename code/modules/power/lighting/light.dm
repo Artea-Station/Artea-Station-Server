@@ -114,7 +114,7 @@
 	switch(status) // set icon_states
 		if(LIGHT_OK)
 			var/area/local_area =get_room_area(src)
-			if(low_power_mode || major_emergency || (local_area?.fire))
+			if(low_power_mode || major_emergency || length(local_area?.active_alarms[ALARM_FIRE]))
 				icon_state = "[base_state]_emergency"
 			else
 				icon_state = "[base_state]"
@@ -132,7 +132,7 @@
 		return
 
 	var/area/local_area = get_room_area(src)
-	if(low_power_mode || major_emergency || (local_area?.fire))
+	if(low_power_mode || major_emergency || length(local_area?.active_alarms[ALARM_FIRE]))
 		. += mutable_appearance(overlay_icon, "[base_state]_emergency")
 		return
 	if(nightshift_enabled)
@@ -152,7 +152,7 @@
 /obj/machinery/light/on_enter_area(datum/source, area/area_to_register)
 	..()
 	RegisterSignal(area_to_register, COMSIG_AREA_FIRE_CHANGED, PROC_REF(handle_fire))
-	handle_fire(area_to_register, area_to_register.fire)
+	handle_fire()
 
 /obj/machinery/light/on_exit_area(datum/source, area/area_to_unregister)
 	..()
@@ -177,7 +177,7 @@
 		if(reagents)
 			START_PROCESSING(SSmachines, src)
 		var/area/local_area =get_room_area(src)
-		if (local_area?.fire)
+		if (length(local_area?.active_alarms[ALARM_FIRE]))
 			color_set = bulb_low_power_colour
 		else if (nightshift_enabled)
 			brightness_set -= brightness_set * NIGHTSHIFT_LIGHT_MODIFIER
@@ -230,7 +230,7 @@
 	else if(on) //Light is on, just recalculate usage
 		var/static_power_used_new = 0
 		var/area/local_area = get_room_area(src)
-		if (nightshift_enabled && !local_area?.fire)
+		if (nightshift_enabled && !length(local_area?.active_alarms[ALARM_FIRE]))
 			static_power_used_new = nightshift_brightness * (bulb_power * NIGHTSHIFT_LIGHT_MODIFIER) * power_consumption_rate
 		else
 			static_power_used_new = brightness * bulb_power * power_consumption_rate
