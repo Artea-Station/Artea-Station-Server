@@ -24,10 +24,6 @@
 	var/barometer_accuracy // 0 is the best accuracy.
 	var/list/last_gasmix_data
 
-/obj/item/analyzer/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_TOOL_ATOM_ACTED_PRIMARY(tool_behaviour), PROC_REF(on_analyze))
-
 /obj/item/analyzer/examine(mob/user)
 	. = ..()
 	. += span_notice("Right-click [src] to open the gas reference.")
@@ -120,8 +116,7 @@
 	if (user.stat != CONSCIOUS || user.is_blind())
 		to_chat(user, span_warning("You're unable to see [src]'s results!"))
 		return
-	atmos_scan(user=user, target=get_turf(src), silent=FALSE)
-	on_analyze(source=src, target=get_turf(src))
+	atmos_scan(user, get_turf(src), src, FALSE)
 
 /obj/item/analyzer/attack_self_secondary(mob/user, modifiers)
 	// Check if it requires visibility and if the user is you know, blind.
@@ -148,6 +143,8 @@
 		user.visible_message(span_notice("[user] uses the analyzer on [icon2html(icon, viewers(user))] [target]."), span_notice("You use the analyzer on [icon2html(icon, user)] [target]."))
 	message += span_boldnotice("Results of analysis of [icon2html(icon, user)] [target].")
 
+	var/list/gasmix_data = list()
+
 	var/list/airs = islist(mixture) ? mixture : list(mixture)
 	for(var/datum/gas_mixture/air as anything in airs)
 		var/mix_name = capitalize(lowertext(target.name))
@@ -156,12 +153,10 @@
 			message += span_boldnotice("Node [mix_number]")
 			mix_name += " - Node [mix_number]"
 
-		var/total_moles = air.total_moles()
-		var/pressure = air.return_pressure()
-		var/volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
-		var/temperature = air.return_temperature()
-		var/heat_capacity = air.heat_capacity()
-		var/thermal_energy = air.thermal_energy()
+		var/total_moles = air.total_moles
+		var/pressure = air.returnPressure()
+		var/volume = air.get_volume() //could just do mixture.volume... but safety, I guess?
+		var/temperature = air.temperature
 
 		if(total_moles > 0)
 			message += span_notice("Moles: [round(total_moles, 0.01)] mol")
@@ -174,14 +169,16 @@
 			message += span_notice("Temperature: [round(temperature - T0C,0.01)] &deg;C ([round(temperature, 0.01)] K)")
 			message += span_notice("Volume: [volume] L")
 			message += span_notice("Pressure: [round(pressure, 0.01)] kPa")
-			message += span_notice("Heat Capacity: [display_joules(heat_capacity)] / K")
-			message += span_notice("Thermal Energy: [display_joules(thermal_energy)]")
 		else
 			message += airs.len > 1 ? span_notice("This node is empty!") : span_notice("[target] is empty!")
-			message += span_notice("Volume: [volume] L") // don't want to change the order volume appears in, suck it
+
+		gasmix_data += list(gas_mixture_parser(air, mix_name))
+
+	if(istype(tool))
+		tool.last_gasmix_data = gasmix_data
 
 	// we let the join apply newlines so we do need handholding
-	to_chat(user, examine_block(jointext(message, "\n")), type = MESSAGE_TYPE_INFO)
+	to_chat(user, jointext(message, "\n"), type = MESSAGE_TYPE_INFO)
 	return TRUE
 
 /obj/item/analyzer/ranged

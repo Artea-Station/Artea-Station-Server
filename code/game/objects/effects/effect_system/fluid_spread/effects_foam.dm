@@ -128,7 +128,7 @@
 	if(!istype(location))
 		return FALSE
 
-	for(var/turf/spread_turf as anything in location.reachableAdjacentTurfs(no_id = TRUE) | location.get_get_atmos_adjacent_turfs()())
+	for(var/turf/spread_turf as anything in location.reachableAdjacentTurfs(no_id = TRUE) | location.get_atmos_adjacent_turfs())
 		var/obj/effect/particle_effect/fluid/foam/foundfoam = locate() in spread_turf //Don't spread foam where there's already foam!
 		if(foundfoam)
 			continue
@@ -144,7 +144,7 @@
 		spread_foam.result_type = result_type
 		SSfoam.queue_spread(spread_foam)
 
-/obj/effect/particle_effect/foam/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+/obj/effect/particle_effect/fluid/foam/atmos_expose(datum/gas_mixture/air, exposed_temperature)
 	if(exposed_temperature > 475)
 		if(prob(max(0, exposed_temperature - 475)))   //foam dissolves when heated
 			kill_foam()
@@ -229,7 +229,7 @@
 		absorbed_plasma += plas_amt
 	if (air.temperature > T20C)
 		air.temperature = max(air.temperature / 2, T20C)
-	air.garbage_collect()
+	//air.garbage_collect()
 	// ARTEA TODO: location.air_update_turf(FALSE, FALSE)
 
 /obj/effect/particle_effect/fluid/foam/firefighting/make_result()

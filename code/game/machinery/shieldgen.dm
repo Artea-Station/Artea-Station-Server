@@ -112,7 +112,7 @@
 	density = TRUE
 	opacity = FALSE
 	anchored = FALSE
-	pressure_resistance = 2*ONE_ATMOSPHERE
+	//pressure_resistance = 2*ONE_ATMOSPHERE
 	req_access = list(ACCESS_ENGINEERING)
 	max_integrity = 100
 	var/active = FALSE

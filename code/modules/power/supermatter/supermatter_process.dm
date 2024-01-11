@@ -183,7 +183,7 @@
 
 	//Check for holes in the SM inner chamber
 	for(var/turf/open/space/turf_to_check in RANGE_TURFS(1, loc))
-		if(LAZYLEN(turf_to_check.get_get_atmos_adjacent_turfs()()))
+		if(LAZYLEN(turf_to_check.get_atmos_adjacent_turfs()))
 			var/integrity = get_integrity_percent()
 			if(integrity < 10)
 				damage += clamp((power * 0.0005) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)

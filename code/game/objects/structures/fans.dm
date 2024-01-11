@@ -36,13 +36,13 @@
 	icon_state = "fan_tiny"
 	buildstackamount = 2
 
-/obj/structure/fans/Initialize(mapload)
-	. = ..()
-	air_update_turf(TRUE, TRUE)
+// /obj/structure/fans/Initialize(mapload)
+// 	. = ..()
+// 	air_update_turf(TRUE, TRUE)
 
-/obj/structure/fans/Destroy()
-	air_update_turf(TRUE, FALSE)
-	. = ..()
+// /obj/structure/fans/Destroy()
+// 	air_update_turf(TRUE, FALSE)
+// 	. = ..()
 
 //Invisible, indestructible fans
 /obj/structure/fans/tiny/invisible
