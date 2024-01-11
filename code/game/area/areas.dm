@@ -279,7 +279,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if (area_flags & NO_ALERTS)
 		return
 	//Trigger alarm effect
-	communicate_fire_alert(FIRE_RAISED_PULL)
+	communicate_fire_alert(FIRE_RAISED_GENERIC)
 	//Lockdown airlocks
 	for(var/obj/machinery/door/door in src)
 		close_and_lock_door(door)
