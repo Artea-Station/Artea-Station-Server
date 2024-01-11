@@ -96,7 +96,11 @@ GLOBAL_LIST_EMPTY(station_turfs)
  */
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
-	HandleInitialGasString()
+
+	// I wonder if this impacts init significantly?
+	if(initial_gas["planetary_atmos"])
+		initial_gas = SSair.planetary[z] || OPENTURF_DEFAULT_ATMOS
+
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1

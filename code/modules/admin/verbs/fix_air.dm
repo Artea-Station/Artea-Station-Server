@@ -20,7 +20,7 @@
 	for(var/obj/machinery/power/supermatter_crystal/S in GLOB.machines)
 		S.power = 0
 		// let engineering know they need to do shit.
-		S.radio.talk_into(src, "I have encountered Quantum Mechanics™, reboot required.", S.emergency_channel)
+		S.radio.talk_into(S, "I have encountered Quantum Mechanics™, reboot required.", S.emergency_channel)
 	to_chat(usr, "\[1/5\] - Supermatter depowered")
 
 	// Remove all gases from all pipenets
