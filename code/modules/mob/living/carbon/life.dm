@@ -265,7 +265,6 @@
 			adjust_hallucinations(10 SECONDS)
 
 	//NITRIUM
-	/*
 	if(breath_gases[/datum/gas/nitrium])
 		var/nitrium_partialpressure = (breath_gases[/datum/gas/nitrium][MOLES]/breath.get_moles())*breath_pressure
 		if(nitrium_partialpressure > 0.5)
