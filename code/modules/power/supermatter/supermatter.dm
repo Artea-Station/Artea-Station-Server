@@ -64,63 +64,6 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/power = 0
 	///The list of gases mapped against their current comp. We use this to calculate different values the supermatter uses, like power or heat resistance. Ranges from 0 to 1
 	var/list/gas_percentage
-	///Determines the rate of positve change in gas comp values
-	var/gas_change_rate = 0.05
-	///The list of gases we will be interacting with in process_atoms()
-	var/list/gases_we_care_about = list(
-		GAS_OXYGEN,
-		GAS_PLASMA,
-		GAS_CO2,
-		GAS_N2O,
-		GAS_NITROGEN,
-		GAS_TRITIUM,
-		GAS_HYDROGEN,
-		GAS_STEAM,
-	)
-	///The list of gases mapped against their current comp. We use this to calculate different values the supermatter uses, like power or heat resistance. It doesn't perfectly match the air around the sm, instead moving up at a rate determined by gas_change_rate per call. Ranges from 0 to 1
-	var/list/gas_comp = list(
-		GAS_OXYGEN = 0,
-		GAS_PLASMA = 0,
-		GAS_CO2 = 0,
-		GAS_N2O = 0,
-		GAS_NITROGEN = 0,
-		GAS_TRITIUM = 0,
-		GAS_HYDROGEN = 0,
-		GAS_STEAM = 0,
-	)
-	///The list of gases mapped against their transmit values. We use it to determine the effect different gases have on the zaps
-	var/list/gas_trans = list(
-		GAS_OXYGEN = OXYGEN_TRANSMIT_MODIFIER,
-		GAS_PLASMA = PLASMA_TRANSMIT_MODIFIER,
-		GAS_TRITIUM = TRITIUM_TRANSMIT_MODIFIER,
-		GAS_HYDROGEN = HYDROGEN_TRANSMIT_MODIFIER,
-		GAS_STEAM = H2O_TRANSMIT_MODIFIER,
-	)
-	///The list of gases mapped against their heat penaltys. We use it to determin molar and heat output
-	var/list/gas_heat = list(
-		GAS_OXYGEN = OXYGEN_HEAT_PENALTY,
-		GAS_PLASMA = PLASMA_HEAT_PENALTY,
-		GAS_CO2 = CO2_HEAT_PENALTY,
-		GAS_NITROGEN = NITROGEN_HEAT_PENALTY,
-		GAS_TRITIUM = TRITIUM_HEAT_PENALTY,
-		GAS_HYDROGEN = HYDROGEN_HEAT_PENALTY,
-		GAS_STEAM = H2O_HEAT_PENALTY,
-	)
-	///The list of gases mapped against their heat resistance. We use it to moderate heat damage.
-	var/list/gas_resist = list(
-		GAS_N2O = N2O_HEAT_RESISTANCE,
-		GAS_HYDROGEN = HYDROGEN_HEAT_RESISTANCE,
-	)
-	///The list of gases mapped against their powermix ratio
-	var/list/gas_powermix = list(
-		GAS_OXYGEN = 1,
-		GAS_STEAM = 1,
-		GAS_PLASMA = 1,
-		GAS_CO2 = 1,
-		GAS_NITROGEN = -1,
-		GAS_TRITIUM = 1,
-		GAS_HYDROGEN = 1,
-	)
 	///The last air sample's total molar count, will always be above or equal to 0
 	var/combined_gas = 0
 	///Total mole count of the environment we are in

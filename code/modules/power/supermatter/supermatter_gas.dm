@@ -24,78 +24,78 @@ GLOBAL_LIST_INIT(sm_gas_behavior, init_sm_gas())
 	/// How much powerloss do we get rid of.
 	var/powerloss_inhibition = 0
 
-// /datum/sm_gas/proc/extra_effects(obj/machinery/power/supermatter_crystal/sm, datum/gas_mixture/env)
-// 	return
+/datum/sm_gas/proc/extra_effects(obj/machinery/power/supermatter_crystal/sm, datum/gas_mixture/env)
+	return
 
-// /datum/sm_gas/oxygen
-// 	gas_path = /datum/gas/oxygen
-// 	heat_penalty = 1
-// 	transmit_modifier = 1.5
-// 	powermix = 1
+/datum/sm_gas/oxygen
+	gas_path = /datum/gas/oxygen
+	heat_penalty = 1
+	transmit_modifier = 1.5
+	powermix = 1
 
-// /datum/sm_gas/nitrogen
-// 	gas_path = /datum/gas/nitrogen
-// 	heat_penalty = -1.5
-// 	powermix = -1
+/datum/sm_gas/nitrogen
+	gas_path = /datum/gas/nitrogen
+	heat_penalty = -1.5
+	powermix = -1
 
-// /datum/sm_gas/carbon_dioxide
-// 	gas_path = /datum/gas/carbon_dioxide
-// 	heat_penalty = 2
-// 	powermix = 1
-// 	powerloss_inhibition = 1
+/datum/sm_gas/carbon_dioxide
+	gas_path = /datum/gas/carbon_dioxide
+	heat_penalty = 2
+	powermix = 1
+	powerloss_inhibition = 1
 
-// /// Can be on Oxygen or CO2, but better lump it here since CO2 is rarer.
-// /datum/sm_gas/carbon_dioxide/extra_effects(obj/machinery/power/supermatter_crystal/sm, datum/gas_mixture/env)
-// 	if(!(sm.gas_percentage[/datum/gas/carbon_dioxide] && sm.gas_percentage[/datum/gas/oxygen]))
-// 		return
-// 	var/co2_pp = env.return_pressure() * sm.gas_percentage[/datum/gas/carbon_dioxide]
-// 	/// Our consumption ratio, not the actual ratio in SM we already have that.
-// 	/// This var is a fucking lie, we only consume half of it.
-// 	var/co2_ratio = (co2_pp - CO2_CONSUMPTION_PP) / (co2_pp + CO2_PRESSURE_SCALING)
-// 	co2_ratio = clamp(co2_ratio, 0, 1)
-// 	var/consumed_co2 = sm.absorbed_gasmix.gases[/datum/gas/carbon_dioxide][MOLES] * co2_ratio
-// 	consumed_co2 = min(
-// 		consumed_co2,
-// 		sm.absorbed_gasmix.gases[/datum/gas/carbon_dioxide][MOLES] * INVERSE(0.5),
-// 		sm.absorbed_gasmix.gases[/datum/gas/oxygen][MOLES] * INVERSE(0.5)
-// 	)
-// 	if(!consumed_co2)
-// 		return
-// 	sm.absorbed_gasmix.gases[/datum/gas/carbon_dioxide][MOLES] -= consumed_co2 * 0.5
-// 	sm.absorbed_gasmix.gases[/datum/gas/oxygen][MOLES] -= consumed_co2 * 0.5
-// 	ASSERT_GAS(/datum/gas/pluoxium, sm.absorbed_gasmix)
-// 	sm.absorbed_gasmix.gases[/datum/gas/pluoxium][MOLES] += consumed_co2 * 0.25
+/// Can be on Oxygen or CO2, but better lump it here since CO2 is rarer.
+/datum/sm_gas/carbon_dioxide/extra_effects(obj/machinery/power/supermatter_crystal/sm, datum/gas_mixture/env)
+	if(!(sm.gas_percentage[GAS_CO2] && sm.gas_percentage[GAS_OXYGEN]))
+		return
+	var/co2_pp = env.returnPressure() * sm.gas_percentage[GAS_CO2]
+	/// Our consumption ratio, not the actual ratio in SM we already have that.
+	/// This var is a fucking lie, we only consume half of it.
+	var/co2_ratio = (co2_pp - CO2_CONSUMPTION_PP) / (co2_pp + CO2_PRESSURE_SCALING)
+	co2_ratio = clamp(co2_ratio, 0, 1)
+	var/consumed_co2 = sm.absorbed_gasmix.gas[GAS_CO2] * co2_ratio
+	consumed_co2 = min(
+		consumed_co2,
+		sm.absorbed_gasmix.gas[GAS_CO2] * INVERSE(0.5),
+		sm.absorbed_gasmix.gas[GAS_OXYGEN] * INVERSE(0.5)
+	)
+	if(!consumed_co2)
+		return
+	sm.absorbed_gasmix.gas[GAS_CO2] -= consumed_co2 * 0.5
+	sm.absorbed_gasmix.gas[GAS_OXYGEN] -= consumed_co2 * 0.5
+	// ASSERT_GAS(/datum/gas/pluoxium, sm.absorbed_gasmix)
+	// sm.absorbed_gasmix.gas[/datum/gas/pluoxium][MOLES] += consumed_co2 * 0.25
 
-// /datum/sm_gas/plasma
-// 	gas_path = /datum/gas/plasma
-// 	heat_penalty = 15
-// 	transmit_modifier = 4
-// 	powermix = 1
+/datum/sm_gas/plasma
+	gas_path = /datum/gas/plasma
+	heat_penalty = 15
+	transmit_modifier = 4
+	powermix = 1
 
-// /datum/sm_gas/water_vapor
-// 	gas_path = /datum/gas/water_vapor
-// 	heat_penalty = 12
-// 	transmit_modifier = -2.5
-// 	powermix = 1
+/datum/sm_gas/water_vapor
+	gas_path = /datum/gas/water_vapor
+	heat_penalty = 12
+	transmit_modifier = -2.5
+	powermix = 1
 
-// /datum/sm_gas/hypernoblium
-// 	gas_path = /datum/gas/hypernoblium
-// 	heat_penalty = -13
-// 	transmit_modifier = 3
-// 	powermix = -1
+/datum/sm_gas/hypernoblium
+	gas_path = /datum/gas/hypernoblium
+	heat_penalty = -13
+	transmit_modifier = 3
+	powermix = -1
 
-// /datum/sm_gas/nitrous_oxide
-// 	gas_path = /datum/gas/nitrous_oxide
-// 	heat_resistance = 6
+/datum/sm_gas/nitrous_oxide
+	gas_path = /datum/gas/nitrous_oxide
+	heat_resistance = 6
 
-// /datum/sm_gas/nitrium
-// 	gas_path = /datum/gas/nitrium
+/datum/sm_gas/nitrium
+	gas_path = /datum/gas/nitrium
 
-// /datum/sm_gas/tritium
-// 	gas_path = /datum/gas/tritium
-// 	heat_penalty = 10
-// 	transmit_modifier = 30
-// 	powermix = 1
+/datum/sm_gas/tritium
+	gas_path = /datum/gas/tritium
+	heat_penalty = 10
+	transmit_modifier = 30
+	powermix = 1
 
 // /datum/sm_gas/bz
 // 	gas_path = /datum/gas/bz
@@ -108,11 +108,11 @@ GLOBAL_LIST_INIT(sm_gas_behavior, init_sm_gas())
 // 	if(sm.gas_percentage[/datum/gas/bz] >= 0.4 && prob(30 * sm.gas_percentage[/datum/gas/bz]))
 // 		sm.fire_nuclear_particle()
 
-// /datum/sm_gas/pluoxium
-// 	gas_path = /datum/gas/pluoxium
-// 	heat_penalty = -0.5
-// 	transmit_modifier = -5
-// 	powermix = 1
+/datum/sm_gas/pluoxium
+	gas_path = /datum/gas/pluoxium
+	heat_penalty = -0.5
+	transmit_modifier = -5
+	powermix = 1
 
 // /datum/sm_gas/miasma
 // 	gas_path = /datum/gas/miasma
@@ -132,31 +132,31 @@ GLOBAL_LIST_INIT(sm_gas_behavior, init_sm_gas())
 // 	sm.absorbed_gasmix.gases[/datum/gas/miasma][MOLES] -= consumed_miasma
 // 	sm.matter_power += consumed_miasma * MIASMA_POWER_GAIN
 
-// /datum/sm_gas/freon
-// 	gas_path = /datum/gas/freon
-// 	heat_penalty = -10
-// 	transmit_modifier = -30
-// 	powermix = 1
+/datum/sm_gas/freon
+	gas_path = /datum/gas/freon
+	heat_penalty = -10
+	transmit_modifier = -30
+	powermix = 1
 
-// /datum/sm_gas/hydrogen
-// 	gas_path = /datum/gas/hydrogen
-// 	heat_penalty = 10
-// 	transmit_modifier = 25
-// 	heat_resistance = 2
-// 	powermix = 1
+/datum/sm_gas/hydrogen
+	gas_path = /datum/gas/hydrogen
+	heat_penalty = 10
+	transmit_modifier = 25
+	heat_resistance = 2
+	powermix = 1
 
-// /datum/sm_gas/healium
-// 	gas_path = /datum/gas/healium
-// 	heat_penalty = 4
-// 	transmit_modifier = 2.4
-// 	powermix = 1
+/datum/sm_gas/healium
+	gas_path = /datum/gas/healium
+	heat_penalty = 4
+	transmit_modifier = 2.4
+	powermix = 1
 
-// /datum/sm_gas/proto_nitrate
-// 	gas_path = /datum/gas/proto_nitrate
-// 	heat_penalty = -3
-// 	transmit_modifier = 15
-// 	heat_resistance = 5
-// 	powermix = 1
+/datum/sm_gas/proto_nitrate
+	gas_path = /datum/gas/proto_nitrate
+	heat_penalty = -3
+	transmit_modifier = 15
+	heat_resistance = 5
+	powermix = 1
 
 // /datum/sm_gas/zauker
 // 	gas_path = /datum/gas/zauker
@@ -178,14 +178,14 @@ GLOBAL_LIST_INIT(sm_gas_behavior, init_sm_gas())
 // 		zap_icon = sm.zap_icon
 // 	)
 
-// /datum/sm_gas/halon
-// 	gas_path = /datum/gas/halon
+/datum/sm_gas/halon
+	gas_path = /datum/gas/halon
 
-// /datum/sm_gas/helium
-// 	gas_path = /datum/gas/helium
+/datum/sm_gas/helium
+	gas_path = /datum/gas/helium
 
-// /datum/sm_gas/antinoblium
-// 	gas_path = /datum/gas/antinoblium
-// 	transmit_modifier = -5
-// 	heat_penalty = 15
-// 	powermix = 1
+/datum/sm_gas/antinoblium
+	gas_path = /datum/gas/antinoblium
+	transmit_modifier = -5
+	heat_penalty = 15
+	powermix = 1
