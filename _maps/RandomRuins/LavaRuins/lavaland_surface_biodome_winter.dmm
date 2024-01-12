@@ -200,7 +200,8 @@
 	dir = 1
 	},
 /turf/open/floor/wood{
-	initial_gas_mix = "o2=22;n2=82;TEMP=180";
+	initial_gas = list("oxygen" = 14, "nitrogen" = 23);
+	temperature = 2.7 = "o2=22;n2=82;TEMP=180";
 	name = "bridge"
 	},
 /area/ruin/powered/snow_biodome)
@@ -272,7 +273,7 @@
 /obj/machinery/light/built/directional/north,
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/pod/dark{
-	initial_gas_mix = "PLANETARY_ATMOS"
+	initial_gas = list("planet_atmos" = 1)
 	},
 /area/ruin/powered/snow_biodome)
 "og" = (
@@ -419,7 +420,8 @@
 "PM" = (
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood{
-	initial_gas_mix = "o2=22;n2=82;TEMP=180";
+	initial_gas = list("oxygen" = 14, "nitrogen" = 23);
+	temperature = 2.7 = "o2=22;n2=82;TEMP=180";
 	name = "bridge"
 	},
 /area/ruin/powered/snow_biodome)
