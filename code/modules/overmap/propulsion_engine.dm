@@ -72,7 +72,7 @@
 		if(node)
 			node.atmos_init()
 			node.add_member(src)
-	SSair.add_to_rebuild_queue(src)
+	SSairmachines.add_to_rebuild_queue(src)
 
 /obj/machinery/atmospherics/components/unary/engine/proc/unweld()
 	if(!is_welded)

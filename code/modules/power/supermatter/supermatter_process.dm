@@ -19,10 +19,10 @@
 
 	//Ok, get the air from the turf
 	var/datum/gas_mixture/env = local_turf.return_air()
-	environment_total_moles = env.total_moles()
+	environment_total_moles = env.get_moles()
 	if(produces_gas)
 		//Remove gas from surrounding area
-		absorbed_gasmix = env.remove(gasefficency * env.total_moles)
+		absorbed_gasmix = env.remove(absorption_ratio * env.total_moles)
 	else
 		// Pass all the gas related code an empty gas container
 		absorbed_gasmix = new()
@@ -52,7 +52,7 @@
 			env.merge(absorbed_gasmix)
 			//air_update_turf(FALSE, FALSE)
 	else
-		combined_gas = absorbed_gasmix.total_moles()
+		combined_gas = absorbed_gasmix.get_moles()
 		gas_percentage = list()
 
 		power_transmission_bonus = 0
@@ -61,9 +61,9 @@
 		gasmix_power_ratio = 0
 		powerloss_dynamic_scaling = 0
 
-		for (var/gas_path in absorbed_gasmix.gases)
+		for (var/gas_path in absorbed_gasmix.gas)
 			var/datum/sm_gas/sm_gas = GLOB.sm_gas_behavior[gas_path]
-			gas_percentage[gas_path] = absorbed_gasmix.gases[gas_path][MOLES] / combined_gas
+			gas_percentage[gas_path] = absorbed_gasmix.gas[gas_path] / combined_gas
 			power_transmission_bonus += sm_gas.transmit_modifier * gas_percentage[gas_path]
 			dynamic_heat_modifier += sm_gas.heat_penalty * gas_percentage[gas_path]
 			dynamic_heat_resistance += sm_gas.heat_resistance * gas_percentage[gas_path]
@@ -76,7 +76,7 @@
 
 		// Extra effects should always fire after the compositions are all finished
 		// Some extra effects like [/datum/sm_gas/carbon_dioxide/extra_effects] needs more than one gas.
-		for (var/gas_path in absorbed_gasmix.gases)
+		for (var/gas_path in absorbed_gasmix.gas)
 			var/datum/sm_gas/sm_gas = GLOB.sm_gas_behavior[gas_path]
 			sm_gas.extra_effects(src, env)
 

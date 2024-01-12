@@ -271,7 +271,7 @@
 		if(node)
 			node.atmos_init()
 			node.add_member(src)
-	SSair.add_to_rebuild_queue(src)
+	SSairmachines.add_to_rebuild_queue(src)
 
 /**
  * Easy way to toggle nodes connection and disconnection.
