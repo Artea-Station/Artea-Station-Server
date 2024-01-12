@@ -200,7 +200,6 @@
 	// Priority 1: use air from environment.
 	var/datum/gas_mixture/environment = owner_turf.return_air()
 	if(environment && environment.returnPressure() > 30)
-		ion_trail.generate_effect()
 		return TRUE
 
 	// Priority 2: use plasma from internal plasma storage.

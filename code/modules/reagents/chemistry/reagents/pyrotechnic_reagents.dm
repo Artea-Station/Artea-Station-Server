@@ -74,7 +74,7 @@
 /datum/reagent/clf3/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
 	. = ..()
 	exposed_mob.adjust_fire_stacks(min(reac_volume/5, 10))
-	exposed_mob.IgniteMob()
+	exposed_mob.ignite_mob()
 	//if(!locate(/obj/effect/hotspot) in exposed_mob.loc)
 		//new /obj/effect/hotspot(exposed_mob.loc)
 	var/turf/T = get_turf(exposed_mob)

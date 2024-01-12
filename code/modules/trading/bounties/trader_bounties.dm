@@ -51,13 +51,6 @@
 	bounty_text = "Filled with brim of ores and bars, we're expanding our warehouses and require an immediate help of a very strong machine. If you could supply us with a Ripley, we'd pay you handsomely."
 	bounty_complete_text = "Expect twice the stock next time you visit us!"
 
-/datum/trader_bounty/gas/hard_to_breathe
-	bounty_name = "Hard to Breathe"
-	amount = 20
-	gas_type = /datum/gas/pluoxium
-	reward_cash = 3000
-	bounty_text = "During strip mining our miners often complain about the quality of air, or sometimes drop dead from lung complications, which is really inefficient. So we're deciding to invest into premium air!"
-
 /datum/trader_bounty/reagent/medicine_easy
 	bounty_name = "Medicine Restock"
 	amount = 60 //2 bottles

@@ -246,9 +246,9 @@
 	//Calculate how much gas to release
 	//Varies based on power and gas content
 
-	removed.gases[GAS_PLASMA] += max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0)
+	removed.gas[GAS_PLASMA] += max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0)
 	//Varies based on power, gas content, and heat
-	removed.gases[GAS_OXYGEN] += max(((device_energy + removed.temperature * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
+	removed.gas[GAS_OXYGEN] += max(((device_energy + removed.temperature * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
 
 	if(produces_gas)
 		env.merge(removed)

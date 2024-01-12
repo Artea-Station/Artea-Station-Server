@@ -88,6 +88,7 @@
 
 	var/crit_stabilizing_reagent = /datum/reagent/medicine/epinephrine
 
+// WHYYYYYYYYYYYYYYYYYYYYYYYY, THESE COULD BE HANDLED IN REAGENT DATUMS YOU FUCKS
 /obj/item/organ/internal/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/breather)
 	if(breather.status_flags & GODMODE)
 		breather.failed_last_breath = FALSE //clear oxy issues
@@ -136,7 +137,7 @@
 	var/N2_pp = breath.getBreathPartialPressure(N2_moles)
 	var/Plasma_pp = breath.getBreathPartialPressure(plasma_moles)
 	var/CO2_pp = breath.getBreathPartialPressure(CO2_moles)
-	var/SA_pp = breath.getBreathPartialPressure(SA_moles)
+	var/N2O_pp = breath.getBreathPartialPressure(SA_moles)
 	//Vars for n2o and healium induced euphorias.
 	var/n2o_euphoria = EUPHORIA_LAST_FLAG
 	var/healium_euphoria = EUPHORIA_LAST_FLAG
@@ -269,21 +270,21 @@
 	AIR_UPDATE_VALUES(breath)
 	if(breath.total_moles) // If there's some other shit in the air lets deal with it here.
 
-	// Pluoxium
-		var/pluoxium_pp = breath.get_breath_partial_pressure(breath_gases[/datum/gas/pluoxium][MOLES])
-		if(pluoxium_pp > gas_stimulation_min)
-			var/existing = breather.reagents.get_reagent_amount(/datum/reagent/pluoxium)
-			breather.reagents.add_reagent(/datum/reagent/pluoxium, max(0, 1 - existing))
-		gas_breathed = breath_gases[/datum/gas/pluoxium][MOLES]
-		breath_gases[/datum/gas/pluoxium][MOLES] -= gas_breathed
+	// // Pluoxium
+	// 	var/pluoxium_pp = breath.getBreathPartialPressure(breath_gases[/datum/gas/pluoxium][MOLES])
+	// 	if(pluoxium_pp > gas_stimulation_min)
+	// 		var/existing = breather.reagents.get_reagent_amount(/datum/reagent/pluoxium)
+	// 		breather.reagents.add_reagent(/datum/reagent/pluoxium, max(0, 1 - existing))
+	// 	gas_breathed = breath_gases[/datum/gas/pluoxium][MOLES]
+	// 	breath_gases[/datum/gas/pluoxium][MOLES] -= gas_breathed
 
 	// N2O
-		if(SA_pp > SA_para_min) // Enough to make us stunned for a bit
+		if(N2O_pp > n2o_para_min) // Enough to make us stunned for a bit
 			breather.throw_alert(ALERT_TOO_MUCH_N2O, /atom/movable/screen/alert/too_much_n2o)
 			breather.Unconscious(60) // 60 gives them one second to wake up and run away a bit!
-			if(n2o_pp > n2o_sleep_min) // Enough to make us sleep as well
+			if(N2O_pp > n2o_sleep_min) // Enough to make us sleep as well
 				breather.Sleeping(min(breather.AmountSleeping() + 100, 200))
-		else if(n2o_pp > 0.01) // There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
+		else if(N2O_pp > 0.01) // There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
 			breather.clear_alert(ALERT_TOO_MUCH_N2O)
 			if(prob(20))
 				n2o_euphoria = EUPHORIA_ACTIVE

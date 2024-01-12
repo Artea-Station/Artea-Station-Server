@@ -41,13 +41,13 @@
 	if(part_path && mapped)
 		installed_part = new part_path(src)
 
-	air_update_turf(TRUE)
+	// air_update_turf(TRUE)
 
 	update_appearance()
 
 /obj/machinery/power/turbine/Destroy()
 
-	air_update_turf(TRUE)
+	// air_update_turf(TRUE)
 
 	if(installed_part)
 		QDEL_NULL(installed_part)
@@ -144,7 +144,7 @@
 /obj/machinery/power/turbine/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	disable_parts()
-	air_update_turf(TRUE)
+	// air_update_turf(TRUE)
 
 /obj/machinery/power/turbine/Exited(atom/movable/gone, direction)
 	. = ..()
@@ -405,7 +405,7 @@
 
 	calculate_parts_limits()
 
-	SSair.start_processing_machine(src)
+	SSairmachines.start_processing_machine(src)
 	return TRUE
 
 /**
@@ -419,7 +419,7 @@
 	input_turf = null
 	output_turf = null
 	all_parts_connected = FALSE
-	SSair.stop_processing_machine(src)
+	SSairmachines.stop_processing_machine(src)
 
 /obj/machinery/power/turbine/core_rotor/on_deconstruction()
 	if(all_parts_connected)
@@ -543,7 +543,7 @@
 	//the compressor compresses down the gases from 2500 L to 1000 L
 	//the temperature and pressure rises up, you can regulate this to increase/decrease the amount of gas moved in.
 	var/compressor_work = do_calculations(input_turf_mixture, compressor.machine_gasmix, regulated = TRUE)
-	input_turf.//air_update_turf(TRUE)
+	//input_turf.air_update_turf(TRUE)
 	var/compressor_pressure = max(compressor.machine_gasmix.returnPressure(), 0.01)
 
 	//the rotor moves the gases that expands from 1000 L to 3000 L, they cool down and both temperature and pressure lowers
@@ -567,8 +567,11 @@
 
 	add_avail(produced_energy)
 
-	turbine.machine_gasmix.pump_gas_to(output_turf.air, turbine.machine_gasmix.returnPressure())
-	output_turf.//air_update_turf(TRUE)
+	// Inspired by citcode.
+	var/transfer_moles = max((machine_gasmix.get_moles() / 10), 10) // Min of 10 to avoid teeeeeny amounts of gas.
+	var/datum/gas_mixture/removed = machine_gasmix.remove(transfer_moles)
+	output_turf.air.merge(removed)
+	//output_turf.air_update_turf(TRUE)
 
 /**
  * Handles all the calculations needed for the gases, work done, temperature increase/decrease
@@ -582,7 +585,10 @@
 	if(regulated)
 		intake_size = intake_regulator
 
-	input_mix.pump_gas_to(output_mix, input_mix.returnPressure() * intake_size)
+	var/transfer_moles = max((input_mix.get_moles() / 10), 5) // Min of 5 to avoid teeeeeny amounts of gas.
+	var/datum/gas_mixture/removed = input_mix.remove(transfer_moles)
+	output_mix.merge(removed)
+
 	var/output_mix_heat_capacity = output_mix.getHeatCapacity()
 	if(!output_mix_heat_capacity)
 		return 0

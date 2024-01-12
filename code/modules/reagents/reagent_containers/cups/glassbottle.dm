@@ -591,8 +591,8 @@
 				break
 	if(firestarter && active)
 		target.fire_act()
-		//new /obj/effect/hotspot(get_turf(hit_atom))
-		var/turf/T = get_turf(hit_atom)
+		//new /obj/effect/hotspot(get_turf(target))
+		var/turf/T = get_turf(target)
 		T.create_fire(1, 10)
 	..()
 
