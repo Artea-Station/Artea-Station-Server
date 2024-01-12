@@ -381,6 +381,9 @@
 /obj/machinery/atmospherics/components/tank/nitrous
 	gas_type = GAS_N2O
 
+/obj/machinery/atmospherics/components/tank/steam
+	gas_type = GAS_STEAM
+
 /*ics/components/tank/bz
 	gas_type = /datum/gas/bz
 
