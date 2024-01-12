@@ -76,6 +76,14 @@
 	if(update)
 		AIR_UPDATE_VALUES(src)
 
+///Variadic version of setGasMoles().  Takes any number of gas and mole pairs and applies them.
+/datum/gas_mixture/proc/setMultipleGases()
+	ASSERT(!(args.len % 2))
+
+	for(var/i in 1 to args.len-1 step 2)
+		setGasMoles(args[i], args[i+1], update = 0)
+
+	AIR_UPDATE_VALUES(src)
 
 ///Variadic version of adjustGas().  Takes any number of gas and mole pairs and applies them.
 /datum/gas_mixture/proc/adjustMultipleGases()
@@ -85,7 +93,6 @@
 		adjustGas(args[i], args[i+1], update = 0)
 
 	AIR_UPDATE_VALUES(src)
-
 
 ///Variadic version of adjustGasWithTemp().  Takes any number of gas, mole and temperature associations and applies them.
 /datum/gas_mixture/proc/adjustMultipleGasesWithTemp()

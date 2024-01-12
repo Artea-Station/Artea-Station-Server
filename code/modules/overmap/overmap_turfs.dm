@@ -1,13 +1,8 @@
 /turf/open/overmap
 	icon = 'icons/overmap/overmap_turfs.dmi'
 	plane = FLOOR_PLANE
+	initial_gas = AIRLESS_ATMOS
 	//dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-
-/turf/open/overmap/Initalize_Atmos(times_fired)
-	return
-
-/turf/open/overmap/Assimilate_Air()
-	return
 
 /turf/open/overmap/map
 	icon_state = "map"

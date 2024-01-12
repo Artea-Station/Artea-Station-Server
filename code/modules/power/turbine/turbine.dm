@@ -585,7 +585,7 @@
 	if(regulated)
 		intake_size = intake_regulator
 
-	var/transfer_moles = max((input_mix.get_moles() / 10), 5) // Min of 5 to avoid teeeeeny amounts of gas.
+	var/transfer_moles = max((input_mix.get_moles() / 10) * intake_size, 5) // Min of 5 to avoid teeeeeny amounts of gas.
 	var/datum/gas_mixture/removed = input_mix.remove(transfer_moles)
 	output_mix.merge(removed)
 

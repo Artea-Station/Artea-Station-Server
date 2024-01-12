@@ -83,7 +83,8 @@ SUBSYSTEM_DEF(zas)
 	//A reference to the global var
 	var/datum/xgm_gas_data/gas_data
 
-	var/datum/gas_mixture/lavaland_atmos
+	// var/datum/gas_mixture/lavaland_atmos
+	var/list/datum/gas_mixture/planetary = list()
 
 	//Geometry lists
 	var/list/zones = list()
@@ -171,7 +172,7 @@ SUBSYSTEM_DEF(zas)
 		CHECK_TICK
 
 	///LAVALAND SETUP
-	fuck_lavaland()
+	// fuck_lavaland()
 
 	to_chat(world, span_boldannounce("ZAS:\n - Total Simulated Turfs: [simulated_turf_count]\n - Total Zones: [zones.len]\n - Total Edges: [edges.len]\n - Total Active Edges: [active_edges.len ? "<span class='danger'>[active_edges.len]</span>" : "None"]\n - Total Unsimulated Turfs: [world.maxx*world.maxy*world.maxz - simulated_turf_count]"))
 
@@ -585,5 +586,35 @@ SUBSYSTEM_DEF(zas)
 				T.temperature = mix_real.temperature
 			CHECK_TICK
 
-	lavaland_atmos = mix_real
+	// lavaland_atmos = mix_real
 	to_chat(world, span_boldannounce("ZAS: Lavaland contains [num_gases] [num_gases > 1? "gases" : "gas"], with a pressure of [mix_real.returnPressure()] kpa."))
+
+/datum/controller/subsystem/zas/proc/register_planetary_atmos(datum/atmosphere/atmos_datum, level, friendly_name)
+	var/datum/gas_mixture/our_gasmix = new
+
+	if(islist(atmos_datum.base_gases))
+		our_gasmix.gas += atmos_datum.base_gases
+
+	if(islist(atmos_datum.normal_gases))
+		var/list/keep_me_safe = atmos_datum.normal_gases.Copy()
+		for(var/i, i < atmos_datum.normal_gas_picks, i++)
+			var/gas_id = pick_n_take(atmos_datum.normal_gases)
+			our_gasmix.gas[gas_id] = keep_me_safe[gas_id]
+
+	if(atmos_datum.restricted_chance && prob(atmos_datum.restricted_chance) && islist(atmos_datum.restricted_gases))
+		var/gas_id = pick(atmos_datum.restricted_gases)
+		our_gasmix.gas[gas_id] = atmos_datum.restricted_gases[gas_id]
+
+	our_gasmix.temperature = rand(atmos_datum.minimum_temp, atmos_datum.maximum_temp)
+	var/target_pressure = rand(atmos_datum.minimum_pressure, atmos_datum.maximum_pressure)
+	var/new_mol_multiplier = target_pressure * our_gasmix.get_volume()
+	new_mol_multiplier /= R_IDEAL_GAS_EQUATION * our_gasmix.get_temperature()
+
+	for(var/gas_id in our_gasmix.gas)
+		our_gasmix.gas[gas_id] *= new_mol_multiplier
+
+	AIR_UPDATE_VALUES(our_gasmix)
+
+	planetary["[level]"] = our_gasmix
+	var/num_gases = length(our_gasmix.gas)
+	to_chat(world, span_boldannounce("ZAS: [level] contains [num_gases] [num_gases > 1? "gases" : "gas"], with a pressure of [our_gasmix.returnPressure()] kpa."))

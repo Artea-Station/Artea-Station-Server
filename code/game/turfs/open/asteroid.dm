@@ -177,7 +177,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	flags_1 = NONE
 
 	simulated = FALSE
-	initial_gas = ICEMOON_DEFAULT_ATMOS
+	initial_gas = PLANETARY_ATMOS
 
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = null
@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 /turf/open/lava/plasma/ice_moon
 	initial_gas = PLANETARY_ATMOS
 	baseturfs = /turf/open/lava/plasma/ice_moon
-	initial_gas = ICEMOON_DEFAULT_ATMOS
+	initial_gas = PLANETARY_ATMOS
 
 /turf/open/misc/asteroid/snow/ice
 	name = "icy snow"

@@ -63,7 +63,7 @@
 
 	var/turf/open/to_fill = run_loc_floor_bottom_left
 	//Prep the floor
-	to_fill.initial_gas = SSzas.lavaland_atmos.gas
+	to_fill.initial_gas = SSzas.planetary["[]"]
 	to_fill.make_air()
 
 	lab_rat.breathe()

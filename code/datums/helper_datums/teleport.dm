@@ -151,6 +151,9 @@
 		trace_gases = TRUE
 		break
 
+	// Can most things breathe?
+	if(trace_gases)
+		return
 	if(!(floor_gases[GAS_OXYGEN] >= 16))
 		return
 	if(floor_gases[GAS_PLASMA])

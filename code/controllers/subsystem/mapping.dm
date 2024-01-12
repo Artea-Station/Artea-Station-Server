@@ -333,7 +333,7 @@ Used by the AI doomsday and the self-destruct nuke.
 		if(ore_node_seeder)
 			ore_node_seeder.SeedToLevel(level.z_value)
 		if(atmos)
-			// ARTEA TODO: SSair.register_planetary_atmos(atmos, level.z_value)
+			SSzas.register_planetary_atmos(atmos, level.z_value, level.name)
 		if(rock_color)
 			level.rock_color = rock_color
 		if(plant_color)

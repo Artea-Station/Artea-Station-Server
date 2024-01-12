@@ -151,9 +151,10 @@
 #define INIT_ORDER_AI_CONTROLLERS 55 //So the controller can get the ref
 #define INIT_ORDER_TICKER 55
 #define INIT_ORDER_TCG 55
-#define INIT_ORDER_TRADING 51 // Don't fucking move these three subsystems. You will kill the server and everyone involed.
-#define INIT_ORDER_MAPPING 50
-#define INIT_ORDER_OVERMAP 49
+#define INIT_ORDER_TRADING 52 // Don't fucking move these three subsystems. You will kill the server and everyone involed.
+#define INIT_ORDER_MAPPING 51
+#define INIT_ORDER_OVERMAP 50
+#define INIT_ORDER_ZAS_PLANETS 49
 #define INIT_ORDER_EARLY_ASSETS 48
 #define INIT_ORDER_RESEARCH 47
 #define INIT_ORDER_TIMETRACK 46

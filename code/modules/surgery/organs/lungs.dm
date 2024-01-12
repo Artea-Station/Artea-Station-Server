@@ -450,7 +450,11 @@
 /obj/item/organ/internal/lungs/ashwalker/Initialize(mapload)
 	. = ..()
 
-	var/datum/gas_mixture/mix = SSzas.planetary[PLANETARY_ATMOS]
+	var/z_levels = SSmapping.levels_by_trait(ZTRAIT_MINING)
+	if(!length(z_levels)) // this typically means we didn't load lavaland
+		return
+
+	var/datum/gas_mixture/mix = SSzas.planetary["[z_levels[1]]"]
 
 	if(!mix?.get_moles()) // this typically means we didn't load lavaland, like if we're using #define LOWMEMORYMODE
 		return

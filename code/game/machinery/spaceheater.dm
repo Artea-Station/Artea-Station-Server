@@ -126,7 +126,7 @@
 	if(delta_temperature)
 		for (var/turf/open/turf in ((local_turf.get_atmos_adjacent_turfs() || list()) + local_turf))
 			var/datum/gas_mixture/turf_gasmix = turf.return_air()
-			enviroment.temperature += delta_temperature
+			turf_gasmix.temperature += delta_temperature
 			//air_update_turf(FALSE, FALSE)
 			cell.use(required_energy / efficiency)
 

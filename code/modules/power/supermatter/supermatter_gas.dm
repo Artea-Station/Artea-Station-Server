@@ -28,18 +28,18 @@ GLOBAL_LIST_INIT(sm_gas_behavior, init_sm_gas())
 	return
 
 /datum/sm_gas/oxygen
-	gas_path = /datum/gas/oxygen
+	gas_path = GAS_OXYGEN
 	heat_penalty = 1
 	transmit_modifier = 1.5
 	powermix = 1
 
 /datum/sm_gas/nitrogen
-	gas_path = /datum/gas/nitrogen
+	gas_path = GAS_NITROGEN
 	heat_penalty = -1.5
 	powermix = -1
 
 /datum/sm_gas/carbon_dioxide
-	gas_path = /datum/gas/carbon_dioxide
+	gas_path = GAS_CO2
 	heat_penalty = 2
 	powermix = 1
 	powerloss_inhibition = 1
@@ -67,32 +67,26 @@ GLOBAL_LIST_INIT(sm_gas_behavior, init_sm_gas())
 	// sm.absorbed_gasmix.gas[/datum/gas/pluoxium][MOLES] += consumed_co2 * 0.25
 
 /datum/sm_gas/plasma
-	gas_path = /datum/gas/plasma
+	gas_path = GAS_PLASMA
 	heat_penalty = 15
 	transmit_modifier = 4
 	powermix = 1
 
 /datum/sm_gas/water_vapor
-	gas_path = /datum/gas/water_vapor
+	gas_path = GAS_STEAM
 	heat_penalty = 12
 	transmit_modifier = -2.5
 	powermix = 1
 
-/datum/sm_gas/hypernoblium
-	gas_path = /datum/gas/hypernoblium
-	heat_penalty = -13
-	transmit_modifier = 3
-	powermix = -1
-
 /datum/sm_gas/nitrous_oxide
-	gas_path = /datum/gas/nitrous_oxide
+	gas_path = GAS_N2O
 	heat_resistance = 6
 
-/datum/sm_gas/nitrium
-	gas_path = /datum/gas/nitrium
+/datum/sm_gas/nitro_dioxide
+	gas_path = GAS_NO2
 
 /datum/sm_gas/tritium
-	gas_path = /datum/gas/tritium
+	gas_path = GAS_TRITIUM
 	heat_penalty = 10
 	transmit_modifier = 30
 	powermix = 1
@@ -108,51 +102,39 @@ GLOBAL_LIST_INIT(sm_gas_behavior, init_sm_gas())
 // 	if(sm.gas_percentage[/datum/gas/bz] >= 0.4 && prob(30 * sm.gas_percentage[/datum/gas/bz]))
 // 		sm.fire_nuclear_particle()
 
-/datum/sm_gas/pluoxium
-	gas_path = /datum/gas/pluoxium
-	heat_penalty = -0.5
-	transmit_modifier = -5
-	powermix = 1
+// /datum/sm_gas/pluoxium
+// 	gas_path = /datum/gas/pluoxium
+// 	heat_penalty = -0.5
+// 	transmit_modifier = -5
+// 	powermix = 1
 
-// /datum/sm_gas/miasma
-// 	gas_path = /datum/gas/miasma
-// 	powermix = 0.5
+// Mmmm, fart powered SM
+/datum/sm_gas/methane
+	gas_path = GAS_METHANE
+	powermix = 0.5
+	heat_penalty = 5
 
-// ///Miasma is really just microscopic particulate. It gets consumed like anything else that touches the crystal.
-// /datum/sm_gas/miasma/extra_effects(obj/machinery/power/supermatter_crystal/sm, datum/gas_mixture/env)
-// 	if(!sm.gas_percentage[/datum/gas/miasma])
-// 		return
-// 	var/miasma_pp = env.return_pressure() * sm.gas_percentage[/datum/gas/miasma]
-// 	/// Our consumption ratio, not the actual ratio in SM we already have that.
-// 	var/miasma_ratio = ((miasma_pp - MIASMA_CONSUMPTION_PP) / (miasma_pp + MIASMA_PRESSURE_SCALING)) * (1 + (sm.gasmix_power_ratio * MIASMA_GASMIX_SCALING))
-// 	miasma_ratio = clamp(miasma_ratio, 0, 1)
-// 	var/consumed_miasma = sm.absorbed_gasmix.gases[/datum/gas/miasma][MOLES] * miasma_ratio
-// 	if(!consumed_miasma)
-// 		return
-// 	sm.absorbed_gasmix.gases[/datum/gas/miasma][MOLES] -= consumed_miasma
-// 	sm.matter_power += consumed_miasma * MIASMA_POWER_GAIN
-
-/datum/sm_gas/freon
-	gas_path = /datum/gas/freon
-	heat_penalty = -10
-	transmit_modifier = -30
-	powermix = 1
+// /datum/sm_gas/freon
+// 	gas_path = /datum/gas/freon
+// 	heat_penalty = -10
+// 	transmit_modifier = -30
+// 	powermix = 1
 
 /datum/sm_gas/hydrogen
-	gas_path = /datum/gas/hydrogen
+	gas_path = GAS_HYDROGEN
 	heat_penalty = 10
 	transmit_modifier = 25
 	heat_resistance = 2
 	powermix = 1
 
-/datum/sm_gas/healium
-	gas_path = /datum/gas/healium
-	heat_penalty = 4
-	transmit_modifier = 2.4
-	powermix = 1
+// /datum/sm_gas/healium
+// 	gas_path = /datum/gas/healium
+// 	heat_penalty = 4
+// 	transmit_modifier = 2.4
+// 	powermix = 1
 
-/datum/sm_gas/proto_nitrate
-	gas_path = /datum/gas/proto_nitrate
+/datum/sm_gas/nitric_oxide
+	gas_path = GAS_NO
 	heat_penalty = -3
 	transmit_modifier = 15
 	heat_resistance = 5
@@ -178,14 +160,14 @@ GLOBAL_LIST_INIT(sm_gas_behavior, init_sm_gas())
 // 		zap_icon = sm.zap_icon
 // 	)
 
-/datum/sm_gas/halon
-	gas_path = /datum/gas/halon
+// /datum/sm_gas/halon
+// 	gas_path = /datum/gas/halon
 
-/datum/sm_gas/helium
-	gas_path = /datum/gas/helium
+// /datum/sm_gas/helium
+// 	gas_path = /datum/gas/helium
 
-/datum/sm_gas/antinoblium
-	gas_path = /datum/gas/antinoblium
-	transmit_modifier = -5
-	heat_penalty = 15
-	powermix = 1
+// /datum/sm_gas/antinoblium
+// 	gas_path = /datum/gas/antinoblium
+// 	transmit_modifier = -5
+// 	heat_penalty = 15
+// 	powermix = 1

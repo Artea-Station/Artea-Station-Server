@@ -20,7 +20,7 @@
 			for(var/gasid in initial_gas)
 				gas_args += gasid
 				gas_args += initial_gas[gasid]
-			gas_mix.adjustMultipleGases(arglist(gas_args))
+			gas_mix.setMultipleGases(arglist(gas_args))
 
 		gas_mixes[mix_name] = gas_mix
 	return gas_mixes
