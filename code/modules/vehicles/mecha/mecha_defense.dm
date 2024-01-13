@@ -180,10 +180,6 @@
 	equipment_disabled = TRUE
 	set_mouse_pointer()
 
-/obj/vehicle/sealed/mecha/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
-	if(exposed_temperature > max_temperature)
-		return TRUE
-
 /obj/vehicle/sealed/mecha/atmos_expose(datum/gas_mixture/air, exposed_temperature)
 	if(exposed_temperature > max_temperature)
 		log_message("Exposed to dangerous temperature.", LOG_MECHA, color="red")

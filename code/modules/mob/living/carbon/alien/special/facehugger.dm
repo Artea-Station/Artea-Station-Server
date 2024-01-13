@@ -38,6 +38,11 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	become_atmos_sensitive()
+
+/obj/item/clothing/mask/facehugger/Destroy()
+	lose_atmos_sensitivity()
+	return ..()
 
 	RegisterSignal(src, COMSIG_LIVING_TRYING_TO_PULL, PROC_REF(react_to_mob))
 

@@ -41,12 +41,14 @@
 		AddComponent(/datum/component/slippery, 100)
 	create_reagents(1000, REAGENT_HOLDER_INSTANT_REACT)
 	playsound(src, 'sound/effects/bubbles2.ogg', 80, TRUE, -3)
+	become_atmos_sensitive()
 	SSfoam.start_processing(src)
 
 /obj/effect/particle_effect/fluid/foam/Destroy()
 	SSfoam.stop_processing(src)
 	if (spread_bucket)
 		SSfoam.cancel_spread(src)
+	become_atmos_sensitive()
 	return ..()
 
 /**

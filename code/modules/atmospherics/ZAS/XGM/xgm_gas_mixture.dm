@@ -9,7 +9,7 @@
 	var/total_moles = 0
 	//Volume of this mix.
 	var/volume = CELL_VOLUME
-	//Size of the group this gas_mixture is representing.  1 for singletons.
+	//Size of the group this gas_mixture is representing. 1 for singular turfs.
 	var/group_multiplier = 1
 
 	//List of active tile overlays for this gas_mixture.  Updated by checkTileGraphic()
@@ -124,6 +124,7 @@
 			gas[g] += giver.gas[g]
 
 	AIR_UPDATE_VALUES(src)
+	SEND_SIGNAL(src, COMSIG_GASMIX_MERGED)
 
 ///Used to equalize the mixture between two zones before sleeping an edge.
 /datum/gas_mixture/proc/equalize(datum/gas_mixture/sharer)
@@ -155,7 +156,7 @@
 
 
 ///Adds or removes thermal energy. Returns the actual thermal energy change, as in the case of removing energy we can't go below TCMB.
-/datum/gas_mixture/proc/addThermalEnergy(thermal_energy)
+/datum/gas_mixture/proc/adjustThermalEnergy(thermal_energy)
 
 	if (total_moles == 0)
 		return 0

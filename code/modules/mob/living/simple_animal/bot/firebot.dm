@@ -47,6 +47,11 @@
 	prev_access = access_card.access.Copy()
 
 	create_extinguisher()
+	become_atmos_sensitive()
+
+/mob/living/simple_animal/bot/firebot/Destroy()
+	lose_atmos_sensitivity()
+	return ..()
 
 /mob/living/simple_animal/bot/firebot/bot_reset()
 	create_extinguisher()

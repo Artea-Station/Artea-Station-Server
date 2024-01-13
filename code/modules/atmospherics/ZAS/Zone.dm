@@ -54,6 +54,8 @@ Class Procs:
 	var/needs_update = 0
 	///A list of /connection_edge/
 	var/list/edges = list()
+	///Lazylist of atmos sensitive contents
+	var/atmos_sensitive_contents
 	///The zone's gas contents
 	var/datum/gas_mixture/air = new
 	var/last_air_temperature = TCMB
@@ -160,6 +162,7 @@ Class Procs:
 /zone/proc/invalidate()
 	invalid = 1
 	SSzas.remove_zone(src)
+	atmos_sensitive_contents = null
 	#ifdef ZASDBG
 	for(var/turf/T in contents)
 		if(!T.simulated)
@@ -219,10 +222,31 @@ Class Procs:
 	var/list/graphic_remove = list()
 	if(air.checkTileGraphic(graphic_add, graphic_remove))
 		for(var/turf/T as anything in contents)
-			if(T.simulated)
-				T.update_graphic(graphic_add, graphic_remove)
-		graphic_add.len = 0
-		graphic_remove.len = 0
+			T.update_graphic(graphic_add, graphic_remove)
+
+	#ifdef ZASDBG
+	SSzas.zonetime["tile graphic"] = TICK_USAGE_TO_MS(clock)
+	clock = TICK_USAGE
+	#endif
+
+	// Update connected edges.
+	for(var/edge_source in edges)
+		var/connection_edge/E = edges[edge_source]
+		if(!E.excited)
+			E.recheck()
+
+	#ifdef ZASDBG
+	SSzas.zonetime["check edges"] = TICK_USAGE_TO_MS(clock)
+	clock = TICK_USAGE
+	#endif
+	if(LAZYLEN(atmos_sensitive_contents))
+		for(var/atom/sensitive as anything in atmos_sensitive_contents)
+			sensitive.atmos_expose(air, air.temperature)
+
+	#ifdef ZASDBG
+	SSzas.zonetime["queue temperature"] = TICK_USAGE_TO_MS(clock)
+	clock = TICK_USAGE
+	#endif
 
 ///Prints debug information to the given mob. Used by the "Zone Info" verb. Does not require ZASDBG compile define.
 /zone/proc/dbg_data(mob/M)

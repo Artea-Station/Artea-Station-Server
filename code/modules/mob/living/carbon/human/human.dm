@@ -31,6 +31,7 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 	become_area_sensitive()
 	GLOB.human_list += src
+	become_atmos_sensitive()
 
 /mob/living/carbon/human/proc/setup_mood()
 	if (CONFIG_GET(flag/disable_human_mood))
@@ -52,6 +53,7 @@
 	if (mob_mood)
 		QDEL_NULL(mob_mood)
 
+	lose_atmos_sensitivity()
 	return ..()
 
 /mob/living/carbon/human/ZImpactDamage(turf/T, levels)
@@ -925,6 +927,11 @@
 
 	if(mind.assigned_role.title in SSjob.name_occupations)
 		.[mind.assigned_role.title] = minutes
+
+/mob/living/carbon/human/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	var/plasma_exposure = air.gas[GAS_PLASMA]
+	if(plasma_exposure)
+		expose_plasma(plasma_exposure)
 
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey

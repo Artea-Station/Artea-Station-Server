@@ -54,7 +54,7 @@
 	pixel_speed_multiplier = 0.25
 	range = 200
 	nodamage = FALSE
-	temperature = -75
+	adj_temperature = -75
 	slowdown = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/ice_demon/OpenFire()

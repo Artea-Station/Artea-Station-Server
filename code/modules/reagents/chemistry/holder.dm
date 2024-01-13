@@ -1192,7 +1192,7 @@
 	for(var/datum/reagent/reagent as anything in cached_reagents)
 		reagents[reagent] = reagent.volume * volume_modifier
 
-	return A.expose_reagents(reagents, src, methods, volume_modifier, show_message)
+	return A.expose_reagents(reagents, src, methods, volume_modifier, show_message, chem_temp)
 
 // Same as [/datum/reagents/proc/expose] but only for multiple reagents (through a list)
 /datum/reagents/proc/expose_multiple(list/r_to_expose, atom/A, methods = TOUCH, volume_modifier = 1, show_message = 1)
@@ -1220,7 +1220,7 @@
 		return null
 
 	// Yes, we need the parentheses.
-	return A.expose_reagents(list((R) = R.volume * volume_modifier), src, methods, volume_modifier, show_message)
+	return A.expose_reagents(list((R) = R.volume * volume_modifier), src, methods, volume_modifier, show_message, chem_temp)
 
 /// Is this holder full or not
 /datum/reagents/proc/holder_full()

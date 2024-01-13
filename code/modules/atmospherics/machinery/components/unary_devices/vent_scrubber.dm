@@ -21,7 +21,7 @@
 	///The mode of the scrubber (SCRUBBING or SIPHONING)
 	var/scrubbing = SCRUBBING //0 = siphoning, 1 = scrubbing
 	///The list of gases we are filtering
-	var/list/filter_types = list(GAS_CO2)
+	var/list/filter_types = list(GAS_CO2, GAS_RADON, GAS_PLASMA)
 	///Rate of the scrubber to remove gases from the air
 	var/volume_rate = 200
 	///A fast-siphon toggle, siphons at 9x speed for 9x the power cost.

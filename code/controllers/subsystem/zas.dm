@@ -600,8 +600,15 @@ SUBSYSTEM_DEF(zas)
 		chosen_gases += pick_n_take(viable_gases)
 
 	mix_real.gas = chosen_gases
+
+	//Add a spice of Radon
 	for(var/gas in mix_real.gas)
 		mix_real.gas[gas] = 1 //So update values doesn't cull it
+
+	//Radon  sci
+	chosen_gases += GAS_RADON
+	mix_real.gas[GAS_RADON] = 5
+	num_gases++
 
 	mix_real.temperature = temp
 
@@ -629,9 +636,13 @@ SUBSYSTEM_DEF(zas)
 		mix_list[gas_id] = mix_real.gas[gas_id]
 
 	var/list/lavaland_z_levels = SSmapping.levels_by_trait(ZTRAIT_MINING) //God I hope this is never more than one
+	var/list/lavaland_areas = typecacheof(list(/area/lavaland, /area/icemoon))
+	lavaland_areas[/area/mine] = TRUE
+	lavaland_areas[/area/mine/explored] = TRUE
+
 	for(var/zlev in lavaland_z_levels)
 		for(var/turf/T as anything in block(locate(1,1,zlev), locate(world.maxx, world.maxy, zlev)))
-			if(!T.simulated)
+			if(!T.simulated && lavaland_areas[T.loc])
 				T.initial_gas = mix_list
 				T.temperature = mix_real.temperature
 				T.make_air()
