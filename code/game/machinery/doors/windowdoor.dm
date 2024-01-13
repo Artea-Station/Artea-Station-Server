@@ -59,7 +59,7 @@
 	)
 
 	AddElement(/datum/element/connect_loc, loc_connections)
-	update_nearby_tiles()
+	zas_update_loc()
 
 /obj/machinery/door/window/Destroy()
 	set_density(FALSE)
@@ -67,9 +67,7 @@
 	if(atom_integrity == 0)
 		playsound(src, SFX_SHATTER, 70, TRUE)
 	electronics = null
-	/*var/turf/floor = get_turf(src)
-	floor.air_update_turf(TRUE, FALSE)*/
-	update_nearby_tiles()
+	zas_update_loc()
 	return ..()
 
 /obj/machinery/door/window/update_icon_state()
@@ -212,7 +210,6 @@
 	icon_state ="[base_state]open"
 	sleep(10)
 	set_density(FALSE)
-	//air_update_turf(TRUE, FALSE)
 	update_freelook_sight()
 
 	if(operating == 1) //emag again
@@ -234,7 +231,6 @@
 	icon_state = base_state
 
 	set_density(TRUE)
-	//air_update_turf(TRUE, TRUE)
 	update_freelook_sight()
 	sleep(10)
 

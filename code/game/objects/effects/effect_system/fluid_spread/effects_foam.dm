@@ -278,15 +278,15 @@
 
 /obj/structure/foamedmetal/Initialize(mapload)
 	. = ..()
-	update_nearby_tiles()
+	zas_update_loc()
 
 /obj/structure/foamedmetal/Destroy()
-	update_nearby_tiles()
+	zas_update_loc()
 	. = ..()
 
 /obj/structure/foamedmetal/Move()
 	. = ..()
-	update_nearby_tiles()
+	zas_update_loc()
 
 /obj/structure/foamedmetal/attack_paw(mob/user, list/modifiers)
 	return attack_hand(user, modifiers)

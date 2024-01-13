@@ -71,7 +71,7 @@
 	else
 		flags_1 &= ~PREVENT_CLICK_UNDER_1
 
-	update_nearby_tiles()
+	zas_update_loc()
 	//doors only block while dense though so we have to use the proc
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
@@ -185,7 +185,7 @@
 	if(spark_system)
 		qdel(spark_system)
 		spark_system = null
-	update_nearby_tiles()
+	zas_update_loc()
 	return ..()
 
 /obj/machinery/door/zas_canpass(turf/other)
@@ -260,7 +260,7 @@
 		return
 
 /obj/machinery/door/Move()
-	update_nearby_tiles()
+	zas_update_loc()
 	. = ..()
 
 
@@ -446,7 +446,7 @@
 	update_appearance()
 	set_opacity(0)
 	operating = FALSE
-	update_nearby_tiles()
+	zas_update_loc()
 	update_freelook_sight()
 	if(autoclose)
 		autoclose_in(DOOR_CLOSE_WAIT)
@@ -476,7 +476,7 @@
 	if(visible && !glass)
 		set_opacity(1)
 	operating = FALSE
-	update_nearby_tiles()
+	zas_update_loc()
 	update_freelook_sight()
 
 	if(!can_crush)
