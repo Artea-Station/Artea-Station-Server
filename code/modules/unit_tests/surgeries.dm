@@ -32,8 +32,6 @@
 	var/mob/living/carbon/human/alice = allocate(/mob/living/carbon/human/consistent)
 	var/mob/living/carbon/human/bob = allocate(/mob/living/carbon/human/consistent)
 
-	guestbook_flags = GUESTBOOK_OMNISCIENT
-
 	alice.fully_replace_character_name(null, "Alice")
 	bob.fully_replace_character_name(null, "Bob")
 
