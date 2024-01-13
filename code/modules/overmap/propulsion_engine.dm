@@ -132,7 +132,7 @@
 
 /obj/machinery/atmospherics/components/unary/engine/proc/DrawThrust(impulse_power)
 	var/datum/gas_mixture/gas = airs[1]
-	var/total_moles = gas.get_moles()
+	var/total_moles = gas.total_moles
 	if(total_moles < ENGINE_MINIMUM_OPERATABLE_MOLES)
 		return 0
 	var/demand_mutliplier = T20C / gas.temperature

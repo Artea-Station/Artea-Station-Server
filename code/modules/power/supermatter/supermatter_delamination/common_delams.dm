@@ -4,7 +4,7 @@
 /datum/sm_delam/singularity
 
 /datum/sm_delam/singularity/can_select(obj/machinery/power/supermatter_crystal/sm)
-	return (sm.absorbed_gasmix.get_moles() >= MOLE_PENALTY_THRESHOLD)
+	return (sm.absorbed_gasmix.total_moles >= MOLE_PENALTY_THRESHOLD)
 
 /datum/sm_delam/singularity/delam_progress(obj/machinery/power/supermatter_crystal/sm)
 	. = ..()

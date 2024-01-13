@@ -97,7 +97,7 @@
 		user.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
 
 /obj/item/tank/jetpack/proc/allow_thrust(num, use_fuel = TRUE)
-	if((num < 0.005 || air_contents.get_moles() < num))
+	if((num < 0.005 || air_contents.total_moles < num))
 		turn_off(get_user())
 		return FALSE
 
@@ -106,7 +106,7 @@
 		return TRUE
 
 	var/datum/gas_mixture/removed = remove_air(num)
-	if(removed.get_moles() < 0.005)
+	if(removed.total_moles < 0.005)
 		turn_off(get_user())
 		return FALSE
 

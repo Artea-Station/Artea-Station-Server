@@ -211,7 +211,7 @@
 
 	// Priority 3: use internals tank.
 	var/datum/gas_mixture/internal_mix = owner.internal.return_air()
-	if(internal_mix && internal_mix.get_moles() > num)
+	if(internal_mix && internal_mix.total_moles > num)
 		if(!use_fuel)
 			return TRUE
 		var/datum/gas_mixture/removed = internal_mix.remove(num)

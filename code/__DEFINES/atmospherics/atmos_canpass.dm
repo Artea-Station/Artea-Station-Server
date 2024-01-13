@@ -55,6 +55,7 @@
 #endif
 
 #if !defined(MULTIZAS) && !defined(PROFILE_ZAS_CANPASS) //This will be used when multiZAS is disabled.
+
 ///Can air move from B to A?
 #define ATMOS_CANPASS_TURF(ret,A,B) \
 	if ((A.blocks_air & AIR_BLOCKED) || (B.blocks_air & AIR_BLOCKED)) { \

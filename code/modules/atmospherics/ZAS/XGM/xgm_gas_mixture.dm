@@ -569,8 +569,8 @@
  * eg:
  * Plas_PP = get_partial_pressure(gas_mixture.plasma)
  * O2_PP = get_partial_pressure(gas_mixture.oxygen)
- * getBreathPartialPressure(gas_pp) --> gas_pp/get_moles()*breath_pp = pp
- * getTrueBreathPressure(pp) --> gas_pp = pp/breath_pp*get_moles()
+ * getBreathPartialPressure(gas_pp) --> gas_pp/total_moles*breath_pp = pp
+ * getTrueBreathPressure(pp) --> gas_pp = pp/breath_pp*total_moles
  *
  * 10/20*5 = 2.5
  * 10 = 2.5/5*20

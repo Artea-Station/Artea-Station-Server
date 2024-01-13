@@ -670,7 +670,7 @@ SUBSYSTEM_DEF(zas)
 	our_gasmix.temperature = rand(atmos_datum.minimum_temp, atmos_datum.maximum_temp)
 	var/target_pressure = rand(atmos_datum.minimum_pressure, atmos_datum.maximum_pressure)
 	var/new_mol_multiplier = target_pressure * our_gasmix.get_volume()
-	new_mol_multiplier /= R_IDEAL_GAS_EQUATION * our_gasmix.get_temperature()
+	new_mol_multiplier /= R_IDEAL_GAS_EQUATION * our_gasmix.temperature
 
 	for(var/gas_id in our_gasmix.gas)
 		our_gasmix.gas[gas_id] *= new_mol_multiplier

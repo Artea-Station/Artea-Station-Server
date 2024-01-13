@@ -81,7 +81,7 @@
 
 	var/datum/gas_mixture/removed = air1.removeRatio(transfer_ratio)
 
-	if(!removed.get_moles())
+	if(!removed.total_moles)
 		return
 
 	if(overclocked)//Some of the gas from the mixture leaks to the environment when overclocked

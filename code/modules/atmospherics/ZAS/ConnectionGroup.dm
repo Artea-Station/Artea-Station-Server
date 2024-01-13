@@ -64,7 +64,7 @@ Class Procs:
 	///A list containing all the the turfs that make up the connection
 	var/list/connecting_turfs = list()
 	var/direct = 0
-	var/sleeping = 1
+	var/excited = FALSE
 	var/coefficient = 0
 
 	///The last time the "woosh" airflow sound played, world.time

@@ -258,7 +258,7 @@
 	//BZ (Facepunch port of their Agent B)
 	/*
 	if(breath_gases[/datum/gas/bz])
-		var/bz_partialpressure = (breath_gases[/datum/gas/bz][MOLES]/breath.get_moles())*breath_pressure
+		var/bz_partialpressure = (breath_gases[/datum/gas/bz][MOLES]/breath.total_moles)*breath_pressure
 		if(bz_partialpressure > 1)
 			adjust_hallucinations(20 SECONDS)
 		else if(bz_partialpressure > 0.01)
@@ -266,7 +266,7 @@
 
 	//NITRIUM
 	if(breath_gases[/datum/gas/nitrium])
-		var/nitrium_partialpressure = (breath_gases[/datum/gas/nitrium][MOLES]/breath.get_moles())*breath_pressure
+		var/nitrium_partialpressure = (breath_gases[/datum/gas/nitrium][MOLES]/breath.total_moles)*breath_pressure
 		if(nitrium_partialpressure > 0.5)
 			adjustFireLoss(nitrium_partialpressure * 0.15)
 		if(nitrium_partialpressure > 5)
@@ -274,12 +274,12 @@
 
 	//FREON
 	if(breath_gases[/datum/gas/freon])
-		var/freon_partialpressure = (breath_gases[/datum/gas/freon][MOLES]/breath.get_moles())*breath_pressure
+		var/freon_partialpressure = (breath_gases[/datum/gas/freon][MOLES]/breath.total_moles)*breath_pressure
 		adjustFireLoss(freon_partialpressure * 0.25)
 
 	//MIASMA
 	if(breath_gases[/datum/gas/miasma])
-		var/miasma_partialpressure = (breath_gases[/datum/gas/miasma][MOLES]/breath.get_moles())*breath_pressure
+		var/miasma_partialpressure = (breath_gases[/datum/gas/miasma][MOLES]/breath.total_moles)*breath_pressure
 
 		if(prob(1 * miasma_partialpressure))
 			var/datum/disease/advance/miasma_disease = new /datum/disease/advance/random(2,3)
