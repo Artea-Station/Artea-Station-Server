@@ -1420,6 +1420,12 @@
 	},
 /turf/open/floor/plating,
 /area/station/command/heads_quarters/hop)
+"gy" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/space)
 "gA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/structure/chair_flipped,
@@ -1680,6 +1686,10 @@
 /obj/structure/sign/warning/fire/directional/east,
 /turf/open/space/openspace,
 /area/space/nearstation)
+"hM" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/space)
 "hO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
@@ -5995,6 +6005,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/station/security/processing)
 "As" = (
@@ -7474,6 +7485,9 @@
 /obj/machinery/door/airlock/engineering{
 	dir = 4
 	},
+/obj/machinery/door/firedoor{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/space)
 "GM" = (
@@ -8199,6 +8213,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
 /obj/machinery/door/airlock/maintenance,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/station/security/interrogation)
 "JR" = (
@@ -9027,6 +9042,13 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/station/security/warden)
+"NN" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/space)
 "NO" = (
 /obj/effect/mapping_helpers/broken_floor,
 /obj/effect/decal/cleanable/dirt,
@@ -9925,6 +9947,15 @@
 /obj/item/radio/intercom/directional/north,
 /turf/open/floor/iron/dark/textured,
 /area/station/ai_monitored/security/armory)
+"Sk" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/broken_floor,
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/spawner/random/structure/closet_empty,
+/obj/effect/spawner/random/maintenance/two,
+/turf/open/floor/plating,
+/area/space)
 "Sl" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
@@ -117030,7 +117061,7 @@ Wx
 Wx
 Wx
 Kf
-Zn
+gy
 Zn
 Zn
 qI
@@ -117059,10 +117090,10 @@ Wx
 Wx
 Wx
 Wx
-Lh
-mr
-Lh
-uL
+Wx
+Wx
+Wx
+Wx
 Wx
 Wx
 Wx
@@ -117287,7 +117318,7 @@ Lh
 Wx
 Wx
 Kf
-Zn
+NN
 Zn
 Zn
 qI
@@ -117316,10 +117347,10 @@ Kf
 Wx
 Wx
 Wx
-bN
-Bu
-nQ
-Ed
+Lh
+mr
+Lh
+uL
 Wx
 Wx
 Wx
@@ -117798,11 +117829,11 @@ Wx
 Wx
 uL
 Lh
-Zn
-Zn
-Zn
-Zn
-Zn
+Sk
+hM
+hM
+hM
+hM
 qI
 qI
 qI
@@ -118056,10 +118087,10 @@ Ah
 Lh
 Lh
 Lh
-Zn
-Zn
-Zn
-Zn
+hM
+hM
+hM
+hM
 bw
 bo
 Yr
@@ -118313,9 +118344,9 @@ qx
 SJ
 Bu
 Hs
-Zn
-Zn
-Zn
+hM
+hM
+hM
 bw
 bw
 MX
@@ -118570,9 +118601,9 @@ Ah
 Lh
 mr
 Lh
-Zn
-Zn
-Zn
+hM
+hM
+hM
 bw
 WJ
 rT
@@ -118828,8 +118859,8 @@ Wx
 cL
 Lh
 Lh
-Zn
-Zn
+hM
+hM
 Am
 Hi
 TD
@@ -119085,8 +119116,8 @@ Wx
 uL
 Qo
 Rc
-Zn
-Zn
+hM
+hM
 bw
 qq
 Jn
@@ -119342,8 +119373,8 @@ Wx
 uL
 Qo
 Rc
-Zn
-Zn
+hM
+hM
 bw
 Fi
 ZY
@@ -119599,8 +119630,8 @@ Wx
 cL
 Lh
 Lh
-Zn
-Zn
+hM
+hM
 hU
 jH
 jH
@@ -119856,8 +119887,8 @@ Wx
 Wx
 Wx
 Lh
-Zn
-Zn
+hM
+hM
 JQ
 WF
 sM
@@ -120114,7 +120145,7 @@ Wx
 Wx
 Lh
 Lh
-Zn
+hM
 hU
 wd
 Ay
