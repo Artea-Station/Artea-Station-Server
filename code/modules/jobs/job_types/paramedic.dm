@@ -23,6 +23,7 @@
 	departments_list = list(
 		/datum/job_department/medical,
 		)
+	guestbook_flags = NONE
 
 	family_heirlooms = list(/obj/item/storage/medkit/ancient/heirloom)
 

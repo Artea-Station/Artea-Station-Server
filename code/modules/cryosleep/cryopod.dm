@@ -140,9 +140,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/cryopod, 32)
 /obj/machinery/computer/cryopod/proc/announce(message_type, user, rank)
 	switch(message_type)
 		if("CRYO_JOIN")
-			radio.talk_into(src, "[user][rank ? ", [rank]" : ""] has woken up from cryo storage.", announcement_channel)
+			radio.talk_into(src, "A [rank ? "[rank]" : ""] has woken up from cryo storage.", announcement_channel)
 		if("CRYO_LEAVE")
-			radio.talk_into(src, "[user][rank ? ", [rank]" : ""] has been moved to cryo storage.", announcement_channel)
+			radio.talk_into(src, "A [rank ? "[rank]" : ""] has been moved to cryo storage.", announcement_channel)
 
 // Cryopods themselves.
 /obj/machinery/cryopod

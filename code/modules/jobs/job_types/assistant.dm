@@ -18,6 +18,7 @@ Assistant
 
 	paycheck_department = ACCOUNT_CIV
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
+	guestbook_flags = NONE
 
 	department_for_prefs = /datum/job_department/assistant
 

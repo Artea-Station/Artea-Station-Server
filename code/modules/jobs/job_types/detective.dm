@@ -19,6 +19,7 @@
 	departments_list = list(
 		/datum/job_department/security,
 		)
+	guestbook_flags = NONE
 
 	paycheck = PAYCHECK_CREW
 	paycheck_department = ACCOUNT_SEC

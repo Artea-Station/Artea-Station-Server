@@ -23,6 +23,7 @@
 		/datum/job_department/medical,
 		/datum/job_department/command,
 		)
+	guestbook_flags = NONE
 
 	paycheck = PAYCHECK_COMMAND
 	paycheck_department = ACCOUNT_MED

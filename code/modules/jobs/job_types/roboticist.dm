@@ -17,6 +17,7 @@
 	departments_list = list(
 		/datum/job_department/engineering,
 		)
+	guestbook_flags = NONE
 
 	paycheck = PAYCHECK_CREW
 	paycheck_department = ACCOUNT_ENG

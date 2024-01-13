@@ -25,6 +25,7 @@
 	departments_list = list(
 		/datum/job_department/medical,
 	)
+	guestbook_flags = NONE
 
 	family_heirlooms = list(/obj/item/book/manual/wiki/chemistry, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/cup/beaker)
 

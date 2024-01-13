@@ -28,6 +28,8 @@
 		/datum/job_department/cargo,
 		/datum/job_department/command,
 		)
+	guestbook_flags = NONE
+
 	family_heirlooms = list(/obj/item/stamp, /obj/item/stamp/denied)
 	mail_goodies = list(
 		/obj/item/circuitboard/machine/emitter = 3

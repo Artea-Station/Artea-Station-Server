@@ -21,6 +21,7 @@
 	departments_list = list(
 		/datum/job_department/service,
 		)
+	guestbook_flags = NONE
 
 	mail_goodies = list(
 		/obj/item/food/grown/banana = 100,

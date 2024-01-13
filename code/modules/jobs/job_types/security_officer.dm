@@ -28,6 +28,7 @@
 	departments_list = list(
 		/datum/job_department/security,
 		)
+	guestbook_flags = NONE
 
 	family_heirlooms = list(/obj/item/book/manual/wiki/security_space_law, /obj/item/clothing/head/beret/sec)
 

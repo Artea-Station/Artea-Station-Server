@@ -21,6 +21,7 @@
 	departments_list = list(
 		/datum/job_department/cargo,
 		)
+	guestbook_flags = NONE
 
 	family_heirlooms = list(/obj/item/clipboard)
 

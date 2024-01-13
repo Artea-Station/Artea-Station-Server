@@ -12,6 +12,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_PRISONER
 	department_for_prefs = /datum/job_department/security
+	guestbook_flags = NONE
 
 	exclusive_mail_goodies = TRUE
 	mail_goodies = list (

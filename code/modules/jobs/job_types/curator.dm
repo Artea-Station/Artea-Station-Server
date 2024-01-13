@@ -20,6 +20,7 @@
 	departments_list = list(
 		/datum/job_department/service,
 		)
+	guestbook_flags = NONE
 
 	family_heirlooms = list(/obj/item/pen/fountain, /obj/item/storage/dice)
 
