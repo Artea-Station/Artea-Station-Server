@@ -57,7 +57,7 @@
 		excited = (excited | air_contents.react())
 		if(!excited)
 			return PROCESS_KILL
-	excited = FALSE
+	excited = take_atmos_damage()
 
 /// Take damage if a variable is exceeded. Damage is equal to temp/limit * heat/limit.
 /// The damage multiplier is treated as 1 if something is being ignored while the other one is exceeded.
