@@ -82,11 +82,10 @@ SUBSYSTEM_DEF(zas)
 	//A reference to the global var
 	var/datum/xgm_gas_data/gas_data
 
-	// var/datum/gas_mixture/lavaland_atmos
-	var/list/datum/gas_mixture/planetary = list()
-
 	///A global cache of unsimulated gas mixture singletons, associative by type.
 	var/list/unsimulated_gas_cache = list()
+	/// Similar to above, but instead for just planets.
+	var/list/datum/gas_mixture/planetary = list()
 
 	//Geometry lists
 	var/list/zones = list()

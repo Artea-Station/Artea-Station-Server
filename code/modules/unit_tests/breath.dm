@@ -63,7 +63,9 @@
 
 	var/turf/open/to_fill = run_loc_floor_bottom_left
 	//Prep the floor
-	to_fill.initial_gas = SSzas.planetary["[SSmapping.levels_by_trait(ZTRAIT_MINING)[1]]"] // if this runtimes, then someone fucked up
+	var/datum/gas_mixture/airmix = SSzas.planetary["[SSmapping.levels_by_trait(ZTRAIT_MINING)[1]]"]
+	to_fill.initial_gas = airmix.gas.Copy() // if this runtimes, then someone fucked up
+	to_fill.temperature = airmix.temperature
 	to_fill.make_air()
 
 	lab_rat.breathe()
