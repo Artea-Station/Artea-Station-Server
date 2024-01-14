@@ -39,12 +39,11 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	become_atmos_sensitive()
+	RegisterSignal(src, COMSIG_LIVING_TRYING_TO_PULL, PROC_REF(react_to_mob))
 
 /obj/item/clothing/mask/facehugger/Destroy()
 	lose_atmos_sensitivity()
 	return ..()
-
-	RegisterSignal(src, COMSIG_LIVING_TRYING_TO_PULL, PROC_REF(react_to_mob))
 
 /obj/item/clothing/mask/facehugger/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	..()

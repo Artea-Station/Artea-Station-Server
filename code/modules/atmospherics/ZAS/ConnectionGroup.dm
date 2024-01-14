@@ -211,7 +211,7 @@ Class Procs:
 			return
 		else
 			A.air.equalize(B.air)
-			SSzas.mark_edge_sleeping(src)
+			SSzas.sleep_edge(src)
 
 	SSzas.mark_zone_update(A)
 	SSzas.mark_zone_update(B)
@@ -219,7 +219,7 @@ Class Procs:
 /connection_edge/zone/recheck()
 	if(!A.air.compare(B.air, vacuum_exception = 1))
 	// Edges with only one side being vacuum need processing no matter how close.
-		SSzas.mark_edge_active(src)
+		SSzas.excite_edge(src)
 
 /connection_edge/zone/queue_spacewind()
 	var/differential = A.air.returnPressure() - B.air.returnPressure()
@@ -288,7 +288,7 @@ Class Procs:
 
 	if(equiv)
 		A.air.copyFrom(air)
-		SSzas.mark_edge_sleeping(src)
+		SSzas.sleep_edge(src)
 
 	SSzas.mark_zone_update(A)
 
@@ -297,7 +297,7 @@ Class Procs:
 	// Note: This handles the glaring flaw of a room holding pressure while exposed to space, but
 	// does not specially handle the less common case of a simulated room exposed to an unsimulated pressurized turf.
 	if(!A.air.compare(air, vacuum_exception = 1))
-		SSzas.mark_edge_active(src)
+		SSzas.excite_edge(src)
 
 /connection_edge/unsimulated/queue_spacewind()
 	var/differential = A.air.returnPressure() - air.returnPressure()

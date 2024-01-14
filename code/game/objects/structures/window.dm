@@ -385,7 +385,7 @@
 	. = ..()
 
 /obj/structure/window/Move()
-	update_nearby_tiles()
+	zas_update_loc()
 	. = ..()
 
 /obj/structure/window/zas_canpass(turf/T)

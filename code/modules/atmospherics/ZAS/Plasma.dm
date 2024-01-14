@@ -42,7 +42,7 @@ GLOBAL_DATUM_INIT(contamination_overlay, /image, image('modular_pariah/master_fi
 				eye_blurry = min(eye_blurry+3,50)
 				if (prob(max(0, E.damage - 15) + 1) && !eye_blind)
 					to_chat(src, span_danger("You are blinded!"))
-					blind_eyes(20)
+					set_blindness(20)
 
 	//Genetic Corruption
 	if(zas_settings.plc.genetic_corruption)

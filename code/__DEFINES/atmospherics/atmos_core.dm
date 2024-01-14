@@ -33,9 +33,9 @@
 /// -48.15degC
 #define TCRYO 225
 /// 0degC
-#define T0C 273.15
+// #define T0C 273.15
 /// 20degC
-#define T20C 293.15
+// #define T20C 293.15
 /// -14C - Temperature used for kitchen cold room, medical freezer, etc.
 #define COLD_ROOM_TEMP 259.15
 

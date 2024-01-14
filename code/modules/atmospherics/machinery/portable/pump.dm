@@ -13,6 +13,7 @@
 	icon_state = "siphon"
 	density = TRUE
 	max_integrity = 250
+	var/power_rating = 7500
 	///Is the machine on?
 	var/on = FALSE
 	///What direction is the machine pumping (into pump/port or out to the tank/area)?
@@ -88,10 +89,9 @@
 
 	if (pressure_delta > 0.01)
 		if (direction == PUMP_OUT)
-			pump_gas(air_contents, environment, transfer_moles)
+			pump_gas(air_contents, environment, transfer_moles, power_rating)
 		else
-			draw = pump_gas(environment, air_contents, transfer_moles, power_rating)
-		ATMOS_USE_POWER(draw)
+			pump_gas(environment, air_contents, transfer_moles, power_rating)
 		if(!holding)
 			SAFE_ZAS_UPDATE(local_turf)
 
