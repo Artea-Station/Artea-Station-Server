@@ -70,27 +70,11 @@
 	var/datum/gas_mixture/air2 = airs[2]
 	var/datum/gas_mixture/air3 = airs[3]
 
-	var/transfer_ratio = transfer_rate / air1.volume
-
-	if(transfer_ratio <= 0)
-		return
-
-	// Attempt to transfer the gas.
-
-	// If the main output is full, we try to send filtered output to the side port (air2).
-	// If the side output is full, we try to send the non-filtered gases to the main output port (air3).
-	// Any gas that can't be moved due to its destination being too full is sent back to the input (air1).
-
-	var/side_output_full = air2.returnPressure() >= MAX_OUTPUT_PRESSURE
-	var/main_output_full = air3.returnPressure() >= MAX_OUTPUT_PRESSURE
-
-	// If both output ports are full, there's nothing we can do. Don't bother removing anything from the input.
-	if (side_output_full && main_output_full)
-		return
-
-	var/datum/gas_mixture/removed = air1.removeRatio(transfer_ratio)
-
-	if(!removed || !removed.total_moles)
+	var/transfer_moles_max = calculate_transfer_moles(air1, air3, MAX_OMNI_PRESSURE - air3.returnPressure(), parents[3]?.combined_volume || 0)
+	transfer_moles_max = min(transfer_moles_max, (calculate_transfer_moles(air1, air2, MAX_OMNI_PRESSURE - air2.returnPressure(), parents[2]?.combined_volume || 0)))
+	//Figure out the amount of moles to transfer
+	var/transfer_moles = clamp(((transfer_rate/air1.volume)*air1.total_moles), 0, transfer_moles_max)
+	if(!transfer_moles)
 		return
 
 	var/filtering = TRUE

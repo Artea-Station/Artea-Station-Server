@@ -55,11 +55,31 @@
 	var/datum/gas_mixture/air1 = airs[1]
 	var/datum/gas_mixture/air2 = airs[2]
 
-	if(air1.returnPressure() > target_pressure)
-		var/transfer_moles = (target_pressure/air1.volume)*air1.total_moles
-		if(pump_gas_passive(air1, air2, calculate_transfer_moles(air1, air2, transfer_moles)) >= 0)
-			update_parents()
-			is_gas_flowing = TRUE
+	var/output_starting_pressure = air2.returnPressure()
+	var/input_starting_pressure = air1.returnPressure()
+
+	var/pressure_delta
+	switch(regulate_mode)
+		if(REGULATE_INPUT)
+			pressure_delta = input_starting_pressure - target_pressure
+		if(REGULATE_OUTPUT)
+			pressure_delta = target_pressure - output_starting_pressure
+
+	//-1 if pump_gas() did not move any gas, >= 0 otherwise
+	var/returnval = -1
+	var/transfer_moles
+	//Figure out how much gas to transfer to meet the target pressure.
+	switch (regulate_mode)
+		if (REGULATE_INPUT)
+			transfer_moles = min(transfer_moles, calculate_transfer_moles(air2, air1, pressure_delta, parents[1]?.combined_volume || 0))
+		if (REGULATE_OUTPUT)
+			transfer_moles = min(transfer_moles, calculate_transfer_moles(air1, air2, pressure_delta, parents[2]?.combined_volume || 0))
+
+	returnval = pump_gas_passive(air1, air2, transfer_moles)
+
+	if(returnval >= 0)
+		update_parents()
+		is_gas_flowing = TRUE
 	else
 		is_gas_flowing = FALSE
 	update_icon_nopipes()

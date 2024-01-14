@@ -60,14 +60,14 @@
 
 	if(!inverted)
 		if(air1.temperature < target_temperature)
-			if(pump_gas_passive(air1, air2, calculate_transfer_moles(air1, air2, pressure_delta)) >= 0)
+			if(pump_gas_passive(air1, air2, calculate_transfer_moles(air1, air2, pressure_delta, parents[2]?.combined_volume || 0)) >= 0)
 				update_parents()
 				is_gas_flowing = TRUE
 		else
 			is_gas_flowing = FALSE
 	else
 		if(air1.temperature > target_temperature)
-			if(pump_gas_passive(air1, air2, calculate_transfer_moles(air1, air2, pressure_delta)) >= 0)
+			if(pump_gas_passive(air1, air2, calculate_transfer_moles(air1, air2, pressure_delta, parents[2]?.combined_volume || 0)) >= 0)
 				update_parents()
 				is_gas_flowing = TRUE
 		else

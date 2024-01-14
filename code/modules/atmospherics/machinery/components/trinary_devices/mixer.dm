@@ -76,10 +76,10 @@
 	var/transfer_moles_max = INFINITY
 	var/transfer_moles = 0
 	/// Node 1
-	transfer_moles_max = min(transfer_moles_max, calculate_transfer_moles(air1, air3, delta))
+	transfer_moles_max = min(transfer_moles_max, calculate_transfer_moles(air1, air3, delta, parents[3]?.combined_volume || 0))
 	transfer_moles += (target_pressure*node1_concentration/air1.volume)*air1.total_moles
 	// Node 2
-	transfer_moles_max = min(transfer_moles_max, calculate_transfer_moles(air2, air3, delta))
+	transfer_moles_max = min(transfer_moles_max, calculate_transfer_moles(air2, air3, delta, parents[3]?.combined_volume || 0))
 	transfer_moles += (target_pressure*node2_concentration/air2.volume)*air2.total_moles
 	// Finalize
 	transfer_moles = clamp(transfer_moles, 0, transfer_moles_max)
@@ -92,12 +92,7 @@
 	var/draw = mix_gas(mix_and_conc, air3, transfer_moles, power_rating)
 	ATMOS_USE_POWER(draw)
 
-	var/datum/pipeline/parent1 = parents[1]
-	parent1.update = TRUE
-	var/datum/pipeline/parent2 = parents[2]
-	parent2.update = TRUE
-	var/datum/pipeline/parent3 = parents[3]
-	parent3.update = TRUE
+	update_parents()
 
 /obj/machinery/atmospherics/components/trinary/mixer/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
