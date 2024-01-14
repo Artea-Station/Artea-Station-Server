@@ -60,21 +60,20 @@
 
 	var/output_starting_pressure = air1.returnPressure()
 	var/input_starting_pressure = air2.returnPressure()
+	last_pressure_delta = max(input_starting_pressure - output_starting_pressure - 5, 0)
 
-	if(output_starting_pressure >= input_starting_pressure-10)
-		//Need at least 10 KPa difference to overcome friction in the mechanism
-		last_pressure_delta = 0
-		return null
+	//only circulate air if there is a pressure difference (plus 5kPa kinetic, 10kPa static friction)
+	if(air1.temperature > 0 && last_pressure_delta > 5)
 
 		//Calculate necessary moles to transfer using PV = nRT
 		recent_moles_transferred = (last_pressure_delta*input_pipeline.combined_volume/(air2.temperature * R_IDEAL_GAS_EQUATION))/3 //uses the volume of the whole network, not just itself
 		volume_capacity_used = min( (last_pressure_delta*input_pipeline.combined_volume/3)/(input_starting_pressure*air2.volume) , 1) //how much of the gas in the input air volume is consumed
 
-		//Calculate energy generated from kinetic turbine
-		stored_energy += 1/ADIABATIC_EXPONENT * min(last_pressure_delta * input_pipeline.combined_volume , input_starting_pressure*air2.volume) * (1 - volume_ratio**ADIABATIC_EXPONENT) * kinetic_efficiency
+		// //Calculate energy generated from kinetic turbine
+		// stored_energy += 1/ADIABATIC_EXPONENT * min(last_pressure_delta * input_pipeline.combined_volume , input_starting_pressure*air2.volume) * (1 - volume_ratio**ADIABATIC_EXPONENT) * kinetic_efficiency
 
-		//Actually transfer the gas
-		removed = air2.remove(recent_moles_transferred)
+		// //Actually transfer the gas
+		// removed = air2.remove(recent_moles_transferred)
 
 		// NOTE: Typically you'd update parents here, but its all handled by the generator itself.
 
@@ -181,9 +180,9 @@
 
 /obj/machinery/atmospherics/components/binary/circulator/proc/disconnectFromGenerator()
 	if(mode)
-		generator.circ1 = null
+		generator.cold_circ = null
 	else
-		generator.circ2 = null
+		generator.hot_circ = null
 	generator.update_appearance()
 	generator = null
 
