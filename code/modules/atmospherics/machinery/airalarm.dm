@@ -65,8 +65,9 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 #define AALARM_REPORT_TIMEOUT 100
 
-#define AALARM_THERMOSTAT_HEATING_POWER 40000 //T2 space heater
-#define AALARM_THERMOSTAT_HEATING_EFFICIENCY 30000 //T2 space heater
+// 1/10 a space heater's power. It's helpful, but won't unfuck cold air nearly as fast as a heater.
+#define AALARM_THERMOSTAT_HEATING_POWER 20000
+#define AALARM_THERMOSTAT_HEATING_EFFICIENCY 20000 //same as space heater
 
 #define AALARM_UIACT_COOLDOWNCHECK \
 	if(!COOLDOWN_FINISHED(src, ui_cooldown)){ \
