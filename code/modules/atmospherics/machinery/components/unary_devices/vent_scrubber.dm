@@ -44,10 +44,19 @@
 	/// The passive sounds this scrubber emits.
 	var/datum/looping_sound/sound_loop
 
+	///Whether or not this machine can fall asleep. Use a multitool to change.
+	var/can_hibernate = TRUE
+
 /obj/machinery/atmospherics/components/unary/vent_scrubber/New()
 	sound_loop = new /datum/looping_sound/air_pump(src)
 	if(!id_tag)
 		id_tag = assign_random_name()
+	var/static/list/tool_screentips = list(
+		TOOL_MULTITOOL = list(
+			SCREENTIP_CONTEXT_LMB = "Toggle hibernation allowed",
+		)
+	)
+	AddElement(/datum/element/contextual_screentip_tools, tool_screentips)
 	. = ..()
 	for(var/to_filter in filter_types)
 		if(istext(to_filter))
@@ -254,8 +263,7 @@
 			var/draw = scrub_gas(filter_types, environment, air_contents, transfer_moles, power_rating)
 			if(draw == -1)
 				. = FALSE
-			else if(draw)
-				ATMOS_USE_POWER(draw)
+			ATMOS_USE_POWER(draw)
 			//Remix the resulting gases
 			update_parents()
 			return .
@@ -264,9 +272,7 @@
 
 		var/transfer_moles = min(environment.total_moles, environment.total_moles * (MAX_SIPHON_FLOWRATE / environment.volume))
 		var/draw = pump_gas(environment, air_contents, transfer_moles, power_rating)
-
-		if(draw > 0)
-			ATMOS_USE_POWER(draw)
+		ATMOS_USE_POWER(draw)
 		update_parents()
 		return TRUE
 
@@ -346,6 +352,15 @@
 		investigate_log("was [welded ? "welded shut" : "unwelded"] by [key_name(user)]", INVESTIGATE_ATMOS)
 		add_fingerprint(user)
 	return TRUE
+
+/obj/machinery/atmospherics/components/unary/vent_scrubber/multitool_act(mob/living/user, obj/item/tool)
+	. = ..()
+	can_hibernate = !can_hibernate
+	to_chat(user, span_notice("\The [src] will [can_hibernate ? "now" : "no longer"] sleep to conserve energy."))
+	if(!can_hibernate)
+		COOLDOWN_RESET(src, hibernating)
+
+	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/can_unwrench(mob/user)
 	. = ..()
