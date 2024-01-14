@@ -181,6 +181,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	set_area(get_area(src))
 
 /obj/machinery/airalarm/Destroy()
+	GLOB.air_alarms -= src
 	set_area(null)
 	SSradio.remove_object(src, frequency)
 	SSairmachines.stop_processing_machine(src)
