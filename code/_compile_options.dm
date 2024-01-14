@@ -86,7 +86,7 @@
 // #define ZASDBG
 
 ///Enables multi-Z air movement. Zones do not merge across Z levels.
-// #define MULTIZAS
+#define MULTIZAS
 
 /////////////////////// MISC PERFORMANCE
 //uncomment this to load centcom and runtime station and thats it.

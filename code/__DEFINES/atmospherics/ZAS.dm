@@ -1,9 +1,6 @@
 ///Enables verbose debugging and the debug overlay. NOTE: Debug Overlay does not report MultiZAS information at this time.
 //#define ZASDBG
 
-///Enables multi-Z air movement. Zones do not merge across Z levels.
-#define MULTIZAS
-
 #ifdef ZASDBG
 #warn ZAS debugging tools are enabled.
 #endif

@@ -63,7 +63,7 @@ SUBSYSTEM_DEF(zas)
 	name = "Air Core"
 	priority = FIRE_PRIORITY_AIR
 	init_order = INIT_ORDER_AIR
-	flags = SS_POST_FIRE_TIMING
+	flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	wait = 2 SECONDS
 
@@ -108,6 +108,17 @@ SUBSYSTEM_DEF(zas)
 	var/tmp/list/processing_zones
 	var/tmp/list/processing_exposure
 
+	#ifdef ZASDBG
+	/// Profile data for zone.tick(), in milliseconds
+	var/list/zonetime = list()
+	#endif
+
+	#ifdef PROFILE_ZAS_CANPASS
+	var/list/canpass_step_usage = list()
+	var/list/canpass_time_spent = list()
+	var/list/canpass_time_average = list()
+	#endif
+
 	var/active_zones = 0
 	var/next_id = 1
 
@@ -124,7 +135,6 @@ SUBSYSTEM_DEF(zas)
 	// Make sure we don't rebuild mid-tick.
 	if (state != SS_IDLE)
 		to_chat(world, span_boldannounce("ZAS Rebuild initiated. Waiting for current air tick to complete before continuing."))
-		log_world("ZAS Rebuild initiated. Waiting for current air tick to complete before continuing.")
 		UNTIL(state == SS_IDLE)
 
 	zas_settings = new //Reset the global zas settings
@@ -171,7 +181,7 @@ SUBSYSTEM_DEF(zas)
 
 	var/simulated_turf_count = 0
 
-	for(var/turf/S)
+	for(var/turf/S as turf in world)
 		if(!S.simulated)
 			continue
 
@@ -179,9 +189,6 @@ SUBSYSTEM_DEF(zas)
 		S.update_air_properties()
 
 		CHECK_TICK
-
-	///LAVALAND SETUP
-	// fuck_lavaland()
 
 	to_chat(world, span_boldannounce("ZAS:\n - Total Simulated Turfs: [simulated_turf_count]\n - Total Zones: [zones.len]\n - Total Edges: [edges.len]\n - Total Active Edges: [active_edges.len ? "<span class='danger'>[active_edges.len]</span>" : "None"]\n - Total Unsimulated Turfs: [world.maxx*world.maxy*world.maxz - simulated_turf_count]"))
 	log_world("ZAS:\n - Total Simulated Turfs: [simulated_turf_count]\n - Total Zones: [zones.len]\n - Total Edges: [edges.len]\n - Total Active Edges: [active_edges.len ? "<span class='danger'>[active_edges.len]</span>" : "None"]\n - Total Unsimulated Turfs: [world.maxx*world.maxy*world.maxz - simulated_turf_count]")
@@ -398,7 +405,7 @@ SUBSYSTEM_DEF(zas)
 		var/zone/Z = curr_sensitive_zones[curr_sensitive_zones.len]
 		curr_sensitive_zones.len--
 
-		for(var/atom/sensitive as anything in Z.atmos_sensitive_contents)
+		for(var/atom/sensitive as area|turf|obj|mob in Z.atmos_sensitive_contents)
 			sensitive.atmos_expose(Z.air, Z.air.temperature)
 
 		if(MC_TICK_CHECK)
@@ -583,6 +590,14 @@ SUBSYSTEM_DEF(zas)
 		active_edges -= E
 	if(processing_edges)
 		processing_edges -= E
+
+/datum/controller/subsystem/zas/StartLoadingMap()
+	. = ..()
+	can_fire = FALSE
+
+/datum/controller/subsystem/zas/StopLoadingMap()
+	. = ..()
+	can_fire = TRUE
 
 ///Randomizes the lavaland gas mixture, and sets all lavaland unsimmed turfs to it.
 /datum/controller/subsystem/zas/proc/fuck_lavaland()

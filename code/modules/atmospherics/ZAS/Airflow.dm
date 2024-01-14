@@ -27,14 +27,14 @@ This entire system is an absolute mess.
 	///Bump() magic
 	var/moving_by_airflow = FALSE
 
+
+
 ///Applies the effects of the mob colliding with another movable due to airflow.
 /mob/proc/airflow_stun(delta_p)
 	return
 
 /mob/living/airflow_stun(delta_p)
 	if(stat == 2)
-		return FALSE
-	if(pulledby || pulling)
 		return FALSE
 	if(last_airflow_stun > world.time - zas_settings.airflow_stun_cooldown)
 		return FALSE
@@ -100,6 +100,12 @@ This entire system is an absolute mess.
 			if(n < zas_settings.airflow_dense_pressure) return 0
 	return ..()
 
+///The typecache of objects airflow can't push objects into the same tile of
+GLOBAL_LIST_INIT(airflow_step_blacklist, typecacheof(list(
+	/obj/structure,
+	/obj/machinery/door
+	)))
+
 /atom/movable/Bump(atom/A)
 	. = ..()
 	if(!moving_by_airflow)
@@ -125,7 +131,7 @@ This entire system is an absolute mess.
 		enabling us to step into their turf. Then, we set the density back to the way its supposed to be for airflow.
 		*/
 		if(!T.density)
-			if(ismovable(A) && A:airflow_old_density)
+			if(ismovable(A) && !(GLOB.airflow_step_blacklist[A.type]) && !A:airflow_old_density)
 				set_density(FALSE)
 				A.set_density(FALSE)
 				step_towards(src, airflow_dest)
@@ -135,6 +141,7 @@ This entire system is an absolute mess.
 		airflow_speed = 0
 		airflow_time = 0
 		airborne_acceleration = 0
+
 
 ///Called when src collides with A during airflow
 /atom/movable/proc/airflow_hit(atom/A)
@@ -186,7 +193,7 @@ This entire system is an absolute mess.
 	var/weak_amt
 	if(istype(flying,/obj/item))
 		weak_amt = flying:w_class*2 ///Heheheh
-	else if(!flying.airflow_old_density) //If the object is dense by default (this var is stupidly named)
+	else if(flying.airflow_old_density) //If the object is dense by default (this var is stupidly named)
 		weak_amt = 5 //Getting crushed by a flying canister or computer is going to fuck you up
 	else
 		weak_amt = rand(1, 3)
@@ -195,7 +202,7 @@ This entire system is an absolute mess.
 
 /obj/airflow_hit_act(atom/movable/flying)
 	. = ..()
-	if(!flying.airflow_old_density)
+	if(flying.airflow_old_density)
 		src.visible_message(
 			span_danger("A flying [flying.name] slams into \the [src]!"),
 			null,

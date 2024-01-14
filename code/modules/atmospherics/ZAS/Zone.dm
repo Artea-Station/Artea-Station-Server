@@ -52,13 +52,14 @@ Class Procs:
 	var/list/fuel_objs = list()
 	///Does SSzas need to update this zone? (SSzas.mark_zone_update(zone))
 	var/needs_update = 0
-	///A list of /connection_edge/
+	///An associative list of edge_source = edge. Will contain instantiated turfs and zones.
 	var/list/edges = list()
 	///Lazylist of atmos sensitive contents
 	var/atmos_sensitive_contents
 	///The zone's gas contents
 	var/datum/gas_mixture/air = new
-	var/last_air_temperature = TCMB
+	///The air temperature of the last tick()
+	var/last_air_temperature = null
 	///The air list of last tick()
 	VAR_PRIVATE/last_gas_list
 
@@ -88,7 +89,7 @@ Class Procs:
 		SSzas.active_fire_zones |= src
 		if(fuel)
 			fuel_objs += fuel
-			RegisterSignal(fuel, COMSIG_PARENT_QDELETING, .proc/handle_fuel_del)
+			RegisterSignal(fuel, COMSIG_PARENT_QDELETING, PROC_REF(handle_fuel_del))
 	T.update_graphic(air.graphic)
 
 	if(T.atmos_sensitive_contents)
@@ -127,8 +128,8 @@ Class Procs:
 		fuel_objs -= fuel
 	T.zone = null
 	T.update_graphic(graphic_remove = air.graphic)
-	if(contents.len)
-		air.group_multiplier = contents.len
+	if(length(contents))
+		air.group_multiplier = length(contents)
 	else
 		invalidate()
 
@@ -142,7 +143,7 @@ Class Procs:
 #endif
 	invalidate()
 
-	for(var/turf/T in contents)
+	for(var/turf/T as anything in contents)
 		if(!T.simulated)
 			continue
 		into.add_turf(T)
@@ -152,10 +153,12 @@ Class Procs:
 		#endif
 
 	//rebuild the old zone's edges so that they will be possessed by the new zone
-	for(var/connection_edge/E in edges)
+	for(var/edge_source in edges)
+		var/connection_edge/E = edges[edge_source]
 		if(E.contains_zone(into))
-			continue //don't need to rebuild this edge
-		for(var/turf/T in E.connecting_turfs)
+			continue //don't need to rebuild this edge, it will destroy itself.
+
+		for(var/turf/T as anything in E.connecting_turfs)
 			SSzas.mark_for_update(T)
 
 ///Marks the zone as invalid, removing it from the SSzas zone list.
@@ -164,7 +167,7 @@ Class Procs:
 	SSzas.remove_zone(src)
 	atmos_sensitive_contents = null
 	#ifdef ZASDBG
-	for(var/turf/T in contents)
+	for(var/turf/T as anything in contents)
 		if(!T.simulated)
 			T.dbg(zasdbgovl_invalid_zone)
 	#endif
@@ -192,19 +195,22 @@ Class Procs:
 ///Assumes a given gas mixture, dividing it amongst the zone.
 /zone/proc/add_tile_air(datum/gas_mixture/tile_air)
 	air.group_multiplier = 1
-	air.multiply(contents.len)
+	air.multiply(length(contents))
 	air.merge(tile_air)
-	air.divide(contents.len+1)
-	air.group_multiplier = contents.len+1
+	air.divide(length(contents)+1)
+	air.group_multiplier = length(contents)+1
 
 ///Zone's process proc.
 /zone/proc/tick()
 
+	#ifdef ZASDBG
+	var/clock = TICK_USAGE
+	#endif
+
 	// Update fires.
 	if(air.temperature >= PHORON_FLASHPOINT && !length(fire_tiles) && length(contents) && !(src in SSzas.active_fire_zones) && air.check_combustability())
 		var/turf/T = pick(contents)
-		if(T.simulated)
-			T.create_fire(zas_settings.fire_firelevel_multiplier)
+		T.create_fire(zas_settings.fire_firelevel_multiplier)
 
 	#ifdef ZASDBG
 	SSzas.zonetime["update fires"] = TICK_USAGE_TO_MS(clock)
@@ -212,10 +218,13 @@ Class Procs:
 	#endif
 
 	// Anything below this check only needs to be run if the zone's gas composition has changed.
-	if(!isnull(last_gas_list) && last_gas_list ~= air.gas)
+
+
+	if(!isnull(last_gas_list) && (last_gas_list ~= air.gas) && (last_air_temperature == air.temperature))
 		return
 
 	last_gas_list = air.gas.Copy()
+	last_air_temperature = air.temperature
 
 	// Update gas overlays, with some reference passing tomfoolery.
 	var/list/graphic_add = list()
@@ -229,24 +238,6 @@ Class Procs:
 	clock = TICK_USAGE
 	#endif
 
-	// Update connected edges.
-	for(var/edge_source in edges)
-		var/connection_edge/E = edges[edge_source]
-		if(!E.excited)
-			E.recheck()
-
-	#ifdef ZASDBG
-	SSzas.zonetime["check edges"] = TICK_USAGE_TO_MS(clock)
-	clock = TICK_USAGE
-	#endif
-	if(LAZYLEN(atmos_sensitive_contents))
-		for(var/atom/sensitive as anything in atmos_sensitive_contents)
-			sensitive.atmos_expose(air, air.temperature)
-
-	#ifdef ZASDBG
-	SSzas.zonetime["queue temperature"] = TICK_USAGE_TO_MS(clock)
-	clock = TICK_USAGE
-	#endif
 
 ///Prints debug information to the given mob. Used by the "Zone Info" verb. Does not require ZASDBG compile define.
 /zone/proc/dbg_data(mob/M)
@@ -261,20 +252,18 @@ Class Procs:
 	var/zone_edges = 0
 	var/space_edges = 0
 	var/space_coefficient = 0
-	for(var/connection_edge/E in edges)
+	for(var/edge_source in edges)
+		var/connection_edge/E = edges[edge_source]
 		if(E.type == /connection_edge/zone)
 			zone_edges++
 		else
 			space_edges++
 			space_coefficient += E.coefficient
-			to_chat(M, "[E:air:returnPressure()]kPa")
+			to_chat(M, " - [E:air:returnPressure()]kPa")
 
 	to_chat(M, "Zone Edges: [zone_edges]")
-	to_chat(M, "Space Edges: [space_edges] ([space_coefficient] connections)\n")
-
-	//for(var/turf/T in unsimulated_contents)
-//		to_chat(M, "[T] at ([T.x],[T.y])")
+	to_chat(M, "Unsimulated Edges: [space_edges] ([space_coefficient] connections)\n")
 
 ///If fuel disappears from anything that isn't a fire burning it out, we gotta clear it's ref
 /zone/proc/handle_fuel_del(datum/source)
-	fuel_objs -= src
+	fuel_objs -= source

@@ -50,21 +50,20 @@ Class Procs:
 		Airflow proc causing all objects in movable to be checked against a pressure differential.
 		If repelled is true, the objects move away from any turf in connecting_turfs, otherwise they approach.
 		A check against zas_settings.lightest_airflow_pressure should generally be performed before calling this.
-
-	get_connected_zone(zone/from)
-		Helper proc that allows getting the other zone of an edge given one of them.
-		Only on /connection_edge/zone, otherwise use A.
-
 */
 
 
 /connection_edge
+	///All connection edges "originate" from a zone. They can connect to either another zone, or an unsimulated turf.
 	var/zone/A
 
 	///A list containing all the the turfs that make up the connection
 	var/list/connecting_turfs = list()
+	///Indirect connections are connections made by zoneblocking turfs.
 	var/direct = 0
+	///Edges do not process inherently. They must be excited by SSzas.excite_edge().
 	var/excited = FALSE
+	///This is a marker for how many connections are on this edge. Used to determine the ratio of flow.
 	var/coefficient = 0
 
 	///The last time the "woosh" airflow sound played, world.time
@@ -129,7 +128,6 @@ Class Procs:
 		//Non simulated objects dont get tossed
 		if(!M.simulated)
 			continue
-
 		//If they're already being tossed, don't do it again.
 		if(M.last_airflow > world.time - zas_settings.airflow_delay)
 			continue
@@ -150,7 +148,7 @@ Class Procs:
 				if(get_dist(M, T) < world.view)
 					close_turfs += T
 
-			if(!close_turfs.len)
+			if(!length(close_turfs))
 				continue
 
 			M.airflow_dest = pick(close_turfs) //Pick a random midpoint to fly towards.
@@ -168,16 +166,18 @@ Class Procs:
 	var/zone/B
 
 /connection_edge/zone/New(zone/A, zone/B)
-
 	src.A = A
 	src.B = B
-	A.edges.Add(src)
-	B.edges.Add(src)
+	A.edges[B] = src
+	B.edges[A] = src
 	//id = edge_id(A,B)
 	#ifdef ZASDBG
 	if(verbose)
 		zas_log("New edge between [A] and [B]")
 	#endif
+
+	SSzas.edges += src
+	recheck()
 
 /connection_edge/zone/add_connection(connection/c)
 	. = ..()
@@ -191,8 +191,8 @@ Class Procs:
 	return A == Z || B == Z
 
 /connection_edge/zone/erase()
-	A.edges.Remove(src)
-	B.edges.Remove(src)
+	A.edges -= B
+	B.edges -= A
 	return ..()
 
 /connection_edge/zone/tick()
@@ -217,7 +217,7 @@ Class Procs:
 	SSzas.mark_zone_update(B)
 
 /connection_edge/zone/recheck()
-	if(!A.air.compare(B.air, vacuum_exception = 1))
+	if(!A.air.compare(B.air))
 	// Edges with only one side being vacuum need processing no matter how close.
 		SSzas.excite_edge(src)
 
@@ -237,14 +237,6 @@ Class Procs:
 
 		flow(attracted, abs(differential), 0)
 		flow(repelled, abs(differential), 1)
-
-///Helper proc to get connections for a zone.
-/connection_edge/zone/proc/get_connected_zone(zone/from)
-	if(A == from)
-		return B
-	else
-		return A
-
 /connection_edge/unsimulated
 	var/turf/B
 	var/datum/gas_mixture/air
@@ -252,12 +244,15 @@ Class Procs:
 /connection_edge/unsimulated/New(zone/A, turf/B)
 	src.A = A
 	src.B = B
-	A.edges.Add(src)
+	A.edges[B] = src
 	air = B.return_air()
 	#ifdef ZASDBG
 	if(verbose)
-		log_admin("New edge from [A] to [B] ([B.x], [B.y], [B.z]).")
+		zas_log("New edge from [A] to [B] ([B.x], [B.y], [B.z]).")
 	#endif
+
+	SSzas.edges += src
+	recheck()
 
 
 /connection_edge/unsimulated/add_connection(connection/c)
@@ -271,7 +266,7 @@ Class Procs:
 	return ..()
 
 /connection_edge/unsimulated/erase()
-	A.edges.Remove(src)
+	A.edges -= B
 	return ..()
 
 /connection_edge/unsimulated/contains_zone(zone/Z)
@@ -296,10 +291,14 @@ Class Procs:
 	// Edges with only one side being vacuum need processing no matter how close.
 	// Note: This handles the glaring flaw of a room holding pressure while exposed to space, but
 	// does not specially handle the less common case of a simulated room exposed to an unsimulated pressurized turf.
-	if(!A.air.compare(air, vacuum_exception = 1))
+	if(!A.air.compare(air))
 		SSzas.excite_edge(src)
 
 /connection_edge/unsimulated/queue_spacewind()
+	#ifdef UNIT_TESTS
+	return
+	#endif
+
 	var/differential = A.air.returnPressure() - air.returnPressure()
 	if(abs(differential) >= zas_settings.airflow_lightest_pressure)
 		var/list/attracted = A.movables()

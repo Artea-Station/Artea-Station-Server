@@ -138,7 +138,6 @@
 		#endif
 		if(zone)
 			zone.remove_turf(src)
-
 		return 1
 
 	var/previously_open = open_directions
@@ -189,6 +188,7 @@
 		target.open_directions |= reverse_dir[d]
 
 		if(target.simulated)
+
 			if(TURF_HAS_VALID_ZONE(target))
 				//Might have assigned a zone, since this happens for each direction.
 				if(isnull(zone))
@@ -392,11 +392,11 @@
 ///Checks a turf to see if any of it's contents are dense. Is NOT recursive. See also is_blocked_turf()
 /turf/proc/contains_dense_objects()
 	if(density)
-		return 1
+		return src
 	for(var/atom/movable/A as anything in src)
 		if(A.density && !(A.flags_1 & ON_BORDER_1))
-			return 1
-	return 0
+			return A
+	return FALSE
 
 ///I literally don't know where this proc came from.
 /turf/proc/TryGetNonDenseNeighbour()
