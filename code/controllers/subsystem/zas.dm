@@ -124,6 +124,7 @@ SUBSYSTEM_DEF(zas)
 	// Make sure we don't rebuild mid-tick.
 	if (state != SS_IDLE)
 		to_chat(world, span_boldannounce("ZAS Rebuild initiated. Waiting for current air tick to complete before continuing."))
+		log_world("ZAS Rebuild initiated. Waiting for current air tick to complete before continuing.")
 		UNTIL(state == SS_IDLE)
 
 	zas_settings = new //Reset the global zas settings
@@ -166,10 +167,11 @@ SUBSYSTEM_DEF(zas)
 	gas_data = xgm_gas_data
 
 	to_chat(world, span_boldannounce("ZAS: Processing Geometry..."))
+	log_world("ZAS: Processing Geometry...")
 
 	var/simulated_turf_count = 0
 
-	for(var/turf/S as turf in world)
+	for(var/turf/S)
 		if(!S.simulated)
 			continue
 
@@ -182,16 +184,20 @@ SUBSYSTEM_DEF(zas)
 	// fuck_lavaland()
 
 	to_chat(world, span_boldannounce("ZAS:\n - Total Simulated Turfs: [simulated_turf_count]\n - Total Zones: [zones.len]\n - Total Edges: [edges.len]\n - Total Active Edges: [active_edges.len ? "<span class='danger'>[active_edges.len]</span>" : "None"]\n - Total Unsimulated Turfs: [world.maxx*world.maxy*world.maxz - simulated_turf_count]"))
+	log_world("ZAS:\n - Total Simulated Turfs: [simulated_turf_count]\n - Total Zones: [zones.len]\n - Total Edges: [edges.len]\n - Total Active Edges: [active_edges.len ? "<span class='danger'>[active_edges.len]</span>" : "None"]\n - Total Unsimulated Turfs: [world.maxx*world.maxy*world.maxz - simulated_turf_count]")
 
 	to_chat(world, span_boldannounce("ZAS: Geometry processing completed in [(REALTIMEOFDAY - starttime)/10] seconds!"))
+	log_world("ZAS: Geometry processing completed in [(REALTIMEOFDAY - starttime)/10] seconds!")
 
 	if (simulate)
 		to_chat(world, span_boldannounce("ZAS: Firing once..."))
+		log_world("ZAS: Firing once...")
 
 		starttime = REALTIMEOFDAY
 		fire(FALSE, TRUE)
 
 		to_chat(world, span_boldannounce("ZAS: Air settling completed in [(REALTIMEOFDAY - starttime)/10] seconds!"))
+		log_world("ZAS: Air settling completed in [(REALTIMEOFDAY - starttime)/10] seconds!")
 
 	..(timeofday)
 
