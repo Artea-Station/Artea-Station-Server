@@ -891,18 +891,6 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
 	discount_experiments = list(/datum/experiment/scanning/points/machinery_pinpoint_scan/tier2_microlaser = 1500)
 
-/datum/techweb_node/emp_super
-	id = "emp_super"
-	display_name = "Quantum Electromagnetic Technology" //bs
-	description = "Even better electromagnetic technology."
-	prereq_ids = list("emp_adv")
-	design_ids = list(
-		"quadultra_micro_laser",
-	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
-	discount_experiments = list(/datum/experiment/scanning/points/machinery_pinpoint_scan/tier3_microlaser = 4000)
-	required_experiments = list(/datum/experiment/ordnance/gaseous/plasma)
-
 /////////////////////////Clown tech/////////////////////////
 /datum/techweb_node/clown
 	id = "clown"
