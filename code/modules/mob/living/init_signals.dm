@@ -30,8 +30,8 @@
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_RESTRAINED), PROC_REF(on_restrained_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_RESTRAINED), PROC_REF(on_restrained_trait_loss))
 
-	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_EXPERIENCING_AIRFLOW), .proc/on_airflow_trait_gain)
-	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_EXPERIENCING_AIRFLOW), .proc/on_airflow_trait_loss)
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_EXPERIENCING_AIRFLOW), PROC_REF(on_airflow_trait_gain))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_EXPERIENCING_AIRFLOW), PROC_REF(on_airflow_trait_loss))
 
 	RegisterSignal(src, list(
 		SIGNAL_ADDTRAIT(TRAIT_CRITICAL_CONDITION),
