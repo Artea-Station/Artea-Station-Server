@@ -2077,6 +2077,9 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron/white/small,
 /area/station/pathfinders/storage)
+"iA" = (
+/turf/open/floor/iron/kitchen,
+/area/space)
 "iD" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 1
@@ -2276,6 +2279,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/station/maintenance/department/command)
+"jv" = (
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron/dark/textured,
+/area/space)
 "jw" = (
 /obj/effect/mapping_helpers/paint_wall/security,
 /turf/closed/wall/r_wall,
@@ -3710,7 +3717,6 @@
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/contraband/random/directional/east,
 /turf/open/floor/plating,
 /area/space)
 "pj" = (
@@ -4396,6 +4402,17 @@
 /obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/plating,
 /area/station/maintenance/department/pathfinders/lesser)
+"rQ" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor{
+	dir = 8
+	},
+/obj/machinery/door/airlock{
+	name = "Bar Backroom";
+	dir = 4
+	},
+/turf/open/floor/iron/dark/textured,
+/area/space)
 "rS" = (
 /obj/structure/dresser,
 /obj/effect/turf_decal/bot,
@@ -4898,6 +4915,11 @@
 	},
 /turf/open/floor/engine/airless,
 /area/space/nearstation)
+"tN" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/rack,
+/turf/open/floor/iron/dark/textured,
+/area/space)
 "tO" = (
 /obj/structure/chair/sofa/bench/left{
 	dir = 8
@@ -6610,6 +6632,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/station/security/processing)
+"Ao" = (
+/turf/open/floor/iron/dark/textured,
+/area/space)
 "Ap" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -8313,6 +8338,11 @@
 	},
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain)
+"GI" = (
+/obj/machinery/vending/boozeomat,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron/dark/textured,
+/area/space)
 "GJ" = (
 /obj/effect/turf_decal/stripes/orange/line,
 /turf/open/floor/iron/smooth,
@@ -8977,6 +9007,11 @@
 	},
 /turf/open/floor/iron/smooth,
 /area/station/security/processing)
+"Jp" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/reagent_dispensers/beerkeg,
+/turf/open/floor/iron/dark/textured,
+/area/space)
 "Jq" = (
 /turf/closed/wall/r_wall,
 /area/station/maintenance/department/eva)
@@ -10568,6 +10603,14 @@
 /obj/machinery/holopad,
 /turf/open/floor/iron/smooth,
 /area/station/ai_monitored/security/armory)
+"Qc" = (
+/obj/machinery/chem_master/condimaster{
+	desc = "Looks like a knock-off chem-master. Perhaps useful for separating liquids when mixing drinks precisely. Also dispenses condiments.";
+	name = "HoochMaster Deluxe"
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/dark/textured,
+/area/space)
 "Qf" = (
 /obj/effect/turf_decal/box,
 /obj/effect/decal/cleanable/dirt,
@@ -11537,6 +11580,14 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/plating,
 /area/station/maintenance/department/command)
+"Ub" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/airlock{
+	name = "Custodial Closet";
+	dir = 4
+	},
+/turf/open/floor/iron/dark/textured,
+/area/space)
 "Uc" = (
 /obj/machinery/computer/communications,
 /turf/open/floor/carpet,
@@ -12442,6 +12493,14 @@
 /obj/effect/spawner/random/supplies_box/common,
 /turf/open/openspace,
 /area/station/hallway/secondary/command)
+"Ya" = (
+/obj/machinery/door/airlock{
+	name = "Bar"
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/dark/textured,
+/area/space)
 "Yb" = (
 /obj/machinery/door/airlock/external{
 	dir = 4
@@ -12583,6 +12642,10 @@
 /obj/item/radio/intercom/directional/north,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/evidence)
+"YE" = (
+/obj/structure/table/wood,
+/turf/open/floor/iron/dark/textured,
+/area/space)
 "YH" = (
 /obj/effect/turf_decal/siding/red/end{
 	dir = 4
@@ -109159,16 +109222,16 @@ Wx
 Wx
 Wx
 Wx
+Kf
+Kf
+Kf
+Kf
 Wx
 Wx
 Wx
 Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
+Kf
+Kf
 Wx
 Wx
 Wx
@@ -109416,6 +109479,7 @@ Wx
 Wx
 Wx
 Wx
+Kf
 Wx
 Wx
 Wx
@@ -109424,14 +109488,13 @@ Wx
 Wx
 Wx
 Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
+Kf
+YE
+YE
+YE
+YE
+Kf
+Kf
 Wx
 Wx
 Wx
@@ -109673,6 +109736,7 @@ Wx
 Wx
 Wx
 Wx
+Kf
 Wx
 Wx
 Wx
@@ -109681,14 +109745,13 @@ Wx
 Wx
 Wx
 Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
+Kf
+ha
+ha
+ha
+ha
+Qc
+Kf
 Wx
 Wx
 Wx
@@ -109930,6 +109993,7 @@ Wx
 Wx
 Wx
 Wx
+Kf
 Wx
 Wx
 Wx
@@ -109938,14 +110002,13 @@ Wx
 Wx
 Wx
 Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
+Ya
+ha
+ha
+ha
+ha
+tN
+Kf
 Wx
 Wx
 Wx
@@ -110187,6 +110250,7 @@ Wx
 Wx
 Wx
 Wx
+Kf
 Wx
 Wx
 Wx
@@ -110195,14 +110259,13 @@ Wx
 Wx
 Wx
 Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
+Kf
+ha
+ha
+ha
+ha
+Jp
+fj
 Wx
 Wx
 Wx
@@ -110444,22 +110507,22 @@ Wx
 Wx
 Wx
 Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
+Kf
+Ao
+iA
+Ao
+iA
+Ao
 Kf
 Kf
 Kf
 Kf
 Kf
-Wx
-Wx
-Wx
-Wx
-Wx
+Rq
+ha
+ha
+Pv
+Kf
 Wx
 Wx
 Wx
@@ -110701,22 +110764,22 @@ Wx
 Wx
 Wx
 Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
+fj
+Ao
+iA
+Ao
+iA
+Ao
 Kf
 wK
 wK
 wK
 Kf
-Wx
-Wx
-Wx
-Wx
-Wx
+GI
+ha
+Pv
+Pv
+Kf
 Wx
 Wx
 Wx
@@ -110958,22 +111021,22 @@ Wx
 Wx
 Wx
 Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
+fj
+Ao
+iA
+Ao
+iA
+Ao
 Kf
 wK
 wK
 wK
 Kf
 Kf
-ha
+rQ
 Kf
 Kf
-Wx
+Kf
 Wx
 Wx
 Wx
@@ -111215,12 +111278,12 @@ Wx
 Wx
 Wx
 Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
+fj
+Ao
+iA
+iA
+iA
+iA
 bW
 wK
 wK
@@ -111472,12 +111535,12 @@ Wx
 Wx
 Wx
 Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
+Kf
+Ao
+Ao
+Ao
+Ao
+Ao
 Kf
 wK
 wK
@@ -111729,7 +111792,7 @@ Wx
 Wx
 Wx
 Wx
-Wx
+Kf
 Kf
 Kf
 Kf
@@ -111998,7 +112061,7 @@ Wx
 Wx
 Kf
 Kf
-ha
+rQ
 Kf
 Kf
 Wx
@@ -113026,7 +113089,7 @@ Nm
 WP
 Kf
 Kf
-Wx
+Ub
 Kf
 Kf
 Wx
@@ -113542,7 +113605,7 @@ Kf
 io
 io
 io
-Wx
+jv
 Wx
 Wx
 Wx
@@ -113799,7 +113862,7 @@ Kf
 io
 io
 io
-Wx
+jv
 Wx
 Wx
 Wx
@@ -114568,7 +114631,7 @@ eM
 Ta
 Kf
 Kf
-Wx
+Ub
 Kf
 Kf
 KU
