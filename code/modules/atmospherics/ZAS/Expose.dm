@@ -20,7 +20,7 @@
 	if(T)
 		LAZYDISTINCTADD(T.atmos_sensitive_contents, src)
 		if(TURF_HAS_VALID_ZONE(T))
-			if(isnull(T.zone.atmos_sensitive_contents))
+			if(!isnull(T.zone.atmos_sensitive_contents))
 				SSzas.zones_with_sensitive_contents += T.zone
 			LAZYDISTINCTADD(T.zone.atmos_sensitive_contents, src)
 

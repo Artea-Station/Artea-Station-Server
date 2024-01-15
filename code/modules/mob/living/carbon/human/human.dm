@@ -46,8 +46,6 @@
 	dna.initialize_dna()
 
 /mob/living/carbon/human/Destroy()
-	lose_atmos_sensitivity()
-
 	QDEL_NULL(physiology)
 	QDEL_LIST(bioware)
 	GLOB.human_list -= src
@@ -55,6 +53,7 @@
 	if (mob_mood)
 		QDEL_NULL(mob_mood)
 
+	lose_atmos_sensitivity()
 	return ..()
 
 /mob/living/carbon/human/ZImpactDamage(turf/T, levels)
