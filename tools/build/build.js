@@ -166,10 +166,7 @@ export const IconCutterTarget = new Juke.Target({
 export const DmMapsIncludeTarget = new Juke.Target({
   executes: async () => {
     const folders = [
-      ...Juke.glob('_maps/RandomRuins/**/*.dmm'),
-      ...Juke.glob('_maps/RandomZLevels/**/*.dmm'),
-      ...Juke.glob('_maps/shuttles/**/*.dmm'),
-      ...Juke.glob('_maps/templates/**/*.dmm'),
+      ...Juke.glob('_maps/**/*.dmm'),
     ];
     const content = folders
       .map((file) => file.replace('_maps/', ''))
