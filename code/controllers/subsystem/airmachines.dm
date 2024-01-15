@@ -32,7 +32,7 @@ SUBSYSTEM_DEF(airmachines)
 	to_chat(world, span_boldannounce("Airmachines: Creating pipenets..."))
 	setup_pipenets()
 	to_chat(world, span_boldannounce("Airmachines: Pipenet creation completed in [(REALTIMEOFDAY- starttime) / 10] seconds!"))
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/airmachines/stat_entry(msg)
 	msg += "CR: [cost_rebuilds ? cost_rebuilds : 0]|"
