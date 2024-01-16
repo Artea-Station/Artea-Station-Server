@@ -126,6 +126,11 @@
 /obj/effect/spawner/random/structure/steam_vent,
 /turf/open/floor/plating,
 /area/station/maintenance/department/command)
+"aG" = (
+/obj/machinery/portable_atmospherics/canister/water_vapor,
+/obj/effect/turf_decal/box,
+/turf/open/floor/iron/dark/textured,
+/area/space)
 "aI" = (
 /obj/effect/spawner/random/structure/closet_empty,
 /obj/effect/spawner/random/maintenance/six,
@@ -259,6 +264,12 @@
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating,
 /area/station/maintenance/department/pathfinders/greater)
+"bi" = (
+/obj/machinery/chem_master/condimaster{
+	name = "CondiMaster Neo"
+	},
+/turf/open/floor/iron/dark/textured,
+/area/space)
 "bj" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -333,6 +344,17 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
+/area/space)
+"bF" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor{
+	dir = 8
+	},
+/obj/machinery/door/airlock{
+	name = "Kitchen";
+	dir = 4
+	},
+/turf/open/floor/iron/dark/textured,
 /area/space)
 "bG" = (
 /obj/effect/spawner/random/supplies_box/common,
@@ -774,6 +796,10 @@
 /obj/effect/turf_decal/stripes/orange/line,
 /turf/open/floor/iron/smooth,
 /area/station/command/bridge)
+"dg" = (
+/obj/machinery/deepfryer,
+/turf/open/floor/iron/dark/textured,
+/area/space)
 "dh" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
@@ -844,6 +870,10 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/station/security/brig)
+"dw" = (
+/obj/structure/table,
+/turf/open/floor/iron/dark/textured,
+/area/space)
 "dx" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 9
@@ -1489,6 +1519,15 @@
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
+"fU" = (
+/obj/machinery/vending/dinnerware,
+/turf/open/floor/iron/dark/textured,
+/area/space)
+"fV" = (
+/obj/structure/closet/l3closet/janitor,
+/obj/effect/turf_decal/box,
+/turf/open/floor/iron/dark/textured,
+/area/space)
 "fX" = (
 /obj/structure/closet/secure_closet/evidence,
 /obj/effect/turf_decal/box,
@@ -2011,8 +2050,7 @@
 /turf/closed/wall,
 /area/station/hallway/secondary/command)
 "io" = (
-/obj/effect/landmark/start/janitor,
-/turf/open/space/basic,
+/turf/open/floor/iron/checker,
 /area/space)
 "ip" = (
 /obj/effect/spawner/random/trash/mopbucket,
@@ -2474,6 +2512,10 @@
 /obj/machinery/light/floor,
 /turf/open/floor/iron/dark/textured,
 /area/station/ai_monitored/security/armory)
+"ke" = (
+/obj/machinery/oven,
+/turf/open/floor/iron/dark/textured,
+/area/space)
 "ki" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -2983,6 +3025,10 @@
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/lockers)
+"mm" = (
+/obj/machinery/vending/wardrobe/chef_wardrobe,
+/turf/open/floor/iron/dark/textured,
+/area/space)
 "mq" = (
 /obj/effect/turf_decal/stripes/orange/line{
 	dir = 4
@@ -3565,7 +3611,8 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Service Hall"
 	},
-/turf/open/space/basic,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron/dark/textured,
 /area/space)
 "oI" = (
 /turf/open/floor/iron/grimy,
@@ -6834,6 +6881,11 @@
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/smooth,
 /area/station/pathfinders/pathfinders_hallway)
+"AY" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/dark/textured,
+/area/space)
 "AZ" = (
 /obj/machinery/door/airlock/security{
 	name = "Equipment Room"
@@ -8590,6 +8642,11 @@
 	},
 /turf/open/floor/iron/smooth,
 /area/station/security/office)
+"HC" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/dark/textured,
+/area/space)
 "HE" = (
 /obj/structure/extinguisher_cabinet/directional/south,
 /turf/open/floor/iron/smooth,
@@ -9801,6 +9858,15 @@
 /obj/effect/mapping_helpers/paint_wall/security,
 /turf/open/floor/plating,
 /area/station/security/brig)
+"MC" = (
+/obj/machinery/vending/wardrobe/jani_wardrobe,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron/dark/textured,
+/area/space)
+"MF" = (
+/mob/living/silicon/robot/model/janitor,
+/turf/open/floor/iron/checker,
+/area/space)
 "MG" = (
 /obj/structure/chair/comfy/brown{
 	dir = 4
@@ -10184,6 +10250,14 @@
 "Oe" = (
 /turf/open/floor/iron/smooth,
 /area/station/security/brig)
+"Og" = (
+/obj/structure/janitorialcart,
+/obj/item/mop,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/storage/bag/trash,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/dark/textured,
+/area/space)
 "Oh" = (
 /turf/closed/wall,
 /area/station/commons/vacant_room/office)
@@ -10562,6 +10636,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/plating,
+/area/space)
+"PU" = (
+/obj/machinery/griddle,
+/turf/open/floor/iron/dark/textured,
 /area/space)
 "PV" = (
 /obj/effect/decal/cleanable/dirt,
@@ -12644,6 +12722,7 @@
 /area/station/security/evidence)
 "YE" = (
 /obj/structure/table/wood,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark/textured,
 /area/space)
 "YH" = (
@@ -109224,12 +109303,12 @@ Wx
 Wx
 Kf
 Kf
-Kf
-Kf
-Wx
-Wx
-Wx
-Wx
+HC
+HC
+HC
+HC
+HC
+bF
 Kf
 Kf
 Wx
@@ -109480,14 +109559,14 @@ Wx
 Wx
 Wx
 Kf
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
+Ao
+iA
+iA
+iA
+iA
+iA
+iA
+Ao
 Kf
 YE
 YE
@@ -109736,15 +109815,15 @@ Wx
 Wx
 Wx
 Wx
-Kf
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
+fj
+Ao
+iA
+cj
+cj
+cj
+iA
+iA
+Ao
 Kf
 ha
 ha
@@ -109993,15 +110072,15 @@ Wx
 Wx
 Wx
 Wx
-Kf
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
+fj
+Ao
+iA
+cj
+iA
+cj
+iA
+iA
+iA
 Ya
 ha
 ha
@@ -110250,15 +110329,15 @@ Wx
 Wx
 Wx
 Wx
-Kf
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
+fj
+Ao
+iA
+iA
+iA
+iA
+iA
+Ao
+Ao
 Kf
 ha
 ha
@@ -110508,9 +110587,9 @@ Wx
 Wx
 Wx
 Kf
-Ao
+dg
 iA
-Ao
+PU
 iA
 Ao
 Kf
@@ -110765,11 +110844,11 @@ Wx
 Wx
 Wx
 fj
-Ao
+ke
 iA
-Ao
+dw
 iA
-Ao
+bi
 Kf
 wK
 wK
@@ -111022,9 +111101,9 @@ Wx
 Wx
 Wx
 fj
-Ao
+ke
 iA
-Ao
+PU
 iA
 Ao
 Kf
@@ -111279,7 +111358,7 @@ Wx
 Wx
 Wx
 fj
-Ao
+fU
 iA
 iA
 iA
@@ -111536,7 +111615,7 @@ Wx
 Wx
 Wx
 Kf
-Ao
+mm
 Ao
 Ao
 Ao
@@ -112056,9 +112135,9 @@ vC
 kQ
 da
 Kf
-Wx
-Wx
-Wx
+KU
+KU
+KU
 Kf
 Kf
 rQ
@@ -112313,17 +112392,17 @@ KU
 KU
 KU
 BL
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
+KU
+KU
+KU
+KU
+KU
+KU
 oH
-Wx
-Wx
-Wx
-Wx
+KU
+KU
+KU
+KU
 Wx
 Wx
 Wx
@@ -112570,17 +112649,17 @@ KU
 PJ
 ae
 rn
-Wx
+KU
 PJ
-Wx
-Wx
-Wx
-Wx
+KU
+cj
+cj
+KU
 Kf
-Wx
-Wx
-Wx
-Wx
+KU
+KU
+KU
+KU
 Wx
 Wx
 Wx
@@ -112827,17 +112906,17 @@ KU
 KU
 KU
 qr
-Wx
-Wx
-Wx
-Wx
-Wx
-Wx
+KU
+KU
+KU
+KU
+KU
+KU
 oH
-Wx
-Wx
-Wx
-Wx
+KU
+KU
+KU
+KU
 Wx
 Wx
 Wx
@@ -113092,9 +113171,9 @@ Kf
 Ub
 Kf
 Kf
-Wx
-Wx
-Wx
+KU
+KU
+KU
 Wx
 Wx
 Wx
@@ -113345,13 +113424,13 @@ Kf
 Kf
 Kf
 Kf
+MC
 io
-io
-io
+Rq
 Kf
-Wx
-Wx
-Wx
+KU
+KU
+KU
 Wx
 Wx
 Wx
@@ -113602,13 +113681,13 @@ ra
 ra
 yc
 Kf
-io
-io
+fV
+MF
 io
 jv
-Wx
-Wx
-Wx
+KU
+KU
+KU
 Wx
 Wx
 Wx
@@ -113859,13 +113938,13 @@ MT
 KU
 KU
 Kf
-io
+Og
 io
 io
 jv
-Wx
-Wx
-Wx
+KU
+KU
+KU
 Wx
 Wx
 Wx
@@ -114116,9 +114195,9 @@ cj
 cj
 da
 Kf
+cj
 io
-io
-io
+aG
 Kf
 KU
 YL
@@ -114373,9 +114452,9 @@ Kf
 Kf
 Kf
 Kf
+cj
 io
-io
-io
+AY
 Kf
 Bi
 jN
