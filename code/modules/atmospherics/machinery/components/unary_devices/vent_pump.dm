@@ -48,19 +48,10 @@
 	/// The passive sounds this scrubber emits.
 	var/datum/looping_sound/sound_loop
 
-	///Whether or not this machine can fall asleep. Use a multitool to change.
-	var/can_hibernate = TRUE
-
 /obj/machinery/atmospherics/components/unary/vent_pump/New()
 	sound_loop = new /datum/looping_sound/air_pump(src)
 	if(!id_tag)
 		id_tag = assign_random_name()
-	var/static/list/tool_screentips = list(
-		TOOL_MULTITOOL = list(
-			SCREENTIP_CONTEXT_LMB = "Toggle hibernation allowed",
-		)
-	)
-	AddElement(/datum/element/contextual_screentip_tools, tool_screentips)
 	. = ..()
 
 /obj/machinery/atmospherics/components/unary/vent_pump/Destroy()
@@ -96,10 +87,6 @@
 			icon_state = "vent_out-off"
 		else // pump_direction == SIPHONING
 			icon_state = "vent_in-off"
-		return
-
-	if(!COOLDOWN_FINISHED(src, hibernating))
-		icon_state = "vent_hibernating"
 		return
 
 	if(icon_state == ("vent_out-off" || "vent_in-off" || "vent_off"))
@@ -140,8 +127,6 @@
 			if(draw > -1)
 				ATMOS_USE_POWER(draw)
 				update_parents()
-			else if(can_hibernate)
-				COOLDOWN_START(src, hibernating, 15 SECONDS)
 
 		else //external -> internal
 			var/transfer_moles = calculate_transfer_moles(environment, air_contents, pressure_delta, parents[1]?.combined_volume || 0)
@@ -152,14 +137,6 @@
 			if(draw > -1)
 				ATMOS_USE_POWER(draw)
 				update_parents()
-			else if(can_hibernate)
-				COOLDOWN_START(src, hibernating, 15 SECONDS)
-
-
-
-	else
-		if(pump_direction && (pressure_checks&EXT_BOUND))
-			COOLDOWN_START(src, hibernating, 15 SECONDS)
 
 	update_icon_nopipes()
 
@@ -239,8 +216,6 @@
 	// log_admin("DEBUG \[[world.timeofday]\]: /obj/machinery/atmospherics/components/unary/vent_pump/receive_signal([signal.debug_print()])")
 	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
 		return
-
-	COOLDOWN_RESET(src, hibernating)
 
 	var/atom/signal_sender = signal.data["user"]
 
@@ -327,15 +302,6 @@
 		add_fingerprint(user)
 	return TRUE
 
-/obj/machinery/atmospherics/components/unary/vent_pump/multitool_act(mob/living/user, obj/item/tool)
-	. = ..()
-	can_hibernate = !can_hibernate
-	to_chat(user, span_notice("\The [src] will [can_hibernate ? "now" : "no longer"] sleep to conserve energy."))
-	if(!can_hibernate)
-		COOLDOWN_RESET(src, hibernating)
-
-	return TOOL_ACT_TOOLTYPE_SUCCESS
-
 /obj/machinery/atmospherics/components/unary/vent_pump/can_unwrench(mob/user)
 	. = ..()
 	if(. && on && is_operational)
@@ -346,8 +312,6 @@
 	. = ..()
 	if(welded)
 		. += "It seems welded shut."
-	if(!COOLDOWN_FINISHED(src, hibernating))
-		. += span_notice("It is sleeping to conserve power.")
 
 /obj/machinery/atmospherics/components/unary/vent_pump/power_change()
 	. = ..()

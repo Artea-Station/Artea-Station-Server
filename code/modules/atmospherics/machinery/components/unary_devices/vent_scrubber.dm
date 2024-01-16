@@ -95,7 +95,6 @@
 	if(!turf_gas)
 		return FALSE
 
-	COOLDOWN_RESET(src, hibernating)
 	return TRUE
 
 ///remove a gas or list of gases from our filter_types.used so that the scrubber can check if its supposed to be processing after each change
@@ -106,7 +105,6 @@
 	for(var/gas_to_filter in filter_or_filters)
 		filter_types -= gas_to_filter
 
-	COOLDOWN_RESET(src, hibernating)
 	return TRUE
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/proc/toggle_filters(filter_or_filters)
@@ -119,7 +117,6 @@
 		else
 			filter_types |= gas_to_filter
 
-	COOLDOWN_RESET(src, hibernating)
 	return TRUE
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/update_icon_nopipes()
@@ -138,13 +135,6 @@
 	if(!nodes[1] || !on || !is_operational)
 		sound_loop.stop()
 		icon_state = "scrub_off"
-		return
-
-	if(!COOLDOWN_FINISHED(src, hibernating))
-		if(quicksucc)
-			icon_state = "scrub_wide_hibernating"
-		else
-			icon_state = "scrub_hibernating"
 		return
 
 	sound_loop.start()
@@ -219,18 +209,11 @@
 	if(!istype(us))
 		return
 
-	var/should_cooldown = TRUE
 	if(scrub(us))
-		should_cooldown = FALSE
+		if(quicksucc)
+			scrub(us)
 		SAFE_ZAS_UPDATE(us)
 
-	if(quicksucc)
-		for(var/i in 1 to 8)
-			if(scrub(us))
-				should_cooldown = FALSE
-				SAFE_ZAS_UPDATE(us)
-	if(should_cooldown)
-		COOLDOWN_START(src, hibernating, 15 SECONDS)
 	update_icon_nopipes()
 
 	return TRUE
@@ -282,7 +265,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/receive_signal(datum/signal/signal)
 	if(!is_operational || !signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
 		return
-	COOLDOWN_RESET(src, hibernating)
 
 	var/old_quicksucc = quicksucc
 	var/old_scrubbing = scrubbing
@@ -353,15 +335,6 @@
 		add_fingerprint(user)
 	return TRUE
 
-/obj/machinery/atmospherics/components/unary/vent_scrubber/multitool_act(mob/living/user, obj/item/tool)
-	. = ..()
-	can_hibernate = !can_hibernate
-	to_chat(user, span_notice("\The [src] will [can_hibernate ? "now" : "no longer"] sleep to conserve energy."))
-	if(!can_hibernate)
-		COOLDOWN_RESET(src, hibernating)
-
-	return TOOL_ACT_TOOLTYPE_SUCCESS
-
 /obj/machinery/atmospherics/components/unary/vent_scrubber/can_unwrench(mob/user)
 	. = ..()
 	if(. && on && is_operational)
@@ -372,8 +345,6 @@
 	. = ..()
 	if(welded)
 		. += "It seems welded shut."
-	if(!COOLDOWN_FINISHED(src, hibernating))
-		. += span_notice("It is sleeping to conserve power.")
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/attack_alien(mob/user, list/modifiers)
 	if(!welded || !(do_after(user, 20, target = src)))

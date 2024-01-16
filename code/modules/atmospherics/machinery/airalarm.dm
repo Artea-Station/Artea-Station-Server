@@ -689,10 +689,6 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 	check_air_dangerlevel(environment)
 
-	if(!my_area.apc?.terminal)
-		COOLDOWN_START(src, hibernating, 5 SECONDS)
-		return
-
 	var/obj/machinery/power/terminal/local_term = my_area.apc.terminal
 
 	var/heat_capacity = environment.getHeatCapacity()
@@ -702,10 +698,6 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 	var/required_energy = abs(environment.temperature - thermostat_target) * heat_capacity
 	required_energy = min(required_energy, AALARM_THERMOSTAT_HEATING_POWER)
-
-	if(required_energy < 1 && !danger_level)
-		COOLDOWN_START(src, hibernating, 5 SECONDS)
-		return
 
 	var/delta_temperature = required_energy / heat_capacity
 	if(!delta_temperature)
