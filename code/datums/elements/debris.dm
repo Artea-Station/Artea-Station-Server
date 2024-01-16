@@ -57,8 +57,6 @@
 	INVOKE_ASYNC(src, PROC_REF(on_impact), source, proj)
 
 /datum/element/debris/proc/on_impact(datum/source, obj/projectile/P)
-	//if(!P.ammo.ping)
-	//	return
 	var/angle = !isnull(P.Angle) ? P.Angle : round(get_angle(P.starting, source), 1)
 	var/x_component = sin(angle) * debris_velocity
 	var/y_component = cos(angle) * debris_velocity
@@ -80,13 +78,6 @@
 		debris_visuals.particles.spawning = debris_amount
 		debris_visuals.particles.scale = debris_scale
 	smoke_visuals.layer = ABOVE_OBJ_LAYER + 0.01
-	/*
-	if(P.ammo.sound_bounce)
-		var/pitch = 0
-		if(P.ammo.flags_ammo_behavior & AMMO_SOUND_PITCH)
-			pitch = 55000
-		playsound(source, P.ammo.sound_bounce, 50, 1, frequency = pitch)
-	*/
 	addtimer(CALLBACK(src, PROC_REF(remove_ping), src, smoke_visuals, debris_visuals), 0.7 SECONDS)
 
 /datum/element/debris/proc/remove_ping(hit, obj/effect/abstract/particle_holder/smoke_visuals, obj/effect/abstract/particle_holder/debris_visuals)
