@@ -31,7 +31,8 @@
 #define DAMAGE_INCREASE_MULTIPLIER 0.25
 
 
-#define THERMAL_RELEASE_MODIFIER 4 //Higher == less heat released during reaction, not to be confused with the above values
+// ARTEA NOTE: We kneecapped this value cause space isn't magically cold anymore. The original value is 4.
+#define THERMAL_RELEASE_MODIFIER 120 //Higher == less heat released during reaction, not to be confused with the above values
 #define PLASMA_RELEASE_MODIFIER 650 //Higher == less plasma released by reaction
 #define OXYGEN_RELEASE_MODIFIER 340 //Higher == less oxygen released at high temperature/power
 
