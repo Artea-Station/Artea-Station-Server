@@ -21,6 +21,7 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 		GAS_TRITIUM = /obj/machinery/portable_atmospherics/canister/tritium,
 		"caution" = /obj/machinery/portable_atmospherics/canister,
 		GAS_STEAM = /obj/machinery/portable_atmospherics/canister/water_vapor,
+		GAS_HELIUM = /obj/machinery/portable_atmospherics/canister/helium,
 	))
 
 
@@ -228,6 +229,13 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 	filled = 1
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
 	greyscale_colors = "#4c4e4d#f7d5d3"
+
+/obj/machinery/portable_atmospherics/canister/helium
+	name = "Helium canister"
+	gas_type = GAS_HELIUM
+	filled = 1
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#9b5d7f#368bff"
 
 // Special canisters below here
 
