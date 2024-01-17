@@ -689,8 +689,6 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 	check_air_dangerlevel(environment)
 
-	var/obj/machinery/power/terminal/local_term = my_area.apc.terminal
-
 	var/heat_capacity = environment.getHeatCapacity()
 
 	if(!heat_capacity) //No air
@@ -707,10 +705,8 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 		delta_temperature *= -1
 
 	var/energy2use = required_energy / AALARM_THERMOSTAT_HEATING_EFFICIENCY
-	if(!local_term.avail(energy2use))
-		return
 
-	local_term.use_power(energy2use)
+	use_power(energy2use)
 	environment.temperature += delta_temperature
 
 	if(isturf(loc))
