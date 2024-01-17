@@ -241,6 +241,7 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 	air_contents.gas[GAS_HYDROGEN] = 300
 	air_contents.gas[GAS_TRITIUM] = 300
 	air_contents.temperature = 10000
+	AIR_UPDATE_VALUES(air_contents)
 	SSairmachines.start_processing_machine(src)
 
 /obj/machinery/portable_atmospherics/canister/anesthetic_mix
