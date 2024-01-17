@@ -39,8 +39,10 @@ GLOBAL_REAL(xgm_gas_data, /datum/xgm_gas_data) = new
 /datum/xgm_gas
 	var/id = ""
 	var/name = "Unnamed Gas"
-	var/specific_heat = 20	// J/(mol*K)
-	var/molar_mass = 0.032	// kg/mol
+	/// J/(mol*K), Or, in basic bitch terms: This gas gets hotter easier the smaller the number.
+	var/specific_heat = 20
+	/// kg/mol
+	var/molar_mass = 0.032
 
 	var/tile_overlay = "generic"
 	var/tile_color = null
