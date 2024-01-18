@@ -1845,8 +1845,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(HAZARD_HIGH_PRESSURE to INFINITY)
 			if(!HAS_TRAIT(H, TRAIT_RESISTHIGHPRESSURE))
 				H.adjustBruteLoss(min(((adjusted_pressure / HAZARD_HIGH_PRESSURE) - 1) * PRESSURE_DAMAGE_COEFFICIENT, MAX_HIGH_PRESSURE_DAMAGE) * H.physiology.pressure_mod * delta_time, required_bodytype = BODYTYPE_ORGANIC)
-				H.adjustOrganLoss(ORGAN_SLOT_EARS, min(((adjusted_pressure / HAZARD_HIGH_PRESSURE) - 1) * PRESSURE_DAMAGE_COEFFICIENT, MAX_ORGAN_PRESSURE_DAMAGE))
-				H.adjustOrganLoss(ORGAN_SLOT_EYES, min(((adjusted_pressure / HAZARD_HIGH_PRESSURE) - 1) * PRESSURE_DAMAGE_COEFFICIENT, MAX_ORGAN_PRESSURE_DAMAGE))
 				H.throw_alert(ALERT_PRESSURE, /atom/movable/screen/alert/highpressure, 2)
 			else
 				H.clear_alert(ALERT_PRESSURE)
@@ -1874,8 +1872,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				H.clear_alert(ALERT_PRESSURE)
 			else
 				H.adjustBruteLoss(LOW_PRESSURE_DAMAGE * H.physiology.pressure_mod * delta_time, required_bodytype = BODYTYPE_ORGANIC)
-				H.adjustOrganLoss(ORGAN_SLOT_EARS, MAX_ORGAN_PRESSURE_DAMAGE * H.physiology.pressure_mod * delta_time)
-				H.adjustOrganLoss(ORGAN_SLOT_EYES, MAX_ORGAN_PRESSURE_DAMAGE * H.physiology.pressure_mod * delta_time)
 				H.throw_alert(ALERT_PRESSURE, /atom/movable/screen/alert/lowpressure, 2)
 
 
