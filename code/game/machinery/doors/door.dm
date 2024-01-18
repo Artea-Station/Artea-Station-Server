@@ -136,7 +136,7 @@
 			if(!check_turf)
 				continue
 			var/obj/machinery/door/found_door = locate(door_align_type) in check_turf
-			if(found_door)
+			if(found_door && found_door.auto_dir_align)
 				align_dir = dir_to_align
 				break
 

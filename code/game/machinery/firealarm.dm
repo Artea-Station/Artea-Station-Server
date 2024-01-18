@@ -200,10 +200,11 @@
 /obj/machinery/firealarm/proc/alarm(mob/user)
 	if(!is_operational)
 		return
+
+	my_area.communicate_fire_alert(FIRE_RAISED_GENERIC)
 	SEND_SIGNAL(src, COMSIG_FIREALARM_ON_TRIGGER)
 	update_use_power(ACTIVE_POWER_USE)
 	update_appearance()
-
 
 /**
  * Resets all firelocks in the area. Also tells the area to disable alarm lighting, if it was enabled.
@@ -214,33 +215,34 @@
 /obj/machinery/firealarm/proc/reset(mob/user)
 	if(!is_operational)
 		return
+	my_area.communicate_fire_alert(FIRE_CLEAR)
 	SEND_SIGNAL(src, COMSIG_FIREALARM_ON_RESET)
 	update_use_power(IDLE_POWER_USE)
 	update_appearance()
 
 /obj/machinery/firealarm/attack_hand(mob/user, list/modifiers)
+	if(..())
+		return TRUE
+
 	if(buildstage != 2)
 		return
-	. = ..()
+
 	add_fingerprint(user)
 
 	if(!is_operational)
 		return
 
-	switch(show_radial_menu(user, src, radial_choices, radius = 21, require_near = TRUE))
-		if("activate")
-			if(!alert_type)
-				my_area.communicate_fire_alert(FIRE_RAISED_GENERIC)
-				log_game("[user] triggered a fire alarm at [COORD(src)]")
-		if("deactivate")
-			if(alert_type)
-				my_area.communicate_fire_alert(FIRE_CLEAR)
-				log_game("[user] cleared a fire alarm at [COORD(src)]")
+	alarm(user)
+	log_game("[user] triggered a fire alarm at [COORD(src)]")
+
 	return TRUE
 
 /obj/machinery/firealarm/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
 	if(buildstage != 2)
-		return ..()
+		return
+	if(!is_operational)
+		return
 	add_fingerprint(user)
 	reset(user)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
