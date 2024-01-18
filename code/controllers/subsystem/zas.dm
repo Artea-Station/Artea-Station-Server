@@ -611,7 +611,7 @@ SUBSYSTEM_DEF(zas)
 
 	our_gasmix.temperature = rand(atmos_datum.minimum_temp, atmos_datum.maximum_temp)
 
-	var/target_pressure = rand(atmos_datum.minimum_pressure, atmos_datum.maximum_pressure)
+	var/target_pressure = round(rand(atmos_datum.minimum_pressure, atmos_datum.maximum_pressure) * (rand(99, 101) / 100), 0.01) // Let's not go into floating point CBT numbers.
 
 	var/total_moles = 0
 	for(var/gas_id in our_gasmix.gas)
