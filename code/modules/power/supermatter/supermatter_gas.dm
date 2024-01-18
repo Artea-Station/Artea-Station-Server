@@ -91,34 +91,11 @@ GLOBAL_LIST_INIT(sm_gas_behavior, init_sm_gas())
 	transmit_modifier = 30
 	powermix = 1
 
-// /datum/sm_gas/bz
-// 	gas_path = /datum/gas/bz
-// 	heat_penalty = 5
-// 	transmit_modifier = -2
-// 	powermix = 1
-
-// /// Start to emit radballs at a maximum of 30% chance per tick
-// /datum/sm_gas/bz/extra_effects(obj/machinery/power/supermatter_crystal/sm, datum/gas_mixture/env)
-// 	if(sm.gas_percentage[/datum/gas/bz] >= 0.4 && prob(30 * sm.gas_percentage[/datum/gas/bz]))
-// 		sm.fire_nuclear_particle()
-
-// /datum/sm_gas/pluoxium
-// 	gas_path = /datum/gas/pluoxium
-// 	heat_penalty = -0.5
-// 	transmit_modifier = -5
-// 	powermix = 1
-
 // Mmmm, fart powered SM
 /datum/sm_gas/methane
 	gas_path = GAS_METHANE
 	powermix = 0.5
 	heat_penalty = 5
-
-// /datum/sm_gas/freon
-// 	gas_path = /datum/gas/freon
-// 	heat_penalty = -10
-// 	transmit_modifier = -30
-// 	powermix = 1
 
 /datum/sm_gas/hydrogen
 	gas_path = GAS_HYDROGEN
@@ -127,12 +104,6 @@ GLOBAL_LIST_INIT(sm_gas_behavior, init_sm_gas())
 	heat_resistance = 2
 	powermix = 1
 
-// /datum/sm_gas/healium
-// 	gas_path = /datum/gas/healium
-// 	heat_penalty = 4
-// 	transmit_modifier = 2.4
-// 	powermix = 1
-
 /datum/sm_gas/nitric_oxide
 	gas_path = GAS_NO
 	heat_penalty = -3
@@ -140,34 +111,5 @@ GLOBAL_LIST_INIT(sm_gas_behavior, init_sm_gas())
 	heat_resistance = 5
 	powermix = 1
 
-// /datum/sm_gas/zauker
-// 	gas_path = /datum/gas/zauker
-// 	heat_penalty = 8
-// 	transmit_modifier = 20
-// 	powermix = 1
-
-// /datum/sm_gas/zauker/extra_effects(obj/machinery/power/supermatter_crystal/sm, datum/gas_mixture/env)
-// 	if(!prob(sm.gas_percentage[/datum/gas/zauker]))
-// 		return
-// 	playsound(sm.loc, 'sound/weapons/emitter2.ogg', 100, TRUE, extrarange = 10)
-// 	sm.supermatter_zap(
-// 		sm,
-// 		range = 6,
-// 		zap_str = clamp(sm.power * 2, 4000, 20000),
-// 		zap_flags = ZAP_MOB_STUN,
-// 		zap_cutoff = sm.zap_cutoff,
-// 		power_level = sm.power,
-// 		zap_icon = sm.zap_icon
-// 	)
-
-// /datum/sm_gas/halon
-// 	gas_path = /datum/gas/halon
-
-// /datum/sm_gas/helium
-// 	gas_path = /datum/gas/helium
-
-// /datum/sm_gas/antinoblium
-// 	gas_path = /datum/gas/antinoblium
-// 	transmit_modifier = -5
-// 	heat_penalty = 15
-// 	powermix = 1
+/datum/sm_gas/helium
+	gas_path = GAS_HELIUM
