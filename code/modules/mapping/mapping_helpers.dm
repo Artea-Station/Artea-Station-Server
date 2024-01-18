@@ -874,6 +874,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	stripe_paint = "#847A96"
 	icon_state = "paint_pathfinder"
 
+/obj/effect/mapping_helpers/paint_wall/service
+	name = "Service Wall Paint"
+	stripe_paint = "#439C1E"
+	icon_state = "paint_service"
+
 ///Applies BROKEN flag to the first found machine on a tile
 /obj/effect/mapping_helpers/broken_machine
 	name = "broken machine helper"
