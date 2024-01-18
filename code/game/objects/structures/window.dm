@@ -66,6 +66,9 @@
 	if (flags_1 & ON_BORDER_1)
 		AddElement(/datum/element/connect_loc, loc_connections)
 
+	if(fulltile)
+		update_adjacent_firelocks(src)
+
 /obj/structure/window/examine(mob/user)
 	. = ..()
 	switch(state)
@@ -122,6 +125,21 @@
 		return valid_window_location(loc, mover.dir, is_fulltile = FALSE)
 
 	return TRUE
+
+/obj/structure/window/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+	. = ..()
+	if(!fulltile)
+		return
+	// nullspace my beloathed.
+	if(old_loc)
+		update_adjacent_firelocks(old_loc)
+	if(isturf(loc))
+		update_adjacent_firelocks(src)
+
+/obj/structure/window/proc/update_adjacent_firelocks(atom/center_turf)
+	for(var/turf/open_turf as anything in get_adjacent_open_turfs(center_turf))
+		var/obj/machinery/door/firedoor/firelock = locate() in open_turf
+		firelock?.process_results(get_turf(src))
 
 /obj/structure/window/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
@@ -354,6 +372,8 @@
 	set_density(FALSE)
 	air_update_turf(TRUE, FALSE)
 	update_nearby_icons()
+	if(fulltile)
+		update_adjacent_firelocks(src)
 	return ..()
 
 /obj/structure/window/Move()
@@ -613,8 +633,6 @@
 	icon_state = "window-0"
 	base_icon_state = "window"
 	color = "#AFD3E6"
-	greyscale_config = /datum/greyscale_config/fulltile_window
-	greyscale_colors = "#AFD3E6"
 	alpha = 180
 	max_integrity = 100
 	fulltile = TRUE
@@ -632,8 +650,6 @@
 	icon_state = "window-0"
 	base_icon_state = "window"
 	color = "#c162ec"
-	greyscale_config = /datum/greyscale_config/fulltile_window
-	greyscale_colors = "#c162ec"
 	alpha = 180
 	max_integrity = 300
 	fulltile = TRUE
@@ -651,8 +667,6 @@
 	icon_state = "window-0"
 	base_icon_state = "window"
 	color = "#c162ec"
-	greyscale_config = /datum/greyscale_config/fulltile_reinforced_window
-	greyscale_colors = "#c162ec"
 	alpha = 180
 	state = RWINDOW_SECURE
 	max_integrity = 500
@@ -672,8 +686,6 @@
 	icon_state = "window-0"
 	base_icon_state = "window"
 	color = "#829eb5"
-	greyscale_config = /datum/greyscale_config/fulltile_reinforced_window
-	greyscale_colors = "#829eb5"
 	alpha = 180
 	max_integrity = 150
 	fulltile = TRUE
@@ -693,8 +705,6 @@
 	icon_state = "window-0"
 	base_icon_state = "window"
 	color = "#3b5461"
-	greyscale_config = /datum/greyscale_config/fulltile_reinforced_window
-	greyscale_colors = "#3b5461"
 	alpha = 180
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
@@ -715,8 +725,6 @@
 	icon_state = "window-0"
 	base_icon_state = "window"
 	color = "#D0CBD4"
-	greyscale_config = /datum/greyscale_config/fulltile_reinforced_window
-	greyscale_colors = "#D0CBD4"
 	alpha = 180
 	max_integrity = 150
 	wtype = "shuttle"
@@ -759,8 +767,6 @@
 	icon_state = "window-0"
 	base_icon_state = "window"
 	color = "#D0CBD4"
-	greyscale_config = /datum/greyscale_config/fulltile_window
-	greyscale_colors = "#D0CBD4"
 	alpha = 180
 	max_integrity = 1200
 	wtype = "shuttle"
@@ -814,8 +820,8 @@
 	bash_sound = 'sound/weapons/slashmiss.ogg'
 	break_sound = 'sound/items/poster_ripped.ogg'
 	hit_sound = 'sound/weapons/slashmiss.ogg'
-	var/static/mutable_appearance/torn = mutable_appearance('icons/obj/smooth_structures/paperframes.dmi',icon_state = "torn", layer = ABOVE_OBJ_LAYER - 0.1)
-	var/static/mutable_appearance/paper = mutable_appearance('icons/obj/smooth_structures/paperframes.dmi',icon_state = "paper", layer = ABOVE_OBJ_LAYER - 0.1)
+	var/static/mutable_appearance/torn = mutable_appearance('icons/obj/smooth_structures/structure_variations.dmi',icon_state = "paper-torn", layer = ABOVE_OBJ_LAYER - 0.1)
+	var/static/mutable_appearance/paper = mutable_appearance('icons/obj/smooth_structures/structure_variations.dmi',icon_state = "paper-whole", layer = ABOVE_OBJ_LAYER - 0.1)
 
 /obj/structure/window/paperframe/Initialize(mapload)
 	. = ..()
@@ -874,8 +880,8 @@
 /obj/structure/window/bronze
 	name = "brass window"
 	desc = "A paper-thin pane of translucent yet reinforced brass. Nevermind, this is just weak bronze!"
-	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
-	icon_state = "clockwork_window_single"
+	icon = 'icons/obj/smooth_structures/structure_variations.dmi'
+	icon_state = "clockwork_window-single"
 	glass_type = /obj/item/stack/sheet/bronze
 
 /obj/structure/window/bronze/unanchored
@@ -886,8 +892,6 @@
 	icon_state = "window-0"
 	base_icon_state = "window"
 	color = "#92661A"
-	greyscale_config = /datum/greyscale_config/fulltile_window
-	greyscale_colors = "#92661A"
 	alpha = 180
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE)

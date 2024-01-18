@@ -2,7 +2,6 @@
 	name = "\improper NanoMed Plus"
 	desc = "Medical drug dispenser."
 	icon_state = "med"
-	icon_deny = "med-deny"
 	panel_type = "panel11"
 	product_ads = "Go save some lives!;The best stuff for your medbay.;Only the finest tools.;Natural chemicals!;This stuff saves lives.;Don't you want some?;Ping!"
 	req_access = list(ACCESS_MEDICAL)
@@ -36,7 +35,6 @@
 	default_price = PAYCHECK_CREW
 	extra_price = PAYCHECK_COMMAND
 	payment_department = ACCOUNT_MED
-	light_mask = "med-light-mask"
 
 /obj/item/vending_refill/medical
 	machine_name = "NanoMed Plus"
@@ -85,6 +83,7 @@
 	extra_price = 100
 	payment_department = ACCOUNT_MED
 	refill_canister = /obj/item/vending_refill/drugs
+	vend_sound = 'sound/machines/vending_cans.ogg'
 
 /obj/item/vending_refill/drugs
 	machine_name = "NanoDrug Plus"

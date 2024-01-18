@@ -131,8 +131,13 @@
 
 	// say goodbye to that shuttle of yours
 	if(SSshuttle.emergency.mode != SHUTTLE_ESCAPE)
-		priority_announce("Fatal error occurred in emergency shuttle uplink during transit. Unable to reestablish connection.",
-			"Emergency Shuttle Uplink Alert", 'sound/misc/announce_dig.ogg')
+		priority_announce(
+			text = "Fatal error occurred in emergency shuttle uplink during transit. Unable to reestablish connection.",
+			title = "Shuttle Failure",
+			sound =  'sound/misc/announce_dig.ogg',
+			sender_override = "Emergency Shuttle Uplink Alert",
+			color_override = "grey",
+		)
 	else
 	// except if you are on it already, then you are safe c:
 		minor_announce("ERROR: Corruption detected in navigation protocols. Connection with Transponder #XCC-P5831-ES13 lost. \
@@ -184,7 +189,7 @@
 	priority_announce("Reports indicate formation of crystalline seeds following resonance shift event. \
 		Rapid expansion of crystal mass proportional to rising gravitational force. \
 		Matter collapse due to gravitational pull foreseeable.",
-		"Nanotrasen Star Observation Association")
+		"Artea Star Observation Association")
 
 	sleep(25 SECONDS)
 

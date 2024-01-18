@@ -48,6 +48,8 @@
 	name = "psychology locker"
 	req_access = list(ACCESS_PSYCHOLOGY)
 	icon_state = "cabinet"
+	icon_locked = "locked_wood"
+	icon_unlocked = "unlocked_wood"
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
@@ -92,6 +94,7 @@
 	new /obj/item/circuitboard/machine/techfab/department/medical(src)
 	new /obj/item/storage/photo_album/cmo(src)
 	new /obj/item/storage/lockbox/medal/med(src)
+	new /obj/item/card/id/departmental_budget/med(src)
 
 /obj/structure/closet/secure_closet/chief_medical/populate_contents_immediate()
 	. = ..()
@@ -135,3 +138,17 @@
 	new /obj/item/storage/box/syringes/variety(src)
 	new /obj/item/storage/box/beakers/variety(src)
 	new /obj/item/clothing/glasses/science(src)
+
+/obj/structure/closet/secure_closet/chemical/cartridge
+	name = "cartridge closet"
+	desc = "Store dangerous chemical cartridges in here."
+	req_access = list(ACCESS_PHARMACY)
+	icon_door = "chemical"
+
+/obj/structure/closet/secure_closet/chemical/cartridge/PopulateContents()
+	var/cartridges = CARTRIDGE_LIST_CHEM_DISPENSER
+
+	for(var/chem_path in cartridges)
+		var/cart_path = cartridges[chem_path]
+		var/obj/item/reagent_containers/chem_cartridge/cart = new cart_path(src, chem_path)
+		cart.reagents.add_reagent(chem_path, cart.volume)

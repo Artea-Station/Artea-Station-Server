@@ -1,6 +1,6 @@
 import { exhaustiveCheck } from 'common/exhaustive';
 import { useBackend, useLocalState } from '../../backend';
-import { Box, Button, Dropdown, Flex, Icon, Popper, Section, Stack } from '../../components';
+import { Box, Button, Dimmer, Dropdown, Flex, Icon, Popper, Section, Stack } from '../../components';
 import { Window } from '../../layouts';
 import { createSetPreference, PreferencesMenuData } from './data';
 import { PageButton } from './PageButton';
@@ -74,6 +74,12 @@ export const CharacterPreferenceWindow = (props, context) => {
     Page.Index
   );
 
+  const [tutorialStatus, setTutorialStatus] = useLocalState<string | null>(
+    context,
+    'tutorialStatus',
+    null
+  );
+
   let pageContents;
   let extraCharacterControls;
 
@@ -81,10 +87,12 @@ export const CharacterPreferenceWindow = (props, context) => {
     case Page.Index:
       pageContents = <IndexPage parentContext={context} data={data} />;
       extraCharacterControls = (
-        <NameInput
-          name={data.character_preferences.names[data.name_to_use]}
-          handleUpdateName={createSetPreference(act, data.name_to_use)}
-        />
+        <Stack.Item>
+          <NameInput
+            name={data.character_preferences.names[data.name_to_use]}
+            handleUpdateName={createSetPreference(act, data.name_to_use)}
+          />
+        </Stack.Item>
       );
       break;
 
@@ -102,6 +110,11 @@ export const CharacterPreferenceWindow = (props, context) => {
           openSpecies={() => setCurrentPage(Page.Species)}
           parentContext={context}
         />
+      );
+      extraCharacterControls = (
+        <Stack.Item align="center">
+          <GenderButton gender={data.character_preferences.misc.gender} />
+        </Stack.Item>
       );
       break;
 
@@ -148,6 +161,71 @@ export const CharacterPreferenceWindow = (props, context) => {
   return (
     <Window title="Character Preferences" width={920} height={770}>
       <Window.Content scrollable>
+        {tutorialStatus === 'general' && (
+          <Dimmer>
+            <Stack vertical align="center">
+              <Stack.Item preserveWhitespace>
+                Here&apos;s a few things to note for this preferences system:
+                <ul>
+                  <li>
+                    Inputting black (000000) will make that colour take your
+                    chosen skin tone/custom skin colour.
+                  </li>
+                  <li>
+                    Is something not appearing correctly? Please file a bug
+                    report!
+                  </li>
+                </ul>
+              </Stack.Item>
+              <Stack.Item>
+                <Button
+                  mt={1}
+                  align="center"
+                  onClick={() => setTutorialStatus(null)}>
+                  Okay.
+                </Button>
+              </Stack.Item>
+            </Stack>
+          </Dimmer>
+        )}
+        {tutorialStatus === 'new_player' && (
+          <Dimmer>
+            <Stack vertical align="center">
+              <Stack.Item preserveWhitespace>
+                So you&apos;re new here, and you want to make your first
+                character? Here&apos;s the lowdown:
+                <ul>
+                  <li>
+                    Pick your species. This will make figuring out what the heck
+                    you&apos;re going to do later on much much easier.
+                  </li>
+                  <li>
+                    Generally speaking, start in the top left, and work your way
+                    to the bottom right.
+                    <br />
+                    I&apos;ve tried to keep things in order of importance for
+                    new players.
+                  </li>
+                  <li>
+                    If you want to read up on some of the lore, see{' '}
+                    <a href="https://artea-station.net/wiki/index.php/Lore_portal">
+                      our wiki
+                    </a>{' '}
+                    for some!
+                  </li>
+                </ul>
+              </Stack.Item>
+              <Stack.Item>
+                <Button
+                  mt={1}
+                  align="center"
+                  onClick={() => setTutorialStatus(null)}>
+                  Okay.
+                </Button>
+              </Stack.Item>
+            </Stack>
+          </Dimmer>
+        )}
         <Stack vertical fill>
           <Stack.Item>
             {!(currentPage === Page.Index) && (
@@ -170,6 +248,16 @@ export const CharacterPreferenceWindow = (props, context) => {
               }}
               profiles={data.character_profiles}
             />
+            <Box position="absolute" right={0.5} top={0.5}>
+              <Button
+                icon="question"
+                fontSize="1.2em"
+                onClick={() => {
+                  setTutorialStatus('general');
+                }}>
+                Tips and Tricks
+              </Button>
+            </Box>
           </Stack.Item>
           {!data.content_unlocked && (
             <Stack.Item align="center">
@@ -238,7 +326,7 @@ export const LoadoutPreviewSection = (
           )}
         </Stack.Item>
         <Stack.Divider />
-        <Stack.Item>{props.extra_character_controls}</Stack.Item>
+        {props.extra_character_controls}
         <Stack.Item align="center">
           <CharacterControls
             handleRotate={(dir) => {
@@ -267,7 +355,7 @@ const GenderButton = (
   return (
     <Popper
       options={{
-        placement: 'right-end',
+        placement: 'bottom',
       }}
       popperContent={
         genderMenuOpen && (
@@ -298,10 +386,11 @@ const GenderButton = (
         onClick={() => {
           setGenderMenuOpen(!genderMenuOpen);
         }}
-        fontSize="22px"
+        fontSize="18px"
         icon={GENDERS[props.gender].icon}
         tooltip="Gender"
-        tooltipPosition="top"
+        tooltipPosition="bottom"
+        content={GENDERS[props.gender].text}
       />
     </Popper>
   );

@@ -2,7 +2,7 @@
 //this is meant to hold reagents/obj/item/gun/syringe
 /obj/item/gun/chem
 	name = "reagent gun"
-	desc = "A Nanotrasen syringe gun, modified to automatically synthesise chemical darts, and instead hold reagents."
+	desc = "A Artea syringe gun, modified to automatically synthesise chemical darts, and instead hold reagents."
 	icon_state = "chemgun"
 	inhand_icon_state = "chemgun"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -30,7 +30,7 @@
 /obj/item/gun/chem/can_shoot()
 	return syringes_left
 
-/obj/item/gun/chem/handle_chamber()
+/obj/item/gun/chem/handle_chamber(mob/living/user, empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
 	if(chambered && !chambered.loaded_projectile && syringes_left)
 		chambered.newshot()
 

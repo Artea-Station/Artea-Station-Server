@@ -1,5 +1,5 @@
 import { StatelessComponent } from 'inferno';
-import { Box, Icon, Stack, Tooltip } from '../../components';
+import { Box, Icon, Stack, StyleableSection, Tooltip } from '../../components';
 import { PreferencesMenuData, Quirk } from './data';
 import { useBackend, useLocalState } from '../../backend';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
@@ -25,7 +25,15 @@ const QuirkList = (props: {
 }) => {
   return (
     // Stack is not used here for a variety of IE flex bugs
-    <Box className="PreferencesMenu__Quirks__QuirkList">
+    <Box
+      className="PreferencesMenu__Quirks__QuirkList"
+      width="100%"
+      maxHeight="23rem"
+      style={{
+        'display': 'flex',
+        'flex-wrap': 'wrap',
+        'justify-content': 'center',
+      }}>
       {props.quirks.map(([quirkKey, quirk]) => {
         const className = 'PreferencesMenu__Quirks__QuirkList__quirk';
 
@@ -35,24 +43,14 @@ const QuirkList = (props: {
             key={quirkKey}
             role="button"
             tabIndex="1"
+            width="50%"
             onClick={() => {
               props.onClick(quirkKey, quirk);
             }}>
             <Stack fill>
               <Stack.Item
-                align="center"
-                style={{
-                  'min-width': '15%',
-                  'max-width': '15%',
-                  'text-align': 'center',
-                }}>
-                <Icon color="#333" fontSize={3} name={quirk.icon} />
-              </Stack.Item>
-
-              <Stack.Item
                 align="stretch"
                 style={{
-                  'border-right': '1px solid black',
                   'margin-left': 0,
                 }}
               />
@@ -78,6 +76,14 @@ const QuirkList = (props: {
                         'font-size': '1.2em',
                       }}>
                       <Stack.Item grow basis="content">
+                        <Box
+                          inline
+                          width="2.8em"
+                          style={{
+                            'text-align': 'center',
+                          }}>
+                          <Icon fontSize="1.6em" name={quirk.icon} />
+                        </Box>
                         <b>{quirk.name}</b>
                       </Stack.Item>
 
@@ -88,6 +94,7 @@ const QuirkList = (props: {
                   </Stack.Item>
 
                   <Stack.Item
+                    color="#aaa"
                     grow
                     basis="content"
                     style={{
@@ -112,15 +119,15 @@ const QuirkList = (props: {
   );
 };
 
-const StatDisplay: StatelessComponent<{}> = (props) => {
+const StatDisplay: StatelessComponent<{ color }> = (props) => {
   return (
     <Box
       backgroundColor="#eee"
       bold
-      color="black"
-      fontSize="1.2em"
-      px={3}
-      py={0.5}>
+      color={props.color}
+      fontSize="1.1em"
+      px={0.5}
+      inline>
       {props.children}
     </Box>
   );
@@ -217,105 +224,95 @@ export const QuirksPage = (props, context) => {
         };
 
         return (
-          <Stack fill>
-            <Stack.Item basis="50%">
-              <Stack vertical fill align="center">
-                <Stack.Item>
-                  <Box fontSize="1.3em">Positive Quirks</Box>
-                </Stack.Item>
+          <Stack vertical fill>
+            <Stack.Item width="100%">
+              <StyleableSection
+                title={
+                  <>
+                    {'Available Quirks'}
+                    <Box inline style={{ 'float': 'right' }}>
+                      <Box inline>Positive Quirks:</Box>
+                      {'  '}
+                      <Box
+                        inline
+                        color={positiveQuirks < maxPositiveQuirks && 'good'}>
+                        {positiveQuirks} / {maxPositiveQuirks}
+                      </Box>
+                    </Box>
+                  </>
+                }
+                scrollable>
+                <QuirkList
+                  onClick={(quirkName, quirk) => {
+                    if (getReasonToNotAdd(quirkName) !== undefined) {
+                      return;
+                    }
 
-                <Stack.Item>
-                  <StatDisplay>
-                    {positiveQuirks} / {maxPositiveQuirks}
-                  </StatDisplay>
-                </Stack.Item>
+                    setSelectedQuirks(selectedQuirks.concat(quirkName));
 
-                <Stack.Item>
-                  <Box as="b" fontSize="1.6em">
-                    Available Quirks
-                  </Box>
-                </Stack.Item>
-
-                <Stack.Item grow width="100%">
-                  <QuirkList
-                    onClick={(quirkName, quirk) => {
-                      if (getReasonToNotAdd(quirkName) !== undefined) {
-                        return;
-                      }
-
-                      setSelectedQuirks(selectedQuirks.concat(quirkName));
-
-                      act('give_quirk', { quirk: quirk.name });
-                    }}
-                    quirks={quirks
-                      .filter(([quirkName, _]) => {
-                        return selectedQuirks.indexOf(quirkName) === -1;
-                      })
-                      .map(([quirkName, quirk]) => {
-                        return [
-                          quirkName,
-                          {
-                            ...quirk,
-                            failTooltip: getReasonToNotAdd(quirkName),
-                          },
-                        ];
-                      })}
-                  />
-                </Stack.Item>
-              </Stack>
+                    act('give_quirk', { quirk: quirk.name });
+                  }}
+                  quirks={quirks
+                    .filter(([quirkName, _]) => {
+                      return selectedQuirks.indexOf(quirkName) === -1;
+                    })
+                    .map(([quirkName, quirk]) => {
+                      return [
+                        quirkName,
+                        {
+                          ...quirk,
+                          failTooltip: getReasonToNotAdd(quirkName),
+                        },
+                      ];
+                    })}
+                />
+              </StyleableSection>
             </Stack.Item>
 
-            <Stack.Item mt="35%">
-              <Icon name="exchange-alt" size={1.5} ml={2} mr={2} />
-            </Stack.Item>
+            <Stack.Item width="100%">
+              <StyleableSection
+                title={
+                  <>
+                    {'Current Quirks'}
+                    <Box inline style={{ 'float': 'right' }}>
+                      <Box inline>Quirk Points:</Box>
+                      {'  '}
+                      <Box inline color={balance < 0 && 'good'}>
+                        {balance}
+                      </Box>
+                    </Box>
+                  </>
+                }
+                scrollable>
+                <QuirkList
+                  onClick={(quirkName, quirk) => {
+                    if (getReasonToNotRemove(quirkName) !== undefined) {
+                      return;
+                    }
 
-            <Stack.Item basis="50%">
-              <Stack vertical fill align="center">
-                <Stack.Item>
-                  <Box fontSize="1.3em">Quirk Balance</Box>
-                </Stack.Item>
+                    setSelectedQuirks(
+                      selectedQuirks.filter(
+                        (otherQuirk) => quirkName !== otherQuirk
+                      )
+                    );
 
-                <Stack.Item>
-                  <StatDisplay>{balance}</StatDisplay>
-                </Stack.Item>
-
-                <Stack.Item>
-                  <Box as="b" fontSize="1.6em">
-                    Current Quirks
-                  </Box>
-                </Stack.Item>
-
-                <Stack.Item grow width="100%">
-                  <QuirkList
-                    onClick={(quirkName, quirk) => {
-                      if (getReasonToNotRemove(quirkName) !== undefined) {
-                        return;
-                      }
-
-                      setSelectedQuirks(
-                        selectedQuirks.filter(
-                          (otherQuirk) => quirkName !== otherQuirk
-                        )
-                      );
-
-                      act('remove_quirk', { quirk: quirk.name });
-                    }}
-                    quirks={quirks
-                      .filter(([quirkName, _]) => {
-                        return selectedQuirks.indexOf(quirkName) !== -1;
-                      })
-                      .map(([quirkName, quirk]) => {
-                        return [
-                          quirkName,
-                          {
-                            ...quirk,
-                            failTooltip: getReasonToNotRemove(quirkName),
-                          },
-                        ];
-                      })}
-                  />
-                </Stack.Item>
-              </Stack>
+                    act('remove_quirk', { quirk: quirk.name });
+                  }}
+                  quirks={quirks
+                    .filter(([quirkName, _]) => {
+                      return selectedQuirks.indexOf(quirkName) !== -1;
+                    })
+                    .map(([quirkName, quirk]) => {
+                      return [
+                        quirkName,
+                        {
+                          ...quirk,
+                          failTooltip: getReasonToNotRemove(quirkName),
+                        },
+                      ];
+                    })}
+                />
+              </StyleableSection>
             </Stack.Item>
           </Stack>
         );

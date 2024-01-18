@@ -463,7 +463,6 @@
 		ACCESS_JANITOR,
 		ACCESS_KEYCARD_AUTH,
 		ACCESS_KITCHEN,
-		ACCESS_LAWYER,
 		ACCESS_LIBRARY,
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MEDICAL,
@@ -555,7 +554,7 @@
 	minimal_access = list(
 		ACCESS_BRIG_ENTRANCE,
 		ACCESS_COURT,
-		ACCESS_LAWYER,
+		ACCESS_INTERNAL_AFFAIRS,
 		)
 	extra_access = list()
 	template_access = list(
@@ -585,27 +584,6 @@
 		ACCESS_CHANGE_IDS,
 		)
 	job = /datum/job/janitor
-
-/datum/id_trim/job/lawyer
-	assignment = "Lawyer"
-	trim_state = "dept-service"
-	orbit_icon = "gavel"
-	department_color = COLOR_SERVICE_LIME
-	subdepartment_color = COLOR_SECURITY_RED
-	sechud_icon_state = SECHUD_LAWYER
-	minimal_access = list(
-		ACCESS_BRIG_ENTRANCE,
-		ACCESS_COURT,
-		ACCESS_LAWYER,
-		ACCESS_SERVICE,
-		)
-	extra_access = list()
-	template_access = list(
-		ACCESS_CAPTAIN,
-		ACCESS_CHANGE_IDS,
-		ACCESS_HOP,
-		)
-	job = /datum/job/lawyer
 
 /datum/id_trim/job/medical_doctor
 	assignment = "Medical Doctor"
@@ -718,27 +696,6 @@
 
 /datum/id_trim/job/prisoner/seven
 	template_access = null
-
-/datum/id_trim/job/psychologist
-	assignment = "Psychologist"
-	trim_state = "dept-service"
-	orbit_icon = "brain"
-	department_color = COLOR_SERVICE_LIME
-	subdepartment_color = COLOR_MEDICAL_BLUE
-	sechud_icon_state = SECHUD_PSYCHOLOGIST
-	minimal_access = list(
-		ACCESS_MEDICAL,
-		ACCESS_PSYCHOLOGY,
-		ACCESS_SERVICE,
-		)
-	extra_access = list()
-	template_access = list(
-		ACCESS_CAPTAIN,
-		ACCESS_CHANGE_IDS,
-		ACCESS_CMO,
-		ACCESS_HOP,
-		)
-	job = /datum/job/psychologist
 
 /datum/id_trim/job/quartermaster
 	assignment = "Quartermaster"

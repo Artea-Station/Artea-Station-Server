@@ -804,6 +804,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	floor.burn_tile()
 	qdel(src)
 
+/// Wall paint Mapping helpers.
 /obj/effect/mapping_helpers/paint_wall
 	name = "Paint Wall Helper"
 	icon = 'icons/effects/paint_helpers.dmi'
@@ -851,6 +852,27 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	name = "Bridge Wall Paint"
 	stripe_paint = "#334E6D"
 	icon_state = "paint_bridge"
+
+/obj/effect/mapping_helpers/paint_wall/engineering
+	name = "Engineering Wall Paint"
+	stripe_paint = "#A28226"
+	icon_state = "paint_engineering"
+
+/obj/effect/mapping_helpers/paint_wall/security
+	name = "Security Wall Paint"
+	stripe_paint = "#9F2828"
+	icon_state = "paint_security"
+
+/obj/effect/mapping_helpers/paint_wall/medical
+	name = "Medical Wall Paint"
+	stripe_paint = "#5995BA"
+	wall_paint = "#BBBBBB"
+	icon_state = "paint_medical"
+
+/obj/effect/mapping_helpers/paint_wall/pathfinders
+	name = "Pathfinders Wall Paint"
+	stripe_paint = "#847A96"
+	icon_state = "paint_pathfinder"
 
 ///Applies BROKEN flag to the first found machine on a tile
 /obj/effect/mapping_helpers/broken_machine

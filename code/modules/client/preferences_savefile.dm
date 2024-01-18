@@ -1,11 +1,11 @@
 //This is the lowest supported version, anything below this is completely obsolete and the entire savefile will be wiped.
-#define SAVEFILE_VERSION_MIN 32
+#define SAVEFILE_VERSION_MIN 41
 
 //This is the current version, anything below this will attempt to update (if it's not obsolete)
 // You do not need to raise this if you are adding new values that have sane defaults.
 // Only raise this value when changing the meaning/format/name/layout of an existing value
 // where you would want the updater procs below to run
-#define SAVEFILE_VERSION_MAX 42
+#define SAVEFILE_VERSION_MAX 44
 
 /*
 SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Carn
@@ -40,66 +40,24 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 //if your savefile is 3 months out of date, then 'tough shit'.
 
 /datum/preferences/proc/update_preferences(current_version, datum/json_savefile/S)
-	if(current_version < 33)
-		toggles |= SOUND_ENDOFROUND
+	return // We have no changed client prefs.
 
-	if(current_version < 34)
-		write_preference(/datum/preference/toggle/auto_fit_viewport, TRUE)
-
-	if(current_version < 35) //makes old keybinds compatible with #52040, sets the new default
-		var/newkey = FALSE
-		for(var/list/key in key_bindings)
-			for(var/bind in key)
-				if(bind == "quick_equipbelt")
-					key -= "quick_equipbelt"
-					key |= "quick_equip_belt"
-
-				if(bind == "bag_equip")
-					key -= "bag_equip"
-					key |= "quick_equip_bag"
-
-				if(bind == "quick_equip_suit_storage")
-					newkey = TRUE
-		if(!newkey && !key_bindings["ShiftQ"])
-			key_bindings["ShiftQ"] = list("quick_equip_suit_storage")
-
-	if(current_version < 36)
-		if(key_bindings["ShiftQ"] == "quick_equip_suit_storage")
-			key_bindings["ShiftQ"] = list("quick_equip_suit_storage")
-
-	if(current_version < 37)
-		if(read_preference(/datum/preference/numeric/fps) == 0)
-			write_preference(GLOB.preference_entries[/datum/preference/numeric/fps], -1)
-
-	if (current_version < 38)
-		var/found_block_movement = FALSE
-
-		for (var/list/key in key_bindings)
-			for (var/bind in key)
-				if (bind == "block_movement")
-					found_block_movement = TRUE
-					break
-			if (found_block_movement)
-				break
-
-		if (!found_block_movement)
-			LAZYADD(key_bindings["Ctrl"], "block_movement")
-
-	if (current_version < 39)
-		LAZYADD(key_bindings["F"], "toggle_combat_mode")
-		LAZYADD(key_bindings["4"], "toggle_combat_mode")
-	if (current_version < 40)
-		LAZYADD(key_bindings["Space"], "hold_throw_mode")
-
-	if (current_version < 41)
-		migrate_preferences_to_tgui_prefs_menu()
 
 /datum/preferences/proc/update_character(current_version, list/save_data)
-	if (current_version < 41)
-		migrate_character_to_tgui_prefs_menu()
-
 	if (current_version < 42)
 		migrate_body_types(save_data)
+
+	// Synth colours are now handled by the color pref datum itself.
+	if (current_version < 44)
+		var/color_pref = save_data["synth_chassis_color"]
+		if(color_pref && copytext(color_pref, 1, 7) == "000000")
+			var/skin_pref = save_data["use_skin_tone"] ? skintone2hex(save_data["skin_tone"]) : save_data["skin_color"]
+			save_data["synth_chassis_color"] = "[skin_pref][copytext(color_pref, 7)]"
+
+		color_pref = save_data["synth_head_color"]
+		if(color_pref && copytext(color_pref, 1, 7) == "000000")
+			var/skin_pref = save_data["use_skin_tone"] ? skintone2hex(save_data["skin_tone"]) : save_data["skin_color"]
+			save_data["synth_head_color"] = "[skin_pref][copytext(color_pref, 7)]"
 
 /// checks through keybindings for outdated unbound keys and updates them
 /datum/preferences/proc/check_keybindings()
@@ -341,12 +299,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 			write_preference(preference, preference.serialize(value_cache[preference.type]))
 
 	save_data["version"] = SAVEFILE_VERSION_MAX //load_character will sanitize any bad data, so assume up-to-date.
-
-	// This is the version when the random security department was removed.
-	// When the minimum is higher than that version, it's impossible for someone to have the "Random" department.
-	#if SAVEFILE_VERSION_MIN > 40
-	#warn The prefered_security_department check in code/modules/client/preferences/security_department.dm is no longer necessary.
-	#endif
 
 	//Character
 	save_data["randomise"] = randomise

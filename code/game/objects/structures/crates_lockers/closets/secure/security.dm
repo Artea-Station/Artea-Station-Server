@@ -43,6 +43,8 @@
 	new /obj/item/circuitboard/machine/techfab/department/service(src)
 	new /obj/item/storage/photo_album/hop(src)
 	new /obj/item/storage/lockbox/medal/hop(src)
+	new /obj/item/card/id/departmental_budget/srv(src)
+	new /obj/item/card/id/departmental_budget/civ(src)
 
 /obj/structure/closet/secure_closet/hos
 	name = "\proper head of security's locker"
@@ -64,6 +66,7 @@
 	new /obj/item/storage/belt/security/full(src)
 	new /obj/item/circuitboard/machine/techfab/department/security(src)
 	new /obj/item/storage/photo_album/hos(src)
+	new /obj/item/card/id/departmental_budget/sec(src)
 
 /obj/structure/closet/secure_closet/hos/populate_contents_immediate()
 	. = ..()
@@ -149,6 +152,8 @@
 	name = "\improper detective's cabinet"
 	req_access = list(ACCESS_DETECTIVE)
 	icon_state = "cabinet"
+	icon_locked = "locked_wood"
+	icon_unlocked = "unlocked_wood"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	door_anim_time = 0 // no animation

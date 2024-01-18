@@ -226,7 +226,7 @@
 	if(!account.has_money(deposit_value))
 		say("You do not possess enough credits.")
 		return
-	account.adjust_money(-deposit_value) //The money vanishes, not paid to any accounts.
+	account.adjust_money(-deposit_value, "Vending: B.E.P.I.S. Chamber") //The money vanishes, not paid to any accounts.
 	SSblackbox.record_feedback("amount", "BEPIS_credits_spent", deposit_value)
 	log_econ("[deposit_value] credits were inserted into [src] by [account.account_holder]")
 	banked_cash += deposit_value
@@ -264,7 +264,7 @@
 	if((gauss_real >= gauss_major)) //Major Success.
 		if(SSresearch.techweb_nodes_experimental.len > 0)
 			say("Experiment concluded with major success. New technology node discovered on technology disc.")
-			new /obj/item/disk/tech_disk/major(dropturf,1)
+			new /obj/item/disk/tech_disk/bepis(dropturf,1)
 			return
 		say("Expended all available experimental technology nodes. Resorting to minor rewards.")
 	if(gauss_real >= gauss_minor) //Minor Success.

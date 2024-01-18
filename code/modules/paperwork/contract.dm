@@ -17,7 +17,7 @@
 	add_raw_text("<center>Conditions of Employment</center>\
 	<BR><BR><BR><BR>\
 	This Agreement is made and entered into as of the date of last signature below, by and between [employee_name] (hereafter referred to as SLAVE), \
-	and Nanotrasen (hereafter referred to as the omnipresent and helpful watcher of humanity).\
+	and Artea (hereafter referred to as the omnipresent and helpful watcher of humanity).\
 	<BR>WITNESSETH:<BR>WHEREAS, SLAVE is a natural born human or humanoid, possessing skills upon which he can aid the omnipresent and helpful watcher of humanity, \
 	who seeks employment in the omnipresent and helpful watcher of humanity.<BR>WHEREAS, the omnipresent and helpful watcher of humanity agrees to sporadically provide payment to SLAVE, \
 	in exchange for permanent servitude.<BR>NOW THEREFORE in consideration of the mutual covenants herein contained, and other good and valuable consideration, the parties hereto mutually agree as follows:\

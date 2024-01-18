@@ -33,6 +33,8 @@ SUBSYSTEM_DEF(research)
 	var/list/techweb_nodes_hidden = list()
 	///Node ids that are exclusive to the BEPIS.
 	var/list/techweb_nodes_experimental = list()
+	///Node ids that are valid for loot tables. Do not edit.
+	var/list/techweb_nodes_lootable = list(RND_LOOT_MINOR = list(), RND_LOOT_MIDDLE = list(), RND_LOOT_MAJOR = list())
 	///path = list(point type = value)
 	var/list/techweb_point_items = list(
 	/obj/item/assembly/signaler/anomaly = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
@@ -165,6 +167,43 @@ SUBSYSTEM_DEF(research)
 	calculate_techweb_boost_list()
 	if (!verify_techweb_nodes()) //Verify nodes and designs have been crosslinked properly.
 		CRASH("Invalid techweb nodes detected")
+
+// pick_n_takes a random research node (hidden or not, this doesn't care), and returns it, refreshing the loot table if needed.
+/datum/controller/subsystem/research/proc/get_science_loot(table)
+	if(!table)
+		CRASH("Unrecognised table \"[table]\"")
+
+	var/loot_table = techweb_nodes_lootable[table]
+
+	if(!islist(loot_table))
+		CRASH("Unrecognised table \"[table]\"")
+
+	if(!length(loot_table))
+		refresh_science_loot(table)
+
+	var/datum/techweb_node/node = pick_n_take(loot_table)
+	if(!node)
+		CRASH("Null node somehow taken from \"[table]\"")
+
+	return node
+
+/// Refreshes SSresearch.techweb_nodes_lootable
+/datum/controller/subsystem/research/proc/refresh_science_loot(table)
+	if(!table)
+		table = list(RND_LOOT_MINOR, RND_LOOT_MIDDLE, RND_LOOT_MAJOR)
+	if(!islist(table))
+		table = list(table)
+
+	for(var/node_id in techweb_nodes)
+		var/datum/techweb_node/node = techweb_nodes[node_id]
+		if(!node)
+			continue
+		if(node.research_costs[TECHWEB_POINT_TYPE_GENERIC] < 2000)
+			techweb_nodes_lootable[RND_LOOT_MINOR] += node
+		else if(node.research_costs[TECHWEB_POINT_TYPE_GENERIC] < 3001)
+			techweb_nodes_lootable[RND_LOOT_MIDDLE] += node
+		else
+			techweb_nodes_lootable[RND_LOOT_MAJOR] += node
 
 /datum/controller/subsystem/research/proc/initialize_all_techweb_designs(clearall = FALSE)
 	if(islist(techweb_designs) && clearall)

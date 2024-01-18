@@ -42,6 +42,8 @@ GLOBAL_LIST_INIT(sandstone_recipes, list ( \
 	merge_type = /obj/item/stack/sheet/mineral/sandstone
 	walltype = /turf/closed/wall/mineral/sandstone
 	material_type = /datum/material/sandstone
+	drop_sound = null // Sorry, no sounds yet, I've already spent three days straight on this.
+	pickup_sound = null
 
 /obj/item/stack/sheet/mineral/sandstone/get_main_recipes()
 	. = ..()
@@ -61,6 +63,8 @@ GLOBAL_LIST_INIT(sandstone_recipes, list ( \
 	layer = LOW_ITEM_LAYER
 	novariants = TRUE
 	merge_type = /obj/item/stack/sheet/mineral/sandbags
+	drop_sound = null // Sorry, no sounds yet, I've already spent three days straight on this.
+	pickup_sound = null
 
 GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	new/datum/stack_recipe("sandbags", /obj/structure/barricade/sandbags, 1, time = 25, one_per_turf = 1, on_solid_ground = 1, category = CAT_STRUCTURE), \
@@ -76,6 +80,8 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	icon = 'icons/obj/weapons/items_and_weapons.dmi'
 	icon_state = "sandbag"
 	w_class = WEIGHT_CLASS_TINY
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound = 'sound/items/handling/cloth_pickup.ogg'
 
 /obj/item/emptysandbag/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/ore/glass))
@@ -104,6 +110,8 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	merge_type = /obj/item/stack/sheet/mineral/diamond
 	material_type = /datum/material/diamond
 	walltype = /turf/closed/wall/mineral/diamond
+	pickup_sound = 'sound/items/handling/glass_pane_pickup.ogg'
+	drop_sound = 'sound/items/handling/glass_pane_drop.ogg'
 
 GLOBAL_LIST_INIT(diamond_recipes, list ( \
 	new/datum/stack_recipe("diamond door", /obj/structure/mineral_door/transparent/diamond, 10, one_per_turf = 1, on_solid_ground = 1, applies_mats = TRUE, category = CAT_DOORS), \
@@ -113,6 +121,9 @@ GLOBAL_LIST_INIT(diamond_recipes, list ( \
 /obj/item/stack/sheet/mineral/diamond/get_main_recipes()
 	. = ..()
 	. += GLOB.diamond_recipes
+
+/obj/item/stack/sheet/mineral/diamond/ten
+	amount = 10
 
 /*
  * Uranium
@@ -141,6 +152,9 @@ GLOBAL_LIST_INIT(uranium_recipes, list ( \
 
 /obj/item/stack/sheet/mineral/uranium/five
 	amount = 5
+
+/obj/item/stack/sheet/mineral/uranium/ten
+	amount = 10
 
 /*
  * Plasma
@@ -179,6 +193,9 @@ GLOBAL_LIST_INIT(plasma_recipes, list ( \
 /obj/item/stack/sheet/mineral/plasma/thirty
 	amount = 30
 
+/obj/item/stack/sheet/mineral/plasma/ten
+	amount = 10
+
 /*
  * Gold
  */
@@ -206,6 +223,9 @@ GLOBAL_LIST_INIT(gold_recipes, list ( \
 	. = ..()
 	. += GLOB.gold_recipes
 
+/obj/item/stack/sheet/mineral/gold/ten
+	amount = 10
+
 /*
  * Silver
  */
@@ -231,6 +251,9 @@ GLOBAL_LIST_INIT(silver_recipes, list ( \
 /obj/item/stack/sheet/mineral/silver/get_main_recipes()
 	. = ..()
 	. += GLOB.silver_recipes
+
+/obj/item/stack/sheet/mineral/silver/ten
+	amount = 10
 
 /*
  * Clown
@@ -337,6 +360,8 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list ( \
 	merge_type = /obj/item/stack/sheet/mineral/snow
 	walltype = /turf/closed/wall/mineral/snow
 	material_type = /datum/material/snow
+	pickup_sound = 'sound/effects/footstep/asteroid1.ogg'
+	drop_sound = 'sound/effects/footstep/asteroid2.ogg'
 
 GLOBAL_LIST_INIT(snow_recipes, list ( \
 	new/datum/stack_recipe("snow wall", /turf/closed/wall/mineral/snow, 5, time = 4 SECONDS, one_per_turf = TRUE, on_solid_ground = TRUE, category = CAT_STRUCTURE), \
@@ -440,6 +465,8 @@ GLOBAL_LIST_INIT(abductor_recipes, list ( \
 	merge_type = /obj/item/stack/sheet/mineral/coal
 	grind_results = list(/datum/reagent/carbon = 20)
 	novariants = TRUE
+	pickup_sound = 'sound/effects/footstep/asteroid1.ogg'
+	drop_sound = 'sound/effects/footstep/asteroid2.ogg'
 
 /obj/item/stack/sheet/mineral/coal/attackby(obj/item/W, mob/user, params)
 	if(W.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
@@ -495,3 +522,5 @@ GLOBAL_LIST_INIT(metalhydrogen_recipes, list(
 	mats_per_unit = list(/datum/material/zaukerite = MINERAL_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/mineral/zaukerite
 	material_type = /datum/material/zaukerite
+	pickup_sound = 'sound/effects/footstep/asteroid1.ogg'
+	drop_sound = 'sound/effects/footstep/asteroid2.ogg'

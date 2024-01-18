@@ -13,7 +13,7 @@
 
 /obj/machinery/computer/records/medical/laptop
 	name = "medical laptop"
-	desc = "A cheap Nanotrasen medical laptop, it functions as a medical records computer. It's bolted to the table."
+	desc = "A cheap Artea medical laptop, it functions as a medical records computer. It's bolted to the table."
 	icon_state = "laptop"
 	icon_screen = "medlaptop"
 	icon_keyboard = "laptop_key"

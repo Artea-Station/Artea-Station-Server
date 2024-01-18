@@ -16,6 +16,8 @@
 	inhand_icon_state = "backpack"
 	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
+	drop_sound = 'sound/items/handling/backpack_drop.ogg'
+	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK //ERROOOOO
 	resistance_flags = NONE
@@ -139,7 +141,7 @@
 
 /obj/item/storage/backpack/captain
 	name = "captain's backpack"
-	desc = "It's a special backpack made exclusively for Nanotrasen officers."
+	desc = "It's a special backpack made exclusively for Artea officers."
 	icon_state = "captainpack"
 	inhand_icon_state = "captainpack"
 
@@ -301,7 +303,7 @@
 
 /obj/item/storage/backpack/satchel/cap
 	name = "captain's satchel"
-	desc = "An exclusive satchel for Nanotrasen officers."
+	desc = "An exclusive satchel for Artea officers."
 	icon_state = "satchel-cap"
 	inhand_icon_state = "satchel-cap"
 
@@ -499,7 +501,7 @@
 	atom_storage.silent = TRUE
 
 /obj/item/storage/backpack/duffelbag/syndie/hitman
-	desc = "A large duffel bag for holding extra things. There is a Nanotrasen logo on the back."
+	desc = "A large duffel bag for holding extra things. There is a Artea logo on the back."
 	icon_state = "duffel-syndieammo"
 	inhand_icon_state = "duffel-syndieammo"
 

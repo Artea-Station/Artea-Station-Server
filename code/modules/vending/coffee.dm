@@ -17,8 +17,8 @@
 	default_price = PAYCHECK_LOWER
 	extra_price = PAYCHECK_CREW
 	payment_department = ACCOUNT_SRV
-	light_mask = "coffee-light-mask"
 	light_color = COLOR_DARK_MODERATE_ORANGE
+	vend_sound = 'sound/machines/vending_coffee.ogg'
 
 /obj/item/vending_refill/coffee
 	machine_name = "Solar's Best Hot Drinks"

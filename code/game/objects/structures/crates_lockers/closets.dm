@@ -20,11 +20,13 @@
 	/// Vertical squish of the door
 	var/door_anim_squish = 0.12
 	/// The maximum angle the door will be drawn at
-	var/door_anim_angle = 136
+	var/door_anim_angle = 180
 	/// X position of the closet door hinge
-	var/door_hinge_x = -6.5
+	var/door_hinge_x = -5.5
 	/// Amount of time it takes for the door animation to play
 	var/door_anim_time = 1.5 // set to 0 to make the door not animate at all
+	/// Used for things like the freezer where it's too wide for the door to fit properly on 32x32 sprites.
+	var/door_open_x_offset = 0
 
 	/// Controls whether a door overlay should be applied using the icon_door value as the icon state
 	var/enable_door_overlay = TRUE
@@ -57,6 +59,8 @@
 	var/delivery_icon = "deliverycloset" //which icon to use when packagewrapped. null to be unwrappable.
 	var/anchorable = TRUE
 	var/icon_welded = "welded"
+	var/icon_locked = "locked"
+	var/icon_unlocked = "unlocked"
 	/// How close being inside of the thing provides complete pressure safety. Must be between 0 and 1!
 	contents_pressure_protection = 0
 	/// How insulated the thing is, for the purposes of calculating body temperature. Must be between 0 and 1!
@@ -120,6 +124,7 @@
 	if(enable_door_overlay && !is_animating_door)
 		if(opened && has_opened_overlay)
 			var/mutable_appearance/door_overlay = mutable_appearance(icon, "[icon_state]_open", alpha = src.alpha)
+			door_overlay.pixel_x = door_open_x_offset
 			. += door_overlay
 			door_overlay.overlays += emissive_blocker(door_overlay.icon, door_overlay.icon_state, alpha = door_overlay.alpha) // If we don't do this the door doesn't block emissives and it looks weird.
 		else if(has_closed_overlay)
@@ -134,8 +139,8 @@
 	if(broken || !secure)
 		return
 	//Overlay is similar enough for both that we can use the same mask for both
-	. += emissive_appearance(icon, "locked", alpha = src.alpha)
-	. += locked ? "locked" : "unlocked"
+	. += emissive_appearance(icon, icon_locked, alpha = src.alpha)
+	. += locked ? icon_locked : icon_unlocked
 
 /obj/structure/closet/vv_edit_var(vname, vval)
 	if(vname == NAMEOF(src, opened))

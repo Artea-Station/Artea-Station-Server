@@ -15,6 +15,10 @@
 	alpha = 0
 	invisibility = INVISIBILITY_ABSTRACT
 
+/obj/new_player_cam/New(loc, ...)
+	. = ..()
+	set_glide_size(4) // Fixes jumpy movement.
+
 /datum/preference/toggle/lobby_cam
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	default_value = TRUE

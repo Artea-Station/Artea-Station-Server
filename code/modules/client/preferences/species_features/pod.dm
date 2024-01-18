@@ -6,6 +6,8 @@
 	should_generate_icons = TRUE
 	color_feature_id = "pod_hair_color"
 
+MUTANT_CHOICED_NEW(pod_hair, GLOB.pod_hair_list)
+
 /datum/preference/choiced/mutant/pod_hair/init_possible_values()
 	var/list/values = list()
 
@@ -28,7 +30,7 @@
 	return values
 
 /datum/preference/choiced/mutant/pod_hair/create_default_value()
-	return pick(GLOB.pod_hair_list)
+	return "Cabbage"
 
 /datum/preference/color/mutant/pod_hair
 	savefile_key = "pod_hair_color"

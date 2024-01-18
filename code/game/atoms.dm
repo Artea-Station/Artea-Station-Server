@@ -168,6 +168,9 @@
 	/// The manufacturer text to be shown on examine. Won't be updated post init, so you'll have to handle adding/removing the element post init.
 	var/manufacturer
 
+	/// The sound to play when our storage is opened.
+	var/rustle_sound = SFX_RUSTLE
+
 /**
  * Called when an atom is created in byond (built in engine proc)
  *
@@ -359,7 +362,7 @@
 	if(atom_storage)
 		QDEL_NULL(atom_storage)
 
-	atom_storage = new type(src, max_slots, max_specific_storage, max_total_storage, numerical_stacking, allow_quick_gather, collection_mode, attack_hand_interact)
+	atom_storage = new type(src, max_slots, max_specific_storage, max_total_storage, numerical_stacking, allow_quick_gather, allow_quick_empty, collection_mode, attack_hand_interact, rustle_sound)
 
 	if(canhold || canthold)
 		atom_storage.set_holdable(canhold, canthold)
@@ -707,29 +710,29 @@
 		. += "<u>It is made out of [english_list(materials_list)]</u>."
 
 	if(reagents)
-		if(reagents.flags & TRANSPARENT)
-			. += "It contains:"
-			if(length(reagents.reagent_list))
-				if(user.can_see_reagents()) //Show each individual reagent
-					for(var/datum/reagent/current_reagent as anything in reagents.reagent_list)
-						. += "&bull; [round(current_reagent.volume, 0.01)] units of [current_reagent.name]"
-					if(reagents.is_reacting)
-						. += span_warning("It is currently reacting!")
-					. += span_notice("The solution's temperature is [reagents.chem_temp]K.")
-				else //Otherwise, just show the total volume
-					var/total_volume = 0
-					for(var/datum/reagent/current_reagent as anything in reagents.reagent_list)
-						total_volume += current_reagent.volume
-					. += "[total_volume] units of various reagents"
-			else
-				. += "Nothing."
-		else if(reagents.flags & AMOUNT_VISIBLE)
-			if(reagents.total_volume)
-				. += span_notice("It has [reagents.total_volume] unit\s left.")
-			else
-				. += span_danger("It's empty.")
+		var/user_sees_reagents = user.can_see_reagents()
+		var/reagent_sigreturn = SEND_SIGNAL(src, COMSIG_PARENT_REAGENT_EXAMINE, user, ., user_sees_reagents)
+		if(!(reagent_sigreturn & STOP_GENERIC_REAGENT_EXAMINE))
+			if(reagents.flags & TRANSPARENT)
+				if(reagents.total_volume > 0)
+					. += "It contains <b>[round(reagents.total_volume, 0.01)]</b> units of various reagents[user_sees_reagents ? ":" : "."]"
+					if(user_sees_reagents) //Show each individual reagent
+						for(var/datum/reagent/current_reagent as anything in reagents.reagent_list)
+							. += "&bull; [round(current_reagent.volume, 0.01)] units of [current_reagent.name]"
+						if(reagents.is_reacting)
+							. += span_warning("It is currently reacting!")
+						. += span_notice("The solution has a temperature of [reagents.chem_temp]K.")
+
+				else
+					. += "It contains:<br>Nothing."
+			else if(reagents.flags & AMOUNT_VISIBLE)
+				if(reagents.total_volume)
+					. += span_notice("It has [reagents.total_volume] unit\s left.")
+				else
+					. += span_danger("It's empty.")
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+
 /**
  * Called when a mob examines (shift click or verb) this atom twice (or more) within EXAMINE_MORE_WINDOW (default 1 second)
  *
@@ -906,7 +909,7 @@
  */
 /atom/proc/hitby(atom/movable/hitting_atom, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, hitting_atom, skipcatch, hitpush, blocked, throwingdatum)
-	if(density && !has_gravity(hitting_atom)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
+	if(density) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), hitting_atom), 2)
 
 /**
@@ -1654,7 +1657,7 @@
 
 /// Sets the custom materials for an item.
 /atom/proc/set_custom_materials(list/materials, multiplier = 1)
-	if(custom_materials && material_flags & MATERIAL_EFFECTS) //Only runs if custom materials existed at first and affected src.
+	if(custom_materials && (material_flags & MATERIAL_EFFECTS)) //Only runs if custom materials existed at first and affected src.
 		for(var/current_material in custom_materials)
 			var/datum/material/custom_material = GET_MATERIAL_REF(current_material)
 			custom_material.on_removed(src, custom_materials[current_material] * material_modifier, material_flags) //Remove the current materials

@@ -76,9 +76,13 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	///Sound used when equipping the item into a valid slot
 	var/equip_sound
 	///Sound uses when picking the item up (into your hands)
-	var/pickup_sound
+	var/pickup_sound = SFX_GENERIC_PICKUP
+	///If non-null, this sound will be used when this item contains something instead of pickup_sound.
+	var/full_pickup_sound
 	///Sound uses when dropping the item, or when its thrown.
-	var/drop_sound
+	var/drop_sound = SFX_GENERIC_DROP
+	///If non-null this sound will be used when this item contains something instead of drop_sound.
+	var/full_drop_sound
 	///Whether or not we use stealthy audio levels for this item's attack sounds
 	var/stealthy_audio = FALSE
 
@@ -642,7 +646,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	item_flags &= ~IN_INVENTORY
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
 	if(!silent)
-		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
+		if(full_drop_sound && length(contents))
+			playsound(src, full_drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
+		else if (drop_sound)
+			playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
 	user?.update_equipment_speed_mods()
 
 /// called just as an item is picked up (loc is not yet changed)
@@ -690,7 +697,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		if(equip_sound && (slot_flags & slot))
 			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
 		else if(slot == ITEM_SLOT_HANDS)
-			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
+			if(full_pickup_sound && length(contents))
+				playsound(src, full_pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
+			else if(pickup_sound)
+				playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
 	user.update_equipment_speed_mods()
 
 /// Gives one of our item actions to a mob, when equipped to a certain slot
@@ -793,7 +803,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			playsound(hit_atom, 'sound/weapons/throwtap.ogg', 1, volume, -1)
 
 	else
-		playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
+		if(full_drop_sound && length(contents))
+			playsound(src, full_drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
+		else if(drop_sound)
+			playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
 	return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, gentle = FALSE, quickstart = TRUE)
@@ -1302,6 +1315,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 // Update icons if this is being carried by a mob
 /obj/item/wash(clean_types)
 	. = ..()
+
+	SEND_SIGNAL(src, COMSIG_ATOM_WASHED)
 
 	if(ismob(loc))
 		var/mob/mob_loc = loc

@@ -110,7 +110,7 @@
 	else
 		if(istype(L, /obj/item/organ/internal/lungs))
 			var/obj/item/organ/internal/lungs/lun = L
-			lun.check_breath(breath,src)
+			return lun.check_breath(breath,src)
 
 /// Environment handlers for species
 /mob/living/carbon/human/handle_environment(datum/gas_mixture/environment, delta_time, times_fired)

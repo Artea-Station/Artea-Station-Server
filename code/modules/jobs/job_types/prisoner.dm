@@ -30,18 +30,6 @@
 	if(rank != title)
 		return //not a prisoner
 
-	var/crime_name = crewmember.client?.prefs?.read_preference(/datum/preference/choiced/prisoner_crime)
-	if(!crime_name)
-		return
-	if(crime_name == "Random")
-		crime_name = pick(assoc_to_keys(GLOB.prisoner_crimes))
-
-	var/datum/crime/crime = GLOB.prisoner_crimes[crime_name]
-	var/datum/record/crew/target_record = find_record(crewmember.real_name)
-	var/datum/crime/past_crime = new(crime.name, crime.details, "Central Command", "Indefinite.")
-	target_record.crimes += past_crime
-	to_chat(crewmember, span_warning("You are imprisoned for \"[crime_name]\"."))
-
 /datum/outfit/job/prisoner
 	name = "Prisoner"
 	jobtype = /datum/job/prisoner

@@ -45,7 +45,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	//Quirk list
 	var/list/all_quirks = list()
 
-	//Job preferences 2.0 - indexed by job title , no key or value implies never
+	//Job preferences 2.0 - indexed by job faction + title, no key or value implies never. E.g: "artea_Chief Engineer"
 	var/list/job_preferences = list()
 
 	/// The current window, PREFERENCE_TAB_* in [`code/__DEFINES/preferences.dm`]
@@ -279,6 +279,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if (!new_color)
 				return FALSE
 
+			// Handles turning #000000 to skin/mut color
+			if(new_color == COLOR_BLACK && !istype(requested_preference, /datum/preference/color/skin_color))
+				if(read_preference(/datum/preference/toggle/use_skin_tone))
+					new_color = skintone2hex(read_preference(/datum/preference/choiced/skin_tone))
+				else
+					new_color = read_preference(/datum/preference/color/skin_color)
+
 			if (!update_preference(requested_preference, new_color))
 				return FALSE
 
@@ -313,12 +320,23 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if (!new_color)
 				return FALSE
 
+			// Handles turning #000000 to skin/mut color
+			if(new_color == COLOR_BLACK)
+				if(read_preference(/datum/preference/toggle/use_skin_tone))
+					new_color = skintone2hex(read_preference(/datum/preference/choiced/skin_tone))
+				else
+					new_color = read_preference(/datum/preference/color/skin_color)
+
 			old_value_list[index_key] = copytext(new_color, 2)
 
 			if (!update_preference(requested_preference, jointext(old_value_list, ";")))
 				return FALSE
 
 			return TRUE
+		if ("play_say")
+			ui.user.playsound_local(null, GLOB.say_voices[params["sound"]], 75)
+		if ("play_me")
+			ui.user.playsound_local(null, GLOB.me_sounds[params["sound"]], 75)
 
 	for (var/datum/preference_middleware/preference_middleware as anything in middleware)
 		var/delegation = preference_middleware.action_delegations[action]
@@ -503,7 +521,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 
 	if (level == JP_HIGH)
 		var/datum/job/overflow_role = SSjob.overflow_role
-		var/overflow_role_title = initial(overflow_role.title)
+		var/overflow_role_title = "[initial(overflow_role.faction)]_[initial(overflow_role.title)]"
 
 		for(var/other_job in job_preferences)
 			if(job_preferences[other_job] == JP_HIGH)
@@ -513,7 +531,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 				else
 					job_preferences[other_job] = JP_MEDIUM
 
-	job_preferences[job.title] = level
+	job_preferences["[job.faction]_[job.title]"] = level
 
 	return TRUE
 

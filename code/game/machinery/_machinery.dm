@@ -149,7 +149,7 @@
 	///Multiplier for power consumption.
 	var/machine_power_rectifier = 1
 	/// The sound that plays on UI interaction.
-	var/interaction_sound = SFX_PDA
+	var/interaction_sound = SFX_SMALL_BUTTON
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)
@@ -730,6 +730,7 @@
 	idle_power_usage = initial(idle_power_usage) * (1 + parts_energy_rating)
 	active_power_usage = initial(active_power_usage) * (1 + parts_energy_rating)
 	update_current_power_usage()
+	SEND_SIGNAL(src, COMSIG_MACHINERY_REFRESH_PARTS)
 
 /obj/machinery/proc/default_pry_open(obj/item/crowbar)
 	. = !(state_open || panel_open || is_operational || (flags_1 & NODECONSTRUCT_1)) && crowbar.tool_behaviour == TOOL_CROWBAR

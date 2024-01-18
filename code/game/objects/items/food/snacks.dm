@@ -415,3 +415,69 @@ GLOBAL_LIST_INIT(safe_peanut_types, populate_safe_peanut_types())
 	qdel(sample)
 
 	. = ..()
+
+/obj/item/food/bonbon
+	name = "bon bon"
+	desc = "A tiny and sweet chocolate."
+	icon_state = "tiny_chocolate"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 1,
+		/datum/reagent/consumable/sugar = 1,
+		/datum/reagent/consumable/coco = 1,
+	)
+	tastes = list("chocolate" = 1)
+	foodtypes = DAIRY | JUNKFOOD | SUGAR
+	food_flags = FOOD_FINGER_FOOD
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/food/bonbon/caramel_truffle
+	name = "caramel truffle"
+	desc = "A bite-sized chocolate truffle with a chewy caramel filling."
+	icon_state = "caramel_truffle"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment/vitamin = 3,
+	)
+	tastes = list("chocolate" = 1, "chewy caramel" = 1)
+
+/obj/item/food/bonbon/chocolate_truffle
+	name = "chocolate truffle"
+	desc = "A bite-sized chocolate truffle with a rich chocolate mousse filling."
+	icon_state = "chocolate_truffle"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment/vitamin = 3,
+	)
+
+/obj/item/food/bonbon/peanut_truffle
+	name = "peanut truffle"
+	desc = "A bite-sized chocolate truffle with crunchy peanuts mixed in."
+	icon_state = "peanut_truffle"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment/vitamin = 3,
+	)
+	tastes = list("chocolate" = 1, "peanuts" = 1)
+	foodtypes = DAIRY | SUGAR | JUNKFOOD | NUTS
+
+/obj/item/food/bonbon/peanut_butter_cup
+	name = "peanut butter cup"
+	desc = "An ultra-sweet chocolate treat with a savory peanut butter filling."
+	icon_state = "peanut_butter_cup"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment/vitamin = 3,
+	)
+	tastes = list("chocolate" = 1, "peanut butter" = 1)
+	foodtypes = DAIRY | SUGAR | JUNKFOOD | NUTS
+
+/obj/item/food/boiledrice
+	name = "boiled rice"
+	desc = "A steaming cup of boiled rice. A bit bland by itself, but the basis for something delicious..."
+	icon_state = "cooked_rice"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 6,
+		/datum/reagent/consumable/nutriment/vitamin = 2,
+	)
+	tastes = list("rice" = 1)
+	foodtypes = GRAIN | BREAKFAST

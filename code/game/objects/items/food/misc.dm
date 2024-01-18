@@ -41,6 +41,7 @@
 
 /obj/item/food/hugemushroomslice
 	name = "huge mushroom slice"
+	icon = 'icons/obj/food/meat.dmi'
 	desc = "A slice from a huge mushroom."
 	icon_state = "hugemushroomslice"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 1)
@@ -64,13 +65,63 @@
 	eatverbs = list("bite", "nibble", "gnaw", "gobble", "chomp")
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/food/loadedbakedpotato
+/obj/item/food/popcorn/salty
+	name = "salty popcorn"
+	icon_state = "salty_popcorn"
+	desc = "Salty popcorn, a classic for all time."
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 2,
+		/datum/reagent/consumable/salt = 2,
+	)
+	tastes = list("salt" = 2, "popcorn" = 1)
+	trash_type = /obj/item/trash/popcorn
+
+/obj/item/food/popcorn/caramel
+	name = "caramel popcorn"
+	icon_state = "caramel_popcorn"
+	desc = "Caramel-covered popcorn. Sweet!"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 2,
+		/datum/reagent/consumable/caramel = 4,
+	)
+	tastes = list("caramel" = 2, "popcorn" = 1)
+	foodtypes = JUNKFOOD | SUGAR
+	trash_type = /obj/item/trash/popcorn
+
+/obj/item/food/loaded_baked_potato
 	name = "loaded baked potato"
 	desc = "Totally baked."
 	icon_state = "loadedbakedpotato"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("potato" = 1)
 	foodtypes = VEGETABLES | DAIRY
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/food/baked_potato
+	name = "baked potato"
+	desc = "A piping hot potato baked in an oven. A bit bland by itself."
+	icon_state = "baked_potato"
+	food_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 4)
+	tastes = list("baked potato" = 1)
+	foodtypes = VEGETABLES
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/food/buttered_baked_potato
+	name = "buttered baked potato"
+	desc = "A piping hot baked potato, now with a slice of butter mixed in. Perfection."
+	icon_state = "buttered_baked_potato"
+	food_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 4)
+	tastes = list("baked potato" = 1)
+	foodtypes = VEGETABLES | DAIRY
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/food/loaded_baked_potato
+	name = "loaded baked potato"
+	desc = "A piping hot baked potato, with the insides scooped out and mixed with bacon bits, cheese, and cabbage."
+	icon_state = "loaded_baked_potato"
+	food_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 6, /datum/reagent/consumable/nutriment/protein = 4)
+	tastes = list("baked potato" = 1, "bacon" = 1, "cheese" = 1, "cabbage" = 1)
+	foodtypes = VEGETABLES | DAIRY | MEAT
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/food/fries
@@ -449,7 +500,6 @@
 	metabolization_amount = REAGENTS_METABOLISM
 
 /obj/item/food/bubblegum/bubblegum/process()
-	. = ..()
 	if(iscarbon(loc))
 		hallucinate(loc)
 
@@ -594,7 +644,6 @@
 	playsound(user.loc, 'sound/items/foodcanopen.ogg', 50)
 	reagents.flags |= OPENCONTAINER
 	preserved_food = FALSE
-	MakeDecompose()
 
 /obj/item/food/canned/attack_self(mob/user)
 	if(!is_drainable())
@@ -947,4 +996,29 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 5, /datum/reagent/consumable/capsaicin = 2)
 	tastes = list("rice wrappers" = 1, "spice" = 1, "crunchy veggies" = 1)
 	foodtypes = GRAIN | VEGETABLES
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/food/cheese_pierogi
+	name = "cheese pierogi"
+	desc = "A dumpling made by wrapping unleavened dough around a savoury or sweet filling and cooking in boiling water. This one is filled with a potato and cheese mixture."
+	icon_state = "cheese_pierogi"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 4,
+		/datum/reagent/consumable/nutriment/vitamin = 4,
+	)
+	tastes = list("potato" = 1, "cheese" = 1)
+	foodtypes = GRAIN | VEGETABLES | DAIRY
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/food/meat_pierogi
+	name = "meat pierogi"
+	desc = "A dumpling made by wrapping unleavened dough around a savoury or sweet filling and cooking in boiling water. This one is filled with a potato and meat mixture."
+	icon_state = "meat_pierogi"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 4,
+		/datum/reagent/consumable/nutriment/vitamin = 2,
+		/datum/reagent/consumable/nutriment/protein = 2,
+	)
+	tastes = list("potato" = 1, "cheese" = 1)
+	foodtypes = GRAIN | VEGETABLES | MEAT
 	w_class = WEIGHT_CLASS_SMALL

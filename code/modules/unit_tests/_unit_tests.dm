@@ -66,6 +66,7 @@
 /// A trait source when adding traits through unit tests
 #define TRAIT_SOURCE_UNIT_TESTS "unit_tests"
 
+// BEGIN_INCLUDE
 #include "achievements.dm"
 #include "anchored_mobs.dm"
 #include "anonymous_themes.dm"
@@ -89,12 +90,14 @@
 #include "create_and_destroy.dm"
 #include "dcs_get_id_from_elements.dm"
 #include "designs.dm"
+#include "drink_icons.dm"
 #include "dummy_spawn.dm"
 #include "dynamic_ruleset_sanity.dm"
 #include "egg_glands.dm"
 #include "emoting.dm"
 #include "font_awesome_icons.dm"
 #include "food_edibility_check.dm"
+#include "food_icons.dm"
 #include "full_heal.dm"
 #include "gas_transfer.dm"
 #include "get_turf_pixel.dm"
@@ -149,8 +152,8 @@
 #include "screenshot_basic.dm"
 #include "screenshot_humanoids.dm"
 #include "screenshot_saturnx.dm"
-#include "security_officer_distribution.dm"
 #include "security_levels.dm"
+#include "security_officer_distribution.dm"
 #include "serving_tray.dm"
 #include "siunit.dm"
 #include "slips.dm"
@@ -174,8 +177,10 @@
 #include "tgui_create_message.dm"
 #include "timer_sanity.dm"
 #include "traitor.dm"
+#include "turf_sound.dm"
 #include "unit_test.dm"
 #include "wizard_loadout.dm"
+// END_INCLUDE
 #ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
 #include "find_reference_sanity.dm"
 #endif

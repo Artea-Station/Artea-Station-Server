@@ -35,6 +35,7 @@ const Tab = (props) => {
     leftSlot,
     rightSlot,
     children,
+    disabled,
     ...rest
   } = props;
   return (
@@ -43,7 +44,8 @@ const Tab = (props) => {
         'Tab',
         'Tabs__Tab',
         'Tab--color--' + color,
-        selected && 'Tab--selected',
+        disabled && 'Tab--disabled',
+        selected && !disabled && 'Tab--selected',
         className,
         ...computeBoxClassName(rest),
       ])}

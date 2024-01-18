@@ -54,7 +54,7 @@
 		/obj/item/stock_parts/matter_bin = 3,
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stack/sheet/glass = 1)
-	manufacturer = MANUFACTURER_NOSHA_INDUSTRIES
+	manufacturer = MANUFACTURER_RYOSHI_INDUSTRIES
 
 /obj/item/circuitboard/machine/grounding_rod
 	name = "Grounding Rod"
@@ -64,7 +64,7 @@
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/telecomms
-	manufacturer = MANUFACTURER_NOSHA_INDUSTRIES
+	manufacturer = MANUFACTURER_RYOSHI_INDUSTRIES
 
 /obj/item/circuitboard/machine/telecomms/broadcaster
 	name = "Subspace Broadcaster"
@@ -239,9 +239,6 @@
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/rnd/production/protolathe/department/engineering
 
-/obj/item/circuitboard/machine/protolathe/department/engineering/no_tax
-	build_path = /obj/machinery/rnd/production/protolathe/department/engineering/no_tax
-
 /obj/item/circuitboard/machine/rtg
 	name = "RTG"
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
@@ -377,7 +374,7 @@
 		/obj/item/stock_parts/matter_bin = 1,
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/reagent_containers/cup/beaker = 2)
-	manufacturer = MANUFACTURER_NOSHA_INDUSTRIES
+	manufacturer = MANUFACTURER_RYOSHI_INDUSTRIES
 
 /obj/item/circuitboard/machine/circuit_imprinter/offstation
 	name = "Ancient Circuit Imprinter"
@@ -429,7 +426,7 @@
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/manipulator = 2,
 		/obj/item/reagent_containers/cup/beaker = 2)
-	manufacturer = MANUFACTURER_NOSHA_INDUSTRIES
+	manufacturer = MANUFACTURER_RYOSHI_INDUSTRIES
 
 /obj/item/circuitboard/machine/protolathe/offstation
 	name = "Ancient Protolathe"
@@ -615,16 +612,6 @@
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/vending_refill/donksoft = 1)
 
-/obj/item/circuitboard/machine/bountypad
-	name = "Civilian Bounty Pad"
-	greyscale_colors = CIRCUIT_COLOR_GENERIC
-	build_path = /obj/machinery/piratepad/civilian
-	req_components = list(
-		/obj/item/stock_parts/card_reader = 1,
-		/obj/item/stock_parts/scanning_module = 1,
-		/obj/item/stock_parts/micro_laser = 1
-	)
-
 /obj/item/circuitboard/machine/fax
 	name = "Fax Machine"
 	greyscale_colors = CIRCUIT_COLOR_GENERIC
@@ -645,30 +632,27 @@
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/capacitor = 1,
 		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/stack/sheet/glass = 1,
-		/obj/item/stock_parts/cell = 1)
+		/obj/item/stack/sheet/glass = 2)
 	def_components = list(/obj/item/stock_parts/cell = /obj/item/stock_parts/cell/high)
 	needs_anchored = FALSE
 
-/obj/item/circuitboard/machine/chem_dispenser/fullupgrade
-	build_path = /obj/machinery/chem_dispenser/fullupgrade
+/obj/item/circuitboard/machine/chem_dispenser/mini
+	name = "Mini Chem Dispenser"
+	build_path = /obj/machinery/chem_dispenser/mini
 	req_components = list(
-		/obj/item/stock_parts/matter_bin/super = 2,
-		/obj/item/stock_parts/capacitor/super = 2,
-		/obj/item/stock_parts/manipulator/pico = 2,
-		/obj/item/stack/sheet/glass = 1,
-		/obj/item/stock_parts/cell/hyper = 1,
-	)
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/sheet/glass = 1)
 
-/obj/item/circuitboard/machine/chem_dispenser/mutagensaltpeter
-	build_path = /obj/machinery/chem_dispenser/mutagensaltpeter
+/obj/item/circuitboard/machine/chem_dispenser/big
+	name = "Big Chem Dispenser"
+	build_path = /obj/machinery/chem_dispenser/big
 	req_components = list(
-		/obj/item/stock_parts/matter_bin/super = 2,
-		/obj/item/stock_parts/capacitor/super = 2,
-		/obj/item/stock_parts/manipulator/pico = 2,
-		/obj/item/stack/sheet/glass = 1,
-		/obj/item/stock_parts/cell/hyper = 1,
-	)
+		/obj/item/stock_parts/matter_bin = 3,
+		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/sheet/glass = 3)
 
 /obj/item/circuitboard/machine/chem_dispenser/abductor
 	name = "Reagent Synthesizer"
@@ -680,7 +664,6 @@
 		/obj/item/stock_parts/capacitor/super = 2,
 		/obj/item/stock_parts/manipulator/pico = 2,
 		/obj/item/stack/sheet/glass = 1,
-		/obj/item/stock_parts/cell/hyper = 1,
 	)
 	needs_anchored = FALSE
 
@@ -1010,30 +993,10 @@
 	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/chem_dispenser/drinks
 
-/obj/item/circuitboard/machine/chem_dispenser/drinks/fullupgrade
-	build_path = /obj/machinery/chem_dispenser/drinks/fullupgrade
-	req_components = list(
-		/obj/item/stock_parts/matter_bin/super = 2,
-		/obj/item/stock_parts/capacitor/super = 2,
-		/obj/item/stock_parts/manipulator/pico = 2,
-		/obj/item/stack/sheet/glass = 1,
-		/obj/item/stock_parts/cell/hyper = 1,
-	)
-
 /obj/item/circuitboard/machine/chem_dispenser/drinks/beer
 	name = "Booze Dispenser"
 	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/chem_dispenser/drinks/beer
-
-/obj/item/circuitboard/machine/chem_dispenser/drinks/beer/fullupgrade
-	build_path = /obj/machinery/chem_dispenser/drinks/beer/fullupgrade
-	req_components = list(
-		/obj/item/stock_parts/matter_bin/super = 2,
-		/obj/item/stock_parts/capacitor/super = 2,
-		/obj/item/stock_parts/manipulator/pico = 2,
-		/obj/item/stack/sheet/glass = 1,
-		/obj/item/stock_parts/cell/hyper = 1,
-	)
 
 /obj/item/circuitboard/machine/chem_master/condi
 	name = "CondiMaster 3000"
@@ -1058,6 +1021,20 @@
 	name = "Oven"
 	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/oven
+	req_components = list(/obj/item/stock_parts/micro_laser = 1)
+	needs_anchored = TRUE
+
+/obj/item/circuitboard/machine/stove
+	name = "Standing Hob"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	build_path = /obj/machinery/stove
+	req_components = list(/obj/item/stock_parts/micro_laser = 2)
+	needs_anchored = TRUE
+
+/obj/item/circuitboard/machine/table_hob
+	name = "Table Hob"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	build_path = /obj/machinery/table_hob
 	req_components = list(/obj/item/stock_parts/micro_laser = 1)
 	needs_anchored = FALSE
 

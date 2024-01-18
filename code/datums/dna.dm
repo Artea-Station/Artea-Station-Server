@@ -79,7 +79,11 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	///Did we take something like mutagen? In that case we cant get our genes scanned to instantly cheese all the powers.
 	var/scrambled = FALSE
 	///If non-null, try to use this instead for screams and other voiced emotes.
-	var/voice_type
+	var/emote_voice_type
+	///If non-null, try to use this instead for normal speech.
+	var/say_voice_type
+	///If non-null, try to use this instead for *me emotes.
+	var/me_sound_type
 
 /datum/dna/New(mob/living/new_holder)
 	if(istype(new_holder))
@@ -111,7 +115,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	destination.dna.inspection_text = inspection_text.Copy()
 	destination.dna.real_name = real_name
 	destination.dna.temporary_mutations = temporary_mutations.Copy()
-	destination.dna.voice_type = voice_type
+	destination.dna.emote_voice_type = emote_voice_type
 	if(transfer_SE)
 		destination.dna.mutation_index = mutation_index
 		destination.dna.default_mutation_genes = default_mutation_genes
@@ -130,7 +134,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	new_dna.species = new species.type
 	new_dna.species.species_traits = species.species_traits
 	new_dna.real_name = real_name
-	new_dna.voice_type = voice_type
+	new_dna.emote_voice_type = emote_voice_type
 	// Mutations aren't gc managed, but they still aren't templates
 	// Let's do a proper copy
 	for(var/datum/mutation/human/mutation in mutations)

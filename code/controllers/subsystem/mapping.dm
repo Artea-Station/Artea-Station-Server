@@ -407,8 +407,7 @@ Used by the AI doomsday and the self-destruct nuke.
 		qdel(query_round_map_name)
 
 #ifndef LOWMEMORYMODE
-	// TODO: remove this when the DB is prepared for the z-levels getting reordered
-	while (world.maxz < 5 && space_levels_so_far < config.space_ruin_levels)
+	while (space_levels_so_far < config.space_ruin_levels)
 		++space_levels_so_far
 		add_new_zlevel("Ruins Area [space_levels_so_far]", ZTRAITS_SPACE, overmap_obj = new /datum/overmap_object/ruins(SSovermap.main_system, rand(1,SSovermap.main_system.maxx), rand(1,SSovermap.main_system.maxy)))
 	//Load planets
@@ -426,7 +425,7 @@ Used by the AI doomsday and the self-destruct nuke.
 			var/picked_planet_type = pick_weight(planet_list)
 			planet_list -= picked_planet_type
 			var/datum/planet_template/picked_template = planet_templates[picked_planet_type]
-			picked_template.LoadTemplate(SSovermap.main_system, rand(5,25), rand(5,25))
+			picked_template.LoadTemplate(SSovermap.main_system, RANDOM_OVERMAP_X, RANDOM_OVERMAP_Y)
 #endif
 
 	if(LAZYLEN(FailedZs)) //but seriously, unless the server's filesystem is messed up this will never happen

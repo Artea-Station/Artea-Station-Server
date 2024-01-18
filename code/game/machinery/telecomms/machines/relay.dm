@@ -78,6 +78,10 @@
 	toggled = FALSE
 	autolinkers = list("r_relay")
 
+/obj/machinery/telecomms/relay/preset/pathfinders
+	id = "Pathfinders Relay"
+	autolinkers = list("pf_relay")
+
 //Generic preset relay
 /obj/machinery/telecomms/relay/preset/auto
 	hide = TRUE

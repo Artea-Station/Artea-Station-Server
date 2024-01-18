@@ -128,6 +128,14 @@
 		return CONTEXTUAL_SCREENTIP_SET
 	return .
 
+/obj/structure/sign/poster/examine(mob/user)
+	. = ..()
+	if(ruined)
+		. += span_info("You could [span_bold("cut")] down the remnants.")
+		return
+
+	. += span_info("You could [span_bold("cut")] this down.")
+
 /obj/structure/sign/poster/proc/randomise(base_type)
 	var/list/poster_types = subtypesof(base_type)
 	var/list/approved_types = list()
@@ -255,7 +263,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/random, 32)
 
 /obj/structure/sign/poster/contraband
 	poster_item_name = "contraband poster"
-	poster_item_desc = "This poster comes with its own automatic adhesive mechanism, for easy pinning to any vertical surface. Its vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	poster_item_desc = "This poster comes with its own automatic adhesive mechanism, for easy pinning to any vertical surface. Its vulgar themes have marked it as contraband aboard Artea space facilities."
 	poster_item_icon_state = "rolled_poster"
 
 /obj/structure/sign/poster/contraband/random
@@ -308,17 +316,17 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/random, 32)
 
 /obj/structure/sign/poster/contraband/missing_gloves
 	name = "Missing Gloves"
-	desc = "This poster references the uproar that followed Nanotrasen's financial cuts toward insulated-glove purchases."
+	desc = "This poster references the uproar that followed Artea's financial cuts toward insulated-glove purchases."
 	icon_state = "missing_gloves"
 
 /obj/structure/sign/poster/contraband/hacking_guide
 	name = "Hacking Guide"
-	desc = "This poster details the internal workings of the common Nanotrasen airlock. Sadly, it appears out of date."
+	desc = "This poster details the internal workings of the common Artea airlock. Sadly, it appears out of date."
 	icon_state = "hacking_guide"
 
 /obj/structure/sign/poster/contraband/rip_badger
 	name = "RIP Badger"
-	desc = "This seditious poster references Nanotrasen's genocide of a space station full of badgers."
+	desc = "This seditious poster references Artea's genocide of a space station full of badgers."
 	icon_state = "rip_badger"
 
 /obj/structure/sign/poster/contraband/ambrosia_vulgaris
@@ -343,7 +351,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/random, 32)
 
 /obj/structure/sign/poster/contraband/power
 	name = "Power"
-	desc = "A poster that positions the seat of power outside Nanotrasen."
+	desc = "A poster that positions the seat of power outside Artea."
 	icon_state = "power"
 
 /obj/structure/sign/poster/contraband/space_cube
@@ -378,7 +386,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/random, 32)
 
 /obj/structure/sign/poster/contraband/rebels_unite
 	name = "Rebels Unite"
-	desc = "A poster urging the viewer to rebel against Nanotrasen."
+	desc = "A poster urging the viewer to rebel against Artea."
 	icon_state = "rebels_unite"
 
 /obj/structure/sign/poster/contraband/c20r
@@ -704,7 +712,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/random, 32)
 
 /obj/structure/sign/poster/official
 	poster_item_name = "motivational poster"
-	poster_item_desc = "An official Nanotrasen-issued poster to foster a compliant and obedient workforce. It comes with state-of-the-art adhesive backing, for easy pinning to any vertical surface."
+	poster_item_desc = "An official Artea-issued poster to foster a compliant and obedient workforce. It comes with state-of-the-art adhesive backing, for easy pinning to any vertical surface."
 	poster_item_icon_state = "rolled_legit"
 
 /obj/structure/sign/poster/official/random
@@ -842,7 +850,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/official/random, 32)
 
 /obj/structure/sign/poster/official/anniversary_vintage_reprint
 	name = "50th Anniversary Vintage Reprint"
-	desc = "A reprint of a poster from 2505, commemorating the 50th Anniversary of Nanoposters Manufacturing, a subsidiary of Nanotrasen."
+	desc = "A reprint of a poster from 2505, commemorating the 50th Anniversary of Nanoposters Manufacturing, a subsidiary of Artea."
 	icon_state = "anniversary_vintage_reprint"
 
 /obj/structure/sign/poster/official/fruit_bowl
@@ -852,12 +860,12 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/official/random, 32)
 
 /obj/structure/sign/poster/official/pda_ad
 	name = "PDA Ad"
-	desc = "A poster advertising the latest PDA from Nanotrasen suppliers."
+	desc = "A poster advertising the latest PDA from Artea suppliers."
 	icon_state = "pda_ad"
 
 /obj/structure/sign/poster/official/enlist
 	name = "Enlist" // but I thought deathsquad was never acknowledged
-	desc = "Enlist in the Nanotrasen Deathsquadron reserves today!"
+	desc = "Enlist in the Artea Deathsquadron reserves today!"
 	icon_state = "enlist"
 
 /obj/structure/sign/poster/official/nanomichi_ad
@@ -882,7 +890,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/official/random, 32)
 
 /obj/structure/sign/poster/official/no_erp
 	name = "No ERP"
-	desc = "This poster reminds the crew that Eroticism, Rape and Pornography are banned on Nanotrasen stations."
+	desc = "This poster reminds the crew that Eroticism and Pornography are banned on Artea stations."
 	icon_state = "no_erp"
 
 /obj/structure/sign/poster/official/wtf_is_co2
@@ -897,7 +905,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/official/random, 32)
 
 /obj/structure/sign/poster/official/there_is_no_gas_giant
 	name = "There Is No Gas Giant"
-	desc = "Nanotrasen has issued posters, like this one, to all stations reminding them that rumours of a gas giant are false."
+	desc = "Artea has issued posters, like this one, to all stations reminding them that rumours of a gas giant are false."
 	// And yet people still believe...
 	icon_state = "there_is_no_gas_giant"
 
@@ -920,7 +928,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/official/random, 32)
 	. += "\t[span_info("In individuals with chronic exposure, severe effects have been noted. Further heightened aggression, long-term amnesia, Alzheimer's symptoms, schizophrenia, macular degeneration, aneurysms, heightened risk of stroke, and Parkinsons symptoms have all been noted.")]"
 	. += "\t[span_info("It is recommended that all individuals in unprotected contact with raw plasma regularly check with company health officials.")]"
 	. += "\t[span_info("For more information, please check with TerraGov's extranet site on Amenthium: www.terra.gov/health_and_safety/amenthium/, or our internal risk-assessment documents (document numbers #47582-b (Plasma safety data sheets) and #64210 through #64225 (PPE regulations for working with Plasma), available via NanoDoc to all employees).")]"
-	. += "\t[span_info("Nanotrasen: Always looking after your health.")]"
+	. += "\t[span_info("Artea: Always looking after your health.")]"
 	return .
 
 /obj/structure/sign/poster/official/terragov
@@ -929,7 +937,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/official/random, 32)
 	icon_state = "terragov"
 
 /obj/structure/sign/poster/official/corporate_perks_vacation
-	name = "Nanotrasen Corporate Perks: Vacation"
+	name = "Artea Corporate Perks: Vacation"
 	desc = "This informational poster provides information on some of the prizes available via the NT Corporate Perks program, including a two-week vacation for two on the resort world Idyllus."
 	icon_state = "corporate_perks_vacation"
 
@@ -948,17 +956,17 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/official/random, 32)
 
 /obj/structure/sign/poster/official/twenty_four_seven
 	name = "24-Seven Supermarkets"
-	desc = "An advertisement for 24-Seven supermarkets, advertising their new 24-Stops as part of their partnership with Nanotrasen."
+	desc = "An advertisement for 24-Seven supermarkets, advertising their new 24-Stops as part of their partnership with Artea."
 	icon_state = "twenty_four_seven"
 
 /obj/structure/sign/poster/official/tactical_game_cards
-	name = "Nanotrasen Tactical Game Cards"
-	desc = "An advertisement for Nanotrasen's TCG cards: BUY MORE CARDS."
+	name = "Artea Tactical Game Cards"
+	desc = "An advertisement for Artea's TCG cards: BUY MORE CARDS."
 	icon_state = "tactical_game_cards"
 
 /obj/structure/sign/poster/official/midtown_slice
 	name = "Midtown Slice Pizza"
-	desc = "An advertisement for Midtown Slice Pizza, the official pizzeria partner of Nanotrasen. Midtown Slice: like a slice of home, no matter where you are."
+	desc = "An advertisement for Midtown Slice Pizza, the official pizzeria partner of Artea. Midtown Slice: like a slice of home, no matter where you are."
 	icon_state = "midtown_slice"
 
 //SafetyMoth Original PR at https://github.com/BeeStation/BeeStation-Hornet/pull/1747 (Also pull/1982)

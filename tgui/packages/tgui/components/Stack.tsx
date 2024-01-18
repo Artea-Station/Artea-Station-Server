@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { classes } from 'common/react';
+import { BooleanLike, classes } from 'common/react';
 import { RefObject } from 'inferno';
 import { computeFlexClassName, computeFlexItemClassName, computeFlexItemProps, computeFlexProps, FlexItemProps, FlexProps } from './Flex';
 
@@ -34,17 +34,19 @@ export const Stack = (props: StackProps) => {
 
 type StackItemProps = FlexProps & {
   innerRef?: RefObject<HTMLDivElement>;
+  alternating?: BooleanLike;
 };
 
 const StackItem = (props: StackItemProps) => {
-  const { className, innerRef, ...rest } = props;
+  const { className, innerRef, alternating, ...rest } = props;
+  let classesTouse = ['Stack__item', className, computeFlexItemClassName(rest)];
+
+  if (alternating) {
+    classesTouse.push('Stack__item__alternating');
+  }
   return (
     <div
-      className={classes([
-        'Stack__item',
-        className,
-        computeFlexItemClassName(rest),
-      ])}
+      className={classes(classesTouse)}
       ref={innerRef}
       {...computeFlexItemProps(rest)}
     />

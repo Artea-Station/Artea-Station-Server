@@ -3,6 +3,8 @@
 	name = "preferences"
 	early = TRUE
 	cross_round_cachable = TRUE
+	// Fuck you, you keep making the prefs page bug the fuck out on first open, and I'd rather eat the 10s init time.
+	load_immediately = TRUE
 
 /datum/asset/spritesheet/preferences/create_spritesheets()
 	var/list/to_insert = list()

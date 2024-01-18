@@ -4,21 +4,23 @@
 	/// Lazy list of possible names to randomize from
 	var/possible_names
 	/// Maximum number of traders it can house
-	var/max_traders = 4
+	var/max_traders = 2
 	/// A list of all the current traders inside
 	var/list/traders = list()
-	/// A list of all possible types of traders that can spawn in here
+	/// A list of all possible types of traders that can spawn in here. If left null, it'll allow all traders.
 	var/list/possible_trader_types
 	/// A list of all the trader types that we guarantee that will spawn, if able
 	var/list/guaranteed_trader_types
 	/// A list of connected trade consoles, in case the hub is destroyed we want to disconnect the consoles
 	var/list/connected_consoles = list()
 	var/id
+	var/overmap_object
 
 #define TRADE_HUB_SPAWN_TRIES 10
 
-/datum/trade_hub/New()
+/datum/trade_hub/New(datum/overmap_object/overmap_object)
 	..()
+	src.overmap_object = overmap_object
 	if(possible_names)
 		name = pick(possible_names)
 		possible_names = null
@@ -39,7 +41,7 @@
 			break
 		for(var/b in 1 to TRADE_HUB_SPAWN_TRIES)
 			var/picked_type = pick_n_take(possible_trader_types)
-			if(!already_picked_list[picked_type])
+			if(picked_type && !already_picked_list[picked_type])
 				SpawnTraderType(picked_type)
 				break
 	possible_trader_types = null
@@ -63,7 +65,7 @@
 /datum/trade_hub/proc/Tick()
 	for(var/i in traders)
 		var/datum/trader/trader = i
-		trader.Tick()
+		trader.tick()
 
 /datum/trade_hub/worldwide
 	name = "Global Trade Network"
@@ -71,10 +73,16 @@
 /datum/trade_hub/worldwide/bearcat
 	name = "FTU Tradehouse Network"
 	max_traders = 6
-	guaranteed_trader_types = list(/datum/trader/mining, /datum/trader/medical, /datum/trader/archeology)
+	guaranteed_trader_types = list(/datum/trader/mining, /datum/trader/medical, /datum/trader/scrapper)
 
 /datum/trade_hub/randomname
 	possible_names = list("SCG Emporium", "Spacedust Cleaners Co.", "Northwind Traders", "Space Coast Trading", "Plasma Enterprises", "Off-branch Trasen Co.")
+
+// A just-in-case trader, in case crew get unlucky with planetary spawns.
+/datum/trade_hub/randomname/artea_scrapper
+	name = "Artean Scrapheap"
+	possible_names = list("ALS Keelhaul", "ALS Brighter Days", "ALS Scorchmark")
+	guaranteed_trader_types = list(/datum/trader/scrapper)
 
 /datum/trade_hub/randomname/large
 	max_traders = 8

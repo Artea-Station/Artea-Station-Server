@@ -118,12 +118,12 @@
 		blessed.add_mood_event("blessing", /datum/mood_event/blessing)
 	return TRUE
 
-/**** Nanotrasen Approved God ****/
+/**** Artea Approved God ****/
 
 /datum/religion_sect/puritanism
-	name = "Nanotrasen Approved God"
+	name = "Artea Approved God"
 	desc = "Your run-of-the-mill sect, there are no benefits or boons associated."
-	quote = "Nanotrasen Recommends!"
+	quote = "Artea Corporate Recommends!"
 	tgui_icon = "bible"
 
 /**** Mechanical God ****/
@@ -256,7 +256,7 @@
 			to_chat(chap, span_warning("[GLOB.deity] refuses to heal this metallic taint!"))
 			return TRUE
 
-	account.adjust_money(-GREEDY_HEAL_COST)
+	account.adjust_money(-GREEDY_HEAL_COST, "Church Donation: Treatment")
 	var/heal_amt = 30
 	var/list/hurt_limbs = blessed.get_damaged_bodyparts(1, 1, BODYTYPE_ORGANIC)
 	if(hurt_limbs.len)

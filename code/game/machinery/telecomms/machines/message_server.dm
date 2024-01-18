@@ -71,13 +71,14 @@
 /obj/machinery/telecomms/message_server
 	icon_state = "message_server"
 	name = "Messaging Server"
-	desc = "A machine that processes and routes PDA and request console messages."
+	desc = "A machine that processes and routes PDA, request console, and trade console messages."
 	telecomms_type = /obj/machinery/telecomms/message_server
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/telecomms/message_server
 
 	var/list/datum/data_tablet_msg/pda_msgs = list()
 	var/list/datum/data_rc_msg/rc_msgs = list()
+	var/list/datum/data_trade_msg/trade_msgs = list()
 	var/decryptkey = "password"
 	var/calibrating = 15 MINUTES //Init reads this and adds world.time, then becomes 0 when that time has passed and the machine works
 
@@ -127,6 +128,10 @@
 		var/datum/signal/subspace/messaging/tablet_message/PDAsignal = signal
 		var/datum/data_tablet_msg/log_message = new(PDAsignal.format_target(), PDAsignal.format_sender(), PDAsignal.format_message(), PDAsignal.format_photo_path())
 		pda_msgs += log_message
+	else if(istype(signal, /datum/signal/subspace/messaging/trade_msg))
+		var/datum/signal/subspace/messaging/trade_log = signal
+		var/datum/data_trade_msg/msg = new(trade_log.data["timestamp"], trade_log.data["message"])
+		trade_msgs += msg
 	signal.data["reject"] = FALSE
 
 	// pass it along to either the hub or the broadcaster
@@ -183,6 +188,9 @@
 			app.receive_message(src)
 	data["targets"] = null
 
+// Literally just a type stub
+/datum/signal/subspace/messaging/trade_msg
+
 // Log datums stored by the message server.
 /datum/data_tablet_msg
 	var/sender = "Unspecified"
@@ -230,6 +238,16 @@
 				priority = "Extreme"
 			else
 				priority = "Undetermined"
+
+/datum/data_trade_msg
+	var/timestamp = "Unknown"
+	var/message = "Unknown"
+
+/datum/data_trade_msg/New(param_timestamp, param_message)
+	if(param_timestamp)
+		timestamp = param_timestamp
+	if(param_message)
+		message = param_message
 
 #undef MESSAGE_SERVER_FUNCTIONING_MESSAGE
 

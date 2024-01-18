@@ -96,6 +96,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		// Note that jobs divisible by 10 are considered heads of staff, and bolded
 		// 00: Captain
 		JOB_CAPTAIN = 00,
+		JOB_INTERNAL_AFFAIRS_AGENT = 100,
 		// 10-19: Security
 		JOB_HEAD_OF_SECURITY = 10,
 		JOB_WARDEN = 11,
@@ -129,8 +130,6 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		JOB_CLOWN = 66,
 		JOB_MIME = 67,
 		JOB_JANITOR = 68,
-		JOB_LAWYER = 69,
-		JOB_PSYCHOLOGIST = 71,
 		// 200-229: Centcom
 		JOB_CENTCOM_ADMIRAL = 200,
 		JOB_CENTCOM = 201,

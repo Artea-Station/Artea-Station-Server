@@ -17,16 +17,15 @@
 	friendly_verb_simple = "wail at"
 	speak_emote = list("bellows")
 	speed = 3
-	maxHealth = 300
-	health = 300
+	maxHealth = 130
+	health = 130
 	harm_intent_damage = 0
-	obj_damage = 100
-	melee_damage_lower = 25
-	melee_damage_upper = 25
+	obj_damage = 50
+	melee_damage_lower = 10
+	melee_damage_upper = 20
 	attack_verb_continuous = "pulverizes"
 	attack_verb_simple = "pulverize"
 	attack_sound = 'sound/weapons/punch1.ogg'
-	throw_message = "does nothing to the rocky hide of the"
 	vision_range = 5
 	aggro_vision_range = 9
 	move_force = MOVE_FORCE_VERY_STRONG
@@ -220,7 +219,7 @@
 		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
 			continue
 		visible_message(span_danger("[src] grabs hold of [L]!"))
-		L.Stun(100)
+		L.Stun(5 SECONDS)
 		L.adjustBruteLoss(rand(10,15))
 		latched = TRUE
 	if(!latched)

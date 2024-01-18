@@ -175,6 +175,86 @@ export const StandardizedDropdown = (props: {
   );
 };
 
+export const StandardizedDropdownWithSoundPreviewSay = (props: {
+  choices: string[];
+  disabled?: boolean;
+  displayNames: Record<string, InfernoNode>;
+  onSetValue: (newValue: string) => void;
+  value: string;
+  act: typeof sendAct;
+}) => {
+  const { choices, disabled, displayNames, onSetValue, value } = props;
+
+  return (
+    <Stack fill>
+      <Stack.Item>
+        <Button
+          style={{ 'padding-top': '2px', 'padding-bottom': '2px' }}
+          icon="fa-play"
+          onClick={() => {
+            props.act('play_say', { 'sound': value });
+          }}
+        />
+      </Stack.Item>
+      <Stack.Item width="100%">
+        <Dropdown
+          width="100%"
+          disabled={disabled}
+          selected={value}
+          onSelected={onSetValue}
+          displayText={displayNames[value]}
+          options={choices.map((choice) => {
+            return {
+              displayText: displayNames[choice],
+              value: choice,
+            };
+          })}
+        />
+      </Stack.Item>
+    </Stack>
+  );
+};
+
+export const StandardizedDropdownWithSoundPreviewMe = (props: {
+  choices: string[];
+  disabled?: boolean;
+  displayNames: Record<string, InfernoNode>;
+  onSetValue: (newValue: string) => void;
+  value: string;
+  act: typeof sendAct;
+}) => {
+  const { choices, disabled, displayNames, onSetValue, value } = props;
+
+  return (
+    <Stack fill>
+      <Stack.Item>
+        <Button
+          style={{ 'padding-top': '2px', 'padding-bottom': '2px' }}
+          icon="fa-play"
+          onClick={() => {
+            props.act('play_me', { 'sound': value });
+          }}
+        />
+      </Stack.Item>
+      <Stack.Item width="100%">
+        <Dropdown
+          width="100%"
+          disabled={disabled}
+          selected={value}
+          onSelected={onSetValue}
+          displayText={displayNames[value]}
+          options={choices.map((choice) => {
+            return {
+              displayText: displayNames[choice],
+              value: choice,
+            };
+          })}
+        />
+      </Stack.Item>
+    </Stack>
+  );
+};
+
 export const FeatureDropdownInput = (
   props: FeatureValueProps<string, string, FeatureChoicedServerData> & {
     disabled?: boolean;
@@ -196,6 +276,68 @@ export const FeatureDropdownInput = (
 
   return (
     <StandardizedDropdown
+      choices={sortStrings(serverData.choices)}
+      disabled={props.disabled}
+      displayNames={displayNames}
+      onSetValue={props.handleSetValue}
+      value={props.value}
+    />
+  );
+};
+
+export const FeatureDropdownInputWithSoundPreviewSay = (
+  props: FeatureValueProps<string, string, FeatureChoicedServerData> & {
+    disabled?: boolean;
+  }
+) => {
+  const serverData = props.serverData;
+  if (!serverData) {
+    return null;
+  }
+
+  const displayNames =
+    serverData.display_names ||
+    Object.fromEntries(
+      serverData.choices.map((choice) => [
+        choice,
+        capitalizeFirstLetter(choice),
+      ])
+    );
+
+  return (
+    <StandardizedDropdownWithSoundPreviewSay
+      act={props.act}
+      choices={sortStrings(serverData.choices)}
+      disabled={props.disabled}
+      displayNames={displayNames}
+      onSetValue={props.handleSetValue}
+      value={props.value}
+    />
+  );
+};
+
+export const FeatureDropdownInputWithSoundPreviewMe = (
+  props: FeatureValueProps<string, string, FeatureChoicedServerData> & {
+    disabled?: boolean;
+  }
+) => {
+  const serverData = props.serverData;
+  if (!serverData) {
+    return null;
+  }
+
+  const displayNames =
+    serverData.display_names ||
+    Object.fromEntries(
+      serverData.choices.map((choice) => [
+        choice,
+        capitalizeFirstLetter(choice),
+      ])
+    );
+
+  return (
+    <StandardizedDropdownWithSoundPreviewMe
+      act={props.act}
       choices={sortStrings(serverData.choices)}
       disabled={props.disabled}
       displayNames={displayNames}

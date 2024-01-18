@@ -43,15 +43,20 @@
 	return "I'll take \a [initial(object_to_order.name)]"
 
 /datum/venue/restaurant/on_get_order(mob/living/simple_animal/robot_customer/customer_pawn, obj/item/order_item)
-	. = ..()
-	var/obj/item/food/ordered_food = order_item
-	customer_pawn.visible_message(span_danger("[customer_pawn] pushes [ordered_food] into their mouth-shaped hole!"), span_danger("You push [ordered_food] into your mouth-shaped hole."))
-	playsound(get_turf(customer_pawn),'sound/items/eatfood.ogg', rand(10,50), TRUE)
-	customers_served += 1
-	qdel(ordered_food)
+	var/transaction_result = ..()
+	if((transaction_result & TRANSACTION_HANDLED) || !(transaction_result & TRANSACTION_SUCCESS))
+		return
+
+	customer_pawn.visible_message(
+		span_danger("[customer_pawn] pushes [order_item] into their mouth-shaped hole!"),
+		span_danger("You push [order_item] into your mouth-shaped hole."),
+	)
+	playsound(customer_pawn, 'sound/items/eatfood.ogg', rand(10,50), TRUE)
+	qdel(order_item)
 
 /obj/machinery/restaurant_portal/restaurant
 	linked_venue = /datum/venue/restaurant
+
 /obj/item/holosign_creator/robot_seat/restaurant
 	name = "restaurant seating indicator placer"
 	holosign_type = /obj/structure/holosign/robot_seat/restaurant
@@ -59,8 +64,6 @@
 /obj/structure/holosign/robot_seat/restaurant
 	name = "restaurant seating"
 	linked_venue = /datum/venue/restaurant
-
-
 
 
 /////BAR/////
@@ -83,20 +86,30 @@
 	)
 
 /datum/venue/bar/get_food_appearance(order)
-	var/glass_visual
 	var/datum/reagent/reagent_to_order = order
+	// Default the icon to the fallback icon
+	var/glass_visual_icon = initial(reagent_to_order.fallback_icon)
+	var/glass_visual_icon_state = initial(reagent_to_order.fallback_icon_state)
 
-	if(initial(reagent_to_order.glass_icon_state))
-		glass_visual = initial(reagent_to_order.glass_icon_state)
-	else if(initial(reagent_to_order.shot_glass_icon_state))
-		glass_visual = initial(reagent_to_order.shot_glass_icon_state)
-	else if(initial(reagent_to_order.fallback_icon_state))
-		glass_visual = initial(reagent_to_order.fallback_icon_state)
-	else
-		stack_trace("[reagent_to_order] has no icon sprite for restaurant code, please set a fallback_icon_state for this reagent.")
+	// Look for a glass style based on this reagent type
+	for(var/potential_container in GLOB.glass_style_singletons)
+		var/datum/glass_style/draw_as = GLOB.glass_style_singletons[potential_container][reagent_to_order.type]
+		if(isnull(draw_as))
+			continue
 
-	var/image/food_image = image(icon = 'icons/effects/effects.dmi' , icon_state = "thought_bubble")
-	food_image.add_overlay(mutable_appearance('icons/obj/drinks.dmi', glass_visual))
+		// Override the crummy fallback icon if we find a glass style to use instead
+		glass_visual_icon = draw_as.icon
+		glass_visual_icon_state = draw_as.icon_state
+		break
+
+	// If we have no icon or fallback, well... Scream. Someone should fix it
+	if(!glass_visual_icon || !glass_visual_icon_state)
+		stack_trace("[reagent_to_order] has no icon sprite for restaurant code, please set a fallback icon for this reagent.")
+		glass_visual_icon = 'icons/obj/drinks/drinks.dmi'
+		glass_visual_icon_state = "glass_empty"
+
+	var/image/food_image = image(icon = 'icons/effects/effects.dmi', icon_state = "thought_bubble")
+	food_image.add_overlay(mutable_appearance(glass_visual_icon, glass_visual_icon_state))
 
 	return food_image
 
@@ -105,18 +118,13 @@
 	return "I'll take a glass of [initial(reagent_to_order.name)]"
 
 /datum/venue/bar/on_get_order(mob/living/simple_animal/robot_customer/customer_pawn, obj/item/order_item)
-	var/datum/reagent/consumable/ordered_reagent_type = customer_pawn.ai_controller.blackboard[BB_CUSTOMER_CURRENT_ORDER]
-
-	for(var/datum/reagent/reagent as anything in order_item.reagents.reagent_list)
-		if(reagent.type != ordered_reagent_type)
-			continue
-		SEND_SIGNAL(reagent, COMSIG_ITEM_SOLD_TO_CUSTOMER, customer_pawn, order_item)
+	. = ..()
+	if((. & TRANSACTION_HANDLED) || !(. & TRANSACTION_SUCCESS))
+		return
 
 	customer_pawn.visible_message(span_danger("[customer_pawn] slurps up [order_item] in one go!"), span_danger("You slurp up [order_item] in one go."))
 	playsound(get_turf(customer_pawn), 'sound/items/drink.ogg', 50, TRUE)
-	customers_served += 1
 	order_item.reagents.clear_reagents()
-
 
 ///The bar needs to have a minimum amount of the reagent
 /datum/venue/bar/is_correct_order(object_used, wanted_item)

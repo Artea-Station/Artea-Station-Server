@@ -178,10 +178,30 @@
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_MEDICAL
 
 /datum/design/board/chem_dispenser
-	name = "Portable Chem Dispenser Board"
-	desc = "The circuit board for a portable chem dispenser."
+	name = "Chem Dispenser Board"
+	desc = "The circuit board for a chem dispenser."
 	id = "chem_dispenser"
 	build_path = /obj/item/circuitboard/machine/chem_dispenser
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CHEMISTRY
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_MEDICAL
+
+/datum/design/board/mini_chem_dispenser
+	name = "Mini Chem Dispenser Board"
+	desc = "The circuit board for a mini chem dispenser."
+	id = "mini_chem_dispenser"
+	build_path = /obj/item/circuitboard/machine/chem_dispenser/mini
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CHEMISTRY
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_MEDICAL
+
+/datum/design/board/big_chem_dispenser
+	name = "Big Chem Dispenser Board"
+	desc = "The circuit board for a big chem dispenser."
+	id = "big_chem_dispenser"
+	build_path = /obj/item/circuitboard/machine/chem_dispenser/big
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CHEMISTRY
 	)
@@ -684,6 +704,26 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SERVICE
 
+/datum/design/board/stove
+	name = "Stove"
+	desc = "The circuit board for a Stove, which is a dual hob on a stand which can hold a handful of bowls."
+	id = "stove"
+	build_path = /obj/item/circuitboard/machine/stove
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_KITCHEN
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_SERVICE
+
+/datum/design/board/table_hob
+	name = "Table Hob"
+	desc = "The circuit board for a Table Hob, which is a single hob that's placable on a table."
+	id = "table_hob"
+	build_path = /obj/item/circuitboard/machine/table_hob
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_KITCHEN
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_SERVICE
+
 /datum/design/board/donksofttoyvendor
 	name = "Donksoft Toy Vendor Board"
 	desc = "The circuit board for a Donksoft Toy Vendor."
@@ -824,16 +864,6 @@
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_SERVICE
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SERVICE
-
-/datum/design/board/bountypad
-	name = "Civilian Bounty Pad Board"
-	desc = "The circuit board for a Civilian Bounty Pad."
-	id = "bounty_pad"
-	build_path = /obj/item/circuitboard/machine/bountypad
-	category = list(
-		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CARGO
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
 
 /datum/design/board/skill_station
 	name = "Skill Station Board"
@@ -976,3 +1006,35 @@
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_SERVICE
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SERVICE | DEPARTMENT_BITFLAG_ENGINEERING
+
+/datum/design/holomap
+	name = "Holomap Frame"
+	desc = "The frame of a holomap."
+	id = "holomap"
+	build_path = /obj/item/wallframe/holomap
+	build_type = PROTOLATHE
+	materials = list(
+		/datum/material/iron = 4000,
+		/datum/material/uranium = 2000,
+		/datum/material/gold = 1000,
+	)
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ENGINEERING
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
+
+/datum/design/engineering_holomap
+	name = "Engineering Holomap Frame"
+	desc = "The frame of an engineering holomap."
+	id = "engineering_holomap"
+	build_path = /obj/item/wallframe/holomap/engineering
+	materials = list(
+		/datum/material/iron = 4000,
+		/datum/material/uranium = 2000,
+		/datum/material/gold = 2000,
+		/datum/material/diamond = 1000,
+	)
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ENGINEERING
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING

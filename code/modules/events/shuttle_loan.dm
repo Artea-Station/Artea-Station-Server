@@ -32,31 +32,31 @@
 	SSshuttle.shuttle_loan = src
 	switch(dispatch_type)
 		if(HIJACK_SYNDIE)
-			priority_announce("Cargo: The syndicate are trying to infiltrate your station. If you let them hijack your cargo shuttle, you'll save us a headache.","CentCom Counterintelligence")
+			priority_announce("Cargo: The syndicate are trying to infiltrate your station. If you let them hijack your cargo shuttle, you'll save us a headache.","[command_name()] Counterintelligence")
 		if(RUSKY_PARTY)
-			priority_announce("Cargo: A group of angry Russians want to have a party. Can you send them your cargo shuttle then make them disappear?","CentCom Russian Outreach Program")
+			priority_announce("Cargo: A group of angry Russians want to have a party. Can you send them your cargo shuttle then make them disappear?","[command_name()] Russian Outreach Program")
 		if(SPIDER_GIFT)
-			priority_announce("Cargo: The Spider Clan has sent us a mysterious gift. Can we ship it to you to see what's inside?","CentCom Diplomatic Corps")
+			priority_announce("Cargo: The Spider Clan has sent us a mysterious gift. Can we ship it to you to see what's inside?","[command_name()] Diplomatic Corps")
 		if(DEPARTMENT_RESUPPLY)
-			priority_announce("Cargo: Seems we've ordered doubles of our department resupply packages this month. Can we send them to you?","CentCom Supply Department")
+			priority_announce("Cargo: Seems we've ordered doubles of our department resupply packages this month. Can we send them to you?","[command_name()] Supply Department")
 			thanks_msg = "The cargo shuttle should return in five minutes."
 			bonus_points = 0
 		if(ANTIDOTE_NEEDED)
-			priority_announce("Cargo: Your station has been chosen for an epidemiological research project. Send us your cargo shuttle to receive your research samples.", "CentCom Research Initiatives")
+			priority_announce("Cargo: Your station has been chosen for an epidemiological research project. Send us your cargo shuttle to receive your research samples.", "[command_name()] Research Initiatives")
 		if(PIZZA_DELIVERY)
-			priority_announce("Cargo: It looks like a neighbouring station accidentally delivered their pizza to you instead.", "CentCom Spacepizza Division")
+			priority_announce("Cargo: It looks like a neighbouring station accidentally delivered their pizza to you instead.", "[command_name()] Spacepizza Division")
 			thanks_msg = "The cargo shuttle should return in five minutes."
 			bonus_points = 0
 		if(ITS_HIP_TO)
-			priority_announce("Cargo: One of our freighters carrying a bee shipment has been attacked by eco-terrorists. Can you clean up the mess for us?", "CentCom Janitorial Division")
+			priority_announce("Cargo: One of our freighters carrying a bee shipment has been attacked by eco-terrorists. Can you clean up the mess for us?", "[command_name()] Janitorial Division")
 			bonus_points = 20000 //Toxin bees can be unbeelievably lethal
 		if(MY_GOD_JC)
-			priority_announce("Cargo: We have discovered an active Syndicate bomb near our VIP shuttle's fuel lines. If you feel up to the task, we will pay you for defusing it.", "CentCom Security Division")
+			priority_announce("Cargo: We have discovered an active Syndicate bomb near our VIP shuttle's fuel lines. If you feel up to the task, we will pay you for defusing it.", "[command_name()] Security Division")
 			thanks_msg = "Live explosive ordnance incoming via supply shuttle. Evacuating cargo bay is recommended."
 			bonus_points = 45000 //If you mess up, people die and the shuttle gets turned into swiss cheese
 
 /datum/round_event/shuttle_loan/proc/loan_shuttle()
-	priority_announce(thanks_msg, "Cargo shuttle commandeered by CentCom.")
+	priority_announce(thanks_msg, "Cargo shuttle commandeered by [command_name()].")
 
 	dispatched = TRUE
 	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
@@ -70,28 +70,28 @@
 
 	switch(dispatch_type)
 		if(HIJACK_SYNDIE)
-			SSshuttle.centcom_message += "Syndicate hijack team incoming."
+			SStrading.trade_message += "Syndicate hijack team incoming."
 			loan_type = "Syndicate boarding party"
 		if(RUSKY_PARTY)
-			SSshuttle.centcom_message += "Partying Russians incoming."
+			SStrading.trade_message += "Partying Russians incoming."
 			loan_type = "Russian party squad"
 		if(SPIDER_GIFT)
-			SSshuttle.centcom_message += "Spider Clan gift incoming."
+			SStrading.trade_message += "Spider Clan gift incoming."
 			loan_type = "Shuttle full of spiders"
 		if(DEPARTMENT_RESUPPLY)
-			SSshuttle.centcom_message += "Department resupply incoming."
+			SStrading.trade_message += "Department resupply incoming."
 			loan_type = "Resupply packages"
 		if(ANTIDOTE_NEEDED)
-			SSshuttle.centcom_message += "Virus samples incoming."
+			SStrading.trade_message += "Virus samples incoming."
 			loan_type = "Virus shuttle"
 		if(PIZZA_DELIVERY)
-			SSshuttle.centcom_message += "Pizza delivery for [station_name()]"
+			SStrading.trade_message += "Pizza delivery for [station_name()]"
 			loan_type = "Pizza delivery"
 		if(ITS_HIP_TO)
-			SSshuttle.centcom_message += "Biohazard cleanup incoming."
+			SStrading.trade_message += "Biohazard cleanup incoming."
 			loan_type = "Shuttle full of bees"
 		if(MY_GOD_JC)
-			SSshuttle.centcom_message += "Live explosive ordnance incoming. Exercise extreme caution."
+			SStrading.trade_message += "Live explosive ordnance incoming. Exercise extreme caution."
 			loan_type = "Shuttle with a ticking bomb"
 
 	log_game("Shuttle loan event firing with type '[loan_type]'.")
@@ -122,7 +122,7 @@
 		var/list/shuttle_spawns = list()
 		switch(dispatch_type)
 			if(HIJACK_SYNDIE)
-				var/datum/supply_pack/pack = SSshuttle.supply_packs[/datum/supply_pack/emergency/specialops]
+				var/datum/supply_pack/pack = SStrading.supply_packs["[/datum/supply_pack/emergency/specialops]"]
 				pack.generate(pick_n_take(empty_shuttle_turfs))
 
 				shuttle_spawns.Add(/mob/living/simple_animal/hostile/syndicate/ranged/infiltrator)
@@ -133,7 +133,7 @@
 					shuttle_spawns.Add(/mob/living/simple_animal/hostile/syndicate/ranged/infiltrator)
 
 			if(RUSKY_PARTY)
-				var/datum/supply_pack/pack = SSshuttle.supply_packs[/datum/supply_pack/service/party]
+				var/datum/supply_pack/pack = SStrading.supply_packs["[/datum/supply_pack/service/party]"]
 				pack.generate(pick_n_take(empty_shuttle_turfs))
 
 				shuttle_spawns.Add(/mob/living/simple_animal/hostile/russian)
@@ -145,7 +145,7 @@
 					shuttle_spawns.Add(/mob/living/simple_animal/hostile/bear/russian)
 
 			if(SPIDER_GIFT)
-				var/datum/supply_pack/pack = SSshuttle.supply_packs[/datum/supply_pack/emergency/specialops]
+				var/datum/supply_pack/pack = SStrading.supply_packs["[/datum/supply_pack/emergency/specialops]"]
 				pack.generate(pick_n_take(empty_shuttle_turfs))
 
 				shuttle_spawns.Add(/mob/living/simple_animal/hostile/giant_spider)
@@ -193,7 +193,7 @@
 					/datum/supply_pack/medical/supplies
 					)
 				for(var/crate in crate_types)
-					var/datum/supply_pack/pack = SSshuttle.supply_packs[crate]
+					var/datum/supply_pack/pack = SStrading.supply_packs["[crate]"]
 					pack.generate(pick_n_take(empty_shuttle_turfs))
 
 				for(var/i in 1 to 5)
@@ -205,7 +205,7 @@
 				for(var/i in 1 to 6)
 					shuttle_spawns.Add(pick(prob(5) ? naughtypizza : nicepizza))
 			if(ITS_HIP_TO)
-				var/datum/supply_pack/pack = SSshuttle.supply_packs[/datum/supply_pack/organic/hydroponics/beekeeping_fullkit]
+				var/datum/supply_pack/pack = SStrading.supply_packs["[/datum/supply_pack/organic/hydroponics/beekeeping_fullkit]"]
 				pack.generate(pick_n_take(empty_shuttle_turfs))
 
 				shuttle_spawns.Add(/obj/effect/mob_spawn/corpse/human/bee_terrorist)

@@ -38,6 +38,7 @@
 		/obj/item/circuitboard/machine/griddle,
 		/obj/item/circuitboard/machine/reagentgrinder,
 		/obj/item/circuitboard/machine/oven,
+		/obj/item/circuitboard/machine/table_hob,
 		/obj/item/circuitboard/machine/processor,
 		/obj/item/circuitboard/machine/gibber,
 		/obj/item/circuitboard/machine/chem_dispenser/drinks,
@@ -48,7 +49,6 @@
 /obj/effect/spawner/random/techstorage/rnd_all
 	name = "RnD circuit board spawner"
 	loot = list(
-		/obj/item/circuitboard/computer/aifixer,
 		/obj/item/circuitboard/machine/rdserver,
 		/obj/item/circuitboard/machine/mechfab,
 		/obj/item/circuitboard/machine/circuit_imprinter/department,
@@ -99,14 +99,6 @@
 		/obj/item/circuitboard/computer/pandemic,
 	)
 
-/obj/effect/spawner/random/techstorage/ai_all
-	name = "secure AI circuit board spawner"
-	loot = list(
-		/obj/item/circuitboard/computer/aiupload,
-		/obj/item/circuitboard/computer/borgupload,
-		/obj/item/circuitboard/aicore,
-	)
-
 /obj/effect/spawner/random/techstorage/command_all
 	name = "secure command circuit board spawner"
 	loot = list(
@@ -119,6 +111,4 @@
 	loot = list(
 		/obj/item/circuitboard/computer/mecha_control,
 		/obj/item/circuitboard/computer/apc_control,
-		/obj/item/circuitboard/computer/robotics,
 	)
-

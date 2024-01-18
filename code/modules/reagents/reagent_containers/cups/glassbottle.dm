@@ -7,6 +7,7 @@
 /obj/item/reagent_containers/cup/glass/bottle
 	name = "glass bottle"
 	desc = "This blank bottle is unyieldingly anonymous, offering no clues to its contents."
+	icon = 'icons/obj/drinks/bottles.dmi'
 	icon_state = "glassbottle"
 	worn_icon_state = "bottle"
 	fill_icon_thresholds = list(0, 10, 20, 30, 40, 50, 60, 70, 80, 90)
@@ -19,6 +20,8 @@
 	inhand_icon_state = "beer" //Generic held-item sprite until unique ones are made.
 	drink_type = ALCOHOL
 	age_restricted = TRUE // wrryy can't set an init value to see if drink_type contains ALCOHOL so here we go
+	pickup_sound = 'sound/items/handling/bottle_pickup.ogg'
+	drop_sound = 'sound/items/handling/bottle_drop.ogg'
 	///Directly relates to the 'knockdown' duration. Lowered by armor (i.e. helmets)
 	var/bottle_knockdown_duration = BOTTLE_KNOCKDOWN_DEFAULT_DURATION
 
@@ -108,7 +111,7 @@
 /obj/item/broken_bottle
 	name = "broken bottle"
 	desc = "A bottle with a sharp broken bottom."
-	icon = 'icons/obj/drinks.dmi'
+	icon = 'icons/obj/drinks/drink_effects.dmi'
 	icon_state = "broken_bottle"
 	force = 9
 	throwforce = 5
@@ -121,7 +124,10 @@
 	attack_verb_continuous = list("stabs", "slashes", "attacks")
 	attack_verb_simple = list("stab", "slash", "attack")
 	sharpness = SHARP_EDGED
-	var/static/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
+	///The mask image for mimicking a broken-off bottom of the bottle
+	var/static/icon/broken_outline = icon('icons/obj/drinks/drink_effects.dmi', "broken")
+	///The mask image for mimicking a broken-off neck of the bottle
+	var/static/icon/flipped_broken_outline = icon('icons/obj/drinks/drink_effects.dmi', "broken-flipped")
 
 /obj/item/broken_bottle/Initialize(mapload)
 	. = ..()
@@ -257,6 +263,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/holywater
 	name = "flask of holy water"
 	desc = "A flask of the chaplain's holy water."
+	icon = 'icons/obj/drinks/bottles.dmi'
 	icon_state = "holyflask"
 	list_reagents = list(/datum/reagent/water/holywater = 100)
 	drink_type = NONE
@@ -491,7 +498,7 @@
 
 /obj/projectile/bullet/reusable/champagne_cork
 	name = "champagne cork"
-	icon = 'icons/obj/drinks.dmi'
+	icon = 'icons/obj/drinks/drink_effects.dmi'
 	icon_state = "champagne_cork"
 	hitsound = 'sound/weapons/genhit.ogg'
 	damage = 10
@@ -507,7 +514,7 @@
 
 /obj/item/trash/champagne_cork
 	name = "champagne cork"
-	icon = 'icons/obj/drinks.dmi'
+	icon = 'icons/obj/drinks/drink_effects.dmi'
 	icon_state = "champagne_cork"
 
 /obj/item/reagent_containers/cup/glass/bottle/blazaam
@@ -688,6 +695,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice
 	name = "orange juice"
 	desc = "Full of vitamins and deliciousness!"
+	icon = 'icons/obj/drinks/boxes.dmi'
 	icon_state = "orangejuice"
 	list_reagents = list(/datum/reagent/consumable/orangejuice = 100)
 	drink_type = FRUIT | BREAKFAST
@@ -695,6 +703,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/juice/cream
 	name = "milk cream"
 	desc = "It's cream. Made from milk. What else did you think you'd find in there?"
+	icon = 'icons/obj/drinks/boxes.dmi'
 	icon_state = "cream"
 	list_reagents = list(/datum/reagent/consumable/cream = 100)
 	drink_type = DAIRY
@@ -702,6 +711,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/juice/tomatojuice
 	name = "tomato juice"
 	desc = "Well, at least it LOOKS like tomato juice. You can't tell with all that redness."
+	icon = 'icons/obj/drinks/boxes.dmi'
 	icon_state = "tomatojuice"
 	list_reagents = list(/datum/reagent/consumable/tomatojuice = 100)
 	drink_type = VEGETABLES
@@ -709,6 +719,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/juice/limejuice
 	name = "lime juice"
 	desc = "Sweet-sour goodness."
+	icon = 'icons/obj/drinks/boxes.dmi'
 	icon_state = "limejuice"
 	list_reagents = list(/datum/reagent/consumable/limejuice = 100)
 	drink_type = FRUIT
@@ -716,6 +727,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/juice/pineapplejuice
 	name = "pineapple juice"
 	desc = "Extremely tart, yellow juice."
+	icon = 'icons/obj/drinks/boxes.dmi'
 	icon_state = "pineapplejuice"
 	list_reagents = list(/datum/reagent/consumable/pineapplejuice = 100)
 	drink_type = FRUIT | PINEAPPLE
@@ -725,5 +737,31 @@
 	desc = "Tastes naturally minty, and imparts a very mild numbing sensation."
 	list_reagents = list(/datum/reagent/consumable/menthol = 100)
 	age_restricted = TRUE
+
+/obj/item/reagent_containers/cup/glass/bottle/juice/smallcarton
+	name = "small carton"
+	desc = "A small carton, intended for holding drinks."
+	icon = 'icons/obj/drinks/boxes.dmi'
+	icon_state = "juicebox"
+	volume = 15
+	drink_type = NONE
+
+/obj/item/reagent_containers/cup/glass/bottle/juice/smallcarton/Initialize(mapload, vol)
+	. = ..()
+	AddComponent( \
+		/datum/component/takes_reagent_appearance, \
+		on_icon_changed = CALLBACK(src, PROC_REF(on_cup_change)), \
+		on_icon_reset = CALLBACK(src, PROC_REF(on_cup_reset)), \
+		base_container_type = /obj/item/reagent_containers/cup/glass/bottle/juice/smallcarton, \
+	)
+
+/obj/item/reagent_containers/cup/glass/bottle/juice/smallcarton/smash(atom/target, mob/thrower, ranged = FALSE)
+	if(bartender_check(target) && ranged)
+		return
+	SplashReagents(target, ranged, override_spillable = TRUE)
+	var/obj/item/broken_bottle/bottle_shard = new (loc)
+	bottle_shard.mimic_broken(src, target)
+	qdel(src)
+	target.Bumped(bottle_shard)
 
 #undef BOTTLE_KNOCKDOWN_DEFAULT_DURATION

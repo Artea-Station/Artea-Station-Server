@@ -117,18 +117,17 @@
 	update_appearance()
 
 /obj/machinery/shuttle_scrambler/process()
-	if(active)
-		if(is_station_level(z))
-			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
-			if(D)
-				var/siphoned = min(D.account_balance,siphon_per_tick)
-				D.adjust_money(-siphoned)
-				credits_stored += siphoned
-			interrupt_research()
-		else
-			return
-	else
-		STOP_PROCESSING(SSobj,src)
+	if(!active)
+		return PROCESS_KILL
+
+	if(!is_station_level(z))
+		return
+
+	var/datum/bank_account/account = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	var/siphoned = min(account.account_balance,siphon_per_tick)
+	account.adjust_money(-siphoned)
+	credits_stored += siphoned
+	interrupt_research()
 
 /obj/machinery/shuttle_scrambler/proc/toggle_on(mob/user)
 	SSshuttle.registerTradeBlockade(src)

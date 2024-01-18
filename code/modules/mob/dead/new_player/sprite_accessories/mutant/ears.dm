@@ -3,6 +3,7 @@
 	key = "ears"
 	em_block = TRUE
 	color_src = TRI_COLOR_LAYERS
+	organ_type_to_use = /obj/item/organ/internal/ears
 
 /datum/sprite_accessory/ears/none
 	name = "None"

@@ -404,6 +404,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		to_chat(user, span_warning("[src] must be cleaned up first!"))
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
 	busy = TRUE
+	playsound(src, 'sound/machines/washingmachine.ogg', 100)
 	if(HAS_TRAIT(user, TRAIT_BRAINWASHING))
 		ADD_TRAIT(src, TRAIT_BRAINWASHING, SKILLCHIP_TRAIT)
 	update_appearance()

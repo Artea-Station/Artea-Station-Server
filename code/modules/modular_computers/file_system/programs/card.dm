@@ -172,7 +172,6 @@
 
 			if(!new_name)
 				inserted_auth_card.registered_name = null
-				playsound(computer, SFX_TERMINAL_TYPE, 50, FALSE)
 				inserted_auth_card.update_label()
 				// We had a name before and now we have no name, so this will unassign the card and we update the icon.
 				if(old_name)
@@ -187,10 +186,9 @@
 				return TRUE
 
 			inserted_auth_card.registered_name = new_name
-			playsound(computer, SFX_TERMINAL_TYPE, 50, FALSE)
 			inserted_auth_card.update_label()
 			// Card wasn't assigned before and now it is, so update the icon accordingly.
-			if(!old_name)
+			if(!old_name || old_name == "Captain")
 				inserted_auth_card.update_icon()
 			return TRUE
 		// Change age
@@ -204,7 +202,6 @@
 				return TRUE
 
 			inserted_auth_card.registered_age = new_age
-			playsound(computer, SFX_TERMINAL_TYPE, 50, FALSE)
 			return TRUE
 		// Change assignment
 		if("PRG_assign")
@@ -212,14 +209,12 @@
 				return TRUE
 			var/new_asignment = sanitize(params["assignment"])
 			inserted_auth_card.assignment = new_asignment
-			playsound(computer, SFX_TERMINAL_TYPE, 50, FALSE)
 			inserted_auth_card.update_label()
 			return TRUE
 		// Add/remove access.
 		if("PRG_access")
 			if(!computer || !authenticated_card || !inserted_auth_card)
 				return TRUE
-			playsound(computer, SFX_TERMINAL_TYPE, 50, FALSE)
 			var/access_type = params["access_target"]
 			var/try_wildcard = params["access_wildcard"]
 			if(!(access_type in valid_access))
@@ -245,7 +240,6 @@
 			if(!computer || !authenticated_card || !inserted_auth_card)
 				return TRUE
 
-			playsound(computer, SFX_TERMINAL_TYPE, 50, FALSE)
 			var/template_name = params["name"]
 
 			if(!template_name)

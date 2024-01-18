@@ -3,6 +3,8 @@
 	desc = "Removable disk used to store data."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk6"
+	drop_sound = 'sound/items/handling/disk_drop.ogg'
+	pickup_sound = 'sound/items/handling/disk_pickup.ogg'
 	w_class = WEIGHT_CLASS_TINY
 	///The amount of storage space is on the disk
 	var/max_capacity = 16

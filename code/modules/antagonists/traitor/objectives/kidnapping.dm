@@ -40,14 +40,12 @@
 		// Medical
 		/datum/job/doctor,
 		/datum/job/paramedic,
-		/datum/job/psychologist,
 		/datum/job/chemist,
 		// Service
 		/datum/job/clown,
 		/datum/job/botanist,
 		/datum/job/janitor,
 		/datum/job/mime,
-		/datum/job/lawyer,
 		/datum/job/chaplain,
 		/datum/job/bartender,
 		/datum/job/curator,

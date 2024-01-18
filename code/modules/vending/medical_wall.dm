@@ -27,6 +27,7 @@
 	payment_department = ACCOUNT_MED
 	tiltable = FALSE
 	light_mask = "wallmed-light-mask"
+	vend_sound = 'sound/machines/vending_cans.ogg'
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/vending/wallmed, 32)
 

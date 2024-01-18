@@ -72,12 +72,12 @@
 	name = "soup spawner"
 	icon_state = "soup"
 	loot = list(
-		/obj/item/food/soup/beet,
-		/obj/item/food/soup/sweetpotato,
-		/obj/item/food/soup/stew,
-		/obj/item/food/soup/hotchili,
-		/obj/item/food/soup/nettle,
-		/obj/item/food/soup/meatball,
+		/obj/item/reagent_containers/cup/bowl/soup/hotchili,
+		/obj/item/reagent_containers/cup/bowl/soup/meatball_soup,
+		/obj/item/reagent_containers/cup/bowl/soup/nettle,
+		/obj/item/reagent_containers/cup/bowl/soup/stew,
+		/obj/item/reagent_containers/cup/bowl/soup/sweetpotato,
+		/obj/item/reagent_containers/cup/bowl/soup/white_beet,
 	)
 
 /obj/effect/spawner/random/food_or_drink/salad
@@ -253,3 +253,69 @@
 		/obj/item/storage/box/cups,
 		/obj/item/storage/box/condimentbottles,
 	)
+
+
+/obj/effect/spawner/random/food_or_drink/chem_cartridge_drink
+	name = "random soft drink cartridge"
+	loot = list(
+		/obj/item/reagent_containers/chem_cartridge/large = 1,
+		/obj/item/reagent_containers/chem_cartridge/medium = 5,
+		/obj/item/reagent_containers/chem_cartridge/small = 10,
+	)
+	var/static/list/cached_whitelist
+	var/is_always_full = FALSE
+
+/obj/effect/spawner/random/food_or_drink/chem_cartridge_drink/Initialize(mapload)
+	if(!cached_whitelist)
+		cached_whitelist = list()
+		for(var/datum/reagent/reagent as anything in CARTRIDGE_LIST_DRINKS)
+			cached_whitelist += reagent
+	. = ..()
+
+/obj/effect/spawner/random/food_or_drink/chem_cartridge_drink/make_item(spawn_loc, type_path_to_make)
+	var/obj/item/reagent_containers/chem_cartridge/cartridge = new type_path_to_make(spawn_loc)
+	cartridge.reagents.add_reagent(pick(cached_whitelist), is_always_full ? cartridge.volume : rand(0, cartridge.volume), reagtemp = WATER_MATTERSTATE_CHANGE_TEMP)
+	return cartridge
+
+/obj/effect/spawner/random/food_or_drink/chem_cartridge_drink/three
+	name = "3x random soft drink cartridge"
+	spawn_loot_count = 3
+
+/obj/effect/spawner/random/food_or_drink/chem_cartridge_drink/full
+	name = "random full soft drink cartridge"
+	is_always_full = TRUE
+
+/obj/effect/spawner/random/food_or_drink/chem_cartridge_drink/full/three
+	name = "3x random full soft drink cartridge"
+	spawn_loot_count = 3
+
+
+/obj/effect/spawner/random/food_or_drink/chem_cartridge_alcohol
+	name = "random alcohol cartridge"
+	var/static/list/cached_whitelist
+	var/is_always_full = FALSE
+
+/obj/effect/spawner/random/food_or_drink/chem_cartridge_alcohol/Initialize(mapload)
+	if(!cached_whitelist)
+		cached_whitelist = list()
+		for(var/datum/reagent/reagent as anything in CARTRIDGE_LIST_BOOZE)
+			cached_whitelist += reagent
+	. = ..()
+
+
+/obj/effect/spawner/random/food_or_drink/chem_cartridge_alcohol/make_item(spawn_loc, type_path_to_make)
+	var/obj/item/reagent_containers/chem_cartridge/cartridge = new type_path_to_make(spawn_loc)
+	cartridge.reagents.add_reagent(pick(cached_whitelist), is_always_full ? cartridge.volume : rand(0, cartridge.volume))
+	return cartridge
+
+/obj/effect/spawner/random/food_or_drink/chem_cartridge_alcohol/three
+	name = "3x random alcohol cartridge"
+	spawn_loot_count = 3
+
+/obj/effect/spawner/random/food_or_drink/chem_cartridge_alcohol/full
+	name = "random full alcohol cartridge"
+	is_always_full = TRUE
+
+/obj/effect/spawner/random/food_or_drink/chem_cartridge_alcohol/full/three
+	name = "3x random full alcohol cartridge"
+	spawn_loot_count = 3

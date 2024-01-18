@@ -10,6 +10,9 @@
 	lefthand_file = 'icons/mob/inhands/items/drinks_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items/drinks_righthand.dmi'
 
+	pickup_sound = 'sound/items/handling/papercup_pickup.ogg'
+	drop_sound = 'sound/items/handling/papercup_drop.ogg'
+
 	///Like Edible's food type, what kind of drink is this?
 	var/drink_type = NONE
 	///The last time we have checked for taste.
@@ -198,6 +201,16 @@
 		set_custom_materials(list(GET_MATERIAL_REF(/datum/material/glass) = 5))//sets it to glass so, later on, it gets picked up by the glass catch (hope it doesn't 'break' things lol)
 	return ..()
 
+/// Callback for [datum/component/takes_reagent_appearance] to inherent style footypes
+/obj/item/reagent_containers/cup/proc/on_cup_change(datum/glass_style/has_foodtype/style)
+	if(!istype(style))
+		return
+	drink_type = style.drink_type
+
+/// Callback for [datum/component/takes_reagent_appearance] to reset to no foodtypes
+/obj/item/reagent_containers/cup/proc/on_cup_reset()
+	drink_type = NONE
+
 /obj/item/reagent_containers/cup/beaker
 	name = "beaker"
 	desc = "A beaker. It can hold up to 50 units."
@@ -207,6 +220,8 @@
 	worn_icon_state = "beaker"
 	custom_materials = list(/datum/material/glass=500)
 	fill_icon_thresholds = list(0, 1, 20, 40, 60, 80, 100)
+	pickup_sound = 'sound/items/handling/glass_pickup.ogg'
+	drop_sound = 'sound/items/handling/glass_drop.ogg'
 
 /obj/item/reagent_containers/cup/beaker/Initialize(mapload)
 	. = ..()

@@ -12,14 +12,14 @@
 
 /obj/item/encryptionkey/headset_pth
 	name = "pathfinders radio encryption key"
-	icon_state = "cypherkey_research"
+	icon_state = "cypherkey_pathfinders"
 	channels = list(RADIO_CHANNEL_PATHFINDERS = 1)
 	greyscale_config = /datum/greyscale_config/encryptionkey_pathfinders
 	greyscale_colors = "#847A96#575577"
 
 /obj/item/encryptionkey/headset_pthmed
 	name = "pathfinders medic radio encryption key"
-	icon_state = "cypherkey_research"
+	icon_state = "cypherkey_pathfinders"
 	channels = list(RADIO_CHANNEL_PATHFINDERS = 1, RADIO_CHANNEL_MEDICAL = 1)
 	greyscale_config = /datum/greyscale_config/encryptionkey_pathfinders
 	greyscale_colors = "#847A96#ebebeb"
@@ -32,7 +32,7 @@
 
 /obj/item/encryptionkey/heads/pl
 	name = "\proper the lead pathfinder's encryption key"
-	icon_state = "cypherkey_research"
+	icon_state = "cypherkey_pathfinders"
 	channels = list(RADIO_CHANNEL_PATHFINDERS = 1, RADIO_CHANNEL_SUPPLY = 1, RADIO_CHANNEL_COMMAND = 1)
 	greyscale_config = /datum/greyscale_config/encryptionkey_pathfinders
-	greyscale_colors = "#847A96#575577"
+	greyscale_colors = "#7c7a96#231e61"

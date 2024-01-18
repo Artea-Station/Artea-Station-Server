@@ -46,7 +46,7 @@
 	update_action_buttons()
 
 /obj/item/gun/ballistic/automatic/proto
-	name = "\improper Nanotrasen Saber SMG"
+	name = "\improper Artea Saber SMG"
 	desc = "A prototype full-auto 9mm submachine gun, designated 'SABR'. Has a threaded barrel for suppressors."
 	icon_state = "saber"
 	burst_size = 1
@@ -166,6 +166,10 @@
 	underbarrel = new /obj/item/gun/ballistic/revolver/grenadelauncher(src)
 	update_appearance()
 
+/obj/item/gun/ballistic/automatic/m90/Destroy()
+	QDEL_NULL(underbarrel)
+	. = ..()
+
 /obj/item/gun/ballistic/automatic/m90/unrestricted
 	pin = /obj/item/firing_pin
 
@@ -234,7 +238,7 @@
 
 /obj/item/gun/ballistic/automatic/ar
 	name = "\improper NT-ARG 'Boarder'"
-	desc = "A robust assault rifle used by Nanotrasen fighting forces."
+	desc = "A robust assault rifle used by Artea fighting forces."
 	icon_state = "arg"
 	inhand_icon_state = "arg"
 	slot_flags = 0
@@ -389,7 +393,7 @@
 
 /obj/item/gun/ballistic/automatic/laser
 	name = "laser rifle"
-	desc = "Though sometimes mocked for the relatively weak firepower of their energy weapons, the logistic miracle of rechargeable ammunition has given Nanotrasen a decisive edge over many a foe."
+	desc = "Though sometimes mocked for the relatively weak firepower of their energy weapons, the logistic miracle of rechargeable ammunition has given Artea a decisive edge over many a foe."
 	icon_state = "oldrifle"
 	w_class = WEIGHT_CLASS_BULKY
 	inhand_icon_state = "arg"

@@ -18,6 +18,8 @@
 	possible_transfer_amounts = list(1, 5, 10, 15, 20, 25, 30, 50)
 	volume = 50
 	fill_icon_thresholds = list(0, 10, 25, 50, 75, 100)
+	pickup_sound = 'sound/items/handling/papercup_pickup.ogg'
+	drop_sound = 'sound/items/handling/papercup_drop.ogg'
 	/// Icon (icon_state) to be used when container becomes empty (no change if falsy)
 	var/icon_empty
 	/// Holder for original icon_state value if it was overwritten by icon_emty to change back to
@@ -100,6 +102,8 @@
 	icon_state = "enzyme"
 	list_reagents = list(/datum/reagent/consumable/enzyme = 50)
 	fill_icon_thresholds = null
+	pickup_sound = 'sound/items/handling/glass_pickup.ogg'
+	drop_sound = 'sound/items/handling/glass_drop.ogg'
 
 /obj/item/reagent_containers/condiment/enzyme/examine(mob/user)
 	. = ..()
@@ -118,6 +122,8 @@
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	list_reagents = list(/datum/reagent/consumable/sugar = 50)
 	fill_icon_thresholds = null
+	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
+	pickup_sound = 'sound/items/handling/cardboardbox_pickup.ogg'
 
 /obj/item/reagent_containers/condiment/sugar/examine(mob/user)
 	. = ..()
@@ -138,6 +144,8 @@
 	volume = 20
 	list_reagents = list(/datum/reagent/consumable/salt = 20)
 	fill_icon_thresholds = null
+	pickup_sound = 'sound/items/handling/glass_pickup.ogg'
+	drop_sound = 'sound/items/handling/glass_drop.ogg'
 
 /obj/item/reagent_containers/condiment/saltshaker/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] begins to swap forms with the salt shaker! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -172,6 +180,8 @@
 	volume = 20
 	list_reagents = list(/datum/reagent/consumable/blackpepper = 20)
 	fill_icon_thresholds = null
+	pickup_sound = 'sound/items/handling/glass_pickup.ogg'
+	drop_sound = 'sound/items/handling/glass_drop.ogg'
 
 /obj/item/reagent_containers/condiment/milk
 	name = "space milk"
@@ -200,6 +210,8 @@
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	list_reagents = list(/datum/reagent/consumable/flour = 30)
 	fill_icon_thresholds = null
+	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
+	pickup_sound = 'sound/items/handling/cardboardbox_pickup.ogg'
 
 /obj/item/reagent_containers/condiment/flour/examine(mob/user)
 	. = ..()
@@ -233,6 +245,8 @@
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	list_reagents = list(/datum/reagent/consumable/rice = 30)
 	fill_icon_thresholds = null
+	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
+	pickup_sound = 'sound/items/handling/cardboardbox_pickup.ogg'
 
 /obj/item/reagent_containers/condiment/cornmeal
 	name = "cornmeal box"
@@ -243,6 +257,8 @@
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	list_reagents = list(/datum/reagent/consumable/cornmeal = 30)
 	fill_icon_thresholds = null
+	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
+	pickup_sound = 'sound/items/handling/cardboardbox_pickup.ogg'
 
 /obj/item/reagent_containers/condiment/bbqsauce
 	name = "bbq sauce"
@@ -306,6 +322,15 @@
 	list_reagents = list(/datum/reagent/consumable/honey = 50)
 	fill_icon_thresholds = null
 
+/obj/item/reagent_containers/condiment/ketchup
+	name = "ketchup"
+	// At time of writing, "ketchup" mechanically, is just ground tomatoes,
+	// rather than // tomatoes plus vinegar plus sugar.
+	desc = "A tomato slurry in a tall plastic bottle. Somehow still vaguely American."
+	icon_state = "ketchup"
+	list_reagents = list(/datum/reagent/consumable/ketchup = 50)
+	fill_icon_thresholds = null
+
 //technically condiment packs but they are non transparent
 
 /obj/item/reagent_containers/condiment/creamer
@@ -315,12 +340,16 @@
 	volume = 5
 	list_reagents = list(/datum/reagent/consumable/creamer = 5)
 	fill_icon_thresholds = null
+	pickup_sound = 'sound/items/handling/wrapper_pickup.ogg'
+	drop_sound = 'sound/items/handling/wrapper_drop.ogg'
 
 /obj/item/reagent_containers/condiment/chocolate
 	name = "chocolate sprinkle pack"
 	desc = "The amount of sugar thats already there wasn't enough for you?"
 	icon_state = "condi_chocolate"
 	list_reagents = list(/datum/reagent/consumable/choccyshake = 10)
+	pickup_sound = 'sound/items/handling/wrapper_pickup.ogg'
+	drop_sound = 'sound/items/handling/wrapper_drop.ogg'
 
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!
 
@@ -331,6 +360,8 @@
 	volume = 10
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(10)
+	pickup_sound = 'sound/items/handling/wrapper_pickup.ogg'
+	drop_sound = 'sound/items/handling/wrapper_drop.ogg'
 	/**
 	  * List of possible styles (list(<icon_state>, <name>, <desc>)) for condiment packs.
 	  * Since all of them differs only in color should probably be replaced with usual reagentfillings instead

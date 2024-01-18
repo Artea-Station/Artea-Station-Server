@@ -56,7 +56,7 @@
 		if(!user.transferItemToLoc(I, src))
 			return
 		LAZYADD(dish_drive_contents, I)
-		to_chat(user, span_notice("You put [I] in [src], and it's beamed into energy!"))
+		to_chat(user, span_notice("You put [I] in [src], and it's sucked into the machine!"))
 		playsound(src, 'sound/items/pshoom.ogg', 50, TRUE)
 		flick("synthesizer_beam", src)
 		return
@@ -90,7 +90,7 @@
 		if(is_type_in_list(I, collectable_items) && I.loc != src && (!I.reagents || !I.reagents.total_volume))
 			if(I.Adjacent(src))
 				LAZYADD(dish_drive_contents, I)
-				visible_message(span_notice("[src] beams up [I]!"))
+				visible_message(span_notice("[src] sucks up [I]!"))
 				I.forceMove(src)
 				playsound(src, 'sound/items/pshoom.ogg', 50, TRUE)
 				flick("synthesizer_beam", src)
@@ -101,21 +101,22 @@
 	if(machine_stat)
 		return
 	to_chat(user, span_notice("You send a disposal transmission signal to [src]."))
-	do_the_dishes(TRUE)
+	do_the_dishes(user)
 
 /obj/machinery/dish_drive/AltClick(mob/living/user)
 	if(user.canUseTopic(src, !issilicon(user)))
-		do_the_dishes(TRUE)
+		do_the_dishes(user)
 
-/obj/machinery/dish_drive/proc/do_the_dishes(manual)
+/// Makes the dish drive dispose of crap. If no user is given, it does so silently.
+/obj/machinery/dish_drive/proc/do_the_dishes(mob/living/user)
 	if(!LAZYLEN(dish_drive_contents))
-		if(manual)
-			visible_message(span_notice("[src] is empty!"))
+		if(user)
+			to_chat(user, span_notice("[src] is empty!"))
 		return
 	var/obj/machinery/disposal/bin/bin = locate() in view(7, src)
 	if(!bin)
-		if(manual)
-			visible_message(span_warning("[src] buzzes. There are no disposal bins in range!"))
+		if(user)
+			to_chat(user, span_warning("[src] buzzes. There are no disposal bins in range!"))
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		return
 	var/disposed = 0
@@ -126,12 +127,13 @@
 			use_power(active_power_usage)
 			disposed++
 	if (disposed)
-		visible_message(span_notice("[src] [pick("whooshes", "bwooms", "fwooms", "pshooms")] and beams [disposed] stored item\s into the nearby [bin.name]."))
+		if(user)
+			to_chat(user, span_notice("[src] [pick("whooshes", "bwooms", "fwooms", "pshooms")] and beams [disposed] stored item\s into the nearby [bin.name]."))
 		playsound(src, 'sound/items/pshoom.ogg', 50, TRUE)
 		playsound(bin, 'sound/items/pshoom.ogg', 50, TRUE)
 		Beam(bin, icon_state = "rped_upgrade", time = 5)
 		bin.update_appearance()
 		flick("synthesizer_beam", src)
 	else
-		visible_message(span_notice("There are no disposable items in [src]!"))
+		to_chat(user, span_notice("There are no disposable items in [src]!"))
 	time_since_dishes = world.time + 600

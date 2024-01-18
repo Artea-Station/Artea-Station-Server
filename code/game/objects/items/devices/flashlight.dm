@@ -17,6 +17,8 @@
 	light_range = 4
 	light_power = 1
 	light_on = FALSE
+	pickup_sound = 'sound/items/handling/device_pickup.ogg'
+	drop_sound = 'sound/items/handling/device_drop.ogg'
 	var/on = FALSE
 
 
@@ -267,7 +269,7 @@
 
 /obj/item/flashlight/flare
 	name = "flare"
-	desc = "A red Nanotrasen issued flare. There are instructions on the side, it reads 'pull cord, make light'."
+	desc = "A red Artea issued flare. There are instructions on the side, it reads 'pull cord, make light'."
 	w_class = WEIGHT_CLASS_SMALL
 	light_range = 7 // Pretty bright.
 	icon_state = "flare"

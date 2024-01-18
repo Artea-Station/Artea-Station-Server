@@ -118,6 +118,26 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SECURITY //Honestly should have a bridge techfab for this sometime.
 
+/datum/design/board/trade_console
+	name = "Trade Console Board"
+	desc = "The circuit board for a Trade Console."
+	id = "trade_console"
+	build_path = /obj/item/circuitboard/computer/trade_console
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CARGO
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_CARGO
+
+/datum/design/board/trade_console/cargo
+	name = "Cargo Trade Console Board"
+	desc = "The circuit board for a Cargo Trade Console."
+	id = "cargo_trade_console"
+	build_path = /obj/item/circuitboard/computer/trade_console/cargo
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_CARGO
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_CARGO
+
 /datum/design/board/crewconsole
 	name = "Crew Monitoring Computer Board"
 	desc = "Allows for the construction of circuit boards used to build a Crew monitoring computer."
@@ -241,28 +261,6 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_PATHFINDERS
 
-/datum/design/board/cargo
-	name = "Supply Console Board"
-	desc = "Allows for the construction of circuit boards used to build a Supply Console."
-	id = "cargo"
-	build_type = IMPRINTER
-	build_path = /obj/item/circuitboard/computer/cargo
-	category = list(
-		RND_CATEGORY_COMPUTER + RND_SUBCATEGORY_COMPUTER_CARGO
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
-
-/datum/design/board/cargorequest
-	name = "Supply Request Console Board"
-	desc = "Allows for the construction of circuit boards used to build a Supply Request Console."
-	id = "cargorequest"
-	build_type = IMPRINTER
-	build_path = /obj/item/circuitboard/computer/cargo/request
-	category = list(
-		RND_CATEGORY_COMPUTER + RND_SUBCATEGORY_COMPUTER_CARGO
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
-
 /datum/design/board/mining
 	name = "Outpost Status Display Board"
 	desc = "Allows for the construction of circuit boards used to build an outpost status display console."
@@ -343,16 +341,6 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
 
-/datum/design/board/bountypad_control
-	name = "Civilian Bounty Pad Control Board"
-	desc = "Allows for the construction of circuit boards used to build a new civilian bounty pad console."
-	id = "bounty_pad_control"
-	build_path = /obj/item/circuitboard/computer/bountypad
-	category = list(
-		RND_CATEGORY_COMPUTER + RND_SUBCATEGORY_COMPUTER_CARGO
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
-
 /datum/design/board/exoscanner_console
 	name = "Scanner Array Control Console Board"
 	desc = "Allows for the construction of circuit boards used to build a new scanner array control console."
@@ -383,5 +371,15 @@
 	build_path = /obj/item/circuitboard/computer/accounting
 	category = list(
 		RND_CATEGORY_COMPUTER + RND_SUBCATEGORY_COMPUTER_RECORDS
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_SERVICE
+
+/datum/design/board/chef_order
+	name = "Produce Orders Console"
+	desc = "An interface for ordering fresh produce and other. A far more expensive option than the botanists, but oh well."
+	id = "chef_order_console"
+	build_path = /obj/item/circuitboard/computer/chef_order
+	category = list(
+		RND_CATEGORY_COMPUTER + RND_SUBCATEGORY_COMPUTER_ENTERTAINMENT
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SERVICE

@@ -67,9 +67,9 @@
 #define TRANSPORTABLE_SPECIAL_LOOT_TABLE list(/datum/overmap_object/transportable/wreckage/high_value = 100)
 
 //Amount of hazard clusters being spawned
-#define DEFAULT_HAZARD_CLUSTER_AMOUNT 42
+#define DEFAULT_HAZARD_CLUSTER_AMOUNT 210
 //Their "dropoff", which is a value which will be subtracted every time a node spreads, into a chance to continue spreading. Higher dropoff = smaller nodes
-#define DEFAULT_HAZARD_CLUSTER_DROPOFF 4
+#define DEFAULT_HAZARD_CLUSTER_DROPOFF 3
 //All overmap hazards to be seeded randomly by default
 #define DEFAULT_OVERMAP_HAZARDS list(/datum/overmap_object/hazard/asteroid, \
 									/datum/overmap_object/hazard/dust, \
@@ -123,3 +123,10 @@
 #define TRANSIT_VELOCITY_LOW 1
 #define TRANSIT_VELOCITY_MEDIUM 2
 #define TRANSIT_VELOCITY_HIGH 3
+
+// Convienience defines for overmap hight and width.
+#define DEFAULT_OVERMAP_H 60
+#define DEFAULT_OVERMAP_W 60
+
+#define RANDOM_OVERMAP_X rand(5, DEFAULT_OVERMAP_W - 5)
+#define RANDOM_OVERMAP_Y rand(5, DEFAULT_OVERMAP_H - 5)

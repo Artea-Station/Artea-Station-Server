@@ -98,7 +98,11 @@
 				"in_lock_range" = IN_LOCK_RANGE(src, overmap_object),
 				"is_destination" = destination_x == overmap_object.x && destination_y == overmap_object.y,
 			))
+	targets = sortTim(targets, GLOBAL_PROC_REF(cmp_overmap_target_distance))
 	return targets
+
+/proc/cmp_overmap_target_distance(a, b)
+	return a["distance"] - b["distance"]
 
 /datum/overmap_object/shuttle/proc/GetCapSpeed()
 	var/cap_speed = 0
@@ -345,6 +349,7 @@
 		DisplayHelmPad(usr)
 
 /datum/overmap_object/shuttle/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	playsound(usr, SFX_PDA, 50, TRUE, ignore_walls = FALSE)
 	..()
 	. = TRUE
 
@@ -399,6 +404,8 @@
 				if(0)
 					shuttle_controller.busy = TRUE
 					shuttle_controller.RemoveCurrentControl()
+					for(var/mob in shuttle_controller.mob_viewers)
+						shuttle_controller.RemoveViewer(mob)
 		if("freeform_dock")
 			if(!(shuttle_capability & SHUTTLE_CAN_USE_DOCK))
 				return
@@ -458,6 +465,7 @@
 			if(!lock)
 				return
 			target_command = TARGET_BEAM_ON_BOARD
+			playsound(usr, 'sound/machines/wewewew.ogg', 70, TRUE)
 		if("target")
 			if(!(shuttle_capability & SHUTTLE_CAN_USE_SENSORS))
 				return
@@ -611,9 +619,14 @@
 
 /datum/overmap_object/shuttle/proc/GrantOvermapView(mob/user, turf/passed_turf)
 	//Camera control
-	if(!shuttle_controller)
+	if(!shuttle_controller || !user.client || shuttle_controller.busy)
 		return
-	if(user.client && !shuttle_controller.busy)
+
+	if(shuttle_controller.mob_controller && !(user == shuttle_controller.mob_controller) && !shuttle_controller.mob_viewers.Find(user))
+		shuttle_controller.AddViewer(user)
+		return TRUE
+
+	if(user.client && !shuttle_controller.busy && !shuttle_controller.mob_controller)
 		shuttle_controller.SetController(user)
 		if(passed_turf)
 			shuttle_controller.control_turf = passed_turf
@@ -664,6 +677,10 @@
 /datum/overmap_object/shuttle/planet/New()
 	. = ..()
 	my_visual.color = planet_color
+	if(SSmapping.config.min_planetary_traders_spawned || prob(SSmapping.config.planetary_trader_chance))
+		if(SSmapping.config.min_planetary_traders_spawned)
+			SSmapping.config.min_planetary_traders_spawned -= 1
+		new /datum/overmap_object/trade_hub(SSovermap.main_system, x, y, pick(SSmapping.config.planetary_trading_hub_types), 10, 10)
 
 /datum/overmap_object/shuttle/planet/lavaland
 	name = "Lavaland"

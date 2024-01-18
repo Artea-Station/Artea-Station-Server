@@ -353,6 +353,14 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay_global), I, speech_bubble_recipients, 30)
 
+	//play their say sound if human and isn't signing.
+	if(ishuman(source) && !HAS_TRAIT(src, TRAIT_SIGN_LANG))
+		var/mob/living/carbon/human/human = source
+		var/is_yelling = copytext_char(message, -2) == "!!"
+		var/is_asking = copytext_char(message, -1) == "?"
+
+		playsound(source, is_asking ? 'sound/voice/talksounds/say_question.ogg' : GLOB.say_voices[human.dna.say_voice_type], is_yelling ? 110 : 65, FALSE, ignore_walls = TRUE, falloff_distance = message_range, vary = TRUE)
+
 /mob/proc/binarycheck()
 	return FALSE
 

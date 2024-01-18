@@ -7,6 +7,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	item_flags = NOBLUDGEON
+	pickup_sound = 'sound/items/handling/wrapper_pickup.ogg'
+	drop_sound = 'sound/items/handling/wrapper_drop.ogg'
 
 /obj/item/trash/Initialize(mapload)
 	var/turf/T = get_turf(src)
@@ -90,17 +92,23 @@
 	name = "tray"
 	icon_state = "tray"
 	resistance_flags = NONE
+	pickup_sound = 'sound/items/handling/papercup_pickup.ogg'
+	drop_sound = 'sound/items/handling/metal_drop.ogg'
 
 /obj/item/trash/candle
 	name = "candle"
 	icon = 'icons/obj/candle.dmi'
 	icon_state = "candle4"
+	pickup_sound = null
+	drop_sound = null
 
 /obj/item/trash/can
 	name = "crushed can"
 	icon_state = "cola"
 	resistance_flags = NONE
 	grind_results = list(/datum/reagent/aluminium = 10)
+	pickup_sound = 'sound/items/handling/papercup_pickup.ogg'
+	drop_sound = 'sound/items/handling/can_drop.ogg'
 
 /obj/item/trash/can/food/peaches
 	name = "canned peaches"

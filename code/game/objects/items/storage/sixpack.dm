@@ -8,6 +8,7 @@
 	righthand_file = 'icons/mob/inhands/items/food_righthand.dmi'
 	custom_materials = list(/datum/material/plastic = 1200)
 	max_integrity = 500
+	rustle_sound = 'sound/items/storage/small_plastic_box.ogg' // Look man, it's made out of plastic, okay?!
 
 /obj/item/storage/cans/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins popping open a final cold one with the boys! It looks like [user.p_theyre()] trying to commit suicide!"))

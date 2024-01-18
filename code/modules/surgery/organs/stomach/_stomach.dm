@@ -193,9 +193,15 @@
 		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FULL)
 			human.clear_alert(ALERT_NUTRITION)
 		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-			human.throw_alert(ALERT_NUTRITION, /atom/movable/screen/alert/hungry)
+			if(issynthetic(human))
+				human.throw_alert(ALERT_NUTRITION, /atom/movable/screen/alert/lowcell, 2)
+			else
+				human.throw_alert(ALERT_NUTRITION, /atom/movable/screen/alert/hungry)
 		if(0 to NUTRITION_LEVEL_STARVING)
-			human.throw_alert(ALERT_NUTRITION, /atom/movable/screen/alert/starving)
+			if(issynthetic(human))
+				human.throw_alert(ALERT_NUTRITION, /atom/movable/screen/alert/emptycell)
+			else
+				human.throw_alert(ALERT_NUTRITION, /atom/movable/screen/alert/starving)
 
 ///for when mood is disabled and hunger should handle slowdowns
 /obj/item/organ/internal/stomach/proc/handle_hunger_slowdown(mob/living/carbon/human/human)

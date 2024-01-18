@@ -18,6 +18,8 @@
 	attack_verb_simple = list("slam", "whack", "bash", "thunk", "batter", "bludgeon", "thrash")
 	dog_fashion = /datum/dog_fashion/back
 	resistance_flags = FIRE_PROOF
+	pickup_sound = 'sound/items/handling/gascan_pickup.ogg'
+	drop_sound = 'sound/items/handling/gascan_drop.ogg'
 	var/max_water = 50
 	var/last_use = 1
 	var/chem = /datum/reagent/water
@@ -228,9 +230,9 @@
 /obj/item/extinguisher/proc/manage_chair_speed(datum/move_loop/move/source)
 	SIGNAL_HANDLER
 	switch(source.lifetime)
-		if(5 to 4)
+		if(4 to 5)
 			source.delay = 2
-		if(3 to 1)
+		if(1 to 3)
 			source.delay = 3
 
 /obj/item/extinguisher/AltClick(mob/user)

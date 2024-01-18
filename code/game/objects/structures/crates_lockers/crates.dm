@@ -176,6 +176,8 @@
 	desc = "A freezer."
 	name = "freezer"
 	icon_state = "freezer"
+	open_sound = 'sound/effects/fridge_open.ogg'
+	close_sound = 'sound/effects/fridge_close.ogg'
 
 //Snowflake organ freezer code
 //Order is important, since we check source, we need to do the check whenever we have all the organs in the crate

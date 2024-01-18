@@ -149,12 +149,7 @@
 		"borg_l_leg",
 		"borg_r_arm",
 		"borg_r_leg",
-		"borg_suit",
-		"borg_upgrade_rename",
-		"borg_upgrade_restart",
-		"borgupload",
 		"cyborgrecharger",
-		"robocontrol",
 		"sflash",
 	)
 
@@ -271,7 +266,6 @@
 		"dropper",
 		"hemostat",
 		"large_beaker",
-		"mmi_m",
 		"operating",
 		"petri_dish",
 		"pillbottle",
@@ -285,6 +279,7 @@
 		"swab",
 		"syringe",
 		"xlarge_beaker",
+		"mini_chem_dispenser",
 	)
 
 /datum/techweb_node/basic_circuitry
@@ -411,6 +406,7 @@
 		"piercesyringe",
 		"plasmarefiller",
 		"smoke_machine",
+		"big_chem_dispenser",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	required_experiments = list(/datum/experiment/dissection/nonhuman)
@@ -450,6 +446,8 @@
 		"monkey_recycler",
 		"oven",
 		"processor",
+		"stove",
+		"table_hob",
 		"reagentgrinder",
 		"smartfridge",
 	)
@@ -525,8 +523,8 @@
 	description = "Big Data, in space!"
 	prereq_ids = list("base")
 	design_ids = list(
-		"bounty_pad",
-		"bounty_pad_control",
+		"trade_console",
+		"cargo_trade_console",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
@@ -582,6 +580,7 @@
 		"anomaly_refinery",
 		"tank_compressor",
 		"atmos_thermal",
+		"holomap",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 12500)
 	discount_experiments = list(/datum/experiment/scanning/random/material/easy = 7500)
@@ -606,6 +605,7 @@
 		"rpd_loaded",
 		"sheetifier",
 		"weldingmask",
+		"engineering_holomap"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 15000)
 	discount_experiments = list(
@@ -674,7 +674,6 @@
 	description = "Application of Bluespace for static teleportation technology."
 	prereq_ids = list("practical_bluespace")
 	design_ids = list(
-		"bluespace_pod",
 		"launchpad",
 		"launchpad_console",
 		"tele_hub",
@@ -839,16 +838,6 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
-/datum/techweb_node/adv_robotics
-	id = "adv_robotics"
-	display_name = "Advanced Robotics Research"
-	description = "Machines using actual neural networks to simulate human lives."
-	prereq_ids = list("neural_programming", "robotics")
-	design_ids = list(
-		"mmi_posi",
-	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
-
 /datum/techweb_node/exodrone_tech
 	id = "exodrone"
 	display_name = "Exploration Drone Research"
@@ -871,115 +860,6 @@
 		"skill_station",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
-
-/datum/techweb_node/cyborg_upg_util
-	id = "cyborg_upg_util"
-	display_name = "Cyborg Upgrades: Utility"
-	description = "Utility upgrades for cyborgs."
-	prereq_ids = list("adv_robotics")
-	design_ids = list(
-		"borg_upgrade_advancedmop",
-		"borg_upgrade_broomer",
-		"borg_upgrade_expand",
-		"borg_upgrade_prt",
-		"borg_upgrade_selfrepair",
-		"borg_upgrade_thrusters",
-		"borg_upgrade_trashofholding",
-	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
-
-/datum/techweb_node/cyborg_upg_engiminer
-	id = "cyborg_upg_engiminer"
-	display_name = "Cyborg Upgrades: Engineering & Mining"
-	description = "Engineering and Mining upgrades for cyborgs."
-	prereq_ids = list("adv_engi", "basic_mining")
-	design_ids = list(
-		"borg_upgrade_circuitapp",
-		"borg_upgrade_diamonddrill",
-		"borg_upgrade_holding",
-		"borg_upgrade_lavaproof",
-		"borg_upgrade_rped",
-	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
-
-/datum/techweb_node/cyborg_upg_med
-	id = "cyborg_upg_med"
-	display_name = "Cyborg Upgrades: Medical"
-	description = "Medical upgrades for cyborgs."
-	prereq_ids = list("adv_biotech")
-	design_ids = list(
-		"borg_upgrade_beakerapp",
-		"borg_upgrade_defibrillator",
-		"borg_upgrade_expandedsynthesiser",
-		"borg_upgrade_piercinghypospray",
-		"borg_upgrade_pinpointer",
-		"borg_upgrade_surgicalprocessor",
-	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
-
-/datum/techweb_node/ai_basic
-	id = "ai_basic"
-	display_name = "Artificial Intelligence"
-	description = "AI unit research."
-	prereq_ids = list("adv_robotics")
-	design_ids = list(
-		"aicore",
-		"borg_ai_control",
-		"intellicard",
-		"mecha_tracking_ai_control",
-		"aifixer",
-		"aiupload",
-		"reset_module",
-		"asimov_module",
-		"default_module",
-		"nutimov_module",
-		"paladin_module",
-		"robocop_module",
-		"corporate_module",
-		"drone_module",
-		"oxygen_module",
-		"safeguard_module",
-		"protectstation_module",
-		"quarantine_module",
-		"freeform_module",
-		"remove_module",
-	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
-
-/datum/techweb_node/ai_adv
-	id = "ai_adv"
-	display_name = "Advanced Artificial Intelligence"
-	description = "State of the art lawsets to be used for AI research."
-	prereq_ids = list("ai_basic")
-	design_ids = list(
-		"asimovpp_module",
-		"paladin_devotion_module",
-		"dungeon_master_module",
-		"painter_module",
-		"ten_commandments_module",
-		"hippocratic_module",
-		"maintain_module",
-		"liveandletlive_module",
-		"reporter_module",
-		"hulkamania_module",
-		"peacekeeper_module",
-		"overlord_module",
-		"tyrant_module",
-		"antimov_module",
-		"balance_module",
-		"thermurderdynamic_module",
-		"damaged_module",
-		"freeformcore_module",
-		"onehuman_module",
-		"purge_module",
-	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
-
-//Any kind of point adjustment needs to happen before SSresearch sets up the whole node tree, it gets cached
-/datum/techweb_node/ai/New()
-	. = ..()
-	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNIQUE_AI))
-		research_costs[TECHWEB_POINT_TYPE_GENERIC] *= 3
 
 /////////////////////////EMP tech/////////////////////////
 /datum/techweb_node/emp_basic //EMP tech for some reason
@@ -1045,8 +925,6 @@
 	description = "Computers and how they work."
 	prereq_ids = list("datatheory")
 	design_ids = list(
-		"cargo",
-		"cargorequest",
 		"comconsole",
 		"crewconsole",
 		"idcard",
@@ -1054,6 +932,7 @@
 		"mining",
 		"rdcamera",
 		"seccamera",
+		"chef_order_console",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
 
@@ -1273,7 +1152,6 @@
 	description = "Better than Efficiency V."
 	prereq_ids = list("engineering", "basic_plasma")
 	design_ids = list(
-		"cargoexpress",
 		"cooldownmod",
 		"damagemod",
 		"drill",
@@ -1634,7 +1512,7 @@
 	id = "adv_mecha"
 	display_name = "Advanced Exosuits"
 	description = "For when you just aren't Gundam enough."
-	prereq_ids = list("adv_robotics")
+	prereq_ids = list("robotics")
 	design_ids = list(
 		"mech_repair_droid",
 	)
@@ -2051,8 +1929,6 @@
 	prereq_ids = list("adv_engi", "adv_weaponry", "explosive_weapons")
 	design_ids = list(
 		"advanced_camera",
-		"ai_cam_upgrade",
-		"borg_syndicate_module",
 		"decloner",
 		"donksoft_refill",
 		"donksofttoyvendor",
@@ -2167,7 +2043,7 @@
 /datum/techweb_node/tackle_advanced
 	id = "tackle_advanced"
 	display_name = "Advanced Grapple Technology"
-	description = "Nanotrasen would like to remind its researching staff that it is never acceptable to \"glomp\" your coworkers, and further \"scientific trials\" on the subject \
+	description = "Artea would like to remind its researching staff that it is never acceptable to \"glomp\" your coworkers, and further \"scientific trials\" on the subject \
 	will no longer be accepted in its academic journals."
 	design_ids = list(
 		"tackle_dolphin",

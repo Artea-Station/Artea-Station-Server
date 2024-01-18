@@ -10,7 +10,6 @@
 		/datum/computer_file/program/status,
 		/datum/computer_file/program/science,
 		/datum/computer_file/program/robocontrol,
-		/datum/computer_file/program/budgetorders,
 	)
 
 /obj/item/modular_computer/pda/heads/captain
@@ -38,7 +37,6 @@
 		/datum/computer_file/program/status,
 		/datum/computer_file/program/science,
 		/datum/computer_file/program/robocontrol,
-		/datum/computer_file/program/budgetorders,
 		/datum/computer_file/program/records/security,
 		/datum/computer_file/program/job_management,
 	)
@@ -52,7 +50,6 @@
 		/datum/computer_file/program/status,
 		/datum/computer_file/program/science,
 		/datum/computer_file/program/robocontrol,
-		/datum/computer_file/program/budgetorders,
 		/datum/computer_file/program/records/security,
 	)
 
@@ -65,7 +62,6 @@
 		/datum/computer_file/program/status,
 		/datum/computer_file/program/science,
 		/datum/computer_file/program/robocontrol,
-		/datum/computer_file/program/budgetorders,
 		/datum/computer_file/program/atmosscan,
 		/datum/computer_file/program/alarm_monitor,
 		/datum/computer_file/program/supermatter_monitor,
@@ -80,7 +76,6 @@
 		/datum/computer_file/program/status,
 		/datum/computer_file/program/science,
 		/datum/computer_file/program/robocontrol,
-		/datum/computer_file/program/budgetorders,
 		/datum/computer_file/program/maintenance/phys_scanner,
 		/datum/computer_file/program/records/medical,
 	)
@@ -95,7 +90,6 @@
 		/datum/computer_file/program/status,
 		/datum/computer_file/program/science,
 		/datum/computer_file/program/robocontrol,
-		/datum/computer_file/program/budgetorders,
 		/datum/computer_file/program/signal_commander,
 	)
 /obj/item/modular_computer/pda/heads/quartermaster
@@ -109,7 +103,6 @@
 		/datum/computer_file/program/status,
 		/datum/computer_file/program/science,
 		/datum/computer_file/program/robocontrol,
-		/datum/computer_file/program/budgetorders,
 		/datum/computer_file/program/shipping,
 		/datum/computer_file/program/robocontrol,
 	)
@@ -157,6 +150,11 @@
 	starting_programs = list(
 		/datum/computer_file/program/records/security,
 	)
+
+/obj/item/modular_computer/pda/internal_affairs_agent/Initialize(mapload)
+	. = ..()
+	for(var/datum/computer_file/program/messenger/messenger_app in stored_files)
+		messenger_app.spam_mode = TRUE
 
 /**
  * Engineering
@@ -252,7 +250,6 @@
 	stored_paper = 20
 	starting_programs = list(
 		/datum/computer_file/program/shipping,
-		/datum/computer_file/program/budgetorders,
 		/datum/computer_file/program/robocontrol,
 	)
 
@@ -276,19 +273,6 @@
 	name = "chaplain PDA"
 	greyscale_config = /datum/greyscale_config/tablet/chaplain
 	greyscale_colors = "#333333#D11818"
-
-/obj/item/modular_computer/pda/lawyer
-	name = "lawyer PDA"
-	greyscale_colors = "#4C76C8#FFE243"
-	inserted_item = /obj/item/pen/fountain
-	starting_programs = list(
-		/datum/computer_file/program/records/security,
-	)
-
-/obj/item/modular_computer/pda/lawyer/Initialize(mapload)
-	. = ..()
-	for(var/datum/computer_file/program/messenger/messenger_app in stored_files)
-		messenger_app.spam_mode = TRUE
 
 /obj/item/modular_computer/pda/botanist
 	name = "botanist PDA"
