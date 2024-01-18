@@ -133,7 +133,7 @@ SUBSYSTEM_DEF(zas)
 
 	// Make sure we don't rebuild mid-tick.
 	if (state != SS_IDLE)
-		to_chat(world, span_boldannounce("ZAS Rebuild initiated. Waiting for current air tick to complete before continuing."))
+		log_zas("ZAS Rebuild initiated. Waiting for current air tick to complete before continuing.")
 		UNTIL(state == SS_IDLE)
 
 	zas_settings = new //Reset the global zas settings
@@ -175,8 +175,7 @@ SUBSYSTEM_DEF(zas)
 	settings = zas_settings
 	gas_data = xgm_gas_data
 
-	to_chat(world, span_boldannounce("ZAS: Processing Geometry..."))
-	log_world("ZAS: Processing Geometry...")
+	log_zas("ZAS: Processing Geometry...")
 
 	var/simulated_turf_count = 0
 
@@ -189,21 +188,17 @@ SUBSYSTEM_DEF(zas)
 
 		CHECK_TICK
 
-	to_chat(world, span_boldannounce("ZAS:\n - Total Simulated Turfs: [simulated_turf_count]\n - Total Zones: [zones.len]\n - Total Edges: [edges.len]\n - Total Active Edges: [active_edges.len ? "<span class='danger'>[active_edges.len]</span>" : "None"]\n - Total Unsimulated Turfs: [world.maxx*world.maxy*world.maxz - simulated_turf_count]"))
-	log_world("ZAS:\n - Total Simulated Turfs: [simulated_turf_count]\n - Total Zones: [zones.len]\n - Total Edges: [edges.len]\n - Total Active Edges: [active_edges.len ? "<span class='danger'>[active_edges.len]</span>" : "None"]\n - Total Unsimulated Turfs: [world.maxx*world.maxy*world.maxz - simulated_turf_count]")
+	log_zas("ZAS:\n - Total Simulated Turfs: [simulated_turf_count]\n - Total Zones: [zones.len]\n - Total Edges: [edges.len]\n - Total Active Edges: [active_edges.len ? "<span class='danger'>[active_edges.len]</span>" : "None"]\n - Total Unsimulated Turfs: [world.maxx*world.maxy*world.maxz - simulated_turf_count]")
 
-	to_chat(world, span_boldannounce("ZAS: Geometry processing completed in [(REALTIMEOFDAY - starttime)/10] seconds!"))
-	log_world("ZAS: Geometry processing completed in [(REALTIMEOFDAY - starttime)/10] seconds!")
+	log_zas("ZAS: Geometry processing completed in [(REALTIMEOFDAY - starttime)/10] seconds!")
 
 	if (simulate)
-		to_chat(world, span_boldannounce("ZAS: Firing once..."))
-		log_world("ZAS: Firing once...")
+		log_zas("ZAS: Firing once...")
 
 		starttime = REALTIMEOFDAY
 		fire(FALSE, TRUE)
 
-		to_chat(world, span_boldannounce("ZAS: Air settling completed in [(REALTIMEOFDAY - starttime)/10] seconds!"))
-		log_world("ZAS: Air settling completed in [(REALTIMEOFDAY - starttime)/10] seconds!")
+		log_zas("ZAS: Air settling completed in [(REALTIMEOFDAY - starttime)/10] seconds!")
 
 	..(timeofday)
 
@@ -598,79 +593,6 @@ SUBSYSTEM_DEF(zas)
 	. = ..()
 	can_fire = TRUE
 
-///Randomizes the lavaland gas mixture, and sets all lavaland unsimmed turfs to it.
-/datum/controller/subsystem/zas/proc/fuck_lavaland()
-	var/list/restricted_gases = list()
-	///No funny gasses allowed
-	for(var/gas in xgm_gas_data.gases)
-		if(xgm_gas_data.flags[gas] & (XGM_GAS_CONTAMINANT|XGM_GAS_FUEL|XGM_GAS_OXIDIZER))
-			restricted_gases |= gas
-
-	var/list/viable_gases = xgm_gas_data.gases - restricted_gases - GAS_XENON //TODO: add XGM_GAS_DANGEROUS
-	var/datum/gas_mixture/mix_real = new
-	var/list/mix_list = list()
-	var/num_gases = rand(1, 3)
-	var/list/chosen_gases = list()
-	var/target_pressure = rand(HAZARD_LOW_PRESSURE + 10, LAVALAND_EQUIPMENT_EFFECT_PRESSURE - 1)
-	var/temp = rand(BODYTEMP_COLD_DAMAGE_LIMIT + 1, 350)
-	var/pressure_scalar = target_pressure / (LAVALAND_EQUIPMENT_EFFECT_PRESSURE - 1)
-
-	///Choose our gases
-	for(var/iter in 1 to num_gases)
-		chosen_gases += pick_n_take(viable_gases)
-
-	mix_real.gas = chosen_gases
-
-	//Add a spice of Radon
-	for(var/gas in mix_real.gas)
-		mix_real.gas[gas] = 1 //So update values doesn't cull it
-
-	//Radon  sci
-	chosen_gases += GAS_RADON
-	mix_real.gas[GAS_RADON] = 5
-	num_gases++
-
-	mix_real.temperature = temp
-
-	///This is where the fun begins...
-	var/amount
-	var/gastype
-	while(mix_real.returnPressure() < target_pressure)
-		gastype = pick(chosen_gases)
-
-		amount = rand(5,10)
-		amount *= rand(50, 200) / 100
-		amount *= pressure_scalar
-		amount = CEILING(amount, 0.1)
-
-		mix_real.gas[gastype] += amount
-		AIR_UPDATE_VALUES(mix_real)
-
-	while(mix_real.returnPressure() > target_pressure)
-		mix_real.gas[gastype] -= mix_real.gas[gastype] * 0.1
-		AIR_UPDATE_VALUES(mix_real)
-
-	mix_real.gas[gastype] = FLOOR(mix_real.gas[gastype], 0.1)
-
-	for(var/gas_id in mix_real.gas)
-		mix_list[gas_id] = mix_real.gas[gas_id]
-
-	var/list/lavaland_z_levels = SSmapping.levels_by_trait(ZTRAIT_MINING) //God I hope this is never more than one
-	var/list/lavaland_areas = typecacheof(list(/area/lavaland, /area/icemoon))
-	lavaland_areas[/area/mine] = TRUE
-	lavaland_areas[/area/mine/explored] = TRUE
-
-	for(var/zlev in lavaland_z_levels)
-		for(var/turf/T as anything in block(locate(1,1,zlev), locate(world.maxx, world.maxy, zlev)))
-			if(!T.simulated && lavaland_areas[T.loc])
-				T.initial_gas = mix_list
-				T.temperature = mix_real.temperature
-				T.make_air()
-			CHECK_TICK
-
-	// lavaland_atmos = mix_real
-	to_chat(world, span_boldannounce("ZAS: Lavaland contains [num_gases] [num_gases > 1? "gases" : "gas"], with a pressure of [mix_real.returnPressure()] kpa."))
-
 /datum/controller/subsystem/zas/proc/register_planetary_atmos(datum/atmosphere/atmos_datum, level, friendly_name)
 	var/datum/gas_mixture/our_gasmix = new
 
@@ -688,15 +610,25 @@ SUBSYSTEM_DEF(zas)
 		our_gasmix.gas[gas_id] = atmos_datum.restricted_gases[gas_id]
 
 	our_gasmix.temperature = rand(atmos_datum.minimum_temp, atmos_datum.maximum_temp)
+	AIR_UPDATE_VALUES(our_gasmix)
+
 	var/target_pressure = rand(atmos_datum.minimum_pressure, atmos_datum.maximum_pressure)
-	var/new_mol_multiplier = target_pressure * our_gasmix.get_volume()
-	new_mol_multiplier /= R_IDEAL_GAS_EQUATION * our_gasmix.temperature
+
+	var/total_moles = 0
+	for(var/gas_id in our_gasmix.gas)
+		total_moles += our_gasmix.gas[gas_id]
 
 	for(var/gas_id in our_gasmix.gas)
-		our_gasmix.gas[gas_id] *= new_mol_multiplier
+		var/new_moles = (our_gasmix.gas[gas_id] * our_gasmix.volume) / (R_IDEAL_GAS_EQUATION * our_gasmix.temperature)
+		new_moles = new_moles / total_moles * target_pressure
+		our_gasmix.gas[gas_id] = new_moles
 
 	AIR_UPDATE_VALUES(our_gasmix)
 
 	planetary["[level]"] = our_gasmix
 	var/num_gases = length(our_gasmix.gas)
-	to_chat(world, span_boldannounce("ZAS: [level] contains [num_gases] [num_gases > 1? "gases" : "gas"], with a pressure of [our_gasmix.returnPressure()] kpa."))
+	log_zas("ZAS: [level] contains [num_gases] [num_gases > 1? "gases" : "gas"], with a pressure of [our_gasmix.returnPressure()]kpa (target: [target_pressure]kpa), temperature of [our_gasmix.temperature].")
+
+/datum/controller/subsystem/zas/proc/log_zas(message)
+	to_chat(world, span_boldannounce(message))
+	log_world(message)
