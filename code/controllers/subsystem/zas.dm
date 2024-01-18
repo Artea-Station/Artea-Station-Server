@@ -610,7 +610,6 @@ SUBSYSTEM_DEF(zas)
 		our_gasmix.gas[gas_id] = atmos_datum.restricted_gases[gas_id]
 
 	our_gasmix.temperature = rand(atmos_datum.minimum_temp, atmos_datum.maximum_temp)
-	AIR_UPDATE_VALUES(our_gasmix)
 
 	var/target_pressure = rand(atmos_datum.minimum_pressure, atmos_datum.maximum_pressure)
 
