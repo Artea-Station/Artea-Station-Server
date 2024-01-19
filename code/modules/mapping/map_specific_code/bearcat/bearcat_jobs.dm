@@ -8,6 +8,11 @@
 	total_positions = 1
 	spawn_positions = 1
 
+/datum/job/lead_pathfinder/bearcat
+	faction = FACTION_BEARCAT
+	total_positions = 1
+	spawn_positions = 1
+
 /datum/job/quartermaster/bearcat
 	faction = FACTION_BEARCAT
 	total_positions = 1
