@@ -54,7 +54,10 @@
 "aq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/newscaster/directional/north,
-/obj/structure/table/optable,
+/obj/machinery/computer/operating,
+/obj/structure/window{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/station/science/robotics/lab)
 "ar" = (
@@ -620,6 +623,7 @@
 /obj/item/stack/sheet/iron/ten,
 /obj/item/stack/sheet/mineral/wood/fifty,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil,
 /turf/open/floor/iron/dark,
 /area/station/science/robotics/lab)
 "dC" = (
@@ -912,6 +916,9 @@
 /obj/effect/decal/cleanable/oil,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/circuit/red,
+/area/station/science/robotics/lab)
+"eP" = (
+/turf/open/floor/iron/dark,
 /area/station/science/robotics/lab)
 "eQ" = (
 /obj/machinery/light_switch/directional/north,
@@ -1330,6 +1337,22 @@
 /obj/machinery/light_switch/directional/east,
 /turf/open/openspace,
 /area/station/service/bar)
+"hq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/retractor,
+/obj/item/cautery,
+/obj/item/circular_saw,
+/obj/item/hemostat,
+/obj/item/scalpel{
+	pixel_y = 16
+	},
+/obj/item/surgical_drapes,
+/turf/open/floor/iron/dark,
+/area/station/science/robotics/lab)
 "hr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/event_spawn,
@@ -1413,6 +1436,7 @@
 /obj/structure/closet/crate/radiation,
 /obj/item/stack/sheet/mineral/uranium/five,
 /obj/item/stack/sheet/mineral/uranium/five,
+/obj/item/stack/cable_coil,
 /turf/open/floor/iron/dark,
 /area/station/engineering/engine_smes)
 "ib" = (
@@ -3451,6 +3475,10 @@
 /obj/machinery/light_switch/directional/west,
 /turf/open/floor/iron,
 /area/station/cargo/sorting)
+"tc" = (
+/obj/structure/table/optable,
+/turf/open/floor/iron/dark,
+/area/station/science/robotics/lab)
 "tf" = (
 /obj/structure/plasticflaps,
 /obj/machinery/conveyor{
@@ -4304,18 +4332,6 @@
 /area/space/nearstation)
 "xQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/window{
-	dir = 4
-	},
-/obj/structure/table,
-/obj/item/retractor,
-/obj/item/cautery,
-/obj/item/circular_saw,
-/obj/item/hemostat,
-/obj/item/scalpel{
-	pixel_y = 16
-	},
-/obj/item/surgical_drapes,
 /turf/open/floor/circuit/red,
 /area/station/science/robotics/lab)
 "xS" = (
@@ -4441,6 +4457,10 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/station/engineering/storage)
+"yE" = (
+/obj/structure/grille,
+/turf/open/space/openspace,
+/area/space/nearstation)
 "yF" = (
 /obj/structure/bed,
 /obj/structure/curtain/bounty,
@@ -4757,6 +4777,7 @@
 /obj/effect/spawner/random/maintenance,
 /obj/structure/closet/crate,
 /obj/structure/cable/multilayer/multiz,
+/obj/item/stack/cable_coil,
 /turf/open/floor/iron/dark,
 /area/station/engineering/storage)
 "AC" = (
@@ -5480,10 +5501,7 @@
 /area/station/hallway/secondary/exit)
 "ED" = (
 /obj/machinery/firealarm/directional/north,
-/obj/machinery/computer/operating,
-/obj/structure/window{
-	dir = 4
-	},
+/obj/machinery/mecha_part_fabricator,
 /turf/open/floor/iron/dark,
 /area/station/science/robotics/lab)
 "EF" = (
@@ -5550,7 +5568,7 @@
 "EY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_switch/directional/north,
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/autolathe,
 /turf/open/floor/iron/dark,
 /area/station/science/robotics/lab)
 "Fa" = (
@@ -5644,7 +5662,12 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/lobby)
 "FD" = (
-/obj/machinery/autolathe,
+/obj/structure/table,
+/obj/item/storage/belt/utility,
+/obj/item/screwdriver,
+/obj/item/wrench,
+/obj/item/crowbar,
+/obj/item/stack/cable_coil,
 /turf/open/floor/iron/dark,
 /area/station/science/robotics/lab)
 "FL" = (
@@ -102866,21 +102889,21 @@ NK
 NK
 NK
 NK
+yE
+yE
+yE
+yE
 NK
 NK
+yE
+yE
+yE
 NK
 NK
-NK
-NK
-NK
-NK
-NK
-NK
-NK
-NK
-NK
-NK
-NK
+yE
+yE
+yE
+yE
 NK
 NK
 NK
@@ -103123,21 +103146,21 @@ NK
 NK
 NK
 NK
+yE
+NK
+AC
 NK
 NK
 NK
 NK
+AC
 NK
 NK
 NK
 NK
+AC
 NK
-NK
-NK
-NK
-NK
-NK
-NK
+yE
 NK
 NK
 NK
@@ -103380,8 +103403,8 @@ NK
 NK
 NK
 NK
-NK
-NK
+yE
+AC
 vw
 vw
 CZ
@@ -103393,8 +103416,8 @@ CZ
 CZ
 vw
 vw
-NK
-NK
+AC
+yE
 NK
 NK
 NK
@@ -103637,7 +103660,7 @@ NK
 NK
 eE
 NK
-NK
+yE
 NK
 vw
 Gi
@@ -103651,7 +103674,7 @@ za
 Gi
 vw
 NK
-NK
+yE
 NK
 NK
 NK
@@ -104408,7 +104431,7 @@ NK
 NK
 NK
 NK
-NK
+yE
 NK
 CZ
 za
@@ -104678,8 +104701,8 @@ za
 za
 gr
 vw
-NK
-NK
+AC
+yE
 NK
 NK
 NK
@@ -104935,11 +104958,11 @@ za
 za
 tD
 vw
-NK
-NK
-NK
-NK
-NK
+XK
+XK
+pc
+pc
+XK
 NK
 NK
 NK
@@ -105192,10 +105215,10 @@ za
 za
 za
 vw
-XK
-XK
-pc
-pc
+tc
+qE
+eP
+eP
 XK
 NK
 NK
@@ -105450,7 +105473,7 @@ za
 za
 vw
 aq
-qE
+hq
 SZ
 XP
 XK
