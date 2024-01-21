@@ -62,7 +62,7 @@
 	digitigrade_customization = DIGITIGRADE_OPTIONAL
 	burnmod = 1.3 // Every 0.1 is 10% above the base.
 	brutemod = 1.3
-	coldmod = 1.1
+	coldmod = 1.2
 	heatmod = 1.5
 	siemens_coeff = 1.4 // Not more because some shocks will outright crit you, which is very unfun
 
