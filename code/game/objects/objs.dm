@@ -66,6 +66,7 @@
 	. = ..()
 
 	check_on_table()
+	add_debris_element()
 
 /obj/Destroy(force)
 	if(!ismachinery(src))

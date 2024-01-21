@@ -2089,3 +2089,6 @@
  */
 /atom/proc/start_cleaning(datum/source, atom/target, mob/living/user, clean_target = TRUE)
 	SEND_SIGNAL(source, COMSIG_START_CLEANING, target, user, clean_target)
+
+/atom/proc/add_debris_element()
+	AddElement(/datum/element/debris, null, -15, 8, 0.7)

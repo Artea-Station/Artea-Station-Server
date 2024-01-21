@@ -5,6 +5,11 @@
 	blocks_air = AIR_BLOCKED
 	rad_insulation = RAD_MEDIUM_INSULATION
 	pass_flags_self = PASSCLOSEDTURF
+
+/turf/closed/Initialize(mapload)
+	. = ..()
+	add_debris_element()
+
 /*
 /turf/closed/AfterChange()
 	. = ..()

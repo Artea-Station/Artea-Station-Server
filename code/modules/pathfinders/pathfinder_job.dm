@@ -2,7 +2,7 @@
 	title = JOB_PATHFINDER
 	description = "Be the resident deckhand, be crammed into a tiny shuttle, get blown up by the first overmap encounter."
 	department_head = list(JOB_PATHFINDER_LEAD)
-	faction = FACTION_STATION
+	faction = FACTION_DISABLED
 	total_positions = 4
 	spawn_positions = 4
 	supervisors = SUPERVISOR_PL

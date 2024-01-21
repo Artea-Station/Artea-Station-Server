@@ -185,6 +185,8 @@
 #define FACTION_NONE "None"
 #define FACTION_STATION "Station"
 #define FACTION_BEARCAT "Bearcat"
+/// Special define that's PURPOSEFULLY NOT USED ANYWHERE BUT IN JOB DATUMS TO TEMPORARILY DISABLE JOBS.
+#define FACTION_DISABLED "do not use"
 
 // Variable macros used to declare who is the supervisor for a given job, announced to the player when they join as any given job.
 #define SUPERVISOR_CAPTAIN "the Captain"
