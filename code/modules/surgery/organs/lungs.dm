@@ -123,7 +123,7 @@
 
 	var/list/breath_gases = breath.gas
 	//Handle subtypes' breath processing
-	handle_gas_override(breather, breath, gas_breathed)
+	handle_gas_override(breather, breath)
 
 	//Molar count cache of our key gases
 	var/O2_moles = breath_gases[GAS_OXYGEN]
@@ -270,14 +270,6 @@
 	AIR_UPDATE_VALUES(breath)
 	if(breath.total_moles) // If there's some other shit in the air lets deal with it here.
 
-	// // Pluoxium
-	// 	var/pluoxium_pp = breath.getBreathPartialPressure(breath_gases[/datum/gas/pluoxium][MOLES])
-	// 	if(pluoxium_pp > gas_stimulation_min)
-	// 		var/existing = breather.reagents.get_reagent_amount(/datum/reagent/pluoxium)
-	// 		breather.reagents.add_reagent(/datum/reagent/pluoxium, max(0, 1 - existing))
-	// 	gas_breathed = breath_gases[/datum/gas/pluoxium][MOLES]
-	// 	breath_gases[/datum/gas/pluoxium][MOLES] -= gas_breathed
-
 	// N2O
 		if(N2O_pp > n2o_para_min) // Enough to make us stunned for a bit
 			breather.throw_alert(ALERT_TOO_MUCH_N2O, /atom/movable/screen/alert/too_much_n2o)
@@ -304,7 +296,7 @@
 	return TRUE
 
 ///override this for breath handling unique to lung subtypes, breath_gas is the list of gas in the breath while gas breathed is just what is being added or removed from that list, just as they are when this is called in check_breath()
-/obj/item/organ/internal/lungs/proc/handle_gas_override(mob/living/carbon/human/breather, list/breath_gas, gas_breathed)
+/obj/item/organ/internal/lungs/proc/handle_gas_override(mob/living/carbon/human/breather, list/breath_gas)
 	return
 
 /obj/item/organ/internal/lungs/proc/handle_too_little_breath(mob/living/carbon/human/suffocator = null, breath_pp = 0, safe_breath_min = 0, true_pp = 0)
