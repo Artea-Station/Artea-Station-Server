@@ -27,7 +27,7 @@
 	accepted_experiments = list(
 		/datum/experiment/ordnance/explosive/highyieldbomb,
 		/datum/experiment/ordnance/explosive/pressurebomb,
-		/datum/experiment/ordnance/explosive/hydrogenbomb,
+		/datum/experiment/ordnance/explosive/pressurebomb,
 	)
 	boosted_nodes = list(
 		"adv_weaponry" = 5000,
@@ -44,8 +44,7 @@
 	name = "Biological Research Division"
 	flufftext = "A collegiate of the best medical researchers Artea employs. They seem to be interested in the biological effects of some more exotic gases. Especially stimulants and neurosupressants."
 	accepted_experiments = list(
-		/datum/experiment/ordnance/gaseous/nitrous_oxide,
-		/datum/experiment/ordnance/gaseous/bz,
+		/datum/experiment/ordnance/gaseous/radon,
 	)
 	boosted_nodes = list(
 		"cyber_organs" = 750,
@@ -60,8 +59,7 @@
 	name = "NT Physics Quarterly"
 	flufftext = "A prestigious physics journal managed by Artea. The main journal for publishing cutting-edge physics research conducted by Artea, given that they aren't classified."
 	accepted_experiments = list(
-		/datum/experiment/ordnance/gaseous/noblium,
-		/datum/experiment/ordnance/explosive/nobliumbomb,
+		/datum/experiment/ordnance/gaseous/radon,
 	)
 	boosted_nodes = list(
 		"engineering" = 5000,

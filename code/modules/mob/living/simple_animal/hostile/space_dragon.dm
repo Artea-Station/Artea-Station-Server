@@ -60,7 +60,7 @@
 	minbodytemp = 0
 	maxbodytemp = 1500
 	faction = list("carp")
-	pressure_resistance = 200
+	//pressure_resistance = 200
 	/// How much endlag using Wing Gust should apply.  Each use of wing gust increments this, and it decreases over time.
 	var/tiredness = 0
 	/// A multiplier to how much each use of wing gust should add to the tiredness variable.  Set to 5 if the current rift is destroyed.
@@ -298,7 +298,8 @@
 /mob/living/simple_animal/hostile/space_dragon/proc/dragon_fire_line(turf/T)
 	var/list/hit_list = list()
 	hit_list += src
-	new /obj/effect/hotspot(T)
+	//new /obj/effect/hotspot(T)
+	T.create_fire(1, 10)
 	T.hotspot_expose(700,50,1)
 	for(var/mob/living/L in T.contents)
 		if(L in hit_list)

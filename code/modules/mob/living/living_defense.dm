@@ -38,8 +38,8 @@
 //this returns the mob's protection against ear damage (0:no protection; 1: some ear protection; 2: has no ears)
 /mob/living/proc/get_ear_protection()
 	var/turf/current_turf = get_turf(src)
-	var/datum/gas_mixture/environment = current_turf.return_air()
-	var/pressure = environment ? environment.return_pressure() : 0
+	var/datum/gas_mixture/environment = current_turf.unsafe_return_air()
+	var/pressure = environment ? environment.returnPressure() : 0
 	if(pressure < SOUND_MINIMUM_PRESSURE) //space is empty
 		return 1
 	return 0
@@ -494,7 +494,7 @@
  * If the methods include INGEST the mob tastes the reagents.
  * If the methods include VAPOR it incorporates permiability protection.
  */
-/mob/living/expose_reagents(list/reagents, datum/reagents/source, methods=TOUCH, volume_modifier=1, show_message=TRUE)
+/mob/living/expose_reagents(list/reagents, datum/reagents/source, methods=TOUCH, volume_modifier=1, show_message=TRUE, exposed_temperature)
 	. = ..()
 	if(. & COMPONENT_NO_EXPOSE_REAGENTS)
 		return
@@ -506,4 +506,4 @@
 	SEND_SIGNAL(source, COMSIG_REAGENTS_EXPOSE_MOB, src, reagents, methods, volume_modifier, show_message, touch_protection)
 	for(var/reagent in reagents)
 		var/datum/reagent/R = reagent
-		. |= R.expose_mob(src, methods, reagents[R], show_message, touch_protection)
+		. |= R.expose_mob(src, methods, reagents[R], show_message, touch_protection, exposed_temperature)

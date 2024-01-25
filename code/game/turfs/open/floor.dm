@@ -14,7 +14,6 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 
-	thermal_conductivity = 0.04
 	heat_capacity = 10000
 	tiled_dirt = TRUE
 

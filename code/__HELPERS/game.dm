@@ -380,10 +380,10 @@
 	. = FALSE
 	if(!istype(turf_to_check))
 		return
-	var/datum/gas_mixture/environment = turf_to_check.return_air()
-	if(!istype(environment))
+	var/datum/gas_mixture/environment = turf_to_check.unsafe_return_air()
+	if(isnull(environment))
 		return
-	var/pressure = environment.return_pressure()
+	var/pressure = environment.returnPressure()
 	if(pressure <= LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
 		. = TRUE
 

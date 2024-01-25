@@ -61,6 +61,7 @@
 				return ..()
 	if(used_item.get_temperature())
 		start_burning()
+
 	if(grill)
 		if(istype(used_item, /obj/item/melee/roastingstick))
 			return FALSE
@@ -76,6 +77,7 @@
 				used_item.pixel_y = used_item.base_pixel_y + clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)
 		else
 			return ..()
+	return ..()
 
 
 /obj/structure/bonfire/attack_hand(mob/user, list/modifiers)
@@ -98,10 +100,9 @@
 /obj/structure/bonfire/proc/check_oxygen()
 	if(isopenturf(loc))
 		var/turf/open/bonfire_turf = loc
-		if(bonfire_turf.air)
-			var/loc_gases = bonfire_turf.air.gases
-			if(loc_gases[/datum/gas/oxygen] && loc_gases[/datum/gas/oxygen][MOLES] >= 5)
-				return TRUE
+		var/datum/gas_mixture/local_gas = bonfire_turf.unsafe_return_air()
+		if(local_gas.hasGas(GAS_OXYGEN, 5))
+			return TRUE
 	return FALSE
 
 /obj/structure/bonfire/proc/start_burning()

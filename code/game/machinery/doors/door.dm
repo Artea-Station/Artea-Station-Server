@@ -12,8 +12,8 @@
 	power_channel = AREA_USAGE_ENVIRON
 	pass_flags_self = PASSDOORS
 	max_integrity = 350
-	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 0, FIRE = 80, ACID = 70)
-	can_atmos_pass = ATMOS_PASS_DENSITY
+	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, FIRE = 80, ACID = 70)
+	can_atmos_pass = CANPASS_PROC
 	flags_1 = PREVENT_CLICK_UNDER_1
 	receive_ricochet_chance_mod = 0.8
 	damage_deflection = 10
@@ -55,11 +55,13 @@
 	///Sound to play when knocked on
 	var/knock_sound = 'goon/sounds/door_metal_knock_1.ogg'
 
+	///If set, air zones cannot merge across the door even when it is opened.
+	var/block_air_zones = TRUE
+
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
 	set_init_door_layer()
 	update_freelook_sight()
-	air_update_turf(TRUE, TRUE)
 	register_context()
 	GLOB.airlocks += src
 	spark_system = new /datum/effect_system/spark_spread
@@ -69,6 +71,7 @@
 	else
 		flags_1 &= ~PREVENT_CLICK_UNDER_1
 
+	zas_update_loc()
 	//doors only block while dense though so we have to use the proc
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
@@ -133,7 +136,7 @@
 			if(!check_turf)
 				continue
 			var/obj/machinery/door/found_door = locate(door_align_type) in check_turf
-			if(found_door)
+			if(found_door && found_door.auto_dir_align)
 				align_dir = dir_to_align
 				break
 
@@ -182,8 +185,15 @@
 	if(spark_system)
 		qdel(spark_system)
 		spark_system = null
-	air_update_turf(TRUE, FALSE)
+	zas_update_loc()
 	return ..()
+
+/obj/machinery/door/zas_canpass(turf/other)
+	if(QDELETED(src))
+		return AIR_ALLOWED
+	if(block_air_zones)
+		return density ? (AIR_BLOCKED|ZONE_BLOCKED) : ZONE_BLOCKED
+	return density ? (AIR_BLOCKED|ZONE_BLOCKED) : AIR_ALLOWED
 
 /**
  * Signal handler for checking if we notify our surrounding that access requirements are lifted accordingly to a newly set security level
@@ -250,10 +260,9 @@
 		return
 
 /obj/machinery/door/Move()
-	var/turf/T = loc
+	zas_update_loc()
 	. = ..()
-	if(density) //Gotta be closed my friend
-		move_update_air(T)
+
 
 /obj/machinery/door/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -437,7 +446,7 @@
 	update_appearance()
 	set_opacity(0)
 	operating = FALSE
-	air_update_turf(TRUE, FALSE)
+	zas_update_loc()
 	update_freelook_sight()
 	if(autoclose)
 		autoclose_in(DOOR_CLOSE_WAIT)
@@ -467,7 +476,7 @@
 	if(visible && !glass)
 		set_opacity(1)
 	operating = FALSE
-	air_update_turf(TRUE, TRUE)
+	zas_update_loc()
 	update_freelook_sight()
 
 	if(!can_crush)

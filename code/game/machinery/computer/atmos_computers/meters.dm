@@ -16,7 +16,7 @@
 
 /obj/machinery/meter/monitored/on_deconstruction()
 	. = ..()
-	SSair.broadcast_destruction(id_tag, frequency)
+	SSairmachines.broadcast_destruction(id_tag, frequency)
 
 /obj/machinery/meter/monitored/process_atmos()
 	. = ..()
@@ -28,7 +28,7 @@
 		"device" = "AM",
 		"sigtype" = "status",
 		"timestamp" = world.time,
-		"gasmix" = gas_mixture_parser(target.return_air()),
+		"gasmix" = gas_mixture_parser(target.unsafe_return_air()),
 	))
 	radio_connection.post_signal(src, signal)
 

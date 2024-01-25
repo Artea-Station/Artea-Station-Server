@@ -15,7 +15,7 @@
 
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/on_deconstruction()
 	. = ..()
-	SSair.broadcast_destruction(id_tag, frequency)
+	SSairmachines.broadcast_destruction(id_tag, frequency)
 
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
@@ -131,13 +131,13 @@
 	return ..()
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/monitored/Destroy()
-	SSair.broadcast_destruction(id_tag, frequency)
+	SSairmachines.broadcast_destruction(id_tag, frequency)
 	SSradio.remove_object(src, frequency)
 	return ..()
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/monitored/on_deconstruction()
 	. = ..()
-	SSair.broadcast_destruction(id_tag, frequency)
+	SSairmachines.broadcast_destruction(id_tag, frequency)
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/monitored/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)

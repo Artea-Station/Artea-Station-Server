@@ -2,8 +2,7 @@
 	layer = CLOSED_TURF_LAYER
 	opacity = TRUE
 	density = TRUE
-	blocks_air = TRUE
-	init_air = FALSE
+	blocks_air = AIR_BLOCKED
 	rad_insulation = RAD_MEDIUM_INSULATION
 	pass_flags_self = PASSCLOSEDTURF
 
@@ -11,9 +10,11 @@
 	. = ..()
 	add_debris_element()
 
+/*
 /turf/closed/AfterChange()
 	. = ..()
 	SSair.high_pressure_delta -= src
+*/
 
 /turf/closed/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	return FALSE

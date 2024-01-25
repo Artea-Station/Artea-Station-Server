@@ -17,6 +17,7 @@
 	RegisterSignal(parent, COMSIG_ATOM_TOOL_ACT(TOOL_WELDER), PROC_REF(welder_react))
 	if(isturf(parent))
 		RegisterSignal(parent, COMSIG_TURF_EXPOSE, PROC_REF(hotspots_react))
+		parent:become_atmos_sensitive()
 
 /datum/component/combustible_flooder/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_PARENT_ATTACKBY)
@@ -25,6 +26,7 @@
 	UnregisterSignal(parent, COMSIG_ATOM_TOOL_ACT(TOOL_WELDER))
 	if(isturf(parent))
 		UnregisterSignal(parent, COMSIG_TURF_EXPOSE)
+		parent:lose_atmos_sensitivity()
 
 /// Do the flooding. Trigger temperature is the temperature we will flood at if we dont have a temp set at the start. Trigger referring to whatever triggered it.
 /datum/component/combustible_flooder/proc/flood(mob/user, trigger_temperature)
@@ -37,7 +39,7 @@
 		flooded_turf = parent_turf.ScrapeAway(1, CHANGETURF_INHERIT_AIR)
 		delete_parent = FALSE
 
-	flooded_turf.atmos_spawn_air("[gas_id]=[gas_amount];TEMP=[temp_amount || trigger_temperature]")
+	flooded_turf.atmos_spawn_air(gas_id, gas_amount, temp_amount||trigger_temperature)
 
 	// Logging-related
 	var/admin_message = "[flooded_turf] ignited in [ADMIN_VERBOSEJMP(flooded_turf)]"
@@ -57,7 +59,7 @@
 	qdel(src)
 
 /// fire_act reaction.
-/datum/component/combustible_flooder/proc/flame_react(datum/source, exposed_temperature, exposed_volume)
+/datum/component/combustible_flooder/proc/flame_react(datum/source, exposed_contents, exposed_temperature, exposed_volume)
 	SIGNAL_HANDLER
 
 	if(exposed_temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)

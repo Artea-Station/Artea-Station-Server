@@ -17,6 +17,9 @@
 
 	///First atom flags var
 	var/flags_1 = NONE
+	///Second atom flags var
+	var/flags_2 = NONE
+
 	///Intearaction flags
 	var/interaction_flags_atom = NONE
 
@@ -400,6 +403,8 @@
 /atom/proc/CanPass(atom/movable/mover, border_dir)
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_BE_PURE(TRUE)
+	if(!mover)
+		return FALSE
 	if(mover.movement_type & PHASING)
 		return TRUE
 	. = CanAllowThrough(mover, border_dir)
@@ -545,6 +550,11 @@
 	else
 		return null
 
+///Return the current air environment in this atom. If this atom is a turf, it will not automatically update the zone.
+/atom/proc/unsafe_return_air()
+	return return_air()
+
+
 ///Return the air if we can analyze it
 /atom/proc/return_analyzable_air()
 	return null
@@ -589,16 +599,17 @@
  * - methods: How the atom is being exposed to the reagents. Bitflags.
  * - volume_modifier: Volume multiplier.
  * - show_message: Whether to display anything to mobs when they are exposed.
+ * - exposed_temperature: The temperature of the reagent during exposure
  */
-/atom/proc/expose_reagents(list/reagents, datum/reagents/source, methods=TOUCH, volume_modifier=1, show_message=TRUE)
+/atom/proc/expose_reagents(list/reagents, datum/reagents/source, methods=TOUCH, volume_modifier=1, show_message=TRUE, exposed_temperature)
 	. = SEND_SIGNAL(src, COMSIG_ATOM_EXPOSE_REAGENTS, reagents, source, methods, volume_modifier, show_message)
 	if(. & COMPONENT_NO_EXPOSE_REAGENTS)
 		return
 
-	SEND_SIGNAL(source, COMSIG_REAGENTS_EXPOSE_ATOM, src, reagents, methods, volume_modifier, show_message)
+	SEND_SIGNAL(source, COMSIG_REAGENTS_EXPOSE_ATOM, src, reagents, methods, volume_modifier, show_message, exposed_temperature)
 	for(var/datum/reagent/current_reagent as anything in reagents)
-		. |= current_reagent.expose_atom(src, reagents[current_reagent])
-	SEND_SIGNAL(src, COMSIG_ATOM_AFTER_EXPOSE_REAGENTS, reagents, source, methods, volume_modifier, show_message)
+		. |= current_reagent.expose_atom(src, reagents[current_reagent], exposed_temperature)
+	SEND_SIGNAL(src, COMSIG_ATOM_AFTER_EXPOSE_REAGENTS, reagents, source, methods, volume_modifier, show_message, exposed_temperature)
 
 /// Are you allowed to drop this atom
 /atom/proc/AllowDrop()

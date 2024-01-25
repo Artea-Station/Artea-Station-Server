@@ -268,7 +268,7 @@ Difficulty: Extremely Hard
 	desc = "A pair of winter boots contractually made by a devil, they cannot be taken off once put on."
 	actions_types = list(/datum/action/item_action/toggle)
 	var/on = FALSE
-	var/change_turf = /turf/open/misc/ice/icemoon/no_planet_atmos
+	var/change_turf = /turf/open/misc/ice/icemoon
 	var/duration = 6 SECONDS
 
 /obj/item/clothing/shoes/winterboots/ice_boots/ice_trail/Initialize(mapload)

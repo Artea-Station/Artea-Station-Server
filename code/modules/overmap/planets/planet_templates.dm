@@ -84,7 +84,7 @@
 			new_level.water_color = picked_water_color
 		if(atmosphere_type)
 			var/datum/atmosphere/atmos = new atmosphere_type()
-			SSair.register_planetary_atmos(atmos, new_level.z_value)
+			SSzas.register_planetary_atmos(atmos, new_level.z_value, name)
 			qdel(atmos)
 		if(ore_node_seeder_type)
 			var/datum/ore_node_seeder/seeder = new ore_node_seeder_type

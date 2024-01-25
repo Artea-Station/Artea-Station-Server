@@ -62,7 +62,9 @@
 	if(steps_taken >= steps_to_take)
 		qdel(src)
 		return
-	if(!TURFS_CAN_SHARE(current_turf, target_turf))
+	var/canpass
+	ATMOS_CANPASS_TURF(canpass, current_turf, target_turf)
+	if(!canpass)
 		return
 	current_turf = target_turf
 	new /obj/effect/abstract/fireplume(current_turf, state_to_set, dir)

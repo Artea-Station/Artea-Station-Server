@@ -148,7 +148,6 @@
 
 /obj/machinery/power/apc/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/atmos_sensitive, mapload)
 	alarm_manager = new(src)
 
 	if(!mapload)
@@ -181,6 +180,8 @@
 	update_appearance()
 
 	make_terminal()
+
+	become_atmos_sensitive()
 
 	addtimer(CALLBACK(src, PROC_REF(update)), 5)
 
@@ -610,11 +611,9 @@
 		breaked_light.break_light_tube()
 		stoplag()
 
-/obj/machinery/power/apc/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
-	return (exposed_temperature > 2000)
-
 /obj/machinery/power/apc/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	take_damage(min(exposed_temperature/100, 10), BURN)
+	if(exposed_temperature > 2000)
+		take_damage(min(exposed_temperature/100, 10), BURN)
 
 /obj/machinery/power/apc/proc/report()
 	return "[area.name] : [equipment]/[lighting]/[environ] ([lastused_total]) : [cell? cell.percent() : "N/C"] ([charging])"

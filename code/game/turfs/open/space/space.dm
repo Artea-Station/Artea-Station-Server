@@ -4,19 +4,16 @@
 	name = "\proper space"
 	overfloor_placed = FALSE
 	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
-
+	z_flags = Z_ATMOS_IN_DOWN|Z_ATMOS_IN_UP|Z_ATMOS_OUT_DOWN|Z_ATMOS_OUT_UP
 	temperature = TCMB
-	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
-	heat_capacity = 700000
+	simulated = FALSE
 
 	var/destination_z
 	var/destination_x
 	var/destination_y
 
-	var/static/datum/gas_mixture/immutable/space/space_gas = new
-	// We do NOT want atmos adjacent turfs
-	init_air = FALSE
-	run_later = TRUE
+	initial_gas = AIRLESS_ATMOS
+
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
 	light_power = 0.25
@@ -45,7 +42,6 @@
 /turf/open/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	icon_state = SPACE_ICON_STATE(x, y, z)
-	air = space_gas
 
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
@@ -58,9 +54,6 @@
 		// queueing compile, cloning appearance, etc etc etc that is not necessary here.
 		overlays += GLOB.fullbright_overlay
 
-	if (!mapload)
-		if(requires_activation)
-			SSair.add_to_active(src, TRUE)
 
 		var/turf/T = SSmapping.get_turf_above(src)
 		if(T)
@@ -80,13 +73,6 @@
 /turf/open/space/TakeTemperature(temp)
 
 /turf/open/space/RemoveLattice()
-	return
-
-/turf/open/space/AfterChange()
-	..()
-	atmos_overlay_types = null
-
-/turf/open/space/Assimilate_Air()
 	return
 
 //IT SHOULD RETURN NULL YOU MONKEY, WHY IN TARNATION WHAT THE FUCKING FUCK
@@ -217,6 +203,7 @@
 /turf/open/space/openspace
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "invisible"
+	simulated = TRUE
 
 /turf/open/space/openspace/Initialize(mapload) // handle plane and layer here so that they don't cover other obs/turfs in Dream Maker
 	. = ..()

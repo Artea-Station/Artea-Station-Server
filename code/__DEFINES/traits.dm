@@ -138,6 +138,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Doesn't miss attacks
 #define TRAIT_PERFECT_ATTACKER "perfect_attacker"
 #define TRAIT_INCAPACITATED "incapacitated"
+/// The owner is queued in SSairflow.
+#define TRAIT_EXPERIENCING_AIRFLOW "experiencing_airflow"
+/// Trait associated with airflow/spacewind
+#define AIRFLOW_TRAIT "airflow"
 /// In some kind of critical condition. Is able to succumb.
 #define TRAIT_CRITICAL_CONDITION "critical-condition"
 /// Whitelist for mobs that can read or write

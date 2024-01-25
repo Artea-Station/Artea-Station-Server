@@ -14,7 +14,7 @@
 
 /turf/open/misc/planetary
 	icon = 'icons/planet/planet_floors.dmi'
-	initial_gas_mix = PLANETARY_ATMOS
+	initial_gas = PLANETARY_ATMOS
 	tiled_dirt = FALSE
 
 /turf/open/misc/planetary/water

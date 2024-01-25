@@ -76,7 +76,7 @@
 	if(!t_loc)
 		return
 
-	for(var/turf/spread_turf in t_loc.get_atmos_adjacent_turfs())
+	for(var/turf/spread_turf in get_adjacent_open_turfs(t_loc))
 		if(group.total_size > group.target_size)
 			break
 		if(locate(type) in spread_turf)
@@ -293,16 +293,12 @@
 		if(!distcheck || get_dist(location, chilly) < blast) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
 			air.temperature = temperature
 
-		var/list/gases = air.gases
-		if(gases[/datum/gas/plasma])
-			air.assert_gas(/datum/gas/nitrogen)
-			gases[/datum/gas/nitrogen][MOLES] += gases[/datum/gas/plasma][MOLES]
-			gases[/datum/gas/plasma][MOLES] = 0
-			air.garbage_collect()
+		if(air.getGroupGas(GAS_PLASMA))
+			air.adjustGas(GAS_NITROGEN, air.gas[GAS_PLASMA])
+			air.adjustGas(GAS_PLASMA, -air.gas[GAS_PLASMA])
 
-		for(var/obj/effect/hotspot/fire in chilly)
-			qdel(fire)
-		chilly.air_update_turf(FALSE, FALSE)
+		QDEL_NULL(chilly.fire)
+		// ARTEA TODO: chilly.air_update_turf(FALSE, FALSE)
 
 	if(weldvents)
 		for(var/obj/machinery/atmospherics/components/unary/comp in chilly)
