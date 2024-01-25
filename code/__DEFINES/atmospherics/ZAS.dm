@@ -90,8 +90,8 @@ GLOBAL_REAL_VAR(list/gzn_check) = list(NORTH, SOUTH, EAST, WEST)
 
 ///The amount of pressure damage someone takes is equal to (pressure / HAZARD_HIGH_PRESSURE)*PRESSURE_DAMAGE_COEFFICIENT, with the maximum of MAX_PRESSURE_DAMAGE
 #define PRESSURE_DAMAGE_COEFFICIENT 4
-#define MAX_HIGH_PRESSURE_DAMAGE 4   // This used to be 20... I got this much random rage for some retarded decision by polymorph?! Polymorph now lies in a pool of blood with a katana jammed in his spleen. ~Errorage --PS: The katana did less than 20 damage to him :(
-#define LOW_PRESSURE_DAMAGE 0.6 // The amount of damage someone takes when in a low pressure area. (The pressure threshold is so low that it doesn't make sense to do any calculations, so it just applies this flat value).
+#define MAX_HIGH_PRESSURE_DAMAGE 4 // The amount of damage someone takes when in a high pressure area.
+#define LOW_PRESSURE_DAMAGE 4 // The amount of damage someone takes when in a low pressure area. (The pressure threshold is so low that it doesn't make sense to do any calculations, so it just applies this flat value).
 
 ///If the pressure delta between two zones is below this value, they will not process.
 #define MINIMUM_PRESSURE_DIFFERENCE_TO_SUSPEND (MINIMUM_AIR_TO_SUSPEND*R_IDEAL_GAS_EQUATION*T20C)/CELL_VOLUME
