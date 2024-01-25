@@ -1001,7 +1001,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 /obj/machinery/airalarm/away //general away mission access
 	req_access = list(ACCESS_AWAY_GENERAL)
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 21)
+MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/airalarm, 32, -17, 22, -22)
 
 /obj/item/circuit_component/air_alarm
 	display_name = "Air Alarm"
