@@ -38,19 +38,13 @@
 		machine_gasmix = new
 		machine_gasmix.volume = gas_theoretical_volume
 
-	if(part_path && mapped)
-		installed_part = new part_path(src)
-
-	// air_update_turf(TRUE)
+	zas_update_loc()
 
 	update_appearance()
 
 /obj/machinery/power/turbine/Destroy()
 
-	// air_update_turf(TRUE)
-
-	if(installed_part)
-		QDEL_NULL(installed_part)
+	zas_update_loc()
 
 	if(machine_gasmix)
 		machine_gasmix = null
@@ -59,16 +53,6 @@
 
 /obj/machinery/power/turbine/block_superconductivity()
 	return TRUE
-
-/obj/machinery/power/turbine/examine(mob/user)
-	. = ..()
-	if(installed_part)
-		. += "Currently at tier [installed_part.current_tier]."
-		if(installed_part.current_tier + 1 < installed_part.max_tier)
-			. += "Can be upgraded by using a tier [installed_part.current_tier + 1] part."
-		. += "The [installed_part.name] can be removed by right-click with a crowbar tool."
-	else
-		. += "Is missing a [initial(part_path.name)]."
 
 /obj/machinery/power/turbine/update_overlays()
 	. = ..()
@@ -90,10 +74,6 @@
 		to_chat(user, span_notice("Anchor [src] first!"))
 		return TOOL_ACT_TOOLTYPE_SUCCESS
 
-	if(panel_open && !installed_part)
-		to_chat(user, "You need to install [initial(part_path.name)] first!")
-		return TOOL_ACT_TOOLTYPE_SUCCESS
-
 	tool.play_tool_sound(src, 50)
 	panel_open = !panel_open
 	if(panel_open)
@@ -111,24 +91,6 @@
 /obj/machinery/power/turbine/crowbar_act(mob/living/user, obj/item/tool)
 	return default_deconstruction_crowbar(tool)
 
-/obj/machinery/power/turbine/on_deconstruction()
-	if(installed_part)
-		installed_part.forceMove(loc)
-	return ..()
-
-/obj/machinery/power/turbine/crowbar_act_secondary(mob/living/user, obj/item/tool)
-	if(!panel_open)
-		balloon_alert(user, "panel is closed!")
-		return
-	if(!installed_part)
-		balloon_alert(user, "no rotor installed!")
-		return
-	if(active)
-		balloon_alert(user, "[src] is on!")
-		return
-	user.put_in_hands(installed_part)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
-
 /**
  * Allow easy enabling of each machine for connection to the main controller
  */
@@ -144,56 +106,7 @@
 /obj/machinery/power/turbine/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	disable_parts()
-	// air_update_turf(TRUE)
-
-/obj/machinery/power/turbine/Exited(atom/movable/gone, direction)
-	. = ..()
-	if(gone == installed_part)
-		installed_part = null
-
-/obj/machinery/power/turbine/attackby(obj/item/object, mob/user, params)
-	if(active)
-		balloon_alert(user, "turn off the machine first")
-		return ..()
-
-	if(!panel_open)
-		balloon_alert(user, "open the maintenance hatch first")
-		return ..()
-
-	if(!istype(object, part_path))
-		return ..()
-
-	install_part(object, user)
-
-/**
- * Checks if the machine part we are installing is an improvement over the installed one (if present)
- * Currently it doesn't allow worst parts to be installed
- */
-/obj/machinery/power/turbine/proc/install_part(obj/item/turbine_parts/part_object, mob/user)
-	if(!do_after(user, 2 SECONDS, src))
-		return
-	if(installed_part)
-		user.put_in_hands(installed_part)
-		balloon_alert(user, "replaced part with the one in hand")
-	else
-		balloon_alert(user, "installed new part")
-	user.transferItemToLoc(part_object, src)
-	installed_part = part_object
-	calculate_parts_limits()
-
-/**
- * Gets the efficiency of the installed part, returns 0 if no part is installed
- */
-/obj/machinery/power/turbine/proc/get_efficiency()
-	if(installed_part)
-		return installed_part.part_efficiency
-	return 0
-
-/**
- * Called when installing new parts and when activating the main machine
- */
-/obj/machinery/power/turbine/proc/calculate_parts_limits()
-	return
+	zas_update_loc()
 
 /obj/machinery/power/turbine/inlet_compressor
 	name = "inlet compressor"
@@ -204,8 +117,6 @@
 	circuit = /obj/item/circuitboard/machine/turbine_compressor
 
 	gas_theoretical_volume = 1000
-
-	part_path = /obj/item/turbine_parts/compressor
 
 	has_gasmix = TRUE
 
@@ -226,8 +137,6 @@
 
 	gas_theoretical_volume = 6000
 
-	part_path = /obj/item/turbine_parts/stator
-
 	has_gasmix = TRUE
 
 	active_overlay = "outlet_animation"
@@ -247,8 +156,6 @@
 	circuit = /obj/item/circuitboard/machine/turbine_rotor
 
 	gas_theoretical_volume = 3000
-
-	part_path = /obj/item/turbine_parts/rotor
 
 	has_gasmix = TRUE
 
@@ -281,9 +188,9 @@
 	var/was_complete = FALSE
 
 	///Max rmp that the installed parts can handle, limits the rpms
-	var/max_allowed_rpm = 0
+	var/max_allowed_rpm = 35000
 	///Max temperature that the installed parts can handle, unlimited and causes damage to the machine
-	var/max_allowed_temperature = 0
+	var/max_allowed_temperature = 50000
 
 	///Amount of damage the machine has received
 	var/damage = 0
@@ -376,23 +283,13 @@
 	compressor = locate(/obj/machinery/power/turbine/inlet_compressor) in get_step(src, turn(dir, 180))
 	turbine = locate(/obj/machinery/power/turbine/turbine_outlet) in get_step(src, dir)
 
-	if(!compressor || !turbine)
+	if(!compressor || compressor.dir != dir || !compressor.can_connect)
 		if(user)
-			balloon_alert(user, "missing parts detected")
+			balloon_alert(user, "missing compressor!")
 		return FALSE
-
-	var/parts_present = TRUE
-	if(compressor.dir != dir || !compressor.can_connect || !compressor.installed_part)
+	if(!turbine || turbine.dir != dir || !turbine.can_connect)
 		if(user)
-			balloon_alert(user, "error while activating the compressor")
-		parts_present = FALSE
-	if(turbine.dir != dir || !turbine.can_connect || !turbine.installed_part)
-		if(user)
-			balloon_alert(user, "error while activating the turbine")
-		parts_present = FALSE
-
-	if(!parts_present)
-		all_parts_connected = FALSE
+			balloon_alert(user, "missing turbine!")
 		return FALSE
 
 	if(check_only)
@@ -402,8 +299,6 @@
 	output_turf = get_step(turbine.loc, dir)
 
 	all_parts_connected = TRUE
-
-	calculate_parts_limits()
 
 	SSairmachines.start_processing_machine(src)
 	return TRUE
@@ -425,11 +320,6 @@
 	if(all_parts_connected)
 		deactivate_parts()
 	return ..()
-
-/obj/machinery/power/turbine/core_rotor/calculate_parts_limits()
-	if(activate_parts(check_only = TRUE))
-		max_allowed_rpm = (compressor.installed_part.max_rpm + turbine.installed_part.max_rpm + installed_part.max_rpm) / 3
-		max_allowed_temperature = (compressor.installed_part.max_temperature + turbine.installed_part.max_temperature + installed_part.max_temperature) / 3
 
 /**
  * Called on each atmos tick, calculates the damage done and healed based on temperature
@@ -560,7 +450,7 @@
 	//removing the work needed to move the compressor but adding back the turbine work that is the one generating most of the power.
 	work_done = max(work_done - compressor_work * TURBINE_COMPRESSOR_STATOR_INTERACTION_MULTIPLIER - turbine_work, 0)
 
-	rpm = ((work_done * compressor.get_efficiency()) ** turbine.get_efficiency()) * get_efficiency() / TURBINE_RPM_CONVERSION
+	rpm = ((work_done * 0.25) ** 0.25) * 0.85 / TURBINE_RPM_CONVERSION
 	rpm = min(rpm, max_allowed_rpm)
 
 	produced_energy = rpm * TURBINE_ENERGY_RECTIFICATION_MULTIPLIER * TURBINE_RPM_CONVERSION
