@@ -246,3 +246,29 @@
 		canister_packs += airpack
 
 	return canister_packs
+
+/datum/supply_pack/engine/fuel_rod
+	name = "Uranium Fuel Rod crate"
+	desc = "Two additional fuel rods for use in a reactor, requires CE access to open. Caution: Radioactive"
+	cost = CARGO_CRATE_VALUE * 15
+	access = ACCESS_CE
+	contains = list(/obj/item/fuel_rod,
+					/obj/item/fuel_rod)
+	container_name = "Uranium-235 Fuel Rod crate"
+	container_type = /obj/structure/closet/crate/secure/engineering
+	dangerous = TRUE
+
+// /datum/supply_pack/engine/reactor
+// 	name = "RMBK Nuclear Reactor Kit" // (not) a toy
+// 	desc = "Contains a reactor beacon and 3 reactor consoles. Uranium rods not included."
+// 	cost = CARGO_CRATE_VALUE * 60
+// 	access = ACCESS_CE
+// 	contains = list(/obj/structure/reactor_kit,
+// 					/obj/machinery/computer/reactor/control_rods/cargo,
+// 					/obj/machinery/computer/reactor/stats/cargo,
+// 					/obj/machinery/computer/reactor/fuel_rods/cargo,
+// 					/obj/item/paper/fluff/rbmkcargo,
+// 					/obj/item/book/manual/wiki/rbmk)
+// 	container_name = "Build Your Own Reactor Kit"
+// 	container_type = /obj/structure/closet/crate/secure/engineering
+// 	dangerous = TRUE

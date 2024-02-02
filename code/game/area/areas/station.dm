@@ -853,6 +853,14 @@
 	icon_state = "engine_sm_room"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
+/area/station/engineering/reactor_core
+	name = "\improper Nuclear Reactor Core"
+	icon_state = "engine_sm"
+
+/area/station/engineering/reactor_control
+	name = "\improper Reactor Control Room"
+	icon_state = "engine_sm_control"
+
 /area/station/engineering/break_room
 	name = "\improper Engineering Foyer"
 	icon_state = "engine_break"
