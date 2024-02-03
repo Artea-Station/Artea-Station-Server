@@ -443,7 +443,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	stop_relay(CHANNEL_REACTOR_ALERT)
 	NSW.fire() //This will take out engineering for a decent amount of time as they have to clean up the sludge.
 	for(var/obj/machinery/power/apc/apc in GLOB.apcs_list)
-		if((apc.z == z) && prob(70))
+		if(is_station_level(apc.z) && prob(70))
 			apc.overload_lighting()
 	var/datum/gas_mixture/coolant_input = COOLANT_INPUT_GATE
 	var/datum/gas_mixture/moderator_input = MODERATOR_INPUT_GATE
