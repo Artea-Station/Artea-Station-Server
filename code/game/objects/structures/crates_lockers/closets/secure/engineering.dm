@@ -11,7 +11,7 @@
 	new /obj/item/radio/headset/heads/ce(src)
 	new /obj/item/megaphone/command(src)
 	new /obj/item/holosign_creator/atmos(src)
-	new /obj/item/storage/briefcase/inflatable(src)
+	//new /obj/item/storage/briefcase/inflatable(src) // ARTEA TODO: Look into if we want these.
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/door_remote/chief_engineer(src)
 	new /obj/item/pipe_dispenser(src)
@@ -20,6 +20,7 @@
 	new /obj/item/storage/photo_album/ce(src)
 	new /obj/item/storage/box/skillchips/engineering(src)
 	new /obj/item/card/id/departmental_budget/eng(src)
+	new /obj/item/sealant(src)
 
 /obj/structure/closet/secure_closet/engineering_chief/populate_contents_immediate()
 	. = ..()
