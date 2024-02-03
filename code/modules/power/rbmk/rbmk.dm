@@ -2,40 +2,26 @@
 // You made a giga-file containing a bunch of unrelated content that I had to separate. It was, in fact, not for anyone's sanity. - Rimi
 
 //Reference: Heaters go up to 500K.
-//Hot plasmaburn: 14164.95 C.
+//Hot plasmaburn: ~14400 k.
 
-/**
-What is this?
-Moderators list (Not gonna keep this accurate forever):
-Fuel Type:
-Oxygen: Power production multiplier. Allows you to run a low plasma, high oxy mix, and still get a lot of power.
-Plasma: Power production gas. More plasma -> more power, but it enriches your fuel and makes the reactor much, much harder to control.
-Tritium: Extremely efficient power production gas. Will cause chernobyl if used improperly.
-Moderation Type:
-N2: Helps you regain control of the reaction by increasing control rod effectiveness, will massively boost the rad production of the reactor.
-CO2: Super effective shutdown gas for runaway reactions. MASSIVE RADIATION PENALTY!
-Pluoxium: Same as N2, but no cancer-rads!
-Permeability Type:
-BZ: Increases your reactor's ability to transfer its heat to the coolant, thus letting you cool it down faster (but your output will get hotter)
-Water Vapour: More efficient permeability modifier
-Hyper Noblium: Extremely efficient permeability increase. (10x as efficient as bz)
-Depletion type:
-Nitryl: When you need weapons grade plutonium yesterday. Causes your fuel to deplete much, much faster. Not a huge amount of use outside of sabotage.
-Sabotage:
-Meltdown:
-Flood reactor moderator with plasma, they won't be able to mitigate the reaction with control rods.
-Shut off coolant entirely. Raise control rods.
-Swap all fuel out with spent fuel, as it's way stronger.
-Blowout:
-Shut off exit valve for quick overpressure.
-Cause a pipefire in the coolant line (LETHAL).
-Tack heater onto coolant line (can also cause straight meltdown)
-Tips:
-Be careful to not exhaust your plasma supply. I recommend you DON'T max out the moderator input when youre running plasma + o2, or you're at a tangible risk of running out of those gasses from atmos.
-The reactor CHEWS through moderator. It does not do this slowly. Be very careful with that!
+/// !!!ARTEA NOTE, READ THIS SHIT!!!
+/*
+	Okay, so this shitshow of a conversion makes the RBMK work a little in between the SM and the RBMK, to make it easy to learn, but hard to master (at least once the PA is added).
+
+	PLASMA, AND OTHER RADIOACTIVE GASSES (just tritium for now) ARE NOW THE ONLY FUELS!
+
+	This means stuff like oxygen just won't do anything, and at best, slow down the reactor, and at worst, cause a pipe fire, which'll likely cause a cascading issue with reaction speed.
+
+	The hotter the fuel, the faster it burns, and the more power the reactor makes.
+
+	The temperature itself has no direct effect on the reactor's heat output aside from the above, for balancing's sake.
+
+	The coolant loop is the same old deal as always, and decides the reactor pressure.
 */
 
-//Remember kids. If the reactor itself is not physically powered by an APC, it cannot shove coolant in!
+//Remember kids, if the reactor itself is not physically powered by an APC, it cannot shove coolant in!
+
+GLOBAL_LIST_EMPTY(rbmk_reactors)
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor
 	name = "Advanced Gas-Cooled Nuclear Reactor"
@@ -54,14 +40,13 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/temperature = 0 //Lose control of this -> Meltdown
 	var/vessel_integrity = 400 //How long can the reactor withstand overpressure / meltdown? This gives you a fair chance to react to even a massive pipe fire
 	var/pressure = 0 //Lose control of this -> Blowout
-	var/K = 0 //Rate of reaction.
+	var/rate_of_reaction = 0 //Rate of reaction.
 	var/desired_k = 0
-	var/control_rod_effectiveness = 0.65 //Starts off with a lot of control over K. If you flood this thing with plasma, you lose your ability to control K as easily.
+	var/control_rod_effectiveness = 0.65 //Starts off with a lot of control over rate_of_reaction. If you flood this thing with plasma, you lose your ability to control rate_of_reaction as easily.
 	var/power = 0 //0-100%. A function of the maximum heat you can achieve within operating temperature
 	var/power_modifier = 1 //Upgrade me with parts, science! Flat out increase to physical power output when loaded with plasma.
 	var/list/fuel_rods = list()
 	//Secondary variables.
-	var/next_slowprocess = 0
 	var/gas_absorption_effectiveness = 0.5
 	var/gas_absorption_constant = 0.5 //We refer to this one as it's set on init, randomized.
 	var/minimum_moderator_level = 2
@@ -74,7 +59,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	//Console statistics.
 	var/last_coolant_temperature = 0
 	var/last_output_temperature = 0
-	var/last_heat_delta = 0 //For administrative cheating only. Knowing the delta lets you know EXACTLY what to set K at.
+	var/last_heat_delta = 0 //For administrative cheating only. Knowing the delta lets you know EXACTLY what to set rate_of_reaction at.
 	var/no_coolant_ticks = 0	//How many times in succession did we not have enough coolant? Decays twice as fast as it accumulates.
 	var/last_user = null
 	var/current_desired_k = null
@@ -83,7 +68,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 
 //Use this in your maps if you want everything to be preset.
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/preset
-	id = "default_reactor_for_lazy_mappers"
+	id = "rbmk_default"
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/examine(mob/user)
 	. = ..()
@@ -179,36 +164,32 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	RegisterSignal(src, COMSIG_MOVABLE_CROSS_OVER, PROC_REF(crossed_over))
 	connect_to_network()
 	icon_state = "reactor_off"
-	gas_absorption_effectiveness = rand(5, 6)/10 //All reactors are slightly different. This will result in you having to figure out what the balance is for K.
+	gas_absorption_effectiveness = rand(5, 6)/10 //All reactors are slightly different. This will result in you having to figure out what the balance is for rate_of_reaction.
 	gas_absorption_constant = gas_absorption_effectiveness //And set this up for the rest of the round.
 	STOP_PROCESSING(SSmachines, src) //We'll handle this one ourselves.
+	GLOB.rbmk_reactors += src
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/crossed_over(atom/movable/AM)
 	if(isliving(AM) && temperature > 0)
 		var/mob/living/L = AM
 		L.adjust_bodytemperature(clamp(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
 
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/process()
-	update_parents() //Update the pipenet to register new gas mixes
-	if(next_slowprocess < world.time)
-		slowprocess()
-		next_slowprocess = world.time + 1 SECONDS //Set to wait for another second before processing again, we don't need to process more than once a second
-
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/has_fuel()
 	return fuel_rods?.len
 
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/slowprocess()
+/obj/machinery/atmospherics/components/trinary/nuclear_reactor/process()
+	update_parents() //Update the pipenet to register new gas mixes
 	//Let's get our gasses sorted out.
 	var/datum/gas_mixture/coolant_input = COOLANT_INPUT_GATE
 	var/datum/gas_mixture/moderator_input = MODERATOR_INPUT_GATE
 	var/datum/gas_mixture/coolant_output = COOLANT_OUTPUT_GATE
 
-	//Firstly, heat up the reactor based off of K.
+	//Firstly, heat up the reactor based off of rate_of_reaction.
 	var/input_moles = coolant_input.total_moles //Firstly. Do we have enough moles of coolant?
 	if(input_moles >= minimum_moderator_level)
 		last_coolant_temperature = coolant_input.temperature
 		//Important thing to remember, once you slot in the fuel rods, this thing will not stop making heat, at least, not unless you can live to be thousands of years old which is when the spent fuel finally depletes fully.
-		var/heat_delta = (coolant_input.temperature / 100) * gas_absorption_effectiveness //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at K=1, coolant input temp of 200K / -73 celsius.
+		var/heat_delta = (coolant_input.temperature / 100) * gas_absorption_effectiveness //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at rate_of_reaction=1, coolant input temp of 200K / -73 celsius.
 		last_heat_delta = heat_delta
 		temperature += heat_delta
 		coolant_output.merge(coolant_input) //And now, shove the input into the output.
@@ -279,36 +260,36 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		for (var/gas in moderator_input.gas) //Woosh. And the soul is gone.
 			moderator_input.gas -= gas
 		AIR_UPDATE_VALUES(moderator_input)
-		K += total_fuel_moles / 1000
-	var/fuel_power = 0 //So that you can't magically generate K with your control rods.
+		rate_of_reaction += total_fuel_moles / 1000
+	var/fuel_power = 0 //So that you can't magically generate rate_of_reaction with your control rods.
 	if(!has_fuel())  //Reactor must be fuelled and ready to go before we can heat it up boys.
-		K = 0
+		rate_of_reaction = 0
 	else
 		for(var/obj/item/fuel_rod/FR in fuel_rods)
-			K += FR.fuel_power
+			rate_of_reaction += FR.fuel_power
 			fuel_power += FR.fuel_power
 			FR.deplete(depletion_modifier)
 	//Firstly, find the difference between the two numbers.
-	var/difference = abs(K - desired_k)
+	var/difference = abs(rate_of_reaction - desired_k)
 	//Then, hit as much of that goal with our cooling per tick as we possibly can.
-	difference = clamp(difference, 0, control_rod_effectiveness) //And we can't instantly zap the K to what we want, so let's zap as much of it as we can manage....
-	if(difference > fuel_power && desired_k > K)
+	difference = clamp(difference, 0, control_rod_effectiveness) //And we can't instantly zap the rate_of_reaction to what we want, so let's zap as much of it as we can manage....
+	if(difference > fuel_power && desired_k > rate_of_reaction)
 		message_admins("Not enough fuel to get [difference]. We have fuel [fuel_power]")
 		investigate_log("Reactor has not enough fuel to get [difference]. We have fuel [fuel_power]", INVESTIGATE_ENGINE)
 		difference = fuel_power //Again, to stop you being able to run off of 1 fuel rod.
-	if(K != desired_k)
-		if(desired_k > K)
-			K += difference
-		else if(desired_k < K)
-			K -= difference
-	if(K == desired_k && last_user && current_desired_k != desired_k)
+	if(rate_of_reaction != desired_k)
+		if(desired_k > rate_of_reaction)
+			rate_of_reaction += difference
+		else if(desired_k < rate_of_reaction)
+			rate_of_reaction -= difference
+	if(rate_of_reaction == desired_k && last_user && current_desired_k != desired_k)
 		current_desired_k = desired_k
 		message_admins("Reactor desired criticality set to [desired_k] by [ADMIN_LOOKUPFLW(last_user)] in [ADMIN_VERBOSEJMP(src)]")
 		investigate_log("reactor desired criticality set to [desired_k] by [key_name(last_user)] at [AREACOORD(src)]", INVESTIGATE_ENGINE)
 
-	K = clamp(K, 0, RBMK_MAX_CRITICALITY)
+	rate_of_reaction = clamp(rate_of_reaction, 0, RBMK_MAX_CRITICALITY)
 	if(has_fuel())
-		temperature += K
+		temperature += rate_of_reaction
 	else
 		temperature -= 10 //Nothing to heat us up, so.
 	handle_alerts() //Let's check if they're about to die, and let them know.
@@ -372,18 +353,18 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 //Method to handle sound effects, reactor warnings, all that jazz.
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/handle_alerts()
 	var/alert = FALSE //If we have an alert condition, we'd best let people know.
-	if(K <= 0 && temperature <= 0)
+	if(rate_of_reaction <= 0 && temperature <= 0)
 		shut_down()
 	//First alert condition: Overheat
 	if(temperature >= RBMK_TEMPERATURE_CRITICAL)
 		alert = TRUE
-		investigate_log("Reactor reaching critical temperature at [temperature] C with desired criticality at [desired_k]", INVESTIGATE_ENGINE)
+		investigate_log("Reactor reaching critical temperature at [temperature] k with desired criticality at [desired_k]", INVESTIGATE_ENGINE)
 		message_admins("Reactor reaching critical temperature at [ADMIN_VERBOSEJMP(src)]")
 		if(temperature >= RBMK_TEMPERATURE_MELTDOWN)
 			var/temp_damage = min(temperature/100, initial(vessel_integrity)/40)	//40 seconds to meltdown from full integrity, worst-case. Bit less than blowout since it's harder to spike heat that much.
 			vessel_integrity -= temp_damage
 			if(vessel_integrity <= temp_damage)
-				investigate_log("Reactor melted down at [temperature] C with desired criticality at [desired_k]", INVESTIGATE_ENGINE)
+				investigate_log("Reactor melted down at [temperature] k with desired criticality at [desired_k]", INVESTIGATE_ENGINE)
 				meltdown() //Oops! All meltdown
 				return
 	else
@@ -514,7 +495,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/shut_down()
 	STOP_PROCESSING(SSmachines, src)
 	set_light(0)
-	K = 0
+	rate_of_reaction = 0
 	desired_k = 0
 	temperature = 0
 	update_icon()
@@ -558,3 +539,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		return TRUE
 	else
 		return FALSE
+
+/obj/machinery/atmospherics/components/trinary/nuclear_reactor/Destroy()
+	. = ..()
+	GLOB.rbmk_reactors -= src
+	fuel_rods.Cut() // These are already dropped higher in the chain

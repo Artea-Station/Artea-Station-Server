@@ -16,10 +16,16 @@
 		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/reactor/control_rods/ui_act(action, params)
-	if(..())
+	. == ..()
+	if(.)
 		return
+	. = TRUE
+
+	var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/reactor = reactor_ref?.resolve()
 	if(!reactor)
+		reactor_ref = null
 		return
+
 	if(action == "input")
 		var/input = text2num(params["target"])
 		reactor.last_user = usr
@@ -30,8 +36,9 @@
 	data["control_rods"] = 0
 	data["k"] = 0
 	data["desiredK"] = 0
+	var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/reactor = reactor_ref?.resolve()
 	if(reactor)
-		data["k"] = reactor.K
+		data["k"] = reactor.rate_of_reaction
 		data["desiredK"] = reactor.desired_k
 		data["control_rods"] = 100 - (reactor.desired_k / 3 * 100) //Rod insertion is extrapolated as a function of the percentage of K
 	return data

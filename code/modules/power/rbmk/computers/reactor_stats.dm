@@ -21,6 +21,9 @@
 		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/reactor/stats/process()
+	var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/reactor = reactor_ref?.resolve()
+	if(!reactor && reactor_ref)
+		reactor_ref = null
 	if(world.time >= next_stat_interval)
 		next_stat_interval = world.time + 1 SECONDS //You only get a slow tick.
 		psiData += (reactor) ? reactor.pressure : 0
@@ -37,6 +40,9 @@
 			tempOutputdata.Cut(1, 2)
 
 /obj/machinery/computer/reactor/stats/ui_data(mob/user)
+	var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/reactor = reactor_ref?.resolve()
+	if(!reactor && reactor_ref)
+		reactor_ref = null
 	var/list/data = list()
 	data["powerData"] = powerData
 	data["psiData"] = psiData

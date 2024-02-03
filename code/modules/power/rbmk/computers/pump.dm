@@ -1,10 +1,9 @@
 
 
 /obj/machinery/computer/reactor/pump
-	name = "Reactor inlet valve computer"
+	name = "you should not see this"
 	desc = "A computer which controls valve settings on an advanced gas cooled reactor. Alt click it to remotely set pump pressure."
 	icon_screen = "rbmk_input"
-	id = "rbmk_input"
 	var/datum/radio_frequency/radio_connection
 	var/on = FALSE
 
