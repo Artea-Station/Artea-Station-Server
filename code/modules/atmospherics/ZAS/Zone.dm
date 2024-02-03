@@ -212,6 +212,13 @@ Class Procs:
 		var/turf/T = pick(contents)
 		T.create_fire(zas_settings.fire_firelevel_multiplier)
 
+	var/rads = 0
+	for(var/gas in air.gas)
+		rads += (air.gas[gas] / air.volume) * (xgm_gas_data.radioactivity[gas] || 0)
+
+	if(rads)
+		radiation_pulse(pick(contents), max(round(rads), 1), RAD_LIGHT_INSULATION, rads)
+
 	#ifdef ZASDBG
 	SSzas.zonetime["update fires"] = TICK_USAGE_TO_MS(clock)
 	clock = TICK_USAGE

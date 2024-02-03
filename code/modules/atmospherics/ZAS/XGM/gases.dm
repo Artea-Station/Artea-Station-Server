@@ -113,6 +113,7 @@
 	symbol_html = "Ph"
 	symbol = "Ph"
 	base_value = 2
+	radioactivity = 20
 
 //SM & R-UST GASES
 /datum/xgm_gas/hydrogen
@@ -140,6 +141,7 @@
 	specific_heat = 60
 	symbol_html = "<sup>3</sup>H"
 	symbol = "T"
+	radioactivity = 200
 
 //NOBLE GASES
 /datum/xgm_gas/helium
@@ -253,6 +255,7 @@
 	symbol = "Rn"
 	purchaseable = FALSE
 	base_value = 0.3
+	radioactivity = 10000 // If you're next to this, you're **going** to suffer.
 
 //MISC COMPOUNDS
 /datum/xgm_gas/methyl_bromide

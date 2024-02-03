@@ -16,10 +16,9 @@
 		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/reactor/control_rods/ui_act(action, params)
-	. == ..()
+	. = ..()
 	if(.)
 		return
-	. = TRUE
 
 	var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/reactor = reactor_ref?.resolve()
 	if(!reactor)
@@ -30,6 +29,8 @@
 		var/input = text2num(params["target"])
 		reactor.last_user = usr
 		reactor.desired_k = clamp(input, 0, 3)
+
+	return TRUE
 
 /obj/machinery/computer/reactor/control_rods/ui_data(mob/user)
 	var/list/data = list()

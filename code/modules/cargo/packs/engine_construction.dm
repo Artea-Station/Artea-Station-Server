@@ -247,16 +247,16 @@
 
 	return canister_packs
 
-/datum/supply_pack/engine/fuel_rod
-	name = "Uranium Fuel Rod crate"
-	desc = "Two additional fuel rods for use in a reactor, requires CE access to open. Caution: Radioactive"
-	cost = CARGO_CRATE_VALUE * 15
-	access = ACCESS_CE
-	contains = list(/obj/item/fuel_rod,
-					/obj/item/fuel_rod)
-	container_name = "Uranium-235 Fuel Rod crate"
-	container_type = /obj/structure/closet/crate/secure/engineering
-	dangerous = TRUE
+// /datum/supply_pack/engine/fuel_rod
+// 	name = "Uranium Fuel Rod crate"
+// 	desc = "Two additional fuel rods for use in a reactor, requires CE access to open. Caution: Radioactive"
+// 	cost = CARGO_CRATE_VALUE * 15
+// 	access = ACCESS_CE
+// 	contains = list(/obj/item/fuel_rod,
+// 					/obj/item/fuel_rod)
+// 	container_name = "Uranium-235 Fuel Rod crate"
+// 	container_type = /obj/structure/closet/crate/secure/engineering
+// 	dangerous = TRUE
 
 // /datum/supply_pack/engine/reactor
 // 	name = "RMBK Nuclear Reactor Kit" // (not) a toy

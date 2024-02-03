@@ -60,8 +60,9 @@ GLOBAL_REAL(xgm_gas_data, /datum/xgm_gas_data) = new
 	var/symbol = "X"
 	var/base_value = 1
 	var/purchaseable = FALSE
-	/// How radioactive this is. Lethality to living beings caps at 100.
+	/// How radioactive this is.
 	/// If non-zero, it will be treated as a fuel in the RBMK.
+	/// This number will be the percentage chance for irradiating someone (V/rad*mol).
 	var/radioactivity = 0
 
 /datum/xgm_gas_data/New()
