@@ -229,6 +229,7 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	var/fuel_power = 0 //So that you can't magically generate rate_of_reaction with your control rods.
 	if(!has_fuel)  //Reactor must be fuelled and ready to go before we can heat it up boys.
 		rate_of_reaction = 0
+
 	//Firstly, find the difference between the two numbers.
 	var/difference = abs(rate_of_reaction - desired_k)
 	//Then, hit as much of that goal with our cooling per tick as we possibly can.
@@ -237,61 +238,73 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 		message_admins("Not enough fuel to get [difference]. We have fuel [fuel_power]")
 		investigate_log("Reactor has not enough fuel to get [difference]. We have fuel [fuel_power]", INVESTIGATE_ENGINE)
 		difference = fuel_power //Again, to stop you being able to run off of 1 fuel rod.
+
 	if(rate_of_reaction != desired_k)
 		if(desired_k > rate_of_reaction)
 			rate_of_reaction += difference
 		else if(desired_k < rate_of_reaction)
 			rate_of_reaction -= difference
+
 	if(rate_of_reaction == desired_k && last_user && current_desired_k != desired_k)
 		current_desired_k = desired_k
 		message_admins("Reactor desired criticality set to [desired_k] by [ADMIN_LOOKUPFLW(last_user)] in [ADMIN_VERBOSEJMP(src)]")
 		investigate_log("reactor desired criticality set to [desired_k] by [key_name(last_user)] at [AREACOORD(src)]", INVESTIGATE_ENGINE)
 
 	rate_of_reaction = clamp(rate_of_reaction, 0, RBMK_MAX_CRITICALITY)
+
 	if(has_fuel)
 		temperature += rate_of_reaction
 	else
 		temperature -= 10 //Nothing to heat us up, so.
+
 	handle_alerts() //Let's check if they're about to die, and let them know.
 	update_icon()
 	radiation_pulse(src, temperature*radioactivity_spice_multiplier)
+
 	if(power >= 93 && world.time >= next_flicker) //You're overloading the reactor. Give a more subtle warning that power is getting out of control.
 		next_flicker = world.time + 2 MINUTES
 		for(var/obj/machinery/light/L in GLOB.machines)
 			if(prob(25) && L.z == z) //If youre running the reactor cold though, no need to flicker the lights.
 				L.flicker()
 		investigate_log("Reactor overloading at [power]% power", INVESTIGATE_ENGINE)
+
 	for(var/atom/movable/I in get_turf(src))
 		if(isliving(I))
 			var/mob/living/L = I
 			if(temperature > 0)
 				L.adjust_bodytemperature(clamp(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
-		if(istype(I, /obj/item/food))
-			playsound(src, pick('sound/machines/fryer/deep_fryer_1.ogg', 'sound/machines/fryer/deep_fryer_2.ogg'), 100, TRUE)
-			var/obj/item/food/grilled_item = I
-			if(prob(80))
-				return //To give the illusion that it's actually cooking omegalul.
-			switch(power)
-				if(20 to 39)
-					grilled_item.name = "grilled [initial(grilled_item.name)]"
-					grilled_item.desc = "[initial(I.desc)] It's been grilled over a nuclear reactor."
-					if(!(grilled_item.foodtypes & FRIED))
-						grilled_item.foodtypes |= FRIED
-				if(40 to 70)
-					grilled_item.name = "heavily grilled [initial(grilled_item.name)]"
-					grilled_item.desc = "[initial(I.desc)] It's been heavily grilled through the magic of nuclear fission."
-					if(!(grilled_item.foodtypes & FRIED))
-						grilled_item.foodtypes |= FRIED
-				if(70 to 95)
-					grilled_item.name = "Three-Mile Nuclear-Grilled [initial(grilled_item.name)]"
-					grilled_item.desc = "A [initial(grilled_item.name)]. It's been put on top of a nuclear reactor running at extreme power by some badass engineer."
-					if(!(grilled_item.foodtypes & FRIED))
-						grilled_item.foodtypes |= FRIED
-				if(95 to INFINITY)
-					grilled_item.name = "Ultimate Meltdown Grilled [initial(grilled_item.name)]"
-					grilled_item.desc = "A [initial(grilled_item.name)]. A grill this perfect is a rare technique only known by a few engineers who know how to perform a 'controlled' meltdown whilst also having the time to throw food on a reactor. I'll bet it tastes amazing."
-					if(!(grilled_item.foodtypes & FRIED))
-						grilled_item.foodtypes |= FRIED
+			continue
+
+		if(!istype(I, /obj/item/food))
+			continue
+
+		playsound(src, pick('sound/machines/fryer/deep_fryer_1.ogg', 'sound/machines/fryer/deep_fryer_2.ogg'), 100, TRUE)
+		var/obj/item/food/grilled_item = I
+
+		if(prob(80)) //To give the illusion that it's actually cooking omegalul.
+			continue
+
+		switch(power)
+			if(20 to 39)
+				grilled_item.name = "grilled [initial(grilled_item.name)]"
+				grilled_item.desc = "[initial(I.desc)] It's been grilled over a nuclear reactor."
+				if(!(grilled_item.foodtypes & FRIED))
+					grilled_item.foodtypes |= FRIED
+			if(40 to 70)
+				grilled_item.name = "heavily grilled [initial(grilled_item.name)]"
+				grilled_item.desc = "[initial(I.desc)] It's been heavily grilled through the magic of nuclear fission."
+				if(!(grilled_item.foodtypes & FRIED))
+					grilled_item.foodtypes |= FRIED
+			if(70 to 95)
+				grilled_item.name = "Three-Mile Nuclear-Grilled [initial(grilled_item.name)]"
+				grilled_item.desc = "A [initial(grilled_item.name)]. It's been put on top of a nuclear reactor running at extreme power by some badass engineer."
+				if(!(grilled_item.foodtypes & FRIED))
+					grilled_item.foodtypes |= FRIED
+			if(95 to INFINITY)
+				grilled_item.name = "Ultimate Meltdown Grilled [initial(grilled_item.name)]"
+				grilled_item.desc = "A [initial(grilled_item.name)]. A grill this perfect is a rare technique only known by a few engineers who know how to perform a 'controlled' meltdown whilst also having the time to throw food on a reactor. I'll bet it tastes amazing."
+				if(!(grilled_item.foodtypes & FRIED))
+					grilled_item.foodtypes |= FRIED
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/relay(var/sound, var/message=null, loop = FALSE, channel = null) //Sends a sound + text message to the crew of a ship
 	for(var/mob/M in GLOB.player_list)
