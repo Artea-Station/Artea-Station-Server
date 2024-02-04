@@ -64,6 +64,7 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	var/datum/looping_sound/rbmk_reactor/soundloop
 	var/datum/powernet/powernet = null
 	var/has_fuel
+	var/started = FALSE
 
 //Use this in your maps if you want everything to be preset.
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/preset
@@ -76,7 +77,6 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	icon_state = "reactor_off"
 	gas_absorption_effectiveness = rand(5, 6)/10 //All reactors are slightly different. This will result in you having to figure out what the balance is for rate_of_reaction.
 	gas_absorption_constant = gas_absorption_effectiveness //And set this up for the rest of the round.
-	STOP_PROCESSING(SSmachines, src) //We'll handle this one ourselves.
 	GLOB.rbmk_reactors += src
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/examine(mob/user)
@@ -153,6 +153,7 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	//Firstly, heat up the reactor based off of rate_of_reaction.
 	var/input_moles = coolant_input.total_moles //Firstly. Do we have enough moles of coolant?
 	if(input_moles >= minimum_fuel_level)
+		start_up()
 		last_coolant_temperature = coolant_input.temperature
 		//Important thing to remember, once you slot in the fuel rods, this thing will not stop making heat, at least, not unless you can live to be thousands of years old which is when the spent fuel finally depletes fully.
 		var/heat_delta = (coolant_input.temperature / 100) * gas_absorption_effectiveness //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at rate_of_reaction=1, coolant input temp of 200K / -73 celsius.
@@ -184,10 +185,11 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	//Next up, handle fuel!
 	if(fuel_input.total_moles >= minimum_fuel_level)
 		var/total_fuel_moles = 0
-		for(var/gas in fuel_input.gas)
-			if(xgm_gas_data.radioactivity[gas])
-				total_fuel_moles += fuel_input.gas[gas]
-				radioactivity_spice_multiplier += (fuel_input.gas[gas] / 2500) * xgm_gas_data.radioactivity[gas] // Nudge the angery
+		// Oh god this is horribly off
+		// for(var/gas in fuel_input.gas)
+		// 	if(xgm_gas_data.radioactivity[gas])
+		// 		total_fuel_moles += fuel_input.gas[gas]
+		// 		radioactivity_spice_multiplier += (fuel_input.gas[gas] / 2500) * xgm_gas_data.radioactivity[gas] // Nudge the angery
 
 		var/power_modifier = max((fuel_input.gas[GAS_OXYGEN] / fuel_input.total_moles * 10), 1) //You can never have negative IPM.
 		if(total_fuel_moles >= minimum_fuel_level) //You at least need SOME fuel.
@@ -437,7 +439,9 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 //Startup, shutdown
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/start_up()
-	START_PROCESSING(SSmachines, src)
+	if(started)
+		return
+	started = TRUE
 	desired_k = 1
 	set_light(10)
 	var/startup_sound = pick('sound/machines/rbmk/startup.ogg', 'sound/machines/rbmk/startup2.ogg')
@@ -451,7 +455,9 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 
 //Shuts off the fuel rods, ambience, etc. Keep in mind that your temperature may still go up!
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/shut_down()
-	STOP_PROCESSING(SSmachines, src)
+	if(!started)
+		return
+	started = FALSE
 	set_light(0)
 	rate_of_reaction = 0
 	desired_k = 0
