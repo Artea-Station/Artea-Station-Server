@@ -124,6 +124,20 @@ SUBSYSTEM_DEF(zas)
 	///The last process, as a string, before the previous run ended.
 	var/last_process
 
+/datum/controller/subsystem/zas/vv_get_dropdown()
+	. = ..()
+	VV_DROPDOWN_OPTION("", "---")
+	VV_DROPDOWN_OPTION("zas_reboot", "Reboot ZAS")
+
+/datum/controller/vv_do_topic(list/href_list)
+	. = ..()
+	if(!.) // This means a safety check failed or this was cancelled
+		return
+	if(href_list["zas_reboot"])
+		log_admin("[usr] rebooted SSair.")
+		message_admins("[usr] rebooted SSair.")
+		Reboot()
+
 ///Stops processing while all ZAS-controlled airs and fires are nulled and the subsystem is reinitialized.
 /datum/controller/subsystem/zas/proc/Reboot()
 	// Stop processing while we rebuild.
@@ -200,7 +214,7 @@ SUBSYSTEM_DEF(zas)
 
 		log_zas("ZAS: Air settling completed in [(REALTIMEOFDAY - starttime)/10] seconds!")
 
-	..(timeofday)
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/zas/fire(resumed = FALSE, no_mc_tick)
 	var/timer = TICK_USAGE_REAL
