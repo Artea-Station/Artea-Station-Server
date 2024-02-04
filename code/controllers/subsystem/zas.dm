@@ -129,7 +129,7 @@ SUBSYSTEM_DEF(zas)
 	VV_DROPDOWN_OPTION("", "---")
 	VV_DROPDOWN_OPTION("zas_reboot", "Reboot ZAS")
 
-/datum/controller/vv_do_topic(list/href_list)
+/datum/controller/subsystem/zas/vv_do_topic(list/href_list)
 	. = ..()
 	if(!.) // This means a safety check failed or this was cancelled
 		return
