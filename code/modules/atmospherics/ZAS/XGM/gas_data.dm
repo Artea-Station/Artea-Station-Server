@@ -95,6 +95,7 @@ GLOBAL_REAL(xgm_gas_data, /datum/xgm_gas_data) = new
 
 		base_value[gas.id] = gas.base_value
 		purchaseable[gas.id] = gas.purchaseable
+		radioactivity[gas.id] = gas.radioactivity
 
 	return 1
 

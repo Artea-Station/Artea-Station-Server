@@ -14,4 +14,4 @@
 
 #define RBMK_MAX_CRITICALITY 3 //No more criticality than N for now.
 
-#define RBMK_POWER_FLAVOURISER 1000 //To turn those KWs into something usable
+#define RBMK_POWER_FLAVOURISER 10000 //To turn those KWs into something usable

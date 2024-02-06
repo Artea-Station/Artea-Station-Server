@@ -51,5 +51,6 @@
 	data["coolantInput"] = reactor ? reactor.last_coolant_temperature : 0
 	data["coolantOutput"] = reactor ? reactor.last_output_temperature : 0
 	data["power"] = reactor ? reactor.power : 0
-	data ["psi"] = reactor ? reactor.pressure : 0
+	data["psi"] = reactor ? reactor.pressure : 0
+	data["generatedPower"] = display_power(reactor ? reactor.last_power_produced : 0)
 	return data

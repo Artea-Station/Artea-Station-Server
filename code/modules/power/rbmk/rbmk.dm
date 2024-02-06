@@ -45,9 +45,7 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	var/control_rod_effectiveness = 0.65 //Starts off with a lot of control over rate_of_reaction. If you flood this thing with plasma, you lose your ability to control rate_of_reaction as easily.
 	var/power = 0 //0-100%. A function of the maximum heat you can achieve within operating temperature
 	//Secondary variables.
-	var/gas_absorption_effectiveness = 0.5
-	var/gas_absorption_constant = 0.5 //We refer to this one as it's set on init, randomized.
-	var/minimum_fuel_level = 2
+	var/base_fuel_consumption = 2
 	var/warning = FALSE //Have we begun warning the crew of their impending death?
 	var/next_warning = 0 //To avoid spam.
 	var/last_power_produced = 0 //For logging purposes
@@ -75,8 +73,6 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	RegisterSignal(src, COMSIG_MOVABLE_CROSS_OVER, PROC_REF(crossed_over))
 	connect_to_network()
 	icon_state = "reactor_off"
-	gas_absorption_effectiveness = rand(5, 6)/10 //All reactors are slightly different. This will result in you having to figure out what the balance is for rate_of_reaction.
-	gas_absorption_constant = gas_absorption_effectiveness //And set this up for the rest of the round.
 	GLOB.rbmk_reactors += src
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/examine(mob/user)
@@ -148,96 +144,81 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	var/datum/gas_mixture/coolant_input = COOLANT_INPUT_GATE
 	var/datum/gas_mixture/fuel_input = MODERATOR_INPUT_GATE
 	var/datum/gas_mixture/coolant_output = COOLANT_OUTPUT_GATE
-	has_fuel = !!fuel_input.total_moles
+	has_fuel = fuel_input.total_moles >= base_fuel_consumption
+	var/fuel_input_moles = fuel_input.total_moles
 
-	//Firstly, heat up the reactor based off of rate_of_reaction.
-	var/input_moles = coolant_input.total_moles //Firstly. Do we have enough moles of coolant?
-	if(input_moles >= minimum_fuel_level)
-		start_up()
-		last_coolant_temperature = coolant_input.temperature
-		//Important thing to remember, once you slot in the fuel rods, this thing will not stop making heat, at least, not unless you can live to be thousands of years old which is when the spent fuel finally depletes fully.
-		var/heat_delta = (coolant_input.temperature / 100) * gas_absorption_effectiveness //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at rate_of_reaction=1, coolant input temp of 200K / -73 celsius.
-		last_heat_delta = heat_delta
-		temperature += heat_delta
-		coolant_output.merge(coolant_input) //And now, shove the input into the output.
-		for (var/gas in coolant_input.gas) //Clear out anything left in the input gate.
-			coolant_input.gas -= gas
-		AIR_UPDATE_VALUES(coolant_input)
+	//Firstly, process coolant.
+	last_coolant_temperature = coolant_input.temperature
+	//Important thing to remember, once you slot in the fuel rods, this thing will not stop making heat, at least, not unless you can live to be thousands of years old which is when the spent fuel finally depletes fully.
+	var/heat_delta = coolant_input.temperature / 100 //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at rate_of_reaction=1, coolant input temp of 200K.
+	last_heat_delta = heat_delta
+	temperature += heat_delta
 
-		color = null
-		no_coolant_ticks = max(0, no_coolant_ticks-2)	//Needs half as much time to recover the ticks than to acquire them
-	else
-		if(has_fuel)
-			no_coolant_ticks++
-			if(no_coolant_ticks > RBMK_NO_COOLANT_TOLERANCE)
-				temperature += temperature / 500 //This isn't really harmful early game, but when your reactor is up to full power, this can get out of hand quite quickly.
-				vessel_integrity -= temperature / 200 //Think fast chucklenuts!
-				take_damage(10) //Just for the sound effect, to let you know you've fucked up.
-				color = COLOR_RED
-				investigate_log("Reactor taking damage from the lack of coolant", INVESTIGATE_ENGINE)
+	coolant_output.merge(coolant_input) //And now, shove the input into the output.
+	for (var/gas in coolant_input.gas) //Clear out anything left in the input gate.
+		coolant_input.gas -= gas
+	AIR_UPDATE_VALUES(coolant_input)
+
+	color = null
+	no_coolant_ticks = max(0, no_coolant_ticks-2)	//Needs half as much time to recover the ticks than to acquire them
+
+	if (has_fuel)
+		no_coolant_ticks++
+		if(no_coolant_ticks > RBMK_NO_COOLANT_TOLERANCE)
+			temperature += temperature / 500 //This isn't really harmful early game, but when your reactor is up to full power, this can get out of hand quite quickly.
+			vessel_integrity -= temperature / 200 //Think fast chucklenuts!
+			take_damage(10) //Just for the sound effect, to let you know you've fucked up.
+			color = COLOR_RED
+			investigate_log("Reactor taking damage from the lack of coolant", INVESTIGATE_ENGINE)
+
 	//Now, heat up the output and set our pressure.
 	coolant_output.temperature = temperature //Heat the coolant output gas that we just had pass through us.
 	last_output_temperature = coolant_output.temperature
 	pressure = coolant_output.returnPressure()
 	power = (temperature / RBMK_TEMPERATURE_CRITICAL) * 100
 	var/radioactivity_spice_multiplier = 1 //Some gasses make the reactor a bit spicy.
-	gas_absorption_effectiveness = gas_absorption_constant
-	//Next up, handle fuel!
-	if(fuel_input.total_moles >= minimum_fuel_level)
-		var/total_fuel_moles = 0
-		// Oh god this is horribly off
-		// for(var/gas in fuel_input.gas)
-		// 	if(xgm_gas_data.radioactivity[gas])
-		// 		total_fuel_moles += fuel_input.gas[gas]
-		// 		radioactivity_spice_multiplier += (fuel_input.gas[gas] / 2500) * xgm_gas_data.radioactivity[gas] // Nudge the angery
 
-		var/power_modifier = max((fuel_input.gas[GAS_OXYGEN] / fuel_input.total_moles * 10), 1) //You can never have negative IPM.
-		if(total_fuel_moles >= minimum_fuel_level) //You at least need SOME fuel.
-			var/power_produced = max((total_fuel_moles / fuel_input.total_moles * 10), 1)
-			last_power_produced = max(0,((power_produced*power_modifier)*fuel_input.total_moles))
-			last_power_produced *= (power/100) //Aaaand here comes the cap. Hotter reactor => more power.
+	//Next up, handle fuel!
+	if(fuel_input.total_moles >= base_fuel_consumption)
+		start_up()
+		var/actual_fuel_moles = 0
+		for(var/gas in fuel_input.gas)
+			if(xgm_gas_data.radioactivity[gas])
+				actual_fuel_moles += fuel_input.gas[gas]
+				radioactivity_spice_multiplier += (fuel_input.gas[gas] / 2500) * xgm_gas_data.radioactivity[gas] // Nudge the angery
+
+		if(actual_fuel_moles >= base_fuel_consumption) //You at least need SOME fuel.
+			// Basically, we only want the fuel. Other non-fuel gases reduce the efficiency of the reaction.
+			last_power_produced = (actual_fuel_moles / fuel_input.total_moles) * 10
+			last_power_produced *= power / 100 //Aaaand here comes the cap. Hotter reactor => more power.
 			last_power_produced *= base_power_modifier //Finally, we turn it into actual usable numbers.
-			var/turf/T = get_turf(src)
+
 			if(power >= 20)
-				coolant_output.adjustGas(GAS_XENON, total_fuel_moles/50) //Shove out xenon into the air when it's fuelled. You need to filter this off, or you're gonna have a bad time.
-			var/obj/structure/cable/C = T.get_cable_node()
-			if(!C?.powernet)
-				return
-			else
-				C.powernet.newavail += last_power_produced //hacky wtf
-				add_avail(last_power_produced)
+				coolant_output.adjustGas(GAS_XENON, actual_fuel_moles/50) //Shove out xenon into the air when it's fuelled. You need to filter this off, or you're gonna have a bad time.
+
+			add_avail(last_power_produced)
 
 		// N2/CO2 helps you control the reaction at the cost of making it absolutely blast you with rads.
-		var/total_control_moles = fuel_input.gas[GAS_NITROGEN] + (fuel_input.gas[GAS_CO2]*2)
-		if(total_control_moles >= minimum_fuel_level)
+		var/total_control_moles = fuel_input.gas[GAS_NITROGEN] + (fuel_input.gas[GAS_CO2] * 2)
+		if(total_control_moles >= base_fuel_consumption)
 			var/control_bonus = total_control_moles / 250 //1 mol of n2 -> 0.002 bonus control rod effectiveness, if you want a super controlled reaction, you'll have to sacrifice some power.
 			control_rod_effectiveness = initial(control_rod_effectiveness) + control_bonus
 			radioactivity_spice_multiplier += fuel_input.gas[GAS_NITROGEN] / 25 //An example setup of 50 moles of n2 (for dealing with spent fuel) leaves us with a radioactivity spice multiplier of 3.
 			radioactivity_spice_multiplier += fuel_input.gas[GAS_CO2] / 12.5
 
-		// Makes the reactor use more gas and spit out more gas. Good for making Xenon.
-		var/total_permeability_moles = fuel_input.gas[GAS_BORON] + (fuel_input.gas[GAS_STEAM]*2)
-		if(total_permeability_moles >= minimum_fuel_level)
-			var/permeability_bonus = total_permeability_moles / 500
-			gas_absorption_effectiveness = gas_absorption_constant + permeability_bonus
-
 		//From this point onwards, we clear out the remaining gasses.
 		for (var/gas in fuel_input.gas) //Woosh. And the soul is gone.
 			fuel_input.gas -= gas
 		AIR_UPDATE_VALUES(fuel_input)
-		rate_of_reaction += total_fuel_moles / 1000
-	var/fuel_power = 0 //So that you can't magically generate rate_of_reaction with your control rods.
-	if(!has_fuel)  //Reactor must be fuelled and ready to go before we can heat it up boys.
+		rate_of_reaction += actual_fuel_moles / 1000
+
+	else if (!has_fuel)  //Reactor must be fuelled and ready to go before we can heat it up boys.
 		rate_of_reaction = 0
 
 	//Firstly, find the difference between the two numbers.
 	var/difference = abs(rate_of_reaction - desired_k)
 	//Then, hit as much of that goal with our cooling per tick as we possibly can.
 	difference = clamp(difference, 0, control_rod_effectiveness) //And we can't instantly zap the rate_of_reaction to what we want, so let's zap as much of it as we can manage....
-	if(difference > fuel_power && desired_k > rate_of_reaction)
-		message_admins("Not enough fuel to get [difference]. We have fuel [fuel_power]")
-		investigate_log("Reactor has not enough fuel to get [difference]. We have fuel [fuel_power]", INVESTIGATE_ENGINE)
-		difference = fuel_power //Again, to stop you being able to run off of 1 fuel rod.
 
 	if(rate_of_reaction != desired_k)
 		if(desired_k > rate_of_reaction)
@@ -259,27 +240,35 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 
 	handle_alerts() //Let's check if they're about to die, and let them know.
 	update_icon()
-	radiation_pulse(src, temperature*radioactivity_spice_multiplier)
+	log_world("R:[log(radioactivity_spice_multiplier) * (temperature / 100)], T:[temperature], P:[last_power_produced], M:[fuel_input_moles]")
+	radiation_pulse(
+		src,
+		clamp(log(radioactivity_spice_multiplier) * (temperature / 100), 2, 20), // clamped and logged to ensure radiation doesn't go entirely batshit
+		RAD_MEDIUM_INSULATION,
+		temperature * radioactivity_spice_multiplier,
+		clamp((100 SECONDS) - log(radioactivity_spice_multiplier) * (temperature / 100), 0, 100 SECONDS), // Fuck you and your uninsulated clothing. The minus is intentional, otherwise the more radioactive, the longer you have.
+	)
 
 	if(power >= 93 && world.time >= next_flicker) //You're overloading the reactor. Give a more subtle warning that power is getting out of control.
-		next_flicker = world.time + 2 MINUTES
-		for(var/obj/machinery/light/L in GLOB.machines)
-			if(prob(25) && L.z == z) //If youre running the reactor cold though, no need to flicker the lights.
-				L.flicker()
+		next_flicker = world.time + 30 SECONDS
+		for(var/obj/machinery/light/found_light in GLOB.machines)
+			if(prob(25) && is_station_level(found_light.z)) //If youre running the reactor cold though, no need to flicker the lights.
+				found_light.flicker()
+
 		investigate_log("Reactor overloading at [power]% power", INVESTIGATE_ENGINE)
 
-	for(var/atom/movable/I in get_turf(src))
-		if(isliving(I))
-			var/mob/living/L = I
-			if(temperature > 0)
-				L.adjust_bodytemperature(clamp(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
+	for(var/atom/movable/found_atom in get_turf(src))
+		if(isliving(found_atom))
+			var/mob/living/L = found_atom
+			if(temperature > RBMK_TEMPERATURE_OPERATING)
+				L.adjust_fire_stacks(2)
 			continue
 
-		if(!istype(I, /obj/item/food))
+		if(!istype(found_atom, /obj/item/food))
 			continue
 
 		playsound(src, pick('sound/machines/fryer/deep_fryer_1.ogg', 'sound/machines/fryer/deep_fryer_2.ogg'), 100, TRUE)
-		var/obj/item/food/grilled_item = I
+		var/obj/item/food/grilled_item = found_atom
 
 		if(prob(80)) //To give the illusion that it's actually cooking omegalul.
 			continue
@@ -287,12 +276,12 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 		switch(power)
 			if(20 to 39)
 				grilled_item.name = "grilled [initial(grilled_item.name)]"
-				grilled_item.desc = "[initial(I.desc)] It's been grilled over a nuclear reactor."
+				grilled_item.desc = "[initial(found_atom.desc)] It's been grilled over a nuclear reactor."
 				if(!(grilled_item.foodtypes & FRIED))
 					grilled_item.foodtypes |= FRIED
 			if(40 to 70)
 				grilled_item.name = "heavily grilled [initial(grilled_item.name)]"
-				grilled_item.desc = "[initial(I.desc)] It's been heavily grilled through the magic of nuclear fission."
+				grilled_item.desc = "[initial(found_atom.desc)] It's been heavily grilled through the magic of nuclear fission."
 				if(!(grilled_item.foodtypes & FRIED))
 					grilled_item.foodtypes |= FRIED
 			if(70 to 95)
@@ -305,23 +294,24 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 				grilled_item.desc = "A [initial(grilled_item.name)]. A grill this perfect is a rare technique only known by a few engineers who know how to perform a 'controlled' meltdown whilst also having the time to throw food on a reactor. I'll bet it tastes amazing."
 				if(!(grilled_item.foodtypes & FRIED))
 					grilled_item.foodtypes |= FRIED
+					grilled_item.foodtypes &= ~RAW // You deserve whatever jank this causes, I guess.
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/relay(var/sound, var/message=null, loop = FALSE, channel = null) //Sends a sound + text message to the crew of a ship
 	for(var/mob/M in GLOB.player_list)
-		if(M.z == z)
-			if(!isinspace(M))
-				if(sound)
-					if(channel) //Doing this forbids overlapping of sounds
-						SEND_SOUND(M, sound(sound, repeat = loop, wait = 0, volume = 70, channel = channel))
-					else
-						SEND_SOUND(M, sound(sound, repeat = loop, wait = 0, volume = 70))
-				if(message)
-					to_chat(M, message)
+		if(M.z != z || isinspace(M))
+			return
+
+		if(sound)
+			if(channel) //Doing this forbids overlapping of sounds
+				SEND_SOUND(M, sound(sound, repeat = loop, wait = 0, volume = 70, channel = channel))
+			else
+				SEND_SOUND(M, sound(sound, repeat = loop, wait = 0, volume = 70))
+		if(message && M.can_hear())
+			to_chat(M, message)
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/stop_relay(channel) //Stops all playing sounds for crewmen on N channel.
 	for(var/mob/M in GLOB.player_list)
-		if(M.z == z)
-			M.stop_sound_channel(channel)
+		M.stop_sound_channel(channel) // No z check cause there's no garuantee everyone is on a station Z.
 
 //Method to handle sound effects, reactor warnings, all that jazz.
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/handle_alerts()
@@ -342,9 +332,9 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 				return
 	else
 		alert = FALSE
-	if(temperature < -200) //That's as cold as I'm letting you get it, engineering.
+	if(temperature < 70) //That's as cold as I'm letting you get it, engineering.
 		color = COLOR_CYAN
-		temperature = -200
+		temperature = 70
 	else
 		color = null
 	//Second alert condition: Overpressurized (the more lethal one)
@@ -354,21 +344,22 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 		message_admins("Reactor reaching critical pressure at [ADMIN_VERBOSEJMP(src)]")
 		shake_animation(0.5)
 		playsound(loc, 'sound/machines/clockcult/steam_whoosh.ogg', 100, TRUE)
-		var/turf/T = get_turf(src)
-		T.atmos_spawn_air("water_vapor=[pressure/100];TEMP=[temperature]")
-		var/pressure_damage = min(pressure/100, initial(vessel_integrity)/45)	//You get 45 seconds (if you had full integrity), worst-case. But hey, at least it can't be instantly nuked with a pipe-fire.. though it's still very difficult to save.
+		var/turf/my_turf = get_turf(src)
+		my_turf.atmos_spawn_air(GAS_STEAM, pressure / 100, temperature)
+		var/pressure_damage = min(pressure / 100, initial(vessel_integrity) / 45)	//You get 45 seconds (if you had full integrity), worst-case. But hey, at least it can't be instantly nuked with a pipe-fire.. though it's still very difficult to save.
 		vessel_integrity -= pressure_damage
 		if(vessel_integrity <= pressure_damage) //It wouldn't
 			investigate_log("Reactor blowout at [pressure] kpa with desired criticality at [desired_k]", INVESTIGATE_ENGINE)
 			blowout()
 			return
+
 	if(warning)
 		if(!alert) //Congrats! You stopped the meltdown / blowout.
 			stop_relay(CHANNEL_REACTOR_ALERT)
 			warning = FALSE
-			set_light(0)
 			light_color = LIGHT_COLOR_CYAN
 			set_light(10)
+
 	else
 		if(!alert)
 			return
@@ -377,7 +368,6 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 		next_warning = world.time + 30 SECONDS //To avoid engis pissing people off when reaaaally trying to stop the meltdown or whatever.
 		warning = TRUE //Start warning the crew of the imminent danger.
 		relay('sound/machines/rbmk/alarm.ogg', null, loop=TRUE, channel = CHANNEL_REACTOR_ALERT)
-		set_light(0)
 		light_color = COLOR_RED
 		set_light(10)
 
@@ -402,17 +392,16 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	var/datum/gas_mixture/coolant_input = COOLANT_INPUT_GATE
 	var/datum/gas_mixture/fuel_input = MODERATOR_INPUT_GATE
 	var/datum/gas_mixture/coolant_output = COOLANT_OUTPUT_GATE
-	var/turf/T = get_turf(src)
+	var/turf/my_turf = get_turf(src)
 	coolant_input.temperature = temperature * 2 // I'm not sure if I like these magic x2s. We'll see. - Rimi
 	fuel_input.temperature = temperature * 2
 	coolant_output.temperature = temperature * 2
 	AIR_UPDATE_VALUES(coolant_input)
 	AIR_UPDATE_VALUES(fuel_input)
 	AIR_UPDATE_VALUES(coolant_output)
-	T.assume_air(coolant_input)
-	T.assume_air(fuel_input)
-	T.assume_air(coolant_output)
-	power = 0 //we set it to zero so the reactor can be serviced and repaired.
+	my_turf.assume_air(coolant_input)
+	my_turf.assume_air(fuel_input)
+	my_turf.assume_air(coolant_output)
 	explosion(get_turf(src), 0, 5, 10, 20, TRUE, TRUE)
 	empulse(get_turf(src), 25, 15)
 	QDEL_NULL(soundloop)
@@ -421,7 +410,7 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/blowout()
 	// explosion(get_turf(src), GLOB.MAX_EX_DEVESTATION_RANGE, GLOB.MAX_EX_HEAVY_RANGE, GLOB.MAX_EX_LIGHT_RANGE, GLOB.MAX_EX_FLASH_RANGE)
 	meltdown() //Double kill.
-	power = 0 //we set it to zero so the reactor can be serviced and repaired.
+	power = 0
 	// SSweather.run_weather("nuclear fallout")
 	for(var/X in GLOB.landmarks_list)
 		if(istype(X, /obj/effect/landmark/nuclear_waste_spawner))
@@ -459,7 +448,9 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	set_light(10)
 	var/startup_sound = pick('sound/machines/rbmk/startup.ogg', 'sound/machines/rbmk/startup2.ogg')
 	playsound(loc, startup_sound, 100)
-	soundloop = new(src, TRUE)
+	if(!soundloop)
+		soundloop = new(src)
+	soundloop.start()
 	if(!powernet)
 		message_admins("No powernet for the Nuclear Reactor! Trying to add.")
 		connect_to_network()
@@ -476,7 +467,7 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	desired_k = 0
 	temperature = 0
 	update_icon()
-	QDEL_NULL(soundloop)
+	soundloop?.stop()
 
 //Preset pumps for mappers. You can also set the id tags yourself.
 /obj/machinery/atmospherics/components/binary/pump/rbmk_input
@@ -493,15 +484,15 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 
 //Procs shamelessly taken from machinery/power
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/connect_to_network()
-	var/turf/T = src.loc
-	if(!T || !istype(T))
+	var/turf/my_turf = src.loc
+	if(!my_turf || !istype(my_turf))
 		return FALSE
 
-	var/obj/structure/cable/C = T.get_cable_node() //check if we have a node cable on the machine turf, the first found is picked
-	if(!C || !C.powernet)
+	var/obj/structure/cable/found_cable = my_turf.get_cable_node() //check if we have a node cable on the machine turf, the first found is picked
+	if(!found_cable || !found_cable.powernet)
 		return FALSE
 
-	C.powernet.add_machine(src)
+	found_cable.powernet.add_machine(src)
 	return TRUE
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/disconnect_from_network()

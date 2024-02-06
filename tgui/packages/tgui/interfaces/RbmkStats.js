@@ -17,8 +17,17 @@ export const RbmkStats = (props, context) => {
             value={data.power}
             minValue={0}
             maxValue={100}
-            color="yellow">
+            color="average">
             {data.power}%
+          </ProgressBar>
+          <br />
+          Generated Power:
+          <ProgressBar
+            value={data.generatedPower}
+            minValue={0}
+            maxValue={1227}
+            color="yellow">
+            {data.generatedPower}
           </ProgressBar>
           <br />
           Reactor Pressure:
@@ -29,7 +38,7 @@ export const RbmkStats = (props, context) => {
             color="white">
             {data.psi} kpa
           </ProgressBar>
-          Coolant temperature:
+          Coolant Temperature:
           <ProgressBar
             value={data.coolantInput}
             minValue={0}
@@ -37,7 +46,7 @@ export const RbmkStats = (props, context) => {
             color="blue">
             {data.coolantInput} K
           </ProgressBar>
-          Outlet temperature:
+          Outlet Temperature:
           <ProgressBar
             value={data.coolantOutput}
             minValue={0}
