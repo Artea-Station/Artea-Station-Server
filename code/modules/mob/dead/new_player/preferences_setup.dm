@@ -74,12 +74,12 @@
 
 /// Returns what job is marked as highest
 /datum/preferences/proc/get_highest_priority_job()
-	var/datum/job/preview_job
+	var/datum/job/preview_job = /datum/job/assistant
 	var/highest_pref = 0
 
 	for(var/job in job_preferences)
-		if(job_preferences[job] > highest_pref)
-			preview_job = SSjob.GetJob(job)
+		if(job_preferences[job] > highest_pref && SSjob.name_faction_occupations[job])
+			preview_job = SSjob.name_faction_occupations[job]
 			highest_pref = job_preferences[job]
 
 	return preview_job
