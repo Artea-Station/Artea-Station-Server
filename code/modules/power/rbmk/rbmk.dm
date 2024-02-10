@@ -180,7 +180,7 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	last_output_temperature = coolant_output.temperature
 	pressure = coolant_output.returnPressure()
 	// -T0C to stop free power and heat.
-	power = ((temperature - T0C) / RBMK_TEMPERATURE_CRITICAL) * 100
+	power = (temperature / RBMK_TEMPERATURE_CRITICAL) * 100
 	var/radioactivity_spice_multiplier = 1 //Some gasses make the reactor a bit spicy.
 
 	// The total moles being used.
