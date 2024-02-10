@@ -148,36 +148,39 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	has_fuel = fuel_input.total_moles >= RBMK_BASE_FUEL_CONSUMPTION
 	var/fuel_input_moles = fuel_input.total_moles
 
-	//Firstly, process coolant.
-	last_coolant_temperature = coolant_input.temperature
-	//Important thing to remember, once you slot in the fuel rods, this thing will not stop making heat, at least, not unless you can live to be thousands of years old which is when the spent fuel finally depletes fully.
-	var/heat_delta = coolant_input.temperature / 100 //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at rate_of_reaction=1, coolant input temp of 200K.
-	last_heat_delta = heat_delta
-	temperature += heat_delta
-
-	coolant_output.merge(coolant_input) //And now, shove the input into the output.
-	for (var/gas in coolant_input.gas) //Clear out anything left in the input gate.
-		coolant_input.gas -= gas
-	AIR_UPDATE_VALUES(coolant_input)
-
-	color = null
-	no_coolant_ticks = max(0, no_coolant_ticks-2)	//Needs half as much time to recover the ticks than to acquire them
-
-	// If you're trying to run the reactor with too little coolant, then you better hope you set up a killswitch.
 	if(has_fuel && coolant_input.total_moles < RBMK_MINIMUM_COOLANT_CONSUMPTION)
 		no_coolant_ticks++
 		if(no_coolant_ticks > RBMK_NO_COOLANT_TOLERANCE)
-			temperature += temperature / 500 //This isn't really harmful early game, but when your reactor is up to full power, this can get out of hand quite quickly.
+			temperature += temperature / 100 //This isn't really harmful early game, but when your reactor is up to full power, this can get out of hand quite quickly.
 			vessel_integrity -= temperature / 200 //Think fast chucklenuts!
 			take_damage(10) //Just for the sound effect, to let you know you've fucked up.
 			color = COLOR_RED
 			investigate_log("Reactor taking damage from the lack of coolant", INVESTIGATE_ENGINE)
 
+	else
+		//Firstly, process coolant.
+		last_coolant_temperature = coolant_input.temperature
+		//Important thing to remember, once you slot in the fuel rods, this thing will not stop making heat, at least, not unless you can live to be thousands of years old which is when the spent fuel finally depletes fully.
+		var/heat_delta = (coolant_input.temperature - temperature) / 200 //Take in the gas as a cooled input, cool the reactor a bit.
+		last_heat_delta = heat_delta
+		if(coolant_input.temperature < temperature)
+			heat_delta = -heat_delta / 5 // This cools down slower than it heats up. Careful!
+		temperature += heat_delta
+
+		coolant_output.merge(coolant_input) //And now, shove the input into the output.
+		for (var/gas in coolant_input.gas) //Clear out anything left in the input gate.
+			coolant_input.gas -= gas
+		AIR_UPDATE_VALUES(coolant_input)
+
+		color = null
+		no_coolant_ticks = max(0, no_coolant_ticks-2)	//Needs half as much time to recover the ticks than to acquire them
+
 	//Now, heat up the output and set our pressure.
-	coolant_output.temperature = temperature //Heat the coolant output gas that we just had pass through us.
+	coolant_output.temperature += temperature / 10 //Heat the coolant output gas that we just had pass through us.
 	last_output_temperature = coolant_output.temperature
 	pressure = coolant_output.returnPressure()
-	power = (temperature / RBMK_TEMPERATURE_CRITICAL) * 100
+	// -T20C to stop free power and heat.
+	power = ((temperature - T20C) / RBMK_TEMPERATURE_CRITICAL) * 100
 	var/radioactivity_spice_multiplier = 1 //Some gasses make the reactor a bit spicy.
 
 	// The total moles being used.
@@ -200,18 +203,18 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 		// Process the fuels
 		for(var/gas in actual_fuels)
 			var/percentage = actual_fuels[gas] / potential_fuel_moles
-			var/moles_to_process = (RBMK_BASE_FUEL_CONSUMPTION * (fuel_input.temperature / T20C)) * percentage
+			var/moles_to_process = max(RBMK_BASE_FUEL_CONSUMPTION, RBMK_BASE_FUEL_CONSUMPTION * (fuel_input.temperature / T20C)) * percentage
 			actual_fuels[gas] = moles_to_process
 			actual_fuel_moles += moles_to_process
 			radioactivity_spice_multiplier += (moles_to_process / RBMK_BASE_FUEL_CONSUMPTION) * xgm_gas_data.radioactivity[gas] // Nudge the angery
 			base_power_production += xgm_gas_data.radioactivity[gas] * moles_to_process // The more spicy, the better-er
 
 		// Process power
-		if(actual_fuel_moles >= (RBMK_BASE_FUEL_CONSUMPTION - 0.01)) //You need fuel to do anything. (-0.1 to deal with floating point issues)
+		if(actual_fuel_moles >= (RBMK_BASE_FUEL_CONSUMPTION - 0.01)) //You need fuel to do anything. (-0.01 to deal with floating point issues)
 			start_up() // Make the funny noise.
 
 			// Basically, we only want the fuel. Other non-fuel gases reduce the efficiency of the reaction. Think of it as the reactor having to spend energy+time filtering gases.
-			last_power_produced = base_power_production / fuel_input.total_moles
+			last_power_produced = base_power_production / (fuel_input_moles - actual_fuel_moles)
 			// Power is based on temp, so hotter reactor means it produces more power.
 			last_power_produced *= power / 100
 			// Finally, we turn it into actual usable numbers.
