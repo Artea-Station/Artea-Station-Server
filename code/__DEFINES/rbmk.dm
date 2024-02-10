@@ -2,7 +2,7 @@
 #define RBMK_TEMPERATURE_OPERATING 800
 /// The max hot operating temperature.
 #define RBMK_TEMPERATURE_HOT 920
-/// The max tmperature the reactor can take before starting to take damage. The station will be alerted above this number.
+/// The max temperature the reactor can take before starting to take damage. The station will be alerted above this number.
 #define RBMK_TEMPERATURE_CRITICAL 1040
 /// The max temperature the reactor can take before turning itself into slag.
 #define RBMK_TEMPERATURE_MELTDOWN 1230
