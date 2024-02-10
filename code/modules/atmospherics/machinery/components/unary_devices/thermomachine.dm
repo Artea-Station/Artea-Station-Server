@@ -337,4 +337,31 @@
 	on = TRUE
 	icon_state = "thermo_base_1"
 
+/obj/machinery/atmospherics/components/unary/thermomachine/magic
+	name = "Magic Thermomachine"
+
+
+/// Performs heat calculation for the freezer.
+/// We just equalize the gasmix with an object at temp = var/target_temperature and heat cap = var/heat_capacity
+/obj/machinery/atmospherics/components/unary/thermomachine/process_atmos()
+	if(!on)
+		return
+
+	var/turf/local_turf = get_turf(src)
+
+	if(!is_operational || !local_turf)
+		on = FALSE
+		update_appearance()
+		return
+
+	// The gas we want to cool/heat
+	var/datum/gas_mixture/port = airs[1]
+
+	if(!port.total_moles) // Nothing to cool? go home lad
+		return
+
+	port.temperature = target_temperature
+
+	update_parents()
+
 #undef THERMOMACHINE_POWER_CONVERSION
