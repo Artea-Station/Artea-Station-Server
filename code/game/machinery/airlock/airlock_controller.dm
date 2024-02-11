@@ -35,7 +35,6 @@
 	var/sensor_tag
 	var/interior_sensor_tag
 	var/exterior_sensor_tag
-	var/sanitize_external
 
 	var/list/memory = list()
 

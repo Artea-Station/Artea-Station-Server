@@ -6,7 +6,6 @@
 	exterior_door_tag = INCINERATOR_ORDMIX_AIRLOCK_EXTERIOR
 	id_tag = INCINERATOR_ORDMIX_AIRLOCK_CONTROLLER
 	interior_door_tag = INCINERATOR_ORDMIX_AIRLOCK_INTERIOR
-	sanitize_external = TRUE
 	sensor_tag = INCINERATOR_ORDMIX_AIRLOCK_SENSOR
 
 /obj/machinery/airlock_controller/incinerator_atmos
@@ -15,7 +14,6 @@
 	exterior_door_tag = INCINERATOR_ATMOS_AIRLOCK_EXTERIOR
 	id_tag = INCINERATOR_ATMOS_AIRLOCK_CONTROLLER
 	interior_door_tag = INCINERATOR_ATMOS_AIRLOCK_INTERIOR
-	sanitize_external = TRUE
 	sensor_tag = INCINERATOR_ATMOS_AIRLOCK_SENSOR
 
 /obj/machinery/airlock_controller/incinerator_syndicatelava
@@ -24,5 +22,4 @@
 	exterior_door_tag = INCINERATOR_SYNDICATELAVA_AIRLOCK_EXTERIOR
 	id_tag = INCINERATOR_SYNDICATELAVA_AIRLOCK_CONTROLLER
 	interior_door_tag = INCINERATOR_SYNDICATELAVA_AIRLOCK_INTERIOR
-	sanitize_external = TRUE
 	sensor_tag = INCINERATOR_SYNDICATELAVA_AIRLOCK_SENSOR

@@ -85,16 +85,18 @@
 					"tag" = interior_door_tag,
 					"command" = "secure_close"
 				)))
+				did_something = TRUE
 			if(memory["exterior_status"] != "closed")
 				post_signal(new /datum/signal(list(
 					"tag" = exterior_door_tag,
 					"command" = "secure_close"
 				)))
+				did_something = TRUE
 			if(did_something) // Only do one "action" per process
 				return
 
 			if(target_state == AIRLOCK_STATE_OUTOPEN)
-				if(sanitize_external && !docked)
+				if(!is_firelock && !docked)
 					state = AIRLOCK_STATE_DEPRESSURIZE
 				else
 					state = AIRLOCK_STATE_PRESSURIZE
@@ -124,7 +126,7 @@
 
 		if(AIRLOCK_STATE_DEPRESSURIZE)
 			var/target_pressure = ONE_ATMOSPHERE*0.05
-			if(sanitize_external)
+			if(!is_firelock)
 				target_pressure = ONE_ATMOSPHERE*0.01
 
 			if(sensor_pressure <= target_pressure)
@@ -138,7 +140,7 @@
 						)))
 				else
 					state = AIRLOCK_STATE_CLOSED
-			else if((target_state != AIRLOCK_STATE_OUTOPEN) && !sanitize_external)
+			else if((target_state != AIRLOCK_STATE_OUTOPEN) && is_firelock)
 				state = AIRLOCK_STATE_CLOSED
 			else
 				var/datum/signal/signal = new(list(
@@ -167,7 +169,7 @@
 						"command" = "unlock"
 					)))
 				// Stop the pump if it's on. It shouldn't be.
-				if(memory["pump_status"] != "off" && sensor_pressure >= ONE_ATMOSPHERE*0.95)
+				if(memory["pump_status"] != "off")
 					post_signal(new /datum/signal(list(
 						"tag" = airpump_tag,
 						"power" = FALSE,
