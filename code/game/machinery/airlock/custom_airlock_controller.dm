@@ -46,7 +46,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset, 24)
 
 /obj/effect/mapping_helpers/airlock_controller_helper/Initialize(mapload)
 	. = ..()
+	SSairlocks.helpers_to_initialize += src // Initialized from this subsystem cause ZAS has issues with roundstart open doors.
+	return INITIALIZE_HINT_NORMAL
 
+/obj/effect/mapping_helpers/airlock_controller_helper/proc/airlock_initialize()
 	var/obj_of_interest = locate(affected_type) in loc
 	if(!obj_of_interest)
 		CRASH("[src] failed to find [affected_type] at [AREACOORD(src)]") // Fuck you, map properly.
