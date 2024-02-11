@@ -21,4 +21,4 @@
 /// The base fuel consumption if the fuel is at or below room temp.
 #define RBMK_BASE_FUEL_CONSUMPTION 2
 /// The minimum coolant moles required for any cooling to take place.
-#define RBMK_MINIMUM_COOLANT_CONSUMPTION 15
+#define RBMK_MINIMUM_COOLANT_CONSUMPTION 10
