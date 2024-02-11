@@ -72,9 +72,13 @@
 
 /// Global signal sent when a light mechanism is completed (try_id)
 #define COMSIG_GLOB_LIGHT_MECHANISM_COMPLETED "!light_mechanism_completed"
+
 /// Global Signal sent when the crew wins the revolution (No arguments).
 #define COMSIG_GLOB_REVOLUTION_VICTORY "!revolution_victory"
 
 ///from base of mob/clickon(): (atom/A, params)
 #define COMSIG_CLICKON "any_clickon"
 	#define COMSIG_CANCEL_CLICKON 1
+
+///Global signal sent when SSticker enters Runlevel Game
+#define COMSIG_GLOB_GAME_START "!game_started"

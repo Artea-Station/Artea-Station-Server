@@ -36,46 +36,11 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/station/en
 			if(break_if_found[checkT.type] || break_if_found[checkT.loc.type])
 				return FALSE
 			var/static/list/cardinal_cache = list("[NORTH]"=TRUE, "[EAST]"=TRUE, "[SOUTH]"=TRUE, "[WEST]"=TRUE)
-			if(!cardinal_cache["[dir]"] || !TURFS_CAN_SHARE(sourceT, checkT))
+			var/blocked
+			ATMOS_CANPASS_TURF(blocked, checkT, sourceT)
+			if(!cardinal_cache["[dir]"] || (blocked & AIR_BLOCKED))
 				continue
 			found_turfs += checkT // Since checkT is connected, add it to the list to be processed
-
-/**
- * Create an atmos zone (Think ZAS), similiar to [proc/detect_room] but it ignores walls and turfs which are non-[atmos_can_pass]
- *
- * Arguments
- * source - the turf which to find all connected atmos turfs
- * range - the max range to check
- *
- * Returns a list of turfs, which is an area of isolated atmos
- */
-/proc/create_atmos_zone(turf/source, range = INFINITY)
-	var/counter = 1 // a counter which increment each loop
-	var/loops = 0
-	if(source.blocks_air)
-		return
-	var/list/connected_turfs = list(source)
-	. = connected_turfs
-	while(length(connected_turfs))
-		var/list/turf/adjacent_turfs = list(
-			get_step(connected_turfs[counter], NORTH),
-			get_step(connected_turfs[counter], SOUTH),
-			get_step(connected_turfs[counter], EAST),
-			get_step(connected_turfs[counter], WEST)
-		)// get a tile in each cardinal direction at once and add that to the list
-		for(var/turf/valid_turf in adjacent_turfs)//loop through the list and check for atmos adjacency
-			var/turf/reference_turf = connected_turfs[counter]
-			if(valid_turf in connected_turfs)//if the turf is already added, skip
-				loops += 1
-				continue
-			if(length(connected_turfs) >= range)
-				return
-			if(TURFS_CAN_SHARE(reference_turf, valid_turf))
-				loops = 0
-				connected_turfs |= valid_turf//add that to the original list
-		if(loops >= 7)//if the loop has gone 7 consecutive times with no new turfs added, return the result. Number is arbitrary, subject to change
-			return
-		counter += 1 //increment by one so the next loop will start at the next position in the list
 
 /proc/create_area(mob/creator)
 	// Passed into the above proc as list/break_if_found
@@ -128,13 +93,11 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/station/en
 
 	newA.reg_in_areas_in_z()
 
+	for(var/thing2move in oldA.firedoors + oldA.firealarms + oldA.airalarms)
+		thing2move:set_area(get_area(thing2move)) //Dude trust me
+
 	if(!isarea(area_choice) && newA.static_lighting)
 		newA.create_area_lighting_objects()
-
-	var/list/firedoors = oldA.firedoors
-	for(var/door in firedoors)
-		var/obj/machinery/door/firedoor/FD = door
-		FD.CalculateAffectingAreas()
 
 	SEND_GLOBAL_SIGNAL(COMSIG_AREA_CREATED, newA, oldA, creator)
 	to_chat(creator, span_notice("You have created a new area, named [newA.name]. It is now weather proof, and constructing an APC will allow it to be powered."))

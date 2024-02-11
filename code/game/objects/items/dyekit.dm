@@ -34,7 +34,7 @@
 	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE))
 		return
 
-	var/new_grad_color = input(user, "Choose a secondary hair color:", "Character Preference",human_target.grad_color) as color|null
+	var/new_grad_color = tgui_color_picker(user, "Choose a secondary hair color:", "Character Preference",human_target.grad_color)
 	if(!new_grad_color || !user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE) || !user.CanReach(target))
 		return
 

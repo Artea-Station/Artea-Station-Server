@@ -2,7 +2,7 @@
 	title = JOB_CYBORG
 	description = "Assist the crew, follow your laws, obey your AI."
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
-	faction = FACTION_STATION
+	faction = FACTION_DISABLED
 	total_positions = 0
 	spawn_positions = 1
 	supervisors = "your laws and the AI" //Nodrak
@@ -10,8 +10,8 @@
 	spawn_type = /mob/living/silicon/robot
 	minimal_player_age = 21
 	exp_requirements = 120
-	exp_required_type = "silicons b gone"
-	exp_granted_type = "silicons b gone"
+	exp_required_type = EXP_TYPE_CREW
+	exp_granted_type = EXP_TYPE_CREW
 
 	display_order = JOB_DISPLAY_ORDER_CYBORG
 

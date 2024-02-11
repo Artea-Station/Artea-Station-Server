@@ -19,10 +19,10 @@
 
 	//Ok, get the air from the turf
 	var/datum/gas_mixture/env = local_turf.return_air()
-	environment_total_moles = env.total_moles()
+	environment_total_moles = env.total_moles
 	if(produces_gas)
 		//Remove gas from surrounding area
-		absorbed_gasmix = env.remove_ratio(absorption_ratio)
+		absorbed_gasmix = env.removeRatio(absorption_ratio, env.total_moles)
 	else
 		// Pass all the gas related code an empty gas container
 		absorbed_gasmix = new()
@@ -36,25 +36,23 @@
 		else
 			psy_overlay = FALSE
 	damage_archived = damage
-	if(!absorbed_gasmix || !absorbed_gasmix.total_moles() || isspaceturf(local_turf)) //we're in space or there is no gas to process
+	if(!absorbed_gasmix || !absorbed_gasmix.total_moles || isspaceturf(local_turf)) //we're in space or there is no gas to process
 		if(takes_damage)
 			damage += max((power / 1000) * DAMAGE_INCREASE_MULTIPLIER, 0.1) // always does at least some damage
-		if(!istype(env, /datum/gas_mixture/immutable) && produces_gas && power) //There is no gas to process, but we are not in a space turf. Lets make them.
+		if(local_turf.simulated && produces_gas && power) //There is no gas to process, but we are not in a space turf. Lets make them.
 			//Power * 0.55 * a value between 1 and 0.8
 			var/device_energy = power * REACTION_POWER_MODIFIER * (1 - (psyCoeff * 0.2))
 			//Can't do stuff if it's null, so lets make a new gasmix.
 			absorbed_gasmix = new()
 			//Since there is no gas to process, we will produce as if heat penalty is 1 and temperature at TCMB.
-			absorbed_gasmix.assert_gases(/datum/gas/plasma, /datum/gas/oxygen)
 			absorbed_gasmix.temperature = ((device_energy) / THERMAL_RELEASE_MODIFIER)
 			absorbed_gasmix.temperature = max(TCMB, min(absorbed_gasmix.temperature, 2500))
-			absorbed_gasmix.gases[/datum/gas/plasma][MOLES] = max((device_energy) / PLASMA_RELEASE_MODIFIER, 0)
-			absorbed_gasmix.gases[/datum/gas/oxygen][MOLES] = max(((device_energy + TCMB) - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
-			absorbed_gasmix.garbage_collect()
+			absorbed_gasmix.gas[GAS_PLASMA] = max((device_energy) / PLASMA_RELEASE_MODIFIER, 0)
+			absorbed_gasmix.gas[GAS_OXYGEN] = max(((device_energy + TCMB) - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
 			env.merge(absorbed_gasmix)
-			air_update_turf(FALSE, FALSE)
+			// air_update_turf(FALSE, FALSE)
 	else
-		combined_gas = absorbed_gasmix.total_moles()
+		combined_gas = absorbed_gasmix.total_moles
 		gas_percentage = list()
 
 		power_transmission_bonus = 0
@@ -62,23 +60,23 @@
 		dynamic_heat_resistance = 0
 		gasmix_power_ratio = 0
 		powerloss_dynamic_scaling = 0
-		
-		for (var/gas_path in absorbed_gasmix.gases)
+
+		for (var/gas_path in absorbed_gasmix.gas)
 			var/datum/sm_gas/sm_gas = GLOB.sm_gas_behavior[gas_path]
-			gas_percentage[gas_path] = absorbed_gasmix.gases[gas_path][MOLES] / combined_gas
+			gas_percentage[gas_path] = absorbed_gasmix.gas[gas_path] / combined_gas
 			power_transmission_bonus += sm_gas.transmit_modifier * gas_percentage[gas_path]
 			dynamic_heat_modifier += sm_gas.heat_penalty * gas_percentage[gas_path]
 			dynamic_heat_resistance += sm_gas.heat_resistance * gas_percentage[gas_path]
 			gasmix_power_ratio += sm_gas.powermix * gas_percentage[gas_path]
 			powerloss_dynamic_scaling += sm_gas.powerloss_inhibition * gas_percentage[gas_path]
-		
+
 		gasmix_power_ratio = clamp(gasmix_power_ratio, 0, 1)
 		dynamic_heat_modifier = max(dynamic_heat_modifier, 0.5)
 		dynamic_heat_resistance = max(dynamic_heat_resistance, 1)
 
 		// Extra effects should always fire after the compositions are all finished
 		// Some extra effects like [/datum/sm_gas/carbon_dioxide/extra_effects] needs more than one gas.
-		for (var/gas_path in absorbed_gasmix.gases)
+		for (var/gas_path in absorbed_gasmix.gas)
 			var/datum/sm_gas/sm_gas = GLOB.sm_gas_behavior[gas_path]
 			sm_gas.extra_effects(src, env)
 
@@ -88,10 +86,16 @@
 
 		//main power calculations proc
 		power_calculations(env, absorbed_gasmix)
+		AIR_UPDATE_VALUES(absorbed_gasmix)
+		AIR_UPDATE_VALUES(env)
 		//irradiate at this point
 		emit_radiation()
+		AIR_UPDATE_VALUES(absorbed_gasmix)
+		AIR_UPDATE_VALUES(env)
 		//handles temperature increase and gases made by the crystal
 		temperature_gas_production(env, absorbed_gasmix)
+		AIR_UPDATE_VALUES(absorbed_gasmix)
+		AIR_UPDATE_VALUES(env)
 
 	//handles hallucinations and the presence of a psychiatrist
 	psychological_examination()
@@ -146,7 +150,7 @@
 	var/has_holes = FALSE
 	//Check for holes in the SM inner chamber
 	for(var/turf/open/space/turf_to_check in RANGE_TURFS(1, loc))
-		if(LAZYLEN(turf_to_check.atmos_adjacent_turfs))
+		if(LAZYLEN(turf_to_check.get_atmos_adjacent_turfs()))
 			damage += clamp((power * 0.005) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)
 			power += 250
 			has_holes = TRUE
@@ -160,7 +164,7 @@
 	//((((some value between 0.5 and 1 * temp - ((273.15 + 40) * some values between 1 and 10)) * some number between 0.25 and knock your socks off / 150) * 0.25
 	//Heat and mols account for each other, a lot of hot mols are more damaging then a few
 	//Mols start to have a positive effect on damage after 350
-	damage = max(damage + (max(clamp(removed.total_moles() / 200, 0.5, 1) * removed.temperature - ((T0C + HEAT_PENALTY_THRESHOLD)*dynamic_heat_resistance), 0) * mole_heat_penalty / 150 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
+	damage = max(damage + (max(clamp(removed.total_moles / 200, 0.5, 1) * removed.temperature - ((T0C + HEAT_PENALTY_THRESHOLD)*dynamic_heat_resistance), 0) * mole_heat_penalty / 150 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
 	//Power only starts affecting damage when it is above 5000 (1250 when a cascade is occurring)
 	damage = max(damage + (max(power - (POWER_PENALTY_THRESHOLD * delam_damage_multipler), 0)/500) * DAMAGE_INCREASE_MULTIPLIER, 0)
 	//Molar count only starts affecting damage when it is above 1800 (450 when a cascade is occurring)
@@ -209,7 +213,7 @@
 	if(power && (last_power_zap + 4 SECONDS - (power * 0.001)) < world.time)
 		playsound(src, 'sound/weapons/emitter2.ogg', 70, TRUE)
 		var/power_multiplier = max(0, 1 + power_transmission_bonus / 10)
-		var/pressure_multiplier = max((1 / ((env.return_pressure() ** pressure_bonus_curve_angle) + 1) * pressure_bonus_derived_steepness) + pressure_bonus_derived_constant, 1)
+		var/pressure_multiplier = max((1 / ((env.returnPressure() ** pressure_bonus_curve_angle) + 1) * pressure_bonus_derived_steepness) + pressure_bonus_derived_constant, 1)
 		hue_angle_shift = clamp(903 * log(10, (power + 8000)) - 3590, -50, 240)
 		var/zap_color = color_matrix_rotate_hue(hue_angle_shift)
 		supermatter_zap(
@@ -242,15 +246,13 @@
 	//Calculate how much gas to release
 	//Varies based on power and gas content
 
-	absorbed_gasmix.assert_gases(/datum/gas/plasma, /datum/gas/oxygen)
-	removed.gases[/datum/gas/plasma][MOLES] += max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0)
+	removed.gas[GAS_PLASMA] += max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0)
 	//Varies based on power, gas content, and heat
-	removed.gases[/datum/gas/oxygen][MOLES] += max(((device_energy + removed.temperature * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
+	removed.gas[GAS_OXYGEN] += max(((device_energy + removed.temperature * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
 
 	if(produces_gas)
-		removed.garbage_collect()
 		env.merge(removed)
-		air_update_turf(FALSE, FALSE)
+		// air_update_turf(FALSE, FALSE)
 
 /obj/machinery/power/supermatter_crystal/proc/psychological_examination()
 	// Defaults to a value less than 1. Over time the psyCoeff goes to 0 if
@@ -275,12 +277,12 @@
 		return
 	var/range = 4
 	zap_cutoff = 1500
-	if(removed && removed.return_pressure() > 0 && removed.return_temperature() > 0)
+	if(removed && removed.returnPressure() > 0 && removed.returnPressure() > 0)
 		//You may be able to freeze the zapstate of the engine with good planning, we'll see
-		zap_cutoff = clamp(3000 - (power * (removed.total_moles()) / 10) / removed.return_temperature(), 350, 3000)//If the core is cold, it's easier to jump, ditto if there are a lot of mols
+		zap_cutoff = clamp(3000 - (power * (removed.total_moles) / 10) / removed.temperature, 350, 3000)//If the core is cold, it's easier to jump, ditto if there are a lot of mols
 		//We should always be able to zap our way out of the default enclosure
 		//See supermatter_zap() for more details
-		range = clamp(power / removed.return_pressure() * 10, 2, 7)
+		range = clamp(power / removed.returnPressure() * 10, 2, 7)
 	var/flags = ZAP_SUPERMATTER_FLAGS
 	var/zap_count = 0
 	//Deal with power zaps
@@ -325,7 +327,7 @@
  * * priority: Truthy values means a forced delam. If current forced_delam is higher than priority we dont run.
  * Set to a number higher than [SM_DELAM_PRIO_IN_GAME] to fully force an admin delam.
  * * delam_path: Typepath of a [/datum/sm_delam]. [SM_DELAM_STRATEGY_PURGE] means reset and put prio back to zero.
- * 
+ *
  * Returns: Not used for anything, just returns true on succesful set, manual and automatic. Helps admins check stuffs.
  */
 /obj/machinery/power/supermatter_crystal/proc/set_delam(priority = SM_DELAM_PRIO_NONE, manual_delam_path = SM_DELAM_STRATEGY_PURGE)

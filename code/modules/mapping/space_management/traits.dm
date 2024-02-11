@@ -12,7 +12,7 @@
 		var/list/default = DEFAULT_MAP_TRAITS
 		if (z > default.len)
 			stack_trace("Unmanaged z-level [z]! maxz = [world.maxz], default.len = [default.len]")
-			return list()
+			return FALSE
 		return default[z][DL_TRAITS][trait]
 
 /// Check if levels[z] has any of the specified traits

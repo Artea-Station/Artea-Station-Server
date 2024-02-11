@@ -5,6 +5,7 @@
 #define SIPHONING 0
 #define RELEASING 1
 
+#define DEFAULT_PRESSURE_DELTA 10000
 /obj/machinery/atmospherics/components/unary/vent_pump
 	icon_state = "vent_map-3"
 
@@ -20,6 +21,8 @@
 	shift_underlay_only = FALSE
 	pipe_state = "uvent"
 	vent_movement = VENTCRAWL_ALLOWED | VENTCRAWL_CAN_SEE | VENTCRAWL_ENTRANCE_ALLOWED
+
+	power_rating = 30000
 
 	///Direction of pumping the gas (RELEASING or SIPHONING)
 	var/pump_direction = RELEASING
@@ -49,12 +52,6 @@
 	sound_loop = new /datum/looping_sound/air_pump(src, FALSE)
 	if(!id_tag)
 		id_tag = assign_random_name()
-		var/static/list/tool_screentips = list(
-			TOOL_MULTITOOL = list(
-				SCREENTIP_CONTEXT_LMB = "Log to link later with air sensor",
-			)
-		)
-		AddElement(/datum/element/contextual_screentip_tools, tool_screentips)
 	. = ..()
 
 /obj/machinery/atmospherics/components/unary/vent_pump/Destroy()
@@ -92,8 +89,6 @@
 			icon_state = "vent_in-off"
 		return
 
-	sound_loop.start()
-
 	if(icon_state == ("vent_out-off" || "vent_in-off" || "vent_off"))
 		if(pump_direction & RELEASING)
 			icon_state = "vent_out"
@@ -102,6 +97,8 @@
 			icon_state = "vent_in"
 			flick("vent_in-starting", src)
 		return
+
+	sound_loop.start()
 
 	if(pump_direction & RELEASING)
 		icon_state = "vent_out"
@@ -118,47 +115,48 @@
 	var/turf/open/us = loc
 	if(!istype(us))
 		return
+
 	var/datum/gas_mixture/air_contents = airs[1]
-	var/datum/gas_mixture/environment = us.return_air()
-	var/environment_pressure = environment.return_pressure()
-
-	if(pump_direction & RELEASING) // internal -> external
-		var/pressure_delta = 10000
-
-		if(pressure_checks&EXT_BOUND)
-			pressure_delta = min(pressure_delta, (external_pressure_bound - environment_pressure))
-		if(pressure_checks&INT_BOUND)
-			pressure_delta = min(pressure_delta, (air_contents.return_pressure() - internal_pressure_bound))
-
-		if(pressure_delta > 0)
-			if(air_contents.temperature > 0)
-				var/transfer_moles = (pressure_delta * environment.volume) / (air_contents.temperature * R_IDEAL_GAS_EQUATION)
-				var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
-
-				if(!removed || !removed.total_moles())
-					return
-
-				loc.assume_air(removed)
+	var/datum/gas_mixture/environment = us.unsafe_return_air() //We SAFE_ZAS_UPDATE later!
+	var/pressure_delta = get_pressure_delta(environment)
+	if((environment.temperature || air_contents.temperature) && pressure_delta > 0.5)
+		SAFE_ZAS_UPDATE(us)
+		if(pump_direction & RELEASING) //internal -> external
+			var/transfer_moles = calculate_transfer_moles(air_contents, environment, pressure_delta)
+			var/draw = pump_gas(air_contents, environment, transfer_moles, power_rating)
+			if(draw > -1)
+				ATMOS_USE_POWER(draw)
 				update_parents()
 
-	else // external -> internal
-		var/pressure_delta = 10000
-		if(pressure_checks&EXT_BOUND)
-			pressure_delta = min(pressure_delta, (environment_pressure - external_pressure_bound))
-		if(pressure_checks&INT_BOUND)
-			pressure_delta = min(pressure_delta, (internal_pressure_bound - air_contents.return_pressure()))
+		else //external -> internal
+			var/transfer_moles = calculate_transfer_moles(environment, air_contents, pressure_delta, parents[1]?.combined_volume || 0)
 
-		if(pressure_delta > 0 && environment.temperature > 0)
-			var/transfer_moles = (pressure_delta * air_contents.volume) / (environment.temperature * R_IDEAL_GAS_EQUATION)
+			//limit flow rate from turfs
+			transfer_moles = min(transfer_moles, environment.total_moles*air_contents.volume/environment.volume)	//group_multiplier gets divided out here
+			var/draw = pump_gas(environment, air_contents, transfer_moles, power_rating)
+			if(draw > -1)
+				ATMOS_USE_POWER(draw)
+				update_parents()
 
-			var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
+	update_icon_nopipes()
 
-			if(!removed || !removed.total_moles()) //No venting from space 4head
-				return
+/obj/machinery/atmospherics/components/unary/vent_pump/proc/get_pressure_delta(datum/gas_mixture/environment)
+	var/pressure_delta = DEFAULT_PRESSURE_DELTA
+	var/environment_pressure = environment.returnPressure()
+	var/datum/gas_mixture/air_contents = airs[1]
 
-			air_contents.merge(removed)
-			update_parents()
+	if(pump_direction) //internal -> external
+		if(pressure_checks & EXT_BOUND)
+			pressure_delta = min(pressure_delta, external_pressure_bound - environment_pressure) //increasing the pressure here
+		if(pressure_checks & INT_BOUND)
+			pressure_delta = min(pressure_delta, air_contents.returnPressure() - internal_pressure_bound) //decreasing the pressure here
+	else //external -> internal
+		if(pressure_checks & EXT_BOUND)
+			pressure_delta = min(pressure_delta, environment_pressure - external_pressure_bound) //decreasing the pressure here
+		if(pressure_checks & INT_BOUND)
+			pressure_delta = min(pressure_delta, internal_pressure_bound - air_contents.returnPressure()) //increasing the pressure here
 
+	return pressure_delta
 //Radio remote control
 
 /obj/machinery/atmospherics/components/unary/vent_pump/proc/set_frequency(new_frequency)

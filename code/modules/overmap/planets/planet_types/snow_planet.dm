@@ -156,13 +156,13 @@
 
 /datum/atmosphere/snow
 	base_gases = list(
-		/datum/gas/nitrogen=80,
-		/datum/gas/oxygen=20,
+		GAS_NITROGEN=80,
+		GAS_OXYGEN=20,
 	)
 	normal_gases = list(
-		/datum/gas/oxygen=5,
-		/datum/gas/nitrogen=5,
-		/datum/gas/carbon_dioxide=1,
+		GAS_OXYGEN=5,
+		GAS_NITROGEN=5,
+		GAS_CO2=1,
 	)
 	restricted_chance = 0
 

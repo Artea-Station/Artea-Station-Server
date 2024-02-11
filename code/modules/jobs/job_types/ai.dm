@@ -2,7 +2,7 @@
 	title = JOB_AI
 	description = "Assist the crew, follow your laws, coordinate your cyborgs."
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
-	faction = FACTION_STATION
+	faction = FACTION_DISABLED
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "your laws"
@@ -11,9 +11,9 @@
 	req_admin_notify = TRUE
 	minimal_player_age = 30
 	exp_requirements = 180
-	exp_required_type = "silicons b gone"
+	exp_required_type = EXP_TYPE_CREW
 	exp_required_type_department = EXP_TYPE_SILICON
-	exp_granted_type = "silicons b gone"
+	exp_granted_type = EXP_TYPE_CREW
 	display_order = JOB_DISPLAY_ORDER_AI
 	allow_bureaucratic_error = FALSE
 	departments_list = list(

@@ -153,7 +153,6 @@
 		/datum/delivery_run/industrial_equipment_delivery = 50
 		)
 	possible_bounties = list(
-		/datum/trader_bounty/gas/hard_to_breathe = 100,
 		/datum/trader_bounty/heavy_lifting = 100
 		)
 

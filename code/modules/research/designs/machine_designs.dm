@@ -891,7 +891,7 @@
 	name = "HFR Core Board"
 	desc = "The circuit board for an HFR Core."
 	id = "HFR_core"
-	build_path = /obj/item/circuitboard/machine/HFR_core
+	//build_path = /obj/item/circuitboard/machine/HFR_core
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ATMOS
 	)
@@ -901,7 +901,7 @@
 	name = "HFR Fuel Input Board"
 	desc = "The circuit board for an HFR fuel input."
 	id = "HFR_fuel_input"
-	build_path = /obj/item/circuitboard/machine/HFR_fuel_input
+	//build_path = /obj/item/circuitboard/machine/HFR_fuel_input
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ATMOS
 	)
@@ -911,7 +911,7 @@
 	name = "HFR Waste Output Board"
 	desc = "The circuit board for an HFR waste output."
 	id = "HFR_waste_output"
-	build_path = /obj/item/circuitboard/machine/HFR_waste_output
+	//build_path = /obj/item/circuitboard/machine/HFR_waste_output
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ATMOS
 	)
@@ -921,7 +921,7 @@
 	name = "HFR Moderator Input Board"
 	desc = "The circuit board for an HFR moderator input."
 	id = "HFR_moderator_input"
-	build_path = /obj/item/circuitboard/machine/HFR_moderator_input
+	// build_path = /obj/item/circuitboard/machine/HFR_moderator_input
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ATMOS
 	)
@@ -931,7 +931,7 @@
 	name = "HFR Corner Board"
 	desc = "The circuit board for an HFR corner."
 	id = "HFR_corner"
-	build_path = /obj/item/circuitboard/machine/HFR_corner
+	// build_path = /obj/item/circuitboard/machine/HFR_corner
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ATMOS
 	)
@@ -941,7 +941,7 @@
 	name = "HFR Interface Board"
 	desc = "The circuit board for an HFR interface."
 	id = "HFR_interface"
-	build_path = /obj/item/circuitboard/machine/HFR_interface
+	// build_path = /obj/item/circuitboard/machine/HFR_interface
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ATMOS
 	)
@@ -951,7 +951,7 @@
 	name = "Crystallizer Board"
 	desc = "The circuit board for a crystallizer."
 	id = "crystallizer"
-	build_path = /obj/item/circuitboard/machine/crystallizer
+	// build_path = /obj/item/circuitboard/machine/crystallizer
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ATMOS
 	)

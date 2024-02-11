@@ -173,8 +173,12 @@ GLOBAL_LIST_INIT(xeno_recipes, list ( \
 /obj/item/stack/sheet/wethide/Initialize(mapload, new_amount, merge = TRUE, list/mat_override=null, mat_amt=1)
 	. = ..()
 	AddElement(/datum/element/dryable, /obj/item/stack/sheet/leather)
-	AddElement(/datum/element/atmos_sensitive, mapload)
 	AddComponent(/datum/component/grillable, /obj/item/stack/sheet/leather, rand(1 SECONDS, 3 SECONDS), TRUE)
+	become_atmos_sensitive()
+
+/obj/item/stack/sheet/wethide/Destroy(force)
+	lose_atmos_sensitivity()
+	return ..()
 
 /obj/item/stack/sheet/wethide/burn()
 	visible_message(span_notice("[src] burns up, leaving a sheet of leather behind!"))
@@ -302,15 +306,13 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 //Step two - washing..... it's actually in washing machine code.
 
 //Step three - drying
-/obj/item/stack/sheet/wethide/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
-	return (exposed_temperature > drying_threshold_temperature)
-
 /obj/item/stack/sheet/wethide/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	wetness--
-	if(wetness == 0)
-		new /obj/item/stack/sheet/leather(drop_location(), 1)
-		wetness = initial(wetness)
-		use(1)
+	if(exposed_temperature > drying_threshold_temperature)
+		wetness--
+		if(wetness == 0)
+			new /obj/item/stack/sheet/leather(drop_location(), 1)
+			wetness = initial(wetness)
+			use(1)
 
 /obj/item/stack/sheet/wethide/microwave_act(obj/machinery/microwave/MW)
 	..()

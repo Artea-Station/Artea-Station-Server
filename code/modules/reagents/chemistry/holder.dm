@@ -220,7 +220,7 @@
 
 			iter_reagent.on_merge(data, amount)
 			if(reagtemp != cached_temp)
-				var/new_heat_capacity = heat_capacity()
+				var/new_heat_capacity = getHeatCapacity()
 				if(new_heat_capacity)
 					set_temperature(((old_heat_capacity * cached_temp) + (iter_reagent.specific_heat * amount * reagtemp)) / new_heat_capacity)
 				else
@@ -246,7 +246,7 @@
 
 	update_total()
 	if(reagtemp != cached_temp)
-		var/new_heat_capacity = heat_capacity()
+		var/new_heat_capacity = getHeatCapacity()
 		if(new_heat_capacity)
 			set_temperature(((old_heat_capacity * cached_temp) + (new_reagent.specific_heat * amount * reagtemp)) / new_heat_capacity)
 		else
@@ -1192,7 +1192,7 @@
 	for(var/datum/reagent/reagent as anything in cached_reagents)
 		reagents[reagent] = reagent.volume * volume_modifier
 
-	return A.expose_reagents(reagents, src, methods, volume_modifier, show_message)
+	return A.expose_reagents(reagents, src, methods, volume_modifier, show_message, chem_temp)
 
 // Same as [/datum/reagents/proc/expose] but only for multiple reagents (through a list)
 /datum/reagents/proc/expose_multiple(list/r_to_expose, atom/A, methods = TOUCH, volume_modifier = 1, show_message = 1)
@@ -1220,7 +1220,7 @@
 		return null
 
 	// Yes, we need the parentheses.
-	return A.expose_reagents(list((R) = R.volume * volume_modifier), src, methods, volume_modifier, show_message)
+	return A.expose_reagents(list((R) = R.volume * volume_modifier), src, methods, volume_modifier, show_message, chem_temp)
 
 /// Is this holder full or not
 /datum/reagents/proc/holder_full()
@@ -1329,7 +1329,7 @@
 
 
 /// Returns the total heat capacity for all of the reagents currently in this holder.
-/datum/reagents/proc/heat_capacity()
+/datum/reagents/proc/getHeatCapacity()
 	. = 0
 	var/list/cached_reagents = reagent_list //cache reagents
 	for(var/datum/reagent/reagent in cached_reagents)
@@ -1343,7 +1343,7 @@
  * - max_temp: The maximum temperature that can be reached.
  */
 /datum/reagents/proc/adjust_thermal_energy(delta_energy, min_temp = 2.7, max_temp = 1000)
-	var/heat_capacity = heat_capacity()
+	var/heat_capacity = getHeatCapacity()
 	if(!heat_capacity)
 		return // no div/0 please
 	set_temperature(clamp(chem_temp + (delta_energy / heat_capacity), min_temp, max_temp))

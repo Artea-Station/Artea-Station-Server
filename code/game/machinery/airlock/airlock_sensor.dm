@@ -57,8 +57,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_sensor, 24)
 
 /obj/machinery/airlock_sensor/process()
 	if(on)
-		var/datum/gas_mixture/air_sample = return_air()
-		var/pressure = round(air_sample.return_pressure(),0.1)
+		var/datum/gas_mixture/air_sample = loc.unsafe_return_air()
+		var/pressure = round(air_sample.returnPressure(),0.1)
 		alert = (pressure < ONE_ATMOSPHERE*0.8)
 
 		var/datum/signal/signal = new(list(

@@ -274,7 +274,6 @@
 	AddComponent(/datum/component/gags_recolorable)
 
 /obj/item/clothing/suit/hooded/hostile_environment/process(delta_time)
-	. = ..()
 	var/mob/living/carbon/wearer = loc
 	if(istype(wearer) && DT_PROB(1, delta_time)) //cursed by bubblegum
 		if(prob(7.5))

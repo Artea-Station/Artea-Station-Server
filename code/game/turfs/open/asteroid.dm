@@ -14,6 +14,8 @@
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
+	simulated = TRUE //Kilostation
+
 	/// Base turf type to be created by the tunnel
 	var/turf_type = /turf/open/misc/asteroid
 	/// Probability floor has a different icon state
@@ -97,8 +99,7 @@
 	icon_state = "asteroid_dug"
 
 /turf/open/misc/asteroid/lavaland_atmos
-	initial_gas_mix = PLANETARY_ATMOS
-	planetary_atmos = TRUE
+	initial_gas = PLANETARY_ATMOS
 	baseturfs = /turf/open/misc/asteroid/lavaland_atmos
 
 /// Used by ashstorms to replenish basalt tiles that have been dug up without going through all of them.
@@ -113,7 +114,8 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	floor_variance = 15
 	digResult = /obj/item/stack/ore/glass/basalt
 	broken_state = "basalt_dug"
-	initial_gas_mix = PLANETARY_ATMOS
+	initial_gas = PLANETARY_ATMOS
+	simulated = FALSE //OH *FUCK* NO.
 
 /turf/open/misc/asteroid/basalt/getDug()
 	set_light(0)
@@ -128,7 +130,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	baseturfs = /turf/open/lava/smooth
 
 /turf/open/misc/asteroid/basalt/airless
-	initial_gas_mix = AIRLESS_ATMOS
+	initial_gas = AIRLESS_ATMOS
 	worm_chance = 0
 
 /turf/open/misc/asteroid/basalt/Initialize(mapload)
@@ -145,17 +147,18 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 ///////Surface. The surface is warm, but survivable without a suit. Internals are required. The floors break to chasms, which drop you into the underground.
 
 /turf/open/misc/asteroid/basalt/lava_land_surface
-	initial_gas_mix = PLANETARY_ATMOS
-	planetary_atmos = TRUE
+	initial_gas = PLANETARY_ATMOS
 	baseturfs = /turf/open/lava/smooth/lava_land_surface
 
 /turf/open/misc/asteroid/lowpressure
-	initial_gas_mix = OPENTURF_LOW_PRESSURE
+	initial_gas = OPENTURF_LOW_PRESSURE
 	baseturfs = /turf/open/misc/asteroid/lowpressure
 	turf_type = /turf/open/misc/asteroid/lowpressure
 
 /turf/open/misc/asteroid/airless
-	initial_gas_mix = AIRLESS_ATMOS
+	initial_gas = AIRLESS_ATMOS
+	temperature = T0C
+
 	baseturfs = /turf/open/misc/asteroid/airless
 	turf_type = /turf/open/misc/asteroid/airless
 	worm_chance = 0
@@ -169,10 +172,13 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	icon_state = "snow"
 	base_icon_state = "snow"
 	broken_state = "snow_dug"
-	initial_gas_mix = FROZEN_ATMOS
+	temperature = 180
 	slowdown = 2
 	flags_1 = NONE
-	planetary_atmos = TRUE
+
+	simulated = FALSE
+	initial_gas = PLANETARY_ATMOS
+
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = null
 	digResult = /obj/item/stack/sheet/mineral/snow
@@ -189,19 +195,18 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 
 /turf/open/misc/asteroid/snow/icemoon
 	baseturfs = /turf/open/openspace/icemoon
-	initial_gas_mix = PLANETARY_ATMOS
+	initial_gas = PLANETARY_ATMOS
 	slowdown = 0
 
 /turf/open/lava/plasma/ice_moon
-	initial_gas_mix = PLANETARY_ATMOS
+	initial_gas = PLANETARY_ATMOS
 	baseturfs = /turf/open/lava/plasma/ice_moon
-	planetary_atmos = TRUE
+	initial_gas = PLANETARY_ATMOS
 
 /turf/open/misc/asteroid/snow/ice
 	name = "icy snow"
 	desc = "Looks colder."
 	baseturfs = /turf/open/misc/asteroid/snow/ice
-	initial_gas_mix = "n2=82;plasma=24;TEMP=120"
 	floor_variance = 0
 	icon_state = "snow-ice"
 	base_icon_state = "snow-ice"
@@ -215,38 +220,33 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 
 /turf/open/misc/asteroid/snow/ice/icemoon
 	baseturfs = /turf/open/misc/asteroid/snow/ice/icemoon
-	initial_gas_mix = PLANETARY_ATMOS
-	planetary_atmos = TRUE
+	initial_gas = PLANETARY_ATMOS
 	slowdown = 0
 
 /turf/open/misc/asteroid/snow/ice/burn_tile()
 	return FALSE
 
 /turf/open/misc/asteroid/snow/airless
-	initial_gas_mix = AIRLESS_ATMOS
+	initial_gas = AIRLESS_ATMOS
 	worm_chance = 0
 
 /turf/open/misc/asteroid/snow/temperatre
-	initial_gas_mix = "o2=22;n2=82;TEMP=255.37"
+	temperature = 255.37
 
 //Used for when you want to have real, genuine snow in your kitchen's cold room
 /turf/open/misc/asteroid/snow/coldroom
 	baseturfs = /turf/open/misc/asteroid/snow/coldroom
-	planetary_atmos = FALSE
-	temperature = COLD_ROOM_TEMP
-
-/turf/open/misc/asteroid/snow/coldroom/Initialize(mapload)
-	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
-	return ..()
+	initial_gas = KITCHEN_COLDROOM_ATMOS
 
 //Used in SnowCabin.dm
 /turf/open/misc/asteroid/snow/snow_cabin
 	temperature = 180
 
 /turf/open/misc/asteroid/snow/atmosphere
-	initial_gas_mix = FROZEN_ATMOS
-	planetary_atmos = FALSE
+	temperature = 180
+
 
 /turf/open/misc/asteroid/snow/standard_air
-	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
-	planetary_atmos = FALSE
+	initial_gas = OPENTURF_DEFAULT_ATMOS
+	temperature = T0C
+

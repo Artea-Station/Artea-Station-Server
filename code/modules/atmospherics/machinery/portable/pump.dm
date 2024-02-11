@@ -13,6 +13,12 @@
 	icon_state = "siphon"
 	density = TRUE
 	max_integrity = 250
+
+	var/power_rating = 7500
+	///Max amount of heat allowed inside of the canister before it starts to melt (different tiers have different limits)
+	var/heat_limit = 5000
+	///Max amount of pressure allowed inside of the canister before it starts to break (different tiers have different limits)
+	pressure_limit = 50000
 	///Is the machine on?
 	var/on = FALSE
 	///What direction is the machine pumping (into pump/port or out to the tank/area)?
@@ -52,7 +58,11 @@
 		. += "siphon-connector"
 
 /obj/machinery/portable_atmospherics/pump/process_atmos()
-	if(take_atmos_damage())
+	var/pressure = air_contents.returnPressure()
+	var/temperature = air_contents.temperature
+	///function used to check the limit of the pumps and also set the amount of damage that the pump can receive, if the heat and pressure are way higher than the limit the more damage will be done
+	if(temperature > temp_limit || pressure > pressure_limit)
+		take_damage(clamp((temperature/temp_limit) * (pressure/pressure_limit), 5, 50), BURN, 0)
 		excited = TRUE
 		return ..()
 
@@ -61,20 +71,37 @@
 
 	excited = TRUE
 
+	var/pressure_delta
+	var/output_volume
+	var/air_temperature
 	var/turf/local_turf = get_turf(src)
-
-	var/datum/gas_mixture/sending
-	var/datum/gas_mixture/receiving
-
-	if (holding) //Work with tank when inserted, otherwise - with area
-		sending = (direction == PUMP_IN ? holding.return_air() : air_contents)
-		receiving = (direction == PUMP_IN ? air_contents : holding.return_air())
+	var/datum/gas_mixture/environment
+	if(holding)
+		environment = holding.air_contents
 	else
-		sending = (direction == PUMP_IN ? local_turf.return_air() : air_contents)
-		receiving = (direction == PUMP_IN ? air_contents : local_turf.return_air())
+		environment = local_turf.unsafe_return_air() //We SAFE_ZAS_UPDATE later!
 
-	if(sending.pump_gas_to(receiving, target_pressure) && !holding)
-		air_update_turf(FALSE, FALSE) // Update the environment if needed.
+	if(direction == PUMP_OUT)
+		pressure_delta = target_pressure - environment.returnPressure()
+		output_volume = environment.volume * environment.group_multiplier
+		air_temperature = environment.temperature? environment.temperature : air_contents.temperature
+	else
+		pressure_delta = environment.returnPressure() - target_pressure
+		output_volume = air_contents.volume * air_contents.group_multiplier
+		air_temperature = air_contents.temperature? air_contents.temperature : environment.temperature
+
+	var/transfer_moles = pressure_delta*output_volume/(air_temperature * R_IDEAL_GAS_EQUATION)
+
+	if (pressure_delta > 0.01)
+		var/draw
+		if (direction == PUMP_OUT)
+			draw = pump_gas(air_contents, environment, transfer_moles, power_rating)
+		else
+			draw = pump_gas(environment, air_contents, transfer_moles, power_rating)
+		if(draw > 0)
+			ATMOS_USE_POWER(draw)
+		if(!holding)
+			SAFE_ZAS_UPDATE(local_turf)
 
 	return ..()
 
@@ -87,7 +114,7 @@
 	if(prob(50 / severity))
 		on = !on
 		if(on)
-			SSair.start_processing_machine(src)
+			SSairmachines.start_processing_machine(src)
 	if(prob(100 / severity))
 		direction = PUMP_OUT
 	target_pressure = rand(0, 100 * ONE_ATMOSPHERE)
@@ -113,21 +140,19 @@
 /obj/machinery/portable_atmospherics/pump/ui_data()
 	var/data = list()
 	data["on"] = on
-	data["direction"] = direction
-	data["connected"] = !!connected_port
-	data["pressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
-	data["targetPressure"] = round(target_pressure ? target_pressure : 0)
+	data["direction"] = direction == PUMP_IN ? TRUE : FALSE
+	data["connected"] = connected_port ? TRUE : FALSE
+	data["pressure"] = round(air_contents.returnPressure() ? air_contents.returnPressure() : 0)
+	data["tartargetPressureget_pressure"] = round(target_pressure ? target_pressure : 0)
 	data["defaultPressure"] = round(PUMP_DEFAULT_PRESSURE)
 	data["minPressure"] = round(PUMP_MIN_PRESSURE)
 	data["maxPressure"] = round(PUMP_MAX_PRESSURE)
-	data["hasHypernobCrystal"] = !!nob_crystal_inserted
-	data["reactionSuppressionEnabled"] = !!suppress_reactions
 
 	if(holding)
 		data["holding"] = list()
 		data["holding"]["name"] = holding.name
 		var/datum/gas_mixture/holding_mix = holding.return_air()
-		data["holding"]["pressure"] = round(holding_mix.return_pressure())
+		data["holding"]["pressure"] = round(holding_mix.returnPressure())
 	else
 		data["holding"] = null
 	return data
@@ -140,10 +165,10 @@
 		if("power")
 			on = !on
 			if(on)
-				SSair.start_processing_machine(src)
+				SSairmachines.start_processing_machine(src)
 			if(on && !holding)
-				var/plasma = air_contents.gases[/datum/gas/plasma]
-				var/n2o = air_contents.gases[/datum/gas/nitrous_oxide]
+				var/plasma = air_contents.getGroupGas(GAS_PLASMA)
+				var/n2o = air_contents.getGroupGas(GAS_N2O)
 				if(n2o || plasma)
 					message_admins("[ADMIN_LOOKUPFLW(usr)] turned on a pump that contains [n2o ? "N2O" : ""][n2o && plasma ? " & " : ""][plasma ? "Plasma" : ""] at [ADMIN_VERBOSEJMP(src)]")
 					log_admin("[key_name(usr)] turned on a pump that contains [n2o ? "N2O" : ""][n2o && plasma ? " & " : ""][plasma ? "Plasma" : ""] at [AREACOORD(src)]")
@@ -179,15 +204,6 @@
 			if(holding)
 				replace_tank(usr, FALSE)
 				. = TRUE
-		if("reaction_suppression")
-			if(!nob_crystal_inserted)
-				stack_trace("[usr] tried to toggle reaction suppression on a pump without a noblium crystal inside, possible href exploit attempt.")
-				return
-			suppress_reactions = !suppress_reactions
-			SSair.start_processing_machine(src)
-			message_admins("[ADMIN_LOOKUPFLW(usr)] turned [suppress_reactions ? "on" : "off"] the [src] reaction suppression.")
-			investigate_log("[key_name(usr)] turned [suppress_reactions ? "on" : "off"] the [src] reaction suppression.")
-			. = TRUE
 	update_appearance()
 
 /obj/machinery/portable_atmospherics/pump/unregister_holding()

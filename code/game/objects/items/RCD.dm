@@ -964,7 +964,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 
 /obj/item/construction/rld/ui_action_click(mob/user, datum/action/A)
 	if(istype(A, /datum/action/item_action/pick_color))
-		color_choice = input(user,"","Choose Color",color_choice) as color
+		color_choice = tgui_color_picker(user,"","Choose Color",color_choice)
 	else
 		..()
 
@@ -1030,7 +1030,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 						for(var/direction in GLOB.cardinals)
 							var/turf/C = get_step(W, direction)
 							var/list/dupes = checkdupes(C)
-							if((isspaceturf(C) || TURF_SHARES(C)) && !dupes.len)
+							if((isspaceturf(C) || (get_step(src, 0).open_directions & direction)) && !dupes.len)
 								candidates += C
 						if(!candidates.len)
 							to_chat(user, span_warning("Valid target not found..."))
