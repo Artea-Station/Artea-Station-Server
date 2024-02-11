@@ -79,7 +79,7 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/examine(mob/user)
 	. = ..()
 	if(Adjacent(src, user))
-		if(do_after(user, 1 SECONDS, target=src))
+		if(do_after(user, 1 SECONDS, target=src, interaction_key = "rbmk_inspect"))
 			var/percent = vessel_integrity / initial(vessel_integrity) * 100
 			var/msg = "<span class='warning'>The reactor looks operational.</span>"
 			switch(percent)
@@ -108,13 +108,13 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 		if(vessel_integrity <= 0.5 * initial(vessel_integrity)) //Heavily damaged.
 			to_chat(user, "<span class='notice'>[src]'s reactor vessel is cracked and worn, you need to repair the cracks with a welder before you can repair the seals.</span>")
 			return FALSE
-		if(do_after(user, 5 SECONDS, target=src))
+		if(do_after(user, 5 SECONDS, target=src, interaction_key = "rbmk_repair"))
 			if(vessel_integrity >= 350)	//They might've stacked doafters
 				to_chat(user, "<span class='notice'>[src]'s seals are already in-tact, repairing them further would require a new set of seals.</span>")
 				return FALSE
 			playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
 			user.visible_message("<span class='warning'>[user] applies sealant to some of [src]'s worn out seals.</span>", "<span class='notice'>You apply sealant to some of [src]'s worn out seals.</span>")
-			vessel_integrity += 10
+			vessel_integrity += 30
 			vessel_integrity = clamp(vessel_integrity, 0, initial(vessel_integrity))
 		return TRUE
 	return ..()
