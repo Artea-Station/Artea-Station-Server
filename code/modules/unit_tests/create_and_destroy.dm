@@ -18,6 +18,8 @@ GLOBAL_VAR_INIT(running_create_and_destroy, FALSE)
 		/obj/machinery/doomsday_device,
 		//Yet more templates
 		/obj/machinery/restaurant_portal,
+		//Mapper only, shouldn't be spawned outside of controlled environments
+		/obj/machinery/airlock_controller/autoset,
 		//Template type
 		/obj/effect/mob_spawn,
 		//Template type
