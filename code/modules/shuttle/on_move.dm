@@ -205,6 +205,11 @@ All ShuttleMove procs go here
 		"tag" = "dock",
 		"undocked" = TRUE,
 	)))
+	// Hack cause it won't recieve it's own signals.
+	receive_signal(new /datum/signal(list(
+		"tag" = "dock",
+		"undocked" = TRUE,
+	)))
 
 /obj/machinery/airlock_controller/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 	. = ..()

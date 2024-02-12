@@ -12,4 +12,4 @@
 #define SEC_LEVEL_DELTA 3
 
 /// The range things that use the airlock controller have.
-#define AIRLOCK_CONTROL_RANGE 8
+#define AIRLOCK_CONTROL_RANGE 10

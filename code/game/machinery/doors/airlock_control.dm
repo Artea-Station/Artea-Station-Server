@@ -31,27 +31,42 @@
 			lock()
 
 		if("secure_open")
-			if(!density || opening)
-				return
-
-			unlock()
-
-			sleep(2)
-			open()
-
-			lock()
+			secure_open()
+			return // This does it's own send status.
 
 		if("secure_close")
-			if(density || closing)
-				return
-			unlock()
-
-			sleep(2)
-			close()
-
-			lock()
+			secure_close()
+			return // This does it's own send status.
 
 	send_status()
+
+/obj/machinery/door/proc/secure_open()
+	set waitfor = FALSE
+
+	if(!density || opening)
+		return
+
+	unlock()
+
+	sleep(2)
+	open()
+	send_status()
+
+	lock()
+
+/obj/machinery/door/proc/secure_close()
+	set waitfor = FALSE
+
+	if(density || closing)
+		return
+
+	unlock()
+
+	sleep(2)
+	close()
+	send_status()
+
+	lock()
 
 /obj/machinery/door/proc/send_status()
 	if(radio_connection)

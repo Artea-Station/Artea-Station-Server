@@ -1,11 +1,3 @@
-//States for airlock_control
-#define AIRLOCK_STATE_INOPEN "inopen"
-#define AIRLOCK_STATE_PRESSURIZE "pressurize"
-#define AIRLOCK_STATE_CLOSED "closed"
-#define AIRLOCK_STATE_DEPRESSURIZE "depressurize"
-#define AIRLOCK_STATE_OUTOPEN "outopen"
-#define AIRLOCK_STATE_OPEN "open"
-
 #define IS_AIR_BAD(P) P > WARNING_HIGH_PRESSURE || P < WARNING_LOW_PRESSURE
 
 /obj/machinery/airlock_controller
@@ -28,6 +20,8 @@
 	var/state = AIRLOCK_STATE_CLOSED
 	var/target_state = AIRLOCK_STATE_CLOSED
 
+	var/packetnum = 0
+
 	// Setup parameters only
 	var/exterior_door_tag
 	var/interior_door_tag
@@ -36,7 +30,7 @@
 	var/interior_sensor_tag
 	var/exterior_sensor_tag
 
-	var/list/memory = list()
+	var/list/memory = list("processing_ticks" = 0)
 
 	/// If set to TRUE, enables opening both sides at once outside of maintenance and emag modes.
 	/// Also enables firelock functionality. If one of the sensors are tripped, it closes, and puts itself into airlock mode.
@@ -52,6 +46,7 @@
 
 /obj/machinery/airlock_controller/Initialize(mapload)
 	. = ..()
+	// Custom 1/4 second processing loop, otherwise it can feel very slow.
 	START_PROCESSING(SSairlocks, src)
 	if(!mapload)
 		return // Placed by crew. They need to configure this themselves.
@@ -94,6 +89,11 @@
 /obj/machinery/airlock_controller/proc/handle_action(action)
 	if(docked)
 		say("A ship is docked. Unable to rotate airlock.")
+		return
+
+	// Forcing the airlock is allowed, but don't allow anything else.
+	if(is_firelock && !sound_loop.is_active() && action != "forceExterior" && action != "forceInterior")
+		say("There is no emergency. Not rotating airlock.")
 		return
 
 	switch(action)
@@ -163,7 +163,7 @@
 			)))
 		if(signal.data["undocked"])
 			docked = FALSE
-			target_state = AIRLOCK_STATE_CLOSED
+			target_state = AIRLOCK_STATE_INOPEN
 		if(signal.data["received"])
 			docked = TRUE
 			target_state = AIRLOCK_STATE_OUTOPEN
@@ -183,6 +183,7 @@
 
 	else if(receive_tag == exterior_door_tag)
 		memory["exterior_status"] = signal.data["door_status"]
+		memory["exterior_lock_status"] = signal.data["lock_status"]
 		SStgui.update_uis(src)
 
 	else if(receive_tag == interior_door_tag)
@@ -238,13 +239,17 @@
 	return ..()
 
 /obj/machinery/airlock_controller/proc/post_signal(datum/signal/signal)
-	signal.transmission_method = TRANSMISSION_RADIO
-	if(radio_connection)
-		return radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
-	else
-		signal = null
+	ASYNC // This hot garbage fucks up if you use waitfor false.
+		signal.transmission_method = TRANSMISSION_RADIO
+		signal.data["packet_num"] = packetnum++
+		if(radio_connection)
+			radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
+		else
+			signal = null
 
 /obj/machinery/airlock_controller/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
+
+#undef IS_AIR_BAD

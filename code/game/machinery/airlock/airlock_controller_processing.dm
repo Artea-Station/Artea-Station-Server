@@ -2,8 +2,6 @@
 
 /obj/machinery/airlock_controller/process()
 	var/sensor_pressure = memory["chamber_pressure"]
-	// Used in a few places to check if it already did something this tick, and returning if it did before doing anything more.
-	var/did_something = FALSE
 	switch(state)
 		if(AIRLOCK_STATE_OPEN)
 			// Turn off the pump, we're done here.
@@ -85,15 +83,11 @@
 					"tag" = interior_door_tag,
 					"command" = "secure_close"
 				)))
-				did_something = TRUE
 			if(memory["exterior_status"] != "closed")
 				post_signal(new /datum/signal(list(
 					"tag" = exterior_door_tag,
 					"command" = "secure_close"
 				)))
-				did_something = TRUE
-			if(did_something) // Only do one "action" per process
-				return
 
 			if(target_state == AIRLOCK_STATE_OUTOPEN)
 				if(!is_firelock && !docked)
@@ -163,10 +157,16 @@
 						"command" = "secure_close"
 					)))
 			else
-				if(memory["interior_lock_status"] == "locked" && docked)
+				if(docked)
+					if(memory["interior_lock_status"] != "unlocked")
+						post_signal(new /datum/signal(list(
+							"tag" = interior_door_tag,
+							"command" = "unlock"
+						)))
+				else if(memory["exterior_status"] != "open")
 					post_signal(new /datum/signal(list(
-						"tag" = interior_door_tag,
-						"command" = "unlock"
+						"tag" = exterior_door_tag,
+						"command" = "secure_open"
 					)))
 				// Stop the pump if it's on. It shouldn't be.
 				if(memory["pump_status"] != "off")

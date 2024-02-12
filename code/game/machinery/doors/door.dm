@@ -440,8 +440,7 @@
 		return
 	opening = TRUE
 	operating = TRUE
-	if(!surpress_send)
-		send_status()
+
 	use_power(active_power_usage)
 	do_animate("opening")
 	set_opacity(0)
@@ -460,7 +459,7 @@
 		autoclose_in(DOOR_CLOSE_WAIT)
 	return 1
 
-/obj/machinery/door/proc/close(surpress_send)
+/obj/machinery/door/proc/close()
 	if(density)
 		return TRUE
 	if(operating || welded)
@@ -474,8 +473,6 @@
 
 	closing = TRUE
 	operating = TRUE
-	if(!surpress_send)
-		send_status()
 
 	do_animate("closing")
 	layer = closingLayer
