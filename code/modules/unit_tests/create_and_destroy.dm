@@ -18,8 +18,6 @@ GLOBAL_VAR_INIT(running_create_and_destroy, FALSE)
 		/obj/machinery/doomsday_device,
 		//Yet more templates
 		/obj/machinery/restaurant_portal,
-		//Mapper only, shouldn't be spawned outside of controlled environments
-		/obj/machinery/airlock_controller/autoset,
 		//Template type
 		/obj/effect/mob_spawn,
 		//Template type
@@ -103,6 +101,8 @@ GLOBAL_VAR_INIT(running_create_and_destroy, FALSE)
 	ignore += typesof(/obj/machinery/computer/holodeck)
 	//runtimes if not paired with a landmark
 	ignore += typesof(/obj/structure/industrial_lift)
+	//Mapper only, shouldn't be spawned outside of controlled environments
+	ignore += typesof(/obj/machinery/airlock_controller/autoset)
 
 	var/list/cached_contents = spawn_at.contents.Copy()
 	var/original_turf_type = spawn_at.type
