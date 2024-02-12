@@ -119,31 +119,25 @@
 			target_state = AIRLOCK_STATE_OPEN
 
 		if("forceExterior")
-			var/new_door_state = "secure_open"
-
 			if(state == AIRLOCK_STATE_OUTOPEN)
-				new_door_state = "secure_close"
 				state = memory["interior_status"] == "open" ? AIRLOCK_STATE_INOPEN : AIRLOCK_STATE_CLOSED
 			else
 				state = memory["interior_status"] == "open" ? AIRLOCK_STATE_OPEN : AIRLOCK_STATE_OUTOPEN
 
 			post_signal(new /datum/signal(list(
 				"tag" = exterior_door_tag,
-				"command" = new_door_state,
+				"command" = memory["exterior_status"] != "open" ? "secure_open" : "secure_close",
 			)))
 
 		if("forceInterior")
-			var/new_door_state = "secure_open"
-
 			if(state == AIRLOCK_STATE_OUTOPEN)
-				new_door_state = "secure_close"
 				state = memory["exterior_status"] == "open" ? AIRLOCK_STATE_OUTOPEN : AIRLOCK_STATE_CLOSED
 			else
 				state = memory["exterior_status"] == "open" ? AIRLOCK_STATE_OPEN : AIRLOCK_STATE_INOPEN
 
 			post_signal(new /datum/signal(list(
 				"tag" = interior_door_tag,
-				"command" = new_door_state,
+				"command" = memory["exterior_status"] != "open" ? "secure_open" : "secure_close",
 			)))
 
 /obj/machinery/airlock_controller/receive_signal(datum/signal/signal)
