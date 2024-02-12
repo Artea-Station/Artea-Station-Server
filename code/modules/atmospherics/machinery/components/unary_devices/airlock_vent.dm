@@ -46,12 +46,12 @@
 	sound_loop = new /datum/looping_sound/air_pump(src, FALSE)
 	if(!id_tag)
 		id_tag = assign_random_name()
-		var/static/list/tool_screentips = list(
-			TOOL_MULTITOOL = list(
-				SCREENTIP_CONTEXT_LMB = "Log to link later with air sensor",
-			)
+	var/static/list/tool_screentips = list(
+		TOOL_MULTITOOL = list(
+			SCREENTIP_CONTEXT_RMB = "Link with airlock controller",
 		)
-		AddElement(/datum/element/contextual_screentip_tools, tool_screentips)
+	)
+	AddElement(/datum/element/contextual_screentip_tools, tool_screentips)
 	. = ..()
 
 /obj/machinery/atmospherics/components/unary/airlock_vent/Destroy()

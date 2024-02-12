@@ -46,10 +46,8 @@
 
 /obj/machinery/airlock_controller/Initialize(mapload)
 	. = ..()
-	// Custom 1/4 second processing loop, otherwise it can feel very slow.
+	// Custom 1/2 second processing loop, otherwise it can feel very slow.
 	START_PROCESSING(SSairlocks, src)
-	if(!mapload)
-		return // Placed by crew. They need to configure this themselves.
 
 	set_frequency(frequency)
 
