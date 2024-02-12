@@ -44,19 +44,10 @@
 	/// The passive sounds this scrubber emits.
 	var/datum/looping_sound/sound_loop
 
-	///Whether or not this machine can fall asleep. Use a multitool to change.
-	var/can_hibernate = TRUE
-
 /obj/machinery/atmospherics/components/unary/vent_scrubber/New()
 	sound_loop = new /datum/looping_sound/air_pump(src, FALSE)
 	if(!id_tag)
 		id_tag = assign_random_name()
-	var/static/list/tool_screentips = list(
-		TOOL_MULTITOOL = list(
-			SCREENTIP_CONTEXT_LMB = "Toggle hibernation allowed",
-		)
-	)
-	AddElement(/datum/element/contextual_screentip_tools, tool_screentips)
 	. = ..()
 	for(var/to_filter in filter_types)
 		if(istext(to_filter))
