@@ -66,7 +66,12 @@
 
 	if(!panel_open)
 		to_chat(user, span_warning("The panel needs to be open first!"))
+		return TRUE
 	if(!attempt_wire_interaction(user))
+		return TRUE
+
+	if(length(req_access) || length(req_one_access))
+		to_chat(user, span_warning("Cannot add airlock links to access required doors!"))
 		return TRUE
 
 	if(!multitool_check_buffer(user, tool))
