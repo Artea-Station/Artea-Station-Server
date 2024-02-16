@@ -77,7 +77,7 @@
 /area/station/maintenance/department/medical/upper
 	name = "Upper Medbay Maintenace"
 
-area/station/maintenance/department/medical/lower
+/area/station/maintenance/department/medical/lower
 	name = "Lower Medbay Maintenance"
 
 /area/station/maintenance/department/medical/morgue
@@ -96,7 +96,7 @@ area/station/maintenance/department/medical/lower
 	name = "Cargo Maintenance"
 	icon_state = "maint_cargo"
 
-area/station/maintenance/department/cargo/hangar
+/area/station/maintenance/department/cargo/hangar
 	name = "Abandoned Hangar"
 
 /area/station/maintenance/department/bridge
