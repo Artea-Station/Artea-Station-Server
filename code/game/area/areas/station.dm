@@ -96,6 +96,9 @@ area/station/maintenance/department/medical/lower
 	name = "Cargo Maintenance"
 	icon_state = "maint_cargo"
 
+area/station/maintenance/department/cargo/hangar
+	name = "Abandoned Hangar"
+
 /area/station/maintenance/department/bridge
 	name = "Bridge Maintenance"
 	icon_state = "maint_bridge"
