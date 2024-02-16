@@ -59,6 +59,9 @@
 /area/station/maintenance/department/security/upper
 	name = "Upper Security Maintenance"
 
+/area/station/maintenance/department/security/lower
+	name = "Lower Security Maintenance"
+
 /area/station/maintenance/department/security/brig
 	name = "Brig Maintenance"
 	icon_state = "maint_brig"
@@ -70,6 +73,12 @@
 /area/station/maintenance/department/medical/central
 	name = "Central Medbay Maintenance"
 	icon_state = "medbay_maint_central"
+
+/area/station/maintenance/department/medical/upper
+	name = "Upper Medbay Maintenace"
+
+area/station/maintenance/department/medical/lower
+	name = "Lower Medbay Maintenance"
 
 /area/station/maintenance/department/medical/morgue
 	name = "Morgue Maintenance"
