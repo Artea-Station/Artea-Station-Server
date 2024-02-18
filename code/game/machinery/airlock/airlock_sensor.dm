@@ -33,7 +33,19 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_sensor, 24)
 	id_tag = INCINERATOR_SYNDICATELAVA_AIRLOCK_SENSOR
 	master_tag = INCINERATOR_SYNDICATELAVA_AIRLOCK_CONTROLLER
 
+/obj/machinery/airlock_sensor/Initialize(mapload)
+	. = ..()
+	if(mapload)
+		construction_state = 0
+
 /obj/machinery/airlock_sensor/update_icon_state()
+	if(construction_state)
+		if(construction_state > 1 || construction_state < -2)
+			icon_state = "[base_icon_state]_open"
+		else
+			icon_state = "[base_icon_state]_wire"
+		return
+
 	if(!on)
 		icon_state = "[base_icon_state]_off"
 	else
@@ -47,15 +59,23 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_sensor, 24)
 	. = ..()
 	if(.)
 		return
+
+	if(construction_state)
+		return
+
 	var/datum/signal/signal = new(list(
 		"tag" = master_tag,
-		"command" = "cycle"
+		"command" = "cycle",
+		"timestamp" = world.time,
 	))
 
 	radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
 	flick("airlock_sensor_cycle", src)
 
 /obj/machinery/airlock_sensor/process()
+	if(construction_state)
+		return
+
 	if(on)
 		var/datum/gas_mixture/air_sample = loc.unsafe_return_air()
 		var/pressure = round(air_sample.returnPressure(),0.1)
@@ -64,7 +84,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_sensor, 24)
 		var/datum/signal/signal = new(list(
 			"tag" = id_tag,
 			"timestamp" = world.time,
-			"pressure" = num2text(pressure)
+			"pressure" = num2text(pressure),
 		))
 
 		radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
@@ -79,7 +99,3 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_sensor, 24)
 /obj/machinery/airlock_sensor/Initialize(mapload)
 	. = ..()
 	set_frequency(frequency)
-
-/obj/machinery/airlock_sensor/Destroy()
-	SSradio.remove_object(src,frequency)
-	return ..()

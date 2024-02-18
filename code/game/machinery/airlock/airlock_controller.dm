@@ -1,5 +1,7 @@
 #define IS_AIR_BAD(P) P > WARNING_HIGH_PRESSURE || P < WARNING_LOW_PRESSURE
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller, 24)
+
 /obj/machinery/airlock_controller
 	icon = 'icons/obj/airlock_machines.dmi'
 	icon_state = "airlock_control_standby"
@@ -30,7 +32,7 @@
 	var/interior_sensor_tag
 	var/exterior_sensor_tag
 
-	var/list/memory = list("processing_ticks" = 0)
+	var/list/memory = list()
 
 	/// If set to TRUE, enables opening both sides at once outside of maintenance and emag modes.
 	/// Also enables firelock functionality. If one of the sensors are tripped, it closes, and puts itself into airlock mode.
@@ -53,18 +55,31 @@
 
 	sound_loop = new(src, FALSE)
 
+	if(mapload)
+		construction_state = 0
+
+	update_appearance()
+
 /obj/machinery/airlock_controller/update_icon_state()
+	if(construction_state)
+		if(construction_state > 1 || construction_state < -2)
+			icon_state = "[base_icon_state]_open"
+		else
+			icon_state = "[base_icon_state]_wire"
+		return
 	if(machine_stat & NOPOWER)
 		icon_state = "[base_icon_state]_off"
 	else
 		icon_state = "[base_icon_state]_[memory["processing"] ? "process" : "standby"]"
 	return ..()
 
-/obj/machinery/airlock_controller/Topic(href, href_list) // needed to override obj/machinery/embedded_controller/Topic, dont think its actually used in game other than here but the code is still here
-	return
-
 /obj/machinery/airlock_controller/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
+
+	if(construction_state)
+		ui?.close()
+		return
+
 	if(!ui)
 		ui = new(user, src, "AirlockController", src)
 		ui.open()
@@ -78,7 +93,7 @@
 
 /obj/machinery/airlock_controller/ui_act(action, params)
 	. = ..()
-	if(.)
+	if(. || construction_state)
 		return
 
 	handle_action(action)
@@ -141,6 +156,9 @@
 			)))
 
 /obj/machinery/airlock_controller/receive_signal(datum/signal/signal)
+	if(construction_state)
+		return
+
 	var/receive_tag = signal.data["tag"]
 	if(!receive_tag)
 		return
@@ -163,25 +181,36 @@
 	else if(receive_tag == sensor_tag)
 		if(signal.data["pressure"])
 			memory["chamber_pressure"] = text2num(signal.data["pressure"])
+			memory["chamber_pressure_timestamp"] = signal.data["timestamp"]
 			SStgui.update_uis(src)
 
 	else if(receive_tag == exterior_sensor_tag)
-		handle_pressure(signal.data["pressure"], "exterior_pressure")
+		handle_pressure(signal.data["pressure"], "exterior_pressure", signal.data["timestamp"])
 		SStgui.update_uis(src)
 
 	else if(receive_tag == interior_sensor_tag)
-		handle_pressure(signal.data["pressure"], "interior_pressure")
+		handle_pressure(signal.data["pressure"], "interior_pressure", signal.data["timestamp"])
 		SStgui.update_uis(src)
 
 	else if(receive_tag == exterior_door_tag)
 		memory["exterior_status"] = signal.data["door_status"]
 		memory["exterior_lock_status"] = signal.data["lock_status"]
 		SStgui.update_uis(src)
+		if(signal.data["lock_status"] == "locked" && memory["invalid"])
+			post_signal(new /datum/signal(list(
+				"tag" = exterior_door_tag,
+				"command" = "unlock"
+			)))
 
 	else if(receive_tag == interior_door_tag)
 		memory["interior_status"] = signal.data["door_status"]
 		memory["interior_lock_status"] = signal.data["lock_status"]
 		SStgui.update_uis(src)
+		if(signal.data["lock_status"] == "locked" && memory["invalid"])
+			post_signal(new /datum/signal(list(
+				"tag" = interior_door_tag,
+				"command" = "unlock"
+			)))
 
 	else if(receive_tag == airpump_tag)
 		if(signal.data["power"])
@@ -192,12 +221,14 @@
 	else if(receive_tag == id_tag && signal.data["command"] == "cycle")
 		handle_action("cycle")
 
-/obj/machinery/airlock_controller/proc/handle_pressure(pressure, memory_index)
+/obj/machinery/airlock_controller/proc/handle_pressure(pressure, memory_index, timestamp)
 	if(isnull(pressure)) // Pressure can be 0!!!
 		return
 
 	if(!isnum(pressure))
 		pressure = text2num(pressure)
+
+	memory["[memory_index]_timestamp"] = timestamp
 
 	if(!is_firelock) // Non-hallways don't try to act like a firelock.
 		memory[memory_index] = pressure

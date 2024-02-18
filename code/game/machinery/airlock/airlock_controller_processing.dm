@@ -1,7 +1,39 @@
 // This is in it's own file cause of how goddamn monolithic this crap is.
 
 /obj/machinery/airlock_controller/process()
+	if(construction_state)
+		return
+
+	var/static/list/indexes = list("chamber_pressure", "exterior_pressure", "interior_pressure")
+	for(var/memory_index in indexes)
+		if(memory["[memory_index]_timestamp"] && memory["[memory_index]_timestamp"] + 5 SECONDS < world.time)
+			memory -= "[memory_index]_timestamp"
+			memory -= memory_index
+
 	var/sensor_pressure = memory["chamber_pressure"]
+
+	// Make sure the airlock can actually function in some way.
+	if(isnull(sensor_pressure) && !memory["invalid"])
+		post_signal(new /datum/signal(list(
+			"tag" = interior_door_tag,
+			"command" = "secure_close"
+		)))
+		post_signal(new /datum/signal(list(
+			"tag" = exterior_door_tag,
+			"command" = "secure_close"
+		)))
+		post_signal(new /datum/signal(list(
+			"tag" = airpump_tag,
+			"power" = FALSE,
+			"sigtype" = "command"
+		)))
+		memory["invalid"] = TRUE
+		return
+	else if(memory["invalid"] && sensor_pressure)
+		memory -= "invalid"
+	else if(memory["invalid"])
+		return
+
 	switch(state)
 		if(AIRLOCK_STATE_OPEN)
 			// Turn off the pump, we're done here.
