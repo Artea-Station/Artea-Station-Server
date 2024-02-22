@@ -121,6 +121,16 @@
 	name = "Engineering Maintenance"
 	icon_state = "maint_engi"
 
+/area/station/maintenance/department/engine/gravity_generator
+	name = "Gravity Generator Maintenance"
+	icon_state = "maint_engi"
+
+/area/station/maintenance/department/engine/gravity_generator/greater
+	name = "Greater Gravity Generator Maintenance"
+
+/area/station/maintenance/department/engine/gravity_generator/lesser
+	name = "Lesser Gravity Generator Maintenance"
+
 /area/station/maintenance/department/science/xenobiology
 	name = "Xenobiology Maintenance"
 	icon_state = "xenomaint"
