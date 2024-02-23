@@ -7,6 +7,7 @@
 #define CHANNEL_AMBIENCE 1019
 #define CHANNEL_BUZZ 1018
 #define CHANNEL_TRAITOR 1017
+#define CHANNEL_REACTOR_ALERT 1016 // Is that radiation I hear?
 
 ///Default range of a sound.
 #define SOUND_RANGE 17

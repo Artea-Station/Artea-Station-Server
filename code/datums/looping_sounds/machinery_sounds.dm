@@ -17,6 +17,11 @@
 	falloff_distance = 5
 	vary = TRUE
 
+/datum/looping_sound/rbmk_reactor
+	mid_length = 16
+	mid_sounds = list('sound/machines/rbmk/reactor_hum.ogg' = 10)
+	volume = 10
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/looping_sound/destabilized_crystal
