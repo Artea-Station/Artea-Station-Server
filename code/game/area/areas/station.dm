@@ -358,6 +358,34 @@
 	name = "\improper Service Hallway"
 	icon_state = "hall_service"
 
+/area/station/hallway/secondary/dock
+	name = "\improper Shuttle Docks"
+	icon_state = "docks"
+
+/area/station/hallway/secondary/dock/one
+	name = "\improper Shuttle Dock 1"
+	icon_state = "dock_1"
+
+/area/station/hallway/secondary/dock/two
+	name = "\improper Shuttle Dock 2"
+	icon_state = "dock_2"
+
+/area/station/hallway/secondary/dock/three
+	name = "\improper Shuttle Dock 3"
+	icon_state = "dock_3"
+
+/area/station/hallway/secondary/dock/four
+	name = "\improper Shuttle Dock 4"
+	icon_state = "dock_4"
+
+/area/station/hallway/secondary/dock/five
+	name = "\improper Shuttle Dock 5"
+	icon_state = "dock_5"
+
+/area/station/hallway/secondary/dock/six
+	name = "\improper Shuttle Dock 6"
+	icon_state = "dock_6"
+
 //Command
 
 /area/station/command

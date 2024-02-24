@@ -31,6 +31,14 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset, 24)
 	interior_sensor_tag = "custom_airlock_sensor_interior_[base_tag_name]"
 	return ..()
 
+/// Used in hallways as a replacement for normal firelocks, where it makes sense.
+/obj/machinery/airlock_controller/autoset/hallway
+	name = "autoset hallway airlock controller"
+	is_firelock = TRUE
+	target_state = AIRLOCK_STATE_OPEN
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset/hallway, 24)
+
 /// Place in the same area as an autoset airlock controller to link up.
 /obj/effect/mapping_helpers/airlock_controller_helper
 	name = "use the subtypes"
@@ -40,8 +48,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset, 24)
 	var/affected_type
 	/// The base tag name. Used in conjunction with controllers. Optional.
 	var/base_tag_name
-	/// Should this call post_init()?
-	var/post_init = FALSE
+	/// Should this call in the direction this is oriented instead of on the current tile?
+	var/is_step = FALSE
 
 /obj/effect/mapping_helpers/airlock_controller_helper/Initialize(mapload)
 	. = ..()
@@ -49,7 +57,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset, 24)
 	return INITIALIZE_HINT_NORMAL
 
 /obj/effect/mapping_helpers/airlock_controller_helper/proc/airlock_initialize()
-	var/obj_of_interest = locate(affected_type) in loc
+	var/turf/turf_to_check = loc
+	if(is_step)
+		turf_to_check = get_step(src, dir)
+
+	var/obj_of_interest = locate(affected_type) in turf_to_check
 	if(!obj_of_interest)
 		CRASH("[src] failed to find [affected_type] at [AREACOORD(src)]") // Fuck you, map properly.
 
@@ -57,22 +69,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset, 24)
 		base_tag_name = REF(get_area(src))
 
 	payload(obj_of_interest)
-	if(post_init)
-		addtimer(CALLBACK(src, PROC_REF(post_init)), 1 SECONDS)
-
-/// Used in hallways as a replacement for normal firelocks, where it makes sense.
-/obj/machinery/airlock_controller/autoset/hallway
-	name = "autoset hallway airlock controller"
-	is_firelock = TRUE
-	target_state = AIRLOCK_STATE_OPEN
-
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset/hallway, 24)
 
 /// Override in subtypes to do stuff.
 /obj/effect/mapping_helpers/airlock_controller_helper/proc/payload(obj/object)
-	return
-
-/obj/effect/mapping_helpers/airlock_controller_helper/proc/post_init(obj/object)
 	return
 
 /obj/effect/mapping_helpers/airlock_controller_helper/airlock
@@ -88,9 +87,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset/hallway, 2
 	airlock.close(TRUE)
 	airlock.lock()
 
-/obj/effect/mapping_helpers/airlock_controller_helper/airlock/interior/post_init(obj/machinery/door/airlock/airlock)
-	airlock.send_status()
-
 /obj/effect/mapping_helpers/airlock_controller_helper/airlock/exterior
 	name = "exterior airlock"
 	icon_state = "doorout"
@@ -100,9 +96,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset/hallway, 2
 	airlock.set_frequency(FREQ_AIRLOCK_CONTROL)
 	airlock.open(TRUE)
 	airlock.lock()
-
-/obj/effect/mapping_helpers/airlock_controller_helper/airlock/exterior/post_init(obj/machinery/door/airlock/airlock)
-	airlock.send_status()
 
 /obj/effect/mapping_helpers/airlock_controller_helper/sensor
 	affected_type = /obj/machinery/airlock_sensor
@@ -127,6 +120,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset/hallway, 2
 	. = ..()
 	sensor.id_tag = "custom_airlock_sensor_interior_[base_tag_name]"
 
+/obj/effect/mapping_helpers/airlock_controller_helper/sensor/interior/step
+	is_step = TRUE
+	icon_state = "sensin_step"
+
 /obj/effect/mapping_helpers/airlock_controller_helper/sensor/exterior
 	name = "airlock exterior sensor"
 	icon_state = "sensout"
@@ -134,6 +131,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset/hallway, 2
 /obj/effect/mapping_helpers/airlock_controller_helper/sensor/exterior/payload(obj/machinery/airlock_sensor/sensor)
 	. = ..()
 	sensor.id_tag = "custom_airlock_sensor_exterior_[base_tag_name]"
+
+/obj/effect/mapping_helpers/airlock_controller_helper/sensor/exterior/step
+	is_step = TRUE
+	icon_state = "sensout_step"
 
 /obj/effect/mapping_helpers/airlock_controller_helper/pump
 	name = "airlock pump"
