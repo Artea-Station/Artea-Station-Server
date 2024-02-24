@@ -46,6 +46,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller, 24)
 	/// Fire alarm sound. Used when the airlock is outside normal parameters, such as when hallway airlocks contain non-breathable air.
 	var/datum/looping_sound/firealarm/sound_loop
 
+	var/construction_state = AIRLOCK_CONSTRUCTION_STATE_PLACED
+
 /obj/machinery/airlock_controller/Initialize(mapload)
 	. = ..()
 	// Custom 1/2 second processing loop, otherwise it can feel very slow.

@@ -15,6 +15,8 @@
 	var/on = TRUE
 	var/alert = FALSE
 
+	var/construction_state = AIRLOCK_CONSTRUCTION_STATE_PLACED
+
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_sensor, 24)
 
 // LEGACY SUBTYPES, DO NOT USE THESE. These are used in maps that aren't in rotation, and aren't seeing updates.
