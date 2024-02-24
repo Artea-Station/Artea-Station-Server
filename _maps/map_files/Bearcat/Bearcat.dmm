@@ -2728,7 +2728,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/effect/mapping_helpers/airlock_controller_helper/airlock/interior,
 /turf/open/floor/iron,
-/area/station/hallway/secondary/dock/one)
+/area/station/hallway/secondary/dock/two)
 "oP" = (
 /obj/structure/ladder,
 /turf/open/floor/iron,
@@ -2795,6 +2795,10 @@
 /obj/machinery/vending/medical/deluxe,
 /turf/open/floor/iron/white,
 /area/station/medical/medbay)
+"pf" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/station/hallway/secondary/dock/two)
 "pk" = (
 /obj/effect/turf_decal/bot_orange,
 /obj/effect/decal/cleanable/dirt,
@@ -3435,6 +3439,9 @@
 /obj/machinery/door/firehead/border_only,
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
+"sV" = (
+/turf/closed/wall/r_wall,
+/area/station/hallway/secondary/dock/two)
 "sW" = (
 /turf/closed/wall/r_wall,
 /area/station/hallway/primary/central/fore)
@@ -4286,7 +4293,7 @@
 /obj/machinery/airlock_controller/autoset/directional/north,
 /obj/machinery/airlock_sensor/directional/south,
 /turf/open/floor/iron,
-/area/station/hallway/secondary/dock/one)
+/area/station/hallway/secondary/dock/two)
 "yg" = (
 /obj/machinery/door/bulkhead,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -5185,7 +5192,7 @@
 /obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable,
 /turf/open/floor/iron/large,
-/area/station/hallway/secondary/dock/one)
+/area/station/hallway/secondary/dock/two)
 "Do" = (
 /obj/structure/extinguisher_cabinet/directional/south,
 /obj/effect/decal/cleanable/dirt,
@@ -5378,6 +5385,12 @@
 /obj/machinery/door/bulkhead/security,
 /turf/open/floor/iron,
 /area/station/security)
+"Es" = (
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/turf/open/floor/iron,
+/area/station/hallway/secondary/dock/two)
 "Et" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light/small/directional/north,
@@ -7365,6 +7378,15 @@
 	},
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
+"Pa" = (
+/obj/machinery/door/bulkhead/external,
+/obj/structure/fans/tiny,
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/effect/mapping_helpers/airlock_controller_helper/airlock/exterior,
+/turf/open/floor/iron,
+/area/station/hallway/secondary/dock/two)
 "Pb" = (
 /obj/structure/ladder,
 /obj/structure/sign/directions/command/z/directional/north,
@@ -170698,9 +170720,9 @@ NK
 NK
 NK
 Rj
-fY
-ks
-fY
+pf
+Pa
+pf
 Rj
 NK
 NK
@@ -170955,8 +170977,8 @@ NK
 NK
 NK
 NK
-fY
-bP
+pf
+Es
 Dl
 NK
 NK
@@ -171212,9 +171234,9 @@ pq
 bJ
 bJ
 AC
-tb
+sV
 ye
-tb
+sV
 AC
 AC
 AC
@@ -171469,9 +171491,9 @@ RC
 yi
 bJ
 bJ
-tb
+sV
 oO
-tb
+sV
 BX
 sW
 sW
