@@ -9,7 +9,7 @@ PROCESSING_SUBSYSTEM_DEF(airlocks)
 	var/list/helpers_to_initialize = list()
 
 /datum/controller/subsystem/processing/airlocks/Initialize()
-	for(var/obj/effect/mapping_helpers/airlock_controller_helper/helper as anything in helpers_to_initialize)
+	for(var/obj/effect/mapping_helpers/bulkhead_controller_helper/helper as anything in helpers_to_initialize)
 		helper.airlock_initialize()
 		qdel(helper)
 

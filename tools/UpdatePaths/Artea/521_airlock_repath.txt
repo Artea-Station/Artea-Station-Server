@@ -2,8 +2,12 @@
 https://github.com/Artea-Station/Artea-Station-Server/pull/521
 
 /obj/machinery/door/airlock : /obj/machinery/door/bulkhead{@OLD}
-obj/machinery/door/firedoor : obj/machinery/door/firehead{@OLD}
-/obj/effect/mapping_helpers/airlock/cyclelink_helper : /obj/effect/mapping_helpers/airlock/magic_cyclelink_helper{@OLD}
-/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi : /obj/effect/mapping_helpers/airlock/magic_cyclelink_helper_multi{@OLD}
+/obj/machinery/door/airlock/@SUBTYPES : /obj/machinery/door/bulkhead/@SUBTYPES{@OLD}
+/obj/machinery/door/firedoor : /obj/machinery/door/firehead{@OLD}
+/obj/machinery/door/firedoor/@SUBTYPES : /obj/machinery/door/firehead/@SUBTYPES{@OLD}
+/obj/effect/mapping_helpers/airlock/cyclelink_helper : /obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper{@OLD}
+/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi : /obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper_multi{@OLD}
+/obj/effect/mapping_helpers/airlock/@SUBTYPES : /obj/effect/mapping_helpers/bulkhead/@SUBTYPES{@OLD}
 /obj/item/airlock_painter : /obj/item/bulkhead_painter{@OLD}
 /obj/item/electronics/airlock : /obj/item/electronics/bulkhead{@OLD}
+/obj/effect/airlock_note_placer : /obj/effect/bulkhead_note_placer{@OLD}

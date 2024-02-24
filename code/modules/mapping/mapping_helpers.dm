@@ -646,7 +646,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	new /obj/item/storage/box/fireworks/dangerous(fireworks_turf) //dangerous version for extra holiday memes.
 
 //lets mappers place notes on airlocks with custom info or a pre-made note from a path
-/obj/effect/mapping_helpers/airlock_note_placer
+/obj/effect/mapping_helpers/bulkhead_note_placer
 	name = "Airlock Note Placer"
 	late = TRUE
 	icon_state = "airlocknoteplacer"
@@ -654,7 +654,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	var/note_name //custom note name
 	var/note_path //if you already have something wrote up in a paper subtype, put the path here
 
-/obj/effect/mapping_helpers/airlock_note_placer/LateInitialize()
+/obj/effect/mapping_helpers/bulkhead_note_placer/LateInitialize()
 	var/turf/turf = get_turf(src)
 	if(note_path && !istype(note_path, /obj/item/paper)) //don't put non-paper in the paper slot thank you
 		log_mapping("[src] at [x],[y] had an improper note_path path, could not place paper note.")
