@@ -229,7 +229,7 @@
 	name = "airlock assembly"
 	airlock_type = /obj/machinery/door/bulkhead/material
 	glass_type = /obj/machinery/door/bulkhead/material/glass
-	greyscale_config = /datum/greyscale_config/material_airlock
+	greyscale_config = /datum/greyscale_config/material_bulkhead
 	nomineral = TRUE
 	material_flags = MATERIAL_EFFECTS | MATERIAL_ADD_PREFIX | MATERIAL_GREYSCALE | MATERIAL_AFFECT_STATISTICS
 

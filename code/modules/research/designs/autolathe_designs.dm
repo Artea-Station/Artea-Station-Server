@@ -271,7 +271,7 @@
 	id = "firelock_board"
 	build_type = AUTOLATHE | PROTOLATHE | AWAY_LATHE
 	materials = list(/datum/material/iron = 50, /datum/material/glass = 50)
-	build_path = /obj/item/electronics/firelock
+	build_path = /obj/item/electronics/firehead
 	category = list(
 		RND_CATEGORY_INITIAL,
 		RND_CATEGORY_CONSTRUCTION + RND_SUBCATEGORY_CONSTRUCTION_ELECTRONICS
