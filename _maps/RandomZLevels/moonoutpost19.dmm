@@ -282,7 +282,7 @@
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "bw" = (
-/obj/machinery/door/airlock{
+/obj/machinery/door/bulkhead{
 	name = "Unisex Restrooms"
 	},
 /turf/open/floor/iron/freezer{
@@ -452,7 +452,7 @@
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "bO" = (
-/obj/machinery/door/airlock/public/glass{
+/obj/machinery/door/bulkhead/public/glass{
 	name = "Break Room"
 	},
 /turf/open/floor/iron{
@@ -466,11 +466,11 @@
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "bQ" = (
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/airlock/highsecurity{
+/obj/effect/mapping_helpers/bulkhead/locked,
+/obj/machinery/door/bulkhead/highsecurity{
 	name = "Gateway"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /obj/structure/cable,
 /turf/open/floor/iron{
 	heat_capacity = 1e+006
@@ -751,8 +751,8 @@
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "cr" = (
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/airlock/public/glass{
+/obj/effect/mapping_helpers/bulkhead/locked,
+/obj/machinery/door/bulkhead/public/glass{
 	density = 0;
 	icon_state = "open";
 	name = "Dormitories"
@@ -814,10 +814,10 @@
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "cw" = (
-/obj/machinery/door/airlock/engineering{
+/obj/machinery/door/bulkhead/engineering{
 	name = "Power Maintenance"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /obj/structure/cable,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006
@@ -1050,8 +1050,8 @@
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "cT" = (
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/airlock{
+/obj/effect/mapping_helpers/bulkhead/locked,
+/obj/machinery/door/bulkhead{
 	density = 0;
 	icon_state = "open";
 	id_tag = "awaydorm4";
@@ -1070,7 +1070,7 @@
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "cU" = (
-/obj/machinery/door/airlock{
+/obj/machinery/door/bulkhead{
 	id_tag = "awaydorm5";
 	name = "Dorm 2"
 	},
@@ -1325,8 +1325,8 @@
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "du" = (
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/airlock/external/ruin{
+/obj/effect/mapping_helpers/bulkhead/locked,
+/obj/machinery/door/bulkhead/external/ruin{
 	density = 0;
 	icon_state = "open";
 	opacity = 0
@@ -1335,8 +1335,8 @@
 	inject_flags = 1;
 	target_type = /obj/machinery/door/airlock
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
 	initial_gas = list("oxygen" = 32.4, "nitrogen" = 13.2, "carbon_dioxide", 48.7);
@@ -1419,8 +1419,8 @@
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "dI" = (
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/airlock/external/ruin{
+/obj/effect/mapping_helpers/bulkhead/locked,
+/obj/machinery/door/bulkhead/external/ruin{
 	density = 0;
 	icon_state = "open";
 	opacity = 0
@@ -1429,8 +1429,8 @@
 	inject_flags = 1;
 	target_type = /obj/machinery/door/airlock
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper{
 	dir = 1
 	},
 /obj/effect/turf_decal/sand/plating,
@@ -1810,8 +1810,8 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "fc" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
+/obj/machinery/door/bulkhead/maintenance,
+/obj/effect/mapping_helpers/bulkhead/access/all/away/maintenance,
 /obj/effect/decal/cleanable/blood/tracks{
 	desc = "Your instincts say you shouldn't be following these.";
 	dir = 8;
@@ -1883,7 +1883,7 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "fj" = (
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firehead,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -1947,9 +1947,9 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "fx" = (
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/airlock/research{
+/obj/machinery/door/firehead,
+/obj/effect/mapping_helpers/bulkhead/locked,
+/obj/machinery/door/bulkhead/research{
 	density = 0;
 	icon_state = "open";
 	name = "Xenobiology Lab";
@@ -1959,7 +1959,7 @@
 	inject_flags = 1;
 	target_type = /obj/machinery/door/airlock
 	},
-/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
+/obj/effect/mapping_helpers/bulkhead/access/all/away/maintenance,
 /obj/structure/cable,
 /turf/open/floor/iron{
 	heat_capacity = 1e+006
@@ -1979,7 +1979,7 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "fA" = (
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firehead,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -2112,7 +2112,7 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "fQ" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/bulkhead/maintenance,
 /obj/structure/cable,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006
@@ -2214,7 +2214,7 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "fZ" = (
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firehead,
 /obj/structure/extinguisher_cabinet/directional/south,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -2299,10 +2299,10 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "gk" = (
-/obj/machinery/door/airlock/security/glass{
+/obj/machinery/door/bulkhead/security/glass{
 	name = "Security Post"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
+/obj/effect/mapping_helpers/bulkhead/access/all/away/maintenance,
 /turf/open/floor/iron/white{
 	heat_capacity = 1e+006
 	},
@@ -2603,7 +2603,7 @@
 	id = "Awaybiohazard";
 	name = "Biohazard Shutter Control"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/admin/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/admin/general,
 /turf/open/floor/iron{
 	heat_capacity = 1e+006
 	},
@@ -2917,9 +2917,9 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "hD" = (
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/airlock/command{
+/obj/machinery/door/firehead,
+/obj/effect/mapping_helpers/bulkhead/locked,
+/obj/machinery/door/bulkhead/command{
 	density = 0;
 	icon_state = "open";
 	name = "Research Director's Office";
@@ -2929,7 +2929,7 @@
 	inject_flags = 1;
 	target_type = /obj/machinery/door/airlock
 	},
-/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
+/obj/effect/mapping_helpers/bulkhead/access/all/away/maintenance,
 /turf/open/floor/iron/cafeteria{
 	dir = 5
 	},
@@ -2956,10 +2956,10 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "hG" = (
-/obj/machinery/door/airlock/research/glass{
+/obj/machinery/door/bulkhead/research/glass{
 	name = "Research Storage"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
+/obj/effect/mapping_helpers/bulkhead/access/all/away/maintenance,
 /turf/open/floor/iron/white{
 	heat_capacity = 1e+006
 	},
@@ -2992,7 +2992,7 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "hN" = (
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firehead,
 /obj/machinery/door/poddoor{
 	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
 	id = "Awaybiohazard";
@@ -3022,7 +3022,7 @@
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "hQ" = (
-/obj/machinery/door/airlock{
+/obj/machinery/door/bulkhead{
 	name = "Unit 2"
 	},
 /turf/open/floor/iron/freezer{
@@ -3149,11 +3149,11 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "ie" = (
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/bulkhead/medical{
 	name = "Research Division"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/effect/mapping_helpers/bulkhead/access/all/away/maintenance,
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper,
 /turf/open/floor/iron/white{
 	heat_capacity = 1e+006
 	},
@@ -3314,7 +3314,7 @@
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "ix" = (
-/obj/machinery/door/airlock{
+/obj/machinery/door/bulkhead{
 	name = "Unit 1"
 	},
 /turf/open/floor/iron/freezer{
@@ -3322,7 +3322,7 @@
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "iy" = (
-/obj/machinery/door/airlock{
+/obj/machinery/door/bulkhead{
 	name = "Unisex Showers"
 	},
 /turf/open/floor/iron/freezer{
@@ -3383,7 +3383,7 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "iG" = (
-/obj/machinery/door/airlock{
+/obj/machinery/door/bulkhead{
 	name = "Private Restroom"
 	},
 /turf/open/floor/iron/freezer{
@@ -3598,7 +3598,7 @@
 /turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/arrivals)
 "jh" = (
-/obj/machinery/door/airlock{
+/obj/machinery/door/bulkhead{
 	name = "Unisex Restrooms"
 	},
 /turf/open/floor/iron/freezer{
@@ -3645,7 +3645,7 @@
 /area/awaymission/moonoutpost19/arrivals)
 "jm" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firehead,
 /obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3
 	},
@@ -3885,7 +3885,7 @@
 /area/awaymission/moonoutpost19/arrivals)
 "jO" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firehead,
 /obj/machinery/door/poddoor/shutters{
 	id = "awaykitchen";
 	name = "Serving Hatch"
@@ -3984,7 +3984,7 @@
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "kb" = (
-/obj/machinery/door/firedoor/closed,
+/obj/machinery/door/firehead/closed,
 /obj/structure/cable,
 /turf/open/floor/iron{
 	heat_capacity = 1e+006
@@ -4041,7 +4041,7 @@
 /area/awaymission/moonoutpost19/arrivals)
 "kj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/firedoor/closed,
+/obj/machinery/door/firehead/closed,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/open/floor/iron{
@@ -4057,8 +4057,8 @@
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "km" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
+/obj/machinery/door/firehead,
+/obj/machinery/door/bulkhead/public/glass{
 	name = "Diner"
 	},
 /turf/open/floor/iron{
@@ -4067,7 +4067,7 @@
 /area/awaymission/moonoutpost19/arrivals)
 "kn" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firehead,
 /obj/item/reagent_containers/cup/rag{
 	pixel_y = 5
 	},
@@ -4190,7 +4190,7 @@
 /area/awaymission/moonoutpost19/arrivals)
 "kA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/firedoor/closed,
+/obj/machinery/door/firehead/closed,
 /turf/open/floor/iron{
 	heat_capacity = 1e+006
 	},
@@ -4242,7 +4242,7 @@
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "kH" = (
-/obj/machinery/door/firedoor/closed,
+/obj/machinery/door/firehead/closed,
 /turf/open/floor/iron{
 	heat_capacity = 1e+006
 	},
@@ -4333,14 +4333,14 @@
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "kR" = (
-/obj/machinery/door/firedoor/closed,
+/obj/machinery/door/firehead/closed,
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron{
 	heat_capacity = 1e+006
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "kS" = (
-/obj/machinery/door/firedoor/closed,
+/obj/machinery/door/firehead/closed,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
@@ -4370,7 +4370,7 @@
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "kV" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/bulkhead/maintenance,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006
 	},
@@ -4499,7 +4499,7 @@
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "lm" = (
-/obj/machinery/door/airlock{
+/obj/machinery/door/bulkhead{
 	id_tag = "awaydorm1";
 	name = "Dorm 1"
 	},
@@ -4579,10 +4579,10 @@
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "lu" = (
-/obj/machinery/door/airlock{
+/obj/machinery/door/bulkhead{
 	name = "Kitchen Cold Room"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
+/obj/effect/mapping_helpers/bulkhead/access/all/away/maintenance,
 /turf/open/floor/iron/showroomfloor{
 	heat_capacity = 1e+006
 	},
@@ -4718,11 +4718,11 @@
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "lQ" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock{
+/obj/machinery/door/firehead,
+/obj/machinery/door/bulkhead{
 	name = "Kitchen"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
+/obj/effect/mapping_helpers/bulkhead/access/all/away/maintenance,
 /turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/arrivals)
 "lR" = (
@@ -5011,7 +5011,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/awaymission/moonoutpost19/arrivals)
 "mH" = (
-/obj/machinery/door/airlock/titanium{
+/obj/machinery/door/bulkhead/titanium{
 	name = "Shuttle Cockpit"
 	},
 /turf/open/floor/mineral/titanium/yellow,
@@ -5031,15 +5031,15 @@
 /turf/open/floor/mineral/titanium/yellow,
 /area/awaymission/moonoutpost19/arrivals)
 "mK" = (
-/obj/machinery/door/airlock/titanium{
+/obj/machinery/door/bulkhead/titanium{
 	name = "Shuttle Airlock"
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/awaymission/moonoutpost19/arrivals)
 "mL" = (
-/obj/machinery/door/airlock/external/ruin,
+/obj/machinery/door/bulkhead/external/ruin,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper{
 	dir = 4
 	},
 /turf/open/floor/plating{
@@ -5047,8 +5047,8 @@
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "mM" = (
-/obj/machinery/door/airlock/external/ruin,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/machinery/door/bulkhead/external/ruin,
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper{
 	dir = 8
 	},
 /turf/open/floor/plating{
@@ -5102,7 +5102,7 @@
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "mR" = (
-/obj/machinery/door/airlock{
+/obj/machinery/door/bulkhead{
 	id_tag = "awaydorm2";
 	name = "Dorm 2"
 	},
@@ -5376,8 +5376,8 @@
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "nz" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
+/obj/machinery/door/bulkhead/maintenance,
+/obj/effect/mapping_helpers/bulkhead/access/all/away/maintenance,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006
 	},
@@ -5525,8 +5525,8 @@
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "nO" = (
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/airlock{
+/obj/effect/mapping_helpers/bulkhead/locked,
+/obj/machinery/door/bulkhead{
 	id_tag = "awaydorm3";
 	name = "Dorm 3"
 	},
@@ -5947,8 +5947,8 @@
 	},
 /area/awaymission/moonoutpost19/hive)
 "vV" = (
-/obj/machinery/door/airlock/external/ruin,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/machinery/door/bulkhead/external/ruin,
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper{
 	dir = 4
 	},
 /turf/open/floor/plating{
@@ -6030,8 +6030,8 @@
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "zZ" = (
-/obj/machinery/door/airlock/external/ruin,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/machinery/door/bulkhead/external/ruin,
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006
 	},
@@ -6216,11 +6216,11 @@
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "Mm" = (
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/bulkhead/medical{
 	name = "Research Division"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/effect/mapping_helpers/bulkhead/access/all/away/maintenance,
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper{
 	dir = 1
 	},
 /turf/open/floor/iron/white{
@@ -6377,8 +6377,8 @@
 	},
 /area/awaymission/moonoutpost19/main)
 "Wf" = (
-/obj/machinery/door/airlock/external/ruin,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/machinery/door/bulkhead/external/ruin,
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper{
 	dir = 1
 	},
 /turf/open/floor/plating{
