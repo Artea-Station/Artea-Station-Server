@@ -38,15 +38,15 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_mai
 	normal_integrity = 250
 	stripe_paint = "#B69F3C"
-	doorOpen = 'sound/machines/door/bulkhead_open_maint.ogg'
-	doorClose = 'sound/machines/door/bulkhead_close_maint.ogg'
+	doorOpen = 'sound/machines/door/airlock_open_maint.ogg'
+	doorClose = 'sound/machines/door/airlock_close_maint.ogg'
 
 /obj/machinery/door/bulkhead/maintenance/external
 	name = "external bulkhead access"
 	assemblytype = /obj/structure/door_assembly/door_assembly_extmai
 	stripe_paint = "#9F2828"
-	doorOpen = 'sound/machines/door/bulkhead_open_space.ogg'
-	doorClose = 'sound/machines/door/bulkhead_close_space.ogg'
+	doorOpen = 'sound/machines/door/airlock_open_space.ogg'
+	doorClose = 'sound/machines/door/airlock_close_space.ogg'
 
 /obj/machinery/door/bulkhead/mining
 	name = "mining bulkhead"
@@ -329,8 +329,8 @@
 */
 
 /obj/machinery/door/bulkhead/public
-	icon = 'icons/obj/doors/bulkheads/station2/bulkhead.dmi'
-	glass_fill_overlays = 'icons/obj/doors/bulkheads/station2/glass_overlays.dmi'
+	icon = 'icons/obj/doors/airlocks/station2/airlock.dmi'
+	glass_fill_overlays = 'icons/obj/doors/airlocks/station2/glass_overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_public
 
 /obj/machinery/door/bulkhead/public/glass
@@ -357,14 +357,14 @@
 
 /obj/machinery/door/bulkhead/external
 	name = "external bulkhead"
-	icon = 'icons/obj/doors/bulkheads/external/bulkhead.dmi'
-	color_overlays = 'icons/obj/doors/bulkheads/external/bulkhead_color.dmi'
-	glass_fill_overlays = 'icons/obj/doors/bulkheads/external/glass_overlays.dmi'
-	overlays_file = 'icons/obj/doors/bulkheads/external/overlays.dmi'
+	icon = 'icons/obj/doors/airlocks/external/airlock.dmi'
+	color_overlays = 'icons/obj/doors/airlocks/external/airlock_color.dmi'
+	glass_fill_overlays = 'icons/obj/doors/airlocks/external/glass_overlays.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
 	bulkhead_paint = "#9F2828"
 	assemblytype = /obj/structure/door_assembly/door_assembly_ext
-	doorOpen = 'sound/machines/door/bulkhead_open_space.ogg'
-	doorClose = 'sound/machines/door/bulkhead_close_space.ogg'
+	doorOpen = 'sound/machines/door/airlock_open_space.ogg'
+	doorClose = 'sound/machines/door/airlock_close_space.ogg'
 
 	/// Whether or not the bulkhead can be opened without access from a certain direction while powered, or with bare hands from any direction while unpowered OR pressurized.
 	var/space_dir = null
@@ -426,14 +426,14 @@
 */
 
 /obj/machinery/door/bulkhead/centcom //Use grunge as a station side version, as these have special effects related to them via phobias and such.
-	icon = 'icons/obj/doors/bulkheads/centcom/bulkhead.dmi'
+	icon = 'icons/obj/doors/airlocks/centcom/airlock.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_centcom
 	normal_integrity = 1000
 	security_level = 6
 	explosion_block = 2
 
 /obj/machinery/door/bulkhead/grunge
-	icon = 'icons/obj/doors/bulkheads/centcom/bulkhead.dmi'
+	icon = 'icons/obj/doors/airlocks/centcom/airlock.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_grunge
 
 //////////////////////////////////
@@ -443,8 +443,8 @@
 
 /obj/machinery/door/bulkhead/vault
 	name = "vault door"
-	icon = 'icons/obj/doors/bulkheads/vault/bulkhead.dmi'
-	overlays_file = 'icons/obj/doors/bulkheads/vault/overlays.dmi'
+	icon = 'icons/obj/doors/airlocks/vault/airlock.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/vault/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_vault
 	explosion_block = 2
 	normal_integrity = 400 // reverse engieneerd: 400 * 1.5 (sec lvl 6) = 600 = original
@@ -458,21 +458,21 @@
 
 /obj/machinery/door/bulkhead/hatch
 	name = "airtight hatch"
-	icon = 'icons/obj/doors/bulkheads/hatch/bulkhead.dmi'
-	stripe_overlays = 'icons/obj/doors/bulkheads/hatch/bulkhead_stripe.dmi'
+	icon = 'icons/obj/doors/airlocks/hatch/airlock.dmi'
+	stripe_overlays = 'icons/obj/doors/airlocks/hatch/airlock_stripe.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_hatch
-	doorOpen = 'sound/machines/door/bulkhead_open_maint.ogg'
-	doorClose = 'sound/machines/door/bulkhead_close_maint.ogg'
+	doorOpen = 'sound/machines/door/airlock_open_maint.ogg'
+	doorClose = 'sound/machines/door/airlock_close_maint.ogg'
 
 /obj/machinery/door/bulkhead/maintenance_hatch
 	name = "maintenance hatch"
-	icon = 'icons/obj/doors/bulkheads/hatch/bulkhead.dmi'
-	stripe_overlays = 'icons/obj/doors/bulkheads/hatch/bulkhead_stripe.dmi'
-	overlays_file = 'icons/obj/doors/bulkheads/hatch/overlays.dmi'
+	icon = 'icons/obj/doors/airlocks/hatch/airlock.dmi'
+	stripe_overlays = 'icons/obj/doors/airlocks/hatch/airlock_stripe.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_mhatch
 	stripe_paint = "#B69F3C"
-	doorOpen = 'sound/machines/door/bulkhead_open_maint.ogg'
-	doorClose = 'sound/machines/door/bulkhead_close_maint.ogg'
+	doorOpen = 'sound/machines/door/airlock_open_maint.ogg'
+	doorClose = 'sound/machines/door/airlock_close_maint.ogg'
 
 //////////////////////////////////
 /*
@@ -481,7 +481,7 @@
 
 /obj/machinery/door/bulkhead/highsecurity
 	name = "high tech security bulkhead"
-	icon = 'icons/obj/doors/bulkheads/highsec/bulkhead.dmi'
+	icon = 'icons/obj/doors/airlocks/highsec/airlock.dmi'
 	color_overlays = null
 	stripe_overlays = null
 	has_fill_overlays = FALSE
@@ -572,8 +572,8 @@
 		return FALSE
 
 /obj/machinery/door/bulkhead/cult/proc/conceal()
-	icon = 'icons/obj/doors/bulkheads/station/bulkhead.dmi'
-	overlays_file = 'icons/obj/doors/bulkheads/station/overlays.dmi'
+	icon = 'icons/obj/doors/airlocks/station/airlock.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	name = "Bulkhead"
 	desc = "It opens and closes."
 	stealthy = TRUE
@@ -659,8 +659,8 @@
 
 /obj/machinery/door/bulkhead/glass_large
 	name = "large glass bulkhead"
-	icon = 'icons/obj/doors/bulkheads/glass_large/glass_large.dmi'
-	overlays_file = 'icons/obj/doors/bulkheads/glass_large/overlays.dmi'
+	icon = 'icons/obj/doors/airlocks/glass_large/glass_large.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
 	opacity = FALSE
 	assemblytype = null
 	glass = TRUE
