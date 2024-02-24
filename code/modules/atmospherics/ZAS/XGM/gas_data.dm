@@ -26,6 +26,8 @@ GLOBAL_REAL(xgm_gas_data, /datum/xgm_gas_data) = new
 	var/list/condensation_products = list()
 	//If it shouldn't autogenerate a codex entry
 	var/list/hidden_from_codex = list()
+	// How radioactive it is
+	var/list/radioactivity = list()
 
 	//Holds the symbols
 	var/list/symbol_html = list()
@@ -58,6 +60,10 @@ GLOBAL_REAL(xgm_gas_data, /datum/xgm_gas_data) = new
 	var/symbol = "X"
 	var/base_value = 1
 	var/purchaseable = FALSE
+	/// How radioactive this is.
+	/// If non-zero, it will be treated as a fuel in the RBMK.
+	/// This number will be the percentage chance for irradiating someone (V/rad*mol).
+	var/radioactivity = 0
 
 /datum/xgm_gas_data/New()
 	for(var/p in subtypesof(/datum/xgm_gas))
@@ -89,6 +95,7 @@ GLOBAL_REAL(xgm_gas_data, /datum/xgm_gas_data) = new
 
 		base_value[gas.id] = gas.base_value
 		purchaseable[gas.id] = gas.purchaseable
+		radioactivity[gas.id] = gas.radioactivity
 
 	return 1
 

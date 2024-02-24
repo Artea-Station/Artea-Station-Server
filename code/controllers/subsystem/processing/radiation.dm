@@ -1,4 +1,4 @@
-SUBSYSTEM_DEF(radiation)
+PROCESSING_SUBSYSTEM_DEF(radiation)
 	name = "Radiation"
 	flags = SS_BACKGROUND | SS_NO_INIT
 
@@ -6,16 +6,17 @@ SUBSYSTEM_DEF(radiation)
 
 	/// A list of radiation sources (/datum/radiation_pulse_information) that have yet to process.
 	/// Do not interact with this directly, use `radiation_pulse` instead.
-	var/list/datum/radiation_pulse_information/processing = list()
+	var/list/datum/radiation_pulse_information/pulse_processing = list()
 
-/datum/controller/subsystem/radiation/fire(resumed)
-	while (processing.len)
-		var/datum/radiation_pulse_information/pulse_information = processing[1]
+/datum/controller/subsystem/processing/radiation/fire(resumed)
+	// Process pulses first, as we don't want doomstacks of pulses building up should things somehow clog up.
+	while (pulse_processing.len)
+		var/datum/radiation_pulse_information/pulse_information = pulse_processing[1]
 
 		var/datum/weakref/source_ref = pulse_information.source_ref
 		var/atom/source = source_ref.resolve()
 		if (isnull(source))
-			processing.Cut(1, 2)
+			pulse_processing.Cut(1, 2)
 			continue
 
 		pulse(source, pulse_information)
@@ -23,13 +24,16 @@ SUBSYSTEM_DEF(radiation)
 		if (MC_TICK_CHECK)
 			return
 
-		processing.Cut(1, 2)
+		pulse_processing.Cut(1, 2)
 
-/datum/controller/subsystem/radiation/stat_entry(msg)
-	msg = "[msg] | Pulses: [processing.len]"
+	// Now you're safe to process the sources again.
 	return ..()
 
-/datum/controller/subsystem/radiation/proc/pulse(atom/source, datum/radiation_pulse_information/pulse_information)
+/datum/controller/subsystem/processing/radiation/stat_entry(msg)
+	msg = "[msg] | Pulses: [pulse_processing.len] | Sources: [processing.len]"
+	return ..()
+
+/datum/controller/subsystem/processing/radiation/proc/pulse(atom/source, datum/radiation_pulse_information/pulse_information)
 	var/list/cached_rad_insulations = list()
 	var/list/cached_turfs_to_process = pulse_information.turfs_to_process
 	var/turfs_iterated = 0
@@ -100,14 +104,14 @@ SUBSYSTEM_DEF(radiation)
 	cached_turfs_to_process.Cut(1, turfs_iterated + 1)
 
 /// Will attempt to irradiate the given target, limited through IC means, such as radiation protected clothing.
-/datum/controller/subsystem/radiation/proc/irradiate(atom/target)
+/datum/controller/subsystem/processing/radiation/proc/irradiate(atom/target)
 	if (!can_irradiate_basic(target))
 		return FALSE
 
 	irradiate_after_basic_checks(target)
 	return TRUE
 
-/datum/controller/subsystem/radiation/proc/irradiate_after_basic_checks(atom/target)
+/datum/controller/subsystem/processing/radiation/proc/irradiate_after_basic_checks(atom/target)
 	PRIVATE_PROC(TRUE)
 
 	if (ishuman(target) && wearing_rad_protected_clothing(target))
@@ -118,7 +122,7 @@ SUBSYSTEM_DEF(radiation)
 
 /// Returns whether or not the target can be irradiated by any means.
 /// Does not check for clothing.
-/datum/controller/subsystem/radiation/proc/can_irradiate_basic(atom/target)
+/datum/controller/subsystem/processing/radiation/proc/can_irradiate_basic(atom/target)
 	if (!CAN_IRRADIATE(target))
 		return FALSE
 
@@ -131,7 +135,7 @@ SUBSYSTEM_DEF(radiation)
 	return TRUE
 
 /// Returns whether or not the human is covered head to toe in rad-protected clothing.
-/datum/controller/subsystem/radiation/proc/wearing_rad_protected_clothing(mob/living/carbon/human/human)
+/datum/controller/subsystem/processing/radiation/proc/wearing_rad_protected_clothing(mob/living/carbon/human/human)
 	for (var/obj/item/bodypart/limb as anything in human.bodyparts)
 		var/protected = FALSE
 

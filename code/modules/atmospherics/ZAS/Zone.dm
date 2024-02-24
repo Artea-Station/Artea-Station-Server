@@ -1,3 +1,5 @@
+#define MINIMUM_RADS_THRESHOLD 5
+
 /*
 
 Overview:
@@ -38,8 +40,6 @@ Class Procs:
 		Sends M a printout of important figures for the zone.
 
 */
-
-
 /zone
 	///A simple numerical value
 	var/name
@@ -212,6 +212,13 @@ Class Procs:
 		var/turf/T = pick(contents)
 		T.create_fire(zas_settings.fire_firelevel_multiplier)
 
+	var/rads = 0
+	for(var/gas in air.gas)
+		rads += (air.gas[gas] / air.volume) * (xgm_gas_data.radioactivity[gas] || 0)
+
+	if(rads > MINIMUM_RADS_THRESHOLD) // Saves tick time, also makes it so tiny amounts of plasma can't (rarely) do the funny green glow.
+		radiation_pulse(pick(contents), round(rads), RAD_LIGHT_INSULATION, rads)
+
 	#ifdef ZASDBG
 	SSzas.zonetime["update fires"] = TICK_USAGE_TO_MS(clock)
 	clock = TICK_USAGE
@@ -267,3 +274,5 @@ Class Procs:
 ///If fuel disappears from anything that isn't a fire burning it out, we gotta clear it's ref
 /zone/proc/handle_fuel_del(datum/source)
 	fuel_objs -= source
+
+#undef MINIMUM_RADS_THRESHOLD
