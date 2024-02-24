@@ -19,8 +19,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller, 24)
 	light_range = 7
 	light_color = COLOR_VIVID_RED
 
-	var/state = AIRLOCK_STATE_CLOSED
-	var/target_state = AIRLOCK_STATE_CLOSED
+	var/state = BULKHEAD_STATE_CLOSED
+	var/target_state = BULKHEAD_STATE_CLOSED
 
 	var/packetnum = 0
 
@@ -88,7 +88,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller, 24)
 
 /obj/machinery/airlock_controller/ui_data(mob/user)
 	var/list/data = memory.Copy()
-	data["airlock_state"] = state
+	data["bulkhead_state"] = state
 	data["airlock_disabled"] = machine_stat & MAINT
 	data["is_firelock"] = is_firelock
 	return data
@@ -113,33 +113,33 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller, 24)
 
 	switch(action)
 		if("cycle")
-			if(state == AIRLOCK_STATE_INOPEN)
-				target_state = AIRLOCK_STATE_OUTOPEN
+			if(state == BULKHEAD_STATE_INOPEN)
+				target_state = BULKHEAD_STATE_OUTOPEN
 			else
-				target_state = AIRLOCK_STATE_INOPEN
+				target_state = BULKHEAD_STATE_INOPEN
 
 		if("cycleClosed")
-			target_state = AIRLOCK_STATE_CLOSED
+			target_state = BULKHEAD_STATE_CLOSED
 
 		if("cycleExterior")
-			target_state = AIRLOCK_STATE_OUTOPEN
+			target_state = BULKHEAD_STATE_OUTOPEN
 
 		if("cycleInterior")
-			target_state = AIRLOCK_STATE_INOPEN
+			target_state = BULKHEAD_STATE_INOPEN
 
 		if("abort")
-			target_state = AIRLOCK_STATE_CLOSED
+			target_state = BULKHEAD_STATE_CLOSED
 
 		if("cycleOpen") // Only available for indoor airlocks, which come into action when atmos is unlivable on one side.
 			if(!is_firelock)
 				return // Bad exploiter
-			target_state = AIRLOCK_STATE_OPEN
+			target_state = BULKHEAD_STATE_OPEN
 
 		if("forceExterior")
-			if(state == AIRLOCK_STATE_OUTOPEN)
-				state = memory["interior_status"] == "open" ? AIRLOCK_STATE_INOPEN : AIRLOCK_STATE_CLOSED
+			if(state == BULKHEAD_STATE_OUTOPEN)
+				state = memory["interior_status"] == "open" ? BULKHEAD_STATE_INOPEN : BULKHEAD_STATE_CLOSED
 			else
-				state = memory["interior_status"] == "open" ? AIRLOCK_STATE_OPEN : AIRLOCK_STATE_OUTOPEN
+				state = memory["interior_status"] == "open" ? BULKHEAD_STATE_OPEN : BULKHEAD_STATE_OUTOPEN
 
 			post_signal(new /datum/signal(list(
 				"tag" = exterior_door_tag,
@@ -147,10 +147,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller, 24)
 			)))
 
 		if("forceInterior")
-			if(state == AIRLOCK_STATE_OUTOPEN)
-				state = memory["exterior_status"] == "open" ? AIRLOCK_STATE_OUTOPEN : AIRLOCK_STATE_CLOSED
+			if(state == BULKHEAD_STATE_OUTOPEN)
+				state = memory["exterior_status"] == "open" ? BULKHEAD_STATE_OUTOPEN : BULKHEAD_STATE_CLOSED
 			else
-				state = memory["exterior_status"] == "open" ? AIRLOCK_STATE_OPEN : AIRLOCK_STATE_INOPEN
+				state = memory["exterior_status"] == "open" ? BULKHEAD_STATE_OPEN : BULKHEAD_STATE_INOPEN
 
 			post_signal(new /datum/signal(list(
 				"tag" = interior_door_tag,
@@ -168,17 +168,17 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller, 24)
 	if(receive_tag == "dock" && !is_firelock) // Uhhhhh, we should be the only thing in range for this kind of thing.
 		if(signal.data["docked"])
 			docked = TRUE
-			target_state = AIRLOCK_STATE_OUTOPEN
+			target_state = BULKHEAD_STATE_OUTOPEN
 			post_signal(new /datum/signal(list( // Finish the secret handshake
 				"tag" = "dock",
 				"received" = TRUE,
 			)))
 		if(signal.data["undocked"])
 			docked = FALSE
-			target_state = AIRLOCK_STATE_INOPEN
+			target_state = BULKHEAD_STATE_INOPEN
 		if(signal.data["received"])
 			docked = TRUE
-			target_state = AIRLOCK_STATE_OUTOPEN
+			target_state = BULKHEAD_STATE_OUTOPEN
 
 	else if(receive_tag == sensor_tag)
 		if(signal.data["pressure"])
@@ -248,7 +248,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller, 24)
 
 	var/is_bad_air = pressure > WARNING_HIGH_PRESSURE || pressure < WARNING_LOW_PRESSURE
 	if(is_bad_air)
-		target_state = AIRLOCK_STATE_PRESSURIZE
+		target_state = BULKHEAD_STATE_PRESSURIZE
 
 	// Doesn't hook into the firealarm system cause that shit's awful to work with.
 	if(sound_loop.is_active() && !is_bad_air)

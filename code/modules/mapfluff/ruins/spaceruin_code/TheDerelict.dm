@@ -50,8 +50,8 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 	var/obj/structure/cable/attached_cable
-	var/obj/machinery/door/airlock/vault/derelict/door1
-	var/obj/machinery/door/airlock/vault/derelict/door2
+	var/obj/machinery/door/bulkhead/vault/derelict/door1
+	var/obj/machinery/door/bulkhead/vault/derelict/door2
 	var/locked = TRUE
 	var/siphoned_power = 0
 	var/siphon_max = 1e7
@@ -75,7 +75,7 @@
 
 ///Initializes airlock links.
 /obj/machinery/computer/vaultcontroller/proc/find_airlocks()
-	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
+	for(var/obj/machinery/door/bulkhead/A in GLOB.bulkheads)
 		if(A.id_tag == "derelictvault")
 			if(!door1)
 				door1 = A
@@ -92,14 +92,14 @@
 		siphoned_power += surpluspower
 
 ///Handles the doors closing
-/obj/machinery/computer/vaultcontroller/proc/cycle_close(obj/machinery/door/airlock/A)
+/obj/machinery/computer/vaultcontroller/proc/cycle_close(obj/machinery/door/bulkhead/A)
 	A.safe = FALSE //Make sure its forced closed, always
 	A.unbolt()
 	A.close()
 	A.bolt()
 
 ///Handles the doors opening
-/obj/machinery/computer/vaultcontroller/proc/cycle_open(obj/machinery/door/airlock/A)
+/obj/machinery/computer/vaultcontroller/proc/cycle_open(obj/machinery/door/bulkhead/A)
 	A.unbolt()
 	A.open()
 	A.bolt()
@@ -156,7 +156,7 @@
 	return data
 
 ///Airlock that can't be deconstructed, broken or hacked.
-/obj/machinery/door/airlock/vault/derelict
+/obj/machinery/door/bulkhead/vault/derelict
 	locked = TRUE
 	move_resist = INFINITY
 	use_power = NO_POWER_USE
@@ -164,7 +164,7 @@
 	id_tag = "derelictvault"
 
 ///Overrides screwdriver attack to prevent all deconstruction and hacking.
-/obj/machinery/door/airlock/vault/derelict/attackby(obj/item/C, mob/user, params)
+/obj/machinery/door/bulkhead/vault/derelict/attackby(obj/item/C, mob/user, params)
 	if(C.tool_behaviour == TOOL_SCREWDRIVER)
 		return
 	..()

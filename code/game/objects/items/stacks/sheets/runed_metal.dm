@@ -50,7 +50,7 @@ GLOBAL_LIST_INIT(runed_metal_recipes, list( \
 	), \
 	new /datum/stack_recipe/radial( \
 		title = "runed door", \
-		result_type = /obj/machinery/door/airlock/cult, \
+		result_type = /obj/machinery/door/bulkhead/cult, \
 		time = 5 SECONDS, \
 		one_per_turf = TRUE, \
 		on_solid_ground = TRUE, \

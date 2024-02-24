@@ -35,7 +35,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset, 24)
 /obj/machinery/airlock_controller/autoset/hallway
 	name = "autoset hallway airlock controller"
 	is_firelock = TRUE
-	target_state = AIRLOCK_STATE_OPEN
+	target_state = BULKHEAD_STATE_OPEN
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset/hallway, 24)
 
@@ -75,13 +75,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset/hallway, 2
 	return
 
 /obj/effect/mapping_helpers/airlock_controller_helper/airlock
-	affected_type = /obj/machinery/door/airlock
+	affected_type = /obj/machinery/door/bulkhead
 
 /obj/effect/mapping_helpers/airlock_controller_helper/airlock/interior
 	name = "interior airlock"
 	icon_state = "doorin"
 
-/obj/effect/mapping_helpers/airlock_controller_helper/airlock/interior/payload(obj/machinery/door/airlock/airlock)
+/obj/effect/mapping_helpers/airlock_controller_helper/airlock/interior/payload(obj/machinery/door/bulkhead/airlock)
 	airlock.id_tag = "custom_airlock_interior_[base_tag_name]"
 	airlock.set_frequency(FREQ_AIRLOCK_CONTROL)
 	airlock.close(TRUE)
@@ -91,7 +91,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset/hallway, 2
 	name = "exterior airlock"
 	icon_state = "doorout"
 
-/obj/effect/mapping_helpers/airlock_controller_helper/airlock/exterior/payload(obj/machinery/door/airlock/airlock)
+/obj/effect/mapping_helpers/airlock_controller_helper/airlock/exterior/payload(obj/machinery/door/bulkhead/airlock)
 	airlock.id_tag = "custom_airlock_exterior_[base_tag_name]"
 	airlock.set_frequency(FREQ_AIRLOCK_CONTROL)
 	airlock.open(TRUE)

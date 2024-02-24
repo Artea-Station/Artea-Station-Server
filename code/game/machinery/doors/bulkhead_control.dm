@@ -3,14 +3,14 @@
 /obj/machinery/door
 	var/datum/radio_frequency/radio_connection
 
-/obj/machinery/door/airlock
+/obj/machinery/door/bulkhead
 	opens_with_door_remote = TRUE
 
 	/// The current state of the airlock, used to construct the airlock overlays
-	var/airlock_state
+	var/bulkhead_state
 	var/frequency
 
-/obj/machinery/door/airlock/receive_signal(datum/signal/signal)
+/obj/machinery/door/bulkhead/receive_signal(datum/signal/signal)
 	if(!signal)
 		return
 
@@ -78,18 +78,18 @@
 		))
 		radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
 
-/obj/machinery/door/airlock/proc/set_frequency(new_frequency)
+/obj/machinery/door/bulkhead/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	if(new_frequency)
 		frequency = new_frequency
 		radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
 
-/obj/machinery/door/airlock/on_magic_unlock(datum/source, datum/action/cooldown/spell/aoe/knock/spell, mob/living/caster)
+/obj/machinery/door/bulkhead/on_magic_unlock(datum/source, datum/action/cooldown/spell/aoe/knock/spell, mob/living/caster)
 	// Airlocks should unlock themselves when knock is casted, THEN open up.
 	locked = FALSE
 	return ..()
 
-/obj/machinery/door/airlock/Destroy()
+/obj/machinery/door/bulkhead/Destroy()
 	if(frequency)
 		SSradio.remove_object(src,frequency)
 	return ..()

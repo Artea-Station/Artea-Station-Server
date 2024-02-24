@@ -1,7 +1,7 @@
 #define MAX_DENT_DECALS 15
 /// Typecache of all objects that we seek out to apply a neighbor stripe overlay
 GLOBAL_REAL_VAR(neighbor_typecache) = typecacheof(list(
-	/obj/machinery/door/airlock,
+	/obj/machinery/door/bulkhead,
 	/obj/structure/window/reinforced/fulltile,
 	/obj/structure/window/fulltile,
 	/obj/structure/window/reinforced/shuttle,

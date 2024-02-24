@@ -5,12 +5,12 @@
 	anchored = FALSE
 	density = TRUE
 	max_integrity = 200
-	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
+	var/state = BULKHEAD_ASSEMBLY_NEEDS_WIRES
 	var/base_name = "Airlock"
 	var/mineral = null
-	var/obj/item/electronics/airlock/electronics = null
-	var/airlock_type = /obj/machinery/door/airlock //the type path of the airlock once completed
-	var/glass_type = /obj/machinery/door/airlock/glass
+	var/obj/item/electronics/bulkhead/electronics = null
+	var/airlock_type = /obj/machinery/door/bulkhead //the type path of the airlock once completed
+	var/glass_type = /obj/machinery/door/bulkhead/glass
 	var/glass = 0 // 0 = glass can be installed. 1 = glass is already installed.
 	var/created_name = null
 	var/heat_proof_finished = 0 //whether to heat-proof the finished airlock
@@ -24,7 +24,7 @@
 	var/stripe_overlays
 	var/color_overlays
 	var/glass_fill_overlays
-	var/airlock_paint
+	var/bulkhead_paint
 	var/stripe_paint
 
 	var/has_fill_overlays = TRUE
@@ -32,13 +32,13 @@
 /obj/structure/door_assembly/Initialize()
 	. = ..()
 	/// Set overlay and color values from the airlock this assembly is supposed to build
-	var/obj/machinery/door/airlock/airlock_cast = airlock_type
+	var/obj/machinery/door/bulkhead/airlock_cast = airlock_type
 	icon = initial(airlock_cast.icon)
 	overlays_file = initial(airlock_cast.overlays_file)
 	stripe_overlays = initial(airlock_cast.stripe_overlays)
 	color_overlays = initial(airlock_cast.color_overlays)
 	glass_fill_overlays = initial(airlock_cast.glass_fill_overlays)
-	airlock_paint = initial(airlock_cast.airlock_paint)
+	bulkhead_paint = initial(airlock_cast.bulkhead_paint)
 	stripe_paint = initial(airlock_cast.stripe_paint)
 	has_fill_overlays = initial(airlock_cast.has_fill_overlays)
 
@@ -51,14 +51,14 @@
 	if(created_name)
 		doorname = ", written on it is '[created_name]'"
 	switch(state)
-		if(AIRLOCK_ASSEMBLY_NEEDS_WIRES)
+		if(BULKHEAD_ASSEMBLY_NEEDS_WIRES)
 			if(anchored)
 				. += span_notice("The anchoring bolts are <b>wrenched</b> in place, but the maintenance panel lacks <i>wiring</i>.")
 			else
 				. += span_notice("The assembly is <b>welded together</b>, but the anchoring bolts are <i>unwrenched</i>.")
-		if(AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
+		if(BULKHEAD_ASSEMBLY_NEEDS_ELECTRONICS)
 			. += span_notice("The maintenance panel is <b>wired</b>, but the circuit slot is <i>empty</i>.")
-		if(AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
+		if(BULKHEAD_ASSEMBLY_NEEDS_SCREWDRIVER)
 			. += span_notice("The circuit is <b>connected loosely</b> to its slot, but the maintenance panel is <i>unscrewed and open</i>.")
 	if(!mineral && !nomineral && !glass && !noglass)
 		. += span_notice("There are <i>empty</i> slots for glass windows and mineral covers.")
@@ -141,60 +141,60 @@
 				name = "airlock assembly"
 				set_anchored(FALSE)
 
-	else if(istype(W, /obj/item/stack/cable_coil) && state == AIRLOCK_ASSEMBLY_NEEDS_WIRES && anchored )
+	else if(istype(W, /obj/item/stack/cable_coil) && state == BULKHEAD_ASSEMBLY_NEEDS_WIRES && anchored )
 		if(!W.tool_start_check(user, amount=1))
 			return
 
 		user.visible_message(span_notice("[user] wires the airlock assembly."), \
 							span_notice("You start to wire the airlock assembly..."))
 		if(W.use_tool(src, user, 40, amount=1))
-			if(state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
+			if(state != BULKHEAD_ASSEMBLY_NEEDS_WIRES)
 				return
-			state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
+			state = BULKHEAD_ASSEMBLY_NEEDS_ELECTRONICS
 			to_chat(user, span_notice("You wire the airlock assembly."))
 			name = "wired airlock assembly"
 
-	else if((W.tool_behaviour == TOOL_WIRECUTTER) && state == AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS )
+	else if((W.tool_behaviour == TOOL_WIRECUTTER) && state == BULKHEAD_ASSEMBLY_NEEDS_ELECTRONICS )
 		user.visible_message(span_notice("[user] cuts the wires from the airlock assembly."), \
 							span_notice("You start to cut the wires from the airlock assembly..."))
 
 		if(W.use_tool(src, user, 40, volume=100))
-			if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
+			if(state != BULKHEAD_ASSEMBLY_NEEDS_ELECTRONICS)
 				return
 			to_chat(user, span_notice("You cut the wires from the airlock assembly."))
 			new/obj/item/stack/cable_coil(get_turf(user), 1)
-			state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
+			state = BULKHEAD_ASSEMBLY_NEEDS_WIRES
 			name = "secured airlock assembly"
 
-	else if(istype(W, /obj/item/electronics/airlock) && state == AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS )
+	else if(istype(W, /obj/item/electronics/bulkhead) && state == BULKHEAD_ASSEMBLY_NEEDS_ELECTRONICS )
 		W.play_tool_sound(src, 100)
 		user.visible_message(span_notice("[user] installs the electronics into the airlock assembly."), \
 							span_notice("You start to install electronics into the airlock assembly..."))
 		if(do_after(user, 40, target = src))
-			if( state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS )
+			if( state != BULKHEAD_ASSEMBLY_NEEDS_ELECTRONICS )
 				return
 			if(!user.transferItemToLoc(W, src))
 				return
 
 			to_chat(user, span_notice("You install the airlock electronics."))
-			state = AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER
+			state = BULKHEAD_ASSEMBLY_NEEDS_SCREWDRIVER
 			name = "near finished airlock assembly"
 			electronics = W
 
 
-	else if((W.tool_behaviour == TOOL_CROWBAR) && state == AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER )
+	else if((W.tool_behaviour == TOOL_CROWBAR) && state == BULKHEAD_ASSEMBLY_NEEDS_SCREWDRIVER )
 		user.visible_message(span_notice("[user] removes the electronics from the airlock assembly."), \
 								span_notice("You start to remove electronics from the airlock assembly..."))
 
 		if(W.use_tool(src, user, 40, volume=100))
-			if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
+			if(state != BULKHEAD_ASSEMBLY_NEEDS_SCREWDRIVER)
 				return
 			to_chat(user, span_notice("You remove the airlock electronics."))
-			state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
+			state = BULKHEAD_ASSEMBLY_NEEDS_ELECTRONICS
 			name = "wired airlock assembly"
-			var/obj/item/electronics/airlock/ae
+			var/obj/item/electronics/bulkhead/ae
 			if (!electronics)
-				ae = new/obj/item/electronics/airlock( loc )
+				ae = new/obj/item/electronics/bulkhead( loc )
 			else
 				ae = electronics
 				electronics = null
@@ -258,12 +258,12 @@
 				else
 					to_chat(user, span_warning("You cannot add [G] to [src]!"))
 
-	else if((W.tool_behaviour == TOOL_SCREWDRIVER) && state == AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER )
+	else if((W.tool_behaviour == TOOL_SCREWDRIVER) && state == BULKHEAD_ASSEMBLY_NEEDS_SCREWDRIVER )
 		user.visible_message(span_notice("[user] finishes the airlock."), \
 			span_notice("You start finishing the airlock..."))
 
 		if(W.use_tool(src, user, 40, volume=100))
-			if(loc && state == AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
+			if(loc && state == BULKHEAD_ASSEMBLY_NEEDS_SCREWDRIVER)
 				to_chat(user, span_notice("You finish the airlock."))
 				finish_door()
 	else
@@ -272,7 +272,7 @@
 	update_appearance()
 
 /obj/structure/door_assembly/proc/finish_door()
-	var/obj/machinery/door/airlock/door
+	var/obj/machinery/door/bulkhead/door
 	if(glass)
 		door = new glass_type( loc )
 	else
@@ -286,7 +286,7 @@
 	if(electronics.shell)
 		door.AddComponent( \
 			/datum/component/shell, \
-			unremovable_circuit_components = list(new /obj/item/circuit_component/airlock, new /obj/item/circuit_component/airlock_access_event), \
+			unremovable_circuit_components = list(new /obj/item/circuit_component/bulkhead, new /obj/item/circuit_component/bulkhead_access_event), \
 			capacity = SHELL_CAPACITY_LARGE, \
 			shell_flags = SHELL_FLAG_ALLOW_FAILURE_ACTION|SHELL_FLAG_REQUIRE_ANCHOR \
 		)
@@ -319,10 +319,10 @@
 		else
 			. += get_airlock_overlay("glass_construction", glass_fill_overlays, TRUE)
 
-	if(airlock_paint && color_overlays)
-		. += get_airlock_overlay("construction", color_overlays, color = airlock_paint)
+	if(bulkhead_paint && color_overlays)
+		. += get_airlock_overlay("construction", color_overlays, color = bulkhead_paint)
 		if(!glass && has_fill_overlays)
-			. += get_airlock_overlay("fill_construction", color_overlays, color = airlock_paint)
+			. += get_airlock_overlay("fill_construction", color_overlays, color = bulkhead_paint)
 
 	if(stripe_paint && stripe_overlays)
 		. += get_airlock_overlay("construction", stripe_overlays, color = stripe_paint)
@@ -334,12 +334,12 @@
 /obj/structure/door_assembly/update_name()
 	name = ""
 	switch(state)
-		if(AIRLOCK_ASSEMBLY_NEEDS_WIRES)
+		if(BULKHEAD_ASSEMBLY_NEEDS_WIRES)
 			if(anchored)
 				name = "secured "
-		if(AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
+		if(BULKHEAD_ASSEMBLY_NEEDS_ELECTRONICS)
 			name = "wired "
-		if(AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
+		if(BULKHEAD_ASSEMBLY_NEEDS_SCREWDRIVER)
 			name = "near finished "
 	name += "[heat_proof_finished ? "heat-proofed " : ""][glass ? "window " : ""][base_name] assembly"
 	return ..()

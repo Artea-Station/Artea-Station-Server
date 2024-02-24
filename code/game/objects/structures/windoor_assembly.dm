@@ -20,7 +20,7 @@
 	dir = NORTH
 	set_dir_on_move = FALSE
 
-	var/obj/item/electronics/airlock/electronics = null
+	var/obj/item/electronics/bulkhead/electronics = null
 	var/created_name = null
 
 	//Vars to help with the icon's name
@@ -215,7 +215,7 @@
 						name = "anchored windoor assembly"
 
 			//Adding airlock electronics for access. Step 6 complete.
-			else if(istype(W, /obj/item/electronics/airlock))
+			else if(istype(W, /obj/item/electronics/bulkhead))
 				if(!user.transferItemToLoc(W, src))
 					return
 				W.play_tool_sound(src, 100)
@@ -243,7 +243,7 @@
 				if(W.use_tool(src, user, 40, volume=100) && electronics)
 					to_chat(user, span_notice("You remove the airlock electronics."))
 					name = "wired windoor assembly"
-					var/obj/item/electronics/airlock/ae
+					var/obj/item/electronics/bulkhead/ae
 					ae = electronics
 					electronics = null
 					ae.forceMove(drop_location())

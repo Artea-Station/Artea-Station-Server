@@ -3,14 +3,14 @@
 	icon_state = "access_helper"
 
 // These are mutually exclusive; can't have req_any and req_all
-/obj/effect/mapping_helpers/airlock/access/any/payload(obj/machinery/door/airlock/airlock)
+/obj/effect/mapping_helpers/airlock/access/any/payload(obj/machinery/door/bulkhead/airlock)
 	if(airlock.req_access != null)
 		log_mapping("[src] at [AREACOORD(src)] tried to set req_one_access, but req_access was already set!")
 	else
 		var/list/access_list = get_access()
 		airlock.req_one_access += access_list
 
-/obj/effect/mapping_helpers/airlock/access/all/payload(obj/machinery/door/airlock/airlock)
+/obj/effect/mapping_helpers/airlock/access/all/payload(obj/machinery/door/bulkhead/airlock)
 	if(airlock.req_one_access != null)
 		log_mapping("[src] at [AREACOORD(src)] tried to set req_one_access, but req_access was already set!")
 	else

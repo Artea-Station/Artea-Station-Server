@@ -67,7 +67,7 @@
 	set_init_door_layer()
 	update_freelook_sight()
 	register_context()
-	GLOB.airlocks += src
+	GLOB.bulkheads += src
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
 	if(density)
@@ -185,7 +185,7 @@
 
 /obj/machinery/door/Destroy()
 	update_freelook_sight()
-	GLOB.airlocks -= src
+	GLOB.bulkheads -= src
 	if(spark_system)
 		qdel(spark_system)
 		spark_system = null
@@ -409,7 +409,7 @@
 	. = ..()
 	if (. & EMP_PROTECT_SELF)
 		return
-	if(prob(20/severity) && (istype(src, /obj/machinery/door/airlock) || istype(src, /obj/machinery/door/window)) )
+	if(prob(20/severity) && (istype(src, /obj/machinery/door/bulkhead) || istype(src, /obj/machinery/door/window)) )
 		INVOKE_ASYNC(src, PROC_REF(open))
 
 /obj/machinery/door/update_icon_state()

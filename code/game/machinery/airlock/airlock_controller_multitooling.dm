@@ -57,7 +57,7 @@
 
 	to_chat(user, span_info("[choice] airlock sensor linked."))
 
-/obj/machinery/door/airlock/multitool_act_secondary(mob/living/user, obj/item/tool)
+/obj/machinery/door/bulkhead/multitool_act_secondary(mob/living/user, obj/item/tool)
 	var/static/list/options = list(
 		"Interior (facing the station)" = "Interior",
 		"Exterior (facing out of the station)" = "Exterior",

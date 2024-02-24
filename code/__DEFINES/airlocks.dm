@@ -1,10 +1,10 @@
 // States for airlock_control
-#define AIRLOCK_STATE_INOPEN "inopen"
-#define AIRLOCK_STATE_PRESSURIZE "pressurize"
-#define AIRLOCK_STATE_CLOSED "closed"
-#define AIRLOCK_STATE_DEPRESSURIZE "depressurize"
-#define AIRLOCK_STATE_OUTOPEN "outopen"
-#define AIRLOCK_STATE_OPEN "open"
+#define BULKHEAD_STATE_INOPEN "inopen"
+#define BULKHEAD_STATE_PRESSURIZE "pressurize"
+#define BULKHEAD_STATE_CLOSED "closed"
+#define BULKHEAD_STATE_DEPRESSURIZE "depressurize"
+#define BULKHEAD_STATE_OUTOPEN "outopen"
+#define BULKHEAD_STATE_OPEN "open"
 
 // States for airlock construction.
 #define AIRLOCK_CONSTRUCTION_STATE_PLACED 3 // Default

@@ -51,7 +51,8 @@ export const AirlockController = (props, context) => {
           <Box>
             <Button
               disabled={
-                data.airlock_state !== 'open' && data.airlock_state !== 'closed'
+                data.bulkhead_state !== 'open' &&
+                data.bulkhead_state !== 'closed'
               }
               icon="ban"
               color="bad"
@@ -92,7 +93,7 @@ const StatusDisplay = (props, context) => {
 };
 
 type AirlockControllerData = {
-  airlock_state: string;
+  bulkhead_state: string;
   chamber_pressure: number;
   pump_status: string;
   interior_status: string;
