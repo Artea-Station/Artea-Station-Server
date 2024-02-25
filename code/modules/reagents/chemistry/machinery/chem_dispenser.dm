@@ -1,6 +1,6 @@
 #define CHEM_DISPENSER_HEATER_COEFFICIENT 0.05
 // Soft drinks dispenser is much better at cooling cause of the specific temperature it wants water and ice at.
-#define SOFT_DISPENSER_HEATER_COEFFICIENT 0.5
+#define SOFT_DISPENSER_HEATER_COEFFICIENT 0.1
 
 /obj/machinery/chem_dispenser
 	name = "chem dispenser"
