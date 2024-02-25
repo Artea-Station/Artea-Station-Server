@@ -45,7 +45,6 @@
 	//This creates legacy r_walls so that I don't have to recode a shitload of stuff
 	wall_type = /turf/closed/wall/r_wall
 	false_wall_type = /obj/structure/falsewall/reinforced
-	wall_name = "bulkhead"
 	wall_color = "#57575c"
 	hard_wall_decon = TRUE
 
