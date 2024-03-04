@@ -1,4 +1,4 @@
-/obj/item/airlock_painter
+/obj/item/bulkhead_painter
 	name = "airlock painter"
 	desc = "An advanced autopainter preprogrammed with several paintjobs for airlocks. Use it on an airlock during or after construction to change the paintjob."
 	desc_controls = "Alt-Click to remove the ink cartridge."
@@ -21,30 +21,30 @@
 	var/initial_ink_type = /obj/item/toner
 	/// Associate list of all paint jobs the airlock painter can apply. The key is the name of the airlock the user will see. The value is the type path of the airlock
 	var/list/available_paint_jobs = list(
-		"Public" = /obj/machinery/door/airlock/public,
-		"Engineering" = /obj/machinery/door/airlock/engineering,
-		"Atmospherics" = /obj/machinery/door/airlock/atmos,
-		"Security" = /obj/machinery/door/airlock/security,
-		"Command" = /obj/machinery/door/airlock/command,
-		"Medical" = /obj/machinery/door/airlock/medical,
-		"Research" = /obj/machinery/door/airlock/research,
-		"Freezer" = /obj/machinery/door/airlock/freezer,
-		"Science" = /obj/machinery/door/airlock/science,
-		"Mining" = /obj/machinery/door/airlock/mining,
-		"Maintenance" = /obj/machinery/door/airlock/maintenance,
-		"External" = /obj/machinery/door/airlock/external,
-		"External Maintenance"= /obj/machinery/door/airlock/maintenance/external,
-		"Virology" = /obj/machinery/door/airlock/virology,
-		"Standard" = /obj/machinery/door/airlock
+		"Public" = /obj/machinery/door/bulkhead/public,
+		"Engineering" = /obj/machinery/door/bulkhead/engineering,
+		"Atmospherics" = /obj/machinery/door/bulkhead/atmos,
+		"Security" = /obj/machinery/door/bulkhead/security,
+		"Command" = /obj/machinery/door/bulkhead/command,
+		"Medical" = /obj/machinery/door/bulkhead/medical,
+		"Research" = /obj/machinery/door/bulkhead/research,
+		"Freezer" = /obj/machinery/door/bulkhead/freezer,
+		"Science" = /obj/machinery/door/bulkhead/science,
+		"Mining" = /obj/machinery/door/bulkhead/mining,
+		"Maintenance" = /obj/machinery/door/bulkhead/maintenance,
+		"External" = /obj/machinery/door/bulkhead/external,
+		"External Maintenance"= /obj/machinery/door/bulkhead/maintenance/external,
+		"Virology" = /obj/machinery/door/bulkhead/virology,
+		"Standard" = /obj/machinery/door/bulkhead
 	)
 
-/obj/item/airlock_painter/Initialize(mapload)
+/obj/item/bulkhead_painter/Initialize(mapload)
 	. = ..()
 	ink = new initial_ink_type(src)
 
 //This proc doesn't just check if the painter can be used, but also uses it.
 //Only call this if you are certain that the painter will be used right after this check!
-/obj/item/airlock_painter/proc/use_paint(mob/user)
+/obj/item/bulkhead_painter/proc/use_paint(mob/user)
 	if(can_use(user))
 		ink.charges--
 		playsound(src.loc, 'sound/effects/spray2.ogg', 50, TRUE)
@@ -55,7 +55,7 @@
 //This proc only checks if the painter can be used.
 //Call this if you don't want the painter to be used right after this check, for example
 //because you're expecting user input.
-/obj/item/airlock_painter/proc/can_use(mob/user)
+/obj/item/bulkhead_painter/proc/can_use(mob/user)
 	if(!ink)
 		balloon_alert(user, "no cartridge!")
 		return FALSE
@@ -65,7 +65,7 @@
 	else
 		return TRUE
 
-/obj/item/airlock_painter/suicide_act(mob/user)
+/obj/item/bulkhead_painter/suicide_act(mob/user)
 	var/obj/item/organ/internal/lungs/L = user.getorganslot(ORGAN_SLOT_LUNGS)
 
 	if(can_use(user) && L)
@@ -112,7 +112,7 @@
 		return SHAME
 
 
-/obj/item/airlock_painter/examine(mob/user)
+/obj/item/bulkhead_painter/examine(mob/user)
 	. = ..()
 	if(!ink)
 		. += span_notice("It doesn't have a toner cartridge installed.")
@@ -127,7 +127,7 @@
 	. += span_notice("Its ink levels look [ink_level].")
 
 
-/obj/item/airlock_painter/attackby(obj/item/W, mob/user, params)
+/obj/item/bulkhead_painter/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/toner))
 		if(ink)
 			to_chat(user, span_warning("[src] already contains \a [ink]!"))
@@ -140,7 +140,7 @@
 	else
 		return ..()
 
-/obj/item/airlock_painter/AltClick(mob/user)
+/obj/item/bulkhead_painter/AltClick(mob/user)
 	. = ..()
 	if(ink)
 		playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
@@ -149,7 +149,7 @@
 		to_chat(user, span_notice("You remove [ink] from [src]."))
 		ink = null
 
-/obj/item/airlock_painter/decal
+/obj/item/bulkhead_painter/decal
 	name = "decal painter"
 	desc = "An airlock painter, reprogramed to use a different style of paint in order to apply decals for floor tiles as well, in addition to repainting doors. Decals break when the floor tiles are removed."
 	desc_controls = "Alt-Click to remove the ink cartridge."
@@ -206,11 +206,11 @@
 		"warn_full",
 	)
 
-/obj/item/airlock_painter/decal/Initialize(mapload)
+/obj/item/bulkhead_painter/decal/Initialize(mapload)
 	. = ..()
 	stored_custom_color = stored_color
 
-/obj/item/airlock_painter/decal/afterattack(atom/target, mob/user, proximity)
+/obj/item/bulkhead_painter/decal/afterattack(atom/target, mob/user, proximity)
 	. = ..()
 	if(!proximity)
 		balloon_alert(user, "get closer!")
@@ -227,7 +227,7 @@
  * Arguments:
  * * target - The turf being painted to
 */
-/obj/item/airlock_painter/decal/proc/paint_floor(turf/open/floor/target)
+/obj/item/bulkhead_painter/decal/proc/paint_floor(turf/open/floor/target)
 	target.AddElement(/datum/element/decal, 'icons/turf/decals.dmi', stored_decal_total, stored_dir, null, null, alpha, color, null, FALSE, null)
 
 /**
@@ -238,27 +238,27 @@
  * * color - the selected color
  * * dir - the selected dir
  */
-/obj/item/airlock_painter/decal/proc/get_decal_path(decal, color, dir)
+/obj/item/bulkhead_painter/decal/proc/get_decal_path(decal, color, dir)
 	// Special case due to icon_state names
 	if(color == "yellow")
 		color = ""
 
 	return "[decal][color ? "_" : ""][color]"
 
-/obj/item/airlock_painter/decal/proc/update_decal_path()
+/obj/item/bulkhead_painter/decal/proc/update_decal_path()
 	stored_decal_total = get_decal_path(stored_decal, stored_color, stored_dir)
 
-/obj/item/airlock_painter/decal/ui_interact(mob/user, datum/tgui/ui)
+/obj/item/bulkhead_painter/decal/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "DecalPainter", name)
 		ui.open()
 
-/obj/item/airlock_painter/decal/ui_assets(mob/user)
+/obj/item/bulkhead_painter/decal/ui_assets(mob/user)
 	. = ..()
 	. += get_asset_datum(spritesheet_type)
 
-/obj/item/airlock_painter/decal/ui_static_data(mob/user)
+/obj/item/bulkhead_painter/decal/ui_static_data(mob/user)
 	. = ..()
 	var/datum/asset/spritesheet/icon_assets = get_asset_datum(spritesheet_type)
 
@@ -285,14 +285,14 @@
 			"dir" = dir[2],
 		))
 
-/obj/item/airlock_painter/decal/ui_data(mob/user)
+/obj/item/bulkhead_painter/decal/ui_data(mob/user)
 	. = ..()
 	.["current_decal"] = stored_decal
 	.["current_color"] = stored_color
 	.["current_dir"] = stored_dir
 	.["current_custom_color"] = stored_custom_color
 
-/obj/item/airlock_painter/decal/ui_act(action, list/params)
+/obj/item/bulkhead_painter/decal/ui_act(action, list/params)
 	. = ..()
 	if(.)
 		return
@@ -313,7 +313,7 @@
 	update_decal_path()
 	. = TRUE
 
-/obj/item/airlock_painter/decal/set_painting_tool_color(chosen_color)
+/obj/item/bulkhead_painter/decal/set_painting_tool_color(chosen_color)
 	. = ..()
 	stored_custom_color = chosen_color
 	stored_color = chosen_color
@@ -327,7 +327,7 @@
 	/// The floor icon state used for blend_preview_floor()
 	var/preview_floor_state = "floor"
 	/// The associated decal painter type to grab decals, colors, etc from.
-	var/obj/item/airlock_painter/decal/painter_type = /obj/item/airlock_painter/decal
+	var/obj/item/bulkhead_painter/decal/painter_type = /obj/item/bulkhead_painter/decal
 
 /**
  * Underlay an example floor for preview purposes, and return the new icon.
@@ -357,7 +357,7 @@
 
 /datum/asset/spritesheet/decals/create_spritesheets()
 	// Must actually create because initial(type) doesn't work for /lists for some reason.
-	var/obj/item/airlock_painter/decal/painter = new painter_type()
+	var/obj/item/bulkhead_painter/decal/painter = new painter_type()
 
 	for(var/list/decal in painter.decal_list)
 		for(var/list/dir in painter.dir_list)
@@ -368,12 +368,12 @@
 
 	qdel(painter)
 
-/obj/item/airlock_painter/decal/debug
+/obj/item/bulkhead_painter/decal/debug
 	name = "extreme decal painter"
 	icon_state = "decal_sprayer_ex"
 	initial_ink_type = /obj/item/toner/extreme
 
-/obj/item/airlock_painter/decal/tile
+/obj/item/bulkhead_painter/decal/tile
 	name = "tile sprayer"
 	desc = "An airlock painter, reprogramed to use a different style of paint in order to spray colors on floor tiles as well, in addition to repainting doors. Decals break when the floor tiles are removed."
 	desc_controls = "Alt-Click to remove the ink cartridge."
@@ -418,7 +418,7 @@
 	/// Default alpha for /obj/effect/turf_decal/tile
 	var/default_alpha = 110
 
-/obj/item/airlock_painter/decal/tile/paint_floor(turf/open/floor/target)
+/obj/item/bulkhead_painter/decal/tile/paint_floor(turf/open/floor/target)
 	// Account for 8-sided decals.
 	var/source_decal = stored_decal
 	var/source_dir = stored_dir
@@ -437,7 +437,7 @@
 
 /datum/asset/spritesheet/decals/tiles
 	name = "floor_tile_decals"
-	painter_type = /obj/item/airlock_painter/decal/tile
+	painter_type = /obj/item/bulkhead_painter/decal/tile
 
 /datum/asset/spritesheet/decals/tiles/insert_state(decal, dir, color)
 	// Account for 8-sided decals.
@@ -448,7 +448,7 @@
 		source_dir = turn(dir, 45)
 
 	// Handle the RGBA case.
-	var/obj/item/airlock_painter/decal/tile/tile_type = painter_type
+	var/obj/item/bulkhead_painter/decal/tile/tile_type = painter_type
 	var/render_color = color
 	var/render_alpha = initial(tile_type.default_alpha)
 	if(tile_type.rgba_regex.Find(color))

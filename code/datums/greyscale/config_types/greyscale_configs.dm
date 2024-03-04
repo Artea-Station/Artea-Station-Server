@@ -533,10 +533,10 @@
 	icon_file = 'icons/mob/clothing/mask.dmi'
 	json_config = 'code/datums/greyscale/json_configs/bandskull_worn_up.json'
 
-/datum/greyscale_config/material_airlock
+/datum/greyscale_config/material_bulkhead
 	name = "Material Airlock"
 	icon_file = 'icons/obj/doors/airlocks/material/material.dmi'
-	json_config = 'code/datums/greyscale/json_configs/material_airlock.json'
+	json_config = 'code/datums/greyscale/json_configs/material_bulkhead.json'
 
 /datum/greyscale_config/vape
 	name = "Vape"

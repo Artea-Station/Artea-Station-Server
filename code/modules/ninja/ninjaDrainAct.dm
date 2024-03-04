@@ -184,7 +184,7 @@
 		objective.completed = TRUE
 
 //AIRLOCK//
-/obj/machinery/door/airlock/ninjadrain_act(mob/living/carbon/human/ninja, obj/item/mod/module/hacker/hacking_module)
+/obj/machinery/door/bulkhead/ninjadrain_act(mob/living/carbon/human/ninja, obj/item/mod/module/hacker/hacking_module)
 	if(!ninja || !hacking_module)
 		return NONE
 	if(!operating && density && hasPower() && !(obj_flags & EMAGGED))

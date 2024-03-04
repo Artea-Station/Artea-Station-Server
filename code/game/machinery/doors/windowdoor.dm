@@ -19,7 +19,7 @@
 	set_dir_on_move = FALSE
 	auto_dir_align = FALSE
 	opens_with_door_remote = TRUE
-	var/obj/item/electronics/airlock/electronics = null
+	var/obj/item/electronics/bulkhead/electronics = null
 	var/reinf = 0
 	var/shards = 2
 	var/rods = 2
@@ -341,9 +341,9 @@
 		qdel(src)
 		return
 	to_chat(user, span_notice("You remove the airlock electronics."))
-	var/obj/item/electronics/airlock/dropped_electronics
+	var/obj/item/electronics/bulkhead/dropped_electronics
 	if(!electronics)
-		dropped_electronics = new/obj/item/electronics/airlock(drop_location())
+		dropped_electronics = new/obj/item/electronics/bulkhead(drop_location())
 		if(req_one_access)
 			dropped_electronics.one_access = 1
 			dropped_electronics.accesses = req_one_access

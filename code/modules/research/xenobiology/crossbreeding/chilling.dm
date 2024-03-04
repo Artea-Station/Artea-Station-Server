@@ -338,6 +338,6 @@ Chilling extracts:
 		to_chat(user, span_warning("[src] can't affect such a large area."))
 		return
 	user.visible_message(span_warning("[src] reflects an array of dazzling colors and light, energy rushing to nearby doors!"))
-	for(var/obj/machinery/door/airlock/door in area)
+	for(var/obj/machinery/door/bulkhead/door in area)
 		new /obj/effect/forcefield/slimewall/rainbow(door.loc)
 	return ..()

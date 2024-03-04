@@ -40,11 +40,11 @@
 /turf/open/floor/iron/grimy,
 /area/ruin/space/has_grav/waystation/qm)
 "aP" = (
-/obj/machinery/door/airlock/highsecurity,
-/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/bulkhead/highsecurity,
+/obj/effect/mapping_helpers/bulkhead/locked,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
-/obj/effect/mapping_helpers/airlock/access/all/away/security,
+/obj/effect/mapping_helpers/bulkhead/access/all/away/security,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/waystation/securestorage)
 "be" = (
@@ -118,17 +118,17 @@
 /turf/open/space/basic,
 /area/template_noop)
 "dl" = (
-/obj/machinery/door/airlock/mining/glass,
+/obj/machinery/door/bulkhead/mining/glass,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
-/obj/effect/mapping_helpers/airlock/access/all/away/supply,
+/obj/effect/mapping_helpers/bulkhead/access/all/away/supply,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/dorms)
 "dm" = (
-/obj/machinery/door/airlock/mining,
+/obj/machinery/door/bulkhead/mining,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
-/obj/effect/mapping_helpers/airlock/access/all/away/command,
+/obj/effect/mapping_helpers/bulkhead/access/all/away/command,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/waystation/qm)
 "do" = (
@@ -615,11 +615,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/cargobay)
 "ko" = (
-/obj/machinery/door/airlock{
+/obj/machinery/door/bulkhead{
 	name = "Freezer"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/effect/mapping_helpers/airlock/access/any,
+/obj/effect/mapping_helpers/bulkhead/access/any,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/waystation/kitchen)
 "kq" = (
@@ -899,7 +899,7 @@
 /area/ruin/space/has_grav/waystation/dorms)
 "oI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -908,8 +908,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external/glass/ruin,
-/obj/effect/mapping_helpers/airlock/access/all/away/supply,
+/obj/machinery/door/bulkhead/external/glass/ruin,
+/obj/effect/mapping_helpers/bulkhead/access/all/away/supply,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/cargobay)
 "oR" = (
@@ -941,7 +941,7 @@
 /area/ruin/space/has_grav/waystation/qm)
 "pm" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -950,8 +950,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external/glass/ruin,
-/obj/effect/mapping_helpers/airlock/access/all/away/supply,
+/obj/machinery/door/bulkhead/external/glass/ruin,
+/obj/effect/mapping_helpers/bulkhead/access/all/away/supply,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/cargobay)
 "pn" = (
@@ -991,8 +991,8 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/waystation/power)
 "qi" = (
-/obj/machinery/door/airlock,
-/obj/effect/mapping_helpers/airlock/access/any,
+/obj/machinery/door/bulkhead,
+/obj/effect/mapping_helpers/bulkhead/access/any,
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/waystation/dorms)
 "qn" = (
@@ -1438,7 +1438,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/waystation/dorms)
 "yT" = (
-/obj/machinery/door/airlock/maintenance_hatch,
+/obj/machinery/door/bulkhead/maintenance_hatch,
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/waystation/power)
@@ -1651,10 +1651,10 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/waystation/kitchen)
 "Dx" = (
-/obj/machinery/door/airlock/mining/glass,
+/obj/machinery/door/bulkhead/mining/glass,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
-/obj/effect/mapping_helpers/airlock/access/all/away/supply,
+/obj/effect/mapping_helpers/bulkhead/access/all/away/supply,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/cargooffice)
 "DK" = (
@@ -1809,10 +1809,10 @@
 /turf/closed/wall,
 /area/ruin/space/has_grav/waystation/power)
 "Hu" = (
-/obj/machinery/door/airlock/mining,
+/obj/machinery/door/bulkhead/mining,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
-/obj/effect/mapping_helpers/airlock/access/all/away/supply,
+/obj/effect/mapping_helpers/bulkhead/access/all/away/supply,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation)
 "HA" = (
@@ -1961,9 +1961,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/cargooffice)
 "Ke" = (
-/obj/machinery/door/airlock/mining,
+/obj/machinery/door/bulkhead/mining,
 /obj/structure/cable,
-/obj/effect/mapping_helpers/airlock/access/all/away/command,
+/obj/effect/mapping_helpers/bulkhead/access/all/away/command,
 /turf/open/floor/iron/grimy,
 /area/ruin/space/has_grav/waystation/qm)
 "Kg" = (
@@ -2017,7 +2017,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/waystation/kitchen)
 "KW" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -2026,8 +2026,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external/glass/ruin,
-/obj/effect/mapping_helpers/airlock/access/all/away/supply,
+/obj/machinery/door/bulkhead/external/glass/ruin,
+/obj/effect/mapping_helpers/bulkhead/access/all/away/supply,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/cargobay)
 "Ld" = (
@@ -2042,11 +2042,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/cargobay)
 "Lo" = (
-/obj/machinery/door/airlock/public/glass{
+/obj/machinery/door/bulkhead/public/glass{
 	name = "Kitchen"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/effect/mapping_helpers/airlock/access/any,
+/obj/effect/mapping_helpers/bulkhead/access/any,
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/kitchen)
@@ -2309,8 +2309,8 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/cargobay)
 "Pd" = (
-/obj/machinery/door/airlock/mining/glass,
-/obj/effect/mapping_helpers/airlock/access/all/away/supply,
+/obj/machinery/door/bulkhead/mining/glass,
+/obj/effect/mapping_helpers/bulkhead/access/all/away/supply,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/cargooffice)
 "Pm" = (
@@ -2641,9 +2641,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/dorms)
 "Ud" = (
-/obj/machinery/door/airlock,
+/obj/machinery/door/bulkhead,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/effect/mapping_helpers/airlock/access/any,
+/obj/effect/mapping_helpers/bulkhead/access/any,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/waystation/dorms)
 "Ug" = (
@@ -2683,11 +2683,11 @@
 /turf/open/floor/iron/grimy,
 /area/ruin/space/has_grav/waystation/qm)
 "VE" = (
-/obj/machinery/door/airlock/external{
+/obj/machinery/door/bulkhead/external{
 	id_tag = "SBC_corvette_bolt";
 	name = "Syndicate Corvette Airlock"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /turf/open/floor/mineral/plastitanium,
 /area/ruin/space/has_grav/powered/waystation/assaultpod)
 "VG" = (

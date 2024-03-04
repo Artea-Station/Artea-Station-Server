@@ -60,7 +60,7 @@
 		return
 	balloon_alert(user, "removing airlock electronics...")
 	if(tool.use_tool(src, user, 10 SECONDS, volume = 50))
-		new /obj/item/electronics/airlock(loc)
+		new /obj/item/electronics/bulkhead(loc)
 		id = null
 		deconstruction = BLASTDOOR_NEEDS_ELECTRONICS
 		balloon_alert(user, "removed airlock electronics")

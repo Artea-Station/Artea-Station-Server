@@ -1,4 +1,4 @@
-/obj/machinery/door/airlock/alarmlock
+/obj/machinery/door/bulkhead/alarmlock
 	name = "glass alarm airlock"
 	icon = 'icons/obj/doors/airlocks/station2/airlock.dmi'
 	glass_fill_overlays = 'icons/obj/doors/airlocks/station2/glass_overlays.dmi'
@@ -11,22 +11,22 @@
 	var/air_frequency = FREQ_ATMOS_ALARMS
 	autoclose = FALSE
 
-/obj/machinery/door/airlock/alarmlock/Initialize(mapload)
+/obj/machinery/door/bulkhead/alarmlock/Initialize(mapload)
 	. = ..()
 	air_connection = new
 
-/obj/machinery/door/airlock/alarmlock/Destroy()
+/obj/machinery/door/bulkhead/alarmlock/Destroy()
 	SSradio.remove_object(src,air_frequency)
 	air_connection = null
 	return ..()
 
-/obj/machinery/door/airlock/alarmlock/Initialize(mapload)
+/obj/machinery/door/bulkhead/alarmlock/Initialize(mapload)
 	. = ..()
 	SSradio.remove_object(src, air_frequency)
 	air_connection = SSradio.add_object(src, air_frequency, RADIO_TO_AIRALARM)
 	INVOKE_ASYNC(src, PROC_REF(open))
 
-/obj/machinery/door/airlock/alarmlock/receive_signal(datum/signal/signal)
+/obj/machinery/door/bulkhead/alarmlock/receive_signal(datum/signal/signal)
 	..()
 	if(machine_stat & (NOPOWER|BROKEN))
 		return

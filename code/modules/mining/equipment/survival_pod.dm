@@ -106,20 +106,20 @@
 	icon_state = "pwindow"
 
 //Door
-/obj/machinery/door/airlock/survival_pod
+/obj/machinery/door/bulkhead/survival_pod
 	name = "Airlock"
 	assemblytype = /obj/structure/door_assembly/door_assembly_pod
-	airlock_paint = "#333333"
+	bulkhead_paint = "#333333"
 
-/obj/machinery/door/airlock/survival_pod/glass
+/obj/machinery/door/bulkhead/survival_pod/glass
 	opacity = FALSE
 	glass = TRUE
 
 /obj/structure/door_assembly/door_assembly_pod
 	name = "pod airlock assembly"
 	base_name = "pod airlock"
-	airlock_type = /obj/machinery/door/airlock/survival_pod
-	glass_type = /obj/machinery/door/airlock/survival_pod/glass
+	airlock_type = /obj/machinery/door/bulkhead/survival_pod
+	glass_type = /obj/machinery/door/bulkhead/survival_pod/glass
 
 //Windoor
 /obj/machinery/door/window/survival_pod

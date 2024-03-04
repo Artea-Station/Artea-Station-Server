@@ -506,7 +506,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/navigate_destination/LateInitialize()
 	. = ..()
 	if(!location)
-		var/obj/machinery/door/airlock/A = locate(/obj/machinery/door/airlock) in loc
+		var/obj/machinery/door/bulkhead/A = locate(/obj/machinery/door/bulkhead) in loc
 		location = A ? format_text(A.name) : get_area_name(src, format_text = TRUE)
 
 	GLOB.navigate_destinations[loc] = location

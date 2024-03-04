@@ -13,20 +13,20 @@
 /area/station/ai_monitored/aisat/exterior
 	name = "\improper AI Satellite Exterior"
 	icon_state = "ai"
-	airlock_wires = /datum/wires/airlock/ai
+	airlock_wires = /datum/wires/bulkhead/ai
 
 /area/station/ai_monitored/command/storage/satellite
 	name = "\improper AI Satellite Maint"
 	icon_state = "ai_storage"
 	ambience_index = AMBIENCE_DANGER
-	airlock_wires = /datum/wires/airlock/ai
+	airlock_wires = /datum/wires/bulkhead/ai
 
 // Turret protected
 /area/station/ai_monitored/turret_protected
 	ambientsounds = list('sound/ambience/ambitech.ogg', 'sound/ambience/ambitech2.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambiatmos2.ogg')
 	///Some sounds (like the space jam) are terrible when on loop. We use this variable to add it to other AI areas, but override it to keep it from the AI's core.
 	var/ai_will_not_hear_this = list('sound/ambience/ambimalf.ogg')
-	airlock_wires = /datum/wires/airlock/ai
+	airlock_wires = /datum/wires/bulkhead/ai
 
 /area/station/ai_monitored/turret_protected/Initialize(mapload)
 	. = ..()
@@ -100,14 +100,14 @@
 /area/station/ai_monitored/command/nuke_storage
 	name = "\improper Vault"
 	icon_state = "nuke_storage"
-	airlock_wires = /datum/wires/airlock/command
+	airlock_wires = /datum/wires/bulkhead/command
 
 //Security - AI Monitored
 /area/station/ai_monitored/security/armory
 	name = "\improper Armory"
 	icon_state = "armory"
 	ambience_index = AMBIENCE_DANGER
-	airlock_wires = /datum/wires/airlock/security
+	airlock_wires = /datum/wires/bulkhead/security
 
 /area/station/ai_monitored/security/armory/upper
 	name = "Upper Armory"

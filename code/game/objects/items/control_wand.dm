@@ -62,7 +62,7 @@
 		target.balloon_alert(user, "can't access!")
 		return
 
-	var/obj/machinery/door/airlock/airlock = door
+	var/obj/machinery/door/bulkhead/airlock = door
 
 	if (!door.hasPower() || (istype(airlock) && !airlock.canAIControl()))
 		target.balloon_alert(user, mode == WAND_OPEN ? "it won't budge!" : "nothing happens!")

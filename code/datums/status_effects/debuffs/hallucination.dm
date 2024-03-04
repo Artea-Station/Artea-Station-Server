@@ -31,7 +31,7 @@
 	RegisterSignal(owner, COMSIG_LIVING_HEALTHSCAN,  PROC_REF(on_health_scan))
 	if(iscarbon(owner))
 		RegisterSignal(owner, COMSIG_CARBON_CHECKING_BODYPART, PROC_REF(on_check_bodypart))
-		RegisterSignal(owner, COMSIG_CARBON_BUMPED_AIRLOCK_OPEN, PROC_REF(on_bump_airlock))
+		RegisterSignal(owner, COMSIG_CARBON_BUMPED_BULKHEAD_OPEN, PROC_REF(on_bump_airlock))
 
 	return TRUE
 
@@ -39,7 +39,7 @@
 	UnregisterSignal(owner, list(
 		COMSIG_LIVING_HEALTHSCAN,
 		COMSIG_CARBON_CHECKING_BODYPART,
-		COMSIG_CARBON_BUMPED_AIRLOCK_OPEN,
+		COMSIG_CARBON_BUMPED_BULKHEAD_OPEN,
 	))
 
 /// Signal proc for [COMSIG_LIVING_HEALTHSCAN]. Show we're hallucinating to (advanced) scanners.
@@ -61,9 +61,9 @@
 	if(prob(30))
 		limb_damage[BURN] += rand(30, 40)
 
-/// Signal proc for [COMSIG_CARBON_BUMPED_AIRLOCK_OPEN], bumping an airlock can cause a fake zap.
+/// Signal proc for [COMSIG_CARBON_BUMPED_BULKHEAD_OPEN], bumping an airlock can cause a fake zap.
 /// This only happens on airlock bump, future TODO - make this chance roll for attack_hand opening airlocks too
-/datum/status_effect/hallucination/proc/on_bump_airlock(mob/living/carbon/source, obj/machinery/door/airlock/bumped)
+/datum/status_effect/hallucination/proc/on_bump_airlock(mob/living/carbon/source, obj/machinery/door/bulkhead/bumped)
 	SIGNAL_HANDLER
 
 	// 1% chance to fake a shock.

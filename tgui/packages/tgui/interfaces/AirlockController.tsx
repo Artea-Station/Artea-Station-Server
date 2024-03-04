@@ -1,163 +1,185 @@
+import { BooleanLike } from 'common/react';
+import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { Box, Button, Icon, LabeledList, Section } from '../components';
+import { Box, Button, LabeledList, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
-type AirlockControllerData = {
-  airlockState: string;
-  sensorPressure: number;
-  pumpStatus: string;
-  interiorStatus: string;
-  exteriorStatus: string;
-};
-
-type AirlockStatus = {
-  primary: string;
-  icon: string;
-  color: string;
-};
-
+/**
+ * Simple airlock consoles are the least complicated airlock controller.
+ * They show the current chamber pressure, two cycle buttons, and two
+ * force door buttons. That's it.
+ */
 export const AirlockController = (props, context) => {
-  const { data } = useBackend<AirlockControllerData>(context);
-  const { airlockState, pumpStatus, interiorStatus, exteriorStatus } = data;
-  const currentStatus: AirlockStatus = getAirlockStatus(airlockState);
-  const nameToUpperCase = (str: string) =>
-    str.replace(/^\w/, (c) => c.toUpperCase());
+  const { act, data } = useBackend<AirlockControllerData>(context);
+
+  const barValues = {
+    'Chamber Pressure': data.chamber_pressure,
+    'Exterior Pressure': data.exterior_pressure,
+    'Interior Pressure': data.interior_pressure,
+  };
+
+  let bars: object[] = [];
+  let winHeight = 210;
+
+  Object.entries(barValues).forEach(([entry, value]) => {
+    if (value === null || value === undefined) {
+      return;
+    }
+    bars.push({
+      minValue: 0,
+      maxValue: value < 102 ? 102 : value < 325 ? 325 : 550,
+      value: value,
+      label: entry,
+      textValue: value + ' kPa',
+      color: (value) => {
+        return value < 80 || value > 550
+          ? 'bad'
+          : value < 95 || value > 325
+            ? 'average'
+            : 'good';
+      },
+    });
+    winHeight += 24;
+  });
 
   return (
-    <Window width={500} height={190}>
+    <Window width={580} height={winHeight}>
       <Window.Content>
-        <Section title="Airlock Status" buttons={<AirLockButtons />}>
-          <LabeledList>
-            <LabeledList.Item label="Current Status">
-              {currentStatus.primary}
-            </LabeledList.Item>
-            <LabeledList.Item label="Chamber Pressure">
-              <PressureIndicator currentStatus={currentStatus} />
-            </LabeledList.Item>
-            <LabeledList.Item label="Control Pump">
-              {nameToUpperCase(pumpStatus)}
-            </LabeledList.Item>
-            <LabeledList.Item label="Interior Door">
-              <Box color={interiorStatus === 'open' && 'good'}>
-                {nameToUpperCase(interiorStatus)}
-              </Box>
-            </LabeledList.Item>
-            <LabeledList.Item label="Exterior Door">
-              <Box color={exteriorStatus === 'open' && 'good'}>
-                {nameToUpperCase(exteriorStatus)}
-              </Box>
-            </LabeledList.Item>
-          </LabeledList>
+        <StatusDisplay bars={bars} />
+        <Section title="Controls">
+          <StandardControls />
+          <Box>
+            <Button
+              disabled={
+                data.bulkhead_state !== 'open' &&
+                data.bulkhead_state !== 'closed'
+              }
+              icon="ban"
+              color="bad"
+              content="Abort"
+              onClick={() => act('abort')}
+            />
+          </Box>
         </Section>
       </Window.Content>
     </Window>
   );
 };
 
-/** Displays the buttons on top of the window to cycle the airlock */
-const AirLockButtons = (props, context) => {
-  const { act, data } = useBackend<AirlockControllerData>(context);
-  const { airlockState } = data;
-  switch (airlockState) {
-    case 'pressurize':
-    case 'depressurize':
-      return (
-        <Button icon="stop-circle" onClick={() => act('abort')}>
-          Abort
-        </Button>
-      );
-    case 'closed':
-      return (
-        <>
-          <Button icon="lock-open" onClick={() => act('cycleInterior')}>
-            Open Interior Airlock
-          </Button>
-          <Button icon="lock-open" onClick={() => act('cycleExterior')}>
-            Open Exterior Airlock
-          </Button>
-        </>
-      );
-    case 'inopen':
-      return (
-        <>
-          <Button icon="lock" onClick={() => act('cycleClosed')}>
-            Close Interior Airlock
-          </Button>
-          <Button icon="sync" onClick={() => act('cycleExterior')}>
-            Cycle to Exterior Airlock
-          </Button>
-        </>
-      );
-    case 'outopen':
-      return (
-        <>
-          <Button icon="lock" onClick={() => act('cycleClosed')}>
-            Close Exterior Airlock
-          </Button>
-          <Button icon="sync" onClick={() => act('cycleInterior')}>
-            Cycle to Interior Airlock
-          </Button>
-        </>
-      );
-    default:
-      return null;
-  }
-};
-
-/** Displays the numeric pressure alongside an icon for the user */
-const PressureIndicator = (props, context) => {
-  const { data } = useBackend<AirlockControllerData>(context);
-  const { sensorPressure } = data;
-  const {
-    currentStatus: { icon, color },
-  } = props;
-  let spin = icon === 'fan' ? 1 : 0;
+/**
+ * Used for the upper status display that is used on 90% of these UIs.
+ * @param {StatusDisplayProps} props
+ */
+const StatusDisplay = (props, context) => {
+  const { bars } = props;
 
   return (
-    <Box color={color}>
-      {sensorPressure} kPa {icon && <Icon name={icon} spin={spin} />}
-    </Box>
+    <Section title="Status">
+      <LabeledList>
+        {bars.map((bar) => (
+          <LabeledList.Item key={bar.label} label={bar.label}>
+            <ProgressBar
+              color={bar.color(bar.value)}
+              minValue={bar.minValue}
+              maxValue={bar.maxValue}
+              value={bar.value}>
+              {bar.textValue}
+            </ProgressBar>
+          </LabeledList.Item>
+        ))}
+      </LabeledList>
+    </Section>
   );
 };
 
-/** Displays the current status as two text strings, depending on door state. */
-const getAirlockStatus = (airlockState): AirlockStatus => {
-  switch (airlockState) {
-    case 'inopen':
-      return {
-        primary: 'Interior Airlock Open',
-        icon: '',
-        color: 'good',
-      };
-    case 'pressurize':
-      return {
-        primary: 'Cycling to Interior Airlock',
-        icon: 'fan',
-        color: 'average',
-      };
-    case 'closed':
-      return {
-        primary: 'Inactive',
-        icon: '',
-        color: 'white',
-      };
-    case 'depressurize':
-      return {
-        primary: 'Cycling to Exterior Airlock',
-        icon: 'fan',
-        color: 'average',
-      };
-    case 'outopen':
-      return {
-        primary: 'Exterior Airlock Open',
-        icon: 'exclamation-triangle',
-        color: 'bad',
-      };
-    default:
-      return {
-        primary: 'Unknown',
-        icon: '',
-        color: 'average',
-      };
+type AirlockControllerData = {
+  bulkhead_state: string;
+  chamber_pressure: number;
+  pump_status: string;
+  interior_status: string;
+  exterior_status: string;
+  airlock_disabled: BooleanLike;
+  interior_pressure: number;
+  exterior_pressure: number;
+  processing: BooleanLike;
+  is_firelock: BooleanLike;
+};
+
+/**
+ * This is just a quick helper for most airlock controllers. They usually all
+ * have the "Cycle out, cycle in, force out, force in" buttons, so we just have
+ * a single component that adjusts for the mild data structure differences
+ * on it's own.
+ */
+export const StandardControls = (props, context) => {
+  const { data, act } = useBackend<AirlockControllerData>(context);
+
+  let externalForceSafe = true;
+  if (data.processing) {
+    externalForceSafe = false;
+  } else if (data.exterior_pressure && data.chamber_pressure) {
+    externalForceSafe = !(
+      Math.abs(data.exterior_pressure - data.chamber_pressure) > 5
+    );
   }
+
+  let internalForceSafe = true;
+  if (data.processing) {
+    internalForceSafe = false;
+  } else if (data.interior_pressure && data.chamber_pressure) {
+    internalForceSafe = !(
+      Math.abs(data.interior_pressure - data.chamber_pressure) > 5
+    );
+  }
+
+  return (
+    <Fragment>
+      <Box>
+        <Button
+          disabled={data.airlock_disabled}
+          icon="arrow-left"
+          content="Cycle to Exterior"
+          onClick={() => act('cycleExterior')}
+        />
+        <Button
+          disabled={data.airlock_disabled}
+          icon="arrow-right"
+          content="Cycle to Interior"
+          onClick={() => act('cycleInterior')}
+        />
+        <Button
+          disabled={data.airlock_disabled}
+          icon="door-closed"
+          content="Cycle Closed"
+          onClick={() => act('cycleClosed')}
+        />
+        {!!data.is_firelock && (
+          <Button
+            disabled={data.airlock_disabled}
+            icon="door-open"
+            content="Cycle Open"
+            onClick={() => act('cycleOpen')}
+          />
+        )}
+      </Box>
+      <Box>
+        <Button.Confirm
+          disabled={data.airlock_disabled}
+          color={externalForceSafe ? '' : 'bad'}
+          icon="exclamation-triangle"
+          confirmIcon="exclamation-triangle"
+          content="Force Exterior Door"
+          onClick={() => act('forceExterior')}
+        />
+        <Button.Confirm
+          disabled={data.airlock_disabled}
+          color={internalForceSafe ? '' : 'bad'}
+          icon="exclamation-triangle"
+          confirmIcon="exclamation-triangle"
+          content="Force Interior Door"
+          onClick={() => act('forceInterior')}
+        />
+      </Box>
+    </Fragment>
+  );
 };

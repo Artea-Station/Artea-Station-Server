@@ -299,8 +299,8 @@
 				new_window.update_appearance()
 				return TRUE
 			to_chat(user, span_notice("You build an airlock."))
-			var/obj/machinery/door/airlock/new_airlock = new the_rcd.airlock_type(src)
-			new_airlock.electronics = new /obj/item/electronics/airlock(new_airlock)
+			var/obj/machinery/door/bulkhead/new_airlock = new the_rcd.airlock_type(src)
+			new_airlock.electronics = new /obj/item/electronics/bulkhead(new_airlock)
 			if(the_rcd.airlock_electronics)
 				new_airlock.electronics.accesses = the_rcd.airlock_electronics.accesses.Copy()
 				new_airlock.electronics.one_access = the_rcd.airlock_electronics.one_access

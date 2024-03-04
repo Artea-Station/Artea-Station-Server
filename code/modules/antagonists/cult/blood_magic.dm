@@ -281,7 +281,7 @@
 			if(!T.realappearance)
 				continue
 			T.realappearance.alpha = 0
-		for(var/obj/machinery/door/airlock/cult/AL in range(5, owner))
+		for(var/obj/machinery/door/bulkhead/cult/AL in range(5, owner))
 			AL.conceal()
 		revealing = TRUE
 		name = "Reveal Runes"
@@ -300,7 +300,7 @@
 			if(!T.realappearance)
 				continue
 			T.realappearance.alpha = initial(T.realappearance.alpha)
-		for(var/obj/machinery/door/airlock/cult/AL in range(6, owner))
+		for(var/obj/machinery/door/bulkhead/cult/AL in range(6, owner))
 			AL.reveal()
 		revealing = FALSE
 		name = "Conceal Runes"
@@ -600,7 +600,7 @@
 				new /obj/structure/constructshell(T)
 				SEND_SOUND(user, sound('sound/effects/magic.ogg',0,1,25))
 				qdel(candidate)
-		else if(istype(target,/obj/machinery/door/airlock))
+		else if(istype(target,/obj/machinery/door/bulkhead))
 			channeling = TRUE
 			playsound(T, 'sound/machines/door/airlockforced.ogg', 50, TRUE)
 			do_sparks(5, TRUE, target)

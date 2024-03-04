@@ -3,12 +3,12 @@
 /turf/template_noop,
 /area/template_noop)
 "ab" = (
-/obj/machinery/door/airlock/external{
+/obj/machinery/door/bulkhead/external{
 	name = "Starfury Starboard External Access"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -137,13 +137,13 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "av" = (
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
 	},
-/obj/machinery/door/airlock/external{
+/obj/machinery/door/bulkhead/external{
 	name = "Starfury Port Ferry Bay Access"
 	},
 /turf/open/floor/plating,
@@ -153,12 +153,12 @@
 /turf/open/floor/iron/dark/textured,
 /area/shuttle/sbc_starfury)
 "ax" = (
-/obj/machinery/door/airlock/centcom{
+/obj/machinery/door/bulkhead/centcom{
 	id_tag = "syndie_battlecruiser_bridge_bolt";
 	name = "Port Shuttle Bay"
 	},
 /obj/structure/cable,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/dark,
@@ -365,12 +365,12 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "bm" = (
-/obj/machinery/door/airlock/external{
+/obj/machinery/door/bulkhead/external{
 	name = "Starfury Starboard Ferry Bay Access"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/red/line,
@@ -523,13 +523,13 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "bY" = (
-/obj/machinery/door/airlock/glass{
+/obj/machinery/door/bulkhead/glass{
 	name = "Medbay"
 	},
-/obj/machinery/door/firedoor/heavy,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/machinery/door/firehead/heavy,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /obj/effect/turf_decal/tile/green/full,
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /turf/open/floor/iron/dark/textured_large,
 /area/shuttle/sbc_starfury)
 "bZ" = (
@@ -616,10 +616,10 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "co" = (
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /obj/structure/cable,
-/obj/machinery/door/airlock/centcom{
+/obj/machinery/door/bulkhead/centcom{
 	name = "Weapon Bays Access"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -697,12 +697,12 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/sbc_starfury)
 "cC" = (
-/obj/machinery/door/airlock/external{
+/obj/machinery/door/bulkhead/external{
 	name = "Starfury Starboard External Access"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -1015,8 +1015,8 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/shuttle/sbc_starfury)
 "dK" = (
-/obj/effect/mapping_helpers/airlock/cutaiwire,
-/obj/machinery/door/airlock/centcom{
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
+/obj/machinery/door/bulkhead/centcom{
 	name = "Starboard Shuttle Bay"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -1072,17 +1072,17 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "dU" = (
-/obj/machinery/door/firedoor/heavy,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/machinery/door/firehead/heavy,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/airlock/glass_large,
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/machinery/door/bulkhead/glass_large,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /turf/open/floor/pod/light,
 /area/shuttle/sbc_starfury)
 "dV" = (
-/obj/machinery/door/firedoor/heavy,
+/obj/machinery/door/firehead/heavy,
 /turf/open/floor/pod/light,
 /area/shuttle/sbc_starfury)
 "dW" = (
@@ -1167,7 +1167,7 @@
 /area/shuttle/sbc_starfury)
 "eh" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/firedoor/heavy,
+/obj/machinery/door/firehead/heavy,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -1258,9 +1258,9 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/sbc_starfury)
 "eC" = (
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
-/obj/machinery/door/airlock/centcom{
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
+/obj/machinery/door/bulkhead/centcom{
 	name = "Weapon Bays Access"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -1334,25 +1334,25 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "eK" = (
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
 	},
-/obj/machinery/door/airlock/external{
+/obj/machinery/door/bulkhead/external{
 	name = "Starfury Starboard Ferry Bay Access"
 	},
 /turf/open/floor/plating,
 /area/shuttle/sbc_starfury)
 "eL" = (
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/red/line,
-/obj/machinery/door/airlock/external{
+/obj/machinery/door/bulkhead/external{
 	name = "Starfury Port Ferry Bay Access"
 	},
 /turf/open/floor/plating,
@@ -1680,12 +1680,12 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/sbc_starfury)
 "fw" = (
-/obj/machinery/door/airlock/external{
+/obj/machinery/door/bulkhead/external{
 	name = "Starfury Starboard External Access"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/red/line{
@@ -1735,20 +1735,20 @@
 /turf/open/floor/plating,
 /area/shuttle/sbc_starfury)
 "fD" = (
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/firedoor/heavy,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
-/obj/machinery/door/airlock/glass_large,
+/obj/machinery/door/firehead/heavy,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
+/obj/machinery/door/bulkhead/glass_large,
 /turf/open/floor/pod/light,
 /area/shuttle/sbc_starfury)
 "fF" = (
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/machinery/door/firedoor/heavy,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
-/obj/machinery/door/airlock/glass_large,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/machinery/door/firehead/heavy,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
+/obj/machinery/door/bulkhead/glass_large,
 /turf/open/floor/pod/light,
 /area/shuttle/sbc_starfury)
 "fG" = (
@@ -1756,13 +1756,13 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/door/firedoor/heavy,
+/obj/machinery/door/firehead/heavy,
 /turf/open/floor/pod/light,
 /area/shuttle/sbc_starfury)
 "fK" = (
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /obj/effect/turf_decal/siding/dark,
-/obj/machinery/door/airlock/hatch,
+/obj/machinery/door/bulkhead/hatch,
 /turf/open/floor/iron/showroomfloor,
 /area/shuttle/sbc_starfury)
 "fS" = (
@@ -1934,19 +1934,19 @@
 /turf/open/floor/iron/dark/diagonal,
 /area/shuttle/sbc_starfury)
 "gT" = (
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
-/obj/machinery/door/airlock/hatch,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
+/obj/machinery/door/bulkhead/hatch,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "gV" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
-/obj/machinery/door/airlock/hatch,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
+/obj/machinery/door/bulkhead/hatch,
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood,
 /area/shuttle/sbc_starfury)
@@ -2065,18 +2065,18 @@
 /turf/open/floor/iron/dark/diagonal,
 /area/shuttle/sbc_starfury)
 "hg" = (
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firehead,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
 	},
-/obj/machinery/door/airlock/hatch,
+/obj/machinery/door/bulkhead/hatch,
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "hh" = (
@@ -2326,12 +2326,12 @@
 /turf/open/floor/iron/dark/diagonal,
 /area/shuttle/sbc_starfury)
 "hF" = (
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/machinery/door/firehead,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
 	},
-/obj/machinery/door/airlock/hatch,
+/obj/machinery/door/bulkhead/hatch,
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "hG" = (
@@ -2408,13 +2408,13 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "hX" = (
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/airlock/highsecurity{
+/obj/effect/mapping_helpers/bulkhead/locked,
+/obj/machinery/door/bulkhead/highsecurity{
 	id_tag = "syndie_battlecruiser_armory";
 	name = "Starfury Armory"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "hZ" = (
@@ -2532,11 +2532,11 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "ig" = (
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
-/obj/machinery/door/airlock/hatch,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
+/obj/machinery/door/bulkhead/hatch,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -2553,13 +2553,13 @@
 	},
 /area/shuttle/sbc_starfury)
 "ii" = (
-/obj/machinery/door/airlock{
+/obj/machinery/door/bulkhead{
 	name = "Captain's Quarters"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/leader,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/leader,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -2939,22 +2939,22 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/door/airlock/engineering{
+/obj/machinery/door/bulkhead/engineering{
 	name = "Engineering Bay"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/machinery/door/firedoor/heavy,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/machinery/door/firehead/heavy,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /turf/open/floor/iron/smooth,
 /area/shuttle/sbc_starfury)
 "iQ" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/door/airlock/engineering{
+/obj/machinery/door/bulkhead/engineering{
 	name = "Engineering Bay"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/machinery/door/firedoor/heavy,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/machinery/door/firehead/heavy,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /turf/open/floor/iron/smooth,
 /area/shuttle/sbc_starfury)
 "iT" = (
@@ -3066,15 +3066,15 @@
 /turf/open/floor/iron/smooth,
 /area/shuttle/sbc_starfury)
 "jk" = (
-/obj/machinery/door/airlock/engineering/glass{
+/obj/machinery/door/bulkhead/engineering/glass{
 	name = "Engineering Storage"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firehead,
 /obj/structure/cable,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /turf/open/floor/iron/smooth,
 /area/shuttle/sbc_starfury)
 "js" = (
@@ -3111,16 +3111,16 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/sbc_starfury)
 "jz" = (
-/obj/machinery/door/airlock/engineering{
+/obj/machinery/door/bulkhead/engineering{
 	name = "SMES Room"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firehead,
 /obj/structure/cable/layer1,
 /obj/structure/cable,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "jA" = (
@@ -3218,12 +3218,12 @@
 /area/shuttle/sbc_starfury)
 "kb" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners,
-/obj/machinery/door/airlock/engineering{
+/obj/machinery/door/bulkhead/engineering{
 	name = "Engineering Bay"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/machinery/door/firedoor/heavy,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/machinery/door/firehead/heavy,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /turf/open/floor/iron/smooth,
 /area/shuttle/sbc_starfury)
 "kc" = (
@@ -3268,12 +3268,12 @@
 /area/shuttle/sbc_starfury)
 "kh" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/airlock/engineering/glass{
+/obj/machinery/door/bulkhead/engineering/glass{
 	heat_proof = 1;
 	id_tag = "syndie_battlecruiser_smbolt";
 	name = "Supermatter Chamber"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /obj/structure/barricade/wooden/crude,
 /turf/open/floor/engine,
 /area/shuttle/sbc_starfury)
@@ -3473,14 +3473,14 @@
 /turf/open/floor/iron,
 /area/shuttle/sbc_starfury)
 "kM" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper_multi{
 	cycle_id = "starfury_left"
 	},
-/obj/machinery/door/airlock/external{
+/obj/machinery/door/bulkhead/external{
 	name = "Starfury Port External Access"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /turf/open/floor/plating,
 /area/shuttle/sbc_starfury)
 "kN" = (
@@ -3716,10 +3716,10 @@
 /turf/open/floor/iron,
 /area/shuttle/sbc_starfury)
 "lA" = (
-/obj/machinery/door/airlock/engineering/glass{
+/obj/machinery/door/bulkhead/engineering/glass{
 	name = "Emitter Room"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /obj/structure/cable,
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -3823,8 +3823,8 @@
 	pixel_y = 5
 	},
 /obj/item/stack/cable_coil,
-/obj/item/electronics/airlock,
-/obj/item/electronics/airlock,
+/obj/item/electronics/bulkhead,
+/obj/item/electronics/bulkhead,
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -4083,17 +4083,17 @@
 	},
 /area/shuttle/sbc_starfury)
 "po" = (
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firehead,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/door/airlock/centcom{
+/obj/machinery/door/bulkhead/centcom{
 	id_tag = "syndie_battlecruiser_bridge_bolt";
 	name = "Bridge"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "pt" = (
@@ -4108,11 +4108,11 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/shuttle/sbc_starfury)
 "pQ" = (
-/obj/machinery/door/airlock/maintenance{
+/obj/machinery/door/bulkhead/maintenance{
 	name = "Starfury Engineering Maintenance"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /turf/open/floor/plating,
 /area/shuttle/sbc_starfury)
 "pS" = (
@@ -4191,10 +4191,10 @@
 /obj/structure/cable,
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/airlock/engineering/glass{
+/obj/machinery/door/bulkhead/engineering/glass{
 	name = "Emitter Room"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /turf/open/floor/plating,
 /area/shuttle/sbc_starfury)
 "ry" = (
@@ -4276,10 +4276,10 @@
 /turf/open/floor/iron,
 /area/shuttle/sbc_starfury)
 "ui" = (
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /obj/structure/cable,
-/obj/machinery/door/airlock/centcom{
+/obj/machinery/door/bulkhead/centcom{
 	name = "Weapon Bay 2"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -4552,12 +4552,12 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/door/airlock/engineering{
+/obj/machinery/door/bulkhead/engineering{
 	name = "Engineering Bay"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/machinery/door/firedoor/heavy,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/machinery/door/firehead/heavy,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /turf/open/floor/iron/smooth,
 /area/shuttle/sbc_starfury)
 "Aj" = (
@@ -4594,9 +4594,9 @@
 /turf/open/floor/iron/dark/diagonal,
 /area/shuttle/sbc_starfury)
 "AJ" = (
-/obj/machinery/door/firedoor/heavy,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
-/obj/machinery/door/airlock/glass_large,
+/obj/machinery/door/firehead/heavy,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
+/obj/machinery/door/bulkhead/glass_large,
 /turf/open/floor/pod/light,
 /area/shuttle/sbc_starfury)
 "AQ" = (
@@ -4773,13 +4773,13 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/sbc_starfury)
 "EO" = (
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firehead,
 /obj/structure/cable,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
-/obj/machinery/door/airlock/glass{
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
+/obj/machinery/door/bulkhead/glass{
 	name = "Operating Theatre"
 	},
 /turf/open/floor/iron,
@@ -4791,26 +4791,26 @@
 /turf/template_noop,
 /area/template_noop)
 "ES" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/centcom{
+/obj/machinery/door/firehead,
+/obj/machinery/door/bulkhead/centcom{
 	id_tag = "syndie_battlecruiser_bridge_bolt";
 	name = "Bridge"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "Fc" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/door/airlock/maintenance{
+/obj/machinery/door/bulkhead/maintenance{
 	name = "Engineering Maintenance"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /turf/open/floor/plating,
 /area/shuttle/sbc_starfury)
 "Fg" = (
@@ -4881,18 +4881,18 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/sbc_starfury)
 "Gm" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/centcom{
+/obj/machinery/door/firehead,
+/obj/machinery/door/bulkhead/centcom{
 	name = "E.V.A. Equipment"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "Gs" = (
@@ -4969,14 +4969,14 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/sbc_starfury)
 "HU" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper_multi{
 	cycle_id = "starfury_right"
 	},
-/obj/machinery/door/airlock/external{
+/obj/machinery/door/bulkhead/external{
 	name = "Starfury Starboard Shuttle Bay Access"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /turf/open/floor/plating,
 /area/shuttle/sbc_starfury)
 "ID" = (
@@ -5001,12 +5001,12 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "IR" = (
-/obj/machinery/door/airlock/external{
+/obj/machinery/door/bulkhead/external{
 	name = "Starfury Starboard External Access"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/red/line{
@@ -5305,14 +5305,14 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/sbc_starfury)
 "Pb" = (
-/obj/machinery/door/airlock/external{
+/obj/machinery/door/bulkhead/external{
 	name = "Starfury Starboard Shuttle Bay Access"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper_multi{
 	cycle_id = "starfury_right"
 	},
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /turf/open/floor/plating,
 /area/shuttle/sbc_starfury)
 "Pk" = (
@@ -5429,13 +5429,13 @@
 /turf/open/floor/iron,
 /area/shuttle/sbc_starfury)
 "Rj" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/centcom{
+/obj/machinery/door/firehead,
+/obj/machinery/door/bulkhead/centcom{
 	name = "E.V.A. Equipment"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "Rv" = (
@@ -5458,14 +5458,14 @@
 /turf/open/floor/engine,
 /area/shuttle/sbc_starfury)
 "Sb" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/centcom{
+/obj/machinery/door/firehead,
+/obj/machinery/door/bulkhead/centcom{
 	id_tag = "syndie_battlecruiser_bridge_bolt";
 	name = "Bridge"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "Sh" = (
@@ -5505,15 +5505,15 @@
 /turf/open/floor/iron,
 /area/shuttle/sbc_starfury)
 "Sy" = (
-/obj/machinery/door/airlock/centcom{
+/obj/machinery/door/bulkhead/centcom{
 	id_tag = "syndie_battlecruiser_bridge_bolt";
 	name = "Bridge"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /obj/effect/turf_decal/tile/green/full,
 /turf/open/floor/iron/dark/textured_large,
 /area/shuttle/sbc_starfury)
@@ -5812,17 +5812,17 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/sbc_starfury)
 "Yg" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/centcom{
+/obj/machinery/door/firehead,
+/obj/machinery/door/bulkhead/centcom{
 	id_tag = "syndie_battlecruiser_bridge_bolt";
 	name = "Bridge"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "Yq" = (
@@ -5879,13 +5879,13 @@
 "ZK" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/airlock/highsecurity{
+/obj/effect/mapping_helpers/bulkhead/locked,
+/obj/machinery/door/bulkhead/highsecurity{
 	id_tag = "syndie_battlecruiser_armory";
 	name = "Starfury Armory"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/effect/mapping_helpers/airlock/cutaiwire,
+/obj/effect/mapping_helpers/bulkhead/access/all/syndicate/general,
+/obj/effect/mapping_helpers/bulkhead/cutaiwire,
 /turf/open/floor/iron/dark,
 /area/shuttle/sbc_starfury)
 "ZR" = (

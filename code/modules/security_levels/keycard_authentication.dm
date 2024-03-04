@@ -140,7 +140,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 GLOBAL_VAR_INIT(emergency_access, FALSE)
 /proc/make_maint_all_access()
 	for(var/area/station/maintenance/A in world)
-		for(var/obj/machinery/door/airlock/D in A)
+		for(var/obj/machinery/door/bulkhead/D in A)
 			D.emergency = TRUE
 			D.update_icon(ALL, 0)
 	minor_announce("Access restrictions on maintenance and external airlocks have been lifted.", "Attention! Station-wide emergency declared!",1)
@@ -149,7 +149,7 @@ GLOBAL_VAR_INIT(emergency_access, FALSE)
 
 /proc/revoke_maint_all_access()
 	for(var/area/station/maintenance/A in world)
-		for(var/obj/machinery/door/airlock/D in A)
+		for(var/obj/machinery/door/bulkhead/D in A)
 			D.emergency = FALSE
 			D.update_icon(ALL, 0)
 	minor_announce("Access restrictions in maintenance areas have been restored.", "Attention! Station-wide emergency rescinded:")

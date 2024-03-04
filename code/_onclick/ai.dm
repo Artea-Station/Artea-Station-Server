@@ -150,14 +150,14 @@
 	return
 
 /* Airlocks */
-/obj/machinery/door/airlock/AICtrlClick() // Bolts doors
+/obj/machinery/door/bulkhead/AICtrlClick() // Bolts doors
 	if(obj_flags & EMAGGED)
 		return
 
 	toggle_bolt(usr)
 	add_hiddenprint(usr)
 
-/obj/machinery/door/airlock/AIAltClick() // Eletrifies doors.
+/obj/machinery/door/bulkhead/AIAltClick() // Eletrifies doors.
 	if(obj_flags & EMAGGED)
 		return
 
@@ -166,14 +166,14 @@
 	else
 		shock_restore(usr)
 
-/obj/machinery/door/airlock/AIShiftClick()  // Opens and closes doors!
+/obj/machinery/door/bulkhead/AIShiftClick()  // Opens and closes doors!
 	if(obj_flags & EMAGGED)
 		return
 
 	user_toggle_open(usr)
 	add_hiddenprint(usr)
 
-/obj/machinery/door/airlock/AICtrlShiftClick()  // Sets/Unsets Emergency Access Override
+/obj/machinery/door/bulkhead/AICtrlShiftClick()  // Sets/Unsets Emergency Access Override
 	if(obj_flags & EMAGGED)
 		return
 

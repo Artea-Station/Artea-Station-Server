@@ -55,10 +55,10 @@
 /datum/atom_hud/data/diagnostic
 
 /datum/atom_hud/data/diagnostic/basic
-	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_CIRCUIT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD, DIAG_LAUNCHPAD_HUD)
+	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_CIRCUIT_HUD, DIAG_TRACK_HUD, DIAG_BULKHEAD_HUD, DIAG_LAUNCHPAD_HUD)
 
 /datum/atom_hud/data/diagnostic/advanced
-	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_CIRCUIT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD, DIAG_LAUNCHPAD_HUD, DIAG_PATH_HUD)
+	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_CIRCUIT_HUD, DIAG_TRACK_HUD, DIAG_BULKHEAD_HUD, DIAG_LAUNCHPAD_HUD, DIAG_PATH_HUD)
 
 /datum/atom_hud/data/bot_path
 	// This hud exists so the bot can see itself, that's all
@@ -508,11 +508,11 @@ Diagnostic HUDs!
 /*~~~~~~~~~~~~
 	Airlocks!
 ~~~~~~~~~~~~~*/
-/obj/machinery/door/airlock/proc/diag_hud_set_electrified()
+/obj/machinery/door/bulkhead/proc/diag_hud_set_electrified()
 	if(secondsElectrified == MACHINE_NOT_ELECTRIFIED)
-		set_hud_image_inactive(DIAG_AIRLOCK_HUD)
+		set_hud_image_inactive(DIAG_BULKHEAD_HUD)
 		return
 
-	var/image/holder = hud_list[DIAG_AIRLOCK_HUD]
+	var/image/holder = hud_list[DIAG_BULKHEAD_HUD]
 	holder.icon_state = "electrified"
-	set_hud_image_active(DIAG_AIRLOCK_HUD)
+	set_hud_image_active(DIAG_BULKHEAD_HUD)

@@ -50,7 +50,7 @@
 		/obj/item/canvas/thirtysix_twentyfour = 3,
 		/obj/item/canvas/fortyfive_twentyseven = 3,
 		/obj/item/rcl = 2,
-		/obj/item/airlock_painter = 1,
+		/obj/item/bulkhead_painter = 1,
 		/obj/item/melee/skateboard/pro = 3,
 		/obj/item/clothing/shoes/wheelys/rollerskates= 3,
 		/obj/item/melee/skateboard/hoverboard = 1,

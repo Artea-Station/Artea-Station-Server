@@ -105,7 +105,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 
 #define SMOOTH_GROUP_WALLS S_OBJ(0) ///turf/closed/wall, /obj/structure/falsewall
 #define SMOOTH_GROUP_HIERO_WALL S_OBJ(1) ///obj/effect/temp_visual/elite_tumor_wall, /obj/effect/temp_visual/hierophant/wall
-#define SMOOTH_GROUP_SURVIVAL_TITANIUM_POD S_OBJ(2) ///turf/closed/wall/mineral/titanium/survival/pod, /obj/machinery/door/airlock/survival_pod, /obj/structure/window/reinforced/shuttle/survival_pod
+#define SMOOTH_GROUP_SURVIVAL_TITANIUM_POD S_OBJ(2) ///turf/closed/wall/mineral/titanium/survival/pod, /obj/machinery/door/bulkhead/survival_pod, /obj/structure/window/reinforced/shuttle/survival_pod
 
 #define SMOOTH_GROUP_PAPERFRAME S_OBJ(20) ///obj/structure/window/paperframe, /obj/structure/mineral_door/paperframe
 
@@ -119,7 +119,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_GRILLE  S_OBJ(32) ///obj/structure/grille
 #define SMOOTH_GROUP_LOW_WALL  S_OBJ(33) ///obj/structure/low_wall
 
-#define SMOOTH_GROUP_AIRLOCK S_OBJ(40) ///obj/machinery/door/airlock
+#define SMOOTH_GROUP_AIRLOCK S_OBJ(40) ///obj/machinery/door/bulkhead
 #define SMOOTH_GROUP_SHUTTERS_BLASTDOORS S_OBJ(41) ///obj/machinery/door/poddoor
 
 #define SMOOTH_GROUP_TABLES S_OBJ(50) ///obj/structure/table

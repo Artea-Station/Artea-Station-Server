@@ -11,7 +11,7 @@
 		/obj/item/storage/toolbox/mechanical = 2,
 		/obj/item/multitool = 2,
 		/obj/item/pipe_dispenser = 1,
-		/obj/item/airlock_painter = 1,
+		/obj/item/bulkhead_painter = 1,
 		/obj/item/pipe_painter = 1,
 		/obj/item/stack/sheet/iron/fifty = 1,
 	)

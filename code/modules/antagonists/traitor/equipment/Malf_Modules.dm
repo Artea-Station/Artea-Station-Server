@@ -359,7 +359,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module))
 	uses = 1
 
 /datum/action/innate/ai/lockdown/Activate()
-	for(var/obj/machinery/door/D in GLOB.airlocks)
+	for(var/obj/machinery/door/D in GLOB.bulkheads)
 		if(!is_station_level(D.z))
 			continue
 		INVOKE_ASYNC(D, TYPE_PROC_REF(/obj/machinery/door, hostile_lockdown), owner)
@@ -693,7 +693,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module))
 			continue
 		bellman.obj_flags |= EMAGGED
 		bellman.update_appearance()
-	for(var/obj/machinery/door/firedoor/firelock in GLOB.machines)
+	for(var/obj/machinery/door/firehead/firelock in GLOB.machines)
 		if(!is_station_level(firelock.z))
 			continue
 		firelock.emag_act(owner_AI, src)
