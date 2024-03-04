@@ -1,6 +1,6 @@
 #define CHEM_DISPENSER_HEATER_COEFFICIENT 0.05
 // Soft drinks dispenser is much better at cooling cause of the specific temperature it wants water and ice at.
-#define SOFT_DISPENSER_HEATER_COEFFICIENT 0.5
+#define SOFT_DISPENSER_HEATER_COEFFICIENT 0.1
 
 /obj/machinery/chem_dispenser
 	name = "chem dispenser"
@@ -88,6 +88,7 @@
 			if(cartridge.reagents.is_reacting)//on_reaction_step() handles this
 				continue
 			var/thermal_energy_to_provide = (dispensed_temperature - cartridge.reagents.chem_temp) * (heater_coefficient * powerefficiency) * delta_time * SPECIFIC_HEAT_DEFAULT * cartridge.reagents.total_volume
+			thermal_energy_to_provide /= maximum_cartridges
 			// Okay, hear me out, one cartridge, when heated from default (room) temp to the magic water/ice temperature, provides about 255000 thermal energy (drinks dispenser, divide that by 10 for chem) a tick. Let's take that number, kneecap it down by a sizeable chunk, and use it as power consumption, yea?
 			power_to_use += abs(thermal_energy_to_provide) / 1000
 			cartridge.reagents.adjust_thermal_energy(thermal_energy_to_provide)
