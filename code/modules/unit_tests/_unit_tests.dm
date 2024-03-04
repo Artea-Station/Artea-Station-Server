@@ -73,6 +73,7 @@
 #include "atmos_moles_tests.dm"
 #include "autowiki.dm"
 #include "barsigns.dm"
+#include "baseturfs.dm"
 #include "bespoke_id.dm"
 #include "binary_insert.dm"
 #include "bloody_footprints.dm"

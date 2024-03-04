@@ -23,12 +23,13 @@
 		usr.client.running_find_references = type
 
 	log_reftracker("Beginning search for references to a [type].")
+	var/additional_info = dump_harddel_info()
+	if(additional_info)
+		log_reftracker("Additional information: [additional_info]")
 
 	var/starting_time = world.time
 
-#if DM_VERSION >= 515
 	log_reftracker("Refcount for [type]: [refcount(src)]")
-#endif
 
 	//Time to search the whole game for our ref
 	DoSearchVar(GLOB, "GLOB", search_time = starting_time) //globals
