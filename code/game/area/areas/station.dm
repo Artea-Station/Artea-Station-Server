@@ -96,6 +96,12 @@
 	name = "Cargo Maintenance"
 	icon_state = "maint_cargo"
 
+/area/station/maintenance/department/cargo/upper
+	name = "Upper Cargo Maintenance"
+
+/area/station/maintenance/department/cargo/lower
+	name = "Lower Cargo Maintenance"
+
 /area/station/maintenance/department/cargo/hangar
 	name = "Abandoned Hangar"
 
