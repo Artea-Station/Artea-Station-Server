@@ -526,6 +526,14 @@
 	set name = "Move Upwards"
 	set category = "IC"
 
+	if(isobserver(src))
+		var/target = src.z + 1
+		if(src.z >= SSmapping.z_list.len)
+			target = 1
+		src.z = target
+		to_chat(src, span_notice("You move upwards."))
+		return
+
 	var/turf/current_turf = get_turf(src)
 	var/turf/above_turf = SSmapping.get_turf_above(current_turf)
 
@@ -549,9 +557,18 @@
 	set name = "Move Down"
 	set category = "IC"
 
+	if(isobserver(src))
+		var/target = src.z - 1
+		if(src.z <= 1)
+			target = SSmapping.z_list.len
+		src.z = target
+		to_chat(src, span_notice("You move down."))
+		return FALSE
+
 	var/ventcrawling_flag = HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) ? ZMOVE_VENTCRAWLING : 0
 	if(zMove(DOWN, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))
 		to_chat(src, span_notice("You move down."))
+
 	return FALSE
 
 /mob/abstract_move(atom/destination)

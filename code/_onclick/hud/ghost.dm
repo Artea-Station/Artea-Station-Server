@@ -59,10 +59,7 @@
 
 /atom/movable/screen/ghost/movez_positive/Click()
 	var/mob/dead/observer/G = usr
-	var/target = G.z + 1
-	if(G.z >= SSmapping.z_list.len)
-		target = 1
-	G.z = target
+	G.up()
 
 /atom/movable/screen/ghost/movez_negative
 	name = "Shift Downwards"
@@ -70,10 +67,7 @@
 
 /atom/movable/screen/ghost/movez_negative/Click()
 	var/mob/dead/observer/G = usr
-	var/target = G.z - 1
-	if(G.z <= 1)
-		target = SSmapping.z_list.len
-	G.z = target
+	G.down()
 
 /datum/hud/ghost/New(mob/owner)
 	..()
