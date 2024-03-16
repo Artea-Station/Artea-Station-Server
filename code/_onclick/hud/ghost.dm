@@ -46,12 +46,28 @@
 	G.register_pai()
 
 /atom/movable/screen/ghost/minigames_menu
-	name ="Minigames"
+	name = "Minigames"
 	icon_state = "minigames"
-	
+
 /atom/movable/screen/ghost/minigames_menu/Click()
 	var/mob/dead/observer/observer = usr
 	observer.open_minigames_menu()
+
+/atom/movable/screen/ghost/movez_positive
+	name = "Shift Upwards"
+	icon_state = "up"
+
+/atom/movable/screen/ghost/movez_positive/Click()
+	var/mob/dead/observer/G = usr
+	G.up()
+
+/atom/movable/screen/ghost/movez_negative
+	name = "Shift Downwards"
+	icon_state = "down"
+
+/atom/movable/screen/ghost/movez_negative/Click()
+	var/mob/dead/observer/G = usr
+	G.down()
 
 /datum/hud/ghost/New(mob/owner)
 	..()
@@ -84,6 +100,16 @@
 
 	using = new /atom/movable/screen/ghost/minigames_menu()
 	using.screen_loc = ui_ghost_minigames
+	using.hud = src
+	static_inventory += using
+
+	using = new /atom/movable/screen/ghost/movez_positive()
+	using.screen_loc = ui_ghost_movez
+	using.hud = src
+	static_inventory += using
+
+	using = new /atom/movable/screen/ghost/movez_negative()
+	using.screen_loc = ui_ghost_movez
 	using.hud = src
 	static_inventory += using
 

@@ -200,7 +200,8 @@
 #define ui_ghost_teleport "BOTTOM:6,CENTER:24"
 #define ui_ghost_pai "BOTTOM: 6, CENTER+1:24"
 #define ui_ghost_minigames "BOTTOM: 6, CENTER+2:24"
-#define ui_ghost_language_menu "BOTTOM: 22, CENTER+3:8"
+#define ui_ghost_movez "BOTTOM: 6, CENTER+3:24"
+#define ui_ghost_language_menu "BOTTOM: 22, CENTER+4:8"
 
 //Blobbernauts
 #define ui_blobbernaut_overmind_health "RIGHT-1:28,CENTER+0:19"
