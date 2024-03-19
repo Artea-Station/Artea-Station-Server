@@ -460,11 +460,12 @@
 /obj/machinery/door/firedoor{
 	dir = 8
 	},
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/airlock/access/all/pathfinders,
+/obj/machinery/door/airlock/pathfinders{
+	name = "maintenance access";
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/station/pathfinders/storage)
 "apR" = (
@@ -753,9 +754,11 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/medical/central)
 "awH" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/command/internal_affairs,
+/obj/machinery/door/airlock/command{
+	name = "maintenance access"
+	},
 /turf/open/floor/plating,
 /area/station/command/internal_affairs_office)
 "awM" = (
@@ -3606,6 +3609,7 @@
 "clX" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/bridge,
 /turf/open/floor/plating,
 /area/station/command/bridge)
 "cmX" = (
@@ -4424,6 +4428,7 @@
 	id = "captainshutter";
 	name = "Privacy Shutters"
 	},
+/obj/effect/mapping_helpers/paint_wall/bridge,
 /turf/open/floor/plating,
 /area/station/command/heads_quarters/captain)
 "cPB" = (
@@ -6210,6 +6215,7 @@
 /turf/open/floor/plating,
 /area/station/engineering/hallway)
 "dUc" = (
+/obj/effect/mapping_helpers/paint_wall/bridge,
 /turf/closed/wall,
 /area/station/command/internal_affairs_office)
 "dUh" = (
@@ -7637,6 +7643,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/command/eva,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/command/storage/eva)
 "eWs" = (
@@ -8274,6 +8281,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/pathfinders/greater)
 "fqp" = (
+/obj/effect/mapping_helpers/paint_wall/bridge,
 /turf/closed/wall/r_wall,
 /area/station/command/heads_quarters/captain)
 "fqy" = (
@@ -10153,11 +10161,12 @@
 /obj/machinery/door/firedoor{
 	dir = 8
 	},
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/airlock/access/all/pathfinders/leader,
+/obj/machinery/door/airlock/pathfinders{
+	name = "maintenance access";
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/station/pathfinders/lead_office)
 "gxk" = (
@@ -12525,11 +12534,12 @@
 /obj/machinery/door/firedoor{
 	dir = 8
 	},
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/airlock/access/all/pathfinders,
+/obj/machinery/door/airlock/pathfinders{
+	name = "maintenance access";
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/station/pathfinders/dock)
 "hRz" = (
@@ -13287,6 +13297,7 @@
 /obj/machinery/door/poddoor/shutters{
 	id = "firstmateshutters"
 	},
+/obj/effect/mapping_helpers/paint_wall/bridge,
 /turf/open/floor/plating,
 /area/station/command/heads_quarters/hop)
 "ina" = (
@@ -18800,6 +18811,10 @@
 /obj/item/radio/intercom/directional/north,
 /turf/open/floor/iron/dark/textured,
 /area/station/hallway/secondary/service)
+"lyI" = (
+/obj/effect/mapping_helpers/paint_wall/bridge,
+/turf/closed/wall,
+/area/station/commons/vacant_room/office)
 "lyK" = (
 /obj/machinery/mech_bay_recharge_port,
 /obj/effect/turf_decal/bot,
@@ -21502,6 +21517,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/damaged_window,
+/obj/effect/mapping_helpers/paint_wall/bridge,
 /turf/open/floor/plating,
 /area/station/command/bridge)
 "naJ" = (
@@ -23691,6 +23707,7 @@
 /turf/open/floor/iron/smooth,
 /area/station/commons/storage/cryo)
 "otF" = (
+/obj/effect/mapping_helpers/paint_wall/bridge,
 /turf/closed/wall/r_wall,
 /area/station/command/bridge)
 "otG" = (
@@ -25192,6 +25209,7 @@
 "pjT" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/bridge,
 /turf/open/floor/plating,
 /area/station/command/internal_affairs_office)
 "pjU" = (
@@ -27970,6 +27988,10 @@
 /obj/effect/spawner/random/trash/garbage,
 /turf/open/floor/iron/textured,
 /area/station/hallway/primary/central/aft)
+"qWX" = (
+/obj/effect/mapping_helpers/paint_wall/bridge,
+/turf/closed/wall,
+/area/station/maintenance/department/command)
 "qXa" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -30190,8 +30212,11 @@
 /turf/open/floor/iron/textured,
 /area/station/service/hydroponics)
 "smN" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/command{
+	name = "maintenance access"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/eva,
 /turf/open/floor/plating,
 /area/station/ai_monitored/command/storage/eva)
 "smV" = (
@@ -31610,6 +31635,7 @@
 "tjh" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/bridge,
 /turf/open/floor/plating,
 /area/station/command/heads_quarters/hop)
 "tjm" = (
@@ -34030,6 +34056,7 @@
 /turf/open/floor/iron/grimy,
 /area/station/commons/vacant_room/office)
 "uHU" = (
+/obj/effect/mapping_helpers/paint_wall/bridge,
 /turf/closed/wall/r_wall,
 /area/station/command/heads_quarters/hop)
 "uHV" = (
@@ -37238,6 +37265,7 @@
 	name = "E.V.A. Storage Shutters";
 	dir = 4
 	},
+/obj/effect/mapping_helpers/paint_wall/bridge,
 /turf/open/floor/plating,
 /area/station/ai_monitored/command/storage/eva)
 "wFk" = (
@@ -37915,6 +37943,7 @@
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/ce)
 "xaB" = (
+/obj/effect/mapping_helpers/paint_wall/bridge,
 /turf/closed/wall/r_wall,
 /area/station/ai_monitored/command/storage/eva)
 "xaF" = (
@@ -206601,11 +206630,11 @@ aKA
 uIj
 iCT
 jrC
-omS
-omS
-omS
-omS
-omS
+lyI
+lyI
+lyI
+lyI
+lyI
 fsv
 vXE
 aNJ
@@ -208665,7 +208694,7 @@ gDi
 wcg
 faY
 dUc
-aNJ
+qWX
 mNQ
 aIt
 aIt
@@ -209686,7 +209715,7 @@ xaB
 twe
 enz
 gSq
-aNJ
+qWX
 erE
 uJU
 nmk
