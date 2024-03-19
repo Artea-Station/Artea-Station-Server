@@ -5031,6 +5031,10 @@
 	},
 /turf/open/openspace,
 /area/station/maintenance/department/eva)
+"djn" = (
+/obj/effect/mapping_helpers/paint_wall/bridge,
+/turf/closed/wall,
+/area/station/commons/vacant_room/office)
 "djs" = (
 /obj/structure/dresser,
 /obj/effect/turf_decal/box/orange,
@@ -6465,7 +6469,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /obj/machinery/door/airlock/hydroponics{
-	name = s
+	name = "Hydroponics Backroom"
 	},
 /turf/open/floor/iron/dark/textured,
 /area/station/service/hydroponics)
@@ -18811,10 +18815,6 @@
 /obj/item/radio/intercom/directional/north,
 /turf/open/floor/iron/dark/textured,
 /area/station/hallway/secondary/service)
-"lyI" = (
-/obj/effect/mapping_helpers/paint_wall/bridge,
-/turf/closed/wall,
-/area/station/commons/vacant_room/office)
 "lyK" = (
 /obj/machinery/mech_bay_recharge_port,
 /obj/effect/turf_decal/bot,
@@ -22389,11 +22389,11 @@
 /area/station/service/hydroponics)
 "nEm" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/hydroponics{
-	name = "Hydroponics Backroom"
-	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
+/obj/machinery/door/airlock/hydroponics{
+	name = "Botany"
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/service/hydroponics)
 "nEy" = (
@@ -25634,6 +25634,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/plating,
 /area/station/maintenance/department/security/lower)
+"pyF" = (
+/obj/effect/mapping_helpers/paint_wall/bridge,
+/turf/closed/wall,
+/area/station/maintenance/department/command)
 "pzl" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/smartfridge,
@@ -27988,10 +27992,6 @@
 /obj/effect/spawner/random/trash/garbage,
 /turf/open/floor/iron/textured,
 /area/station/hallway/primary/central/aft)
-"qWX" = (
-/obj/effect/mapping_helpers/paint_wall/bridge,
-/turf/closed/wall,
-/area/station/maintenance/department/command)
 "qXa" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -34838,11 +34838,11 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /obj/machinery/door/airlock/hydroponics{
 	name = "Botany";
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /turf/open/floor/iron/dark/textured,
 /area/station/service/hydroponics)
 "vgt" = (
@@ -206630,11 +206630,11 @@ aKA
 uIj
 iCT
 jrC
-lyI
-lyI
-lyI
-lyI
-lyI
+djn
+djn
+djn
+djn
+djn
 fsv
 vXE
 aNJ
@@ -208694,7 +208694,7 @@ gDi
 wcg
 faY
 dUc
-qWX
+pyF
 mNQ
 aIt
 aIt
@@ -209715,7 +209715,7 @@ xaB
 twe
 enz
 gSq
-qWX
+pyF
 erE
 uJU
 nmk
