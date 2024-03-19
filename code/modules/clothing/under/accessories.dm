@@ -259,15 +259,18 @@
 
 /obj/item/clothing/accessory/medal/plasma/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/atmos_sensitive, mapload)
+	become_atmos_sensitive()
 
-/obj/item/clothing/accessory/medal/plasma/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
-	return exposed_temperature > 300
+/obj/item/clothing/accessory/medal/plasma/Destroy()
+	lose_atmos_sensitivity()
+	return ..()
 
 /obj/item/clothing/accessory/medal/plasma/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	atmos_spawn_air("plasma=20;TEMP=[exposed_temperature]")
-	visible_message(span_danger("\The [src] bursts into flame!"), span_userdanger("Your [src] bursts into flame!"))
-	qdel(src)
+	if(exposed_temperature > 300)
+		var/turf/turfloc = get_turf(src)
+		turfloc.atmos_spawn_air(GAS_PLASMA, 20, exposed_temperature)
+		visible_message(span_danger("\The [src] bursts into flame!"), span_userdanger("Your [src] bursts into flame!"))
+		qdel(src)
 
 /obj/item/clothing/accessory/medal/plasma/nobel_science
 	name = "nobel sciences award"

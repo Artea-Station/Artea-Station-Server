@@ -107,11 +107,11 @@
 	waiting_for_reward = TRUE
 	addtimer(CALLBACK(src, PROC_REF(TimedReward), user_turf), rand(2 SECONDS, 4 SECONDS))
 	do_sparks(3, TRUE, user_turf)
-	qdel(delivery_object)
+	QDEL_NULL(delivery_object)
 
 /datum/delivery_run_instance/proc/TimedReward(turf/position)
 	if(reward_cash)
-		var/split_cash = round(SSeconomy.department_accounts.len / reward_cash)
+		var/split_cash = round(reward_cash / SSeconomy.department_accounts.len)
 		for(var/datum/bank_account/department_account as anything in SSeconomy.generated_accounts)
 			department_account.adjust_money(split_cash, "DELIVERY: [fluff_name]")
 	if(reward_item_path)

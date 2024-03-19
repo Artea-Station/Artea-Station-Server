@@ -3,13 +3,9 @@
 /datum/sm_delam/cascade/can_select(obj/machinery/power/supermatter_crystal/sm)
 	if(!sm.is_main_engine)
 		return FALSE
-	var/total_moles = sm.absorbed_gasmix.total_moles()
+	var/total_moles = sm.absorbed_gasmix.total_moles
 	if(total_moles < MOLE_PENALTY_THRESHOLD * sm.absorption_ratio)
 		return FALSE
-	for (var/gas_path in list(/datum/gas/antinoblium, /datum/gas/hypernoblium))
-		var/percent = sm.absorbed_gasmix.gases[gas_path]?[MOLES] / total_moles
-		if(!percent || percent < 0.4)
-			return FALSE
 	return TRUE
 
 /datum/sm_delam/cascade/delam_progress(obj/machinery/power/supermatter_crystal/sm)

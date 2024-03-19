@@ -14,8 +14,11 @@
 	name = "dual-port air vent"
 	desc = "Has a valve and pump attached to it. There are two ports."
 
-	hide = TRUE
+	use_power = IDLE_POWER_USE
+	power_rating = 30000
 
+	hide = TRUE
+	initial_volume = ATMOS_DEFAULT_VOLUME_PUMP
 	///Variable for radio frequency
 	var/frequency = 0
 	///Variable for radio id
@@ -59,8 +62,8 @@
 	var/datum/gas_mixture/air1 = airs[1]
 	var/datum/gas_mixture/air2 = airs[2]
 
-	var/datum/gas_mixture/environment = loc.return_air()
-	var/environment_pressure = environment.return_pressure()
+	var/datum/gas_mixture/environment = loc.unsafe_return_air() //We SAFE_ZAS_UPDATE later!
+	var/environment_pressure = environment.returnPressure()
 
 	if(pump_direction) //input -> external
 		var/pressure_delta = 10000
@@ -68,23 +71,21 @@
 		if(pressure_checks&EXT_BOUND)
 			pressure_delta = min(pressure_delta, (external_pressure_bound - environment_pressure))
 		if(pressure_checks&INPUT_MIN)
-			pressure_delta = min(pressure_delta, (air1.return_pressure() - input_pressure_min))
+			pressure_delta = min(pressure_delta, (air1.returnPressure() - input_pressure_min))
 
 		if(pressure_delta <= 0)
 			return
 		if(air1.temperature <= 0)
 			return
-		var/transfer_moles = (pressure_delta*environment.volume)/(air1.temperature * R_IDEAL_GAS_EQUATION)
-
-		var/datum/gas_mixture/removed = air1.remove(transfer_moles)
-		//Removed can be null if there is no atmosphere in air1
-		if(!removed)
+		if(!air1.total_moles)
 			return
 
-		loc.assume_air(removed)
-
-		var/datum/pipeline/parent1 = parents[1]
-		parent1.update = TRUE
+		var/transfer_moles = calculate_transfer_moles(air1, environment, pressure_delta)
+		var/draw = pump_gas(air1, environment, transfer_moles, power_rating)
+		if(draw > -1)
+			var/datum/pipeline/parent1 = parents[1]
+			parent1.update = TRUE
+			ATMOS_USE_POWER(draw)
 
 	else //external -> output
 		var/pressure_delta = 10000
@@ -92,25 +93,26 @@
 		if(pressure_checks&EXT_BOUND)
 			pressure_delta = min(pressure_delta, (environment_pressure - external_pressure_bound))
 		if(pressure_checks&INPUT_MIN)
-			pressure_delta = min(pressure_delta, (output_pressure_max - air2.return_pressure()))
+			pressure_delta = min(pressure_delta, (output_pressure_max - air2.returnPressure()))
 
 		if(pressure_delta <= 0)
 			return
 		if(environment.temperature <= 0)
 			return
-		var/transfer_moles = (pressure_delta*air2.volume)/(environment.temperature * R_IDEAL_GAS_EQUATION)
-
-		var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
-		//removed can be null if there is no air in the location
-		if(!removed)
+		if(!environment.total_moles)
 			return
+		var/transfer_moles = calculate_transfer_moles(environment, air2, pressure_delta, parents[2]?.combined_volume || 0)
 
-		air2.merge(removed)
+		var/draw = pump_gas(environment, air2, transfer_moles, power_rating)
+		if(draw > -1)
+			var/datum/pipeline/parent2 = parents[2]
+			parent2.update = TRUE
+			if(draw > 0)
+				ATMOS_USE_POWER(draw)
 
-		var/datum/pipeline/parent2 = parents[2]
-		parent2.update = TRUE
+	SAFE_ZAS_UPDATE(loc)
 
-	//Radio remote control
+//Radio remote control
 
 /**
  * Called in atmos_init(), used to change or remove the radio frequency from the component
@@ -174,13 +176,13 @@
 		pump_direction = 1
 
 	if("set_input_pressure" in signal.data)
-		input_pressure_min = clamp(text2num(signal.data["set_input_pressure"]),0,ONE_ATMOSPHERE*50)
+		input_pressure_min = clamp(text2num(signal.data["set_input_pressure"]),0,MAX_PUMP_PRESSURE)
 
 	if("set_output_pressure" in signal.data)
-		output_pressure_max = clamp(text2num(signal.data["set_output_pressure"]),0,ONE_ATMOSPHERE*50)
+		output_pressure_max = clamp(text2num(signal.data["set_output_pressure"]),0,MAX_PUMP_PRESSURE)
 
 	if("set_external_pressure" in signal.data)
-		external_pressure_bound = clamp(text2num(signal.data["set_external_pressure"]),0,ONE_ATMOSPHERE*50)
+		external_pressure_bound = clamp(text2num(signal.data["set_external_pressure"]),0,MAX_PUMP_PRESSURE)
 
 	addtimer(CALLBACK(src, PROC_REF(broadcast_status)), 2)
 
@@ -189,13 +191,8 @@
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume
 	name = "large dual-port air vent"
-
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/New()
-	..()
-	var/datum/gas_mixture/air1 = airs[1]
-	var/datum/gas_mixture/air2 = airs[2]
-	air1.volume = 1000
-	air2.volume = 1000
+	initial_volume = 1000
+	power_rating = 45000
 
 // Mapping
 

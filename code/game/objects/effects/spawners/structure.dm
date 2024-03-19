@@ -20,11 +20,12 @@ again.
 //normal windows
 
 /obj/effect/spawner/structure/window
-	icon = 'icons/obj/structures_spawners.dmi'
-	icon_state = "window_spawner"
+	icon = 'icons/obj/smooth_structures/window.dmi'
+	icon_state = "window-0"
 	name = "window spawner"
 	spawn_list = list(/obj/structure/low_wall, /obj/structure/window/fulltile)
 	dir = SOUTH
+	color = "#AFD3E6"
 
 /obj/effect/spawner/structure/window/Initialize(mapload)
 	. = ..()
@@ -38,6 +39,7 @@ again.
 
 
 /obj/effect/spawner/structure/window/hollow
+	icon = 'icons/obj/structures_spawners.dmi'
 	name = "hollow window spawner"
 	icon_state = "hwindow_spawner_full"
 	spawn_list = list(/obj/structure/grille, /obj/structure/window, /obj/structure/window/spawner/north, /obj/structure/window/spawner/east, /obj/structure/window/spawner/west)
@@ -94,9 +96,10 @@ again.
 //reinforced
 
 /obj/effect/spawner/structure/window/reinforced
+	icon = 'icons/obj/smooth_structures/window_reinforced.dmi'
 	name = "reinforced window spawner"
-	icon_state = "rwindow_spawner"
 	spawn_list = list(/obj/structure/grille, /obj/structure/low_wall, /obj/structure/window/reinforced/fulltile)
+	color = "#AFD3E6"
 
 /obj/effect/spawner/structure/window/reinforced/no_grille
 	spawn_list = list(/obj/structure/low_wall, /obj/structure/window/reinforced/fulltile)
@@ -164,8 +167,8 @@ again.
 
 /obj/effect/spawner/structure/window/reinforced/tinted
 	name = "tinted reinforced window spawner"
-	icon_state = "twindow_spawner"
 	spawn_list = list(/obj/structure/low_wall, /obj/structure/window/reinforced/tinted/fulltile)
+	color = COLOR_ALMOST_BLACK
 
 /obj/effect/spawner/structure/window/reinforced/tinted/grille
 	name = "tinted reinforced window with grille spawner"
@@ -174,6 +177,7 @@ again.
 //bronze
 
 /obj/effect/spawner/structure/window/bronze
+	icon = 'icons/obj/structures_spawners.dmi'
 	name = "bronze window spawner"
 	icon_state = "bronzewindow_spawner"
 	spawn_list = list(/obj/structure/grille, /obj/structure/window/bronze/fulltile)
@@ -183,13 +187,14 @@ again.
 
 /obj/effect/spawner/structure/window/reinforced/shuttle
 	name = "shuttle window spawner"
-	icon_state = "swindow_spawner"
 	spawn_list = list(/obj/structure/low_wall/titanium, /obj/structure/window/reinforced/shuttle)
+	color = "#cbdee9"
 
 
 //plastitanium window
 
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium
+	icon = 'icons/obj/structures_spawners.dmi'
 	name = "plastitanium window spawner"
 	icon_state = "plastitaniumwindow_spawner"
 	spawn_list = list(/obj/structure/low_wall/plastitanium, /obj/structure/window/reinforced/plasma/plastitanium)
@@ -198,6 +203,7 @@ again.
 //ice window
 
 /obj/effect/spawner/structure/window/ice
+	icon = 'icons/obj/structures_spawners.dmi'
 	name = "ice window spawner"
 	icon_state = "icewindow_spawner"
 	spawn_list = list(/obj/structure/low_wall, /obj/structure/window/reinforced/fulltile/ice)
@@ -206,6 +212,7 @@ again.
 //survival pod window
 
 /obj/effect/spawner/structure/window/survival_pod
+	icon = 'icons/obj/structures_spawners.dmi'
 	name = "pod window spawner"
 	icon_state = "podwindow_spawner"
 	spawn_list = list(/obj/structure/grille, /obj/structure/window/reinforced/shuttle/survival_pod)
@@ -268,9 +275,10 @@ again.
 //plasma windows
 
 /obj/effect/spawner/structure/window/plasma
+	icon = 'icons/obj/smooth_structures/window.dmi'
 	name = "plasma window spawner"
-	icon_state = "pwindow_spawner"
 	spawn_list = list(/obj/structure/low_wall, /obj/structure/window/plasma/fulltile)
+	color = "#c162ec"
 
 /obj/effect/spawner/structure/window/hollow/plasma
 	name = "hollow plasma window spawner"
@@ -329,8 +337,8 @@ again.
 //reinforced plasma
 
 /obj/effect/spawner/structure/window/reinforced/plasma
+	icon = 'icons/obj/smooth_structures/window_reinforced.dmi'
 	name = "reinforced plasma window spawner"
-	icon_state = "prwindow_spawner"
 	spawn_list = list(/obj/structure/grille, /obj/structure/low_wall, /obj/structure/window/reinforced/plasma/fulltile)
 
 /obj/effect/spawner/structure/window/hollow/reinforced/plasma

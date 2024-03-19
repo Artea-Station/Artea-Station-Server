@@ -1,7 +1,7 @@
 import { toFixed } from 'common/math';
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, LabeledList, Section } from '../components';
+import { Box, Button, Flex, Knob, LabeledControls, LabeledList, RoundGauge, Section } from '../components';
 import { Window } from '../layouts';
 import { Scrubber, Vent } from './common/AtmosControls';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
@@ -13,6 +13,7 @@ export const AirAlarm = (props, context) => {
     <Window width={440} height={650}>
       <Window.Content scrollable>
         <InterfaceLockNoticeBox />
+        <ThermostatControl />
         <AirAlarmStatus />
         {!locked && <AirAlarmControl />}
       </Window.Content>
@@ -83,6 +84,72 @@ const AirAlarmStatus = (props, context) => {
   );
 };
 
+const ThermostatControl = (props, context) => {
+  const { act, data } = useBackend(context);
+  const entries = (data.environment_data || []).filter(
+    (entry) => entry.value >= 0.01
+  );
+  return (
+    <Section title="Thermostat">
+      <Flex>
+        <Flex.Item>
+          <LabeledControls>
+            <LabeledControls.Item label="Control">
+              <Box position="relative" mr={2} ml={2} mt={1}>
+                <Knob
+                  size={1.25}
+                  color={'green'}
+                  value={data.thermostat.target}
+                  unit="°C"
+                  minValue={20 - data.thermostat.deviation}
+                  maxValue={20 + data.thermostat.deviation}
+                  step={1}
+                  stepPixelSize={0.75}
+                  onDrag={(e, value) =>
+                    act('target', {
+                      target: value,
+                    })
+                  }
+                />
+                <Button
+                  fluid
+                  position="absolute"
+                  top="16px"
+                  right="-20px"
+                  color="transparent"
+                  icon="undo"
+                  onClick={() =>
+                    act('target', {
+                      target: '20',
+                    })
+                  }
+                />
+              </Box>
+            </LabeledControls.Item>
+          </LabeledControls>
+        </Flex.Item>
+        <Flex.Item>
+          <LabeledControls ml={1}>
+            <LabeledControls.Item minWidth="66px" label="Target (°C)">
+              <RoundGauge
+                size={1.75}
+                value={toFixed(data.thermostat.target, 0)}
+                minValue={20 - data.thermostat.deviation}
+                maxValue={20 + data.thermostat.deviation}
+                ranges={{
+                  'good': [20 - data.thermostat.deviation, 10],
+                  'average': [11, 29],
+                  'bad': [30, 20 + data.thermostat.deviation],
+                }}
+              />
+            </LabeledControls.Item>
+          </LabeledControls>
+        </Flex.Item>
+      </Flex>
+    </Section>
+  );
+};
+
 const AIR_ALARM_ROUTES = {
   home: {
     title: 'Air Controls',
@@ -133,9 +200,20 @@ const AirAlarmControl = (props, context) => {
 const AirAlarmControlHome = (props, context) => {
   const { act, data } = useBackend(context);
   const [screen, setScreen] = useLocalState(context, 'screen');
-  const { mode, atmos_alarm } = data;
+  const { mode, atmos_alarm, fire_alarm } = data;
   return (
     <>
+      <Button
+        icon="exclamation-triangle"
+        color={fire_alarm ? 'danger' : 'caution'}
+        content="Fire Alarm"
+        onClick={() =>
+          act('fire_alarm', {
+            fire_alarm: fire_alarm === 1 ? 0 : 1,
+          })
+        }
+      />
+      <Box mt={1} />
       <Button
         icon={atmos_alarm ? 'exclamation-triangle' : 'exclamation'}
         color={atmos_alarm && 'caution'}

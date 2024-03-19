@@ -9,6 +9,10 @@
 #define PLANE_SPACE -95
 #define PLANE_SPACE_PARALLAX -90
 
+#define HEAT_PLANE -12
+#define HEAT_RENDER_TARGET "*HEAT_RENDER_TARGET"
+#define HEAT_COMPOSITE_RENDER_TARGET "*HEAT_RENDER_TARGET_C"
+
 #define GRAVITY_PULSE_PLANE -12
 #define GRAVITY_PULSE_RENDER_TARGET "*GRAVPULSE_RENDER_TARGET"
 
@@ -105,6 +109,7 @@
 #define ABOVE_ALL_MOB_LAYER 4.7
 
 //#define FLY_LAYER 5 //For easy recordkeeping; this is a byond define
+#define GAS_LAYER 5
 #define GASFIRE_LAYER 5.05
 #define RIPPLE_LAYER 5.1
 

@@ -90,10 +90,10 @@
 		set_greyscale(colors=colors_to_use)
 
 	if(panel_open)
-		icon_state = "thermo-open"
+		icon_state = "thermo_base-o"
 		return ..()
 	if(on && is_operational)
-		icon_state = "thermo_1"
+		icon_state = "thermo_base_1"
 		return ..()
 	icon_state = "thermo_base"
 	return ..()
@@ -140,10 +140,10 @@
 	// The gas we want to cool/heat
 	var/datum/gas_mixture/port = airs[1]
 
-	if(!port.total_moles()) // Nothing to cool? go home lad
+	if(!port.total_moles) // Nothing to cool? go home lad
 		return
 
-	var/port_capacity = port.heat_capacity()
+	var/port_capacity = port.getHeatCapacity()
 
 	// The difference between target and what we need to heat/cool. Positive if heating, negative if cooling.
 	var/temperature_target_delta = target_temperature - port.temperature
@@ -168,7 +168,7 @@
 	if(!anchored)
 		to_chat(user, span_notice("Anchor [src] first!"))
 		return TOOL_ACT_TOOLTYPE_SUCCESS
-	if(default_deconstruction_screwdriver(user, "thermo-open", "thermo-0", tool))
+	if(default_deconstruction_screwdriver(user, "thermo_base-o", "thermo_base", tool))
 		change_pipe_connection(panel_open)
 		return TOOL_ACT_TOOLTYPE_SUCCESS
 
@@ -211,6 +211,30 @@
 			return TRUE
 	return FALSE
 
+/obj/machinery/atmospherics/components/unary/thermomachine/proc/change_pipe_connection(disconnect)
+	if(disconnect)
+		disconnect_pipes()
+		return
+	connect_pipes()
+
+/obj/machinery/atmospherics/components/unary/thermomachine/proc/connect_pipes()
+	var/obj/machinery/atmospherics/node1 = nodes[1]
+	atmos_init()
+	node1 = nodes[1]
+	if(node1)
+		node1.atmos_init()
+		node1.add_member(src)
+	SSairmachines.add_to_rebuild_queue(src)
+
+/obj/machinery/atmospherics/components/unary/thermomachine/proc/disconnect_pipes()
+	var/obj/machinery/atmospherics/node1 = nodes[1]
+	if(node1)
+		if(src in node1.nodes) //Only if it's actually connected. On-pipe version would is one-sided.
+			node1.disconnect(src)
+		nodes[1] = null
+	if(parents[1])
+		nullify_pipenet(parents[1])
+
 /obj/machinery/atmospherics/components/unary/thermomachine/wrench_act_secondary(mob/living/user, obj/item/tool)
 	if(!panel_open || check_pipe_on_turf())
 		return
@@ -242,7 +266,7 @@
 
 	var/datum/gas_mixture/port = airs[1]
 	data["temperature"] = port.temperature
-	data["pressure"] = port.return_pressure()
+	data["pressure"] = port.returnPressure()
 	return data
 
 /obj/machinery/atmospherics/components/unary/thermomachine/ui_act(action, params)
@@ -312,5 +336,32 @@
 /obj/machinery/atmospherics/components/unary/thermomachine/heater/on
 	on = TRUE
 	icon_state = "thermo_base_1"
+
+/obj/machinery/atmospherics/components/unary/thermomachine/magic
+	name = "Magic Thermomachine"
+
+
+/// Performs heat calculation for the freezer.
+/// We just equalize the gasmix with an object at temp = var/target_temperature and heat cap = var/heat_capacity
+/obj/machinery/atmospherics/components/unary/thermomachine/process_atmos()
+	if(!on)
+		return
+
+	var/turf/local_turf = get_turf(src)
+
+	if(!is_operational || !local_turf)
+		on = FALSE
+		update_appearance()
+		return
+
+	// The gas we want to cool/heat
+	var/datum/gas_mixture/port = airs[1]
+
+	if(!port.total_moles) // Nothing to cool? go home lad
+		return
+
+	port.temperature = target_temperature
+
+	update_parents()
 
 #undef THERMOMACHINE_POWER_CONVERSION

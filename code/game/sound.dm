@@ -118,11 +118,11 @@
 		if(pressure_affected)
 			//Atmosphere affects sound
 			var/pressure_factor = 1
-			var/datum/gas_mixture/hearer_env = turf_loc.return_air()
-			var/datum/gas_mixture/source_env = turf_source.return_air()
+			var/datum/gas_mixture/hearer_env = turf_loc.unsafe_return_air()
+			var/datum/gas_mixture/source_env = turf_source.unsafe_return_air()
 
 			if(hearer_env && source_env)
-				var/pressure = min(hearer_env.return_pressure(), source_env.return_pressure())
+				var/pressure = min(hearer_env.returnPressure(), source_env.returnPressure())
 				if(pressure < ONE_ATMOSPHERE)
 					pressure_factor = max((pressure - SOUND_MINIMUM_PRESSURE)/(ONE_ATMOSPHERE - SOUND_MINIMUM_PRESSURE), 0)
 			else //space
@@ -519,6 +519,13 @@
 				soundin = pick(
 					'sound/items/handling/generic_drop1.ogg',
 					'sound/items/handling/generic_drop2.ogg',
+				)
+			if(SFX_GLASS_CRACK)
+				soundin = pick(
+					'sound/effects/atmospherics/glass_crack1.ogg',
+					'sound/effects/atmospherics/glass_crack2.ogg',
+					'sound/effects/atmospherics/glass_crack3.ogg',
+					'sound/effects/atmospherics/glass_crack4.ogg',
 				)
 	return soundin
 

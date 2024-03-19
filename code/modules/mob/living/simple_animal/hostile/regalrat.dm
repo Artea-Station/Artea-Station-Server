@@ -119,9 +119,9 @@
 
 /mob/living/simple_animal/hostile/regalrat/handle_environment(datum/gas_mixture/environment)
 	. = ..()
-	if(stat == DEAD || !environment || !environment.gases[/datum/gas/miasma])
+	if(stat == DEAD || !environment || !environment.getGroupGas(GAS_METHANE))
 		return
-	var/miasma_percentage = environment.gases[/datum/gas/miasma][MOLES] / environment.total_moles()
+	var/miasma_percentage = environment.gas[GAS_METHANE] / environment.total_moles
 	if(miasma_percentage>=0.25)
 		heal_bodypart_damage(1)
 
@@ -217,7 +217,7 @@
 
 /datum/action/cooldown/domain/proc/domain()
 	var/turf/T = get_turf(owner)
-	T.atmos_spawn_air("miasma=4;TEMP=[T20C]")
+	T.atmos_spawn_air(GAS_AMMONIA, 4, T20C)
 	switch (rand(1,10))
 		if (8)
 			new /obj/effect/decal/cleanable/vomit(T)

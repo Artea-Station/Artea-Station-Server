@@ -48,11 +48,6 @@
 	total_positions = 2
 	spawn_positions = 2
 
-/datum/job/pathfinder/bearcat
-	faction = FACTION_BEARCAT
-	total_positions = 2
-	spawn_positions = 2
-
 /datum/job/cook/bearcat
 	faction = FACTION_BEARCAT
 	total_positions = 1

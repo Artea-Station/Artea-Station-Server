@@ -78,13 +78,6 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/atmospherics/components/binary/tank_compressor/default_change_direction_wrench(mob/user, obj/item/I)
-	if(!..())
-		return FALSE
-	set_init_directions()
-	update_appearance()
-	return TRUE
-
 /obj/machinery/atmospherics/components/binary/circulator/get_node_connects()
 	return list(turn(dir, 180), dir) // airs[2] is input which is facing dir, airs[1] is output which is facing the other side of dir
 
@@ -104,25 +97,53 @@
 		return FALSE
 	return TRUE
 
+/obj/machinery/atmospherics/components/binary/tank_compressor/default_change_direction_wrench(mob/user, obj/item/wrench)
+	. = ..()
+	if(!.)
+		return
+
+	// Disconnect our partner.
+	if(nodes[1])
+		nodes[1].disconnect(src)
+		nodes[1] = null
+		if(parents[1])
+			nullify_pipenet(parents[1])
+	if(nodes[2])
+		nodes[2].disconnect(src)
+		nodes[2] = null
+		if(parents[2])
+			nullify_pipenet(parents[2])
+	set_init_directions()
+	// Connect to a new one.
+	atmos_init()
+	if(nodes[1])
+		nodes[1].atmos_init()
+		nodes[1].add_member(src)
+	if(nodes[2])
+		nodes[2].atmos_init()
+		nodes[2].add_member(src)
+	SSairmachines.add_to_rebuild_queue(src)
+	update_appearance()
+
 /// Glorified volume pump.
 /obj/machinery/atmospherics/components/binary/tank_compressor/process_atmos()
 	var/datum/gas_mixture/input_air = airs[2]
-	if(!input_air?.total_moles() || !active || !transfer_rate || !inserted_tank)
+	if(!input_air?.total_moles || !active || !transfer_rate || !inserted_tank)
 		return
 
 	var/datum/gas_mixture/tank_air = inserted_tank.return_air()
 	if(!tank_air)
 		return
 
-	if(input_air.return_pressure() < 0.01 || tank_air.return_pressure() > TANK_COMPRESSOR_PRESSURE_LIMIT)
+	if(input_air.returnPressure() < 0.01 || tank_air.returnPressure() > TANK_COMPRESSOR_PRESSURE_LIMIT)
 		return
 
 	/// Prevent pumping if tank is taking damage but still below pressure limit. Here to prevent exploiting the buffer system.
-	if((inserted_tank.leaking) && (tank_air.return_pressure() <= TANK_LEAK_PRESSURE))
+	if((inserted_tank.leaking) && (tank_air.returnPressure() <= TANK_LEAK_PRESSURE))
 		active = FALSE
 		return
 
-	var/datum/gas_mixture/removed = input_air.remove_ratio(transfer_rate / input_air.volume)
+	var/datum/gas_mixture/removed = input_air.removeRatio(transfer_rate / input_air.volume)
 	if(!removed)
 		return
 
@@ -142,7 +163,7 @@
 		return
 	flush_buffer()
 	var/datum/gas_mixture/tank_air = inserted_tank.return_air()
-	last_recorded_pressure = tank_air.return_pressure()
+	last_recorded_pressure = tank_air.returnPressure()
 	active = FALSE
 	return
 
@@ -158,13 +179,13 @@
  * Mole requirements in experiments are tracked by buffer data.
  */
 /obj/machinery/atmospherics/components/binary/tank_compressor/proc/flush_buffer()
-	if(!leaked_gas_buffer.total_moles())
+	if(!leaked_gas_buffer.total_moles)
 		return
-	if(leaked_gas_buffer.total_moles() > SIGNIFICANT_AMOUNT_OF_MOLES)
+	if(leaked_gas_buffer.total_moles > SIGNIFICANT_AMOUNT_OF_MOLES)
 		record_data()
 	else
 		say("Buffer data discarded. Required moles for storage: [SIGNIFICANT_AMOUNT_OF_MOLES] moles.")
-	var/datum/gas_mixture/removed = leaked_gas_buffer.remove_ratio(1)
+	var/datum/gas_mixture/removed = leaked_gas_buffer.removeRatio(1)
 	airs[1].merge(removed)
 	say("Gas stored in buffer flushed to output port. Compressor ready to start the next experiment.")
 
@@ -174,8 +195,8 @@
 	new_record.name = "Log Recording #[record_number]"
 	new_record.experiment_source = inserted_tank.name
 	new_record.timestamp = station_time_timestamp()
-	for(var/gas_path in leaked_gas_buffer.gases)
-		new_record.gas_data[gas_path] = leaked_gas_buffer.gases[gas_path][MOLES]
+	for(var/gas_path in leaked_gas_buffer.gas)
+		new_record.gas_data[gas_path] = leaked_gas_buffer.gas[gas_path]
 
 	compressor_record += new_record
 	record_number += 1
@@ -211,7 +232,7 @@
 	if(!inserted_tank)
 		return FALSE
 	var/datum/gas_mixture/tank_air = inserted_tank.return_air()
-	if(tank_air.return_pressure() >= (PUMP_MAX_PRESSURE + ONE_ATMOSPHERE))
+	if(!tank_air.returnPressure() >= PUMP_MAX_PRESSURE)
 		return FALSE
 	flush_buffer()
 	if(user)
@@ -317,7 +338,7 @@
 	var/list/data = list()
 	data["tankPresent"] = inserted_tank ? TRUE : FALSE
 	var/datum/gas_mixture/tank_air = inserted_tank?.return_air()
-	data["tankPressure"] = tank_air?.return_pressure()
+	data["tankPressure"] = tank_air?.returnPressure()
 	data["leaking"] = inserted_tank?.leaking
 
 	data["active"] = active
@@ -340,7 +361,6 @@
 			"gases" = list()
 		)
 		for (var/path in record.gas_data)
-			var/datum/gas/gas_path = path
-			single_record_data["gases"] += list(initial(gas_path.name) = record.gas_data[gas_path])
+			single_record_data["gases"] += list(path = record.gas_data[path])
 		data["records"] += list(single_record_data)
 	return data

@@ -15,16 +15,14 @@
 
 	var/area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED
 
-	///Do we have an active fire alarm?
-	var/fire = FALSE
-	///A var for whether the area allows for detecting fires/etc. Disabled or enabled at a fire alarm, checked by fire locks.
+	///A var for whether the area allows for detecting fires/etc. Disabled or enabled at a fire alarm.
 	var/fire_detect = TRUE
-	///A list of all fire locks in this area. Used by fire alarm panels when resetting fire locks or activating all in an area
+	///A list of all fire locks in this area and on the border of this area.
 	var/list/firedoors
-	///A list of firelocks currently active. Used by fire alarms when setting their icons.
-	var/list/active_firelocks
-	///A list of all fire alarms in this area. Used by fire locks and burglar alarms to tell the fire alarm to change its icon.
+	///A list of all fire alarms in this area OR ADJACENT TO IT
 	var/list/firealarms
+	///A list of all air alarms in this area
+	var/list/airalarms
 	///Alarm type to count of sources. Not usable for ^ because we handle fires differently
 	var/list/active_alarms = list()
 	///List of all lights in our area
@@ -162,7 +160,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if (area_flags & UNIQUE_AREA)
 		GLOB.areas_by_type[type] = src
 	power_usage = new /list(AREA_USAGE_LEN) // Some atoms would like to use power in Initialize()
-	alarm_manager = new(src) // just in case
+	alarm_manager = new(src) //Just in case. Apparently.
 	return ..()
 
 /*
@@ -281,22 +279,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if (area_flags & NO_ALERTS)
 		return
 	//Trigger alarm effect
-	set_fire_effect(TRUE)
+	communicate_fire_alert(FIRE_RAISED_GENERIC)
 	//Lockdown airlocks
 	for(var/obj/machinery/door/door in src)
 		close_and_lock_door(door)
-
-
-/**
- * Set the fire alarm visual affects in an area
- *
- * Allows interested parties (lights and fire alarms) to react
- */
-/area/proc/set_fire_effect(new_fire)
-	if(new_fire == fire)
-		return
-	fire = new_fire
-	SEND_SIGNAL(src, COMSIG_AREA_FIRE_CHANGED, fire)
 
 /**
  * Update the icon state of the area
@@ -515,3 +501,11 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /// Called when a living mob that spawned here, joining the round, receives the player client.
 /area/proc/on_joining_game(mob/living/boarder)
 	return
+
+///Called by airalarms and firealarms to communicate the status of the area to relevant machines
+/area/proc/communicate_fire_alert(code)
+	for(var/obj/machinery/light/L as anything in lights)
+		L.update()
+
+	for(var/datum/listener in airalarms + firealarms + firedoors)
+		SEND_SIGNAL(listener, COMSIG_FIRE_ALERT, code,)

@@ -12,8 +12,8 @@
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
 	max_integrity = 200
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 0, FIRE = 50, ACID = 50)
-	can_atmos_pass = ATMOS_PASS_DENSITY
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, FIRE = 50, ACID = 50)
+	can_atmos_pass = CANPASS_DENSITY
 	rad_insulation = RAD_MEDIUM_INSULATION
 	material_flags = MATERIAL_EFFECTS
 	material_modifier = 0.25
@@ -33,18 +33,15 @@
 	var/obj/item/stack/initialized_mineral = new sheetType // Okay this kinda sucks.
 	set_custom_materials(initialized_mineral.mats_per_unit, sheetAmount)
 	qdel(initialized_mineral)
-	air_update_turf(TRUE, TRUE)
+	//air_update_turf(TRUE, TRUE)
 
 /obj/structure/mineral_door/Destroy()
-	if(!door_opened)
-		air_update_turf(TRUE, FALSE)
 	. = ..()
+	zas_update_loc()
 
 /obj/structure/mineral_door/Move()
-	var/turf/T = loc
 	. = ..()
-	if(!door_opened)
-		move_update_air(T)
+	zas_update_loc()
 
 /obj/structure/mineral_door/Bumped(atom/movable/AM)
 	..()
@@ -102,7 +99,7 @@
 	set_density(FALSE)
 	door_opened = TRUE
 	layer = OPEN_DOOR_LAYER
-	air_update_turf(TRUE, FALSE)
+	zas_update_loc()
 	update_appearance()
 	isSwitchingStates = FALSE
 
@@ -123,7 +120,7 @@
 	set_opacity(TRUE)
 	door_opened = FALSE
 	layer = initial(layer)
-	air_update_turf(TRUE, TRUE)
+	zas_update_loc()
 	update_appearance()
 	isSwitchingStates = FALSE
 
@@ -142,7 +139,7 @@
 /obj/structure/mineral_door/set_anchored(anchorvalue) //called in default_unfasten_wrench() chain
 	. = ..()
 	set_opacity(anchored ? !door_opened : FALSE)
-	air_update_turf(TRUE, anchorvalue)
+	//air_update_turf(TRUE, anchorvalue)
 
 /obj/structure/mineral_door/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()

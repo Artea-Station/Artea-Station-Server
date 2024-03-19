@@ -610,7 +610,6 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 15000)
 	discount_experiments = list(
 		/datum/experiment/scanning/random/material/medium/one = 4000,
-		/datum/experiment/ordnance/gaseous/bz = 10000,
 	)
 
 /datum/techweb_node/anomaly

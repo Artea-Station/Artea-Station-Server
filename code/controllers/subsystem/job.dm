@@ -9,6 +9,8 @@ SUBSYSTEM_DEF(job)
 	var/list/datum/job/joinable_occupations = list()
 	/// Dictionary of all jobs, keys are titles.
 	var/list/name_occupations = list()
+	/// Dictionary of all jobs, keys are titles with factions (faction_title).
+	var/list/name_faction_occupations = list()
 	/// Dictionary of all jobs, keys are types.
 	var/list/datum/job/type_occupations = list()
 
@@ -141,6 +143,7 @@ SUBSYSTEM_DEF(job)
 			GLOB.nonhuman_positions[job.title] = TRUE
 
 		name_occupations[job.title] = job
+		name_faction_occupations["[job.faction]_[job.title]"] = job
 		type_occupations[job_type] = job
 		if(job.job_flags & JOB_NEW_PLAYER_JOINABLE && job.faction == faction)
 			new_joinable_occupations += job

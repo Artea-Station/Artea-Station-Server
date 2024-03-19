@@ -20,6 +20,7 @@
 		/datum/computer_file/program/power_monitor,
 		/datum/computer_file/program/alarm_monitor,
 		/datum/computer_file/program/supermatter_monitor,
+		/datum/computer_file/program/nuclear_monitor,
 	)
 
 // ===== RESEARCH CONSOLE =====

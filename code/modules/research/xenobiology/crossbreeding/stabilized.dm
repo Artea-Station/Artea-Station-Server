@@ -58,7 +58,7 @@ Stabilized extracts:
 		var/datum/status_effect/stabilized/S = H.apply_status_effect(effectpath)
 		owner = H
 		S.linked_extract = src
-		STOP_PROCESSING(SSobj,src)
+		return PROCESS_KILL
 
 
 

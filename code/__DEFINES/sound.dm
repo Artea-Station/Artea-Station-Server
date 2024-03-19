@@ -7,6 +7,7 @@
 #define CHANNEL_AMBIENCE 1019
 #define CHANNEL_BUZZ 1018
 #define CHANNEL_TRAITOR 1017
+#define CHANNEL_REACTOR_ALERT 1016 // Is that radiation I hear?
 
 ///Default range of a sound.
 #define SOUND_RANGE 17
@@ -35,7 +36,7 @@
 
 #define MAX_INSTRUMENT_CHANNELS (128 * 6)
 
-#define SOUND_MINIMUM_PRESSURE 10
+//#define SOUND_MINIMUM_PRESSURE 10
 
 #define INTERACTION_SOUND_RANGE_MODIFIER -3
 #define EQUIP_SOUND_VOLUME 30
@@ -179,6 +180,7 @@ GLOBAL_LIST_INIT(announcer_keys, list(
 #define SFX_SMALL_BUTTON "small_button"
 #define SFX_GENERIC_DROP "generic_drop"
 #define SFX_GENERIC_PICKUP "generic_pickup"
+#define SFX_GLASS_CRACK "glass_crack"
 
 #define EMOTE_VOICE_HUMAN_M "Human Male"
 #define EMOTE_VOICE_HUMAN_F "Human Female"

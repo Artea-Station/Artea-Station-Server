@@ -118,7 +118,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	if (isitem(source))
 		return
 
-	source.AddElement(/datum/element/radioactive)
+	source.AddComponent(/datum/component/radioactive)
 
 /datum/material/uranium/on_removed(atom/source, amount, material_flags)
 	. = ..()
@@ -126,7 +126,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	if (isitem(source))
 		return
 
-	source.RemoveElement(/datum/element/radioactive)
+	source.AddComponent(/datum/component/radioactive)
 
 /datum/material/uranium/on_accidental_mat_consumption(mob/living/carbon/victim, obj/item/source_item)
 	victim.reagents.add_reagent(/datum/reagent/uranium, rand(4, 6))

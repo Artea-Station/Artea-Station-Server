@@ -27,7 +27,7 @@
 	burnmod = 1.5
 	heatmod = 1.5
 	brutemod = 1.5
-	breathid = "plas"
+	breathid = GAS_PLASMA
 	disliked_food = FRUIT | CLOTH
 	liked_food = VEGETABLES
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
@@ -90,12 +90,12 @@
 
 	if(!atmos_sealed && can_burn)
 		var/datum/gas_mixture/environment = H.loc.return_air()
-		if(environment?.total_moles())
-			if(environment.gases[/datum/gas/hypernoblium] && (environment.gases[/datum/gas/hypernoblium][MOLES]) >= 5)
+		if(environment?.total_moles)
+			/*if(environment.gases[/datum/gas/hypernoblium] && (environment.gases[/datum/gas/hypernoblium][MOLES]) >= 5)
 				if(H.on_fire && H.fire_stacks > 0)
-					H.adjust_fire_stacks(-10 * delta_time)
-			else if(!HAS_TRAIT(H, TRAIT_NOFIRE))
-				if(environment.gases[/datum/gas/oxygen] && (environment.gases[/datum/gas/oxygen][MOLES]) >= 1) //Same threshhold that extinguishes fire
+					H.adjust_fire_stacks(-10 * delta_time)*/
+			if(!HAS_TRAIT(H, TRAIT_NOFIRE))
+				if(environment.hasGas(GAS_OXYGEN, 1)) //Same threshhold that extinguishes fire
 					H.adjust_fire_stacks(0.25 * delta_time)
 					if(!H.on_fire && H.fire_stacks > 0)
 						H.visible_message(span_danger("[H]'s body reacts with the atmosphere and bursts into flames!"),span_userdanger("Your body reacts with the atmosphere and bursts into flame!"))

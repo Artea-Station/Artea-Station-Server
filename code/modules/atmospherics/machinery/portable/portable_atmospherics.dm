@@ -26,34 +26,20 @@
 	/// Max amount of pressure allowed inside of the canister before it starts to break. [PORTABLE_ATMOS_IGNORE_ATMOS_LIMIT] is special value meaning we are immune.
 	var/pressure_limit = 500000
 
-	/// Should reactions inside the object be suppressed
-	var/suppress_reactions = FALSE
-	/// Is there a hypernoblium crystal inserted into this
-	var/nob_crystal_inserted = FALSE
-
 /obj/machinery/portable_atmospherics/Initialize(mapload)
 	. = ..()
 	air_contents = new
 	air_contents.volume = volume
 	air_contents.temperature = T20C
-	SSair.start_processing_machine(src)
+	SSairmachines.start_processing_machine(src)
+	become_atmos_sensitive()
 
 /obj/machinery/portable_atmospherics/Destroy()
 	disconnect()
 	air_contents = null
-	SSair.stop_processing_machine(src)
-
-	if(nob_crystal_inserted)
-		new /obj/item/hypernoblium_crystal(src)
-
+	SSairmachines.stop_processing_machine(src)
+	lose_atmos_sensitivity()
 	return ..()
-
-/obj/machinery/portable_atmospherics/examine(mob/user)
-	. = ..()
-	if(nob_crystal_inserted)
-		. += "There is a hypernoblium crystal inside it that allows for reactions inside to be suppressed."
-	if(suppress_reactions)
-		. += "The hypernoblium crystal inside is glowing with a faint blue colour, indicating reactions inside are currently being suppressed."
 
 /obj/machinery/portable_atmospherics/ex_act(severity, target)
 	if(resistance_flags & INDESTRUCTIBLE)
@@ -67,10 +53,11 @@
 	return ..()
 
 /obj/machinery/portable_atmospherics/process_atmos()
-	excited = (!suppress_reactions && (excited || air_contents.react(src)))
-	if(!excited)
-		return PROCESS_KILL
-	excited = FALSE
+	if(!connected_port) // Pipe network handles reactions if connected, and we can't stop processing if there's a port effecting our mix
+		excited = (excited | air_contents.react())
+		if(!excited)
+			return PROCESS_KILL
+	excited = take_atmos_damage()
 
 /// Take damage if a variable is exceeded. Damage is equal to temp/limit * heat/limit.
 /// The damage multiplier is treated as 1 if something is being ignored while the other one is exceeded.
@@ -86,7 +73,7 @@
 		taking_damage = temp_damage > 1
 
 	if(pressure_limit != PORTABLE_ATMOS_IGNORE_ATMOS_LIMIT)
-		pressure_damage = air_contents.return_pressure() / pressure_limit
+		pressure_damage = air_contents.returnPressure() / pressure_limit
 		taking_damage = taking_damage || pressure_damage > 1
 
 	if(!taking_damage)
@@ -96,7 +83,7 @@
 	return TRUE
 
 /obj/machinery/portable_atmospherics/return_air()
-	SSair.start_processing_machine(src)
+	SSairmachines.start_processing_machine(src)
 	return air_contents
 
 /obj/machinery/portable_atmospherics/return_analyzable_air()
@@ -126,7 +113,7 @@
 	pixel_x = new_port.pixel_x
 	pixel_y = new_port.pixel_y
 
-	SSair.start_processing_machine(src)
+	SSairmachines.start_processing_machine(src)
 	update_appearance()
 	return TRUE
 
@@ -147,7 +134,7 @@
 	pixel_x = 0
 	pixel_y = 0
 
-	SSair.start_processing_machine(src)
+	SSairmachines.start_processing_machine(src)
 	update_appearance()
 	return TRUE
 
@@ -185,7 +172,7 @@
 		holding = new_tank
 		RegisterSignal(holding, COMSIG_PARENT_QDELETING, PROC_REF(unregister_holding))
 
-	SSair.start_processing_machine(src)
+	SSairmachines.start_processing_machine(src)
 	update_appearance()
 	return TRUE
 

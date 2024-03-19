@@ -26,7 +26,7 @@
 	attack_verb_simple = "bite"
 	attack_sound = 'sound/weapons/bite.ogg'
 	attack_vis_effect = ATTACK_EFFECT_BITE
-	butcher_results = list(/obj/item/food/meat/steak/plain) // Maybe one day there'll be something that makes sense for these.
+	butcher_results = list(/obj/item/food/meat/steak/plain = 1) // Maybe one day there'll be something that makes sense for these.
 	response_help_continuous = "pets"
 	response_help_simple = "pet"
 	response_disarm_continuous = "gently pushes aside"

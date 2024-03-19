@@ -204,7 +204,7 @@
 	holder.always_atmos_process = TRUE
 
 /datum/spacevine_mutation/temp_stabilisation/additional_atmos_processes(obj/structure/spacevine/holder, datum/gas_mixture/air)
-	var/heat_capacity = air.heat_capacity()
+	var/heat_capacity = air.getHeatCapacity()
 	if(!heat_capacity) // No heating up space or vacuums
 		return
 	var/energy_used = min(abs(air.temperature - T20C) * heat_capacity, TEMP_STABILISATION_MUTATION_MAXIMUM_ENERGY)
@@ -214,7 +214,7 @@
 	if(air.temperature > T20C)
 		delta_temperature *= -1
 	air.temperature += delta_temperature
-	holder.air_update_turf(FALSE, FALSE)
+	// holder.air_update_turf(FALSE, FALSE)
 
 /datum/spacevine_mutation/vine_eating
 	name = "Vine eating"
@@ -301,10 +301,9 @@
 	var/turf/open/floor/turf = holder.loc
 	if(istype(turf))
 		var/datum/gas_mixture/gas_mix = turf.air
-		if(!gas_mix.gases[/datum/gas/oxygen])
+		if(!gas_mix.getGroupGas(GAS_OXYGEN))
 			return
-		gas_mix.gases[/datum/gas/oxygen][MOLES] = max(gas_mix.gases[/datum/gas/oxygen][MOLES] - GAS_MUTATION_REMOVAL_MULTIPLIER * holder.energy, 0)
-		gas_mix.garbage_collect()
+		gas_mix.setGasMoles(GAS_OXYGEN, max(gas_mix.gas[GAS_OXYGEN] - GAS_MUTATION_REMOVAL_MULTIPLIER * holder.energy, 0))
 
 /datum/spacevine_mutation/nitro_eater
 	name = "Nitrogen consuming"
@@ -316,10 +315,9 @@
 	var/turf/open/floor/turf = holder.loc
 	if(istype(turf))
 		var/datum/gas_mixture/gas_mix = turf.air
-		if(!gas_mix.gases[/datum/gas/nitrogen])
+		if(!gas_mix.getGroupGas(GAS_NITROGEN))
 			return
-		gas_mix.gases[/datum/gas/nitrogen][MOLES] = max(gas_mix.gases[/datum/gas/nitrogen][MOLES] - GAS_MUTATION_REMOVAL_MULTIPLIER * holder.energy, 0)
-		gas_mix.garbage_collect()
+		gas_mix.setGasMoles(GAS_NITROGEN, max(gas_mix.gas[GAS_NITROGEN] - GAS_MUTATION_REMOVAL_MULTIPLIER * holder.energy, 0))
 
 /datum/spacevine_mutation/carbondioxide_eater
 	name = "CO2 consuming"
@@ -331,10 +329,9 @@
 	var/turf/open/floor/turf = holder.loc
 	if(istype(turf))
 		var/datum/gas_mixture/gas_mix = turf.air
-		if(!gas_mix.gases[/datum/gas/carbon_dioxide])
+		if(!gas_mix.getGroupGas(GAS_OXYGEN))
 			return
-		gas_mix.gases[/datum/gas/carbon_dioxide][MOLES] = max(gas_mix.gases[/datum/gas/carbon_dioxide][MOLES] - GAS_MUTATION_REMOVAL_MULTIPLIER * holder.energy, 0)
-		gas_mix.garbage_collect()
+		gas_mix.setGasMoles(GAS_CO2, max(gas_mix.gas[GAS_CO2] - GAS_MUTATION_REMOVAL_MULTIPLIER * holder.energy, 0))
 
 /datum/spacevine_mutation/plasma_eater
 	name = "Plasma consuming"
@@ -346,10 +343,9 @@
 	var/turf/open/floor/turf = holder.loc
 	if(istype(turf))
 		var/datum/gas_mixture/gas_mix = turf.air
-		if(!gas_mix.gases[/datum/gas/plasma])
+		if(!gas_mix.getGroupGas(GAS_PLASMA))
 			return
-		gas_mix.gases[/datum/gas/plasma][MOLES] = max(gas_mix.gases[/datum/gas/plasma][MOLES] - GAS_MUTATION_REMOVAL_MULTIPLIER * holder.energy, 0)
-		gas_mix.garbage_collect()
+		gas_mix.setGasMoles(GAS_PLASMA, max(gas_mix.gas[GAS_PLASMA] - GAS_MUTATION_REMOVAL_MULTIPLIER * holder.energy, 0))
 
 /datum/spacevine_mutation/thorns
 	name = "Thorny"
@@ -415,7 +411,7 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-	AddElement(/datum/element/atmos_sensitive, mapload)
+	become_atmos_sensitive()
 
 /obj/structure/spacevine/examine(mob/user)
 	. = ..()
@@ -439,6 +435,7 @@
 	set_opacity(0)
 	if(has_buckled_mobs())
 		unbuckle_all_mobs(force=1)
+	lose_atmos_sensitivity()
 	return ..()
 
 /obj/structure/spacevine/proc/on_chem_effect(datum/reagent/chem)
@@ -698,18 +695,16 @@
 	if(!index && prob(34 * severity))
 		qdel(src)
 
-/obj/structure/spacevine/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
-	return (always_atmos_process || exposed_temperature > FIRE_MINIMUM_TEMPERATURE_TO_SPREAD || exposed_temperature < VINE_FREEZING_POINT || !can_spread)//if you're room temperature you're safe
-
 /obj/structure/spacevine/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	for(var/datum/spacevine_mutation/mutation in mutations)
-		mutation.additional_atmos_processes(src, air)
-	if(!can_spread && (exposed_temperature >= VINE_FREEZING_POINT || (trait_flags & SPACEVINE_COLD_RESISTANT)))
-		can_spread = TRUE // not returning here just in case its now a plasmafire and the kudzu should be deleted
-	if(exposed_temperature > FIRE_MINIMUM_TEMPERATURE_TO_SPREAD && !(trait_flags & SPACEVINE_HEAT_RESISTANT))
-		qdel(src)
-	else if (exposed_temperature < VINE_FREEZING_POINT && !(trait_flags & SPACEVINE_COLD_RESISTANT))
-		can_spread = FALSE
+	if(always_atmos_process || exposed_temperature > FIRE_MINIMUM_TEMPERATURE_TO_SPREAD || exposed_temperature < VINE_FREEZING_POINT || !can_spread)
+		for(var/datum/spacevine_mutation/mutation in mutations)
+			mutation.additional_atmos_processes(src, air)
+		if(!can_spread && (exposed_temperature >= VINE_FREEZING_POINT || (trait_flags & SPACEVINE_COLD_RESISTANT)))
+			can_spread = TRUE // not returning here just in case its now a plasmafire and the kudzu should be deleted
+		if(exposed_temperature > FIRE_MINIMUM_TEMPERATURE_TO_SPREAD && !(trait_flags & SPACEVINE_HEAT_RESISTANT))
+			qdel(src)
+		else if (exposed_temperature < VINE_FREEZING_POINT && !(trait_flags & SPACEVINE_COLD_RESISTANT))
+			can_spread = FALSE
 
 /obj/structure/spacevine/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()

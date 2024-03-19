@@ -16,6 +16,7 @@
 	var/update_parents_after_rebuild = FALSE
 	///Stores the gasmix for each node, used in components
 	var/list/datum/gas_mixture/airs
+	var/initial_volume = 200
 	///Handles whether the custom reconcilation handling should be used
 	var/custom_reconcilation = FALSE
 
@@ -28,8 +29,7 @@
 	for(var/i in 1 to device_type)
 		if(airs[i])
 			continue
-		var/datum/gas_mixture/component_mixture = new
-		component_mixture.volume = 200
+		var/datum/gas_mixture/component_mixture = new(initial_volume)
 		airs[i] = component_mixture
 
 /obj/machinery/atmospherics/components/Initialize(mapload)
@@ -198,7 +198,7 @@
  * This way gases won't get stuck
  */
 /obj/machinery/atmospherics/components/proc/update_parents()
-	if(!SSair.initialized)
+	if(!SSzas.initialized)
 		return
 	if(rebuilding)
 		update_parents_after_rebuild = TRUE
@@ -207,7 +207,7 @@
 		var/datum/pipeline/parent = parents[i]
 		if(!parent)
 			WARNING("Component is missing a pipenet! Rebuilding...")
-			SSair.add_to_rebuild_queue(src)
+			SSairmachines.add_to_rebuild_queue(src)
 		else
 			parent.update = TRUE
 
@@ -271,7 +271,7 @@
 		if(node)
 			node.atmos_init()
 			node.add_member(src)
-	SSair.add_to_rebuild_queue(src)
+	SSairmachines.add_to_rebuild_queue(src)
 
 /**
  * Easy way to toggle nodes connection and disconnection.

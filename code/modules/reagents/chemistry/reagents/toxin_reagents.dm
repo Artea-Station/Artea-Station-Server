@@ -115,8 +115,11 @@
 		return
 	if((holder.flags & SEALED_CONTAINER) && (holder.chem_temp < LIQUID_PLASMA_IG))
 		return
-	var/atom/A = holder.my_atom
-	A.atmos_spawn_air("plasma=[volume];TEMP=[holder.chem_temp]")
+
+	var/turf/open/T = get_turf(holder.my_atom)
+	if(!istype(T))
+		return
+	T.assume_gas(GAS_PLASMA, volume, holder.chem_temp)
 	holder.del_reagent(type)
 
 /datum/reagent/toxin/plasma/expose_turf(turf/open/exposed_turf, reac_volume)
@@ -124,13 +127,15 @@
 		return
 	var/temp = holder ? holder.chem_temp : T20C
 	if(temp >= LIQUID_PLASMA_BP)
-		exposed_turf.atmos_spawn_air("plasma=[reac_volume];TEMP=[temp]")
+		exposed_turf.assume_gas(GAS_PLASMA, reac_volume / REAGENT_GAS_EXCHANGE_FACTOR, holder.chem_temp)
 	return ..()
 
 /datum/reagent/toxin/plasma/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)//Splashing people with plasma is stronger than fuel!
 	. = ..()
 	if(methods & (TOUCH|VAPOR))
 		exposed_mob.adjust_fire_stacks(reac_volume / 5)
+		if(prob(50 * reac_volume))
+			exposed_mob.expose_plasma()
 		return
 
 /datum/reagent/toxin/hot_ice
