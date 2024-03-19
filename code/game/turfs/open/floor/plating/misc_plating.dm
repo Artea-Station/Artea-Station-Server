@@ -11,7 +11,8 @@
 	initial_gas = PLANETARY_ATMOS
 
 /turf/open/floor/plating/telecomms
-	initial_gas_mix = TCOMMS_ATMOS
+	initial_gas = TCOMMS_ATMOS
+	temperature = 80
 
 /turf/open/floor/plating/abductor
 	name = "alien floor"

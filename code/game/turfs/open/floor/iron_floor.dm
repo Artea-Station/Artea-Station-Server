@@ -63,7 +63,8 @@
 	floor_tile = /obj/item/stack/tile/iron/textured
 
 /turf/open/floor/iron/textured/telecomms
-	initial_gas_mix = TCOMMS_ATMOS
+	initial_gas = TCOMMS_ATMOS
+	temperature = 80
 
 /turf/open/floor/iron/textured_edge
 	icon_state = "textured_edge"
