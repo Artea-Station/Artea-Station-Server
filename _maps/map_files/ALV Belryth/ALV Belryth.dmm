@@ -2906,7 +2906,7 @@
 	},
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor{
-	id = oldhangar
+	id = "oldhangar"
 	},
 /turf/open/floor/plating,
 /area/station/maintenance/department/cargo/hangar)
@@ -4430,11 +4430,12 @@
 /obj/machinery/door/firedoor{
 	dir = 8
 	},
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
+/obj/machinery/door/airlock/security{
+	dir = 4;
+	name = "maintenance access"
+	},
 /turf/open/floor/plating,
 /area/station/security/brig)
 "cPF" = (
@@ -4820,8 +4821,10 @@
 "ddc" = (
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
-/obj/machinery/door/airlock/maintenance,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/security{
+	name = "maintenance access"
+	},
 /turf/open/floor/plating,
 /area/station/security/interrogation)
 "ddi" = (
@@ -11883,10 +11886,10 @@
 /turf/open/floor/iron/kitchen,
 /area/station/service/kitchen)
 "hxr" = (
-/obj/machinery/door/airlock/maintenance{
-	dir = 1
-	},
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
+/obj/machinery/door/airlock/security{
+	name = "maintenance access"
+	},
 /turf/open/floor/plating,
 /area/station/security/evidence)
 "hyg" = (
@@ -15649,11 +15652,12 @@
 /obj/machinery/door/firedoor{
 	dir = 8
 	},
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
+/obj/machinery/door/airlock/security{
+	dir = 4;
+	name = "maintenance access"
+	},
 /turf/open/floor/plating,
 /area/station/security/desk)
 "jyh" = (
@@ -25998,7 +26002,7 @@
 /obj/effect/mapping_helpers/broken_floor,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/button/door{
-	id = oldhangar;
+	id = "oldhangar";
 	pixel_y = 5;
 	pixel_x = -27;
 	name = "Hangar doors toggle"
@@ -38104,12 +38108,12 @@
 /turf/open/floor/iron/textured,
 /area/station/hallway/primary/central/aft)
 "xfH" = (
-/obj/machinery/door/airlock/maintenance{
-	dir = 1
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/security{
+	name = "maintenance access"
+	},
 /turf/open/floor/plating,
 /area/station/security/processing)
 "xfJ" = (
