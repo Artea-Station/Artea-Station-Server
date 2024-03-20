@@ -906,7 +906,15 @@
 
 /area/station/engineering/reactor_control
 	name = "\improper Reactor Control Room"
-	icon_state = "engine_sm_control"
+	icon_state = "engine_sm"
+
+/area/station/engineering/reactor_hallway
+	name = "\improper Reactor Hallway"
+	icon_state = "engine_sm"
+
+/area/station/engineering/reactor_substation
+	name = "\improper Reactor Substation"
+	icon_state = "engine_sm"
 
 /area/station/engineering/break_room
 	name = "\improper Engineering Foyer"
@@ -918,6 +926,10 @@
 	icon_state = "grav_gen"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
+/area/station/engineering/shield_generator
+	name = "\improper Shield Generator Room"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
 /area/station/engineering/storage
 	name = "Engineering Storage"
 	icon_state = "engine_storage"
@@ -926,6 +938,11 @@
 /area/station/engineering/storage_shared
 	name = "Shared Engineering Storage"
 	icon_state = "engine_storage_shared"
+
+/area/station/engineering/secure_storage
+	name = "Secure Storage"
+	icon_state = "engine_storage"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/station/engineering/transit_tube
 	name = "\improper Transit Tube"
