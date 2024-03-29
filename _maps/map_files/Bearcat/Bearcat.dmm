@@ -1934,7 +1934,6 @@
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen)
 "kL" = (
-/obj/effect/mapping_helpers/airlock_controller_helper/sensor/interior,
 /obj/machinery/airlock_sensor/directional/west,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central/fore)
@@ -3081,7 +3080,6 @@
 "qG" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/airlock_sensor/directional/east,
-/obj/effect/mapping_helpers/airlock_controller_helper/sensor/interior,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central/fore)
 "qI" = (
@@ -5007,6 +5005,12 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/engine,
 /area/station/science/research/abandoned)
+"Cl" = (
+/obj/effect/mapping_helpers/airlock_controller_helper/sensor/interior/step{
+	dir = 8
+	},
+/turf/closed/wall/r_wall,
+/area/station/hallway/secondary/dock/one)
 "Cm" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/effect/decal/cleanable/dirt,
@@ -8627,6 +8631,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
 /area/station/maintenance/disposal)
+"Vq" = (
+/obj/effect/mapping_helpers/airlock_controller_helper/sensor/interior/step{
+	dir = 4
+	},
+/turf/closed/wall/r_wall,
+/area/station/hallway/secondary/dock/two)
 "Vr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
@@ -171491,7 +171501,7 @@ RC
 yi
 bJ
 bJ
-sV
+Vq
 oO
 sV
 BX
@@ -174832,7 +174842,7 @@ gt
 KE
 RU
 RU
-tb
+Cl
 qL
 tb
 BX
