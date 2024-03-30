@@ -19,7 +19,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset, 24)
 	area.airlock_controller = src
 
 	if(!base_tag_name)
-		base_tag_name = REF(area) // Avoid any custom area bullshit breaking stuff, also keeps things simple. Keep it simple, stupid.
+		base_tag_name = copytext(REF(area), 4, -1) // Avoid any custom area bullshit breaking stuff, also keeps things simple. Keep it simple, stupid.
 		name = "[area.name] Airlock Controller" // Capitalized cause areas use capitalized names themselves.
 
 	id_tag = "custom_airlock_controller_[base_tag_name]"
@@ -66,7 +66,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset/hallway, 2
 		CRASH("[src] failed to find [affected_type] at [AREACOORD(src)]") // Fuck you, map properly.
 
 	if(!base_tag_name)
-		base_tag_name = REF(get_area(src))
+		base_tag_name = copytext(REF(get_area(src)), 4, -1)
 
 	payload(obj_of_interest)
 
