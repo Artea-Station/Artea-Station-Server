@@ -16,7 +16,8 @@
 #define RBMK_PRESSURE_CRITICAL 1500
 
 /// To turn the normally low number into usable power.
-#define RBMK_POWER_SANIFIER 10000
+#define RBMK_POWER_SANIFIER 30000 // TESTING
+// ORIGINAL: #define RBMK_POWER_SANIFIER 10000
 
 /// The base fuel consumption if the fuel is at or below room temp.
 #define RBMK_BASE_FUEL_CONSUMPTION 2

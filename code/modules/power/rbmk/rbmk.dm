@@ -224,6 +224,8 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 			coolant_output.adjustGas(GAS_XENON, actual_fuel_moles / 50)
 
 			add_avail(last_power_produced)
+		else
+			last_power_produced = 0
 
 		// Take the fuel used from the input gases.
 		for (var/gas in actual_fuels)
