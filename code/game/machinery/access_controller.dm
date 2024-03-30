@@ -44,7 +44,7 @@
 	name = "access button"
 	desc = "A button used for the explicit purpose of opening an airlock."
 	var/idDoor
-	var/obj/machinery/door/airlock/door
+	var/obj/machinery/door/bulkhead/door
 	var/obj/machinery/door_buttons/airlock_controller/controller
 	var/busy
 
@@ -53,7 +53,7 @@
 		if(A.idSelf == idSelf)
 			controller = A
 			break
-	for(var/obj/machinery/door/airlock/I in GLOB.machines)
+	for(var/obj/machinery/door/bulkhead/I in GLOB.machines)
 		if(I.id_tag == idDoor)
 			door = I
 			break
@@ -105,8 +105,8 @@
 	base_icon_state = "access_control"
 	name = "access console"
 	desc = "A small console that can cycle opening between two airlocks."
-	var/obj/machinery/door/airlock/interiorAirlock
-	var/obj/machinery/door/airlock/exteriorAirlock
+	var/obj/machinery/door/bulkhead/interiorAirlock
+	var/obj/machinery/door/bulkhead/exteriorAirlock
 	var/idInterior
 	var/idExterior
 	var/busy
@@ -146,18 +146,18 @@
 		if("open_interior")
 			onlyOpen(interiorAirlock)
 
-/obj/machinery/door_buttons/airlock_controller/proc/onlyOpen(obj/machinery/door/airlock/A)
+/obj/machinery/door_buttons/airlock_controller/proc/onlyOpen(obj/machinery/door/bulkhead/A)
 	if(A)
 		busy = CLOSING
 		update_appearance()
 		openDoor(A)
 
-/obj/machinery/door_buttons/airlock_controller/proc/onlyClose(obj/machinery/door/airlock/A)
+/obj/machinery/door_buttons/airlock_controller/proc/onlyClose(obj/machinery/door/bulkhead/A)
 	if(A)
 		busy = CLOSING
 		closeDoor(A)
 
-/obj/machinery/door_buttons/airlock_controller/proc/closeDoor(obj/machinery/door/airlock/A)
+/obj/machinery/door_buttons/airlock_controller/proc/closeDoor(obj/machinery/door/bulkhead/A)
 	if(A.density)
 		goIdle()
 		return FALSE
@@ -174,7 +174,7 @@
 	goIdle(TRUE)
 	return FALSE
 
-/obj/machinery/door_buttons/airlock_controller/proc/cycleClose(obj/machinery/door/airlock/A)
+/obj/machinery/door_buttons/airlock_controller/proc/cycleClose(obj/machinery/door/bulkhead/A)
 	if(!A || !exteriorAirlock || !interiorAirlock)
 		return
 	if(exteriorAirlock.density == interiorAirlock.density || !A.density)
@@ -188,7 +188,7 @@
 		if(closeDoor(interiorAirlock))
 			busy = CYCLE_EXTERIOR
 
-/obj/machinery/door_buttons/airlock_controller/proc/cycleOpen(obj/machinery/door/airlock/A)
+/obj/machinery/door_buttons/airlock_controller/proc/cycleOpen(obj/machinery/door/bulkhead/A)
 	if(!A)
 		goIdle(TRUE)
 	if(A == exteriorAirlock)
@@ -203,14 +203,14 @@
 		busy = OPENING
 		openDoor(A)
 
-/obj/machinery/door_buttons/airlock_controller/proc/openDoor(obj/machinery/door/airlock/A)
+/obj/machinery/door_buttons/airlock_controller/proc/openDoor(obj/machinery/door/bulkhead/A)
 	if(exteriorAirlock && interiorAirlock && (!exteriorAirlock.density || !interiorAirlock.density))
 		goIdle(TRUE)
 		return
 	A.unbolt()
 	INVOKE_ASYNC(src, PROC_REF(do_openDoor), A)
 
-/obj/machinery/door_buttons/airlock_controller/proc/do_openDoor(obj/machinery/door/airlock/A)
+/obj/machinery/door_buttons/airlock_controller/proc/do_openDoor(obj/machinery/door/bulkhead/A)
 	if(A?.open())
 		if(machine_stat | (NOPOWER) && !lostPower && A && !QDELETED(A))
 			A.bolt()
@@ -240,7 +240,7 @@
 			lostPower = FALSE
 
 /obj/machinery/door_buttons/airlock_controller/findObjsByTag()
-	for(var/obj/machinery/door/airlock/A in GLOB.machines)
+	for(var/obj/machinery/door/bulkhead/A in GLOB.machines)
 		if(A.id_tag == idInterior)
 			interiorAirlock = A
 		else if(A.id_tag == idExterior)

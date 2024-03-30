@@ -50,13 +50,13 @@
 
 	else if(isobj(target))
 		var/obj/clamptarget = target
-		if(istype(clamptarget, /obj/machinery/door/firedoor))
-			var/obj/machinery/door/firedoor/targetfiredoor = clamptarget
+		if(istype(clamptarget, /obj/machinery/door/firehead))
+			var/obj/machinery/door/firehead/targetfiredoor = clamptarget
 			playsound(chassis, clampsound, 50, FALSE, -6)
 			targetfiredoor.try_to_crowbar(src, source)
 			return
-		if(istype(clamptarget, /obj/machinery/door/airlock/))
-			var/obj/machinery/door/airlock/targetairlock = clamptarget
+		if(istype(clamptarget, /obj/machinery/door/bulkhead/))
+			var/obj/machinery/door/bulkhead/targetairlock = clamptarget
 			playsound(chassis, clampsound, 50, FALSE, -6)
 			targetairlock.try_to_crowbar(src, source)
 			return
@@ -279,7 +279,7 @@
 		return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/rcd/action(mob/source, atom/target, list/modifiers)
-	if(!isturf(target) && !istype(target, /obj/machinery/door/airlock))
+	if(!isturf(target) && !istype(target, /obj/machinery/door/bulkhead))
 		target = get_turf(target)
 	if(!action_checks(target) || get_dist(chassis, target)>3 || istype(target, /turf/open/space/transit))
 		return
@@ -298,7 +298,7 @@
 				if(!do_after_cooldown(target, source))
 					return
 				F.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-			else if (istype(target, /obj/machinery/door/airlock))
+			else if (istype(target, /obj/machinery/door/bulkhead))
 				if(!do_after_cooldown(target, source))
 					return
 				qdel(target)
@@ -320,7 +320,7 @@
 				to_chat(source, "[icon2html(src, source)][span_notice("Building Airlock...")]")
 				if(!do_after_cooldown(target, source))
 					return
-				var/obj/machinery/door/airlock/T = new /obj/machinery/door/airlock(target)
+				var/obj/machinery/door/bulkhead/T = new /obj/machinery/door/bulkhead(target)
 				T.autoclose = TRUE
 				playsound(target, 'sound/effects/sparks2.ogg', 50, TRUE)
 	chassis.spark_system.start()

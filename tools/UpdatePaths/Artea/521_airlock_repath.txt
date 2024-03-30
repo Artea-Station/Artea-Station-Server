@@ -1,0 +1,16 @@
+#comment Replaces old airlock paths with new bulkhead paths.
+https://github.com/Artea-Station/Artea-Station-Server/pull/521
+
+/obj/machinery/door/airlock : /obj/machinery/door/bulkhead{@OLD}
+/obj/machinery/door/airlock/@SUBTYPES : /obj/machinery/door/bulkhead/@SUBTYPES{@OLD}
+/obj/machinery/door/firedoor : /obj/machinery/door/firehead{@OLD}
+/obj/machinery/door/firedoor/@SUBTYPES : /obj/machinery/door/firehead/@SUBTYPES{@OLD}
+/obj/effect/mapping_helpers/airlock/cyclelink_helper : /obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper{@OLD}
+/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi : /obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper_multi{@OLD}
+/obj/effect/mapping_helpers/airlock/@SUBTYPES : /obj/effect/mapping_helpers/bulkhead/@SUBTYPES{@OLD}
+/obj/item/airlock_painter : /obj/item/bulkhead_painter{@OLD}
+/obj/item/airlock_painter/@SUBTYPES : /obj/item/bulkhead_painter/@SUBTYPES{@OLD}
+/obj/item/electronics/airlock : /obj/item/electronics/bulkhead{@OLD}
+/obj/item/electronics/firelock : /obj/item/electronics/firehead{@OLD}
+/obj/effect/mapping_helpers/airlock_note_placer : /obj/effect/mapping_helpers/bulkhead_note_placer{@OLD}
+/obj/structure/firelock_frame : /obj/structure/firehead_frame{@OLD}

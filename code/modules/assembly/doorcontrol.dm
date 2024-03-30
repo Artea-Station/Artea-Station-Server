@@ -71,8 +71,8 @@
 		return
 	cooldown = TRUE
 	var/doors_need_closing = FALSE
-	var/list/obj/machinery/door/airlock/open_or_close = list()
-	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
+	var/list/obj/machinery/door/bulkhead/open_or_close = list()
+	for(var/obj/machinery/door/bulkhead/D in GLOB.bulkheads)
 		if(D.id_tag == src.id)
 			if(specialfunctions & OPEN)
 				open_or_close += D
@@ -93,7 +93,7 @@
 				D.safe = !D.safe
 
 	for(var/D in open_or_close)
-		INVOKE_ASYNC(D, doors_need_closing ? TYPE_PROC_REF(/obj/machinery/door/airlock, close) : TYPE_PROC_REF(/obj/machinery/door/airlock, open))
+		INVOKE_ASYNC(D, doors_need_closing ? TYPE_PROC_REF(/obj/machinery/door/bulkhead, close) : TYPE_PROC_REF(/obj/machinery/door/bulkhead, open))
 
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 10)
 

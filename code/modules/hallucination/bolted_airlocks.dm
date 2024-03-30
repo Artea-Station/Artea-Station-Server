@@ -13,7 +13,7 @@
 	var/door_number = rand(0, 4) //if 0, we bolt all visible doors
 	feedback_details += "Door amount: [door_number]"
 
-	for(var/obj/machinery/door/airlock/nearby_airlock in view(hallucinator))
+	for(var/obj/machinery/door/bulkhead/nearby_airlock in view(hallucinator))
 		if(LAZYLEN(airlocks_to_hit) > door_number && door_number > 0)
 			break
 		if(!nearby_airlock.density)
@@ -36,7 +36,7 @@
 
 	if(locking)
 		var/datum/weakref/next_airlock = pop(airlocks_to_hit)
-		var/obj/machinery/door/airlock/to_lock = next_airlock?.resolve()
+		var/obj/machinery/door/bulkhead/to_lock = next_airlock?.resolve()
 		if(to_lock)
 			var/obj/effect/client_image_holder/hallucination/fake_door_lock/lock = new(to_lock.loc, hallucinator, src, to_lock)
 			LAZYADD(locks, WEAKREF(lock))
@@ -75,9 +75,9 @@
 	plane = GAME_PLANE
 
 	/// The real airlock we're fake bolting down.
-	var/obj/machinery/door/airlock/airlock
+	var/obj/machinery/door/bulkhead/airlock
 
-/obj/effect/client_image_holder/hallucination/fake_door_lock/Initialize(mapload, list/mobs_which_see_us, datum/hallucination/parent, obj/machinery/door/airlock/airlock)
+/obj/effect/client_image_holder/hallucination/fake_door_lock/Initialize(mapload, list/mobs_which_see_us, datum/hallucination/parent, obj/machinery/door/bulkhead/airlock)
 	if(!airlock)
 		stack_trace("[type] was created somewhere without an associated airlock.")
 		return INITIALIZE_HINT_QDEL
@@ -86,7 +86,7 @@
 	RegisterSignal(airlock, COMSIG_PARENT_QDELETING, PROC_REF(on_airlock_deleted))
 	// We need to grab these for our image before we run our parent's parent initialize
 	src.image_icon = airlock.overlays_file
-	src.image_state = "lights_[AIRLOCK_LIGHT_BOLTS]"
+	src.image_state = "lights_[BULKHEAD_LIGHT_BOLTS]"
 
 	return ..()
 

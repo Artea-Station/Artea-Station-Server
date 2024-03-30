@@ -14,7 +14,7 @@ type Data = {
   shell: BooleanLike;
 };
 
-export const AirlockElectronics = (props, context) => {
+export const BulkheadElectronics = (props, context) => {
   const { act, data } = useBackend<Data>(context);
   const {
     accesses = [],
@@ -38,7 +38,7 @@ export const AirlockElectronics = (props, context) => {
                 onClick={() => {
                   act('set_shell', { on: !shell });
                 }}
-                tooltip="Whether this airlock can have an integrated circuit placed inside of it or not."
+                tooltip="Whether this bulkhead can have an integrated circuit placed inside of it or not."
               />
             </LabeledList.Item>
             <LabeledList.Item label="Access Required">
@@ -90,7 +90,7 @@ export const AirlockElectronics = (props, context) => {
                 }
               />
             </LabeledList.Item>
-            <LabeledList.Item label="Airlock Name">
+            <LabeledList.Item label="Bulkhead Name">
               <Input
                 fluid
                 maxLength={30}
