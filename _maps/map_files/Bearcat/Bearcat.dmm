@@ -511,12 +511,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
 /area/station/engineering/storage)
-"cT" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 4
-	},
-/turf/open/space/openspace,
-/area/space/nearstation)
 "cW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -740,11 +734,8 @@
 	},
 /area/station/science/research/abandoned)
 "ef" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/heat_exchanging/heat_sail,
 /turf/open/space/openspace,
 /area/space/nearstation)
 "eg" = (
@@ -839,13 +830,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible/layer4,
 /turf/open/floor/engine,
 /area/station/engineering/supermatter/room)
-"ez" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 5
-	},
-/obj/structure/lattice/catwalk,
-/turf/open/space/openspace,
-/area/space/nearstation)
 "eB" = (
 /turf/closed/wall/r_wall,
 /area/station/hallway/primary/upper/port)
@@ -1281,13 +1265,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/station/cargo/sorting)
-"gT" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 6
-	},
-/obj/structure/lattice/catwalk,
-/turf/open/space/openspace,
-/area/space/nearstation)
 "gV" = (
 /obj/machinery/air_sensor/nitrogen_tank,
 /turf/open/floor/engine/n2,
@@ -2309,14 +2286,6 @@
 	},
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain)
-"mL" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/obj/structure/lattice/catwalk,
-/turf/open/space/openspace,
-/area/space/nearstation)
 "mM" = (
 /obj/machinery/light/directional/north,
 /obj/structure/cable,
@@ -2472,13 +2441,6 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
-"nC" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 9
-	},
-/obj/structure/lattice/catwalk,
-/turf/open/space/openspace,
-/area/space/nearstation)
 "nD" = (
 /obj/machinery/firealarm/directional/south,
 /obj/machinery/light_switch/directional/west,
@@ -2569,11 +2531,6 @@
 /obj/machinery/camera/autoname/directional/south,
 /turf/open/floor/iron/smooth,
 /area/station/command/meeting_room)
-"oh" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/heat_exchanging/manifold4w,
-/turf/open/space/openspace,
-/area/space/nearstation)
 "oi" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
 /obj/structure/cable,
@@ -4078,13 +4035,6 @@
 /obj/machinery/holomap/directional/west,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/aft)
-"wr" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 10
-	},
-/obj/structure/lattice/catwalk,
-/turf/open/space/openspace,
-/area/space/nearstation)
 "wu" = (
 /obj/effect/turf_decal/stripes/orange/corner{
 	dir = 4
@@ -6612,10 +6562,8 @@
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
 "Lq" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 4
-	},
 /obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/heat_exchanging/heat_sail,
 /turf/open/space/openspace,
 /area/space/nearstation)
 "Lr" = (
@@ -8020,13 +7968,6 @@
 	},
 /turf/open/floor/engine/hull/reinforced,
 /area/space/nearstation)
-"SE" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/turf/open/space/openspace,
-/area/space/nearstation)
 "SF" = (
 /obj/effect/turf_decal/stripes/orange/line,
 /obj/structure/railing,
@@ -8266,9 +8207,7 @@
 /turf/open/floor/wood,
 /area/station/service/bar)
 "TT" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 5
-	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/heat_sail,
 /turf/open/space/openspace,
 /area/space/nearstation)
 "TY" = (
@@ -174753,10 +174692,10 @@ Bc
 pE
 Ef
 Rj
-cT
-gT
 TT
-gT
+Lq
+TT
+Lq
 TT
 Lq
 NK
@@ -175009,13 +174948,13 @@ Ro
 wL
 ia
 Uh
-gT
+TH
 ef
-mL
+Lq
 ef
-mL
+Lq
 ef
-nC
+Lq
 NK
 AC
 AC
@@ -175266,13 +175205,13 @@ Zt
 WF
 kM
 Ef
-wr
-SE
-mL
-SE
-mL
-SE
-ez
+TH
+TT
+Lq
+TT
+Lq
+TT
+Lq
 AC
 AC
 NK
@@ -175524,12 +175463,12 @@ Uh
 Ef
 Ef
 AC
-wr
-nC
-wr
-nC
-wr
-oh
+Lq
+Lq
+Lq
+Lq
+Lq
+Lq
 AC
 AC
 NK

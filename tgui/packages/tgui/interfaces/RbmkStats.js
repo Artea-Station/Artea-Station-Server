@@ -21,15 +21,6 @@ export const RbmkStats = (props, context) => {
             {data.power}%
           </ProgressBar>
           <br />
-          Generated Power:
-          <ProgressBar
-            value={data.generatedPower}
-            minValue={0}
-            maxValue={1227}
-            color="yellow">
-            {data.generatedPower}
-          </ProgressBar>
-          <br />
           Reactor Pressure:
           <ProgressBar
             value={data.psi}
@@ -55,6 +46,7 @@ export const RbmkStats = (props, context) => {
             {data.coolantOutput} K
           </ProgressBar>
         </Section>
+        <Section title="Generated Power:">{data.generatedPower}</Section>
         <Section fill title="Reactor Statistics:" height="200px">
           <Chart.Line
             fillPositionedParent
