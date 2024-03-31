@@ -98,34 +98,34 @@
 	..()
 	return late ? INITIALIZE_HINT_LATELOAD : INITIALIZE_HINT_QDEL
 
-//airlock helpers
-/obj/effect/mapping_helpers/airlock
+//bulkhead helpers
+/obj/effect/mapping_helpers/bulkhead
 	layer = DOOR_HELPER_LAYER
 	late = TRUE
 
-/obj/effect/mapping_helpers/airlock/Initialize(mapload)
+/obj/effect/mapping_helpers/bulkhead/Initialize(mapload)
 	. = ..()
 	if(!mapload)
 		log_mapping("[src] spawned outside of mapload!")
 		return
 
-	var/obj/machinery/door/airlock/airlock = locate(/obj/machinery/door/airlock) in loc
-	if(!airlock)
-		log_mapping("[src] failed to find an airlock at [AREACOORD(src)]")
+	var/obj/machinery/door/bulkhead/bulkhead = locate(/obj/machinery/door/bulkhead) in loc
+	if(!bulkhead)
+		log_mapping("[src] failed to find an bulkhead at [AREACOORD(src)]")
 	else
-		payload(airlock)
+		payload(bulkhead)
 
-/obj/effect/mapping_helpers/airlock/LateInitialize()
+/obj/effect/mapping_helpers/bulkhead/LateInitialize()
 	. = ..()
-	var/obj/machinery/door/airlock/airlock = locate(/obj/machinery/door/airlock) in loc
-	if(!airlock)
+	var/obj/machinery/door/bulkhead/bulkhead = locate(/obj/machinery/door/bulkhead) in loc
+	if(!bulkhead)
 		qdel(src)
 		return
-	if(airlock.cyclelinkeddir)
-		airlock.cyclelinkairlock()
-	if(airlock.closeOtherId)
-		airlock.update_other_id()
-	if(airlock.abandoned)
+	if(bulkhead.cyclelinkeddir)
+		bulkhead.cyclelinkbulkhead()
+	if(bulkhead.closeOtherId)
+		bulkhead.update_other_id()
+	if(bulkhead.abandoned)
 		var/outcome = rand(1,100)
 		switch(outcome)
 			if(1 to 9)
@@ -138,94 +138,94 @@
 				qdel(src)
 				return
 			if(9 to 11)
-				airlock.lights = FALSE
-				airlock.locked = TRUE
+				bulkhead.lights = FALSE
+				bulkhead.locked = TRUE
 			if(12 to 15)
-				airlock.locked = TRUE
+				bulkhead.locked = TRUE
 			if(16 to 23)
-				airlock.welded = TRUE
+				bulkhead.welded = TRUE
 			if(24 to 30)
-				airlock.panel_open = TRUE
-	if(airlock.cutAiWire)
-		airlock.wires.cut(WIRE_AI)
-	if(airlock.autoname)
-		airlock.name = get_area_name(src, TRUE)
+				bulkhead.panel_open = TRUE
+	if(bulkhead.cutAiWire)
+		bulkhead.wires.cut(WIRE_AI)
+	if(bulkhead.autoname)
+		bulkhead.name = get_area_name(src, TRUE)
 	update_appearance()
 	qdel(src)
 
-/obj/effect/mapping_helpers/airlock/proc/payload(obj/machinery/door/airlock/payload)
+/obj/effect/mapping_helpers/bulkhead/proc/payload(obj/machinery/door/bulkhead/payload)
 	return
 
-/obj/effect/mapping_helpers/airlock/cyclelink_helper
-	name = "airlock cyclelink helper"
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper
+	name = "bulkhead cyclelink helper"
 	icon_state = "airlock_cyclelink_helper"
 
-/obj/effect/mapping_helpers/airlock/cyclelink_helper/payload(obj/machinery/door/airlock/airlock)
-	if(airlock.cyclelinkeddir)
-		log_mapping("[src] at [AREACOORD(src)] tried to set [airlock] cyclelinkeddir, but it's already set!")
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper/payload(obj/machinery/door/bulkhead/bulkhead)
+	if(bulkhead.cyclelinkeddir)
+		log_mapping("[src] at [AREACOORD(src)] tried to set [bulkhead] cyclelinkeddir, but it's already set!")
 	else
-		airlock.cyclelinkeddir = dir
+		bulkhead.cyclelinkeddir = dir
 
-/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi
-	name = "airlock multi-cyclelink helper"
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper_multi
+	name = "bulkhead multi-cyclelink helper"
 	icon_state = "airlock_multicyclelink_helper"
 	var/cycle_id
 
-/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi/payload(obj/machinery/door/airlock/airlock)
-	if(airlock.closeOtherId)
-		log_mapping("[src] at [AREACOORD(src)] tried to set [airlock] closeOtherId, but it's already set!")
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper_multi/payload(obj/machinery/door/bulkhead/bulkhead)
+	if(bulkhead.closeOtherId)
+		log_mapping("[src] at [AREACOORD(src)] tried to set [bulkhead] closeOtherId, but it's already set!")
 	else if(!cycle_id)
-		log_mapping("[src] at [AREACOORD(src)] doesn't have a cycle_id to assign to [airlock]!")
+		log_mapping("[src] at [AREACOORD(src)] doesn't have a cycle_id to assign to [bulkhead]!")
 	else
-		airlock.closeOtherId = cycle_id
+		bulkhead.closeOtherId = cycle_id
 
-/obj/effect/mapping_helpers/airlock/locked
-	name = "airlock lock helper"
+/obj/effect/mapping_helpers/bulkhead/locked
+	name = "bulkhead lock helper"
 	icon_state = "airlock_locked_helper"
 
-/obj/effect/mapping_helpers/airlock/locked/payload(obj/machinery/door/airlock/airlock)
-	if(airlock.locked)
-		log_mapping("[src] at [AREACOORD(src)] tried to bolt [airlock] but it's already locked!")
+/obj/effect/mapping_helpers/bulkhead/locked/payload(obj/machinery/door/bulkhead/bulkhead)
+	if(bulkhead.locked)
+		log_mapping("[src] at [AREACOORD(src)] tried to bolt [bulkhead] but it's already locked!")
 	else
-		airlock.locked = TRUE
+		bulkhead.locked = TRUE
 
-/obj/effect/mapping_helpers/airlock/unres
-	name = "airlock unrestricted side helper"
+/obj/effect/mapping_helpers/bulkhead/unres
+	name = "bulkhead unrestricted side helper"
 	icon_state = "airlock_unres_helper"
 
-/obj/effect/mapping_helpers/airlock/unres/payload(obj/machinery/door/airlock/airlock)
-	airlock.unres_sides ^= dir
-	airlock.unres_sensor = TRUE
+/obj/effect/mapping_helpers/bulkhead/unres/payload(obj/machinery/door/bulkhead/bulkhead)
+	bulkhead.unres_sides ^= dir
+	bulkhead.unres_sensor = TRUE
 
-/obj/effect/mapping_helpers/airlock/abandoned
-	name = "airlock abandoned helper"
+/obj/effect/mapping_helpers/bulkhead/abandoned
+	name = "bulkhead abandoned helper"
 	icon_state = "airlock_abandoned"
 
-/obj/effect/mapping_helpers/airlock/abandoned/payload(obj/machinery/door/airlock/airlock)
-	if(airlock.abandoned)
-		log_mapping("[src] at [AREACOORD(src)] tried to make [airlock] abandoned but it's already abandoned!")
+/obj/effect/mapping_helpers/bulkhead/abandoned/payload(obj/machinery/door/bulkhead/bulkhead)
+	if(bulkhead.abandoned)
+		log_mapping("[src] at [AREACOORD(src)] tried to make [bulkhead] abandoned but it's already abandoned!")
 	else
-		airlock.abandoned = TRUE
+		bulkhead.abandoned = TRUE
 
-/obj/effect/mapping_helpers/airlock/cutaiwire
-	name = "airlock cut ai wire helper"
+/obj/effect/mapping_helpers/bulkhead/cutaiwire
+	name = "bulkhead cut ai wire helper"
 	icon_state = "airlock_cutaiwire"
 
-/obj/effect/mapping_helpers/airlock/cutaiwire/payload(obj/machinery/door/airlock/airlock)
-	if(airlock.cutAiWire)
-		log_mapping("[src] at [AREACOORD(src)] tried to cut the ai wire on [airlock] but it's already cut!")
+/obj/effect/mapping_helpers/bulkhead/cutaiwire/payload(obj/machinery/door/bulkhead/bulkhead)
+	if(bulkhead.cutAiWire)
+		log_mapping("[src] at [AREACOORD(src)] tried to cut the ai wire on [bulkhead] but it's already cut!")
 	else
-		airlock.cutAiWire = TRUE
+		bulkhead.cutAiWire = TRUE
 
-/obj/effect/mapping_helpers/airlock/autoname
-	name = "airlock autoname helper"
+/obj/effect/mapping_helpers/bulkhead/autoname
+	name = "bulkhead autoname helper"
 	icon_state = "airlock_autoname"
 
-/obj/effect/mapping_helpers/airlock/autoname/payload(obj/machinery/door/airlock/airlock)
-	if(airlock.autoname)
-		log_mapping("[src] at [AREACOORD(src)] tried to autoname the [airlock] but it's already autonamed!")
+/obj/effect/mapping_helpers/bulkhead/autoname/payload(obj/machinery/door/bulkhead/bulkhead)
+	if(bulkhead.autoname)
+		log_mapping("[src] at [AREACOORD(src)] tried to autoname the [bulkhead] but it's already autonamed!")
 	else
-		airlock.autoname = TRUE
+		bulkhead.autoname = TRUE
 
 //needs to do its thing before spawn_rivers() is called
 INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
@@ -646,7 +646,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	new /obj/item/storage/box/fireworks/dangerous(fireworks_turf) //dangerous version for extra holiday memes.
 
 //lets mappers place notes on airlocks with custom info or a pre-made note from a path
-/obj/effect/mapping_helpers/airlock_note_placer
+/obj/effect/mapping_helpers/bulkhead_note_placer
 	name = "Airlock Note Placer"
 	late = TRUE
 	icon_state = "airlocknoteplacer"
@@ -654,14 +654,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	var/note_name //custom note name
 	var/note_path //if you already have something wrote up in a paper subtype, put the path here
 
-/obj/effect/mapping_helpers/airlock_note_placer/LateInitialize()
+/obj/effect/mapping_helpers/bulkhead_note_placer/LateInitialize()
 	var/turf/turf = get_turf(src)
 	if(note_path && !istype(note_path, /obj/item/paper)) //don't put non-paper in the paper slot thank you
 		log_mapping("[src] at [x],[y] had an improper note_path path, could not place paper note.")
 		qdel(src)
 		return
-	if(locate(/obj/machinery/door/airlock) in turf)
-		var/obj/machinery/door/airlock/found_airlock = locate(/obj/machinery/door/airlock) in turf
+	if(locate(/obj/machinery/door/bulkhead) in turf)
+		var/obj/machinery/door/bulkhead/found_airlock = locate(/obj/machinery/door/bulkhead) in turf
 		if(note_path)
 			found_airlock.note = note_path
 			found_airlock.update_appearance()
@@ -681,7 +681,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 		log_mapping("[src] at [x],[y] had no note_path or note_info, cannot place paper note.")
 		qdel(src)
 		return
-	log_mapping("[src] at [x],[y] could not find an airlock on current turf, cannot place paper note.")
+	log_mapping("[src] at [x],[y] could not find an bulkhead on current turf, cannot place paper note.")
 	qdel(src)
 
 /**
@@ -966,10 +966,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 		log_mapping("[src] at [AREACOORD(src)] [(area.type)] tried to damage [target] but it's already damaged!")
 	target.take_damage(rand(target.max_integrity * integrity_min_factor, target.max_integrity * integrity_max_factor))
 
-/obj/effect/mapping_helpers/airlock/disable_remote
+/obj/effect/mapping_helpers/bulkhead/disable_remote
 	name = "disable door remote helper"
 	icon_state = "no_remote"
 
-/obj/effect/mapping_helpers/airlock/disable_remote/payload(obj/machinery/door/airlock/payload)
+/obj/effect/mapping_helpers/bulkhead/disable_remote/payload(obj/machinery/door/bulkhead/payload)
 	. = ..()
 	payload.opens_with_door_remote = FALSE

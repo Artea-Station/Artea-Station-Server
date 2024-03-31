@@ -46,7 +46,7 @@
 	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 	atom_storage.max_total_storage = 21
 	atom_storage.set_holdable(list(
-		/obj/item/airlock_painter,
+		/obj/item/bulkhead_painter,
 		/obj/item/analyzer,
 		/obj/item/assembly/signaler,
 		/obj/item/clothing/gloves,

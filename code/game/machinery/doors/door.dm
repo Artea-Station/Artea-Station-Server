@@ -58,12 +58,16 @@
 	///If set, air zones cannot merge across the door even when it is opened.
 	var/block_air_zones = TRUE
 
+	// Temp vars to make signals treat doors properly.
+	var/opening = FALSE
+	var/closing = FALSE
+
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
 	set_init_door_layer()
 	update_freelook_sight()
 	register_context()
-	GLOB.airlocks += src
+	GLOB.bulkheads += src
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
 	if(density)
@@ -181,7 +185,7 @@
 
 /obj/machinery/door/Destroy()
 	update_freelook_sight()
-	GLOB.airlocks -= src
+	GLOB.bulkheads -= src
 	if(spark_system)
 		qdel(spark_system)
 		spark_system = null
@@ -405,7 +409,7 @@
 	. = ..()
 	if (. & EMP_PROTECT_SELF)
 		return
-	if(prob(20/severity) && (istype(src, /obj/machinery/door/airlock) || istype(src, /obj/machinery/door/window)) )
+	if(prob(20/severity) && (istype(src, /obj/machinery/door/bulkhead) || istype(src, /obj/machinery/door/window)) )
 		INVOKE_ASYNC(src, PROC_REF(open))
 
 /obj/machinery/door/update_icon_state()
@@ -429,12 +433,14 @@
 				flick("door_deny", src)
 
 
-/obj/machinery/door/proc/open()
+/obj/machinery/door/proc/open(surpress_send)
 	if(!density)
 		return 1
 	if(operating)
 		return
+	opening = TRUE
 	operating = TRUE
+
 	use_power(active_power_usage)
 	do_animate("opening")
 	set_opacity(0)
@@ -445,6 +451,7 @@
 	layer = initial(layer)
 	update_appearance()
 	set_opacity(0)
+	opening = FALSE
 	operating = FALSE
 	zas_update_loc()
 	update_freelook_sight()
@@ -464,6 +471,7 @@
 					autoclose_in(DOOR_CLOSE_WAIT)
 				return
 
+	closing = TRUE
 	operating = TRUE
 
 	do_animate("closing")
@@ -475,6 +483,7 @@
 	update_appearance()
 	if(visible && !glass)
 		set_opacity(1)
+	closing = FALSE
 	operating = FALSE
 	zas_update_loc()
 	update_freelook_sight()

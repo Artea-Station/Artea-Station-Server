@@ -180,21 +180,46 @@ All ShuttleMove procs go here
 
 /************************************Machinery move procs************************************/
 
-/obj/machinery/door/airlock/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
+/obj/machinery/door/bulkhead/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
 	. = ..()
-	for(var/obj/machinery/door/airlock/other_airlock in range(2, src))  // includes src, extended because some escape pods have 1 plating turf exposed to space
+	for(var/obj/machinery/door/bulkhead/other_airlock in range(2, src))  // includes src, extended because some escape pods have 1 plating turf exposed to space
 		other_airlock.shuttledocked = FALSE
 		other_airlock.air_tight = TRUE
 		INVOKE_ASYNC(other_airlock, TYPE_PROC_REF(/obj/machinery/door/, close), FALSE, TRUE) // force crush
 
-/obj/machinery/door/airlock/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
+/obj/machinery/door/bulkhead/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 	. = ..()
 	var/current_area = get_area(src)
-	for(var/obj/machinery/door/airlock/other_airlock in orange(2, src))  // does not include src, extended because some escape pods have 1 plating turf exposed to space
+	for(var/obj/machinery/door/bulkhead/other_airlock in orange(2, src))  // does not include src, extended because some escape pods have 1 plating turf exposed to space
 		if(get_area(other_airlock) != current_area)  // does not include double-wide airlocks unless actually docked
 			// Cycle linking is only disabled if we are actually adjacent to another airlock
 			shuttledocked = TRUE
 			other_airlock.shuttledocked = TRUE
+
+/obj/machinery/airlock_controller/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
+	. = ..()
+	if(is_firelock)
+		return
+
+	post_signal(new /datum/signal(list(
+		"tag" = "dock",
+		"undocked" = TRUE,
+	)))
+	// Hack cause it won't recieve it's own signals.
+	receive_signal(new /datum/signal(list(
+		"tag" = "dock",
+		"undocked" = TRUE,
+	)))
+
+/obj/machinery/airlock_controller/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
+	. = ..()
+	if(is_firelock)
+		return
+
+	post_signal(new /datum/signal(list(
+		"tag" = "dock",
+		"docked" = TRUE,
+	)))
 
 /obj/machinery/camera/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
 	. = ..()

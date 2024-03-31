@@ -15,7 +15,7 @@
 	var/open = FALSE
 	var/openable = TRUE
 	var/custom_glass_overlay = FALSE ///If we have a custom glass overlay to use.
-	var/obj/item/electronics/airlock/electronics
+	var/obj/item/electronics/bulkhead/electronics
 	var/start_showpiece_type = null //add type for items on display
 	var/list/start_showpieces = list() //Takes sublists in the form of list("type" = /obj/item/bikehorn, "trophy_message" = "henk")
 	var/trophy_message = ""
@@ -219,7 +219,7 @@
 	desc = "The wooden base of a display case."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "glassbox_chassis"
-	var/obj/item/electronics/airlock/electronics
+	var/obj/item/electronics/bulkhead/electronics
 
 
 /obj/structure/displaycase_chassis/attackby(obj/item/I, mob/user, params)
@@ -231,7 +231,7 @@
 			new /obj/item/stack/sheet/mineral/wood(get_turf(src), 5)
 			qdel(src)
 
-	else if(istype(I, /obj/item/electronics/airlock))
+	else if(istype(I, /obj/item/electronics/bulkhead))
 		to_chat(user, span_notice("You start installing the electronics into [src]..."))
 		I.play_tool_sound(src)
 		if(do_after(user, 30, target = src) && user.transferItemToLoc(I,src))

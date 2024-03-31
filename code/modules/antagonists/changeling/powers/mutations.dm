@@ -195,8 +195,8 @@
 		var/obj/machinery/computer/C = target
 		C.attack_alien(user) //muh copypasta
 
-	else if(istype(target, /obj/machinery/door/airlock))
-		var/obj/machinery/door/airlock/A = target
+	else if(istype(target, /obj/machinery/door/bulkhead))
+		var/obj/machinery/door/bulkhead/A = target
 
 		if((!A.requiresID() || A.allowed(user)) && A.hasPower()) //This is to prevent stupid shit like hitting a door with an arm blade, the door opening because you have acces and still getting a "the airlocks motors resist our efforts to force it" message, power requirement is so this doesn't stop unpowered doors from being pried open if you have access
 			return

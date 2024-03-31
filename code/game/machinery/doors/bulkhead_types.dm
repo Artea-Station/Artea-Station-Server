@@ -1,39 +1,39 @@
 /*
-	Station Airlocks Regular
+	Station Bulkheads Regular
 */
 
-/obj/machinery/door/airlock/command
+/obj/machinery/door/bulkhead/command
 	assemblytype = /obj/structure/door_assembly/door_assembly_com
 	normal_integrity = 450
-	airlock_paint = "#334E6D"
+	bulkhead_paint = "#334E6D"
 	stripe_paint = "#43769D"
 
-/obj/machinery/door/airlock/security
+/obj/machinery/door/bulkhead/security
 	assemblytype = /obj/structure/door_assembly/door_assembly_sec
 	normal_integrity = 450
-	airlock_paint = "#9F2828"
+	bulkhead_paint = "#9F2828"
 	stripe_paint = "#D27428"
 
-/obj/machinery/door/airlock/engineering
+/obj/machinery/door/bulkhead/engineering
 	assemblytype = /obj/structure/door_assembly/door_assembly_eng
-	airlock_paint = "#A28226"
+	bulkhead_paint = "#A28226"
 	stripe_paint = "#7F292F"
 
-/obj/machinery/door/airlock/medical
+/obj/machinery/door/bulkhead/medical
 	assemblytype = /obj/structure/door_assembly/door_assembly_med
-	airlock_paint = "#BBBBBB"
+	bulkhead_paint = "#BBBBBB"
 	stripe_paint = "#5995BA"
 
-/obj/machinery/door/airlock/medical/shuttle
+/obj/machinery/door/bulkhead/medical/shuttle
 	assemblytype = /obj/structure/door_assembly/door_assembly_medical_shuttle
 	stripe_paint = "#575577"
 
-/obj/machinery/door/airlock/hydroponics	//Hydroponics front doors!
+/obj/machinery/door/bulkhead/hydroponics	//Hydroponics front doors!
 	assemblytype = /obj/structure/door_assembly/door_assembly_hydro
-	airlock_paint = "#559958"
+	bulkhead_paint = "#559958"
 	stripe_paint = "#0650A4"
 
-/obj/machinery/door/airlock/maintenance
+/obj/machinery/door/bulkhead/maintenance
 	name = "maintenance access"
 	assemblytype = /obj/structure/door_assembly/door_assembly_mai
 	normal_integrity = 250
@@ -41,202 +41,202 @@
 	doorOpen = 'sound/machines/door/airlock_open_maint.ogg'
 	doorClose = 'sound/machines/door/airlock_close_maint.ogg'
 
-/obj/machinery/door/airlock/maintenance/external
-	name = "external airlock access"
+/obj/machinery/door/bulkhead/maintenance/external
+	name = "external bulkhead access"
 	assemblytype = /obj/structure/door_assembly/door_assembly_extmai
 	stripe_paint = "#9F2828"
 	doorOpen = 'sound/machines/door/airlock_open_space.ogg'
 	doorClose = 'sound/machines/door/airlock_close_space.ogg'
 
-/obj/machinery/door/airlock/mining
-	name = "mining airlock"
+/obj/machinery/door/bulkhead/mining
+	name = "mining bulkhead"
 	assemblytype = /obj/structure/door_assembly/door_assembly_min
-	airlock_paint = "#967032"
+	bulkhead_paint = "#967032"
 	stripe_paint = "#5F350B"
 
-/obj/machinery/door/airlock/atmos
-	name = "atmospherics airlock"
+/obj/machinery/door/bulkhead/atmos
+	name = "atmospherics bulkhead"
 	assemblytype = /obj/structure/door_assembly/door_assembly_atmo
-	airlock_paint = "#A28226"
+	bulkhead_paint = "#A28226"
 	stripe_paint = "#469085"
 
-/obj/machinery/door/airlock/research
+/obj/machinery/door/bulkhead/research
 	assemblytype = /obj/structure/door_assembly/door_assembly_research
-	airlock_paint = "#BBBBBB"
+	bulkhead_paint = "#BBBBBB"
 	stripe_paint = "#563758"
 
-/obj/machinery/door/airlock/freezer
-	name = "freezer airlock"
+/obj/machinery/door/bulkhead/freezer
+	name = "freezer bulkhead"
 	assemblytype = /obj/structure/door_assembly/door_assembly_fre
-	airlock_paint = "#BBBBBB"
+	bulkhead_paint = "#BBBBBB"
 
-/obj/machinery/door/airlock/science
+/obj/machinery/door/bulkhead/science
 	assemblytype = /obj/structure/door_assembly/door_assembly_science
-	airlock_paint = "#BBBBBB"
+	bulkhead_paint = "#BBBBBB"
 	stripe_paint = "#6633CC"
 
-/obj/machinery/door/airlock/virology
+/obj/machinery/door/bulkhead/virology
 	assemblytype = /obj/structure/door_assembly/door_assembly_viro
-	airlock_paint = "#BBBBBB"
+	bulkhead_paint = "#BBBBBB"
 	stripe_paint = "#2a7a25"
 
-/obj/machinery/door/airlock/pathfinders
+/obj/machinery/door/bulkhead/pathfinders
 	assemblytype = /obj/structure/door_assembly/door_assembly_pathfinders
-	airlock_paint = "#847A96"
+	bulkhead_paint = "#847A96"
 	stripe_paint = "#575577"
 
 //////////////////////////////////
 /*
-	Station Airlocks Glass
+	Station Bulkheads Glass
 */
 
-/obj/machinery/door/airlock/glass
+/obj/machinery/door/bulkhead/glass
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/glass/incinerator
+/obj/machinery/door/bulkhead/glass/incinerator
 	autoclose = FALSE
 	frequency = FREQ_AIRLOCK_CONTROL
 	heat_proof = TRUE
 	req_access = list(ACCESS_SYNDICATE)
 
-/obj/machinery/door/airlock/glass/incinerator/syndicatelava_interior
-	name = "Turbine Interior Airlock"
+/obj/machinery/door/bulkhead/glass/incinerator/syndicatelava_interior
+	name = "Turbine Interior Bulkhead"
 	id_tag = INCINERATOR_SYNDICATELAVA_AIRLOCK_INTERIOR
 
-/obj/machinery/door/airlock/glass/incinerator/syndicatelava_exterior
-	name = "Turbine Exterior Airlock"
+/obj/machinery/door/bulkhead/glass/incinerator/syndicatelava_exterior
+	name = "Turbine Exterior Bulkhead"
 	id_tag = INCINERATOR_SYNDICATELAVA_AIRLOCK_EXTERIOR
 
-/obj/machinery/door/airlock/command/glass
+/obj/machinery/door/bulkhead/command/glass
 	opacity = FALSE
 	glass = TRUE
 	normal_integrity = 400
 
-/obj/machinery/door/airlock/engineering/glass
+/obj/machinery/door/bulkhead/engineering/glass
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/engineering/glass/critical
+/obj/machinery/door/bulkhead/engineering/glass/critical
 	critical_machine = TRUE //stops greytide virus from opening & bolting doors in critical positions, such as the SM chamber.
 
-/obj/machinery/door/airlock/security/glass
+/obj/machinery/door/bulkhead/security/glass
 	opacity = FALSE
 	glass = TRUE
 	normal_integrity = 400
 
-/obj/machinery/door/airlock/medical/glass
+/obj/machinery/door/bulkhead/medical/glass
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/medical/shuttle/glass
+/obj/machinery/door/bulkhead/medical/shuttle/glass
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/hydroponics/glass //Uses same icon as medical/glass, maybe update it with its own unique icon one day?
+/obj/machinery/door/bulkhead/hydroponics/glass //Uses same icon as medical/glass, maybe update it with its own unique icon one day?
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/research/glass
+/obj/machinery/door/bulkhead/research/glass
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/research/glass/incinerator
+/obj/machinery/door/bulkhead/research/glass/incinerator
 	autoclose = FALSE
 	frequency = FREQ_AIRLOCK_CONTROL
 	heat_proof = TRUE
 
-/obj/machinery/door/airlock/research/glass/incinerator/ordmix_interior
-	name = "Mixing Room Interior Airlock"
+/obj/machinery/door/bulkhead/research/glass/incinerator/ordmix_interior
+	name = "Mixing Room Interior Bulkhead"
 	id_tag = INCINERATOR_ORDMIX_AIRLOCK_INTERIOR
 
-/obj/machinery/door/airlock/research/glass/incinerator/ordmix_exterior
-	name = "Mixing Room Exterior Airlock"
+/obj/machinery/door/bulkhead/research/glass/incinerator/ordmix_exterior
+	name = "Mixing Room Exterior Bulkhead"
 	id_tag = INCINERATOR_ORDMIX_AIRLOCK_EXTERIOR
 
-/obj/machinery/door/airlock/mining/glass
+/obj/machinery/door/bulkhead/mining/glass
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/atmos/glass
+/obj/machinery/door/bulkhead/atmos/glass
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/atmos/glass/critical
+/obj/machinery/door/bulkhead/atmos/glass/critical
 	critical_machine = TRUE //stops greytide virus from opening & bolting doors in critical positions, such as the SM chamber.
 
-/obj/machinery/door/airlock/science/glass
+/obj/machinery/door/bulkhead/science/glass
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/virology/glass
+/obj/machinery/door/bulkhead/virology/glass
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/maintenance/glass
+/obj/machinery/door/bulkhead/maintenance/glass
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/maintenance/external/glass
+/obj/machinery/door/bulkhead/maintenance/external/glass
 	opacity = FALSE
 	glass = TRUE
 	normal_integrity = 200
 
-/obj/machinery/door/airlock/pathfinders/glass
+/obj/machinery/door/bulkhead/pathfinders/glass
 	opacity = FALSE
 	glass = TRUE
 
 //////////////////////////////////
 /*
-	Station Airlocks Mineral
+	Station Bulkheads Mineral
 */
 
-/obj/machinery/door/airlock/gold
-	name = "gold airlock"
+/obj/machinery/door/bulkhead/gold
+	name = "gold bulkhead"
 	assemblytype = /obj/structure/door_assembly/door_assembly_gold
-	airlock_paint = "#9F891F"
+	bulkhead_paint = "#9F891F"
 
-/obj/machinery/door/airlock/gold/glass
+/obj/machinery/door/bulkhead/gold/glass
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/silver
-	name = "silver airlock"
+/obj/machinery/door/bulkhead/silver
+	name = "silver bulkhead"
 	assemblytype = /obj/structure/door_assembly/door_assembly_silver
-	airlock_paint = "#C9C9C9"
+	bulkhead_paint = "#C9C9C9"
 
-/obj/machinery/door/airlock/silver/glass
+/obj/machinery/door/bulkhead/silver/glass
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/diamond
-	name = "diamond airlock"
+/obj/machinery/door/bulkhead/diamond
+	name = "diamond bulkhead"
 	assemblytype = /obj/structure/door_assembly/door_assembly_diamond
 	normal_integrity = 1000
 	explosion_block = 2
-	airlock_paint = "#4AB4B4"
+	bulkhead_paint = "#4AB4B4"
 
-/obj/machinery/door/airlock/diamond/glass
+/obj/machinery/door/bulkhead/diamond/glass
 	normal_integrity = 950
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/uranium
-	name = "uranium airlock"
+/obj/machinery/door/bulkhead/uranium
+	name = "uranium bulkhead"
 	assemblytype = /obj/structure/door_assembly/door_assembly_uranium
-	airlock_paint = "#174207"
+	bulkhead_paint = "#174207"
 	var/last_event = 0
-	//Is this airlock actually radioactive?
+	//Is this bulkhead actually radioactive?
 	var/actually_radioactive = TRUE
 
-/obj/machinery/door/airlock/uranium/process()
+/obj/machinery/door/bulkhead/uranium/process()
 	if(actually_radioactive && world.time > last_event+20)
 		if(prob(50))
 			radiate()
 		last_event = world.time
 	..()
 
-/obj/machinery/door/airlock/uranium/proc/radiate()
+/obj/machinery/door/bulkhead/uranium/proc/radiate()
 	radiation_pulse(
 		src,
 		max_range = 2,
@@ -245,131 +245,131 @@
 		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
 	)
 
-/obj/machinery/door/airlock/uranium/glass
+/obj/machinery/door/bulkhead/uranium/glass
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/uranium/safe
+/obj/machinery/door/bulkhead/uranium/safe
 	actually_radioactive = FALSE
 
-/obj/machinery/door/airlock/uranium/glass/safe
+/obj/machinery/door/bulkhead/uranium/glass/safe
 	actually_radioactive = FALSE
 
-/obj/machinery/door/airlock/plasma
-	name = "plasma airlock"
+/obj/machinery/door/bulkhead/plasma
+	name = "plasma bulkhead"
 	desc = "No way this can end badly."
 	assemblytype = /obj/structure/door_assembly/door_assembly_plasma
-	airlock_paint = "#65217B"
+	bulkhead_paint = "#65217B"
 	material_flags = MATERIAL_EFFECTS
 	material_modifier = 0.25
 
-/obj/machinery/door/airlock/plasma/Initialize(mapload)
+/obj/machinery/door/bulkhead/plasma/Initialize(mapload)
 	custom_materials = custom_materials ? custom_materials : list(/datum/material/plasma = 20000)
 	. = ..()
 
-/obj/machinery/door/airlock/plasma/block_superconductivity() //we don't stop the heat~
+/obj/machinery/door/bulkhead/plasma/block_superconductivity() //we don't stop the heat~
 	return 0
 
-/obj/machinery/door/airlock/plasma/glass
+/obj/machinery/door/bulkhead/plasma/glass
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/bananium
-	name = "bananium airlock"
+/obj/machinery/door/bulkhead/bananium
+	name = "bananium bulkhead"
 	desc = "Honkhonkhonk"
 	assemblytype = /obj/structure/door_assembly/door_assembly_bananium
-	airlock_paint = "#FFFF00"
+	bulkhead_paint = "#FFFF00"
 	doorOpen = 'sound/items/bikehorn.ogg'
 
-/obj/machinery/door/airlock/bananium/glass
+/obj/machinery/door/bulkhead/bananium/glass
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/sandstone
-	name = "sandstone airlock"
+/obj/machinery/door/bulkhead/sandstone
+	name = "sandstone bulkhead"
 	assemblytype = /obj/structure/door_assembly/door_assembly_sandstone
-	airlock_paint = "#C09A72"
+	bulkhead_paint = "#C09A72"
 
-/obj/machinery/door/airlock/sandstone/glass
+/obj/machinery/door/bulkhead/sandstone/glass
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/wood
-	name = "wooden airlock"
+/obj/machinery/door/bulkhead/wood
+	name = "wooden bulkhead"
 	assemblytype = /obj/structure/door_assembly/door_assembly_wood
-	airlock_paint = "#805F44"
+	bulkhead_paint = "#805F44"
 
-/obj/machinery/door/airlock/wood/glass
+/obj/machinery/door/bulkhead/wood/glass
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/titanium
-	name = "shuttle airlock"
+/obj/machinery/door/bulkhead/titanium
+	name = "shuttle bulkhead"
 	assemblytype = /obj/structure/door_assembly/door_assembly_titanium
-	airlock_paint = "#b3c0c7"
+	bulkhead_paint = "#b3c0c7"
 	normal_integrity = 400
 
-/obj/machinery/door/airlock/titanium/glass
+/obj/machinery/door/bulkhead/titanium/glass
 	normal_integrity = 350
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/bronze
-	name = "bronze airlock"
+/obj/machinery/door/bulkhead/bronze
+	name = "bronze bulkhead"
 	assemblytype = /obj/structure/door_assembly/door_assembly_bronze
-	airlock_paint = "#9c5f05"
+	bulkhead_paint = "#9c5f05"
 
-/obj/machinery/door/airlock/bronze/seethru
+/obj/machinery/door/bulkhead/bronze/seethru
 	assemblytype = /obj/structure/door_assembly/door_assembly_bronze/seethru
 	opacity = FALSE
 	glass = TRUE
 //////////////////////////////////
 /*
-	Station2 Airlocks
+	Station2 Bulkheads
 */
 
-/obj/machinery/door/airlock/public
+/obj/machinery/door/bulkhead/public
 	icon = 'icons/obj/doors/airlocks/station2/airlock.dmi'
 	glass_fill_overlays = 'icons/obj/doors/airlocks/station2/glass_overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_public
 
-/obj/machinery/door/airlock/public/glass
+/obj/machinery/door/bulkhead/public/glass
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/public/glass/incinerator
+/obj/machinery/door/bulkhead/public/glass/incinerator
 	autoclose = FALSE
 	frequency = FREQ_AIRLOCK_CONTROL
 	heat_proof = TRUE
 
-/obj/machinery/door/airlock/public/glass/incinerator/atmos_interior
-	name = "Turbine Interior Airlock"
+/obj/machinery/door/bulkhead/public/glass/incinerator/atmos_interior
+	name = "Turbine Interior Bulkhead"
 	id_tag = INCINERATOR_ATMOS_AIRLOCK_INTERIOR
 
-/obj/machinery/door/airlock/public/glass/incinerator/atmos_exterior
-	name = "Turbine Exterior Airlock"
+/obj/machinery/door/bulkhead/public/glass/incinerator/atmos_exterior
+	name = "Turbine Exterior Bulkhead"
 	id_tag = INCINERATOR_ATMOS_AIRLOCK_EXTERIOR
 
 //////////////////////////////////
 /*
-	External Airlocks
+	External Bulkheads
 */
 
-/obj/machinery/door/airlock/external
-	name = "external airlock"
+/obj/machinery/door/bulkhead/external
+	name = "external bulkhead"
 	icon = 'icons/obj/doors/airlocks/external/airlock.dmi'
 	color_overlays = 'icons/obj/doors/airlocks/external/airlock_color.dmi'
 	glass_fill_overlays = 'icons/obj/doors/airlocks/external/glass_overlays.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
-	airlock_paint = "#9F2828"
+	bulkhead_paint = "#9F2828"
 	assemblytype = /obj/structure/door_assembly/door_assembly_ext
 	doorOpen = 'sound/machines/door/airlock_open_space.ogg'
 	doorClose = 'sound/machines/door/airlock_close_space.ogg'
 
-	/// Whether or not the airlock can be opened without access from a certain direction while powered, or with bare hands from any direction while unpowered OR pressurized.
+	/// Whether or not the bulkhead can be opened without access from a certain direction while powered, or with bare hands from any direction while unpowered OR pressurized.
 	var/space_dir = null
 
-/obj/machinery/door/airlock/external/Initialize(mapload, ...)
+/obj/machinery/door/bulkhead/external/Initialize(mapload, ...)
 	// default setting is for mapping only, let overrides work
 	if(!mapload || req_access_txt || req_one_access_txt)
 		req_access = null
@@ -378,70 +378,70 @@
 
 	return INITIALIZE_HINT_LATELOAD
 
-/obj/machinery/door/airlock/external/LateInitialize()
+/obj/machinery/door/bulkhead/external/LateInitialize()
 	. = ..()
 	if(space_dir)
 		unres_sides |= space_dir
 
-/obj/machinery/door/airlock/external/examine(mob/user)
+/obj/machinery/door/bulkhead/external/examine(mob/user)
 	. = ..()
 	if(space_dir)
 		. += span_notice("It has labels indicating that it has an emergency mechanism to open from the [dir2text(space_dir)] side with <b>just your hands</b> even if there's no power.")
 
-/obj/machinery/door/airlock/external/cyclelinkairlock()
+/obj/machinery/door/bulkhead/external/cyclelinkbulkhead()
 	. = ..()
-	var/obj/machinery/door/airlock/external/cycle_linked_external_airlock = cyclelinkedairlock
-	if(istype(cycle_linked_external_airlock))
-		cycle_linked_external_airlock.space_dir |= space_dir
-		space_dir |= cycle_linked_external_airlock.space_dir
+	var/obj/machinery/door/bulkhead/external/cycle_linked_external_bulkhead = cyclelinkedbulkhead
+	if(istype(cycle_linked_external_bulkhead))
+		cycle_linked_external_bulkhead.space_dir |= space_dir
+		space_dir |= cycle_linked_external_bulkhead.space_dir
 
-/obj/machinery/door/airlock/external/try_safety_unlock(mob/user)
+/obj/machinery/door/bulkhead/external/try_safety_unlock(mob/user)
 	if(space_dir && density)
 		if(!hasPower())
-			to_chat(user, span_notice("You begin unlocking the airlock safety mechanism..."))
+			to_chat(user, span_notice("You begin unlocking the bulkhead safety mechanism..."))
 			if(do_after(user, 15 SECONDS, target = src))
 				try_to_crowbar(null, user, TRUE)
 				return TRUE
 		else
 			// always open from the space side
 			// get_dir(src, user) & space_dir, checked in unresricted_sides
-			var/should_safety_open = shuttledocked || cyclelinkedairlock?.shuttledocked || is_safe_turf(get_step(src, space_dir), TRUE, FALSE)
+			var/should_safety_open = shuttledocked || cyclelinkedbulkhead?.shuttledocked || is_safe_turf(get_step(src, space_dir), TRUE, FALSE)
 			return try_to_activate_door(user, should_safety_open)
 
 	return ..()
 
-/// Access free external airlock
-/obj/machinery/door/airlock/external/ruin
+/// Access free external bulkhead
+/obj/machinery/door/bulkhead/external/ruin
 
-/obj/machinery/door/airlock/external/glass
+/obj/machinery/door/bulkhead/external/glass
 	opacity = FALSE
 	glass = TRUE
 
-/// Access free external glass airlock
-/obj/machinery/door/airlock/external/glass/ruin
+/// Access free external glass bulkhead
+/obj/machinery/door/bulkhead/external/glass/ruin
 
 //////////////////////////////////
 /*
-	CentCom Airlocks
+	CentCom Bulkheads
 */
 
-/obj/machinery/door/airlock/centcom //Use grunge as a station side version, as these have special effects related to them via phobias and such.
+/obj/machinery/door/bulkhead/centcom //Use grunge as a station side version, as these have special effects related to them via phobias and such.
 	icon = 'icons/obj/doors/airlocks/centcom/airlock.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_centcom
 	normal_integrity = 1000
 	security_level = 6
 	explosion_block = 2
 
-/obj/machinery/door/airlock/grunge
+/obj/machinery/door/bulkhead/grunge
 	icon = 'icons/obj/doors/airlocks/centcom/airlock.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_grunge
 
 //////////////////////////////////
 /*
-	Vault Airlocks
+	Vault Bulkheads
 */
 
-/obj/machinery/door/airlock/vault
+/obj/machinery/door/bulkhead/vault
 	name = "vault door"
 	icon = 'icons/obj/doors/airlocks/vault/airlock.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/vault/overlays.dmi'
@@ -453,10 +453,10 @@
 
 //////////////////////////////////
 /*
-	Hatch Airlocks
+	Hatch Bulkheads
 */
 
-/obj/machinery/door/airlock/hatch
+/obj/machinery/door/bulkhead/hatch
 	name = "airtight hatch"
 	icon = 'icons/obj/doors/airlocks/hatch/airlock.dmi'
 	stripe_overlays = 'icons/obj/doors/airlocks/hatch/airlock_stripe.dmi'
@@ -464,7 +464,7 @@
 	doorOpen = 'sound/machines/door/airlock_open_maint.ogg'
 	doorClose = 'sound/machines/door/airlock_close_maint.ogg'
 
-/obj/machinery/door/airlock/maintenance_hatch
+/obj/machinery/door/bulkhead/maintenance_hatch
 	name = "maintenance hatch"
 	icon = 'icons/obj/doors/airlocks/hatch/airlock.dmi'
 	stripe_overlays = 'icons/obj/doors/airlocks/hatch/airlock_stripe.dmi'
@@ -476,11 +476,11 @@
 
 //////////////////////////////////
 /*
-	High Security Airlocks
+	High Security Bulkheads
 */
 
-/obj/machinery/door/airlock/highsecurity
-	name = "high tech security airlock"
+/obj/machinery/door/bulkhead/highsecurity
+	name = "high tech security bulkhead"
 	icon = 'icons/obj/doors/airlocks/highsec/airlock.dmi'
 	color_overlays = null
 	stripe_overlays = null
@@ -493,21 +493,21 @@
 
 //////////////////////////////////
 /*
-	Shuttle Airlocks
+	Shuttle Bulkheads
 */
 
-/obj/machinery/door/airlock/shuttle
-	name = "shuttle airlock"
+/obj/machinery/door/bulkhead/shuttle
+	name = "shuttle bulkhead"
 	assemblytype = /obj/structure/door_assembly/door_assembly_shuttle
-	airlock_paint = "#b3c0c7"
+	bulkhead_paint = "#b3c0c7"
 
-/obj/machinery/door/airlock/shuttle/glass
+/obj/machinery/door/bulkhead/shuttle/glass
 	opacity = FALSE
 	glass = TRUE
 
-/obj/machinery/door/airlock/abductor
-	name = "alien airlock"
-	desc = "With humanity's current technological level, it could take years to hack this advanced airlock... or maybe we should give a screwdriver a try?"
+/obj/machinery/door/bulkhead/abductor
+	name = "alien bulkhead"
+	desc = "With humanity's current technological level, it could take years to hack this advanced bulkhead... or maybe we should give a screwdriver a try?"
 	assemblytype = /obj/structure/door_assembly/door_assembly_abductor
 	damage_deflection = 30
 	explosion_block = 3
@@ -515,45 +515,45 @@
 	aiControlDisabled = AI_WIRE_DISABLED
 	normal_integrity = 700
 	security_level = 1
-	airlock_paint = "#333333"
+	bulkhead_paint = "#333333"
 	stripe_paint = "#6633CC"
 
 //////////////////////////////////
 /*
-	Cult Airlocks
+	Cult Bulkheads
 */
 
-/obj/machinery/door/airlock/cult
-	name = "cult airlock"
+/obj/machinery/door/bulkhead/cult
+	name = "cult bulkhead"
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult
 	hackProof = TRUE
 	aiControlDisabled = AI_WIRE_DISABLED
 	req_access = list(ACCESS_BLOODCULT)
 	damage_deflection = 10
-	airlock_paint = "#333333"
+	bulkhead_paint = "#333333"
 	stripe_paint = "#610000"
 	var/openingoverlaytype = /obj/effect/temp_visual/cult/door
 	var/friendly = FALSE
 	var/stealthy = FALSE
 
-/obj/machinery/door/airlock/cult/Initialize(mapload)
+/obj/machinery/door/bulkhead/cult/Initialize(mapload)
 	. = ..()
 	new openingoverlaytype(loc)
 
-/obj/machinery/door/airlock/cult/canAIControl(mob/user)
+/obj/machinery/door/bulkhead/cult/canAIControl(mob/user)
 	return (IS_CULTIST(user) && !isAllPowerCut())
 
-/obj/machinery/door/airlock/cult/on_break()
+/obj/machinery/door/bulkhead/cult/on_break()
 	if(!panel_open)
 		panel_open = TRUE
 
-/obj/machinery/door/airlock/cult/isElectrified()
+/obj/machinery/door/bulkhead/cult/isElectrified()
 	return FALSE
 
-/obj/machinery/door/airlock/cult/hasPower()
+/obj/machinery/door/bulkhead/cult/hasPower()
 	return TRUE
 
-/obj/machinery/door/airlock/cult/allowed(mob/living/L)
+/obj/machinery/door/bulkhead/cult/allowed(mob/living/L)
 	if(!density)
 		return TRUE
 	if(friendly || IS_CULTIST(L) || isshade(L) || isconstruct(L))
@@ -571,15 +571,15 @@
 			L.throw_at(throwtarget, 5, 1)
 		return FALSE
 
-/obj/machinery/door/airlock/cult/proc/conceal()
+/obj/machinery/door/bulkhead/cult/proc/conceal()
 	icon = 'icons/obj/doors/airlocks/station/airlock.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
-	name = "Airlock"
+	name = "Bulkhead"
 	desc = "It opens and closes."
 	stealthy = TRUE
 	update_appearance()
 
-/obj/machinery/door/airlock/cult/proc/reveal()
+/obj/machinery/door/bulkhead/cult/proc/reveal()
 	icon = initial(icon)
 	overlays_file = initial(overlays_file)
 	name = initial(name)
@@ -587,39 +587,39 @@
 	stealthy = initial(stealthy)
 	update_appearance()
 
-/obj/machinery/door/airlock/cult/narsie_act()
+/obj/machinery/door/bulkhead/cult/narsie_act()
 	return
 
-/obj/machinery/door/airlock/cult/emp_act(severity)
+/obj/machinery/door/bulkhead/cult/emp_act(severity)
 	return
 
-/obj/machinery/door/airlock/cult/friendly
+/obj/machinery/door/bulkhead/cult/friendly
 	friendly = TRUE
 
-/obj/machinery/door/airlock/cult/glass
+/obj/machinery/door/bulkhead/cult/glass
 	glass = TRUE
 	opacity = FALSE
 
-/obj/machinery/door/airlock/cult/glass/friendly
+/obj/machinery/door/bulkhead/cult/glass/friendly
 	friendly = TRUE
 
-/obj/machinery/door/airlock/cult/unruned
+/obj/machinery/door/bulkhead/cult/unruned
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult/unruned
 	openingoverlaytype = /obj/effect/temp_visual/cult/door/unruned
 
-/obj/machinery/door/airlock/cult/unruned/friendly
+/obj/machinery/door/bulkhead/cult/unruned/friendly
 	friendly = TRUE
 
-/obj/machinery/door/airlock/cult/unruned/glass
+/obj/machinery/door/bulkhead/cult/unruned/glass
 	glass = TRUE
 	opacity = FALSE
 
-/obj/machinery/door/airlock/cult/unruned/glass/friendly
+/obj/machinery/door/bulkhead/cult/unruned/glass/friendly
 	friendly = TRUE
 
-/obj/machinery/door/airlock/cult/weak
-	name = "brittle cult airlock"
-	desc = "An airlock hastily corrupted by blood magic, it is unusually brittle in this state."
+/obj/machinery/door/bulkhead/cult/weak
+	name = "brittle cult bulkhead"
+	desc = "An bulkhead hastily corrupted by blood magic, it is unusually brittle in this state."
 	normal_integrity = 150
 	damage_deflection = 5
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
@@ -627,15 +627,15 @@
 
 //////////////////////////////////
 /*
-	Material Airlocks
+	Material Bulkheads
 */
-/obj/machinery/door/airlock/material
-	name = "Airlock"
+/obj/machinery/door/bulkhead/material
+	name = "Bulkhead"
 	material_flags = MATERIAL_EFFECTS | MATERIAL_ADD_PREFIX | MATERIAL_GREYSCALE | MATERIAL_AFFECT_STATISTICS
-	greyscale_config = /datum/greyscale_config/material_airlock
+	greyscale_config = /datum/greyscale_config/material_bulkhead
 	assemblytype = /obj/structure/door_assembly/door_assembly_material
 
-/obj/machinery/door/airlock/material/close(forced, force_crush)
+/obj/machinery/door/bulkhead/material/close(forced, force_crush)
 	. = ..()
 	if(!.)
 		return
@@ -644,21 +644,21 @@
 			set_opacity(FALSE)
 			break
 
-/obj/machinery/door/airlock/material/prepare_deconstruction_assembly(obj/structure/door_assembly/assembly)
+/obj/machinery/door/bulkhead/material/prepare_deconstruction_assembly(obj/structure/door_assembly/assembly)
 	assembly.set_custom_materials(custom_materials)
 	..()
 
-/obj/machinery/door/airlock/material/glass
+/obj/machinery/door/bulkhead/material/glass
 	opacity = FALSE
 	glass = TRUE
 
 //////////////////////////////////
 /*
-	Misc Airlocks
+	Misc Bulkheads
 */
 
-/obj/machinery/door/airlock/glass_large
-	name = "large glass airlock"
+/obj/machinery/door/bulkhead/glass_large
+	name = "large glass bulkhead"
 	icon = 'icons/obj/doors/airlocks/glass_large/glass_large.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
 	opacity = FALSE
@@ -666,5 +666,5 @@
 	glass = TRUE
 	bound_width = 64 // 2x1
 
-/obj/machinery/door/airlock/glass_large/narsie_act()
+/obj/machinery/door/bulkhead/glass_large/narsie_act()
 	return
