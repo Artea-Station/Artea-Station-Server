@@ -1,37 +1,37 @@
-/obj/item/electronics/airlock
-	name = "airlock electronics"
+/obj/item/electronics/bulkhead
+	name = "bulkhead electronics"
 	req_access = list(ACCESS_MAINT_TUNNELS)
 	/// A list of all granted accesses
 	var/list/accesses = list()
-	/// If the airlock should require ALL or only ONE of the listed accesses
+	/// If the bulkhead should require ALL or only ONE of the listed accesses
 	var/one_access = 0
-	/// Checks to see if this airlock has an unrestricted helper (will set to TRUE if present).
+	/// Checks to see if this bulkhead has an unrestricted helper (will set to TRUE if present).
 	var/unres_sensor = FALSE
-	/// Unrestricted sides, or sides of the airlock that will open regardless of access
+	/// Unrestricted sides, or sides of the bulkhead that will open regardless of access
 	var/unres_sides = NONE
-	///what name are we passing to the finished airlock
+	///what name are we passing to the finished bulkhead
 	var/passed_name
-	///what string are we passing to the finished airlock as the cycle ID
+	///what string are we passing to the finished bulkhead as the cycle ID
 	var/passed_cycle_id
 	/// A holder of the electronics, in case of them working as an integrated part
 	var/holder
-	/// Whether this airlock can have an integrated circuit inside of it or not
+	/// Whether this bulkhead can have an integrated circuit inside of it or not
 	var/shell = FALSE
 
-/obj/item/electronics/airlock/examine(mob/user)
+/obj/item/electronics/bulkhead/examine(mob/user)
 	. = ..()
-	. += span_notice("Has a neat <i>selection menu</i> for modifying airlock access levels.")
+	. += span_notice("Has a neat <i>selection menu</i> for modifying bulkhead access levels.")
 
-/obj/item/electronics/airlock/ui_state(mob/user)
+/obj/item/electronics/bulkhead/ui_state(mob/user)
 	return GLOB.hands_state
 
-/obj/item/electronics/airlock/ui_interact(mob/user, datum/tgui/ui)
+/obj/item/electronics/bulkhead/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "AirlockElectronics", name)
+		ui = new(user, src, "BulkheadElectronics", name)
 		ui.open()
 
-/obj/item/electronics/airlock/ui_static_data(mob/user)
+/obj/item/electronics/bulkhead/ui_static_data(mob/user)
 	var/list/data = list()
 
 	var/list/regions = list()
@@ -42,7 +42,7 @@
 	data["regions"] = regions
 	return data
 
-/obj/item/electronics/airlock/ui_data()
+/obj/item/electronics/bulkhead/ui_data()
 	var/list/data = list()
 	data["accesses"] = accesses
 	data["oneAccess"] = one_access
@@ -52,7 +52,7 @@
 	data["shell"] = shell
 	return data
 
-/obj/item/electronics/airlock/ui_act(action, params)
+/obj/item/electronics/bulkhead/ui_act(action, params)
 	. = ..()
 	if(.)
 		return
@@ -103,7 +103,7 @@
 			passed_cycle_id = new_cycle_id
 			. = TRUE
 
-/obj/item/electronics/airlock/ui_host()
+/obj/item/electronics/bulkhead/ui_host()
 	if(holder)
 		return holder
 	return src

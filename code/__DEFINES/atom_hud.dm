@@ -32,7 +32,7 @@
 /// Mech/Silicon tracking beacon, Circutry long range icon
 #define DIAG_TRACK_HUD "14"
 /// Airlock shock overlay
-#define DIAG_AIRLOCK_HUD "15"
+#define DIAG_BULKHEAD_HUD "15"
 /// Bot path indicators
 #define DIAG_PATH_HUD "16"
 /// Gland indicators for abductors

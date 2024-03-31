@@ -3,51 +3,51 @@
 #define AI_WIRE_HACKED 2
 #define AI_WIRE_DISABLED_HACKED -1
 
-/datum/wires/airlock
-	holder_type = /obj/machinery/door/airlock
-	proper_name = "Generic Airlock"
+/datum/wires/bulkhead
+	holder_type = /obj/machinery/door/bulkhead
+	proper_name = "Generic Bulkhead"
 
-/datum/wires/airlock/secure
-	proper_name = "High Security Airlock"
+/datum/wires/bulkhead/secure
+	proper_name = "High Security Bulkhead"
 	randomize = TRUE
 
-/datum/wires/airlock/maint
-	dictionary_key = /datum/wires/airlock/maint
-	proper_name = "Maintenance Airlock"
+/datum/wires/bulkhead/maint
+	dictionary_key = /datum/wires/bulkhead/maint
+	proper_name = "Maintenance Bulkhead"
 
-/datum/wires/airlock/command
-	dictionary_key = /datum/wires/airlock/command
-	proper_name = "Command Airlock"
+/datum/wires/bulkhead/command
+	dictionary_key = /datum/wires/bulkhead/command
+	proper_name = "Command Bulkhead"
 
-/datum/wires/airlock/service
-	dictionary_key = /datum/wires/airlock/service
-	proper_name = "Service Airlock"
+/datum/wires/bulkhead/service
+	dictionary_key = /datum/wires/bulkhead/service
+	proper_name = "Service Bulkhead"
 
-/datum/wires/airlock/security
-	dictionary_key = /datum/wires/airlock/security
-	proper_name = "Security Airlock"
+/datum/wires/bulkhead/security
+	dictionary_key = /datum/wires/bulkhead/security
+	proper_name = "Security Bulkhead"
 
-/datum/wires/airlock/engineering
-	dictionary_key = /datum/wires/airlock/engineering
-	proper_name = "Engineering Airlock"
+/datum/wires/bulkhead/engineering
+	dictionary_key = /datum/wires/bulkhead/engineering
+	proper_name = "Engineering Bulkhead"
 
-/datum/wires/airlock/pathfinders
-	dictionary_key = /datum/wires/airlock/pathfinders
-	proper_name = "Pathfinders Airlock"
+/datum/wires/bulkhead/pathfinders
+	dictionary_key = /datum/wires/bulkhead/pathfinders
+	proper_name = "Pathfinders Bulkhead"
 
-/datum/wires/airlock/medbay
-	dictionary_key = /datum/wires/airlock/medbay
-	proper_name = "Medbay Airlock"
+/datum/wires/bulkhead/medbay
+	dictionary_key = /datum/wires/bulkhead/medbay
+	proper_name = "Medbay Bulkhead"
 
-/datum/wires/airlock/science
-	dictionary_key = /datum/wires/airlock/science
-	proper_name = "Science Airlock"
+/datum/wires/bulkhead/science
+	dictionary_key = /datum/wires/bulkhead/science
+	proper_name = "Science Bulkhead"
 
-/datum/wires/airlock/ai
-	dictionary_key = /datum/wires/airlock/ai
-	proper_name = "AI Airlock"
+/datum/wires/bulkhead/ai
+	dictionary_key = /datum/wires/bulkhead/ai
+	proper_name = "AI Bulkhead"
 
-/datum/wires/airlock/New(atom/holder)
+/datum/wires/bulkhead/New(atom/holder)
 	wires = list(
 		WIRE_AI,
 		WIRE_BACKUP1,
@@ -68,17 +68,17 @@
 	add_duds(2)
 	..()
 
-/datum/wires/airlock/interact(mob/user)
-	var/obj/machinery/door/airlock/airlock_holder = holder
-	if (!issilicon(user) && airlock_holder.isElectrified() && airlock_holder.shock(user, 100))
+/datum/wires/bulkhead/interact(mob/user)
+	var/obj/machinery/door/bulkhead/Bulkhead_holder = holder
+	if (!issilicon(user) && Bulkhead_holder.isElectrified() && Bulkhead_holder.shock(user, 100))
 		return
 
 	return ..()
 
-/datum/wires/airlock/interactable(mob/user)
+/datum/wires/bulkhead/interactable(mob/user)
 	if(!..())
 		return FALSE
-	var/obj/machinery/door/airlock/A = holder
+	var/obj/machinery/door/bulkhead/A = holder
 	if(!issilicon(user) && A.isElectrified())
 		var/mob/living/carbon/carbon_user = user
 		if (!istype(carbon_user) || carbon_user.should_electrocute(src))
@@ -88,8 +88,8 @@
 	if(A.panel_open)
 		return TRUE
 
-/datum/wires/airlock/get_status()
-	var/obj/machinery/door/airlock/A = holder
+/datum/wires/bulkhead/get_status()
+	var/obj/machinery/door/bulkhead/A = holder
 	var/list/status = list()
 	status += "The door bolts [A.locked ? "have engaged!" : "have disengaged."]"
 	status += "The test light is [A.hasPower() ? "on" : "off"]."
@@ -106,9 +106,9 @@
 
 	return status
 
-/datum/wires/airlock/on_pulse(wire)
+/datum/wires/bulkhead/on_pulse(wire)
 	set waitfor = FALSE
-	var/obj/machinery/door/airlock/A = holder
+	var/obj/machinery/door/bulkhead/A = holder
 	switch(wire)
 		if(WIRE_POWER1, WIRE_POWER2) // Pulse to lose power.
 			A.loseMainPower()
@@ -119,9 +119,9 @@
 				return
 			if(!A.requiresID() || A.check_access(null))
 				if(A.density)
-					INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/airlock, open), 1)
+					INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/bulkhead, open), 1)
 				else
-					INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/airlock, close), 1)
+					INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/bulkhead, close), 1)
 		if(WIRE_BOLTS) // Pulse to toggle bolts (but only raises if power is on).
 			if(!A.locked)
 				A.bolt()
@@ -140,7 +140,7 @@
 				A.aiControlDisabled = AI_WIRE_DISABLED
 			else if(A.aiControlDisabled == AI_WIRE_DISABLED_HACKED)
 				A.aiControlDisabled = AI_WIRE_HACKED
-			addtimer(CALLBACK(A, TYPE_PROC_REF(/obj/machinery/door/airlock, reset_ai_wire)), 1 SECONDS)
+			addtimer(CALLBACK(A, TYPE_PROC_REF(/obj/machinery/door/bulkhead, reset_ai_wire)), 1 SECONDS)
 		if(WIRE_SHOCK) // Pulse to shock the door for 10 ticks.
 			if(!A.secondsElectrified)
 				A.set_electrified(MACHINE_DEFAULT_ELECTRIFY_TIME, usr)
@@ -160,14 +160,14 @@
 			A.unres_sides = DIRFLIP(A.unres_sides)
 			A.update_appearance()
 
-/obj/machinery/door/airlock/proc/reset_ai_wire()
+/obj/machinery/door/bulkhead/proc/reset_ai_wire()
 	if(aiControlDisabled == AI_WIRE_DISABLED)
 		aiControlDisabled = AI_WIRE_NORMAL
 	else if(aiControlDisabled == AI_WIRE_HACKED)
 		aiControlDisabled = AI_WIRE_DISABLED_HACKED
 
-/datum/wires/airlock/on_cut(wire, mend)
-	var/obj/machinery/door/airlock/A = holder
+/datum/wires/bulkhead/on_cut(wire, mend)
+	var/obj/machinery/door/bulkhead/A = holder
 	switch(wire)
 		if(WIRE_POWER1, WIRE_POWER2) // Cut to lose power, repair all to gain power.
 			if(mend && !is_cut(WIRE_POWER1) && !is_cut(WIRE_POWER2))
@@ -228,7 +228,7 @@
 				A.update_appearance()
 
 
-/datum/wires/airlock/can_reveal_wires(mob/user)
+/datum/wires/bulkhead/can_reveal_wires(mob/user)
 	if(HAS_TRAIT(user, TRAIT_KNOW_ENGI_WIRES))
 		return TRUE
 

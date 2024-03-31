@@ -49,7 +49,7 @@
 	var/datum/looping_sound/sound_loop
 
 /obj/machinery/atmospherics/components/unary/vent_pump/New()
-	sound_loop = new /datum/looping_sound/air_pump(src)
+	sound_loop = new /datum/looping_sound/air_pump(src, FALSE)
 	if(!id_tag)
 		id_tag = assign_random_name()
 	. = ..()

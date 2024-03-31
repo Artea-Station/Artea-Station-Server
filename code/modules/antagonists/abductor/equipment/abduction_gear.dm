@@ -865,7 +865,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/structure/door_assembly/door_assembly_abductor
 	name = "alien airlock assembly"
 	base_name = "alien airlock"
-	airlock_type = /obj/machinery/door/airlock/abductor
+	airlock_type = /obj/machinery/door/bulkhead/abductor
 	material_type = /obj/item/stack/sheet/mineral/abductor
 	noglass = TRUE
 

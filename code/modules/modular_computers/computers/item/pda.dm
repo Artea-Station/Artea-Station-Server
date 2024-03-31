@@ -106,8 +106,8 @@
 
 	to_chat(user, span_notice("You upload the virus to [target]!"))
 	var/sig_list = list(COMSIG_ATOM_ATTACK_HAND)
-	if(istype(target,/obj/machinery/door/airlock))
-		sig_list = list(COMSIG_AIRLOCK_OPEN, COMSIG_AIRLOCK_CLOSE)
+	if(istype(target,/obj/machinery/door/bulkhead))
+		sig_list = list(COMSIG_BULKHEAD_OPEN, COMSIG_BULKHEAD_CLOSE)
 
 	installed_cartridge.charges--
 	target.AddComponent(
