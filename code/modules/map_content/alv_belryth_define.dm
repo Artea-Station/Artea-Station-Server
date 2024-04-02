@@ -24,7 +24,7 @@
 	job_changes = list()
 	overflow_job = /datum/job/assistant/bearcat
 	shuttles = list(
-		"cargo" = "cargo_bearcat",
+		"cargo" = "cargo_belryth",
 		"ferry" = "ferry_kilo",
 		"whiteship" = "whiteship_kilo",
 		"emergency" = "emergency_kilo",

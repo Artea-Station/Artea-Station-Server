@@ -146,6 +146,9 @@
 	base_icon_state = "textured_dark"
 	floor_tile = /obj/item/stack/tile/iron/dark/textured
 
+/turf/open/floor/iron/dark/textured/airless
+	initial_gas = AIRLESS_ATMOS
+
 /turf/open/floor/iron/dark/textured_edge
 	icon_state = "textured_dark_edge"
 	base_icon_state = "textured_dark_edge"
