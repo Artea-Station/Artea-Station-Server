@@ -36,3 +36,9 @@
 	fade = 0.2 SECONDS
 	position = generator(GEN_VECTOR, list(-3, 5, 0), list(3, 6.5, 0), NORMAL_RAND)
 	velocity = generator(GEN_VECTOR, list(-0.1, 0.4, 0), list(0.1, 0.5, 0), NORMAL_RAND)
+
+/particles/smoke/steam/vent/heavy
+	spawning = 2
+	lifespan = 2 SECONDS
+	position = generator(GEN_SPHERE, 0, 10, NORMAL_RAND)
+	velocity = list(0, 0, 0)
