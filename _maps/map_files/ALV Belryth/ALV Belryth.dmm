@@ -4671,7 +4671,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/defibrillator_mount/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark/textured,
 /area/station/medical/treatment_center)
@@ -7168,8 +7167,9 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/conveyor/inverted{
-	id = "cargo_smeltery"
+/obj/machinery/conveyor{
+	id = "cargo_smeltery";
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/station/cargo/storage)
@@ -7291,6 +7291,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/effect/mapping_helpers/bulkhead/access/all/medical/general,
 /turf/open/floor/iron/dark/textured,
 /area/station/maintenance/department/medical/upper)
 "dpL" = (
@@ -22490,8 +22491,9 @@
 "jGG" = (
 /obj/structure/plasticflaps,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/conveyor/inverted{
-	id = "cargo_smeltery"
+/obj/machinery/conveyor{
+	id = "cargo_smeltery";
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/station/cargo/storage)
@@ -25730,8 +25732,9 @@
 /area/station/service/kitchen/coldroom)
 "ldn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/conveyor/inverted{
-	id = "cargo_smeltery"
+/obj/machinery/conveyor{
+	id = "cargo_smeltery";
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/station/cargo/storage)
@@ -31005,7 +31008,6 @@
 "nkM" = (
 /obj/machinery/stasis,
 /obj/effect/turf_decal/bot,
-/obj/machinery/defibrillator_mount/directional/south,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/iron/dark/textured,
 /area/station/medical/treatment_center)
