@@ -215,6 +215,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/offensive_notes
 	/// Used in obj/item/examine to determines whether or not to detail an item's statistics even if it does not meet the force requirements
 	var/override_notes = FALSE
+	/// If TRUE, ignores lighting checks for if this item can be read or not.
+	var/self_lighting = FALSE
 
 /obj/item/Initialize(mapload)
 

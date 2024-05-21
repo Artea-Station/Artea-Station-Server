@@ -1142,7 +1142,7 @@
 		to_chat(src, span_warning("You can't write with the [writing_instrument]!"))
 		return FALSE
 
-	if(!has_light_nearby() && !has_nightvision())
+	if(!has_light_nearby() && !has_nightvision() && !writing_instrument.self_lighting)
 		to_chat(src, span_warning("It's too dark in here to write anything!"))
 		return FALSE
 
