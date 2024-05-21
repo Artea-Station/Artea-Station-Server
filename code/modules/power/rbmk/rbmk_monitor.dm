@@ -1,7 +1,7 @@
 
 
 //Monitoring program.
-/datum/computer_file/program/nuclear_monitor
+/datum/computer_file/program/rbmk_monitor
 	filename = "rbmkmonitor"
 	filedesc = "Nuclear Reactor Monitoring"
 	ui_header = "smmon_0.gif"
@@ -22,7 +22,7 @@
 	var/list/tempOutputdata = list()
 	var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/reactor //Our reactor.
 
-/datum/computer_file/program/nuclear_monitor/process_tick()
+/datum/computer_file/program/rbmk_monitor/process_tick()
 	..()
 	if(!reactor || !active)
 		return FALSE
@@ -59,7 +59,7 @@
 		if(tempOutputdata.len > 100) //Only lets you track over a certain timeframe.
 			tempOutputdata.Cut(1, 2)
 
-/datum/computer_file/program/nuclear_monitor/on_start(mob/living/user)
+/datum/computer_file/program/rbmk_monitor/on_start(mob/living/user)
 	. = ..(user)
 	//No reactor? Go find one then.
 	if(!reactor)
@@ -69,11 +69,11 @@
 				break
 	active = TRUE
 
-/datum/computer_file/program/nuclear_monitor/kill_program(forced = FALSE)
+/datum/computer_file/program/rbmk_monitor/kill_program(forced = FALSE)
 	active = FALSE
 	..()
 
-/datum/computer_file/program/nuclear_monitor/ui_data()
+/datum/computer_file/program/rbmk_monitor/ui_data()
 	var/list/data = ..()
 	data["powerData"] = powerData
 	data["psiData"] = psiData
@@ -85,7 +85,7 @@
 	data ["psi"] = reactor ? reactor.pressure : 0
 	return data
 
-/datum/computer_file/program/nuclear_monitor/ui_act(action, params)
+/datum/computer_file/program/rbmk_monitor/ui_act(action, params)
 	if(..())
 		return TRUE
 
