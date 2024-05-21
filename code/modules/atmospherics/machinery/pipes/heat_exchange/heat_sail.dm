@@ -1,4 +1,4 @@
-//4-Way Manifold
+//4-Way Heat Sail
 
 /obj/machinery/atmospherics/pipe/heat_exchanging/heat_sail
 	icon = 'icons/obj/atmospherics/pipes/he-heatsail.dmi'
@@ -15,6 +15,9 @@
 	pipe_state = "he_heatsail"
 
 	var/last_oh_shit_sound
+
+/obj/machinery/atmospherics/pipe/heat_exchanging/heat_sail/set_colors()
+	return
 
 /obj/machinery/atmospherics/pipe/heat_exchanging/heat_sail/set_init_directions()
 	initialize_directions = initial(initialize_directions)
@@ -43,7 +46,7 @@
 
 	//If a turf has (basically) no gas, it's safe to assume its a pure vacuum. So we should radiate heat instead of doing heat exchange.
 	if(!turf_air || oh_shit_factor < 0.1)
-		radiate_heat_to_space(pipe_air, 10, 2) //the magic "10" is the surface area in square meters.
+		radiate_heat_to_space(pipe_air, 100, 2) //the magic "100" is the surface area in square meters. Yes, this is stupidly inflated.
 		if(parent)
 			parent.update = TRUE
 		return

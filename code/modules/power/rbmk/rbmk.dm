@@ -236,6 +236,7 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 
 	else //Reactor must be fuelled and ready to go before we can heat it up boys.
 		rate_of_reaction = 0
+		last_power_produced = 0
 
 	//Firstly, find the difference between the two numbers.
 	var/difference = abs(rate_of_reaction - desired_k)
@@ -251,11 +252,10 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	if(has_fuel)
 		temperature += rate_of_reaction
 	else
-		temperature -= 10 //Nothing to heat us up, so.
+		temperature -= 15 //Nothing to heat us up, so.
 
 	handle_alerts() //Let's check if they're about to die, and let them know.
 	update_icon()
-	log_world("R:[log(radioactivity_spice_multiplier) * (temperature / 100)], T:[temperature], P:[last_power_produced], M:[actual_fuel_moles]")
 	radiation_pulse(
 		src,
 		clamp(log(radioactivity_spice_multiplier) * (temperature / 100), 2, 20), // clamped and logged to ensure radiation doesn't go entirely batshit

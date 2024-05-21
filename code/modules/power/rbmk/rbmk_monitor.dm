@@ -8,12 +8,10 @@
 	program_icon_state = "smmon_0"
 	extended_desc = "This program connects to specially calibrated sensors to provide information on the status of nuclear reactors."
 	requires_ntnet = TRUE
-	transfer_access = ACCESS_CONSTRUCTION
+	transfer_access = list(ACCESS_CONSTRUCTION)
 	//network_destination = "rbmk monitoring system" //Apparently we don't use these anymore
 	size = 2
 	tgui_id = "NtosRbmkStats"
-	//ui_x = 350
-	//ui_y = 550
 	var/active = TRUE //Easy process throttle
 	var/next_stat_interval = 0
 	var/list/psiData = list()
@@ -83,6 +81,7 @@
 	data["coolantOutput"] = reactor ? reactor.last_output_temperature : 0
 	data["power"] = reactor ? reactor.power : 0
 	data ["psi"] = reactor ? reactor.pressure : 0
+	data["generatedPower"] = display_power(reactor ? reactor.last_power_produced : 0)
 	return data
 
 /datum/computer_file/program/rbmk_monitor/ui_act(action, params)
