@@ -28,5 +28,8 @@
 /area/shuttle/overmap/aev_p/astrum
 	name = "APV-S Astrum"
 
+/area/shuttle/overmap/aev_p/hermes
+	name = "APV-S Hermes"
+
 /area/shuttle/overmap/aev_p/ghetto
 	name = "APV-S Ghetto"
