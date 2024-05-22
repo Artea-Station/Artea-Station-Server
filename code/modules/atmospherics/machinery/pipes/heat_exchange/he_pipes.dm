@@ -12,7 +12,7 @@
 	. = ..()
 	set_colors()
 
-/obj/machinery/atmospherics/pipe/heat_exchanging/set_colors()
+/obj/machinery/atmospherics/pipe/heat_exchanging/proc/set_colors()
 	add_atom_colour("#404040", FIXED_COLOUR_PRIORITY)
 
 /obj/machinery/atmospherics/pipe/heat_exchanging/is_connectable(obj/machinery/atmospherics/pipe/heat_exchanging/target, given_layer, HE_type_check = TRUE)
