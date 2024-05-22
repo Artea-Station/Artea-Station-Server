@@ -248,7 +248,10 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	rate_of_reaction = clamp(rate_of_reaction, 0, 3)
 
 	if(has_fuel)
-		temperature += rate_of_reaction
+		if(temperature < rate_of_reaction * 10) // The reactor caps out.
+			temperature += rate_of_reaction
+		else
+			temperature -= 3 // Make sure the reactor doesn't somehow creep beyond it's intended number for too long.
 	else
 		temperature -= 15 //Nothing to heat us up, so.
 
