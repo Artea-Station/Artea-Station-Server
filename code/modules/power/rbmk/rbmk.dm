@@ -213,7 +213,7 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 		if(actual_fuel_moles >= (RBMK_BASE_FUEL_CONSUMPTION - 0.01)) //You need fuel to do anything. (-0.01 to deal with floating point issues)
 			start_up() // Make the funny noise.
 
-			// Basically, we only want the fuel. Other non-fuel gases reduce the efficiency of the reaction. Think of it as the reactor having to spend energy+time filtering gases.
+			// Basically, we only want the fuel. Non-radioactive gases do absolutely nothing for the reaction.
 			last_power_produced = base_power_production / (fuel_input_moles - actual_fuel_moles)
 			// Power is based on temp, so hotter reactor means it produces more power.
 			last_power_produced *= power / 100
