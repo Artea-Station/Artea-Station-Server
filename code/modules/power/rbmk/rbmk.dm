@@ -25,6 +25,8 @@
 #define MODERATOR_INPUT_GATE airs[2]
 #define COOLANT_OUTPUT_GATE airs[3]
 
+#define OFFSET_TEMPERATURE (temperature - 70)
+
 GLOBAL_LIST_EMPTY(rbmk_reactors)
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor
@@ -146,7 +148,6 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	var/datum/gas_mixture/fuel_input = MODERATOR_INPUT_GATE
 	var/datum/gas_mixture/coolant_output = COOLANT_OUTPUT_GATE
 	has_fuel = fuel_input.total_moles >= RBMK_BASE_FUEL_CONSUMPTION
-	var/fuel_input_moles = fuel_input.total_moles
 
 	if(has_fuel && coolant_input.total_moles < RBMK_MINIMUM_COOLANT_CONSUMPTION)
 		no_coolant_ticks++
@@ -180,18 +181,18 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	last_output_temperature = coolant_output.temperature
 	pressure = coolant_output.returnPressure()
 	// -T0C to stop free power and heat.
-	power = (temperature / RBMK_TEMPERATURE_CRITICAL) * 100
+	power = round((OFFSET_TEMPERATURE / (RBMK_TEMPERATURE_CRITICAL - 70)) * 100, 1.01)
 	var/radioactivity_spice_multiplier = 1 //Some gasses make the reactor a bit spicy.
 
 	// The total moles being used.
 	var/actual_fuel_moles = 0
+	var/base_power_production = 0
 
 	//Next up, handle fuel!
 	if(has_fuel)
 		// The actual fuels to mols being used.
 		var/actual_fuels = list()
 		// The base power production decided by the fuels.
-		var/base_power_production = 0
 		var/potential_fuel_moles = 0
 
 		// Find the fuels
@@ -248,12 +249,14 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	rate_of_reaction = clamp(rate_of_reaction, 0, 3)
 
 	if(has_fuel)
-		if(temperature < rate_of_reaction * 10) // The reactor caps out.
-			temperature += rate_of_reaction
+		if(base_power_production && OFFSET_TEMPERATURE < (base_power_production * 5.75)) // The reactor caps out at just over the threshold for power for plasma.
+			temperature += rate_of_reaction * 6
 		else
 			temperature -= 3 // Make sure the reactor doesn't somehow creep beyond it's intended number for too long.
 	else
 		temperature -= 15 //Nothing to heat us up, so.
+
+	temperature = max(temperature, 70)
 
 	handle_alerts() //Let's check if they're about to die, and let them know.
 	update_icon()
@@ -316,11 +319,12 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 				return
 	else
 		alert = FALSE
-	if(temperature < 70) //That's as cold as I'm letting you get it, engineering.
+
+	if(temperature < 70)
 		color = COLOR_CYAN
-		temperature = 70
 	else
 		color = null
+
 	//Second alert condition: Overpressurized (the more lethal one)
 	if(pressure >= RBMK_PRESSURE_CRITICAL)
 		alert = TRUE
@@ -423,7 +427,6 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 
 
 //Startup, shutdown
-
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/start_up()
 	if(started)
 		return
@@ -496,6 +499,7 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	. = ..()
 	GLOB.rbmk_reactors -= src
 
+#undef OFFSET_TEMPERATURE
 #undef COOLANT_INPUT_GATE
 #undef MODERATOR_INPUT_GATE
 #undef COOLANT_OUTPUT_GATE
