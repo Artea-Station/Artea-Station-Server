@@ -122,6 +122,24 @@
 	to_chat(user, span_notice("You silently disable the sanity checking on \the [src]'s ejection force."))
 	obj_flags |= EMAGGED
 
+/obj/structure/disposaloutlet/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
+	. = ..()
+	if(!isnull(stored))
+		stored.forceMove(loc)
+		transfer_fingerprints_to(stored)
+		stored = null
+		visible_message(span_warning("[src] is ripped free from the floor!"))
+		qdel(src)
+
+/obj/structure/disposaloutlet/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
+	. = ..()
+	if(!isnull(stored))
+		stored.forceMove(loc)
+		transfer_fingerprints_to(stored)
+		stored = null
+		visible_message(span_warning("[src] is ripped free from the floor!"))
+		qdel(src)
+
 #undef EJECT_SPEED_SLOW
 #undef EJECT_SPEED_MED
 #undef EJECT_SPEED_FAST
