@@ -2819,6 +2819,7 @@
 /obj/effect/mapping_helpers/broken_floor,
 /obj/machinery/light/red/dim/directional/west,
 /obj/effect/decal/cleanable/blood/gibs/core,
+/obj/structure/sink/directional/east,
 /turf/open/floor/iron/freezer,
 /area/station/service/kitchen/coldroom)
 "boM" = (
@@ -13513,10 +13514,10 @@
 	dir = 4;
 	name = "Brig"
 	},
-/obj/machinery/door/firehead{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/door/firehead{
+	dir = 4
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/security/brig)
 "gdz" = (
@@ -31346,6 +31347,7 @@
 /obj/machinery/door/firehead,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/bulkhead/access/all/service/general,
 /turf/open/floor/iron/dark/textured,
 /area/station/hallway/secondary/service)
 "nuI" = (
@@ -34956,6 +34958,15 @@
 /obj/machinery/camera/autoname/directional/west,
 /turf/open/floor/iron/dark/textured,
 /area/station/engineering/atmos)
+"oRM" = (
+/obj/effect/mapping_helpers/broken_floor,
+/obj/item/stack/tile/iron/textured,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/cable/multilayer/connected,
+/turf/open/floor/plating,
+/area/station/engineering/reactor_hallway)
 "oSj" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/shutters{
@@ -37307,6 +37318,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron/dark/textured,
 /area/station/service/hydroponics)
 "pUD" = (
@@ -38031,6 +38043,7 @@
 	},
 /obj/machinery/door/firehead,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/effect/mapping_helpers/bulkhead/access/all/service/general,
 /turf/open/floor/iron/dark/textured,
 /area/station/hallway/secondary/service)
 "qkI" = (
@@ -39388,15 +39401,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
-"qLx" = (
-/obj/effect/mapping_helpers/broken_floor,
-/obj/item/stack/tile/iron/textured,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/structure/cable/multilayer/connected,
-/turf/open/floor/plating,
-/area/station/engineering/reactor_hallway)
 "qLK" = (
 /obj/structure/shuttle/engine/heater,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
@@ -53372,10 +53376,10 @@
 	dir = 4;
 	name = "Brig"
 	},
-/obj/machinery/door/firehead{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/door/firehead{
+	dir = 4
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/security/brig)
 "wKS" = (
@@ -53769,14 +53773,10 @@
 "wTx" = (
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
-/obj/machinery/table_hob{
-	pixel_y = 16;
-	pixel_x = 3
-	},
 /obj/item/reagent_containers/cup/soup_pot{
 	pixel_y = 4
 	},
-/obj/machinery/firealarm/directional/east,
+/obj/structure/sink/directional/west,
 /turf/open/floor/plating,
 /area/station/service/kitchen)
 "wTA" = (
@@ -54062,6 +54062,7 @@
 /obj/machinery/processor{
 	pixel_y = 8
 	},
+/obj/machinery/firealarm/directional/east,
 /turf/open/floor/iron/dark/textured,
 /area/station/service/kitchen)
 "xaR" = (
@@ -76823,7 +76824,7 @@ gnI
 gnI
 dBM
 mkd
-qLx
+oRM
 aLv
 oDH
 rtN
