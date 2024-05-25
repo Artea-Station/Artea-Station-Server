@@ -401,9 +401,6 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 
 //Failure condition 2: Blowout. Achieved by reactor going over-pressured. This is a round-ender because it requires more fuckery to achieve.
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/blowout()
-	// explosion(get_turf(src), GLOB.MAX_EX_DEVESTATION_RANGE, GLOB.MAX_EX_HEAVY_RANGE, GLOB.MAX_EX_LIGHT_RANGE, GLOB.MAX_EX_FLASH_RANGE)
-	meltdown() //Double kill.
-	power = 0
 	var/turf/my_turf = get_turf(src)
 	var/datum/gas_mixture/oh_shit_mix = new /datum/gas_mixture(_temperature = temperature)
 	var/datum/gas_mixture/fuel = MODERATOR_INPUT_GATE
@@ -414,6 +411,10 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 
 	oh_shit_mix.adjustGas(GAS_RADON, oh_shit_amount, TRUE) // Does this break the laws of mass? Yes. Do I care? Not really, you guys should be fucking off on the emergency shuttle in 10 minutes.
 	my_turf.assume_air(oh_shit_mix)
+
+	explosion(get_turf(src), zas_settings.maxex_devastation_range, zas_settings.maxex_heavy_range, zas_settings.maxex_light_range, zas_settings.maxex_fire_range, zas_settings.maxex_flash_range, TRUE, smoke = TRUE)
+	meltdown() //Double kill.
+	power = 0
 
 	// SSweather.run_weather("nuclear fallout")
 	for(var/X in GLOB.landmarks_list)
