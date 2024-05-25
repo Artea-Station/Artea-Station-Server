@@ -138,7 +138,7 @@
 	)
 	/// whitelisted drone items, recursive/includes descendants
 	var/list/drone_item_whitelist_recursive = list(
-		/obj/item/airlock_painter,
+		/obj/item/bulkhead_painter,
 		/obj/item/circuitboard,
 		/obj/item/conveyor_switch_construct,
 		/obj/item/electronics,

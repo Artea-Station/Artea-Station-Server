@@ -132,7 +132,7 @@
 
 		var/neighbor_stripe = NONE
 		if(!neighbor_typecache)
-			neighbor_typecache = typecacheof(list(/obj/machinery/door/airlock, /obj/structure/window/reinforced/fulltile, /obj/structure/window/fulltile, /obj/structure/window/reinforced/shuttle, /obj/machinery/door/poddoor))
+			neighbor_typecache = typecacheof(list(/obj/machinery/door/bulkhead, /obj/structure/window/reinforced/fulltile, /obj/structure/window/fulltile, /obj/structure/window/reinforced/shuttle, /obj/machinery/door/poddoor))
 
 		for(var/cardinal in GLOB.cardinals)
 			var/turf/step_turf = get_step(src, cardinal)

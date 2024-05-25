@@ -2,7 +2,7 @@
 /obj/structure/supplies_box
 	name = "supplies box"
 	icon = 'icons/obj/structures/supplies_box.dmi'
-	icon_state = "wodden_supply"
+	icon_state = "wooden_supply"
 	anchored = FALSE
 	density = TRUE
 	max_integrity = 100

@@ -215,7 +215,7 @@
 	display_name = "Basic Tools"
 	description = "Basic mechanical, electronic, surgical and botanical tools."
 	design_ids = list(
-		"airlock_painter",
+		"bulkhead_painter",
 		"analyzer",
 		"cable_coil",
 		"cable_coil",
@@ -541,7 +541,7 @@
 		"adv_matter_bin",
 		"adv_scanning",
 		"airalarm_electronics",
-		"airlock_board",
+		"bulkhead_board",
 		"apc_control",
 		"atmos_control",
 		"atmosalerts",

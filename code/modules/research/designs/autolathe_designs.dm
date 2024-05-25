@@ -254,12 +254,12 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
-/datum/design/airlock_board
-	name = "Airlock Electronics"
-	id = "airlock_board"
+/datum/design/bulkhead_board
+	name = "Bulkhead Electronics"
+	id = "bulkhead_board"
 	build_type = AUTOLATHE | PROTOLATHE | AWAY_LATHE
 	materials = list(/datum/material/iron = 50, /datum/material/glass = 50)
-	build_path = /obj/item/electronics/airlock
+	build_path = /obj/item/electronics/bulkhead
 	category = list(
 		RND_CATEGORY_INITIAL,
 		RND_CATEGORY_CONSTRUCTION + RND_SUBCATEGORY_CONSTRUCTION_ELECTRONICS
@@ -271,7 +271,7 @@
 	id = "firelock_board"
 	build_type = AUTOLATHE | PROTOLATHE | AWAY_LATHE
 	materials = list(/datum/material/iron = 50, /datum/material/glass = 50)
-	build_path = /obj/item/electronics/firelock
+	build_path = /obj/item/electronics/firehead
 	category = list(
 		RND_CATEGORY_INITIAL,
 		RND_CATEGORY_CONSTRUCTION + RND_SUBCATEGORY_CONSTRUCTION_ELECTRONICS
@@ -362,36 +362,36 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_PATHFINDERS
 
-/datum/design/airlock_painter
-	name = "Airlock Painter"
-	id = "airlock_painter"
+/datum/design/bulkhead_painter
+	name = "Bulkhead Painter"
+	id = "bulkhead_painter"
 	build_type = AUTOLATHE | PROTOLATHE | AWAY_LATHE
 	materials = list(/datum/material/iron = 50, /datum/material/glass = 50)
-	build_path = /obj/item/airlock_painter
+	build_path = /obj/item/bulkhead_painter
 	category = list(
 		RND_CATEGORY_INITIAL,
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_ENGINEERING
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_PATHFINDERS
 
-/datum/design/airlock_painter/decal
+/datum/design/bulkhead_painter/decal
 	name = "Decal Painter"
 	id = "decal_painter"
 	build_type = AUTOLATHE | PROTOLATHE | AWAY_LATHE
 	materials = list(/datum/material/iron = 50, /datum/material/glass = 50)
-	build_path = /obj/item/airlock_painter/decal
+	build_path = /obj/item/bulkhead_painter/decal
 	category = list(
 		RND_CATEGORY_INITIAL,
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_ENGINEERING
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_PATHFINDERS
 
-/datum/design/airlock_painter/decal/tile
+/datum/design/bulkhead_painter/decal/tile
 	name = "Tile Sprayer"
 	id = "tile_sprayer"
 	build_type = AUTOLATHE | PROTOLATHE | AWAY_LATHE
 	materials = list(/datum/material/iron = 50, /datum/material/glass = 50)
-	build_path = /obj/item/airlock_painter/decal/tile
+	build_path = /obj/item/bulkhead_painter/decal/tile
 	category = list(
 		RND_CATEGORY_INITIAL,
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_ENGINEERING

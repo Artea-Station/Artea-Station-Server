@@ -1,4 +1,4 @@
-#define PROGRESSBAR_HEIGHT 6
+#define PROGRESSBAR_HEIGHT 8
 #define PROGRESSBAR_ANIMATION_TIME 5
 
 /datum/progressbar
@@ -33,6 +33,8 @@
 	goal = goal_number
 	bar_loc = target
 	bar = image('icons/effects/progessbar.dmi', bar_loc, "prog_bar_0")
+	bar.color = "#FFAC1E"
+	bar.filters += filter(type = "drop_shadow", size = 0.5, color = "#000000", x = 1, y = -1, offset = 1)
 	bar.plane = ABOVE_HUD_PLANE
 	bar.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	user = User
@@ -123,13 +125,13 @@
 	if(progress == last_progress)
 		return
 	last_progress = progress
-	bar.icon_state = "prog_bar_[round(((progress / goal) * 100), 5)]"
+	bar.icon_state = "progress-[FLOOR(((progress / goal) * 16), 1)]"
 
 
 ///Called on progress end, be it successful or a failure. Wraps up things to delete the datum and bar.
 /datum/progressbar/proc/end_progress()
 	if(last_progress != goal)
-		bar.icon_state = "[bar.icon_state]_fail"
+		bar.color = "#ff0000"
 
 	animate(bar, alpha = 0, time = PROGRESSBAR_ANIMATION_TIME)
 

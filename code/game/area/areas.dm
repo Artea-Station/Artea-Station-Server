@@ -91,7 +91,7 @@
 	var/list/power_usage
 
 	/// Wire assignment for airlocks in this area
-	var/airlock_wires = /datum/wires/airlock
+	var/airlock_wires = /datum/wires/bulkhead
 
 	///This datum, if set, allows terrain generation behavior to be ran on Initialize()
 	var/datum/map_generator/map_generator
@@ -101,6 +101,7 @@
 
 	var/list/air_vent_info = list()
 	var/list/air_scrub_info = list()
+	var/list/airlock_vent_info = list()
 
 	/// Whether the area is underground, checked for the purposes of above/underground weathers
 	var/underground = FALSE
@@ -116,6 +117,9 @@
 
 	/// Should this area allow door remotes to be used? Should be enabled for stations and station-owned shuttles only!
 	var/allow_door_remotes = FALSE
+
+	/// The airlock controller in this area. Used by mapped custom controllers to yell at mappers.
+	var/obj/machinery/airlock_controller/airlock_controller
 
 /**
  * A list of teleport locations
@@ -255,6 +259,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	GLOB.sortedAreas -= src
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(alarm_manager)
+	airlock_controller = null
 	return ..()
 
 /**
