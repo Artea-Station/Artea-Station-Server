@@ -419,8 +419,7 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	for(var/X in GLOB.landmarks_list)
 		if(istype(X, /obj/effect/landmark/nuclear_waste_spawner))
 			var/obj/effect/landmark/nuclear_waste_spawner/WS = X
-			if(is_station_level(WS.z)) //Begin the SLUDGING
-				WS.fire()
+			WS.fire() //Begin the SLUDGING
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/update_icon()
 	. = ..()
