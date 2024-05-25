@@ -404,6 +404,17 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	// explosion(get_turf(src), GLOB.MAX_EX_DEVESTATION_RANGE, GLOB.MAX_EX_HEAVY_RANGE, GLOB.MAX_EX_LIGHT_RANGE, GLOB.MAX_EX_FLASH_RANGE)
 	meltdown() //Double kill.
 	power = 0
+	var/turf/my_turf = get_turf(src)
+	var/datum/gas_mixture/oh_shit_mix = new /datum/gas_mixture(_temperature = temperature)
+	var/datum/gas_mixture/fuel = MODERATOR_INPUT_GATE
+
+	var/oh_shit_amount = 0
+	for(var/gas in fuel.gas)
+		oh_shit_amount += xgm_gas_data.molar_mass[gas] * fuel.gas[gas] // The more spicy, the worse-er
+
+	oh_shit_mix.adjustGas(GAS_RADON, oh_shit_amount, TRUE) // Does this break the laws of mass? Yes. Do I care? Not really, you guys should be fucking off on the emergency shuttle in 10 minutes.
+	my_turf.assume_air(oh_shit_mix)
+
 	// SSweather.run_weather("nuclear fallout")
 	for(var/X in GLOB.landmarks_list)
 		if(istype(X, /obj/effect/landmark/nuclear_waste_spawner))
