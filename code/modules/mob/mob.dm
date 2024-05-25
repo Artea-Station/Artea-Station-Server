@@ -1142,7 +1142,7 @@
 		to_chat(src, span_warning("You can't write with the [writing_instrument]!"))
 		return FALSE
 
-	if(!has_light_nearby() && !has_nightvision() && !writing_instrument.self_lighting)
+	if(!has_light_nearby() && !has_nightvision())
 		to_chat(src, span_warning("It's too dark in here to write anything!"))
 		return FALSE
 
@@ -1176,6 +1176,11 @@
 /// Can this mob read
 /mob/proc/can_read(obj/O)
 	if(!has_light_nearby() && !has_nightvision())
+		if(isitem(O))
+			var/obj/item/item = O
+			if(item.self_lighting)
+				return TRUE
+
 		to_chat(src, span_warning("It's too dark in here to read!"))
 		return FALSE
 
