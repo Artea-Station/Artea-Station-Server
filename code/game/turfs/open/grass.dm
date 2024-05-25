@@ -30,4 +30,4 @@
 		icon = smooth_icon
 
 /turf/open/misc/grass/lavaland
-	initial_gas_mix = PLANETARY_ATMOS
+	initial_gas = PLANETARY_ATMOS

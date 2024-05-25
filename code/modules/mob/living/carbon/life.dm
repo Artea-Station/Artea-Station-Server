@@ -113,7 +113,7 @@
 			else if(isturf(loc)) //Breathe from loc as turf
 				var/breath_moles = 0
 				if(environment)
-					breath_moles = environment.total_moles()*BREATH_PERCENTAGE
+					breath_moles = environment.total_moles*BREATH_PERCENTAGE
 
 				breath = loc.remove_air(breath_moles)
 		else //Breathe from loc as obj again
@@ -121,12 +121,27 @@
 				var/obj/loc_as_obj = loc
 				loc_as_obj.handle_internal_lifeform(src,0)
 
+	// Pass reagents from the gas into our body.
+	// Presumably if you breathe it you have a specialized metabolism for it, so we drop/ignore breath_type. Also avoids
+	// humans processing thousands of units of oxygen over the course of a round for the sole purpose of poisoning vox.
+	if(lungs && !isnull(breath))
+		var/breath_type = dna?.species?.breathid
+		for(var/gasname in breath.gas - breath_type)
+			var/breathed_product = xgm_gas_data.breathed_product[gasname]
+			if(breathed_product)
+				var/reagent_amount = breath.gas[gasname] * REAGENT_GAS_EXCHANGE_FACTOR
+				// Little bit of sanity so we aren't trying to add 0.0000000001 units of CO2, and so we don't end up with 99999 units of CO2.
+				if(reagent_amount >= 0.05)
+					reagents.add_reagent(breathed_product, reagent_amount)
+					breath.adjustGas(gasname, -breath.gas[gasname], update = 0) //update after
+
 	// If we took a breath, we probably did that via internals.
 	if(check_breath(breath) && COOLDOWN_FINISHED(src, breath_sound_cd) && internal)
 		playsound(src, 'sound/voice/breathing.ogg', 5, play_directly_to_source = TRUE)
 		COOLDOWN_START(src, breath_sound_cd, 3.5 SECONDS)
 
-	if(breath)
+	if(breath?.total_moles)
+		AIR_UPDATE_VALUES(breath)
 		loc.assume_air(breath)
 
 /mob/living/carbon/proc/has_smoke_protection()
@@ -149,7 +164,7 @@
 		adjustOxyLoss(2)
 
 	//CRIT
-	if(!breath || (breath.total_moles() == 0) || !lungs)
+	if(!breath || (breath.total_moles == 0) || !lungs)
 		if(reagents.has_reagent(/datum/reagent/medicine/epinephrine, needs_metabolizing = TRUE) && lungs)
 			return FALSE
 		adjustOxyLoss(1)
@@ -158,19 +173,18 @@
 		throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 		return FALSE
 
+	var/list/breath_gases = breath.gas
 	var/safe_oxy_min = 16
 	var/safe_co2_max = 10
 	var/safe_plas_max = 0.05
 	var/SA_para_min = 1
 	var/SA_sleep_min = 5
 	var/oxygen_used = 0
-	var/breath_pressure = (breath.total_moles()*R_IDEAL_GAS_EQUATION*breath.temperature)/BREATH_VOLUME
+	var/breath_pressure = (breath.total_moles*R_IDEAL_GAS_EQUATION*breath.temperature)/BREATH_VOLUME
 
-	var/list/breath_gases = breath.gases
-	breath.assert_gases(/datum/gas/oxygen, /datum/gas/plasma, /datum/gas/carbon_dioxide, /datum/gas/nitrous_oxide, /datum/gas/bz)
-	var/O2_partialpressure = (breath_gases[/datum/gas/oxygen][MOLES]/breath.total_moles())*breath_pressure
-	var/Plasma_partialpressure = (breath_gases[/datum/gas/plasma][MOLES]/breath.total_moles())*breath_pressure
-	var/CO2_partialpressure = (breath_gases[/datum/gas/carbon_dioxide][MOLES]/breath.total_moles())*breath_pressure
+	var/O2_partialpressure = (breath_gases[GAS_OXYGEN]/breath.total_moles)*breath_pressure
+	var/Plasma_partialpressure = (breath_gases[GAS_PLASMA]/breath.total_moles)*breath_pressure
+	var/CO2_partialpressure = (breath_gases[GAS_CO2]/breath.total_moles)*breath_pressure
 
 
 	//OXYGEN
@@ -181,7 +195,7 @@
 			var/ratio = 1 - O2_partialpressure/safe_oxy_min
 			adjustOxyLoss(min(5*ratio, 3))
 			failed_last_breath = TRUE
-			oxygen_used = breath_gases[/datum/gas/oxygen][MOLES]*ratio
+			oxygen_used = breath_gases[GAS_OXYGEN]*ratio
 		else
 			adjustOxyLoss(3)
 			failed_last_breath = TRUE
@@ -191,11 +205,11 @@
 		failed_last_breath = FALSE
 		if(health >= crit_threshold)
 			adjustOxyLoss(-5)
-		oxygen_used = breath_gases[/datum/gas/oxygen][MOLES]
+		oxygen_used = breath_gases[GAS_OXYGEN]
 		clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 
-	breath_gases[/datum/gas/oxygen][MOLES] -= oxygen_used
-	breath_gases[/datum/gas/carbon_dioxide][MOLES] += oxygen_used
+	breath.adjustGas(GAS_OXYGEN, -oxygen_used, update = 0)
+	breath.adjustGas(GAS_CO2, oxygen_used, update = 0)
 
 	//CARBON DIOXIDE
 	if(CO2_partialpressure > safe_co2_max)
@@ -214,15 +228,15 @@
 
 	//PLASMA
 	if(Plasma_partialpressure > safe_plas_max)
-		var/ratio = (breath_gases[/datum/gas/plasma][MOLES]/safe_plas_max) * 10
+		var/ratio = breath.gas[GAS_PLASMA]/safe_plas_max * 10
 		adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
 		throw_alert(ALERT_TOO_MUCH_PLASMA, /atom/movable/screen/alert/too_much_plas)
 	else
 		clear_alert(ALERT_TOO_MUCH_PLASMA)
 
 	//NITROUS OXIDE
-	if(breath_gases[/datum/gas/nitrous_oxide])
-		var/SA_partialpressure = (breath_gases[/datum/gas/nitrous_oxide][MOLES]/breath.total_moles())*breath_pressure
+	if(breath_gases[GAS_N2O])
+		var/SA_partialpressure = (breath_gases[GAS_N2O]/breath.total_moles)*breath_pressure
 		if(SA_partialpressure > SA_para_min)
 			throw_alert(ALERT_TOO_MUCH_N2O, /atom/movable/screen/alert/too_much_n2o)
 			clear_mood_event("chemical_euphoria")
@@ -241,30 +255,9 @@
 		clear_mood_event("chemical_euphoria")
 		clear_alert(ALERT_TOO_MUCH_N2O)
 
-	//BZ (Facepunch port of their Agent B)
-	if(breath_gases[/datum/gas/bz])
-		var/bz_partialpressure = (breath_gases[/datum/gas/bz][MOLES]/breath.total_moles())*breath_pressure
-		if(bz_partialpressure > 1)
-			adjust_hallucinations(20 SECONDS)
-		else if(bz_partialpressure > 0.01)
-			adjust_hallucinations(10 SECONDS)
-
-	//NITRIUM
-	if(breath_gases[/datum/gas/nitrium])
-		var/nitrium_partialpressure = (breath_gases[/datum/gas/nitrium][MOLES]/breath.total_moles())*breath_pressure
-		if(nitrium_partialpressure > 0.5)
-			adjustFireLoss(nitrium_partialpressure * 0.15)
-		if(nitrium_partialpressure > 5)
-			adjustToxLoss(nitrium_partialpressure * 0.05)
-
-	//FREON
-	if(breath_gases[/datum/gas/freon])
-		var/freon_partialpressure = (breath_gases[/datum/gas/freon][MOLES]/breath.total_moles())*breath_pressure
-		adjustFireLoss(freon_partialpressure * 0.25)
-
 	//MIASMA
-	if(breath_gases[/datum/gas/miasma])
-		var/miasma_partialpressure = (breath_gases[/datum/gas/miasma][MOLES]/breath.total_moles())*breath_pressure
+	if(breath_gases[GAS_METHANE])
+		var/miasma_partialpressure = (breath_gases[GAS_METHANE]/breath.total_moles)*breath_pressure
 
 		if(prob(1 * miasma_partialpressure))
 			var/datum/disease/advance/miasma_disease = new /datum/disease/advance/random(2,3)
@@ -301,8 +294,6 @@
 	//Clear all moods if no miasma at all
 	else
 		clear_mood_event("smell")
-
-	breath.garbage_collect()
 
 	//BREATH TEMPERATURE
 	handle_breath_temperature(breath)

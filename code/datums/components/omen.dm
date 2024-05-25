@@ -62,11 +62,11 @@
 		return
 	var/our_guy_pos = get_turf(living_guy)
 	for(var/turf_content in our_guy_pos)
-		if(istype(turf_content, /obj/machinery/door/airlock))
+		if(istype(turf_content, /obj/machinery/door/bulkhead))
 			to_chat(living_guy, span_warning("A malevolent force launches your body to the floor..."))
-			var/obj/machinery/door/airlock/darth_airlock = turf_content
+			var/obj/machinery/door/bulkhead/darth_airlock = turf_content
 			living_guy.apply_status_effect(/datum/status_effect/incapacitating/paralyzed, 10)
-			INVOKE_ASYNC(darth_airlock, TYPE_PROC_REF(/obj/machinery/door/airlock, close), TRUE)
+			INVOKE_ASYNC(darth_airlock, TYPE_PROC_REF(/obj/machinery/door/bulkhead, close), TRUE)
 			if(!permanent)
 				qdel(src)
 			return

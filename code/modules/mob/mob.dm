@@ -171,27 +171,6 @@
 		set_hud_image_active(hud, update_huds = FALSE) //by default everything is active. but dont add it to huds to keep control.
 
 /**
- * Some kind of debug verb that gives atmosphere environment details
- */
-/mob/proc/Cell()
-	set category = "Admin"
-	set hidden = TRUE
-
-	if(!loc)
-		return
-
-	var/datum/gas_mixture/environment = loc.return_air()
-
-	var/t = "[span_notice("Coordinates: [x],[y] ")]\n"
-	t += "[span_danger("Temperature: [environment.temperature] ")]\n"
-	for(var/id in environment.gases)
-		var/gas = environment.gases[id]
-		if(gas[MOLES])
-			t+="[span_notice("[gas[GAS_META][META_GAS_NAME]]: [gas[MOLES]] ")]\n"
-
-	to_chat(usr, t)
-
-/**
  * Return the desc of this mob for a photo
  */
 /mob/proc/get_photo_description(obj/item/camera/camera)
@@ -549,6 +528,16 @@
 			client.recent_examines[ref_to_atom] = world.time // set to when we last normal examine'd them
 			addtimer(CALLBACK(src, PROC_REF(clear_from_recent_examines), ref_to_atom), RECENT_EXAMINE_MAX_WINDOW)
 			handle_eye_contact(examinify)
+
+			if(!isobserver(usr) && !(usr == examinify))
+				var/list/can_see_target = viewers(usr)
+				for(var/mob/M as anything in viewers(4, usr))
+					if(!M.client)
+						continue
+					if(M in can_see_target)
+						to_chat(M, span_examine("\The [usr] looks at \the [examinify]"))
+					else
+						to_chat(M, span_examine("\The [usr] intently looks at something..."))
 	else
 		result = examinify.examine(src) // if a tree is examined but no client is there to see it, did the tree ever really exist?
 

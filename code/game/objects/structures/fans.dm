@@ -8,7 +8,7 @@
 	density = TRUE
 	var/buildstacktype = /obj/item/stack/sheet/iron
 	var/buildstackamount = 5
-	can_atmos_pass = ATMOS_PASS_NO
+	can_atmos_pass = CANPASS_NEVER
 	interaction_flags_atom = NONE
 
 /obj/structure/fans/deconstruct()
@@ -36,13 +36,13 @@
 	icon_state = "fan_tiny"
 	buildstackamount = 2
 
-/obj/structure/fans/Initialize(mapload)
-	. = ..()
-	air_update_turf(TRUE, TRUE)
+// /obj/structure/fans/Initialize(mapload)
+// 	. = ..()
+// 	air_update_turf(TRUE, TRUE)
 
-/obj/structure/fans/Destroy()
-	air_update_turf(TRUE, FALSE)
-	. = ..()
+// /obj/structure/fans/Destroy()
+// 	air_update_turf(TRUE, FALSE)
+// 	. = ..()
 
 //Invisible, indestructible fans
 /obj/structure/fans/tiny/invisible

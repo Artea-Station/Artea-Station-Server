@@ -12,11 +12,12 @@
 	plane = GAME_PLANE
 	animate_movement = SLIDE_STEPS
 	hud_possible = list(ANTAG_HUD)
-	pressure_resistance = 8
+	//pressure_resistance = 8
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	throwforce = 10
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	pass_flags_self = PASSMOB
+
 	/// The current client inhabiting this mob. Managed by login/logout
 	/// This exists so we can do cleanup in logout for occasions where a client was transfere rather then destroyed
 	/// We need to do this because the mob on logout never actually has a reference to client

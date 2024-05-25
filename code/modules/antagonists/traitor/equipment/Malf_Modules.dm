@@ -30,12 +30,12 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		/obj/machinery/atmospherics/components/unary/portables_connector,
 		/obj/machinery/atmospherics/components/unary/passive_vent,
 		/obj/machinery/atmospherics/components/unary/heat_exchanger,
-		/obj/machinery/atmospherics/components/unary/hypertorus/core,
-		/obj/machinery/atmospherics/components/unary/hypertorus/waste_output,
-		/obj/machinery/atmospherics/components/unary/hypertorus/moderator_input,
-		/obj/machinery/atmospherics/components/unary/hypertorus/fuel_input,
-		/obj/machinery/hypertorus/interface,
-		/obj/machinery/hypertorus/corner,
+		// /obj/machinery/atmospherics/components/unary/hypertorus/core,
+		// /obj/machinery/atmospherics/components/unary/hypertorus/waste_output,
+		// /obj/machinery/atmospherics/components/unary/hypertorus/moderator_input,
+		// /obj/machinery/atmospherics/components/unary/hypertorus/fuel_input,
+		// /obj/machinery/hypertorus/interface,
+		// /obj/machinery/hypertorus/corner,
 		/obj/machinery/atmospherics/components/binary/valve,
 		/obj/machinery/portable_atmospherics/canister,
 	)))
@@ -359,7 +359,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module))
 	uses = 1
 
 /datum/action/innate/ai/lockdown/Activate()
-	for(var/obj/machinery/door/D in GLOB.airlocks)
+	for(var/obj/machinery/door/D in GLOB.bulkheads)
 		if(!is_station_level(D.z))
 			continue
 		INVOKE_ASYNC(D, TYPE_PROC_REF(/obj/machinery/door, hostile_lockdown), owner)
@@ -693,7 +693,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module))
 			continue
 		bellman.obj_flags |= EMAGGED
 		bellman.update_appearance()
-	for(var/obj/machinery/door/firedoor/firelock in GLOB.machines)
+	for(var/obj/machinery/door/firehead/firelock in GLOB.machines)
 		if(!is_station_level(firelock.z))
 			continue
 		firelock.emag_act(owner_AI, src)

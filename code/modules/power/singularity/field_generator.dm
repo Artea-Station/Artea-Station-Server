@@ -32,7 +32,7 @@ no power level overlay is currently in the overlays list.
 	density = TRUE
 	use_power = NO_POWER_USE
 	max_integrity = 500
-	can_atmos_pass = ATMOS_PASS_YES
+	can_atmos_pass = CANPASS_ALWAYS
 	//100% immune to lasers and energy projectiles since it absorbs their energy.
 	armor = list(MELEE = 25, BULLET = 10, LASER = 100, ENERGY = 100, BOMB = 0, BIO = 0, FIRE = 50, ACID = 70)
 	///Amount of energy stored, used for visual overlays (over 9000?)
@@ -194,8 +194,8 @@ no power level overlay is currently in the overlays list.
 
 /obj/machinery/field/generator/proc/turn_off()
 	active = FG_OFFLINE
-	can_atmos_pass = ATMOS_PASS_YES
-	air_update_turf(TRUE, FALSE)
+	can_atmos_pass = CANPASS_ALWAYS
+	//air_update_turf(TRUE, FALSE)
 	INVOKE_ASYNC(src, PROC_REF(cleanup))
 	addtimer(CALLBACK(src, PROC_REF(cool_down)), 5 SECONDS)
 
@@ -270,8 +270,8 @@ no power level overlay is currently in the overlays list.
 		turn_off()
 		return
 	move_resist = INFINITY
-	can_atmos_pass = ATMOS_PASS_NO
-	air_update_turf(TRUE, TRUE)
+	can_atmos_pass = CANPASS_NEVER
+	//air_update_turf(TRUE, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(setup_field), 1), 1)
 	addtimer(CALLBACK(src, PROC_REF(setup_field), 2), 2)
 	addtimer(CALLBACK(src, PROC_REF(setup_field), 4), 3)

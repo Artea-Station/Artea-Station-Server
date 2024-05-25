@@ -9,6 +9,10 @@
 #define PLANE_SPACE -95
 #define PLANE_SPACE_PARALLAX -90
 
+#define HEAT_PLANE -12
+#define HEAT_RENDER_TARGET "*HEAT_RENDER_TARGET"
+#define HEAT_COMPOSITE_RENDER_TARGET "*HEAT_RENDER_TARGET_C"
+
 #define GRAVITY_PULSE_PLANE -12
 #define GRAVITY_PULSE_RENDER_TARGET "*GRAVPULSE_RENDER_TARGET"
 
@@ -61,7 +65,7 @@
 #define BLASTDOOR_LAYER 2.65
 #define SHUTTER_LAYER 2.67
 #define OPEN_DOOR_LAYER 2.7
-#define DOOR_ACCESS_HELPER_LAYER 2.71 //keep this above OPEN_DOOR_LAYER, special layer used for /obj/effect/mapping_helpers/airlock/access
+#define DOOR_ACCESS_HELPER_LAYER 2.71 //keep this above OPEN_DOOR_LAYER, special layer used for /obj/effect/mapping_helpers/bulkhead/access
 #define DOOR_HELPER_LAYER 2.72 //keep this above DOOR_ACCESS_HELPER_LAYER and OPEN_DOOR_LAYER since the others tend to have tiny sprites that tend to be covered up.
 #define PROJECTILE_HIT_THRESHHOLD_LAYER 2.75 //projectiles won't hit objects at or below this layer if possible
 #define TABLE_LAYER 2.8
@@ -105,6 +109,7 @@
 #define ABOVE_ALL_MOB_LAYER 4.7
 
 //#define FLY_LAYER 5 //For easy recordkeeping; this is a byond define
+#define GAS_LAYER 5
 #define GASFIRE_LAYER 5.05
 #define RIPPLE_LAYER 5.1
 

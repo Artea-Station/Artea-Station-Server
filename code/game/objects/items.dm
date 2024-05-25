@@ -87,11 +87,11 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/stealthy_audio = FALSE
 
 	///How large is the object, used for stuff like whether it can fit in backpacks or not
-	var/w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_NORMAL
 	///This is used to determine on which slots an item can fit.
 	var/slot_flags = 0
 	pass_flags = PASSTABLE
-	pressure_resistance = 4
+	//pressure_resistance = 4
 	/// This var exists as a weird proxy "owner" ref
 	/// It's used in a few places. Stop using it, and optimially replace all uses please
 	var/obj/item/master = null
@@ -1475,7 +1475,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /// Common proc used by painting tools like spraycans and palettes that can access the entire 24 bits color space.
 /obj/item/proc/pick_painting_tool_color(mob/user, default_color)
-	var/chosen_color = input(user,"Pick new color", "[src]", default_color) as color|null
+	var/chosen_color = tgui_color_picker(user,"Pick new color", "[src]", default_color)
 	if(!chosen_color || QDELETED(src) || IS_DEAD_OR_INCAP(user) || !user.is_holding(src))
 		return
 	set_painting_tool_color(chosen_color)

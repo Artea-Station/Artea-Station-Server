@@ -20,20 +20,20 @@
 	dir = NORTH
 	set_dir_on_move = FALSE
 
-	var/obj/item/electronics/airlock/electronics = null
+	var/obj/item/electronics/bulkhead/electronics = null
 	var/created_name = null
 
 	//Vars to help with the icon's name
 	var/facing = "l" //Does the windoor open to the left or right?
 	var/secure = FALSE //Whether or not this creates a secure windoor
 	var/state = "01" //How far the door assembly has progressed
-	can_atmos_pass = ATMOS_PASS_PROC
+	can_atmos_pass = CANPASS_PROC
 
 /obj/structure/windoor_assembly/Initialize(mapload, loc, set_dir)
 	. = ..()
 	if(set_dir)
 		setDir(set_dir)
-	air_update_turf(TRUE, TRUE)
+	zas_update_loc()
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
@@ -41,16 +41,17 @@
 
 	AddElement(/datum/element/connect_loc, loc_connections)
 	AddComponent(/datum/component/simple_rotation, ROTATION_NEEDS_ROOM)
+	zas_update_loc()
 
 /obj/structure/windoor_assembly/Destroy()
 	set_density(FALSE)
-	air_update_turf(TRUE, FALSE)
+	zas_update_loc()
 	return ..()
 
 /obj/structure/windoor_assembly/Move()
-	var/turf/T = loc
+	zas_update_loc()
 	. = ..()
-	move_update_air(T)
+	zas_update_loc()
 
 /obj/structure/windoor_assembly/update_icon_state()
 	icon_state = "[facing]_[secure ? "secure_" : ""]windoor_assembly[state]"
@@ -69,11 +70,13 @@
 	if(istype(mover, /obj/structure/windoor_assembly) || istype(mover, /obj/machinery/door/window))
 		return valid_window_location(loc, mover.dir, is_fulltile = FALSE)
 
-/obj/structure/windoor_assembly/can_atmos_pass(turf/T, vertical = FALSE)
+/obj/structure/windoor_assembly/zas_canpass(turf/T)
+	if(QDELETED(src))
+		return AIR_ALLOWED
 	if(get_dir(loc, T) == dir)
-		return !density
+		return density ? AIR_BLOCKED|ZONE_BLOCKED : ZONE_BLOCKED
 	else
-		return TRUE
+		return ZONE_BLOCKED
 
 /obj/structure/windoor_assembly/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
@@ -212,7 +215,7 @@
 						name = "anchored windoor assembly"
 
 			//Adding airlock electronics for access. Step 6 complete.
-			else if(istype(W, /obj/item/electronics/airlock))
+			else if(istype(W, /obj/item/electronics/bulkhead))
 				if(!user.transferItemToLoc(W, src))
 					return
 				W.play_tool_sound(src, 100)
@@ -240,7 +243,7 @@
 				if(W.use_tool(src, user, 40, volume=100) && electronics)
 					to_chat(user, span_notice("You remove the airlock electronics."))
 					name = "wired windoor assembly"
-					var/obj/item/electronics/airlock/ae
+					var/obj/item/electronics/bulkhead/ae
 					ae = electronics
 					electronics = null
 					ae.forceMove(drop_location())

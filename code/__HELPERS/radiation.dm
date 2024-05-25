@@ -23,7 +23,7 @@
 	atom/source,
 	max_range,
 	threshold,
-	chance = DEFAULT_RADIATION_CHANCE,
+	chance = IRRADIATION_CHANCE_URANIUM,
 	minimum_exposure_time = 0,
 )
 	if(!SSradiation.can_fire)
@@ -37,7 +37,7 @@
 	pulse_information.minimum_exposure_time = minimum_exposure_time
 	pulse_information.turfs_to_process = RANGE_TURFS(max_range, source)
 
-	SSradiation.processing += pulse_information
+	SSradiation.pulse_processing += pulse_information
 
 	return TRUE
 

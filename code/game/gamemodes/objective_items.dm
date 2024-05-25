@@ -251,7 +251,7 @@
 	..()
 
 /datum/objective_item/steal/supermatter/TargetExists()
-	return GLOB.main_supermatter_engine != null
+	return //GLOB.main_supermatter_engine != null
 
 //Items with special checks!
 /datum/objective_item/steal/plasma
@@ -266,8 +266,8 @@
 /datum/objective_item/steal/plasma/check_special_completion(obj/item/tank/T)
 	var/target_amount = text2num(name)
 	var/found_amount = 0
-	var/datum/gas_mixture/mix = T.return_air()
-	found_amount += mix.gases[/datum/gas/plasma] ? mix.gases[/datum/gas/plasma][MOLES] : 0
+	var/datum/gas_mixture/mix = T.unsafe_return_air()
+	found_amount += mix.getGroupGas(GAS_PLASMA)
 	return found_amount>=target_amount
 
 

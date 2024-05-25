@@ -89,24 +89,6 @@
 	container_name = "tesla coil crate"
 	container_type = /obj/structure/closet/crate/engineering/electrical
 
-/datum/supply_pack/engine/hypertorus_fusion_reactor
-	name = "HFR Crate"
-	desc = "The new and improved fusion reactor."
-	cost = CARGO_CRATE_VALUE * 23
-	access = ACCESS_CE
-	contains = list(/obj/item/hfr_box/corner,
-					/obj/item/hfr_box/corner,
-					/obj/item/hfr_box/corner,
-					/obj/item/hfr_box/corner,
-					/obj/item/hfr_box/body/fuel_input,
-					/obj/item/hfr_box/body/moderator_input,
-					/obj/item/hfr_box/body/waste_output,
-					/obj/item/hfr_box/body/interface,
-					/obj/item/hfr_box/core)
-	container_name = "HFR crate"
-	container_type = /obj/structure/closet/crate/secure/engineering
-	dangerous = TRUE
-
 //////////////////////////////////////////////////////////////////////////////
 /////////////////////// Canisters & Materials ////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -231,27 +213,62 @@
 	// This is the amount of moles in a default canister
 	var/moleCount = (initial(fakeCanister.maximum_pressure) * initial(fakeCanister.filled)) * initial(fakeCanister.volume) / (R_IDEAL_GAS_EQUATION * T20C)
 
-	for(var/gasType in GLOB.meta_gas_info)
-		var/datum/gas/gas = gasType
-		var/name = initial(gas.name)
-		if(!initial(gas.purchaseable))
+	for(var/gasType in xgm_gas_data.gases)
+		if(!xgm_gas_data.purchaseable[gasType])
 			continue
+		var/name = xgm_gas_data.name[gasType]
 		var/datum/supply_pack/materials/pack = new
 		pack.name = "[name] Canister"
 		pack.desc = "Contains a canister of [name]."
-		if(initial(gas.dangerous))
-			pack.desc = "[pack.desc]"
+		if(xgm_gas_data.flags[gasType] & XGM_GAS_FUEL)
 			pack.access = ACCESS_ATMOSPHERICS
-		pack.container_name = "[name] canister crate"
+		pack.container_name = "[name] canister"
 		pack.id = "[type]([name])"
 
-		pack.cost = cost + moleCount * initial(gas.base_value) * 1.6
+		pack.cost = cost + moleCount * xgm_gas_data.base_value[gasType] * 1.6
 		pack.cost = CEILING(pack.cost, 10)
 
-		pack.contains = list(GLOB.gas_id_to_canister[initial(gas.id)])
+		pack.contains = list(GLOB.gas_id_to_canister[gasType])
 
 		pack.container_type = container_type
 
 		canister_packs += pack
 
+		//AIRMIX SPECIAL BABY
+		var/datum/supply_pack/materials/airpack = new
+		airpack.name = "Airmix Canister"
+		airpack.desc = "Contains a canister of breathable air."
+		airpack.container_name = "airmix canister crate"
+		airpack.id = "[type](airmix)"
+		airpack.cost = 3000
+		airpack.contains = list(/obj/machinery/portable_atmospherics/canister/air)
+		airpack.container_type = container_type
+		canister_packs += airpack
+
 	return canister_packs
+
+// /datum/supply_pack/engine/fuel_rod
+// 	name = "Uranium Fuel Rod crate"
+// 	desc = "Two additional fuel rods for use in a reactor, requires CE access to open. Caution: Radioactive"
+// 	cost = CARGO_CRATE_VALUE * 15
+// 	access = ACCESS_CE
+// 	contains = list(/obj/item/fuel_rod,
+// 					/obj/item/fuel_rod)
+// 	container_name = "Uranium-235 Fuel Rod crate"
+// 	container_type = /obj/structure/closet/crate/secure/engineering
+// 	dangerous = TRUE
+
+// /datum/supply_pack/engine/reactor
+// 	name = "RMBK Nuclear Reactor Kit" // (not) a toy
+// 	desc = "Contains a reactor beacon and 3 reactor consoles. Uranium rods not included."
+// 	cost = CARGO_CRATE_VALUE * 60
+// 	access = ACCESS_CE
+// 	contains = list(/obj/structure/reactor_kit,
+// 					/obj/machinery/computer/reactor/control_rods/cargo,
+// 					/obj/machinery/computer/reactor/stats/cargo,
+// 					/obj/machinery/computer/reactor/fuel_rods/cargo,
+// 					/obj/item/paper/fluff/rbmkcargo,
+// 					/obj/item/book/manual/wiki/rbmk)
+// 	container_name = "Build Your Own Reactor Kit"
+// 	container_type = /obj/structure/closet/crate/secure/engineering
+// 	dangerous = TRUE

@@ -88,16 +88,16 @@
 
 #define COMSIG_AIRLOCK_SHELL_ALLOWED "airlock_shell_try_allowed"
 
-// /obj/machinery/door/airlock signals
+// /obj/machinery/door/bulkhead signals
 
-//from /obj/machinery/door/airlock/open(): (forced)
-#define COMSIG_AIRLOCK_OPEN "airlock_open"
-//from /obj/machinery/door/airlock/close(): (forced)
-#define COMSIG_AIRLOCK_CLOSE "airlock_close"
-///from /obj/machinery/door/airlock/set_bolt():
-#define COMSIG_AIRLOCK_SET_BOLT "airlock_set_bolt"
-///from /obj/machinery/door/airlock/bumpopen(), to the carbon who bumped: (airlock)
-#define COMSIG_CARBON_BUMPED_AIRLOCK_OPEN "carbon_bumped_airlock_open"
+//from /obj/machinery/door/bulkhead/open(): (forced)
+#define COMSIG_BULKHEAD_OPEN "airlock_open"
+//from /obj/machinery/door/bulkhead/close(): (forced)
+#define COMSIG_BULKHEAD_CLOSE "airlock_close"
+///from /obj/machinery/door/bulkhead/set_bolt():
+#define COMSIG_BULKHEAD_SET_BOLT "airlock_set_bolt"
+///from /obj/machinery/door/bulkhead/bumpopen(), to the carbon who bumped: (airlock)
+#define COMSIG_CARBON_BUMPED_BULKHEAD_OPEN "carbon_bumped_airlock_open"
 	/// Return to stop the door opening on bump.
 	#define STOP_BUMP (1<<0)
 
@@ -190,6 +190,7 @@
 #define COMSIG_MINE_TRIGGERED "minegoboom"
 ///from [/obj/structure/closet/supplypod/proc/preOpen]:
 #define COMSIG_SUPPLYPOD_LANDED "supplypodgoboom"
+#define COMSIG_TANK_SNOWFLAKE_PELLET_TRIGGER "ihatethiscodesomuch"
 
 ///from /obj/item/storage/book/bible/afterattack(): (mob/user, proximity)
 #define COMSIG_BIBLE_SMACKED "bible_smacked"

@@ -73,6 +73,7 @@
 #define FREQ_STATUS_DISPLAYS 1435
 #define FREQ_ATMOS_ALARMS 1437  // air alarms <-> alert computers
 #define FREQ_ATMOS_CONTROL 1439  // air alarms <-> vents and scrubbers
+#define FREQ_RBMK_CONTROL 1438
 
 #define MIN_FREQ 1441 // ------------------------------------------------------
 // Only the 1441 to 1489 range is freely available for general conversation.

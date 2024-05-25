@@ -123,7 +123,7 @@
 
 	//We are now going to move
 	var/add_delay = mob.cached_multiplicative_slowdown
-	var/new_glide_size = DELAY_TO_GLIDE_SIZE(add_delay * ( (NSCOMPONENT(direct) && EWCOMPONENT(direct)) ? SQRT_2 : 1 ) )
+	var/new_glide_size = DELAY_TO_GLIDE_SIZE(add_delay * ( (NSCOMPONENT(direct) && EWCOMPONENT(direct)) ? 2 : 1 ) )
 	mob.set_glide_size(new_glide_size) // set it now in case of pulled objects
 	//If the move was recent, count using old_move_delay
 	//We want fractional behavior and all
@@ -141,7 +141,7 @@
 	. = ..()
 
 	if((direct & (direct - 1)) && mob.loc == new_loc) //moved diagonally successfully
-		add_delay *= SQRT_2
+		add_delay *= 2
 
 	var/after_glide = 0
 	if(visual_delay)
@@ -552,6 +552,7 @@
 	var/ventcrawling_flag = HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) ? ZMOVE_VENTCRAWLING : 0
 	if(zMove(DOWN, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))
 		to_chat(src, span_notice("You move down."))
+
 	return FALSE
 
 /mob/abstract_move(atom/destination)

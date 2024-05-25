@@ -150,7 +150,7 @@ at the cost of risking a vicious bite.**/
 	var/altar_result = show_radial_menu(user, src, altar_options, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	switch(altar_result)
 		if("Change Color")
-			var/chosen_color = input(user, "", "Choose Color", pants_color) as color|null
+			var/chosen_color = tgui_color_picker(user, "", "Choose Color", pants_color)
 			if(!isnull(chosen_color) && user.canUseTopic(src, BE_CLOSE))
 				pants_color = chosen_color
 		if("Create Artefact")
@@ -250,6 +250,8 @@ at the cost of risking a vicious bite.**/
 	name = "steam vent"
 	desc = "A device periodically filtering out moisture particles from the nearby walls and windows. It's only possible due to the moisture traps nearby."
 	icon_state = "steam_vent"
+	plane = FLOOR_PLANE
+	layer = ABOVE_OPEN_TURF_LAYER
 	anchored = TRUE
 	density = FALSE
 	/// How often does the vent reset the blow_steam cooldown.
@@ -258,6 +260,8 @@ at the cost of risking a vicious bite.**/
 	var/vent_active = TRUE
 	/// The cooldown for toggling the steam vent to prevent infinite steam vent looping.
 	COOLDOWN_DECLARE(steam_vent_interact)
+	/// Fun distortion effect for when the vent is active
+	var/obj/effect/overlay/vis/steam/steam = /obj/effect/overlay/vis/steam/heavy
 
 /obj/structure/steam_vent/Initialize(mapload)
 	. = ..()
@@ -267,7 +271,28 @@ at the cost of risking a vicious bite.**/
 		COMSIG_ATOM_EXIT = PROC_REF(blow_steam),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-	update_icon_state()
+	if(steam)
+		steam = new steam()
+	update_appearance(UPDATE_ICON)
+
+/obj/structure/steam_vent/Destroy()
+	. = ..()
+	QDEL_NULL(steam)
+
+/obj/structure/steam_vent/update_icon(updates)
+	. = ..()
+
+	if(!steam)
+		return
+
+	if(vent_active)
+		vis_contents |= steam
+	else
+		vis_contents -= steam
+
+/obj/structure/steam_vent/update_icon_state()
+	. = ..()
+	icon_state = "steam_vent[vent_active ? "": "_off"]"
 
 /obj/structure/steam_vent/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
@@ -275,7 +300,7 @@ at the cost of risking a vicious bite.**/
 		balloon_alert(user, "not ready to adjust!")
 		return
 	vent_active = !vent_active
-	update_icon_state()
+	update_appearance(UPDATE_ICON)
 	if(vent_active)
 		balloon_alert(user, "vent on")
 	else
@@ -315,10 +340,6 @@ at the cost of risking a vicious bite.**/
 	smoke.start()
 	playsound(src, 'sound/machines/steam_hiss.ogg', 75, TRUE, -2)
 	COOLDOWN_START(src, steam_vent_interact, steam_speed)
-
-/obj/structure/steam_vent/update_icon_state()
-	. = ..()
-	icon_state = "steam_vent[vent_active ? "": "_off"]"
 
 /obj/structure/steam_vent/fast
 	desc = "A device periodically filtering out moisture particles from the nearby walls and windows. It's only possible due to the moisture traps nearby. It's faster than most."

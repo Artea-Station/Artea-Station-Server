@@ -137,12 +137,13 @@
 	if(no_teleport && (destination_area.area_flags & NOTELEPORT))
 		return
 
-	var/datum/gas_mixture/floor_gas_mixture = floor_turf.air
-	if(!floor_gas_mixture)
+	var/datum/gas_mixture/floor_gas = floor_turf.unsafe_return_air()
+
+	if(!floor_gas)
 		return
 
-	var/list/floor_gases = floor_gas_mixture.gases
-	var/list/gases_to_check = list(/datum/gas/oxygen, /datum/gas/nitrogen, /datum/gas/carbon_dioxide, /datum/gas/plasma)
+	var/list/floor_gases = floor_gas.gas
+	var/list/gases_to_check = list(GAS_OXYGEN, GAS_NITROGEN, GAS_CO2, GAS_PLASMA)
 	var/trace_gases
 	for(var/id in floor_gases)
 		if(id in gases_to_check)
@@ -153,17 +154,17 @@
 	// Can most things breathe?
 	if(trace_gases)
 		return
-	if(!(floor_gases[/datum/gas/oxygen] && floor_gases[/datum/gas/oxygen][MOLES] >= 16))
+	if(!(floor_gases[GAS_OXYGEN] >= 16))
 		return
-	if(floor_gases[/datum/gas/plasma])
+	if(floor_gases[GAS_PLASMA])
 		return
-	if(floor_gases[/datum/gas/carbon_dioxide] && floor_gases[/datum/gas/carbon_dioxide][MOLES] >= 10)
+	if(floor_gases[GAS_CO2] >= 10)
 		return
 
 	// Aim for goldilocks temperatures and pressure
-	if((floor_gas_mixture.temperature <= 270) || (floor_gas_mixture.temperature >= 360))
+	if((floor_gas.temperature <= 270) || (floor_gas.temperature >= 360))
 		return
-	var/pressure = floor_gas_mixture.return_pressure()
+	var/pressure = floor_gas.returnPressure()
 	if((pressure <= 20) || (pressure >= 550))
 		return
 

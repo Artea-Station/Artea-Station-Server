@@ -151,10 +151,8 @@
 	START_PROCESSING(SSobj, src)
 	var/datum/gas_mixture/our_mix = return_air()
 
-	our_mix.assert_gases(/datum/gas/plasma, /datum/gas/oxygen)
-	var/fuel_moles = our_mix.gases[/datum/gas/plasma][MOLES] + our_mix.gases[/datum/gas/oxygen][MOLES]/6
-	our_mix.garbage_collect()
-	var/datum/gas_mixture/bomb_mixture = our_mix.copy()
+	var/fuel_moles = our_mix.getGroupGas(GAS_PLASMA) + our_mix.getGroupGas(GAS_OXYGEN)/6
+	var/datum/gas_mixture/bomb_mixture = our_mix.copyFrom()
 	var/strength = 1
 
 	var/turf/ground_zero = get_turf(loc)
@@ -204,11 +202,10 @@
 
 /obj/item/tank/proc/release() //This happens when the bomb is not welded. Tank contents are just spat out.
 	var/datum/gas_mixture/our_mix = return_air()
-	var/datum/gas_mixture/removed = remove_air(our_mix.total_moles())
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
-	T.assume_air(removed)
+	T.assume_air(our_mix)
 
 /obj/item/onetankbomb/return_analyzable_air()
 	if(bombtank)

@@ -63,7 +63,7 @@
 	burnmod = 1.3 // Every 0.1 is 10% above the base.
 	brutemod = 1.3
 	coldmod = 1.2
-	heatmod = 2 // TWO TIMES DAMAGE FROM BEING TOO HOT?! WHAT?! No wonder lava is literal instant death for us.
+	heatmod = 1.5
 	siemens_coeff = 1.4 // Not more because some shocks will outright crit you, which is very unfun
 
 /datum/species/synthetic/spec_life(mob/living/carbon/human/human)

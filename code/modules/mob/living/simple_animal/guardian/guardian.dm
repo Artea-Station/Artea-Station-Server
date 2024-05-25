@@ -186,7 +186,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		guardianrecolor()
 
 /mob/living/simple_animal/hostile/guardian/proc/guardianrecolor()
-	guardiancolor = input(src,"What would you like your color to be?","Choose Your Color","#ffffff") as color|null
+	guardiancolor = tgui_color_picker(src,"What would you like your color to be?","Choose Your Color","#ffffff")
 	if(!guardiancolor) //redo proc until we get a color
 		to_chat(src, span_warning("Not a valid color, please try again."))
 		guardianrecolor()

@@ -103,6 +103,8 @@ GLOBAL_VAR_INIT(running_create_and_destroy, FALSE)
 	ignore += typesof(/obj/structure/industrial_lift)
 	//Harddels if removed. This should never be removed, and admins should ideally not fuck with gravgens, so.
 	ignore += typesof(/obj/machinery/gravity_generator/main)
+	//Mapper only, shouldn't be spawned outside of controlled environments
+	ignore += typesof(/obj/machinery/airlock_controller/autoset)
 
 	var/list/cached_contents = spawn_at.contents.Copy()
 	var/original_turf_type = spawn_at.type

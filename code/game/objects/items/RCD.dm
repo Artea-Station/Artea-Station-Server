@@ -237,7 +237,7 @@ RLD
 	var/construction_mode = RCD_FLOORWALL
 	var/ranged = FALSE
 	var/computer_dir = 1
-	var/airlock_type = /obj/machinery/door/airlock
+	var/airlock_type = /obj/machinery/door/bulkhead
 	var/airlock_glass = FALSE // So the floor's rcd_act knows how much ammo to use
 	var/window_type = /obj/structure/window/fulltile
 	var/window_glass = RCD_WINDOW_NORMAL
@@ -249,7 +249,7 @@ RLD
 	var/delay_mod = 1
 	var/canRturf = FALSE //Variable for R walls to deconstruct them
 	/// Integrated airlock electronics for setting access to a newly built airlocks
-	var/obj/item/electronics/airlock/airlock_electronics
+	var/obj/item/electronics/bulkhead/airlock_electronics
 
 	COOLDOWN_DECLARE(destructive_scan_cooldown)
 
@@ -427,27 +427,27 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 		to_chat(user, span_warning("\the [src] doesn't have remote storage connection."))
 
 /obj/item/construction/rcd/proc/get_airlock_image(airlock_type)
-	var/obj/machinery/door/airlock/proto = airlock_type
+	var/obj/machinery/door/bulkhead/proto = airlock_type
 	var/ic = initial(proto.icon)
 	var/mutable_appearance/MA = mutable_appearance(ic, "closed")
 	var/has_glass = initial(proto.glass)
 
 	var/color_overlays = initial(proto.color_overlays)
 	var/stripe_overlays = initial(proto.stripe_overlays)
-	var/airlock_paint = initial(proto.airlock_paint)
+	var/bulkhead_paint = initial(proto.bulkhead_paint)
 	var/stripe_paint = initial(proto.stripe_paint)
 
 	if(!has_glass)
 		MA.overlays += "fill_closed"
 	else
 		MA.overlays += mutable_appearance(initial(proto.glass_fill_overlays), "glass_closed")
-	if(color_overlays && airlock_paint)
+	if(color_overlays && bulkhead_paint)
 		var/mutable_appearance/paint = mutable_appearance(color_overlays, "closed")
-		paint.color = airlock_paint
+		paint.color = bulkhead_paint
 		MA.overlays += paint
 		if(!has_glass)
 			var/mutable_appearance/paint_fill = mutable_appearance(color_overlays, "fill_closed")
-			paint_fill.color = airlock_paint
+			paint_fill.color = bulkhead_paint
 			MA.overlays += paint_fill
 	if(stripe_overlays && stripe_paint)
 		var/mutable_appearance/stripe = mutable_appearance(stripe_overlays, "closed")
@@ -494,45 +494,45 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 		return
 
 	var/list/solid_or_glass_choices = list(
-		"Solid" = get_airlock_image(/obj/machinery/door/airlock),
-		"Glass" = get_airlock_image(/obj/machinery/door/airlock/glass),
+		"Solid" = get_airlock_image(/obj/machinery/door/bulkhead),
+		"Glass" = get_airlock_image(/obj/machinery/door/bulkhead/glass),
 		"Windoor" = image(icon = 'icons/hud/radial.dmi', icon_state = "windoor"),
 		"Secure Windoor" = image(icon = 'icons/hud/radial.dmi', icon_state = "secure_windoor")
 	)
 
 	var/list/solid_choices = list(
-		"Standard" = get_airlock_image(/obj/machinery/door/airlock),
-		"Public" = get_airlock_image(/obj/machinery/door/airlock/public),
-		"Engineering" = get_airlock_image(/obj/machinery/door/airlock/engineering),
-		"Atmospherics" = get_airlock_image(/obj/machinery/door/airlock/atmos),
-		"Security" = get_airlock_image(/obj/machinery/door/airlock/security),
-		"Command" = get_airlock_image(/obj/machinery/door/airlock/command),
-		"Medical" = get_airlock_image(/obj/machinery/door/airlock/medical),
-		"Research" = get_airlock_image(/obj/machinery/door/airlock/research),
-		"Freezer" = get_airlock_image(/obj/machinery/door/airlock/freezer),
-		"Virology" = get_airlock_image(/obj/machinery/door/airlock/virology),
-		"Mining" = get_airlock_image(/obj/machinery/door/airlock/mining),
-		"Maintenance" = get_airlock_image(/obj/machinery/door/airlock/maintenance),
-		"External" = get_airlock_image(/obj/machinery/door/airlock/external),
-		"External Maintenance" = get_airlock_image(/obj/machinery/door/airlock/maintenance/external),
-		"Airtight Hatch" = get_airlock_image(/obj/machinery/door/airlock/hatch),
-		"Maintenance Hatch" = get_airlock_image(/obj/machinery/door/airlock/maintenance_hatch)
+		"Standard" = get_airlock_image(/obj/machinery/door/bulkhead),
+		"Public" = get_airlock_image(/obj/machinery/door/bulkhead/public),
+		"Engineering" = get_airlock_image(/obj/machinery/door/bulkhead/engineering),
+		"Atmospherics" = get_airlock_image(/obj/machinery/door/bulkhead/atmos),
+		"Security" = get_airlock_image(/obj/machinery/door/bulkhead/security),
+		"Command" = get_airlock_image(/obj/machinery/door/bulkhead/command),
+		"Medical" = get_airlock_image(/obj/machinery/door/bulkhead/medical),
+		"Research" = get_airlock_image(/obj/machinery/door/bulkhead/research),
+		"Freezer" = get_airlock_image(/obj/machinery/door/bulkhead/freezer),
+		"Virology" = get_airlock_image(/obj/machinery/door/bulkhead/virology),
+		"Mining" = get_airlock_image(/obj/machinery/door/bulkhead/mining),
+		"Maintenance" = get_airlock_image(/obj/machinery/door/bulkhead/maintenance),
+		"External" = get_airlock_image(/obj/machinery/door/bulkhead/external),
+		"External Maintenance" = get_airlock_image(/obj/machinery/door/bulkhead/maintenance/external),
+		"Airtight Hatch" = get_airlock_image(/obj/machinery/door/bulkhead/hatch),
+		"Maintenance Hatch" = get_airlock_image(/obj/machinery/door/bulkhead/maintenance_hatch)
 	)
 
 	var/list/glass_choices = list(
-		"Standard" = get_airlock_image(/obj/machinery/door/airlock/glass),
-		"Public" = get_airlock_image(/obj/machinery/door/airlock/public/glass),
-		"Engineering" = get_airlock_image(/obj/machinery/door/airlock/engineering/glass),
-		"Atmospherics" = get_airlock_image(/obj/machinery/door/airlock/atmos/glass),
-		"Security" = get_airlock_image(/obj/machinery/door/airlock/security/glass),
-		"Command" = get_airlock_image(/obj/machinery/door/airlock/command/glass),
-		"Medical" = get_airlock_image(/obj/machinery/door/airlock/medical/glass),
-		"Research" = get_airlock_image(/obj/machinery/door/airlock/research/glass),
-		"Virology" = get_airlock_image(/obj/machinery/door/airlock/virology/glass),
-		"Mining" = get_airlock_image(/obj/machinery/door/airlock/mining/glass),
-		"Maintenance" = get_airlock_image(/obj/machinery/door/airlock/maintenance/glass),
-		"External" = get_airlock_image(/obj/machinery/door/airlock/external/glass),
-		"External Maintenance" = get_airlock_image(/obj/machinery/door/airlock/maintenance/external/glass)
+		"Standard" = get_airlock_image(/obj/machinery/door/bulkhead/glass),
+		"Public" = get_airlock_image(/obj/machinery/door/bulkhead/public/glass),
+		"Engineering" = get_airlock_image(/obj/machinery/door/bulkhead/engineering/glass),
+		"Atmospherics" = get_airlock_image(/obj/machinery/door/bulkhead/atmos/glass),
+		"Security" = get_airlock_image(/obj/machinery/door/bulkhead/security/glass),
+		"Command" = get_airlock_image(/obj/machinery/door/bulkhead/command/glass),
+		"Medical" = get_airlock_image(/obj/machinery/door/bulkhead/medical/glass),
+		"Research" = get_airlock_image(/obj/machinery/door/bulkhead/research/glass),
+		"Virology" = get_airlock_image(/obj/machinery/door/bulkhead/virology/glass),
+		"Mining" = get_airlock_image(/obj/machinery/door/bulkhead/mining/glass),
+		"Maintenance" = get_airlock_image(/obj/machinery/door/bulkhead/maintenance/glass),
+		"External" = get_airlock_image(/obj/machinery/door/bulkhead/external/glass),
+		"External Maintenance" = get_airlock_image(/obj/machinery/door/bulkhead/maintenance/external/glass)
 	)
 
 	var/airlockcat = show_radial_menu(user, remote_anchor || src, solid_or_glass_choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user, remote_anchor), require_near = remote_anchor ? FALSE : TRUE, tooltips = TRUE)
@@ -542,40 +542,40 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 				var/airlockpaint = show_radial_menu(user, remote_anchor || src, solid_choices, radius = 42, custom_check = CALLBACK(src, PROC_REF(check_menu), user, remote_anchor), require_near = remote_anchor ? FALSE : TRUE, tooltips = TRUE)
 				switch(airlockpaint)
 					if("Standard")
-						airlock_type = /obj/machinery/door/airlock
+						airlock_type = /obj/machinery/door/bulkhead
 					if("Public")
-						airlock_type = /obj/machinery/door/airlock/public
+						airlock_type = /obj/machinery/door/bulkhead/public
 					if("Engineering")
-						airlock_type = /obj/machinery/door/airlock/engineering
+						airlock_type = /obj/machinery/door/bulkhead/engineering
 					if("Atmospherics")
-						airlock_type = /obj/machinery/door/airlock/atmos
+						airlock_type = /obj/machinery/door/bulkhead/atmos
 					if("Security")
-						airlock_type = /obj/machinery/door/airlock/security
+						airlock_type = /obj/machinery/door/bulkhead/security
 					if("Command")
-						airlock_type = /obj/machinery/door/airlock/command
+						airlock_type = /obj/machinery/door/bulkhead/command
 					if("Medical")
-						airlock_type = /obj/machinery/door/airlock/medical
+						airlock_type = /obj/machinery/door/bulkhead/medical
 					if("Research")
-						airlock_type = /obj/machinery/door/airlock/research
+						airlock_type = /obj/machinery/door/bulkhead/research
 					if("Freezer")
-						airlock_type = /obj/machinery/door/airlock/freezer
+						airlock_type = /obj/machinery/door/bulkhead/freezer
 					if("Virology")
-						airlock_type = /obj/machinery/door/airlock/virology
+						airlock_type = /obj/machinery/door/bulkhead/virology
 					if("Mining")
-						airlock_type = /obj/machinery/door/airlock/mining
+						airlock_type = /obj/machinery/door/bulkhead/mining
 					if("Maintenance")
-						airlock_type = /obj/machinery/door/airlock/maintenance
+						airlock_type = /obj/machinery/door/bulkhead/maintenance
 					if("External")
-						airlock_type = /obj/machinery/door/airlock/external
+						airlock_type = /obj/machinery/door/bulkhead/external
 					if("External Maintenance")
-						airlock_type = /obj/machinery/door/airlock/maintenance/external
+						airlock_type = /obj/machinery/door/bulkhead/maintenance/external
 					if("Airtight Hatch")
-						airlock_type = /obj/machinery/door/airlock/hatch
+						airlock_type = /obj/machinery/door/bulkhead/hatch
 					if("Maintenance Hatch")
-						airlock_type = /obj/machinery/door/airlock/maintenance_hatch
+						airlock_type = /obj/machinery/door/bulkhead/maintenance_hatch
 				airlock_glass = FALSE
 			else
-				airlock_type = /obj/machinery/door/airlock
+				airlock_type = /obj/machinery/door/bulkhead
 				airlock_glass = FALSE
 
 		if("Glass")
@@ -583,34 +583,34 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 				var/airlockpaint = show_radial_menu(user, remote_anchor || src, glass_choices, radius = 42, custom_check = CALLBACK(src, PROC_REF(check_menu), user, remote_anchor), require_near = remote_anchor ? FALSE : TRUE, tooltips = TRUE)
 				switch(airlockpaint)
 					if("Standard")
-						airlock_type = /obj/machinery/door/airlock/glass
+						airlock_type = /obj/machinery/door/bulkhead/glass
 					if("Public")
-						airlock_type = /obj/machinery/door/airlock/public/glass
+						airlock_type = /obj/machinery/door/bulkhead/public/glass
 					if("Engineering")
-						airlock_type = /obj/machinery/door/airlock/engineering/glass
+						airlock_type = /obj/machinery/door/bulkhead/engineering/glass
 					if("Atmospherics")
-						airlock_type = /obj/machinery/door/airlock/atmos/glass
+						airlock_type = /obj/machinery/door/bulkhead/atmos/glass
 					if("Security")
-						airlock_type = /obj/machinery/door/airlock/security/glass
+						airlock_type = /obj/machinery/door/bulkhead/security/glass
 					if("Command")
-						airlock_type = /obj/machinery/door/airlock/command/glass
+						airlock_type = /obj/machinery/door/bulkhead/command/glass
 					if("Medical")
-						airlock_type = /obj/machinery/door/airlock/medical/glass
+						airlock_type = /obj/machinery/door/bulkhead/medical/glass
 					if("Research")
-						airlock_type = /obj/machinery/door/airlock/research/glass
+						airlock_type = /obj/machinery/door/bulkhead/research/glass
 					if("Virology")
-						airlock_type = /obj/machinery/door/airlock/virology/glass
+						airlock_type = /obj/machinery/door/bulkhead/virology/glass
 					if("Mining")
-						airlock_type = /obj/machinery/door/airlock/mining/glass
+						airlock_type = /obj/machinery/door/bulkhead/mining/glass
 					if("Maintenance")
-						airlock_type = /obj/machinery/door/airlock/maintenance/glass
+						airlock_type = /obj/machinery/door/bulkhead/maintenance/glass
 					if("External")
-						airlock_type = /obj/machinery/door/airlock/external/glass
+						airlock_type = /obj/machinery/door/bulkhead/external/glass
 					if("External Maintenance")
-						airlock_type = /obj/machinery/door/airlock/maintenance/external/glass
+						airlock_type = /obj/machinery/door/bulkhead/maintenance/external/glass
 				airlock_glass = TRUE
 			else
-				airlock_type = /obj/machinery/door/airlock/glass
+				airlock_type = /obj/machinery/door/bulkhead/glass
 				airlock_glass = TRUE
 		if("Windoor")
 			airlock_type = /obj/machinery/door/window
@@ -619,7 +619,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 			airlock_type = /obj/machinery/door/window/brigdoor
 			airlock_glass = TRUE
 		else
-			airlock_type = /obj/machinery/door/airlock
+			airlock_type = /obj/machinery/door/bulkhead
 			airlock_glass = FALSE
 
 /// Radial menu for choosing the object you want to be created with the furnishing mode
@@ -772,7 +772,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	to_chat(user, span_notice("You change RCD's mode to '[choice]'."))
 
 /obj/item/construction/rcd/proc/target_check(atom/A, mob/user) // only returns true for stuff the device can actually work with
-	if((isturf(A) && A.density && mode==RCD_DECONSTRUCT) || (isturf(A) && !A.density) || (istype(A, /obj/machinery/door/airlock) && mode==RCD_DECONSTRUCT) || istype(A, /obj/structure/grille) || (istype(A, /obj/structure/window) && mode==RCD_DECONSTRUCT) || istype(A, /obj/structure/girder))
+	if((isturf(A) && A.density && mode==RCD_DECONSTRUCT) || (isturf(A) && !A.density) || (istype(A, /obj/machinery/door/bulkhead) && mode==RCD_DECONSTRUCT) || istype(A, /obj/structure/grille) || (istype(A, /obj/structure/window) && mode==RCD_DECONSTRUCT) || istype(A, /obj/structure/girder))
 		return TRUE
 	else
 		return FALSE
@@ -964,7 +964,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 
 /obj/item/construction/rld/ui_action_click(mob/user, datum/action/A)
 	if(istype(A, /datum/action/item_action/pick_color))
-		color_choice = input(user,"","Choose Color",color_choice) as color
+		color_choice = tgui_color_picker(user,"","Choose Color",color_choice)
 	else
 		..()
 
@@ -1030,7 +1030,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 						for(var/direction in GLOB.cardinals)
 							var/turf/C = get_step(W, direction)
 							var/list/dupes = checkdupes(C)
-							if((isspaceturf(C) || TURF_SHARES(C)) && !dupes.len)
+							if((isspaceturf(C) || (get_step(src, 0).open_directions & direction)) && !dupes.len)
 								candidates += C
 						if(!candidates.len)
 							to_chat(user, span_warning("Valid target not found..."))

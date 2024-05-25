@@ -63,7 +63,8 @@
 		//Handle temperature/pressure differences between body and environment
 		var/datum/gas_mixture/environment = loc.return_air()
 		if(environment)
-			handle_environment(environment, delta_time, times_fired)
+			if(handle_environment(environment, delta_time, times_fired))
+				updatehealth()
 
 		handle_gravity(delta_time, times_fired)
 

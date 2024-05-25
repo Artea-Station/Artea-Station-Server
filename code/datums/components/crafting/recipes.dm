@@ -1218,21 +1218,11 @@
 				)
 	category = CAT_STRUCTURE
 
-/datum/crafting_recipe/bluespace_vendor_mount
-	name = "Bluespace Vendor Wall Mount"
-	result = /obj/item/wallframe/bluespace_vendor_mount
-	time = 6 SECONDS
-	reqs = list(/obj/item/stack/sheet/iron = 15,
-				/obj/item/stack/sheet/glass = 10,
-				/obj/item/stack/cable_coil = 10,
-				)
-	category = CAT_ATMOSPHERIC
-
 /datum/crafting_recipe/shutters
 	name = "Shutters"
 	reqs = list(/obj/item/stack/sheet/plasteel = 5,
 				/obj/item/stack/cable_coil = 5,
-				/obj/item/electronics/airlock = 1
+				/obj/item/electronics/bulkhead = 1
 				)
 	result = /obj/machinery/door/poddoor/shutters/preopen
 	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL, TOOL_WIRECUTTER, TOOL_WELDER)
@@ -1244,7 +1234,7 @@
 	name = "Blast Door"
 	reqs = list(/obj/item/stack/sheet/plasteel = 15,
 				/obj/item/stack/cable_coil = 15,
-				/obj/item/electronics/airlock = 1
+				/obj/item/electronics/bulkhead = 1
 				)
 	result = /obj/machinery/door/poddoor/preopen
 	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL, TOOL_WIRECUTTER, TOOL_WELDER)

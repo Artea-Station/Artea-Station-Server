@@ -107,7 +107,7 @@
 /atom/proc/BorgCtrlShiftClick(mob/living/silicon/robot/user) //forward to human click if not overridden
 	CtrlShiftClick(user)
 
-/obj/machinery/door/airlock/BorgCtrlShiftClick(mob/living/silicon/robot/user) // Sets/Unsets Emergency Access Override Forwards to AI code.
+/obj/machinery/door/bulkhead/BorgCtrlShiftClick(mob/living/silicon/robot/user) // Sets/Unsets Emergency Access Override Forwards to AI code.
 	if(get_dist(src,user) <= user.interaction_range)
 		AICtrlShiftClick()
 	else
@@ -117,7 +117,7 @@
 /atom/proc/BorgShiftClick(mob/living/silicon/robot/user) //forward to human click if not overridden
 	ShiftClick(user)
 
-/obj/machinery/door/airlock/BorgShiftClick(mob/living/silicon/robot/user)  // Opens and closes doors! Forwards to AI code.
+/obj/machinery/door/bulkhead/BorgShiftClick(mob/living/silicon/robot/user)  // Opens and closes doors! Forwards to AI code.
 	if(get_dist(src,user) <= user.interaction_range)
 		AIShiftClick()
 	else
@@ -127,7 +127,7 @@
 /atom/proc/BorgCtrlClick(mob/living/silicon/robot/user) //forward to human click if not overridden
 	CtrlClick(user)
 
-/obj/machinery/door/airlock/BorgCtrlClick(mob/living/silicon/robot/user) // Bolts doors. Forwards to AI code.
+/obj/machinery/door/bulkhead/BorgCtrlClick(mob/living/silicon/robot/user) // Bolts doors. Forwards to AI code.
 	if(get_dist(src,user) <= user.interaction_range)
 		AICtrlClick()
 	else
@@ -149,7 +149,7 @@
 	AltClick(user)
 	return
 
-/obj/machinery/door/airlock/BorgAltClick(mob/living/silicon/robot/user) // Eletrifies doors. Forwards to AI code.
+/obj/machinery/door/bulkhead/BorgAltClick(mob/living/silicon/robot/user) // Eletrifies doors. Forwards to AI code.
 	if(get_dist(src,user) <= user.interaction_range)
 		AIAltClick()
 	else

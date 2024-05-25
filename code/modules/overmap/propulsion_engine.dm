@@ -72,7 +72,7 @@
 		if(node)
 			node.atmos_init()
 			node.add_member(src)
-	SSair.add_to_rebuild_queue(src)
+	SSairmachines.add_to_rebuild_queue(src)
 
 /obj/machinery/atmospherics/components/unary/engine/proc/unweld()
 	if(!is_welded)
@@ -132,7 +132,7 @@
 
 /obj/machinery/atmospherics/components/unary/engine/proc/DrawThrust(impulse_power)
 	var/datum/gas_mixture/gas = airs[1]
-	var/total_moles = gas.total_moles()
+	var/total_moles = gas.total_moles
 	if(total_moles < ENGINE_MINIMUM_OPERATABLE_MOLES)
 		return 0
 	var/demand_mutliplier = T20C / gas.temperature
@@ -153,7 +153,7 @@
 #define ENGINE_PRESSURE_POINT_FULL 4500 //Pressure point at which it'll return 100%
 
 /obj/machinery/atmospherics/components/unary/engine/proc/GetCurrentFuel()
-	var/pressure = airs[1].return_pressure()
+	var/pressure = airs[1].returnPressure()
 	var/percentage = FLOOR((pressure/ENGINE_PRESSURE_POINT_FULL)*100,1)
 	if(percentage > 100) //Overpressurized engine, still show 100%
 		percentage = 100

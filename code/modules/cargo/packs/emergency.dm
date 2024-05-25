@@ -190,3 +190,11 @@
 	container_name = "surplus rations box"
 	container_type = /obj/structure/closet/crate/cardboard/mothic
 	galactic_import = TRUE
+
+/datum/supply_pack/emergency/flexiseal
+	name = "Flexi Seal Crate"
+	desc = "Flexi Seal, the perfect stuff for fixing a nuclear reactor safely!"
+	cost = CARGO_CRATE_VALUE * 6
+	contains = list(/obj/item/sealant)
+	container_name = "Flexi Seal Crate"
+	container_type = /obj/structure/closet/crate/radiation

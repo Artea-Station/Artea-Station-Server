@@ -68,7 +68,7 @@
 /turf/closed/wall/mineral/wood,
 /area/ruin/powered/snow_biodome)
 "ar" = (
-/obj/machinery/door/airlock/wood,
+/obj/machinery/door/bulkhead/wood,
 /turf/open/floor/wood/parquet,
 /area/ruin/powered/snow_biodome)
 "as" = (
@@ -110,7 +110,7 @@
 /turf/open/floor/wood,
 /area/ruin/powered/snow_biodome)
 "ay" = (
-/obj/machinery/door/airlock/wood,
+/obj/machinery/door/bulkhead/wood,
 /turf/open/floor/wood,
 /area/ruin/powered/snow_biodome)
 "az" = (
@@ -179,7 +179,7 @@
 /turf/open/floor/wood,
 /area/ruin/powered/snow_biodome)
 "aO" = (
-/obj/machinery/door/airlock/glass_large,
+/obj/machinery/door/bulkhead/glass_large,
 /obj/structure/fans/tiny,
 /turf/open/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
@@ -200,7 +200,8 @@
 	dir = 1
 	},
 /turf/open/floor/wood{
-	initial_gas_mix = "o2=22;n2=82;TEMP=180";
+	initial_gas = list("oxygen" = 22, "nitrogen" = 82);
+	temperature = 180;
 	name = "bridge"
 	},
 /area/ruin/powered/snow_biodome)
@@ -272,7 +273,7 @@
 /obj/machinery/light/built/directional/north,
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/pod/dark{
-	initial_gas_mix = "PLANETARY_ATMOS"
+	initial_gas = list("planetary" = 1)
 	},
 /area/ruin/powered/snow_biodome)
 "og" = (
@@ -287,9 +288,9 @@
 /turf/open/misc/asteroid/snow,
 /area/ruin/powered/snow_biodome)
 "qt" = (
-/obj/machinery/door/airlock/silver,
+/obj/machinery/door/bulkhead/silver,
 /obj/structure/fans/tiny,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper{
 	dir = 8
 	},
 /turf/open/floor/pod/dark,
@@ -335,7 +336,7 @@
 /turf/open/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "zT" = (
-/obj/machinery/door/airlock/silver,
+/obj/machinery/door/bulkhead/silver,
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/ruin/powered/snow_biodome)
@@ -364,7 +365,7 @@
 /area/ruin/powered/snow_biodome)
 "Ez" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/glass_large,
+/obj/machinery/door/bulkhead/glass_large,
 /turf/open/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "EA" = (
@@ -403,9 +404,9 @@
 /turf/open/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "PD" = (
-/obj/machinery/door/airlock/hatch,
+/obj/machinery/door/bulkhead/hatch,
 /obj/structure/fans/tiny,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/effect/mapping_helpers/bulkhead/magic_cyclelink_helper{
 	dir = 4
 	},
 /turf/open/floor/pod/dark,
@@ -419,7 +420,8 @@
 "PM" = (
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood{
-	initial_gas_mix = "o2=22;n2=82;TEMP=180";
+	initial_gas = list("oxygen" = 22, "nitrogen" = 82);
+	temperature = 180;
 	name = "bridge"
 	},
 /area/ruin/powered/snow_biodome)
