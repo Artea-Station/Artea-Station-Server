@@ -250,6 +250,7 @@
 	name = "Radon"
 	specific_heat = 16 // J/(mol*K)
 	molar_mass = 0.222// kg/mol
+	tile_overlay = "chlorine" // Not really accurate, but this should give a similar "oh shit" factor.
 	breathed_product = /datum/reagent/toxin/radon
 	symbol_html = "Rn"
 	symbol = "Rn"
