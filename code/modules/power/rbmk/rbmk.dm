@@ -409,7 +409,7 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 	for(var/gas in fuel.gas)
 		oh_shit_amount += xgm_gas_data.molar_mass[gas] * fuel.gas[gas] // The more spicy, the worse-er
 
-	oh_shit_mix.adjustGas(GAS_RADON, oh_shit_amount * 19, TRUE) // Does this break the laws of mass? Yes. Do I care? Not really, you guys should be fucking off on the emergency shuttle in 10 minutes.
+	oh_shit_mix.adjustGas(GAS_RADON, oh_shit_amount * 20, TRUE) // Does this break the laws of mass? Yes. Do I care? Not really, you guys should be fucking off on the emergency shuttle in 10 minutes.
 	my_turf.assume_air(oh_shit_mix)
 
 	explosion(get_turf(src), zas_settings.maxex_devastation_range, zas_settings.maxex_heavy_range, zas_settings.maxex_light_range, zas_settings.maxex_fire_range, zas_settings.maxex_flash_range, TRUE, smoke = TRUE)
