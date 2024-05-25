@@ -214,15 +214,20 @@ GLOBAL_LIST_EMPTY(rbmk_reactors)
 		if(actual_fuel_moles >= (RBMK_BASE_FUEL_CONSUMPTION - 0.01)) //You need fuel to do anything. (-0.01 to deal with floating point issues)
 			start_up() // Make the funny noise.
 
-			// Power is based on temp, so hotter reactor means it produces more power.
-			last_power_produced *= power / 100
-			// Finally, we turn it into actual usable numbers.
-			last_power_produced *= RBMK_POWER_SANIFIER
 
 			// Shove out xenon into the air when it's fuelled. You need to filter this off, or you're gonna have a bad time.
 			coolant_output.adjustGas(GAS_XENON, actual_fuel_moles / 50)
 
-			add_avail(last_power_produced)
+			if(power > 20)
+				last_power_produced = base_power_production
+				// Power is based on temp, so hotter reactor means it produces more power.
+				last_power_produced *= power / 100
+				// Finally, we turn it into actual usable numbers.
+				last_power_produced *= RBMK_POWER_SANIFIER
+
+				add_avail(last_power_produced)
+			else
+				last_power_produced = 0
 		else
 			last_power_produced = 0
 
