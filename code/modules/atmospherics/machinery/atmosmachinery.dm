@@ -634,7 +634,7 @@
 	if(isnull(cap_overlay))
 		cap_overlay = new
 
-	SET_PLANE_EXPLICIT(cap_overlay, initial(plane), our_turf)
+	//SET_PLANE_EXPLICIT(cap_overlay, initial(plane), our_turf)
 
 	cap_overlay.color = pipe_color
 	cap_overlay.layer = layer
