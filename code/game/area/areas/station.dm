@@ -59,6 +59,9 @@
 /area/station/maintenance/department/security/upper
 	name = "Upper Security Maintenance"
 
+/area/station/maintenance/department/security/lower
+	name = "Lower Security Maintenance"
+
 /area/station/maintenance/department/security/brig
 	name = "Brig Maintenance"
 	icon_state = "maint_brig"
@@ -70,6 +73,12 @@
 /area/station/maintenance/department/medical/central
 	name = "Central Medbay Maintenance"
 	icon_state = "medbay_maint_central"
+
+/area/station/maintenance/department/medical/upper
+	name = "Upper Medbay Maintenace"
+
+/area/station/maintenance/department/medical/lower
+	name = "Lower Medbay Maintenance"
 
 /area/station/maintenance/department/medical/morgue
 	name = "Morgue Maintenance"
@@ -87,13 +96,46 @@
 	name = "Cargo Maintenance"
 	icon_state = "maint_cargo"
 
+/area/station/maintenance/department/cargo/upper
+	name = "Upper Cargo Maintenance"
+
+/area/station/maintenance/department/cargo/lower
+	name = "Lower Cargo Maintenance"
+
+/area/station/maintenance/department/cargo/hangar
+	name = "Abandoned Hangar"
+
 /area/station/maintenance/department/bridge
 	name = "Bridge Maintenance"
 	icon_state = "maint_bridge"
 
+/area/station/maintenance/department/command
+	name = "Command Maintenance"
+	icon_state = "command_maint"
+
+/area/station/maintenance/department/pathfinders
+	name = "Pathfinders Maintenance"
+	icon_state = "pathfinders_maint"
+
+/area/station/maintenance/department/pathfinders/greater
+	name = "Greater Pathfinders Maintenance"
+
+/area/station/maintenance/department/pathfinders/lesser
+	name = "Lesser Pathfinders Maintenance"
+
 /area/station/maintenance/department/engine
 	name = "Engineering Maintenance"
 	icon_state = "maint_engi"
+
+/area/station/maintenance/department/engine/gravity_generator
+	name = "Gravity Generator Maintenance"
+	icon_state = "maint_engi"
+
+/area/station/maintenance/department/engine/gravity_generator/greater
+	name = "Greater Gravity Generator Maintenance"
+
+/area/station/maintenance/department/engine/gravity_generator/lesser
+	name = "Lesser Gravity Generator Maintenance"
 
 /area/station/maintenance/department/science/xenobiology
 	name = "Xenobiology Maintenance"
@@ -466,6 +508,11 @@
 	name = "\improper Gateway"
 	icon_state = "gateway"
 	ambience_index = AMBIENCE_ENGI
+
+/area/station/command/internal_affairs_office
+	name = "\improper Internal Affairs Office"
+	icon_state = "iaa_office"
+	sound_environment = SOUND_AREA_WOODFLOOR
 
 //Commons
 
@@ -887,7 +934,15 @@
 
 /area/station/engineering/reactor_control
 	name = "\improper Reactor Control Room"
-	icon_state = "engine_sm_control"
+	icon_state = "engine_sm"
+
+/area/station/engineering/reactor_hallway
+	name = "\improper Reactor Hallway"
+	icon_state = "engine_sm"
+
+/area/station/engineering/reactor_substation
+	name = "\improper Reactor Substation"
+	icon_state = "engine_sm"
 
 /area/station/engineering/break_room
 	name = "\improper Engineering Foyer"
@@ -899,6 +954,10 @@
 	icon_state = "grav_gen"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
+/area/station/engineering/shield_generator
+	name = "\improper Shield Generator Room"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
 /area/station/engineering/storage
 	name = "Engineering Storage"
 	icon_state = "engine_storage"
@@ -907,6 +966,11 @@
 /area/station/engineering/storage_shared
 	name = "Shared Engineering Storage"
 	icon_state = "engine_storage_shared"
+
+/area/station/engineering/secure_storage
+	name = "Secure Storage"
+	icon_state = "engine_storage"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/station/engineering/transit_tube
 	name = "\improper Transit Tube"
@@ -1233,11 +1297,11 @@
 	name = "\improper Prison Garden"
 	icon_state = "prison_garden"
 
-/area/station/security/processing
+/area/station/security/labor_shuttle_dock
 	name = "\improper Labor Shuttle Dock"
 	icon_state = "sec_labor_processing"
 
-/area/station/security/processing/cremation
+/area/station/security/cremation
 	name = "\improper Security Crematorium"
 	icon_state = "sec_cremation"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
@@ -1324,6 +1388,15 @@
 /area/station/security/checkpoint/customs/aft
 	name = "Aft Customs"
 	icon_state = "customs_point_aft"
+
+/area/station/security/evidence
+	name = "Evidence Storage"
+
+/area/station/security/desk
+	name = "Security Desk"
+
+/area/station/security/processing
+	name = "Processing"
 
 //Cargo
 
@@ -1557,6 +1630,9 @@
 /area/station/pathfinders/locker_room
 	name = "\improper Pathfinders Locker room"
 
+/area/station/pathfinders/office
+	name = "\improper Pathfinders Office"
+
 /area/station/pathfinders/lead_office
 	name = "\improper Lead Pathfinder Office"
 
@@ -1565,3 +1641,6 @@
 
 /area/station/pathfinders/pathfinders_armory
 	name = "\improper Pathfinders Armory"
+
+/area/station/pathfinders/pathfinders_hallway
+	name = "\improper Pathfinders Hallway"

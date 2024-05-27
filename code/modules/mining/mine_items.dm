@@ -117,6 +117,10 @@
 /obj/docking_port/stationary/pathfinders_home/bearcat
 	name = "Bearcat: Pathfinders Dock"
 
+/obj/docking_port/stationary/pathfinders_home/alv_belryth
+	name = "ALV Belryth: Pathfinders Dock"
+	roundstart_template = /datum/map_template/shuttle/pathfinders/hermes
+
 /**********************Mining car (Crate like thing, not the rail car)**************************/
 
 /obj/structure/closet/crate/miningcar
