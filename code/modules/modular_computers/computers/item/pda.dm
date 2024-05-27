@@ -25,6 +25,7 @@
 	has_light = TRUE //LED flashlight!
 	comp_light_luminosity = 2.3 //this is what old PDAs were set to
 	looping_sound = FALSE
+	self_lighting = TRUE
 
 	pickup_sound = 'sound/items/handling/device_pickup.ogg'
 	drop_sound = 'sound/items/handling/device_drop.ogg'

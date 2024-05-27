@@ -1177,6 +1177,11 @@
 /// Can this mob read
 /mob/proc/can_read(obj/O)
 	if(!has_light_nearby() && !has_nightvision())
+		if(isitem(O))
+			var/obj/item/item = O
+			if(item.self_lighting)
+				return TRUE
+
 		to_chat(src, span_warning("It's too dark in here to read!"))
 		return FALSE
 
