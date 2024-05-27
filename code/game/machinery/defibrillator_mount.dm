@@ -231,9 +231,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/defibrillator_mount, 28)
 	anchored = FALSE
 	density = TRUE
 
-/obj/machinery/defibrillator_mount/mobile/Initialize(mapload)
+/obj/machinery/defibrillator_mount/mobile/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
-	AddElement(/datum/element/noisy_movement)
+	if(has_gravity())
+		playsound(src, 'sound/effects/roll.ogg', 100, TRUE)
 
 /obj/machinery/defibrillator_mount/mobile/wrench_act_secondary(mob/living/user, obj/item/tool)
 	if(user.combat_mode)
