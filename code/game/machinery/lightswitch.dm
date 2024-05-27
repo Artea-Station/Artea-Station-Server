@@ -43,7 +43,7 @@ MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light_switch, 32, -18, 33, -33
 	if(isnull(held_item))
 		context[SCREENTIP_CONTEXT_LMB] = area.lightswitch ? "Flick off" : "Flick on"
 		return CONTEXTUAL_SCREENTIP_SET
-	if(held_item.tool_behaviour != TOOL_SCREWDRIVER)
+	if(held_item.tool_behaviour == TOOL_SCREWDRIVER)
 		context[SCREENTIP_CONTEXT_RMB] = "Deconstruct"
 		return CONTEXTUAL_SCREENTIP_SET
 	return .
@@ -70,6 +70,7 @@ MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light_switch, 32, -18, 33, -33
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
 	. += "It is [(machine_stat & NOPOWER) ? "unpowered" : (area.lightswitch ? "on" : "off")]."
+	. += span_notice("It appears to be <b>screwed</b> in place.")
 
 /obj/machinery/light_switch/interact(mob/user)
 	. = ..()
@@ -79,7 +80,7 @@ MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light_switch, 32, -18, 33, -33
 	if(weapon.tool_behaviour == TOOL_SCREWDRIVER)
 		to_chat(user, "You pop \the [src] off the wall.")
 		deconstruct()
-		return COMPONENT_CANCEL_ATTACK_CHAIN
+		return FALSE
 	return ..()
 
 /obj/machinery/light_switch/proc/set_lights(status)
