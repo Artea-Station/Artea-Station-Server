@@ -1,3 +1,7 @@
+// Comment this out to enable planets and space Z generation.
+// Disabled by default cause we don't have the player count on live, and it adds a notable amount to init times.
+#define DISABLE_OVERMAP_ZS
+
 //Bitflags for overmap_flags
 #define OV_SHOWS_ON_SENSORS (1<<0)
 #define OV_CAN_BE_TARGETED (1<<1)
