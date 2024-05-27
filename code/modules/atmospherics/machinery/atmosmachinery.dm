@@ -645,7 +645,7 @@
 /obj/effect/overlay/cap_visual
 	appearance_flags = KEEP_APART
 	vis_flags = VIS_INHERIT_ID
-	icon = 'icons/obj/pipes_n_cables/!pipes_bitmask.dmi'
+	icon = 'icons/obj/atmospherics/pipes/pipes_bitmask.dmi'
 
 /**
  * Called by the RPD.dm pre_attack(), overriden by pipes.dm

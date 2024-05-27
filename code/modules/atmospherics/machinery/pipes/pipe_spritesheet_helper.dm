@@ -4,25 +4,25 @@
 
 	var/datum/pipe_icon_generator/generator = new
 	generator.Start()
-	fcopy(generator.generated_icons, "icons/obj/pipes_n_cables/!pipes_bitmask.dmi")
+	fcopy(generator.generated_icons, "icons/obj/atmospherics/pipes/pipes_bitmask.dmi")
 
 	generator.Start("-gas")
-	fcopy(generator.generated_icons, "icons/obj/pipes_n_cables/!pipe_gas_overlays.dmi")
+	fcopy(generator.generated_icons, "icons/obj/atmospherics/pipes/pipe_gas_overlays.dmi")
 
 /datum/pipe_icon_generator
-	var/static/icon/template_pieces = icon('icons/obj/pipes_n_cables/pipe_template_pieces.dmi')
+	var/static/icon/template_pieces = icon('icons/obj/atmospherics/pipes/pipe_template_pieces.dmi')
 	var/static/list/icon/damage_masks = list(
-		"[NORTH]"=icon('icons/obj/pipes_n_cables/pipe_template_pieces.dmi', "damage_mask", NORTH),
-		"[EAST]"=icon('icons/obj/pipes_n_cables/pipe_template_pieces.dmi', "damage_mask", EAST),
-		"[SOUTH]"=icon('icons/obj/pipes_n_cables/pipe_template_pieces.dmi', "damage_mask", SOUTH),
-		"[WEST]"=icon('icons/obj/pipes_n_cables/pipe_template_pieces.dmi', "damage_mask", WEST),
+		"[NORTH]"=icon('icons/obj/atmospherics/pipes/pipe_template_pieces.dmi', "damage_mask", NORTH),
+		"[EAST]"=icon('icons/obj/atmospherics/pipes/pipe_template_pieces.dmi', "damage_mask", EAST),
+		"[SOUTH]"=icon('icons/obj/atmospherics/pipes/pipe_template_pieces.dmi', "damage_mask", SOUTH),
+		"[WEST]"=icon('icons/obj/atmospherics/pipes/pipe_template_pieces.dmi', "damage_mask", WEST),
 	)
 
 	var/static/list/icon/cap_masks = list(
-		"[NORTH]" = icon('icons/obj/pipes_n_cables/pipe_template_pieces.dmi', "cap_mask", NORTH),
-		"[EAST]" = icon('icons/obj/pipes_n_cables/pipe_template_pieces.dmi', "cap_mask", EAST),
-		"[SOUTH]" = icon('icons/obj/pipes_n_cables/pipe_template_pieces.dmi', "cap_mask", SOUTH),
-		"[WEST]" = icon('icons/obj/pipes_n_cables/pipe_template_pieces.dmi', "cap_mask", WEST),
+		"[NORTH]" = icon('icons/obj/atmospherics/pipes/pipe_template_pieces.dmi', "cap_mask", NORTH),
+		"[EAST]" = icon('icons/obj/atmospherics/pipes/pipe_template_pieces.dmi', "cap_mask", EAST),
+		"[SOUTH]" = icon('icons/obj/atmospherics/pipes/pipe_template_pieces.dmi', "cap_mask", SOUTH),
+		"[WEST]" = icon('icons/obj/atmospherics/pipes/pipe_template_pieces.dmi', "cap_mask", WEST),
 	)
 
 	var/icon/generated_icons
@@ -104,7 +104,7 @@
 
 		completed[completion_key] = TRUE
 
-		var/icon/capped_mask = icon('icons/obj/pipes_n_cables/pipe_template_pieces.dmi', "blank_mask")
+		var/icon/capped_mask = icon('icons/obj/atmospherics/pipes/pipe_template_pieces.dmi', "blank_mask")
 		for(var/i in 0 to 3)
 			var/dir = 1 << i
 			if(!(combined_dirs & dir))
