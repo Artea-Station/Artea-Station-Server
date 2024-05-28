@@ -143,24 +143,34 @@
 		SEND_SIGNAL(src, COMSIG_CARBON_UNEQUIP_HAT, I, force, newloc, no_move, invdrop, silent)
 		if(!QDELETED(src))
 			head_update(I)
+
 	else if(I == back)
 		back = null
 		if(!QDELETED(src))
 			update_worn_back()
+
 	else if(I == wear_mask)
 		wear_mask = null
 		if(!QDELETED(src))
 			wear_mask_update(I, toggle_off = 1)
-	if(I == wear_neck)
+
+	else if(I == wear_neck)
 		wear_neck = null
 		if(!QDELETED(src))
 			update_worn_neck(I)
+
 	else if(I == handcuffed)
 		set_handcuffed(null)
 		if(buckled?.buckle_requires_restraints)
 			buckled.unbuckle_mob(src)
 		if(!QDELETED(src))
 			update_handcuffed()
+
+	else if(I == shoes)
+		shoes = null
+		if(!QDELETED(src))
+			update_worn_shoes()
+
 	else if(I == legcuffed)
 		legcuffed = null
 		if(!QDELETED(src))

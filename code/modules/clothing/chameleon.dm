@@ -586,6 +586,10 @@
 	QDEL_NULL(chameleon_action)
 	return ..()
 
+/obj/item/clothing/mask/chameleon/Destroy()
+	QDEL_NULL(chameleon_action)
+	return ..()
+
 /obj/item/clothing/mask/chameleon/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
@@ -789,6 +793,10 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
+/obj/item/stamp/chameleon/Destroy()
+	QDEL_NULL(chameleon_action)
+	return ..()
+
 /obj/item/clothing/neck/chameleon
 	name = "black tie"
 	desc = "A neosilk clip-on tie."
@@ -810,7 +818,7 @@
 	add_item_action(chameleon_action)
 
 /obj/item/clothing/neck/chameleon/Destroy()
-	qdel(chameleon_action)
+	QDEL_NULL(chameleon_action)
 	return ..()
 
 /obj/item/clothing/neck/chameleon/emp_act(severity)

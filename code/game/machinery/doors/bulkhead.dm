@@ -532,7 +532,7 @@
 			if(!machine_stat)
 				update_icon(ALL, BULKHEAD_DENY)
 				playsound(src,doorDeni,50,FALSE,3)
-				addtimer(CALLBACK(src, /atom/proc/update_icon, ALL, BULKHEAD_CLOSED), BULKHEAD_DENY_ANIMATION_TIME)
+				addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), ALL, BULKHEAD_CLOSED), BULKHEAD_DENY_ANIMATION_TIME)
 
 /obj/machinery/door/bulkhead/examine(mob/user)
 	. = ..()
