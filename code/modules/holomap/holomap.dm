@@ -84,7 +84,7 @@
 
 	watching_mob = user // Do it here in case the map errors out while opening for whatever reason. Makes it easier for admins to force close the map.
 	if(holomap_datum.open_holomap(user, src))
-		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_position))
+		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(watcher_moved))
 		icon_state = "[initial(icon_state)]_active"
 		set_light(HOLOMAP_HIGH_LIGHT)
 		update_use_power(ACTIVE_POWER_USE)
@@ -99,13 +99,9 @@
 	if((machine_stat & (NOPOWER | BROKEN)) || !anchored)
 		close_map()
 
-/obj/machinery/holomap/proc/check_position()
+/obj/machinery/holomap/proc/watcher_moved()
 	SIGNAL_HANDLER
-	if(!watching_mob)
-		return
-
-	if(watching_mob.loc != loc)
-		close_map(watching_mob)
+	close_map(watching_mob)
 
 /obj/machinery/holomap/proc/close_map()
 	if(holomap_datum.close_holomap(src))
