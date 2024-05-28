@@ -216,7 +216,7 @@
 	else if(blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
 		if(!em_block && !QDELETED(src))
 			render_target = ref(src)
-			em_block = new(src, render_target)
+			em_block = new(null, src, render_target)
 		return em_block
 
 /atom/movable/update_overlays()
