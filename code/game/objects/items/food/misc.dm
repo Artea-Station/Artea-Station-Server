@@ -597,7 +597,7 @@
 	trash_type = /obj/item/stack/rods
 	food_flags = FOOD_FINGER_FOOD
 
-/obj/item/food/butter/make_processable()
+/obj/item/food/butter/MakeProcessable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/butterslice, 3, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice")
 
 /obj/item/food/butterslice
