@@ -960,7 +960,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	//check if the server is overloaded and if it is then queue up the click for next tick
 	//yes having it call a wrapping proc on the subsystem is fucking stupid glad we agree unfortunately byond insists its reasonable
-	if(TRY_QUEUE_VERB(VERB_CALLBACK(object, /atom/proc/_Click, location, control, params), VERB_HIGH_PRIORITY_QUEUE_THRESHOLD, SSinput, control))
+	if(TRY_QUEUE_VERB(VERB_CALLBACK(object, TYPE_PROC_REF(/atom, _Click), location, control, params), VERB_HIGH_PRIORITY_QUEUE_THRESHOLD, SSinput, control))
 		return
 
 	if (hotkeys)
@@ -1235,8 +1235,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(!CONFIG_GET(flag/use_age_restriction_for_jobs))
 		return 0
 
-	if(!isnum(player_age))
-		return 0 //This is only a number if the db connection is established, otherwise it is text: "Requires database", meaning these restrictions cannot be enforced
+	if(!isnum(player_age) || player_age < 0)
+		return 0
 
 	if(!isnum(days_needed))
 		return 0

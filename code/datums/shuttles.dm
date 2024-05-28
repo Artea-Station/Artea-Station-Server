@@ -177,6 +177,10 @@
 	suffix = "astrum"
 	name = "APV-S Astrum"
 
+/datum/map_template/shuttle/pathfinders/hermes
+	suffix = "hermes"
+	name = "APV-S Hermes"
+
 // Shuttles start here:
 
 /datum/map_template/shuttle/emergency/backup
@@ -549,6 +553,10 @@
 /datum/map_template/shuttle/cargo/bearcat
 	suffix = "bearcat"
 	name = "supply shuttle (Bearcat)"
+
+/datum/map_template/shuttle/cargo/belryth
+	suffix = "belryth"
+	name = "supply shuttle (Belryth)"
 
 /datum/map_template/shuttle/cargo/birdboat
 	suffix = "birdboat"

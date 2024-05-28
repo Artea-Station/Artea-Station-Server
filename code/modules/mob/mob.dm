@@ -25,6 +25,7 @@
  * Parent call
  */
 /mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
+	unset_machine()
 	remove_from_mob_list()
 	remove_from_dead_mob_list()
 	remove_from_alive_mob_list()
@@ -1176,6 +1177,11 @@
 /// Can this mob read
 /mob/proc/can_read(obj/O)
 	if(!has_light_nearby() && !has_nightvision())
+		if(isitem(O))
+			var/obj/item/item = O
+			if(item.self_lighting)
+				return TRUE
+
 		to_chat(src, span_warning("It's too dark in here to read!"))
 		return FALSE
 

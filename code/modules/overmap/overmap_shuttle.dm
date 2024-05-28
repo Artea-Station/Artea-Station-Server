@@ -664,6 +664,10 @@
 	name = "ALV Bearcat"
 	fixed_parallax_dir = NORTH
 
+/datum/overmap_object/shuttle/ship/alv_belryth
+	name = "ALV Belryth"
+	fixed_parallax_dir = EAST
+
 /datum/overmap_object/shuttle/planet
 	name = "Planet"
 	visual_type = /obj/effect/abstract/overmap/shuttle/planet

@@ -779,10 +779,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	late = TRUE
 	layer = ABOVE_NORMAL_TURF_LAYER
 
-/obj/effect/mapping_helpers/broken_floor/Initialize(mapload)
-	.=..()
-	return INITIALIZE_HINT_LATELOAD
-
 /obj/effect/mapping_helpers/broken_floor/LateInitialize()
 	var/turf/open/floor/floor = get_turf(src)
 	floor.break_tile()
@@ -794,10 +790,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	icon_state = "floorscorched1"
 	late = TRUE
 	layer = ABOVE_NORMAL_TURF_LAYER
-
-/obj/effect/mapping_helpers/burnt_floor/Initialize(mapload)
-	.=..()
-	return INITIALIZE_HINT_LATELOAD
 
 /obj/effect/mapping_helpers/burnt_floor/LateInitialize()
 	var/turf/open/floor/floor = get_turf(src)
@@ -873,6 +865,16 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	name = "Pathfinders Wall Paint"
 	stripe_paint = "#847A96"
 	icon_state = "paint_pathfinder"
+
+/obj/effect/mapping_helpers/paint_wall/service
+	name = "Service Wall Paint"
+	stripe_paint = "#439C1E"
+	icon_state = "paint_service"
+
+/obj/effect/mapping_helpers/paint_wall/cargo
+	name = "Cargo wall Paint"
+	stripe_paint = "#967032"
+	icon_state = "paint_cargo"
 
 ///Applies BROKEN flag to the first found machine on a tile
 /obj/effect/mapping_helpers/broken_machine
