@@ -77,7 +77,6 @@
 	user.visible_message(span_notice("[user] crushes [src] into a pat of butter."), span_notice("You crush [src] into something that resembles butter."))
 	playsound(user, 'sound/effects/blobattack.ogg', 50, TRUE)
 	var/obj/item/food/butterslice/butties = new(null)
-	butties.reagents.set_all_reagents_purity(seed.get_reagent_purity())
 	qdel(src)
 	user.put_in_hands(butties)
 	return TRUE
