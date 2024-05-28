@@ -82,6 +82,7 @@
 
 	holomap_datum.update_map(handle_overlays())
 
+	watching_mob = user // Do it here in case the map errors out while opening for whatever reason. Makes it easier for admins to force close the map.
 	if(holomap_datum.open_holomap(user, src))
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_position))
 		icon_state = "[initial(icon_state)]_active"
