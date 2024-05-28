@@ -779,10 +779,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	late = TRUE
 	layer = ABOVE_NORMAL_TURF_LAYER
 
-/obj/effect/mapping_helpers/broken_floor/Initialize(mapload)
-	.=..()
-	return INITIALIZE_HINT_LATELOAD
-
 /obj/effect/mapping_helpers/broken_floor/LateInitialize()
 	var/turf/open/floor/floor = get_turf(src)
 	floor.break_tile()
@@ -794,10 +790,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	icon_state = "floorscorched1"
 	late = TRUE
 	layer = ABOVE_NORMAL_TURF_LAYER
-
-/obj/effect/mapping_helpers/burnt_floor/Initialize(mapload)
-	.=..()
-	return INITIALIZE_HINT_LATELOAD
 
 /obj/effect/mapping_helpers/burnt_floor/LateInitialize()
 	var/turf/open/floor/floor = get_turf(src)
