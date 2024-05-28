@@ -13,7 +13,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
 	icon_grow = "corn-grow" // Uses one growth icons set for all the subtypes
 	icon_dead = "corn-dead" // Same for the dead icon
-	mutatelist = list(/obj/item/seeds/corn/snapcorn)
+	mutatelist = list(/obj/item/seeds/corn/snapcorn, /obj/item/seeds/corn/pepper)
 	reagents_add = list(/datum/reagent/consumable/cornoil = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
 
 /obj/item/food/grown/corn
@@ -89,3 +89,29 @@
 	if(!snap_pops)
 		new /obj/item/grown/corncob(user.loc)
 		qdel(src)
+
+//Pepper-corn - Heh funny.
+/obj/item/seeds/corn/pepper
+	name = "pack of pepper-corn seeds"
+	desc = "If Peter picked a pack of pepper-corn..."
+	icon_state = "seed-peppercorn"
+	species = "peppercorn"
+	plantname = "Pepper-Corn Stalks"
+	product = /obj/item/food/grown/peppercorn
+	mutatelist = null
+	reagents_add = list(/datum/reagent/consumable/blackpepper = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
+
+/obj/item/food/grown/peppercorn
+	seed = /obj/item/seeds/corn/pepper
+	name = "ear of pepper-peppercorn"
+	desc = "This dusty monster needs god..."
+	icon_state = "peppercorn"
+	trash_type = /obj/item/grown/corncob/pepper
+	foodtypes = VEGETABLES
+	grind_results = list(/datum/reagent/consumable/blackpepper = 0)
+	tastes = list("pepper" = 1, "sneezing" = 1)
+
+/obj/item/grown/corncob/pepper
+	seed = /obj/item/seeds/corn/pepper
+	name = "pepper corn cob"
+	desc = "A reminder of genetic abominations gone by."
