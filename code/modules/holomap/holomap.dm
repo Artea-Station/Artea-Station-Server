@@ -65,10 +65,10 @@
 
 /obj/machinery/holomap/attack_hand(mob/user)
 	if(user && user == holomap_datum?.watching_mob)
-		holomap_datum.close_holomap(src)
+		close_map(src)
 		return
 
-	holomap_datum.open_holomap(user, src)
+	open_map(user, src)
 
 /// Tries to open the map for the given mob. Returns FALSE if it doesn't meet the criteria, TRUE if the map successfully opened with no runtimes.
 /obj/machinery/holomap/proc/open_map(mob/user)
