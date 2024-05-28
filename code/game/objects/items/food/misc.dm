@@ -598,7 +598,7 @@
 	food_flags = FOOD_FINGER_FOOD
 
 /obj/item/food/butter/MakeProcessable()
-	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/butterslice, 3, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice")
+	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/butterslice, 3, 3 SECONDS, table_required = TRUE)
 
 /obj/item/food/butterslice
 	name = "butter slice"
