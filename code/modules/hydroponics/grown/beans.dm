@@ -76,9 +76,9 @@
 /obj/item/food/grown/butterbeans/attack_self(mob/living/user)
 	user.visible_message(span_notice("[user] crushes [src] into a pat of butter."), span_notice("You crush [src] into something that resembles butter."))
 	playsound(user, 'sound/effects/blobattack.ogg', 50, TRUE)
-	var/obj/item/food/butterslice/butties = new(null)
+	var/obj/item/food/butterslice/butty = new(null)
 	qdel(src)
-	user.put_in_hands(butties)
+	user.put_in_hands(butty)
 	return TRUE
 
 // Green Beans
