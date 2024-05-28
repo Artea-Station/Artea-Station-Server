@@ -104,7 +104,7 @@
 	if(!watching_mob)
 		return
 
-	if(!Adjacent(watching_mob))
+	if(watching_mob.loc != loc)
 		close_map(watching_mob)
 
 /obj/machinery/holomap/proc/close_map()
