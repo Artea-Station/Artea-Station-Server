@@ -70,7 +70,7 @@ MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light_switch, 32, -18, 33, -33
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
 	. += "It is [(machine_stat & NOPOWER) ? "unpowered" : (area.lightswitch ? "on" : "off")]."
-	. += span_notice("It appears to be <b>screwed</b> in place.")
+	. += span_notice("It is <b>screwed</b> in place.")
 
 /obj/machinery/light_switch/interact(mob/user)
 	. = ..()
