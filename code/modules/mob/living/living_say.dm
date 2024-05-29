@@ -98,6 +98,9 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 	if(!message || message == "")
 		return
 
+	if(findtext(message, GLOB.has_eol_punctuation))
+		message += "."
+
 	var/list/message_mods = list()
 	var/original_message = message
 	message = get_message_mods(message, message_mods)
