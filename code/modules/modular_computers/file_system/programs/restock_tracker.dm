@@ -1,7 +1,7 @@
 /datum/computer_file/program/restock_tracker
 	filename = "restockapp"
-	filedesc = "NT Restock Tracker"
-	category = PROGRAM_CATEGORY_SUPPLY
+	filedesc = "Restock Tracker"
+	category = PROGRAM_CATEGORY_SUPL
 	program_icon_state = "restock"
 	extended_desc = "An IoT-networked app listing all official vending machines found onboard and how well-stocked they are."
 	requires_ntnet = TRUE
