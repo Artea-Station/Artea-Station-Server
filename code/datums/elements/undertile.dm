@@ -39,6 +39,7 @@
 	var/turf/T = get_turf(source)
 
 	if(covered)
+		ADD_TRAIT(source, TRAIT_UNDERFLOOR, REF(src))
 		if(invisibility_trait)
 			ADD_TRAIT(source, invisibility_trait, ELEMENT_TRAIT(type))
 		if(tile_overlay)
@@ -49,6 +50,7 @@
 			source.set_anchored(TRUE)
 
 	else
+		REMOVE_TRAIT(source, TRAIT_UNDERFLOOR, REF(src))
 		if(invisibility_trait)
 			REMOVE_TRAIT(source, invisibility_trait, ELEMENT_TRAIT(type))
 		if(tile_overlay)
