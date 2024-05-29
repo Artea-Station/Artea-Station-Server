@@ -33,7 +33,7 @@ MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light_switch, 32, -18, 33, -33
 		area = get_area(src)
 
 	if(autoname)
-		name = "light switch ([area.name])"
+		name = "[area.name] light switch"
 
 	register_context()
 	update_appearance()
