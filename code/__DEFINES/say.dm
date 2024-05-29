@@ -100,5 +100,6 @@
 //Used in visible_message_flags, audible_message_flags and runechat_flags
 #define EMOTE_MESSAGE (1<<0)
 
-//Auto punctuation global datum
-GLOBAL_DATUM_INIT(has_eol_punctuation, /regex, regex(@"^(\w|^[^\*].*[^.!?~\-\+\|\_\*]+)$"))
+//Auto punctuation global datums
+GLOBAL_DATUM_INIT(has_no_eol_punctuation, /regex, regex("\\w$"))
+GLOBAL_DATUM_INIT(noncapital_i, /regex, regex("\\b\[i]\\b", "g"))
