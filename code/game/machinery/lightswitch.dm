@@ -80,7 +80,7 @@ MAPPING_DIRECTIONAL_HELPERS_ROBUST(/obj/machinery/light_switch, 32, -18, 33, -33
 	if(weapon.tool_behaviour == TOOL_SCREWDRIVER)
 		to_chat(user, "You pop \the [src] off the wall.")
 		deconstruct()
-		return COMPONENT_CANCEL_ATTACK_CHAIN
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	return ..()
 
 /obj/machinery/light_switch/proc/set_lights(status)
