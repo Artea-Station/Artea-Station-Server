@@ -65,10 +65,10 @@
 
 /obj/machinery/holomap/attack_hand(mob/user)
 	if(user && user == holomap_datum?.watching_mob)
-		holomap_datum.close_holomap(src)
+		close_map(src)
 		return
 
-	holomap_datum.open_holomap(user, src)
+	open_map(user, src)
 
 /// Tries to open the map for the given mob. Returns FALSE if it doesn't meet the criteria, TRUE if the map successfully opened with no runtimes.
 /obj/machinery/holomap/proc/open_map(mob/user)
@@ -82,8 +82,9 @@
 
 	holomap_datum.update_map(handle_overlays())
 
+	watching_mob = user // Do it here in case the map errors out while opening for whatever reason. Makes it easier for admins to force close the map.
 	if(holomap_datum.open_holomap(user, src))
-		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_position))
+		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(watcher_moved))
 		icon_state = "[initial(icon_state)]_active"
 		set_light(HOLOMAP_HIGH_LIGHT)
 		update_use_power(ACTIVE_POWER_USE)
@@ -98,13 +99,9 @@
 	if((machine_stat & (NOPOWER | BROKEN)) || !anchored)
 		close_map()
 
-/obj/machinery/holomap/proc/check_position()
+/obj/machinery/holomap/proc/watcher_moved()
 	SIGNAL_HANDLER
-	if(!watching_mob)
-		return
-
-	if(!Adjacent(watching_mob))
-		close_map(watching_mob)
+	close_map(watching_mob)
 
 /obj/machinery/holomap/proc/close_map()
 	if(holomap_datum.close_holomap(src))
