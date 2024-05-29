@@ -37,10 +37,10 @@ export const RestockTracker = (props) => {
         <hr />
         {vending_list?.map((vend) => (
           <Stack key={vend.id} fill horizontal>
-            <Stack.Item wrap width="35%" height="100%">
+            <Stack.Item wrap width="30%" height="100%">
               {vend.name}
             </Stack.Item>
-            <Stack.Item wrap width="25%" height="100%">
+            <Stack.Item wrap width="30%" height="100%">
               {vend.location}
             </Stack.Item>
             <Stack.Item
