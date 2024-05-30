@@ -76,7 +76,7 @@
 		build_with_floor_tiles(C, user)
 
 /turf/open/chasm/can_cross_safely(atom/movable/crossing)
-	return HAS_TRAIT(src, TRAIT_CHASM_STOPPED) || HAS_TRAIT(crossing, TRAIT_MOVE_FLYING)
+	return HAS_TRAIT(crossing, TRAIT_MOVE_FLYING)
 
 // Chasms for Lavaland, with planetary atmos and lava glow
 /turf/open/chasm/lavaland
