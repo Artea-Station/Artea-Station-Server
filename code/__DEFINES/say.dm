@@ -97,7 +97,9 @@
 #define MSG_VISUAL (1<<0)
 #define MSG_AUDIBLE (1<<1)
 
-
-
 //Used in visible_message_flags, audible_message_flags and runechat_flags
 #define EMOTE_MESSAGE (1<<0)
+
+//Auto punctuation global datums
+GLOBAL_DATUM_INIT(has_no_eol_punctuation, /regex, regex("\\w$"))
+GLOBAL_DATUM_INIT(noncapital_i, /regex, regex("\\b\[i]\\b", "g"))

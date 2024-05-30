@@ -136,7 +136,7 @@
 	name = "Pig in a Blanket"
 	reqs = list(
 		/obj/item/food/bun = 1,
-		/obj/item/food/butter = 1,
+		/obj/item/food/butterslice = 1,
 		/obj/item/food/meat/cutlet = 1
 	)
 	result = /obj/item/food/pigblanket
