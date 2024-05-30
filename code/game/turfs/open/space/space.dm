@@ -200,6 +200,9 @@
 	destination_y = dest_y
 	destination_z = dest_z
 
+/turf/open/space/can_cross_safely(atom/movable/crossing)
+	return HAS_TRAIT(crossing, TRAIT_SPACEWALK)
+
 /turf/open/space/openspace
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "invisible"

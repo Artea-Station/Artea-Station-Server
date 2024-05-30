@@ -171,6 +171,9 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 		return TRUE
 	return FALSE
 
+/turf/open/openspace/can_cross_safely(atom/movable/crossing)
+	return HAS_TRAIT(crossing, TRAIT_MOVE_FLYING)
+
 /turf/open/openspace/icemoon
 	name = "ice chasm"
 	baseturfs = /turf/open/openspace/icemoon
