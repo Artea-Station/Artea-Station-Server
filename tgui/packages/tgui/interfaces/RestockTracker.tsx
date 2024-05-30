@@ -5,7 +5,7 @@ import { useBackend } from '../backend';
 import { ProgressBar, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
-export const Restock = (props) => {
+export const Restock = (props, context) => {
   return (
     <Window width={575} height={560}>
       <Window.Content scrollable>
@@ -15,9 +15,20 @@ export const Restock = (props) => {
   );
 };
 
-export const RestockTracker = (props) => {
-  const { data } = useBackend();
-  const vending_list = sortBy((vend) => vend.percentage)(
+type VendingMachine = {
+  id: string;
+  name: string;
+  location: string;
+  percentage: number;
+};
+
+type Data = {
+  vending_list: VendingMachine[];
+};
+
+export const RestockTracker = (props, context) => {
+  const { data } = useBackend<Data>(context);
+  const vending_list = sortBy((vend: VendingMachine) => vend.percentage)(
     data.vending_list ?? []
   );
   return (
