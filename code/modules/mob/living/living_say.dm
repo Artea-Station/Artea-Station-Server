@@ -208,6 +208,9 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 			succumb()
 		return
 
+	//Handle auto-capitalization of isolated 'i's, adds a period to the end of unterminated inputs <-- like this one.
+	message = autopunct_bare(message)
+
 	//This is before anything that sends say a radio message, and after all important message type modifications, so you can scumb in alien chat or something
 	if(saymode && !saymode.handle_message(src, message, language))
 		return
@@ -485,3 +488,14 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 	if(get_minds && mind)
 		return mind.get_language_holder()
 	. = ..()
+
+/**
+ * Ensures sentences end in a period if no other terminal punctuation is present
+ * and that all whitespace-bounded 'i' characters are capitalized.
+ */
+/mob/living/proc/autopunct_bare(input_text)
+	if (findtext(input_text, GLOB.has_no_eol_punctuation))
+		input_text += "."
+
+	input_text = replacetext(input_text, GLOB.noncapital_i, "I")
+	return input_text
