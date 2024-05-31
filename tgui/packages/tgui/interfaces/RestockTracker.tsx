@@ -35,13 +35,13 @@ export const RestockTracker = (props, context) => {
     <Section fill title="Vendor Stocking Status">
       <Stack vertical>
         <Stack fill horizontal>
-          <Stack.Item bold width="35%">
+          <Stack.Item bold width="30%">
             Vending Name
           </Stack.Item>
-          <Stack.Item bold width="25%">
+          <Stack.Item bold width="30%">
             Location
           </Stack.Item>
-          <Stack.Item bold width="20%">
+          <Stack.Item bold width="40%">
             Stock %
           </Stack.Item>
         </Stack>
