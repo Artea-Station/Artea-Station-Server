@@ -200,7 +200,7 @@ SUBSYSTEM_DEF(zas)
 
 		log_zas("ZAS: Air settling completed in [(REALTIMEOFDAY - starttime)/10] seconds!")
 
-	..(timeofday)
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/zas/fire(resumed = FALSE, no_mc_tick)
 	var/timer = TICK_USAGE_REAL
