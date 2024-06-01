@@ -38,8 +38,6 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_mai
 	normal_integrity = 250
 	stripe_paint = "#B69F3C"
-	doorOpen = 'sound/machines/door/airlock_open_maint.ogg'
-	doorClose = 'sound/machines/door/airlock_close_maint.ogg'
 
 /obj/machinery/door/bulkhead/maintenance/external
 	name = "external bulkhead access"

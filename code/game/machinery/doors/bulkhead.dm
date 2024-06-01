@@ -129,8 +129,8 @@
 	var/normalspeed = TRUE
 	var/cutAiWire = FALSE
 	var/autoname = FALSE
-	var/doorOpen = 'sound/machines/door/airlock_open.ogg'
-	var/doorClose = 'sound/machines/door/airlock_close.ogg'
+	var/doorOpen = 'sound/machines/door/airlock_open_maint.ogg'
+	var/doorClose = 'sound/machines/door/airlock_close_maint.ogg'
 	var/doorDeni = 'sound/machines/door/deniedbeep.ogg' // i'm thinkin' Deni's
 	var/boltUp = 'sound/machines/door/boltsup.ogg'
 	var/boltDown = 'sound/machines/door/boltsdown.ogg'
