@@ -75,6 +75,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sink/directional/east,
 /obj/structure/mirror/directional/west,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/plating,
 /area/station/commons/toilet/restrooms)
 "acG" = (
@@ -103,6 +104,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 4
 	},
+/obj/machinery/holomap/directional/west,
 /turf/open/floor/iron/smooth,
 /area/station/security/brig)
 "adi" = (
@@ -763,6 +765,9 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/extinguisher_cabinet/directional/west,
+/obj/machinery/keycard_auth/directional/north{
+	pixel_y = 31
+	},
 /turf/open/floor/plating,
 /area/station/command/heads_quarters/cmo)
 "arY" = (
@@ -1267,6 +1272,7 @@
 /obj/structure/closet/secure_closet/atmospherics,
 /obj/effect/turf_decal/delivery,
 /obj/effect/mapping_helpers/broken_floor,
+/obj/machinery/holomap/engineering/directional/south,
 /turf/open/floor/plating,
 /area/station/engineering/atmos)
 "aEf" = (
@@ -1419,6 +1425,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/light_switch/directional/north,
+/obj/machinery/keycard_auth/directional/west,
 /turf/open/floor/iron/dark/textured,
 /area/station/command/heads_quarters/hos)
 "aHg" = (
@@ -1427,6 +1434,7 @@
 /obj/effect/mapping_helpers/broken_floor,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/directional/north,
+/obj/machinery/holomap/engineering/directional/west,
 /turf/open/floor/plating,
 /area/station/engineering/atmos/office)
 "aHk" = (
@@ -1984,6 +1992,10 @@
 /obj/machinery/door/window/left/directional/north{
 	req_access = list("medical");
 	name = "Medbay Desk"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	name = "Privacy Shutters";
+	id = "medoffice"
 	},
 /turf/open/floor/plating,
 /area/station/medical/office)
@@ -2607,6 +2619,11 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/paint_wall/cargo,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 4;
+	name = "Privacy Shutters";
+	id = "cargoofficeshutter"
+	},
 /turf/open/floor/plating,
 /area/station/cargo/office)
 "bkS" = (
@@ -2950,6 +2967,7 @@
 "bse" = (
 /obj/effect/turf_decal/stripes/orange/corner,
 /obj/machinery/camera/autoname/directional/south,
+/obj/machinery/holomap/directional/south,
 /turf/open/floor/iron/smooth,
 /area/station/hallway/secondary/command)
 "bsf" = (
@@ -3210,13 +3228,13 @@
 /obj/machinery/door/firehead{
 	dir = 8
 	},
-/obj/machinery/door/bulkhead/mining/glass{
-	name = "Cargo Office";
-	dir = 4
-	},
 /obj/effect/mapping_helpers/bulkhead/access/all/supply/general,
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/door/bulkhead/mining{
+	name = "Cargo Office";
 	dir = 4
 	},
 /turf/open/floor/iron/dark/textured,
@@ -4048,6 +4066,14 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/smooth,
 /area/station/security/brig)
+"bQU" = (
+/obj/structure/chair/stool/bar/directional/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/machinery/firealarm/directional/south,
+/turf/open/floor/iron/dark/textured,
+/area/station/commons/lounge)
 "bQY" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -4310,10 +4336,10 @@
 /obj/effect/landmark/start/medical_doctor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/meter/layer2,
 /obj/structure/disposalpipe/junction/flip{
 	dir = 4
 	},
+/obj/machinery/meter,
 /turf/open/floor/iron/white/textured,
 /area/station/medical/treatment_center)
 "cap" = (
@@ -4777,7 +4803,8 @@
 /area/station/maintenance/department/medical/central)
 "cjU" = (
 /obj/machinery/door/bulkhead/security{
-	dir = 8
+	dir = 8;
+	name = "Security Desk"
 	},
 /obj/machinery/door/firehead{
 	dir = 8
@@ -4920,6 +4947,9 @@
 /obj/machinery/door/firehead,
 /obj/effect/mapping_helpers/paint_wall/bridge,
 /obj/structure/cable,
+/obj/machinery/door/poddoor/preopen{
+	id = "bridgelockdown"
+	},
 /turf/open/floor/plating,
 /area/station/command/bridge)
 "cmF" = (
@@ -5147,6 +5177,10 @@
 /area/station/maintenance/department/medical/upper)
 "crx" = (
 /obj/machinery/firealarm/directional/south,
+/turf/open/floor/iron/smooth,
+/area/station/pathfinders/pathfinders_hallway)
+"crK" = (
+/obj/machinery/holomap/directional/north,
 /turf/open/floor/iron/smooth,
 /area/station/pathfinders/pathfinders_hallway)
 "cst" = (
@@ -5622,7 +5656,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firehead,
 /obj/effect/mapping_helpers/paint_wall/security,
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters{
 	id = "detshutter";
 	name = "Privacy Shutters"
 	},
@@ -5677,6 +5711,11 @@
 	},
 /obj/effect/mapping_helpers/paint_wall/cargo,
 /obj/effect/mapping_helpers/damaged_window,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 4;
+	name = "Privacy Shutters";
+	id = "cargoofficeshutter"
+	},
 /turf/open/floor/plating,
 /area/station/cargo/office)
 "cFP" = (
@@ -6098,6 +6137,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/security/brig)
 "cPF" = (
@@ -7354,7 +7394,16 @@
 /area/station/commons/lounge)
 "dqU" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/wiki/security_space_law,
+/obj/item/book/manual/wiki/security_space_law{
+	pixel_y = 1;
+	pixel_x = 7
+	},
+/obj/machinery/button/door{
+	pixel_y = -1;
+	pixel_x = -5;
+	id = "iaashutter";
+	name = "Shutters Control Button"
+	},
 /turf/open/floor/carpet/green,
 /area/station/command/internal_affairs_office)
 "drb" = (
@@ -7843,6 +7892,7 @@
 	},
 /obj/effect/turf_decal/box/orange,
 /obj/effect/mapping_helpers/broken_floor,
+/obj/machinery/holomap/directional/north,
 /turf/open/floor/iron/dark/textured,
 /area/station/cargo/lobby)
 "dAu" = (
@@ -8906,6 +8956,7 @@
 	fax_name = "Lead Pathfinders Office";
 	name = "Lead Pathfinders Fax Machine"
 	},
+/obj/machinery/keycard_auth/directional/west,
 /turf/open/floor/iron/dark/small,
 /area/station/pathfinders/lead_office)
 "edi" = (
@@ -9389,6 +9440,11 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/effect/mapping_helpers/broken_floor,
+/obj/machinery/button/door/directional/south{
+	pixel_x = -5;
+	name = "Shutters Control Button";
+	id = "medoffice"
+	},
 /turf/open/floor/plating,
 /area/station/medical/office)
 "eoN" = (
@@ -11446,6 +11502,10 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/door/poddoor/preopen{
+	id = "bridgelockdown";
+	dir = 4
+	},
 /turf/open/floor/iron/smooth,
 /area/station/command/bridge)
 "fkG" = (
@@ -12480,6 +12540,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/broken_floor,
 /obj/machinery/camera/autoname/directional/west,
+/obj/machinery/button/door/directional/west{
+	pixel_y = 10;
+	id = "chemshutter2";
+	name = "Shutters Control Button"
+	},
 /turf/open/floor/plating,
 /area/station/medical/pharmacy)
 "fIr" = (
@@ -12803,6 +12868,7 @@
 /obj/machinery/space_heater,
 /obj/effect/turf_decal/box/orange,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/holomap/directional/north,
 /turf/open/floor/iron/dark/textured,
 /area/station/hallway/primary/central/port)
 "fQd" = (
@@ -13800,6 +13866,10 @@
 	pixel_x = 3
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 4;
+	id = "kitchenshutter"
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/service/kitchen)
 "gje" = (
@@ -15022,6 +15092,10 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firehead,
 /obj/effect/mapping_helpers/paint_wall/medical,
+/obj/machinery/door/poddoor/shutters/preopen{
+	name = "Privacy Shutters";
+	id = "medoffice"
+	},
 /turf/open/floor/plating,
 /area/station/medical/office)
 "gMt" = (
@@ -15253,6 +15327,11 @@
 	},
 /obj/machinery/door/firehead{
 	dir = 8
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 4;
+	name = "Privacy Shutters";
+	id = "cargoofficeshutter"
 	},
 /turf/open/floor/plating,
 /area/station/cargo/office)
@@ -16945,6 +17024,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera/autoname/directional/south,
+/obj/machinery/holomap/directional/south,
 /turf/open/floor/iron/smooth,
 /area/station/hallway/primary/central/fore)
 "hCd" = (
@@ -18416,14 +18496,14 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/bulkhead/maintenance{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/bulkhead/medical{
+	name = "Maintenance Access"
+	},
 /turf/open/floor/plating,
 /area/station/medical/medbay/lobby)
 "igu" = (
@@ -19215,6 +19295,9 @@
 "ixA" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firehead,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "kitchenshutter"
+	},
 /turf/open/floor/plating,
 /area/station/service/kitchen)
 "ixK" = (
@@ -22299,10 +22382,10 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/bulkhead/mining/glass{
+/obj/structure/barricade/wooden/crude,
+/obj/machinery/door/bulkhead/mining{
 	name = "Hangar (DO NOT ENTER)"
 	},
-/obj/structure/barricade/wooden/crude,
 /turf/open/floor/plating,
 /area/station/maintenance/department/cargo/hangar)
 "jDE" = (
@@ -23223,7 +23306,7 @@
 	dir = 1
 	},
 /obj/effect/spawner/random/trash/garbage,
-/obj/item/radio/intercom/directional/north,
+/obj/machinery/holomap/engineering/directional/north,
 /turf/open/floor/iron/textured,
 /area/station/engineering/hallway)
 "jXU" = (
@@ -23290,6 +23373,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/trash/garbage,
 /obj/effect/decal/cleanable/oil,
+/obj/machinery/holomap/directional/east,
 /turf/open/floor/iron/textured,
 /area/station/hallway/primary/central/aft)
 "jZS" = (
@@ -23401,6 +23485,10 @@
 /obj/effect/mapping_helpers/paint_wall/security,
 /obj/effect/mapping_helpers/damaged_window,
 /obj/structure/cable,
+/obj/machinery/door/poddoor/shutters/preopen{
+	name = "Privacy Shutters";
+	id = "secdeskshutter"
+	},
 /turf/open/floor/plating,
 /area/station/security/desk)
 "keb" = (
@@ -24250,6 +24338,11 @@
 	},
 /obj/machinery/firealarm/directional/north,
 /obj/effect/mapping_helpers/burnt_floor,
+/obj/machinery/button/door/directional/north{
+	pixel_x = 10;
+	name = "Shutters Control Button";
+	id = "chemshutter1"
+	},
 /turf/open/floor/plating,
 /area/station/medical/pharmacy)
 "kxu" = (
@@ -24401,6 +24494,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/orange/corner,
+/obj/machinery/holomap/directional/east,
 /turf/open/floor/iron/textured,
 /area/station/hallway/primary/central/fore)
 "kzI" = (
@@ -24961,6 +25055,7 @@
 /area/station/medical/break_room)
 "kKL" = (
 /obj/machinery/light/directional/south,
+/obj/machinery/holomap/directional/south,
 /turf/open/floor/iron/smooth,
 /area/station/pathfinders/pathfinders_hallway)
 "kKS" = (
@@ -25483,6 +25578,7 @@
 	dir = 5
 	},
 /obj/machinery/vending/coffee,
+/obj/machinery/holomap/directional/west,
 /turf/open/floor/iron/smooth,
 /area/station/command/internal_affairs_office)
 "kXS" = (
@@ -26315,6 +26411,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/blood/gibs,
 /obj/effect/spawner/random/trash/garbage,
+/obj/machinery/holomap/directional/east,
 /turf/open/floor/iron/dark/textured,
 /area/station/maintenance/department/medical/central)
 "lsH" = (
@@ -26439,6 +26536,7 @@
 	},
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/iron/showroomfloor,
 /area/station/commons/toilet/restrooms)
 "luH" = (
@@ -26867,6 +26965,10 @@
 /obj/machinery/door/firehead,
 /obj/effect/mapping_helpers/paint_wall/medical,
 /obj/effect/mapping_helpers/damaged_window,
+/obj/machinery/door/poddoor/shutters/preopen{
+	name = "Privacy Shutters";
+	id = "medoffice"
+	},
 /turf/open/floor/plating,
 /area/station/medical/office)
 "lEz" = (
@@ -26951,6 +27053,10 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname/directional/north,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 4;
+	id = "kitchenshutter"
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/service/kitchen)
 "lGw" = (
@@ -27396,12 +27502,12 @@
 /turf/open/floor/wood,
 /area/station/medical/break_room)
 "lOS" = (
-/obj/machinery/door/bulkhead/command/glass{
-	name = "Internal Affairs Office"
-	},
 /obj/effect/mapping_helpers/bulkhead/access/all/command/internal_affairs,
 /obj/machinery/door/firehead,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/door/bulkhead/command{
+	name = "Internal Affairs Office"
+	},
 /turf/open/floor/wood,
 /area/station/command/internal_affairs_office)
 "lOZ" = (
@@ -28450,6 +28556,10 @@
 /obj/machinery/door/firehead,
 /obj/effect/mapping_helpers/paint_wall/security,
 /obj/structure/cable,
+/obj/machinery/door/poddoor/shutters/preopen{
+	name = "Privacy Shutters";
+	id = "secdeskshutter"
+	},
 /turf/open/floor/plating,
 /area/station/security/desk)
 "mmY" = (
@@ -28576,6 +28686,10 @@
 	},
 /obj/item/book/manual/wiki/barman_recipes{
 	pixel_y = 1
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id = "barshutter"
 	},
 /turf/open/floor/iron/dark/textured,
 /area/station/service/bar)
@@ -28839,6 +28953,10 @@
 /obj/machinery/door/window/right/directional/north{
 	req_access = list("medical");
 	name = "Medbay Desk"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	name = "Privacy Shutters";
+	id = "medoffice"
 	},
 /turf/open/floor/plating,
 /area/station/medical/office)
@@ -29658,6 +29776,11 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/plating,
 /area/station/maintenance/department/command)
+"mKD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/holomap/directional/south,
+/turf/open/floor/iron/textured,
+/area/station/hallway/primary/central/starboard)
 "mKY" = (
 /obj/effect/turf_decal/siding/blue,
 /obj/effect/turf_decal/siding/blue/corner{
@@ -30382,6 +30505,10 @@
 	pixel_x = -8
 	},
 /obj/structure/cable,
+/obj/machinery/door/poddoor/shutters/preopen{
+	name = "Privacy Shutters";
+	id = "secdeskshutter"
+	},
 /turf/open/floor/plating,
 /area/station/security/desk)
 "mXn" = (
@@ -30493,6 +30620,9 @@
 /obj/effect/mapping_helpers/damaged_window,
 /obj/effect/mapping_helpers/paint_wall/bridge,
 /obj/structure/cable,
+/obj/machinery/door/poddoor/preopen{
+	id = "bridgelockdown"
+	},
 /turf/open/floor/plating,
 /area/station/command/bridge)
 "naJ" = (
@@ -31985,6 +32115,10 @@
 /obj/effect/spawner/random/trash/garbage,
 /turf/open/floor/plating,
 /area/station/maintenance/disposal)
+"nHU" = (
+/obj/machinery/holomap/directional/south,
+/turf/open/floor/iron/smooth,
+/area/station/pathfinders/pathfinders_hallway)
 "nIg" = (
 /turf/closed/wall/mineral/titanium,
 /area/station/maintenance/department/security/upper)
@@ -32238,6 +32372,7 @@
 /obj/item/clipboard,
 /obj/item/toy/nuke,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/holomap/engineering/directional/south,
 /turf/open/floor/circuit/red,
 /area/station/engineering/reactor_control)
 "nQb" = (
@@ -33434,6 +33569,10 @@
 	pixel_y = -3;
 	pixel_x = -2
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 4;
+	id = "kitchenshutter"
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/service/kitchen)
 "ond" = (
@@ -33559,12 +33698,19 @@
 	},
 /turf/open/floor/iron/textured,
 /area/station/hallway/primary/central/port)
+"oqq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/broken_floor,
+/obj/machinery/holomap/directional/west,
+/turf/open/floor/plating,
+/area/station/hallway/primary/central/aft)
 "oqz" = (
 /obj/effect/turf_decal/stripes/orange/line,
 /obj/effect/turf_decal/stripes/orange/corner{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/holomap/directional/north,
 /turf/open/floor/iron/textured,
 /area/station/hallway/primary/central/port)
 "ora" = (
@@ -35618,6 +35764,12 @@
 	name = "CondiMaster Neo"
 	},
 /obj/effect/turf_decal/box,
+/obj/machinery/button/door/directional/west{
+	pixel_y = 3;
+	pixel_x = -23;
+	id = "kitchenshutter";
+	name = "Shutters Control Button"
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/service/kitchen)
 "pez" = (
@@ -35657,6 +35809,17 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/textured,
 /area/station/hallway/primary/central/fore)
+"peU" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firehead,
+/obj/effect/mapping_helpers/paint_wall/bridge,
+/obj/structure/cable,
+/obj/machinery/door/poddoor/preopen{
+	id = "bridgelockdown";
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/station/command/bridge)
 "peY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/broken_floor,
@@ -35908,6 +36071,10 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firehead,
 /obj/effect/mapping_helpers/paint_wall/bridge,
+/obj/machinery/door/poddoor/shutters/preopen{
+	name = "Privacy Shutters";
+	id = "iaashutter"
+	},
 /turf/open/floor/plating,
 /area/station/command/internal_affairs_office)
 "pjU" = (
@@ -37455,13 +37622,15 @@
 /turf/open/floor/iron/dark/textured,
 /area/station/ai_monitored/security/armory)
 "pWR" = (
-/obj/machinery/door/bulkhead/security/glass,
 /obj/machinery/door/firehead,
 /obj/effect/mapping_helpers/bulkhead/access/all/security/general,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/bulkhead/security{
+	name = "Security Desk"
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/security/desk)
 "pXa" = (
@@ -38143,6 +38312,11 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/paint_wall/medical,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	name = "Privacy Shutters";
+	id = "chemshutter2"
+	},
 /turf/open/floor/plating,
 /area/station/medical/pharmacy)
 "qmf" = (
@@ -38835,10 +39009,10 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/meter/layer2,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/meter,
 /turf/open/floor/iron/white/textured,
 /area/station/medical/medbay/aft)
 "qAo" = (
@@ -39272,6 +39446,11 @@
 	},
 /obj/item/pen{
 	pixel_x = -6
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	name = "Privacy Shutters";
+	id = "chemshutter1"
 	},
 /turf/open/floor/plating,
 /area/station/medical/pharmacy)
@@ -41270,6 +41449,7 @@
 /obj/item/storage/medkit/regular,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera/autoname/directional/south,
+/obj/machinery/holomap/directional/south,
 /turf/open/floor/iron/dark/textured,
 /area/station/commons/fitness)
 "rAP" = (
@@ -41357,7 +41537,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firehead,
 /obj/effect/mapping_helpers/paint_wall/security,
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters{
 	id = "detshutter";
 	name = "Privacy Shutters";
 	dir = 4
@@ -41463,6 +41643,10 @@
 	dir = 8
 	},
 /obj/effect/spawner/random/trash/food_packaging,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 4;
+	id = "kitchenshutter"
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/service/kitchen)
 "rEF" = (
@@ -41470,6 +41654,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/broken_floor,
+/obj/machinery/holomap/directional/south,
 /turf/open/floor/iron/textured,
 /area/station/hallway/primary/central/starboard)
 "rEK" = (
@@ -41579,6 +41764,10 @@
 	dir = 6
 	},
 /obj/effect/spawner/random/trash/cigbutt,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id = "barshutter"
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/service/bar)
 "rGx" = (
@@ -43392,6 +43581,7 @@
 /obj/effect/turf_decal/box,
 /obj/effect/mapping_helpers/broken_floor,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/holomap/engineering/directional/north,
 /turf/open/floor/plating,
 /area/station/engineering/storage)
 "ssJ" = (
@@ -43731,6 +43921,13 @@
 	},
 /turf/open/floor/iron/white/small,
 /area/station/pathfinders/storage)
+"sEC" = (
+/obj/effect/turf_decal/stripes/orange/corner{
+	dir = 4
+	},
+/obj/machinery/firealarm/directional/north,
+/turf/open/floor/iron/smooth,
+/area/station/pathfinders/pathfinders_hallway)
 "sFt" = (
 /obj/effect/turf_decal/siding/red,
 /obj/machinery/holopad,
@@ -44046,6 +44243,9 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firehead,
 /obj/effect/mapping_helpers/damaged_window,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "kitchenshutter"
+	},
 /turf/open/floor/plating,
 /area/station/service/kitchen)
 "sOI" = (
@@ -44121,8 +44321,7 @@
 /obj/machinery/button/door/directional/north{
 	id = "engishutter";
 	name = "Shutters Control";
-	pixel_y = 28;
-	pixel_x = 4
+	pixel_y = 28
 	},
 /turf/open/floor/iron/dark/textured,
 /area/station/science/robotics/lab)
@@ -44554,15 +44753,13 @@
 /turf/open/floor/iron/dark/textured,
 /area/station/engineering/atmos)
 "sZm" = (
-/obj/machinery/door/bulkhead/security/glass,
 /obj/effect/mapping_helpers/bulkhead/access/all/security/detective,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firehead,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "detshutter";
-	name = "Privacy Shutters"
-	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/bulkhead/security{
+	name = "Detective Office"
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/security/detectives_office)
 "sZE" = (
@@ -44677,6 +44874,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
+/obj/machinery/holomap/directional/west,
 /turf/open/floor/plating,
 /area/station/hallway/primary/central/aft)
 "tbP" = (
@@ -45192,6 +45390,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/holomap/directional/south,
 /turf/open/floor/iron/white/textured,
 /area/station/medical/medbay/lobby)
 "tlS" = (
@@ -45915,6 +46114,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/holomap/directional/south,
 /turf/open/floor/iron/white/small,
 /area/station/pathfinders/storage)
 "tBw" = (
@@ -47368,6 +47568,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 8
 	},
+/obj/machinery/holomap/directional/east,
 /turf/open/floor/plating,
 /area/station/maintenance/department/medical/upper)
 "uhb" = (
@@ -47834,6 +48035,9 @@
 "uqh" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firehead,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "barshutter"
+	},
 /turf/open/floor/plating,
 /area/station/service/bar)
 "uqn" = (
@@ -48086,6 +48290,10 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/door/poddoor/preopen{
+	id = "bridgelockdown";
+	dir = 4
+	},
 /turf/open/floor/engine/airless,
 /area/station/command/bridge)
 "uxQ" = (
@@ -48255,9 +48463,17 @@
 "uBR" = (
 /obj/structure/table/reinforced,
 /obj/machinery/keycard_auth/directional{
-	pixel_y = 5
+	pixel_y = 2;
+	pixel_x = -5
 	},
 /obj/effect/turf_decal/bot_orange,
+/obj/machinery/button/door{
+	name = "Bridge Lockdown";
+	id = "bridgelockdown";
+	pixel_y = 2;
+	pixel_x = 8;
+	req_access = list("command")
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/command/bridge)
 "uBS" = (
@@ -48483,6 +48699,7 @@
 /obj/machinery/vending/drugs,
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/holomap/directional/west,
 /turf/open/floor/iron/dark/textured,
 /area/station/medical/treatment_center)
 "uHv" = (
@@ -48733,6 +48950,10 @@
 "uLH" = (
 /obj/machinery/vending/boozeomat,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/button/door/directional/west{
+	name = "Shutters Control Button";
+	id = "barshutter"
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/service/bar)
 "uLQ" = (
@@ -48831,6 +49052,7 @@
 "uNl" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/bot,
+/obj/machinery/keycard_auth/directional/west,
 /turf/open/floor/iron/dark/textured,
 /area/station/command/heads_quarters/ce)
 "uOg" = (
@@ -48934,6 +49156,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/keycard_auth/directional/east,
 /turf/open/floor/iron/dark/textured,
 /area/station/command/heads_quarters/qm)
 "uQh" = (
@@ -49446,6 +49669,11 @@
 	},
 /obj/item/pen{
 	pixel_x = -6
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	name = "Privacy Shutters";
+	id = "chemshutter2"
 	},
 /turf/open/floor/plating,
 /area/station/medical/pharmacy)
@@ -51482,6 +51710,10 @@
 	},
 /obj/effect/spawner/random/trash/food_packaging,
 /obj/machinery/camera/autoname/directional/north,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id = "barshutter"
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/service/bar)
 "vXx" = (
@@ -51600,6 +51832,11 @@
 /obj/effect/mapping_helpers/paint_wall/medical,
 /obj/machinery/door/firehead{
 	dir = 8
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	name = "Privacy Shutters";
+	id = "chemshutter1"
 	},
 /turf/open/floor/plating,
 /area/station/medical/pharmacy)
@@ -53927,6 +54164,10 @@
 	pixel_y = -3;
 	pixel_x = -2
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id = "barshutter"
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/service/bar)
 "wXQ" = (
@@ -54543,6 +54784,10 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/button/door/directional/south{
+	id = "cargoofficeshutter";
+	name = "Shutters Control Button"
+	},
 /turf/open/floor/plating,
 /area/station/cargo/office)
 "xlJ" = (
@@ -54738,6 +54983,11 @@
 /obj/item/book/manual/wiki/security_space_law,
 /obj/effect/turf_decal/box,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/button/door/directional/south{
+	pixel_x = 5;
+	name = "Shutters Control Button";
+	id = "secdeskshutter"
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/security/desk)
 "xqq" = (
@@ -83252,7 +83502,7 @@ oDm
 agf
 lAG
 nQo
-dYI
+oqq
 gEN
 axb
 xay
@@ -150103,7 +150353,7 @@ oaC
 djB
 rkw
 kaL
-lxm
+mKD
 oLY
 mkg
 rWf
@@ -152925,7 +153175,7 @@ hfb
 bHI
 wDz
 muh
-wpQ
+bQU
 rEs
 eeT
 muY
@@ -214855,7 +215105,7 @@ sVp
 cSw
 uYr
 lFu
-lDl
+nHU
 rcj
 rcj
 gwP
@@ -216652,7 +216902,7 @@ cSw
 cSw
 cSw
 cSw
-uYr
+crK
 siO
 lDl
 qpO
@@ -216909,7 +217159,7 @@ cSw
 jvC
 iDr
 cSw
-bHh
+sEC
 kyx
 wBm
 gUY
@@ -231557,13 +231807,13 @@ iwi
 iwi
 iwi
 otF
-clX
-clX
+peU
+peU
 gZv
 mrq
 ndm
-clX
-clX
+peU
+peU
 otF
 iwi
 iwi
@@ -231816,9 +232066,9 @@ iwi
 iwi
 iwi
 clX
-clX
-clX
-clX
+peU
+peU
+peU
 clX
 iwi
 iwi
