@@ -501,12 +501,12 @@ SUBSYSTEM_DEF(timer)
 	var/static/list/bitfield_flags = list("TIMER_UNIQUE", "TIMER_OVERRIDE", "TIMER_CLIENT_TIME", "TIMER_STOPPABLE", "TIMER_NO_HASH_WAIT", "TIMER_LOOP")
 #if defined(TIMER_DEBUG)
 	var/list/callback_args = timer_info[10]
-	return "Timer: [timer_info[1]] ([text_ref(src)]), TTR: [timer_info[2]], wait:[timer_info[3]] Flags: [jointext(bitfield_to_list(timer_info[4], bitfield_flags), ", ")], \
-		callBack: [text_ref(timer_info[5])], callBack.object: [timer_info[6]][timer_info[7]]([timer_info[8]]), \
+	return "Timer: [timer_info[1]] ([REF(src)]), TTR: [timer_info[2]], wait:[timer_info[3]] Flags: [jointext(bitfield_to_list(timer_info[4], bitfield_flags), ", ")], \
+		callBack: [REF(timer_info[5])], callBack.object: [timer_info[6]][timer_info[7]]([timer_info[8]]), \
 		callBack.delegate:[timer_info[9]]([callback_args ? callback_args.Join(", ") : ""]), source: [timer_info[11]]"
 #else
-	return "Timer: [timer_info[1]] ([text_ref(src)]), TTR: [timer_info[2]], wait:[timer_info[3]] Flags: [jointext(bitfield_to_list(timer_info[4], bitfield_flags), ", ")], \
-		callBack: [text_ref(timer_info[5])], callBack.object: [timer_info[6]]([timer_info[7]]), \
+	return "Timer: [timer_info[1]] ([REF(src)]), TTR: [timer_info[2]], wait:[timer_info[3]] Flags: [jointext(bitfield_to_list(timer_info[4], bitfield_flags), ", ")], \
+		callBack: [REF(timer_info[5])], callBack.object: [timer_info[6]]([timer_info[7]]), \
 		callBack.delegate:[timer_info[8]], source: [timer_info[9]]"
 #endif
 
@@ -528,7 +528,7 @@ SUBSYSTEM_DEF(timer)
 		4 = flags,
 		5 = callBack, /* Safe to hold this directly becasue it's never del'd */
 		6 = "[callBack.object]",
-		7 = text_ref(callBack.object),
+		7 = REF(callBack.object),
 		8 = getcallingtype(),
 		9 = callBack.delegate,
 		10 = callBack.arguments ? callBack.arguments.Copy() : null,
