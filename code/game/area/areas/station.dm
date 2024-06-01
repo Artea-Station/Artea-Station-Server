@@ -5,6 +5,7 @@
 	icon = 'icons/area/areas_station.dmi'
 	icon_state = "station"
 	allow_door_remotes = TRUE
+	droning_sound = DRONING_SPACE
 
 //Maintenance
 
