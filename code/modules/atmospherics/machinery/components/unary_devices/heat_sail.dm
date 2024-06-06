@@ -1,5 +1,4 @@
 #define BASE_SAIL_OVERLAY_GRAY "#7a7a7a"
-#define HEAT_SAIL_MAGIC_SANIFIER_NUMBER 0.01
 
 /obj/item/circuitboard/machine/heat_sail
 	name = "Heat Sail"
@@ -22,6 +21,9 @@
 
 	bound_width = 64
 	bound_height = 96
+
+	use_power = 0
+	initial_volume = 1600
 
 	density = TRUE
 
@@ -86,9 +88,9 @@
 		// We perfectly can do W1+W2 / C1+C2 here but this lets us count the power easily.
 		var/heat_amount = CALCULATE_CONDUCTION_ENERGY(temperature_target_delta, port_capacity, heat_capacity)
 
-		pipe_air.temperature = max(((pipe_air.temperature * port_capacity) + heat_amount) / port_capacity, TCMB)
+		var/new_temp = ((pipe_air.temperature * port_capacity) + heat_amount) / port_capacity
 
-		heat_amount = min(abs(heat_amount), 1e8) * HEAT_SAIL_MAGIC_SANIFIER_NUMBER
+		pipe_air.temperature = max(new_temp, TCMB)
 
 		update_parents()
 		update_appearance()
@@ -112,14 +114,15 @@
 	// heat_overlay.ColorTone(BASE_SAIL_OVERLAY_GRAY)
 	// rgb(255, 80, 0) // For VSC color hints
 	heat_overlay.Blend(rgb(120 * heat_intensity, max(0, (80 * heat_intensity) - 40), 0), ICON_MULTIPLY)
-	// heat_overlay.MapColors(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,heat_intensity,0, 0,0,0,0)
+	heat_overlay.MapColors(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,heat_intensity, 0,0,0,0)
 	. += heat_overlay
+	. += emissive_appearance(icon, "heat_sail_heat")
 
 	if(heat_intensity > 0.5)
 		var/icon/glow_overlay = icon(icon, "heat_sail_glow")
 		glow_overlay.Blend(rgb(120 * heat_intensity, max(0, (80 * heat_intensity) - 40), 0), ICON_MULTIPLY)
-		// glow_overlay.MapColors(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,heat_intensity,0, 0,0,0,0)
 		. += glow_overlay
+		. += emissive_appearance(icon, "heat_sail_glow")
 
 
 // Begin copy-paste bullshit. This should really be on the unary type, but whatever.
@@ -188,4 +191,4 @@
 	if(parents[1])
 		nullify_pipenet(parents[1])
 
-#undef HEAT_SAIL_MAGIC_SANIFIER_NUMBER
+#undef BASE_SAIL_OVERLAY_GRAY
