@@ -853,6 +853,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 /obj/effect/mapping_helpers/paint_wall/security
 	name = "Security Wall Paint"
 	stripe_paint = "#9F2828"
+	wall_paint = "#BBBBBB"
 	icon_state = "paint_security"
 
 /obj/effect/mapping_helpers/paint_wall/medical
