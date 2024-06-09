@@ -89,7 +89,7 @@
 /obj/machinery/light/small/maintenance
 	bulb_colour = "#e0a142"
 	nightshift_allowed = FALSE
-	bulb_power = 0.8
+	bulb_power = 0.3
 
 // -------- Directional presets
 // The directions are backwards on the lights we have now

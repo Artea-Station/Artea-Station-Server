@@ -14,6 +14,9 @@
 	premium = list()
 */
 
+/// List of vending machines that players can restock, so only vending machines that are on station or don't have a unique condition.
+GLOBAL_LIST_EMPTY(vending_machines_to_restock)
+
 #define MAX_VENDING_INPUT_AMOUNT 30
 /**
  * # vending record datum
@@ -226,11 +229,14 @@
 				circuit.onstation = onstation //sync up the circuit so the pricing schema is carried over if it's reconstructed.
 	else if(circuit && (circuit.onstation != onstation)) //check if they're not the same to minimize the amount of edited values.
 		onstation = circuit.onstation //if it was constructed outside mapload, sync the vendor up with the circuit's var so you can't bypass price requirements by moving / reconstructing it off station.
+	if(onstation && !onstation_override)
+		GLOB.vending_machines_to_restock += src //We need to keep track of the final onstation vending machines so we can keep them restocked.
 
 /obj/machinery/vending/Destroy()
 	QDEL_NULL(wires)
 	QDEL_NULL(coin)
 	QDEL_NULL(bill)
+	GLOB.vending_machines_to_restock -= src
 	return ..()
 
 /obj/machinery/vending/can_speak()
@@ -534,6 +540,24 @@ GLOBAL_LIST_EMPTY(vending_products)
 				product_categories += list(category_clone)
 		else
 			products[record.product_path] = record.amount
+
+/**
+ * Returns the total amount of items in the vending machine based on the product records and premium records, but not contraband
+ */
+/obj/machinery/vending/proc/total_loaded_stock()
+	var/total = 0
+	for(var/datum/data/vending_product/record as anything in product_records + coin_records)
+		total += record.amount
+	return total
+
+/**
+ * Returns the total amount of items in the vending machine based on the product records and premium records, but not contraband
+ */
+/obj/machinery/vending/proc/total_max_stock()
+	var/total_max = 0
+	for(var/datum/data/vending_product/record as anything in product_records + coin_records)
+		total_max += record.max_amount
+	return total_max
 
 /obj/machinery/vending/crowbar_act(mob/living/user, obj/item/I)
 	if(!component_parts)
