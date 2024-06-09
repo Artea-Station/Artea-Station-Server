@@ -12,6 +12,3 @@
 #define	DRONING_SECURITY list('sound/droning/sec_droning1.ogg')
 
 #define DRONING_MEDICAL list('sound/droning/med_droning1.ogg')
-
-#define	DRONING_TEST list ('sound/effects/assslap.ogg', \
-						'sound/effects/bin_close.ogg')
