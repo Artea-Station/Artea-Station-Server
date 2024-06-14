@@ -14,8 +14,8 @@
 	embed_falloff_tile = -3
 
 	light_system = MOVABLE_LIGHT
-	light_range = 1.75
-	light_power = 2
+	light_range = 1.25
+	light_power = 1
 	light_color = COLOR_VERY_SOFT_YELLOW
 	light_on = TRUE
 
