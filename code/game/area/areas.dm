@@ -422,6 +422,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	for(var/atom/movable/recipient as anything in arrived.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
 		SEND_SIGNAL(recipient, COMSIG_ENTER_AREA, src)
 
+	if(!isliving(arrived))
+		return
+
 	var/mob/living/living_arrived = arrived
 	if(istype(living_arrived) && living_arrived.client && !living_arrived.combat_mode)
 		//Ambience if combat mode is off
