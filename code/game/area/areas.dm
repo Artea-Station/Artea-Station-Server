@@ -426,7 +426,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		return
 
 	var/mob/living/living_arrived = arrived
-	if(istype(living_arrived) && living_arrived.client && !living_arrived.combat_mode)
+	if(living_arrived.client && !living_arrived.combat_mode)
 		//Ambience if combat mode is off
 		SSdroning.area_entered(src, living_arrived.client)
 		return
