@@ -48,7 +48,7 @@
 		to_chat(user, span_warning("Your punch misses [src]!"))
 
 
-/mob/living/carbon/alien/adult/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
+/mob/living/carbon/alien/adult/do_attack_animation(atom/attacked_atom, visual_effect_icon, obj/item/used_item, no_effect = FALSE, angled = FALSE)
 	if(!no_effect && !visual_effect_icon)
 		visual_effect_icon = ATTACK_EFFECT_CLAW
-	..()
+	return ..()

@@ -57,6 +57,7 @@
 /obj/effect/decal/cleanable/proc/replace_decal(obj/effect/decal/cleanable/C) // Returns true if we should give up in favor of the pre-existing decal
 	if(mergeable_decal)
 		return TRUE
+	return FALSE
 
 /obj/effect/decal/cleanable/attackby(obj/item/W, mob/user, params)
 	if((istype(W, /obj/item/reagent_containers/cup) && !istype(W, /obj/item/reagent_containers/cup/rag)) || istype(W, /obj/item/reagent_containers/cup/glass))
@@ -108,7 +109,11 @@
  * Checks if this decal is a valid decal that can be blood crawled in.
  */
 /obj/effect/decal/cleanable/proc/can_bloodcrawl_in()
-	if((blood_state != BLOOD_STATE_OIL) && (blood_state != BLOOD_STATE_NOT_BLOODY))
+	var/static/list/valid_blood_states = list(
+		BLOOD_STATE_HUMAN,
+		BLOOD_STATE_XENO,
+	)
+	if(blood_state in valid_blood_states)
 		return bloodiness
 
 	return FALSE

@@ -44,7 +44,7 @@
 /mob/living/simple_animal/shade/death()
 	if(death_message == initial(death_message))
 		death_message = "lets out a contented sigh as [p_their()] form unwinds."
-	..()
+	return ..()
 
 /mob/living/simple_animal/shade/canSuicide()
 	if(istype(loc, /obj/item/soulstone)) //do not suicide inside the soulstone

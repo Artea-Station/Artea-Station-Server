@@ -195,7 +195,7 @@
 		power_throw++
 	if(neckgrab_throw)
 		power_throw++
-	do_attack_animation(target, no_effect = TRUE)
+	do_attack_animation(target, no_effect = TRUE, angled = TRUE)
 	playsound(loc, 'sound/weapons/punchmiss.ogg', 50, TRUE, -1)
 	visible_message(span_danger("[src] throws [thrown_thing][power_throw ? " really hard!" : "."]"), \
 					span_danger("You throw [thrown_thing][power_throw ? " really hard!" : "."]"))
@@ -1361,25 +1361,6 @@
 	to_chat(src, span_danger("You shove [target.name] into [name]!"))
 	log_combat(shover, target, "shoved", addition = "into [name]")
 	return COMSIG_CARBON_SHOVE_HANDLED
-
-/**
- * This proc is a helper for spraying blood for things like slashing/piercing wounds and dismemberment.
- *
- * The strength of the splatter in the second argument determines how much it can dirty and how far it can go
- *
- * Arguments:
- * * splatter_direction: Which direction the blood is flying
- * * splatter_strength: How many tiles it can go, and how many items it can pass over and dirty
- */
-/mob/living/carbon/proc/spray_blood(splatter_direction, splatter_strength = 3)
-	if(!isturf(loc))
-		return
-	var/obj/effect/decal/cleanable/blood/hitsplatter/our_splatter = new(loc)
-	our_splatter.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
-	our_splatter.blood_dna_info = get_blood_dna_list()
-	var/turf/targ = get_ranged_target_turf(src, splatter_direction, splatter_strength)
-	our_splatter.fly_towards(targ, splatter_strength)
-
 
 /mob/living/carbon/proc/KnockToFloor(silent = TRUE, ignore_canknockdown = FALSE, knockdown_amt = 1)
 	if(!silent && body_position != LYING_DOWN)

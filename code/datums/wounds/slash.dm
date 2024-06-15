@@ -114,7 +114,6 @@
 	// say we have 3 severe cuts with 3 blood flow each, pretty reasonable
 	// compare with being at 100 brute damage before, where you bled (brute/100 * 2), = 2 blood per tile
 	var/bleed_amt = min(blood_flow * 0.1, 1) // 3 * 3 * 0.1 = 0.9 blood total, less than before! the share here is .3 blood of course.
-
 	if(limb.current_gauze) // gauze stops all bleeding from dragging on this limb, but wears the gauze out quicker
 		limb.seep_gauze(bleed_amt * 0.33)
 		return
@@ -189,16 +188,15 @@
 		return suture(I, user)
 
 /datum/wound/slash/flesh/try_handling(mob/living/carbon/human/user)
-	if(user.pulling != victim || user.zone_selected != limb.body_zone || !isfelinid(user) || !victim.try_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))
+	if(user.pulling != victim || user.zone_selected != limb.body_zone || !victim.try_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))
+		return FALSE
+	if(!istype(user.getorganslot(ORGAN_SLOT_TONGUE), /obj/item/organ/internal/tongue/cat))
 		return FALSE
 	if(DOING_INTERACTION_WITH_TARGET(user, victim))
 		to_chat(user, span_warning("You're already interacting with [victim]!"))
 		return
 	if(user.is_mouth_covered())
 		to_chat(user, span_warning("Your mouth is covered, you can't lick [victim]'s wounds!"))
-		return
-	if(!user.getorganslot(ORGAN_SLOT_TONGUE))
-		to_chat(user, span_warning("You can't lick wounds without a tongue!")) // f in chat
 		return
 
 	lick_wounds(user)

@@ -171,7 +171,7 @@
 	adjustBruteLoss(20)
 	return
 
-/mob/living/basic/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
+/mob/living/basic/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect = FALSE, angled = FALSE)
 	if(!no_effect && !visual_effect_icon && melee_damage_upper)
 		if(attack_vis_effect && !iswallturf(A)) // override the standard visual effect.
 			visual_effect_icon = attack_vis_effect
@@ -179,7 +179,7 @@
 			visual_effect_icon = ATTACK_EFFECT_PUNCH
 		else
 			visual_effect_icon = ATTACK_EFFECT_SMASH
-	..()
+	return ..()
 
 
 /mob/living/basic/update_stat()

@@ -62,12 +62,14 @@
 	var/bounce_sound
 	/// If we have this callback, it gets invoked when bouncing on the floor
 	var/datum/callback/bounce_callback
+	/// If we have this callback, it gets invoked when bumping on another atom
+	var/datum/callback/bump_callback
 	/// If we have this callback, it gets invoked when stopping movement
 	var/datum/callback/stop_callback
 
 	/**
 	 * The cached animate_movement of the parent
-	 * Any kind of gliding when doing Move() makes the physics look derpy, so we'll just make Move() be instant
+	 * Any kind of gliding when doing Move() makes the physics look derpy, so we'll just make Move() be "instant"
 	 */
 	var/cached_animate_movement
 	/// Cached transform of the parent, in case some fucking idiot decides its a good idea to make the damn movable spin forever
@@ -94,6 +96,7 @@
 	bounce_spin_clockwise = 0,
 	bounce_sound,
 	bounce_callback,
+	bump_callback,
 	stop_callback,
 )
 	if(!ismovable(parent))
@@ -117,6 +120,7 @@
 	src.bounce_spin_clockwise = bounce_spin_clockwise
 	src.bounce_sound = bounce_sound
 	src.bounce_callback = bounce_callback
+	src.bump_callback = bump_callback
 	src.stop_callback = stop_callback
 	set_angle(angle)
 
@@ -173,6 +177,10 @@
 		// we are on the floor, try to bounce if we have any vertical velocity
 		else if(moving_atom.pixel_z <= z_floor && vertical_velocity)
 			z_floor_bounce(moving_atom)
+
+		// z_floor_bounce could have deleted us
+		if(QDELETED(src))
+			return
 
 		visual_angle_velocity = max(0, visual_angle_velocity - visual_angle_friction)
 
@@ -232,7 +240,7 @@
 	var/atom/movable/moving_atom = parent
 	cached_animate_movement = moving_atom.animate_movement
 	moving_atom.animate_movement = NO_STEPS
-	if(!spin_speed || visual_angle_velocity || visual_angle_friction)
+	if(!spin_speed || !spin_loops || visual_angle_velocity || visual_angle_friction)
 		return
 	moving_atom.SpinAnimation(speed = spin_speed, loops = spin_loops)
 	if(spin_loops == INFINITE)
@@ -277,11 +285,12 @@
 	var/incidence = GET_ANGLE_OF_INCIDENCE(face_angle, angle + 180)
 	var/new_angle = SIMPLIFY_DEGREES(face_angle + incidence)
 	set_angle(new_angle)
-	if(!visual_angle_velocity)
-		return
-	incidence = GET_ANGLE_OF_INCIDENCE(face_angle, source.visual_angle + 180)
-	new_angle = SIMPLIFY_DEGREES(face_angle + incidence)
-	source.set_visual_angle(new_angle)
+	if(visual_angle_velocity)
+		incidence = GET_ANGLE_OF_INCIDENCE(face_angle, source.visual_angle + 180)
+		new_angle = SIMPLIFY_DEGREES(face_angle + incidence)
+		source.set_visual_angle(new_angle)
+	if(bump_callback)
+		bump_callback.Invoke(bumped_atom)
 
 /// Stops movement for pesky items when they get picked up, as that essentially invalidates this component
 /datum/component/movable_physics/proc/on_item_pickup(obj/item/source)

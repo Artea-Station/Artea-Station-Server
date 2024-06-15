@@ -252,8 +252,7 @@
 	apply_damage(damage, attacking_item.damtype, attacking_item = attacking_item)
 	if(attacking_item.damtype == BRUTE && prob(33))
 		attacking_item.add_mob_blood(src)
-		var/turf/location = get_turf(src)
-		add_splatter_floor(location)
+		blood_particles(amount = rand(1,2), angle = (user == src ? rand(0, 360) : get_angle(user, src)))
 		if(get_dist(user, src) <= 1) //people with TK won't get smeared with blood
 			user.add_mob_blood(src)
 	return TRUE //successful attack
