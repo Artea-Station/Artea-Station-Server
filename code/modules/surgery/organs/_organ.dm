@@ -238,17 +238,31 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 //Looking for brains?
 //Try code/modules/mob/living/carbon/brain/brain_item.dm
 
+/// Called on drop_organs for the organ to "fly away" using movable physics
+/obj/item/organ/proc/fly_away(turf/open/owner_location, fly_angle = rand(0, 360))
+	if(!istype(owner_location))
+		return
+	return AddComponent(/datum/component/movable_physics, \
+		physics_flags = MPHYSICS_QDEL_WHEN_NO_MOVEMENT, \
+		angle = fly_angle, \
+		horizontal_velocity = rand(2.5 * 100, 6 * 100) * 0.01, \
+		vertical_velocity = rand(4 * 100, 4.5 * 100) * 0.01, \
+		horizontal_friction = rand(0.24 * 100, 0.3 * 100) * 0.01, \
+		vertical_friction = 10 * 0.05, \
+		horizontal_conservation_of_momentum = 0.5, \
+		vertical_conservation_of_momentum = 0.5, \
+		z_floor = 0, \
+	)
+
 /**
  * Heals all of the mob's organs, and re-adds any missing ones.
  *
  * * regenerate_existing - if TRUE, existing organs will be deleted and replaced with new ones
  */
 /mob/living/carbon/proc/regenerate_organs(regenerate_existing = FALSE)
-
 	// Delegate to species if possible.
 	if(dna?.species)
 		dna.species.regenerate_organs(src, replace_current = regenerate_existing)
-
 		// Species regenerate organs doesn't ALWAYS handle healing the organs because it's dumb
 		for(var/obj/item/organ/organ as anything in internal_organs)
 			organ.setOrganDamage(0)

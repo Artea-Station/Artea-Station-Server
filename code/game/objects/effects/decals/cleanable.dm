@@ -24,11 +24,9 @@
 	if(decal_reagent)
 		reagents.add_reagent(decal_reagent, reagent_amount)
 	if(loc && isturf(loc))
-		for(var/obj/effect/decal/cleanable/C in loc)
-			if(C != src && C.type == type && !QDELETED(C))
-				if (replace_decal(C))
-					handle_merge_decal(C)
-					return INITIALIZE_HINT_QDEL
+		for(var/obj/effect/decal/cleanable/cleanable in loc)
+			if(merge_decal(cleanable))
+				return INITIALIZE_HINT_QDEL
 
 	if(LAZYLEN(diseases))
 		var/list/datum/disease/diseases_to_add = list()
@@ -54,21 +52,23 @@
 		SSblackbox.record_feedback("tally", "station_mess_destroyed", 1, name)
 	return ..()
 
+/// Attempts to merge with a given decal. Returns true if successful.
 /obj/effect/decal/cleanable/proc/merge_decal(obj/effect/decal/cleanable/merger)
 	if(replace_decal(merger))
 		handle_merge_decal(merger)
 		return TRUE
 	return FALSE
 
-/obj/effect/decal/cleanable/proc/replace_decal(obj/effect/decal/cleanable/C) // Returns true if we should give up in favor of the pre-existing decal
-	if(mergeable_decal)
+/// Returns true if we should give up and qdel in favor of the pre-existing decal
+/obj/effect/decal/cleanable/proc/replace_decal(obj/effect/decal/cleanable/merger)
+	if(mergeable_decal && merger != src && merger.type == type && !QDELETED(merger))
 		return TRUE
 	return FALSE
 
 /obj/effect/decal/cleanable/attackby(obj/item/W, mob/user, params)
 	if((istype(W, /obj/item/reagent_containers/cup) && !istype(W, /obj/item/reagent_containers/cup/rag)) || istype(W, /obj/item/reagent_containers/cup/glass))
 		if(src.reagents && W.reagents)
-			. = 1 //so the containers don't splash their content on the src while scooping.
+			. = TRUE //so the containers don't splash their content on the src while scooping.
 			if(!src.reagents.total_volume)
 				to_chat(user, span_notice("[src] isn't thick enough to scoop up!"))
 				return
@@ -93,8 +93,7 @@
 /obj/effect/decal/cleanable/fire_act(exposed_temperature, exposed_volume)
 	if(reagents)
 		reagents.expose_temperature(exposed_temperature)
-	..()
-
+	return ..()
 
 //Add "bloodiness" of this blood's type, to the human's shoes
 //This is on /cleanable because fuck this ancient mess
@@ -115,11 +114,7 @@
  * Checks if this decal is a valid decal that can be blood crawled in.
  */
 /obj/effect/decal/cleanable/proc/can_bloodcrawl_in()
-	var/static/list/valid_blood_states = list(
-		BLOOD_STATE_HUMAN,
-		BLOOD_STATE_XENO,
-	)
-	if(blood_state in valid_blood_states)
+	if(blood_state in GLOB.bloody_blood_states)
 		return bloodiness
 
 	return FALSE

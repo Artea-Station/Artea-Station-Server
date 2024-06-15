@@ -394,6 +394,18 @@
 	animate(mess, alpha = initial(mess.alpha), time = 2)
 	bloodied = TRUE
 
+/obj/structure/window/wash(clean_types)
+	. = ..()
+	if(!(clean_types & CLEAN_SCRUB))
+		return
+	set_opacity(initial(opacity))
+	remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	for(var/atom/movable/cleanable as anything in src)
+		if(!cleanable.wash(clean_types))
+			continue
+		vis_contents -= cleanable
+	bloodied = FALSE
+
 /obj/structure/window/Move()
 	. = ..()
 	if(. && isturf(loc))

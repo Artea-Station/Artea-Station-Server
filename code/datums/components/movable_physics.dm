@@ -309,7 +309,7 @@
 	var/angle_of_movement = angle_to_target
 	if(deviation)
 		angle_of_movement += SIMPLIFY_DEGREES(rand(-deviation * 100, deviation * 100) * 0.01)
-	AddComponent(/datum/component/movable_physics, \
+	return AddComponent(/datum/component/movable_physics, \
 		angle = angle_of_movement, \
 		horizontal_velocity = rand(4.5 * 100, 5.5 * 100) * 0.01, \
 		vertical_velocity = rand(4 * 100, 4.5 * 100) * 0.01, \

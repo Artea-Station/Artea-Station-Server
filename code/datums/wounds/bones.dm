@@ -143,30 +143,31 @@
 
 
 /datum/wound/blunt/bone/receive_damage(wounding_type, wounding_dmg, wound_bonus)
-	if(!victim || wounding_dmg < WOUND_MINIMUM_DAMAGE)
+	if(!victim || (wounding_dmg < WOUND_MINIMUM_DAMAGE) || (victim.blood_volume <= 0) || !prob(internal_bleeding_chance + wounding_dmg))
 		return
-	if(ishuman(victim))
-		var/mob/living/carbon/human/human_victim = victim
-		if(HAS_TRAIT(human_victim, TRAIT_NOBLOOD))
-			return
 
-	if(limb.body_zone == BODY_ZONE_CHEST && victim.blood_volume && prob(internal_bleeding_chance + wounding_dmg))
-		var/blood_bled = rand(1, wounding_dmg * (severity == WOUND_SEVERITY_CRITICAL ? 2 : 1.5)) // 12 brute toolbox can cause up to 18/24 bleeding with a severe/critical chest wound
+	if(limb.body_zone == BODY_ZONE_CHEST)
+		var/blood_bled = rand(1, round(wounding_dmg * (severity == WOUND_SEVERITY_CRITICAL ? 2 : 1.5))) // 12 brute toolbox can cause up to 18/24 bleeding with a severe/critical chest wound
 		switch(blood_bled)
 			if(1 to 6)
 				victim.bleed(blood_bled)
 			if(7 to 13)
-				victim.visible_message("<span class='smalldanger'>A thin stream of blood drips from [victim]'s mouth from the blow to [victim.p_their()] chest.</span>", span_danger("You cough up a bit of blood from the blow to your chest."), vision_distance=COMBAT_MESSAGE_RANGE)
+				victim.visible_message(span_danger("A thin stream of blood drips from [victim]'s mouth from the blow to [victim.p_their()] chest."), \
+								span_danger("You cough up a bit of blood from the blow to your chest."), \
+								vision_distance = COMBAT_MESSAGE_RANGE)
 				victim.bleed(blood_bled)
 			if(14 to 19)
-				victim.visible_message("<span class='smalldanger'>Blood spews out of [victim]'s mouth from the blow to [victim.p_their()] chest!</span>", span_danger("You spit out a string of blood from the blow to your chest!"), vision_distance=COMBAT_MESSAGE_RANGE)
-				victim.bleed(blood_bled)
-				new /obj/effect/temp_visual/dir_setting/bloodsplatter(victim.loc, victim.dir)
+				victim.visible_message(span_danger("Blood spews out of [victim]'s mouth from the blow to [victim.p_their()] chest!"), \
+									span_danger("You spit out a string of blood from the blow to your chest!"), \
+									vision_distance = COMBAT_MESSAGE_RANGE)
+				victim.bleed(blood_bled, no_visual = TRUE)
+				victim.blood_particles(amount = 1)
 			if(20 to INFINITY)
-				victim.visible_message(span_danger("Blood spurts out of [victim]'s mouth from the blow to [victim.p_their()] chest!"), span_danger("<b>You choke up on a spray of blood from the blow to your chest!</b>"), vision_distance=COMBAT_MESSAGE_RANGE)
-				victim.bleed(blood_bled)
-				new /obj/effect/temp_visual/dir_setting/bloodsplatter(victim.loc, victim.dir)
-				victim.add_splatter_floor(get_step(victim.loc, victim.dir))
+				victim.visible_message(span_danger("Blood spurts out of [victim]'s mouth from the blow to [victim.p_their()] chest!"), \
+									span_danger("<b>You choke up on a spray of blood from the blow to your chest!</b>"), \
+									vision_distance = COMBAT_MESSAGE_RANGE)
+				victim.bleed(blood_bled, no_visual = TRUE)
+				victim.blood_particles(amount = 2)
 
 /datum/wound/blunt/bone/modify_desc_before_span(desc)
 	. = ..()

@@ -197,6 +197,8 @@
 	var/any_existing_wound_can_mangle_our_exterior
 	/// If false, no wound that can be applied to us can mangle our interior. Used for determining if we should use [hp_percent_to_dismemberable] instead of normal dismemberment.
 	var/any_existing_wound_can_mangle_our_interior
+	/// A list of all the organs we've got stored inside us
+	var/list/obj/item/organ/organs
 
 /obj/item/bodypart/Initialize(mapload)
 	. = ..()
@@ -357,7 +359,7 @@
 		user.visible_message(span_warning("[user] begins to cut open [src]."),\
 			span_notice("You begin to cut open [src]..."))
 		if(do_after(user, 54, target = src))
-			drop_organs(user, TRUE)
+			drop_organs(user, violent_removal = TRUE)
 	else
 		return ..()
 
@@ -370,19 +372,26 @@
 	pixel_x = rand(-3, 3)
 	pixel_y = rand(-3, 3)
 
-//empties the bodypart from its organs and other things inside it
+/**
+ * Eviscerates the bodypart, dropping all organs and items inside of it
+ * Arguments:
+ * * violent_removal: If TRUE, organs will be thrown out using proc/fly_away() and a splort sound is played
+ */
 /obj/item/bodypart/proc/drop_organs(mob/user, violent_removal)
 	SHOULD_CALL_PARENT(TRUE)
 
 	var/atom/drop_loc = drop_location()
-	if(IS_ORGANIC_LIMB(src))
+	if(IS_ORGANIC_LIMB(src) && violent_removal)
 		playsound(drop_loc, 'sound/misc/splort.ogg', 50, TRUE, -1)
 	seep_gauze(9999) // destroy any existing gauze if any exists
-	for(var/obj/item/organ/bodypart_organ in get_organs())
-		bodypart_organ.transfer_to_limb(src, owner)
-	for(var/obj/item/organ/external/external in external_organs)
-		external.remove_from_limb()
-		external.forceMove(drop_loc)
+	for(var/obj/item/organ/organ as anything in organs)
+		if(owner)
+			organ.Remove(owner)
+		else
+			organ.remove_from_limb(src)
+		organ.forceMove(drop_loc)
+		if(violent_removal)
+			organ.fly_away(drop_loc)
 	for(var/obj/item/item_in_bodypart in src)
 		item_in_bodypart.forceMove(drop_loc)
 
