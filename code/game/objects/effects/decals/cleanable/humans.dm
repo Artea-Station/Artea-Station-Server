@@ -96,7 +96,7 @@ GLOBAL_LIST_INIT(bloody_blood_states, list(BLOOD_STATE_HUMAN, BLOOD_STATE_XENO))
 
 /obj/effect/decal/cleanable/blood/tracks
 	desc = "They look like tracks left by wheels."
-	icon_state = "tracks_1"
+	icon_state = "tracks"
 	random_icon_states = null
 	beauty = -50
 	dryname = "dried tracks"
