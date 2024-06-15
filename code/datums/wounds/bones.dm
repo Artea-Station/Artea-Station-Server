@@ -167,7 +167,7 @@
 									span_danger("<b>You choke up on a spray of blood from the blow to your chest!</b>"), \
 									vision_distance = COMBAT_MESSAGE_RANGE)
 				victim.bleed(blood_bled, no_visual = TRUE)
-				victim.blood_particles(amount = 2)
+				victim.blood_particles(amount = rand(0, 1))
 
 /datum/wound/blunt/bone/modify_desc_before_span(desc)
 	. = ..()
