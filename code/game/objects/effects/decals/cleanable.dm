@@ -54,6 +54,12 @@
 		SSblackbox.record_feedback("tally", "station_mess_destroyed", 1, name)
 	return ..()
 
+/obj/effect/decal/cleanable/proc/merge_decal(obj/effect/decal/cleanable/merger)
+	if(replace_decal(merger))
+		handle_merge_decal(merger)
+		return TRUE
+	return FALSE
+
 /obj/effect/decal/cleanable/proc/replace_decal(obj/effect/decal/cleanable/C) // Returns true if we should give up in favor of the pre-existing decal
 	if(mergeable_decal)
 		return TRUE

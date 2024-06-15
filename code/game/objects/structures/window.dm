@@ -384,6 +384,16 @@
 
 	. = ..()
 
+/obj/structure/window/proc/become_bloodied(obj/effect/decal/cleanable/blood/splatter)
+	if(bloodied || !fulltile || !splatter)
+		return
+	var/obj/effect/decal/cleanable/blood/splatter/over_window/mess = new()
+	mess.forceMove(src)
+	vis_contents += mess
+	mess.alpha = 0
+	animate(mess, alpha = initial(mess.alpha), time = 2)
+	bloodied = TRUE
+
 /obj/structure/window/Move()
 	. = ..()
 	if(. && isturf(loc))
