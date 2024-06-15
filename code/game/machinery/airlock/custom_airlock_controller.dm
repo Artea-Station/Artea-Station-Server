@@ -82,6 +82,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset/hallway, 2
 	icon_state = "doorin"
 
 /obj/effect/mapping_helpers/airlock_controller_helper/airlock/interior/payload(obj/machinery/door/bulkhead/airlock)
+	set waitfor = FALSE
 	airlock.id_tag = "custom_airlock_interior_[base_tag_name]"
 	airlock.set_frequency(FREQ_AIRLOCK_CONTROL)
 	airlock.close(TRUE)
@@ -92,6 +93,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset/hallway, 2
 	icon_state = "doorout"
 
 /obj/effect/mapping_helpers/airlock_controller_helper/airlock/exterior/payload(obj/machinery/door/bulkhead/airlock)
+	set waitfor = FALSE
 	airlock.id_tag = "custom_airlock_exterior_[base_tag_name]"
 	airlock.set_frequency(FREQ_AIRLOCK_CONTROL)
 	airlock.open(TRUE)
@@ -101,6 +103,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset/hallway, 2
 	affected_type = /obj/machinery/airlock_sensor
 
 /obj/effect/mapping_helpers/airlock_controller_helper/sensor/payload(obj/machinery/airlock_sensor/sensor)
+	set waitfor = FALSE
 	sensor.frequency = FREQ_AIRLOCK_CONTROL
 	sensor.master_tag = "custom_airlock_controller_[base_tag_name]"
 
@@ -109,6 +112,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset/hallway, 2
 	icon_state = "sens"
 
 /obj/effect/mapping_helpers/airlock_controller_helper/sensor/chamber/payload(obj/machinery/airlock_sensor/sensor)
+	set waitfor = FALSE
 	. = ..()
 	sensor.id_tag = "custom_airlock_sensor_chamber_[base_tag_name]"
 
@@ -117,6 +121,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset/hallway, 2
 	icon_state = "sensin"
 
 /obj/effect/mapping_helpers/airlock_controller_helper/sensor/interior/payload(obj/machinery/airlock_sensor/sensor)
+	set waitfor = FALSE
 	. = ..()
 	sensor.id_tag = "custom_airlock_sensor_interior_[base_tag_name]"
 
@@ -129,6 +134,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset/hallway, 2
 	icon_state = "sensout"
 
 /obj/effect/mapping_helpers/airlock_controller_helper/sensor/exterior/payload(obj/machinery/airlock_sensor/sensor)
+	set waitfor = FALSE
 	. = ..()
 	sensor.id_tag = "custom_airlock_sensor_exterior_[base_tag_name]"
 
@@ -142,6 +148,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/autoset/hallway, 2
 	affected_type = /obj/machinery/atmospherics/components/binary/dp_vent_pump
 
 /obj/effect/mapping_helpers/airlock_controller_helper/pump/payload(obj/machinery/atmospherics/components/binary/dp_vent_pump/pump)
+	set waitfor = FALSE
 	pump.id_tag = "custom_airlock_pump_[base_tag_name]"
 	pump.frequency = FREQ_AIRLOCK_CONTROL
 
