@@ -8806,6 +8806,14 @@
 /obj/machinery/door/firehead,
 /turf/open/floor/plating,
 /area/station/maintenance/department/eva)
+"dYP" = (
+/obj/effect/turf_decal/box/engi,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/broken_floor,
+/obj/machinery/portable_atmospherics/canister/air,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/station/maintenance/department/medical/upper)
 "dYT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/box,
@@ -11293,6 +11301,10 @@
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/wood,
 /area/station/commons/lounge)
+"ffW" = (
+/obj/effect/mapping_helpers/paint_wall/engineering,
+/turf/closed/wall,
+/area/station/maintenance/department/pathfinders/greater)
 "fgl" = (
 /obj/machinery/door/bulkhead/maintenance,
 /obj/machinery/door/firehead,
@@ -11804,13 +11816,14 @@
 /obj/machinery/door/firehead{
 	dir = 8
 	},
-/obj/machinery/door/bulkhead/maintenance{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/door/bulkhead/engineering{
+	dir = 4;
+	name = "Maintenance Access"
 	},
 /turf/open/floor/plating,
 /area/station/commons/storage/primary)
@@ -12317,12 +12330,12 @@
 /area/station/maintenance/department/cargo/lower)
 "fDp" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/bulkhead{
-	name = "Gym";
-	dir = 4
-	},
 /obj/machinery/door/firehead{
 	dir = 8
+	},
+/obj/machinery/door/bulkhead/engineering{
+	dir = 4;
+	name = "Tool Storage"
 	},
 /turf/open/floor/iron/dark/textured,
 /area/station/commons/storage/primary)
@@ -15705,11 +15718,12 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/bulkhead/maintenance{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/door/bulkhead/engineering{
+	dir = 1;
+	name = "Maintenance Access"
+	},
 /turf/open/floor/plating,
 /area/station/commons/storage/primary)
 "gZv" = (
@@ -29261,14 +29275,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium,
 /area/station/engineering/reactor_core)
-"mzh" = (
-/obj/effect/turf_decal/box/engi,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/broken_floor,
-/obj/machinery/portable_atmospherics/canister/air,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/station/maintenance/department/medical/upper)
 "mzi" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -37341,6 +37347,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/white/small,
 /area/station/pathfinders/storage)
+"pOA" = (
+/obj/effect/mapping_helpers/paint_wall/engineering,
+/turf/closed/wall,
+/area/station/maintenance/department/security/lower)
 "pOD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/broken_floor,
@@ -38580,6 +38590,10 @@
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/circuit/green,
 /area/station/engineering/gravity_generator)
+"qoJ" = (
+/obj/effect/mapping_helpers/paint_wall/engineering,
+/turf/closed/wall/r_wall,
+/area/station/pathfinders/pathfinders_hallway)
 "qoK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/broken_floor,
@@ -48449,6 +48463,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/textured,
 /area/station/maintenance/department/medical/central)
+"uxY" = (
+/obj/effect/mapping_helpers/paint_wall/engineering,
+/turf/closed/wall,
+/area/station/maintenance/starboard/lesser)
 "uyn" = (
 /obj/effect/mapping_helpers/broken_floor,
 /obj/effect/decal/cleanable/dirt,
@@ -139201,8 +139219,8 @@ mAu
 tzz
 mqd
 oXr
-tgx
-tgx
+mAu
+mAu
 gsi
 tgx
 hse
@@ -148946,7 +148964,7 @@ ahT
 xgu
 awM
 nwp
-mzh
+dYP
 ovL
 lDj
 qzW
@@ -157203,7 +157221,7 @@ uMJ
 hTW
 hTW
 hTW
-rSt
+uxY
 gli
 rSt
 sme
@@ -158996,11 +159014,11 @@ ylV
 mOM
 qiY
 wbZ
-iFD
+pOA
 pBC
 hqe
 kCa
-iFD
+pOA
 eaR
 iBP
 iFD
@@ -214488,11 +214506,11 @@ lPk
 epI
 xTc
 pOT
-cSw
+ffW
 avs
 vQZ
 rQo
-eXo
+qoJ
 lMy
 cfH
 cXE
@@ -214745,11 +214763,11 @@ mIk
 pxL
 hJe
 mpZ
-cSw
-cSw
-cSw
-cSw
-eXo
+ffW
+ffW
+ffW
+ffW
+qoJ
 xNs
 qDm
 tHI
@@ -215002,11 +215020,11 @@ vGj
 xou
 aHv
 mDf
-cSw
+ffW
 amW
 pXr
 cJL
-cSw
+ffW
 ejW
 qwG
 xaR
@@ -215263,7 +215281,7 @@ mry
 weI
 wXQ
 sVp
-cSw
+ffW
 uYr
 lFu
 nHU
@@ -215516,11 +215534,11 @@ lPk
 dFA
 fBM
 rcn
-cSw
+ffW
 bCh
 sWU
 cJL
-cSw
+ffW
 vsH
 geh
 inH
@@ -215773,11 +215791,11 @@ lPk
 cSw
 cSw
 wXg
-cSw
-cSw
+ffW
+ffW
 pLv
-cSw
-cSw
+ffW
+ffW
 qGC
 geh
 jAs
@@ -216030,11 +216048,11 @@ qPs
 cSw
 nQx
 dzD
-cSw
+ffW
 rrE
 inK
 iGQ
-cSw
+ffW
 kuo
 jBw
 jsu
@@ -216287,7 +216305,7 @@ sAg
 cSw
 kiK
 jzr
-cSw
+ffW
 vDe
 iRr
 qoh
