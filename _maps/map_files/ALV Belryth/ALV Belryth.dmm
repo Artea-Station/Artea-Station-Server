@@ -11621,7 +11621,6 @@
 "fmL" = (
 /obj/effect/turf_decal/delivery/engi,
 /obj/machinery/door/firehead,
-/obj/machinery/door/bulkhead/external,
 /obj/machinery/door/poddoor/preopen{
 	id = "reactorlockdown"
 	},
@@ -11630,6 +11629,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
+/obj/machinery/door/bulkhead/external{
+	name = "Reactor Control Room"
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/engineering/reactor_control)
 "fmV" = (
@@ -17827,7 +17829,7 @@
 /obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/visible{
 	dir = 4
 	},
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/delivery/engi,
 /obj/effect/mapping_helpers/broken_floor,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark/textured,
@@ -28038,7 +28040,7 @@
 /area/station/maintenance/department/medical/upper)
 "maL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/delivery/engi,
 /obj/machinery/atmospherics/pipe/layer_manifold/orange/visible{
 	dir = 4
 	},
@@ -29259,6 +29261,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium,
 /area/station/engineering/reactor_core)
+"mzh" = (
+/obj/effect/turf_decal/box/engi,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/broken_floor,
+/obj/machinery/portable_atmospherics/canister/air,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/station/maintenance/department/medical/upper)
 "mzi" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -35936,14 +35946,6 @@
 /obj/machinery/light/red/dim/directional/south,
 /turf/open/floor/iron/dark/textured,
 /area/station/engineering/atmos)
-"pfN" = (
-/obj/effect/turf_decal/box/engi,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/broken_floor,
-/obj/machinery/portable_atmospherics/canister/air,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/station/maintenance/department/medical/upper)
 "pfO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/trash/garbage,
@@ -41054,7 +41056,7 @@
 /obj/machinery/atmospherics/pipe/layer_manifold/supply/visible{
 	dir = 4
 	},
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/delivery/engi,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/iron/dark/textured,
@@ -148944,7 +148946,7 @@ ahT
 xgu
 awM
 nwp
-pfN
+mzh
 ovL
 lDj
 qzW
