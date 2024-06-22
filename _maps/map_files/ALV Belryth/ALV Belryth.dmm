@@ -7943,7 +7943,8 @@
 	id = "custodialshutters";
 	name = "shutters control";
 	pixel_x = 8;
-	pixel_y = 29
+	pixel_y = 29;
+	req_access = list("service")
 	},
 /obj/effect/turf_decal/stripes/orange/corner{
 	dir = 8
@@ -35645,7 +35646,8 @@
 /obj/effect/turf_decal/box,
 /obj/machinery/button/door/directional/south{
 	name = "shutters control";
-	id = "custodialshutters"
+	id = "custodialshutters";
+	req_access = list("service")
 	},
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating,
