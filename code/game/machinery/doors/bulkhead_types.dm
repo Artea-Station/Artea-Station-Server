@@ -23,7 +23,7 @@
 /obj/machinery/door/bulkhead/engineering
 	assemblytype = /obj/structure/door_assembly/door_assembly_eng
 	bulkhead_paint = "#BB8425"
-	stripe_paint = "#BB8425"
+	stripe_paint = "#1E2425"
 
 /obj/machinery/door/bulkhead/medical
 	assemblytype = /obj/structure/door_assembly/door_assembly_med
