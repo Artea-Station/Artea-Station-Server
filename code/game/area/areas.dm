@@ -121,6 +121,15 @@
 	/// The airlock controller in this area. Used by mapped custom controllers to yell at mappers.
 	var/obj/machinery/airlock_controller/airlock_controller
 
+	/// DRONING SYSTEM VARIABLES
+	var/droning_sound = DRONING_DEFAULT
+	var/droning_vary = 0
+	var/droning_repeat = TRUE
+	var/droning_wait = 0
+	var/droning_volume = 25
+	var/droning_channel = CHANNEL_BUZZ
+	var/droning_frequency = 0
+
 /**
  * A list of teleport locations
  *
@@ -414,6 +423,12 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		SEND_SIGNAL(recipient, COMSIG_ENTER_AREA, src)
 
 	if(!isliving(arrived))
+		return
+
+	var/mob/living/living_arrived = arrived
+	if(living_arrived.client && !living_arrived.combat_mode)
+		//Ambience if combat mode is off
+		SSdroning.area_entered(src, living_arrived.client)
 		return
 
 	var/mob/living/L = arrived

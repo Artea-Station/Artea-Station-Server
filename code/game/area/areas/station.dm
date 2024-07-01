@@ -5,6 +5,8 @@
 	icon = 'icons/area/areas_station.dmi'
 	icon_state = "station"
 	allow_door_remotes = TRUE
+	droning_sound = DRONING_NORMAL
+	droning_volume = 15
 
 //Maintenance
 
@@ -13,10 +15,12 @@
 	ambience_index = AMBIENCE_MAINT
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED | PERSISTENT_ENGRAVINGS
 	airlock_wires = /datum/wires/bulkhead/maint
-	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
+	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	forced_ambience = TRUE
 	ambient_buzz = 'sound/ambience/source_corridor2.ogg'
 	ambient_buzz_vol = 20
+	droning_sound = DRONING_MAINTENANCE
+	droning_volume = 15
 
 //Maintenance - Departmental
 
@@ -306,6 +310,7 @@
 /area/station/hallway
 	icon_state = "hall"
 	sound_environment = SOUND_AREA_STANDARD_STATION
+	droning_sound = DRONING_NORMAL
 
 /area/station/hallway/primary
 	name = "\improper Primary Hallway"
@@ -833,6 +838,8 @@
 	ambience_index = AMBIENCE_ENGI
 	airlock_wires = /datum/wires/bulkhead/engineering
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
+	droning_sound = DRONING_ENGINEERING
+	droning_volume = 15
 
 /area/station/engineering/engine_smes
 	name = "\improper Engineering SMES"
@@ -1100,6 +1107,8 @@
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	min_ambience_cooldown = 90 SECONDS
 	max_ambience_cooldown = 180 SECONDS
+	droning_sound = DRONING_MEDICAL
+	droning_volume = 15
 
 /area/station/medical/abandoned
 	name = "\improper Abandoned Medbay"
@@ -1220,6 +1229,8 @@
 	ambience_index = AMBIENCE_DANGER
 	airlock_wires = /datum/wires/bulkhead/security
 	sound_environment = SOUND_AREA_STANDARD_STATION
+	droning_sound = DRONING_SECURITY
+	droning_volume = 15
 
 /area/station/security/office
 	name = "\improper Security Office"

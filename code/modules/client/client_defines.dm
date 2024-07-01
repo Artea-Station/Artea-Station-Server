@@ -267,3 +267,8 @@
 	/// Holder variables for viewport scaling.
 	var/last_view_x_dim = 7
 	var/last_view_y_dim = 7
+
+	/// Used by the area music system to avoid repeating tracks
+	var/last_droning_sound
+	/// Current ambient track
+	var/sound/droning_sound
