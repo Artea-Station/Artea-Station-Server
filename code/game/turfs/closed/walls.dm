@@ -74,7 +74,7 @@ GLOBAL_REAL_VAR(wall_overlays_cache) = list()
 	VAR_PRIVATE/cache_key
 
 	// Vars for bullet hitting wall interactions
-	max_integrity = 100 // Most common ballistics deal 20-30 damage a shot.
+	max_integrity = 300 // Most common ballistics deal 20-30 damage a shot.
 	damage_deflection = 5
 
 /turf/closed/wall/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
