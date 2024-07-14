@@ -341,28 +341,6 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
 
-/datum/design/board/exoscanner_console
-	name = "Scanner Array Control Console Board"
-	desc = "Allows for the construction of circuit boards used to build a new scanner array control console."
-	id = "exoscanner_console"
-	build_type = IMPRINTER
-	build_path = /obj/item/circuitboard/computer/exoscanner_console
-	category = list(
-		RND_CATEGORY_COMPUTER + RND_SUBCATEGORY_COMPUTER_RESEARCH
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
-
-/datum/design/board/exodrone_console
-	name = "Exploration Drone Control Console Board"
-	desc = "Allows for the construction of circuit boards used to build a new exploration drone control console."
-	id = "exodrone_console"
-	build_type = IMPRINTER
-	build_path = /obj/item/circuitboard/computer/exodrone_console
-	category = list(
-		RND_CATEGORY_COMPUTER + RND_SUBCATEGORY_COMPUTER_RESEARCH
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
-
 /datum/design/board/accounting_console
 	name = "Account Lookup Console Board"
 	desc = "Allows for the construction of circuit boards used to assess the wealth of crewmates on station."
