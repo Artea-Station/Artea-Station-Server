@@ -122,23 +122,6 @@ CREATE TABLE `admin_connections` (
 
 -----------------------------------------------------
 
-Version 5.14, xx May 2021, by Anturke
-Added exploration drone adventure table
-
-```
-DROP TABLE IF EXISTS `text_adventures`;
-CREATE TABLE `text_adventures` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`adventure_data` LONGTEXT NOT NULL,
-	`uploader` VARCHAR(32) NOT NULL,
-	`timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	`approved` TINYINT(1) NOT NULL DEFAULT FALSE,
-	PRIMARY KEY (`id`)
-) ENGINE=InnoDB;
-```
-
------------------------------------------------------
-
 Version 5.13, 30 April 2021, by Atlanta Ned
 Added the `citation` table for tracking security citations in the database.
 
