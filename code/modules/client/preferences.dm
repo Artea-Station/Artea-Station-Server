@@ -92,6 +92,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	/// If a food doesn't exist in this list, it uses the default value.
 	var/list/food_preferences = list()
 
+	var/bloomlevel = BLOOM_MED
+	var/old_lighting = FALSE
+	var/lampsglare = FALSE
+
 /datum/preferences/Destroy(force, ...)
 	QDEL_NULL(character_preview_view)
 	QDEL_LIST(middleware)
