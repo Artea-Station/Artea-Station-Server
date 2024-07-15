@@ -457,6 +457,8 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	init_verbs()
 
+/** !! Remove this comment to add these verbs back again !!
+ *
 /client/verb/set_bloom_level()
 	set name = "LIGHTING: Set Bloom Level"
 	set category = "OOC"
@@ -516,3 +518,5 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 		var/atom/movable/screen/plane_master/lamps_glare/PM = locate() in screen
 
 		PM.backdrop(mob)
+
+*/
