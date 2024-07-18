@@ -27,7 +27,7 @@
 /obj/effect/abstract/overmap/ore_rock
 	icon_state = "smallcircle"
 	layer = OVERMAP_LAYER_LOOT
-	color = LIGHT_COLOR_PURPLE
+	color = "#FB3A18"
 
 /datum/overmap_object/transportable/ore_loot
 	name = "ore chunks"
