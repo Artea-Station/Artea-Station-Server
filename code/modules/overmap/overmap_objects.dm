@@ -97,6 +97,7 @@
 	my_visual = new visual_type(locate(x,y,current_system.z_level))
 	my_visual.name = name
 	my_visual.my_overmap_object = src
+	my_visual.icon_state = get_random_icon_state()
 	update_visual_position()
 
 	//As we are created we enter other objects
@@ -171,3 +172,6 @@
 /datum/overmap_object/ruins
 	name = "Cluster of ruins"
 	visual_type = /obj/effect/abstract/overmap/ruins
+
+/datum/overmap_object/proc/get_random_icon_state()
+	return
