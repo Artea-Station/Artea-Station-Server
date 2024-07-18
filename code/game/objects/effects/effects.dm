@@ -8,6 +8,7 @@
 	obj_flags = NONE
 	vis_flags = VIS_INHERIT_PLANE
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	simulated = FALSE
 
 /obj/effect/attackby(obj/item/weapon, mob/user, params)
 	if(SEND_SIGNAL(weapon, COMSIG_ITEM_ATTACK_EFFECT, src, user, params) & COMPONENT_NO_AFTERATTACK)
@@ -33,9 +34,6 @@
 
 /obj/effect/attack_hulk(mob/living/carbon/human/user)
 	return FALSE
-
-/obj/effect/experience_pressure_difference()
-	return
 
 /obj/effect/ex_act(severity, target)
 	return FALSE

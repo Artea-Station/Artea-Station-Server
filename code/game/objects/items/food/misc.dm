@@ -566,7 +566,7 @@
 	name = "stick of butter"
 	desc = "A stick of delicious, golden, fatty goodness."
 	icon_state = "butter"
-	food_reagents = list(/datum/reagent/consumable/nutriment = 5)
+	food_reagents = list(/datum/reagent/consumable/nutriment = 15)
 	tastes = list("butter" = 1)
 	foodtypes = DAIRY
 	w_class = WEIGHT_CLASS_SMALL
@@ -596,6 +596,18 @@
 	icon_state = "butteronastick"
 	trash_type = /obj/item/stack/rods
 	food_flags = FOOD_FINGER_FOOD
+
+/obj/item/food/butter/MakeProcessable()
+	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/butterslice, 3, 3 SECONDS, table_required = TRUE)
+
+/obj/item/food/butterslice
+	name = "butter slice"
+	desc = "A slice of butter, for your buttering needs."
+	icon_state = "butterslice"
+	food_reagents = list(/datum/reagent/consumable/nutriment = 5)
+	tastes = list("butter" = 1)
+	foodtypes = DAIRY
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/food/onionrings
 	name = "onion rings"
@@ -925,6 +937,18 @@
 /obj/item/food/seaweedsheet/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/customizable_reagent_holder, /obj/item/food/sushi/empty, CUSTOM_INGREDIENT_ICON_FILL, max_ingredients = 6)
+
+/obj/item/food/seaweedsheet/saltcane
+	name = "dried saltcane sheathe"
+	desc = "A dried sheet of saltcane sheathe can used for making sushi. Use an ingredient on it to start making custom sushi!"
+	icon_state = "seaweedsheet"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 1,
+		/datum/reagent/consumable/nutriment/vitamin = 1,
+	)
+	tastes = list("seaweed" = 1)
+	foodtypes = VEGETABLES
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/food/granola_bar
 	name = "granola bar"

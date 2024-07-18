@@ -66,14 +66,14 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /datum/atmosphere/barren
-	base_gases = list(/datum/gas/nitrogen=5)
+	base_gases = list(GAS_NITROGEN=5)
 	normal_gases = list(
-		/datum/gas/oxygen=5,
-		/datum/gas/nitrogen=5
+		GAS_OXYGEN=5,
+		GAS_NITROGEN=5
 	)
 	restricted_gases = list(
-		/datum/gas/plasma=0.1,
-		/datum/gas/bz=1.2
+		GAS_PLASMA=0.1,
+		GAS_N2O=1.2
 	)
 	restricted_chance = 30
 

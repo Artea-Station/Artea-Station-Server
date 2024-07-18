@@ -53,7 +53,8 @@
 	var/fire_range = round(created_volume/30)
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/turf/target as anything in RANGE_TURFS(fire_range,T))
-		new /obj/effect/hotspot(target)
+		//new /obj/effect/hotspot(target)
+		target.create_fire(1, 10)
 	holder.chem_temp = 500
 	..()
 
@@ -67,7 +68,8 @@
 	var/fire_range = round(created_volume/20)
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/turf/turf as anything in RANGE_TURFS(fire_range,T))
-		new /obj/effect/hotspot(turf)
+		//new /obj/effect/hotspot(turf)
+		turf.create_fire(1, 10)
 	holder.chem_temp = 750
 	..()
 
@@ -212,7 +214,8 @@
 /datum/chemical_reaction/clf3/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/turf/target as anything in RANGE_TURFS(1,T))
-		new /obj/effect/hotspot(target)
+		//new /obj/effect/hotspot(target)
+		target.create_fire(1, 10)
 	holder.chem_temp = 1000 // hot as shit
 
 /datum/chemical_reaction/reagent_explosion/methsplosion
@@ -225,7 +228,8 @@
 /datum/chemical_reaction/reagent_explosion/methsplosion/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/turf/target in RANGE_TURFS(1,T))
-		new /obj/effect/hotspot(target)
+		//new /obj/effect/hotspot(target)
+		target.create_fire(1, 10)
 	holder.chem_temp = 1000 // hot as shit
 	..()
 
@@ -394,7 +398,7 @@
 		return
 	var/turf/open/T = get_turf(holder.my_atom)
 	if(istype(T))
-		T.atmos_spawn_air("plasma=[created_volume];TEMP=1000")
+		T.atmos_spawn_air(GAS_PLASMA, created_volume, 1000)
 	holder.clear_reagents()
 	return
 
@@ -558,8 +562,8 @@
 	var/range = clamp(sqrt(created_volume*2), 1, 6)
 	//This first throws people away and then it explodes
 	goonchem_vortex(turfie, 1, range)
-	turfie.atmos_spawn_air("o2=[created_volume/2];TEMP=[575]")
-	turfie.atmos_spawn_air("n2=[created_volume/2];TEMP=[575]")
+	turfie.atmos_spawn_air(GAS_OXYGEN, created_volume/2, 575)
+	turfie.atmos_spawn_air(GAS_NITROGEN, created_volume/2, 575)
 	return ..()
 
 /datum/chemical_reaction/firefighting_foam

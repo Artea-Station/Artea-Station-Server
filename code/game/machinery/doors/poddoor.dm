@@ -14,6 +14,7 @@
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 70
 	can_open_with_hands = FALSE
+	block_air_zones = FALSE
 	smoothing_groups = list(SMOOTH_GROUP_SHUTTERS_BLASTDOORS)
 	door_align_type = /obj/machinery/door/poddoor
 	var/datum/crafting_recipe/recipe_type = /datum/crafting_recipe/blast_doors
@@ -59,7 +60,7 @@
 		return
 	balloon_alert(user, "removing airlock electronics...")
 	if(tool.use_tool(src, user, 10 SECONDS, volume = 50))
-		new /obj/item/electronics/airlock(loc)
+		new /obj/item/electronics/bulkhead(loc)
 		id = null
 		deconstruction = BLASTDOOR_NEEDS_ELECTRONICS
 		balloon_alert(user, "removed airlock electronics")

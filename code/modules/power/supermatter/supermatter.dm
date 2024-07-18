@@ -177,7 +177,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	. = ..()
 	uid = gl_uid++
 	set_delam(SM_DELAM_PRIO_NONE, /datum/sm_delam/explosive)
-	SSair.start_processing_machine(src)
+	SSairmachines.start_processing_machine(src)
 	countdown = new(src)
 	countdown.start()
 	SSpoints_of_interest.make_point_of_interest(src)
@@ -216,7 +216,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		vis_contents -= warp
 		QDEL_NULL(warp)
 	investigate_log("has been destroyed.", INVESTIGATE_ENGINE)
-	SSair.stop_processing_machine(src)
+	SSairmachines.stop_processing_machine(src)
 	QDEL_NULL(radio)
 	QDEL_NULL(countdown)
 	if(is_main_engine && GLOB.main_supermatter_engine == src)
@@ -255,7 +255,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 	var/turf/local_turf = get_turf(src)
 
-	var/datum/gas_mixture/air = local_turf.return_air()
+	var/datum/gas_mixture/air = local_turf.unsafe_return_air()
 
 	// singlecrystal set to true eliminates the back sign on the gases breakdown.
 	data["singlecrystal"] = TRUE
@@ -263,7 +263,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	data["SM_integrity"] = get_integrity_percent()
 	data["SM_power"] = power
 	data["SM_ambienttemp"] = air.temperature
-	data["SM_ambientpressure"] = air.return_pressure()
+	data["SM_ambientpressure"] = air.returnPressure()
 	data["SM_bad_moles_amount"] = MOLE_PENALTY_THRESHOLD / absorption_ratio
 	data["SM_moles"] = 0
 	data["SM_uid"] = uid
@@ -272,17 +272,17 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 	var/list/gasdata = list()
 
-	if(air.total_moles())
-		data["SM_moles"] = air.total_moles()
-		for(var/gasid in air.gases)
+	if(air.total_moles)
+		data["SM_moles"] = air.total_moles
+		for(var/gasid in air.gas)
 			gasdata.Add(list(list(
-			"name"= air.gases[gasid][GAS_META][META_GAS_NAME],
-			"amount" = round(100*air.gases[gasid][MOLES]/air.total_moles(),0.01))))
+			"name"= xgm_gas_data.name[gasid],
+			"amount" = round(100*air.gas[gasid]/air.total_moles,0.01))))
 
 	else
-		for(var/gasid in air.gases)
+		for(var/gasid in air.gas)
 			gasdata.Add(list(list(
-				"name"= air.gases[gasid][GAS_META][META_GAS_NAME],
+				"name"= xgm_gas_data.name[gasid],
 				"amount" = 0)))
 
 	data["gases"] = gasdata
@@ -294,7 +294,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/turf/local_turf = get_turf(src)
 	if(!local_turf)
 		return SUPERMATTER_ERROR
-	var/datum/gas_mixture/air = local_turf.return_air()
+	var/datum/gas_mixture/air = local_turf.unsafe_return_air()
 	if(!air)
 		return SUPERMATTER_ERROR
 	if(final_countdown)
@@ -541,8 +541,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	//This gotdamn variable is a boomer and keeps giving me problems
 	var/turf/target_turf = get_turf(target)
 	var/pressure = 1
-	if(target_turf?.return_air())
-		pressure = max(1,target_turf.return_air().return_pressure())
+	var/datum/gas_mixture/environment = target_turf?.unsafe_return_air()
+	if(environment)
+		pressure = max(1, environment.returnPressure())
 	//We get our range with the strength of the zap and the pressure, the higher the former and the lower the latter the better
 	var/new_range = clamp(zap_str / pressure * 10, 2, 7)
 	var/zap_count = 1

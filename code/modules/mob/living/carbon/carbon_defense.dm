@@ -289,7 +289,7 @@
 		target.visible_message(span_danger("[name] kicks [target.name] onto [target.p_their()] side!"),
 						span_userdanger("You're kicked onto your side by [name]!"), span_hear("You hear aggressive shuffling followed by a loud thud!"), COMBAT_MESSAGE_RANGE, src)
 		to_chat(src, span_danger("You kick [target.name] onto [target.p_their()] side!"))
-		addtimer(CALLBACK(target, /mob/living/proc/SetKnockdown, 0), SHOVE_CHAIN_PARALYZE)
+		addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, SetKnockdown), 0), SHOVE_CHAIN_PARALYZE)
 		log_combat(src, target, "kicks", "onto their side (paralyzing)")
 
 	var/directional_blocked = FALSE
@@ -336,7 +336,7 @@
 			append_message = "loosening [target.p_their()] grip on [target_held_item]"
 			target.visible_message(span_danger("[target.name]'s grip on \the [target_held_item] loosens!"), //He's already out what are you doing
 				span_warning("Your grip on \the [target_held_item] loosens!"), null, COMBAT_MESSAGE_RANGE)
-		addtimer(CALLBACK(target, /mob/living/carbon/proc/clear_shove_slowdown), SHOVE_SLOWDOWN_LENGTH)
+		addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon, clear_shove_slowdown)), SHOVE_SLOWDOWN_LENGTH)
 
 	else if(target_held_item)
 		target.dropItemToGround(target_held_item)
@@ -373,7 +373,7 @@
 		internal_organ.emp_act(severity)
 
 ///Adds to the parent by also adding functionality to propagate shocks through pulling and doing some fluff effects.
-/mob/living/carbon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
+/mob/living/carbon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 20 SECONDS, stutter_time = 4 SECONDS, stun_duration = 4 SECONDS)
 	. = ..()
 	if(!.)
 		return
@@ -394,22 +394,30 @@
 		//Found our victims, now lets shock them all
 		for(var/victim in shocking_queue)
 			var/mob/living/carbon/C = victim
-			C.electrocute_act(shock_damage*0.75, src, 1, flags)
+			C.electrocute_act(shock_damage*0.75, src, 1, flags, jitter_time, stutter_time, stun_duration)
 	//Stun
 	var/should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
-	if(should_stun)
-		Paralyze(40)
+	var/paralyze = !(flags & SHOCK_KNOCKDOWN)
+	var/immediately_stun = should_stun && !(flags & SHOCK_DELAY_STUN)
+	if(immediately_stun)
+		if(paralyze)
+			Paralyze(stun_duration)
+		else
+			Knockdown(stun_duration)
 	//Jitter and other fluff.
 	do_jitter_animation(300)
-	adjust_jitter(20 SECONDS)
-	adjust_stutter(4 SECONDS)
-	addtimer(CALLBACK(src, PROC_REF(secondary_shock), should_stun), 2 SECONDS)
+	adjust_jitter(jitter_time)
+	adjust_stutter(stutter_time)
+	if(should_stun)
+		addtimer(CALLBACK(src, PROC_REF(secondary_shock), paralyze, stun_duration * 1.5), 2 SECONDS)
 	return shock_damage
 
 ///Called slightly after electrocute act to apply a secondary stun.
-/mob/living/carbon/proc/secondary_shock(should_stun)
-	if(should_stun)
-		Paralyze(60)
+/mob/living/carbon/proc/secondary_shock(paralyze, stun_duration)
+	if(paralyze)
+		Paralyze(stun_duration)
+	else
+		Knockdown(stun_duration)
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/helper)
 	if(on_fire)

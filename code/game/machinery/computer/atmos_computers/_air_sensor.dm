@@ -16,13 +16,13 @@
 
 /obj/machinery/air_sensor/Initialize(mapload)
 	id_tag = chamber_id + "_sensor"
-	SSair.start_processing_machine(src)
+	SSairmachines.start_processing_machine(src)
 	radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 	return ..()
 
 /obj/machinery/air_sensor/Destroy()
-	SSair.broadcast_destruction(id_tag, frequency)
-	SSair.stop_processing_machine(src)
+	SSairmachines.broadcast_destruction(id_tag, frequency)
+	SSairmachines.stop_processing_machine(src)
 	SSradio.remove_object(src, frequency)
 	return ..()
 
@@ -34,7 +34,7 @@
 	if(!on)
 		return
 
-	var/datum/gas_mixture/air_sample = return_air()
+	var/datum/gas_mixture/air_sample = unsafe_return_air()
 	var/datum/signal/signal = new(list(
 		"sigtype" = "status",
 		"tag" = id_tag,

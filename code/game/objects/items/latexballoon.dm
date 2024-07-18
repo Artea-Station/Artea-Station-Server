@@ -13,7 +13,11 @@
 
 /obj/item/latexballon/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/atmos_sensitive, mapload)
+	become_atmos_sensitive()
+
+/obj/item/latexballon/Destroy(force)
+	lose_atmos_sensitivity()
+	return ..()
 
 /obj/item/latexballon/proc/blow(obj/item/tank/tank, mob/user)
 	if (icon_state == "latexballon_bursted")
@@ -24,11 +28,9 @@
 	to_chat(user, span_notice("You blow up [src] with [tank]."))
 	air_contents = tank.remove_air_volume(3)
 
-/obj/item/latexballon/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
-	return (exposed_temperature > T0C+100)
-
 /obj/item/latexballon/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	burst()
+	if(exposed_temperature > T0C + 100)
+		burst()
 
 /obj/item/latexballon/proc/burst()
 	if (!air_contents || icon_state != "latexballon_blow")

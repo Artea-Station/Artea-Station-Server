@@ -6,7 +6,7 @@
 	var/skin = "doorctrl"
 	power_channel = AREA_USAGE_ENVIRON
 	var/obj/item/assembly/device
-	var/obj/item/electronics/airlock/board
+	var/obj/item/electronics/bulkhead/board
 	var/device_type = null
 	var/id = null
 	var/initialized_button = 0
@@ -86,7 +86,7 @@
 			device = W
 			to_chat(user, span_notice("You add [W] to the button."))
 
-		if(!board && istype(W, /obj/item/electronics/airlock))
+		if(!board && istype(W, /obj/item/electronics/bulkhead))
 			if(!user.transferItemToLoc(W, src))
 				to_chat(user, span_warning("\The [W] is stuck to you!"))
 				return

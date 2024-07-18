@@ -221,7 +221,7 @@
 /obj/item/circuitboard/computer/turbine_computer
 	name = "Turbine Computer"
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
-	build_path = /obj/machinery/computer/turbine_computer
+	//build_path = /obj/machinery/computer/turbine_computer
 
 //Generic
 

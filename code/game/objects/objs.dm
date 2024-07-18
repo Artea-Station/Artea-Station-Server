@@ -44,6 +44,9 @@
 
 	vis_flags = VIS_INHERIT_PLANE //when this be added to vis_contents of something it inherit something.plane, important for visualisation of obj in openspace.
 
+	///How large is the object, used for stuff like whether it can fit in backpacks or not
+	var/w_class = null
+
 	/// Map tag for something.  Tired of it being used on snowflake items.  Moved here for some semblance of a standard.
 	/// Next pr after the network fix will have me refactor door interactions, so help me god.
 	var/id_tag = null
@@ -63,6 +66,7 @@
 	. = ..()
 
 	check_on_table()
+	add_debris_element()
 
 /obj/Destroy(force)
 	if(!ismachinery(src))
@@ -115,8 +119,8 @@
 
 	if(breath_request>0)
 		var/datum/gas_mixture/environment = return_air()
-		var/breath_percentage = BREATH_VOLUME / environment.return_volume()
-		return remove_air(environment.total_moles() * breath_percentage)
+		var/breath_percentage = BREATH_VOLUME / environment.get_volume()
+		return remove_air(environment.total_moles * breath_percentage)
 	else
 		return null
 
@@ -186,6 +190,9 @@
 	return
 
 /mob/proc/set_machine(obj/O)
+	if(QDELETED(src) || QDELETED(O))
+		return
+
 	if(machine)
 		unset_machine()
 	machine = O
@@ -364,15 +371,15 @@
 		. += custom_fire_overlay ? custom_fire_overlay : GLOB.fire_overlay
 
 /// Handles exposing an object to reagents.
-/obj/expose_reagents(list/reagents, datum/reagents/source, methods=TOUCH, volume_modifier=1, show_message=TRUE)
+/obj/expose_reagents(list/reagents, datum/reagents/source, methods=TOUCH, volume_modifier=1, show_message=TRUE, exposed_temperature)
 	. = ..()
 	if(. & COMPONENT_NO_EXPOSE_REAGENTS)
 		return
 
-	SEND_SIGNAL(source, COMSIG_REAGENTS_EXPOSE_OBJ, src, reagents, methods, volume_modifier, show_message)
+	SEND_SIGNAL(source, COMSIG_REAGENTS_EXPOSE_OBJ, src, reagents, methods, volume_modifier, show_message, exposed_temperature)
 	for(var/reagent in reagents)
 		var/datum/reagent/R = reagent
-		. |= R.expose_obj(src, reagents[R])
+		. |= R.expose_obj(src, reagents[R], exposed_temperature)
 
 /// Attempt to freeze this obj if possible. returns TRUE if it succeeded, FALSE otherwise.
 /obj/proc/freeze()

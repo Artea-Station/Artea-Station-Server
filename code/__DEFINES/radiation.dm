@@ -34,11 +34,10 @@ Ask Mothblocks if they're around
 #define RAD_EXTREME_INSULATION 0.5 // What rad collectors have
 #define RAD_FULL_INSULATION 0 // Completely stops radiation from coming through
 
-/// The default chance something can be irradiated
-#define DEFAULT_RADIATION_CHANCE 10
-
 /// The default chance for uranium structures to irradiate
-#define URANIUM_IRRADIATION_CHANCE DEFAULT_RADIATION_CHANCE
+#define IRRADIATION_CHANCE_URANIUM 10
+#define IRRADIATION_CHANCE_PLUTONIUM 20
+#define IRRADIATION_CHANCE_DEPLETED_FUEL 40
 
 /// The minimum exposure time before uranium structures can irradiate
 #define URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME (3 SECONDS)

@@ -40,6 +40,7 @@
 	var/ore_node_seeder_type = /datum/ore_node_seeder
 
 /datum/planet_template/proc/LoadTemplate(datum/overmap_sun_system/system, coordinate_x, coordinate_y)
+	#ifndef DISABLE_OVERMAP_ZS
 	var/old_z = world.maxz
 	var/datum/overmap_object/linked_overmap_object = new overmap_type(system, coordinate_x, coordinate_y)
 	var/picked_rock_color = CHECK_AND_PICK_OR_NULL(rock_color)
@@ -73,6 +74,7 @@
 			WARNING("No area type passed on planet generation")
 		if(!generator_type)
 			WARNING("No generator type passed on planet generation")
+
 		var/datum/space_level/new_level = SSmapping.add_new_zlevel(name, default_traits_input, overmap_obj = linked_overmap_object)
 		if(picked_rock_color)
 			new_level.rock_color = picked_rock_color
@@ -84,7 +86,7 @@
 			new_level.water_color = picked_water_color
 		if(atmosphere_type)
 			var/datum/atmosphere/atmos = new atmosphere_type()
-			SSair.register_planetary_atmos(atmos, new_level.z_value)
+			SSzas.register_planetary_atmos(atmos, new_level.z_value, name)
 			qdel(atmos)
 		if(ore_node_seeder_type)
 			var/datum/ore_node_seeder/seeder = new ore_node_seeder_type
@@ -113,6 +115,9 @@
 
 	//Pass them to the ruin seeder
 	SeedRuins(z_levels)
+	#else
+	return
+	#endif
 
 //Due to the particular way ruins are seeded right now this will be handled through a proc, rather than data-driven as of now
 /datum/planet_template/proc/SeedRuins(list/z_levels)

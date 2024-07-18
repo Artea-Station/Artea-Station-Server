@@ -159,10 +159,11 @@
 	unbuckle_all_mobs(force = TRUE)
 
 	if(loc)
-		//Restore air flow if we were blocking it (movables with ATMOS_PASS_PROC will need to do this manually if necessary)
-		if(((can_atmos_pass == ATMOS_PASS_DENSITY && density) || can_atmos_pass == ATMOS_PASS_NO) && isturf(loc))
-			can_atmos_pass = ATMOS_PASS_YES
-			air_update_turf(TRUE, FALSE)
+		//Restore air flow if we were blocking it (movables with zas_canpass() will need to do this manually if necessary)
+		if(((can_atmos_pass == CANPASS_DENSITY && density) || can_atmos_pass == CANPASS_NEVER) && isturf(loc))
+			can_atmos_pass = CANPASS_ALWAYS
+			zas_update_loc()
+
 		loc.handle_atom_del(src)
 
 	if(opacity)
@@ -215,7 +216,7 @@
 	else if(blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
 		if(!em_block && !QDELETED(src))
 			render_target = ref(src)
-			em_block = new(src, render_target)
+			em_block = new(null, src, render_target)
 		return em_block
 
 /atom/movable/update_overlays()

@@ -27,10 +27,11 @@
 		return FALSE
 
 	//Body temperature stability and damage
-	dna.species.handle_body_temperature(src, delta_time, times_fired)
+	if(dna.species.handle_body_temperature(src, delta_time, times_fired))
+		updatehealth()
 
 	if(!IS_IN_STASIS(src))
-		if(.) //not dead
+		if(stat != DEAD) //not dead
 
 			for(var/datum/mutation/human/HM in dna.mutations) // Handle active genes
 				HM.on_life(delta_time, times_fired)
@@ -96,13 +97,13 @@
 
 		var/datum/species/S = dna.species
 
-		if(S.breathid == "o2")
+		if(S.breathid == GAS_OXYGEN)
 			throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
-		else if(S.breathid == "plas")
+		else if(S.breathid == GAS_PLASMA)
 			throw_alert(ALERT_NOT_ENOUGH_PLASMA, /atom/movable/screen/alert/not_enough_plas)
-		else if(S.breathid == "co2")
+		else if(S.breathid == GAS_CO2)
 			throw_alert(ALERT_NOT_ENOUGH_CO2, /atom/movable/screen/alert/not_enough_co2)
-		else if(S.breathid == "n2")
+		else if(S.breathid == GAS_NITROGEN)
 			throw_alert(ALERT_NOT_ENOUGH_NITRO, /atom/movable/screen/alert/not_enough_nitro)
 
 		return FALSE
@@ -117,7 +118,7 @@
 	if(istype(loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
 		return
 
-	dna.species.handle_environment(src, environment, delta_time, times_fired)
+	return dna.species.handle_environment(src, environment, delta_time, times_fired)
 
 /**
  * Adjust the core temperature of a mob

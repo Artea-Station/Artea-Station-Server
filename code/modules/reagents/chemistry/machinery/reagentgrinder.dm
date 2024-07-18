@@ -1,4 +1,3 @@
-#define MILK_TO_BUTTER_COEFF 15
 
 /obj/machinery/reagentgrinder
 	name = "\improper All-In-One Grinder"
@@ -343,7 +342,7 @@
 	if(!beaker || machine_stat & (NOPOWER|BROKEN))
 		return
 	operate_for(50, juicing = TRUE)
-	addtimer(CALLBACK(src, /obj/machinery/reagentgrinder/proc/mix_complete), 50)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/reagentgrinder, mix_complete)), 50)
 
 /obj/machinery/reagentgrinder/proc/mix_complete()
 	if(beaker?.reagents.total_volume)

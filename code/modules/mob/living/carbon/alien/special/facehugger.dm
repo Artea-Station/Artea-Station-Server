@@ -38,9 +38,12 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-	AddElement(/datum/element/atmos_sensitive, mapload)
-
+	become_atmos_sensitive()
 	RegisterSignal(src, COMSIG_LIVING_TRYING_TO_PULL, PROC_REF(react_to_mob))
+
+/obj/item/clothing/mask/facehugger/Destroy()
+	lose_atmos_sensitivity()
+	return ..()
 
 /obj/item/clothing/mask/facehugger/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	..()
@@ -80,11 +83,9 @@
 	if (sterile)
 		. += span_boldannounce("It looks like the proboscis has been removed.")
 
-/obj/item/clothing/mask/facehugger/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
-	return (exposed_temperature > 300)
-
 /obj/item/clothing/mask/facehugger/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	Die()
+	if(exposed_temperature > 300)
+		Die()
 
 /obj/item/clothing/mask/facehugger/equipped(mob/M)
 	. = ..()

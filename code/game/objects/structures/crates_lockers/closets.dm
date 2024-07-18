@@ -70,7 +70,7 @@
 	/// true whenever someone with the strong pull component (or magnet modsuit module) is dragging this, preventing opening
 	var/strong_grab = FALSE
 	///electronics for access
-	var/obj/item/electronics/airlock/electronics
+	var/obj/item/electronics/bulkhead/electronics
 	var/can_install_electronics = TRUE
 
 	var/contents_initialized = FALSE
@@ -387,7 +387,7 @@
 		if(ispath(material_drop) && material_drop_amount)
 			new material_drop(loc, material_drop_amount)
 		if (electronics)
-			var/obj/item/electronics/airlock/electronics_ref = electronics
+			var/obj/item/electronics/bulkhead/electronics_ref = electronics
 			electronics = null
 			electronics_ref.forceMove(drop_location())
 	dump_contents()
@@ -447,7 +447,7 @@
 							span_hear("You hear welding."))
 			user.log_message("[welded ? "welded":"unwelded"] closet [src] with [W]", LOG_GAME)
 			update_appearance()
-	else if (can_install_electronics && istype(W, /obj/item/electronics/airlock)\
+	else if (can_install_electronics && istype(W, /obj/item/electronics/bulkhead)\
 			&& !secure && !electronics && !locked && (welded || !can_weld_shut) && !broken)
 		user.visible_message(span_notice("[user] installs the electronics into the [src]."),\
 			span_notice("You start to install electronics into the [src]..."))
@@ -476,9 +476,9 @@
 			return FALSE
 		if ((had_electronics && !electronics) || (was_secure && !secure))
 			return FALSE
-		var/obj/item/electronics/airlock/electronics_ref
+		var/obj/item/electronics/bulkhead/electronics_ref
 		if (!electronics)
-			electronics_ref = new /obj/item/electronics/airlock(loc)
+			electronics_ref = new /obj/item/electronics/bulkhead(loc)
 			gen_access()
 			if (req_one_access.len)
 				electronics_ref.one_access = 1
@@ -736,9 +736,6 @@
 
 /obj/structure/closet/AllowDrop()
 	return TRUE
-
-/obj/structure/closet/return_temperature()
-	return
 
 /obj/structure/closet/proc/locker_carbon(datum/source, mob/living/carbon/shover, mob/living/carbon/target, shove_blocked)
 	SIGNAL_HANDLER

@@ -14,7 +14,6 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 
-	thermal_conductivity = 0.04
 	heat_capacity = 10000
 	tiled_dirt = TRUE
 
@@ -300,8 +299,8 @@
 				new_window.update_appearance()
 				return TRUE
 			to_chat(user, span_notice("You build an airlock."))
-			var/obj/machinery/door/airlock/new_airlock = new the_rcd.airlock_type(src)
-			new_airlock.electronics = new /obj/item/electronics/airlock(new_airlock)
+			var/obj/machinery/door/bulkhead/new_airlock = new the_rcd.airlock_type(src)
+			new_airlock.electronics = new /obj/item/electronics/bulkhead(new_airlock)
 			if(the_rcd.airlock_electronics)
 				new_airlock.electronics.accesses = the_rcd.airlock_electronics.accesses.Copy()
 				new_airlock.electronics.one_access = the_rcd.airlock_electronics.one_access

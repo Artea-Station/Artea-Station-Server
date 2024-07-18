@@ -37,16 +37,16 @@
 	var/datum/gas_mixture/air_input = airs[1]
 	var/datum/gas_mixture/air_output = airs[2]
 
-	if(!QUANTIZE(air_input.total_moles()) || !QUANTIZE(air_output.total_moles())) //Don't transfer if there's no gas
+	if(!QUANTIZE(air_input.total_moles) || !QUANTIZE(air_output.total_moles)) //Don't transfer if there's no gas
 		return
-	var/datum/gas_mixture/remove_input = air_input.remove_ratio(0.9)
-	var/datum/gas_mixture/remove_output = air_output.remove_ratio(0.9)
+	var/datum/gas_mixture/remove_input = air_input.removeRatio(0.9)
+	var/datum/gas_mixture/remove_output = air_output.removeRatio(0.9)
 
 	var/coolant_temperature_delta = remove_input.temperature - remove_output.temperature
 
 	if(coolant_temperature_delta > 0)
-		var/input_capacity = remove_input.heat_capacity()
-		var/output_capacity = remove_output.heat_capacity()
+		var/input_capacity = remove_input.getHeatCapacity()
+		var/output_capacity = remove_output.getHeatCapacity()
 
 		var/cooling_heat_amount = (heat_transfer_rate * 0.01) * CALCULATE_CONDUCTION_ENERGY(coolant_temperature_delta, output_capacity, input_capacity)
 		remove_output.temperature = max(remove_output.temperature + (cooling_heat_amount / output_capacity), TCMB)

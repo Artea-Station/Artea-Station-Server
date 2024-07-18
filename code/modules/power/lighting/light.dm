@@ -72,6 +72,9 @@
 	///Power usage - W per unit of luminosity
 	var/power_consumption_rate = 20
 
+	///The area this thing is in.
+	var/area/my_area = null
+
 /obj/machinery/light/Move()
 	if(status != LIGHT_BROKEN)
 		break_light_tube(TRUE)
@@ -90,11 +93,14 @@
 		cell = new/obj/item/stock_parts/cell/emergency_light(src)
 
 	RegisterSignal(src, COMSIG_LIGHT_EATER_ACT, PROC_REF(on_light_eater))
-	AddElement(/datum/element/atmos_sensitive, mapload)
+	become_atmos_sensitive()
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/light/LateInitialize()
 	. = ..()
+	my_area = get_area(src)
+	if(my_area)
+		LAZYADD(my_area.lights, src)
 	switch(fitting)
 		if("tube")
 			if(prob(2))
@@ -105,17 +111,19 @@
 	addtimer(CALLBACK(src, PROC_REF(update), FALSE), 0.1 SECONDS)
 
 /obj/machinery/light/Destroy()
-	var/area/local_area =get_room_area(src)
-	if(local_area)
+	if(my_area)
 		on = FALSE
+		LAZYREMOVE(my_area.lights, src)
+	my_area = null
 	QDEL_NULL(cell)
+	lose_atmos_sensitivity()
 	return ..()
 
 /obj/machinery/light/update_icon_state()
 	switch(status) // set icon_states
 		if(LIGHT_OK)
 			var/area/local_area =get_room_area(src)
-			if(low_power_mode || major_emergency || (local_area?.fire))
+			if(low_power_mode || major_emergency || length(local_area?.active_alarms[ALARM_FIRE]))
 				icon_state = "[base_state]_emergency"
 			else
 				icon_state = "[base_state]"
@@ -133,7 +141,7 @@
 		return
 
 	var/area/local_area = get_room_area(src)
-	if(low_power_mode || major_emergency || (local_area?.fire))
+	if(low_power_mode || major_emergency || length(local_area?.active_alarms[ALARM_FIRE]))
 		. += mutable_appearance(overlay_icon, "[base_state]_emergency")
 		return
 	if(nightshift_enabled)
@@ -153,7 +161,7 @@
 /obj/machinery/light/on_enter_area(datum/source, area/area_to_register)
 	..()
 	RegisterSignal(area_to_register, COMSIG_AREA_FIRE_CHANGED, PROC_REF(handle_fire))
-	handle_fire(area_to_register, area_to_register.fire)
+	handle_fire()
 
 /obj/machinery/light/on_exit_area(datum/source, area/area_to_unregister)
 	..()
@@ -178,7 +186,7 @@
 		if(reagents)
 			START_PROCESSING(SSmachines, src)
 		var/area/local_area =get_room_area(src)
-		if (local_area?.fire)
+		if (length(local_area?.active_alarms[ALARM_FIRE]))
 			color_set = bulb_low_power_colour
 		else if (nightshift_enabled)
 			brightness_set -= brightness_set * NIGHTSHIFT_LIGHT_MODIFIER
@@ -231,7 +239,7 @@
 	else if(on) //Light is on, just recalculate usage
 		var/static_power_used_new = 0
 		var/area/local_area = get_room_area(src)
-		if (nightshift_enabled && !local_area?.fire)
+		if (nightshift_enabled && !length(local_area?.active_alarms[ALARM_FIRE]))
 			static_power_used_new = nightshift_brightness * (bulb_power * NIGHTSHIFT_LIGHT_MODIFIER) * power_consumption_rate
 		else
 			static_power_used_new = brightness * bulb_power * power_consumption_rate
@@ -621,11 +629,6 @@
 	var/area/local_area =get_room_area(src)
 	set_on(local_area.lightswitch && local_area.power_light)
 
-// called when heated
-
-/obj/machinery/light/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
-	return exposed_temperature > 673
-
 /obj/machinery/light/atmos_expose(datum/gas_mixture/air, exposed_temperature)
 	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
 		break_light_tube()
@@ -647,11 +650,12 @@
 	icon = 'icons/obj/lighting.dmi'
 	base_state = "floor" // base description and icon_state
 	icon_state = "floor"
-	brightness = 4
+	brightness = 2
 	layer = LOW_OBJ_LAYER
 	plane = FLOOR_PLANE
 	light_type = /obj/item/light/bulb
 	fitting = "bulb"
+	bulb_power = 0.4
 
 #undef NIGHTSHIFT_LIGHT_MODIFIER
 #undef NIGHTSHIFT_COLOR_MODIFIER

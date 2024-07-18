@@ -12,7 +12,7 @@
 	name = "Generic Maintenance"
 	ambience_index = AMBIENCE_MAINT
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED | PERSISTENT_ENGRAVINGS
-	airlock_wires = /datum/wires/airlock/maint
+	airlock_wires = /datum/wires/bulkhead/maint
 	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 	forced_ambience = TRUE
 	ambient_buzz = 'sound/ambience/source_corridor2.ogg'
@@ -59,6 +59,9 @@
 /area/station/maintenance/department/security/upper
 	name = "Upper Security Maintenance"
 
+/area/station/maintenance/department/security/lower
+	name = "Lower Security Maintenance"
+
 /area/station/maintenance/department/security/brig
 	name = "Brig Maintenance"
 	icon_state = "maint_brig"
@@ -70,6 +73,12 @@
 /area/station/maintenance/department/medical/central
 	name = "Central Medbay Maintenance"
 	icon_state = "medbay_maint_central"
+
+/area/station/maintenance/department/medical/upper
+	name = "Upper Medbay Maintenace"
+
+/area/station/maintenance/department/medical/lower
+	name = "Lower Medbay Maintenance"
 
 /area/station/maintenance/department/medical/morgue
 	name = "Morgue Maintenance"
@@ -87,13 +96,46 @@
 	name = "Cargo Maintenance"
 	icon_state = "maint_cargo"
 
+/area/station/maintenance/department/cargo/upper
+	name = "Upper Cargo Maintenance"
+
+/area/station/maintenance/department/cargo/lower
+	name = "Lower Cargo Maintenance"
+
+/area/station/maintenance/department/cargo/hangar
+	name = "Abandoned Hangar"
+
 /area/station/maintenance/department/bridge
 	name = "Bridge Maintenance"
 	icon_state = "maint_bridge"
 
+/area/station/maintenance/department/command
+	name = "Command Maintenance"
+	icon_state = "command_maint"
+
+/area/station/maintenance/department/pathfinders
+	name = "Pathfinders Maintenance"
+	icon_state = "pathfinders_maint"
+
+/area/station/maintenance/department/pathfinders/greater
+	name = "Greater Pathfinders Maintenance"
+
+/area/station/maintenance/department/pathfinders/lesser
+	name = "Lesser Pathfinders Maintenance"
+
 /area/station/maintenance/department/engine
 	name = "Engineering Maintenance"
 	icon_state = "maint_engi"
+
+/area/station/maintenance/department/engine/gravity_generator
+	name = "Gravity Generator Maintenance"
+	icon_state = "maint_engi"
+
+/area/station/maintenance/department/engine/gravity_generator/greater
+	name = "Greater Gravity Generator Maintenance"
+
+/area/station/maintenance/department/engine/gravity_generator/lesser
+	name = "Lesser Gravity Generator Maintenance"
 
 /area/station/maintenance/department/science/xenobiology
 	name = "Xenobiology Maintenance"
@@ -358,13 +400,41 @@
 	name = "\improper Service Hallway"
 	icon_state = "hall_service"
 
+/area/station/hallway/secondary/dock
+	name = "\improper Shuttle Docks"
+	icon_state = "docks"
+
+/area/station/hallway/secondary/dock/one
+	name = "\improper Shuttle Dock 1"
+	icon_state = "dock_1"
+
+/area/station/hallway/secondary/dock/two
+	name = "\improper Shuttle Dock 2"
+	icon_state = "dock_2"
+
+/area/station/hallway/secondary/dock/three
+	name = "\improper Shuttle Dock 3"
+	icon_state = "dock_3"
+
+/area/station/hallway/secondary/dock/four
+	name = "\improper Shuttle Dock 4"
+	icon_state = "dock_4"
+
+/area/station/hallway/secondary/dock/five
+	name = "\improper Shuttle Dock 5"
+	icon_state = "dock_5"
+
+/area/station/hallway/secondary/dock/six
+	name = "\improper Shuttle Dock 6"
+	icon_state = "dock_6"
+
 //Command
 
 /area/station/command
 	name = "Command"
 	icon_state = "command"
 	ambientsounds = list('sound/ambience/signal.ogg')
-	airlock_wires = /datum/wires/airlock/command
+	airlock_wires = /datum/wires/bulkhead/command
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/station/command/bridge
@@ -438,6 +508,11 @@
 	name = "\improper Gateway"
 	icon_state = "gateway"
 	ambience_index = AMBIENCE_ENGI
+
+/area/station/command/internal_affairs_office
+	name = "\improper Internal Affairs Office"
+	icon_state = "iaa_office"
+	sound_environment = SOUND_AREA_WOODFLOOR
 
 //Commons
 
@@ -576,7 +651,7 @@
 //Service
 
 /area/station/service
-	airlock_wires = /datum/wires/airlock/service
+	airlock_wires = /datum/wires/bulkhead/service
 
 /area/station/service/cafeteria
 	name = "\improper Cafeteria"
@@ -609,7 +684,7 @@
 	mood_bonus = 5
 	mood_message = "I love being in the bar!"
 	mood_trait = TRAIT_EXTROVERT
-	airlock_wires = /datum/wires/airlock/service
+	airlock_wires = /datum/wires/bulkhead/service
 	sound_environment = SOUND_AREA_WOODFLOOR
 
 /area/station/service/bar/Initialize(mapload)
@@ -731,7 +806,7 @@
 /area/station/service/hydroponics
 	name = "Hydroponics"
 	icon_state = "hydro"
-	airlock_wires = /datum/wires/airlock/service
+	airlock_wires = /datum/wires/bulkhead/service
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/station/service/hydroponics/upper
@@ -756,7 +831,7 @@
 /area/station/engineering
 	icon_state = "engie"
 	ambience_index = AMBIENCE_ENGI
-	airlock_wires = /datum/wires/airlock/engineering
+	airlock_wires = /datum/wires/bulkhead/engineering
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/station/engineering/engine_smes
@@ -853,6 +928,22 @@
 	icon_state = "engine_sm_room"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
+/area/station/engineering/reactor_core
+	name = "\improper Nuclear Reactor Core"
+	icon_state = "engine_sm"
+
+/area/station/engineering/reactor_control
+	name = "\improper Reactor Control Room"
+	icon_state = "engine_sm"
+
+/area/station/engineering/reactor_hallway
+	name = "\improper Reactor Hallway"
+	icon_state = "engine_sm"
+
+/area/station/engineering/reactor_substation
+	name = "\improper Reactor Substation"
+	icon_state = "engine_sm"
+
 /area/station/engineering/break_room
 	name = "\improper Engineering Foyer"
 	icon_state = "engine_break"
@@ -863,6 +954,10 @@
 	icon_state = "grav_gen"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
+/area/station/engineering/shield_generator
+	name = "\improper Shield Generator Room"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
 /area/station/engineering/storage
 	name = "Engineering Storage"
 	icon_state = "engine_storage"
@@ -871,6 +966,11 @@
 /area/station/engineering/storage_shared
 	name = "Shared Engineering Storage"
 	icon_state = "engine_storage_shared"
+
+/area/station/engineering/secure_storage
+	name = "Secure Storage"
+	icon_state = "engine_storage"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/station/engineering/transit_tube
 	name = "\improper Transit Tube"
@@ -910,7 +1010,7 @@
 	area_flags = UNIQUE_AREA | AREA_USES_STARLIGHT
 	flags_1 = NONE
 	ambience_index = AMBIENCE_ENGI
-	airlock_wires = /datum/wires/airlock/engineering
+	airlock_wires = /datum/wires/bulkhead/engineering
 	sound_environment = SOUND_AREA_SPACE
 	base_lighting_alpha = 255
 
@@ -996,7 +1096,7 @@
 	name = "Medical"
 	icon_state = "medbay"
 	ambience_index = AMBIENCE_MEDICAL
-	airlock_wires = /datum/wires/airlock/medbay
+	airlock_wires = /datum/wires/bulkhead/medbay
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	min_ambience_cooldown = 90 SECONDS
 	max_ambience_cooldown = 180 SECONDS
@@ -1118,7 +1218,7 @@
 	name = "Security"
 	icon_state = "security"
 	ambience_index = AMBIENCE_DANGER
-	airlock_wires = /datum/wires/airlock/security
+	airlock_wires = /datum/wires/bulkhead/security
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/station/security/office
@@ -1197,11 +1297,11 @@
 	name = "\improper Prison Garden"
 	icon_state = "prison_garden"
 
-/area/station/security/processing
+/area/station/security/labor_shuttle_dock
 	name = "\improper Labor Shuttle Dock"
 	icon_state = "sec_labor_processing"
 
-/area/station/security/processing/cremation
+/area/station/security/cremation
 	name = "\improper Security Crematorium"
 	icon_state = "sec_cremation"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
@@ -1289,12 +1389,21 @@
 	name = "Aft Customs"
 	icon_state = "customs_point_aft"
 
+/area/station/security/evidence
+	name = "Evidence Storage"
+
+/area/station/security/desk
+	name = "Security Desk"
+
+/area/station/security/processing
+	name = "Processing"
+
 //Cargo
 
 /area/station/cargo
 	name = "Quartermasters"
 	icon_state = "quart"
-	airlock_wires = /datum/wires/airlock/service
+	airlock_wires = /datum/wires/bulkhead/service
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/station/cargo/sorting
@@ -1348,7 +1457,7 @@
 /area/station/science
 	name = "\improper Science Division"
 	icon_state = "science"
-	airlock_wires = /datum/wires/airlock/science
+	airlock_wires = /datum/wires/bulkhead/science
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/station/science/lobby
@@ -1463,7 +1572,7 @@
 	icon_state = "tcomsatcham"
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen9.ogg', 'sound/ambience/ambitech.ogg',\
 											'sound/ambience/ambitech2.ogg', 'sound/ambience/ambitech3.ogg', 'sound/ambience/ambimystery.ogg')
-	airlock_wires = /datum/wires/airlock/engineering
+	airlock_wires = /datum/wires/bulkhead/engineering
 
 /area/station/tcommsat/computer
 	name = "\improper Telecomms Control Room"
@@ -1509,7 +1618,7 @@
 	name = "\improper Pathfinders Lobby"
 	icon_state = "pathfinders"
 	ambience_index = AMBIENCE_ENGI
-	airlock_wires = /datum/wires/airlock/pathfinders
+	airlock_wires = /datum/wires/bulkhead/pathfinders
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/station/pathfinders/storage
@@ -1521,6 +1630,9 @@
 /area/station/pathfinders/locker_room
 	name = "\improper Pathfinders Locker room"
 
+/area/station/pathfinders/office
+	name = "\improper Pathfinders Office"
+
 /area/station/pathfinders/lead_office
 	name = "\improper Lead Pathfinder Office"
 
@@ -1529,3 +1641,6 @@
 
 /area/station/pathfinders/pathfinders_armory
 	name = "\improper Pathfinders Armory"
+
+/area/station/pathfinders/pathfinders_hallway
+	name = "\improper Pathfinders Hallway"

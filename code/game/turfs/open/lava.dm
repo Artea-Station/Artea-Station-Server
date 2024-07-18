@@ -13,6 +13,8 @@
 	light_on = FALSE
 	bullet_bounce_sound = 'sound/items/welder2.ogg'
 
+	simulated = FALSE
+
 	footstep = FOOTSTEP_LAVA
 	barefootstep = FOOTSTEP_LAVA
 	clawfootstep = FOOTSTEP_LAVA
@@ -103,7 +105,7 @@
 	return
 
 /turf/open/lava/airless
-	initial_gas_mix = AIRLESS_ATMOS
+	initial_gas = AIRLESS_ATMOS
 
 /turf/open/lava/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	if(burn_stuff(arrived))
@@ -295,6 +297,9 @@
 		burn_living.adjust_fire_stacks(lava_firestacks * delta_time)
 		burn_living.ignite_mob()
 
+/turf/open/lava/can_cross_safely(atom/movable/crossing)
+	return HAS_TRAIT(crossing, immunity_trait) || HAS_TRAIT(crossing, TRAIT_MOVE_FLYING)
+
 /turf/open/lava/smooth
 	name = "lava"
 	baseturfs = /turf/open/lava/smooth
@@ -309,18 +314,16 @@
 	underfloor_accessibility = UNDERFLOOR_INTERACTABLE //This avoids strangeness when routing pipes / wires along catwalks over lava
 
 /turf/open/lava/smooth/lava_land_surface
-	initial_gas_mix = PLANETARY_ATMOS
-	planetary_atmos = TRUE
+	initial_gas = PLANETARY_ATMOS
 	baseturfs = /turf/open/lava/smooth/lava_land_surface
 
 /turf/open/lava/smooth/airless
-	initial_gas_mix = AIRLESS_ATMOS
+	initial_gas = AIRLESS_ATMOS
 
 /turf/open/lava/plasma
 	name = "liquid plasma"
 	desc = "A flowing stream of chilled liquid plasma. You probably shouldn't get in."
 	icon_state = "liquidplasma"
-	initial_gas_mix = "n2=82;plasma=24;TEMP=120"
 	baseturfs = /turf/open/lava/plasma
 
 	light_range = 3
@@ -400,6 +403,6 @@
 
 //mafia specific tame happy plasma (normal atmos, no slowdown)
 /turf/open/lava/plasma/mafia
-	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+	initial_gas = PLANETARY_ATMOS
 	baseturfs = /turf/open/lava/plasma/mafia
 	slowdown = 0

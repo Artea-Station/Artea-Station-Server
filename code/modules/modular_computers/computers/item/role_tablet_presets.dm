@@ -102,9 +102,9 @@
 		/datum/computer_file/program/crew_manifest,
 		/datum/computer_file/program/status,
 		/datum/computer_file/program/science,
-		/datum/computer_file/program/robocontrol,
 		/datum/computer_file/program/shipping,
 		/datum/computer_file/program/robocontrol,
+		/datum/computer_file/program/restock_tracker,
 	)
 
 /**
@@ -251,6 +251,7 @@
 	starting_programs = list(
 		/datum/computer_file/program/shipping,
 		/datum/computer_file/program/robocontrol,
+		/datum/computer_file/program/restock_tracker,
 	)
 
 /obj/item/modular_computer/pda/shaftminer

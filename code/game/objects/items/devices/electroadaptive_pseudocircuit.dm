@@ -9,7 +9,7 @@
 	var/recharging = FALSE
 	var/circuits = 5 //How many circuits the pseudocircuit has left
 	var/static/recycleable_circuits = typecacheof(list(
-		/obj/item/electronics/firelock,
+		/obj/item/electronics/firehead,
 		/obj/item/electronics/airalarm,
 		/obj/item/electronics/firealarm,
 		/obj/item/electronics/apc,

@@ -19,7 +19,8 @@
 		return
 	var/turf/location = get_turf(src)
 	if(location)
-		new /obj/effect/hotspot(location)
+		//.new /obj/effect/hotspot(location)
+		location.create_fire(1, 10)
 		location.hotspot_expose(700, 50, 1)
 
 /// Incendiary bullet that more closely resembles a real flamethrower sorta deal, no visible bullet, just flames.
@@ -45,7 +46,8 @@
 	. = ..()
 	var/turf/location = get_turf(target)
 	if(isopenturf(location))
-		new /obj/effect/hotspot(location)
+		//new /obj/effect/hotspot(location)
+		location.create_fire(1, 10)
 		location.hotspot_expose(700, 50, 1)
 
 /// Used in [the backblast element][/datum/element/backblast]

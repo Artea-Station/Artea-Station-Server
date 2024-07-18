@@ -95,12 +95,12 @@
 
 /datum/atmosphere/chlorine
 	base_gases = list(
-		/datum/gas/nitrogen=80,
-		/datum/gas/carbon_dioxide=20
-	) //CO2 because chlorine gas isn't a thing now
+		GAS_NITROGEN=80,
+		GAS_CHLORINE=20
+	) //CO2 because chlorine gas isn't a thing now // Except it is!
 	normal_gases = list(
-		/datum/gas/oxygen=5,
-		/datum/gas/nitrogen=5
+		GAS_OXYGEN=5,
+		GAS_NITROGEN=5
 	)
 	restricted_chance = 0
 

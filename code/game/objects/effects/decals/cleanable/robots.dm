@@ -86,6 +86,7 @@
 	. = ..()
 	AddComponent(/datum/component/smell, SCENT_HAZE, "industrial lubricant", 3)
 
+
 /obj/effect/decal/cleanable/oil/attackby(obj/item/I, mob/living/user)
 	var/attacked_by_hot_thing = I.get_temperature()
 	if(attacked_by_hot_thing)
@@ -98,10 +99,11 @@
 /obj/effect/decal/cleanable/oil/fire_act(exposed_temperature, exposed_volume)
 	if(exposed_temperature < 480)
 		return
-	visible_message(span_danger("[src] catches fire!"))
-	var/turf/T = get_turf(src)
-	qdel(src)
-	new /obj/effect/hotspot(T)
+	if(isturf(loc))
+		var/turf/T = loc
+		if(!T.fire)
+			visible_message(span_danger("[src] catches fire!"))
+			T.create_fire()
 
 /obj/effect/decal/cleanable/oil/streak
 	icon_state = "streak1"

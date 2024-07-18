@@ -87,11 +87,11 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/stealthy_audio = FALSE
 
 	///How large is the object, used for stuff like whether it can fit in backpacks or not
-	var/w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_NORMAL
 	///This is used to determine on which slots an item can fit.
 	var/slot_flags = 0
 	pass_flags = PASSTABLE
-	pressure_resistance = 4
+	//pressure_resistance = 4
 	/// This var exists as a weird proxy "owner" ref
 	/// It's used in a few places. Stop using it, and optimially replace all uses please
 	var/obj/item/master = null
@@ -215,6 +215,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/offensive_notes
 	/// Used in obj/item/examine to determines whether or not to detail an item's statistics even if it does not meet the force requirements
 	var/override_notes = FALSE
+	/// If TRUE, ignores lighting checks for if this item can be read or not.
+	var/self_lighting = FALSE
 
 /obj/item/Initialize(mapload)
 

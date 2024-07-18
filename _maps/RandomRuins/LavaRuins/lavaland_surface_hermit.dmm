@@ -135,7 +135,7 @@
 /obj/effect/decal/cleanable/blood/footprints{
 	dir = 1
 	},
-/obj/machinery/door/airlock/survival_pod/glass,
+/obj/machinery/door/bulkhead/survival_pod/glass,
 /obj/structure/fans/tiny,
 /turf/open/floor/pod/dark,
 /area/ruin/powered)
@@ -152,7 +152,7 @@
 /turf/closed/wall/mineral/titanium/interior,
 /area/ruin/powered)
 "H" = (
-/obj/machinery/door/airlock/titanium{
+/obj/machinery/door/bulkhead/titanium{
 	name = "Escape Pod Airlock"
 	},
 /turf/open/floor/mineral/titanium/blue,
@@ -166,7 +166,7 @@
 "J" = (
 /obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating{
-	initial_gas_mix = "PLANETARY_ATMOS"
+	initial_gas = list("planetary" = 1)
 	},
 /area/ruin/powered)
 "L" = (

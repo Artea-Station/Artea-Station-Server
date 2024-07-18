@@ -15,7 +15,11 @@
 
 	density = TRUE
 
+	var/recent_moles_transferred = 0
+	var/volume_capacity_used = 0
+
 	circuit = /obj/item/circuitboard/machine/circulator
+	initial_volume = 200
 
 	var/flipped = 0
 	var/mode = CIRCULATOR_HOT
@@ -27,6 +31,15 @@
 
 /obj/machinery/atmospherics/components/binary/circulator/AltClick(mob/user)
 	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
+
+/obj/machinery/atmospherics/components/binary/circulator/New()
+	. = ..()
+	airs[2].volume = 400 //The input has a larger volume than the output
+
+/obj/machinery/atmospherics/components/binary/circulator/is_connectable()
+	if(!anchored)
+		return FALSE
+	return ..()
 
 //default cold circ for mappers
 /obj/machinery/atmospherics/components/binary/circulator/cold
@@ -41,36 +54,35 @@
 
 	var/datum/gas_mixture/air1 = airs[1]
 	var/datum/gas_mixture/air2 = airs[2]
+	var/datum/pipeline/input_pipeline = parents[2]
+	if(!input_pipeline)
+		return
 
-	var/output_starting_pressure = air1.return_pressure()
-	var/input_starting_pressure = air2.return_pressure()
+	var/output_starting_pressure = air1.returnPressure()
+	var/input_starting_pressure = air2.returnPressure()
+	last_pressure_delta = max(input_starting_pressure - output_starting_pressure - 5, 0)
 
-	if(output_starting_pressure >= input_starting_pressure-10)
-		//Need at least 10 KPa difference to overcome friction in the mechanism
-		last_pressure_delta = 0
-		return null
+	//only circulate air if there is a pressure difference (plus 5kPa kinetic, 10kPa static friction)
+	if(air1.temperature > 0 && last_pressure_delta > 5)
 
-	//Calculate necessary moles to transfer using PV = nRT
-	if(air2.temperature>0)
-		var/pressure_delta = (input_starting_pressure - output_starting_pressure)/2
+		//Calculate necessary moles to transfer using PV = nRT
+		recent_moles_transferred = (last_pressure_delta*input_pipeline.combined_volume/(air2.temperature * R_IDEAL_GAS_EQUATION))/3 //uses the volume of the whole network, not just itself
+		volume_capacity_used = min( (last_pressure_delta*input_pipeline.combined_volume/3)/(input_starting_pressure*air2.volume) , 1) //how much of the gas in the input air volume is consumed
 
-		var/transfer_moles = (pressure_delta*air1.volume)/(air2.temperature * R_IDEAL_GAS_EQUATION)
+		// //Calculate energy generated from kinetic turbine
+		// stored_energy += 1/ADIABATIC_EXPONENT * min(last_pressure_delta * input_pipeline.combined_volume , input_starting_pressure*air2.volume) * (1 - volume_ratio**ADIABATIC_EXPONENT) * kinetic_efficiency
 
-		last_pressure_delta = pressure_delta
+		// //Actually transfer the gas
+		// removed = air2.remove(recent_moles_transferred)
 
-		//Actually transfer the gas
-		var/datum/gas_mixture/removed = air2.remove(transfer_moles)
-
-		update_parents()
-
-		return removed
+		// NOTE: Typically you'd update parents here, but its all handled by the generator itself.
 
 	else
 		last_pressure_delta = 0
 
 /obj/machinery/atmospherics/components/binary/circulator/process_atmos()
 	..()
-	update_appearance()
+	update_appearance(UPDATE_OVERLAYS|UPDATE_ICON_STATE)
 
 /obj/machinery/atmospherics/components/binary/circulator/update_icon_state()
 	if(!is_operational)
@@ -122,7 +134,7 @@
 		if(node2)
 			node2.atmos_init()
 			node2.add_member(src)
-		SSair.add_to_rebuild_queue(src)
+		SSairmachines.add_to_rebuild_queue(src)
 
 	return TRUE
 

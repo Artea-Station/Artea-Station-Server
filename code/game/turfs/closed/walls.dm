@@ -1,7 +1,7 @@
 #define MAX_DENT_DECALS 15
 /// Typecache of all objects that we seek out to apply a neighbor stripe overlay
 GLOBAL_REAL_VAR(neighbor_typecache) = typecacheof(list(
-	/obj/machinery/door/airlock,
+	/obj/machinery/door/bulkhead,
 	/obj/structure/window/reinforced/fulltile,
 	/obj/structure/window/fulltile,
 	/obj/structure/window/reinforced/shuttle,
@@ -21,10 +21,7 @@ GLOBAL_REAL_VAR(wall_overlays_cache) = list()
 	base_icon_state = "wall"
 
 	explosion_block = 1
-
-	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
-	heat_capacity = 62500 //a little over 5 cm thick , 62500 for 1 m by 2.5 m by 0.25 m iron wall. also indicates the temperature at wich the wall will melt (currently only able to melt with H/E pipes)
-
+	blocks_air = AIR_BLOCKED
 	baseturfs = /turf/open/floor/plating
 
 	flags_ricochet = RICOCHET_HARD
@@ -33,6 +30,8 @@ GLOBAL_REAL_VAR(wall_overlays_cache) = list()
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_LOW_WALL, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTERS_BLASTDOORS)
 	lighting_uses_jen = TRUE
+
+	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
 
 	rcd_memory = RCD_MEMORY_WALL
 
@@ -75,7 +74,7 @@ GLOBAL_REAL_VAR(wall_overlays_cache) = list()
 	VAR_PRIVATE/cache_key
 
 	// Vars for bullet hitting wall interactions
-	max_integrity = 100 // Most common ballistics deal 20-30 damage a shot.
+	max_integrity = 300 // Most common ballistics deal 20-30 damage a shot.
 	damage_deflection = 5
 
 /turf/closed/wall/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)

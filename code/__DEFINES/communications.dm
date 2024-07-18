@@ -8,5 +8,8 @@
 #define SEC_LEVEL_BLUE 1
 /// Security level is red. (hostile threats)
 #define SEC_LEVEL_RED 2
-/// Security level is delta. (station destruction immiment) 
+/// Security level is delta. (station destruction immiment)
 #define SEC_LEVEL_DELTA 3
+
+/// The range things that use the airlock controller have.
+#define AIRLOCK_CONTROL_RANGE 10

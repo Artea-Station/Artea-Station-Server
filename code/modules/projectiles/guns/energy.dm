@@ -44,18 +44,21 @@
 	// How many shots left before the energy gun's current battery runs out of energy
 	var/shots_left = 0
 	// What frequency the energy gun's sound will make
-	var/frequency_to_use = 0
+	var/pitch_to_use = 0
 
 	if(shot.e_cost > 0)
 		shot_cost_percent = FLOOR(clamp(shot.e_cost / cell.maxcharge, 0, 1) * 100, 1)
-		max_shots = round(100/shot_cost_percent)
-		shots_left = round(batt_percent/shot_cost_percent)
-		frequency_to_use = sin((90/max_shots) * shots_left)
+		max_shots = round(100/shot_cost_percent) - 1
+		shots_left = round(batt_percent/shot_cost_percent) - 1
+		pitch_to_use = LERP(1, 0.3, (1 - (shots_left/max_shots)) ** 2)
+
+	var/sound/playing_sound = sound(suppressed ? suppressed_sound : fire_sound)
+	playing_sound.pitch = pitch_to_use
 
 	if(suppressed)
-		playsound(src, suppressed_sound, suppressed_volume, vary_fire_sound, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0, frequency = frequency_to_use)
+		playsound(src, playing_sound, suppressed_volume, vary_fire_sound, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 	else
-		playsound(src, fire_sound, fire_sound_volume, vary_fire_sound, frequency = frequency_to_use)
+		playsound(src, playing_sound, fire_sound_volume, vary_fire_sound)
 
 /obj/item/gun/energy/emp_act(severity)
 	. = ..()

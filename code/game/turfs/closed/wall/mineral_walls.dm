@@ -68,7 +68,7 @@
 		src,
 		max_range = 3,
 		threshold = RAD_LIGHT_INSULATION,
-		chance = URANIUM_IRRADIATION_CHANCE,
+		chance = IRRADIATION_CHANCE_URANIUM,
 		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
 	)
 	propagate_radiation_pulse()
@@ -90,7 +90,6 @@
 /turf/closed/wall/mineral/plasma
 	name = "plasma wall"
 	desc = "A wall with plasma plating. This is definitely a bad idea."
-	thermal_conductivity = 0.04
 	plating_material = /datum/material/plasma
 	color = "#c162ec" //To display in mapping softwares
 

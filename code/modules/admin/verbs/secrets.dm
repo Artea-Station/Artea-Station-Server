@@ -70,7 +70,7 @@ GLOBAL_DATUM(everyone_a_traitor, /datum/everyone_is_a_traitor_controller)
 		if("maint_access_engiebrig")
 			if(!is_debugger)
 				return
-			for(var/obj/machinery/door/airlock/maintenance/M in GLOB.machines)
+			for(var/obj/machinery/door/bulkhead/maintenance/M in GLOB.machines)
 				M.check_access()
 				if (ACCESS_MAINT_TUNNELS in M.req_access)
 					M.req_access = list()
@@ -79,7 +79,7 @@ GLOBAL_DATUM(everyone_a_traitor, /datum/everyone_is_a_traitor_controller)
 		if("maint_access_brig")
 			if(!is_debugger)
 				return
-			for(var/obj/machinery/door/airlock/maintenance/M in GLOB.machines)
+			for(var/obj/machinery/door/bulkhead/maintenance/M in GLOB.machines)
 				M.check_access()
 				if (ACCESS_MAINT_TUNNELS in M.req_access)
 					M.req_access = list(ACCESS_BRIG)
@@ -331,7 +331,7 @@ GLOBAL_DATUM(everyone_a_traitor, /datum/everyone_is_a_traitor_controller)
 			if(!is_funmin)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Egalitarian Station"))
-			for(var/obj/machinery/door/airlock/W in GLOB.machines)
+			for(var/obj/machinery/door/bulkhead/W in GLOB.machines)
 				if(is_station_level(W.z) && !istype(get_area(W), /area/station/command) && !istype(get_area(W), /area/station/commons) && !istype(get_area(W), /area/station/service) && !istype(get_area(W), /area/station/command/heads_quarters) && !istype(get_area(W), /area/station/security/prison))
 					W.req_access = list()
 			message_admins("[key_name_admin(holder)] activated Egalitarian Station mode")
@@ -437,12 +437,12 @@ GLOBAL_DATUM(everyone_a_traitor, /datum/everyone_is_a_traitor_controller)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Bomb Cap"))
 
-			var/newBombCap = input(holder,"What would you like the new bomb cap to be. (entered as the light damage range (the 3rd number in common (1,2,3) notation)) Must be above 4)", "New Bomb Cap", GLOB.MAX_EX_LIGHT_RANGE) as num|null
-			if (!CONFIG_SET(number/bombcap, newBombCap))
+			var/newBombCap = input(holder,"What would you like the new bomb cap to be. (entered as the light damage range (the 3rd number in common (1,2,3) notation)) Must be above 4)", "New Bomb Cap", zas_settings.maxex_light_range) as num|null
+			if(!newBombCap)
 				return
-
-			message_admins(span_boldannounce("[key_name_admin(holder)] changed the bomb cap to [GLOB.MAX_EX_DEVESTATION_RANGE], [GLOB.MAX_EX_HEAVY_RANGE], [GLOB.MAX_EX_LIGHT_RANGE]"))
-			log_admin("[key_name(holder)] changed the bomb cap to [GLOB.MAX_EX_DEVESTATION_RANGE], [GLOB.MAX_EX_HEAVY_RANGE], [GLOB.MAX_EX_LIGHT_RANGE]")
+			zas_settings.set_bomb_cap(newBombCap)
+			message_admins(span_boldannounce("[key_name_admin(holder)] changed the bomb cap to [zas_settings.maxex_devastation_range], [zas_settings.maxex_heavy_range], [zas_settings.maxex_light_range], [zas_settings.maxex_fire_range], [zas_settings.maxex_flash_range]"))
+			log_admin("[key_name_admin(holder)] changed the bomb cap to [zas_settings.maxex_devastation_range], [zas_settings.maxex_heavy_range], [zas_settings.maxex_light_range], [zas_settings.maxex_fire_range], [zas_settings.maxex_flash_range]")
 		//buttons that are fun for exactly you and nobody else.
 		if("monkey")
 			if(!is_funmin)

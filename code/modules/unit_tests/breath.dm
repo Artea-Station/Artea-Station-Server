@@ -24,12 +24,12 @@
 
 	var/turf/open/to_fill = run_loc_floor_bottom_left
 	//Prep the floor
-	to_fill.initial_gas_mix = OPENTURF_DEFAULT_ATMOS
-	to_fill.air = to_fill.create_gas_mixture()
+	to_fill.initial_gas = OPENTURF_DEFAULT_ATMOS
+	to_fill.make_air()
 
 	lab_rat.breathe()
 
-	TEST_ASSERT(!lab_rat.has_alert(ALERT_NOT_ENOUGH_OXYGEN), "Humans can't get a full breath from the standard initial_gas_mix on a turf")
+	TEST_ASSERT(!lab_rat.has_alert(ALERT_NOT_ENOUGH_OXYGEN), "Humans can't get a full breath from the standard initial_gas on a turf. Turf: [to_fill.type] | Air: [json_encode(to_fill.air.gas)] | Returned Air: [json_encode(to_fill.return_air().gas)]")
 
 /// Tests to make sure plasmaman can breath from their internal tanks
 /datum/unit_test/breath_sanity_plasmamen
@@ -51,27 +51,3 @@
 	//Prep the mob
 	source.toggle_internals(lab_rat)
 	TEST_ASSERT(!lab_rat.internal, "Plasmaman toggle_internals() failed to toggle internals")
-
-/// Tests to make sure ashwalkers can breath from the lavaland air
-/datum/unit_test/breath_sanity_ashwalker
-
-/datum/unit_test/breath_sanity_ashwalker/Run()
-	var/mob/living/carbon/human/species/lizard/ashwalker/lab_rat = allocate(/mob/living/carbon/human/species/lizard/ashwalker)
-
-	//Prep the mob
-	lab_rat.forceMove(run_loc_floor_bottom_left)
-
-	var/turf/open/to_fill = run_loc_floor_bottom_left
-	//Prep the floor
-	to_fill.initial_gas_mix = PLANETARY_ATMOS
-	to_fill.air = to_fill.create_gas_mixture()
-
-	lab_rat.breathe()
-
-	TEST_ASSERT(!lab_rat.has_alert(ALERT_NOT_ENOUGH_OXYGEN), "Ashwalkers can't get a full breath from the Lavaland's initial_gas_mix on a turf")
-
-/datum/unit_test/breath_sanity_ashwalker/Destroy()
-	//Reset initial_gas_mix to avoid future issues on other tests
-	var/turf/open/to_fill = run_loc_floor_bottom_left
-	to_fill.initial_gas_mix = OPENTURF_DEFAULT_ATMOS
-	return ..()

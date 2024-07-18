@@ -498,7 +498,7 @@
 	var/turf/current_turf = get_turf(src)
 	if(!current_turf)
 		return
-	var/list/adjacent = current_turf.get_atmos_adjacent_turfs(1)
+	var/list/adjacent = get_adjacent_open_turfs(current_turf)
 	if(shuffle) //If we were on the same tile as another bot, let's randomize our choices so we dont both go the same way
 		adjacent = shuffle(adjacent)
 		shuffle = FALSE
@@ -851,7 +851,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/Bump(atom/A) //Leave no door unopened!
 	. = ..()
-	if((istype(A, /obj/machinery/door/airlock) || istype(A, /obj/machinery/door/window)) && (!isnull(access_card)))
+	if((istype(A, /obj/machinery/door/bulkhead) || istype(A, /obj/machinery/door/window)) && (!isnull(access_card)))
 		var/obj/machinery/door/D = A
 		if(D.check_access(access_card))
 			D.open()

@@ -1,6 +1,6 @@
 GLOBAL_LIST_EMPTY(cable_list)     //Index for all cables, so that powernets don't have to look through the entire world all the time
 GLOBAL_LIST_EMPTY(portals)         //list of all /obj/effect/portal
-GLOBAL_LIST_EMPTY(airlocks)         //list of all airlocks
+GLOBAL_LIST_EMPTY(bulkheads)         //list of all bulkheads
 GLOBAL_LIST_EMPTY(curtains) //list of all curtains
 GLOBAL_LIST_EMPTY(mechas_list)         //list of all mechs. Used by hostile mobs target tracking.
 GLOBAL_LIST_EMPTY(shuttle_caller_list)     //list of all communication consoles and AIs, for automatic shuttle calls when there are none.
@@ -63,6 +63,7 @@ GLOBAL_LIST_EMPTY(alert_consoles) // Station alert consoles, /obj/machinery/comp
 
 GLOBAL_LIST_EMPTY(air_scrub_names) // Name list of all air scrubbers
 GLOBAL_LIST_EMPTY(air_vent_names) // Name list of all air vents
+GLOBAL_LIST_EMPTY(airlock_vent_names) // Name list of all air vents
 
 GLOBAL_LIST_EMPTY(roundstart_station_borgcharger_areas) // List of area names of roundstart station cyborg rechargers, for the low charge/no charge cyborg screen alert tooltips.
 GLOBAL_LIST_EMPTY(roundstart_station_mechcharger_areas) // List of area names of roundstart station mech rechargers, for the low charge/no charge mech screen alert tooltips.

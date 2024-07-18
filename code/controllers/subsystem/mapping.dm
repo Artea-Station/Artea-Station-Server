@@ -139,8 +139,15 @@ SUBSYSTEM_DEF(mapping)
 	multiz_levels[z_level] = list()
 	if(linked_down)
 		multiz_levels[z_level]["[DOWN]"] = TRUE
+		. = TRUE
 	if(linked_up)
 		multiz_levels[z_level]["[UP]"] = TRUE
+		. = TRUE
+
+	#if !defined(MULTIZAS) && !defined(UNIT_TESTS)
+	if(.)
+		stack_trace("Multi-Z map enabled with MULTIZAS enabled.")
+	#endif
 
 /datum/controller/subsystem/mapping/proc/calculate_z_level_gravity(z_level_number)
 	if(!isnum(z_level_number) || z_level_number < 1)
@@ -164,19 +171,6 @@ SUBSYSTEM_DEF(mapping)
 /datum/controller/subsystem/mapping/proc/setup_ruins()
 	// Generate mining ruins
 	loading_ruins = TRUE
-
-	var/list/ice_ruins = levels_by_trait(ZTRAIT_ICE_RUINS)
-	if (ice_ruins.len)
-		// needs to be whitelisted for underground too so place_below ruins work
-		seedRuins(ice_ruins, CONFIG_GET(number/icemoon_budget), list(/area/icemoon/surface/outdoors/unexplored, /area/icemoon/underground/unexplored), themed_ruins[ZTRAIT_ICE_RUINS], clear_below = TRUE)
-		for (var/ice_z in ice_ruins)
-			spawn_rivers(ice_z, 4, /turf/open/openspace/icemoon, /area/icemoon/surface/outdoors/unexplored/rivers)
-
-	var/list/ice_ruins_underground = levels_by_trait(ZTRAIT_ICE_RUINS_UNDERGROUND)
-	if (ice_ruins_underground.len)
-		seedRuins(ice_ruins_underground, CONFIG_GET(number/icemoon_budget), list(/area/icemoon/underground/unexplored), themed_ruins[ZTRAIT_ICE_RUINS_UNDERGROUND], clear_below = TRUE)
-		for (var/ice_z in ice_ruins_underground)
-			spawn_rivers(ice_z, 4, level_trait(ice_z, ZTRAIT_BASETURF), /area/icemoon/underground/unexplored/rivers)
 
 	// Generate deep space ruins
 	var/list/space_ruins = levels_by_trait(ZTRAIT_SPACE_RUINS)
@@ -333,7 +327,7 @@ Used by the AI doomsday and the self-destruct nuke.
 		if(ore_node_seeder)
 			ore_node_seeder.SeedToLevel(level.z_value)
 		if(atmos)
-			SSair.register_planetary_atmos(atmos, level.z_value)
+			SSzas.register_planetary_atmos(atmos, level.z_value, level.name)
 		if(rock_color)
 			level.rock_color = rock_color
 		if(plant_color)
@@ -407,9 +401,11 @@ Used by the AI doomsday and the self-destruct nuke.
 		qdel(query_round_map_name)
 
 #ifndef LOWMEMORYMODE
+	#ifndef DISABLE_OVERMAP_ZS
 	while (space_levels_so_far < config.space_ruin_levels)
 		++space_levels_so_far
 		add_new_zlevel("Ruins Area [space_levels_so_far]", ZTRAITS_SPACE, overmap_obj = new /datum/overmap_object/ruins(SSovermap.main_system, rand(1,SSovermap.main_system.maxx), rand(1,SSovermap.main_system.maxy)))
+	#endif
 	//Load planets
 	if(config.minetype == "lavaland")
 		var/datum/planet_template/lavaland_template = planet_templates[/datum/planet_template/lavaland]

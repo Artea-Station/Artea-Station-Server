@@ -77,9 +77,9 @@
 
 /obj/machinery/disposal/LateInitialize()
 	//this will get a copy of the air turf and take a SEND PRESSURE amount of air from it
-	var/atom/L = loc
+	var/turf/L = loc
 	var/datum/gas_mixture/env = new
-	env.copy_from(L.return_air())
+	env.copyFrom(L.return_air())
 	var/datum/gas_mixture/removed = env.remove(SEND_PRESSURE + 1)
 	air_contents.merge(removed)
 	trunk_check()
@@ -274,6 +274,16 @@
 		to_dump.pixel_x = to_dump.base_pixel_x + rand(-5, 5)
 		to_dump.pixel_y = to_dump.base_pixel_y + rand(-5, 5)
 
+/obj/machinery/disposal/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
+	. = ..()
+	visible_message(span_warning("[src] is ripped free from the floor!"))
+	deconstruct()
+
+/obj/machinery/disposal/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
+	. = ..()
+	visible_message(span_warning("[src] is ripped free from the floor!"))
+	deconstruct()
+
 // Disposal bin
 // Holds items for disposal into pipe system
 // Draws air from turf, gradually charges internal reservoir
@@ -317,7 +327,7 @@
 	data["full_pressure"] = full_pressure
 	data["pressure_charging"] = pressure_charging
 	data["panel_open"] = panel_open
-	data["per"] = CLAMP01(air_contents.return_pressure() / (SEND_PRESSURE))
+	data["per"] = CLAMP01(air_contents.returnPressure() / (SEND_PRESSURE))
 	data["isai"] = isAI(user)
 	return data
 
@@ -419,7 +429,7 @@
 				do_flush()
 		flush_count = 0
 
-	if(flush && air_contents.return_pressure() >= SEND_PRESSURE) // flush can happen even without power
+	if(flush && air_contents.returnPressure() >= SEND_PRESSURE) // flush can happen even without power
 		do_flush()
 
 	if(machine_stat & NOPOWER) // won't charge if no power
@@ -435,20 +445,20 @@
 
 	var/atom/L = loc //recharging from loc turf
 
-	var/datum/gas_mixture/env = L.return_air()
+	var/datum/gas_mixture/env = L.unsafe_return_air() //We SAFE_ZAS_UPDATE later!
 	if(!env.temperature)
 		return
-	var/pressure_delta = (SEND_PRESSURE*1.01) - air_contents.return_pressure()
+	var/pressure_delta = (SEND_PRESSURE*1.01) - air_contents.returnPressure()
 
 	var/transfer_moles = 0.05 * delta_time * (pressure_delta*air_contents.volume)/(env.temperature * R_IDEAL_GAS_EQUATION)
 
 	//Actually transfer the gas
 	var/datum/gas_mixture/removed = env.remove(transfer_moles)
 	air_contents.merge(removed)
-	air_update_turf(FALSE, FALSE)
+	SAFE_ZAS_UPDATE(L)
 
 	//if full enough, switch to ready mode
-	if(air_contents.return_pressure() >= SEND_PRESSURE)
+	if(air_contents.returnPressure() >= SEND_PRESSURE)
 		full_pressure = TRUE
 		pressure_charging = FALSE
 		update_appearance()

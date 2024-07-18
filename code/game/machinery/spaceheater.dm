@@ -28,7 +28,7 @@
 	///The temperature we trying to get to
 	var/target_temperature = T20C
 	///How much heat/cold we can deliver
-	var/heating_power = 40000
+	var/heating_power = 80000
 	///How efficiently we can deliver that heat/cold (higher indicates less cell consumption)
 	var/efficiency = 20000
 	///The amount of degrees above and below the target temperature for us to change mode to heater or cooler
@@ -48,10 +48,10 @@
 	if(ispath(cell))
 		cell = new cell(src)
 	update_appearance()
-	SSair.start_processing_machine(src)
+	SSairmachines.start_processing_machine(src)
 
 /obj/machinery/space_heater/Destroy()
-	SSair.stop_processing_machine(src)
+	SSairmachines.stop_processing_machine(src)
 	return..()
 
 /obj/machinery/space_heater/on_deconstruction()
@@ -82,7 +82,7 @@
 
 /obj/machinery/space_heater/process_atmos()
 	if(!on || !is_operational)
-		if (on) // If it's broken, turn it off too
+		if(on) // If it's broken, turn it off too
 			on = FALSE
 		return PROCESS_KILL
 
@@ -113,7 +113,7 @@
 	if(mode == HEATER_MODE_STANDBY)
 		return
 
-	var/heat_capacity = enviroment.heat_capacity()
+	var/heat_capacity = enviroment.getHeatCapacity()
 	var/required_energy = abs(enviroment.temperature - target_temperature) * heat_capacity
 	required_energy = min(required_energy, heating_power)
 
@@ -124,11 +124,10 @@
 	if(mode == HEATER_MODE_COOL)
 		delta_temperature *= -1
 	if(delta_temperature)
-		for (var/turf/open/turf in ((local_turf.atmos_adjacent_turfs || list()) + local_turf))
-			var/datum/gas_mixture/turf_gasmix = turf.return_air()
-			turf_gasmix.temperature += delta_temperature
-			air_update_turf(FALSE, FALSE)
-			cell.use(required_energy / efficiency)
+		enviroment.temperature += delta_temperature
+		if(TURF_HAS_VALID_ZONE(local_turf))
+			SSzas.mark_zone_update(local_turf.zone)
+		cell.use(required_energy / efficiency)
 
 /obj/machinery/space_heater/RefreshParts()
 	. = ..()
@@ -269,7 +268,7 @@
 	update_appearance()
 	playsound(src, SFX_SWITCH, 75, TRUE)
 	if (on)
-		SSair.start_processing_machine(src)
+		SSairmachines.start_processing_machine(src)
 
 ///For use with heating reagents in a ghetto way
 /obj/machinery/space_heater/improvised_chem_heater

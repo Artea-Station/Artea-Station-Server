@@ -22,7 +22,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_range = 1
 	throw_speed = 1
-	pressure_resistance = 0
+	//pressure_resistance = 0
 	slot_flags = ITEM_SLOT_HEAD
 	body_parts_covered = HEAD
 	resistance_flags = FLAMMABLE
@@ -347,7 +347,7 @@
 
 
 /obj/item/paper/can_interact(mob/user)
-	if(in_contents_of(/obj/machinery/door/airlock))
+	if(in_contents_of(/obj/machinery/door/bulkhead))
 		return TRUE
 	return ..()
 
