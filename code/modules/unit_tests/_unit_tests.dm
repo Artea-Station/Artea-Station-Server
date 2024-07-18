@@ -106,7 +106,6 @@
 #include "hallucination_icons.dm"
 #include "heretic_knowledge.dm"
 #include "heretic_rituals.dm"
-#include "holidays.dm"
 #include "hydroponics_extractor_storage.dm"
 #include "hydroponics_harvest.dm"
 #include "hydroponics_self_mutations.dm"

@@ -206,10 +206,6 @@
 
 /obj/item/food/cookie/sugar/Initialize(mapload)
 	. = ..()
-	if(SSevents.holidays && SSevents.holidays[FESTIVE_SEASON])
-		var/shape = pick("tree", "bear", "santa", "stocking", "present", "cane")
-		desc = "A sugar cookie in the shape of a [shape]. I hope Santa likes it!"
-		icon_state = "sugarcookie_[shape]"
 
 /obj/item/food/chococornet
 	name = "chocolate cornet"
