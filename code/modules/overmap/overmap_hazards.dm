@@ -12,6 +12,9 @@
 	/// Color of our hazard object. Just so I dont have to make special code for the visuals too
 	var/hazard_color = COLOR_PINK
 
+/datum/overmap_object/hazard/proc/get_random_icon_state()
+	return "event"
+
 /datum/overmap_object/hazard/New()
 	. = ..()
 	my_visual.icon_state = get_random_icon_state()
