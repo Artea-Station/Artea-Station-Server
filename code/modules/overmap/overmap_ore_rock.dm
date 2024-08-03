@@ -25,9 +25,9 @@
 		qdel(src)
 
 /obj/effect/abstract/overmap/ore_rock
-	icon_state = "smallcircle"
+	icon_state = "ore_asteroid1"
 	layer = OVERMAP_LAYER_LOOT
-	color = LIGHT_COLOR_PURPLE
+	color = "#FB3A18"
 
 /datum/overmap_object/transportable/ore_loot
 	name = "ore chunks"
@@ -45,4 +45,4 @@
 /obj/effect/abstract/overmap/ore_loot
 	icon_state = "smallobject"
 	layer = OVERMAP_LAYER_LOOT
-	color = LIGHT_COLOR_PURPLE
+	color = "#FB3A18"
