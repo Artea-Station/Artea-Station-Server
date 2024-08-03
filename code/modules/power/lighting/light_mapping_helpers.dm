@@ -31,6 +31,7 @@
 	bulb_colour = "#FF3232"
 	nightshift_allowed = FALSE
 	no_low_power = TRUE
+	glow_icon_state = "tube_red"
 
 /obj/machinery/light/red/dim
 	brightness = 4
@@ -58,6 +59,8 @@
 	bulb_power = 0.45
 	desc = "A small lighting fixture."
 	light_type = /obj/item/light/bulb
+	glow_icon_state = "bulb"
+	exposure_icon_state = "circle"
 
 /obj/machinery/light/small/broken
 	status = LIGHT_BROKEN
@@ -76,6 +79,7 @@
 	bulb_colour = "#FF3232"
 	no_low_power = TRUE
 	nightshift_allowed = FALSE
+	glow_icon_state = "bulb_red"
 
 /obj/machinery/light/small/red/dim
 	brightness = 2
@@ -89,7 +93,9 @@
 /obj/machinery/light/small/maintenance
 	bulb_colour = "#e0a142"
 	nightshift_allowed = FALSE
-	bulb_power = 0.3
+	bulb_power = 0.45
+	brightness = 2
+	glow_icon_state = "bulb_maint"
 
 // -------- Directional presets
 // The directions are backwards on the lights we have now

@@ -456,3 +456,67 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	set hidden = TRUE
 
 	init_verbs()
+
+/** !! Remove this comment to add these verbs back again !!
+ *
+/client/verb/set_bloom_level()
+	set name = "LIGHTING: Set Bloom Level"
+	set category = "OOC"
+	set desc = "Set bloom level near lamps."
+
+	var/new_setting = input(src, "LIGHTING: Bloom Level:") as null|anything in list("Disable", "Low", "Medium (Default)", "High")
+	if(!new_setting)
+		return
+
+	switch(new_setting)
+		if("Disable")
+			prefs.bloomlevel = BLOOM_DISABLE
+		if("Low")
+			prefs.bloomlevel = BLOOM_LOW
+		if("Medium (Default)")
+			prefs.bloomlevel = BLOOM_MED
+		if("High")
+			prefs.bloomlevel = BLOOM_HIGH
+
+	to_chat(src, "Bloom: [new_setting].")
+	prefs.save_preferences()
+	if(screen && screen.len)
+		var/atom/movable/screen/plane_master/lamps_selfglow/PM = locate() in screen
+		PM.backdrop(mob)
+
+/client/verb/toggle_oldnew_lighting()
+	set name = "LIGHTING: Toggle Old/New Lighting"
+	set category = "OOC"
+	set desc = "Toggle lighting variant."
+
+	prefs.old_lighting = !prefs.old_lighting
+	to_chat(src, "Lighting: [prefs.old_lighting ? "Old" : "New"].")
+	prefs.save_preferences()
+	if(screen && screen.len)
+		var/atom/movable/screen/plane_master/exposure/EXP = locate() in screen
+		var/atom/movable/screen/plane_master/lamps_selfglow/BLM = locate() in screen
+		var/atom/movable/screen/plane_master/lamps_glare/GLR = locate() in screen
+
+		if(prefs.old_lighting)
+			EXP.alpha = 0
+		else
+			EXP.alpha = 255
+
+		EXP.backdrop(mob)
+		BLM.backdrop(mob)
+		GLR.backdrop(mob)
+
+/client/verb/toggle_glare()
+	set name = "LIGHTING: Toggle Glare"
+	set category = "OOC"
+	set desc = "Toggle glare of lamps."
+
+	prefs.lampsglare = !prefs.lampsglare
+	to_chat(src, "Glare: [prefs.old_lighting ? "Enabled" : "Disabled"].")
+	prefs.save_preferences()
+	if(screen && screen.len)
+		var/atom/movable/screen/plane_master/lamps_glare/PM = locate() in screen
+
+		PM.backdrop(mob)
+
+*/

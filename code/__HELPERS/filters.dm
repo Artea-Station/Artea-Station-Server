@@ -317,3 +317,14 @@ GLOBAL_LIST_INIT(master_filter_info, list(
 		filter = in_atom.get_filter("wibbly-[i]")
 		animate(filter)
 		in_atom.remove_filter("wibbly-[i]")
+
+/proc/bloom_filter(threshold, size, offset, alpha)
+	. = list("type" = "bloom")
+	if(!isnull(threshold))
+		.["threshold"] = threshold
+	if(!isnull(size))
+		.["size"] = size
+	if(!isnull(offset))
+		.["offset"] = offset
+	if(!isnull(alpha))
+		.["alpha"] = alpha

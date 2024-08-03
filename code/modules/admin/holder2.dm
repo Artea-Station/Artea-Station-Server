@@ -37,6 +37,7 @@ GLOBAL_PROTECT(href_token)
 	var/datum/filter_editor/filteriffic
 	var/datum/particle_editor/particle_test
 	var/datum/colorblind_tester/color_test = new
+	var/datum/bloom_edit/debug_bloom
 
 	/// Whether or not the user tried to connect, but was blocked by 2FA
 	var/blocked_by_2fa = FALSE
