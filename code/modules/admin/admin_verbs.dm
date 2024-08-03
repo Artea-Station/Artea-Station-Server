@@ -197,7 +197,6 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/datum/admins/proc/create_or_modify_area,
 	/client/proc/check_timer_sources,
 	/client/proc/toggle_cdn,
-	/client/proc/adventure_manager,
 	/client/proc/load_circuit,
 	/client/proc/cmd_admin_debug_traitor_objectives,
 	/client/proc/spawn_debug_full_crew,

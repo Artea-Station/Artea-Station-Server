@@ -957,26 +957,6 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING
 
-/datum/design/board/exoscanner
-	name = "Scanner Array Board"
-	desc = "The circuit board for scanner array."
-	id = "exoscanner"
-	build_path = /obj/item/circuitboard/machine/exoscanner
-	category = list(
-		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_RESEARCH
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
-
-/datum/design/board/exodrone_launcher
-	name = "Exploration Drone Launcher Board"
-	desc = "The circuit board for exodrone launcher."
-	id = "exodrone_launcher"
-	build_path = /obj/item/circuitboard/machine/exodrone_launcher
-	category = list(
-		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_RESEARCH
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_CARGO
-
 /datum/design/board/component_printer
 	name = "Component Printer Board"
 	desc = "The circuit board for a component printer"
