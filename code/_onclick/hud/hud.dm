@@ -114,6 +114,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 		plane_master_controllers[controller_instance.name] = controller_instance
 
 	owner.overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
+	owner.overlay_fullscreen("noise", /atom/movable/screen/fullscreen/noise)
 
 	AddComponent(/datum/component/zparallax, owner.client)
 
