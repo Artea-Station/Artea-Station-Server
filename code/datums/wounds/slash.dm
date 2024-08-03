@@ -55,7 +55,7 @@
 			old_wound.clear_highest_scar()
 	else
 		set_blood_flow(initial_flow)
-		if(limb.can_bleed() && attack_direction && victim.blood_volume > BLOOD_VOLUME_OKAY)
+		if(limb.can_bleed() && attack_direction)
 			victim.spray_blood(attack_direction, severity)
 
 	if(!highest_scar)
@@ -105,8 +105,10 @@
 	if (!victim) // if we are dismembered, we can still take damage, its fine to check here
 		return
 
-	if(victim.stat != DEAD && wound_bonus != CANT_WOUND && wounding_type == WOUND_SLASH) // can't stab dead bodies to make it bleed faster this way
-		adjust_blood_flow(WOUND_SLASH_DAMAGE_FLOW_COEFF * wounding_dmg)
+	// can't stab dead bodies to make it bleed faster this way
+	if(victim.stat == DEAD || wound_bonus == CANT_WOUND || (wounding_type != WOUND_SLASH))
+		return
+	adjust_blood_flow(WOUND_SLASH_DAMAGE_FLOW_COEFF * wounding_dmg)
 
 	return ..()
 
@@ -114,7 +116,6 @@
 	// say we have 3 severe cuts with 3 blood flow each, pretty reasonable
 	// compare with being at 100 brute damage before, where you bled (brute/100 * 2), = 2 blood per tile
 	var/bleed_amt = min(blood_flow * 0.1, 1) // 3 * 3 * 0.1 = 0.9 blood total, less than before! the share here is .3 blood of course.
-
 	if(limb.current_gauze) // gauze stops all bleeding from dragging on this limb, but wears the gauze out quicker
 		limb.seep_gauze(bleed_amt * 0.33)
 		return
@@ -189,16 +190,15 @@
 		return suture(I, user)
 
 /datum/wound/slash/flesh/try_handling(mob/living/carbon/human/user)
-	if(user.pulling != victim || user.zone_selected != limb.body_zone || !isfelinid(user) || !victim.try_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))
+	if(user.pulling != victim || user.zone_selected != limb.body_zone || !victim.try_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))
+		return FALSE
+	if(!istype(user.getorganslot(ORGAN_SLOT_TONGUE), /obj/item/organ/internal/tongue/cat))
 		return FALSE
 	if(DOING_INTERACTION_WITH_TARGET(user, victim))
 		to_chat(user, span_warning("You're already interacting with [victim]!"))
 		return
 	if(user.is_mouth_covered())
 		to_chat(user, span_warning("Your mouth is covered, you can't lick [victim]'s wounds!"))
-		return
-	if(!user.getorganslot(ORGAN_SLOT_TONGUE))
-		to_chat(user, span_warning("You can't lick wounds without a tongue!")) // f in chat
 		return
 
 	lick_wounds(user)
@@ -207,8 +207,7 @@
 /// if a felinid is licking this cut to reduce bleeding
 /datum/wound/slash/flesh/proc/lick_wounds(mob/living/carbon/human/user)
 	// transmission is one way patient -> felinid since google said cat saliva is antiseptic or whatever, and also because felinids are already risking getting beaten for this even without people suspecting they're spreading a deathvirus
-	for(var/i in victim.diseases)
-		var/datum/disease/iter_disease = i
+	for(var/datum/disease/iter_disease as anything in victim.diseases)
 		if(iter_disease.spread_flags & (DISEASE_SPREAD_SPECIAL | DISEASE_SPREAD_NON_CONTAGIOUS))
 			continue
 		user.ForceContractDisease(iter_disease)

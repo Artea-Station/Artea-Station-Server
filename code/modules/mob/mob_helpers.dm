@@ -392,7 +392,7 @@
 
 ///Can the mob hear
 /mob/proc/can_hear()
-	. = TRUE
+	return TRUE
 
 /**
  * Examine text for traits shared by multiple types.

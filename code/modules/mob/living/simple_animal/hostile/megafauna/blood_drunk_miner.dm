@@ -150,10 +150,10 @@ Difficulty: Medium
 		adjustHealth(-2)
 	return TRUE
 
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
-	if(!used_item && !isturf(A))
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/do_attack_animation(atom/attacked_atom, visual_effect_icon, obj/item/used_item, no_effect = FALSE, angled = FALSE)
+	if(!used_item && !isturf(attacked_atom))
 		used_item = miner_saw
-	..()
+	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/GiveTarget(new_target)
 	var/targets_the_same = (new_target == target)

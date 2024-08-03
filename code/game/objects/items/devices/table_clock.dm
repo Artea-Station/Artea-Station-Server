@@ -43,7 +43,7 @@
 			span_notice("You hear repeated smashing!"),
 		)
 
-/obj/item/table_clock/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, gentle, quickstart)
+/obj/item/table_clock/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(!.)
 		return

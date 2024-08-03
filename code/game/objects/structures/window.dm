@@ -384,6 +384,28 @@
 
 	. = ..()
 
+/obj/structure/window/proc/become_bloodied(obj/effect/decal/cleanable/blood/splatter)
+	if(bloodied || !fulltile || !splatter)
+		return
+	var/obj/effect/decal/cleanable/blood/splatter/over_window/mess = new()
+	mess.forceMove(src)
+	vis_contents += mess
+	mess.alpha = 0
+	animate(mess, alpha = initial(mess.alpha), time = 2)
+	bloodied = TRUE
+
+/obj/structure/window/wash(clean_types)
+	. = ..()
+	if(!(clean_types & CLEAN_SCRUB))
+		return
+	set_opacity(initial(opacity))
+	remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	for(var/atom/movable/cleanable as anything in src)
+		if(!cleanable.wash(clean_types))
+			continue
+		vis_contents -= cleanable
+	bloodied = FALSE
+
 /obj/structure/window/Move()
 	. = ..()
 	if(. && isturf(loc))

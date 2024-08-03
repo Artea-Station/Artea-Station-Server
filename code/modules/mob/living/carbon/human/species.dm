@@ -1338,15 +1338,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(!(prob(25 + (weapon.force * 2))))
 		return TRUE
 
-	if(affecting.can_bleed())
+	if(IS_ORGANIC_LIMB(affecting) && prob(weapon.force * 2))
+		//blood spatter!
+		bloody = TRUE
 		weapon.add_mob_blood(human) //Make the weapon bloody, not the person.
-		if(prob(weapon.force * 2)) //blood spatter!
-			bloody = TRUE
-			var/turf/location = human.loc
-			if(istype(location))
-				human.add_splatter_floor(location)
-			if(get_dist(user, human) <= 1) //people with TK won't get smeared with blood
-				user.add_mob_blood(human)
+		human.blood_particles(amount = rand(1, 1 + round(weapon.force/15, 1)), angle = (user == human ? rand(0, 360) : get_angle(user, human)))
+		if(get_dist(user, human) <= 1) //people with TK won't get smeared with blood
+			user.add_mob_blood(human)
 
 	switch(hit_area)
 		if(BODY_ZONE_HEAD)

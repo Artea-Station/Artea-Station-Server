@@ -322,7 +322,6 @@
 		target_types += list(
 			/obj/effect/decal/cleanable/xenoblood,
 			/obj/effect/decal/cleanable/blood,
-			/obj/effect/decal/cleanable/trail_holder,
 		)
 
 	if(pests)

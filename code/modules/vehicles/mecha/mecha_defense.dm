@@ -360,14 +360,14 @@
 /obj/vehicle/sealed/mecha/narsie_act()
 	emp_act(EMP_HEAVY)
 
-/obj/vehicle/sealed/mecha/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
+/obj/vehicle/sealed/mecha/do_attack_animation(atom/attacked_atom, visual_effect_icon, obj/item/used_item, no_effect = FALSE, angled = FALSE)
 	if(!no_effect && !visual_effect_icon)
 		visual_effect_icon = ATTACK_EFFECT_SMASH
 		if(damtype == BURN)
 			visual_effect_icon = ATTACK_EFFECT_MECHFIRE
 		else if(damtype == TOX)
 			visual_effect_icon = ATTACK_EFFECT_MECHTOXIN
-	..()
+	return ..()
 
 
 /obj/vehicle/sealed/mecha/proc/ammo_resupply(obj/item/mecha_ammo/A, mob/user,fail_chat_override = FALSE)
