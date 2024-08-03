@@ -207,8 +207,8 @@
 	icon = 'icons/hud/noise.dmi'
 	icon_state = "blank"
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
-	plane = NOISE_PLANE
-	layer = NOISE_LAYER
+	plane = FULLSCREEN_PLANE
+	layer = FULLSCREEN_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	show_when_dead = TRUE
 	var/poggers = 1

@@ -194,10 +194,6 @@
 /// Bubble for typing indicators
 #define TYPING_LAYER 500
 
-///Plane exclusively used by noise filter
-#define NOISE_PLANE 550
-#define NOISE_LAYER 1
-
 //-------------------- HUD ---------------------
 //HUD layer defines
 #define HUD_PLANE 1000
