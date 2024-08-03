@@ -32,9 +32,7 @@
 
 
 /datum/species/dullahan/check_roundstart_eligible()
-	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
-		return TRUE
-	return ..()
+	return FALSE
 
 /datum/species/dullahan/on_species_gain(mob/living/carbon/human/human, datum/species/old_species)
 	. = ..()

@@ -18,24 +18,9 @@
 #define NOVEMBER 11
 #define DECEMBER 12
 
-//Select holiday names -- If you test for a holiday in the code, make the holiday's name a define and test for that instead
-#define NEW_YEAR "New Year"
-#define VALENTINES "Valentine's Day"
-#define APRIL_FOOLS "April Fool's Day"
-#define EASTER "Easter"
-#define HALLOWEEN "Halloween"
-#define CHRISTMAS "Christmas"
-#define FESTIVE_SEASON "Festive Season"
-#define GARBAGEDAY "Garbage Day"
-#define MONKEYDAY "Monkey Day"
-#define PRIDE_WEEK "Pride Week"
-#define MOTH_WEEK "Moth Week"
 /*
-
 Days of the week to make it easier to reference them.
-
 When using time2text(), please use "DDD" to find the weekday. Refrain from using "Day"
-
 */
 
 #define MONDAY "Mon"

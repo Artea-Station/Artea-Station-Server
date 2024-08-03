@@ -34,9 +34,7 @@
 	var/info_text = "You are a <span class='danger'>Vampire</span>. You will slowly but constantly lose blood if outside of a coffin. If inside a coffin, you will slowly heal. You may gain more blood by grabbing a live victim and using your drain ability."
 
 /datum/species/vampire/check_roundstart_eligible()
-	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
-		return TRUE
-	return ..()
+	return FALSE
 
 /datum/species/vampire/on_species_gain(mob/living/carbon/human/new_vampire, datum/species/old_species)
 	. = ..()

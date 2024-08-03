@@ -36,9 +36,7 @@
 	)
 
 /datum/species/shadow/check_roundstart_eligible()
-	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
-		return TRUE
-	return ..()
+	return FALSE
 
 /datum/species/shadow/get_species_description()
 	return "Victims of a long extinct space alien. Their flesh is a sickly \
