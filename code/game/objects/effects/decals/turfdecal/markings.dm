@@ -539,3 +539,50 @@
 
 /obj/effect/turf_decal/bot/left/orange
 	icon_state = "bot_left_orange"
+
+/// Engi Flavored markings
+
+/obj/effect/turf_decal/delivery/engi
+	icon_state = "delivery_engi"
+
+/obj/effect/turf_decal/bot_engi
+	icon_state = "bot_engi"
+
+/obj/effect/turf_decal/loading_area/engi
+	icon_state = "loadingarea_engi"
+
+/obj/effect/turf_decal/stripes/engi/line
+	icon_state = "warningline_engi"
+
+/obj/effect/turf_decal/stripes/engi/end
+	icon_state = "warn_end_engi"
+
+/obj/effect/turf_decal/stripes/engi/corner
+	icon_state = "warninglinecorner_engi"
+
+/obj/effect/turf_decal/stripes/engi/box
+	icon_state = "warn_box_engi"
+
+/obj/effect/turf_decal/stripes/engi/full
+	icon_state = "warn_full_engi"
+
+/obj/effect/turf_decal/caution/engi
+	icon_state = "caution_engi"
+
+/obj/effect/turf_decal/caution/stand_clear/engi
+	icon_state = "stand_clear_engi"
+
+/obj/effect/turf_decal/arrows/engi
+	icon_state = "arrows_engi"
+
+/obj/effect/turf_decal/box/engi
+	icon_state = "box_engi"
+
+/obj/effect/turf_decal/box/corners/engi
+	icon_state = "box_corners_engi"
+
+/obj/effect/turf_decal/bot/right/engi
+	icon_state = "bot_right_engi"
+
+/obj/effect/turf_decal/bot/left/engi
+	icon_state = "bot_left_engi"

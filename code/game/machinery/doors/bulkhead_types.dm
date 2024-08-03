@@ -8,6 +8,12 @@
 	bulkhead_paint = "#334E6D"
 	stripe_paint = "#43769D"
 
+/obj/machinery/door/bulkhead/command/chief_engineer
+	assemblytype = /obj/structure/door_assembly/door_assembly_com/ce
+	normal_integrity = 450
+	bulkhead_paint = "#F6F6F6"
+	stripe_paint = "#BB8425"
+
 /obj/machinery/door/bulkhead/security
 	assemblytype = /obj/structure/door_assembly/door_assembly_sec
 	normal_integrity = 450
@@ -16,8 +22,8 @@
 
 /obj/machinery/door/bulkhead/engineering
 	assemblytype = /obj/structure/door_assembly/door_assembly_eng
-	bulkhead_paint = "#A28226"
-	stripe_paint = "#7F292F"
+	bulkhead_paint = "#BB8425"
+	stripe_paint = "#1E2425"
 
 /obj/machinery/door/bulkhead/medical
 	assemblytype = /obj/structure/door_assembly/door_assembly_med
@@ -109,6 +115,11 @@
 	id_tag = INCINERATOR_SYNDICATELAVA_AIRLOCK_EXTERIOR
 
 /obj/machinery/door/bulkhead/command/glass
+	opacity = FALSE
+	glass = TRUE
+	normal_integrity = 400
+
+/obj/machinery/door/bulkhead/command/chief_engineer/glass
 	opacity = FALSE
 	glass = TRUE
 	normal_integrity = 400
