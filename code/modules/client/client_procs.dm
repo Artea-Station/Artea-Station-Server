@@ -540,6 +540,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		if (!stealth_admin)
 			deadchat_broadcast(" has disconnected.", "<b>[mob][mob.get_realname_string()]</b>", follow_target = mob, turf_target = get_turf(mob), message_type = DEADCHAT_LOGIN_LOGOUT, admin_only=!announce_join)
 		mob.become_uncliented()
+	QDEL_NULL(droning_sound)
+	last_droning_sound = null
 
 	GLOB.clients -= src
 	GLOB.directory -= ckey
