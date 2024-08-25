@@ -847,7 +847,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 
 /obj/effect/mapping_helpers/paint_wall/engineering
 	name = "Engineering Wall Paint"
-	stripe_paint = "#A28226"
+	stripe_paint = "#BB8425"
 	icon_state = "paint_engineering"
 
 /obj/effect/mapping_helpers/paint_wall/security
