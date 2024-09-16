@@ -185,6 +185,7 @@
 #define FACTION_NONE "None"
 #define FACTION_STATION "Station"
 #define FACTION_BEARCAT "Bearcat"
+#define	FACTION_BELRYTH "Belryth"
 /// Special define that's PURPOSEFULLY NOT USED ANYWHERE BUT IN JOB DATUMS TO TEMPORARILY DISABLE JOBS.
 #define FACTION_DISABLED "do not use"
 
