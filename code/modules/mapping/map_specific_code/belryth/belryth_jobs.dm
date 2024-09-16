@@ -28,7 +28,7 @@
 	total_positions = 1
 	spawn_positions = 1
 
-/dautm/job/internal_affairs_agent/belryth
+/datum/job/internal_affairs_agent/belryth
 	faction = FACTION_BELRYTH
 	total_positions = 2
 	spawn_positions = 2
