@@ -18,6 +18,11 @@
 	total_positions = 1
 	spawn_positions = 1
 
+/datum/job/pathfinder/belryth
+	faction = FACTION_BELRYTH
+	total_positions = 2
+	spawn_positions = 2
+
 /datum/job/quartermaster/belryth
 	faction = FACTION_BELRYTH
 	total_positions = 1
