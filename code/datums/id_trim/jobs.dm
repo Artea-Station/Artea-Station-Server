@@ -77,7 +77,7 @@
 	return TRUE
 
 /datum/id_trim/job/assistant
-	assignment = "Assistant"
+	assignment = JOB_ASSISTANT
 	orbit_icon = "toolbox"
 	sechud_icon_state = SECHUD_ASSISTANT
 	minimal_access = list()
@@ -103,7 +103,7 @@
 			ACCESS_MAINT_TUNNELS)
 
 /datum/id_trim/job/bartender
-	assignment = "Bartender"
+	assignment = JOB_BARTENDER
 	trim_state = "dept-service"
 	orbit_icon = "cocktail"
 	department_color = COLOR_SERVICE_LIME
@@ -128,7 +128,7 @@
 	job = /datum/job/bartender
 
 /datum/id_trim/job/botanist
-	assignment = "Botanist"
+	assignment = JOB_BOTANIST
 	trim_state = "dept-service"
 	orbit_icon = "seedling"
 	department_color = COLOR_SERVICE_LIME
@@ -176,7 +176,7 @@
 	return ..()
 
 /datum/id_trim/job/cargo_technician
-	assignment = "Cargo Technician"
+	assignment = JOB_CARGO_TECHNICIAN
 	trim_state = "dept-cargo"
 	orbit_icon = "box"
 	department_color = COLOR_CARGO_BROWN
@@ -201,7 +201,7 @@
 	job = /datum/job/cargo_technician
 
 /datum/id_trim/job/chaplain
-	assignment = "Chaplain"
+	assignment = JOB_CHAPLAIN
 	trim_state = "dept-service"
 	orbit_icon = "cross"
 	department_color = COLOR_SERVICE_LIME
@@ -223,7 +223,7 @@
 	job = /datum/job/chaplain
 
 /datum/id_trim/job/chemist
-	assignment = "Chemist"
+	assignment = JOB_CHEMIST
 	trim_state = "dept-medical"
 	orbit_icon = "prescription-bottle"
 	department_color = COLOR_MEDICAL_BLUE
@@ -248,7 +248,7 @@
 	job = /datum/job/chemist
 
 /datum/id_trim/job/chief_engineer
-	assignment = "Chief Engineer"
+	assignment = JOB_CHIEF_ENGINEER
 	intern_alt_name = "Chief Engineer-in-Training"
 	trim_state = "dept-engineering"
 	orbit_icon = "user-astronaut"
@@ -292,7 +292,7 @@
 	job = /datum/job/chief_engineer
 
 /datum/id_trim/job/chief_medical_officer
-	assignment = "Chief Medical Officer"
+	assignment = JOB_CHIEF_MEDICAL_OFFICER
 	intern_alt_name = "Chief Medical Officer-in-Training"
 	trim_state = "dept-medical"
 	orbit_icon = "user-md"
@@ -331,7 +331,7 @@
 	job = /datum/job/chief_medical_officer
 
 /datum/id_trim/job/clown
-	assignment = "Clown"
+	assignment = JOB_CLOWN
 	trim_state = "dept-clown"
 	orbit_icon = "face-grin-tears"
 	department_color = COLOR_MOSTLY_PURE_PINK
@@ -350,7 +350,7 @@
 	job = /datum/job/clown
 
 /datum/id_trim/job/cook
-	assignment = "Cook"
+	assignment = JOB_COOK
 	trim_state = "dept-service"
 	orbit_icon = "utensils"
 	department_color = COLOR_SERVICE_LIME
@@ -378,7 +378,7 @@
 	sechud_icon_state = SECHUD_CHEF
 
 /datum/id_trim/job/curator
-	assignment = "Curator"
+	assignment = JOB_CURATOR
 	trim_state = "dept-service"
 	orbit_icon = "book"
 	department_color = COLOR_SERVICE_LIME
@@ -399,7 +399,7 @@
 	job = /datum/job/curator
 
 /datum/id_trim/job/detective
-	assignment = "Detective"
+	assignment = JOB_DETECTIVE
 	trim_state = "dept-security"
 	orbit_icon = "user-secret"
 	department_color = COLOR_SECURITY_RED
@@ -437,7 +437,7 @@
 		access |= list(ACCESS_MAINT_TUNNELS)
 
 /datum/id_trim/job/head_of_personnel
-	assignment = "Head of Personnel"
+	assignment = JOB_HEAD_OF_PERSONNEL
 	intern_alt_name = "Head of Personnel-in-Training"
 	trim_state = "dept-hop"
 	orbit_icon = "dog"
@@ -487,7 +487,7 @@
 	job = /datum/job/head_of_personnel
 
 /datum/id_trim/job/head_of_security
-	assignment = "Head of Security"
+	assignment = JOB_HEAD_OF_SECURITY
 	intern_alt_name = "Head of Security-in-Training"
 	trim_state = "dept-security"
 	orbit_icon = "user-shield"
@@ -545,7 +545,7 @@
 		access |= list(ACCESS_MAINT_TUNNELS)
 
 /datum/id_trim/job/internal_affairs_agent
-	assignment = "Internal Affairs Agent"
+	assignment = JOB_INTERNAL_AFFAIRS_AGENT
 	trim_state = "dept-internal-affairs"
 	orbit_icon = "print"
 	department_color = COLOR_COMMAND_BLUE
@@ -565,7 +565,7 @@
 	job = /datum/job/internal_affairs_agent
 
 /datum/id_trim/job/janitor
-	assignment = "Janitor"
+	assignment = JOB_JANITOR
 	trim_state = "dept-service"
 	orbit_icon = "broom"
 	department_color = COLOR_SERVICE_LIME
@@ -586,7 +586,7 @@
 	job = /datum/job/janitor
 
 /datum/id_trim/job/medical_doctor
-	assignment = "Medical Doctor"
+	assignment = JOB_MEDICAL_DOCTOR
 	trim_state = "dept-medical"
 	orbit_icon = "staff-snake"
 	department_color = COLOR_MEDICAL_BLUE
@@ -612,7 +612,7 @@
 	job = /datum/job/doctor
 
 /datum/id_trim/job/mime
-	assignment = "Mime"
+	assignment = JOB_MIME
 	trim_state = "dept-service"
 	orbit_icon = "comment-slash"
 	department_color = COLOR_SILVER
@@ -631,7 +631,7 @@
 	job = /datum/job/mime
 
 /datum/id_trim/job/paramedic
-	assignment = "Paramedic"
+	assignment = JOB_PARAMEDIC
 	trim_state = "dept-medical"
 	orbit_icon = "truck-medical"
 	department_color = COLOR_MEDICAL_BLUE
@@ -662,7 +662,7 @@
 	job = /datum/job/paramedic
 
 /datum/id_trim/job/prisoner
-	assignment = "Prisoner"
+	assignment = JOB_PRISONER
 	trim_state = "dept-prisoner"
 	orbit_icon = "lock"
 	department_color = COLOR_PRISONER_BLACK
@@ -698,7 +698,7 @@
 	template_access = null
 
 /datum/id_trim/job/quartermaster
-	assignment = "Quartermaster"
+	assignment = JOB_QUARTERMASTER
 	trim_state = "dept-cargo"
 	orbit_icon = "sack-dollar"
 	department_color = COLOR_COMMAND_BLUE
@@ -733,7 +733,7 @@
 	job = /datum/job/quartermaster
 
 /datum/id_trim/job/roboticist
-	assignment = "Roboticist"
+	assignment = JOB_ROBOTICIST
 	trim_state = "dept-engineering"
 	orbit_icon = "battery-half"
 	department_color = COLOR_ENGINEERING_ORANGE
@@ -759,7 +759,7 @@
 
 /// Sec officers have departmental variants. They each have their own trims with bonus departmental accesses.
 /datum/id_trim/job/security_officer
-	assignment = "Security Officer"
+	assignment = JOB_SECURITY_OFFICER
 	trim_state = "dept-security"
 	orbit_icon = "shield-halved"
 	department_color = COLOR_SECURITY_RED
@@ -879,7 +879,7 @@
 	)
 
 /datum/id_trim/job/station_engineer
-	assignment = "Station Engineer"
+	assignment = JOB_STATION_ENGINEER
 	trim_state = "dept-engineering"
 	orbit_icon = "gears"
 	department_color = COLOR_ENGINEERING_ORANGE
@@ -907,7 +907,7 @@
 	job = /datum/job/station_engineer
 
 /datum/id_trim/job/warden
-	assignment = "Warden"
+	assignment = JOB_WARDEN
 	trim_state = "dept-security"
 	orbit_icon = "handcuffs"
 	department_color = COLOR_SECURITY_RED
