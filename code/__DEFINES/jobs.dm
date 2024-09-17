@@ -42,7 +42,7 @@
 #define JOB_HEAD_OF_PERSONNEL "Executive Officer"
 #define JOB_HEAD_OF_SECURITY "Colonel"
 #define JOB_CHIEF_ENGINEER "Lead Technician"
-#define JOB_CHIEF_MEDICAL_OFFICER "Chief Medical Officer"
+#define JOB_CHIEF_MEDICAL_OFFICER "Head Physician"
 #define JOB_PATHFINDER_LEAD "Lead Pathfinder"
 #define JOB_INTERNAL_AFFAIRS_AGENT "Internal Affairs Agent"
 //Silicon
@@ -62,7 +62,7 @@
 #define JOB_ATMOSPHERIC_TECHNICIAN "Atmospheric Technician"
 #define JOB_ROBOTICIST "Roboticist"
 //Medical
-#define JOB_MEDICAL_DOCTOR "Doctor"
+#define JOB_MEDICAL_DOCTOR "Physician"
 #define JOB_PARAMEDIC "Paramedic"
 #define JOB_CHEMIST "Chemist"
 //Pathfinders
