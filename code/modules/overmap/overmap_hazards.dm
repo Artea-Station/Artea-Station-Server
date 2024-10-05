@@ -61,7 +61,7 @@
 
 /datum/overmap_object/hazard/asteroid
 	name = "asteroid field"
-	hazard_color = COLOR_RED
+	hazard_color = "#FB3A18"
 	visual_type = /obj/effect/abstract/overmap/hazard/opaque
 
 /datum/overmap_object/hazard/asteroid/process(delta_time)
@@ -214,7 +214,6 @@
 
 /datum/overmap_object/hazard/ion_storm
 	name = "ion storm"
-	hazard_color = LIGHT_COLOR_ELECTRIC_CYAN
 
 #define ION_STORM_SHIELD_DRAIN_PER_PROCESS 0.75
 
@@ -231,7 +230,7 @@
 
 /datum/overmap_object/hazard/carp_school
 	name = "carp school"
-	hazard_color = LIGHT_COLOR_PURPLE
+	hazard_color = COLOR_LIGHT_PINK
 
 /datum/overmap_object/hazard/carp_school/process(delta_time)
 	for(var/i in affected_shuttles)
