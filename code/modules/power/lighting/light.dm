@@ -7,6 +7,8 @@
 	name = "light fixture"
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "tube"
+	glow_icon_state = "tube"
+	exposure_icon_state = "cone"
 	desc = "A lighting fixture."
 	layer = WALL_OBJ_LAYER
 	max_integrity = 100
@@ -642,12 +644,11 @@
 	tube?.burn()
 	return
 
-
-
-
 /obj/machinery/light/floor
 	name = "floor light"
 	icon = 'icons/obj/lighting.dmi'
+	glow_icon_state = "floor"
+	exposure_icon_state = "floor"
 	base_state = "floor" // base description and icon_state
 	icon_state = "floor"
 	brightness = 2

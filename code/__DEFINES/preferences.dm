@@ -212,3 +212,8 @@ GLOBAL_LIST_EMPTY(all_loadout_datums)
 /// just so we can ensure it is loaded regardless of whether someone opens the loadout UI
 /// (because it also inits our loadout datums)
 GLOBAL_LIST_INIT(loadout_categories, init_loadout_categories())
+
+#define BLOOM_HIGH    0
+#define BLOOM_MED     1 //default.
+#define BLOOM_LOW     2
+#define BLOOM_DISABLE 3 //this option must be the highest number

@@ -125,6 +125,11 @@
 //---------- LIGHTING -------------
 ///Normal 1 per turf dynamic lighting underlays
 #define LIGHTING_PLANE 100
+#define LIGHTING_EXPOSURE_PLANE 101 // Light sources "cones"
+#define LIGHTING_LAMPS_SELFGLOW 102 // Light sources glow (lamps, doors overlay, etc.)
+#define LIGHTING_LAMPS_PLANE 103 // Light sources themselves (lamps, screens, etc.)
+#define LIGHTING_LAMPS_GLARE 104 // Light glare (optional setting)
+#define LIGHTING_LAMPS_RENDER_TARGET "*LIGHTING_LAMPS_RENDER_TARGET"
 
 ///Lighting objects that are "free floating"
 #define O_LIGHTING_VISUAL_PLANE 110
