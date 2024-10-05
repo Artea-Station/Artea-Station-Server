@@ -489,11 +489,3 @@
 /obj/item/circuitboard/computer/mining_shuttle/common
 	name = "Lavaland Shuttle"
 	build_path = /obj/machinery/computer/shuttle/mining/common
-
-/obj/item/circuitboard/computer/exoscanner_console
-	name = "Scanner Array Control Console"
-	build_path = /obj/machinery/computer/exoscanner_control
-
-/obj/item/circuitboard/computer/exodrone_console
-	name = "Exploration Drone Control Console"
-	build_path = /obj/machinery/computer/exodrone_control_console
