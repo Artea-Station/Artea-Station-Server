@@ -67,7 +67,7 @@
 			GLOB.EXPOSURE_CONTRAST_BASE = initial(GLOB.EXPOSURE_CONTRAST_BASE)
 			GLOB.EXPOSURE_CONTRAST_POWER = initial(GLOB.EXPOSURE_CONTRAST_POWER)
 		if("update_lamps") // todo: make this update all objects with glow
-			for(var/obj/machinery/light/L in machines)
+			for(var/obj/machinery/light/L in GLOB.machines)
 				if(L.glow_overlay || L.exposure_overlay)
 					//L.update_light() // does nothing
 					L.set_light(0) // so we make this ugly way

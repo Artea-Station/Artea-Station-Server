@@ -67,5 +67,3 @@ GLOBAL_LIST_EMPTY(airlock_vent_names) // Name list of all air vents
 
 GLOBAL_LIST_EMPTY(roundstart_station_borgcharger_areas) // List of area names of roundstart station cyborg rechargers, for the low charge/no charge cyborg screen alert tooltips.
 GLOBAL_LIST_EMPTY(roundstart_station_mechcharger_areas) // List of area names of roundstart station mech rechargers, for the low charge/no charge mech screen alert tooltips.
-
-var/global/list/machines = list()
