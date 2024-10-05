@@ -24,14 +24,14 @@
 /datum/bloom_edit/ui_data(mob/user)
 	var/list/data = list()
 
-	data["glow_brightness_base"] = global.GLOW_BRIGHTNESS_BASE
-	data["glow_brightness_power"] = global.GLOW_BRIGHTNESS_POWER
-	data["glow_contrast_base"] = global.GLOW_CONTRAST_BASE
-	data["glow_contrast_power"] = global.GLOW_CONTRAST_POWER
-	data["exposure_brightness_base"] = global.EXPOSURE_BRIGHTNESS_BASE
-	data["exposure_brightness_power"] = global.EXPOSURE_BRIGHTNESS_POWER
-	data["exposure_contrast_base"] = global.EXPOSURE_CONTRAST_BASE
-	data["exposure_contrast_power"] = global.EXPOSURE_CONTRAST_POWER
+	data["glow_brightness_base"] = GLOB.GLOW_BRIGHTNESS_BASE
+	data["glow_brightness_power"] = GLOB.GLOW_BRIGHTNESS_POWER
+	data["glow_contrast_base"] = GLOB.GLOW_CONTRAST_BASE
+	data["glow_contrast_power"] = GLOB.GLOW_CONTRAST_POWER
+	data["exposure_brightness_base"] = GLOB.EXPOSURE_BRIGHTNESS_BASE
+	data["exposure_brightness_power"] = GLOB.EXPOSURE_BRIGHTNESS_POWER
+	data["exposure_contrast_base"] = GLOB.EXPOSURE_CONTRAST_BASE
+	data["exposure_contrast_power"] = GLOB.EXPOSURE_CONTRAST_POWER
 
 	return data
 
@@ -42,30 +42,30 @@
 
 	switch(action)
 		if("glow_brightness_base")
-			global.GLOW_BRIGHTNESS_BASE = clamp(params["value"], -10, 10)
+			GLOB.GLOW_BRIGHTNESS_BASE = clamp(params["value"], -10, 10)
 		if("glow_brightness_power")
-			global.GLOW_BRIGHTNESS_POWER = clamp(params["value"], -10, 10)
+			GLOB.GLOW_BRIGHTNESS_POWER = clamp(params["value"], -10, 10)
 		if("glow_contrast_base")
-			global.GLOW_CONTRAST_BASE = clamp(params["value"], -10, 10)
+			GLOB.GLOW_CONTRAST_BASE = clamp(params["value"], -10, 10)
 		if("glow_contrast_power")
-			global.GLOW_CONTRAST_POWER = clamp(params["value"], -10, 10)
+			GLOB.GLOW_CONTRAST_POWER = clamp(params["value"], -10, 10)
 		if("exposure_brightness_base")
-			global.EXPOSURE_BRIGHTNESS_BASE = clamp(params["value"], -10, 10)
+			GLOB.EXPOSURE_BRIGHTNESS_BASE = clamp(params["value"], -10, 10)
 		if("exposure_brightness_power")
-			global.EXPOSURE_BRIGHTNESS_POWER = clamp(params["value"], -10, 10)
+			GLOB.EXPOSURE_BRIGHTNESS_POWER = clamp(params["value"], -10, 10)
 		if("exposure_contrast_base")
-			global.EXPOSURE_CONTRAST_BASE = clamp(params["value"], -10, 10)
+			GLOB.EXPOSURE_CONTRAST_BASE = clamp(params["value"], -10, 10)
 		if("exposure_contrast_power")
-			global.EXPOSURE_CONTRAST_POWER = clamp(params["value"], -10, 10)
+			GLOB.EXPOSURE_CONTRAST_POWER = clamp(params["value"], -10, 10)
 		if("default")
-			global.GLOW_BRIGHTNESS_BASE = initial(global.GLOW_BRIGHTNESS_BASE)
-			global.GLOW_BRIGHTNESS_POWER = initial(global.GLOW_BRIGHTNESS_POWER)
-			global.GLOW_CONTRAST_BASE = initial(global.GLOW_CONTRAST_BASE)
-			global.GLOW_CONTRAST_POWER = initial(global.GLOW_CONTRAST_POWER)
-			global.EXPOSURE_BRIGHTNESS_BASE = initial(global.EXPOSURE_BRIGHTNESS_BASE)
-			global.EXPOSURE_BRIGHTNESS_POWER = initial(global.EXPOSURE_BRIGHTNESS_POWER)
-			global.EXPOSURE_CONTRAST_BASE = initial(global.EXPOSURE_CONTRAST_BASE)
-			global.EXPOSURE_CONTRAST_POWER = initial(global.EXPOSURE_CONTRAST_POWER)
+			GLOB.GLOW_BRIGHTNESS_BASE = initial(GLOB.GLOW_BRIGHTNESS_BASE)
+			GLOB.GLOW_BRIGHTNESS_POWER = initial(GLOB.GLOW_BRIGHTNESS_POWER)
+			GLOB.GLOW_CONTRAST_BASE = initial(GLOB.GLOW_CONTRAST_BASE)
+			GLOB.GLOW_CONTRAST_POWER = initial(GLOB.GLOW_CONTRAST_POWER)
+			GLOB.EXPOSURE_BRIGHTNESS_BASE = initial(GLOB.EXPOSURE_BRIGHTNESS_BASE)
+			GLOB.EXPOSURE_BRIGHTNESS_POWER = initial(GLOB.EXPOSURE_BRIGHTNESS_POWER)
+			GLOB.EXPOSURE_CONTRAST_BASE = initial(GLOB.EXPOSURE_CONTRAST_BASE)
+			GLOB.EXPOSURE_CONTRAST_POWER = initial(GLOB.EXPOSURE_CONTRAST_POWER)
 		if("update_lamps") // todo: make this update all objects with glow
 			for(var/obj/machinery/light/L in machines)
 				if(L.glow_overlay || L.exposure_overlay)
