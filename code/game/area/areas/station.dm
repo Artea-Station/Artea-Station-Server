@@ -465,29 +465,29 @@
 	icon_state = "heads_quarters"
 
 /area/station/command/heads_quarters/captain
-	name = "\improper Captain's Office"
+	name = "\improper Shipmaster's Office"
 	icon_state = "captain"
 	sound_environment = SOUND_AREA_WOODFLOOR
 
 /area/station/command/heads_quarters/captain/private
-	name = "\improper Captain's Quarters"
+	name = "\improper Shipmaster's Quarters"
 	icon_state = "captain_private"
 	sound_environment = SOUND_AREA_WOODFLOOR
 
 /area/station/command/heads_quarters/ce
-	name = "\improper Chief Engineer's Office"
+	name = "\improper Lead Technician's Office"
 	icon_state = "ce_office"
 
 /area/station/command/heads_quarters/cmo
-	name = "\improper Chief Medical Officer's Office"
+	name = "\improper Head Physician's Office"
 	icon_state = "cmo_office"
 
 /area/station/command/heads_quarters/hop
-	name = "\improper Head of Personnel's Office"
+	name = "\improper Executive Officer's Office"
 	icon_state = "hop_office"
 
 /area/station/command/heads_quarters/hos
-	name = "\improper Head of Security's Office"
+	name = "\improper Colonel's Office"
 	icon_state = "hos_office"
 
 /area/station/command/heads_quarters/rd
@@ -495,7 +495,7 @@
 	icon_state = "rd_office"
 
 /area/station/command/heads_quarters/qm
-	name = "\improper Quartermaster's Office"
+	name = "\improper Logistics Manager's Office"
 	icon_state = "qm_office"
 
 /area/station/command/heads_quarters/pl
