@@ -225,8 +225,6 @@
 	force = 9 // Not as good as a stun baton.
 	light_range = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
-	light_range = 3
-	light_power = 0.75
 	light_color = "#ffe6cd"
 
 // the desk lamps are a bit special

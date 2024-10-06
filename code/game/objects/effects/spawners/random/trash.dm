@@ -69,6 +69,7 @@
 	name = "botanical waste spawner"
 	icon_state = "peel"
 	loot = list(
+		/obj/item/grown/bananapeel = 1,
 		/obj/item/grown/corncob = 3,
 		/obj/item/food/grown/bungopit = 1,
 	)
