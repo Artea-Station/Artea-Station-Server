@@ -175,6 +175,13 @@
 	alt_covers_chest = TRUE
 	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 
+/obj/item/clothing/under/rank/security/head_of_security/alt_white
+	name = "head of security's white turtleneck"
+	desc = "A stylish alternative to the normal head of security jumpsuit, complete with tactical pants."
+	icon_state = "hosalt_white"
+	inhand_icon_state = "bl_suit"
+	alt_covers_chest = TRUE
+
 /obj/item/clothing/under/rank/security/head_of_security/parade
 	name = "head of security's parade uniform"
 	desc = "A male head of security's luxury-wear, for special occasions."

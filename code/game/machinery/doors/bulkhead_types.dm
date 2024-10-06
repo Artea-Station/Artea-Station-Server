@@ -23,8 +23,8 @@
 /obj/machinery/door/bulkhead/security
 	assemblytype = /obj/structure/door_assembly/door_assembly_sec
 	normal_integrity = 450
-	bulkhead_paint = "#912e25"
-	stripe_paint = "#1E2425"
+	bulkhead_paint = "#F6F6F6"
+	stripe_paint = "#912e25"
 
 /obj/machinery/door/bulkhead/engineering
 	assemblytype = /obj/structure/door_assembly/door_assembly_eng
