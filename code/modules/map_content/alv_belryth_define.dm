@@ -20,7 +20,7 @@
 	)
 	//central_trading_hub_type = /datum/trade_hub/randomname/large
 	overmap_object_type = /datum/overmap_object/shuttle/ship/alv_belryth
-	job_faction = FACTION_BEARCAT
+	job_faction = FACTION_BELRYTH
 	job_changes = list()
 	overflow_job = /datum/job/assistant/bearcat
 	shuttles = list(
