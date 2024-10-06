@@ -14,11 +14,17 @@
 	bulkhead_paint = "#F6F6F6"
 	stripe_paint = "#BB8425"
 
+/obj/machinery/door/bulkhead/command/head_of_security
+	assemblytype = /obj/structure/door_assembly/door_assembly_com/hos
+	normal_integrity = 450
+	bulkhead_paint = "#F6F6F6"
+	stripe_paint = "#912e25"
+
 /obj/machinery/door/bulkhead/security
 	assemblytype = /obj/structure/door_assembly/door_assembly_sec
 	normal_integrity = 450
-	bulkhead_paint = "#9F2828"
-	stripe_paint = "#D27428"
+	bulkhead_paint = "#912e25"
+	stripe_paint = "#1E2425"
 
 /obj/machinery/door/bulkhead/engineering
 	assemblytype = /obj/structure/door_assembly/door_assembly_eng
@@ -120,6 +126,11 @@
 	normal_integrity = 400
 
 /obj/machinery/door/bulkhead/command/chief_engineer/glass
+	opacity = FALSE
+	glass = TRUE
+	normal_integrity = 400
+
+/obj/machinery/door/bulkhead/command/head_of_security/glass
 	opacity = FALSE
 	glass = TRUE
 	normal_integrity = 400

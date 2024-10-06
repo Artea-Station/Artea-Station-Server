@@ -4661,6 +4661,11 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/paint_wall/security,
+/obj/machinery/door/poddoor/shutters{
+	id = "hosshutter";
+	name = "Privacy Shutters";
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/station/security/office)
 "chw" = (
@@ -14137,7 +14142,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/crew_quarters/dorms)
 "gmF" = (
-/obj/machinery/door/bulkhead/command{
+/obj/machinery/door/bulkhead/command/head_of_security{
 	name = "Head of Security's Quarters"
 	},
 /obj/structure/cable,
@@ -28125,7 +28130,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/pathfinders/greater)
 "mcC" = (
-/obj/machinery/door/bulkhead/command{
+/obj/machinery/door/bulkhead/command/head_of_security{
 	name = "Head of Security's Quarters"
 	},
 /turf/open/floor/carpet/royalblack,
@@ -30464,9 +30469,9 @@
 /turf/open/floor/carpet/green,
 /area/station/security/detectives_office)
 "mVs" = (
-/obj/machinery/door/bulkhead/security{
-	name = "Armoury";
-	dir = 4
+/obj/machinery/door/bulkhead/command/head_of_security{
+	dir = 4;
+	name = "Armoury"
 	},
 /obj/effect/mapping_helpers/bulkhead/access/all/security/armory,
 /obj/effect/turf_decal/delivery,
@@ -38715,6 +38720,11 @@
 "qqH" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/suit_storage_unit/hardsuit/hos,
+/obj/machinery/button/door/directional/west{
+	id = "hosshutter";
+	name = "Privacy Shutter Toggle";
+	pixel_y = 6
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/command/heads_quarters/hos)
 "qqW" = (
@@ -40841,12 +40851,13 @@
 "rkn" = (
 /obj/effect/mapping_helpers/bulkhead/access/all/security/hos,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/bulkhead/command/glass{
-	dir = 4
-	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/door/bulkhead/command/head_of_security{
+	dir = 4;
+	name = "Head of Security's Office"
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/security/office)
 "rkw" = (
@@ -45468,13 +45479,15 @@
 /turf/open/floor/iron/dark/textured,
 /area/station/maintenance/department/medical/central)
 "tla" = (
-/obj/machinery/door/bulkhead/maintenance,
 /obj/machinery/door/firehead,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/bulkhead/command{
+	name = "Maintenance Access"
+	},
 /turf/open/floor/plating,
 /area/station/maintenance/department/command)
 "tln" = (
@@ -50951,7 +50964,7 @@
 /turf/open/floor/iron/dark/textured,
 /area/station/engineering/gravity_generator)
 "vAT" = (
-/obj/machinery/door/bulkhead/security{
+/obj/machinery/door/bulkhead/command/head_of_security{
 	name = "Armoury"
 	},
 /obj/effect/mapping_helpers/bulkhead/access/all/security/armory,
