@@ -119,7 +119,7 @@
 	///What is the cap on our misfire probability? Do not set this to 100.
 	var/misfire_probability_cap = 25
 	/// How much recoil the gun has.
-	recoil = 1
+	recoil = 0.65
 
 /obj/item/gun/ballistic/Initialize(mapload)
 	. = ..()
