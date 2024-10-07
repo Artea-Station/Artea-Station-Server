@@ -49,7 +49,6 @@
 	var/suppressed_sound = 'sound/weapons/gun/general/heavy_shot_suppressed.ogg'
 	var/suppressed_volume = 60
 	var/can_unsuppress = TRUE
-	var/recoil = 0 //boom boom shake the room
 	var/clumsy_check = TRUE
 	var/obj/item/ammo_casing/chambered = null
 	trigger_guard = TRIGGER_GUARD_NORMAL //trigger guard on the weapon, hulks can't fire them with their big meaty fingers
@@ -84,6 +83,13 @@
 	var/ammo_y_offset = 0
 
 	var/pb_knockback = 0
+
+	///boom boom shake the room
+	var/recoil = 0
+	///a multiplier of the duration the recoil takes to go back to normal view, this is (recoil*recoil_backtime_multiplier)+1
+	var/recoil_backtime_multiplier = 2
+	///this is how much deviation the gun recoil can have, recoil pushes the screen towards the reverse angle you shot + some deviation which this is the max.
+	var/recoil_deviation = 22.5
 
 /obj/item/gun/Initialize(mapload)
 	. = ..()
@@ -171,8 +177,11 @@
 		playsound(src, fire_sound, fire_sound_volume, vary_fire_sound)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
+	var/angle = get_angle(user, pbtarget)+rand(-recoil_deviation, recoil_deviation) + 180
+	if(angle > 360)
+		angle -= 360
 	if(recoil && !tk_firing(user))
-		shake_camera(user, recoil + 1, recoil)
+		recoil_camera(user, recoil+1, (recoil*recoil_backtime_multiplier) + 1, recoil, angle)
 	fire_sounds()
 	if(!suppressed)
 		if(message)

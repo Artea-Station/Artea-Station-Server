@@ -33,7 +33,6 @@ SUBSYSTEM_DEF(persistence)
 	LoadRandomizedRecipes()
 	load_custom_outfits()
 
-	load_adventures()
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/persistence/proc/collect_data()

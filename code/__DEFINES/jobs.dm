@@ -38,11 +38,11 @@
 #define JOB_ASSISTANT "Assistant"
 #define JOB_PRISONER "Prisoner"
 //Command
-#define JOB_CAPTAIN "Captain"
-#define JOB_HEAD_OF_PERSONNEL "Head of Personnel"
-#define JOB_HEAD_OF_SECURITY "Head of Security"
-#define JOB_CHIEF_ENGINEER "Chief Engineer"
-#define JOB_CHIEF_MEDICAL_OFFICER "Chief Medical Officer"
+#define JOB_CAPTAIN "Shipmaster"
+#define JOB_HEAD_OF_PERSONNEL "Executive Officer"
+#define JOB_HEAD_OF_SECURITY "Colonel"
+#define JOB_CHIEF_ENGINEER "Lead Technician"
+#define JOB_CHIEF_MEDICAL_OFFICER "Head Physician"
 #define JOB_PATHFINDER_LEAD "Lead Pathfinder"
 #define JOB_INTERNAL_AFFAIRS_AGENT "Internal Affairs Agent"
 //Silicon
@@ -53,23 +53,19 @@
 #define JOB_WARDEN "Warden"
 #define JOB_DETECTIVE "Detective"
 #define JOB_SECURITY_OFFICER "Security Officer"
-#define JOB_SECURITY_OFFICER_MEDICAL "Security Officer (Medical)"
-#define JOB_SECURITY_OFFICER_ENGINEERING "Security Officer (Engineering)"
-#define JOB_SECURITY_OFFICER_SCIENCE "Security Officer (Science)"
-#define JOB_SECURITY_OFFICER_SUPPLY "Security Officer (Cargo)"
 //Engineering
-#define JOB_STATION_ENGINEER "Station Engineer"
+#define JOB_STATION_ENGINEER "Technician"
 #define JOB_ATMOSPHERIC_TECHNICIAN "Atmospheric Technician"
 #define JOB_ROBOTICIST "Roboticist"
 //Medical
-#define JOB_MEDICAL_DOCTOR "Medical Doctor"
+#define JOB_MEDICAL_DOCTOR "Physician"
 #define JOB_PARAMEDIC "Paramedic"
 #define JOB_CHEMIST "Chemist"
 //Pathfinders
 #define JOB_PATHFINDER "Pathfinder"
 //Supply
-#define JOB_QUARTERMASTER "Quartermaster"
-#define JOB_CARGO_TECHNICIAN "Cargo Technician"
+#define JOB_QUARTERMASTER "Logistics Manager"
+#define JOB_CARGO_TECHNICIAN "Logistics Technician"
 #define JOB_SHAFT_MINER "Shaft Miner"
 //Service
 #define JOB_BARTENDER "Bartender"
@@ -185,6 +181,7 @@
 #define FACTION_NONE "None"
 #define FACTION_STATION "Station"
 #define FACTION_BEARCAT "Bearcat"
+#define	FACTION_BELRYTH "Belryth"
 /// Special define that's PURPOSEFULLY NOT USED ANYWHERE BUT IN JOB DATUMS TO TEMPORARILY DISABLE JOBS.
 #define FACTION_DISABLED "do not use"
 

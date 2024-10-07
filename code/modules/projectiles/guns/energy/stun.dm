@@ -32,6 +32,7 @@
 	inhand_icon_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
 	ammo_x_offset = 2
+	recoil = 0.1
 
 /obj/item/gun/energy/disabler/add_seclight_point()
 	AddComponent(/datum/component/seclite_attachable, \

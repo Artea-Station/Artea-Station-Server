@@ -65,7 +65,7 @@
 	shuttle_backward_state = "station"
 
 /obj/effect/abstract/overmap/shuttle/ship
-	color = LIGHT_COLOR_ELECTRIC_CYAN
+	color = COLOR_WHITE
 	layer = OVERMAP_LAYER_SHIP
 	icon_state = "ship"
 	shuttle_idle_state = "ship"
