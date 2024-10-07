@@ -37,8 +37,6 @@
 		if(istype(affected_area, /area/station/service/kitchen))
 			for(var/turf/open/kitchen in affected_area)
 				kitchen.set_light(1, 0.75)
-			if(!prob(1) && !SSevents.holidays?[APRIL_FOOLS])
-				continue
 			var/obj/machinery/oven/roast_ruiner = locate() in affected_area
 			if(roast_ruiner)
 				roast_ruiner.balloon_alert_to_viewers("oh egads!")

@@ -21,7 +21,6 @@ SUBSYSTEM_DEF(events)
 			continue //don't want this one! leave it for the garbage collector
 		control += E //add it to the list of all events (controls)
 	reschedule()
-	getHoliday()
 	return SS_INIT_SUCCESS
 
 
@@ -91,56 +90,6 @@ SUBSYSTEM_DEF(events)
 		E.max_occurrences = 0
 	else if(. == EVENT_READY)
 		E.runEvent(random = TRUE)
-
-/*
-//////////////
-// HOLIDAYS //
-//////////////
-//Uncommenting ALLOW_HOLIDAYS in config.txt will enable holidays
-
-//It's easy to add stuff. Just add a holiday datum in code/modules/holiday/holidays.dm
-//You can then check if it's a special day in any code in the game by doing if(SSevents.holidays["Groundhog Day"])
-
-//You can also make holiday random events easily thanks to Pete/Gia's system.
-//simply make a random event normally, then assign it a holidayID string which matches the holiday's name.
-//Anything with a holidayID, which isn't in the holidays list, will never occur.
-
-//Please, Don't spam stuff up with stupid stuff (key example being april-fools Pooh/ERP/etc),
-//And don't forget: CHECK YOUR CODE!!!! We don't want any zero-day bugs which happen only on holidays and never get found/fixed!
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//ALSO, MOST IMPORTANTLY: Don't add stupid stuff! Discuss bonus content with Project-Heads first please!//
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-*/
-
-//sets up the holidays and holidays list
-/datum/controller/subsystem/events/proc/getHoliday()
-	if(!CONFIG_GET(flag/allow_holidays))
-		return // Holiday stuff was not enabled in the config!
-	for(var/H in subtypesof(/datum/holiday))
-		var/datum/holiday/holiday = new H()
-		var/delete_holiday = TRUE
-		for(var/timezone in holiday.timezones)
-			var/time_in_timezone = world.realtime + timezone HOURS
-
-			var/YYYY = text2num(time2text(time_in_timezone, "YYYY")) // get the current year
-			var/MM = text2num(time2text(time_in_timezone, "MM")) // get the current month
-			var/DD = text2num(time2text(time_in_timezone, "DD")) // get the current day
-			var/DDD = time2text(time_in_timezone, "DDD") // get the current weekday
-
-			if(holiday.shouldCelebrate(DD, MM, YYYY, DDD))
-				holiday.celebrate()
-				LAZYSET(holidays, holiday.name, holiday)
-				delete_holiday = FALSE
-				break
-		if(delete_holiday)
-			qdel(holiday)
-
-	if(holidays)
-		holidays = shuffle(holidays)
-		// regenerate station name because holiday prefixes.
-		set_station_name(new_station_name())
-		world.update_status()
 
 /datum/controller/subsystem/events/proc/toggleWizardmode()
 	wizardmode = !wizardmode

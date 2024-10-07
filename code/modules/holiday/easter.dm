@@ -1,39 +1,3 @@
-/datum/round_event_control/easter
-	name = "Easter Eggselence"
-	holidayID = EASTER
-	typepath = /datum/round_event/easter
-	weight = -1
-	max_occurrences = 1
-	earliest_start = 0 MINUTES
-	category = EVENT_CATEGORY_HOLIDAY
-	description = "Hides surprise filled easter eggs in maintenance."
-
-/datum/round_event/easter/announce(fake)
-	priority_announce(pick("Hip-hop into Easter!","Find some Bunny's stash!","Today is National 'Hunt a Wabbit' Day.","Be kind, give Chocolate Eggs!"))
-
-
-/datum/round_event_control/rabbitrelease
-	name = "Release the Rabbits!"
-	holidayID = EASTER
-	typepath = /datum/round_event/rabbitrelease
-	weight = 5
-	max_occurrences = 10
-	category = EVENT_CATEGORY_HOLIDAY
-	description = "Summons a wave of cute rabbits."
-
-/datum/round_event/rabbitrelease/announce(fake)
-	priority_announce("Unidentified furry objects detected coming aboard [station_name()]. Beware of Adorable-ness.", "Fluffy Alert", ANNOUNCER_ALIENS)
-
-
-/datum/round_event/rabbitrelease/start()
-	for(var/obj/effect/landmark/R in GLOB.landmarks_list)
-		if(R.name != "blobspawn")
-			if(prob(35))
-				if(isspaceturf(R.loc))
-					new /mob/living/simple_animal/rabbit/easter/space(R.loc)
-				else
-					new /mob/living/simple_animal/rabbit/easter(R.loc)
-
 //Easter Baskets
 /obj/item/storage/basket/easter
 	name = "Easter Basket"

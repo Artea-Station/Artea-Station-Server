@@ -106,9 +106,7 @@
 	return TRUE
 
 /datum/species/monkey/check_roundstart_eligible()
-	if(SSevents.holidays && SSevents.holidays[MONKEYDAY])
-		return TRUE
-	return ..()
+	return FALSE
 
 /datum/species/monkey/get_scream_sound(mob/living/carbon/human/monkey)
 	return pick(
