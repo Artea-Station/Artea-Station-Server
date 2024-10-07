@@ -23,6 +23,7 @@
 	bolt_wording = "slide"
 	suppressor_x_offset = 10
 	suppressor_y_offset = -1
+	recoil = 0.45
 
 /obj/item/gun/ballistic/automatic/pistol/no_mag
 	spawnwithmagazine = FALSE
