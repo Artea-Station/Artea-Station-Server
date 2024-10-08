@@ -11,8 +11,8 @@
 	)
 
 /obj/machinery/atmospherics/components/unary/heat_sail
-	name = "heat sail"
-	desc = "A heat sail for dissapating heat into space.<br>A label on it reads:<br><span class=\"warning\">WARNING: NOT FOR ATMOSPHERIC USAGE!</span>"
+	name = "heat sink"
+	desc = "A heat sink for handling huge amounts of heat and casting it into space with higher efficiency, the hotter it is.<br><span class=\"info\">A label on it reads:</span><br><span class=\"warning\">WARNING: NOT FOR ATMOSPHERIC USAGE!</span>"
 
 	icon = 'icons/obj/atmospherics/heat_sail.dmi'
 	icon_state = "heat_sail"
