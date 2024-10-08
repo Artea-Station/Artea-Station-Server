@@ -1,5 +1,3 @@
-#define BASE_SAIL_OVERLAY_GRAY "#7a7a7a"
-
 /obj/item/circuitboard/machine/heat_sail
 	name = "Heat Sail"
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
@@ -14,7 +12,7 @@
 
 /obj/machinery/atmospherics/components/unary/heat_sail
 	name = "heat sail"
-	desc = "A heat sail for dissapating heat into space.<br><span class=\"warning\">WARNING: NOT FOR ATMOSPHERIC USAGE!</span>"
+	desc = "A heat sail for dissapating heat into space.<br>A label on it reads:<br><span class=\"warning\">WARNING: NOT FOR ATMOSPHERIC USAGE!</span>"
 
 	icon = 'icons/obj/atmospherics/heat_sail.dmi'
 	icon_state = "heat_sail"
@@ -32,6 +30,9 @@
 	var/last_oh_shit_sound
 
 	var/heat_capacity = 0
+
+	// Lazy as fuck workaround to pipenets being randomly null on update appearance
+	var/last_heat_intensity = 0
 
 /obj/machinery/atmospherics/components/unary/heat_sail/Initialize(mapload)
 	. = ..()
@@ -92,8 +93,8 @@
 
 		pipe_air.temperature = max(new_temp, TCMB)
 
-		update_parents()
 		update_appearance()
+		update_parents()
 		return
 
 	if(world.time - last_oh_shit_sound > 10 SECONDS)
@@ -106,21 +107,21 @@
 /obj/machinery/atmospherics/components/unary/heat_sail/update_overlays()
 	. = ..()
 	var/datum/gas_mixture/pipe_air = airs[1]
-	if(!pipe_air)
-		return
-	var/heat_intensity = min((pipe_air.temperature - T20C) / T300C, 1)
+
+	if(pipe_air)
+		last_heat_intensity = min((pipe_air.temperature - T20C) / T300C, 1)
+
 	var/icon/heat_overlay = icon(icon, "heat_sail_heat")
 
-	// heat_overlay.ColorTone(BASE_SAIL_OVERLAY_GRAY)
-	// rgb(255, 80, 0) // For VSC color hints
-	heat_overlay.Blend(rgb(120 * heat_intensity, max(0, (80 * heat_intensity) - 40), 0), ICON_MULTIPLY)
-	heat_overlay.MapColors(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,heat_intensity, 0,0,0,0)
+	// Peaks at ~800k
+	heat_overlay.Blend(rgb(120 * last_heat_intensity, max(0, (80 * last_heat_intensity) - 40), 0), ICON_MULTIPLY)
+	heat_overlay.MapColors(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,last_heat_intensity, 0,0,0,0)
 	. += heat_overlay
 	. += emissive_appearance(icon, "heat_sail_heat")
 
-	if(heat_intensity > 0.5)
+	if(last_heat_intensity > 0.5)
 		var/icon/glow_overlay = icon(icon, "heat_sail_glow")
-		glow_overlay.Blend(rgb(120 * heat_intensity, max(0, (80 * heat_intensity) - 40), 0), ICON_MULTIPLY)
+		glow_overlay.Blend(rgb(120 * last_heat_intensity, max(0, (80 * last_heat_intensity) - 40), 0), ICON_MULTIPLY)
 		. += glow_overlay
 		. += emissive_appearance(icon, "heat_sail_glow")
 
@@ -191,4 +192,4 @@
 	if(parents[1])
 		nullify_pipenet(parents[1])
 
-#undef BASE_SAIL_OVERLAY_GRAY
+// End copy paste bullshit. Yeah, it's a lot.
