@@ -343,7 +343,7 @@
 
 /// Performs heat calculation for the freezer.
 /// We just equalize the gasmix with an object at temp = var/target_temperature and heat cap = var/heat_capacity
-/obj/machinery/atmospherics/components/unary/thermomachine/process_atmos()
+/obj/machinery/atmospherics/components/unary/thermomachine/magic/process_atmos()
 	if(!on)
 		return
 
