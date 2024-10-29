@@ -12,7 +12,7 @@
 
 /obj/machinery/atmospherics/components/unary/heat_sink
 	name = "heat sink"
-	desc = "A heat sink for handling huge amounts of heat and casting it into space with higher efficiency, the hotter it is.<br><span class=\"info\">A label on it reads:</span><br><span class=\"warning\">WARNING: NOT FOR ATMOSPHERIC USAGE!</span>"
+	desc = "A heat sink for handling huge amounts of heat and casting it into space with higher efficiency, the hotter it is.<br><span class=\"info\">A label on it reads:</span><br>The heatsink is mounted internally and uses the air above it.<br><span class=\"warning\">WARNING: NOT FOR ATMOSPHERIC USAGE!</span>"
 
 	icon = 'icons/obj/atmospherics/heat_sink.dmi'
 	icon_state = "heat_sink"
@@ -67,19 +67,16 @@
 /obj/machinery/atmospherics/components/unary/heat_sink/process_atmos()
 	var/datum/gas_mixture/pipe_air = airs[1]
 
-	var/turf/local_turf = loc
-	var/datum/gas_mixture/turf_air = loc.return_air()
-	if(!istype(local_turf))
-		SSairmachines.stop_processing_machine(src) // Don't keep making runtimes about this.
-		CRASH("Heatsink ([type]) not in a turf!")
-
 	if(!pipe_air.total_moles) // Nothing to cool? go home lad
 		return
 
-	var/oh_shit_factor = min((turf_air.total_moles / MOLES_CELLSTANDARD) * 1.2, 1)
+	var/turf/above_turf = get_step_multiz_fast(UP)
+	var/datum/gas_mixture/above_air = above_turf?.return_air()
+
+	var/oh_shit_factor = above_air ? min((above_air.total_moles / MOLES_CELLSTANDARD) * 1.2, 1) : 0
 
 	//If a turf has (basically) no gas, it's safe to assume its a pure vacuum. So we should radiate heat instead of fucking dying.
-	if(!turf_air || oh_shit_factor < 0.1)
+	if(!above_air || oh_shit_factor < 0.1)
 
 		var/port_capacity = pipe_air.getHeatCapacity()
 
