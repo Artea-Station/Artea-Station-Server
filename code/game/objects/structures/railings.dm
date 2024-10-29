@@ -26,6 +26,7 @@
 		AddElement(/datum/element/connect_loc, loc_connections)
 
 	AddComponent(/datum/component/simple_rotation, ROTATION_NEEDS_ROOM, CALLBACK(src, PROC_REF(on_rotation)))
+	on_rotation()
 
 /obj/structure/railing/proc/on_rotation()
 	if((NORTH | SOUTH) & dir)
