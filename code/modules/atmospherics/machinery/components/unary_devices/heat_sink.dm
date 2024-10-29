@@ -1,21 +1,21 @@
-/obj/item/circuitboard/machine/heat_sail
-	name = "Heat Sail"
+/obj/item/circuitboard/machine/heat_sink
+	name = "Heat Sink"
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
-	build_path = /obj/machinery/atmospherics/components/unary/heat_sail
+	build_path = /obj/machinery/atmospherics/components/unary/heat_sink
 	var/pipe_layer = PIPING_LAYER_DEFAULT
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/manipulator = 2,
 		/obj/item/stack/cable_coil = 1,
-		/obj/item/stack/sheet/mineral/plastitanium = 1,
+		/obj/item/stack/sheet/mineral/plastitanium = 10,
 	)
 
-/obj/machinery/atmospherics/components/unary/heat_sail
+/obj/machinery/atmospherics/components/unary/heat_sink
 	name = "heat sink"
 	desc = "A heat sink for handling huge amounts of heat and casting it into space with higher efficiency, the hotter it is.<br><span class=\"info\">A label on it reads:</span><br><span class=\"warning\">WARNING: NOT FOR ATMOSPHERIC USAGE!</span>"
 
-	icon = 'icons/obj/atmospherics/heat_sail.dmi'
-	icon_state = "heat_sail"
+	icon = 'icons/obj/atmospherics/heat_sink.dmi'
+	icon_state = "heat_sink"
 
 	bound_width = 64
 	bound_height = 96
@@ -34,19 +34,19 @@
 	// Lazy as fuck workaround to pipenets being randomly null on update appearance
 	var/last_heat_intensity = 0
 
-/obj/machinery/atmospherics/components/unary/heat_sail/Initialize(mapload)
+/obj/machinery/atmospherics/components/unary/heat_sink/Initialize(mapload)
 	. = ..()
 	RefreshParts()
 	update_appearance()
 
-/obj/machinery/atmospherics/components/unary/heat_sail/RefreshParts()
+/obj/machinery/atmospherics/components/unary/heat_sink/RefreshParts()
 	. = ..()
 	var/calculated_bin_rating = 0
 	for(var/obj/item/stock_parts/matter_bin/bin in component_parts)
 		calculated_bin_rating += bin.rating
 	heat_capacity = 5000 * ((calculated_bin_rating - 1) ** 2)
 
-/obj/machinery/atmospherics/components/unary/heat_sail/on_construction(obj_color, set_layer)
+/obj/machinery/atmospherics/components/unary/heat_sink/on_construction(obj_color, set_layer)
 	var/obj/item/circuitboard/machine/thermomachine/board = circuit
 	if(board)
 		piping_layer = board.pipe_layer
@@ -58,13 +58,13 @@
 
 	return ..()
 
-/obj/machinery/atmospherics/components/unary/heat_sail/is_connectable(obj/machinery/atmospherics/target, given_layer)
+/obj/machinery/atmospherics/components/unary/heat_sink/is_connectable(obj/machinery/atmospherics/target, given_layer)
 	if(panel_open)
 		return FALSE
 
 	return ..()
 
-/obj/machinery/atmospherics/components/unary/heat_sail/process_atmos()
+/obj/machinery/atmospherics/components/unary/heat_sink/process_atmos()
 	var/datum/gas_mixture/pipe_air = airs[1]
 
 	var/turf/local_turf = loc
@@ -104,30 +104,30 @@
 	take_damage(oh_shit_factor * 10) // Take between 1 and 10 damage depending on oh shit factor.
 	update_appearance()
 
-/obj/machinery/atmospherics/components/unary/heat_sail/update_overlays()
+/obj/machinery/atmospherics/components/unary/heat_sink/update_overlays()
 	. = ..()
 	var/datum/gas_mixture/pipe_air = airs[1]
 
 	if(pipe_air)
 		last_heat_intensity = min((pipe_air.temperature - T20C) / T300C, 1)
 
-	var/icon/heat_overlay = icon(icon, "heat_sail_heat")
+	var/icon/heat_overlay = icon(icon, "heat_sink_heat")
 
 	// Peaks at ~800k
 	heat_overlay.Blend(rgb(120 * last_heat_intensity, max(0, (80 * last_heat_intensity) - 40), 0), ICON_MULTIPLY)
 	heat_overlay.MapColors(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,last_heat_intensity, 0,0,0,0)
 	. += heat_overlay
-	. += emissive_appearance(icon, "heat_sail_heat")
+	. += emissive_appearance(icon, "heat_sink_heat")
 
 	if(last_heat_intensity > 0.5)
-		var/icon/glow_overlay = icon(icon, "heat_sail_glow")
+		var/icon/glow_overlay = icon(icon, "heat_sink_glow")
 		glow_overlay.Blend(rgb(120 * last_heat_intensity, max(0, (80 * last_heat_intensity) - 40), 0), ICON_MULTIPLY)
 		. += glow_overlay
-		. += emissive_appearance(icon, "heat_sail_glow")
+		. += emissive_appearance(icon, "heat_sink_glow")
 
 
 // Begin copy-paste bullshit. This should really be on the unary type, but whatever.
-/obj/machinery/atmospherics/components/unary/heat_sail/screwdriver_act(mob/living/user, obj/item/tool)
+/obj/machinery/atmospherics/components/unary/heat_sink/screwdriver_act(mob/living/user, obj/item/tool)
 	if(on)
 		to_chat(user, span_notice("You can't open [src] while it's on!"))
 		return TOOL_ACT_TOOLTYPE_SUCCESS
@@ -138,13 +138,13 @@
 		change_pipe_connection(panel_open)
 		return TOOL_ACT_TOOLTYPE_SUCCESS
 
-/obj/machinery/atmospherics/components/unary/heat_sail/wrench_act(mob/living/user, obj/item/tool)
+/obj/machinery/atmospherics/components/unary/heat_sink/wrench_act(mob/living/user, obj/item/tool)
 	return default_change_direction_wrench(user, tool)
 
-/obj/machinery/atmospherics/components/unary/heat_sail/crowbar_act(mob/living/user, obj/item/tool)
+/obj/machinery/atmospherics/components/unary/heat_sink/crowbar_act(mob/living/user, obj/item/tool)
 	return default_deconstruction_crowbar(tool)
 
-/obj/machinery/atmospherics/components/unary/heat_sail/multitool_act(mob/living/user, obj/item/multitool/multitool)
+/obj/machinery/atmospherics/components/unary/heat_sink/multitool_act(mob/living/user, obj/item/multitool/multitool)
 	if(!panel_open)
 		return
 	piping_layer = (piping_layer >= PIPING_LAYER_MAX) ? PIPING_LAYER_MIN : (piping_layer + 1)
@@ -152,14 +152,14 @@
 	update_appearance()
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-/obj/machinery/atmospherics/components/unary/heat_sail/default_change_direction_wrench(mob/user, obj/item/I)
+/obj/machinery/atmospherics/components/unary/heat_sink/default_change_direction_wrench(mob/user, obj/item/I)
 	if(!..())
 		return FALSE
 	set_init_directions()
 	update_appearance()
 	return TRUE
 
-/obj/machinery/atmospherics/components/unary/heat_sail/proc/check_pipe_on_turf()
+/obj/machinery/atmospherics/components/unary/heat_sink/proc/check_pipe_on_turf()
 	for(var/obj/machinery/atmospherics/device in get_turf(src))
 		if(device == src)
 			continue
@@ -168,13 +168,13 @@
 			return TRUE
 	return FALSE
 
-/obj/machinery/atmospherics/components/unary/heat_sail/proc/change_pipe_connection(disconnect)
+/obj/machinery/atmospherics/components/unary/heat_sink/proc/change_pipe_connection(disconnect)
 	if(disconnect)
 		disconnect_pipes()
 		return
 	connect_pipes()
 
-/obj/machinery/atmospherics/components/unary/heat_sail/proc/connect_pipes()
+/obj/machinery/atmospherics/components/unary/heat_sink/proc/connect_pipes()
 	var/obj/machinery/atmospherics/node1 = nodes[1]
 	atmos_init()
 	node1 = nodes[1]
@@ -183,7 +183,7 @@
 		node1.add_member(src)
 	SSairmachines.add_to_rebuild_queue(src)
 
-/obj/machinery/atmospherics/components/unary/heat_sail/proc/disconnect_pipes()
+/obj/machinery/atmospherics/components/unary/heat_sink/proc/disconnect_pipes()
 	var/obj/machinery/atmospherics/node1 = nodes[1]
 	if(node1)
 		if(src in node1.nodes) //Only if it's actually connected. On-pipe version would is one-sided.
