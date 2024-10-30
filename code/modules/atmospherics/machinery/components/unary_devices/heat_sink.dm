@@ -70,6 +70,10 @@
 
 	var/obj/structure/filler/heat_sink/top
 
+/obj/machinery/atmospherics/components/unary/heat_sink/green
+	pipe_color = COLOR_VIBRANT_LIME
+	piping_layer = 4
+
 /obj/machinery/atmospherics/components/unary/heat_sink/Initialize(mapload)
 	. = ..()
 	RefreshParts()
