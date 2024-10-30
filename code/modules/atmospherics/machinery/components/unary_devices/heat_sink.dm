@@ -1,8 +1,42 @@
+/obj/structure/filler/heat_sink
+	name = "heat sink top"
+	desc = "A heat sink for handling huge amounts of heat and casting it into space with higher efficiency, the hotter it is.<br><span class=\"info\">A label on it reads:</span><br>The heatsink is mounted internally and uses the air above it.<br><span class=\"warning\">WARNING: NOT FOR ATMOSPHERIC USAGE!</span>"
+
+	icon = 'icons/obj/atmospherics/heat_sink.dmi'
+	icon_state = "heat_sink_top"
+
+	bound_width = 64
+	bound_height = 64
+	pixel_y = -32
+
+	invisibility = NONE
+	var/heat_overlay_sink
+	var/glow_overlay_sink
+
+/obj/structure/filler/heat_sink/proc/set_appearance(heat_overlay, glow_overlay)
+	heat_overlay_sink = heat_overlay
+	glow_overlay_sink = glow_overlay
+	update_appearance(UPDATE_ICON)
+
+/obj/structure/filler/heat_sink/update_overlays()
+	. = ..()
+	if (!heat_overlay_sink)
+		return
+
+	. += heat_overlay_sink
+	. += emissive_appearance(icon, "heat_sink_heat")
+
+	if(!glow_overlay_sink)
+		return
+
+	. += glow_overlay_sink
+	. += emissive_appearance(icon, "heat_sink_glow")
+
 /obj/item/circuitboard/machine/heat_sink
 	name = "Heat Sink"
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/atmospherics/components/unary/heat_sink
-	var/pipe_layer = PIPING_LAYER_DEFAULT
+	var/pipe_layer = 2
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/manipulator = 2,
@@ -25,19 +59,32 @@
 
 	density = TRUE
 
-	pipe_color = COLOR_DARK
+	pipe_color = COLOR_RED
+	piping_layer = 2
 
 	var/last_oh_shit_sound
 
 	var/heat_capacity = 0
-
 	// Lazy as fuck workaround to pipenets being randomly null on update appearance
 	var/last_heat_intensity = 0
+
+	var/obj/structure/filler/heat_sink/top
 
 /obj/machinery/atmospherics/components/unary/heat_sink/Initialize(mapload)
 	. = ..()
 	RefreshParts()
 	update_appearance()
+
+	var/turf/above_turf = get_step_multiz_fast(get_turf(src), UP)
+	if(!above_turf)
+		return
+
+	var/turf/top_target = locate(above_turf.x, above_turf.y + 1, above_turf.z)
+	top = new /obj/structure/filler/heat_sink(top_target)
+
+/obj/machinery/atmospherics/components/unary/heat_sink/Destroy()
+	QDEL_NULL(top)
+	. = ..()
 
 /obj/machinery/atmospherics/components/unary/heat_sink/RefreshParts()
 	. = ..()
@@ -70,7 +117,7 @@
 	if(!pipe_air.total_moles) // Nothing to cool? go home lad
 		return
 
-	var/turf/above_turf = get_step_multiz_fast(UP)
+	var/turf/above_turf = get_step_multiz_fast(get_turf(src), UP)
 	var/datum/gas_mixture/above_air = above_turf?.return_air()
 
 	var/oh_shit_factor = above_air ? min((above_air.total_moles / MOLES_CELLSTANDARD) * 1.2, 1) : 0
@@ -109,19 +156,23 @@
 		last_heat_intensity = min((pipe_air.temperature - T20C) / T300C, 1)
 
 	var/icon/heat_overlay = icon(icon, "heat_sink_heat")
+	var/heat_color = rgb(120 * last_heat_intensity, max(0, (80 * last_heat_intensity) - 40), 0)
 
 	// Peaks at ~800k
-	heat_overlay.Blend(rgb(120 * last_heat_intensity, max(0, (80 * last_heat_intensity) - 40), 0), ICON_MULTIPLY)
+	heat_overlay.Blend(heat_color, ICON_MULTIPLY)
 	heat_overlay.MapColors(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,last_heat_intensity, 0,0,0,0)
 	. += heat_overlay
 	. += emissive_appearance(icon, "heat_sink_heat")
 
-	if(last_heat_intensity > 0.5)
-		var/icon/glow_overlay = icon(icon, "heat_sink_glow")
-		glow_overlay.Blend(rgb(120 * last_heat_intensity, max(0, (80 * last_heat_intensity) - 40), 0), ICON_MULTIPLY)
+	var/is_glowing = last_heat_intensity > 0.5
+	var/icon/glow_overlay
+	if(is_glowing)
+		glow_overlay = icon(icon, "heat_sink_glow")
+		glow_overlay.Blend(heat_color, ICON_MULTIPLY)
 		. += glow_overlay
 		. += emissive_appearance(icon, "heat_sink_glow")
 
+	top?.set_appearance(heat_overlay, glow_overlay)
 
 // Begin copy-paste bullshit. This should really be on the unary type, but whatever.
 /obj/machinery/atmospherics/components/unary/heat_sink/screwdriver_act(mob/living/user, obj/item/tool)
