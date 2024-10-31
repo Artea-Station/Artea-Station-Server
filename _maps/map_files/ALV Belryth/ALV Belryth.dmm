@@ -682,7 +682,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firehead,
 /obj/machinery/door/bulkhead/command{
-	name = "Chief Medical Officer's Quarters"
+	name = "Head Physician's Office"
 	},
 /obj/effect/mapping_helpers/bulkhead/access/all/medical/cmo,
 /obj/structure/cable,
@@ -873,7 +873,7 @@
 /area/station/maintenance/department/crew_quarters/dorms)
 "avi" = (
 /obj/machinery/door/bulkhead/command{
-	name = "Captain's Quarters";
+	name = "Shipmaster's Quarters";
 	dir = 8
 	},
 /obj/effect/mapping_helpers/bulkhead/access/all/command/captain,
@@ -3970,7 +3970,7 @@
 /area/station/commons/lounge)
 "bNt" = (
 /obj/machinery/door/bulkhead/command{
-	name = "Head of Personnel's Office"
+	name = "Executive Officer's Office"
 	},
 /obj/effect/mapping_helpers/bulkhead/access/all/command/hop,
 /obj/machinery/door/firehead,
@@ -4661,6 +4661,11 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/paint_wall/security,
+/obj/machinery/door/poddoor/shutters{
+	id = "hosshutter";
+	name = "Privacy Shutters";
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/station/security/office)
 "chw" = (
@@ -6673,7 +6678,7 @@
 /obj/effect/mapping_helpers/bulkhead/access/all/supply/qm,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/bulkhead/command{
-	name = "Quartermaster's Office";
+	name = "Logistics Manager's Office";
 	dir = 4
 	},
 /obj/structure/cable,
@@ -11705,15 +11710,6 @@
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/dark/textured,
 /area/station/cargo/lobby)
-"fpM" = (
-/obj/machinery/door/poddoor/shutters{
-	id = "evashutters";
-	name = "E.V.A. Storage Shutters"
-	},
-/obj/machinery/door/firehead,
-/obj/machinery/light/floor,
-/turf/open/floor/iron/dark,
-/area/station/ai_monitored/command/storage/eva)
 "fpS" = (
 /obj/effect/mapping_helpers/paint_wall/security,
 /turf/closed/wall/r_wall,
@@ -14137,8 +14133,8 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/crew_quarters/dorms)
 "gmF" = (
-/obj/machinery/door/bulkhead/command{
-	name = "Head of Security's Quarters"
+/obj/machinery/door/bulkhead/command/head_of_security{
+	name = "Colonel's Quarters"
 	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -15289,7 +15285,7 @@
 /obj/effect/mapping_helpers/bulkhead/access/all/engineering/ce,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/bulkhead/command/chief_engineer{
-	name = "Chief Engineer's Office"
+	name = "Lead Technician's Office"
 	},
 /turf/open/floor/iron/dark/textured,
 /area/station/command/heads_quarters/ce)
@@ -16054,7 +16050,7 @@
 "hjp" = (
 /obj/machinery/door/firehead,
 /obj/machinery/door/bulkhead/command{
-	name = "Captain's Office"
+	name = "Shipmaster's Office"
 	},
 /obj/effect/mapping_helpers/bulkhead/access/all/command/captain,
 /obj/structure/cable,
@@ -21188,12 +21184,12 @@
 /turf/open/floor/iron/smooth,
 /area/station/security/desk)
 "jgk" = (
-/obj/machinery/door/bulkhead/security{
-	name = "Secure Armoury"
-	},
 /obj/effect/mapping_helpers/bulkhead/access/all/security/armory,
 /obj/machinery/door/firehead,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/bulkhead/command/head_of_security{
+	name = "Secure Armoury"
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/ai_monitored/security/armory)
 "jgO" = (
@@ -22587,7 +22583,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/bulkhead/command/chief_engineer{
-	name = "Chief Engineer's Office"
+	name = "Lead Technician's Office"
 	},
 /turf/open/floor/iron/dark/textured,
 /area/station/command/heads_quarters/ce)
@@ -28125,8 +28121,8 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/pathfinders/greater)
 "mcC" = (
-/obj/machinery/door/bulkhead/command{
-	name = "Head of Security's Quarters"
+/obj/machinery/door/bulkhead/command/head_of_security{
+	name = "Colonel's Quarters"
 	},
 /turf/open/floor/carpet/royalblack,
 /area/station/command/heads_quarters/hos)
@@ -30464,9 +30460,9 @@
 /turf/open/floor/carpet/green,
 /area/station/security/detectives_office)
 "mVs" = (
-/obj/machinery/door/bulkhead/security{
-	name = "Armoury";
-	dir = 4
+/obj/machinery/door/bulkhead/command/head_of_security{
+	dir = 4;
+	name = "Armoury"
 	},
 /obj/effect/mapping_helpers/bulkhead/access/all/security/armory,
 /obj/effect/turf_decal/delivery,
@@ -31723,7 +31719,7 @@
 	dir = 8
 	},
 /obj/machinery/door/bulkhead/command{
-	name = "Chief Medical Officer's Quarters";
+	name = "Head Physician's Quarters";
 	dir = 4
 	},
 /obj/effect/mapping_helpers/bulkhead/access/all/medical/cmo,
@@ -31775,7 +31771,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firehead,
 /obj/machinery/door/bulkhead/command{
-	name = "Chief Medical Officer's Quarters"
+	name = "Head Physician's Office"
 	},
 /obj/effect/mapping_helpers/bulkhead/access/all/medical/cmo,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -33317,7 +33313,7 @@
 /obj/effect/turf_decal/delivery/engi,
 /obj/machinery/door/firehead,
 /obj/machinery/door/bulkhead/command/chief_engineer{
-	name = "Chief Engineer's Quarters"
+	name = "Lead Technician's Quarters"
 	},
 /turf/open/floor/iron/dark/textured,
 /area/station/command/heads_quarters/ce)
@@ -36383,7 +36379,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firehead,
 /obj/machinery/door/bulkhead/command{
-	name = "Quartermaster's Quarters"
+	name = "Logistics Manager's Quarters"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -38715,6 +38711,11 @@
 "qqH" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/suit_storage_unit/hardsuit/hos,
+/obj/machinery/button/door/directional/west{
+	id = "hosshutter";
+	name = "Privacy Shutter Toggle";
+	pixel_y = 6
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/command/heads_quarters/hos)
 "qqW" = (
@@ -40841,12 +40842,13 @@
 "rkn" = (
 /obj/effect/mapping_helpers/bulkhead/access/all/security/hos,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/bulkhead/command/glass{
-	dir = 4
-	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/door/bulkhead/command/head_of_security{
+	dir = 4;
+	name = "Colonel's Office"
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/security/office)
 "rkw" = (
@@ -45468,13 +45470,15 @@
 /turf/open/floor/iron/dark/textured,
 /area/station/maintenance/department/medical/central)
 "tla" = (
-/obj/machinery/door/bulkhead/maintenance,
 /obj/machinery/door/firehead,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/bulkhead/command{
+	name = "Maintenance Access"
+	},
 /turf/open/floor/plating,
 /area/station/maintenance/department/command)
 "tln" = (
@@ -47589,24 +47593,6 @@
 	},
 /turf/open/floor/iron/white/small,
 /area/station/pathfinders/storage)
-"ucn" = (
-/obj/structure/curtain/cloth/fancy/mechanical/start_closed{
-	desc = "A set of curtains serving as a fancy theater backdrop. They can only be opened by a button.";
-	id = "theater_curtains";
-	name = "Theater Curtains"
-	},
-/obj/machinery/light/floor,
-/obj/machinery/door/firehead{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/orange/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/orange/line{
-	dir = 4
-	},
-/turf/open/floor/iron/dark/textured,
-/area/station/service/theater)
 "ucs" = (
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/effect/turf_decal/stripes/line,
@@ -50950,7 +50936,7 @@
 /turf/open/floor/iron/dark/textured,
 /area/station/engineering/gravity_generator)
 "vAT" = (
-/obj/machinery/door/bulkhead/security{
+/obj/machinery/door/bulkhead/command/head_of_security{
 	name = "Armoury"
 	},
 /obj/effect/mapping_helpers/bulkhead/access/all/security/armory,
@@ -54835,7 +54821,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/door/bulkhead/command/chief_engineer{
 	dir = 4;
-	name = "Chief Engineer's Quarters"
+	name = "Lead Technician's Quarters"
 	},
 /turf/open/floor/iron/dark/textured,
 /area/station/command/heads_quarters/ce)
@@ -55015,7 +55001,7 @@
 /area/station/command/internal_affairs_office)
 "xmN" = (
 /obj/machinery/door/bulkhead/command{
-	name = "Head of Personnel's Quarters";
+	name = "Executive Officer's Quarters";
 	dir = 4
 	},
 /obj/machinery/door/firehead{
@@ -151035,11 +151021,11 @@ bFv
 ycj
 dny
 djB
-ucn
 cHc
 cHc
 cHc
-ucn
+cHc
+cHc
 djB
 pDE
 iTx
@@ -226591,7 +226577,7 @@ ihb
 gHl
 nTb
 vrh
-fpM
+hRz
 pVk
 uSZ
 bse
