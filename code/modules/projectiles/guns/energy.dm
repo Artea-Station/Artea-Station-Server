@@ -34,7 +34,7 @@
 	///set to true so the gun is given an empty cell
 	var/dead_cell = FALSE
 	/// How much recoil the gun has.
-	recoil = 0.2
+	recoil = 0.15
 
 /obj/item/gun/energy/fire_sounds()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]

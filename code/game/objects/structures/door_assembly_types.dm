@@ -15,6 +15,12 @@
 	glass_type = /obj/machinery/door/bulkhead/command/chief_engineer/glass
 	airlock_type = /obj/machinery/door/bulkhead/command/chief_engineer
 
+/obj/structure/door_assembly/door_assembly_com/hos
+	name = "Head of Security airlock assembly"
+	base_name = "Head of Security airlock"
+	glass_type = /obj/machinery/door/bulkhead/command/head_of_security/glass
+	airlock_type = /obj/machinery/door/bulkhead/command/head_of_security
+
 /obj/structure/door_assembly/door_assembly_sec
 	name = "security airlock assembly"
 	base_name = "security airlock"

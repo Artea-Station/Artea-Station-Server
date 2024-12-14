@@ -19,13 +19,19 @@
 
 /obj/item/clothing/under/rank/security/officer
 	name = "security uniform"
-	desc = "A tactical security jumpsuit for officers complete with Nanotrasen belt buckle."
+	desc = "A tactical security jumpsuit for officers complete with Artea belt buckle."
 	icon_state = "rsecurity"
 	inhand_icon_state = "r_suit"
 
+/obj/item/clothing/under/rank/security/officer/white
+	name = "security uniform"
+	desc = "A tactical security jumpsuit for officers complete with Artea belt buckle."
+	icon_state = "rsecurity_white"
+	inhand_icon_state = "w_suit"
+
 /obj/item/clothing/under/rank/security/officer/grey
 	name = "grey security jumpsuit"
-	desc = "A tactical relic of years past before Nanotrasen decided it was cheaper to dye the suits red instead of washing out the blood."
+	desc = "A tactical relic of years past before Artea decided it was cheaper to dye the suits red instead of washing out the blood."
 	icon_state = "security"
 	inhand_icon_state = "gy_suit"
 
@@ -64,19 +70,19 @@
 
 /obj/item/clothing/under/rank/security/warden
 	name = "security suit"
-	desc = "A formal security suit for officers complete with Nanotrasen belt buckle."
+	desc = "A formal security suit for officers complete with Artea belt buckle."
 	icon_state = "rwarden"
 	inhand_icon_state = "r_suit"
 
 /obj/item/clothing/under/rank/security/warden/grey
 	name = "grey security suit"
-	desc = "A formal relic of years past before Nanotrasen decided it was cheaper to dye the suits red instead of washing out the blood."
+	desc = "A formal relic of years past before Artea decided it was cheaper to dye the suits red instead of washing out the blood."
 	icon_state = "warden"
 	inhand_icon_state = "gy_suit"
 
 /obj/item/clothing/under/rank/security/warden/skirt
 	name = "warden's suitskirt"
-	desc = "A formal security suitskirt for officers complete with Nanotrasen belt buckle."
+	desc = "A formal security suitskirt for officers complete with Artea belt buckle."
 	icon_state = "rwarden_skirt"
 	inhand_icon_state = "r_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
@@ -175,6 +181,13 @@
 	alt_covers_chest = TRUE
 	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 
+/obj/item/clothing/under/rank/security/head_of_security/alt_white
+	name = "head of security's white turtleneck"
+	desc = "A stylish alternative to the normal head of security jumpsuit, complete with tactical pants."
+	icon_state = "hosalt_white"
+	inhand_icon_state = "bl_suit"
+	alt_covers_chest = TRUE
+
 /obj/item/clothing/under/rank/security/head_of_security/parade
 	name = "head of security's parade uniform"
 	desc = "A male head of security's luxury-wear, for special occasions."
@@ -210,7 +223,7 @@
 
 /obj/item/clothing/under/rank/prisoner
 	name = "prison jumpsuit"
-	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
+	desc = "It's standardised Artea prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
 	icon_state = "jumpsuit"
 	icon_preview = 'icons/obj/previews.dmi'
 	icon_state_preview = "prisonsuit"
@@ -226,7 +239,7 @@
 
 /obj/item/clothing/under/rank/prisoner/skirt
 	name = "prison jumpskirt"
-	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
+	desc = "It's standardised Artea prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
 	icon_state = "jumpskirt"
 	icon_preview = 'icons/obj/previews.dmi'
 	icon_state_preview = "prisonskirt"
