@@ -13,6 +13,10 @@
 #define ORGAN_SYNTHETIC_EMP (1<<5)
 ///Can't be removed using surgery
 #define ORGAN_UNREMOVABLE (1<<6)
+/// An organ that is ostensibly dangerous when inside a body
+#define ORGAN_HAZARDOUS (1<<7)
+/// Can't be seen by scanners
+#define ORGAN_HIDDEN (1<<8)
 
 // Flags for the bodypart_flags var on /obj/item/bodypart
 /// Bodypart cannot be dismembered or amputated

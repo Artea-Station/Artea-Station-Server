@@ -1133,6 +1133,9 @@
 /mob/proc/is_nearsighted()
 	return HAS_TRAIT(src, TRAIT_NEARSIGHT)
 
+/mob/proc/is_nearsighted_from(source)
+	return HAS_TRAIT_FROM(src, TRAIT_NEARSIGHT, source)
+
 /**
  * Proc that returns TRUE if the mob can write using the writing_instrument, FALSE otherwise.
  *
