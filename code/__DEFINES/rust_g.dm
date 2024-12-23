@@ -114,7 +114,7 @@
  * * upper_range: upper bound of values selected for. (exclusive)
  */
 #define rustg_dbp_generate(seed, accuracy, stamp_size, world_size, lower_range, upper_range) \
-	RUSTG_CALL(RUST_G, "dbp_generate")(seed, accuracy, stamp_size, world_size, lower_range, upper_range)
+	call_ext(RUST_G, "dbp_generate")(seed, accuracy, stamp_size, world_size, lower_range, upper_range)
 
 #define rustg_dmi_strip_metadata(fname) call_ext(RUST_G, "dmi_strip_metadata")(fname)
 #define rustg_dmi_create_png(path, width, height, data) call_ext(RUST_G, "dmi_create_png")(path, width, height, data)
@@ -146,7 +146,7 @@
  * Defaults to returning %F which is YYYY-MM-DD.
  */
 /proc/rustg_git_commit_date(rev, format = "%F")
-	return RUSTG_CALL(RUST_G, "rg_git_commit_date")(rev, format)
+	return call_ext(RUST_G, "rg_git_commit_date")(rev, format)
 
 /**
  * Returns the formatted datetime string of HEAD using the provided format.
@@ -154,7 +154,7 @@
  * This is different to rustg_git_commit_date because it only needs the logs directory.
  */
 /proc/rustg_git_commit_date_head(format = "%F")
-	return RUSTG_CALL(RUST_G, "rg_git_commit_date_head")(format)
+	return call_ext(RUST_G, "rg_git_commit_date_head")(format)
 
 #define RUSTG_HTTP_METHOD_GET "get"
 #define RUSTG_HTTP_METHOD_PUT "put"
@@ -249,7 +249,7 @@
 	var/cached_length = sound_cache[file_path]
 	if(!isnull(cached_length))
 		return cached_length
-	var/ret = RUSTG_CALL(RUST_G, "sound_len")(file_path)
+	var/ret = call_ext(RUST_G, "sound_len")(file_path)
 	var/as_num = text2num(ret)
 	if(isnull(ret))
 		. = 0
