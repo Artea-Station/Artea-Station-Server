@@ -21,7 +21,7 @@ export SPACEMAN_DMM_VERSION=suite-1.9
 export PYTHON_VERSION=3.9.0
 
 #hypnagogic repo
-export CUTTER_REPO=actioninja/hypnagogic
+export CUTTER_REPO=spacestation13/hypnagogic
 
 #hypnagogic git tag
 export CUTTER_VERSION=v4.0.0
