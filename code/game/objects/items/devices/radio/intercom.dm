@@ -1,5 +1,5 @@
 /obj/item/radio/intercom
-	name = "station intercom"
+	name = "intercom"
 	desc = "Talk through this."
 	icon_state = "intercom"
 	anchored = TRUE
@@ -13,7 +13,7 @@
 
 /obj/item/radio/intercom/prison
 	name = "prison intercom"
-	desc = "A station intercom. It looks like it has been modified to not broadcast."
+	desc = "A intercom. It looks like it has been modified to not broadcast."
 	prison_radio = TRUE
 
 /obj/item/radio/intercom/Initialize(mapload, ndir, building)
