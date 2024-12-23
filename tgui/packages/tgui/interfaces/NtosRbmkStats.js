@@ -54,6 +54,7 @@ export const NtosRbmkStats = (props, context) => {
             {data.coolantOutput} K
           </ProgressBar>
         </Section>
+        <Section title="Generated Power:">{data.generatedPower}</Section>
         <Section fill title="Reactor Statistics:" height="200px">
           <Chart.Line
             fillPositionedParent

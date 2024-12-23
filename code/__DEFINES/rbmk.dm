@@ -11,12 +11,13 @@
 #define RBMK_NO_COOLANT_TOLERANCE 5
 
 /// The max kpa the reactor can take in coolant before getting mad.
-#define RBMK_PRESSURE_OPERATING 1000
+#define RBMK_PRESSURE_OPERATING 5000
 /// The max kpa the reactor can take in coolant before detonating.
-#define RBMK_PRESSURE_CRITICAL 1500
+#define RBMK_PRESSURE_CRITICAL 8000
 
 /// To turn the normally low number into usable power.
-#define RBMK_POWER_SANIFIER 10000
+#define RBMK_POWER_SANIFIER 100000 // TESTING
+// ORIGINAL: #define RBMK_POWER_SANIFIER 10000
 
 /// The base fuel consumption if the fuel is at or below room temp.
 #define RBMK_BASE_FUEL_CONSUMPTION 2

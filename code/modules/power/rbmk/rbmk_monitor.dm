@@ -1,19 +1,17 @@
 
 
 //Monitoring program.
-/datum/computer_file/program/nuclear_monitor
+/datum/computer_file/program/rbmk_monitor
 	filename = "rbmkmonitor"
 	filedesc = "Nuclear Reactor Monitoring"
 	ui_header = "smmon_0.gif"
 	program_icon_state = "smmon_0"
 	extended_desc = "This program connects to specially calibrated sensors to provide information on the status of nuclear reactors."
 	requires_ntnet = TRUE
-	transfer_access = ACCESS_CONSTRUCTION
+	transfer_access = list(ACCESS_CONSTRUCTION)
 	//network_destination = "rbmk monitoring system" //Apparently we don't use these anymore
 	size = 2
 	tgui_id = "NtosRbmkStats"
-	//ui_x = 350
-	//ui_y = 550
 	var/active = TRUE //Easy process throttle
 	var/next_stat_interval = 0
 	var/list/psiData = list()
@@ -22,7 +20,7 @@
 	var/list/tempOutputdata = list()
 	var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/reactor //Our reactor.
 
-/datum/computer_file/program/nuclear_monitor/process_tick()
+/datum/computer_file/program/rbmk_monitor/process_tick()
 	..()
 	if(!reactor || !active)
 		return FALSE
@@ -59,7 +57,7 @@
 		if(tempOutputdata.len > 100) //Only lets you track over a certain timeframe.
 			tempOutputdata.Cut(1, 2)
 
-/datum/computer_file/program/nuclear_monitor/on_start(mob/living/user)
+/datum/computer_file/program/rbmk_monitor/on_start(mob/living/user)
 	. = ..(user)
 	//No reactor? Go find one then.
 	if(!reactor)
@@ -69,11 +67,11 @@
 				break
 	active = TRUE
 
-/datum/computer_file/program/nuclear_monitor/kill_program(forced = FALSE)
+/datum/computer_file/program/rbmk_monitor/kill_program(forced = FALSE)
 	active = FALSE
 	..()
 
-/datum/computer_file/program/nuclear_monitor/ui_data()
+/datum/computer_file/program/rbmk_monitor/ui_data()
 	var/list/data = ..()
 	data["powerData"] = powerData
 	data["psiData"] = psiData
@@ -83,9 +81,10 @@
 	data["coolantOutput"] = reactor ? reactor.last_output_temperature : 0
 	data["power"] = reactor ? reactor.power : 0
 	data ["psi"] = reactor ? reactor.pressure : 0
+	data["generatedPower"] = display_power(reactor ? reactor.last_power_produced : 0)
 	return data
 
-/datum/computer_file/program/nuclear_monitor/ui_act(action, params)
+/datum/computer_file/program/rbmk_monitor/ui_act(action, params)
 	if(..())
 		return TRUE
 
