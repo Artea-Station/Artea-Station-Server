@@ -272,3 +272,7 @@
 	var/last_droning_sound
 	/// Current ambient track
 	var/sound/droning_sound
+
+	/// Does this client's mob need to rebuild its plane masters after login?
+	/// This is currently only used so a client can switch between 515 and 516 without breaking their rendering.
+	var/rebuild_plane_masters = FALSE
