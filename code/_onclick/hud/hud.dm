@@ -117,18 +117,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	owner.overlay_fullscreen("noise", /atom/movable/screen/fullscreen/noise)
 
 	AddComponent(/datum/component/zparallax, owner.client)
-	RegisterSignal(mymob, COMSIG_MOB_LOGIN, PROC_REF(client_refresh))
-
-/datum/hud/proc/client_refresh(datum/source)
-	SIGNAL_HANDLER
-	var/client/client = mymob.canon_client
-	if(client.rebuild_plane_masters)
-		var/new_relay_loc = (client.byond_version > 515) ? "1,1" : "CENTER"
-		for(var/group_key as anything in master_groups)
-			var/datum/plane_master_group/group = master_groups[group_key]
-			group.relay_loc = new_relay_loc
-			group.rebuild_plane_masters()
-		client.rebuild_plane_masters = FALSE
 
 /datum/hud/Destroy()
 	if(mymob.hud_used == src)
