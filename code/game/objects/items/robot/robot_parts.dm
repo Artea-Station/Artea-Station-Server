@@ -260,7 +260,8 @@
 				return
 			// Special message for jobbans and prefs preventing borging.
 			if(is_banned_from(brainmob.ckey, JOB_CYBORG) || (brainmob.mind.assigned_role != /datum/job/cyborg && brainmob.client?.prefs && CONTENT_PREFERENCE_CHECK(brainmob.client.prefs.read_preference(/datum/preference/choiced/content/borging))))
-				to_chat(user, span_warning("This [M.name] seems to have incompatible firmware!"))
+				to_chat(user, span_warning("This [M.name] seems to have blacklisted firmware!"))
+				return
 			if(!user.temporarilyRemoveItemFromInventory(W))
 				return
 

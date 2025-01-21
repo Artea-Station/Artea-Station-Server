@@ -15,7 +15,8 @@ export const content_brainwashing: Feature<string> = {
 
 export const content_borging: Feature<string> = {
   name: 'Borging',
-  description: 'Whether you want to be, or are fine with being borged.',
+  description:
+    'Whether you want to be, or are fine with being borged. Mechanically enforced.',
   component: FeatureDropdownInput,
 };
 
@@ -41,7 +42,7 @@ export const content_torture: Feature<string> = {
 export const content_death: Feature<string> = {
   name: 'Death',
   description:
-    'Whether you want to be, or are fine with being killed as part of an antag objective. Be aware that this does !!NOT!! protect antagonists from killing you as part of a broader plan, or in collateral. This just protects you from being explicitly labeled to be killed.',
+    'Whether you want to be, or are fine with being killed as part of an antag objective. Be aware that this does !!NOT!! protect antagonists from killing you as part of a broader plan, or in collateral. This just protects you from being a kill objective.',
   component: FeatureDropdownInput,
 };
 
