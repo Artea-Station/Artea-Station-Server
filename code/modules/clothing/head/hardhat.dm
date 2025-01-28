@@ -9,7 +9,7 @@
 	clothing_flags = SNUG_FIT | PLASMAMAN_HELMET_EXEMPT
 	resistance_flags = FIRE_PROOF
 
-	light_color = "#ff9900"
+	light_color = "#ffd595"
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 3
 	light_power = 0.75
