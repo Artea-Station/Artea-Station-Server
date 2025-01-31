@@ -144,8 +144,7 @@
 		. = "wags " + message
 
 /datum/emote/living/carbon/human/wag/can_run_emote(mob/user, status_check, intentional)
-	var/obj/item/organ/external/tail/tail = user.getorganslot(ORGAN_SLOT_EXTERNAL_TAIL)
-	if(tail?.wag_flags & WAG_ABLE)
+	if(user.getorganslot(ORGAN_SLOT_EXTERNAL_TAIL))
 		return ..()
 	return FALSE
 

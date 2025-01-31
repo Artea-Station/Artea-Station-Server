@@ -187,7 +187,7 @@
 		pack.name = "Bounty Payout for [bounty.bounty_name]"
 		pack.cost = 0
 		pack.cant_be_removed = TRUE
-		SStrading.shopping_list += new(pack, console.inserted_id.registered_account.account_holder, console.inserted_id.assignment, user.ckey, paying_account = console.inserted_id.registered_account)
+		SStrading.shopping_list += new /datum/supply_order(pack, console.inserted_id.registered_account.account_holder, console.inserted_id.assignment, user.ckey, paying_account = console.inserted_id.registered_account)
 		console.write_log("[console.inserted_id.registered_name] gained [bounty.reward_item_name] from [src]")
 
 	after_trade(user,console)
