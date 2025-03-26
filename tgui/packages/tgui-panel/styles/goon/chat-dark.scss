@@ -394,47 +394,54 @@ em {
 }
 
 .alert {
-  color: #d82020;
+  color: #dd3535;
 }
 
 .userdanger {
-  color: #c51e1e;
+  color: #dd3535;
+  text-shadow: 0 0 0.3em #ff0000;
   font-weight: bold;
-  font-size: 185%;
+  font-size: 125%;
 }
 
 .bolddanger {
-  color: #c51e1e;
+  color: #dd3535;
+  text-shadow: 0 0 0.3em #ff0000;
   font-weight: bold;
 }
 
 .danger {
-  color: #c51e1e;
+  color: #dd3535;
+  text-shadow: 0 0 0.3em #ff0000;
 }
 
 .warning {
-  color: #c51e1e;
+  color: #dd3535;
+  text-shadow: 0 0 0.3em #ff0000;
   font-style: italic;
+  font-size: 80%;
 }
 
 .alertwarning {
-  color: #ff0000;
+  color: #dd3535;
   font-weight: bold;
 }
 
 .boldwarning {
-  color: #c51e1e;
+  color: #dd3535;
   font-style: italic;
   font-weight: bold;
+  text-shadow: 0 0 0.3em #ff0000;
+  font-size: 80%;
 }
 
 .announce {
-  color: #c51e1e;
+  color: #dd3535;
   font-weight: bold;
 }
 
 .boldannounce {
-  color: #c51e1e;
+  color: #dd3535;
   font-weight: bold;
 }
 
@@ -453,37 +460,38 @@ em {
 }
 
 .info {
-  color: #9ab0ff;
+  color: #cecece;
 }
 
 .notice {
-  color: #6685f5;
+  color: #cecece;
+  font-style: italic;
 }
 
 .tinynotice {
-  color: #6685f5;
+  color: #cecece;
   font-size: 85%;
 }
 
 .tinynoticeital {
-  color: #6685f5;
+  color: #cecece;
   font-style: italic;
   font-size: 85%;
 }
 
 .smallnotice {
-  color: #6685f5;
+  color: #cecece;
   font-size: 90%;
 }
 
 .smallnoticeital {
-  color: #6685f5;
+  color: #cecece;
   font-style: italic;
   font-size: 90%;
 }
 
 .boldnotice {
-  color: #6685f5;
+  color: #cecece;
   font-weight: bold;
 }
 
@@ -892,9 +900,14 @@ em {
 
 .examine_block {
   background: #1b1c1e;
-  border: 1px solid #a4bad6;
+  border: 1px solid #cecece;
   margin: 0.5em;
   padding: 0.5em 0.75em;
+  background-image: url('../assets/examinebg.png');
+  background-size: 100%;
+  background-attachment: fixed;
+  background-repeat: repeat;
+  box-shadow: #1b1c1e 0 0 0.5em;
 }
 
 .tooltip {
@@ -1074,7 +1087,13 @@ $border-width-px: $border-width * 1px;
 }
 
 .examine {
-  color: #4343ca;
+  color: #cecece;
   font-size: 75%;
+  font-style: italic;
+}
+
+.scent {
+  color: #cecece;
+  font-size: 80%;
   font-style: italic;
 }

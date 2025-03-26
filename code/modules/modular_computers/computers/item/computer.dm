@@ -67,7 +67,7 @@
 	/// How far the computer's light can reach, is not editable by players.
 	var/comp_light_luminosity = 3
 	/// The built-in light's color, editable by players.
-	var/comp_light_color = "#FFFFFF"
+	var/comp_light_color = "#ffd595"
 
 	///The last recorded amount of power used.
 	var/last_power_usage = 0

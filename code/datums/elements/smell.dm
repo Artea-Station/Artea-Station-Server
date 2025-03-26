@@ -42,7 +42,7 @@
 	if(issilicon(user))
 		to_chat(user, span_notice("Your sensors pick up the presence of [scent] in the air."))
 	else
-		to_chat(user, span_notice("The [descriptor] of [scent] fills the air."))
+		to_chat(user, span_scent("The [descriptor] of [scent] fills the air."))
 
 	user.last_smell_intensity = intensity
 	COOLDOWN_START(user, smell_time, cooldown)
@@ -57,7 +57,7 @@
 	if(issilicon(user))
 		to_chat(user, span_notice("Your sensors detect trace amounts of [scent] in the air."))
 	else
-		to_chat(user, span_subtle("The subtle [descriptor] of [scent] tickles your nose..."))
+		to_chat(user, span_scent("The subtle [descriptor] of [scent] tickles your nose..."))
 
 	user.last_smell_intensity = intensity
 	COOLDOWN_START(user, smell_time, cooldown)
@@ -87,7 +87,7 @@
 	if(issilicon(user))
 		to_chat(user, span_warning("ALERT! Your sensors pick up an overwhelming concentration of [scent]."))
 	else
-		to_chat(user, span_warning("The overwhelming [descriptor] of [scent] assaults your senses. You stifle a gag."))
+		to_chat(user, span_boldwarning("The overwhelming [descriptor] of [scent] assaults your senses. You stifle a gag."))
 
 	user.last_smell_intensity = intensity
 	COOLDOWN_START(user, smell_time, cooldown)

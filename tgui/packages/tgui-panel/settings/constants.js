@@ -32,8 +32,7 @@ export const FONTS = [
 ];
 
 export const THEME_DARK = 'dark';
-export const THEME_LIGHT = 'light';
 
 export const DEFAULT_THEME = THEME_DARK;
 
-export const THEMES = [THEME_LIGHT, THEME_DARK];
+export const THEMES = [THEME_DARK];

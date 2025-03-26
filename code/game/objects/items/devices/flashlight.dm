@@ -13,9 +13,10 @@
 	slot_flags = ITEM_SLOT_BELT
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=20)
 	actions_types = list(/datum/action/item_action/toggle_light)
+	light_color = "#ffd595"
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
-	light_range = 4
-	light_power = 1
+	light_range = 3
+	light_power = 0.75
 	light_on = FALSE
 	pickup_sound = 'sound/items/handling/device_pickup.ogg'
 	drop_sound = 'sound/items/handling/device_drop.ogg'
@@ -224,6 +225,7 @@
 	force = 9 // Not as good as a stun baton.
 	light_range = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
+	light_color = "#ffe6cd"
 
 // the desk lamps are a bit special
 /obj/item/flashlight/lamp
